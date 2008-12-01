@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="guigen"
+    nsURI="http://www.csi.it/mddtools" nsPrefix="guigen">
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationArea">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="menubar" eType="#//Menubar"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="titlebar" eType="#//Titlebar"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statusbar" eType="#//Statusbar"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentPanels" upperBound="-1"
+        eType="#//ContentPanel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="staticLinks" eType="#//StaticLinks"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Menubar">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelMenu" upperBound="-1"
+        eType="#//Menu" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statusbar"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Titlebar"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentPanel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="panels" eType="#//Panel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
+        eType="#//Panel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
+        eType="#//Widget" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//Panel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tabs" upperBound="-1" eType="#//Panel"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Panel" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//PanelLayout"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layoutSpec" eType="#//WidgetLayoutSpecifier"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Widget" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layoutSpec" eType="#//WidgetLayoutSpecifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventHandlers" upperBound="-1"
+        eType="#//EventHandler" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommandWidget" eSuperTypes="#//Widget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataWidget" eSuperTypes="#//Widget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//WidgetDataType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataTypeModifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Button" eSuperTypes="#//CommandWidget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextField" eSuperTypes="#//DataWidget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="15"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextArea" eSuperTypes="#//DataWidget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rows" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="10"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="30"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WidgetDataType">
+    <eLiterals name="STRINGA"/>
+    <eLiterals name="NUMERICO"/>
+    <eLiterals name="DATA"/>
+    <eLiterals name="ORA"/>
+    <eLiterals name="DATAORA"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Calendar" eSuperTypes="#//DataWidget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComboBox" eSuperTypes="#//DataWidget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//DataWidget">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columnModel" eType="#//ColumnModel"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckBox" eSuperTypes="#//DataWidget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GUIModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="structure" eType="#//GUIStructure"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="beahviors" eType="#//GUIBehaviors"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appWindow" eType="#//AppWindow"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GUIBehaviors">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flow" eType="#//GUIFlow"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RadioButtons" eSuperTypes="#//DataWidget">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="radio" upperBound="-1"
+        eType="#//RadioButton" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResetButton" eSuperTypes="#//Button"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConfirmButton" eSuperTypes="#//Button"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GUIFlow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//FlowState" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startState" eType="#//FlowState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="globalTransition" upperBound="-1"
+        eType="#//GlobalFlowTransition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentPanel" eType="#//ContentPanel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="possibleTransitions" upperBound="-1"
+        eType="#//FlowTransition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowTransition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nextState" eType="#//FlowState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commandWidget" eType="#//CommandWidget"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PanelLayout" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HorizontalFlowPanelLayout" eSuperTypes="#//PanelLayout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VerticalFlowPanelLayout" eSuperTypes="#//PanelLayout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UDLRCPanelLayout" eSuperTypes="#//PanelLayout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WidgetLayoutSpecifier" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UDLRCWidgetLayoutSpec" eSuperTypes="#//WidgetLayoutSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//UDLRCSpecConstants"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UDLRCSpecConstants">
+    <eLiterals name="UP"/>
+    <eLiterals name="DOWN" value="1"/>
+    <eLiterals name="LEFT" value="2"/>
+    <eLiterals name="RIGHT" value="3"/>
+    <eLiterals name="CENTER" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//Widget">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Menu">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="item" upperBound="-1" eType="#//MenuItem"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="submenu" upperBound="-1"
+        eType="#//Menu" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MenuItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventHandler" eType="#//EventHandler"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GlobalFlowTransition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jumpTo" eType="#//FlowState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="menuCommand" eType="#//MenuItem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DisabledComponentSet"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ColumnModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//Column" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Column">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Action" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ONOFFAction" eSuperTypes="#//Action #//ActionOnWidgets">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomAction" eSuperTypes="#//Action"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VisibilityAction" eSuperTypes="#//Action #//ActionOnWidgets">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="show" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RefreshViewAction" eSuperTypes="#//Action #//ActionOnWidgets #//ActionOnPanels"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JumpAction" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jumpTo" eType="#//ContentPanel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExecAction" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
+        eType="#//ActionResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventHandler">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventType" eType="#//EventTypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventTypes">
+    <eLiterals name="CLICKED"/>
+    <eLiterals name="VALUE_CHANGED" value="1"/>
+    <eLiterals name="FOCUS_GAINED" value="2"/>
+    <eLiterals name="FOCUS_LOST" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WidgetTargetAction" abstract="true"
+      interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionOnWidgets" abstract="true" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetWidgets" lowerBound="1"
+        upperBound="-1" eType="#//Widget"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DialogPanel" eSuperTypes="#//Panel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ShowDialogAction" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dialog" eType="#//DialogPanel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionResult">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="action" lowerBound="1"
+        eType="#//Action" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionOnPanels" abstract="true" eSuperTypes="#//Action">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetPanels" upperBound="-1"
+        eType="#//Panel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Header"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Footer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AppWindow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="footer" eType="#//Footer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="header" eType="#//Header"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appArea" eType="#//ApplicationArea"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StaticLinks"/>
+</ecore:EPackage>

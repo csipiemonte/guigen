@@ -1,0 +1,42 @@
+import guigen;
+
+//extension metamodel::Extensions;
+
+//context Model ERROR "No entities defined" :
+//	types.exists(e|Entity.isInstance(e));
+	
+//context Entity ERROR "Duplicate entity "+name :
+//	model().entities().select(e|e.name==name).size==1;
+
+///// Validazione su pannelli
+
+context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
+	this.name != null && this.name != "";
+	
+context FormPanel ERROR "E'necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
+    this.layout.metaType!=UDLRCPanelLayout ||
+    ((this.layout.metaType==UDLRCPanelLayout && this.widgets.select(w|w.layoutSpec==null).size==0))
+    &&(this.layout.metaType==UDLRCPanelLayout && this.subpanels.select(w|w.layoutSpec==null).size==0)
+    ;
+
+context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
+	this.tabs.size>0;
+	
+///// Validazione su widget
+
+context Widget ERROR "E'necessario impostare l'attributo 'name' del widget" :
+	this.name != null && this.name != "";
+
+context Table ERROR "Non è stato impostato lo schema delle colonne" :
+this.columnModel!=null;
+
+context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna" :
+columns != null && columns.size>0;
+ 	
+
+//// Validazione su azioni e listener
+context MenuItem ERROR "Un menu item può generare solo eventi di tipo ACTION_PERFORMED" :
+	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
+
+context EventHandler ERROR "Un action Listener deve innescare almeno un'azione a fronte di un tipo di evento" :
+	this.actions!=null && this.actions.size>0;

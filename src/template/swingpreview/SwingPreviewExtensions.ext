@@ -1,0 +1,23 @@
+import guigen;
+
+//extension metamodel::Extensions reexport;
+
+///*getter(Feature this) :
+//	"get"+name.toFirstUpper();
+	
+//setter(Feature this) :
+//	"set"+name.toFirstUpper();*/
+
+String nsewcSpec2BorderSpec(UDLRCWidgetLayoutSpec ls) :
+	(ls.value==UDLRCSpecConstants::UP? "BorderLayout.NORTH":
+		(ls.value==UDLRCSpecConstants::DOWN? "BorderLayout.SOUTH":
+	 	 	(ls.value==UDLRCSpecConstants::RIGHT? "BorderLayout.EAST":
+	  			(ls.value==UDLRCSpecConstants::LEFT? "BorderLayout.WEST":
+	  				"BorderLayout.CENTER"
+				)
+			)
+		)  
+	);
+	
+//String getListenerTypeString(EventListener el) :
+//   (el.metaType==

@@ -1,0 +1,616 @@
+«IMPORT guigen»
+
+«EXTENSION template::swingpreview::SwingPreviewExtensions»
+
+«DEFINE main FOR GUIModel»
+«LET this.structure.appWindow.appArea AS frm»
+«FILE "comp/swingpreview/Main.java"»
+package comp.swingpreview;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MainFrame frm = new MainFrame();
+		frm.setUp();
+	}
+
+}
+«ENDFILE»
+
+«FILE "comp/swingpreview/MainFrame.java"»
+package comp.swingpreview;
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+
+public class MainFrame extends JFrame {
+
+	public void setUp(){
+		
+		setupTitleBar();
+		setupMenubar();
+		setupContentPanes();
+		this.pack();
+		setupGeneral();
+	}
+
+	private void setupGeneral() {
+		// TODO Auto-generated method stub
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		WindowListener windowListener = new WindowAdapter() {
+			// anonymous WindowAdapter class
+			public void windowClosing ( WindowEvent w ) {
+				MainFrame.this.dispose();
+			}
+		}; // end anonymous class
+		this.addWindowListener( windowListener );
+	}
+
+	
+
+    «LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
+    
+    
+    
+    //card layout
+    CardLayout cardLayout = null;
+    
+    //main panel
+    JPanel switchPanel = null;
+    
+    // listener per menu
+    //ActionListener mnuLtr = new GlobalMenuJumpActionLtr();
+    
+    private void setupContentPanes() {
+    	switchPanel = new JPanel();
+		cardLayout = new CardLayout();
+		switchPanel.setLayout(cardLayout);
+        «FOREACH contentPanels AS currP»
+        JPanel panel_«currP.name» = setupContentPanel_«currP.name»();
+        switchPanel.add(panel_«currP.name»,"«currP.name»");
+        «ENDFOREACH»
+		
+		this.getContentPane().add(switchPanel);
+		cardLayout.show(switchPanel, "«contentPanels.first().name»");
+	}
+	
+	«FOREACH contentPanels AS currP»
+		«EXPAND setupContentPanel FOR currP»
+	«ENDFOREACH»
+	
+    «ENDLET»
+    
+«LET this.structure.appWindow.appArea.menubar AS menubar»
+	private void setupMenubar() {
+	    /// creazione struttura menu
+		this.setMenuBar(new MenuBar());
+		
+		«FOREACH menubar.topLevelMenu AS tlmenu»
+		Menu mnu_«tlmenu.name» = setupMenu_«tlmenu.name»();
+		this.getMenuBar().add(mnu_«tlmenu.name»);
+		«ENDFOREACH»
+		
+		//}}
+	}
+«ENDLET»
+
+   ///// funzioni/classi di utility
+   
+   public void switchToContentPane(String name){
+   System.out.println("switchTo:["+name+"]");
+   	 cardLayout.show(switchPanel, name);	
+   }
+   
+   /// classi generiche di implementaizone degli event Listener
+   
+   /// JUMP_ACTION
+   class GlobalMenuJumpActionLtr implements ActionListener {
+
+		String name;
+		public GlobalMenuJumpActionLtr(String panelName) {
+			name = panelName;
+		}
+		public void actionPerformed(ActionEvent e) {
+			//MenuItem menu = (MenuItem)e.getSource();
+			//String menuName = menu.getName();
+			//switchToContentPane(menuName);
+			switchToContentPane(name);
+		}
+	};
+   
+   
+   class GenericActionPerformedListener implements ActionListener{
+   		IAction [] _actions = null;
+   		
+   		public GenericActionPerformedListener(IAction [] actions){
+   			_actions=actions;
+   		}
+   		
+   		public void actionPerformed(ActionEvent e) {
+   			if (_actions!=null){
+   				for(int i=0;i<_actions.length;i++){
+   					_actions[i].doAction();
+   				}
+   			}
+   		
+   		};
+   };
+   
+   ///// classi di implementazione delle action
+   
+   interface IAction {
+      public void doAction();
+   };
+   
+   /// JUMP_ACTION
+   class JumpAction implements IAction{
+   		String name;
+		public JumpAction(String panelName) {
+			name = panelName;
+		}
+		public void doAction() {
+			switchToContentPane(name);
+		}
+   };
+   
+   //// ExecAction
+   class ExecAction implements IAction{
+   		String _esiti [] = null;
+   		JFrame _frame = null;
+   		IAction _azioni []= null;
+   		java.util.Hashtable _resultAzioni = new java.util.Hashtable();
+   		
+   		public ExecAction(JFrame frame,String esiti[], IAction [] azioni){
+   		  _esiti = esiti;
+   		  _frame = frame;
+   		  _azioni = azioni;
+   		  if (_esiti!=null){
+   		    for (int i=0; i<_esiti.length; i++)
+   		       _resultAzioni.put(_esiti[i], _azioni[i]);
+   		  }  
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("exec action!");
+   		  
+   		  String s = (String)JOptionPane.showInputDialog(
+                    _frame,
+                    "Scegli il result post-esecuzione:\n",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    _esiti,
+                    _esiti[0]);
+
+   		  
+   		  
+
+			//If a string was returned, say so.
+		if ((s != null) && (s.length() > 0)) {
+    		System.out.println("Esito:"+s);
+    		IAction azione = (IAction)_resultAzioni.get(s);
+    		azione.doAction();
+		}
+   		  
+   		}
+   }
+   
+   /// OnOffAction
+   class OnOffAction implements IAction{
+        Component [] _targets = null;
+        boolean _enable = true;
+       
+   		public OnOffAction(Component targets[], boolean enable){
+   		  _targets=targets;
+   		  _enable=enable;
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("on off action!");
+   		  if (_targets != null){
+   		  	for(int i=0; i<_targets.length;i++){
+   		  		_targets[i].setEnabled(_enable);
+   		  	}
+   		  }
+   		}
+   }
+   
+   
+   /// VisibilityAction
+   class VisibilityAction implements IAction{
+        Component [] _targets = null;
+        boolean _show = true;
+       
+   		public VisibilityAction(Component targets[], boolean show){
+   		  _targets=targets;
+   		  _show=show;
+   		}
+   		
+   		public void doAction(){
+   		  System.out.println("visibility action!");
+   		  if (_targets != null){
+   		  	for(int i=0; i<_targets.length;i++){
+   		  		_targets[i].setVisible(_show);
+   		  	}
+   		  }
+   		}
+   }
+   /////
+   
+«LET this.structure.appWindow.appArea.menubar AS menubar»
+	
+«FOREACH menubar.topLevelMenu AS tlmenu»
+	private Menu setupMenu_«tlmenu.name»() {
+		
+		Menu mnu = new Menu("«tlmenu.label»");
+		«FOREACH tlmenu.item AS currMenuItem»
+		MenuItem item_«currMenuItem.name» = new MenuItem("«currMenuItem.label»");
+		mnu.add(item_«currMenuItem.name»);
+		
+		«IF currMenuItem.eventHandler!=null»
+
+        «EXPAND addEventListenerCode("item_"+currMenuItem.name) FOR currMenuItem.eventHandler»		
+		
+		«ENDIF»
+	
+		«ENDFOREACH»
+		return mnu;
+	}
+«ENDFOREACH»
+«ENDLET»
+	private void setupTitleBar() {
+		// TODO Auto-generated method stub
+		this.setTitle("<<this is the title>>");
+	}
+
+}
+«ENDFILE»
+
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
+    «FOREACH this.actions AS currAction»
+    «LET this.actions.indexOf(currAction) AS actionNumber»
+    	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
+    «ENDLET»
+    «ENDFOREACH»
+    
+	IAction [] «actionsVarName» = new IAction[]{
+	«FOREACH this.actions AS currAct»
+		«LET this.actions.indexOf(currAct) AS actionNumber»
+		act_«actionsVarName»_«actionNumber»«IF currAct != this.actions.last()»,«ENDIF»
+		«ENDLET»
+	«ENDFOREACH»
+	};
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Action»
+// azione non supportata «this»
+«ENDDEFINE»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpAction»
+	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»");
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
+	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(null,«this.enable»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
+	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(null,«this.show»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
+    String [] resultNames=new String []{
+      «FOREACH this.results AS currRes»
+      "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
+      «ENDFOREACH»
+    };
+    
+    IAction [] actionsForResults = new IAction[«this.results.size»];
+    «FOREACH results AS currRes»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.action»
+    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
+    «ENDFOREACH»
+    
+    
+	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(this,resultNames, actionsForResults);
+«ENDDEFINE»
+
+«REM»addToComponent_var: nome della variabile che contiene il componente
+     a cui associare il listener
+«ENDREM»
+«DEFINE addEventListenerCode(String addToComponent_var) FOR EventHandler»
+	«REM»IAction [] actions_«this.eventType.toString().toLowerCase()»_«addToComponent_var» = null;«ENDREM»
+	«EXPAND addActionsCode("actions_"+this.eventType.toString().toLowerCase()+"_"+addToComponent_var) FOR this» 
+	«IF eventType==EventTypes::CLICKED»
+	GenericActionPerformedListener ltr_«eventType.toString().toLowerCase()»_«addToComponent_var» = 
+		   new GenericActionPerformedListener(actions_«eventType.toString().toLowerCase()»_«addToComponent_var»);
+	«addToComponent_var».addActionListener(ltr_«eventType.toString().toLowerCase()»_«addToComponent_var»);
+	«ELSEIF eventType==EventTypes::VALUE_CHANGED»
+	«ELSEIF eventType==EventTypes::FOCUS_LOST»
+	«ELSEIF eventType==EventTypes::FOCUS_GAINED»
+	«ELSE»
+	 //// «this»: event listener non supportato
+	«ENDIF»
+	
+
+«ENDDEFINE»
+
+«DEFINE setupContentPanel FOR ContentPanel»
+private JPanel setupContentPanel_«this.name»() {
+	«LET this.panels AS currP»
+    	    JPanel p = null;
+    	    
+    	    // impostazione componenti di primo livello
+    	    «IF currP.metaType==FormPanel»
+    	    p = setupFormPanel_«currP.name»();
+    	    «ELSEIF currP.metaType==TabSetPanel»
+    	    p = setupTabSetPanel_«currP.name»();
+    	    «ENDIF»
+    	    
+    	    
+    	    return p;
+}
+
+ 		«EXPAND genPanelSetupFunction FOR currP»
+    	    
+ 	«ENDLET»
+  
+«ENDDEFINE»
+
+«REM»genera la funzione di setup di un singolo pannello
+e si richiama ricordivamente sui sottopannelli in modo da fare una visita
+depth first dell'albero della struttura a pannelli«ENDREM»
+«DEFINE genPanelSetupFunction FOR Panel»
+// funzione di creazione del pannello «this»
+«IF this.metaType==FormPanel»
+    	    «EXPAND setupFormPanel FOR (FormPanel)this»
+    	    «EXPAND genPanelSetupFunction FOREACH ((FormPanel)this).subpanels»
+«ELSEIF this.metaType==TabSetPanel»
+    	    «EXPAND setupTabSetPanel FOR (TabSetPanel)this»
+    	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).tabs»
+«ENDIF»
+
+
+«ENDDEFINE»
+
+«DEFINE setupFormPanel FOR FormPanel»
+private JPanel setupFormPanel_«this.name»(){
+	JPanel p = new JPanel();
+	// impostazione layout del pannello
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    p.setLayout(new java.awt.BorderLayout());
+    «ELSEIF this.layout.metaType==HorizontalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+    «ELSEIF this.layout.metaType==VerticalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
+    «ELSE»
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	«FOREACH this.widgets AS currWidg»
+		«EXPAND createAndAddWidget("p",this.layout) FOR currWidg»
+	«ENDFOREACH»
+	«FOREACH this.subpanels AS currSubform»
+	// TODO subpanel «currSubform»
+		«EXPAND createAndAddSubpanel("p",this.layout,currSubform.layoutSpec) FOR currSubform»
+	«ENDFOREACH»
+	
+	return p;
+}
+
+«ENDDEFINE»
+
+«REM»
+«DEFINE createAllSubpanels FOR Panel»
+/// funzioni di creazione dei sottopannelli di «this»
+«IF this.metaType==FormPanel»
+	«FOREACH ((FormPanel)this).subpanels AS currSubp»
+		«IF currSubp.metaType==FormPanel»
+			«EXPAND setupFormPanel FOR (FormPanel)currSubp»
+		«ELSEIF currSubp.metaType==TabSetPanel»
+			«EXPAND setupTabSetPanel FOR (TabSetPanel)currSubp»
+		«ELSE»
+		// tipo «currSubp» non supportato
+		«ENDIF»
+		//«EXPAND createAllSubpanels FOR currSubp»
+	«ENDFOREACH»
+«ENDIF»	
+«ENDDEFINE»
+«ENDREM»
+
+
+
+«DEFINE createAndAddWidget(String panelVarName, PanelLayout panelLayout) FOR Widget»
+// creazione widget «name»
+«IF this.metaType==TextField»
+«REM»Text Field«ENDREM»
+JTextField widg_«this.name» = new JTextField("«this.name»");
+	«IF ((TextField)this).fieldLength != null»
+	widg_«this.name».setColumns(«((TextField)this).fieldLength»);
+	«ENDIF»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==TextArea»
+«REM»Text Area«ENDREM»
+
+JTextArea widg_ta_«this.name» = new JTextArea("«this.name»");
+JScrollPane widg_«this.name» = new JScrollPane(widg_ta_«name»);
+	«IF ((TextArea)this).rows != null»
+	widg_ta_«this.name».setRows(«((TextArea)this).rows»);
+	«ENDIF»
+	«IF ((TextArea)this).columns != null»
+	widg_ta_«this.name».setColumns(«((TextArea)this).columns»);
+	«ENDIF»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==RadioButtons»
+«REM»Radio Buttons«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JPanel();
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«LET (RadioButtons)this AS rbGroup»
+ButtonGroup rbGroup_«name» = new ButtonGroup();
+«FOREACH rbGroup.radio AS currRB»
+JRadioButton rb_«name»_«currRB.name» = new JRadioButton("«currRB.label»");
+widg_«name».add(rb_«name»_«currRB.name»);
+rbGroup_«name».add(rb_«name»_«currRB.name»);
+«ENDFOREACH»
+«ENDLET»
+
+
+«ELSEIF this.metaType==ComboBox»
+«REM»Combo«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JComboBox();
+JComboBox cb_«this.name» = (JComboBox)widg_«this.name»;
+DefaultComboBoxModel cb_«name»_model =new DefaultComboBoxModel();
+for (int i=0; i<20; i++)
+	cb_«name»_model.addElement("Elemento "+i);
+		
+		cb_«name».setModel(cb_«name»_model);
+
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==Table»
+«REM»Table«ENDREM»
+//sample data
+«LET ((Table)this).columnModel AS tabColMod»
+String[] sampleColumnNames_«name» = {
+«FOREACH tabColMod.columns AS currCol»
+"«currCol.name»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+«ENDFOREACH»
+};
+
+Object[][] sampleTableData_«name» = {
+«FOREACH {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30} AS index»
+{
+«FOREACH tabColMod.columns AS currCol»
+"sample «currCol.name»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+«ENDFOREACH»
+}
+«IF index != 30»,«ENDIF»
+«ENDFOREACH»
+			};
+
+«ENDLET»
+
+
+JComponent widg_tab_«this.name» = new JTable(sampleTableData_«name»,sampleColumnNames_«name»);
+JScrollPane widg_«name» = new JScrollPane((JTable)widg_tab_«this.name»);
+
+
+
+
+
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==CheckBox»
+«REM»CheckBox«ENDREM»
+//TODO create widget «this»
+JComponent widg_«this.name» = new JCheckBox("«this.label»");
+JLabel lbl_«this.name» = null;
+«ELSEIF this.metaType==Image»
+//TODO create widget «this»
+JComponent widg_«this.name» = null;
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==ResetButton || this.metaType==ConfirmButton || this.metaType==Button»
+JButton widg_«this.name» = new JButton();
+widg_«this.name».setName("«name»");
+widg_«this.name».setLabel("«label»");
+JLabel lbl_«this.name» = null; // no labels for buttons
+«ENDIF»
+«IF panelLayout.metaType==UDLRCPanelLayout»
+if (widg_«this.name» != null){ // temp fix
+    JPanel lblAndWidg_«this.name» = new JPanel();
+    lblAndWidg_«this.name».setLayout(new FlowLayout());
+    if (lbl_«this.name»!=null)
+		lblAndWidg_«this.name».add(lbl_«this.name»);
+	if (widg_«this.name» != null) // temp fix
+		lblAndWidg_«this.name».add(widg_«this.name»);
+	«panelVarName».add(lblAndWidg_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)this.layoutSpec)»);
+}
+«ELSE»
+if (lbl_«this.name»!=null)
+	«panelVarName».add(lbl_«this.name»);
+if (widg_«this.name» != null) // temp fix
+	«panelVarName».add(widg_«this.name»);
+«ENDIF»
+
+// associazione degli event handler
+«EXPAND addEventListenerCode("widg_"+this.name) FOREACH this.eventHandlers»
+
+«ENDDEFINE»
+
+«DEFINE createAndAddSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione sottopannello «this.name»
+Component subp_«this.name» = null;
+«IF this.metaType==FormPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+«IF containerLayout.metaType==UDLRCPanelLayout»
+	«containerVarName».add(subp_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)widgetLayoutSpec)»);
+«ELSE»
+	«containerVarName».add(subp_«this.name»);
+«ENDIF»
+
+«ENDDEFINE»
+
+«DEFINE createAndAddTab(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione pannello/tab «this.name»
+JPanel subp_«this.name» = null;
+«IF this.metaType==FormPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+
+«containerVarName».addTab("«this.label»",null,subp_«this.name»,"«this.label»");
+
+
+«ENDDEFINE»
+
+«DEFINE setupTabSetPanel FOR TabSetPanel»
+private JTabbedPane setupTabSetPanel_«this.name»(){
+	JTabbedPane p = new JTabbedPane();
+	// impostazione layout del pannello
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    //p.setLayout(new java.awt.BorderLayout());
+    «ELSE»
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	
+	«FOREACH this.tabs AS currTab»
+	// TODO tab «currTab»
+		«EXPAND createAndAddTab("p",this.layout,currTab.layoutSpec) FOR currTab»
+	«ENDFOREACH»
+	
+	p.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+	
+	return p;
+}
+
+
+«ENDDEFINE»
