@@ -181,7 +181,7 @@
               </widgets>
               <widgets xsi:type="guigen:ResetButton" name="btnDisabilitaText" label="Disabilita i textfield">
                 <eventHandlers>
-                  <action xsi:type="guigen:ONOFFAction"/>
+                  <action xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.0"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="btnVaiTabelle" label="Vai alla pagina tabelle">
@@ -201,6 +201,24 @@
                     <results resultCode="STAY_HERE">
                       <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
                     </results>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bHideText" label="Nascondi textfield">
+                <eventHandlers>
+                  <action xsi:type="guigen:VisibilityAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.1"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bShowTxt" label="Mostra textfield">
+                <eventHandlers>
+                  <action xsi:type="guigen:VisibilityAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.1" show="true"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="bSequence" label="Disabilita 1 nascondi l'altro">
+                <eventHandlers>
+                  <action xsi:type="guigen:SequenceAction">
+                    <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.0"/>
+                    <actions xsi:type="guigen:VisibilityAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.0/@widgets.1"/>
                   </action>
                 </eventHandlers>
               </widgets>

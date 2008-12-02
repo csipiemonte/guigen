@@ -68,8 +68,8 @@ public class MainFrame extends JFrame {
     //main panel
     JPanel switchPanel = null;
     
-    // listener per menu
-    //ActionListener mnuLtr = new GlobalMenuJumpActionLtr();
+    //contenitore di tutti i widget (per le azioni widget-targetted)
+    java.util.Hashtable _allWidgetsByName = new java.util.Hashtable();
     
     private void setupContentPanes() {
     	switchPanel = new JPanel();
@@ -163,6 +163,23 @@ public class MainFrame extends JFrame {
 		}
    };
    
+   /// SEQUENCE_ACTION
+   class SequenceAction implements IAction{
+   		IAction [] _actions;
+		public SequenceAction(IAction [] actions) {
+			_actions = actions;
+		}
+		public void doAction() {
+			if (_actions != null){
+				for(int i=0; i<_actions.length;i++){
+				  IAction currAct = _actions[i];
+				  System.out.println("sequenza, azione #"+i+":"+currAct);
+				  currAct.doAction();
+				}
+			}
+		}
+   };
+   
    //// ExecAction
    class ExecAction implements IAction{
    		String _esiti [] = null;
@@ -207,10 +224,10 @@ public class MainFrame extends JFrame {
    
    /// OnOffAction
    class OnOffAction implements IAction{
-        Component [] _targets = null;
+        String [] _targets = null;
         boolean _enable = true;
        
-   		public OnOffAction(Component targets[], boolean enable){
+   		public OnOffAction(String targets[], boolean enable){
    		  _targets=targets;
    		  _enable=enable;
    		}
@@ -219,7 +236,9 @@ public class MainFrame extends JFrame {
    		  System.out.println("on off action!");
    		  if (_targets != null){
    		  	for(int i=0; i<_targets.length;i++){
-   		  		_targets[i].setEnabled(_enable);
+   		  	   System.out.println("on-off action on "+_targets[i]);
+   		  	   Component currTarget = (Component)_allWidgetsByName.get(_targets[i]);
+   		  		currTarget.setEnabled(_enable);
    		  	}
    		  }
    		}
@@ -228,10 +247,10 @@ public class MainFrame extends JFrame {
    
    /// VisibilityAction
    class VisibilityAction implements IAction{
-        Component [] _targets = null;
+        String [] _targets = null;
         boolean _show = true;
        
-   		public VisibilityAction(Component targets[], boolean show){
+   		public VisibilityAction(String targets[], boolean show){
    		  _targets=targets;
    		  _show=show;
    		}
@@ -240,7 +259,9 @@ public class MainFrame extends JFrame {
    		  System.out.println("visibility action!");
    		  if (_targets != null){
    		  	for(int i=0; i<_targets.length;i++){
-   		  		_targets[i].setVisible(_show);
+   		  	    System.out.println("visibility action on "+_targets[i]);
+   		  	    Component currTarget = (Component)_allWidgetsByName.get(_targets[i]);
+   		  		currTarget.setVisible(_show);
    		  	}
    		  }
    		}
@@ -302,12 +323,38 @@ public class MainFrame extends JFrame {
 	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»");
 «ENDDEFINE»
 
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceAction»
+    «FOREACH actions AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct)) FOR currAct»
+    «ENDFOREACH»
+    
+    IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
+    «FOREACH actions AS currAct»
+    act_«actionsVarName+"step_"+actions.indexOf(currAct)»«IF currAct!=actions.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
+«ENDDEFINE»
+
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
-	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(null,«this.enable»);
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+    
+	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
-	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(null,«this.show»);
+	//prepara i nomi dei componenti target da mostrare/nascondere
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(act_«actionsVarName»_«actionNumber»_targets,«this.show»);
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
@@ -441,6 +488,8 @@ private JPanel setupFormPanel_«this.name»(){
 «IF this.metaType==TextField»
 «REM»Text Field«ENDREM»
 JTextField widg_«this.name» = new JTextField("«this.name»");
+
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
 	«IF ((TextField)this).fieldLength != null»
 	widg_«this.name».setColumns(«((TextField)this).fieldLength»);
 	«ENDIF»
@@ -449,6 +498,7 @@ JLabel lbl_«this.name» = new JLabel("«this.label»");
 «REM»Text Area«ENDREM»
 
 JTextArea widg_ta_«this.name» = new JTextArea("«this.name»");
+_allWidgetsByName.put("«this.name»",widg_ta_«this.name»);
 JScrollPane widg_«this.name» = new JScrollPane(widg_ta_«name»);
 	«IF ((TextArea)this).rows != null»
 	widg_ta_«this.name».setRows(«((TextArea)this).rows»);
@@ -458,12 +508,14 @@ JScrollPane widg_«this.name» = new JScrollPane(widg_ta_«name»);
 	«ENDIF»
 JLabel lbl_«this.name» = new JLabel("«this.label»");
 «ELSEIF this.metaType==RadioButtons»
+
 «REM»Radio Buttons«ENDREM»
 //TODO create widget «this»
 JComponent widg_«this.name» = new JPanel();
 JLabel lbl_«this.name» = new JLabel("«this.label»");
 «LET (RadioButtons)this AS rbGroup»
 ButtonGroup rbGroup_«name» = new ButtonGroup();
+_allWidgetsByName.put("«this.name»",rbGroup_«this.name»);
 «FOREACH rbGroup.radio AS currRB»
 JRadioButton rb_«name»_«currRB.name» = new JRadioButton("«currRB.label»");
 widg_«name».add(rb_«name»_«currRB.name»);
@@ -476,6 +528,7 @@ rbGroup_«name».add(rb_«name»_«currRB.name»);
 «REM»Combo«ENDREM»
 //TODO create widget «this»
 JComponent widg_«this.name» = new JComboBox();
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
 JComboBox cb_«this.name» = (JComboBox)widg_«this.name»;
 DefaultComboBoxModel cb_«name»_model =new DefaultComboBoxModel();
 for (int i=0; i<20; i++)
@@ -509,7 +562,9 @@ Object[][] sampleTableData_«name» = {
 
 
 JComponent widg_tab_«this.name» = new JTable(sampleTableData_«name»,sampleColumnNames_«name»);
+_allWidgetsByName.put("«this.name»",widg_tab_«this.name»);
 JScrollPane widg_«name» = new JScrollPane((JTable)widg_tab_«this.name»);
+
 
 
 
@@ -520,6 +575,7 @@ JLabel lbl_«this.name» = new JLabel("«this.label»");
 «REM»CheckBox«ENDREM»
 //TODO create widget «this»
 JComponent widg_«this.name» = new JCheckBox("«this.label»");
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
 JLabel lbl_«this.name» = null;
 «ELSEIF this.metaType==Image»
 //TODO create widget «this»
