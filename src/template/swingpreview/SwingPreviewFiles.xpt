@@ -280,18 +280,18 @@ public class MainFrame extends JFrame {
 «ENDDEFINE»
 
 «DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
-    «FOREACH this.actions AS currAction»
-    «LET this.actions.indexOf(currAction) AS actionNumber»
+    «LET this.action AS currAction»
+    «LET 1 AS actionNumber»
     	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
     «ENDLET»
-    «ENDFOREACH»
+    «ENDLET»
     
 	IAction [] «actionsVarName» = new IAction[]{
-	«FOREACH this.actions AS currAct»
-		«LET this.actions.indexOf(currAct) AS actionNumber»
-		act_«actionsVarName»_«actionNumber»«IF currAct != this.actions.last()»,«ENDIF»
+	«LET this.action AS currAct»
+		«LET 1 AS actionNumber»
+		act_«actionsVarName»_«actionNumber»
 		«ENDLET»
-	«ENDFOREACH»
+	«ENDLET»
 	};
 «ENDDEFINE»
 
