@@ -114,6 +114,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.APP_WINDOW: return createAppWindow();
 			case GuigenPackage.STATIC_LINKS: return createStaticLinks();
 			case GuigenPackage.SEQUENCE_ACTION: return createSequenceAction();
+			case GuigenPackage.JUMP_BACK_ACTION: return createJumpBackAction();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -685,6 +686,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public SequenceAction createSequenceAction() {
 		SequenceActionImpl sequenceAction = new SequenceActionImpl();
 		return sequenceAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JumpBackAction createJumpBackAction() {
+		JumpBackActionImpl jumpBackAction = new JumpBackActionImpl();
+		return jumpBackAction;
 	}
 
 	/**

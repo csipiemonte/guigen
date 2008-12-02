@@ -221,6 +221,11 @@ public class ActionResultItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.ACTION_RESULT__ACTION,
 				 GuigenFactory.eINSTANCE.createSequenceAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.ACTION_RESULT__ACTION,
+				 GuigenFactory.eINSTANCE.createJumpBackAction()));
 	}
 
 	/**

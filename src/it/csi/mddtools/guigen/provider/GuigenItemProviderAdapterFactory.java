@@ -1295,6 +1295,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpBackAction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected JumpBackActionItemProvider jumpBackActionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpBackAction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createJumpBackActionAdapter() {
+		if (jumpBackActionItemProvider == null) {
+			jumpBackActionItemProvider = new JumpBackActionItemProvider(this);
+		}
+
+		return jumpBackActionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1446,6 +1469,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (appWindowItemProvider != null) appWindowItemProvider.dispose();
 		if (staticLinksItemProvider != null) staticLinksItemProvider.dispose();
 		if (sequenceActionItemProvider != null) sequenceActionItemProvider.dispose();
+		if (jumpBackActionItemProvider != null) jumpBackActionItemProvider.dispose();
 	}
 
 }

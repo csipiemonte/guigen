@@ -2215,13 +2215,22 @@ public interface GuigenPackage extends EPackage {
 	int JUMP_ACTION__JUMP_TO = ACTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Push Current Page</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_ACTION__PUSH_CURRENT_PAGE = ACTION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Jump Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int JUMP_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ExecActionImpl <em>Exec Action</em>}' class.
@@ -2615,6 +2624,25 @@ public interface GuigenPackage extends EPackage {
 	int SEQUENCE_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpBackActionImpl <em>Jump Back Action</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.JumpBackActionImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackAction()
+	 * @generated
+	 */
+	int JUMP_BACK_ACTION = 61;
+
+	/**
+	 * The number of structural features of the '<em>Jump Back Action</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_BACK_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2622,7 +2650,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 61;
+	int WIDGET_DATA_TYPE = 62;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -2632,7 +2660,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 62;
+	int UDLRC_SPEC_CONSTANTS = 63;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -2642,7 +2670,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 63;
+	int EVENT_TYPES = 64;
 
 
 	/**
@@ -3731,6 +3759,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getJumpAction_JumpTo();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpAction#isPushCurrentPage <em>Push Current Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Push Current Page</em>'.
+	 * @see it.csi.mddtools.guigen.JumpAction#isPushCurrentPage()
+	 * @see #getJumpAction()
+	 * @generated
+	 */
+	EAttribute getJumpAction_PushCurrentPage();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ExecAction <em>Exec Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3991,6 +4030,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSequenceAction_Actions();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpBackAction <em>Jump Back Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Jump Back Action</em>'.
+	 * @see it.csi.mddtools.guigen.JumpBackAction
+	 * @generated
+	 */
+	EClass getJumpBackAction();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -4965,6 +5014,14 @@ public interface GuigenPackage extends EPackage {
 		EReference JUMP_ACTION__JUMP_TO = eINSTANCE.getJumpAction_JumpTo();
 
 		/**
+		 * The meta object literal for the '<em><b>Push Current Page</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JUMP_ACTION__PUSH_CURRENT_PAGE = eINSTANCE.getJumpAction_PushCurrentPage();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ExecActionImpl <em>Exec Action</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5189,6 +5246,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SEQUENCE_ACTION__ACTIONS = eINSTANCE.getSequenceAction_Actions();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpBackActionImpl <em>Jump Back Action</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.JumpBackActionImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackAction()
+		 * @generated
+		 */
+		EClass JUMP_BACK_ACTION = eINSTANCE.getJumpBackAction();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

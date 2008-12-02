@@ -150,7 +150,11 @@
                   </widgets>
                 </subpanels>
                 <widgets xsi:type="guigen:ConfirmButton" name="b1" label="sdsssd"/>
-                <widgets xsi:type="guigen:ResetButton" name="bReseteee" label="fdfdfdf"/>
+                <widgets xsi:type="guigen:ResetButton" name="bGoBack" label="back...">
+                  <eventHandlers>
+                    <action xsi:type="guigen:JumpBackAction"/>
+                  </eventHandlers>
+                </widgets>
               </tabs>
             </subpanels>
           </panels>
@@ -186,7 +190,7 @@
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="btnVaiTabelle" label="Vai alla pagina tabelle">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:Button" name="bExec" label="Esegui!">

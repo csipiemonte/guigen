@@ -71,6 +71,8 @@ public class MainFrame extends JFrame {
     //contenitore di tutti i widget (per le azioni widget-targetted)
     java.util.Hashtable _allWidgetsByName = new java.util.Hashtable();
     
+    java.util.ArrayList _pageStack = new java.util.ArrayList();
+    
     private void setupContentPanes() {
     	switchPanel = new JPanel();
 		cardLayout = new CardLayout();
@@ -155,13 +157,34 @@ public class MainFrame extends JFrame {
    /// JUMP_ACTION
    class JumpAction implements IAction{
    		String name;
-		public JumpAction(String panelName) {
+   		String _currentPageName = null;
+   		boolean _pushCurrent;
+		public JumpAction(String panelName, String currentPageName, boolean pushCurrent) {
 			name = panelName;
+			_pushCurrent = pushCurrent;
+			_currentPageName = currentPageName;
 		}
 		public void doAction() {
+		    if (_pushCurrent){
+		      _pageStack.add(_currentPageName);
+		    }
 			switchToContentPane(name);
 		}
    };
+   
+   // JUMP BACK ACTION
+   class JumpBackAction implements IAction{
+       public void doAction(){
+         if (_pageStack.size()>0){
+           String backTo=(String)_pageStack.get(_pageStack.size()-1);
+           _pageStack.remove(_pageStack.size()-1);
+           switchToContentPane(backTo);
+         }
+         else{
+         System.out.println("Stack vuoto...");
+         } 
+       }
+   }
    
    /// SEQUENCE_ACTION
    class SequenceAction implements IAction{
@@ -319,8 +342,13 @@ public class MainFrame extends JFrame {
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Action»
 // azione non supportata «this»
 «ENDDEFINE»
+
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpAction»
-	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»");
+	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackAction»
+	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceAction»

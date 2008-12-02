@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpActionImpl#getJumpTo <em>Jump To</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.JumpActionImpl#isPushCurrentPage <em>Push Current Page</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +41,25 @@ public class JumpActionImpl extends ActionImpl implements JumpAction {
 	 * @ordered
 	 */
 	protected ContentPanel jumpTo;
+
+	/**
+	 * The default value of the '{@link #isPushCurrentPage() <em>Push Current Page</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPushCurrentPage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PUSH_CURRENT_PAGE_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isPushCurrentPage() <em>Push Current Page</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPushCurrentPage()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean pushCurrentPage = PUSH_CURRENT_PAGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,12 +123,35 @@ public class JumpActionImpl extends ActionImpl implements JumpAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isPushCurrentPage() {
+		return pushCurrentPage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPushCurrentPage(boolean newPushCurrentPage) {
+		boolean oldPushCurrentPage = pushCurrentPage;
+		pushCurrentPage = newPushCurrentPage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE, oldPushCurrentPage, pushCurrentPage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.JUMP_ACTION__JUMP_TO:
 				if (resolve) return getJumpTo();
 				return basicGetJumpTo();
+			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
+				return isPushCurrentPage() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -123,6 +166,9 @@ public class JumpActionImpl extends ActionImpl implements JumpAction {
 		switch (featureID) {
 			case GuigenPackage.JUMP_ACTION__JUMP_TO:
 				setJumpTo((ContentPanel)newValue);
+				return;
+			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
+				setPushCurrentPage(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,6 +185,9 @@ public class JumpActionImpl extends ActionImpl implements JumpAction {
 			case GuigenPackage.JUMP_ACTION__JUMP_TO:
 				setJumpTo((ContentPanel)null);
 				return;
+			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
+				setPushCurrentPage(PUSH_CURRENT_PAGE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -153,8 +202,26 @@ public class JumpActionImpl extends ActionImpl implements JumpAction {
 		switch (featureID) {
 			case GuigenPackage.JUMP_ACTION__JUMP_TO:
 				return jumpTo != null;
+			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
+				return pushCurrentPage != PUSH_CURRENT_PAGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (pushCurrentPage: ");
+		result.append(pushCurrentPage);
+		result.append(')');
+		return result.toString();
 	}
 
 } //JumpActionImpl

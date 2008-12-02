@@ -187,6 +187,11 @@ public class SequenceActionItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.SEQUENCE_ACTION__ACTIONS,
 				 GuigenFactory.eINSTANCE.createSequenceAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SEQUENCE_ACTION__ACTIONS,
+				 GuigenFactory.eINSTANCE.createJumpBackAction()));
 	}
 
 }

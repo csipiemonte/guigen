@@ -7,32 +7,26 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.GuigenPackage;
-
-import it.csi.mddtools.guigen.JumpAction;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.JumpAction} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.JumpBackAction} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class JumpActionItemProvider
+public class JumpBackActionItemProvider
 	extends ActionItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -46,7 +40,7 @@ public class JumpActionItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JumpActionItemProvider(AdapterFactory adapterFactory) {
+	public JumpBackActionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,65 +55,19 @@ public class JumpActionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addJumpToPropertyDescriptor(object);
-			addPushCurrentPagePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Jump To feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addJumpToPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_JumpAction_jumpTo_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_JumpAction_jumpTo_feature", "_UI_JumpAction_type"),
-				 GuigenPackage.Literals.JUMP_ACTION__JUMP_TO,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Push Current Page feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPushCurrentPagePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_JumpAction_pushCurrentPage_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_JumpAction_pushCurrentPage_feature", "_UI_JumpAction_type"),
-				 GuigenPackage.Literals.JUMP_ACTION__PUSH_CURRENT_PAGE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns JumpAction.gif.
+	 * This returns JumpBackAction.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/JumpAction"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/JumpBackAction"));
 	}
 
 	/**
@@ -130,8 +78,7 @@ public class JumpActionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		JumpAction jumpAction = (JumpAction)object;
-		return getString("_UI_JumpAction_type") + " " + jumpAction.isPushCurrentPage();
+		return getString("_UI_JumpBackAction_type");
 	}
 
 	/**
@@ -144,12 +91,6 @@ public class JumpActionItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(JumpAction.class)) {
-			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

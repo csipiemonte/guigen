@@ -44,6 +44,7 @@ import it.csi.mddtools.guigen.Header;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.JumpAction;
+import it.csi.mddtools.guigen.JumpBackAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.Menubar;
@@ -514,6 +515,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass sequenceActionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jumpBackActionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1536,6 +1544,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getJumpAction_PushCurrentPage() {
+		return (EAttribute)jumpActionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExecAction() {
 		return execActionEClass;
 	}
@@ -1761,6 +1778,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJumpBackAction() {
+		return jumpBackActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -1961,6 +1987,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		jumpActionEClass = createEClass(JUMP_ACTION);
 		createEReference(jumpActionEClass, JUMP_ACTION__JUMP_TO);
+		createEAttribute(jumpActionEClass, JUMP_ACTION__PUSH_CURRENT_PAGE);
 
 		execActionEClass = createEClass(EXEC_ACTION);
 		createEReference(execActionEClass, EXEC_ACTION__RESULTS);
@@ -1999,6 +2026,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		sequenceActionEClass = createEClass(SEQUENCE_ACTION);
 		createEReference(sequenceActionEClass, SEQUENCE_ACTION__ACTIONS);
+
+		jumpBackActionEClass = createEClass(JUMP_BACK_ACTION);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -2069,6 +2098,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		showDialogActionEClass.getESuperTypes().add(this.getAction());
 		actionOnPanelsEClass.getESuperTypes().add(this.getAction());
 		sequenceActionEClass.getESuperTypes().add(this.getAction());
+		jumpBackActionEClass.getESuperTypes().add(this.getAction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2221,6 +2251,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(jumpActionEClass, JumpAction.class, "JumpAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getJumpAction_JumpTo(), this.getContentPanel(), null, "jumpTo", null, 0, 1, JumpAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJumpAction_PushCurrentPage(), ecorePackage.getEBoolean(), "pushCurrentPage", null, 0, 1, JumpAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(execActionEClass, ExecAction.class, "ExecAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExecAction_Results(), this.getActionResult(), null, "results", null, 0, -1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2259,6 +2290,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(sequenceActionEClass, SequenceAction.class, "SequenceAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSequenceAction_Actions(), this.getAction(), null, "actions", null, 0, -1, SequenceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jumpBackActionEClass, JumpBackAction.class, "JumpBackAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

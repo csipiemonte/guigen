@@ -503,6 +503,15 @@ public interface GuigenFactory extends EFactory {
 	SequenceAction createSequenceAction();
 
 	/**
+	 * Returns a new object of class '<em>Jump Back Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Jump Back Action</em>'.
+	 * @generated
+	 */
+	JumpBackAction createJumpBackAction();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

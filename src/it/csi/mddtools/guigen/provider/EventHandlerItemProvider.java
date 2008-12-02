@@ -223,6 +223,11 @@ public class EventHandlerItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
 				 GuigenFactory.eINSTANCE.createSequenceAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
+				 GuigenFactory.eINSTANCE.createJumpBackAction()));
 	}
 
 	/**
