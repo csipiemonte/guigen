@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 import java.util.List;
@@ -139,11 +140,11 @@ public class ContentPanelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ContentPanel)object).getName();
+		String label="["+((ContentPanel)object).getName()+"]";
 		return label == null || label.length() == 0 ?
 			getString("_UI_ContentPanel_type") :
 			getString("_UI_ContentPanel_type") + " " + label;

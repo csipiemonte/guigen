@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.ShowDialogAction;
 
 import java.util.Collection;
 import java.util.List;
@@ -100,11 +101,17 @@ public class ShowDialogActionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ShowDialogAction_type");
+		String label = ": Show dialog ";
+		ShowDialogAction a = (ShowDialogAction)object;
+		if(a.getDialog()!=null)
+			label+=a.getDialog().getName();
+		else
+			label+=" <<unspecified>>";
+		return getString("_UI_ShowDialogAction_type")+label;
 	}
 
 	/**

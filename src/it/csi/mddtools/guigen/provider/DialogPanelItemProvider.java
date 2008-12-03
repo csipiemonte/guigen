@@ -8,6 +8,8 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.DialogPanel;
+import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.Widget;
 
 import it.csi.mddtools.guigen.GuigenPackage;
 import java.util.Collection;
@@ -101,11 +103,11 @@ public class DialogPanelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((DialogPanel)object).getName();
+		String label="["+((Panel)object).getName()+"]-"+((Panel)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_DialogPanel_type") :
 			getString("_UI_DialogPanel_type") + " " + label;

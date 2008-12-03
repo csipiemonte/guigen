@@ -7,11 +7,14 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.ActionResult;
 import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -111,11 +114,20 @@ public class ExecActionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ExecAction_type");
+		String label="{";
+		ExecAction ea = (ExecAction)object;
+		if (ea.getResults()!=null && ea.getResults().size()>0){
+			Iterator<ActionResult> it = ea.getResults().iterator();
+			label+=it.next().getResultCode()+"|";
+		}
+		else
+			label+="-- nessun risultato specificato ---";
+		label+="}";
+		return getString("_UI_ExecAction_type")+": "+label;
 	}
 
 	/**

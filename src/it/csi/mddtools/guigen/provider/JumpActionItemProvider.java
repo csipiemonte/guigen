@@ -126,12 +126,19 @@ public class JumpActionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		JumpAction jumpAction = (JumpAction)object;
-		return getString("_UI_JumpAction_type") + " " + jumpAction.isPushCurrentPage();
+		String label = ": Jump to ";
+		if(jumpAction.getJumpTo()!=null)
+			label+=jumpAction.getJumpTo().getName();
+		else
+			label+=" <unspecified content panel>";
+		if (jumpAction.isPushCurrentPage())
+			label+=" and push current page";
+		return getString("_UI_JumpAction_type")+ " " + label ;
 	}
 
 	/**

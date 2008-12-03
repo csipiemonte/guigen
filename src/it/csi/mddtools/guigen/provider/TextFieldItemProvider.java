@@ -9,6 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.TextField;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 import java.util.List;
@@ -103,11 +104,11 @@ public class TextFieldItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TextField)object).getName();
+		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_TextField_type") :
 			getString("_UI_TextField_type") + " " + label;

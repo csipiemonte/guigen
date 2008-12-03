@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Menu;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 import java.util.List;
@@ -163,11 +164,11 @@ public class MenuItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Menu)object).getName();
+		String label="["+((Menu)object).getName()+"]-"+((Menu)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Menu_type") :
 			getString("_UI_Menu_type") + " " + label;

@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.ConfirmButton;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 import java.util.List;
@@ -76,11 +77,11 @@ public class ConfirmButtonItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ConfirmButton)object).getName();
+		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ConfirmButton_type") :
 			getString("_UI_ConfirmButton_type") + " " + label;

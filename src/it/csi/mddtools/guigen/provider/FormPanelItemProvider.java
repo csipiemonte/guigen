@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Panel;
 
 import java.util.Collection;
 import java.util.List;
@@ -112,11 +113,11 @@ public class FormPanelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FormPanel)object).getName();
+		String label="["+((Panel)object).getName()+"]-"+((Panel)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_FormPanel_type") :
 			getString("_UI_FormPanel_type") + " " + label;

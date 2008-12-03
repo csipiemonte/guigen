@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.RadioButtons;
+import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 import java.util.List;
@@ -111,11 +112,11 @@ public class RadioButtonsItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((RadioButtons)object).getName();
+		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_RadioButtons_type") :
 			getString("_UI_RadioButtons_type") + " " + label;

@@ -126,11 +126,12 @@ public class ONOFFActionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		ONOFFAction onoffAction = (ONOFFAction)object;
+		String label = (onoffAction.isEnable()?"enable widgets":"disable widgets");
 		return getString("_UI_ONOFFAction_type") + " " + onoffAction.isEnable();
 	}
 
