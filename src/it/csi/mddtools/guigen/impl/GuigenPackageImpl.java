@@ -1634,6 +1634,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getDialogPanel_DialogContent() {
+		return (EReference)dialogPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getShowDialogAction() {
 		return showDialogActionEClass;
 	}
@@ -2002,6 +2011,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(actionOnWidgetsEClass, ACTION_ON_WIDGETS__TARGET_WIDGETS);
 
 		dialogPanelEClass = createEClass(DIALOG_PANEL);
+		createEReference(dialogPanelEClass, DIALOG_PANEL__DIALOG_CONTENT);
 
 		showDialogActionEClass = createEClass(SHOW_DIALOG_ACTION);
 		createEReference(showDialogActionEClass, SHOW_DIALOG_ACTION__DIALOG);
@@ -2266,6 +2276,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getActionOnWidgets_TargetWidgets(), this.getWidget(), null, "targetWidgets", null, 1, -1, ActionOnWidgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dialogPanelEClass, DialogPanel.class, "DialogPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDialogPanel_DialogContent(), this.getPanel(), null, "dialogContent", null, 0, 1, DialogPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(showDialogActionEClass, ShowDialogAction.class, "ShowDialogAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getShowDialogAction_Dialog(), this.getDialogPanel(), null, "dialog", null, 0, 1, ShowDialogAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

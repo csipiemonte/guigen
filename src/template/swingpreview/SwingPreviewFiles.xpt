@@ -73,6 +73,8 @@ public class MainFrame extends JFrame {
     
     java.util.ArrayList _pageStack = new java.util.ArrayList();
     
+    java.util.Hashtable _allDialogsByName = new java.util.Hashtable();
+    
     private void setupContentPanes() {
     	switchPanel = new JPanel();
 		cardLayout = new CardLayout();
@@ -200,6 +202,20 @@ public class MainFrame extends JFrame {
 				  currAct.doAction();
 				}
 			}
+		}
+   };
+   
+   /// SHOWDIALOG_ACTION
+   class ShowDialogAction implements IAction{
+   		String _dlgName;
+		public ShowDialogAction(String dlgName) {
+			_dlgName=dlgName;
+		}
+		public void doAction() {
+			System.out.println("Show dialog "+_dlgName);
+			JDialog currDlg = (JDialog)_allDialogsByName.get(_dlgName);
+			currDlg.setSize(400,300);
+			currDlg.setVisible(true);
 		}
    };
    
@@ -347,6 +363,10 @@ public class MainFrame extends JFrame {
 	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 «ENDDEFINE»
 
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogAction»
+	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
+«ENDDEFINE»
+
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackAction»
 	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
 «ENDDEFINE»
@@ -455,6 +475,8 @@ depth first dell'albero della struttura a pannelli«ENDREM»
 «ELSEIF this.metaType==TabSetPanel»
     	    «EXPAND setupTabSetPanel FOR (TabSetPanel)this»
     	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).tabs»
+«ELSEIF this.metaType==DialogPanel»
+			«EXPAND genPanelSetupFunction FOR ((DialogPanel)this).dialogContent»
 «ENDIF»
 
 
@@ -481,35 +503,66 @@ private JPanel setupFormPanel_«this.name»(){
 	«FOREACH this.widgets AS currWidg»
 		«EXPAND createAndAddWidget("p",this.layout) FOR currWidg»
 	«ENDFOREACH»
-	«FOREACH this.subpanels AS currSubform»
-	// TODO subpanel «currSubform»
+	«FOREACH this.subpanels.select(p|p.metaType!=DialogPanel) AS currSubform»
+	// subpanel «currSubform»
 		«EXPAND createAndAddSubpanel("p",this.layout,currSubform.layoutSpec) FOR currSubform»
 	«ENDFOREACH»
-	
+	«FOREACH this.subpanels.select(p|p.metaType==DialogPanel) AS currDialog»
+	// dialog «currDialog» 
+	// (crea solo la variabile senza effettuare l'add al container)
+		«EXPAND createSubpanel("p",this.layout,currDialog.layoutSpec) FOR currDialog»
+	«ENDFOREACH»
 	return p;
 }
 
 «ENDDEFINE»
 
-«REM»
-«DEFINE createAllSubpanels FOR Panel»
-/// funzioni di creazione dei sottopannelli di «this»
+«DEFINE createAndAddSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione sottopannello «this.name»
+Component subp_«this.name» = null;
 «IF this.metaType==FormPanel»
-	«FOREACH ((FormPanel)this).subpanels AS currSubp»
-		«IF currSubp.metaType==FormPanel»
-			«EXPAND setupFormPanel FOR (FormPanel)currSubp»
-		«ELSEIF currSubp.metaType==TabSetPanel»
-			«EXPAND setupTabSetPanel FOR (TabSetPanel)currSubp»
-		«ELSE»
-		// tipo «currSubp» non supportato
-		«ENDIF»
-		//«EXPAND createAllSubpanels FOR currSubp»
-	«ENDFOREACH»
-«ENDIF»	
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+«IF containerLayout.metaType==UDLRCPanelLayout»
+	«containerVarName».add(subp_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)widgetLayoutSpec)»);
+«ELSE»
+	«containerVarName».add(subp_«this.name»);
+«ENDIF»
+
 «ENDDEFINE»
-«ENDREM»
 
-
+«DEFINE createSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
+// creazione sottopannello «this.name»
+Component subp_«this.name» = null;
+«IF this.metaType==FormPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==TabSetPanel»
+	subp_«this.name» = setupTabSetPanel_«this.name»(); 
+«ELSEIF this.metaType==DialogPanel»
+    Component subp_«name»_content = null; // dialog content
+	«LET (DialogPanel)this AS thisDialog»
+	«LET  thisDialog.dialogContent AS currDialogContent»
+	«IF currDialogContent.metaType==FormPanel»
+	subp_«this.name»_content = setupFormPanel_«thisDialog.dialogContent.name»();
+	«ELSEIF currDialogContent.metaType==TabSetPanel»
+	subp_«this.name»_content = setupTabSetPanel_«this.name»();
+	«ENDIF»
+	// creazione Dialog
+	subp_«this.name» = new JDialog(this,"«thisDialog.label»",false);
+	// salvo il dialog perche' possa essere richiamato dalla showdialog action
+	_allDialogsByName.put("«this.name»",subp_«this.name»);
+	((JDialog)subp_«this.name»).getContentPane().add(subp_«this.name»_content);
+	«ENDLET» 
+	«ENDLET»
+      
+«ELSE»
+// ERRORE tipo di pannello «this» non gestito!!!!
+«ENDIF»
+«ENDDEFINE»
 
 «DEFINE createAndAddWidget(String panelVarName, PanelLayout panelLayout) FOR Widget»
 // creazione widget «name»
@@ -634,24 +687,6 @@ if (widg_«this.name» != null) // temp fix
 
 // associazione degli event handler
 «EXPAND addEventListenerCode("widg_"+this.name) FOREACH this.eventHandlers»
-
-«ENDDEFINE»
-
-«DEFINE createAndAddSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
-// creazione sottopannello «this.name»
-Component subp_«this.name» = null;
-«IF this.metaType==FormPanel»
-	subp_«this.name» = setupFormPanel_«this.name»();
-«ELSEIF this.metaType==TabSetPanel»
-	subp_«this.name» = setupTabSetPanel_«this.name»(); 
-«ELSE»
-// ERRORE tipo di pannello «this» non gestito!!!!
-«ENDIF»
-«IF containerLayout.metaType==UDLRCPanelLayout»
-	«containerVarName».add(subp_«this.name»,«nsewcSpec2BorderSpec((UDLRCWidgetLayoutSpec)widgetLayoutSpec)»);
-«ELSE»
-	«containerVarName».add(subp_«this.name»);
-«ENDIF»
 
 «ENDDEFINE»
 

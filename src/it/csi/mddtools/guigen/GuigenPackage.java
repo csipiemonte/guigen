@@ -2391,13 +2391,22 @@ public interface GuigenPackage extends EPackage {
 	int DIALOG_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Dialog Content</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG_PANEL__DIALOG_CONTENT = PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Dialog Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIALOG_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
+	int DIALOG_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShowDialogActionImpl <em>Show Dialog Action</em>}' class.
@@ -3864,6 +3873,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getDialogPanel();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.DialogPanel#getDialogContent <em>Dialog Content</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Dialog Content</em>'.
+	 * @see it.csi.mddtools.guigen.DialogPanel#getDialogContent()
+	 * @see #getDialogPanel()
+	 * @generated
+	 */
+	EReference getDialogPanel_DialogContent();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShowDialogAction <em>Show Dialog Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5102,6 +5122,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass DIALOG_PANEL = eINSTANCE.getDialogPanel();
+
+		/**
+		 * The meta object literal for the '<em><b>Dialog Content</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DIALOG_PANEL__DIALOG_CONTENT = eINSTANCE.getDialogPanel_DialogContent();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShowDialogActionImpl <em>Show Dialog Action</em>}' class.

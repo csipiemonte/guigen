@@ -35,6 +35,11 @@
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
             </item>
+            <item name="mnuDialogs" label="Dialogs">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
+              </eventHandler>
+            </item>
           </topLevelMenu>
           <topLevelMenu name="operazioni" label="operazioni">
             <item name="ammNotifiche" label="amministrazione notifiche"/>
@@ -251,6 +256,24 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
               <widgets xsi:type="guigen:TextArea" name="ta_uno" label="ta_uno"/>
             </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="pDialogs">
+          <panels xsi:type="guigen:FormPanel" name="pDialogs" label="Dimostrazione dialogs">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:DialogPanel" name="dlgDialog1" label="Dialog 1">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <dialogContent xsi:type="guigen:FormPanel" name="pDlgContentDialog1" label="Content dialog 1">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfDlgContent1" label="Testo nel dialog 1"/>
+                <widgets xsi:type="guigen:Button" name="BCloseDialog1" label="Chiudi"/>
+              </dialogContent>
+            </subpanels>
+            <widgets xsi:type="guigen:Button" name="pShowDialog1" label="Mostra dialog 1">
+              <eventHandlers>
+                <action xsi:type="guigen:ShowDialogAction" dialog="//@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.0"/>
+              </eventHandlers>
+            </widgets>
           </panels>
         </contentPanels>
       </appArea>
