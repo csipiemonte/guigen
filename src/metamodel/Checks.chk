@@ -12,6 +12,9 @@ import guigen;
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
+
+context ApplicationArea ERROR "Deve essere definito almeno un contentPanel" :
+	this.contentPanels!=null && this.contentPanels.size>0;
 	
 context FormPanel ERROR "E'necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
     this.layout.metaType!=UDLRCPanelLayout ||
@@ -35,8 +38,43 @@ columns != null && columns.size>0;
  	
 
 //// Validazione su azioni e listener
-context MenuItem ERROR "Un menu item può generare solo eventi di tipo ACTION_PERFORMED" :
+
+context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED" :
 	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
 
 context EventHandler ERROR "Un action Listener deve innescare un'azione a fronte di un tipo di evento" :
 	this.action!=null;
+	
+context JumpAction ERROR "E'necessario impostare il pannello target di una Jump Action" :
+	this.jumpTo != null;
+	
+context ShowDialogAction ERROR "E'necessario impostare il dialog target di una Show Dialog Action" :
+    this.dialog != null;
+    
+context ExecAction ERROR "Una ExecAction deve avere almeno un ActionResult associato" :
+	this.results!=null && this.results.size>0;
+
+context ActionResult ERROR "Una ActionResult deve avere associata una azione effettiva" :  
+	this.action != null;
+	
+context SequenceAction ERROR "Una SequenceAction deve prevedere almeno uno step nella sequenza di azioni" :
+	this.actions!= null && this.actions.size>0;
+
+context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una JumpAction" :
+	(this.actions.select(a|a.metaType == JumpAction).size==0) ||
+	  (this.actions.select(a|a.metaType == JumpAction).size==1) && (this.actions.last().metaType == JumpAction)
+	;
+
+context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una JumpBackAction" :
+	(this.actions.select(a|a.metaType == JumpBackAction).size==0) ||
+	  (this.actions.select(a|a.metaType == JumpBackAction).size==1) && (this.actions.last().metaType == JumpAction);
+
+context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una ShowDialogAction" :
+	(this.actions.select(a|a.metaType == ShowDialogAction).size==0) ||
+	  (this.actions.select(a|a.metaType == ShowDialogAction).size==1) && (this.actions.last().metaType == JumpAction);
+
+context ActionOnWidgets ERROR "Le azioni che hanno come oggeto un widget devono essere associate ad almeno un widget" :
+	this.targetWidgets != null && this.targetWidgets.size>0;
+	
+context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED" :
+	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
