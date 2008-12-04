@@ -21,12 +21,14 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -65,8 +67,100 @@ public class GUIModelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addCodProdottoPropertyDescriptor(object);
+			addCodComponentePropertyDescriptor(object);
+			addVersioneProdottoPropertyDescriptor(object);
+			addVersioneComponentePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Cod Prodotto feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCodProdottoPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_codProdotto_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_codProdotto_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__COD_PRODOTTO,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Cod Componente feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCodComponentePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_codComponente_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_codComponente_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__COD_COMPONENTE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Versione Prodotto feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVersioneProdottoPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_versioneProdotto_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_versioneProdotto_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__VERSIONE_PRODOTTO,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Versione Componente feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVersioneComponentePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_versioneComponente_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_versioneComponente_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__VERSIONE_COMPONENTE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -119,7 +213,10 @@ public class GUIModelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_GUIModel_type");
+		String label = ((GUIModel)object).getCodProdotto();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GUIModel_type") :
+			getString("_UI_GUIModel_type") + " " + label;
 	}
 
 	/**
@@ -134,6 +231,12 @@ public class GUIModelItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GUIModel.class)) {
+			case GuigenPackage.GUI_MODEL__COD_PRODOTTO:
+			case GuigenPackage.GUI_MODEL__COD_COMPONENTE:
+			case GuigenPackage.GUI_MODEL__VERSIONE_PRODOTTO:
+			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GuigenPackage.GUI_MODEL__STRUCTURE:
 			case GuigenPackage.GUI_MODEL__BEAHVIORS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

@@ -8,6 +8,19 @@ extension template::swingpreview::SwingPreviewExtensions;
 //context Entity ERROR "Duplicate entity "+name :
 //	model().entities().select(e|e.name==name).size==1;
 
+// validazioni generali (prodotto/componente etc..)
+context GUIModel ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)" :
+	codProdotto!=null && codProdotto.length<=10;
+
+context GUIModel ERROR "E'necessario specificare il codice componente (max 20 caratteri)" :
+	codComponente!=null && codComponente.length<=20;
+
+context GUIModel ERROR "E'necessario specificare la versione del prodotto nel formato major.minor.bugfix" :
+	versioneProdotto!=null && isVersioneFormalmenteCorretta(versioneProdotto);
+
+context GUIModel ERROR "E'necessario specificare la versione del componente nel formato major.minor.bugfix" :
+	versioneComponente!=null && isVersioneFormalmenteCorretta(versioneComponente);
+	
 ///// Validazione su pannelli
 
 context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione" :

@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 import org.eclipse.core.internal.watson.ElementTreeIterator;
 import org.eclipse.emf.common.util.EList;
@@ -145,9 +146,14 @@ public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
 		}
 	}
 
-//	public static EList<EObject> getAllObjects(){
-//		return GuigenPackage.eINSTANCE.eContents();
-//	}
+public static boolean isVersioneFormalmenteCorretta(String codVer){
+	StringTokenizer stok = new StringTokenizer(codVer, ".");
+	if (stok.countTokens()!=3)
+		return false;
+	else
+		return true;
+}
+
 	
 /**
  * @param args

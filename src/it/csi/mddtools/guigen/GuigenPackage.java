@@ -1169,13 +1169,49 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__BEAHVIORS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Cod Prodotto</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__COD_PRODOTTO = 2;
+
+	/**
+	 * The feature id for the '<em><b>Cod Componente</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__COD_COMPONENTE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Versione Prodotto</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__VERSIONE_PRODOTTO = 4;
+
+	/**
+	 * The feature id for the '<em><b>Versione Componente</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__VERSIONE_COMPONENTE = 5;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 2;
+	int GUI_MODEL_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -3181,6 +3217,50 @@ public interface GuigenPackage extends EPackage {
 	EReference getGUIModel_Beahviors();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getCodProdotto <em>Cod Prodotto</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Prodotto</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getCodProdotto()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_CodProdotto();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getCodComponente <em>Cod Componente</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Componente</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getCodComponente()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_CodComponente();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getVersioneProdotto <em>Versione Prodotto</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Versione Prodotto</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getVersioneProdotto()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_VersioneProdotto();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getVersioneComponente <em>Versione Componente</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Versione Componente</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getVersioneComponente()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_VersioneComponente();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4526,6 +4606,38 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__BEAHVIORS = eINSTANCE.getGUIModel_Beahviors();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Prodotto</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__COD_PRODOTTO = eINSTANCE.getGUIModel_CodProdotto();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Componente</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__COD_COMPONENTE = eINSTANCE.getGUIModel_CodComponente();
+
+		/**
+		 * The meta object literal for the '<em><b>Versione Prodotto</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__VERSIONE_PRODOTTO = eINSTANCE.getGUIModel_VersioneProdotto();
+
+		/**
+		 * The meta object literal for the '<em><b>Versione Componente</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__VERSIONE_COMPONENTE = eINSTANCE.getGUIModel_VersioneComponente();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
