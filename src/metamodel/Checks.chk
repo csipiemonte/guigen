@@ -1,6 +1,6 @@
 import guigen;
 
-//extension metamodel::Extensions;
+extension template::swingpreview::SwingPreviewExtensions;
 
 //context Model ERROR "No entities defined" :
 //	types.exists(e|Entity.isInstance(e));
@@ -12,6 +12,9 @@ import guigen;
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
+
+context Panel ERROR "Il nome dei pannelli all'interno di un content panel deve essere univoco" :
+	
 
 context ApplicationArea ERROR "Deve essere definito almeno un contentPanel" :
 	this.contentPanels!=null && this.contentPanels.size>0;
@@ -30,6 +33,10 @@ context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 context Widget ERROR "E'necessario impostare l'attributo 'name' del widget" :
 	this.name != null && this.name != "";
 
+context Widget ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco" :
+     this.metaType==RadioButton ||
+     findAllWidgetsInContentPanel(findParentContentPanel(this)).select(w|((Widget)w).name==this.name).size==1;
+     
 context Table ERROR "Non è stato impostato lo schema delle colonne" :
 this.columnModel!=null;
 

@@ -3,6 +3,9 @@ package it.csi.mddtools.guigen.genutils;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.eclipse.core.internal.watson.ElementTreeIterator;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 import it.csi.mddtools.guigen.Action;
@@ -14,8 +17,10 @@ import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
+import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Widget;
@@ -38,6 +43,13 @@ public static ContentPanel findParentContentPanel (Action a){
 		return findParentContentPanel(((SequenceAction)containerOfAction));
 	}
 	
+}
+
+public static ContentPanel findParentContentPanel(Widget w){
+	EObject parent = w.eContainer();
+	if(w instanceof RadioButton)
+		parent = parent.eContainer(); //old parent:RadioButtons
+	return findParentContentPanel((Panel)parent);
 }
 
 /**
@@ -75,6 +87,7 @@ public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp){
 		ArrayList<Widget> ris = new ArrayList<Widget>();
 		// widget primo livello
 		ris.addAll(p.getWidgets());
+		
 		// widget sottopannelli
 		if (p.getSubpanels() != null) {
 			Iterator<Panel> it = p.getSubpanels().iterator();
@@ -132,6 +145,13 @@ public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
 		}
 	}
 
+//	public static EList<EObject> getAllObjects(){
+//		return GuigenPackage.eINSTANCE.eContents();
+//	}
+	
+/**
+ * @param args
+ */
 public static void main(String[] args) {
 	try {
 		it.csi.mddtools.guigen.GuigenPackage.eINSTANCE.getClass();
@@ -144,8 +164,13 @@ public static void main(String[] args) {
 		b1.getEventHandlers().add(eh1);
 		JumpAction a1 = GuigenFactory.eINSTANCE.createJumpAction();
 		eh1.setAction(a1);
-		ContentPanel out = findParentContentPanel(a1);
-		System.out.println(""+out);
+		//ContentPanel out = findParentContentPanel(a1);
+		//System.out.println(""+out);
+		
+	    //TreeIterator<EObject> all = GuigenPackage.eINSTANCE.getWidget().;
+		//Iterator<EObject> it = all.;
+//		while(all.hasNext())
+//			System.out.println("-"+all.next());
 		
 	} catch (Exception e) {
 		// TODO: handle exception
