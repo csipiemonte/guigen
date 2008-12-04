@@ -7,9 +7,14 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.Action;
+import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.ONOFFAction;
+import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.genutils.GenUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -71,22 +76,39 @@ public class ONOFFActionItemProvider
 	 * This adds a property descriptor for the Target Widgets feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addTargetWidgetsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ActionOnWidgets_targetWidgets_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ActionOnWidgets_targetWidgets_feature", "_UI_ActionOnWidgets_type"),
-				 GuigenPackage.Literals.ACTION_ON_WIDGETS__TARGET_WIDGETS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ActionOnWidgets_targetWidgets_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ActionOnWidgets_targetWidgets_feature", "_UI_ActionOnWidgets_type"),
+//				 GuigenPackage.Literals.ACTION_ON_WIDGETS__TARGET_WIDGETS,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ActionOnWidgets_targetWidgets_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ActionOnWidgets_targetWidgets_feature",
+						"_UI_ONOFFAction_type"),
+				GuigenPackage.eINSTANCE.getActionOnWidgets_TargetWidgets(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ContentPanel containerOfAction = GenUtils.findParentContentPanel((Action)object);
+				ArrayList<Widget> result = GenUtils.findAllWidgetsInContentPanel(containerOfAction);
+
+				return result;
+			}
+		});
 	}
 
 	/**
