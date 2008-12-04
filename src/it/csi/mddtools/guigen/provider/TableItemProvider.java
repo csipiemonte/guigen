@@ -116,7 +116,7 @@ public class TableItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
+		String label = ((Table)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Table_type") :
 			getString("_UI_Table_type") + " " + label;
