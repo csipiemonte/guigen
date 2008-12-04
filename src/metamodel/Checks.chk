@@ -10,10 +10,14 @@ extension template::swingpreview::SwingPreviewExtensions;
 
 ///// Validazione su pannelli
 
+context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione" :
+	((ApplicationArea)this.eContainer).contentPanels.select(cp|cp.name==this.name).size==1; 
+
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
 
-
+context Panel ERROR "il nome di un pannello deve essere univoco all'intenro di un content panel" :
+    findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
 	
 
 context ApplicationArea ERROR "Deve essere definito almeno un contentPanel" :
