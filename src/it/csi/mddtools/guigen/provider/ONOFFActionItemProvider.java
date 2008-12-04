@@ -154,7 +154,7 @@ public class ONOFFActionItemProvider
 	public String getText(Object object) {
 		ONOFFAction onoffAction = (ONOFFAction)object;
 		String label = (onoffAction.isEnable()?"enable widgets":"disable widgets");
-		return getString("_UI_ONOFFAction_type") + " " + onoffAction.isEnable();
+		return getString("_UI_ONOFFAction_type") + " " + label;
 	}
 
 	/**
