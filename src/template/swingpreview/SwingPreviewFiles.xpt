@@ -658,15 +658,19 @@ JLabel lbl_«this.name» = new JLabel("«this.label»");
 JComponent widg_«this.name» = new JCheckBox("«this.label»");
 _allWidgetsByName.put("«this.name»",widg_«this.name»);
 JLabel lbl_«this.name» = null;
+
 «ELSEIF this.metaType==Image»
 //TODO create widget «this»
 JComponent widg_«this.name» = null;
 JLabel lbl_«this.name» = new JLabel("«this.label»");
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+
 «ELSEIF this.metaType==ResetButton || this.metaType==ConfirmButton || this.metaType==Button»
 JButton widg_«this.name» = new JButton();
 widg_«this.name».setName("«name»");
 widg_«this.name».setLabel("«label»");
 JLabel lbl_«this.name» = null; // no labels for buttons
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
 «ENDIF»
 «IF panelLayout.metaType==UDLRCPanelLayout»
 if (widg_«this.name» != null){ // temp fix

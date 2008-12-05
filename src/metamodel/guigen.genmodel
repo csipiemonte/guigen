@@ -86,6 +86,10 @@
     <genClasses ecoreClass="guigen.ecore#//GUIModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/structure"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/beahviors"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GUIModel/codProdotto"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GUIModel/codComponente"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GUIModel/versioneProdotto"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GUIModel/versioneComponente"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//GUIStructure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIStructure/appWindow"/>
@@ -158,19 +162,22 @@
     <genClasses ecoreClass="guigen.ecore#//RefreshViewAction"/>
     <genClasses ecoreClass="guigen.ecore#//JumpAction">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//JumpAction/jumpTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpAction/pushCurrentPage"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ExecAction">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecAction/results"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//EventHandler">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//EventHandler/actions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//EventHandler/action"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//EventHandler/eventType"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//WidgetTargetAction"/>
     <genClasses image="false" ecoreClass="guigen.ecore#//ActionOnWidgets">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActionOnWidgets/targetWidgets"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//DialogPanel"/>
+    <genClasses ecoreClass="guigen.ecore#//DialogPanel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DialogPanel/dialogContent"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ShowDialogAction">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ShowDialogAction/dialog"/>
     </genClasses>
@@ -184,10 +191,14 @@
     <genClasses ecoreClass="guigen.ecore#//Header"/>
     <genClasses ecoreClass="guigen.ecore#//Footer"/>
     <genClasses ecoreClass="guigen.ecore#//AppWindow">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/footer"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/header"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/footer"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/appArea"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//StaticLinks"/>
+    <genClasses ecoreClass="guigen.ecore#//SequenceAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SequenceAction/actions"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//JumpBackAction"/>
   </genPackages>
 </genmodel:GenModel>

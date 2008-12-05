@@ -2586,22 +2586,22 @@ public interface GuigenPackage extends EPackage {
 	int APP_WINDOW = 58;
 
 	/**
-	 * The feature id for the '<em><b>Footer</b></em>' reference.
+	 * The feature id for the '<em><b>Header</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_WINDOW__FOOTER = 0;
+	int APP_WINDOW__HEADER = 0;
 
 	/**
-	 * The feature id for the '<em><b>Header</b></em>' reference.
+	 * The feature id for the '<em><b>Footer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_WINDOW__HEADER = 1;
+	int APP_WINDOW__FOOTER = 1;
 
 	/**
 	 * The feature id for the '<em><b>App Area</b></em>' containment reference.
@@ -4068,10 +4068,10 @@ public interface GuigenPackage extends EPackage {
 	EClass getAppWindow();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppWindow#getFooter <em>Footer</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.AppWindow#getFooter <em>Footer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Footer</em>'.
+	 * @return the meta object for the containment reference '<em>Footer</em>'.
 	 * @see it.csi.mddtools.guigen.AppWindow#getFooter()
 	 * @see #getAppWindow()
 	 * @generated
@@ -4079,10 +4079,10 @@ public interface GuigenPackage extends EPackage {
 	EReference getAppWindow_Footer();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppWindow#getHeader <em>Header</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.AppWindow#getHeader <em>Header</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Header</em>'.
+	 * @return the meta object for the containment reference '<em>Header</em>'.
 	 * @see it.csi.mddtools.guigen.AppWindow#getHeader()
 	 * @see #getAppWindow()
 	 * @generated
@@ -5336,7 +5336,7 @@ public interface GuigenPackage extends EPackage {
 		EClass APP_WINDOW = eINSTANCE.getAppWindow();
 
 		/**
-		 * The meta object literal for the '<em><b>Footer</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Footer</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -5344,7 +5344,7 @@ public interface GuigenPackage extends EPackage {
 		EReference APP_WINDOW__FOOTER = eINSTANCE.getAppWindow_Footer();
 
 		/**
-		 * The meta object literal for the '<em><b>Header</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Header</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -66,32 +66,10 @@ public class AppWindowItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFooterPropertyDescriptor(object);
 			addHeaderPropertyDescriptor(object);
+			addFooterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Footer feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFooterPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AppWindow_footer_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AppWindow_footer_feature", "_UI_AppWindow_type"),
-				 GuigenPackage.Literals.APP_WINDOW__FOOTER,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -108,6 +86,28 @@ public class AppWindowItemProvider
 				 getString("_UI_AppWindow_header_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_AppWindow_header_feature", "_UI_AppWindow_type"),
 				 GuigenPackage.Literals.APP_WINDOW__HEADER,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Footer feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFooterPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AppWindow_footer_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AppWindow_footer_feature", "_UI_AppWindow_type"),
+				 GuigenPackage.Literals.APP_WINDOW__FOOTER,
 				 true,
 				 false,
 				 true,

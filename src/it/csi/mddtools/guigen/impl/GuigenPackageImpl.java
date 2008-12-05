@@ -2068,8 +2068,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		footerEClass = createEClass(FOOTER);
 
 		appWindowEClass = createEClass(APP_WINDOW);
-		createEReference(appWindowEClass, APP_WINDOW__FOOTER);
 		createEReference(appWindowEClass, APP_WINDOW__HEADER);
+		createEReference(appWindowEClass, APP_WINDOW__FOOTER);
 		createEReference(appWindowEClass, APP_WINDOW__APP_AREA);
 
 		staticLinksEClass = createEClass(STATIC_LINKS);
@@ -2337,8 +2337,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(footerEClass, Footer.class, "Footer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(appWindowEClass, AppWindow.class, "AppWindow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAppWindow_Footer(), this.getFooter(), null, "footer", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAppWindow_Header(), this.getHeader(), null, "header", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAppWindow_Header(), this.getHeader(), null, "header", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAppWindow_Footer(), this.getFooter(), null, "footer", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppWindow_AppArea(), this.getApplicationArea(), null, "appArea", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(staticLinksEClass, StaticLinks.class, "StaticLinks", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
