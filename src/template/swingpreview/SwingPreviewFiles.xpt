@@ -115,6 +115,18 @@ public class MainFrame extends JFrame {
    	 cardLayout.show(switchPanel, name);	
    }
    
+   protected ImageIcon createImageIcon(String path,
+                                           String description) {
+    java.net.URL imgURL = getClass().getResource(path);
+    if (imgURL != null) {
+        return new ImageIcon(imgURL, description);
+    } else {
+        System.err.println("Couldn't find file: " + path);
+        return null;
+    }
+   }
+   
+   
    /// classi generiche di implementaizone degli event Listener
    
    /// JUMP_ACTION
@@ -619,6 +631,7 @@ for (int i=0; i<20; i++)
 
 JLabel lbl_«this.name» = new JLabel("«this.label»");
 «ELSEIF this.metaType==Table»
+
 «REM»Table«ENDREM»
 //sample data
 «LET ((Table)this).columnModel AS tabColMod»
@@ -661,7 +674,11 @@ JLabel lbl_«this.name» = null;
 
 «ELSEIF this.metaType==Image»
 //TODO create widget «this»
-JComponent widg_«this.name» = null;
+ImageIcon image_«this.name» = createImageIcon("«((Image)this).image»",
+                                 "«((Image)this).label»");
+
+JComponent widg_«this.name» = new JLabel(image_«this.name»);
+widg_«this.name».setSize(new Dimension(image_«this.name».getIconHeight(),image_«this.name».getIconWidth()));
 JLabel lbl_«this.name» = new JLabel("«this.label»");
 _allWidgetsByName.put("«this.name»",widg_«this.name»);
 
