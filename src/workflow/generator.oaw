@@ -5,6 +5,13 @@
 	<property name="modelfile" value="src/prova4.guigen" />
 	<property name="src-gen" value="src-gen" />
 	
+	<!-- determina il tipo di applicazione da generare (e i template da utilizzare)
+	     puo' valere:
+	     -swingpreview: preview swing senza binding dati
+	     -wicket: applicazione completa basata su wicket
+	-->
+	<property name="target-platform" value="swingpreview"/>
+	
 	<!-- set up EMF for standalone execution -->
 	
 
@@ -33,7 +40,7 @@
 	<component class="org.openarchitectureware.xpand2.Generator">
 		<metaModel idRef="mm"/>
 		<expand
-			value="template::swingpreview::SwingPreviewFiles::main FOR model" />
+			value="template::${target-platform}::Main::main FOR model" />
 		<outlet path="${src-gen}" >
 			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		</outlet>
