@@ -84,9 +84,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.RADIO_BUTTON: return createRadioButton();
 			case GuigenPackage.RESET_BUTTON: return createResetButton();
 			case GuigenPackage.CONFIRM_BUTTON: return createConfirmButton();
-			case GuigenPackage.GUI_FLOW: return createGUIFlow();
-			case GuigenPackage.FLOW_STATE: return createFlowState();
-			case GuigenPackage.FLOW_TRANSITION: return createFlowTransition();
 			case GuigenPackage.HORIZONTAL_FLOW_PANEL_LAYOUT: return createHorizontalFlowPanelLayout();
 			case GuigenPackage.VERTICAL_FLOW_PANEL_LAYOUT: return createVerticalFlowPanelLayout();
 			case GuigenPackage.UDLRC_PANEL_LAYOUT: return createUDLRCPanelLayout();
@@ -94,7 +91,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.IMAGE: return createImage();
 			case GuigenPackage.MENU: return createMenu();
 			case GuigenPackage.MENU_ITEM: return createMenuItem();
-			case GuigenPackage.GLOBAL_FLOW_TRANSITION: return createGlobalFlowTransition();
 			case GuigenPackage.DISABLED_COMPONENT_SET: return createDisabledComponentSet();
 			case GuigenPackage.COLUMN_MODEL: return createColumnModel();
 			case GuigenPackage.COLUMN: return createColumn();
@@ -393,36 +389,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GUIFlow createGUIFlow() {
-		GUIFlowImpl guiFlow = new GUIFlowImpl();
-		return guiFlow;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FlowState createFlowState() {
-		FlowStateImpl flowState = new FlowStateImpl();
-		return flowState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FlowTransition createFlowTransition() {
-		FlowTransitionImpl flowTransition = new FlowTransitionImpl();
-		return flowTransition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public HorizontalFlowPanelLayout createHorizontalFlowPanelLayout() {
 		HorizontalFlowPanelLayoutImpl horizontalFlowPanelLayout = new HorizontalFlowPanelLayoutImpl();
 		return horizontalFlowPanelLayout;
@@ -486,16 +452,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public MenuItem createMenuItem() {
 		MenuItemImpl menuItem = new MenuItemImpl();
 		return menuItem;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GlobalFlowTransition createGlobalFlowTransition() {
-		GlobalFlowTransitionImpl globalFlowTransition = new GlobalFlowTransitionImpl();
-		return globalFlowTransition;
 	}
 
 	/**

@@ -264,24 +264,6 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.GUI_FLOW: {
-				GUIFlow guiFlow = (GUIFlow)theEObject;
-				T result = caseGUIFlow(guiFlow);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GuigenPackage.FLOW_STATE: {
-				FlowState flowState = (FlowState)theEObject;
-				T result = caseFlowState(flowState);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GuigenPackage.FLOW_TRANSITION: {
-				FlowTransition flowTransition = (FlowTransition)theEObject;
-				T result = caseFlowTransition(flowTransition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GuigenPackage.PANEL_LAYOUT: {
 				PanelLayout panelLayout = (PanelLayout)theEObject;
 				T result = casePanelLayout(panelLayout);
@@ -338,12 +320,6 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.MENU_ITEM: {
 				MenuItem menuItem = (MenuItem)theEObject;
 				T result = caseMenuItem(menuItem);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GuigenPackage.GLOBAL_FLOW_TRANSITION: {
-				GlobalFlowTransition globalFlowTransition = (GlobalFlowTransition)theEObject;
-				T result = caseGlobalFlowTransition(globalFlowTransition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -887,51 +863,6 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>GUI Flow</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>GUI Flow</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGUIFlow(GUIFlow object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Flow State</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Flow State</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFlowState(FlowState object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Flow Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Flow Transition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFlowTransition(FlowTransition object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Panel Layout</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1063,21 +994,6 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseMenuItem(MenuItem object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Global Flow Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Global Flow Transition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGlobalFlowTransition(GlobalFlowTransition object) {
 		return null;
 	}
 

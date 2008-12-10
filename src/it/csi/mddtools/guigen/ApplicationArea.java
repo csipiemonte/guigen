@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStatusbar <em>Statusbar</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStaticLinks <em>Static Links</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,5 +151,31 @@ public interface ApplicationArea extends EObject {
 	 * @generated
 	 */
 	void setStaticLinks(StaticLinks value);
+
+	/**
+	 * Returns the value of the '<em><b>On Init Action</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>On Init Action</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>On Init Action</em>' containment reference.
+	 * @see #setOnInitAction(Action)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_OnInitAction()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Action getOnInitAction();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>On Init Action</em>' containment reference.
+	 * @see #getOnInitAction()
+	 * @generated
+	 */
+	void setOnInitAction(Action value);
 
 } // ApplicationArea

@@ -14,6 +14,8 @@
         eType="#//ContentPanel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="staticLinks" eType="#//StaticLinks"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="onInitAction" eType="#//Action"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Menubar">
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelMenu" upperBound="-1"
@@ -98,10 +100,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="appWindow" eType="#//AppWindow"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GUIBehaviors">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="flow" eType="#//GUIFlow"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GUIBehaviors"/>
   <eClassifiers xsi:type="ecore:EClass" name="RadioButtons" eSuperTypes="#//DataWidget">
     <eStructuralFeatures xsi:type="ecore:EReference" name="radio" upperBound="-1"
         eType="#//RadioButton" containment="true"/>
@@ -109,23 +108,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResetButton" eSuperTypes="#//Button"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConfirmButton" eSuperTypes="#//Button"/>
-  <eClassifiers xsi:type="ecore:EClass" name="GUIFlow">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
-        eType="#//FlowState" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="startState" eType="#//FlowState"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="globalTransition" upperBound="-1"
-        eType="#//GlobalFlowTransition" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowState">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contentPanel" eType="#//ContentPanel"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="possibleTransitions" upperBound="-1"
-        eType="#//FlowTransition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowTransition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nextState" eType="#//FlowState"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="commandWidget" eType="#//CommandWidget"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PanelLayout" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="HorizontalFlowPanelLayout" eSuperTypes="#//PanelLayout"/>
   <eClassifiers xsi:type="ecore:EClass" name="VerticalFlowPanelLayout" eSuperTypes="#//PanelLayout"/>
@@ -157,10 +139,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventHandler" eType="#//EventHandler"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GlobalFlowTransition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="jumpTo" eType="#//FlowState"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="menuCommand" eType="#//MenuItem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DisabledComponentSet"/>
   <eClassifiers xsi:type="ecore:EClass" name="ColumnModel">

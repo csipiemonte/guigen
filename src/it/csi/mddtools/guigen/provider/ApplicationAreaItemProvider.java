@@ -86,6 +86,7 @@ public class ApplicationAreaItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__STATUSBAR);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__CONTENT_PANELS);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__STATIC_LINKS);
+			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION);
 		}
 		return childrenFeatures;
 	}
@@ -142,6 +143,7 @@ public class ApplicationAreaItemProvider
 			case GuigenPackage.APPLICATION_AREA__STATUSBAR:
 			case GuigenPackage.APPLICATION_AREA__CONTENT_PANELS:
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -183,6 +185,51 @@ public class ApplicationAreaItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.APPLICATION_AREA__STATIC_LINKS,
 				 GuigenFactory.eINSTANCE.createStaticLinks()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createONOFFAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createCustomAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createVisibilityAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createRefreshViewAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createJumpAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createExecAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createShowDialogAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createSequenceAction()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
+				 GuigenFactory.eINSTANCE.createJumpBackAction()));
 	}
 
 	/**

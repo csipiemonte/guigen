@@ -28,8 +28,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getHeader <em>Header</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getFooter <em>Footer</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getHeader <em>Header</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppWindowImpl#getAppArea <em>App Area</em>}</li>
  * </ul>
  * </p>
@@ -37,16 +37,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * @generated
  */
 public class AppWindowImpl extends EObjectImpl implements AppWindow {
-	/**
-	 * The cached value of the '{@link #getHeader() <em>Header</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHeader()
-	 * @generated
-	 * @ordered
-	 */
-	protected Header header;
-
 	/**
 	 * The cached value of the '{@link #getFooter() <em>Footer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -56,6 +46,16 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	 * @ordered
 	 */
 	protected Footer footer;
+
+	/**
+	 * The cached value of the '{@link #getHeader() <em>Header</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHeader()
+	 * @generated
+	 * @ordered
+	 */
+	protected Header header;
 
 	/**
 	 * The cached value of the '{@link #getAppArea() <em>App Area</em>}' containment reference.
@@ -223,10 +223,10 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.APP_WINDOW__HEADER:
-				return basicSetHeader(null, msgs);
 			case GuigenPackage.APP_WINDOW__FOOTER:
 				return basicSetFooter(null, msgs);
+			case GuigenPackage.APP_WINDOW__HEADER:
+				return basicSetHeader(null, msgs);
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				return basicSetAppArea(null, msgs);
 		}
@@ -241,10 +241,10 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.APP_WINDOW__HEADER:
-				return getHeader();
 			case GuigenPackage.APP_WINDOW__FOOTER:
 				return getFooter();
+			case GuigenPackage.APP_WINDOW__HEADER:
+				return getHeader();
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				return getAppArea();
 		}
@@ -259,11 +259,11 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.APP_WINDOW__HEADER:
-				setHeader((Header)newValue);
-				return;
 			case GuigenPackage.APP_WINDOW__FOOTER:
 				setFooter((Footer)newValue);
+				return;
+			case GuigenPackage.APP_WINDOW__HEADER:
+				setHeader((Header)newValue);
 				return;
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				setAppArea((ApplicationArea)newValue);
@@ -280,11 +280,11 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APP_WINDOW__HEADER:
-				setHeader((Header)null);
-				return;
 			case GuigenPackage.APP_WINDOW__FOOTER:
 				setFooter((Footer)null);
+				return;
+			case GuigenPackage.APP_WINDOW__HEADER:
+				setHeader((Header)null);
 				return;
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				setAppArea((ApplicationArea)null);
@@ -301,10 +301,10 @@ public class AppWindowImpl extends EObjectImpl implements AppWindow {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APP_WINDOW__HEADER:
-				return header != null;
 			case GuigenPackage.APP_WINDOW__FOOTER:
 				return footer != null;
+			case GuigenPackage.APP_WINDOW__HEADER:
+				return header != null;
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				return appArea != null;
 		}

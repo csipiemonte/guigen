@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.AppWindow#getHeader <em>Header</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppWindow#getFooter <em>Footer</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.AppWindow#getHeader <em>Header</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppWindow#getAppArea <em>App Area</em>}</li>
  * </ul>
  * </p>

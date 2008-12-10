@@ -116,13 +116,22 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_AREA__STATIC_LINKS = 4;
 
 	/**
+	 * The feature id for the '<em><b>On Init Action</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_AREA__ON_INIT_ACTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Application Area</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_AREA_FEATURE_COUNT = 5;
+	int APPLICATION_AREA_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
@@ -1252,22 +1261,13 @@ public interface GuigenPackage extends EPackage {
 	int GUI_BEHAVIORS = 20;
 
 	/**
-	 * The feature id for the '<em><b>Flow</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GUI_BEHAVIORS__FLOW = 0;
-
-	/**
 	 * The number of structural features of the '<em>GUI Behaviors</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_BEHAVIORS_FEATURE_COUNT = 1;
+	int GUI_BEHAVIORS_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl <em>Radio Buttons</em>}' class.
@@ -1535,135 +1535,6 @@ public interface GuigenPackage extends EPackage {
 	int CONFIRM_BUTTON_FEATURE_COUNT = BUTTON_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GUIFlowImpl <em>GUI Flow</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.GUIFlowImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGUIFlow()
-	 * @generated
-	 */
-	int GUI_FLOW = 25;
-
-	/**
-	 * The feature id for the '<em><b>States</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GUI_FLOW__STATES = 0;
-
-	/**
-	 * The feature id for the '<em><b>Start State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GUI_FLOW__START_STATE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Global Transition</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GUI_FLOW__GLOBAL_TRANSITION = 2;
-
-	/**
-	 * The number of structural features of the '<em>GUI Flow</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GUI_FLOW_FEATURE_COUNT = 3;
-
-	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FlowStateImpl <em>Flow State</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.FlowStateImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFlowState()
-	 * @generated
-	 */
-	int FLOW_STATE = 26;
-
-	/**
-	 * The feature id for the '<em><b>Content Panel</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_STATE__CONTENT_PANEL = 0;
-
-	/**
-	 * The feature id for the '<em><b>Possible Transitions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_STATE__POSSIBLE_TRANSITIONS = 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_STATE__NAME = 2;
-
-	/**
-	 * The number of structural features of the '<em>Flow State</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_STATE_FEATURE_COUNT = 3;
-
-	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FlowTransitionImpl <em>Flow Transition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.FlowTransitionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFlowTransition()
-	 * @generated
-	 */
-	int FLOW_TRANSITION = 27;
-
-	/**
-	 * The feature id for the '<em><b>Next State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_TRANSITION__NEXT_STATE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Command Widget</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_TRANSITION__COMMAND_WIDGET = 1;
-
-	/**
-	 * The number of structural features of the '<em>Flow Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLOW_TRANSITION_FEATURE_COUNT = 2;
-
-	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelLayoutImpl <em>Panel Layout</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1671,7 +1542,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelLayout()
 	 * @generated
 	 */
-	int PANEL_LAYOUT = 28;
+	int PANEL_LAYOUT = 25;
 
 	/**
 	 * The number of structural features of the '<em>Panel Layout</em>' class.
@@ -1690,7 +1561,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getHorizontalFlowPanelLayout()
 	 * @generated
 	 */
-	int HORIZONTAL_FLOW_PANEL_LAYOUT = 29;
+	int HORIZONTAL_FLOW_PANEL_LAYOUT = 26;
 
 	/**
 	 * The number of structural features of the '<em>Horizontal Flow Panel Layout</em>' class.
@@ -1709,7 +1580,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVerticalFlowPanelLayout()
 	 * @generated
 	 */
-	int VERTICAL_FLOW_PANEL_LAYOUT = 30;
+	int VERTICAL_FLOW_PANEL_LAYOUT = 27;
 
 	/**
 	 * The number of structural features of the '<em>Vertical Flow Panel Layout</em>' class.
@@ -1728,7 +1599,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCPanelLayout()
 	 * @generated
 	 */
-	int UDLRC_PANEL_LAYOUT = 31;
+	int UDLRC_PANEL_LAYOUT = 28;
 
 	/**
 	 * The number of structural features of the '<em>UDLRC Panel Layout</em>' class.
@@ -1747,7 +1618,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetLayoutSpecifier()
 	 * @generated
 	 */
-	int WIDGET_LAYOUT_SPECIFIER = 32;
+	int WIDGET_LAYOUT_SPECIFIER = 29;
 
 	/**
 	 * The number of structural features of the '<em>Widget Layout Specifier</em>' class.
@@ -1766,7 +1637,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCWidgetLayoutSpec()
 	 * @generated
 	 */
-	int UDLRC_WIDGET_LAYOUT_SPEC = 33;
+	int UDLRC_WIDGET_LAYOUT_SPEC = 30;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1794,7 +1665,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getImage()
 	 * @generated
 	 */
-	int IMAGE = 34;
+	int IMAGE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1858,7 +1729,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenu()
 	 * @generated
 	 */
-	int MENU = 35;
+	int MENU = 32;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1913,7 +1784,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenuItem()
 	 * @generated
 	 */
-	int MENU_ITEM = 36;
+	int MENU_ITEM = 33;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1952,43 +1823,6 @@ public interface GuigenPackage extends EPackage {
 	int MENU_ITEM_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GlobalFlowTransitionImpl <em>Global Flow Transition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.GlobalFlowTransitionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGlobalFlowTransition()
-	 * @generated
-	 */
-	int GLOBAL_FLOW_TRANSITION = 37;
-
-	/**
-	 * The feature id for the '<em><b>Jump To</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GLOBAL_FLOW_TRANSITION__JUMP_TO = 0;
-
-	/**
-	 * The feature id for the '<em><b>Menu Command</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GLOBAL_FLOW_TRANSITION__MENU_COMMAND = 1;
-
-	/**
-	 * The number of structural features of the '<em>Global Flow Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GLOBAL_FLOW_TRANSITION_FEATURE_COUNT = 2;
-
-	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.DisabledComponentSetImpl <em>Disabled Component Set</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1996,7 +1830,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDisabledComponentSet()
 	 * @generated
 	 */
-	int DISABLED_COMPONENT_SET = 38;
+	int DISABLED_COMPONENT_SET = 34;
 
 	/**
 	 * The number of structural features of the '<em>Disabled Component Set</em>' class.
@@ -2015,7 +1849,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getColumnModel()
 	 * @generated
 	 */
-	int COLUMN_MODEL = 39;
+	int COLUMN_MODEL = 35;
 
 	/**
 	 * The feature id for the '<em><b>Columns</b></em>' containment reference list.
@@ -2043,7 +1877,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getColumn()
 	 * @generated
 	 */
-	int COLUMN = 40;
+	int COLUMN = 36;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2071,7 +1905,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAction()
 	 * @generated
 	 */
-	int ACTION = 41;
+	int ACTION = 37;
 
 	/**
 	 * The number of structural features of the '<em>Action</em>' class.
@@ -2090,7 +1924,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionEvent()
 	 * @generated
 	 */
-	int ACTION_EVENT = 42;
+	int ACTION_EVENT = 38;
 
 	/**
 	 * The number of structural features of the '<em>Action Event</em>' class.
@@ -2109,7 +1943,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getONOFFAction()
 	 * @generated
 	 */
-	int ONOFF_ACTION = 43;
+	int ONOFF_ACTION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2146,7 +1980,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomAction()
 	 * @generated
 	 */
-	int CUSTOM_ACTION = 44;
+	int CUSTOM_ACTION = 40;
 
 	/**
 	 * The number of structural features of the '<em>Custom Action</em>' class.
@@ -2165,7 +1999,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVisibilityAction()
 	 * @generated
 	 */
-	int VISIBILITY_ACTION = 45;
+	int VISIBILITY_ACTION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2202,7 +2036,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRefreshViewAction()
 	 * @generated
 	 */
-	int REFRESH_VIEW_ACTION = 46;
+	int REFRESH_VIEW_ACTION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2239,7 +2073,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpAction()
 	 * @generated
 	 */
-	int JUMP_ACTION = 47;
+	int JUMP_ACTION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Jump To</b></em>' reference.
@@ -2276,7 +2110,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExecAction()
 	 * @generated
 	 */
-	int EXEC_ACTION = 48;
+	int EXEC_ACTION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Results</b></em>' containment reference list.
@@ -2304,7 +2138,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventHandler()
 	 * @generated
 	 */
-	int EVENT_HANDLER = 49;
+	int EVENT_HANDLER = 45;
 
 	/**
 	 * The feature id for the '<em><b>Action</b></em>' containment reference.
@@ -2341,7 +2175,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetTargetAction()
 	 * @generated
 	 */
-	int WIDGET_TARGET_ACTION = 50;
+	int WIDGET_TARGET_ACTION = 46;
 
 	/**
 	 * The number of structural features of the '<em>Widget Target Action</em>' class.
@@ -2360,7 +2194,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnWidgets()
 	 * @generated
 	 */
-	int ACTION_ON_WIDGETS = 51;
+	int ACTION_ON_WIDGETS = 47;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2388,7 +2222,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDialogPanel()
 	 * @generated
 	 */
-	int DIALOG_PANEL = 52;
+	int DIALOG_PANEL = 48;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2452,7 +2286,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShowDialogAction()
 	 * @generated
 	 */
-	int SHOW_DIALOG_ACTION = 53;
+	int SHOW_DIALOG_ACTION = 49;
 
 	/**
 	 * The feature id for the '<em><b>Dialog</b></em>' reference.
@@ -2480,7 +2314,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionResult()
 	 * @generated
 	 */
-	int ACTION_RESULT = 54;
+	int ACTION_RESULT = 50;
 
 	/**
 	 * The feature id for the '<em><b>Result Code</b></em>' attribute.
@@ -2517,7 +2351,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnPanels()
 	 * @generated
 	 */
-	int ACTION_ON_PANELS = 55;
+	int ACTION_ON_PANELS = 51;
 
 	/**
 	 * The feature id for the '<em><b>Target Panels</b></em>' reference list.
@@ -2545,7 +2379,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getHeader()
 	 * @generated
 	 */
-	int HEADER = 56;
+	int HEADER = 52;
 
 	/**
 	 * The number of structural features of the '<em>Header</em>' class.
@@ -2564,7 +2398,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFooter()
 	 * @generated
 	 */
-	int FOOTER = 57;
+	int FOOTER = 53;
 
 	/**
 	 * The number of structural features of the '<em>Footer</em>' class.
@@ -2583,16 +2417,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppWindow()
 	 * @generated
 	 */
-	int APP_WINDOW = 58;
-
-	/**
-	 * The feature id for the '<em><b>Header</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int APP_WINDOW__HEADER = 0;
+	int APP_WINDOW = 54;
 
 	/**
 	 * The feature id for the '<em><b>Footer</b></em>' containment reference.
@@ -2601,7 +2426,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APP_WINDOW__FOOTER = 1;
+	int APP_WINDOW__FOOTER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Header</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_WINDOW__HEADER = 1;
 
 	/**
 	 * The feature id for the '<em><b>App Area</b></em>' containment reference.
@@ -2629,7 +2463,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStaticLinks()
 	 * @generated
 	 */
-	int STATIC_LINKS = 59;
+	int STATIC_LINKS = 55;
 
 	/**
 	 * The number of structural features of the '<em>Static Links</em>' class.
@@ -2648,7 +2482,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSequenceAction()
 	 * @generated
 	 */
-	int SEQUENCE_ACTION = 60;
+	int SEQUENCE_ACTION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Actions</b></em>' containment reference list.
@@ -2676,7 +2510,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackAction()
 	 * @generated
 	 */
-	int JUMP_BACK_ACTION = 61;
+	int JUMP_BACK_ACTION = 57;
 
 	/**
 	 * The number of structural features of the '<em>Jump Back Action</em>' class.
@@ -2695,7 +2529,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 62;
+	int WIDGET_DATA_TYPE = 58;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -2705,7 +2539,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 63;
+	int UDLRC_SPEC_CONSTANTS = 59;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -2715,7 +2549,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 64;
+	int EVENT_TYPES = 60;
 
 
 	/**
@@ -2782,6 +2616,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getApplicationArea_StaticLinks();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>On Init Action</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationArea#getOnInitAction()
+	 * @see #getApplicationArea()
+	 * @generated
+	 */
+	EReference getApplicationArea_OnInitAction();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Menubar <em>Menubar</em>}'.
@@ -3292,17 +3137,6 @@ public interface GuigenPackage extends EPackage {
 	EClass getGUIBehaviors();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIBehaviors#getFlow <em>Flow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Flow</em>'.
-	 * @see it.csi.mddtools.guigen.GUIBehaviors#getFlow()
-	 * @see #getGUIBehaviors()
-	 * @generated
-	 */
-	EReference getGUIBehaviors_Flow();
-
-	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RadioButtons <em>Radio Buttons</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3352,124 +3186,6 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getConfirmButton();
-
-	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIFlow <em>GUI Flow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>GUI Flow</em>'.
-	 * @see it.csi.mddtools.guigen.GUIFlow
-	 * @generated
-	 */
-	EClass getGUIFlow();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.GUIFlow#getStates <em>States</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>States</em>'.
-	 * @see it.csi.mddtools.guigen.GUIFlow#getStates()
-	 * @see #getGUIFlow()
-	 * @generated
-	 */
-	EReference getGUIFlow_States();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.GUIFlow#getStartState <em>Start State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Start State</em>'.
-	 * @see it.csi.mddtools.guigen.GUIFlow#getStartState()
-	 * @see #getGUIFlow()
-	 * @generated
-	 */
-	EReference getGUIFlow_StartState();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.GUIFlow#getGlobalTransition <em>Global Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Global Transition</em>'.
-	 * @see it.csi.mddtools.guigen.GUIFlow#getGlobalTransition()
-	 * @see #getGUIFlow()
-	 * @generated
-	 */
-	EReference getGUIFlow_GlobalTransition();
-
-	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FlowState <em>Flow State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Flow State</em>'.
-	 * @see it.csi.mddtools.guigen.FlowState
-	 * @generated
-	 */
-	EClass getFlowState();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.FlowState#getContentPanel <em>Content Panel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Content Panel</em>'.
-	 * @see it.csi.mddtools.guigen.FlowState#getContentPanel()
-	 * @see #getFlowState()
-	 * @generated
-	 */
-	EReference getFlowState_ContentPanel();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.FlowState#getPossibleTransitions <em>Possible Transitions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Possible Transitions</em>'.
-	 * @see it.csi.mddtools.guigen.FlowState#getPossibleTransitions()
-	 * @see #getFlowState()
-	 * @generated
-	 */
-	EReference getFlowState_PossibleTransitions();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.FlowState#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.csi.mddtools.guigen.FlowState#getName()
-	 * @see #getFlowState()
-	 * @generated
-	 */
-	EAttribute getFlowState_Name();
-
-	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FlowTransition <em>Flow Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Flow Transition</em>'.
-	 * @see it.csi.mddtools.guigen.FlowTransition
-	 * @generated
-	 */
-	EClass getFlowTransition();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.FlowTransition#getNextState <em>Next State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Next State</em>'.
-	 * @see it.csi.mddtools.guigen.FlowTransition#getNextState()
-	 * @see #getFlowTransition()
-	 * @generated
-	 */
-	EReference getFlowTransition_NextState();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.FlowTransition#getCommandWidget <em>Command Widget</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Command Widget</em>'.
-	 * @see it.csi.mddtools.guigen.FlowTransition#getCommandWidget()
-	 * @see #getFlowTransition()
-	 * @generated
-	 */
-	EReference getFlowTransition_CommandWidget();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PanelLayout <em>Panel Layout</em>}'.
@@ -3659,38 +3375,6 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMenuItem_EventHandler();
-
-	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GlobalFlowTransition <em>Global Flow Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Global Flow Transition</em>'.
-	 * @see it.csi.mddtools.guigen.GlobalFlowTransition
-	 * @generated
-	 */
-	EClass getGlobalFlowTransition();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.GlobalFlowTransition#getJumpTo <em>Jump To</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Jump To</em>'.
-	 * @see it.csi.mddtools.guigen.GlobalFlowTransition#getJumpTo()
-	 * @see #getGlobalFlowTransition()
-	 * @generated
-	 */
-	EReference getGlobalFlowTransition_JumpTo();
-
-	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.GlobalFlowTransition#getMenuCommand <em>Menu Command</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Menu Command</em>'.
-	 * @see it.csi.mddtools.guigen.GlobalFlowTransition#getMenuCommand()
-	 * @see #getGlobalFlowTransition()
-	 * @generated
-	 */
-	EReference getGlobalFlowTransition_MenuCommand();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.DisabledComponentSet <em>Disabled Component Set</em>}'.
@@ -4244,6 +3928,14 @@ public interface GuigenPackage extends EPackage {
 		EReference APPLICATION_AREA__STATIC_LINKS = eINSTANCE.getApplicationArea_StaticLinks();
 
 		/**
+		 * The meta object literal for the '<em><b>On Init Action</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_AREA__ON_INIT_ACTION = eINSTANCE.getApplicationArea_OnInitAction();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4668,14 +4360,6 @@ public interface GuigenPackage extends EPackage {
 		EClass GUI_BEHAVIORS = eINSTANCE.getGUIBehaviors();
 
 		/**
-		 * The meta object literal for the '<em><b>Flow</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GUI_BEHAVIORS__FLOW = eINSTANCE.getGUIBehaviors_Flow();
-
-		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RadioButtonsImpl <em>Radio Buttons</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4722,100 +4406,6 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONFIRM_BUTTON = eINSTANCE.getConfirmButton();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIFlowImpl <em>GUI Flow</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.GUIFlowImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGUIFlow()
-		 * @generated
-		 */
-		EClass GUI_FLOW = eINSTANCE.getGUIFlow();
-
-		/**
-		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GUI_FLOW__STATES = eINSTANCE.getGUIFlow_States();
-
-		/**
-		 * The meta object literal for the '<em><b>Start State</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GUI_FLOW__START_STATE = eINSTANCE.getGUIFlow_StartState();
-
-		/**
-		 * The meta object literal for the '<em><b>Global Transition</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GUI_FLOW__GLOBAL_TRANSITION = eINSTANCE.getGUIFlow_GlobalTransition();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FlowStateImpl <em>Flow State</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.FlowStateImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFlowState()
-		 * @generated
-		 */
-		EClass FLOW_STATE = eINSTANCE.getFlowState();
-
-		/**
-		 * The meta object literal for the '<em><b>Content Panel</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FLOW_STATE__CONTENT_PANEL = eINSTANCE.getFlowState_ContentPanel();
-
-		/**
-		 * The meta object literal for the '<em><b>Possible Transitions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FLOW_STATE__POSSIBLE_TRANSITIONS = eINSTANCE.getFlowState_PossibleTransitions();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FLOW_STATE__NAME = eINSTANCE.getFlowState_Name();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FlowTransitionImpl <em>Flow Transition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.FlowTransitionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFlowTransition()
-		 * @generated
-		 */
-		EClass FLOW_TRANSITION = eINSTANCE.getFlowTransition();
-
-		/**
-		 * The meta object literal for the '<em><b>Next State</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FLOW_TRANSITION__NEXT_STATE = eINSTANCE.getFlowTransition_NextState();
-
-		/**
-		 * The meta object literal for the '<em><b>Command Widget</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FLOW_TRANSITION__COMMAND_WIDGET = eINSTANCE.getFlowTransition_CommandWidget();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelLayoutImpl <em>Panel Layout</em>}' class.
@@ -4978,32 +4568,6 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MENU_ITEM__EVENT_HANDLER = eINSTANCE.getMenuItem_EventHandler();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GlobalFlowTransitionImpl <em>Global Flow Transition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.GlobalFlowTransitionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGlobalFlowTransition()
-		 * @generated
-		 */
-		EClass GLOBAL_FLOW_TRANSITION = eINSTANCE.getGlobalFlowTransition();
-
-		/**
-		 * The meta object literal for the '<em><b>Jump To</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GLOBAL_FLOW_TRANSITION__JUMP_TO = eINSTANCE.getGlobalFlowTransition_JumpTo();
-
-		/**
-		 * The meta object literal for the '<em><b>Menu Command</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GLOBAL_FLOW_TRANSITION__MENU_COMMAND = eINSTANCE.getGlobalFlowTransition_MenuCommand();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.DisabledComponentSetImpl <em>Disabled Component Set</em>}' class.

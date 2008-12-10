@@ -53,6 +53,10 @@ public class MainFrame extends JFrame {
 				MainFrame.this.dispose();
 			}
 		}; // end anonymous class
+		«IF this.structure.appWindow.appArea.onInitAction!=null»
+		«EXPAND addActionCode("onAppInitAction", 0) FOR this.structure.appWindow.appArea.onInitAction»
+		act_onAppInitAction_0.doAction(); 
+		«ENDIF»
 		this.addWindowListener( windowListener );
 	}
 
@@ -692,7 +696,7 @@ _allWidgetsByName.put("«this.name»",widg_«this.name»);
 «IF panelLayout.metaType==UDLRCPanelLayout»
 if (widg_«this.name» != null){ // temp fix
     JPanel lblAndWidg_«this.name» = new JPanel();
-    lblAndWidg_«this.name».setLayout(new FlowLayout());
+    lblAndWidg_«this.name».setLayout(new BoxLayout(lblAndWidg_«this.name»,BoxLayout.LINE_AXIS));
     if (lbl_«this.name»!=null)
 		lblAndWidg_«this.name».add(lbl_«this.name»);
 	if (widg_«this.name» != null) // temp fix

@@ -66,8 +66,8 @@ public class AppWindowItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addHeaderPropertyDescriptor(object);
 			addFooterPropertyDescriptor(object);
+			addHeaderPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -128,6 +128,8 @@ public class AppWindowItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.APP_WINDOW__FOOTER);
+			childrenFeatures.add(GuigenPackage.Literals.APP_WINDOW__HEADER);
 			childrenFeatures.add(GuigenPackage.Literals.APP_WINDOW__APP_AREA);
 		}
 		return childrenFeatures;
@@ -180,6 +182,8 @@ public class AppWindowItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(AppWindow.class)) {
+			case GuigenPackage.APP_WINDOW__FOOTER:
+			case GuigenPackage.APP_WINDOW__HEADER:
 			case GuigenPackage.APP_WINDOW__APP_AREA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -197,6 +201,16 @@ public class AppWindowItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APP_WINDOW__FOOTER,
+				 GuigenFactory.eINSTANCE.createFooter()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APP_WINDOW__HEADER,
+				 GuigenFactory.eINSTANCE.createHeader()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -172,18 +172,6 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createConfirmButtonAdapter();
 			}
 			@Override
-			public Adapter caseGUIFlow(GUIFlow object) {
-				return createGUIFlowAdapter();
-			}
-			@Override
-			public Adapter caseFlowState(FlowState object) {
-				return createFlowStateAdapter();
-			}
-			@Override
-			public Adapter caseFlowTransition(FlowTransition object) {
-				return createFlowTransitionAdapter();
-			}
-			@Override
 			public Adapter casePanelLayout(PanelLayout object) {
 				return createPanelLayoutAdapter();
 			}
@@ -218,10 +206,6 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseMenuItem(MenuItem object) {
 				return createMenuItemAdapter();
-			}
-			@Override
-			public Adapter caseGlobalFlowTransition(GlobalFlowTransition object) {
-				return createGlobalFlowTransitionAdapter();
 			}
 			@Override
 			public Adapter caseDisabledComponentSet(DisabledComponentSet object) {
@@ -690,48 +674,6 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.GUIFlow <em>GUI Flow</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.GUIFlow
-	 * @generated
-	 */
-	public Adapter createGUIFlowAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.FlowState <em>Flow State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.FlowState
-	 * @generated
-	 */
-	public Adapter createFlowStateAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.FlowTransition <em>Flow Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.FlowTransition
-	 * @generated
-	 */
-	public Adapter createFlowTransitionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PanelLayout <em>Panel Layout</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -854,20 +796,6 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMenuItemAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.GlobalFlowTransition <em>Global Flow Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.GlobalFlowTransition
-	 * @generated
-	 */
-	public Adapter createGlobalFlowTransitionAdapter() {
 		return null;
 	}
 

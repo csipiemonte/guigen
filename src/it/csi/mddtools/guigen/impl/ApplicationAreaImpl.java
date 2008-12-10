@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getStatusbar <em>Statusbar</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getStaticLinks <em>Static Links</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getOnInitAction <em>On Init Action</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,6 +99,16 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * @ordered
 	 */
 	protected StaticLinks staticLinks;
+
+	/**
+	 * The cached value of the '{@link #getOnInitAction() <em>On Init Action</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOnInitAction()
+	 * @generated
+	 * @ordered
+	 */
+	protected Action onInitAction;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -306,6 +318,49 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Action getOnInitAction() {
+		return onInitAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOnInitAction(Action newOnInitAction, NotificationChain msgs) {
+		Action oldOnInitAction = onInitAction;
+		onInitAction = newOnInitAction;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION, oldOnInitAction, newOnInitAction);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOnInitAction(Action newOnInitAction) {
+		if (newOnInitAction != onInitAction) {
+			NotificationChain msgs = null;
+			if (onInitAction != null)
+				msgs = ((InternalEObject)onInitAction).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION, null, msgs);
+			if (newOnInitAction != null)
+				msgs = ((InternalEObject)newOnInitAction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION, null, msgs);
+			msgs = basicSetOnInitAction(newOnInitAction, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION, newOnInitAction, newOnInitAction));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -319,6 +374,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return ((InternalEList<?>)getContentPanels()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 				return basicSetStaticLinks(null, msgs);
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+				return basicSetOnInitAction(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -341,6 +398,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return getContentPanels();
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 				return getStaticLinks();
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+				return getOnInitAction();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -370,6 +429,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 				setStaticLinks((StaticLinks)newValue);
 				return;
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+				setOnInitAction((Action)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -397,6 +459,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 				setStaticLinks((StaticLinks)null);
 				return;
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+				setOnInitAction((Action)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -419,6 +484,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return contentPanels != null && !contentPanels.isEmpty();
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 				return staticLinks != null;
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+				return onInitAction != null;
 		}
 		return super.eIsSet(featureID);
 	}

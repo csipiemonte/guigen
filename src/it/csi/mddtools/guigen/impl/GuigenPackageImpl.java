@@ -29,15 +29,11 @@ import it.csi.mddtools.guigen.DisabledComponentSet;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecAction;
-import it.csi.mddtools.guigen.FlowState;
-import it.csi.mddtools.guigen.FlowTransition;
 import it.csi.mddtools.guigen.Footer;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIBehaviors;
-import it.csi.mddtools.guigen.GUIFlow;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GUIStructure;
-import it.csi.mddtools.guigen.GlobalFlowTransition;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Header;
@@ -269,27 +265,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass guiFlowEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass flowStateEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass flowTransitionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass panelLayoutEClass = null;
 
 	/**
@@ -347,13 +322,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass menuItemEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass globalFlowTransitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -664,6 +632,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getApplicationArea_StaticLinks() {
 		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplicationArea_OnInitAction() {
+		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1103,15 +1080,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGUIBehaviors_Flow() {
-		return (EReference)guiBehaviorsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getRadioButtons() {
 		return radioButtonsEClass;
 	}
@@ -1150,105 +1118,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EClass getConfirmButton() {
 		return confirmButtonEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGUIFlow() {
-		return guiFlowEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGUIFlow_States() {
-		return (EReference)guiFlowEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGUIFlow_StartState() {
-		return (EReference)guiFlowEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGUIFlow_GlobalTransition() {
-		return (EReference)guiFlowEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFlowState() {
-		return flowStateEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowState_ContentPanel() {
-		return (EReference)flowStateEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowState_PossibleTransitions() {
-		return (EReference)flowStateEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getFlowState_Name() {
-		return (EAttribute)flowStateEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFlowTransition() {
-		return flowTransitionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowTransition_NextState() {
-		return (EReference)flowTransitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFlowTransition_CommandWidget() {
-		return (EReference)flowTransitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1411,33 +1280,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getMenuItem_EventHandler() {
 		return (EReference)menuItemEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGlobalFlowTransition() {
-		return globalFlowTransitionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGlobalFlowTransition_JumpTo() {
-		return (EReference)globalFlowTransitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGlobalFlowTransition_MenuCommand() {
-		return (EReference)globalFlowTransitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1888,6 +1730,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(applicationAreaEClass, APPLICATION_AREA__STATUSBAR);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__CONTENT_PANELS);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__STATIC_LINKS);
+		createEReference(applicationAreaEClass, APPLICATION_AREA__ON_INIT_ACTION);
 
 		menubarEClass = createEClass(MENUBAR);
 		createEReference(menubarEClass, MENUBAR__TOP_LEVEL_MENU);
@@ -1956,7 +1799,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
 
 		guiBehaviorsEClass = createEClass(GUI_BEHAVIORS);
-		createEReference(guiBehaviorsEClass, GUI_BEHAVIORS__FLOW);
 
 		radioButtonsEClass = createEClass(RADIO_BUTTONS);
 		createEReference(radioButtonsEClass, RADIO_BUTTONS__RADIO);
@@ -1966,20 +1808,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		resetButtonEClass = createEClass(RESET_BUTTON);
 
 		confirmButtonEClass = createEClass(CONFIRM_BUTTON);
-
-		guiFlowEClass = createEClass(GUI_FLOW);
-		createEReference(guiFlowEClass, GUI_FLOW__STATES);
-		createEReference(guiFlowEClass, GUI_FLOW__START_STATE);
-		createEReference(guiFlowEClass, GUI_FLOW__GLOBAL_TRANSITION);
-
-		flowStateEClass = createEClass(FLOW_STATE);
-		createEReference(flowStateEClass, FLOW_STATE__CONTENT_PANEL);
-		createEReference(flowStateEClass, FLOW_STATE__POSSIBLE_TRANSITIONS);
-		createEAttribute(flowStateEClass, FLOW_STATE__NAME);
-
-		flowTransitionEClass = createEClass(FLOW_TRANSITION);
-		createEReference(flowTransitionEClass, FLOW_TRANSITION__NEXT_STATE);
-		createEReference(flowTransitionEClass, FLOW_TRANSITION__COMMAND_WIDGET);
 
 		panelLayoutEClass = createEClass(PANEL_LAYOUT);
 
@@ -2007,10 +1835,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(menuItemEClass, MENU_ITEM__NAME);
 		createEAttribute(menuItemEClass, MENU_ITEM__LABEL);
 		createEReference(menuItemEClass, MENU_ITEM__EVENT_HANDLER);
-
-		globalFlowTransitionEClass = createEClass(GLOBAL_FLOW_TRANSITION);
-		createEReference(globalFlowTransitionEClass, GLOBAL_FLOW_TRANSITION__JUMP_TO);
-		createEReference(globalFlowTransitionEClass, GLOBAL_FLOW_TRANSITION__MENU_COMMAND);
 
 		disabledComponentSetEClass = createEClass(DISABLED_COMPONENT_SET);
 
@@ -2068,8 +1892,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		footerEClass = createEClass(FOOTER);
 
 		appWindowEClass = createEClass(APP_WINDOW);
-		createEReference(appWindowEClass, APP_WINDOW__HEADER);
 		createEReference(appWindowEClass, APP_WINDOW__FOOTER);
+		createEReference(appWindowEClass, APP_WINDOW__HEADER);
 		createEReference(appWindowEClass, APP_WINDOW__APP_AREA);
 
 		staticLinksEClass = createEClass(STATIC_LINKS);
@@ -2157,6 +1981,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getApplicationArea_Statusbar(), this.getStatusbar(), null, "statusbar", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_StaticLinks(), this.getStaticLinks(), null, "staticLinks", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationArea_OnInitAction(), this.getAction(), null, "onInitAction", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menubarEClass, Menubar.class, "Menubar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenubar_TopLevelMenu(), this.getMenu(), null, "topLevelMenu", null, 0, -1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2225,7 +2050,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiBehaviorsEClass, GUIBehaviors.class, "GUIBehaviors", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGUIBehaviors_Flow(), this.getGUIFlow(), null, "flow", null, 0, 1, GUIBehaviors.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(radioButtonsEClass, RadioButtons.class, "RadioButtons", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRadioButtons_Radio(), this.getRadioButton(), null, "radio", null, 0, -1, RadioButtons.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2235,20 +2059,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(resetButtonEClass, ResetButton.class, "ResetButton", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(confirmButtonEClass, ConfirmButton.class, "ConfirmButton", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(guiFlowEClass, GUIFlow.class, "GUIFlow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGUIFlow_States(), this.getFlowState(), null, "states", null, 0, -1, GUIFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGUIFlow_StartState(), this.getFlowState(), null, "startState", null, 0, 1, GUIFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGUIFlow_GlobalTransition(), this.getGlobalFlowTransition(), null, "globalTransition", null, 0, -1, GUIFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(flowStateEClass, FlowState.class, "FlowState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFlowState_ContentPanel(), this.getContentPanel(), null, "contentPanel", null, 0, 1, FlowState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFlowState_PossibleTransitions(), this.getFlowTransition(), null, "possibleTransitions", null, 0, -1, FlowState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFlowState_Name(), ecorePackage.getEString(), "name", null, 0, 1, FlowState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(flowTransitionEClass, FlowTransition.class, "FlowTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFlowTransition_NextState(), this.getFlowState(), null, "nextState", null, 0, 1, FlowTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFlowTransition_CommandWidget(), this.getCommandWidget(), null, "commandWidget", null, 0, 1, FlowTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(panelLayoutEClass, PanelLayout.class, "PanelLayout", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2276,10 +2086,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getMenuItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMenuItem_Label(), ecorePackage.getEString(), "label", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMenuItem_EventHandler(), this.getEventHandler(), null, "eventHandler", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(globalFlowTransitionEClass, GlobalFlowTransition.class, "GlobalFlowTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGlobalFlowTransition_JumpTo(), this.getFlowState(), null, "jumpTo", null, 0, 1, GlobalFlowTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGlobalFlowTransition_MenuCommand(), this.getMenuItem(), null, "menuCommand", null, 0, 1, GlobalFlowTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(disabledComponentSetEClass, DisabledComponentSet.class, "DisabledComponentSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2337,8 +2143,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(footerEClass, Footer.class, "Footer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(appWindowEClass, AppWindow.class, "AppWindow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAppWindow_Header(), this.getHeader(), null, "header", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppWindow_Footer(), this.getFooter(), null, "footer", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAppWindow_Header(), this.getHeader(), null, "header", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppWindow_AppArea(), this.getApplicationArea(), null, "appArea", null, 0, 1, AppWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(staticLinksEClass, StaticLinks.class, "StaticLinks", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

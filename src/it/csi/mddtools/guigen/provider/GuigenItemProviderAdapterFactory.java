@@ -605,75 +605,6 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.GUIFlow} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GUIFlowItemProvider guiFlowItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.GUIFlow}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createGUIFlowAdapter() {
-		if (guiFlowItemProvider == null) {
-			guiFlowItemProvider = new GUIFlowItemProvider(this);
-		}
-
-		return guiFlowItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.FlowState} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FlowStateItemProvider flowStateItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.FlowState}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFlowStateAdapter() {
-		if (flowStateItemProvider == null) {
-			flowStateItemProvider = new FlowStateItemProvider(this);
-		}
-
-		return flowStateItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.FlowTransition} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FlowTransitionItemProvider flowTransitionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.FlowTransition}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFlowTransitionAdapter() {
-		if (flowTransitionItemProvider == null) {
-			flowTransitionItemProvider = new FlowTransitionItemProvider(this);
-		}
-
-		return flowTransitionItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.HorizontalFlowPanelLayout} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -832,29 +763,6 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		}
 
 		return menuItemItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.GlobalFlowTransition} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GlobalFlowTransitionItemProvider globalFlowTransitionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.GlobalFlowTransition}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createGlobalFlowTransitionAdapter() {
-		if (globalFlowTransitionItemProvider == null) {
-			globalFlowTransitionItemProvider = new GlobalFlowTransitionItemProvider(this);
-		}
-
-		return globalFlowTransitionItemProvider;
 	}
 
 	/**
@@ -1439,9 +1347,6 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (radioButtonItemProvider != null) radioButtonItemProvider.dispose();
 		if (resetButtonItemProvider != null) resetButtonItemProvider.dispose();
 		if (confirmButtonItemProvider != null) confirmButtonItemProvider.dispose();
-		if (guiFlowItemProvider != null) guiFlowItemProvider.dispose();
-		if (flowStateItemProvider != null) flowStateItemProvider.dispose();
-		if (flowTransitionItemProvider != null) flowTransitionItemProvider.dispose();
 		if (horizontalFlowPanelLayoutItemProvider != null) horizontalFlowPanelLayoutItemProvider.dispose();
 		if (verticalFlowPanelLayoutItemProvider != null) verticalFlowPanelLayoutItemProvider.dispose();
 		if (udlrcPanelLayoutItemProvider != null) udlrcPanelLayoutItemProvider.dispose();
@@ -1449,7 +1354,6 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (imageItemProvider != null) imageItemProvider.dispose();
 		if (menuItemProvider != null) menuItemProvider.dispose();
 		if (menuItemItemProvider != null) menuItemItemProvider.dispose();
-		if (globalFlowTransitionItemProvider != null) globalFlowTransitionItemProvider.dispose();
 		if (disabledComponentSetItemProvider != null) disabledComponentSetItemProvider.dispose();
 		if (columnModelItemProvider != null) columnModelItemProvider.dispose();
 		if (columnItemProvider != null) columnItemProvider.dispose();

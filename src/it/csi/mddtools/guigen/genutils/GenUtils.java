@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
+import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DialogPanel;
@@ -22,6 +23,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
+import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Widget;
@@ -29,19 +31,24 @@ import it.csi.mddtools.guigen.Widget;
 public class GenUtils {
 public static ContentPanel findParentContentPanel (Action a){
 	EObject containerOfAction = a.eContainer();
-	String name= containerOfAction.eClass().getName();
-	if (name.equals("EventHandler")){
+	//String name= containerOfAction.eClass().getName();
+	if (containerOfAction instanceof EventHandler){
 		EObject widget=containerOfAction.eContainer();
 		EObject panel = widget.eContainer();
+		if(panel instanceof RadioButtons)
+			panel = panel.eContainer();
 		return findParentContentPanel((Panel)panel);
 	}
 	else if (containerOfAction instanceof ActionResult){
 		ExecAction execAct= (ExecAction)containerOfAction.eContainer();
 		return findParentContentPanel(execAct);
 	}
-	else{
+	else if (containerOfAction instanceof SequenceAction){
 		// sequence action
 		return findParentContentPanel(((SequenceAction)containerOfAction));
+	}
+	else{
+		return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"
 	}
 	
 }
@@ -70,12 +77,28 @@ public static ContentPanel findParentContentPanel(Panel p){
 
 /**
  * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del
- * content panel in oggetto
+ * content panel in oggetto. Se il content panel è nullo restituisco la lista completa
+ * dei widget dell'applicazione
  * @param cp
  * @return
  */
 public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp){
-	return findAllWidgetsInPanel(cp.getPanels());
+	if (cp != null)
+		return findAllWidgetsInPanel(cp.getPanels());
+	else
+		return findAllWidgetsInApplication();
+}
+
+private static ArrayList<Widget> findAllWidgetsInApplication() {
+	TreeIterator<EObject> all= GuigenPackage.eINSTANCE.eAllContents();
+	ArrayList<Widget> allW = new ArrayList<Widget>();
+	while(all.hasNext()){
+		EObject curr = all.next();
+		if (curr instanceof Widget)
+			allW.add((Widget)curr);
+	}
+	return allW;
+		
 }
 
 /**

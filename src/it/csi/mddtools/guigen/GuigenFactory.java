@@ -233,33 +233,6 @@ public interface GuigenFactory extends EFactory {
 	ConfirmButton createConfirmButton();
 
 	/**
-	 * Returns a new object of class '<em>GUI Flow</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>GUI Flow</em>'.
-	 * @generated
-	 */
-	GUIFlow createGUIFlow();
-
-	/**
-	 * Returns a new object of class '<em>Flow State</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Flow State</em>'.
-	 * @generated
-	 */
-	FlowState createFlowState();
-
-	/**
-	 * Returns a new object of class '<em>Flow Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Flow Transition</em>'.
-	 * @generated
-	 */
-	FlowTransition createFlowTransition();
-
-	/**
 	 * Returns a new object of class '<em>Horizontal Flow Panel Layout</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -321,15 +294,6 @@ public interface GuigenFactory extends EFactory {
 	 * @generated
 	 */
 	MenuItem createMenuItem();
-
-	/**
-	 * Returns a new object of class '<em>Global Flow Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Global Flow Transition</em>'.
-	 * @generated
-	 */
-	GlobalFlowTransition createGlobalFlowTransition();
 
 	/**
 	 * Returns a new object of class '<em>Disabled Component Set</em>'.
