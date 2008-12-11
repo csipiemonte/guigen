@@ -1,0 +1,76 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::wicket::WicketExtensions»
+
+«DEFINE javaFiles FOR GUIModel»
+	«EXPAND wicketApplicationJavaFile FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera l'Application di Wicket«ENDREM»
+«DEFINE wicketApplicationJavaFile FOR GUIModel»
+«FILE getWicketApplicationClassFile()»package «getPresentationClassesPackage()»;
+
+import org.apache.wicket.protocol.http.WebApplication;
+
+/**
+ * Application object for your web application. If you want to run this application without deploying, run the Start class.
+ * 
+ * @see wicket.myproject.Start#main(String[])
+ */
+public class «getWicketApplicationClassName()» extends WebApplication
+{    
+    /**
+     * Constructor
+     */
+	public «getWicketApplicationClassName()»()
+	{
+	}
+	
+	/**
+	 * @see wicket.Application#getHomePage()
+	 */
+	public Class getHomePage()
+	{
+		«REM»TODO: parametrizzare la pagina principale (o iniziale)«ENDREM»
+		return StartPage.class;
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente Java di una pagina Wicket«ENDREM»
+«DEFINE pageClassFile(GUIModel model) FOR ContentPanel»
+«FILE getWicketPageClassFile(this, model)»package «getPresentationClassesPackage(model)»;
+
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.WebPage;
+
+/**
+ * Homepage
+ */
+public class «getWicketPageClassName(this)» extends WebPage {
+
+	private static final long serialVersionUID = 1L;
+
+	// TODO Add any page properties or variables here
+
+    /**
+	 * Constructor that is invoked when page is invoked without a session.
+	 * 
+	 * @param parameters Page parameters
+	 */
+    public «getWicketPageClassName(this)»(final PageParameters parameters) {
+
+        // Add the simplest type of label
+        add(new Label("message", "If you see this message wicket is properly configured and running"));
+
+        // TODO Add your page's components here
+    }
+}
+
+«ENDFILE»
+«ENDDEFINE»

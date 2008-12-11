@@ -6,5 +6,24 @@
 «IMPORT template::wicket::resourcefiles»
 
 «DEFINE main FOR GUIModel»
+	«EXPAND template::wicket::buildfiles::buildFiles FOR this»
+	«EXPAND template::wicket::configfiles::configFiles FOR this»
+	«EXPAND template::wicket::javafiles::javaFiles FOR this»
+	«EXPAND template::wicket::resourcefiles::resourceFiles FOR this»
+	«EXPAND contentPanelsFiles FOR this»
+«ENDDEFINE»
 
+
+«REM»Genera le pagine Wicket corrispondenti ai ContentPanels dell'applicazione«ENDREM»
+«DEFINE contentPanelsFiles FOR GUIModel»
+	«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
+		«EXPAND contentPanelFiles(this) FOREACH contentPanels»
+	«ENDLET»
+«ENDDEFINE»
+
+
+«REM»Genera le componenti di una pagina Wicket (classe Java e file di markup HTML))«ENDREM»
+«DEFINE contentPanelFiles(GUIModel model) FOR ContentPanel»
+	«EXPAND template::wicket::javafiles::pageClassFile(model) FOR this»
+	«EXPAND template::wicket::resourcefiles::pageMarkupFile(model) FOR this»
 «ENDDEFINE»

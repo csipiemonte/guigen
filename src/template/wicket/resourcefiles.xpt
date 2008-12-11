@@ -1,0 +1,44 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::wicket::WicketExtensions»
+
+
+«DEFINE resourceFiles FOR GUIModel»
+	«EXPAND pageMarkupFile FOR this»
+«ENDDEFINE»
+
+
+
+«REM»Genera un file di index vuoto. TODO: vedere se necessario o da rimuovere«ENDREM»
+«DEFINE pageMarkupFile FOR GUIModel»
+«FILE getWebSrcDir(this) + "/index.jsp"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Welcome</title>
+</head>
+
+<body>
+</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una pagina Wicket«ENDREM»
+«DEFINE pageMarkupFile(GUIModel model) FOR ContentPanel»
+«FILE getWicketPageMarkupFile(this, model)»<html>
+    <head>
+        <title>Wicket Quickstart Archetype Homepage</title>
+    </head>
+    <body>
+        <strong>Wicket Quickstart Archetype Homepage</strong>
+        <br/><br/>
+        <span wicket:id="message">message will be here</span>
+    </body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+

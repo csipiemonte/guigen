@@ -1,0 +1,130 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::wicket::WicketExtensions»
+
+«DEFINE configFiles FOR GUIModel»
+	«EXPAND applicationXmlFile FOR this»
+	«EXPAND earManifestFile FOR this»
+	«EXPAND ejbManifestFile FOR this»
+	«EXPAND jarManifestFile FOR this»
+	«EXPAND webManifestFile FOR this»
+	«EXPAND webXmlFile FOR this»
+«ENDDEFINE»
+
+
+«REM»genera un file MANIFEST il cui nome è passato come parametro «ENDREM»
+«DEFINE manifestFile(String fileName) FOR GUIModel»
+«FILE fileName»Manifest-Version: 1.0
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»genera il file di configurazione dell'applicazione«ENDREM»
+«DEFINE applicationXmlFile FOR GUIModel»
+«FILE getEarConfigFile(this)»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+	<display-name>«codComponente»-ear</display-name>
+
+	<module>
+		<web>
+			<web-uri>«codComponente».war</web-uri>
+			<context-root>/«codComponente»</context-root>
+		</web>
+	</module>
+</application>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»genera il file MANIFEST del modulo EAR«ENDREM»
+«DEFINE earManifestFile FOR GUIModel»
+	«EXPAND manifestFile(getEarManifestFile(this)) FOR this»
+«ENDDEFINE»
+
+
+«REM»genera il file MANIFEST del modulo EJB«ENDREM»
+«DEFINE ejbManifestFile FOR GUIModel»
+	«EXPAND manifestFile(getEjbManifestFile(this)) FOR this»
+«ENDDEFINE»
+
+
+«REM»genera il file MANIFEST del modulo JAR«ENDREM»
+«DEFINE jarManifestFile FOR GUIModel»
+	«EXPAND manifestFile(getJarManifestFile(this)) FOR this»
+«ENDDEFINE»
+
+
+«REM»genera il file MANIFEST del modulo WEB«ENDREM»
+«DEFINE webManifestFile FOR GUIModel»
+	«EXPAND manifestFile(getWebModuleManifestFile(this)) FOR this»
+«ENDDEFINE»
+
+
+«REM»genera il deployment descriptor (web.xml) del modulo WEB«ENDREM»
+«DEFINE webXmlFile FOR GUIModel»
+«FILE getWebDeploymentDescriptorFile(this)»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- [DM] temporaneamente commentata la parte di Spring
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	-->
+
+	<filter>
+		<filter-name>WicketFilter</filter-name>
+ 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+		<init-param>
+			<param-name>applicationClassName</param-name>
+			<param-value>«getWicketApplicationFQN(this)»</param-value>
+ 		</init-param>
+ 	</filter>
+
+	<filter-mapping>
+		<filter-name>WicketFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error.jsp</location>
+    </error-page>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+    <welcome-file-list>
+      <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+
+
+
+
+
+

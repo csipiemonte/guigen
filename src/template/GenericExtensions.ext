@@ -6,7 +6,160 @@ import ecore;
 /// Estensioni java indipendenti dalla piattaforma target //
 ////////////////////////////////////////////////////////////
 
+/// standard generici J2EE Csi piemonte
+String getProjectRootDir(GUIModel model) :
+	model.codComponente;
 
+
+/// buildfiles
+String getBuildXmlFileName(GUIModel model) :
+	getProjectRootDir(model) + "/build.xml";
+
+String getBuildfilesDir(GUIModel model) :
+	getProjectRootDir(model) + "/buildfiles";
+
+String getBuildPropertiesFileName(GUIModel model) :
+	getBuildfilesDir(model) + "/build.properties";
+
+String getIvyFileName(GUIModel model) :
+	getBuildfilesDir(model) + "/ivy.xml";
+
+String getIvyConfFileName(GUIModel model) :
+	getBuildfilesDir(model) + "/ivyconf.xml";
+
+
+/// configfiles
+
+String getConfigRootDir(GUIModel model) :
+	getProjectRootDir(model) + "/conf";
+
+/// parte EAR
+String getEarConfigRootDir(GUIModel model) :
+	getConfigRootDir(model) + "/ear";
+
+String getEarConfigDir(GUIModel model) :
+	getEarConfigRootDir(model) + "/" + model.codComponente + "/META-INF";
+
+String getEarConfigFile(GUIModel model) :
+	getEarConfigDir(model) + "/application.xml";
+
+String getEarManifestFile(GUIModel model) :
+	getEarConfigDir(model) + "/MANIFEST.MF";
+
+
+/// parte EJB
+String getEjbConfigRootDir(GUIModel model) :
+	getConfigRootDir(model) + "/ejb";
+
+String getEjbConfigDir(GUIModel model) :
+	getEjbConfigRootDir(model) + "/business/" + model.codComponente + "/META-INF";
+
+String getEjbManifestFile(GUIModel model) :
+	getEjbConfigDir(model) + "/MANIFEST.MF";
+
+
+/// parte JAR
+String getJarConfigRootDir(GUIModel model) :
+	getConfigRootDir(model) + "/jar";
+
+String getJarConfigDir(GUIModel model) :
+	getJarConfigRootDir(model) + "/integration/META-INF";
+
+String getJarManifestFile(GUIModel model) :
+	getJarConfigDir(model) + "/MANIFEST.MF";
+
+
+// parte WEB
+String getWebModulesConfigDir(GUIModel model) :
+	getConfigRootDir(model) + "/web";
+
+String getWebModuleConfigDir(GUIModel model) :
+	getWebModulesConfigDir(model) + "/" + model.codComponente + "/WEB-INF";
+
+String getWebDeploymentDescriptorFile(GUIModel model) :
+	getWebModuleConfigDir(model) + "/web.xml";
+
+String getWebModuleMetaInfDir(GUIModel model) :
+	getWebModulesConfigDir(model) + "/" + model.codComponente + "/META-INF";
+
+String getWebModuleManifestFile(GUIModel model) :
+	getWebModuleMetaInfDir(model) + "/MANIFEST.MF";
+
+
+
+/// javafiles
+
+String getJavaSrcDir(GUIModel model) :
+	getProjectRootDir(model) + "/src/java";
+
+String getPresentationClassesDir(GUIModel model) :
+	getJavaSrcDir(model) + "/it/csi/" + model.codProdotto + "/" + 
+		model.codComponente + "/presentation/" + model.codComponente;
+
+String getPresentationClassesPackage(GUIModel model) :
+	"it.csi." + model.codProdotto + "." + 
+		model.codComponente + ".presentation." + model.codComponente;
+
+
+// resourcefiles
+
+String getWebSrcDir(GUIModel model) :
+	getProjectRootDir(model) + "/src/web/" + model.codComponente;
+
+
+
+
+
+
+
+
+
+//String getDocsRootDir() :
+//  "docs";
+
+//String getTestDir() :
+//  "test";
+  
+//String getTestJavaDir() :
+//  "test/java";
+ 
+//String getTestXmlFilesDir(String codServizio) :
+//	getTestDir()+"/java/test/"+removeSeparator(codServizio);
+  
+//String getEjbConfigRootDir() :
+//  getConfigRootDir()+"/ejb";
+  
+//String getSpecificEjbConfigRootDir(String codEjb) :
+//  getEjbConfigRootDir()+"/"+codEjb;
+  
+// conf/<tipobinding>/<codwar>
+//String getSpecificWarConfigRootDir(String codBinding, String codWar) :
+//  getWarConfigRootDir()+"/"+codBinding+"/"+codWar;
+
+//String getWarResourcesRootDir() :
+//  "src/web";
+  
+//String getSpecificWarResourcesRootDir(String codBinding, String codWar) :
+//  getWarResourcesRootDir()+"/"+codBinding+"/"+codWar;
+  
+//String getComponentJavaPkg(ComponenteProdotto comp, String codProd) :
+//  "it.csi."+codProd.toLowerCase()+"."+comp.codComponente.toLowerCase();
+  
+//String fullEjbStdClassesDir(String codProd, String codComp) :
+//    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/business";
+    
+//String getFullEJBStdPkg(String codProd, String codComp) :
+//	    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".business";
+
+//String getSQLSrcDir(String codProd,String codComp) :
+//	"src/sql";
+	    
+// STD: DSP_STD_0000_GUI_081007_V02_Logging.pdf#4.2
+//String getLoggerPrefixForComponent(String codProd, String codComponent) :
+//	codComponent.toLowerCase();
+
+	
+/// standard specifici per CSI
 	
 ContentPanel findParentContentPanel(Action a) : JAVA
 it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Action);
