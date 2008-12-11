@@ -33,7 +33,9 @@ public class «getWicketApplicationClassName()» extends WebApplication
 	public Class getHomePage()
 	{
 		«REM»TODO: parametrizzare la pagina principale (o iniziale)«ENDREM»
-		return StartPage.class;
+		«LET this.structure.appWindow.appArea.contentPanels.first() AS startPage»
+		return «getWicketPageFQN(startPage, this)».class;
+		«ENDLET»
 	}
 
 }
