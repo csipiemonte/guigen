@@ -1,0 +1,27 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+String getWicketApplicationClassName() :
+	"WicketApplication";
+
+String getWicketApplicationFQN(GUIModel model) :
+	getPresentationClassesPackage(model) + "." + getWicketApplicationClassName();
+
+String getWicketApplicationClassFile(GUIModel model) :
+	getPresentationClassesDir(model) + "/" + getWicketApplicationClassName() + ".java";
+
+
+
+String getWicketPageClassName(ContentPanel panel) :
+	panel.name.toFirstUpper() + "Page";
+
+String getWicketPageFQN(ContentPanel panel, GUIModel model) :
+	getPresentationClassesPackage(model) + "." + getWicketPageClassName(panel);
+	
+String getWicketPageClassFile(ContentPanel panel, GUIModel model) :
+	getPresentationClassesDir(model) + "/" + getWicketPageClassName(panel) + ".java";
+	
+String getWicketPageMarkupFile(ContentPanel panel, GUIModel model) :
+	getPresentationClassesDir(model) + "/" + getWicketPageClassName(panel) + ".html";
