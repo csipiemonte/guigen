@@ -1,31 +1,46 @@
 <?xml version="1.0"?>
 <workflow>
+
+    <!-- ***************************************************
+         modello da elaborare (scegliere la property in base
+         al tipo di operativita' (plugin/standalone)
+    -->
+	
+	<!-- utilizzare in modalita' standalone -->
 	<!--<property name="modelfile" value="src/prova2.xmi" />-->
 	<!--<property name="modelfile" value="src/piol.guigen" />-->
-	<property name="modelfile" value="src/wicketModel1.xmi" />
+	<!--<property name="modelfile" value="src/wicketModel1.xmi" />-->
 	
+	<!-- utilizzare in modalita' plugin -->
+	<property name="model" value="guigen/src/piol.guigen" />
 	
-	<!-- determina il tipo di applicazione da generare (e i template da utilizzare)
-	     puo' valere:
+	<!-- *****************************************************
+	     determina il tipo di applicazione da generare (e i 
+	     template da utilizzare).
+	     Puo' valere:
 	     -swingpreview: preview swing senza binding dati
 	     -wicket: applicazione completa basata su wicket
 	-->
-	<property name="target-platform" value="wicket"/>
+	<property name="target-platform" value="swingpreview"/>
 	<property name="src-gen" value="src-gen-${target-platform}" />
 	
 	<!-- set up EMF for standalone execution -->
-	
-
-	<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
+		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
 		<!--<platformUri value="d:/javatools/eclipses/europa-oAW-43/eclipse"/>-->
+		<platformUri value=".." />
 		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
 		
 	</bean>
 
 	<!-- load model and store it in slot 'model' -->
 	<component class="org.eclipse.mwe.emf.Reader">
-		<!--<uri value="platform:/resource/${model}" />-->
-		<uri value="${modelfile}" />
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${model}" />
+		
+		<!-- usare se modalita' standalone -->
+		<!--<uri value="${modelfile}" />-->
+		
+		<!-- invariante rispetto alla modalita'-->
 		<modelSlot value="model" />
 	</component>
 
