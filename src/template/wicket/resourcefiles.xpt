@@ -4,23 +4,100 @@
 
 
 «DEFINE resourceFiles FOR GUIModel»
-	«EXPAND pageMarkupFile FOR this»
+	«EXPAND indexMarkupFile FOR this»
+	«EXPAND wicketBasePageMarkupFile FOR this»
 «ENDDEFINE»
 
 
 
-«REM»Genera un file di index vuoto. TODO: vedere se necessario o da rimuovere«ENDREM»
-«DEFINE pageMarkupFile FOR GUIModel»
+«REM»Genera un file di index vuoto. Serve per fare generare la directory src/web necessaria al build«ENDREM»
+«DEFINE indexMarkupFile FOR GUIModel»
 «FILE getWebSrcDir(this) + "/index.jsp"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Welcome</title>
-</head>
+	<head>
+		<title>Welcome</title>
+	</head>
+	
+	<body>
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
 
-<body>
-</body>
+
+«REM»
+Genera una BasePage (parte di markup html) che contiene gli elementi comuni all'applicazione.
+Tutte le altre Page dell'applicazione dovranno ereditare da questa
+in modo da ottenere le parti comuni, e dovranno implementare in proprio
+le funzionalità specifiche della pagina.
+«ENDREM»
+«DEFINE wicketBasePageMarkupFile FOR GUIModel»
+«FILE getWicketBasePageMarkupFile(this)»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		
+		<title>TITOLO</title>
+	</head>
+	<body>
+		<div class="page-container">
+		
+			«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+			«IF this.structure.appWindow.header != null»
+			«LET "header" AS headerName»
+			<!-- ====================================================================================== -->
+			<!-- =[INIZIO] HEADER= -->
+			<!-- ====================================================================================== -->
+			<span wicket:id="«headerName»-panel"></span>
+			<!-- ====================================================================================== -->
+			<!-- =[FINE] HEADER= -->
+			<!-- ====================================================================================== -->
+			«EXPAND panelMarkupFile(headerName) FOR this»
+			«ENDLET»
+			«ENDIF»
+		
+			«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+			«IF this.structure.appWindow.appArea.menubar != null»
+			«LET "menuBar" AS menuBarName»
+			<!-- ====================================================================================== -->
+			<!-- =[INIZIO] MENUBAR= -->
+			<!-- ====================================================================================== -->
+			<span wicket:id="«menuBarName»-panel"></span>
+			<!-- ====================================================================================== -->
+			<!-- =[FINE] MENUBAR= -->
+			<!-- ====================================================================================== -->
+			«EXPAND panelMarkupFile(menuBarName) FOR this»
+			«ENDLET»
+			«ENDIF»		
+		
+			<!-- ====================================================================================== -->
+			<!-- =[INIZIO] MAIN = -->
+			<!-- ====================================================================================== -->
+			<div class="main">
+				<wicket:child />
+			</div>
+			<!-- ====================================================================================== -->
+			<!-- =[FINE] MAIN = -->
+			<!-- ====================================================================================== -->
+
+			«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+			«IF this.structure.appWindow.footer != null»
+			«LET "footer" AS footerName»
+			<!-- ====================================================================================== -->
+			<!-- =[INIZIO] FOOTER= -->
+			<!-- ====================================================================================== -->
+			<span wicket:id="«footerName»-panel"></span>
+			<!-- ====================================================================================== -->
+			<!-- =[FINE] FOOTER= -->
+			<!-- ====================================================================================== -->
+			«EXPAND panelMarkupFile(footerName) FOR this»
+			«ENDLET»
+			«ENDIF»
+			
+		</div>
+	</body>
 </html>
 «ENDFILE»
 «ENDDEFINE»
@@ -28,16 +105,27 @@
 
 «REM»Genera la componente di markup (HTML) di una pagina Wicket«ENDREM»
 «DEFINE pageMarkupFile(GUIModel model) FOR ContentPanel»
-«FILE getWicketPageMarkupFile(this, model)»<html>
-    <head>
-        <title>Wicket Quickstart Archetype Homepage</title>
-    </head>
-    <body>
-        <strong>Wicket Quickstart Archetype Homepage</strong>
-        <br/><br/>
-        <span wicket:id="message">message will be here</span>
-    </body>
+«FILE getWicketPageMarkupFile(this, model)»<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket>
+	<body>
+		<wicket:extend>
+	        <strong>Wicket Quickstart Archetype Homepage</strong>
+	        <br/><br/>
+	        <span wicket:id="message">message will be here</span>
+		</wicket:extend>
+	</body>
 </html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un Panel Wicket«ENDREM»
+«DEFINE panelMarkupFile(String panelName) FOR GUIModel»
+«FILE getWicketPanelMarkupFile(panelName, this)»<wicket:panel>
+	<div class="«panelName»">
+	
+	</div>
+</wicket:panel>
 «ENDFILE»
 «ENDDEFINE»
 

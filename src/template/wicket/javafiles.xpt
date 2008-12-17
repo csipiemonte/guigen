@@ -4,19 +4,21 @@
 
 «DEFINE javaFiles FOR GUIModel»
 	«EXPAND wicketApplicationJavaFile FOR this»
+	«EXPAND wicketBasePageJavaFile FOR this»
 «ENDDEFINE»
 
 
 «REM»Genera l'Application di Wicket«ENDREM»
 «DEFINE wicketApplicationJavaFile FOR GUIModel»
-«FILE getWicketApplicationClassFile()»package «getPresentationClassesPackage()»;
+«FILE getWicketApplicationJavaFile()»package «getPresentationJavaPackage()»;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
 /**
- * Application object for your web application. If you want to run this application without deploying, run the Start class.
- * 
- * @see wicket.myproject.Start#main(String[])
+ * Application object for your web application.
+ *
+ * @author GuiGen
  */
 public class «getWicketApplicationClassName()» extends WebApplication
 {    
@@ -30,49 +32,261 @@ public class «getWicketApplicationClassName()» extends WebApplication
 	/**
 	 * @see wicket.Application#getHomePage()
 	 */
-	public Class getHomePage()
+	public Class<? extends Page> getHomePage()
 	{
-		«REM»TODO: parametrizzare la pagina principale (o iniziale)«ENDREM»
 		«LET this.structure.appWindow.appArea.contentPanels.first() AS startPage»
 		return «getWicketPageFQN(startPage, this)».class;
 		«ENDLET»
 	}
+	
+	/**
+	 * @see wicket.Application#init()
+	 */
+	@Override
+	protected void init()
+	{
+		super.init();
+    
+    	«REM»
+    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
+    		In questa sezione potrebbero essere collocati personalizzazioni 
+    		del comportamento dell'applicazione Wicket.
+    	«ENDPROTECT»
+    	«ENDREM»
+	}   	
 
 }
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+Genera una BasePage (parte Java) che contiene gli elementi comuni all'applicazione.
+Tutte le altre Page dell'applicazione dovranno ereditare da questa
+in modo da ottenere le parti comuni, e dovranno implementare in proprio
+le funzionalità specifiche della pagina.
+«ENDREM»
+«DEFINE wicketBasePageJavaFile FOR GUIModel»
+«FILE getWicketBasePageJavaFile(this)»package «getPresentationJavaPackage()»;
+
+«IF this.structure.appWindow.header != null»
+import «getWicketPanelFQN("header", this)»;
+«ENDIF»
+«IF this.structure.appWindow.appArea.menubar != null»
+import «getWicketPanelFQN("menuBar", this)»;
+«ENDIF»
+«IF this.structure.appWindow.footer != null»
+import «getWicketPanelFQN("footer", this)»;
+«ENDIF»
+
+import org.apache.wicket.IPageMap;
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
+
+/**
+ * Pagina base che contiene le parti comuni dell'applicazione.
+ * Tutte le pagine dovranno estendere questa per ereditare gli elemeti comuni.
+ * 
+ * @author GuiGen
+ */
+public abstract class «getWicketBasePageClassName()» extends WebPage {
+
+	public «getWicketBasePageClassName()»() {
+		super();
+		init();
+	}
+	
+	public «getWicketBasePageClassName()»(final IModel model) {
+		super( model );
+		init();
+	}
+	
+	public «getWicketBasePageClassName()»(final IPageMap pageMap) {
+		super( pageMap );
+		init();
+	}
+	
+	public «getWicketBasePageClassName()»(final PageParameters parameters) {
+		super( parameters );
+		init();
+	}
+	
+	public «getWicketBasePageClassName()»(final IPageMap pageMap, final IModel model) {
+		super( pageMap, model );
+		init();
+	}
+	
+	public «getWicketBasePageClassName()»(final IPageMap pageMap, final PageParameters parameters) {
+		super( pageMap, parameters );
+		init();
+	}
+	
+	/**
+	 * Inserire in questo metodo la definizione delle parti comuni
+	 * dell'applicazione.
+	 * Inserire inoltre eventuali comportamenti comuni a tutte le pagine dell'applicazione
+	 * specifici per ogni singola applicazione
+	 */
+	protected void init() {
+		
+		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«IF this.structure.appWindow.header != null»
+		«LET "header" AS headerName»
+		// HEADER
+		final «getWicketPanelClassName(headerName)» «headerName» = new «getWicketPanelClassName(headerName)»("«headerName»-panel");
+		add(«headerName»);
+		«EXPAND panelJavaFile(headerName) FOR this»
+		«ENDLET»
+		«ENDIF»
+
+		«REM»Genera i Link Statici«ENDREM»
+		«IF this.structure.appWindow.appArea.staticLinks != null»
+		// STATIC LINKS
+			«REM»TODO: implementare quando si capirà cosa vuole dire«ENDREM»
+		«ENDIF»
+
+		«REM»Genera la TitleBar«ENDREM»
+		«IF this.structure.appWindow.appArea.staticLinks != null»
+		// TITLEBAR
+			«REM»TODO: implementare quando si capirà cosa vuole dire«ENDREM»
+		«ENDIF»
+
+		«REM»Genera la StatusBar«ENDREM»
+		«IF this.structure.appWindow.appArea.statusbar != null»
+		// STATUSBAR
+			«REM»TODO: implementare quando si capirà cosa vuole dire«ENDREM»
+		«ENDIF»
+
+		«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«IF this.structure.appWindow.appArea.menubar != null»
+		«LET "menuBar" AS menuBarName»
+		// MENUBAR
+		final «getWicketPanelClassName(menuBarName)» «menuBarName» = new «getWicketPanelClassName(menuBarName)»("«menuBarName»-panel");
+		add(«menuBarName»);
+		«EXPAND panelJavaFile(menuBarName) FOR this»
+		«ENDLET»
+		«ENDIF»
+
+		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«IF this.structure.appWindow.footer != null»
+		«LET "footer" AS footerName»
+		// FOOTER
+		final «getWicketPanelClassName(footerName)» «footerName» = new «getWicketPanelClassName(footerName)»("«footerName»-panel");
+		add(«footerName»);
+		«EXPAND panelJavaFile(footerName) FOR this»
+		«ENDLET»
+		«ENDIF»
+
+	}
+
+}
+
 «ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Genera la componente Java di una pagina Wicket«ENDREM»
-«DEFINE pageClassFile(GUIModel model) FOR ContentPanel»
-«FILE getWicketPageClassFile(this, model)»package «getPresentationClassesPackage(model)»;
+«DEFINE pageJavaFile(GUIModel model) FOR ContentPanel»
+«FILE getWicketPageJavaFile(this, model)»package «getPresentationJavaPackage(model)»;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.WebPage;
 
 /**
- * Homepage
+ *
+ *
+ * @author GuiGen
  */
-public class «getWicketPageClassName(this)» extends WebPage {
+public class «getWicketPageClassName(this)» extends BasePage {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	// TODO Add any page properties or variables here
-
-    /**
+	
+	/**
+	 * Empty Constructor.
+	 */
+	public «getWicketPageClassName(this)»() {
+	
+	}	
+	
+	/**
 	 * Constructor that is invoked when page is invoked without a session.
 	 * 
 	 * @param parameters Page parameters
 	 */
-    public «getWicketPageClassName(this)»(final PageParameters parameters) {
+	public «getWicketPageClassName(this)»(final PageParameters parameters) {
+	
+	}
 
-        // Add the simplest type of label
+
+	@Override
+	protected void init() {
+		super.init();
+		
+		// Add the simplest type of label
         add(new Label("message", "If you see this message wicket is properly configured and running"));
 
         // TODO Add your page's components here
-    }
+	}
+
 }
 
 «ENDFILE»
 «ENDDEFINE»
+
+
+«REM»Genera la componente Java di un Panel Wicket«ENDREM»
+«DEFINE panelJavaFile(String panelName) FOR GUIModel»
+«FILE getWicketPanelJavaFile(panelName, this)»package «getWicketPanelJavaPackage(this)»;
+
+import org.apache.wicket.markup.html.panel.Panel;
+
+/**
+ *
+ *
+ * @author GuiGen
+ */
+public final class «getWicketPanelClassName(panelName)» extends Panel {
+
+	private static final long serialVersionUID = 1L;
+
+	public «getWicketPanelClassName(panelName)»(final String id) {
+	    super(id);
+	}
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+
+
+«REM»Genera la componente Java di un Widget Wicket«ENDREM»
+«DEFINE createWidget FOR Widget»
+
+	«REM»Crea un TextField«ENDREM»
+	«IF this.metaType == TextField»
+		«REM»Crea un TextField«ENDREM»
+		TextField widg_«this.name» = new TextField("«this.name»");
+		add(widg_«this.name»);
+	«ELSEIF this.metaType == TextArea»
+		«REM»Crea una TextArea«ENDREM»
+		TextArea widg_«this.name» = new TextField("«this.name»");
+		add(widg_«this.name»);
+	«ENDIF»
+
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+

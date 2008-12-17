@@ -312,9 +312,7 @@
   <target name="clean-cache"
           description="Rimuove la cartella di cache di Ivy e la lib.">
 		<delete dir="${build}/cache" failonerror="no" />
-		<!-- [DM] temporaneamente commentato per le librerie non ru repart
 		<delete dir="${lib}" failonerror="no" />
-		-->
   </target>
 
   
@@ -429,35 +427,34 @@
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
 # essere inclusi all'interno dell'EAR prodotto.
 # ----------------------------------------------------------------------------
-  ear-libs-filter = spring-beans-2.0.7.jar,                \
-                    spring-context-2.0.7.jar,              \
-                    spring-core-2.0.7.jar,                 \
-                    spring-web-2.0.7.jar,                  \
-                       \
-                    spring-aop-2.0.7.jar,                  \
-                    spring-remoting-2.0.7.jar,             \
-                    aopalliance-1.0.jar,                   \
-                    util-beanlocatorfactory-1.0.1.jar,     \
-                    util-perf-1.0.1.jar,                   \
-                    commons-beanutils-1.6.jar,             \
-                    commons-collections-3.2.jar,           \
-                    commons-digester-1.8.jar,              \
-                    commons-logging-1.1.jar,               \
+  ear-libs-filter = spring-beans-2.0.7.jar, \
+                    spring-context-2.0.7.jar, \
+                    spring-core-2.0.7.jar,  \
+                    spring-web-2.0.7.jar, \
+                    spring-aop-2.0.7.jar, \
+                    spring-remoting-2.0.7.jar, \
+                    aopalliance-1.0.jar, \
+                    util-beanlocatorfactory-1.0.1.jar, \
+                    util-perf-1.0.1.jar, \
+                    commons-beanutils-1.6.jar, \
+                    commons-collections-3.2.jar, \
+                    commons-digester-1.8.jar,  \
+                    commons-logging-1.1.jar, \
                     commons-logging-api-1.1.jar
 
 # - [war-exclude-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
-  war-exclude-libs-filter = jboss*.jar,    \
-                            util-perf*.jar,                \
-                            spring*.jar,                   \
-                            servlet*.jar,                  \
-                            aop*.jar,                      \
-                            util-beanlo*.jar,              \
-                            csi*.jar,                      \
-                            jboss*.jar,                    \
-                            log4j*.jar,                    \
+  war-exclude-libs-filter = jboss*.jar, \
+                            util-perf*.jar, \
+                            spring*.jar, \
+                            servlet*.jar, \
+                            aop*.jar, \
+                            util-beanlo*.jar, \
+                            csi*.jar, \
+                            jboss*.jar, \
+                            log4j*.jar, \
                             commons*.jar
 
 # ----------------------------------------------------------------------------
@@ -526,6 +523,9 @@
 			<artifact name="jboss-j2ee-4.3.0" type="jar" />
 		</dependency>
 		
+		<!-- WICKET dependencies -->
+		<dependency org="apache" name="wicket" rev="1.3.5"/>
+
 	</dependencies>
 
 </ivy-module>

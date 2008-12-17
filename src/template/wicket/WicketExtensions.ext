@@ -2,26 +2,68 @@ import guigen;
 import ecore;
 extension template::GenericExtensions;
 
+////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Wicket         //
+////////////////////////////////////////////////////////////
 
+/// Applicazione wicket
 String getWicketApplicationClassName() :
 	"WicketApplication";
 
 String getWicketApplicationFQN(GUIModel model) :
-	getPresentationClassesPackage(model) + "." + getWicketApplicationClassName();
+	getPresentationJavaPackage(model) + "." + getWicketApplicationClassName();
 
-String getWicketApplicationClassFile(GUIModel model) :
-	getPresentationClassesDir(model) + "/" + getWicketApplicationClassName() + ".java";
+String getWicketApplicationJavaFile(GUIModel model) :
+	getPresentationJavaSrcDir(model) + "/" + getWicketApplicationClassName() + ".java";
 
 
+/// BasePage Wicket
+String getWicketBasePageClassName() :
+	"BasePage";
 
+String getWicketBasePageFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getWicketBasePageClassName();
+	
+String getWicketBasePageJavaFile(GUIModel model) :
+	getPresentationJavaSrcDir(model) + "/" + getWicketBasePageClassName() + ".java";
+	
+String getWicketBasePageMarkupFile(GUIModel model) :
+	getPresentationMarkupDir(model) + "/" + getWicketBasePageClassName() + ".html";
+
+
+/// singole pagine Wicket
 String getWicketPageClassName(ContentPanel panel) :
 	panel.name.toFirstUpper() + "Page";
 
 String getWicketPageFQN(ContentPanel panel, GUIModel model) :
-	getPresentationClassesPackage(model) + "." + getWicketPageClassName(panel);
+	getPresentationJavaPackage(model) + "." + getWicketPageClassName(panel);
 	
-String getWicketPageClassFile(ContentPanel panel, GUIModel model) :
-	getPresentationClassesDir(model) + "/" + getWicketPageClassName(panel) + ".java";
+String getWicketPageJavaFile(ContentPanel panel, GUIModel model) :
+	getPresentationJavaSrcDir(model) + "/" + getWicketPageClassName(panel) + ".java";
 	
 String getWicketPageMarkupFile(ContentPanel panel, GUIModel model) :
-	getPresentationClassesDir(model) + "/" + getWicketPageClassName(panel) + ".html";
+	getPresentationMarkupDir(model) + "/" + getWicketPageClassName(panel) + ".html";
+
+
+/// pannelli (Panel) di Wicket
+String getWicketPanelClassName(String panelName) :
+	panelName.toFirstUpper() + "Panel";
+
+String getWicketPanelJavaPackage(GUIModel model) :
+	getPresentationJavaPackage(model) + ".panels";
+
+String getWicketPanelFQN(String panelName, GUIModel model) :
+	getWicketPanelJavaPackage(model) + "." + getWicketPanelClassName(panelName);
+
+String getWicketPanelJavaSrcDir(GUIModel model) :
+	getPresentationJavaSrcDir(model) + "/panels";
+
+String getWicketPanelJavaFile(String panelName, GUIModel model) :
+	getWicketPanelJavaSrcDir(model) + "/" + getWicketPanelClassName(panelName) + ".java";
+
+String getWicketPanelMarkupDir(GUIModel model) :
+	getPresentationMarkupDir(model) + "/panels";
+	
+String getWicketPanelMarkupFile(String panelName, GUIModel model) :
+	getWicketPanelMarkupDir(model) + "/" + getWicketPanelClassName(panelName) + ".html";
+

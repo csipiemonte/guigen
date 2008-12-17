@@ -92,11 +92,11 @@ String getWebModuleManifestFile(GUIModel model) :
 String getJavaSrcDir(GUIModel model) :
 	getProjectRootDir(model) + "/src/java";
 
-String getPresentationClassesDir(GUIModel model) :
+String getPresentationJavaSrcDir(GUIModel model) :
 	getJavaSrcDir(model) + "/it/csi/" + model.codProdotto + "/" + 
 		model.codComponente + "/presentation/" + model.codComponente;
 
-String getPresentationClassesPackage(GUIModel model) :
+String getPresentationJavaPackage(GUIModel model) :
 	"it.csi." + model.codProdotto + "." + 
 		model.codComponente + ".presentation." + model.codComponente;
 
@@ -106,7 +106,9 @@ String getPresentationClassesPackage(GUIModel model) :
 String getWebSrcDir(GUIModel model) :
 	getProjectRootDir(model) + "/src/web/" + model.codComponente;
 
-
+String getPresentationMarkupDir(GUIModel model) :
+	getJavaSrcDir(model) + "/it/csi/" + model.codProdotto + "/" + 
+		model.codComponente + "/presentation/" + model.codComponente;
 
 
 
