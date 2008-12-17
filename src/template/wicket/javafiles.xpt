@@ -226,7 +226,7 @@ public class «getWicketPageClassName(this)» extends BasePage {
 		super.init();
 		
 		// Add the simplest type of label
-        add(new Label("message", "If you see this message wicket is properly configured and running"));
+        add(new Label("message", "Questa è la pagina «getWicketPageClassName(this)»"));
 
         // TODO Add your page's components here
 	}
@@ -241,6 +241,8 @@ public class «getWicketPageClassName(this)» extends BasePage {
 «DEFINE panelJavaFile(String panelName, boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getWicketPanelJavaFile(panelName, this, skip_component_dir_creation)»package «getWicketPanelJavaPackage(this)»;
 
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
@@ -254,10 +256,42 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 
 	public «getWicketPanelClassName(panelName)»(final String id) {
 	    super(id);
+	    
+	    «REM»TODO: questo è da RIFARE SICURAMENTE MEGLIO (usando i riferimenti giusti) e non la stringa«ENDREM»
+		«IF panelName.matches("header")»
+			«EXPAND getHeaderJava(this) FOR this.structure.appWindow.header»
+		«ELSEIF panelName.matches("menuBar")»
+			«EXPAND getMenubarJava(this) FOR this.structure.appWindow.appArea.menubar»
+		«ELSEIF panelName.matches("footer")»
+			«EXPAND getFooterJava(this) FOR this.structure.appWindow.footer»
+		«ENDIF»
 	}
 	
 }
 «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente Java della HEADER«ENDREM»
+«DEFINE getHeaderJava(GUIModel model) FOR Header»
+«ENDDEFINE»
+
+«REM»Genera la componente Java) della MENUBAR«ENDREM»
+«DEFINE getMenubarJava(GUIModel model) FOR Menubar»
+	«FOREACH this.topLevelMenu AS tlmenu»
+	add(new Label("menu.«tlmenu.name»", "«tlmenu.label»"));
+		«FOREACH tlmenu.item AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.action AS currAction»
+		add(new BookmarkablePageLink("menu.items.«currMenuItem.name»", «getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class));
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«REM»Genera la componente Java della FOOTER«ENDREM»
+«DEFINE getFooterJava(GUIModel model) FOR Footer»
 «ENDDEFINE»
 
 
@@ -266,8 +300,35 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 
 
 
+
+
+
+
+
+
+«REM»
+Genera la componente Java di un FORM.
+NOTA: per il momento per semplificare la generazione
+      è stata fatta l'assunzione Form = form HTML/Wicket
+«ENDREM»
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 «REM»Genera la componente Java di un Widget Wicket«ENDREM»
-«DEFINE createWidget FOR Widget»
+«DEFINE createWidgetJava FOR Widget»
 
 	«REM»Crea un TextField«ENDREM»
 	«IF this.metaType == TextField»
