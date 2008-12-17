@@ -1,16 +1,16 @@
 «IMPORT guigen»
 «EXTENSION template::GenericExtensions»
 
-«DEFINE buildFiles FOR guigen::GUIModel»
-	«EXPAND antBuildFile FOR this»
-	«EXPAND buildPropertiesFile FOR this»
-	«EXPAND ivyFiles FOR this»
+«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
 «REM»genera il file di build di ant«ENDREM»
-«DEFINE antBuildFile FOR guigen::GUIModel»
-«FILE getBuildXmlFileName(this)»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+«FILE getBuildXmlFileName(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ##################################################### -->
 <!-- # Copyright 2006 (c) CSI Piemonte.                  # -->
@@ -394,8 +394,8 @@
 
 
 «REM»genera il file di property di ant«ENDREM»
-«DEFINE buildPropertiesFile FOR GUIModel»
-«FILE getBuildPropertiesFileName(this)»##############################################################################
+«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»##############################################################################
 # Build.properties
 ##############################################################################
 
@@ -470,8 +470,8 @@
 
 
 «REM»genera i files di IVY«ENDREM»
-«DEFINE ivyFiles FOR GUIModel»
-«FILE getIvyFileName()»<ivy-module version="1.0">
+«DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getIvyFileName(skip_component_dir_creation)»<ivy-module version="1.0">
 	<info organisation="csipiemonte" module="«codProdotto»" />
 	<dependencies>
 		<dependency org="apache" name="commons-beanutils" rev="1.6"/>
@@ -531,7 +531,7 @@
 </ivy-module>
 «ENDFILE»
 
-«FILE getIvyConfFileName()»<ivyconf>
+«FILE getIvyConfFileName(skip_component_dir_creation)»<ivyconf>
   <conf defaultCache="build/cache" defaultResolver="myUrlResolver"/>
   <resolvers>
     <url name="myUrlResolver">

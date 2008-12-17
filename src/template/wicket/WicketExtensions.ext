@@ -13,8 +13,8 @@ String getWicketApplicationClassName() :
 String getWicketApplicationFQN(GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getWicketApplicationClassName();
 
-String getWicketApplicationJavaFile(GUIModel model) :
-	getPresentationJavaSrcDir(model) + "/" + getWicketApplicationClassName() + ".java";
+String getWicketApplicationJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getWicketApplicationClassName() + ".java";
 
 
 /// BasePage Wicket
@@ -24,11 +24,11 @@ String getWicketBasePageClassName() :
 String getWicketBasePageFQN(GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getWicketBasePageClassName();
 	
-String getWicketBasePageJavaFile(GUIModel model) :
-	getPresentationJavaSrcDir(model) + "/" + getWicketBasePageClassName() + ".java";
+String getWicketBasePageJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getWicketBasePageClassName() + ".java";
 	
-String getWicketBasePageMarkupFile(GUIModel model) :
-	getPresentationMarkupDir(model) + "/" + getWicketBasePageClassName() + ".html";
+String getWicketBasePageMarkupFile(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/" + getWicketBasePageClassName() + ".html";
 
 
 /// singole pagine Wicket
@@ -38,11 +38,11 @@ String getWicketPageClassName(ContentPanel panel) :
 String getWicketPageFQN(ContentPanel panel, GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getWicketPageClassName(panel);
 	
-String getWicketPageJavaFile(ContentPanel panel, GUIModel model) :
-	getPresentationJavaSrcDir(model) + "/" + getWicketPageClassName(panel) + ".java";
+String getWicketPageJavaFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getWicketPageClassName(panel) + ".java";
 	
-String getWicketPageMarkupFile(ContentPanel panel, GUIModel model) :
-	getPresentationMarkupDir(model) + "/" + getWicketPageClassName(panel) + ".html";
+String getWicketPageMarkupFile(ContentPanel panel, GUIModel model, boolean omiit_root) :
+	getPresentationMarkupDir(model, omiit_root) + "/" + getWicketPageClassName(panel) + ".html";
 
 
 /// pannelli (Panel) di Wicket
@@ -55,15 +55,15 @@ String getWicketPanelJavaPackage(GUIModel model) :
 String getWicketPanelFQN(String panelName, GUIModel model) :
 	getWicketPanelJavaPackage(model) + "." + getWicketPanelClassName(panelName);
 
-String getWicketPanelJavaSrcDir(GUIModel model) :
-	getPresentationJavaSrcDir(model) + "/panels";
+String getWicketPanelJavaSrcDir(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/panels";
 
-String getWicketPanelJavaFile(String panelName, GUIModel model) :
-	getWicketPanelJavaSrcDir(model) + "/" + getWicketPanelClassName(panelName) + ".java";
+String getWicketPanelJavaFile(String panelName, GUIModel model, boolean omit_root) :
+	getWicketPanelJavaSrcDir(model, omit_root) + "/" + getWicketPanelClassName(panelName) + ".java";
 
-String getWicketPanelMarkupDir(GUIModel model) :
-	getPresentationMarkupDir(model) + "/panels";
+String getWicketPanelMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/panels";
 	
-String getWicketPanelMarkupFile(String panelName, GUIModel model) :
-	getWicketPanelMarkupDir(model) + "/" + getWicketPanelClassName(panelName) + ".html";
+String getWicketPanelMarkupFile(String panelName, GUIModel model, boolean omit_root) :
+	getWicketPanelMarkupDir(model, omit_root) + "/" + getWicketPanelClassName(panelName) + ".html";
 

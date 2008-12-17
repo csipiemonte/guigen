@@ -2,15 +2,15 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::wicket::WicketExtensions»
 
-«DEFINE javaFiles FOR GUIModel»
-	«EXPAND wicketApplicationJavaFile FOR this»
-	«EXPAND wicketBasePageJavaFile FOR this»
+«DEFINE javaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND wicketApplicationJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND wicketBasePageJavaFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
 «REM»Genera l'Application di Wicket«ENDREM»
-«DEFINE wicketApplicationJavaFile FOR GUIModel»
-«FILE getWicketApplicationJavaFile()»package «getPresentationJavaPackage()»;
+«DEFINE wicketApplicationJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWicketApplicationJavaFile(skip_component_dir_creation)»package «getPresentationJavaPackage()»;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -66,8 +66,8 @@ Tutte le altre Page dell'applicazione dovranno ereditare da questa
 in modo da ottenere le parti comuni, e dovranno implementare in proprio
 le funzionalità specifiche della pagina.
 «ENDREM»
-«DEFINE wicketBasePageJavaFile FOR GUIModel»
-«FILE getWicketBasePageJavaFile(this)»package «getPresentationJavaPackage()»;
+«DEFINE wicketBasePageJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWicketBasePageJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage()»;
 
 «IF this.structure.appWindow.header != null»
 import «getWicketPanelFQN("header", this)»;
@@ -136,7 +136,7 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 		// HEADER
 		final «getWicketPanelClassName(headerName)» «headerName» = new «getWicketPanelClassName(headerName)»("«headerName»-panel");
 		add(«headerName»);
-		«EXPAND panelJavaFile(headerName) FOR this»
+		«EXPAND panelJavaFile(headerName, skip_component_dir_creation) FOR this»
 		«ENDLET»
 		«ENDIF»
 
@@ -164,7 +164,7 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 		// MENUBAR
 		final «getWicketPanelClassName(menuBarName)» «menuBarName» = new «getWicketPanelClassName(menuBarName)»("«menuBarName»-panel");
 		add(«menuBarName»);
-		«EXPAND panelJavaFile(menuBarName) FOR this»
+		«EXPAND panelJavaFile(menuBarName, skip_component_dir_creation) FOR this»
 		«ENDLET»
 		«ENDIF»
 
@@ -174,7 +174,7 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 		// FOOTER
 		final «getWicketPanelClassName(footerName)» «footerName» = new «getWicketPanelClassName(footerName)»("«footerName»-panel");
 		add(«footerName»);
-		«EXPAND panelJavaFile(footerName) FOR this»
+		«EXPAND panelJavaFile(footerName, skip_component_dir_creation) FOR this»
 		«ENDLET»
 		«ENDIF»
 
@@ -187,8 +187,8 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 
 
 «REM»Genera la componente Java di una pagina Wicket«ENDREM»
-«DEFINE pageJavaFile(GUIModel model) FOR ContentPanel»
-«FILE getWicketPageJavaFile(this, model)»package «getPresentationJavaPackage(model)»;
+«DEFINE pageJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getWicketPageJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
@@ -238,8 +238,8 @@ public class «getWicketPageClassName(this)» extends BasePage {
 
 
 «REM»Genera la componente Java di un Panel Wicket«ENDREM»
-«DEFINE panelJavaFile(String panelName) FOR GUIModel»
-«FILE getWicketPanelJavaFile(panelName, this)»package «getWicketPanelJavaPackage(this)»;
+«DEFINE panelJavaFile(String panelName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWicketPanelJavaFile(panelName, this, skip_component_dir_creation)»package «getWicketPanelJavaPackage(this)»;
 
 import org.apache.wicket.markup.html.panel.Panel;
 

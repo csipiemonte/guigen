@@ -2,13 +2,13 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::wicket::WicketExtensions»
 
-«DEFINE configFiles FOR GUIModel»
-	«EXPAND applicationXmlFile FOR this»
-	«EXPAND earManifestFile FOR this»
-	«EXPAND ejbManifestFile FOR this»
-	«EXPAND jarManifestFile FOR this»
-	«EXPAND webManifestFile FOR this»
-	«EXPAND webXmlFile FOR this»
+«DEFINE configFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND applicationXmlFile(skip_component_dir_creation) FOR this»
+	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -21,8 +21,8 @@
 
 
 «REM»genera il file di configurazione dell'applicazione«ENDREM»
-«DEFINE applicationXmlFile FOR GUIModel»
-«FILE getEarConfigFile(this)»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE applicationXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getEarConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
 	<display-name>«codComponente»-ear</display-name>
 
@@ -38,32 +38,32 @@
 
 
 «REM»genera il file MANIFEST del modulo EAR«ENDREM»
-«DEFINE earManifestFile FOR GUIModel»
-	«EXPAND manifestFile(getEarManifestFile(this)) FOR this»
+«DEFINE earManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEarManifestFile(this, skip_component_dir_creation)) FOR this»
 «ENDDEFINE»
 
 
 «REM»genera il file MANIFEST del modulo EJB«ENDREM»
-«DEFINE ejbManifestFile FOR GUIModel»
-	«EXPAND manifestFile(getEjbManifestFile(this)) FOR this»
+«DEFINE ejbManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEjbManifestFile(this, skip_component_dir_creation)) FOR this»
 «ENDDEFINE»
 
 
 «REM»genera il file MANIFEST del modulo JAR«ENDREM»
-«DEFINE jarManifestFile FOR GUIModel»
-	«EXPAND manifestFile(getJarManifestFile(this)) FOR this»
+«DEFINE jarManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getJarManifestFile(this, skip_component_dir_creation)) FOR this»
 «ENDDEFINE»
 
 
 «REM»genera il file MANIFEST del modulo WEB«ENDREM»
-«DEFINE webManifestFile FOR GUIModel»
-	«EXPAND manifestFile(getWebModuleManifestFile(this)) FOR this»
+«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR this»
 «ENDDEFINE»
 
 
 «REM»genera il deployment descriptor (web.xml) del modulo WEB«ENDREM»
-«DEFINE webXmlFile FOR GUIModel»
-«FILE getWebDeploymentDescriptorFile(this)»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE webXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4"
          xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

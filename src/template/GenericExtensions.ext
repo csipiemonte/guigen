@@ -7,93 +7,93 @@ import ecore;
 ////////////////////////////////////////////////////////////
 
 /// standard generici J2EE Csi piemonte
-String getProjectRootDir(GUIModel model) :
-	model.codComponente;
+String getProjectRootDir(GUIModel model, boolean omit_root) :
+	omit_root ? "" : model.codComponente;
 
 
 /// buildfiles
-String getBuildXmlFileName(GUIModel model) :
-	getProjectRootDir(model) + "/build.xml";
+String getBuildXmlFileName(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/build.xml";
 
-String getBuildfilesDir(GUIModel model) :
-	getProjectRootDir(model) + "/buildfiles";
+String getBuildfilesDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/buildfiles";
 
-String getBuildPropertiesFileName(GUIModel model) :
-	getBuildfilesDir(model) + "/build.properties";
+String getBuildPropertiesFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/build.properties";
 
-String getIvyFileName(GUIModel model) :
-	getBuildfilesDir(model) + "/ivy.xml";
+String getIvyFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/ivy.xml";
 
-String getIvyConfFileName(GUIModel model) :
-	getBuildfilesDir(model) + "/ivyconf.xml";
+String getIvyConfFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/ivyconf.xml";
 
 
 /// configfiles
 
-String getConfigRootDir(GUIModel model) :
-	getProjectRootDir(model) + "/conf";
+String getConfigRootDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/conf";
 
 /// parte EAR
-String getEarConfigRootDir(GUIModel model) :
-	getConfigRootDir(model) + "/ear";
+String getEarConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/ear";
 
-String getEarConfigDir(GUIModel model) :
-	getEarConfigRootDir(model) + "/" + model.codComponente + "/META-INF";
+String getEarConfigDir(GUIModel model, boolean omit_root) :
+	getEarConfigRootDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
 
-String getEarConfigFile(GUIModel model) :
-	getEarConfigDir(model) + "/application.xml";
+String getEarConfigFile(GUIModel model, boolean omit_root) :
+	getEarConfigDir(model, omit_root) + "/application.xml";
 
-String getEarManifestFile(GUIModel model) :
-	getEarConfigDir(model) + "/MANIFEST.MF";
+String getEarManifestFile(GUIModel model, boolean omit_root) :
+	getEarConfigDir(model, omit_root) + "/MANIFEST.MF";
 
 
 /// parte EJB
-String getEjbConfigRootDir(GUIModel model) :
-	getConfigRootDir(model) + "/ejb";
+String getEjbConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/ejb";
 
-String getEjbConfigDir(GUIModel model) :
-	getEjbConfigRootDir(model) + "/business/" + model.codComponente + "/META-INF";
+String getEjbConfigDir(GUIModel model, boolean omit_root) :
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/META-INF";
 
-String getEjbManifestFile(GUIModel model) :
-	getEjbConfigDir(model) + "/MANIFEST.MF";
+String getEjbManifestFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/MANIFEST.MF";
 
 
 /// parte JAR
-String getJarConfigRootDir(GUIModel model) :
-	getConfigRootDir(model) + "/jar";
+String getJarConfigRootDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/jar";
 
-String getJarConfigDir(GUIModel model) :
-	getJarConfigRootDir(model) + "/integration/META-INF";
+String getJarConfigDir(GUIModel model, boolean omit_root) :
+	getJarConfigRootDir(model, omit_root) + "/integration/META-INF";
 
-String getJarManifestFile(GUIModel model) :
-	getJarConfigDir(model) + "/MANIFEST.MF";
+String getJarManifestFile(GUIModel model, boolean omit_root) :
+	getJarConfigDir(model, omit_root) + "/MANIFEST.MF";
 
 
 // parte WEB
-String getWebModulesConfigDir(GUIModel model) :
-	getConfigRootDir(model) + "/web";
+String getWebModulesConfigDir(GUIModel model, boolean omit_root) :
+	getConfigRootDir(model, omit_root) + "/web";
 
-String getWebModuleConfigDir(GUIModel model) :
-	getWebModulesConfigDir(model) + "/" + model.codComponente + "/WEB-INF";
+String getWebModuleConfigDir(GUIModel model, boolean omit_root) :
+	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/WEB-INF";
 
-String getWebDeploymentDescriptorFile(GUIModel model) :
-	getWebModuleConfigDir(model) + "/web.xml";
+String getWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/web.xml";
 
-String getWebModuleMetaInfDir(GUIModel model) :
-	getWebModulesConfigDir(model) + "/" + model.codComponente + "/META-INF";
+String getWebModuleMetaInfDir(GUIModel model, boolean omit_root) :
+	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
 
-String getWebModuleManifestFile(GUIModel model) :
-	getWebModuleMetaInfDir(model) + "/MANIFEST.MF";
+String getWebModuleManifestFile(GUIModel model, boolean omit_root) :
+	getWebModuleMetaInfDir(model, omit_root) + "/MANIFEST.MF";
 
 
 
 /// javafiles
 
-String getJavaSrcDir(GUIModel model) :
-	getProjectRootDir(model) + "/src/java";
+String getJavaSrcDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/src/java";
 
-String getPresentationJavaSrcDir(GUIModel model) :
-	getJavaSrcDir(model) + "/it/csi/" + model.codProdotto + "/" + 
+String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
 		model.codComponente + "/presentation/" + model.codComponente;
 
 String getPresentationJavaPackage(GUIModel model) :
@@ -103,11 +103,11 @@ String getPresentationJavaPackage(GUIModel model) :
 
 // resourcefiles
 
-String getWebSrcDir(GUIModel model) :
-	getProjectRootDir(model) + "/src/web/" + model.codComponente;
+String getWebSrcDir(GUIModel model, boolean omit_root) :
+	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
 
-String getPresentationMarkupDir(GUIModel model) :
-	getJavaSrcDir(model) + "/it/csi/" + model.codProdotto + "/" + 
+String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
+	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
 		model.codComponente + "/presentation/" + model.codComponente;
 
 

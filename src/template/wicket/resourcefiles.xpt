@@ -3,16 +3,16 @@
 «EXTENSION template::wicket::WicketExtensions»
 
 
-«DEFINE resourceFiles FOR GUIModel»
-	«EXPAND indexMarkupFile FOR this»
-	«EXPAND wicketBasePageMarkupFile FOR this»
+«DEFINE resourceFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND indexMarkupFile(skip_component_dir_creation) FOR this»
+	«EXPAND wicketBasePageMarkupFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
 
 «REM»Genera un file di index vuoto. Serve per fare generare la directory src/web necessaria al build«ENDREM»
-«DEFINE indexMarkupFile FOR GUIModel»
-«FILE getWebSrcDir(this) + "/index.jsp"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+«DEFINE indexMarkupFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWebSrcDir(this, skip_component_dir_creation) + "/index.jsp"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,8 +33,8 @@ Tutte le altre Page dell'applicazione dovranno ereditare da questa
 in modo da ottenere le parti comuni, e dovranno implementare in proprio
 le funzionalità specifiche della pagina.
 «ENDREM»
-«DEFINE wicketBasePageMarkupFile FOR GUIModel»
-«FILE getWicketBasePageMarkupFile(this)»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+«DEFINE wicketBasePageMarkupFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWicketBasePageMarkupFile(this, skip_component_dir_creation)»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -54,7 +54,7 @@ le funzionalità specifiche della pagina.
 			<!-- ====================================================================================== -->
 			<!-- =[FINE] HEADER= -->
 			<!-- ====================================================================================== -->
-			«EXPAND panelMarkupFile(headerName) FOR this»
+			«EXPAND panelMarkupFile(headerName, skip_component_dir_creation) FOR this»
 			«ENDLET»
 			«ENDIF»
 		
@@ -68,7 +68,7 @@ le funzionalità specifiche della pagina.
 			<!-- ====================================================================================== -->
 			<!-- =[FINE] MENUBAR= -->
 			<!-- ====================================================================================== -->
-			«EXPAND panelMarkupFile(menuBarName) FOR this»
+			«EXPAND panelMarkupFile(menuBarName, skip_component_dir_creation) FOR this»
 			«ENDLET»
 			«ENDIF»		
 		
@@ -92,7 +92,7 @@ le funzionalità specifiche della pagina.
 			<!-- ====================================================================================== -->
 			<!-- =[FINE] FOOTER= -->
 			<!-- ====================================================================================== -->
-			«EXPAND panelMarkupFile(footerName) FOR this»
+			«EXPAND panelMarkupFile(footerName, skip_component_dir_creation) FOR this»
 			«ENDLET»
 			«ENDIF»
 			
@@ -104,8 +104,8 @@ le funzionalità specifiche della pagina.
 
 
 «REM»Genera la componente di markup (HTML) di una pagina Wicket«ENDREM»
-«DEFINE pageMarkupFile(GUIModel model) FOR ContentPanel»
-«FILE getWicketPageMarkupFile(this, model)»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE pageMarkupFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getWicketPageMarkupFile(this, model, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket>
 	<body>
 		<wicket:extend>
@@ -120,8 +120,8 @@ le funzionalità specifiche della pagina.
 
 
 «REM»Genera la componente di markup (HTML) di un Panel Wicket«ENDREM»
-«DEFINE panelMarkupFile(String panelName) FOR GUIModel»
-«FILE getWicketPanelMarkupFile(panelName, this)»<wicket:panel>
+«DEFINE panelMarkupFile(String panelName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWicketPanelMarkupFile(panelName, this, skip_component_dir_creation)»<wicket:panel>
 	<div class="«panelName»">
 	
 	</div>
