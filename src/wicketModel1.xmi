@@ -14,9 +14,9 @@
             </item>
           </topLevelMenu>
           <topLevelMenu name="top2" label="Top Menu 2">
-            <item name="item21" label="Item 2.1">
+            <item name="buttonsItm" label="Esempio Buttons">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -42,8 +42,21 @@
             <widgets xsi:type="guigen:CheckBox" name="abilitato" label="Abilitato:"/>
             <widgets xsi:type="guigen:ComboBox" name="regione" label="Regione:"/>
             <widgets xsi:type="guigen:ComboBox" name="provincia" label="Provincia:" dataTypeModifier=""/>
-            <widgets xsi:type="guigen:ConfirmButton" name="submit" label="Ok"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="submit" label="Ok">
+              <eventHandlers>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandlers>
+            </widgets>
             <widgets xsi:type="guigen:ResetButton" name="reset" label="Cancella"/>
+          </panels>
+        </contentPanels>
+        <contentPanels name="esempioButtons">
+          <panels xsi:type="guigen:FormPanel" name="jumpingJackFlash" label="">
+            <widgets xsi:type="guigen:Button" name="buttonJump" label="Vai al Form">
+              <eventHandlers>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+              </eventHandlers>
+            </widgets>
           </panels>
         </contentPanels>
       </appArea>

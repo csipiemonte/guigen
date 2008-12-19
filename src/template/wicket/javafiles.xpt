@@ -239,7 +239,7 @@ public class «getWicketPageClassName(this)» extends BasePage {
 	
 	«REM»Espande il Form panel (Wicket vuole una inner class)«ENDREM»
 	«IF (currP != null && currP.metaType == FormPanel)»
-		«EXPAND createFormPanelClass FOR (FormPanel)currP»
+		«EXPAND createFormPanelClass(model) FOR currP»
 	«ENDIF»
 
 	«ENDLET»
@@ -346,7 +346,7 @@ Genera la componente Java di un FORM, che in Wicket è una Inner class.
 NOTA: per il momento per semplificare la generazione
       è stata fatta l'assunzione Form = form HTML/Wicket
 «ENDREM»
-«DEFINE createFormPanelClass FOR FormPanel»
+«DEFINE createFormPanelClass(GUIModel model) FOR FormPanel»
 /**
  * Inner class per il Form
  * 
@@ -359,7 +359,7 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 			
 			«REM»Creo i componenti del form«ENDREM»
 			«FOREACH this.widgets AS currWidg»
-				«EXPAND createAndAddWidgetJava FOR currWidg»
+				«EXPAND createAndAddWidgetJava(model) FOR currWidg»
 			«ENDFOREACH»
 			
 			// Aggiungo FeedbackPanel per la visualizzazione dei messaggi (soluzione TMP del submit)
@@ -404,7 +404,7 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 
 
 «REM»Genera la componente Java di un Widget Wicket«ENDREM»
-«DEFINE createAndAddWidgetJava FOR Widget»
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR Widget»
 	// [GUIGEN] Crea il widget «this»
 	
 	«IF this.metaType == TextField»
@@ -412,11 +412,13 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
+		
 	«ELSEIF this.metaType == TextArea»
 		«REM»Crea una TextArea«ENDREM»
 		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
+		
 	«ELSEIF this.metaType == RadioButtons»	
 		«REM»Crea dei radio button. TODO: implementare«ENDREM»
 
@@ -425,6 +427,7 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		org.apache.wicket.markup.html.form.CheckBox widg_«this.name» = new org.apache.wicket.markup.html.form.CheckBox(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
+		
 	«ELSEIF this.metaType == ComboBox»
 		«REM»Crea una ComboBox. 
 		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
@@ -443,15 +446,24 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		org.apache.wicket.markup.html.form.DropDownChoice widg_«this.name» = new org.apache.wicket.markup.html.form.DropDownChoice(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""), elementiCombo«name.toFirstUpper()»);
 		add(widg_«this.name»);
-	«ELSEIF this.metaType == Button»
+		
+	«ELSEIF (this.metaType == Button || this.metaType == ConfirmButton)»
 		«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
-	
-	«ELSEIF this.metaType == ConfirmButton»
-		«REM»Crea un pulsante di submit del form.
-		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
+			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
+			«LET this.eventHandlers.first().action AS currAction»
+				@Override
+				public void onSubmit() {
+					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
+				}
+			«ENDLET»
+		};
+		add(widg_«this.name»);
+		
 	«ELSEIF this.metaType == ResetButton»
 		«REM»Crea un pulsante di reset del form.
 		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+		
 	«ELSEIF this.metaType == Image»
 		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
 	
