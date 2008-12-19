@@ -255,8 +255,13 @@ NOTA: per il momento per semplificare la generazione
 		<label for="widg.«this.name»" class="left">«this.label»</label>
 		<input type="checkbox" name="widg.«this.name»" id="widg.«this.name»" class="checkbox" wicket:id="widg.«this.name»" />
 	«ELSEIF this.metaType == ComboBox»
-		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
-	
+		«REM»Crea una ComboBox. 
+		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
+		e mappata con il widget WicketDropDownChoice«ENDREM»
+		<label for="widg.«this.name»" class="left">«this.label»</label>
+		<select name="widg.«this.name»" id="widg.«this.name»" class="combo" wicket:id="widg.«this.name»">
+			<option></option>
+		</select>
 	«ELSEIF this.metaType == Button»
 		«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
 	

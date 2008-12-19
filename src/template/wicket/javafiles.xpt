@@ -421,13 +421,28 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		«REM»Crea dei radio button. TODO: implementare«ENDREM»
 
 	«ELSEIF this.metaType == CheckBox»	
-		«REM»Crea una CheckBox. TODO: implementare«ENDREM»
+		«REM»Crea una CheckBox.«ENDREM»
 		org.apache.wicket.markup.html.form.CheckBox widg_«this.name» = new org.apache.wicket.markup.html.form.CheckBox(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
 	«ELSEIF this.metaType == ComboBox»
-		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
-	
+		«REM»Crea una ComboBox. 
+		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
+		e mappata con il widget WicketDropDownChoice«ENDREM»
+		
+		«REM»DATI TEMPORANEI - INIZIO«ENDREM»
+		java.util.Random generator_«name» = new java.util.Random();
+		int num_«name» = generator_«name».nextInt(10) + 1;
+		String[] tmp_data_«name» = new String[num_«name»];
+		for (int i = 0; i < num_«name»; i++) {
+			tmp_data_«name»[i] = "«name» : Elemento " + i;
+		}
+		java.util.List elementiCombo«name.toFirstUpper()» = java.util.Arrays.asList(tmp_data_«name»);
+		«REM»DATI TEMPORANEI - FINE«ENDREM»
+		
+		org.apache.wicket.markup.html.form.DropDownChoice widg_«this.name» = new org.apache.wicket.markup.html.form.DropDownChoice(
+			"widg.«this.name»", new org.apache.wicket.model.Model(""), elementiCombo«name.toFirstUpper()»);
+		add(widg_«this.name»);
 	«ELSEIF this.metaType == Button»
 		«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
 	
