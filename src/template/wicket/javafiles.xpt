@@ -127,6 +127,7 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 	 * dell'applicazione.
 	 * Inserire inoltre eventuali comportamenti comuni a tutte le pagine dell'applicazione
 	 * specifici per ogni singola applicazione
+	 * @author GuiGen
 	 */
 	protected void init() {
 		
@@ -206,6 +207,7 @@ public class «getWicketPageClassName(this)» extends BasePage {
 	
 	/**
 	 * Empty Constructor.
+	 @author GuiGen
 	 */
 	public «getWicketPageClassName(this)»() {
 	
@@ -213,7 +215,7 @@ public class «getWicketPageClassName(this)» extends BasePage {
 	
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
-	 * 
+	 * @author GuiGen
 	 * @param parameters Page parameters
 	 */
 	public «getWicketPageClassName(this)»(final PageParameters parameters) {
@@ -309,7 +311,7 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 
 «REM»Espande la componente Java dei pannelli.«ENDREM»
 «DEFINE genPanelSetupJava FOR Panel»
-	// Aggiungo il pannello «this»
+	// [GUIGEN] Aggiungo il pannello «this»
 	«IF this.metaType == FormPanel»
 		«REM»Al momento per semplificazione è stata fatta l'assunzione che FormPanel = form Wicket/HTML,
 		e che all'interno di un Form NON ci sono sottopannelli. Bisogna chiarire come si vuole rendere
@@ -359,49 +361,61 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 			«FOREACH this.widgets AS currWidg»
 				«EXPAND createAndAddWidgetJava FOR currWidg»
 			«ENDFOREACH»
+			
+			// Aggiungo FeedbackPanel per la visualizzazione dei messaggi (soluzione TMP del submit)
+			org.apache.wicket.markup.html.panel.FeedbackPanel feedbackPanel = new org.apache.wicket.markup.html.panel.FeedbackPanel("feedback");
+	        add(feedbackPanel);
 		}
 
 
 		/**
 		 * Inserire nel metodo la Business logic da invocare al submit del form.
+		 * @author GuiGen
 		 */
 		@Override
 		public void onSubmit() {
-    	«REM»
-    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
-    		//Business logic da invocare al submit del form
-    	«ENDPROTECT»
-    	«ENDREM»			
+	    	«REM»
+	    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
+	    		//Business logic da invocare al submit del form
+	    	«ENDPROTECT»
+	    	«ENDREM»
+	    	
+	    	«REM»Soluzione temporanea (visualizzo un messaggio)«ENDREM»
+    		info("Il form «name.toFirstUpper()»Form è stato sottomesso.");
 		}
 		
 
 		/**
 		 * Inserire nel metodo la gestione personalizzata degli errori di validazione
+		 * @author guigen
 		 */
 		@Override
 		public void onError() {
-    	«REM»
-    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
-    		//Gestione personalizzata degli errori di validazione
-    	«ENDPROTECT»
-    	«ENDREM»			
+	    	«REM»
+	    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
+	    		//Gestione personalizzata degli errori di validazione
+	    	«ENDPROTECT»
+	    	«ENDREM»			
 		}		
 
-}
+} // END «name.toFirstUpper()»Form INNER CLASS
 «ENDDEFINE»
 
 
 
 «REM»Genera la componente Java di un Widget Wicket«ENDREM»
 «DEFINE createAndAddWidgetJava FOR Widget»
-
+	// [GUIGEN] Crea il widget «this»
+	
 	«IF this.metaType == TextField»
 		«REM»Crea un TextField«ENDREM»
-		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField("widg.«this.name»");
+		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField(
+			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
 	«ELSEIF this.metaType == TextArea»
 		«REM»Crea una TextArea«ENDREM»
-		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea("widg.«this.name»");
+		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea(
+			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
 	«ELSEIF this.metaType == RadioButtons»	
 		«REM»Crea dei radio button. TODO: implementare«ENDREM»

@@ -38,7 +38,7 @@ le funzionalità specifiche della pagina.
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		
-		<title>TITOLO</title>
+		<title>GuiGen Wicket Application :: «codProdotto» (v.«versioneProdotto») - «codComponente» (v.«versioneComponente»)</title>
 	</head>
 	<body>
 		<div class="page-container">
@@ -186,7 +186,7 @@ le funzionalità specifiche della pagina.
 
 «REM»Espande la componente di markup (HTML) dei pannelli.«ENDREM»
 «DEFINE genPanelSetupMarkup FOR Panel»
-	// Aggiungo il pannello «this»
+	<!-- Aggiungo il pannello «this» -->
 	«IF this.metaType == FormPanel»
 		«REM»Al momento per semplificazione è stata fatta l'assunzione che FormPanel = form Wicket/HTML,
 		e che all'interno di un Form NON ci sono sottopannelli. Bisogna chiarire come si vuole rendere
@@ -210,11 +210,12 @@ NOTA: per il momento per semplificare la generazione
 <form wicket:id="form.«name.toFirstUpper()»Form">
 	<fieldset>
 		<legend>«label.toUpperCase()»</legend>
-		«FOREACH this.widgets AS currWidg»
+			<span wicket:id="feedback">Messaggi di feedback</span>
+			«FOREACH this.widgets AS currWidg»
 			<p>
-			«EXPAND createAndAddWidgetMarkup FOR currWidg»
+				«EXPAND createAndAddWidgetMarkup FOR currWidg»
 			</p>
-		«ENDFOREACH»
+			«ENDFOREACH»
 	</fieldset>
 </form>
 «ENDDEFINE»
@@ -232,6 +233,7 @@ NOTA: per il momento per semplificare la generazione
 
 «REM»Genera la componente Java di un Widget Wicket«ENDREM»
 «DEFINE createAndAddWidgetMarkup FOR Widget»
+	<!-- [GUIGEN] Crea il widget «this» -->
 
 	«IF this.metaType == TextField»
 		«REM»Crea un TextField«ENDREM»
