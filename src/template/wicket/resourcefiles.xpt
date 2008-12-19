@@ -239,8 +239,7 @@ NOTA: per il momento per semplificare la generazione
 		«REM»Crea un TextField«ENDREM»
 		<label for="widg.«this.name»" class="left">«this.label»</label>
 		<input type="text" name="widg.«this.name»" id="widg.«this.name»" class="field" value=""  
-				«IF ((TextField)this).fieldLength != null»size="«((TextField)this).fieldLength»"«ENDIF» wicket:id="widg.«this.name»"/>
-		<!--<span wicket:id="widg.«this.name»-feedback"></span>-->
+				«IF ((TextField)this).fieldLength != null»size="«((TextField)this).fieldLength»"«ENDIF» wicket:id="widg.«this.name»" />
 	«ELSEIF this.metaType == TextArea»
 		«REM»Crea una TextArea«ENDREM»
 		<label for="widg.«this.name»" class="left">«this.label»</label>
@@ -253,7 +252,8 @@ NOTA: per il momento per semplificare la generazione
 
 	«ELSEIF this.metaType == CheckBox»	
 		«REM»Crea una CheckBox. TODO: implementare«ENDREM»
-
+		<label for="widg.«this.name»" class="left">«this.label»</label>
+		<input type="checkbox" name="widg.«this.name»" id="widg.«this.name»" class="checkbox" wicket:id="widg.«this.name»" />
 	«ELSEIF this.metaType == ComboBox»
 		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
 	
