@@ -191,7 +191,7 @@ public abstract class «getWicketBasePageClassName()» extends WebPage {
 «FILE getWicketPageJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.markup.html.basic.Label;
+«REM»TODO: IMPORT -> come facciamo?«ENDREM»
 
 /**
  *
@@ -220,17 +220,27 @@ public class «getWicketPageClassName(this)» extends BasePage {
 	
 	}
 
-
+	«LET this.panels AS currP»
 	@Override
 	protected void init() {
 		super.init();
 		
+		«REM»TODO: Parte dimostrativa -> rimuovere«ENDREM»
 		// Add the simplest type of label
-        add(new Label("message", "Questa è la pagina «getWicketPageClassName(this)»"));
+		add(new org.apache.wicket.markup.html.basic.Label("message", "Questa è la pagina «getWicketPageClassName(this)»"));
 
-        // TODO Add your page's components here
+		«REM»Espande i pannelli«ENDREM»
+		«IF currP != null»
+		«EXPAND genPanelSetupJava FOR currP»
+		«ENDIF»
 	}
+	
+	«REM»Espande il Form panel (Wicket vuole una inner class)«ENDREM»
+	«IF (currP != null && currP.metaType == FormPanel)»
+		«EXPAND createFormPanelClass FOR (FormPanel)currP»
+	«ENDIF»
 
+	«ENDLET»
 }
 
 «ENDFILE»
@@ -241,9 +251,8 @@ public class «getWicketPageClassName(this)» extends BasePage {
 «DEFINE panelJavaFile(String panelName, boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getWicketPanelJavaFile(panelName, this, skip_component_dir_creation)»package «getWicketPanelJavaPackage(this)»;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
+«REM»TODO: IMPORT -> come facciamo?«ENDREM»
 
 /**
  *
@@ -274,16 +283,17 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 
 «REM»Genera la componente Java della HEADER«ENDREM»
 «DEFINE getHeaderJava(GUIModel model) FOR Header»
+	«REM»TODO: vedere se è necessaria e cosa si vuole mettere quii«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la componente Java) della MENUBAR«ENDREM»
 «DEFINE getMenubarJava(GUIModel model) FOR Menubar»
 	«FOREACH this.topLevelMenu AS tlmenu»
-	add(new Label("menu.«tlmenu.name»", "«tlmenu.label»"));
+	add(new org.apache.wicket.markup.html.basic.Label("menu.«tlmenu.name»", "«tlmenu.label»"));
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 		«LET currMenuItem.eventHandler.action AS currAction»
-		add(new BookmarkablePageLink("menu.items.«currMenuItem.name»", «getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class));
+		add(new org.apache.wicket.markup.html.link.BookmarkablePageLink("menu.items.«currMenuItem.name»", «getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class));
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
@@ -292,62 +302,132 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 
 «REM»Genera la componente Java della FOOTER«ENDREM»
 «DEFINE getFooterJava(GUIModel model) FOR Footer»
+	«REM»TODO: vedere se è necessaria e cosa si vuole mettere qui.«ENDREM»
 «ENDDEFINE»
 
 
 
+«REM»Espande la componente Java dei pannelli.«ENDREM»
+«DEFINE genPanelSetupJava FOR Panel»
+	// Aggiungo il pannello «this»
+	«IF this.metaType == FormPanel»
+		«REM»Al momento per semplificazione è stata fatta l'assunzione che FormPanel = form Wicket/HTML,
+		e che all'interno di un Form NON ci sono sottopannelli. Bisogna chiarire come si vuole rendere
+		i sottopannelli, ovvero come si vogliono raggruppare i componenti (con COMUNICAZIONE).«ENDREM»
+		«EXPAND setupFormPanelJava FOR (FormPanel)this»
+	«ELSEIF this.metaType == TabSetPanel»
+		«EXPAND setupTabSetPanelJava FOR (TabSetPanel)this»
+		«EXPAND genPanelSetupJava FOREACH ((TabSetPanel)this).tabs»
+	«ELSEIF this.metaType == DialogPanel»
+		«REM»TODO: Da definire cosa si intende per DialogPanel«ENDREM»
+	«ENDIF»
+«ENDDEFINE»
 
 
+«REM»Crea la definizione Java di un FormPanel«ENDREM»
+«DEFINE setupFormPanelJava FOR FormPanel»
+add(new «name.toFirstUpper()»Form("form.«name.toFirstUpper()»Form"));
+«ENDDEFINE»
 
 
-
-
-
-
+«REM»Crea la definizione Javadi un TabSetPanel«ENDREM»
+«DEFINE setupTabSetPanelJava FOR TabSetPanel»
+	«REM»Può essere utilizzato il componente 
+	org.apache.wicket.extensions.markup.html.tabs.TabbedPanel (wicket-extensions)
+	Vedi: http://wicketstuff.org/wicket13/compref/?wicket:bookmarkablePage=:org.apache.wicket.examples.compref.TabbedPanelPage
+	«ENDREM»
+«ENDDEFINE»
 
 
 «REM»
-Genera la componente Java di un FORM.
+Genera la componente Java di un FORM, che in Wicket è una Inner class.
 NOTA: per il momento per semplificare la generazione
       è stata fatta l'assunzione Form = form HTML/Wicket
 «ENDREM»
+«DEFINE createFormPanelClass FOR FormPanel»
+/**
+ * Inner class per il Form
+ * 
+ * @author GuiGen
+ */
+class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form {
+
+		public «name.toFirstUpper()»Form(final String id) {
+			super(id);
+			
+			«REM»Creo i componenti del form«ENDREM»
+			«FOREACH this.widgets AS currWidg»
+				«EXPAND createAndAddWidgetJava FOR currWidg»
+			«ENDFOREACH»
+		}
 
 
+		/**
+		 * Inserire nel metodo la Business logic da invocare al submit del form.
+		 */
+		@Override
+		public void onSubmit() {
+    	«REM»
+    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
+    		//Business logic da invocare al submit del form
+    	«ENDPROTECT»
+    	«ENDREM»			
+		}
+		
 
+		/**
+		 * Inserire nel metodo la gestione personalizzata degli errori di validazione
+		 */
+		@Override
+		public void onError() {
+    	«REM»
+    	«PROTECT CSTART '/*' CEND '*/' ID ElementsUniqueID»
+    		//Gestione personalizzata degli errori di validazione
+    	«ENDPROTECT»
+    	«ENDREM»			
+		}		
 
-
-
-
-
-
-
-
-
-
+}
+«ENDDEFINE»
 
 
 
 «REM»Genera la componente Java di un Widget Wicket«ENDREM»
-«DEFINE createWidgetJava FOR Widget»
+«DEFINE createAndAddWidgetJava FOR Widget»
 
-	«REM»Crea un TextField«ENDREM»
 	«IF this.metaType == TextField»
 		«REM»Crea un TextField«ENDREM»
-		TextField widg_«this.name» = new TextField("«this.name»");
+		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField("widg.«this.name»");
 		add(widg_«this.name»);
 	«ELSEIF this.metaType == TextArea»
 		«REM»Crea una TextArea«ENDREM»
-		TextArea widg_«this.name» = new TextField("«this.name»");
+		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea("widg.«this.name»");
 		add(widg_«this.name»);
+	«ELSEIF this.metaType == RadioButtons»	
+		«REM»Crea dei radio button. TODO: implementare«ENDREM»
+
+	«ELSEIF this.metaType == CheckBox»	
+		«REM»Crea una CheckBox. TODO: implementare«ENDREM»
+
+	«ELSEIF this.metaType == ComboBox»
+		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
+	
+	«ELSEIF this.metaType == Button»
+		«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
+	
+	«ELSEIF this.metaType == ConfirmButton»
+		«REM»Crea un pulsante di submit del form.
+		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+	«ELSEIF this.metaType == ResetButton»
+		«REM»Crea un pulsante di reset del form.
+		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+	«ELSEIF this.metaType == Image»
+		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
+	
+	«ELSEIF this.metaType == Table»	
+		«REM»Crea una Tabella. TODO: implementare«ENDREM»
+
 	«ENDIF»
 
 «ENDDEFINE»
-
-
-
-
-
-
-
-
 
