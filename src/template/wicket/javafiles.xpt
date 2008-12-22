@@ -452,16 +452,15 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
 			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
 			«LET this.eventHandlers.first().action AS currAction»
-				
 				@Override
 				public void onSubmit() {
 					«IF currAction.metaType == JumpAction»
+					System.out.println("Button widg_«this.name» ha been pressed!");
 					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
 					«ELSEIF currAction.metaType == JumpBackAction»
 					// DO NOTHING
 					«ENDIF»
 				}
-				
 			«ENDLET»
 		};
 		add(widg_«this.name»);

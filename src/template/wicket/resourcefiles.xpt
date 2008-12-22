@@ -262,11 +262,8 @@ NOTA: per il momento per semplificare la generazione
 		<select name="widg.«this.name»" id="widg.«this.name»" class="combo" wicket:id="widg.«this.name»">
 			<option></option>
 		</select>
-	«ELSEIF this.metaType == Button»
-		«REM»Crea un pulsante (Button).«ENDREM»
-		<button type="submit" name="widg.«this.name»" id="widg.«this.name»" class="button" >«this.label»</button>
-	«ELSEIF this.metaType == ConfirmButton»
-		«REM»Crea un pulsante di submit del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
+	«ELSEIF (this.metaType == Button || this.metaType == ConfirmButton)»
+		«REM»Crea un pulsante (Button o ConfirmButton).«ENDREM»
 		<input type="submit" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
 	«ELSEIF this.metaType == ResetButton»
 		«REM»Crea un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
