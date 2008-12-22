@@ -401,34 +401,41 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 } // END «name.toFirstUpper()»Form INNER CLASS
 «ENDDEFINE»
 
-
-
-«REM»Genera la componente Java di un Widget Wicket«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR Widget»
-	// [GUIGEN] Crea il widget «this»
-	
-	«IF this.metaType == TextField»
+// [GUIGEN] widget non gestito: «this»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR TextField»
+// [GUIGEN] Crea il widget «this»
 		«REM»Crea un TextField«ENDREM»
 		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
-		
-	«ELSEIF this.metaType == TextArea»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR TextArea»
+// [GUIGEN] Crea il widget «this»
 		«REM»Crea una TextArea«ENDREM»
 		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
-		
-	«ELSEIF this.metaType == RadioButtons»	
-		«REM»Crea dei radio button. TODO: implementare«ENDREM»
+«ENDDEFINE»
 
-	«ELSEIF this.metaType == CheckBox»	
-		«REM»Crea una CheckBox.«ENDREM»
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR RadioButtons»
+// [GUIGEN] Crea il widget «this»
+		«REM»Crea dei radio button. TODO: implementare«ENDREM»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR CheckBox»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea una CheckBox.«ENDREM»
 		org.apache.wicket.markup.html.form.CheckBox widg_«this.name» = new org.apache.wicket.markup.html.form.CheckBox(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""));
 		add(widg_«this.name»);
-		
-	«ELSEIF this.metaType == ComboBox»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR ComboBox»
+// [GUIGEN] Crea il widget «this»
 		«REM»Crea una ComboBox. 
 		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
 		e mappata con il widget WicketDropDownChoice«ENDREM»
@@ -446,9 +453,12 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 		org.apache.wicket.markup.html.form.DropDownChoice widg_«this.name» = new org.apache.wicket.markup.html.form.DropDownChoice(
 			"widg.«this.name»", new org.apache.wicket.model.Model(""), elementiCombo«name.toFirstUpper()»);
 		add(widg_«this.name»);
-		
-	«ELSEIF (this.metaType == Button || this.metaType == ConfirmButton)»
-		«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
+«ENDDEFINE»
+
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR Button»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
 		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
 			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
 			«LET this.eventHandlers.first().action AS currAction»
@@ -464,18 +474,42 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 			«ENDLET»
 		};
 		add(widg_«this.name»);
-		
-	«ELSEIF this.metaType == ResetButton»
-		«REM»Crea un pulsante di reset del form.
-		NOTA: implementato per il momento SOLO in HTML«ENDREM»
-		
-	«ELSEIF this.metaType == Image»
-		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
-	
-	«ELSEIF this.metaType == Table»	
-		«REM»Crea una Tabella. TODO: implementare«ENDREM»
-
-	«ENDIF»
-
 «ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR ConfirmButton»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
+		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
+			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
+			«LET this.eventHandlers.first().action AS currAction»
+				@Override
+				public void onSubmit() {
+					«IF currAction.metaType == JumpAction»
+					System.out.println("Button widg_«this.name» ha been pressed!");
+					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
+					«ELSEIF currAction.metaType == JumpBackAction»
+					// DO NOTHING
+					«ENDIF»
+				}
+			«ENDLET»
+		};
+		add(widg_«this.name»);
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR ResetButton»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea un pulsante di reset del form.
+		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR Image»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea una immagine. TODO«ENDREM»
+«ENDDEFINE»
+
+«DEFINE createAndAddWidgetJava(GUIModel model) FOR Table»
+// [GUIGEN] Crea il widget «this»
+«REM»Crea una immagine. TODO«ENDREM»
+«ENDDEFINE»
+
 
