@@ -211,9 +211,9 @@ NOTA: per il momento per semplificare la generazione
 	<fieldset>
 		<legend>«label.toUpperCase()»</legend>
 			<span wicket:id="feedback">Messaggi di feedback</span>
-			«FOREACH this.widgets AS currWidg»
+			«FOREACH findAllWidgetsInPanel(this) AS currWidg»
 			<p>
-				«EXPAND createAndAddWidgetMarkup FOR currWidg»
+				«EXPAND createAndAddWidgetMarkup FOR (Widget)currWidg»
 			</p>
 			«ENDFOREACH»
 	</fieldset>
