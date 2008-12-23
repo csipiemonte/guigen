@@ -177,6 +177,20 @@ public static boolean isVersioneFormalmenteCorretta(String codVer){
 		return true;
 }
 
+
+/**
+ * 
+ * @param sourceId
+ * @return un id univoco della regione protetta univocamente derivabile
+ * da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
+ * creare problemi a seguito di eventuali formattazioni automatiche dei 
+ * commenti che dichiarano la protectred region 
+ */
+public static String getRegionUID(String sourceId){
+	String uid = "R"+sourceId.hashCode();
+	return uid;
+}
+
 	
 /**
  * @param args
