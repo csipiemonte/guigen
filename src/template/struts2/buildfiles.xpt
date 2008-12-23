@@ -1,0 +1,36 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+
+«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»genera il file di build di ant«ENDREM»
+«DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+«FILE getBuildXmlFileName(this, skip_component_dir_creation)»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»genera il file di property di ant«ENDREM»
+«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»genera i files di IVY«ENDREM»
+«DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getIvyFileName(skip_component_dir_creation)»
+
+«ENDFILE»
+
+«FILE getIvyConfFileName(skip_component_dir_creation)»
+
+«ENDFILE»
+«ENDDEFINE»
