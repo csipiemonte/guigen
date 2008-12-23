@@ -13,6 +13,7 @@
 	
 	<!-- utilizzare in modalita' plugin -->
 	<property name="model" value="guigen/src/wicketModel1.xmi" />
+	<!--<property name="model" value="guigen/src/piol.guigen" />-->
 	
 	<!-- *****************************************************
 	     determina il tipo di applicazione da generare (e i 
@@ -70,6 +71,10 @@
 		<metaModel idRef="mm"/>
 		<expand
 			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+		<!--  protected regions configurator --> 
+	    <prSrcPaths value="${src-gen}" /> 
+	    <prDefaultExcludes value="true" /> 
+	    <prExcludes value="*.jar, *.svn-base, .metadata" />
 		<outlet path="${src-gen}" >
 			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		</outlet>

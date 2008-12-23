@@ -57,6 +57,12 @@ String getEjbConfigDir(GUIModel model, boolean omit_root) :
 String getEjbManifestFile(GUIModel model, boolean omit_root) :
 	getEjbConfigDir(model, omit_root) + "/MANIFEST.MF";
 
+String getEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/ejb-jar.xml";
+
+String getJbossEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/jboss.xml";
+
 
 /// parte JAR
 String getJarConfigRootDir(GUIModel model, boolean omit_root) :
@@ -79,6 +85,9 @@ String getWebModuleConfigDir(GUIModel model, boolean omit_root) :
 String getWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/web.xml";
 
+String getJbossWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/jboss-web.xml";
+
 String getWebModuleMetaInfDir(GUIModel model, boolean omit_root) :
 	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
 
@@ -86,31 +95,22 @@ String getWebModuleManifestFile(GUIModel model, boolean omit_root) :
 	getWebModuleMetaInfDir(model, omit_root) + "/MANIFEST.MF";
 
 
-
 /// javafiles
 
 String getJavaSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/java";
 
-String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
-	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
-		model.codComponente + "/presentation/" + model.codComponente;
+String getBaseJavaSrcDir(GUIModel model, boolean omit_root) :
+	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + model.codComponente;
 
-String getPresentationJavaPackage(GUIModel model) :
-	"it.csi." + model.codProdotto + "." + 
-		model.codComponente + ".presentation." + model.codComponente;
+String getBaseJavaPackage(GUIModel model) :
+	"it.csi." + model.codProdotto + "." + model.codComponente;
 
 
 // resourcefiles
 
 String getWebSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
-
-String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
-	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
-		model.codComponente + "/presentation/" + model.codComponente;
-
-
 
 
 

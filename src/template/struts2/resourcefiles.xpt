@@ -1,7 +1,53 @@
 «IMPORT guigen»
 «EXTENSION template::GenericExtensions»
-«EXTENSION template::wicket::WicketExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE resourceFiles(boolean skip_component_dir_creation) FOR GUIModel»
-
+	«EXPAND indexJspFile(skip_component_dir_creation) FOR this»
+	«EXPAND indexStartPageJspFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
+
+
+«REM»Genera un file di index con la redirect alla welcome action.«ENDREM»
+«DEFINE indexJspFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getIndexJspFile(this, skip_component_dir_creation)»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Welcome</title>
+		<meta http-equiv="refresh" content="0;url=welcome.do"  />
+	</head>
+	<body>
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la start page.«ENDREM»
+«DEFINE indexStartPageJspFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getPresentationMarkupDir(this, skip_component_dir_creation) + "/start.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>My JSP 'index.jsp' starting page</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		-->
+	</head>
+
+	<body>
+		<h3 align="center">Struts2 GuiGen Start Page</h3>
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+

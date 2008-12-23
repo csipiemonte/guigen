@@ -1,7 +1,296 @@
 «IMPORT guigen»
 «EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::WicketExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE configFiles(boolean skip_component_dir_creation) FOR GUIModel»
-
+	«REM»Generazione dei file standard«ENDREM»
+	«EXPAND applicationXmlFile(skip_component_dir_creation) FOR this»
+	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+	«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»«REM»Vedere se e quando può essere necessario«ENDREM»
+	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
+	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
+	«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»«REM»Vedere se e quando può essere necessario«ENDREM»
+	«REM»Generazione dei files di Struts2«ENDREM»
+	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
+	«REM»Generazione dei files di Spring«ENDREM»
+	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
+
+
+«REM»Genera un file MANIFEST il cui nome è passato come parametro «ENDREM»
+«DEFINE manifestFile(String fileName) FOR GUIModel»
+«FILE fileName»Manifest-Version: 1.0
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file di configurazione dell'applicazione«ENDREM»
+«DEFINE applicationXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getEarConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>«codComponente»-ear</display-name>
+
+  <module>
+    <ejb>«codComponente»-business.jar</ejb>
+  </module>
+
+
+  <module>
+    <web>
+      <web-uri>«codComponente».war</web-uri>
+      <context-root>/«codComponente»</context-root>
+    </web>
+  </module>
+</application>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo EAR«ENDREM»
+«DEFINE earManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEarManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo EJB«ENDREM»
+«DEFINE ejbManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getEjbManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor per gli EJB«ENDREM»
+«DEFINE ejbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare quando necessario
+«FILE getEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar id="ejb-jar_ID" version="2.1" 
+         xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<description><![CDATA[No Description.]]></description>
+	<display-name><![CDATA[]]></display-name>
+
+	<enterprise-beans>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.enterprise-beans")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.assembly-descriptor")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</assembly-descriptor>
+</ejb-jar>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
+«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare se equando necessario
+«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN"
+ "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
+<jboss>
+	<enterprise-beans>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</enterprise-beans>
+</jboss>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo JAR«ENDREM»
+«DEFINE jarManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getJarManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file MANIFEST del modulo WEB«ENDREM»
+«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor (web.xml) del modulo WEB«ENDREM»
+«DEFINE webXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+	
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error.jsp</location>
+	</error-page>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor WEB specifico per JBOSS«ENDREM»
+«DEFINE jbossWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM»Decommentare se necessario
+«FILE getJbossWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.3V2//EN" "http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd">
+<jboss-web>
+    <replication-config>
+        <replication-trigger>SET</replication-trigger>
+        <replication-granularity>ATTRIBUTE</replication-granularity>
+    </replication-config>
+
+ 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss-web.jboss-web")»
+	<!-- Inserire qui quanto può essere necessario -->
+	«ENDPROTECT»   
+</jboss-web>
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera conf\web\piolfe\WEB-INF\struts.xml«ENDREM»
+«DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="struts-global.xml" />
+	«REM»Qui ci vanno gli altri files di Struts, secondo la nomenclatura CSI
+	<include file="struts-1-EJB.xml" />
+	«ENDREM»
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+	
+	
+«REM»conf\web\piolfe\WEB-INF\struts-global.xml«ENDREM»
+«DEFINE strutsGlobalConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsGlobalConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.action.extension" value="do" />
+	
+	<package name="struts2" extends="struts-default" namespace="/">
+		<global-exception-mappings>
+    	<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+	</package>
+
+	<package name="jsp-package" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="static-params" />
+				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="params" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="workflow" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="jsp-stack"/>
+	</package>
+
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="welcome">
+			<result>jsp/start.jsp</result>  
+		</action>
+	</package>
+
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file di Spring per la parte EJB«ENDREM»
+«DEFINE ejbSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringEjbConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean name="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")»
+		<!-- Insert here your Spring Beans -->
+	«ENDPROTECT»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera il file di Spring per la parte Web«ENDREM»
+«DEFINE webSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
+		<!-- Insert here your Spring Beans -->
+	«ENDPROTECT»
+
+</beans>
+«ENDFILE»
+«ENDDEFINE»
+
+
+

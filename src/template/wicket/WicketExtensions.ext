@@ -6,6 +6,18 @@ extension template::GenericExtensions;
 /// Estensioni specifiche per il framework Wicket         //
 ////////////////////////////////////////////////////////////
 
+String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
+		model.codComponente + "/presentation/" + model.codComponente;
+
+String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + 
+		model.codComponente + "/presentation/" + model.codComponente;
+
+String getPresentationJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente;
+
+
 /// Applicazione wicket
 String getWicketApplicationClassName() :
 	"WicketApplication";

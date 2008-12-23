@@ -484,11 +484,38 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 			«LET this.eventHandlers.first().action AS currAction»
 				@Override
 				public void onSubmit() {
+				String esito = null;
 					«IF currAction.metaType == JumpAction»
-					System.out.println("Button widg_«this.name» ha been pressed!");
+					«REM»GENERAZIONE: se Push Current Page vale true, inserire in uno stack (sessione?) la pagina di provenienza«ENDREM»
 					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
 					«ELSEIF currAction.metaType == JumpBackAction»
-					// DO NOTHING
+					«REM»GENERAZIONE: recuperare dallo stack (sessione?) la pagina di provenienza«ENDREM»
+					«ELSEIF currAction.metaType == ExecAction»
+					
+					«REM»
+					«PROTECT CSTART '/*' CEND '*/' ID getRegionUID()»
+					«ENDPROTECT»
+					«ENDREM»
+					
+					«FOREACH ((ExecAction)currAction).results AS currRes»
+					if ( "«currRes.resultCode»".equals(esito) ) {
+						
+					}
+					«ENDFOREACH»
+					
+				// espandere 
+			}
+					
+					«REM»E' una regione protetta nella quale verrà inserito manualmente il codice«ENDREM»
+					«ELSEIF currAction.metaType == SequenceAction»
+					«REM»E' una sequenza di azioni di qualunque tipo«ENDREM»
+					«ELSEIF currAction.metaType == ONOFFAction»
+					«REM»CICLARE SU«((ONOFFAction)currAction).targetWidgets»«ENDREM»
+					«REM»Rende i widget indicati abilitati o disabilitati (metodo setEnabled(true/false))«ENDREM»
+					«ELSEIF currAction.metaType == VisibilityAction»
+					«REM»CICLARE SU«((VisibilityAction)currAction).targetWidgets»«ENDREM»
+					«REM»Rende i widget indicati visibili o invisibili (metodo setVisible(true/false) chiamato sui widgets)
+					NOTA: rendere final tutte le definizioni dei widgets«ENDREM»
 					«ENDIF»
 				}
 			«ENDLET»
@@ -511,5 +538,13 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 // [GUIGEN] Crea il widget «this»
 «REM»Crea una immagine. TODO«ENDREM»
 «ENDDEFINE»
+
+
+
+«DEFINE creaAzione FOR Action»
+
+«ENDDEFINE»
+
+
 
 

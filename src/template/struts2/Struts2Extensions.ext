@@ -7,3 +7,39 @@ extension template::GenericExtensions;
 ////////////////////////////////////////////////////////////
 
 
+String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/action";
+
+String getPresentationJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".action";
+
+String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/jsp";
+
+/// Files di configurazione di Struts2
+
+String getStrutsConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/struts.xml";
+
+String getStrutsGlobalConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/struts-global.xml";
+
+
+/// Files di configurazione di Spring
+
+String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/beanContext.xml";
+	
+String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
+
+
+/// Files JSP comuni
+
+String getIndexJspFile(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/index.jsp";
+
+
+/// Classi Java comuni
+
+
