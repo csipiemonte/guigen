@@ -401,150 +401,166 @@ class «name.toFirstUpper()»Form extends org.apache.wicket.markup.html.form.Form 
 } // END «name.toFirstUpper()»Form INNER CLASS
 «ENDDEFINE»
 
+
+«REM»Crea un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR Widget»
 // [GUIGEN] widget non gestito: «this»
 «ENDDEFINE»
 
+
+«REM»Crea un TextField«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR TextField»
 // [GUIGEN] Crea il widget «this»
-		«REM»Crea un TextField«ENDREM»
-		org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField(
-			"widg.«this.name»", new org.apache.wicket.model.Model(""));
-		add(widg_«this.name»);
+org.apache.wicket.markup.html.form.TextField widg_«this.name» = new org.apache.wicket.markup.html.form.TextField(
+	"widg.«this.name»", new org.apache.wicket.model.Model(""));
+add(widg_«this.name»);
 «ENDDEFINE»
 
+
+«REM»Crea una TextArea«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR TextArea»
 // [GUIGEN] Crea il widget «this»
-		«REM»Crea una TextArea«ENDREM»
-		org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea(
-			"widg.«this.name»", new org.apache.wicket.model.Model(""));
-		add(widg_«this.name»);
+org.apache.wicket.markup.html.form.TextArea widg_«this.name» = new org.apache.wicket.markup.html.form.TextArea(
+	"widg.«this.name»", new org.apache.wicket.model.Model(""));
+add(widg_«this.name»);
 «ENDDEFINE»
 
+
+«REM»Crea dei radio button. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR RadioButtons»
 // [GUIGEN] Crea il widget «this»
-		«REM»Crea dei radio button. TODO: implementare«ENDREM»
+
 «ENDDEFINE»
 
+
+«REM»Crea una CheckBox.«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR CheckBox»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea una CheckBox.«ENDREM»
-		org.apache.wicket.markup.html.form.CheckBox widg_«this.name» = new org.apache.wicket.markup.html.form.CheckBox(
-			"widg.«this.name»", new org.apache.wicket.model.Model(""));
-		add(widg_«this.name»);
+org.apache.wicket.markup.html.form.CheckBox widg_«this.name» = new org.apache.wicket.markup.html.form.CheckBox(
+	"widg.«this.name»", new org.apache.wicket.model.Model(""));
+add(widg_«this.name»);
 «ENDDEFINE»
 
+
+«REM»Crea una ComboBox. 
+NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
+      e mappata con il widget WicketDropDownChoice«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR ComboBox»
 // [GUIGEN] Crea il widget «this»
-		«REM»Crea una ComboBox. 
-		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
-		e mappata con il widget WicketDropDownChoice«ENDREM»
-		
-		«REM»DATI TEMPORANEI - INIZIO«ENDREM»
-		java.util.Random generator_«name» = new java.util.Random();
-		int num_«name» = generator_«name».nextInt(10) + 1;
-		String[] tmp_data_«name» = new String[num_«name»];
-		for (int i = 0; i < num_«name»; i++) {
-			tmp_data_«name»[i] = "«name» : Elemento " + i;
-		}
-		java.util.List elementiCombo«name.toFirstUpper()» = java.util.Arrays.asList(tmp_data_«name»);
-		«REM»DATI TEMPORANEI - FINE«ENDREM»
-		
-		org.apache.wicket.markup.html.form.DropDownChoice widg_«this.name» = new org.apache.wicket.markup.html.form.DropDownChoice(
-			"widg.«this.name»", new org.apache.wicket.model.Model(""), elementiCombo«name.toFirstUpper()»);
-		add(widg_«this.name»);
+
+«REM»DATI TEMPORANEI - INIZIO«ENDREM»
+java.util.Random generator_«name» = new java.util.Random();
+int num_«name» = generator_«name».nextInt(10) + 1;
+String[] tmp_data_«name» = new String[num_«name»];
+for (int i = 0; i < num_«name»; i++) {
+	tmp_data_«name»[i] = "«name» : Elemento " + i;
+}
+java.util.List elementiCombo«name.toFirstUpper()» = java.util.Arrays.asList(tmp_data_«name»);
+«REM»DATI TEMPORANEI - FINE«ENDREM»
+
+org.apache.wicket.markup.html.form.DropDownChoice widg_«this.name» = new org.apache.wicket.markup.html.form.DropDownChoice(
+	"widg.«this.name»", new org.apache.wicket.model.Model(""), elementiCombo«name.toFirstUpper()»);
+add(widg_«this.name»);
 «ENDDEFINE»
 
 
+«REM»Crea un pulsante (Button).«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR Button»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
-		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
-			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
-			«LET this.eventHandlers.first().action AS currAction»
-				@Override
-				public void onSubmit() {
-					«IF currAction.metaType == JumpAction»
-					System.out.println("Button widg_«this.name» ha been pressed!");
-					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
-					«ELSEIF currAction.metaType == JumpBackAction»
-					// DO NOTHING
-					«ENDIF»
-				}
-			«ENDLET»
-		};
-		add(widg_«this.name»);
+org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
+	"widg.«this.name»", new org.apache.wicket.model.Model("")) {
+	«LET this.eventHandlers.first().action AS currAction»
+		@Override
+		public void onSubmit() {
+			«REM»Estrarre il codice delle azioni e generalizzare«ENDREM»
+			«IF currAction.metaType == JumpAction»
+			System.out.println("Button widg_«this.name» ha been pressed!");
+			setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
+			«ELSEIF currAction.metaType == JumpBackAction»
+			// DO NOTHING
+			«ENDIF»
+		}
+	«ENDLET»
+};
+add(widg_«this.name»);
 «ENDDEFINE»
 
+
+«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR ConfirmButton»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea un pulsante (Button). TODO: implementare«ENDREM»
-		org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
-			"widg.«this.name»", new org.apache.wicket.model.Model("")) {
-			«LET this.eventHandlers.first().action AS currAction»
-				@Override
-				public void onSubmit() {
-				String esito = null;
-					«IF currAction.metaType == JumpAction»
-					«REM»GENERAZIONE: se Push Current Page vale true, inserire in uno stack (sessione?) la pagina di provenienza«ENDREM»
-					setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
-					«ELSEIF currAction.metaType == JumpBackAction»
-					«REM»GENERAZIONE: recuperare dallo stack (sessione?) la pagina di provenienza«ENDREM»
-					«ELSEIF currAction.metaType == ExecAction»
-					
-					«REM»
-					«PROTECT CSTART '/*' CEND '*/' ID getRegionUID()»
-					«ENDPROTECT»
-					«ENDREM»
-					
-					«FOREACH ((ExecAction)currAction).results AS currRes»
-					if ( "«currRes.resultCode»".equals(esito) ) {
-						
-					}
-					«ENDFOREACH»
-					
-				// espandere 
-			}
-					
-					«REM»E' una regione protetta nella quale verrà inserito manualmente il codice«ENDREM»
-					«ELSEIF currAction.metaType == SequenceAction»
-					«REM»E' una sequenza di azioni di qualunque tipo«ENDREM»
-					«ELSEIF currAction.metaType == ONOFFAction»
-					«REM»CICLARE SU«((ONOFFAction)currAction).targetWidgets»«ENDREM»
-					«REM»Rende i widget indicati abilitati o disabilitati (metodo setEnabled(true/false))«ENDREM»
-					«ELSEIF currAction.metaType == VisibilityAction»
-					«REM»CICLARE SU«((VisibilityAction)currAction).targetWidgets»«ENDREM»
-					«REM»Rende i widget indicati visibili o invisibili (metodo setVisible(true/false) chiamato sui widgets)
-					NOTA: rendere final tutte le definizioni dei widgets«ENDREM»
-					«ENDIF»
-				}
-			«ENDLET»
-		};
-		add(widg_«this.name»);
+org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
+"widg.«this.name»", new org.apache.wicket.model.Model("")) {
+«REM»TODO: estrarre la logica delle azioni da qui e generalizzare«ENDREM»
+«LET this.eventHandlers.first().action AS currAction»
+	@Override
+	public void onSubmit() {
+		String esito = null;
+		«IF currAction.metaType == JumpAction»
+		«REM»GENERAZIONE: se Push Current Page vale true, inserire in uno stack (sessione?) la pagina di provenienza«ENDREM»
+		setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
+		«ELSEIF currAction.metaType == JumpBackAction»
+		«REM»GENERAZIONE: recuperare dallo stack (sessione?) la pagina di provenienza«ENDREM»
+		«ELSEIF currAction.metaType == ExecAction»
+		
+		«REM»
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID()»
+		«ENDPROTECT»
+		«ENDREM»
+		
+		«FOREACH ((ExecAction)currAction).results AS currRes»
+		if ( "«currRes.resultCode»".equals(esito) ) {
+			
+		}
+		«ENDFOREACH»
+		
+	// espandere 
+}
+		
+		«REM»E' una regione protetta nella quale verrà inserito manualmente il codice«ENDREM»
+		«ELSEIF currAction.metaType == SequenceAction»
+		«REM»E' una sequenza di azioni di qualunque tipo«ENDREM»
+		«ELSEIF currAction.metaType == ONOFFAction»
+		«REM»CICLARE SU«((ONOFFAction)currAction).targetWidgets»«ENDREM»
+		«REM»Rende i widget indicati abilitati o disabilitati (metodo setEnabled(true/false))«ENDREM»
+		«ELSEIF currAction.metaType == VisibilityAction»
+		«REM»CICLARE SU«((VisibilityAction)currAction).targetWidgets»«ENDREM»
+		«REM»Rende i widget indicati visibili o invisibili (metodo setVisible(true/false) chiamato sui widgets)
+		NOTA: rendere final tutte le definizioni dei widgets«ENDREM»
+		«ENDIF»
+	}
+«ENDLET»
+};
+add(widg_«this.name»);
 «ENDDEFINE»
 
+
+«REM»Crea un pulsante di reset del form.
+NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR ResetButton»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea un pulsante di reset del form.
-		NOTA: implementato per il momento SOLO in HTML«ENDREM»
+
 «ENDDEFINE»
 
+
+«REM»Crea una immagine. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR Image»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea una immagine. TODO«ENDREM»
+
 «ENDDEFINE»
 
+
+«REM»Crea una tabella. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetJava(GUIModel model) FOR Table»
 // [GUIGEN] Crea il widget «this»
-«REM»Crea una immagine. TODO«ENDREM»
+
 «ENDDEFINE»
 
 
 
+
+«REM»GESTIONE DELLE AZIONI«ENDREM»
 «DEFINE creaAzione FOR Action»
 
 «ENDDEFINE»
-
-
-
 

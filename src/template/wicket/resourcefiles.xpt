@@ -116,7 +116,7 @@ le funzionalità specifiche della pagina.
 	        «REM»Espande i pannelli«ENDREM»
 	        «LET this.panels AS currP»
 		    «IF currP != null»
-		    «EXPAND genPanelSetupMarkup FOR currP»
+		    «EXPAND genPanelSetupMarkup(model) FOR currP»
 		    «ENDIF»
 	        «ENDLET»
 	        
@@ -185,16 +185,16 @@ le funzionalità specifiche della pagina.
 
 
 «REM»Espande la componente di markup (HTML) dei pannelli.«ENDREM»
-«DEFINE genPanelSetupMarkup FOR Panel»
+«DEFINE genPanelSetupMarkup(GUIModel model) FOR Panel»
 	<!-- Aggiungo il pannello «this» -->
 	«IF this.metaType == FormPanel»
 		«REM»Al momento per semplificazione è stata fatta l'assunzione che FormPanel = form Wicket/HTML,
 		e che all'interno di un Form NON ci sono sottopannelli. Bisogna chiarire come si vuole rendere
 		i sottopannelli, ovvero come si vogliono raggruppare i componenti (con COMUNICAZIONE).«ENDREM»
-		«EXPAND setupFormPanelMarkup FOR (FormPanel)this»
+		«EXPAND setupFormPanelMarkup(model) FOR (FormPanel)this»
 	«ELSEIF this.metaType == TabSetPanel»
 		«EXPAND setupTabSetPanelMarkup FOR (TabSetPanel)this»
-		«EXPAND genPanelSetupMarkup FOREACH ((TabSetPanel)this).tabs»
+		«EXPAND genPanelSetupMarkup(model) FOREACH ((TabSetPanel)this).tabs»
 	«ELSEIF this.metaType == DialogPanel»
 		«REM»TODO: Da definire cosa si intende per DialogPanel«ENDREM»
 	«ENDIF»
@@ -206,14 +206,14 @@ Genera la componente di markup (HTML) di un FormPanel.
 NOTA: per il momento per semplificare la generazione
       è stata fatta l'assunzione Form = form HTML/Wicket
 «ENDREM»
-«DEFINE setupFormPanelMarkup FOR FormPanel»
+«DEFINE setupFormPanelMarkup(GUIModel model) FOR FormPanel»
 <form wicket:id="form.«name.toFirstUpper()»Form">
 	<fieldset>
 		<legend>«label.toUpperCase()»</legend>
 			<span wicket:id="feedback">Messaggi di feedback</span>
 			«FOREACH findAllWidgetsInPanel(this) AS currWidg»
 			<p>
-				«EXPAND createAndAddWidgetMarkup FOR (Widget)currWidg»
+				«EXPAND createAndAddWidgetMarkup(model) FOR (Widget)currWidg»
 			</p>
 			«ENDFOREACH»
 	</fieldset>
@@ -230,51 +230,98 @@ NOTA: per il momento per semplificare la generazione
 «ENDDEFINE»
 
 
+«REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Widget»
+<!-- [GUIGEN] widget non gestito: «this» -->
+«ENDDEFINE»
 
-«REM»Genera la componente Java di un Widget Wicket«ENDREM»
-«DEFINE createAndAddWidgetMarkup FOR Widget»
-	<!-- [GUIGEN] Crea il widget «this» -->
 
-	«IF this.metaType == TextField»
-		«REM»Crea un TextField«ENDREM»
-		<label for="widg.«this.name»" class="left">«this.label»</label>
-		<input type="text" name="widg.«this.name»" id="widg.«this.name»" class="field" value=""  
-				«IF ((TextField)this).fieldLength != null»size="«((TextField)this).fieldLength»"«ENDIF» wicket:id="widg.«this.name»" />
-	«ELSEIF this.metaType == TextArea»
-		«REM»Crea una TextArea«ENDREM»
-		<label for="widg.«this.name»" class="left">«this.label»</label>
-		<textarea name="widg.«this.name»" id="widg.«this.name»" 
-			«IF ((TextArea)this).rows != null»rows="«((TextArea)this).rows»"«ENDIF»
-			«IF ((TextArea)this).columns != null»cols="«((TextArea)this).columns»"«ENDIF»
-			wicket:id="widg.«this.name»"></textarea>
-	«ELSEIF this.metaType == RadioButtons»	
-		«REM»Crea dei radio button. TODO: implementare«ENDREM»
+«REM»Genera la componente di markup (HTML) di un TextField«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextField»
+<!-- [GUIGEN] Crea il widget «this» -->
+<label for="widg.«this.name»" class="left">«this.label»</label>
+<input type="text" name="widg.«this.name»" id="widg.«this.name»" class="field" value=""  
+		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» wicket:id="widg.«this.name»" />
+«ENDDEFINE»
 
-	«ELSEIF this.metaType == CheckBox»	
-		«REM»Crea una CheckBox. TODO: implementare«ENDREM»
-		<label for="widg.«this.name»" class="left">«this.label»</label>
-		<input type="checkbox" name="widg.«this.name»" id="widg.«this.name»" class="checkbox" wicket:id="widg.«this.name»" />
-	«ELSEIF this.metaType == ComboBox»
-		«REM»Crea una ComboBox. 
-		NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
-		e mappata con il widget WicketDropDownChoice«ENDREM»
-		<label for="widg.«this.name»" class="left">«this.label»</label>
-		<select name="widg.«this.name»" id="widg.«this.name»" class="combo" wicket:id="widg.«this.name»">
-			<option></option>
-		</select>
-	«ELSEIF (this.metaType == Button || this.metaType == ConfirmButton)»
-		«REM»Crea un pulsante (Button o ConfirmButton).«ENDREM»
-		<input type="submit" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
-	«ELSEIF this.metaType == ResetButton»
-		«REM»Crea un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
-		<input type="reset" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
-	«ELSEIF this.metaType == Image»
-		«REM»Crea una ComboBox. TODO: implementare«ENDREM»
-	
-	«ELSEIF this.metaType == Table»	
-		«REM»Crea una Tabella. TODO: implementare«ENDREM»
 
-	«ENDIF»
+«REM»Genera la componente di markup (HTML) di una TextArea«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextArea»
+<!-- [GUIGEN] Crea il widget «this» -->
+<label for="widg.«this.name»" class="left">«this.label»</label>
+<textarea name="widg.«this.name»" id="widg.«this.name»" 
+	«IF this.rows != null»rows="«this.rows»"«ENDIF»
+	«IF this.columns != null»cols="«this.columns»"«ENDIF»
+	wicket:id="widg.«this.name»"></textarea>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR RadioButtons»
+<!-- [GUIGEN] Crea il widget «this» -->
 
 «ENDDEFINE»
+
+
+«REM»Genera la componente Java di una CheckBox.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR CheckBox»
+<!-- [GUIGEN] Crea il widget «this» -->
+<label for="widg.«this.name»" class="left">«this.label»</label>
+<input type="checkbox" name="widg.«this.name»" id="widg.«this.name»" class="checkbox" wicket:id="widg.«this.name»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una ComboBox. 
+NOTA: ComboBox è stata per il momento interpretata come "lista a scelta singola" 
+      e mappata con il widget WicketDropDownChoice«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ComboBox»
+<!-- [GUIGEN] Crea il widget «this» -->
+<label for="widg.«this.name»" class="left">«this.label»</label>
+<select name="widg.«this.name»" id="widg.«this.name»" class="combo" wicket:id="widg.«this.name»">
+	<option></option>
+</select>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Button»
+<!-- [GUIGEN] Crea il widget «this» -->
+<input type="submit" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ConfirmButton»
+<!-- [GUIGEN] Crea il widget «this» -->
+<input type="submit" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ResetButton»
+<!-- [GUIGEN] Crea il widget «this» -->
+<input type="reset" name="widg.«this.name»" id="widg.«this.name»" class="button" value="«this.label»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Image»
+<!-- [GUIGEN] Crea il widget «this» -->
+
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una tabella. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Table»
+<!-- [GUIGEN] Crea il widget «this» -->
+
+«ENDDEFINE»
+
+
+
+
+
+
+
+
 

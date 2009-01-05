@@ -34,7 +34,13 @@ public final class Constants
 
 
 
-«REM»Crea una Base action«ENDREM»
+«REM»
+Genera una Base Action Struts2 che contiene gli elementi comuni all'applicazione.
+Tutte le altre Action dell'applicazione dovranno ereditare da questa
+in modo da ottenere le parti comuni, e dovranno implementare in proprio
+le funzionalità specifiche della pagina.
+TODO: implementare se necessario
+«ENDREM»
 «DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «REM»
 «FILE fileName»
@@ -42,4 +48,18 @@ public final class Constants
 «ENDFILE»
 «ENDREM»
 «ENDDEFINE»
+
+
+«REM»Genera la componente Java di una pagina Wicket«ENDREM»
+«DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+
 

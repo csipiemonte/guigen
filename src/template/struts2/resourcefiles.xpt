@@ -4,7 +4,7 @@
 
 «DEFINE resourceFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND indexJspFile(skip_component_dir_creation) FOR this»
-	«EXPAND indexStartPageJspFile(skip_component_dir_creation) FOR this»
+	«EXPAND homePageJspFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -16,7 +16,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Welcome</title>
-		<meta http-equiv="refresh" content="0;url=welcome.do"  />
+		<meta http-equiv="refresh" content="0;url=HomePage.do"  />
 	</head>
 	<body>
 	</body>
@@ -25,9 +25,54 @@
 «ENDDEFINE»
 
 
-«REM»Genera la start page.«ENDREM»
-«DEFINE indexStartPageJspFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getPresentationMarkupDir(this, skip_component_dir_creation) + "/start.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup FOR Header»
+	<h1>QUESTA E' LA HEADER</h1>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getStaticLinkMarkup FOR StaticLinks»
+	<h2>Qui ci andranno i Link Statici</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getMenubarMarkup FOR Menubar»
+<ul>
+	«FOREACH this.topLevelMenu AS tlmenu»
+	<li><span>«tlmenu.name»</span></li>
+	<ul>
+		«FOREACH tlmenu.item AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.action AS currAction»
+		<li><a href="#" wicket:id="menu.items.«currMenuItem.name»">«currMenuItem.label»</a></li>
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+	</ul>
+	«ENDFOREACH»
+</ul>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup FOR Footer»
+		<p>-- QUESTA E' LA FOOTER --</p>
+		<p>
+			Copyright &copy; 2008
+			<a href="http://www.csi.it">CSI Piemonte</a> | Tutti i diritti riservati.
+		</p>
+		<p class="credits">
+			Design by CSI Piemonte |
+			<a href="http://validator.w3.org/check?uri=referer" title="Validate XHTML code"> XHTML 1.0</a> |
+			<a href="http://jigsaw.w3.org/css-validator/" title="Validate CSS code">CSS 2.0</a>
+		</p>
+«ENDDEFINE»
+
+
+«REM»Genera la Home Page.«ENDREM»
+«DEFINE homePageJspFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getHomePageJspFile(this, skip_component_dir_creation)»<%@ taglib uri="/struts-tags" prefix="s" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -37,17 +82,253 @@
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
 		<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		-->
 	</head>
 
 	<body>
-		<h3 align="center">Struts2 GuiGen Start Page</h3>
+		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET this.structure.appWindow.header AS header»
+		«IF header != null»
+		«EXPAND getHeaderMarkup FOR header»
+		«ENDIF»
+		«ENDLET»
+		
+		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET this.structure.appWindow.appArea.staticLinks AS staticLinks»
+		«IF staticLinks != null»
+		«EXPAND getStaticLinkMarkup FOR staticLinks»
+		«ENDIF»
+		«ENDLET»
+		
+		
+		«REM»Corpo della home page. TODO: mettere una REGIONE PROTETTA?«ENDREM»
+		<h3 align="center">Struts2 GuiGen Home Page</h3>
+		
+		«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET this.structure.appWindow.appArea.menubar AS menubar»
+		«IF menubar != null»
+		«EXPAND getMenubarMarkup FOR menubar»
+		«ENDIF»		
+		«ENDLET»
+		
+
+		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET this.structure.appWindow.footer AS footer»
+		«IF footer != null»
+		«EXPAND getFooterMarkup FOR footer»
+		«ENDIF»
+		«ENDLET»
+		
 	</body>
 </html>
 «ENDFILE»
 «ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)»<%@ taglib uri="/struts-tags" prefix="s" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>My JSP 'index.jsp' starting page</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<!--
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		-->
+	</head>
+
+	<body>
+		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET model.structure.appWindow.header AS header»
+		«IF header != null»
+		«EXPAND getHeaderMarkup FOR header»
+		«ENDIF»
+		«ENDLET»
+		
+		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
+		«IF staticLinks != null»
+		«EXPAND getStaticLinkMarkup FOR staticLinks»
+		«ENDIF»
+		«ENDLET»
+		
+		«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET model.structure.appWindow.appArea.menubar AS menubar»
+		«IF menubar != null»
+		«EXPAND getMenubarMarkup FOR menubar»
+		«ENDIF»		
+		«ENDLET»
+		
+
+		«REM»Corpo della Pagina«ENDREM»
+		<s:form action="testAction" method="post">
+		
+		
+		
+		
+		</s:form>
+
+
+		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+		«LET model.structure.appWindow.footer AS footer»
+		«IF footer != null»
+		«EXPAND getFooterMarkup FOR footer»
+		«ENDIF»
+		«ENDLET»
+		
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+«REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Widget»
+<!-- [GUIGEN] widget non gestito: «this» -->
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextField»
+<!-- [GUIGEN] Crea il widget «this» -->
+<c:if 
+<s:label value="«this.label»" for="widg_«this.name»"/>
+<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
+	disabled="${widg_«this.name»_disabled}"/>
+</c
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextArea»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:label value="«this.label»" for="widg_«this.name»"/>
+<s:textarea name="widg_«this.name»" id="widg_«this.name»"
+	«IF this.rows != null»rows="«this.rows»"«ENDIF»
+	«IF this.columns != null»cols="«this.columns»"«ENDIF»></s:textarea>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR RadioButtons»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:label value="«this.label»" for="widg_«this.name»"/>
+<s:radio id="widg_«this.name»" name="widg_«this.name»" 
+	     list="#{'AL':'Alessandria','CN':'Cuneo','TO':'Torino'}"/>
+«ENDDEFINE»
+
+
+«REM»Genera la componente Java di una CheckBox.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR CheckBox»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:label value="«this.label»" for="widg_«this.name»"/>
+<s:checkbox name="widg_«this.name»" id="widg_«this.name»" class="checkbox" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ComboBox»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:label value="«this.label»" for="widg_«this.name»"/>
+<s:select name="widg_«this.name»" id="widg_«this.name»"
+          headerKey="00" headerValue="-- Selezionare un valore --"
+          list="#{'01':'Gennaio',
+                  '02':'Febbraio',
+                  '03':'Marzo',
+                  '04':'Aprile',
+                  '05':'Maggio',
+                  '06':'Giugno',
+                  '07':'Luglio',
+                  '08':'Agosto',
+                  '09':'Settembre',
+                  '10':'Ottobre',
+                  '11':'Novembre',
+                  '12':'Dicembre'}"
+          />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Button»
+<!-- [GUIGEN] Crea il widget «this» -->
+
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ConfirmButton»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:submit name="widg_«this.name»" id="widg_«this.name»" class="button" value="«this.label»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ResetButton»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:reset name="widg_«this.name»" id="widg_«this.name»" class="button" value="«this.label»" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Image»
+<!-- [GUIGEN] Crea il widget «this» -->
+
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di una tabella. TODO: implementare«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Table»
+<!-- [GUIGEN] Crea il widget «this» -->
+
+«ENDDEFINE»
+
+
+
+
+
+
+
+
 

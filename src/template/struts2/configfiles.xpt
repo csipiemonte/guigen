@@ -16,9 +16,10 @@
 	«REM»Generazione dei files di Struts2«ENDREM»
 	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
 	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
-	«REM»Generazione dei files di Spring«ENDREM»
+	«REM»Generazione dei files di Spring
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«ENDREM»
 «ENDDEFINE»
 
 
@@ -202,7 +203,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «ENDREM»
 
 
-«REM»Genera conf\web\piolfe\WEB-INF\struts.xml«ENDREM»
+«REM»Genera conf\web\<componente>\WEB-INF\struts.xml«ENDREM»
 «DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
@@ -210,15 +211,14 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 <struts>
 	<include file="struts-global.xml" />
-	«REM»Qui ci vanno gli altri files di Struts, secondo la nomenclatura CSI
-	<include file="struts-1-EJB.xml" />
-	«ENDREM»
+	«REM»Qui ci vanno gli altri files di Struts, secondo la nomenclatura CSI«ENDREM»
+	<include file="struts-1-base.xml" />
 </struts>
 «ENDFILE»
 «ENDDEFINE»
 	
 	
-«REM»conf\web\piolfe\WEB-INF\struts-global.xml«ENDREM»
+«REM»conf\web\<componente>\WEB-INF\struts-global.xml«ENDREM»
 «DEFINE strutsGlobalConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsGlobalConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
@@ -250,13 +250,43 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	</package>
 
 	<package name="default" extends="struts-default" namespace="/">
-		<action name="welcome">
-			<result>jsp/start.jsp</result>  
+		<action name="HomePage">
+			<result>«getHomePageConfig()»</result>  
 		</action>
 	</package>
 
 </struts>
 «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»conf\web\<componente>\WEB-INF\struts-global.xml«ENDREM»
+«DEFINE strutsApplicationConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsApplicationConfigFile(this, skip_component_dir_creation, "struts-1-base")»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="base" extends="jsp-package" namespace="/">
+	
+		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
+		«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
+			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels»
+		«ENDLET»
+	
+	</package>
+</struts>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
+<action name="«getStrutsActionClassName(this)»" class="«getStrutsActionFQN(this, model)»">
+	<result name="input">«getStrutsActionConfig(this)»</result>
+	«REM»Ciclare su tutte le azioni e inserire come <result> i result delle «ENDREM»
+	<result name="">/jsp/helloWorld.jsp</result>
+</action>
 «ENDDEFINE»
 
 
@@ -291,6 +321,4 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 </beans>
 «ENDFILE»
 «ENDDEFINE»
-
-
 

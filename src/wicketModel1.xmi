@@ -48,6 +48,28 @@
               </eventHandlers>
             </widgets>
             <widgets xsi:type="guigen:ResetButton" name="reset" label="Cancella"/>
+            <widgets xsi:type="guigen:Button" name="hideFileds" label="Nascondi campi">
+              <eventHandlers>
+                <action xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.5"/>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:Button">
+              <eventHandlers>
+                <action xsi:type="guigen:SequenceAction">
+                  <actions xsi:type="guigen:ExecAction">
+                    <results resultCode="ok">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                    <results resultCode="ko">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                    <results resultCode="stay">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    </results>
+                  </actions>
+                </action>
+              </eventHandlers>
+            </widgets>
           </panels>
         </contentPanels>
         <contentPanels name="esempioButtons">

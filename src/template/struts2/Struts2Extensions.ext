@@ -15,6 +15,10 @@ String getPresentationJavaPackage(GUIModel model) :
 
 String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/jsp";
+	
+String getPresentationMarkupConfig() :
+	"jsp";	
+	
 
 /// Files di configurazione di Struts2
 
@@ -23,6 +27,9 @@ String getStrutsConfigFile(GUIModel model, boolean omit_root) :
 
 String getStrutsGlobalConfigFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/struts-global.xml";
+
+String getStrutsApplicationConfigFile(GUIModel model, boolean omit_root, String fileName) :
+	getWebModuleConfigDir(model, omit_root) + "/" + fileName + ".xml";
 
 
 /// Files di configurazione di Spring
@@ -39,7 +46,32 @@ String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 String getIndexJspFile(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/index.jsp";
 
+String getHomePageJspFile(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/home.jsp";
+
+String getHomePageConfig() :
+	getPresentationMarkupConfig() + "/home.jsp";
+
 
 /// Classi Java comuni
 
 
+
+
+
+/// Action Struts2
+
+String getStrutsActionClassName(ContentPanel panel) :
+	panel.name.toFirstUpper() + "Action";
+	
+String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsActionClassName(panel);
+	
+String getStrutsActionJavaFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".java";
+	
+String getStrutsActionJspFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".jsp";
+	
+String getStrutsActionConfig(ContentPanel panel) :
+	getPresentationMarkupConfig() + "/" + getStrutsActionClassName(panel) + ".jsp";
