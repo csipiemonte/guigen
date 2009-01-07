@@ -64,6 +64,12 @@ String getHomePageConfig() :
 String getStrutsActionClassName(ContentPanel panel) :
 	panel.name.toFirstUpper() + "Action";
 	
+String getStrutsActionJspName(ContentPanel panel) :
+	panel.name;
+
+String getStrutsActionConfigName(ContentPanel panel) :
+	panel.name;
+
 String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getStrutsActionClassName(panel);
 	
@@ -71,7 +77,14 @@ String getStrutsActionJavaFile(ContentPanel panel, GUIModel model, boolean omit_
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".java";
 	
 String getStrutsActionJspFile(ContentPanel panel, GUIModel model, boolean omit_root) :
-	getPresentationMarkupDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".jsp";
-	
-String getStrutsActionConfig(ContentPanel panel) :
-	getPresentationMarkupConfig() + "/" + getStrutsActionClassName(panel) + ".jsp";
+	getPresentationMarkupDir(model, omit_root) + "/" + getStrutsActionJspName(panel) + ".jsp";
+
+String getStrutsActionJspConfigName(ContentPanel panel) :
+	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
+
+
+/// Fake data for widgets (only when needed)
+String getComboboxFakeData() : JAVA
+	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
+
+

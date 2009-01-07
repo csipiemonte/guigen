@@ -46,7 +46,9 @@
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 		«LET currMenuItem.eventHandler.action AS currAction»
-		<li><a href="#" wicket:id="menu.items.«currMenuItem.name»">«currMenuItem.label»</a></li>
+		«REM»TEMPORANEO: correggere«ENDREM»
+		<s:url id="fooUrl" action="foo" />
+		<li><s:a href="%{fooUrl}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
@@ -127,7 +129,7 @@
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)»<%@ taglib uri="/struts-tags" prefix="s" %>
 
@@ -168,11 +170,10 @@
 		
 
 		«REM»Corpo della Pagina«ENDREM»
-		<s:form action="testAction" method="post">
-		
-		
-		
-		
+		<s:form action="«getStrutsActionConfigName(this)»" method="post">
+		«LET this.panels AS currP»
+			«EXPAND genPanelSetupFunction(model) FOR currP»
+		«ENDLET»
 		</s:form>
 
 
@@ -189,39 +190,32 @@
 «ENDDEFINE»
 
 
+«REM»genera la funzione di setup di un singolo pannello
+e si richiama ricordivamente sui sottopannelli in modo da fare una visita
+depth first dell'albero della struttura a pannelli«ENDREM»
+«DEFINE genPanelSetupFunction(GUIModel model) FOR Panel»
+<!-- Creazione del pannello «this» -->
+«IF this.metaType == FormPanel»
+	<div id="panel.«this.name»">
+	«EXPAND setupFormPanel(model) FOR (FormPanel)this»
+	«EXPAND genPanelSetupFunction(model) FOREACH ((FormPanel)this).subpanels»
+	</div>
+«ELSEIF this.metaType == TabSetPanel»
+	«REM»TODO: IMPLEMENTARE«ENDREM»
+«ELSEIF this.metaType == DialogPanel»
+	«REM»TODO: IMPLEMENTARE«ENDREM»
+«ENDIF»
+«ENDDEFINE»
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+«REM»comment«ENDREM»
+«DEFINE setupFormPanel(GUIModel model) FOR FormPanel»
+	«FOREACH this.widgets AS currWidg»
+		<p>
+		«EXPAND createAndAddWidgetMarkup(model) FOR currWidg»
+		</p>
+	«ENDFOREACH»
+«ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
@@ -233,11 +227,8 @@
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
-<c:if 
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
-	disabled="${widg_«this.name»_disabled}"/>
-</c
+<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» />
 «ENDDEFINE»
 
 
@@ -255,8 +246,7 @@
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="widg_«this.name»" 
-	     list="#{'AL':'Alessandria','CN':'Cuneo','TO':'Torino'}"/>
+<s:radio id="widg_«this.name»" name="widg_«this.name»" />
 «ENDDEFINE»
 
 
@@ -274,18 +264,7 @@
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:select name="widg_«this.name»" id="widg_«this.name»"
           headerKey="00" headerValue="-- Selezionare un valore --"
-          list="#{'01':'Gennaio',
-                  '02':'Febbraio',
-                  '03':'Marzo',
-                  '04':'Aprile',
-                  '05':'Maggio',
-                  '06':'Giugno',
-                  '07':'Luglio',
-                  '08':'Agosto',
-                  '09':'Settembre',
-                  '10':'Ottobre',
-                  '11':'Novembre',
-                  '12':'Dicembre'}"
+          list="«getComboboxFakeData()»"
           />
 «ENDDEFINE»
 
@@ -300,14 +279,14 @@
 «REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" class="button" value="«this.label»" />
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:reset name="widg_«this.name»" id="widg_«this.name»" class="button" value="«this.label»" />
+<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 

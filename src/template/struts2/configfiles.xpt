@@ -16,10 +16,9 @@
 	«REM»Generazione dei files di Struts2«ENDREM»
 	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
 	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
-	«REM»Generazione dei files di Spring
+	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«ENDREM»
 «ENDDEFINE»
 
 
@@ -142,7 +141,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
 	
 	
 	<filter>
@@ -268,7 +266,12 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 <struts>
 	<package name="base" extends="jsp-package" namespace="/">
-	
+
+		«REM»TEMPORANEO: RIMUOVERE«ENDREM»
+		<action name="foo" class="it.csi.piol.piolfe.presentation.piolfe.action.FooAction">		
+			<result name="success">/jsp/esempioForm.jsp</result>
+		</action>
+		
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
 		«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
 			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels»
@@ -282,10 +285,11 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 «REM»comment«ENDREM»
 «DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
-<action name="«getStrutsActionClassName(this)»" class="«getStrutsActionFQN(this, model)»">
-	<result name="input">«getStrutsActionConfig(this)»</result>
+<action name="«getStrutsActionConfigName()»" class="«getStrutsActionFQN(this, model)»">
+	<result name="input">«getStrutsActionJspConfigName(this)»</result>
 	«REM»Ciclare su tutte le azioni e inserire come <result> i result delle «ENDREM»
-	<result name="">/jsp/helloWorld.jsp</result>
+	«REM»<result name="">/jsp/helloWorld.jsp</result>«ENDREM»
+	<result name="success">«getStrutsActionJspConfigName(this)»</result>
 </action>
 «ENDDEFINE»
 
