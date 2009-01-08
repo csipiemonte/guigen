@@ -1,6 +1,7 @@
 package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -211,7 +212,7 @@ public static List<ContentPanel> getAllPossibleJumps(Panel p){
 
 public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
 	// scende in tutti i sotto pannelli
-	List<ContentPanel> recursiveDestinations = new ArrayList<ContentPanel>();
+	HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
 	List<Panel> subpanels = p.getSubpanels();
 	if (subpanels!=null){
 		Iterator<Panel> panels_it = subpanels.iterator();
@@ -222,7 +223,7 @@ public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
 		}
 	}
 	// guarda i widget a primo livello
-	ArrayList<ContentPanel> firstLevelDestinations = new ArrayList<ContentPanel>();
+	HashSet<ContentPanel> firstLevelDestinations = new HashSet<ContentPanel>();
 	List<Widget> widgets = p.getWidgets();
 	if (widgets!=null){
 		Iterator<Widget> widgets_it = widgets.iterator();
@@ -234,19 +235,24 @@ public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
 	}
 	
 	recursiveDestinations.addAll(firstLevelDestinations);
-	
-	return recursiveDestinations;
+	List<ContentPanel> result= new ArrayList<ContentPanel>();
+	result.addAll(recursiveDestinations);
+	result.addAll(firstLevelDestinations);
+	return result;
 }
 
 public static List<ContentPanel> getAllPossibleJumps(Widget w){
 	List<EventHandler> eventHandlers = w.getEventHandlers();
 	Iterator<EventHandler> evh_it = eventHandlers.iterator();
-	List<ContentPanel> result = new ArrayList<ContentPanel>();
+	
+	HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
 	while(evh_it.hasNext()){
 		List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
 		if (currSubJumps!=null)
-			result.addAll(currSubJumps);
+			resultSet.addAll(currSubJumps);
 	}
+	List<ContentPanel> result = new ArrayList<ContentPanel>();
+	result.addAll(resultSet);
 	return result;
 }
 
@@ -287,12 +293,14 @@ public static List<ContentPanel> getAllPossibleJumps(ActionResult ar){
 }
 public static List<ContentPanel> getAllPossibleJumps(ExecAction a){
 	Iterator<ActionResult> res_it = a.getResults().iterator();
-	List<ContentPanel> ris = new ArrayList<ContentPanel>();
+	HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
 	while(res_it.hasNext()){
 		List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
 		if (currSubJumps!=null)
-			ris.addAll(currSubJumps);
+			resultSet.addAll(currSubJumps);
 	}
+	List<ContentPanel> ris = new ArrayList<ContentPanel>();
+	ris.addAll(resultSet);
 	return ris;
 }
 /**
