@@ -1,10 +1,13 @@
 «IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE javaFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 «ENDDEFINE»
 
 
@@ -72,13 +75,16 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 	 *
 	 */
 	public String execute() throws Exception {
-		
-		
-		
-		
-		return SUCCESS;
+		IAction action = initAction();
+		//return SUCCESS;
+		String result = action.doAction();
+		if (result!=null)
+			return result;
+		else
+			return SUCCESS;
 	}
 
+    «EXPAND actionImplJavaFiles::actionStructureInit FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»

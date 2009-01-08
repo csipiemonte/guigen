@@ -1,0 +1,160 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE actionImplClasses FOR GUIModel»
+«FILE getPresentationJavaSrcDir(true)+"/IAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+/**
+ * Interfaccia comune di tutte le azioni di presentation
+ * @author CSI Piemonte
+ *
+ */
+public interface IAction {
+	/**
+	 * Esegue l'azione corrispondente
+	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
+	 * una decisione sul result, null altrimenti
+	 */
+	public String doAction();
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/JumpAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+/// JUMP_ACTION
+public class JumpAction implements IAction {
+	String name;
+	String _currentPageName = null;
+	boolean _pushCurrent;
+	public JumpAction(String panelName, String currentPageName,
+			boolean pushCurrent) {
+		name = panelName;
+		_pushCurrent = pushCurrent;
+		_currentPageName = currentPageName;
+	}
+	public String doAction() {
+		if (_pushCurrent) {
+			//TODO capire se e come impleemntare lo stack delle action
+			//_pageStack.add(_currentPageName);
+		}
+		return "GO_TO_"+name;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ExecAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+////ExecAction
+public abstract class ExecAction implements IAction {
+	String _esiti[] = null;
+	//JFrame _frame = null;
+	IAction _azioni[] = null;
+	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
+
+	//public ExecAction(JFrame frame, String esiti[], IAction[] azioni) {
+	public ExecAction(String esiti[], IAction[] azioni) {
+		_esiti = esiti;
+		//_frame = frame;
+		_azioni = azioni;
+		if (_esiti != null) {
+			for (int i = 0; i < _esiti.length; i++)
+				_resultAzioni.put(_esiti[i], _azioni[i]);
+		}
+	}
+
+	public String doAction(){
+		// esecuzione azione
+		String result = doLogic();
+		// determinazione esito e azione corrispondente
+		IAction resultAction = null;
+		for (int i = 0; i<_esiti.length; i++){
+			if (_esiti[i].equals(result))
+				resultAction = _azioni[i];
+		}
+		// esecuzione azione conseguente all'esito
+		if(resultAction!=null){
+			return resultAction.doAction();
+		}
+		else
+			throw new IllegalStateException("Il result code "+result+" non è tra quelli previsti ("+_esiti+")");
+	}
+	
+	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
+	// corretto
+	public abstract String doLogic();
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/SequenceAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+/// SEQUENCE_ACTION
+public class SequenceAction implements IAction {
+	IAction[] _actions;
+	public SequenceAction(IAction[] actions) {
+		_actions = actions;
+	}
+	
+	/**
+	 * La sequence action esegue in sequenza tutte le azioni atomiche
+	 * incluse come step, mantenendo il più recente risultato non nullo restituito
+	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 */
+	public String doAction() {
+		String result=null;
+		if (_actions != null) {
+			for (int i = 0; i < _actions.length; i++) {
+				IAction currAct = _actions[i];
+				// TODO standardizzare log
+				System.out
+						.println("sequenza, azione #" + i + ":" + currAct);
+				String currResult = currAct.doAction();
+				if (currResult!=null)
+					result=currResult;
+			}
+			System.out.println("Il risultato finale della sequence è "+result);
+		}
+		return result;
+	}
+};
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»richiamata dal template di definizione della classe Action per un dato 
+     content panel
+«ENDREM»
+«DEFINE actionStructureInit FOR ContentPanel»
+	public IAction initAction() {
+	// definizione exec action
+		String [] action_step_1_results  = new String[]{
+				"ok", "ko", "stay"
+		};
+		IAction action_step_1_actions_result_ok = new JumpAction("cpSecondaPagina", null, false);
+		IAction action_step_1_actions_result_ko = new JumpAction("esempioForm", null, false);
+		IAction action_step_1_actions_result_stay = new JumpAction("esempioForm", null, false);
+		IAction [] action_step_1_actions = new IAction[]{
+				action_step_1_actions_result_ok,
+				action_step_1_actions_result_ko,
+				action_step_1_actions_result_stay	
+		};
+		IAction action_step_1 = new ExecAction(action_step_1_results, action_step_1_actions){
+			public String doLogic(){
+				/// do something
+				System.out.println("\n\n\n\ndo something.....\n\n\n");
+				return "ko";
+			}
+		};
+		/// fine definizione exec action
+		
+		// inizio definizione sequence action
+		IAction action = new SequenceAction(new IAction[]{action_step_1});
+		
+		
+		return action;
+	}
+«ENDDEFINE»

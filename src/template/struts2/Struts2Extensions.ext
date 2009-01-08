@@ -49,8 +49,8 @@ String getIndexJspFile(GUIModel model, boolean omit_root) :
 String getHomePageJspFile(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/home.jsp";
 
-String getHomePageConfig() :
-	getPresentationMarkupConfig() + "/home.jsp";
+String getHomePageConfig(GUIModel model) :
+	getStrutsActionJspConfigName(model.structure.appWindow.appArea.contentPanels.first());
 
 
 /// Classi Java comuni
@@ -87,4 +87,5 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 String getComboboxFakeData() : JAVA
 	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
 
-
+List getAllPossibleJumps(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);

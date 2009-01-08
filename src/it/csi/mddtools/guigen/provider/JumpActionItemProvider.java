@@ -146,7 +146,7 @@ public class JumpActionItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -154,6 +154,9 @@ public class JumpActionItemProvider
 
 		switch (notification.getFeatureID(JumpAction.class)) {
 			case GuigenPackage.JUMP_ACTION__PUSH_CURRENT_PAGE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.JUMP_ACTION__JUMP_TO:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

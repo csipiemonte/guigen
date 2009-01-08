@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.internal.watson.ElementTreeIterator;
@@ -191,7 +192,109 @@ public static String getRegionUID(String sourceId){
 	return uid;
 }
 
+/**
+ * Restituisce un array list di tutti i possibili salti ad altre pagine a partire da
+ * un content panel prefissato. 
+ * @param cp
+ * @return
+ */
+public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp){
+	return getAllPossibleJumps(cp.getPanels());
+}
+
+public static List<ContentPanel> getAllPossibleJumps(Panel p){
+	if (p instanceof FormPanel)
+		return getAllPossibleJumps((FormPanel)p);
+	else
+		return null; // TODO gestire i tabset panel....
+}
+
+public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
+	// scende in tutti i sotto pannelli
+	List<ContentPanel> recursiveDestinations = new ArrayList<ContentPanel>();
+	List<Panel> subpanels = p.getSubpanels();
+	if (subpanels!=null){
+		Iterator<Panel> panels_it = subpanels.iterator();
+		while(panels_it.hasNext()){
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
+			if (currSubJumps!=null)
+				recursiveDestinations.addAll(currSubJumps);
+		}
+	}
+	// guarda i widget a primo livello
+	ArrayList<ContentPanel> firstLevelDestinations = new ArrayList<ContentPanel>();
+	List<Widget> widgets = p.getWidgets();
+	if (widgets!=null){
+		Iterator<Widget> widgets_it = widgets.iterator();
+		while(widgets_it.hasNext()){
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(widgets_it.next());
+			if (currSubJumps!=null)
+				firstLevelDestinations.addAll(currSubJumps);
+		}
+	}
 	
+	recursiveDestinations.addAll(firstLevelDestinations);
+	
+	return recursiveDestinations;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(Widget w){
+	List<EventHandler> eventHandlers = w.getEventHandlers();
+	Iterator<EventHandler> evh_it = eventHandlers.iterator();
+	List<ContentPanel> result = new ArrayList<ContentPanel>();
+	while(evh_it.hasNext()){
+		List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
+		if (currSubJumps!=null)
+			result.addAll(currSubJumps);
+	}
+	return result;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(EventHandler evh){
+	Action a = evh.getAction();
+	if (a==null)
+		return null;
+	else{
+		return getAllPossibleJumps(a);
+	}
+}
+
+public static List<ContentPanel> getAllPossibleJumps(Action a){
+	if (a instanceof JumpAction)
+		return getAllPossibleJumps((JumpAction)a);
+	else if (a instanceof ExecAction)
+		return getAllPossibleJumps((ExecAction)a);
+	else if (a instanceof SequenceAction)
+		return getAllPossibleJumps((SequenceAction)a);
+	else
+		return null;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(JumpAction a){
+	List<ContentPanel> ris = new ArrayList<ContentPanel>();
+	ris.add(a.getJumpTo());
+	return ris;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(SequenceAction a){
+	Action lastStep = a.getActions().get(a.getActions().size()-1);
+	return getAllPossibleJumps(lastStep);
+}
+
+
+public static List<ContentPanel> getAllPossibleJumps(ActionResult ar){
+	return getAllPossibleJumps(ar.getAction());
+}
+public static List<ContentPanel> getAllPossibleJumps(ExecAction a){
+	Iterator<ActionResult> res_it = a.getResults().iterator();
+	List<ContentPanel> ris = new ArrayList<ContentPanel>();
+	while(res_it.hasNext()){
+		List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
+		if (currSubJumps!=null)
+			ris.addAll(currSubJumps);
+	}
+	return ris;
+}
 /**
  * @param args
  */

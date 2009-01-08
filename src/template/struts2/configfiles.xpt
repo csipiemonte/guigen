@@ -249,7 +249,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 	<package name="default" extends="struts-default" namespace="/">
 		<action name="HomePage">
-			<result>«getHomePageConfig()»</result>  
+			<result>«getHomePageConfig(this)»</result>  
 		</action>
 	</package>
 
@@ -267,11 +267,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 <struts>
 	<package name="base" extends="jsp-package" namespace="/">
 
-		«REM»TEMPORANEO: RIMUOVERE«ENDREM»
-		<action name="foo" class="it.csi.piol.piolfe.presentation.piolfe.action.FooAction">		
-			<result name="success">/jsp/esempioForm.jsp</result>
-		</action>
-		
+	
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
 		«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
 			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels»
@@ -287,9 +283,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
 <action name="«getStrutsActionConfigName()»" class="«getStrutsActionFQN(this, model)»">
 	<result name="input">«getStrutsActionJspConfigName(this)»</result>
-	«REM»Ciclare su tutte le azioni e inserire come <result> i result delle «ENDREM»
-	«REM»<result name="">/jsp/helloWorld.jsp</result>«ENDREM»
 	<result name="success">«getStrutsActionJspConfigName(this)»</result>
+	
+	«LET getAllPossibleJumps(this) AS allJumps»
+	«FOREACH allJumps AS currJump»
+	<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+	«ENDFOREACH»
+	«ENDLET»
 </action>
 «ENDDEFINE»
 
