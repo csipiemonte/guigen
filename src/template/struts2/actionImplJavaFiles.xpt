@@ -129,22 +129,28 @@ public class SequenceAction implements IAction {
      content panel
 «ENDREM»
 «DEFINE actionStructureInit FOR ContentPanel»
-	public IAction initAction() {
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public IAction initAction(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, IAction>> cmdsByWidget = new HashMap<String, HashMap<String, IAction>>();
 		
 		«LET getAllEventSourceWidgets() AS eventSources»
 		«IF eventSources.size>0»
-		«REM»TODO prendere non solo il primo !!!«ENDREM»
-		«LET eventSources.first() AS currEventSource»
+		«FOREACH eventSources AS currEventSource»
+		// contiene i comandi del widget «((Widget)currEventSource).name» per ogni Ev.H.
+		HashMap<String, IAction> cmds4«((Widget)currEventSource).name»ByEvh = 
+		  new HashMap<String, IAction>();
 		«LET ((Widget)currEventSource).eventHandlers AS evhs»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
-		«LET evhs.first() AS currEvh»
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name) FOR currEvh»
-		/// TODO la riga successiv aè un pezza...
-		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
+		«FOREACH evhs AS currEvh»
+		cmds4«((Widget)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		«ENDFOREACH»
 		«ENDLET»
-		«ENDLET»	
-		«ENDLET»
-		return action;
+		cmdsByWidget.put("«((Widget)currEventSource).name»",cmds4«((Widget)currEventSource).name»ByEvh);	
+		«ENDFOREACH»
+		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
 		return new IAction(){
 			public String doAction(){return null;}
@@ -152,6 +158,24 @@ public class SequenceAction implements IAction {
 		«ENDIF»
 		«ENDLET»
 	}
+	
+	«LET getAllEventSourceWidgets() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		«LET ((Widget)currEventSource).eventHandlers AS evhs»
+		«FOREACH evhs AS currEvh»
+		public IAction initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name) FOR currEvh»
+		/// TODO la riga successiv aè un pezza...
+		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
+		return action;
+		}
+		«ENDFOREACH»
+		«ENDLET»	
+		«ENDFOREACH»
+		«ENDIF»
+	«ENDLET»
+	
 «ENDDEFINE»
 
 
@@ -251,11 +275,30 @@ public class SequenceAction implements IAction {
     
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
 		public String doLogic(){
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»
+		«REM»«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»«ENDREM»
 			// inserire qui la logica applicativa da eseguire
 			return "«this.results.first().resultCode»";
-		«ENDPROTECT»
+		«REM»«ENDPROTECT»«ENDREM»
 		}
 	};
 	// Exec Action end
+«ENDDEFINE»
+
+«REM»aggiunge la definizione delle property corrispondenti ai button di un pannello,
+     necessarie per capire quale sia la fonte dell'evento di tipo clicked
+«ENDREM»
+«DEFINE buttonFlagsInAction FOR ContentPanel»
+	«LET getAllEventSourceWidgets() AS allEventSources»
+	«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
+	«FOREACH allClickSources AS currClickSource»
+	private boolean _widg_«((Widget)currClickSource).name»;
+	
+	public void setWidg_«((Widget)currClickSource).name»(boolean value){
+		_widg_«((Widget)currClickSource).name» = true;
+		System.out.println("_widg_«((Widget)currClickSource).name»->"+value);
+		System.out.println("forzo a true...");
+	}
+	«ENDFOREACH»
+	«ENDLET»
+	«ENDLET»
 «ENDDEFINE»

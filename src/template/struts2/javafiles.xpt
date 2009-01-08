@@ -99,6 +99,7 @@ public class «getStrutsMenuClassName(this)» extends ActionSupport {
 
 «REM»TODO: IMPORT -> come facciamo?«ENDREM»
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.*;
 
 /**
  *
@@ -109,19 +110,30 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 
 
 
-
+    «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
 
 	/**
 	 *
 	 */
 	public String execute() throws Exception {
-		IAction action = initAction();
-		//return SUCCESS;
-		String result = action.doAction();
-		if (result!=null)
-			return result;
-		else
-			return SUCCESS;
+	    
+	    «LET getAllEventSourceWidgets() AS allEventSources»
+		«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
+		// gestione degli eventi di tipo CLICKED
+		«FOREACH allClickSources AS currClickSource»
+		if(_widg_«((Widget)currClickSource).name»){
+			IAction action = initAction("«((Widget)currClickSource).name»","CLICKED");
+			String result = action.doAction();
+			if (result!=null)
+				return result;
+			else
+				return SUCCESS;
+		}
+		«ENDFOREACH»
+		«ENDLET»
+		«ENDLET»
+		// se arrivo qui non ci sono eventi da gestire ...
+		return SUCCESS;
 	}
 	
 	
