@@ -229,7 +229,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	
 	<package name="struts2" extends="struts-default" namespace="/">
 		<global-exception-mappings>
-    	<exception-mapping exception="java.lang.Exception" result="error" />
+    		<exception-mapping exception="java.lang.Exception" result="error" />
 		</global-exception-mappings>
 	</package>
 
@@ -267,9 +267,24 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 <struts>
 	<package name="base" extends="jsp-package" namespace="/">
 
-	
+		«REM»Espande il menu«ENDREM»
+		<!-- MENU -->
+		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
+		«FOREACH tlmenu.item AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.action AS currAction»
+		<action name="goTo«currMenuItem.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenuItem.name.toFirstUpper()»">	
+			<result>«getStrutsActionJspConfigName(((JumpAction)currAction).jumpTo)»</result>
+		</action>
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+		«ENDFOREACH»
+		
+		
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
 		«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
+		
 			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels»
 		«ENDLET»
 	

@@ -55,8 +55,17 @@ String getHomePageConfig(GUIModel model) :
 
 /// Classi Java comuni
 
+String getStrutsMenuClassName(GUIModel model) :
+	"MenuAction";
 
+String getStrutsMenuFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsMenuClassName(model);
 
+String getStrutsMenuJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsMenuClassName(model) + ".java";
+
+String getStrutsMenuConfigName(GUIModel model) :
+	"menuAction";
 
 
 /// Action Struts2
@@ -83,9 +92,12 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
-/// Fake data for widgets (only when needed)
-String getComboboxFakeData() : JAVA
-	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
+/// JAVA METHODS
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
+
+
+/// Fake data for widgets (only when needed)
+String getComboboxFakeData() : JAVA
+	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
