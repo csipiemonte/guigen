@@ -303,6 +303,22 @@ public static List<ContentPanel> getAllPossibleJumps(ExecAction a){
 	ris.addAll(resultSet);
 	return ris;
 }
+
+//////////////////////
+
+public static List<Widget> getAllEventSourceWidgets(ContentPanel cp){
+	List<Widget> allWidgetsInCP = findAllWidgetsInContentPanel(cp);
+	Iterator<Widget> w_it = allWidgetsInCP.iterator();
+	List<Widget> result = new ArrayList<Widget>();
+	while(w_it.hasNext()){
+		Widget currW = w_it.next();
+		if (currW.getEventHandlers()!=null && currW.getEventHandlers().size()>0)
+			result.add(currW);
+	}
+	return result;
+}
+
+
 /**
  * @param args
  */

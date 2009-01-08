@@ -130,31 +130,132 @@ public class SequenceAction implements IAction {
 «ENDREM»
 «DEFINE actionStructureInit FOR ContentPanel»
 	public IAction initAction() {
-	// definizione exec action
-		String [] action_step_1_results  = new String[]{
-				"ok", "ko", "stay"
-		};
-		IAction action_step_1_actions_result_ok = new JumpAction("cpSecondaPagina", null, false);
-		IAction action_step_1_actions_result_ko = new JumpAction("esempioForm", null, false);
-		IAction action_step_1_actions_result_stay = new JumpAction("esempioForm", null, false);
-		IAction [] action_step_1_actions = new IAction[]{
-				action_step_1_actions_result_ok,
-				action_step_1_actions_result_ko,
-				action_step_1_actions_result_stay	
-		};
-		IAction action_step_1 = new ExecAction(action_step_1_results, action_step_1_actions){
-			public String doLogic(){
-				/// do something
-				System.out.println("\n\n\n\ndo something.....\n\n\n");
-				return "ko";
-			}
-		};
-		/// fine definizione exec action
 		
-		// inizio definizione sequence action
-		IAction action = new SequenceAction(new IAction[]{action_step_1});
-		
-		
+		«LET getAllEventSourceWidgets() AS eventSources»
+		«IF eventSources.size>0»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«LET eventSources.first() AS currEventSource»
+		«LET ((Widget)currEventSource).eventHandlers AS evhs»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«LET evhs.first() AS currEvh»
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name) FOR currEvh»
+		/// TODO la riga successiv aè un pezza...
+		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
+		«ENDLET»
+		«ENDLET»	
+		«ENDLET»
 		return action;
+		«ELSE»
+		return new IAction(){
+			public String doAction(){return null;}
+		};
+		«ENDIF»
+		«ENDLET»
 	}
+«ENDDEFINE»
+
+
+
+«DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
+    «LET this.action AS currAction»
+    «LET 1 AS actionNumber»
+    	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
+    «ENDLET»
+    «ENDLET»
+    
+	IAction [] «actionsVarName» = new IAction[]{
+	«LET this.action AS currAct»
+		«LET 1 AS actionNumber»
+		act_«actionsVarName»_«actionNumber»
+		«ENDLET»
+	«ENDLET»
+	};
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Action»
+// azione non supportata «this»
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpAction»
+	/// Jump Action begin
+	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
+	/// Jump Action end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogAction»
+	// ShowDialog Action begin
+	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
+	// ShowDialog Action end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackAction»
+	//JumpBack Action begin
+	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
+	// JumpBack Action end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceAction»
+	// SequenceAction begin
+    «FOREACH actions AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct)) FOR currAct»
+    «ENDFOREACH»
+    
+    IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
+    «FOREACH actions AS currAct»
+    act_«actionsVarName+"step_"+actions.indexOf(currAct)»«IF currAct!=actions.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
+	// SequenceAction end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
+	// ONOFF Action begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+    
+	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+	//ONOFF Action end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
+	// VisibilityAction begin
+	//prepara i nomi dei componenti target da mostrare/nascondere
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+	// Visibility Action end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
+	// ExecAction begin
+    String [] resultNames=new String []{
+      «FOREACH this.results AS currRes»
+      "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
+      «ENDFOREACH»
+    };
+    
+    IAction [] actionsForResults = new IAction[«this.results.size»];
+    «FOREACH results AS currRes»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.action»
+    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
+    «ENDFOREACH»
+    
+    
+	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
+		public String doLogic(){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»
+			// inserire qui la logica applicativa da eseguire
+			return "«this.results.first().resultCode»";
+		«ENDPROTECT»
+		}
+	};
+	// Exec Action end
 «ENDDEFINE»
