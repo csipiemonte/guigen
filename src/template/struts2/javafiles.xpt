@@ -48,10 +48,12 @@ TODO: implementare se necessario
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.SessionAware;
+
 import «getBaseJavaPackage(this)».util.*;
 
 /**
@@ -140,8 +142,8 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 «DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
-«REM»TODO: IMPORT -> come facciamo?«ENDREM»
 import com.opensymphony.xwork2.ActionSupport;
+
 import java.util.*;
 
 /**
@@ -160,7 +162,7 @@ public class «getStrutsActionClassName(this)» extends BaseAction {
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
-	    dumpModel(true); // TODO mettere sol se log=debug
+	    dumpModel(true); // TODO mettere solo se log=debug
 	    «LET getAllEventSourceWidgets() AS allEventSources»
 		«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
 		// gestione degli eventi di tipo CLICKED
@@ -170,9 +172,11 @@ public class «getStrutsActionClassName(this)» extends BaseAction {
 			String result = action.doAction(this);
 			if(result != null) {
 				dumpModel(false);
+				System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
 				return result;
 			} else {
 				dumpModel(false);
+				System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
 				return SUCCESS;
 			}
 		}

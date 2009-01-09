@@ -115,7 +115,7 @@
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup FOR Footer»
-		<p>-- QUESTA E' LA FOOTER --</p>
+		<p>------------------------------------- QUESTA E' LA FOOTER -------------------------------------</p>
 		<p>
 			Copyright &copy; 2008
 			<a href="http://www.csi.it">CSI Piemonte</a> | Tutti i diritti riservati.
@@ -171,7 +171,7 @@
 		«REM»Corpo della Pagina«ENDREM»
 		<s:form action="«getStrutsActionConfigName(this)»" method="post">
 		«LET this.panels AS currP»
-			«EXPAND genPanelSetupFunction(model) FOR currP»
+			«EXPAND genPanelSetupFunction(model, this) FOR currP»
 		«ENDLET»
 		</s:form>
 
@@ -196,13 +196,13 @@ NOTA: il pannello è stato reso temporaneamente con il tag <fieldset> per rendere
 del raggruppamento dei widget. Si può eventualmente rendere con il tag <div id="panel.«this.name»"> 
 o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «ENDREM»
-«DEFINE genPanelSetupFunction(GUIModel model) FOR Panel»
+«DEFINE genPanelSetupFunction(GUIModel model, ContentPanel panel) FOR Panel»
 <!-- Creazione del pannello «this» -->
 «IF this.metaType == FormPanel»
 	<fieldset>
 		<legend>«label.toUpperCase()»</legend>
-		«EXPAND setupFormPanel(model) FOR (FormPanel)this»
-		«EXPAND genPanelSetupFunction(model) FOREACH ((FormPanel)this).subpanels»
+		«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
+		«EXPAND genPanelSetupFunction(model, panel) FOREACH ((FormPanel)this).subpanels»
 	</fieldset>
 «ELSEIF this.metaType == TabSetPanel»
 	«REM»TODO: IMPLEMENTARE«ENDREM»
@@ -213,35 +213,48 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 
 «REM»comment«ENDREM»
-«DEFINE setupFormPanel(GUIModel model) FOR FormPanel»
+«DEFINE setupFormPanel(GUIModel model, ContentPanel panel) FOR FormPanel»
 	«FOREACH this.widgets AS currWidg»
-	<c:if mappasessione.codiceContentPanel.codiceWidget.visible>«REM»true=visibile, false=non visibile, null=visibile«ENDREM»
+	«REM»VISIBILITA': null=visibile; true=visibile, false=non visibile«ENDREM»
+	<s:if test="%{session['«panel.name»']['«currWidg.name».visible']}">
+		<s:set name="«panel.name»_«currWidg.name»_visible" value="%{session['«panel.name»']['«currWidg.name».visible']}" />
+	</s:if>
+	<s:else>
+		<s:set name="«panel.name»_«currWidg.name»_visible" value="true" />
+	</s:else>
+	<s:if test="%{«panel.name»_«currWidg.name»_visible}">
 		<p>
-		«EXPAND createAndAddWidgetMarkup(model) FOR currWidg»
+		«EXPAND createAndAddWidgetMarkup(model, panel) FOR currWidg»
 		</p>
-	</c:if>
+	</s:if>
 	«ENDFOREACH»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Widget»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Widget»
 <!-- [GUIGEN] widget non gestito: «this» -->
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextField»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
+«REM»ABILITAZIONE: null=abilitato; true=abilitato, false=disabilitato«ENDREM»
+<s:if test="%{session['«panel.name»']['«this.name».enabled']}">
+	<s:set name="«panel.name»_«this.name»_disabled" value="%{!session['«panel.name»']['«this.name».enabled']}" />
+</s:if>
+<s:else>
+	<s:set name="«panel.name»_«this.name»_disabled" value="false" />
+</s:else>
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
-	disabled="mappasessione.codiceContentPanel.codiceWidget.enabled" /> «REM»true=abilitato, false=disabilitato, null=abilitato«ENDREM»
-
+	disabled="%{«panel.name»_«this.name»_disabled}" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextArea»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:textarea name="widg_«this.name»" id="widg_«this.name»"
@@ -251,7 +264,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR RadioButtons»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:radio id="widg_«this.name»" name="widg_«this.name»" />
@@ -259,7 +272,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR CheckBox»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:checkbox name="widg_«this.name»" id="widg_«this.name»" class="checkbox" />
@@ -267,7 +280,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ComboBox»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:select name="widg_«this.name»" id="widg_«this.name»"
@@ -278,14 +291,14 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Button»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ConfirmButton»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
@@ -293,21 +306,21 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form. 
 NOTA: implementato per il momento SOLO in HTML«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ResetButton»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Image»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Image»
 <!-- [GUIGEN] Crea il widget «this» -->
 
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una tabella. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Table»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
 «REM»TODO: utilizzare DisplayTag?«ENDREM»
 «ENDDEFINE»

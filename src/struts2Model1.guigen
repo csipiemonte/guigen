@@ -37,12 +37,12 @@
           <panels xsi:type="guigen:FormPanel" name="contatto" label="Contatto">
             <subpanels xsi:type="guigen:FormPanel" name="datiAnagrafici" label="Dati Anagrafici">
               <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome:" fieldLength="50"/>
-              <widgets xsi:type="guigen:TextField" name="nome" label="Nome:"/>
+              <widgets xsi:type="guigen:TextField" name="nome" label="Nome:" dataType="ORA"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="datiAggiuntivi" label="Dati Aggiuntivi">
               <widgets xsi:type="guigen:TextArea" name="note" label="Osservazioni:" rows="5" columns="20"/>
             </subpanels>
-            <subpanels xsi:type="guigen:FormPanel" name="buttonsPanel" label="Pulsanti">
+            <subpanels xsi:type="guigen:FormPanel" name="submitButtonsPanel" label="Pulsanti Submit">
               <widgets xsi:type="guigen:ConfirmButton" name="bVaiASeconda" label="Submit">
                 <eventHandlers>
                   <action xsi:type="guigen:SequenceAction">
@@ -64,6 +64,40 @@
               <widgets xsi:type="guigen:ConfirmButton" name="bVaiATerzo" label="Vai al terzo">
                 <eventHandlers>
                   <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="widgetButtonsPanel" label="Azioni sui Widgets">
+              <widgets xsi:type="guigen:Button" name="hideWidgets" label="Nascondi Widget">
+                <eventHandlers>
+                  <action xsi:type="guigen:SequenceAction">
+                    <actions xsi:type="guigen:VisibilityAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.1"/>
+                    <actions xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="showWidgets" label="Visualizza Widget">
+                <eventHandlers>
+                  <action xsi:type="guigen:SequenceAction">
+                    <actions xsi:type="guigen:VisibilityAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.1" show="true"/>
+                    <actions xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="offWidgets" label="Disabilita Widgets">
+                <eventHandlers>
+                  <action xsi:type="guigen:SequenceAction">
+                    <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.1"/>
+                    <actions xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:Button" name="onWidgets" label="Abilita Widgets">
+                <eventHandlers>
+                  <action xsi:type="guigen:SequenceAction">
+                    <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.1" enable="true"/>
+                    <actions xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </action>
                 </eventHandlers>
               </widgets>
             </subpanels>
