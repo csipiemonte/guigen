@@ -17,7 +17,7 @@ public interface IAction {
 	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
-	public String doAction();
+	public String doAction(Object strutsAction);
 };
 «ENDFILE»
 
@@ -35,7 +35,7 @@ public class JumpAction implements IAction {
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
-	public String doAction() {
+	public String doAction(Object strutsAction) {
 		if (_pushCurrent) {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
@@ -66,9 +66,9 @@ public abstract class ExecAction implements IAction {
 		}
 	}
 
-	public String doAction(){
+	public String doAction(Object strutsAction){
 		// esecuzione azione
-		String result = doLogic();
+		String result = doLogic(strutsAction);
 		// determinazione esito e azione corrispondente
 		IAction resultAction = null;
 		for (int i = 0; i<_esiti.length; i++){
@@ -77,7 +77,7 @@ public abstract class ExecAction implements IAction {
 		}
 		// esecuzione azione conseguente all'esito
 		if(resultAction!=null){
-			return resultAction.doAction();
+			return resultAction.doAction(strutsAction);
 		}
 		else
 			throw new IllegalStateException("Il result code "+result+" non è tra quelli previsti ("+_esiti+")");
@@ -85,7 +85,7 @@ public abstract class ExecAction implements IAction {
 	
 	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
 	// corretto
-	public abstract String doLogic();
+	public abstract String doLogic(Object strutsAction);
 }
 «ENDFILE»
 
@@ -104,7 +104,7 @@ public class SequenceAction implements IAction {
 	 * incluse come step, mantenendo il più recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doAction() {
+	public String doAction(Object strutsAction) {
 		String result=null;
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
@@ -112,7 +112,7 @@ public class SequenceAction implements IAction {
 				// TODO standardizzare log
 				System.out
 						.println("sequenza, azione #" + i + ":" + currAct);
-				String currResult = currAct.doAction();
+				String currResult = currAct.doAction(strutsAction);
 				if (currResult!=null)
 					result=currResult;
 			}
@@ -153,7 +153,7 @@ public class SequenceAction implements IAction {
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
 		return new IAction(){
-			public String doAction(){return null;}
+			public String doAction(Object strutsAction){return null;}
 		};
 		«ENDIF»
 		«ENDLET»
@@ -274,7 +274,7 @@ public class SequenceAction implements IAction {
     
     
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
-		public String doLogic(){
+		public String doLogic(Object strutsAction){
 		«REM»«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»«ENDREM»
 			// inserire qui la logica applicativa da eseguire
 			return "«this.results.first().resultCode»";
@@ -301,4 +301,64 @@ public class SequenceAction implements IAction {
 	«ENDFOREACH»
 	«ENDLET»
 	«ENDLET»
+«ENDDEFINE»
+
+«REM»
+	inserisce tutte le proeprty associate ai vari DataWidget contenuti nel content panel
+	a tutti i livelli
+«ENDREM»
+«DEFINE widgetsProperties FOR ContentPanel»
+«LET findAllWidgetsInContentPanel(this) AS allW»
+«LET (List[Widget])allW AS allWidgets»
+«LET allWidgets.typeSelect(DataWidget) AS allDataWidgets»
+	«EXPAND widgetProperty FOREACH allDataWidgets»
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR DataWidget»
+	// tipo di data widget non gestito: «this»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR TextField»
+	// TextField «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR TextArea»
+	// TextArea «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR Table»
+	// Table «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR RadioButtons»
+	// RadioButtons «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR CheckBox»
+	// CheckBox «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty FOR ComboBox»
+	// ComboBox «name»
+	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE property(String name, String modifier) FOR WidgetDataType»
+	private «mapWidgetDataType2JavaType(this, modifier)» _«name»;
+	
+	public void set«name.toFirstUpper()»(«mapWidgetDataType2JavaType(this, modifier)» value){
+		_«name» = value;
+	}
+	
+	public «mapWidgetDataType2JavaType(this, modifier)» get«name.toFirstUpper()»(){
+		return _«name»;
+	}
 «ENDDEFINE»

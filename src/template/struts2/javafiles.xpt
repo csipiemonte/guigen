@@ -111,19 +111,20 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 
 
     «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
+    «EXPAND actionImplJavaFiles::widgetsProperties FOR this»
 
 	/**
 	 *
 	 */
 	public String execute() throws Exception {
-	    
+	    dumpModel(); // TODO mettere sol se log=debug
 	    «LET getAllEventSourceWidgets() AS allEventSources»
 		«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
 		// gestione degli eventi di tipo CLICKED
 		«FOREACH allClickSources AS currClickSource»
 		if(_widg_«((Widget)currClickSource).name»){
 			IAction action = initAction("«((Widget)currClickSource).name»","CLICKED");
-			String result = action.doAction();
+			String result = action.doAction(this);
 			if (result!=null)
 				return result;
 			else
@@ -136,7 +137,23 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	
+	void dumpModel(){
+		try{
+			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
+			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
+			for (int i = 0; i < props.length; i++) {
+				java.beans.PropertyDescriptor pd = props[i];
+				java.lang.reflect.Method m = pd.getReadMethod();
+				if(m!=null){
+					Object pval = m.invoke(this, new Object[]{});
+					System.out.println(pd.getName() + ":" + pval);
+				}
+			}
+		}
+		catch(Exception e){
+			System.out.println("Errore nel dump"+e);
+		}
+	}
 	
 	
 	
