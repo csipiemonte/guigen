@@ -47,9 +47,12 @@ TODO: implementare se necessario
 «DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
+import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
+import «getBaseJavaPackage(this)».util.*;
 
 /**
  * Base Action che contiene gli elementi comuni all'applicazione.
@@ -66,7 +69,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * 
  * @author GuiGen
  */
-public class «getStrutsBaseActionClassName(this)» extends ActionSupport, implements SessionAware {
+public class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware {
 
 	/**  */
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
@@ -75,7 +78,6 @@ public class «getStrutsBaseActionClassName(this)» extends ActionSupport, impleme
 	protected Map session;
 
 
-	@Override
 	public void setSession(Map session) {
 		this.session = session;
 	}
@@ -147,7 +149,7 @@ import java.util.*;
  *
  * @author GuiGen
  */
-public class «getStrutsActionClassName(this)» extends ActionSupport {
+public class «getStrutsActionClassName(this)» extends BaseAction {
 
 
     «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
@@ -158,7 +160,7 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
-	    dumpModel(); // TODO mettere sol se log=debug
+	    dumpModel(true); // TODO mettere sol se log=debug
 	    «LET getAllEventSourceWidgets() AS allEventSources»
 		«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
 		// gestione degli eventi di tipo CLICKED
@@ -167,8 +169,10 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 			IAction action = initAction("«((Widget)currClickSource).name»","CLICKED");
 			String result = action.doAction(this);
 			if(result != null) {
+				dumpModel(false);
 				return result;
 			} else {
+				dumpModel(false);
 				return SUCCESS;
 			}
 		}
@@ -180,7 +184,10 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 	}
 	
 	
-	void dumpModel(){
+	void dumpModel(boolean pre){
+	
+		System.out.println("#### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
+		System.out.println("[a] campi pubblici del model");
 		try{
 			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
 			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
@@ -196,6 +203,9 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 		catch(Exception e){
 			System.out.println("Errore nel dump"+e);
 		}
+		System.out.println("[b] stato dei widget");
+		Object cpWidgetStatus = session.get("«this.name»");
+		System.out.println(""+cpWidgetStatus);
 	}
 	
 

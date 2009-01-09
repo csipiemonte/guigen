@@ -17,7 +17,7 @@ public interface IAction {
 	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
-	public String doAction(Object strutsAction);
+	public String doAction(BaseAction strutsAction);
 };
 «ENDFILE»
 
@@ -35,7 +35,7 @@ public class JumpAction implements IAction {
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
-	public String doAction(Object strutsAction) {
+	public String doAction(BaseAction strutsAction) {
 		if (_pushCurrent) {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
@@ -43,6 +43,80 @@ public class JumpAction implements IAction {
 		return "GO_TO_"+name;
 	}
 };
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ONOFFAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class ONOFFAction implements IAction {
+	String _containerName = null;
+	String[] _targets = null;
+	boolean _show = true;
+
+	public ONOFFAction(String containerName, String targets[], boolean show) {
+		_containerName = containerName;
+		_targets = targets;
+		_show = show;
+	}
+
+	public String doAction(BaseAction strutsAction) {
+		System.out.println("on-off action!");
+		if (_targets != null) {
+			Map<String, Boolean> cpWidgetsStatus = 
+				(Map<String, Boolean>) strutsAction.session.get(_containerName);		
+			if(cpWidgetsStatus == null){
+				cpWidgetsStatus = new HashMap<String, Boolean>();
+				strutsAction.session.put(_containerName, cpWidgetsStatus);
+			}
+			for (int i = 0; i < _targets.length; i++) {
+				System.out.println("on-off action on " + _targets[i]);
+				
+				cpWidgetsStatus.put(_targets[i]+".enabled", new Boolean(_show));
+			}
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/VisibilityAction.java"»
+package it.csi.piol.piolfe.presentation.piolfe.action;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class VisibilityAction implements IAction {
+	String _containerName = null;
+	String[] _targets = null;
+	boolean _show = true;
+
+	public VisibilityAction(String containerName, String targets[], boolean show) {
+		_containerName = containerName;
+		_targets = targets;
+		_show = show;
+	}
+
+	public String doAction(BaseAction strutsAction) {
+		System.out.println("visibility action!");
+		if (_targets != null) {
+			Map<String, Boolean> cpWidgetsStatus = 
+				(Map<String, Boolean>) strutsAction.session.get(_containerName);			
+			if(cpWidgetsStatus == null){
+				cpWidgetsStatus = new HashMap<String, Boolean>();
+				strutsAction.session.put(_containerName, cpWidgetsStatus);
+			}
+			for (int i = 0; i < _targets.length; i++) {
+				System.out.println("visibility action on " + _targets[i]);
+				
+				cpWidgetsStatus.put(_targets[i]+".visible", new Boolean(_show));
+			}
+		}
+		return null;
+	}
+}
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/ExecAction.java"»
@@ -66,7 +140,7 @@ public abstract class ExecAction implements IAction {
 		}
 	}
 
-	public String doAction(Object strutsAction){
+	public String doAction(BaseAction strutsAction){
 		// esecuzione azione
 		String result = doLogic(strutsAction);
 		// determinazione esito e azione corrispondente
@@ -85,7 +159,7 @@ public abstract class ExecAction implements IAction {
 	
 	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
 	// corretto
-	public abstract String doLogic(Object strutsAction);
+	public abstract String doLogic(BaseAction strutsAction);
 }
 «ENDFILE»
 
@@ -104,7 +178,7 @@ public class SequenceAction implements IAction {
 	 * incluse come step, mantenendo il più recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doAction(Object strutsAction) {
+	public String doAction(BaseAction strutsAction) {
 		String result=null;
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
@@ -153,7 +227,7 @@ public class SequenceAction implements IAction {
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
 		return new IAction(){
-			public String doAction(Object strutsAction){return null;}
+			public String doAction(BaseAction strutsAction){return null;}
 		};
 		«ENDIF»
 		«ENDLET»
@@ -234,6 +308,7 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
+	«LET findParentContentPanel().name AS containerName»
 	// ONOFF Action begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
@@ -242,11 +317,13 @@ public class SequenceAction implements IAction {
     «ENDFOREACH»
     };
     
-	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
 	//ONOFF Action end
+	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
+	«LET findParentContentPanel().name AS containerName»
 	// VisibilityAction begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
@@ -254,8 +331,9 @@ public class SequenceAction implements IAction {
     "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
     «ENDFOREACH»
     };
-	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
 	// Visibility Action end
+	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
@@ -274,7 +352,7 @@ public class SequenceAction implements IAction {
     
     
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
-		public String doLogic(Object strutsAction){
+		public String doLogic(BaseAction strutsAction){
 		«REM»«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»«ENDREM»
 			// inserire qui la logica applicativa da eseguire
 			return "«this.results.first().resultCode»";
