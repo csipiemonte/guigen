@@ -19,6 +19,7 @@
 /**
  * <p>Classe delle costanti applicative.</p>
  *
+ * @author GuiGen
  */
 public final class Constants
 {
@@ -44,26 +45,65 @@ le funzionalità specifiche della pagina.
 TODO: implementare se necessario
 «ENDREM»
 «DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM»
-«FILE fileName»
+«FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
-
-
-«REM»Genera una Action Struts2 per mappare il menu.«ENDREM»
-«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- *
+ * Base Action che contiene gli elementi comuni all'applicazione.
+ * Tutte le altre Action dell'applicazione dovranno ereditare da questa
+ * in modo da ottenere le parti comuni, e dovranno implementare in proprio
+ * le funzionalit&agrave; specifiche della pagina.
+ * <p/>
+ * La classe eredita da {@link com.opensymphony.xwork2.ActionSupport} il
+ * metodo {@link com.opensymphony.xwork2.ActionSupport#execute()}, 
+ * che consiste in una default implementation che non fa altro che 
+ * ritornare "success". Questa implementazione pu&ograve; essere usata
+ * quando si ha bisogno di visualizzare una pagina e non si vuole creare
+ * una Action ad hoc.
+ * 
+ * @author GuiGen
+ */
+public class «getStrutsBaseActionClassName(this)» extends ActionSupport, implements SessionAware {
+
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
+
+	/**  */
+	protected Map session;
+
+
+	@Override
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getSession() {
+		return this.session;
+	}
+
+
+	// TODO: add here other stuff if needed
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+Genera una Action Struts2 per mappare il menu.
+TODO: Vedere se è necessario estendere la BaseAction.
+«ENDREM»
+«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+/**
+ * «getStrutsMenuClassName(this)» Action Class.
  *
  * @author GuiGen
  */
-public class «getStrutsMenuClassName(this)» extends ActionSupport {
+public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
 	/**
 	 *
@@ -77,7 +117,8 @@ public class «getStrutsMenuClassName(this)» extends ActionSupport {
 	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 	«LET currMenuItem.eventHandler.action AS currAction»
 	/**
-	 * Jump to «((JumpAction)currAction).jumpTo.name» Content Panel
+	 * Jump to «((JumpAction)currAction).jumpTo.name» Content Panel.
+	 * @return SUCCESS result.
 	 */
 	public String goTo«currMenuItem.name.toFirstUpper()»() {
 		return SUCCESS;
@@ -102,12 +143,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.util.*;
 
 /**
- *
+ * «getStrutsActionClassName(this)» Action Class.
  *
  * @author GuiGen
  */
 public class «getStrutsActionClassName(this)» extends ActionSupport {
-
 
 
     «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
@@ -115,6 +155,7 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 
 	/**
 	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
 	    dumpModel(); // TODO mettere sol se log=debug
@@ -122,13 +163,14 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 		«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
 		// gestione degli eventi di tipo CLICKED
 		«FOREACH allClickSources AS currClickSource»
-		if(_widg_«((Widget)currClickSource).name»){
+		if(_widg_«((Widget)currClickSource).name») {
 			IAction action = initAction("«((Widget)currClickSource).name»","CLICKED");
 			String result = action.doAction(this);
-			if (result!=null)
+			if(result != null) {
 				return result;
-			else
+			} else {
 				return SUCCESS;
+			}
 		}
 		«ENDFOREACH»
 		«ENDLET»
@@ -136,6 +178,7 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 		// se arrivo qui non ci sono eventi da gestire ...
 		return SUCCESS;
 	}
+	
 	
 	void dumpModel(){
 		try{
@@ -155,19 +198,10 @@ public class «getStrutsActionClassName(this)» extends ActionSupport {
 		}
 	}
 	
-	
-	
-	
-	
 
+	«REM»Espande la struttura della InitAction«ENDREM»
     «EXPAND actionImplJavaFiles::actionStructureInit FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»
-
-
-
-
-
-
 

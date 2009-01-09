@@ -2,9 +2,9 @@ import guigen;
 import ecore;
 extension template::GenericExtensions;
 
-////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2        //
-////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 
 String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
@@ -19,7 +19,7 @@ String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 String getPresentationMarkupConfig() :
 	"jsp";	
 	
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Struts2
 
 String getStrutsConfigFile(GUIModel model, boolean omit_root) :
@@ -32,6 +32,7 @@ String getStrutsApplicationConfigFile(GUIModel model, boolean omit_root, String 
 	getWebModuleConfigDir(model, omit_root) + "/" + fileName + ".xml";
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Spring
 
 String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
@@ -41,6 +42,7 @@ String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files JSP comuni
 
 String getIndexJspFile(GUIModel model, boolean omit_root) :
@@ -53,8 +55,10 @@ String getHomePageConfig(GUIModel model) :
 	getStrutsActionJspConfigName(model.structure.appWindow.appArea.contentPanels.first());
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Classi Java comuni
 
+/// MENU
 String getStrutsMenuClassName(GUIModel model) :
 	"MenuAction";
 
@@ -67,7 +71,19 @@ String getStrutsMenuJavaFile(GUIModel model, boolean omit_root) :
 String getStrutsMenuConfigName(GUIModel model) :
 	"menuAction";
 
+/// BaseAction
+String getStrutsBaseActionClassName(GUIModel model) :
+	"BaseAction";
 
+String getStrutsBaseActionFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsBaseActionClassName(model);
+
+String getStrutsBaseActionJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsBaseActionClassName(model) + ".java";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
 
 String getStrutsActionClassName(ContentPanel panel) :
@@ -92,13 +108,8 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
-/// JAVA METHODS
-
-
-
-/// Fake data for widgets (only when needed)
-String getComboboxFakeData() : JAVA
-	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// JAVA METHODS BINDING
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
@@ -108,3 +119,15 @@ List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	
 String	mapWidgetDataType2JavaType(WidgetDataType w, String m) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.mapWidgetDataType2JavaType(it.csi.mddtools.guigen.WidgetDataType, java.lang.String);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Fake data for widgets (only when needed)                                                 //
+/// TODO: remove or comment in PRODUCTION                                                    //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+String getComboboxFakeData() : JAVA
+	it.csi.mddtools.guigen.genutils.GenStrutsFakeData.getComboboxFakeData();
+
+

@@ -215,9 +215,11 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «REM»comment«ENDREM»
 «DEFINE setupFormPanel(GUIModel model) FOR FormPanel»
 	«FOREACH this.widgets AS currWidg»
+	<c:if mappasessione.codiceContentPanel.codiceWidget.visible>«REM»true=visibile, false=non visibile, null=visibile«ENDREM»
 		<p>
 		«EXPAND createAndAddWidgetMarkup(model) FOR currWidg»
 		</p>
+	</c:if>
 	«ENDFOREACH»
 «ENDDEFINE»
 
@@ -232,7 +234,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» />
+<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
+	disabled="mappasessione.codiceContentPanel.codiceWidget.enabled" /> «REM»true=abilitato, false=disabilitato, null=abilitato«ENDREM»
+
 «ENDDEFINE»
 
 
@@ -254,7 +258,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «ENDDEFINE»
 
 
-«REM»Genera la componente Java di una CheckBox.«ENDREM»
+«REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:label value="«this.label»" for="widg_«this.name»"/>
@@ -273,21 +277,22 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di un pulsante (Button). TODO: implementare«ENDREM»
+«REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di un pulsante di reset del form. NOTA: implementato per il momento SOLO in HTML«ENDREM»
+«REM»Genera la componente di markup (HTML) di un pulsante di reset del form. 
+NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
@@ -304,6 +309,6 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «REM»Genera la componente di markup (HTML) di una tabella. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
-
+«REM»TODO: utilizzare DisplayTag?«ENDREM»
 «ENDDEFINE»
 
