@@ -89,7 +89,31 @@ public class «getStrutsBaseActionClassName(this)» extends ActionSupport implemen
 
 
 	// TODO: add here other stuff if needed
+	public static boolean isWidgetVisible(String panelName, String widgetName, javax.servlet.http.HttpSession session){
+		Map<String, Boolean> panelStatus = (Map<String, Boolean>)session.getAttribute(panelName);
+		if (panelStatus!=null){
+			Boolean status = panelStatus.get(widgetName+"_visible");
+			if (status == null || status.equals(Boolean.TRUE))
+				return true;
+			else
+				return false;
+		}
+		else
+			return true; // no info -> visibile
+	}
 
+	public static boolean isWidgetEnabled(String panelName, String widgetName, javax.servlet.http.HttpSession session){
+		Map<String, Boolean> panelStatus = (Map<String, Boolean>)session.getAttribute(panelName);
+		if (panelStatus!=null){
+			Boolean status = panelStatus.get(widgetName+"_enabled");
+			if (status == null || status.equals(Boolean.TRUE))
+				return true;
+			else
+				return false;
+		}
+		else
+			return true; // no info -> abilitato
+	}
 }
 «ENDFILE»
 «ENDDEFINE»

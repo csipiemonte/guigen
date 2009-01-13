@@ -241,66 +241,77 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
 «REM»ABILITAZIONE: null=abilitato; true=abilitato, false=disabilitato«ENDREM»
-<s:if test="%{session['«panel.name»']['«this.name».enabled']}">
-	<s:set name="«panel.name»_«this.name»_disabled" value="%{!session['«panel.name»']['«this.name».enabled']}" />
+
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+	<s:label value="«this.label»" for="widg_«this.name»"/>
+	<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
+		disabled="!#session.«panel.name».«this.name»_enabled" />
 </s:if>
-<s:else>
-	<s:set name="«panel.name»_«this.name»_disabled" value="false" />
-</s:else>
-<s:label value="«this.label»" for="widg_«this.name»"/>
-<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
-	disabled="%{«panel.name»_«this.name»_disabled}" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:textarea name="widg_«this.name»" id="widg_«this.name»"
+	disabled="!#session.«panel.name».«this.name»_enabled"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»></s:textarea>
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="widg_«this.name»" />
+<s:radio id="widg_«this.name»" name="widg_«this.name»" list="{{'a','a'},{'b','b'}}" disabled="!#session.«panel.name».«this.name»_enabled" />
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:checkbox name="widg_«this.name»" id="widg_«this.name»" class="checkbox" />
+<s:checkbox name="widg_«this.name»" id="widg_«this.name»" disabled="!#session.«panel.name».«this.name»_enabled" />
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:select name="widg_«this.name»" id="widg_«this.name»"
           headerKey="00" headerValue="-- Selezionare un valore --"
           list="«getComboboxFakeData()»"
+          disabled="!#session.«panel.name».«this.name»_enabled"
           />
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled" />
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled"/>
+</s:if>
 «ENDDEFINE»
 
 
@@ -308,7 +319,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" />
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled" />
+</s:if>
 «ENDDEFINE»
 
 

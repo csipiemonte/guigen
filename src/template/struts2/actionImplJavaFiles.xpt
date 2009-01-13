@@ -4,7 +4,7 @@
 
 «DEFINE actionImplClasses FOR GUIModel»
 «FILE getPresentationJavaSrcDir(true)+"/IAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 /**
  * Interfaccia comune di tutte le azioni di presentation
@@ -22,7 +22,7 @@ public interface IAction {
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/JumpAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 /// JUMP_ACTION
 public class JumpAction implements IAction {
@@ -46,7 +46,7 @@ public class JumpAction implements IAction {
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/OnOffAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -74,7 +74,7 @@ public class OnOffAction implements IAction {
 			for (int i = 0; i < _targets.length; i++) {
 				System.out.println("on-off action on " + _targets[i]);
 				
-				cpWidgetsStatus.put(_targets[i]+".enabled", new Boolean(_show));
+				cpWidgetsStatus.put(_targets[i]+"_enabled", new Boolean(_show));
 			}
 		}
 		return null;
@@ -83,7 +83,7 @@ public class OnOffAction implements IAction {
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/VisibilityAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -111,7 +111,7 @@ public class VisibilityAction implements IAction {
 			for (int i = 0; i < _targets.length; i++) {
 				System.out.println("visibility action on " + _targets[i]);
 				
-				cpWidgetsStatus.put(_targets[i]+".visible", new Boolean(_show));
+				cpWidgetsStatus.put(_targets[i]+"_visible", new Boolean(_show));
 			}
 		}
 		return null;
@@ -120,7 +120,7 @@ public class VisibilityAction implements IAction {
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/ExecAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 ////ExecAction
 public abstract class ExecAction implements IAction {
@@ -164,7 +164,7 @@ public abstract class ExecAction implements IAction {
 «ENDFILE»
 
 «FILE getPresentationJavaSrcDir(true)+"/SequenceAction.java"»
-package it.csi.piol.piolfe.presentation.piolfe.action;
+package «getPresentationJavaPackage()»;
 
 /// SEQUENCE_ACTION
 public class SequenceAction implements IAction {

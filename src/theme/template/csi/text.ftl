@@ -31,6 +31,9 @@
 <#if parameters.nameValue?exists>
  value="<@s.property value="parameters.nameValue"/>"<#rt/>
 </#if>
+<#if parameters.disabled?exists>
+  pippo="<@s.property value="parameters.disabled"/>"
+</#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
 </#if>
