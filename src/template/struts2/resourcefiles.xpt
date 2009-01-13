@@ -215,19 +215,10 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «REM»comment«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, ContentPanel panel) FOR FormPanel»
 	«FOREACH this.widgets AS currWidg»
-	«REM»VISIBILITA': null=visibile; true=visibile, false=non visibile«ENDREM»
-	<s:if test="%{session['«panel.name»']['«currWidg.name».visible']}">
-		<s:set name="«panel.name»_«currWidg.name»_visible" value="%{session['«panel.name»']['«currWidg.name».visible']}" />
-	</s:if>
-	<s:else>
-		<s:set name="«panel.name»_«currWidg.name»_visible" value="true" />
-	</s:else>
-	<s:if test="%{«panel.name»_«currWidg.name»_visible}">
 		<p>
 		«EXPAND createAndAddWidgetMarkup(model, panel) FOR currWidg»
 		</p>
-	</s:if>
-	«ENDFOREACH»
+		«ENDFOREACH»
 «ENDDEFINE»
 
 
