@@ -122,10 +122,13 @@ public class ExecActionItemProvider
 		ExecAction ea = (ExecAction)object;
 		if (ea.getResults()!=null && ea.getResults().size()>0){
 			Iterator<ActionResult> it = ea.getResults().iterator();
-			label+=it.next().getResultCode()+"|";
+			while(it.hasNext())
+				label+=it.next().getResultCode()+"|";
+			label = label.substring(0,label.length()-1); // tolgo l'ultimo "|"
 		}
 		else
 			label+="-- nessun risultato specificato ---";
+		 
 		label+="}";
 		return getString("_UI_ExecAction_type")+": "+label;
 	}
