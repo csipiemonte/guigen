@@ -76,6 +76,9 @@ context ShowDialogAction ERROR "E'necessario impostare il dialog target di una S
 context ExecAction ERROR "Una ExecAction deve avere almeno un ActionResult associato" :
 	this.results!=null && this.results.size>0;
 
+context ExecAction ERROR "E'necessario specificare il nome del metodo associato all'esecuzione" :
+	this.methodName!=null && this.methodName.length>0;
+	
 context ActionResult ERROR "Una ActionResult deve avere associata una azione effettiva" :  
 	this.action != null;
 	

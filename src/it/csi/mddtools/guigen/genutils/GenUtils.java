@@ -322,6 +322,23 @@ public static List<Widget> getAllEventSourceWidgets(ContentPanel cp){
 
 ///////
 
+public static String getFixedRadioButtonList(RadioButtons rb){
+	String list = "";
+	if (rb.getRadio()!=null && rb.getRadio().size()>0){
+		Iterator<RadioButton> it = rb.getRadio().iterator();
+		while(it.hasNext()){
+			RadioButton currRadio = it.next();
+			String currRadioString = "'"+currRadio.getName()+"':'"+currRadio.getLabel()+"'";
+			list+=currRadioString+",";
+		}
+		list = list.substring(0,list.length()-1); // tolgo ultimo ","
+		return list;
+	}
+	else
+		return ""; // non si dovrebbe mai essere iun questo caso (check sul modello)
+}
+
+
 public static String mapWidgetDataType2JavaType(WidgetDataType t, String modifier){
 	if(t.equals(WidgetDataType.STRINGA))
 		return "java.lang.String";

@@ -2122,13 +2122,22 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_ACTION__RESULTS = ACTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_ACTION__METHOD_NAME = ACTION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Exec Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int EXEC_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
@@ -3564,6 +3573,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getExecAction_Results();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecAction#getMethodName <em>Method Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Name</em>'.
+	 * @see it.csi.mddtools.guigen.ExecAction#getMethodName()
+	 * @see #getExecAction()
+	 * @generated
+	 */
+	EAttribute getExecAction_MethodName();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EventHandler <em>Event Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4734,6 +4754,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXEC_ACTION__RESULTS = eINSTANCE.getExecAction_Results();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXEC_ACTION__METHOD_NAME = eINSTANCE.getExecAction_MethodName();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.

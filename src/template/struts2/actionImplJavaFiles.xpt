@@ -353,10 +353,15 @@ public class SequenceAction implements IAction {
     
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
 		public String doLogic(BaseAction strutsAction){
-		«REM»«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»«ENDREM»
+		
+			return «this.methodName»(strutsAction);
+		
+		}
+		public String «this.methodName»(BaseAction strutsAction){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»
 			// inserire qui la logica applicativa da eseguire
 			return "«this.results.first().resultCode»";
-		«REM»«ENDPROTECT»«ENDREM»
+		«ENDPROTECT»
 		}
 	};
 	// Exec Action end

@@ -259,7 +259,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="widg_«this.name»" list="{{'a','a'},{'b','b'}}" disabled="!#session.«panel.name».«this.name»_enabled" />
+<s:radio id="widg_«this.name»" name="widg_«this.name»" list="#{«getFixedRadioButtonList(this)»}" disabled="!#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 

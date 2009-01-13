@@ -22,12 +22,14 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -65,8 +67,31 @@ public class ExecActionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addMethodNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Method Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMethodNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExecAction_methodName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExecAction_methodName_feature", "_UI_ExecAction_type"),
+				 GuigenPackage.Literals.EXEC_ACTION__METHOD_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -118,8 +143,8 @@ public class ExecActionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="{";
 		ExecAction ea = (ExecAction)object;
+		String label="execute "+ea.getMethodName()+"()->{";
 		if (ea.getResults()!=null && ea.getResults().size()>0){
 			Iterator<ActionResult> it = ea.getResults().iterator();
 			while(it.hasNext())
@@ -145,6 +170,9 @@ public class ExecActionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExecAction.class)) {
+			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ExecAction#getResults <em>Results</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecAction#getMethodName <em>Method Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,5 +41,31 @@ public interface ExecAction extends Action {
 	 * @generated
 	 */
 	EList<ActionResult> getResults();
+
+	/**
+	 * Returns the value of the '<em><b>Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Method Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Method Name</em>' attribute.
+	 * @see #setMethodName(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecAction_MethodName()
+	 * @model
+	 * @generated
+	 */
+	String getMethodName();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecAction#getMethodName <em>Method Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Method Name</em>' attribute.
+	 * @see #getMethodName()
+	 * @generated
+	 */
+	void setMethodName(String value);
 
 } // ExecAction

@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecActionImpl#getResults <em>Results</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ExecActionImpl#getMethodName <em>Method Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +48,25 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	 * @ordered
 	 */
 	protected EList<ActionResult> results;
+
+	/**
+	 * The default value of the '{@link #getMethodName() <em>Method Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMethodName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String METHOD_NAME_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getMethodName() <em>Method Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMethodName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String methodName = METHOD_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,6 +104,27 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getMethodName() {
+		return methodName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMethodName(String newMethodName) {
+		String oldMethodName = methodName;
+		methodName = newMethodName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EXEC_ACTION__METHOD_NAME, oldMethodName, methodName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -101,6 +144,8 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 		switch (featureID) {
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				return getResults();
+			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
+				return getMethodName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -118,6 +163,9 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 				getResults().clear();
 				getResults().addAll((Collection<? extends ActionResult>)newValue);
 				return;
+			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
+				setMethodName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -133,6 +181,9 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				getResults().clear();
 				return;
+			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
+				setMethodName(METHOD_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -147,8 +198,26 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 		switch (featureID) {
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				return results != null && !results.isEmpty();
+			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
+				return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (methodName: ");
+		result.append(methodName);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ExecActionImpl
