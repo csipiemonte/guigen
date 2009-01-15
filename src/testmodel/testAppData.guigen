@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="piol" codComponente="piolfe" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header/>
+      <appArea>
+        <contentPanels name="cpRicerca">
+          <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
+            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome"/>
+            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
+              <eventHandlers>
+                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto">
+                  <results resultCode="FOUND_MANY">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                  </results>
+                  <results resultCode="FOUND_ONE">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  </results>
+                  <results resultCode="FOUND_NONE">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </results>
+                  <postExecData name="listaSoggetti"/>
+                  <postExecData name="soggettoTrovato"/>
+                </action>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpLista" appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.0">
+          <panels xsi:type="guigen:FormPanel" name="pListaRisultati" label="Lista risultati">
+            <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati">
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.0"/>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpDettaglio" appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1">
+          <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Dettaglio soggetto">
+            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome">
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="nome"/>
+            </widgets>
+            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:">
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="cognome"/>
+            </widgets>
+            <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso">
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="sex"/>
+              <radio name="rbSexM" label="M"/>
+              <radio name="rbSexF" label="F"/>
+            </widgets>
+          </panels>
+        </contentPanels>
+      </appArea>
+    </appWindow>
+  </structure>
+</guigen:GUIModel>

@@ -11,8 +11,10 @@ import it.csi.mddtools.guigen.ActionEvent;
 import it.csi.mddtools.guigen.ActionOnPanels;
 import it.csi.mddtools.guigen.ActionOnWidgets;
 import it.csi.mddtools.guigen.ActionResult;
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
@@ -23,6 +25,7 @@ import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomAction;
+import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.DisabledComponentSet;
@@ -496,6 +499,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass applicationDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass appDataBindingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -511,6 +528,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum eventTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum dataLifetimeTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -711,6 +735,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getContentPanel_AppData() {
+		return (EReference)contentPanelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFormPanel() {
 		return formPanelEClass;
 	}
@@ -875,6 +908,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getDataWidget_DataTypeModifier() {
 		return (EAttribute)dataWidgetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDataWidget_Databinding() {
+		return (EReference)dataWidgetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1458,6 +1500,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getExecAction_PostExecData() {
+		return (EReference)execActionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEventHandler() {
 		return eventHandlerEClass;
 	}
@@ -1683,6 +1734,60 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getApplicationData() {
+		return applicationDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getApplicationData_Name() {
+		return (EAttribute)applicationDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getApplicationData_LifetimeExtent() {
+		return (EAttribute)applicationDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAppDataBinding() {
+		return appDataBindingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppDataBinding_AppData() {
+		return (EReference)appDataBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAppDataBinding_Path() {
+		return (EAttribute)appDataBindingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -1703,6 +1808,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getEventTypes() {
 		return eventTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getDataLifetimeType() {
+		return dataLifetimeTypeEEnum;
 	}
 
 	/**
@@ -1751,6 +1865,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		contentPanelEClass = createEClass(CONTENT_PANEL);
 		createEReference(contentPanelEClass, CONTENT_PANEL__PANELS);
 		createEAttribute(contentPanelEClass, CONTENT_PANEL__NAME);
+		createEReference(contentPanelEClass, CONTENT_PANEL__APP_DATA);
 
 		formPanelEClass = createEClass(FORM_PANEL);
 		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
@@ -1776,6 +1891,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		dataWidgetEClass = createEClass(DATA_WIDGET);
 		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE);
 		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE_MODIFIER);
+		createEReference(dataWidgetEClass, DATA_WIDGET__DATABINDING);
 
 		buttonEClass = createEClass(BUTTON);
 		createEAttribute(buttonEClass, BUTTON__IMAGE);
@@ -1874,6 +1990,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		execActionEClass = createEClass(EXEC_ACTION);
 		createEReference(execActionEClass, EXEC_ACTION__RESULTS);
 		createEAttribute(execActionEClass, EXEC_ACTION__METHOD_NAME);
+		createEReference(execActionEClass, EXEC_ACTION__POST_EXEC_DATA);
 
 		eventHandlerEClass = createEClass(EVENT_HANDLER);
 		createEReference(eventHandlerEClass, EVENT_HANDLER__ACTION);
@@ -1913,10 +2030,19 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		jumpBackActionEClass = createEClass(JUMP_BACK_ACTION);
 
+		applicationDataEClass = createEClass(APPLICATION_DATA);
+		createEAttribute(applicationDataEClass, APPLICATION_DATA__NAME);
+		createEAttribute(applicationDataEClass, APPLICATION_DATA__LIFETIME_EXTENT);
+
+		appDataBindingEClass = createEClass(APP_DATA_BINDING);
+		createEReference(appDataBindingEClass, APP_DATA_BINDING__APP_DATA);
+		createEAttribute(appDataBindingEClass, APP_DATA_BINDING__PATH);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
 		eventTypesEEnum = createEEnum(EVENT_TYPES);
+		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
 	}
 
 	/**
@@ -2003,6 +2129,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(contentPanelEClass, ContentPanel.class, "ContentPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getContentPanel_Panels(), this.getPanel(), null, "panels", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentPanel_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2028,6 +2155,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(dataWidgetEClass, DataWidget.class, "DataWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataWidget_DataType(), this.getWidgetDataType(), "dataType", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataWidget_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataWidget_Databinding(), this.getAppDataBinding(), null, "databinding", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(buttonEClass, Button.class, "Button", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getButton_Image(), ecorePackage.getEString(), "image", null, 0, 1, Button.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2126,6 +2254,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(execActionEClass, ExecAction.class, "ExecAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExecAction_Results(), this.getActionResult(), null, "results", null, 0, -1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExecAction_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExecAction_PostExecData(), this.getApplicationData(), null, "postExecData", null, 0, -1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventHandlerEClass, EventHandler.class, "EventHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventHandler_Action(), this.getAction(), null, "action", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2165,6 +2294,14 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(jumpBackActionEClass, JumpBackAction.class, "JumpBackAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(applicationDataEClass, ApplicationData.class, "ApplicationData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getApplicationData_Name(), ecorePackage.getEString(), "name", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplicationData_LifetimeExtent(), this.getDataLifetimeType(), "lifetimeExtent", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(appDataBindingEClass, AppDataBinding.class, "AppDataBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAppDataBinding_AppData(), this.getApplicationData(), null, "appData", null, 0, 1, AppDataBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAppDataBinding_Path(), ecorePackage.getEString(), "path", null, 0, 1, AppDataBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -2185,6 +2322,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(eventTypesEEnum, EventTypes.VALUE_CHANGED);
 		addEEnumLiteral(eventTypesEEnum, EventTypes.FOCUS_GAINED);
 		addEEnumLiteral(eventTypesEEnum, EventTypes.FOCUS_LOST);
+
+		initEEnum(dataLifetimeTypeEEnum, DataLifetimeType.class, "DataLifetimeType");
+		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_ACTION);
+		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_SESSION);
 
 		// Create resource
 		createResource(eNS_URI);

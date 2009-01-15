@@ -228,13 +228,22 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>App Data</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__APP_DATA = 2;
+
+	/**
 	 * The number of structural features of the '<em>Content Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_PANEL_FEATURE_COUNT = 2;
+	int CONTENT_PANEL_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -603,13 +612,22 @@ public interface GuigenPackage extends EPackage {
 	int DATA_WIDGET__DATA_TYPE_MODIFIER = WIDGET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__DATABINDING = WIDGET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Data Widget</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 2;
+	int DATA_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ButtonImpl <em>Button</em>}' class.
@@ -740,6 +758,15 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_FIELD__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
 
 	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
 	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -820,6 +847,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_AREA__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
 	 * The feature id for the '<em><b>Rows</b></em>' attribute.
@@ -913,6 +949,15 @@ public interface GuigenPackage extends EPackage {
 	int CALENDAR__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
 
 	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
 	 * The number of structural features of the '<em>Calendar</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -986,6 +1031,15 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
 
 	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1057,6 +1111,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TABLE__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
 	 * The feature id for the '<em><b>Column Model</b></em>' containment reference.
@@ -1139,6 +1202,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHECK_BOX__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
 	 * The number of structural features of the '<em>Check Box</em>' class.
@@ -1332,6 +1404,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int RADIO_BUTTONS__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
 	 * The feature id for the '<em><b>Radio</b></em>' containment reference list.
@@ -2131,13 +2212,22 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_ACTION__METHOD_NAME = ACTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Post Exec Data</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_ACTION__POST_EXEC_DATA = ACTION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Exec Action</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
+	int EXEC_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
@@ -2531,6 +2621,80 @@ public interface GuigenPackage extends EPackage {
 	int JUMP_BACK_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl <em>Application Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ApplicationDataImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getApplicationData()
+	 * @generated
+	 */
+	int APPLICATION_DATA = 58;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Lifetime Extent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA__LIFETIME_EXTENT = 1;
+
+	/**
+	 * The number of structural features of the '<em>Application Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppDataBindingImpl <em>App Data Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AppDataBindingImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataBinding()
+	 * @generated
+	 */
+	int APP_DATA_BINDING = 59;
+
+	/**
+	 * The feature id for the '<em><b>App Data</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_BINDING__APP_DATA = 0;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_BINDING__PATH = 1;
+
+	/**
+	 * The number of structural features of the '<em>App Data Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_BINDING_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2538,7 +2702,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 58;
+	int WIDGET_DATA_TYPE = 60;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -2548,7 +2712,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 59;
+	int UDLRC_SPEC_CONSTANTS = 61;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -2558,7 +2722,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 60;
+	int EVENT_TYPES = 62;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.DataLifetimeType <em>Data Lifetime Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.DataLifetimeType
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
+	 * @generated
+	 */
+	int DATA_LIFETIME_TYPE = 63;
 
 
 	/**
@@ -2709,6 +2884,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getContentPanel_Name();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>App Data</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getAppData()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_AppData();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FormPanel <em>Form Panel</em>}'.
@@ -2912,6 +3098,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDataWidget_DataTypeModifier();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.DataWidget#getDatabinding <em>Databinding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Databinding</em>'.
+	 * @see it.csi.mddtools.guigen.DataWidget#getDatabinding()
+	 * @see #getDataWidget()
+	 * @generated
+	 */
+	EReference getDataWidget_Databinding();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Button <em>Button</em>}'.
@@ -3584,6 +3781,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getExecAction_MethodName();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ExecAction#getPostExecData <em>Post Exec Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Post Exec Data</em>'.
+	 * @see it.csi.mddtools.guigen.ExecAction#getPostExecData()
+	 * @see #getExecAction()
+	 * @generated
+	 */
+	EReference getExecAction_PostExecData();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EventHandler <em>Event Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3846,6 +4054,70 @@ public interface GuigenPackage extends EPackage {
 	EClass getJumpBackAction();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationData <em>Application Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Application Data</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationData
+	 * @generated
+	 */
+	EClass getApplicationData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ApplicationData#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationData#getName()
+	 * @see #getApplicationData()
+	 * @generated
+	 */
+	EAttribute getApplicationData_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ApplicationData#getLifetimeExtent <em>Lifetime Extent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lifetime Extent</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationData#getLifetimeExtent()
+	 * @see #getApplicationData()
+	 * @generated
+	 */
+	EAttribute getApplicationData_LifetimeExtent();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppDataBinding <em>App Data Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>App Data Binding</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataBinding
+	 * @generated
+	 */
+	EClass getAppDataBinding();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppDataBinding#getAppData <em>App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>App Data</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataBinding#getAppData()
+	 * @see #getAppDataBinding()
+	 * @generated
+	 */
+	EReference getAppDataBinding_AppData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.AppDataBinding#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Path</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataBinding#getPath()
+	 * @see #getAppDataBinding()
+	 * @generated
+	 */
+	EAttribute getAppDataBinding_Path();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3874,6 +4146,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getEventTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.DataLifetimeType <em>Data Lifetime Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Data Lifetime Type</em>'.
+	 * @see it.csi.mddtools.guigen.DataLifetimeType
+	 * @generated
+	 */
+	EEnum getDataLifetimeType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -4018,6 +4300,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONTENT_PANEL__NAME = eINSTANCE.getContentPanel_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__APP_DATA = eINSTANCE.getContentPanel_AppData();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.
@@ -4182,6 +4472,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DATA_WIDGET__DATA_TYPE_MODIFIER = eINSTANCE.getDataWidget_DataTypeModifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Databinding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_WIDGET__DATABINDING = eINSTANCE.getDataWidget_Databinding();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ButtonImpl <em>Button</em>}' class.
@@ -4764,6 +5062,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute EXEC_ACTION__METHOD_NAME = eINSTANCE.getExecAction_MethodName();
 
 		/**
+		 * The meta object literal for the '<em><b>Post Exec Data</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXEC_ACTION__POST_EXEC_DATA = eINSTANCE.getExecAction_PostExecData();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4990,6 +5296,58 @@ public interface GuigenPackage extends EPackage {
 		EClass JUMP_BACK_ACTION = eINSTANCE.getJumpBackAction();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl <em>Application Data</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ApplicationDataImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getApplicationData()
+		 * @generated
+		 */
+		EClass APPLICATION_DATA = eINSTANCE.getApplicationData();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION_DATA__NAME = eINSTANCE.getApplicationData_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Lifetime Extent</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION_DATA__LIFETIME_EXTENT = eINSTANCE.getApplicationData_LifetimeExtent();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppDataBindingImpl <em>App Data Binding</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AppDataBindingImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataBinding()
+		 * @generated
+		 */
+		EClass APP_DATA_BINDING = eINSTANCE.getAppDataBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APP_DATA_BINDING__APP_DATA = eINSTANCE.getAppDataBinding_AppData();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APP_DATA_BINDING__PATH = eINSTANCE.getAppDataBinding_Path();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5018,6 +5376,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum EVENT_TYPES = eINSTANCE.getEventTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.DataLifetimeType <em>Data Lifetime Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.DataLifetimeType
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
+		 * @generated
+		 */
+		EEnum DATA_LIFETIME_TYPE = eINSTANCE.getDataLifetimeType();
 
 	}
 

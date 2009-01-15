@@ -476,6 +476,24 @@ public interface GuigenFactory extends EFactory {
 	JumpBackAction createJumpBackAction();
 
 	/**
+	 * Returns a new object of class '<em>Application Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Application Data</em>'.
+	 * @generated
+	 */
+	ApplicationData createApplicationData();
+
+	/**
+	 * Returns a new object of class '<em>App Data Binding</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>App Data Binding</em>'.
+	 * @generated
+	 */
+	AppDataBinding createAppDataBinding();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

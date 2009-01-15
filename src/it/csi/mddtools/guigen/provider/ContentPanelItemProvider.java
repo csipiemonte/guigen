@@ -69,6 +69,7 @@ public class ContentPanelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addAppDataPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -91,6 +92,28 @@ public class ContentPanelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the App Data feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAppDataPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ContentPanel_appData_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ContentPanel_appData_feature", "_UI_ContentPanel_type"),
+				 GuigenPackage.Literals.CONTENT_PANEL__APP_DATA,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

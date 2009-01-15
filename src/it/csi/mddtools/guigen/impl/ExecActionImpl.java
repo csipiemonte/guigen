@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.ActionResult;
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.GuigenPackage;
 
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecActionImpl#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecActionImpl#getMethodName <em>Method Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ExecActionImpl#getPostExecData <em>Post Exec Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +69,16 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	 * @ordered
 	 */
 	protected String methodName = METHOD_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPostExecData() <em>Post Exec Data</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPostExecData()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ApplicationData> postExecData;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,11 +137,25 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ApplicationData> getPostExecData() {
+		if (postExecData == null) {
+			postExecData = new EObjectContainmentEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.EXEC_ACTION__POST_EXEC_DATA);
+		}
+		return postExecData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
+				return ((InternalEList<?>)getPostExecData()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -146,6 +172,8 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 				return getResults();
 			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
 				return getMethodName();
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
+				return getPostExecData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,6 +194,10 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
 				setMethodName((String)newValue);
 				return;
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
+				getPostExecData().clear();
+				getPostExecData().addAll((Collection<? extends ApplicationData>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -184,6 +216,9 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
 				setMethodName(METHOD_NAME_EDEFAULT);
 				return;
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
+				getPostExecData().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -200,6 +235,8 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 				return results != null && !results.isEmpty();
 			case GuigenPackage.EXEC_ACTION__METHOD_NAME:
 				return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
+				return postExecData != null && !postExecData.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

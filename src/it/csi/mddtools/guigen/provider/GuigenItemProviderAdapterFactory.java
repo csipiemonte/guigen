@@ -1226,6 +1226,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ApplicationData} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ApplicationDataItemProvider applicationDataItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ApplicationData}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createApplicationDataAdapter() {
+		if (applicationDataItemProvider == null) {
+			applicationDataItemProvider = new ApplicationDataItemProvider(this);
+		}
+
+		return applicationDataItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AppDataBinding} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AppDataBindingItemProvider appDataBindingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AppDataBinding}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAppDataBindingAdapter() {
+		if (appDataBindingItemProvider == null) {
+			appDataBindingItemProvider = new AppDataBindingItemProvider(this);
+		}
+
+		return appDataBindingItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1374,6 +1420,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (staticLinksItemProvider != null) staticLinksItemProvider.dispose();
 		if (sequenceActionItemProvider != null) sequenceActionItemProvider.dispose();
 		if (jumpBackActionItemProvider != null) jumpBackActionItemProvider.dispose();
+		if (applicationDataItemProvider != null) applicationDataItemProvider.dispose();
+		if (appDataBindingItemProvider != null) appDataBindingItemProvider.dispose();
 	}
 
 }

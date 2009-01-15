@@ -6,14 +6,17 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.WidgetDataType;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -25,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDatabinding <em>Databinding</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +74,16 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 	 * @ordered
 	 */
 	protected String dataTypeModifier = DATA_TYPE_MODIFIER_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDatabinding() <em>Databinding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDatabinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected AppDataBinding databinding;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,6 +151,63 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AppDataBinding getDatabinding() {
+		return databinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDatabinding(AppDataBinding newDatabinding, NotificationChain msgs) {
+		AppDataBinding oldDatabinding = databinding;
+		databinding = newDatabinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.DATA_WIDGET__DATABINDING, oldDatabinding, newDatabinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDatabinding(AppDataBinding newDatabinding) {
+		if (newDatabinding != databinding) {
+			NotificationChain msgs = null;
+			if (databinding != null)
+				msgs = ((InternalEObject)databinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DATA_WIDGET__DATABINDING, null, msgs);
+			if (newDatabinding != null)
+				msgs = ((InternalEObject)newDatabinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DATA_WIDGET__DATABINDING, null, msgs);
+			msgs = basicSetDatabinding(newDatabinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.DATA_WIDGET__DATABINDING, newDatabinding, newDatabinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GuigenPackage.DATA_WIDGET__DATABINDING:
+				return basicSetDatabinding(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -144,6 +215,8 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				return getDataType();
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
 				return getDataTypeModifier();
+			case GuigenPackage.DATA_WIDGET__DATABINDING:
+				return getDatabinding();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -161,6 +234,9 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				return;
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
 				setDataTypeModifier((String)newValue);
+				return;
+			case GuigenPackage.DATA_WIDGET__DATABINDING:
+				setDatabinding((AppDataBinding)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -180,6 +256,9 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
 				setDataTypeModifier(DATA_TYPE_MODIFIER_EDEFAULT);
 				return;
+			case GuigenPackage.DATA_WIDGET__DATABINDING:
+				setDatabinding((AppDataBinding)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -196,6 +275,8 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				return dataType != DATA_TYPE_EDEFAULT;
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
 				return DATA_TYPE_MODIFIER_EDEFAULT == null ? dataTypeModifier != null : !DATA_TYPE_MODIFIER_EDEFAULT.equals(dataTypeModifier);
+			case GuigenPackage.DATA_WIDGET__DATABINDING:
+				return databinding != null;
 		}
 		return super.eIsSet(featureID);
 	}

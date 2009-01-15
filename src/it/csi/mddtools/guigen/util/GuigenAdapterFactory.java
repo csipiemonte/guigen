@@ -304,6 +304,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createJumpBackActionAdapter();
 			}
 			@Override
+			public Adapter caseApplicationData(ApplicationData object) {
+				return createApplicationDataAdapter();
+			}
+			@Override
+			public Adapter caseAppDataBinding(AppDataBinding object) {
+				return createAppDataBindingAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1132,6 +1140,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createJumpBackActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ApplicationData <em>Application Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ApplicationData
+	 * @generated
+	 */
+	public Adapter createApplicationDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AppDataBinding <em>App Data Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AppDataBinding
+	 * @generated
+	 */
+	public Adapter createAppDataBindingAdapter() {
 		return null;
 	}
 

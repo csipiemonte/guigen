@@ -236,7 +236,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 	<s:label value="«this.label»" for="widg_«this.name»"/>
 	<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
-		disabled="!#session.«panel.name».«this.name»_enabled" />
+		disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -247,7 +247,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
 <s:textarea name="widg_«this.name»" id="widg_«this.name»"
-	disabled="!#session.«panel.name».«this.name»_enabled"
+	disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»></s:textarea>
 </s:if>
@@ -259,7 +259,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="widg_«this.name»" list="#{«getFixedRadioButtonList(this)»}" disabled="!#session.«panel.name».«this.name»_enabled" />
+<s:radio id="widg_«this.name»" name="widg_«this.name»" list="#{«getFixedRadioButtonList(this)»}" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -269,7 +269,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:checkbox name="widg_«this.name»" id="widg_«this.name»" disabled="!#session.«panel.name».«this.name»_enabled" />
+<s:checkbox name="widg_«this.name»" id="widg_«this.name»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -282,7 +282,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <s:select name="widg_«this.name»" id="widg_«this.name»"
           headerKey="00" headerValue="-- Selezionare un valore --"
           list="«getComboboxFakeData()»"
-          disabled="!#session.«panel.name».«this.name»_enabled"
+          disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
           />
 </s:if>
 «ENDDEFINE»
@@ -292,7 +292,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled" />
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -301,7 +301,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled"/>
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"/>
 </s:if>
 «ENDDEFINE»
 
@@ -311,7 +311,7 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="!#session.«panel.name».«this.name»_enabled" />
+<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 

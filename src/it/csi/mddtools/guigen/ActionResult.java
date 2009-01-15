@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**

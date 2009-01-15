@@ -8,16 +8,21 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -182,6 +187,7 @@ public class ActionResultImpl extends EObjectImpl implements ActionResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ExecAction#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecAction#getMethodName <em>Method Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecAction#getPostExecData <em>Post Exec Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,5 +68,21 @@ public interface ExecAction extends Action {
 	 * @generated
 	 */
 	void setMethodName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Post Exec Data</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.ApplicationData}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Post Exec Data</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Post Exec Data</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecAction_PostExecData()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ApplicationData> getPostExecData();
 
 } // ExecAction

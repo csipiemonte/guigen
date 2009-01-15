@@ -19,6 +19,7 @@
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -93,6 +94,49 @@
 «ENDREM»
 «ENDDEFINE»
 
+«DEFINE reminclTldFile(boolean skip_component_dir_creation) FOR GUIModel»<?xml version="1.0" encoding="ISO-8859-1" ?>
+«FILE getReminclTldDescriptorFile(skip_component_dir_creation)»<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>Remote Include Tag Library</shortname>
+	<uri>http://www.csi.it/taglibs/remincl-1.0</uri>
+	<info>
+		This tag library contains functionality to include a remote
+		resource
+		using an http request.
+	</info>
+	<tag>
+		<name>include</name>
+		<tagclass>
+			it.csi.util.jsp.tag.remoteinclude.RemoteIncludeTag
+		</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>
+			url - the url used the fetch the page to be cached.
+			resourceProvider - the provider of remote resoures
+		</info>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>resourceProvider</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>loggerConfigParameter</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
 «DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -165,9 +209,24 @@
 		</jsp-property-group>
 	</jsp-config>
 	
+	<context-param>
+		<param-name>remincl.resource.provider.generic</param-name>
+		<param-value>http://integrazione.csi.it:9038</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>remincl.cache.time</param-name>
+		<param-value>10</param-value>
+	</context-param>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<taglib>
+		<taglib-uri>/WEB-INF/remincl.tld</taglib-uri>
+		<taglib-location>/WEB-INF/remincl.tld</taglib-location>
+	</taglib>
 </web-app>
 «ENDFILE»
 «ENDDEFINE»

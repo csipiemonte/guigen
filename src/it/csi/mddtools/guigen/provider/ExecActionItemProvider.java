@@ -107,6 +107,7 @@ public class ExecActionItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.EXEC_ACTION__RESULTS);
+			childrenFeatures.add(GuigenPackage.Literals.EXEC_ACTION__POST_EXEC_DATA);
 		}
 		return childrenFeatures;
 	}
@@ -174,6 +175,7 @@ public class ExecActionItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.EXEC_ACTION__RESULTS:
+			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -195,6 +197,11 @@ public class ExecActionItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EXEC_ACTION__RESULTS,
 				 GuigenFactory.eINSTANCE.createActionResult()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EXEC_ACTION__POST_EXEC_DATA,
+				 GuigenFactory.eINSTANCE.createApplicationData()));
 	}
 
 }

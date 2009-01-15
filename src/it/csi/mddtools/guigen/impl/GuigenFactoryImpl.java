@@ -111,6 +111,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.STATIC_LINKS: return createStaticLinks();
 			case GuigenPackage.SEQUENCE_ACTION: return createSequenceAction();
 			case GuigenPackage.JUMP_BACK_ACTION: return createJumpBackAction();
+			case GuigenPackage.APPLICATION_DATA: return createApplicationData();
+			case GuigenPackage.APP_DATA_BINDING: return createAppDataBinding();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -130,6 +132,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createUDLRCSpecConstantsFromString(eDataType, initialValue);
 			case GuigenPackage.EVENT_TYPES:
 				return createEventTypesFromString(eDataType, initialValue);
+			case GuigenPackage.DATA_LIFETIME_TYPE:
+				return createDataLifetimeTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -149,6 +153,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertUDLRCSpecConstantsToString(eDataType, instanceValue);
 			case GuigenPackage.EVENT_TYPES:
 				return convertEventTypesToString(eDataType, instanceValue);
+			case GuigenPackage.DATA_LIFETIME_TYPE:
+				return convertDataLifetimeTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -659,6 +665,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ApplicationData createApplicationData() {
+		ApplicationDataImpl applicationData = new ApplicationDataImpl();
+		return applicationData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppDataBinding createAppDataBinding() {
+		AppDataBindingImpl appDataBinding = new AppDataBindingImpl();
+		return appDataBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -711,6 +737,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertEventTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataLifetimeType createDataLifetimeTypeFromString(EDataType eDataType, String initialValue) {
+		DataLifetimeType result = DataLifetimeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDataLifetimeTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
