@@ -129,14 +129,20 @@ public class AppDataBindingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((AppDataBinding)object).getPath();
-		return label == null || label.length() == 0 ?
-			getString("_UI_AppDataBinding_type") :
-			getString("_UI_AppDataBinding_type") + " " + label;
+		AppDataBinding binding = (AppDataBinding)object;
+		String label = "";
+		if (binding.getAppData()!=null){
+			label+= "bound to " +binding.getAppData().getName();
+			if (binding.getPath()!=null && binding.getPath().length()>0)
+				label+="."+binding.getPath();
+		}
+		else
+			label+="<not bound>";
+		return getString("_UI_AppDataBinding_type") + " " + label;
 	}
 
 	/**
@@ -144,7 +150,7 @@ public class AppDataBindingItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -152,6 +158,9 @@ public class AppDataBindingItemProvider
 
 		switch (notification.getFeatureID(AppDataBinding.class)) {
 			case GuigenPackage.APP_DATA_BINDING__PATH:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.APP_DATA_BINDING__APP_DATA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
