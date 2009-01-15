@@ -111,6 +111,16 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
+/// identificativi
+
+// chiave dell'app data quando salvato in sessione
+String getAppDataKey(ApplicationData ad) :
+	"appData_"+ad.name;
+
+// nome della property associata all'appdata quando viene inserito nella action
+String getAppDataPropertyName(ApplicationData ad) :
+	"appData"+ad.name;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
@@ -128,6 +138,9 @@ ContentPanel findParentContentPanel(Action a) : JAVA
 
 String getFixedRadioButtonList(RadioButtons rb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getFixedRadioButtonList(it.csi.mddtools.guigen.RadioButtons);
+
+List findAllActionScopedAppDataInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInContentPanel(it.csi.mddtools.guigen.ContentPanel);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Fake data for widgets (only when needed)                                                 //

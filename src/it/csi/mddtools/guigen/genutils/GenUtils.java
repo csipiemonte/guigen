@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
 import it.csi.mddtools.guigen.ApplicationArea;
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
@@ -361,6 +362,88 @@ public static String mapWidgetDataType2JavaType(WidgetDataType t, String modifie
 	return "java.lang.String";
 }
 
+
+/**
+ * restituisce tutti gli application data con scope USER_ACTION dichiarati
+ * dalle varie exec action relative al content panel in input
+ * @param cp
+ * @return
+ */
+public static ArrayList<ApplicationData> findAllActionScopedAppDataInContentPanel(ContentPanel cp){
+	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+	ArrayList<Widget> allW = findAllWidgetsInContentPanel(cp);
+	Iterator<Widget> w_it = allW.iterator();
+	while(w_it.hasNext()){
+		Widget currW = w_it.next();
+		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(currW);
+		if (currAppDataList!=null)
+			ris.addAll(currAppDataList);
+	}
+	return ris;
+}
+
+public static ArrayList<ApplicationData> findAllActionScopedAppData(Widget w){
+	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+	Iterator<EventHandler> eh_it = w.getEventHandlers().iterator();
+	while(eh_it.hasNext()){
+		EventHandler eh = eh_it.next();
+		ArrayList<ApplicationData> currAppdataList = findAllActionScopedAppData(eh);
+		if (currAppdataList!=null)
+			ris.addAll(currAppdataList);
+	}
+	return ris;
+}
+
+public static ArrayList<ApplicationData> findAllActionScopedAppData(EventHandler eh){
+	return findAllActionScopedAppData(eh.getAction());
+}
+
+public static ArrayList<ApplicationData> findAllActionScopedAppData(Action a){
+	if (a instanceof SequenceAction)
+		return findAllActionScopedAppData((SequenceAction)a);
+	else if (a instanceof ExecAction)
+		return findAllActionScopedAppData((ExecAction)a);
+	else	
+		return null;
+}
+
+/**
+ * restituisce gli app data diretti e quelli di eventuali exec action interne ai vari rami di result
+ * @param a
+ * @return
+ */
+public static ArrayList<ApplicationData> findAllActionScopedAppData(ExecAction a){
+	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+	if (a.getPostExecData()!=null)
+		ris.addAll(a.getPostExecData());
+	Iterator<ActionResult> a_it = a.getResults().iterator();
+	while(a_it.hasNext()){
+		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
+		if (currAppDataList!=null)
+			ris.addAll(currAppDataList);
+	}
+	return ris;
+}
+
+public static ArrayList<ApplicationData> findAllActionScopedAppData(ActionResult r){
+	return findAllActionScopedAppData(r.getAction());
+}
+
+/**
+ * restituisce tutti gli app data di tutte le eventuiali exec action presenti negli step
+ * @param a
+ * @return
+ */
+public static ArrayList<ApplicationData> findAllActionScopedAppData(SequenceAction a){
+	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+	Iterator<Action> a_it = a.getActions().iterator();
+	while(a_it.hasNext()){
+		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
+		if (currAppDataList!=null)
+			ris.addAll(currAppDataList);
+	}
+	return ris;
+}
 /**
  * @param args
  */
@@ -374,8 +457,9 @@ public static void main(String[] args) {
 		p1.getWidgets().add(b1);
 		EventHandler eh1 = GuigenFactory.eINSTANCE.createEventHandler();
 		b1.getEventHandlers().add(eh1);
-		JumpAction a1 = GuigenFactory.eINSTANCE.createJumpAction();
+		ExecAction a1 = GuigenFactory.eINSTANCE.createExecAction();
 		eh1.setAction(a1);
+		
 		//ContentPanel out = findParentContentPanel(a1);
 		//System.out.println(""+out);
 		
