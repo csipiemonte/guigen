@@ -17,5 +17,5 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface RadioButton extends Widget {
+public interface RadioButton extends Widget, MultiDataWidget {
 } // RadioButton

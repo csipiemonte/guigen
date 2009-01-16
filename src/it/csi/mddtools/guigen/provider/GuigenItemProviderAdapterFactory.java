@@ -1272,6 +1272,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MultiDataWidget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MultiDataWidgetItemProvider multiDataWidgetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MultiDataWidget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMultiDataWidgetAdapter() {
+		if (multiDataWidgetItemProvider == null) {
+			multiDataWidgetItemProvider = new MultiDataWidgetItemProvider(this);
+		}
+
+		return multiDataWidgetItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1422,6 +1445,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (jumpBackActionItemProvider != null) jumpBackActionItemProvider.dispose();
 		if (applicationDataItemProvider != null) applicationDataItemProvider.dispose();
 		if (appDataBindingItemProvider != null) appDataBindingItemProvider.dispose();
+		if (multiDataWidgetItemProvider != null) multiDataWidgetItemProvider.dispose();
 	}
 
 }

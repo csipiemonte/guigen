@@ -7,30 +7,32 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.AppDataBinding;
-import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.GuigenPackage;
-
 import it.csi.mddtools.guigen.MultiDataWidget;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Combo Box</b></em>'.
+ * An implementation of the model object '<em><b>Multi Data Widget</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MultiDataWidgetImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
+public class MultiDataWidgetImpl extends WidgetImpl implements MultiDataWidget {
 	/**
 	 * The cached value of the '{@link #getMultiDataBinding() <em>Multi Data Binding</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -46,7 +48,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ComboBoxImpl() {
+	protected MultiDataWidgetImpl() {
 		super();
 	}
 
@@ -57,7 +59,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.COMBO_BOX;
+		return GuigenPackage.Literals.MULTI_DATA_WIDGET;
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		AppDataBinding oldMultiDataBinding = multiDataBinding;
 		multiDataBinding = newMultiDataBinding;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING, oldMultiDataBinding, newMultiDataBinding);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING, oldMultiDataBinding, newMultiDataBinding);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -93,14 +95,14 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		if (newMultiDataBinding != multiDataBinding) {
 			NotificationChain msgs = null;
 			if (multiDataBinding != null)
-				msgs = ((InternalEObject)multiDataBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING, null, msgs);
+				msgs = ((InternalEObject)multiDataBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING, null, msgs);
 			if (newMultiDataBinding != null)
-				msgs = ((InternalEObject)newMultiDataBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING, null, msgs);
+				msgs = ((InternalEObject)newMultiDataBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING, null, msgs);
 			msgs = basicSetMultiDataBinding(newMultiDataBinding, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING, newMultiDataBinding, newMultiDataBinding));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING, newMultiDataBinding, newMultiDataBinding));
 	}
 
 	/**
@@ -111,7 +113,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				return basicSetMultiDataBinding(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -125,7 +127,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				return getMultiDataBinding();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -139,7 +141,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)newValue);
 				return;
 		}
@@ -154,7 +156,7 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)null);
 				return;
 		}
@@ -169,42 +171,10 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				return multiDataBinding != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == MultiDataWidget.class) {
-			switch (derivedFeatureID) {
-				case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING: return GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == MultiDataWidget.class) {
-			switch (baseFeatureID) {
-				case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING: return GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-} //ComboBoxImpl
+} //MultiDataWidgetImpl

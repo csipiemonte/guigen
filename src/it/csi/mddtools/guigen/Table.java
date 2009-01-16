@@ -23,7 +23,7 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface Table extends DataWidget {
+public interface Table extends DataWidget, MultiDataWidget {
 	/**
 	 * Returns the value of the '<em><b>Column Model</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

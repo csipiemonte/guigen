@@ -27,6 +27,7 @@ import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpAction;
+import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
@@ -470,6 +471,23 @@ public static String getOGNLForWidgetValue(DataWidget w){
 	else
 		return "%{widg_"+w.getName()+"}"; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
 }
+
+public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
+	if (w.getMultiDataBinding()!=null){
+		AppDataBinding binding = w.getMultiDataBinding();
+		if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
+			return "%{"+getFullBindingPath(binding)+"}";
+		}
+		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
+			return "%{#session."+getFullBindingPath(binding)+"}";
+		}
+		else
+			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
+	}
+	else
+		return "%{widg_"+w.getName()+"}"; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+}
+
 
 public static String getFullBindingPath(AppDataBinding binding){
 	ApplicationData data = binding.getAppData();

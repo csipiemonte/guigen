@@ -9,8 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.RadioButton;
-import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.MultiDataWidget;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,22 +17,26 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.RadioButton} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MultiDataWidget} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class RadioButtonItemProvider
+public class MultiDataWidgetItemProvider
 	extends WidgetItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +50,7 @@ public class RadioButtonItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RadioButtonItemProvider(AdapterFactory adapterFactory) {
+	public MultiDataWidgetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -97,28 +100,28 @@ public class RadioButtonItemProvider
 	}
 
 	/**
-	 * This returns RadioButton.gif.
+	 * This returns MultiDataWidget.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RadioButton"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MultiDataWidget"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
+		String label = ((MultiDataWidget)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_RadioButton_type") :
-			getString("_UI_RadioButton_type") + " " + label;
+			getString("_UI_MultiDataWidget_type") :
+			getString("_UI_MultiDataWidget_type") + " " + label;
 	}
 
 	/**
@@ -132,8 +135,8 @@ public class RadioButtonItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(RadioButton.class)) {
-			case GuigenPackage.RADIO_BUTTON__MULTI_DATA_BINDING:
+		switch (notification.getFeatureID(MultiDataWidget.class)) {
+			case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}

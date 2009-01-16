@@ -17,5 +17,5 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface ComboBox extends DataWidget {
+public interface ComboBox extends DataWidget, MultiDataWidget {
 } // ComboBox

@@ -113,6 +113,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.JUMP_BACK_ACTION: return createJumpBackAction();
 			case GuigenPackage.APPLICATION_DATA: return createApplicationData();
 			case GuigenPackage.APP_DATA_BINDING: return createAppDataBinding();
+			case GuigenPackage.MULTI_DATA_WIDGET: return createMultiDataWidget();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -678,6 +679,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public AppDataBinding createAppDataBinding() {
 		AppDataBindingImpl appDataBinding = new AppDataBindingImpl();
 		return appDataBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultiDataWidget createMultiDataWidget() {
+		MultiDataWidgetImpl multiDataWidget = new MultiDataWidgetImpl();
+		return multiDataWidget;
 	}
 
 	/**

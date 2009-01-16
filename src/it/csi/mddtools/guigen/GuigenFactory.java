@@ -494,6 +494,15 @@ public interface GuigenFactory extends EFactory {
 	AppDataBinding createAppDataBinding();
 
 	/**
+	 * Returns a new object of class '<em>Multi Data Widget</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Multi Data Widget</em>'.
+	 * @generated
+	 */
+	MultiDataWidget createMultiDataWidget();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

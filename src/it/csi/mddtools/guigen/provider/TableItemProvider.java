@@ -79,6 +79,7 @@ public class TableItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING);
 			childrenFeatures.add(GuigenPackage.Literals.TABLE__COLUMN_MODEL);
 		}
 		return childrenFeatures;
@@ -134,6 +135,7 @@ public class TableItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Table.class)) {
+			case GuigenPackage.TABLE__MULTI_DATA_BINDING:
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -154,8 +156,36 @@ public class TableItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING,
+				 GuigenFactory.eINSTANCE.createAppDataBinding()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.TABLE__COLUMN_MODEL,
 				 GuigenFactory.eINSTANCE.createColumnModel()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GuigenPackage.Literals.DATA_WIDGET__DATABINDING ||
+			childFeature == GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

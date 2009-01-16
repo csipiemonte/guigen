@@ -1040,13 +1040,22 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 0;
+	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.
@@ -1122,13 +1131,22 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__DATABINDING = DATA_WIDGET__DATABINDING;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Column Model</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__COLUMN_MODEL = DATA_WIDGET_FEATURE_COUNT + 0;
+	int TABLE__COLUMN_MODEL = DATA_WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Table</em>' class.
@@ -1137,7 +1155,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.
@@ -1479,13 +1497,22 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTON__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__MULTI_DATA_BINDING = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Radio Button</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ResetButtonImpl <em>Reset Button</em>}' class.
@@ -2695,6 +2722,70 @@ public interface GuigenPackage extends EPackage {
 	int APP_DATA_BINDING_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MultiDataWidgetImpl <em>Multi Data Widget</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MultiDataWidgetImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMultiDataWidget()
+	 * @generated
+	 */
+	int MULTI_DATA_WIDGET = 60;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__NAME = WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__LABEL = WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__LAYOUT_SPEC = WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__MULTI_DATA_BINDING = WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Multi Data Widget</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2702,7 +2793,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 60;
+	int WIDGET_DATA_TYPE = 61;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -2712,7 +2803,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 61;
+	int UDLRC_SPEC_CONSTANTS = 62;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -2722,7 +2813,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 62;
+	int EVENT_TYPES = 63;
 
 
 	/**
@@ -2733,7 +2824,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 63;
+	int DATA_LIFETIME_TYPE = 64;
 
 
 	/**
@@ -4118,6 +4209,27 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getAppDataBinding_Path();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MultiDataWidget <em>Multi Data Widget</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Multi Data Widget</em>'.
+	 * @see it.csi.mddtools.guigen.MultiDataWidget
+	 * @generated
+	 */
+	EClass getMultiDataWidget();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MultiDataWidget#getMultiDataBinding <em>Multi Data Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Multi Data Binding</em>'.
+	 * @see it.csi.mddtools.guigen.MultiDataWidget#getMultiDataBinding()
+	 * @see #getMultiDataWidget()
+	 * @generated
+	 */
+	EReference getMultiDataWidget_MultiDataBinding();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5346,6 +5458,24 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute APP_DATA_BINDING__PATH = eINSTANCE.getAppDataBinding_Path();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MultiDataWidgetImpl <em>Multi Data Widget</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MultiDataWidgetImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMultiDataWidget()
+		 * @generated
+		 */
+		EClass MULTI_DATA_WIDGET = eINSTANCE.getMultiDataWidget();
+
+		/**
+		 * The meta object literal for the '<em><b>Multi Data Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MULTI_DATA_WIDGET__MULTI_DATA_BINDING = eINSTANCE.getMultiDataWidget_MultiDataBinding();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

@@ -47,6 +47,7 @@ import it.csi.mddtools.guigen.JumpBackAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.Menubar;
+import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.ONOFFAction;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
@@ -507,6 +508,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass appDataBindingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass multiDataWidgetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1788,6 +1796,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMultiDataWidget() {
+		return multiDataWidgetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMultiDataWidget_MultiDataBinding() {
+		return (EReference)multiDataWidgetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2038,6 +2064,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(appDataBindingEClass, APP_DATA_BINDING__APP_DATA);
 		createEAttribute(appDataBindingEClass, APP_DATA_BINDING__PATH);
 
+		multiDataWidgetEClass = createEClass(MULTI_DATA_WIDGET);
+		createEReference(multiDataWidgetEClass, MULTI_DATA_WIDGET__MULTI_DATA_BINDING);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2082,10 +2111,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		textAreaEClass.getESuperTypes().add(this.getDataWidget());
 		calendarEClass.getESuperTypes().add(this.getDataWidget());
 		comboBoxEClass.getESuperTypes().add(this.getDataWidget());
+		comboBoxEClass.getESuperTypes().add(this.getMultiDataWidget());
 		tableEClass.getESuperTypes().add(this.getDataWidget());
+		tableEClass.getESuperTypes().add(this.getMultiDataWidget());
 		checkBoxEClass.getESuperTypes().add(this.getDataWidget());
 		radioButtonsEClass.getESuperTypes().add(this.getDataWidget());
 		radioButtonEClass.getESuperTypes().add(this.getWidget());
+		radioButtonEClass.getESuperTypes().add(this.getMultiDataWidget());
 		resetButtonEClass.getESuperTypes().add(this.getButton());
 		confirmButtonEClass.getESuperTypes().add(this.getButton());
 		horizontalFlowPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
@@ -2109,6 +2141,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		actionOnPanelsEClass.getESuperTypes().add(this.getAction());
 		sequenceActionEClass.getESuperTypes().add(this.getAction());
 		jumpBackActionEClass.getESuperTypes().add(this.getAction());
+		multiDataWidgetEClass.getESuperTypes().add(this.getWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2301,6 +2334,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(appDataBindingEClass, AppDataBinding.class, "AppDataBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAppDataBinding_AppData(), this.getApplicationData(), null, "appData", null, 0, 1, AppDataBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAppDataBinding_Path(), ecorePackage.getEString(), "path", null, 0, 1, AppDataBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(multiDataWidgetEClass, MultiDataWidget.class, "MultiDataWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMultiDataWidget_MultiDataBinding(), this.getAppDataBinding(), null, "multiDataBinding", null, 0, 1, MultiDataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

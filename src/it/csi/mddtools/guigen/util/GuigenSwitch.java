@@ -193,6 +193,7 @@ public class GuigenSwitch<T> {
 				ComboBox comboBox = (ComboBox)theEObject;
 				T result = caseComboBox(comboBox);
 				if (result == null) result = caseDataWidget(comboBox);
+				if (result == null) result = caseMultiDataWidget(comboBox);
 				if (result == null) result = caseWidget(comboBox);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -201,6 +202,7 @@ public class GuigenSwitch<T> {
 				Table table = (Table)theEObject;
 				T result = caseTable(table);
 				if (result == null) result = caseDataWidget(table);
+				if (result == null) result = caseMultiDataWidget(table);
 				if (result == null) result = caseWidget(table);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -243,6 +245,7 @@ public class GuigenSwitch<T> {
 				RadioButton radioButton = (RadioButton)theEObject;
 				T result = caseRadioButton(radioButton);
 				if (result == null) result = caseWidget(radioButton);
+				if (result == null) result = caseMultiDataWidget(radioButton);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -492,6 +495,13 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.APP_DATA_BINDING: {
 				AppDataBinding appDataBinding = (AppDataBinding)theEObject;
 				T result = caseAppDataBinding(appDataBinding);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.MULTI_DATA_WIDGET: {
+				MultiDataWidget multiDataWidget = (MultiDataWidget)theEObject;
+				T result = caseMultiDataWidget(multiDataWidget);
+				if (result == null) result = caseWidget(multiDataWidget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1396,6 +1406,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseAppDataBinding(AppDataBinding object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Multi Data Widget</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Multi Data Widget</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMultiDataWidget(MultiDataWidget object) {
 		return null;
 	}
 

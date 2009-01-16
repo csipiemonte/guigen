@@ -84,8 +84,8 @@
     <eLiterals name="DATAORA"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Calendar" eSuperTypes="#//DataWidget"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ComboBox" eSuperTypes="#//DataWidget"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//DataWidget">
+  <eClassifiers xsi:type="ecore:EClass" name="ComboBox" eSuperTypes="#//DataWidget #//MultiDataWidget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//DataWidget #//MultiDataWidget">
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnModel" eType="#//ColumnModel"
         containment="true"/>
   </eClassifiers>
@@ -109,7 +109,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="radio" upperBound="-1"
         eType="#//RadioButton" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget #//MultiDataWidget"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResetButton" eSuperTypes="#//Button"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConfirmButton" eSuperTypes="#//Button"/>
   <eClassifiers xsi:type="ecore:EClass" name="PanelLayout" abstract="true"/>
@@ -233,5 +233,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="AppDataBinding">
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" eType="#//ApplicationData"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiDataWidget" eSuperTypes="#//Widget">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiDataBinding" eType="#//AppDataBinding"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

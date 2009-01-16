@@ -238,6 +238,11 @@ public class FormPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createImage()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createMultiDataWidget()));
 	}
 
 }
