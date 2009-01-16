@@ -409,7 +409,7 @@ public class SequenceAction implements IAction {
 			  
 		«FOREACH this.postExecData AS currAppData»
 			// store del dato «currAppData.name»
-			Object _«getAppDataPropertyName(currAppData)» = res.getAppData("«getAppDataPropertyName(currAppData)»");
+			Object _«getAppDataPropertyName(currAppData)» = res.getAppData("«getAppDataKey(currAppData)»");
 			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_ACTION»
 			// il dato «currAppData.name» è salvato in un attributo della action corrente
 			specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
@@ -429,7 +429,7 @@ public class SequenceAction implements IAction {
 			// impostazione degli app data risultanti
 			«FOREACH this.postExecData AS currAppData»
 			//// impostazione dell'application Data «currAppData.name» (scope: «currAppData.lifetimeExtent.toString()»)
-			results.setAppData("«currAppData.name»", null);
+			results.setAppData("«getAppDataKey(currAppData)»", null);
 			«ENDFOREACH»
 			return results;
 		«ENDPROTECT»
