@@ -113,14 +113,9 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 
 /// identificativi
 
-// chiave dell'app data quando salvato in sessione
-String getAppDataKey(ApplicationData ad) :
-	"appData_"+ad.name;
 
-// nome della property associata all'appdata quando viene inserito nella action
-String getAppDataPropertyName(ApplicationData ad) :
-	"appData"+ad.name;
-
+	
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
@@ -141,7 +136,18 @@ String getFixedRadioButtonList(RadioButtons rb) : JAVA
 
 List findAllActionScopedAppDataInContentPanel(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+		
+String getOGNLForWidgetValue(DataWidget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetValue(it.csi.mddtools.guigen.DataWidget);
 
+// chiave dell'app data quando salvato in sessione
+String getAppDataKey(ApplicationData ad) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataKey(it.csi.mddtools.guigen.ApplicationData);
+
+// nome della property associata all'appdata quando viene inserito nella action
+String getAppDataPropertyName(ApplicationData ad) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataPropertyName(it.csi.mddtools.guigen.ApplicationData);
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Fake data for widgets (only when needed)                                                 //
 /// TODO: remove or comment in PRODUCTION                                                    //

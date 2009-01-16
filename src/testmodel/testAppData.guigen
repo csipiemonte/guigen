@@ -26,6 +26,15 @@
                 </action>
               </eventHandlers>
             </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
+              <eventHandlers>
+                <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
+                  <results resultCode="OK">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </results>
+                </action>
+              </eventHandlers>
+            </widgets>
           </panels>
         </contentPanels>
         <contentPanels name="cpLista" appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.0">
@@ -35,7 +44,13 @@
             </widgets>
             <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
               <eventHandlers>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                <action xsi:type="guigen:ExecAction" methodName="caricaDettaglioSoggetto">
+                  <results resultCode="OK">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  </results>
+                  <postExecData name="nomeDettaglioSoggetto"/>
+                  <postExecData name="cognomeDettaglioSoggetto"/>
+                </action>
               </eventHandlers>
             </widgets>
           </panels>
@@ -43,13 +58,13 @@
         <contentPanels name="cpDettaglio" appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1">
           <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Dettaglio soggetto">
             <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="nome"/>
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.1/@eventHandlers.0/@action/@postExecData.0" path=""/>
             </widgets>
             <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="cognome"/>
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.1/@eventHandlers.0/@action/@postExecData.1" path=""/>
             </widgets>
             <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@widgets.2/@eventHandlers.0/@action/@postExecData.1" path="sex"/>
+              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@widgets.1/@eventHandlers.0/@action/@postExecData.0" path="sex"/>
               <radio name="rbSexM" label="M"/>
               <radio name="rbSexF" label="F"/>
             </widgets>

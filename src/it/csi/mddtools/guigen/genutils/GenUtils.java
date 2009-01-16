@@ -13,10 +13,12 @@ import org.eclipse.emf.ecore.EObject;
 
 import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
@@ -444,6 +446,51 @@ public static ArrayList<ApplicationData> findAllActionScopedAppData(SequenceActi
 	}
 	return ris;
 }
+
+
+/**
+ * restituisce la stringa OGNL per il value del data widget.
+ * Se il widget ha un app data binding viene referenziato quello, altrimenti
+ * viene associato semplicemente alla proerty della action corrispondente
+ * @param w
+ * @return
+ */
+public static String getOGNLForWidgetValue(DataWidget w){
+	if (w.getDatabinding()!=null){
+		AppDataBinding binding = w.getDatabinding();
+		if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
+			return "%{#action."+getFullBindingPath(binding)+"}";
+		}
+		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
+			return "%{#session."+getFullBindingPath(binding)+"}";
+		}
+		else
+			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
+	}
+	else
+		return "%{widg_"+w.getName()+"}"; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+}
+
+public static String getFullBindingPath(AppDataBinding binding){
+	ApplicationData data = binding.getAppData();
+	String path = binding.getPath();
+	String ris = ""+getAppDataKey(data);
+	if (path!=null && path.length()>0)
+		ris+=("."+path);
+	return ris;
+}
+
+
+//chiave dell'app data quando salvato in sessione
+public static String getAppDataKey(ApplicationData ad){
+	return "appData"+ad.getName();
+}
+
+// nome della property associata all'appdata quando viene inserito nella action
+public static String getAppDataPropertyName(ApplicationData ad){
+	return "appData"+ad.getName();
+}
+	
 /**
  * @param args
  */
