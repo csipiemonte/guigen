@@ -459,7 +459,7 @@ public static String getOGNLForWidgetValue(DataWidget w){
 	if (w.getDatabinding()!=null){
 		AppDataBinding binding = w.getDatabinding();
 		if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
-			return "%{#action."+getFullBindingPath(binding)+"}";
+			return "%{"+getFullBindingPath(binding)+"}";
 		}
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
 			return "%{#session."+getFullBindingPath(binding)+"}";
