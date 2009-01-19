@@ -99,6 +99,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" eType="#//Typedefs"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="appWindow" eType="#//AppWindow"
@@ -225,6 +227,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationData">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lifetimeExtent" eType="#//DataLifetimeType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DataLifetimeType">
     <eLiterals name="USER_ACTION"/>
@@ -237,5 +240,39 @@
   <eClassifiers xsi:type="ecore:EClass" name="MultiDataWidget" eSuperTypes="#//Widget">
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiDataBinding" eType="#//AppDataBinding"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Typedefs">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleType" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//SimpleTypeCodes"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nillable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexType" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//Field" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypedArray" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentType" eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SimpleTypeCodes">
+    <eLiterals name="INT"/>
+    <eLiterals name="LONG" value="1"/>
+    <eLiterals name="FLOAT" value="2"/>
+    <eLiterals name="DOUBLE" value="3"/>
+    <eLiterals name="STRING" value="4"/>
+    <eLiterals name="DATE" value="5"/>
+    <eLiterals name="DATETIME" value="6"/>
+    <eLiterals name="HOURS" value="7"/>
+    <eLiterals name="BOOLEAN" value="8"/>
+    <eLiterals name="BYTE" value="9"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Field">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
   </eClassifiers>
 </ecore:EPackage>

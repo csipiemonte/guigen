@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GUIStructure;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.Typedefs;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getCodComponente <em>Cod Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getVersioneProdotto <em>Versione Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getVersioneComponente <em>Versione Componente</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTypedefs <em>Typedefs</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,6 +140,16 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected String versioneComponente = VERSIONE_COMPONENTE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getTypedefs() <em>Typedefs</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypedefs()
+	 * @generated
+	 * @ordered
+	 */
+	protected Typedefs typedefs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -333,6 +345,49 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Typedefs getTypedefs() {
+		return typedefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTypedefs(Typedefs newTypedefs, NotificationChain msgs) {
+		Typedefs oldTypedefs = typedefs;
+		typedefs = newTypedefs;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__TYPEDEFS, oldTypedefs, newTypedefs);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTypedefs(Typedefs newTypedefs) {
+		if (newTypedefs != typedefs) {
+			NotificationChain msgs = null;
+			if (typedefs != null)
+				msgs = ((InternalEObject)typedefs).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__TYPEDEFS, null, msgs);
+			if (newTypedefs != null)
+				msgs = ((InternalEObject)newTypedefs).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__TYPEDEFS, null, msgs);
+			msgs = basicSetTypedefs(newTypedefs, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__TYPEDEFS, newTypedefs, newTypedefs));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -340,6 +395,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return basicSetStructure(null, msgs);
 			case GuigenPackage.GUI_MODEL__BEAHVIORS:
 				return basicSetBeahviors(null, msgs);
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
+				return basicSetTypedefs(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -364,6 +421,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getVersioneProdotto();
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
 				return getVersioneComponente();
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
+				return getTypedefs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -393,6 +452,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
 				setVersioneComponente((String)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
+				setTypedefs((Typedefs)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -424,6 +486,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
 				setVersioneComponente(VERSIONE_COMPONENTE_EDEFAULT);
 				return;
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
+				setTypedefs((Typedefs)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -448,6 +513,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return VERSIONE_PRODOTTO_EDEFAULT == null ? versioneProdotto != null : !VERSIONE_PRODOTTO_EDEFAULT.equals(versioneProdotto);
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
 				return VERSIONE_COMPONENTE_EDEFAULT == null ? versioneComponente != null : !VERSIONE_COMPONENTE_EDEFAULT.equals(versioneComponente);
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
+				return typedefs != null;
 		}
 		return super.eIsSet(featureID);
 	}

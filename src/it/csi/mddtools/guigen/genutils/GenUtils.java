@@ -1,5 +1,6 @@
 package it.csi.mddtools.guigen.genutils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
@@ -32,9 +34,12 @@ import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
+import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetDataType;
+
 
 public class GenUtils {
 public static ContentPanel findParentContentPanel (Action a){
@@ -509,6 +514,103 @@ public static String getAppDataPropertyName(ApplicationData ad){
 	return "appData"+ad.getName();
 }
 	
+/////////////////////////////////////////////
+
+public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
+    // tipi semplici
+	//basicTypesMap = new Hashtable();
+	SimpleType csiInteger = createDT("Integer", SimpleTypeCodes.INT, false);
+	//basicTypesMap.put(Integer.TYPE, csiInteger);
+	SimpleType csiBoolean = createDT("Boolean", SimpleTypeCodes.BOOLEAN, false);
+	//basicTypesMap.put(Boolean.TYPE, csiBoolean);
+	SimpleType csiByte = createDT("Byte", SimpleTypeCodes.BYTE, false);
+	//basicTypesMap.put(Byte.TYPE, csiByte);
+	SimpleType csiDate = createDT("Date", SimpleTypeCodes.DATE, false);
+	//basicTypesMap.put(java.util.Date.class, csiDate);
+	SimpleType csiDouble = createDT("Double", SimpleTypeCodes.DOUBLE, false);
+	//basicTypesMap.put(Double.TYPE, csiDouble);
+	SimpleType csiFloat = createDT("Float", SimpleTypeCodes.FLOAT, false);
+	//basicTypesMap.put(Float.TYPE, csiFloat);
+	SimpleType csiLong = createDT("Long", SimpleTypeCodes.LONG, false);
+	//basicTypesMap.put(Long.TYPE, csiLong);
+	SimpleType csiString = createDT("String", SimpleTypeCodes.STRING, false);
+	//basicTypesMap.put(String.class, csiString);
+	// tipi wrapped (nillable)
+	SimpleType csiWInteger = createDT("WrappedInteger", SimpleTypeCodes.INT, true);
+	//basicTypesMap.put(Integer.class, csiWInteger);
+	SimpleType csiWBoolean = createDT("WrappedBoolean", SimpleTypeCodes.BOOLEAN, true);
+	//basicTypesMap.put(Boolean.class, csiWBoolean);
+	SimpleType csiWDouble = createDT("WrappedDouble", SimpleTypeCodes.DOUBLE, true);
+	//basicTypesMap.put(Double.class, csiWDouble);
+	SimpleType csiWFloat = createDT("WrappedFloat", SimpleTypeCodes.FLOAT, true);
+	//basicTypesMap.put(Float.class, csiWFloat);
+	SimpleType csiWLong = createDT("WrappedLong", SimpleTypeCodes.LONG, true);
+	//basicTypesMap.put(Long.class, csiWLong);
+	// array di tipi semplici
+	it.csi.mddtools.guigen.TypedArray csiIntegerArray = createTA("Array of Integer", csiInteger);
+	//basicTypesMap.put(getTypedArrayClass(Integer.TYPE), csiIntegerArray);
+	it.csi.mddtools.guigen.TypedArray csiBooleanArray = createTA("Array of Boolean", csiBoolean);
+	//basicTypesMap.put(getTypedArrayClass(Boolean.TYPE), csiBooleanArray);
+	it.csi.mddtools.guigen.TypedArray csiByteArray = createTA("Array of Byte", csiByte);
+	//basicTypesMap.put(getTypedArrayClass(Byte.TYPE), csiByteArray);
+	it.csi.mddtools.guigen.TypedArray csiDateArray = createTA("Array of Date", csiDate);
+	//basicTypesMap.put(getTypedArrayClass(java.util.Date.class), csiDateArray);
+	it.csi.mddtools.guigen.TypedArray csiDoubleArray = createTA("Array of Double", csiDouble);
+	//basicTypesMap.put(getTypedArrayClass(Double.TYPE), csiDoubleArray);
+	it.csi.mddtools.guigen.TypedArray csiFloatArray = createTA("Array of Float", csiFloat);
+	//basicTypesMap.put(getTypedArrayClass(Float.TYPE), csiFloatArray);
+	it.csi.mddtools.guigen.TypedArray csiLongArray = createTA("Array of Long", csiLong);
+	//basicTypesMap.put(getTypedArrayClass(Long.TYPE), csiLongArray);
+	it.csi.mddtools.guigen.TypedArray csiStringArray = createTA("Array of String", csiString);
+	//basicTypesMap.put(getTypedArrayClass(String.class), csiStringArray);
+	// array di tipi wrapped
+	it.csi.mddtools.guigen.TypedArray csiWIntegerArray = createTA("Array of WrappedInteger", csiWInteger);
+	//basicTypesMap.put(getTypedArrayClass(Integer.class), csiWIntegerArray);
+	it.csi.mddtools.guigen.TypedArray csiWBooleanArray = createTA("Array of WrappedBoolean", csiWBoolean);
+	//basicTypesMap.put(getTypedArrayClass(Boolean.class), csiWBooleanArray);
+	it.csi.mddtools.guigen.TypedArray csiWDoubleArray = createTA("Array of WrappedDouble", csiWDouble);
+	//basicTypesMap.put(getTypedArrayClass(Double.class), csiWDoubleArray);
+	it.csi.mddtools.guigen.TypedArray csiWFloatArray = createTA("Array of WrappedFloat", csiWFloat);
+	//basicTypesMap.put(getTypedArrayClass(Float.class), csiWFloatArray);
+	it.csi.mddtools.guigen.TypedArray csiWLongArray = createTA("Array of WrappedLong", csiWLong);
+	//basicTypesMap.put(getTypedArrayClass(Long.class), csiWLongArray);
+	
+	it.csi.mddtools.guigen.Type [] types = new it.csi.mddtools.guigen.Type[]{
+			csiInteger,csiBoolean,csiByte,csiDate,csiDouble,csiFloat,csiLong,csiString,
+			csiWInteger,csiWBoolean,csiWDouble,csiWFloat,csiWLong,
+			csiIntegerArray,csiBooleanArray,csiByteArray,csiDateArray,csiDoubleArray,csiFloatArray,csiLongArray,csiStringArray,
+			csiWIntegerArray,csiWBooleanArray,csiWDoubleArray,csiWFloatArray,csiWLongArray
+	};
+	return types;
+}
+
+public static Class getTypedArrayClass(Class javaCompType){
+	Object dummyArray = Array.newInstance(javaCompType, 0);
+	return dummyArray.getClass();
+}
+public static SimpleType createDT(String name, SimpleTypeCodes code, boolean nillable){
+	SimpleType dt = GuigenFactory.eINSTANCE.createSimpleType();
+	dt.setName(name);
+	dt.setCode(code);
+	dt.setNillable(nillable);
+	return dt;
+}
+
+public static it.csi.mddtools.guigen.TypedArray createTA(String name,SimpleType dt){
+	it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
+	ta.setName(name);
+	ta.setComponentType(dt);
+	return ta;
+}
+
+public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType dt){
+	it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
+	ta.setName(name);
+	ta.setComponentType(dt);
+	return ta;
+}
+
+
 /**
  * @param args
  */

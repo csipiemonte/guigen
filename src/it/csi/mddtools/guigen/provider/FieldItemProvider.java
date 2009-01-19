@@ -7,7 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
@@ -30,12 +30,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ApplicationData} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.Field} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ApplicationDataItemProvider
+public class FieldItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +49,7 @@ public class ApplicationDataItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ApplicationDataItemProvider(AdapterFactory adapterFactory) {
+	public FieldItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,7 +65,6 @@ public class ApplicationDataItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addLifetimeExtentPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -82,31 +81,9 @@ public class ApplicationDataItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ApplicationData_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_name_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Lifetime Extent feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLifetimeExtentPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ApplicationData_lifetimeExtent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_lifetimeExtent_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__LIFETIME_EXTENT,
+				 getString("_UI_Field_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Field_name_feature", "_UI_Field_type"),
+				 GuigenPackage.Literals.FIELD__NAME,
 				 true,
 				 false,
 				 false,
@@ -126,9 +103,9 @@ public class ApplicationDataItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ApplicationData_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_type_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__TYPE,
+				 getString("_UI_Field_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Field_type_feature", "_UI_Field_type"),
+				 GuigenPackage.Literals.FIELD__TYPE,
 				 true,
 				 false,
 				 true,
@@ -138,14 +115,14 @@ public class ApplicationDataItemProvider
 	}
 
 	/**
-	 * This returns ApplicationData.gif.
+	 * This returns Field.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ApplicationData"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Field"));
 	}
 
 	/**
@@ -156,17 +133,17 @@ public class ApplicationDataItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		ApplicationData ad = (ApplicationData)object;
-		String label = ad.getName();
-		if (ad.getType()!=null){
-			label+=(" : "+ad.getType().getName());
+		Field field = (Field)object;
+		String label = ""+field.getName();
+		if (field.getType()!=null){
+			label+=(" : "+field.getType().getName());
 		}
 		else{
 			label+=" : <type undefined>";
 		}
 		return label == null || label.length() == 0 ?
-			getString("_UI_ApplicationData_type") :
-			getString("_UI_ApplicationData_type") + " " + label;
+			getString("_UI_Field_type") :
+			getString("_UI_Field_type") + " " + label;
 	}
 
 	/**
@@ -174,16 +151,15 @@ public class ApplicationDataItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ApplicationData.class)) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+		switch (notification.getFeatureID(Field.class)) {
+			case GuigenPackage.FIELD__NAME:
+			case GuigenPackage.FIELD__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

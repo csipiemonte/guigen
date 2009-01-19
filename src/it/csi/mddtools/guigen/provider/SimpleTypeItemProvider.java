@@ -7,16 +7,14 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.SimpleType;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -26,17 +24,16 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ApplicationData} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.SimpleType} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ApplicationDataItemProvider
-	extends ItemProviderAdapter
+public class SimpleTypeItemProvider
+	extends TypeItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -49,7 +46,7 @@ public class ApplicationDataItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ApplicationDataItemProvider(AdapterFactory adapterFactory) {
+	public SimpleTypeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,27 +61,26 @@ public class ApplicationDataItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addLifetimeExtentPropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
+			addCodePropertyDescriptor(object);
+			addNillablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Code feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addCodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ApplicationData_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_name_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__NAME,
+				 getString("_UI_SimpleType_code_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleType_code_feature", "_UI_SimpleType_type"),
+				 GuigenPackage.Literals.SIMPLE_TYPE__CODE,
 				 true,
 				 false,
 				 false,
@@ -94,79 +90,50 @@ public class ApplicationDataItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Lifetime Extent feature.
+	 * This adds a property descriptor for the Nillable feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLifetimeExtentPropertyDescriptor(Object object) {
+	protected void addNillablePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ApplicationData_lifetimeExtent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_lifetimeExtent_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__LIFETIME_EXTENT,
+				 getString("_UI_SimpleType_nillable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleType_nillable_feature", "_UI_SimpleType_type"),
+				 GuigenPackage.Literals.SIMPLE_TYPE__NILLABLE,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ApplicationData_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ApplicationData_type_feature", "_UI_ApplicationData_type"),
-				 GuigenPackage.Literals.APPLICATION_DATA__TYPE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns ApplicationData.gif.
+	 * This returns SimpleType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ApplicationData"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleType"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		ApplicationData ad = (ApplicationData)object;
-		String label = ad.getName();
-		if (ad.getType()!=null){
-			label+=(" : "+ad.getType().getName());
-		}
-		else{
-			label+=" : <type undefined>";
-		}
+		String label = ((SimpleType)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ApplicationData_type") :
-			getString("_UI_ApplicationData_type") + " " + label;
+			getString("_UI_SimpleType_type") :
+			getString("_UI_SimpleType_type") + " " + label;
 	}
 
 	/**
@@ -174,16 +141,15 @@ public class ApplicationDataItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ApplicationData.class)) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+		switch (notification.getFeatureID(SimpleType.class)) {
+			case GuigenPackage.SIMPLE_TYPE__CODE:
+			case GuigenPackage.SIMPLE_TYPE__NILLABLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -200,17 +166,6 @@ public class ApplicationDataItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

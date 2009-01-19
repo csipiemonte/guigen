@@ -177,6 +177,7 @@ public class GUIModelItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__STRUCTURE);
 			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__BEAHVIORS);
+			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__TYPEDEFS);
 		}
 		return childrenFeatures;
 	}
@@ -239,6 +240,7 @@ public class GUIModelItemProvider
 				return;
 			case GuigenPackage.GUI_MODEL__STRUCTURE:
 			case GuigenPackage.GUI_MODEL__BEAHVIORS:
+			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -265,6 +267,11 @@ public class GUIModelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.GUI_MODEL__BEAHVIORS,
 				 GuigenFactory.eINSTANCE.createGUIBehaviors()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.GUI_MODEL__TYPEDEFS,
+				 GuigenFactory.eINSTANCE.createTypedefs()));
 	}
 
 	/**

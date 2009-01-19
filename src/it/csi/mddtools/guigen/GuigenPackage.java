@@ -1304,13 +1304,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__VERSIONE_COMPONENTE = 5;
 
 	/**
+	 * The feature id for the '<em><b>Typedefs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__TYPEDEFS = 6;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 6;
+	int GUI_MODEL_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -2676,13 +2685,22 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_DATA__LIFETIME_EXTENT = 1;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA__TYPE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Application Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_DATA_FEATURE_COUNT = 2;
+	int APPLICATION_DATA_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppDataBindingImpl <em>App Data Binding</em>}' class.
@@ -2786,6 +2804,219 @@ public interface GuigenPackage extends EPackage {
 	int MULTI_DATA_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypedefsImpl <em>Typedefs</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TypedefsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypedefs()
+	 * @generated
+	 */
+	int TYPEDEFS = 61;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPEDEFS__TYPES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Typedefs</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPEDEFS_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeImpl <em>Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TypeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getType()
+	 * @generated
+	 */
+	int TYPE = 62;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.SimpleTypeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleType()
+	 * @generated
+	 */
+	int SIMPLE_TYPE = 63;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__CODE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Nillable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__NILLABLE = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Simple Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ComplexTypeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getComplexType()
+	 * @generated
+	 */
+	int COMPLEX_TYPE = 64;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Fields</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__FIELDS = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Complex Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypedArrayImpl <em>Typed Array</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TypedArrayImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypedArray()
+	 * @generated
+	 */
+	int TYPED_ARRAY = 65;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Component Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__COMPONENT_TYPE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Typed Array</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FieldImpl <em>Field</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.FieldImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getField()
+	 * @generated
+	 */
+	int FIELD = 66;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__TYPE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Field</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2793,7 +3024,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 61;
+	int WIDGET_DATA_TYPE = 67;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -2803,7 +3034,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 62;
+	int UDLRC_SPEC_CONSTANTS = 68;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -2813,7 +3044,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 63;
+	int EVENT_TYPES = 69;
 
 
 	/**
@@ -2824,7 +3055,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 64;
+	int DATA_LIFETIME_TYPE = 70;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.SimpleTypeCodes <em>Simple Type Codes</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.SimpleTypeCodes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
+	 * @generated
+	 */
+	int SIMPLE_TYPE_CODES = 71;
 
 
 	/**
@@ -3401,6 +3643,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGUIModel_VersioneComponente();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Typedefs</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getTypedefs()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_Typedefs();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -4177,6 +4430,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getApplicationData_LifetimeExtent();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ApplicationData#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationData#getType()
+	 * @see #getApplicationData()
+	 * @generated
+	 */
+	EReference getApplicationData_Type();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppDataBinding <em>App Data Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4230,6 +4494,154 @@ public interface GuigenPackage extends EPackage {
 	EReference getMultiDataWidget_MultiDataBinding();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Typedefs <em>Typedefs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Typedefs</em>'.
+	 * @see it.csi.mddtools.guigen.Typedefs
+	 * @generated
+	 */
+	EClass getTypedefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.Typedefs#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Types</em>'.
+	 * @see it.csi.mddtools.guigen.Typedefs#getTypes()
+	 * @see #getTypedefs()
+	 * @generated
+	 */
+	EReference getTypedefs_Types();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Type <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.Type
+	 * @generated
+	 */
+	EClass getType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Type#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.Type#getName()
+	 * @see #getType()
+	 * @generated
+	 */
+	EAttribute getType_Name();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SimpleType <em>Simple Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Simple Type</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType
+	 * @generated
+	 */
+	EClass getSimpleType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SimpleType#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType#getCode()
+	 * @see #getSimpleType()
+	 * @generated
+	 */
+	EAttribute getSimpleType_Code();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SimpleType#isNillable <em>Nillable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nillable</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType#isNillable()
+	 * @see #getSimpleType()
+	 * @generated
+	 */
+	EAttribute getSimpleType_Nillable();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ComplexType <em>Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Complex Type</em>'.
+	 * @see it.csi.mddtools.guigen.ComplexType
+	 * @generated
+	 */
+	EClass getComplexType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ComplexType#getFields <em>Fields</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Fields</em>'.
+	 * @see it.csi.mddtools.guigen.ComplexType#getFields()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EReference getComplexType_Fields();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypedArray <em>Typed Array</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Typed Array</em>'.
+	 * @see it.csi.mddtools.guigen.TypedArray
+	 * @generated
+	 */
+	EClass getTypedArray();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TypedArray#getComponentType <em>Component Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Type</em>'.
+	 * @see it.csi.mddtools.guigen.TypedArray#getComponentType()
+	 * @see #getTypedArray()
+	 * @generated
+	 */
+	EReference getTypedArray_ComponentType();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Field <em>Field</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Field</em>'.
+	 * @see it.csi.mddtools.guigen.Field
+	 * @generated
+	 */
+	EClass getField();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Field#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.Field#getName()
+	 * @see #getField()
+	 * @generated
+	 */
+	EAttribute getField_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.Field#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.Field#getType()
+	 * @see #getField()
+	 * @generated
+	 */
+	EReference getField_Type();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4268,6 +4680,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getDataLifetimeType();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.SimpleTypeCodes <em>Simple Type Codes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Simple Type Codes</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleTypeCodes
+	 * @generated
+	 */
+	EEnum getSimpleTypeCodes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -4760,6 +5182,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GUI_MODEL__VERSIONE_COMPONENTE = eINSTANCE.getGUIModel_VersioneComponente();
+
+		/**
+		 * The meta object literal for the '<em><b>Typedefs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__TYPEDEFS = eINSTANCE.getGUIModel_Typedefs();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -5434,6 +5864,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute APPLICATION_DATA__LIFETIME_EXTENT = eINSTANCE.getApplicationData_LifetimeExtent();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_DATA__TYPE = eINSTANCE.getApplicationData_Type();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppDataBindingImpl <em>App Data Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5478,6 +5916,130 @@ public interface GuigenPackage extends EPackage {
 		EReference MULTI_DATA_WIDGET__MULTI_DATA_BINDING = eINSTANCE.getMultiDataWidget_MultiDataBinding();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypedefsImpl <em>Typedefs</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TypedefsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypedefs()
+		 * @generated
+		 */
+		EClass TYPEDEFS = eINSTANCE.getTypedefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPEDEFS__TYPES = eINSTANCE.getTypedefs_Types();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeImpl <em>Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TypeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getType()
+		 * @generated
+		 */
+		EClass TYPE = eINSTANCE.getType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE__NAME = eINSTANCE.getType_Name();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SimpleTypeImpl <em>Simple Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.SimpleTypeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleType()
+		 * @generated
+		 */
+		EClass SIMPLE_TYPE = eINSTANCE.getSimpleType();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIMPLE_TYPE__CODE = eINSTANCE.getSimpleType_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Nillable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIMPLE_TYPE__NILLABLE = eINSTANCE.getSimpleType_Nillable();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ComplexTypeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getComplexType()
+		 * @generated
+		 */
+		EClass COMPLEX_TYPE = eINSTANCE.getComplexType();
+
+		/**
+		 * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE__FIELDS = eINSTANCE.getComplexType_Fields();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypedArrayImpl <em>Typed Array</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TypedArrayImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypedArray()
+		 * @generated
+		 */
+		EClass TYPED_ARRAY = eINSTANCE.getTypedArray();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPED_ARRAY__COMPONENT_TYPE = eINSTANCE.getTypedArray_ComponentType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FieldImpl <em>Field</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.FieldImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getField()
+		 * @generated
+		 */
+		EClass FIELD = eINSTANCE.getField();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__NAME = eINSTANCE.getField_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FIELD__TYPE = eINSTANCE.getField_Type();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5516,6 +6078,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum DATA_LIFETIME_TYPE = eINSTANCE.getDataLifetimeType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.SimpleTypeCodes <em>Simple Type Codes</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.SimpleTypeCodes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
+		 * @generated
+		 */
+		EEnum SIMPLE_TYPE_CODES = eINSTANCE.getSimpleTypeCodes();
 
 	}
 

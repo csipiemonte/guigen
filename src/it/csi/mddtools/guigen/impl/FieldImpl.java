@@ -6,35 +6,33 @@
  */
 package it.csi.mddtools.guigen.impl;
 
-import it.csi.mddtools.guigen.ApplicationData;
-import it.csi.mddtools.guigen.DataLifetimeType;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GuigenPackage;
-
 import it.csi.mddtools.guigen.Type;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Application Data</b></em>'.
+ * An implementation of the model object '<em><b>Field</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getName <em>Name</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getLifetimeExtent <em>Lifetime Extent</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl#getType <em>Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getName <em>Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ApplicationDataImpl extends EObjectImpl implements ApplicationData {
+public class FieldImpl extends EObjectImpl implements Field {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -56,26 +54,6 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLifetimeExtent() <em>Lifetime Extent</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLifetimeExtent()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final DataLifetimeType LIFETIME_EXTENT_EDEFAULT = DataLifetimeType.USER_ACTION;
-
-	/**
-	 * The cached value of the '{@link #getLifetimeExtent() <em>Lifetime Extent</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLifetimeExtent()
-	 * @generated
-	 * @ordered
-	 */
-	protected DataLifetimeType lifetimeExtent = LIFETIME_EXTENT_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,7 +68,7 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ApplicationDataImpl() {
+	protected FieldImpl() {
 		super();
 	}
 
@@ -101,7 +79,7 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.APPLICATION_DATA;
+		return GuigenPackage.Literals.FIELD;
 	}
 
 	/**
@@ -122,28 +100,7 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_DATA__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataLifetimeType getLifetimeExtent() {
-		return lifetimeExtent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLifetimeExtent(DataLifetimeType newLifetimeExtent) {
-		DataLifetimeType oldLifetimeExtent = lifetimeExtent;
-		lifetimeExtent = newLifetimeExtent == null ? LIFETIME_EXTENT_EDEFAULT : newLifetimeExtent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT, oldLifetimeExtent, lifetimeExtent));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.FIELD__NAME, oldName, name));
 	}
 
 	/**
@@ -157,7 +114,7 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 			type = (Type)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.APPLICATION_DATA__TYPE, oldType, type));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.FIELD__TYPE, oldType, type));
 			}
 		}
 		return type;
@@ -181,7 +138,7 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 		Type oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_DATA__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.FIELD__TYPE, oldType, type));
 	}
 
 	/**
@@ -192,11 +149,9 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
+			case GuigenPackage.FIELD__NAME:
 				return getName();
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-				return getLifetimeExtent();
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+			case GuigenPackage.FIELD__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
 		}
@@ -211,13 +166,10 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
+			case GuigenPackage.FIELD__NAME:
 				setName((String)newValue);
 				return;
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-				setLifetimeExtent((DataLifetimeType)newValue);
-				return;
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+			case GuigenPackage.FIELD__TYPE:
 				setType((Type)newValue);
 				return;
 		}
@@ -232,13 +184,10 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
+			case GuigenPackage.FIELD__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-				setLifetimeExtent(LIFETIME_EXTENT_EDEFAULT);
-				return;
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+			case GuigenPackage.FIELD__TYPE:
 				setType((Type)null);
 				return;
 		}
@@ -253,11 +202,9 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA__NAME:
+			case GuigenPackage.FIELD__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case GuigenPackage.APPLICATION_DATA__LIFETIME_EXTENT:
-				return lifetimeExtent != LIFETIME_EXTENT_EDEFAULT;
-			case GuigenPackage.APPLICATION_DATA__TYPE:
+			case GuigenPackage.FIELD__TYPE:
 				return type != null;
 		}
 		return super.eIsSet(featureID);
@@ -275,10 +222,8 @@ public class ApplicationDataImpl extends EObjectImpl implements ApplicationData 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", lifetimeExtent: ");
-		result.append(lifetimeExtent);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ApplicationDataImpl
+} //FieldImpl

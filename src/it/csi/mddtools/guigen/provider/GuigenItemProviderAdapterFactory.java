@@ -1295,6 +1295,121 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Typedefs} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypedefsItemProvider typedefsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Typedefs}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypedefsAdapter() {
+		if (typedefsItemProvider == null) {
+			typedefsItemProvider = new TypedefsItemProvider(this);
+		}
+
+		return typedefsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SimpleType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SimpleTypeItemProvider simpleTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SimpleType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSimpleTypeAdapter() {
+		if (simpleTypeItemProvider == null) {
+			simpleTypeItemProvider = new SimpleTypeItemProvider(this);
+		}
+
+		return simpleTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ComplexType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ComplexTypeItemProvider complexTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ComplexType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createComplexTypeAdapter() {
+		if (complexTypeItemProvider == null) {
+			complexTypeItemProvider = new ComplexTypeItemProvider(this);
+		}
+
+		return complexTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypedArray} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypedArrayItemProvider typedArrayItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TypedArray}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypedArrayAdapter() {
+		if (typedArrayItemProvider == null) {
+			typedArrayItemProvider = new TypedArrayItemProvider(this);
+		}
+
+		return typedArrayItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Field} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FieldItemProvider fieldItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Field}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFieldAdapter() {
+		if (fieldItemProvider == null) {
+			fieldItemProvider = new FieldItemProvider(this);
+		}
+
+		return fieldItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1446,6 +1561,11 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (applicationDataItemProvider != null) applicationDataItemProvider.dispose();
 		if (appDataBindingItemProvider != null) appDataBindingItemProvider.dispose();
 		if (multiDataWidgetItemProvider != null) multiDataWidgetItemProvider.dispose();
+		if (typedefsItemProvider != null) typedefsItemProvider.dispose();
+		if (simpleTypeItemProvider != null) simpleTypeItemProvider.dispose();
+		if (complexTypeItemProvider != null) complexTypeItemProvider.dispose();
+		if (typedArrayItemProvider != null) typedArrayItemProvider.dispose();
+		if (fieldItemProvider != null) fieldItemProvider.dispose();
 	}
 
 }

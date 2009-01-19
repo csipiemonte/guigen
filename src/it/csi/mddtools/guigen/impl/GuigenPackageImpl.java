@@ -22,6 +22,7 @@ import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.CommandWidget;
+import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomAction;
@@ -32,6 +33,7 @@ import it.csi.mddtools.guigen.DisabledComponentSet;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecAction;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.Footer;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIBehaviors;
@@ -57,6 +59,8 @@ import it.csi.mddtools.guigen.RefreshViewAction;
 import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.ShowDialogAction;
+import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StaticLinks;
 import it.csi.mddtools.guigen.Statusbar;
 import it.csi.mddtools.guigen.TabSetPanel;
@@ -64,6 +68,9 @@ import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
+import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypedArray;
+import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
@@ -521,6 +528,48 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass typedefsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass simpleTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass complexTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typedArrayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fieldEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -543,6 +592,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum dataLifetimeTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum simpleTypeCodesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1096,6 +1152,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getGUIModel_VersioneComponente() {
 		return (EAttribute)guiModelEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGUIModel_Typedefs() {
+		return (EReference)guiModelEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1769,6 +1834,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getApplicationData_Type() {
+		return (EReference)applicationDataEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAppDataBinding() {
 		return appDataBindingEClass;
 	}
@@ -1814,6 +1888,132 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTypedefs() {
+		return typedefsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypedefs_Types() {
+		return (EReference)typedefsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getType() {
+		return typeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getType_Name() {
+		return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSimpleType() {
+		return simpleTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSimpleType_Code() {
+		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSimpleType_Nillable() {
+		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComplexType() {
+		return complexTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComplexType_Fields() {
+		return (EReference)complexTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypedArray() {
+		return typedArrayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypedArray_ComponentType() {
+		return (EReference)typedArrayEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getField() {
+		return fieldEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getField_Name() {
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getField_Type() {
+		return (EReference)fieldEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -1843,6 +2043,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getDataLifetimeType() {
 		return dataLifetimeTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getSimpleTypeCodes() {
+		return simpleTypeCodesEEnum;
 	}
 
 	/**
@@ -1945,6 +2154,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(guiModelEClass, GUI_MODEL__COD_COMPONENTE);
 		createEAttribute(guiModelEClass, GUI_MODEL__VERSIONE_PRODOTTO);
 		createEAttribute(guiModelEClass, GUI_MODEL__VERSIONE_COMPONENTE);
+		createEReference(guiModelEClass, GUI_MODEL__TYPEDEFS);
 
 		guiStructureEClass = createEClass(GUI_STRUCTURE);
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
@@ -2059,6 +2269,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		applicationDataEClass = createEClass(APPLICATION_DATA);
 		createEAttribute(applicationDataEClass, APPLICATION_DATA__NAME);
 		createEAttribute(applicationDataEClass, APPLICATION_DATA__LIFETIME_EXTENT);
+		createEReference(applicationDataEClass, APPLICATION_DATA__TYPE);
 
 		appDataBindingEClass = createEClass(APP_DATA_BINDING);
 		createEReference(appDataBindingEClass, APP_DATA_BINDING__APP_DATA);
@@ -2067,11 +2278,32 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		multiDataWidgetEClass = createEClass(MULTI_DATA_WIDGET);
 		createEReference(multiDataWidgetEClass, MULTI_DATA_WIDGET__MULTI_DATA_BINDING);
 
+		typedefsEClass = createEClass(TYPEDEFS);
+		createEReference(typedefsEClass, TYPEDEFS__TYPES);
+
+		typeEClass = createEClass(TYPE);
+		createEAttribute(typeEClass, TYPE__NAME);
+
+		simpleTypeEClass = createEClass(SIMPLE_TYPE);
+		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__CODE);
+		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__NILLABLE);
+
+		complexTypeEClass = createEClass(COMPLEX_TYPE);
+		createEReference(complexTypeEClass, COMPLEX_TYPE__FIELDS);
+
+		typedArrayEClass = createEClass(TYPED_ARRAY);
+		createEReference(typedArrayEClass, TYPED_ARRAY__COMPONENT_TYPE);
+
+		fieldEClass = createEClass(FIELD);
+		createEAttribute(fieldEClass, FIELD__NAME);
+		createEReference(fieldEClass, FIELD__TYPE);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
 		eventTypesEEnum = createEEnum(EVENT_TYPES);
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
+		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
 	}
 
 	/**
@@ -2142,6 +2374,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		sequenceActionEClass.getESuperTypes().add(this.getAction());
 		jumpBackActionEClass.getESuperTypes().add(this.getAction());
 		multiDataWidgetEClass.getESuperTypes().add(this.getWidget());
+		simpleTypeEClass.getESuperTypes().add(this.getType());
+		complexTypeEClass.getESuperTypes().add(this.getType());
+		typedArrayEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2216,6 +2451,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getGUIModel_CodComponente(), ecorePackage.getEString(), "codComponente", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGUIModel_VersioneProdotto(), ecorePackage.getEString(), "versioneProdotto", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGUIModel_VersioneComponente(), ecorePackage.getEString(), "versioneComponente", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGUIModel_Typedefs(), this.getTypedefs(), null, "typedefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiStructureEClass, GUIStructure.class, "GUIStructure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2330,6 +2566,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(applicationDataEClass, ApplicationData.class, "ApplicationData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getApplicationData_Name(), ecorePackage.getEString(), "name", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplicationData_LifetimeExtent(), this.getDataLifetimeType(), "lifetimeExtent", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationData_Type(), this.getType(), null, "type", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(appDataBindingEClass, AppDataBinding.class, "AppDataBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAppDataBinding_AppData(), this.getApplicationData(), null, "appData", null, 0, 1, AppDataBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2337,6 +2574,26 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(multiDataWidgetEClass, MultiDataWidget.class, "MultiDataWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMultiDataWidget_MultiDataBinding(), this.getAppDataBinding(), null, "multiDataBinding", null, 0, 1, MultiDataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typedefsEClass, Typedefs.class, "Typedefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypedefs_Types(), this.getType(), null, "types", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(simpleTypeEClass, SimpleType.class, "SimpleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSimpleType_Code(), this.getSimpleTypeCodes(), "code", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleType_Nillable(), ecorePackage.getEBoolean(), "nillable", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(complexTypeEClass, ComplexType.class, "ComplexType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComplexType_Fields(), this.getField(), null, "fields", null, 0, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typedArrayEClass, TypedArray.class, "TypedArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypedArray_ComponentType(), this.getType(), null, "componentType", null, 0, 1, TypedArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getField_Name(), ecorePackage.getEString(), "name", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
@@ -2362,6 +2619,18 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(dataLifetimeTypeEEnum, DataLifetimeType.class, "DataLifetimeType");
 		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_ACTION);
 		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_SESSION);
+
+		initEEnum(simpleTypeCodesEEnum, SimpleTypeCodes.class, "SimpleTypeCodes");
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.INT);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.LONG);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.FLOAT);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.DOUBLE);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.STRING);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.DATE);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.DATETIME);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.HOURS);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BOOLEAN);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BYTE);
 
 		// Create resource
 		createResource(eNS_URI);

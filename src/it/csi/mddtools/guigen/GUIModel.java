@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getCodComponente <em>Cod Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getVersioneProdotto <em>Versione Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getVersioneComponente <em>Versione Componente</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,5 +186,31 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setVersioneComponente(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Typedefs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Typedefs</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Typedefs</em>' containment reference.
+	 * @see #setTypedefs(Typedefs)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_Typedefs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Typedefs getTypedefs();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Typedefs</em>' containment reference.
+	 * @see #getTypedefs()
+	 * @generated
+	 */
+	void setTypedefs(Typedefs value);
 
 } // GUIModel

@@ -114,6 +114,11 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.APPLICATION_DATA: return createApplicationData();
 			case GuigenPackage.APP_DATA_BINDING: return createAppDataBinding();
 			case GuigenPackage.MULTI_DATA_WIDGET: return createMultiDataWidget();
+			case GuigenPackage.TYPEDEFS: return createTypedefs();
+			case GuigenPackage.SIMPLE_TYPE: return createSimpleType();
+			case GuigenPackage.COMPLEX_TYPE: return createComplexType();
+			case GuigenPackage.TYPED_ARRAY: return createTypedArray();
+			case GuigenPackage.FIELD: return createField();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -135,6 +140,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createEventTypesFromString(eDataType, initialValue);
 			case GuigenPackage.DATA_LIFETIME_TYPE:
 				return createDataLifetimeTypeFromString(eDataType, initialValue);
+			case GuigenPackage.SIMPLE_TYPE_CODES:
+				return createSimpleTypeCodesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -156,6 +163,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertEventTypesToString(eDataType, instanceValue);
 			case GuigenPackage.DATA_LIFETIME_TYPE:
 				return convertDataLifetimeTypeToString(eDataType, instanceValue);
+			case GuigenPackage.SIMPLE_TYPE_CODES:
+				return convertSimpleTypeCodesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -696,6 +705,56 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Typedefs createTypedefs() {
+		TypedefsImpl typedefs = new TypedefsImpl();
+		return typedefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimpleType createSimpleType() {
+		SimpleTypeImpl simpleType = new SimpleTypeImpl();
+		return simpleType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexType createComplexType() {
+		ComplexTypeImpl complexType = new ComplexTypeImpl();
+		return complexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypedArray createTypedArray() {
+		TypedArrayImpl typedArray = new TypedArrayImpl();
+		return typedArray;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Field createField() {
+		FieldImpl field = new FieldImpl();
+		return field;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -768,6 +827,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertDataLifetimeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimpleTypeCodes createSimpleTypeCodesFromString(EDataType eDataType, String initialValue) {
+		SimpleTypeCodes result = SimpleTypeCodes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSimpleTypeCodesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
