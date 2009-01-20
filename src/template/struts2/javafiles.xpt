@@ -9,6 +9,7 @@
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
+	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 «ENDDEFINE»
 
 
@@ -167,7 +168,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 «FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
 import java.util.*;
-
+import «getDTOBaseJavaPackage(model)».*;
 /**
  * «getStrutsActionClassName(this)» Action Class.
  *
@@ -178,7 +179,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 
     «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
     «EXPAND actionImplJavaFiles::widgetsProperties FOR this»
-	«EXPAND actionImplJavaFiles::storedAppDataProperties FOR this»
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 
 	/**
 	 *
@@ -239,7 +240,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 
 	«REM»Espande la struttura della InitAction«ENDREM»
-    «EXPAND actionImplJavaFiles::actionStructureInit FOR this»
+    «EXPAND actionImplJavaFiles::actionStructureInit(model) FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»

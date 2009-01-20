@@ -37,6 +37,7 @@ import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetDataType;
 
@@ -468,7 +469,7 @@ public static String getOGNLForWidgetValue(DataWidget w){
 			return "%{"+getFullBindingPath(binding)+"}";
 		}
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
-			return "%{#session."+getFullBindingPath(binding)+"}";
+			return "%{"+getFullBindingPath(binding)+"}";  // unificato
 		}
 		else
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
@@ -484,7 +485,7 @@ public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
 			return "%{"+getFullBindingPath(binding)+"}";
 		}
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
-			return "%{#session."+getFullBindingPath(binding)+"}";
+			return "%{"+getFullBindingPath(binding)+"}"; // unificato
 		}
 		else
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
@@ -609,6 +610,10 @@ public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType
 	ta.setComponentType(dt);
 	return ta;
 }
+
+
+//////
+
 
 
 /**

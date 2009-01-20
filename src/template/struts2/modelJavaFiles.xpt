@@ -1,0 +1,44 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE modelClasses FOR GUIModel»
+«LET this.typedefs AS typedefs»
+«IF typedefs != null»
+«LET typedefs.types.typeSelect(ComplexType) AS complexType»
+«EXPAND modelClass(this) FOREACH complexType»
+«ENDLET»
+«ENDIF»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE modelClass(GUIModel model) FOR ComplexType»
+«FILE getFullDTOClassFile(this,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+public class «getDTOClassName(this)» implements java.io.Serializable{
+«EXPAND property (model) FOREACH this.fields»
+
+	public String toString(){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"toString")»
+		/// inserire qui la logica desiderata per la rappresenatazione a stringa
+		return super.toString();
+		«ENDPROTECT»
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE property(GUIModel model) FOR Field»
+
+	/// Field [«name»]
+	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	
+	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
+		_«this.name» = val;
+	}
+	
+	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
+		return _«this.name»;
+	}
+«ENDDEFINE»

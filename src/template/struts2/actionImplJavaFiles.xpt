@@ -245,7 +245,7 @@ public class SequenceAction implements IAction {
 «REM»richiamata dal template di definizione della classe Action per un dato 
      content panel
 «ENDREM»
-«DEFINE actionStructureInit FOR ContentPanel»
+«DEFINE actionStructureInit(GUIModel model) FOR ContentPanel»
     /**
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
@@ -282,7 +282,7 @@ public class SequenceAction implements IAction {
 		«LET ((Widget)currEventSource).eventHandlers AS evhs»
 		«FOREACH evhs AS currEvh»
 		public IAction initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name) FOR currEvh»
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name, model) FOR currEvh»
 		/// TODO la riga successiv aè un pezza...
 		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
 		return action;
@@ -297,10 +297,10 @@ public class SequenceAction implements IAction {
 
 
 
-«DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
+«DEFINE addActionsCode(String actionsVarName, GUIModel model) FOR EventHandler»
     «LET this.action AS currAction»
     «LET 1 AS actionNumber»
-    	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
+    	«EXPAND addActionCode(actionsVarName,actionNumber, model) FOR currAction»
     «ENDLET»
     «ENDLET»
     
@@ -313,32 +313,32 @@ public class SequenceAction implements IAction {
 	};
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Action»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR Action»
 // azione non supportata «this»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpAction»
 	/// Jump Action begin
 	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogAction»
 	// ShowDialog Action begin
 	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
 	// ShowDialog Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpBackAction»
 	//JumpBack Action begin
 	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
 	// JumpBack Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR SequenceAction»
 	// SequenceAction begin
     «FOREACH actions AS currAct»
-    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct)) FOR currAct»
+    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct), model) FOR currAct»
     «ENDFOREACH»
     
     IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
@@ -350,7 +350,7 @@ public class SequenceAction implements IAction {
 	// SequenceAction end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ONOFFAction»
 	«LET findParentContentPanel().name AS containerName»
 	// ONOFF Action begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
@@ -365,7 +365,7 @@ public class SequenceAction implements IAction {
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityAction»
 	«LET findParentContentPanel().name AS containerName»
 	// VisibilityAction begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
@@ -379,7 +379,7 @@ public class SequenceAction implements IAction {
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecAction»
 	// ExecAction begin
     String [] resultNames=new String []{
       «FOREACH this.results AS currRes»
@@ -389,7 +389,7 @@ public class SequenceAction implements IAction {
     
     IAction [] actionsForResults = new IAction[«this.results.size»];
     «FOREACH results AS currRes»
-    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.action»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes),model) FOR currRes.action»
     actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     
@@ -409,11 +409,11 @@ public class SequenceAction implements IAction {
 			  
 		«FOREACH this.postExecData AS currAppData»
 			// store del dato «currAppData.name»
-			Object _«getAppDataPropertyName(currAppData)» = res.getAppData("«getAppDataKey(currAppData)»");
-			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_ACTION»
+			«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
+				(«toJavaType(currAppData.type,model)»)res.getAppData("«getAppDataKey(currAppData)»");
 			// il dato «currAppData.name» è salvato in un attributo della action corrente
 			specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
-			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
+			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
 			// il dato «currAppData.name» è salvato in sessione
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",_«getAppDataPropertyName(currAppData)»);
 			«ENDIF»
@@ -517,22 +517,22 @@ public class SequenceAction implements IAction {
 	}
 «ENDDEFINE»
 
-«DEFINE storedAppDataProperties FOR ContentPanel»
+«DEFINE storedAppDataProperties(GUIModel model) FOR ContentPanel»
 «LET findAllActionScopedAppDataInContentPanel(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty FOREACH allAppData»
+	«EXPAND appDataProperty(model) FOREACH allAppData»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE appDataProperty FOR ApplicationData»
-	private Object _«getAppDataPropertyName(this)»;
+«DEFINE appDataProperty(GUIModel model) FOR ApplicationData»
+	private «toJavaType(this.type, model)» _«getAppDataPropertyName(this)» = «defaultInitVal(this.type,model)»;
 	
-	public void set«getAppDataPropertyName(this).toFirstUpper()»(Object value){
+	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
 		_«getAppDataPropertyName(this)» = value;
 	}
 	
-	public Object get«getAppDataPropertyName(this).toFirstUpper()»(){
+	public «toJavaType(this.type, model)» get«getAppDataPropertyName(this).toFirstUpper()»(){
 		return _«getAppDataPropertyName(this)»;
 	}
 «ENDDEFINE»

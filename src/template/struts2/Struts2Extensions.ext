@@ -61,6 +61,21 @@ String getJspFragmentsMarkupDir(GUIModel model, boolean omit_root) :
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Classi Java comuni
 
+String getDTOBaseJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".dto";
+
+String getDTOBaseSrcDir(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/dto";
+
+String getDTOClassName(ComplexType ct) :
+	ct.name.toFirstUpper();
+
+String getFQNDTOClassName(ComplexType ct, GUIModel model) :
+	getDTOBaseJavaPackage(model)+"."+getDTOClassName(ct);
+	
+String getFullDTOClassFile(ComplexType ct, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getDTOClassName(ct)+".java";	
+
 /// MENU
 String getStrutsMenuClassName(GUIModel model) :
 	"MenuAction";
@@ -114,6 +129,86 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
+/// Type Mapping
+
+/// mapping di tipi model -> java
+String toJavaSimpleType(Type type) :
+	let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  	(nillable ? "java.lang.Integer" : "int")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  	(nillable ? "java.lang.String" : "java.lang.String")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  	(nillable ? "java.lang.Float" : "float")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  	(nillable ? "java.lang.Long" : "long")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  	(nillable ? "java.lang.Double" : "double")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  	(nillable ? "java.lang.Boolean" : "boolean")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  	(nillable ? "java.util.Date" : "java.lang.String")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  	(nillable ? "java.util.Date" : "java.util.Date")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  	(nillable ? "java.util.Date" : "java.lang.String")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  	(nillable ? "byte" : "byte")
+	else 
+  	"???";
+
+String toJavaType(Type type, GUIModel model) :
+if (type==null) then
+	"void"
+else if (type.metaType==SimpleType) then
+	toJavaSimpleType(type)
+else if (type.metaType==ComplexType) then
+      getDTOBaseJavaPackage(model)+"."+type.name.toFirstUpper() 
+else 
+	"java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">";
+
+String defaultInitVal(Type type, GUIModel model) :
+	if(type==null) then
+	  "null"
+	else if(type.metaType==SimpleType) then
+	  defaultSimpleInitVal(type)
+	else if(type.metaType==TypedArray) then
+	  "new java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">()"
+	else
+	  "null";
+
+String defaultSimpleInitVal(Type type) :
+let code = ((SimpleType)type).code :
+	let nillable =  ((SimpleType)type).nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  	(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  	(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  	(nillable ? "null" : "0")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  	(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  	(nillable ? "null" : "0")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  	(nillable ? "null" : "true")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  	(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  	(nillable ? "null" : "null")
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  	(nillable ? "null" : "null")
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  	(nillable ? "0" : "0")
+	else 
+  	"???";
+  	
+
+
+	
+
+
 /// identificativi
 
 
@@ -154,6 +249,8 @@ String getAppDataKey(ApplicationData ad) : JAVA
 // nome della property associata all'appdata quando viene inserito nella action
 String getAppDataPropertyName(ApplicationData ad) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataPropertyName(it.csi.mddtools.guigen.ApplicationData);
+
+
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Fake data for widgets (only when needed)                                                 //
