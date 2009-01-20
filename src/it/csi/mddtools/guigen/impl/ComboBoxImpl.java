@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getKeySelector <em>Key Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getValueSelector <em>Value Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +42,43 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * @ordered
 	 */
 	protected AppDataBinding multiDataBinding;
+
+	/**
+	 * The default value of the '{@link #getKeySelector() <em>Key Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKeySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String KEY_SELECTOR_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getKeySelector() <em>Key Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKeySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String keySelector = KEY_SELECTOR_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getValueSelector() <em>Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VALUE_SELECTOR_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getValueSelector() <em>Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String valueSelector = VALUE_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,6 +147,48 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getKeySelector() {
+		return keySelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setKeySelector(String newKeySelector) {
+		String oldKeySelector = keySelector;
+		keySelector = newKeySelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__KEY_SELECTOR, oldKeySelector, keySelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getValueSelector() {
+		return valueSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValueSelector(String newValueSelector) {
+		String oldValueSelector = valueSelector;
+		valueSelector = newValueSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__VALUE_SELECTOR, oldValueSelector, valueSelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -127,6 +208,10 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		switch (featureID) {
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
 				return getMultiDataBinding();
+			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
+				return getKeySelector();
+			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
+				return getValueSelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,6 +226,12 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		switch (featureID) {
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)newValue);
+				return;
+			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
+				setKeySelector((String)newValue);
+				return;
+			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
+				setValueSelector((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -157,6 +248,12 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)null);
 				return;
+			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
+				setKeySelector(KEY_SELECTOR_EDEFAULT);
+				return;
+			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
+				setValueSelector(VALUE_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -171,6 +268,10 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		switch (featureID) {
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
 				return multiDataBinding != null;
+			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
+				return KEY_SELECTOR_EDEFAULT == null ? keySelector != null : !KEY_SELECTOR_EDEFAULT.equals(keySelector);
+			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
+				return VALUE_SELECTOR_EDEFAULT == null ? valueSelector != null : !VALUE_SELECTOR_EDEFAULT.equals(valueSelector);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -205,6 +306,24 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (keySelector: ");
+		result.append(keySelector);
+		result.append(", valueSelector: ");
+		result.append(valueSelector);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ComboBoxImpl

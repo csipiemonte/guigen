@@ -1049,13 +1049,31 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Key Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__KEY_SELECTOR = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__VALUE_SELECTOR = DATA_WIDGET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.
@@ -3538,6 +3556,28 @@ public interface GuigenPackage extends EPackage {
 	EClass getComboBox();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ComboBox#getKeySelector <em>Key Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key Selector</em>'.
+	 * @see it.csi.mddtools.guigen.ComboBox#getKeySelector()
+	 * @see #getComboBox()
+	 * @generated
+	 */
+	EAttribute getComboBox_KeySelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ComboBox#getValueSelector <em>Value Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value Selector</em>'.
+	 * @see it.csi.mddtools.guigen.ComboBox#getValueSelector()
+	 * @see #getComboBox()
+	 * @generated
+	 */
+	EAttribute getComboBox_ValueSelector();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Table <em>Table</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5096,6 +5136,22 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMBO_BOX = eINSTANCE.getComboBox();
+
+		/**
+		 * The meta object literal for the '<em><b>Key Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMBO_BOX__KEY_SELECTOR = eINSTANCE.getComboBox_KeySelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMBO_BOX__VALUE_SELECTOR = eINSTANCE.getComboBox_ValueSelector();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.
