@@ -19,6 +19,7 @@
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«REM»Generazione dei files specifici per il CSI«ENDREM»
 	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
@@ -283,18 +284,14 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 <struts>
 	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
-	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.ui.theme" value="csi" /><!-- Per il momento utilizzamo il tema di DEFAULT (xhtml) -->
 	<constant name="struts.action.extension" value="do" />
 	
-	<package name="struts2" extends="struts-default" namespace="/">
-		<global-exception-mappings>
-    		<exception-mapping exception="java.lang.Exception" result="error" />
-		</global-exception-mappings>
-	</package>
-
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
 			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="chain" />
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
 				<interceptor-ref name="params" />
@@ -304,6 +301,16 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="jsp-stack"/>
+		<!-- TODO: definire secondo necessita'
+		<global-results>
+			<result name="errorFatal">/jsp/error/fatalError.jsp</result>
+			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="errorFatal" exception="java.lang.Throwable"/>
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
+		</global-exception-mappings>
+		-->
 	</package>
 
 	<package name="default" extends="jsp-package" namespace="/">
