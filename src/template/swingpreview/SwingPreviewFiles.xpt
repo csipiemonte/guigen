@@ -642,7 +642,7 @@ JLabel lbl_«this.name» = new JLabel("«this.label»");
 «LET ((Table)this).columnModel AS tabColMod»
 String[] sampleColumnNames_«name» = {
 «FOREACH tabColMod.columns AS currCol»
-"«currCol.name»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+"«currCol.selector»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
 «ENDFOREACH»
 };
 
@@ -650,7 +650,7 @@ Object[][] sampleTableData_«name» = {
 «FOREACH {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30} AS index»
 {
 «FOREACH tabColMod.columns AS currCol»
-"sample «currCol.name»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
+"sample «currCol.label»"«IF currCol != tabColMod.columns.last()»,«ENDIF»
 «ENDFOREACH»
 }
 «IF index != 30»,«ENDIF»

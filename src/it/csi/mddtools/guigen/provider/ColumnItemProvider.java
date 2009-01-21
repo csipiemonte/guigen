@@ -64,29 +64,75 @@ public class ColumnItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addSelectorPropertyDescriptor(object);
+			addLabelPropertyDescriptor(object);
+			addSortablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Selector feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addSelectorPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Column_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Column_name_feature", "_UI_Column_type"),
-				 GuigenPackage.Literals.COLUMN__NAME,
+				 getString("_UI_Column_selector_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_selector_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__SELECTOR,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Label feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLabelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_label_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_label_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__LABEL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Sortable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSortablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_sortable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_sortable_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__SORTABLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -110,7 +156,7 @@ public class ColumnItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Column)object).getName();
+		String label = ((Column)object).getSelector();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Column_type") :
 			getString("_UI_Column_type") + " " + label;
@@ -128,7 +174,9 @@ public class ColumnItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Column.class)) {
-			case GuigenPackage.COLUMN__NAME:
+			case GuigenPackage.COLUMN__SELECTOR:
+			case GuigenPackage.COLUMN__LABEL:
+			case GuigenPackage.COLUMN__SORTABLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

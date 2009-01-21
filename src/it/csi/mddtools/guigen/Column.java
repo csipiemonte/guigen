@@ -16,7 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.Column#getName <em>Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,29 +28,81 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Column extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Selector</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Selector</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Name()
+	 * @return the value of the '<em>Selector</em>' attribute.
+	 * @see #setSelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Selector()
 	 * @model
 	 * @generated
 	 */
-	String getName();
+	String getSelector();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
+	 * @param value the new value of the '<em>Selector</em>' attribute.
+	 * @see #getSelector()
 	 * @generated
 	 */
-	void setName(String value);
+	void setSelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label</em>' attribute.
+	 * @see #setLabel(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Label()
+	 * @model
+	 * @generated
+	 */
+	String getLabel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Label</em>' attribute.
+	 * @see #getLabel()
+	 * @generated
+	 */
+	void setLabel(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Sortable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sortable</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sortable</em>' attribute.
+	 * @see #setSortable(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Sortable()
+	 * @model
+	 * @generated
+	 */
+	boolean isSortable();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Sortable</em>' attribute.
+	 * @see #isSortable()
+	 * @generated
+	 */
+	void setSortable(boolean value);
 
 } // Column

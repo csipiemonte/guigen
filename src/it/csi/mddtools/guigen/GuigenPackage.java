@@ -1167,13 +1167,22 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__COLUMN_MODEL = DATA_WIDGET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Page Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__PAGE_SIZE = DATA_WIDGET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
+	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.
@@ -2015,13 +2024,31 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN = 36;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Selector</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__NAME = 0;
+	int COLUMN__SELECTOR = 0;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__LABEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Sortable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__SORTABLE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Column</em>' class.
@@ -2030,7 +2057,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 1;
+	int COLUMN_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionImpl <em>Action</em>}' class.
@@ -3599,6 +3626,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getTable_ColumnModel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Table#getPageSize <em>Page Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Page Size</em>'.
+	 * @see it.csi.mddtools.guigen.Table#getPageSize()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_PageSize();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CheckBox <em>Check Box</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4008,15 +4046,37 @@ public interface GuigenPackage extends EPackage {
 	EClass getColumn();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.csi.mddtools.guigen.Column#getName()
+	 * @return the meta object for the attribute '<em>Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getSelector()
 	 * @see #getColumn()
 	 * @generated
 	 */
-	EAttribute getColumn_Name();
+	EAttribute getColumn_Selector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getLabel()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Label();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sortable</em>'.
+	 * @see it.csi.mddtools.guigen.Column#isSortable()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Sortable();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Action <em>Action</em>}'.
@@ -5172,6 +5232,14 @@ public interface GuigenPackage extends EPackage {
 		EReference TABLE__COLUMN_MODEL = eINSTANCE.getTable_ColumnModel();
 
 		/**
+		 * The meta object literal for the '<em><b>Page Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__PAGE_SIZE = eINSTANCE.getTable_PageSize();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5524,12 +5592,28 @@ public interface GuigenPackage extends EPackage {
 		EClass COLUMN = eINSTANCE.getColumn();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Selector</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COLUMN__NAME = eINSTANCE.getColumn_Name();
+		EAttribute COLUMN__SELECTOR = eINSTANCE.getColumn_Selector();
+
+		/**
+		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__LABEL = eINSTANCE.getColumn_Label();
+
+		/**
+		 * The meta object literal for the '<em><b>Sortable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__SORTABLE = eINSTANCE.getColumn_Sortable();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionImpl <em>Action</em>}' class.

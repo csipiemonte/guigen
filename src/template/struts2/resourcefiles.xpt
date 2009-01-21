@@ -527,33 +527,22 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Image»
 <!-- [GUIGEN] Crea il widget «this» -->
-
+<img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
-«REM»FAKE DATA. TODO: remove«ENDREM»
-<%@page import="java.util.List, java.util.ArrayList, «getDTOBaseJavaPackage(model)».Persona" %>
-<%
-List<Persona> listaPersone = new ArrayList<Persona>();
-for (int i=0; i<12; i++) {
-	Persona pers = new Persona();
-	pers.setNome("Nome " + i);
-	pers.setCognome("Cognome " + i);
-	listaPersone.add(pers);
-}
-request.setAttribute("listaPersone", listaPersone);
-%>
+
 «REM»tag implementation: KEEP«ENDREM»
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<display:table name="requestScope.listaPersone" 
+<display:table name="«getOGNLForWidgetMultiValue(this)»" 
                export="true" 
                defaultsort="1" 
                defaultorder="descending" 
                id="rowR" 
-               pagesize="5" 
+               pagesize="«this.pageSize»" 
                requestURI="«getStrutsActionConfigName(panel)».do" 
                class="righe_alternate" 
                cellpadding="0" 
@@ -562,7 +551,7 @@ request.setAttribute("listaPersone", listaPersone);
                clearStatus="false">
 	«LET this.columnModel AS tabColMod»
 		«FOREACH tabColMod.columns AS currCol»
-		<display:column property="«currCol.name»" title="«currCol.name.toFirstUpper()»" sortable="false" headerClass="sortable" />
+		<display:column property="«currCol.selector»" title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable" />
 		«ENDFOREACH»
 	«ENDLET»
 </display:table>

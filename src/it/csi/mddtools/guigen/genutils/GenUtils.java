@@ -482,10 +482,10 @@ public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
 	if (w.getMultiDataBinding()!=null){
 		AppDataBinding binding = w.getMultiDataBinding();
 		if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
-			return "%{"+getFullBindingPath(binding)+"}";
+			return ""+getFullBindingPath(binding)+"";
 		}
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
-			return "%{"+getFullBindingPath(binding)+"}"; // unificato
+			return ""+getFullBindingPath(binding)+""; // unificato
 		}
 		else
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);

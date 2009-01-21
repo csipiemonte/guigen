@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getColumnModel <em>Column Model</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getPageSize <em>Page Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,6 +54,25 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * @ordered
 	 */
 	protected ColumnModel columnModel;
+
+	/**
+	 * The default value of the '{@link #getPageSize() <em>Page Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int PAGE_SIZE_EDEFAULT = 0;
+	/**
+	 * The cached value of the '{@link #getPageSize() <em>Page Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPageSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected int pageSize = PAGE_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -164,6 +184,27 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPageSize(int newPageSize) {
+		int oldPageSize = pageSize;
+		pageSize = newPageSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TABLE__PAGE_SIZE, oldPageSize, pageSize));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -187,6 +228,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return getMultiDataBinding();
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				return getColumnModel();
+			case GuigenPackage.TABLE__PAGE_SIZE:
+				return new Integer(getPageSize());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -204,6 +247,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return;
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				setColumnModel((ColumnModel)newValue);
+				return;
+			case GuigenPackage.TABLE__PAGE_SIZE:
+				setPageSize(((Integer)newValue).intValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,6 +269,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				setColumnModel((ColumnModel)null);
 				return;
+			case GuigenPackage.TABLE__PAGE_SIZE:
+				setPageSize(PAGE_SIZE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -239,6 +288,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return multiDataBinding != null;
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				return columnModel != null;
+			case GuigenPackage.TABLE__PAGE_SIZE:
+				return pageSize != PAGE_SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -273,6 +324,22 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (pageSize: ");
+		result.append(pageSize);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TableImpl

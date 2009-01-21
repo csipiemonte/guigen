@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools metamodel/guigen.ecore" codProdotto="piol" codComponente="piolfe" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="piol" codComponente="piolfe" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
@@ -9,145 +9,22 @@
           <topLevelMenu name="mnuSceltaModo" label="scelta metodo di compilazione">
             <item name="mnuAsWizard" label="compila con la metafora a wizard">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
-              </eventHandler>
-            </item>
-            <item name="mnuAsTabs" label="compila con la metafora a TAB">
-              <eventHandler>
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
             </item>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpMainAsTab">
-          <panels xsi:type="guigen:FormPanel" name="pMainAsTab" label="Presentazione Istanze On Line">
-            <layout xsi:type="guigen:UDLRCPanelLayout"/>
-            <subpanels xsi:type="guigen:FormPanel" name="pMainAsTabUp">
-              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiol" image="/PIOL.gif"/>
-            </subpanels>
-            <subpanels xsi:type="guigen:FormPanel" name="pMainAsTabContent" label="">
-              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-              <subpanels xsi:type="guigen:TabSetPanel" name="pWizardLevel1" label="">
-                <tabs xsi:type="guigen:FormPanel" name="pActivityIstanza" label="Istanza">
-                  <subpanels xsi:type="guigen:TabSetPanel" name="tabsActivityIstanza">
-                    <tabs xsi:type="guigen:FormPanel" name="pStepIstruzioni" label="Istruzioni">
-                      <layout xsi:type="guigen:UDLRCPanelLayout"/>
-                      <widgets xsi:type="guigen:Image" name="imgIstruzioni" label="" image="/Istruzioni.gif">
-                        <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-                      </widgets>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepSceltaEnte" label="Scelta ente">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:RadioButtons" name="radioSceltaEnte" label="Scelta ente">
-                        <radio name="rbRP" label="Regione piemonte"/>
-                        <radio name="rbCOTO" label="Comune di torino"/>
-                        <radio name="rbPRVTO" label="Provincia di torino"/>
-                      </widgets>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pSceltaStruttura" label="SceltaStruttura">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepSceltaProc" label="Scelta procedimento">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:RadioButtons" name="radioSceltaProc" label="Scelta procedimento">
-                        <radio name="rbProc1" label="Procedimento tipologia 1"/>
-                        <radio name="rbProc2" label="Procedimento tipologia 2"/>
-                        <radio name="rbProc3" label="Procedimento tipologia 3"/>
-                      </widgets>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepInfoGenerali" label="Informazioni generali">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDescrProc" label="Descrizione"/>
-                      <widgets xsi:type="guigen:TextField" name="txtStrDestProc" label="Struttura destinataria"/>
-                      <widgets xsi:type="guigen:TextField" name="txtRifNorm" label="Riferimenti normativi"/>
-                      <widgets xsi:type="guigen:TextField" name="txtRespProc" label="Responsabile procedimento"/>
-                      <widgets xsi:type="guigen:TextArea" name="txtOggettoIstanza" label="Oggetto"/>
-                      <widgets xsi:type="guigen:RadioButtons" name="radioTipoAmbito" label="Tipologia ambito intervento">
-                        <radio name="rbAmbitoRPCOTOPRV" label="Regione, Provincia o Comune"/>
-                        <radio name="rbAmbitoAltro" label="Altro"/>
-                      </widgets>
-                      <widgets xsi:type="guigen:ComboBox" name="cbRegioneProc" label="Regione"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbProvinciaProc" label="Provincia"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbComuneProc" label="Comune"/>
-                      <widgets xsi:type="guigen:TextArea" name="taAmbitoAltro" label="Altro ambito di intervento"/>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepDatiPresentatore" label="Dati presentatore">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="txtCognomePres" label="Cognome"/>
-                      <widgets xsi:type="guigen:TextField" name="txtNomePres" label="Nome"/>
-                      <widgets xsi:type="guigen:TextField" name="txtCFPres" label="Codice fiscale"/>
-                      <widgets xsi:type="guigen:TextField" name="txtPIVAPres" label="Partita IVA"/>
-                      <widgets xsi:type="guigen:TextField" name="txtIndirizzoPres" label="Indirizzo"/>
-                      <widgets xsi:type="guigen:TextField" name="txtCAPPres" label="C.A.P"/>
-                      <widgets xsi:type="guigen:TextField" name="txtFrazPres" label="Frazione"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbProvPres" label="Provincia"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbComunePres" label="Comune"/>
-                      <widgets xsi:type="guigen:TextField" name="txtEmailPres" label="EMail"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbInQualitaDi" label="In qualità di"/>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepDatiBeneficiario" label="Dati beneficiario">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:RadioButtons" name="radioTipoSogg" label="Tipo soggetto">
-                        <radio name="rbPersFisica" label="persona fisica"/>
-                        <radio name="rbPersGuir" label="persona giuridica"/>
-                      </widgets>
-                      <widgets xsi:type="guigen:TextField" name="txtCognomeBenef" label=" Cognome o denominazione"/>
-                      <widgets xsi:type="guigen:TextField" name="txtNomeBenef" label="Nome"/>
-                      <widgets xsi:type="guigen:TextField" name="txtCFBenef" label="Codice fiscale"/>
-                      <widgets xsi:type="guigen:TextField" name="txtPIVABenef" label="Partita IVA"/>
-                      <widgets xsi:type="guigen:TextField" name="txtIndirizzoBenef" label="Indirizzo"/>
-                      <widgets xsi:type="guigen:TextField" name="txtCAPBenef" label="C.A.P"/>
-                      <widgets xsi:type="guigen:TextField" name="txtFrazBenef" label="Frazione"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbProvBenef" label="Provincia"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbComuneBenef" label="Comune"/>
-                      <widgets xsi:type="guigen:TextField" name="txtEmailBenef" label="EMail"/>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepDatiInfoDettaglio" label="Informazioni di dettaglio">
-                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1a" label="Dato 1a"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1b" label="Dato 1b"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1c" label="Dato 1c"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1d" label="Dato 1d"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1e" label="Dato 1e"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1f" label="Dato 1f"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1g" label="Dato 1g"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1h" label="Dato 1h"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1i" label="Dato 1i"/>
-                      <widgets xsi:type="guigen:TextField" name="txtDA1l" label="Dato 1l"/>
-                      <widgets xsi:type="guigen:CheckBox" name="ckDato2" label="Dato 2"/>
-                      <widgets xsi:type="guigen:TextArea" name="taDato3" label="Dato 3"/>
-                      <widgets xsi:type="guigen:RadioButtons" name="radioDato4" label="Dato 4">
-                        <radio name="rbDato4_1" label="A"/>
-                        <radio name="rbDato4_2" label="B"/>
-                      </widgets>
-                      <widgets xsi:type="guigen:ComboBox" name="cbDato5" label="Dato 5"/>
-                      <widgets xsi:type="guigen:ComboBox" name="cbDato6" label="Dato 6"/>
-                    </tabs>
-                    <tabs xsi:type="guigen:FormPanel" name="pStepFirma" label="Firma elettronica"/>
-                  </subpanels>
-                </tabs>
-                <tabs xsi:type="guigen:FormPanel" name="pActivityRiepilogo" label="Riepilogo"/>
-              </subpanels>
-            </subpanels>
-            <subpanels xsi:type="guigen:FormPanel" name="pMainAsTabNavigator" label="">
-              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
-              <widgets xsi:type="guigen:Button" name="bWizardIndietro" label="Indietro"/>
-              <widgets xsi:type="guigen:ConfirmButton" name="bWizardConferma" label="Conferma e prosegui"/>
-            </subpanels>
-          </panels>
-        </contentPanels>
         <contentPanels name="cpMainAsWzr_Istruzioni">
           <panels xsi:type="guigen:FormPanel" name="pStepIstruzioniWzr" label="Istruzioni">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpIstr">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolIst" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolIst" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepIstruzioniWzrContent">
               <layout xsi:type="guigen:UDLRCPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-              <widgets xsi:type="guigen:Image" name="imgIstruzioniWzr" label="" image="/Istruzioni.gif">
+              <widgets xsi:type="guigen:Image" name="imgIstruzioniWzr" label="" image="images/piol/Istruzioni.gif">
                 <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               </widgets>
             </subpanels>
@@ -155,7 +32,7 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaIstruzioni" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -166,7 +43,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpEnte">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolEnte" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolEnte" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepSceltaEnteWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -180,12 +57,12 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroSceltaEnte" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaSceltaEnte" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -196,7 +73,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpStr">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolStr" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolStr" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepSceltaStruttWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -210,12 +87,12 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroSceltaStr" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaSceltaStr" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -226,7 +103,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpProc">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolProc" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolProc" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepSceltaProcWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -240,12 +117,19 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroSceltaProc" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaSceltaProc" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:ExecAction" methodName="preparaInfoGenerali">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                    </results>
+                    <postExecData name="listaRegioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
+                    <postExecData name="listaProvince" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
+                    <postExecData name="listaComuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
+                  </action>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -256,7 +140,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpGen">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolGen" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolGen" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepInfoGeneraliWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -269,35 +153,48 @@
                 <radio name="rbAmbitoRPCOTOPRVWzr" label="Regione, Provincia o Comune">
                   <eventHandlers>
                     <action xsi:type="guigen:SequenceAction">
-                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.7 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.8" enable="true"/>
-                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.9"/>
+                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.7 //@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.8" enable="true"/>
+                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.9"/>
                     </action>
                   </eventHandlers>
                 </radio>
                 <radio name="rbAmbitoAltroWzr" label="Altro">
                   <eventHandlers>
                     <action xsi:type="guigen:SequenceAction">
-                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.7 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.8"/>
-                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.9" enable="true"/>
+                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.7 //@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.8"/>
+                      <actions xsi:type="guigen:ONOFFAction" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@widgets.9" enable="true"/>
                     </action>
                   </eventHandlers>
                 </radio>
               </widgets>
-              <widgets xsi:type="guigen:ComboBox" name="cbRegioneProcWzr" label="Regione"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbProvinciaProcWzr" label="Provincia"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbComuneProcWzr" label="Comune"/>
+              <widgets xsi:type="guigen:ComboBox" name="cbRegioneProcWzr" label="Regione">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbProvinciaProcWzr" label="Provincia">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbComuneProcWzr" label="Comune">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.2"/>
+              </widgets>
               <widgets xsi:type="guigen:TextArea" name="taAmbitoAltroWzr" label="Altro ambito di intervento"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepInfoGeneraliWzrNavigator" label="">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroInfoGen" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaInfoGen" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiPres">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                    </results>
+                    <postExecData name="listaProvPres" type="//@typedefs/@types.22"/>
+                    <postExecData name="listaComPres" type="//@typedefs/@types.22"/>
+                    <postExecData name="listaInQualitaDi" type="//@typedefs/@types.22"/>
+                  </action>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -308,7 +205,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpPres">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolPres" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolPres" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiPresWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -319,21 +216,33 @@
               <widgets xsi:type="guigen:TextField" name="txtIndirizzoPresWzr" label="Indirizzo"/>
               <widgets xsi:type="guigen:TextField" name="txtCAPPresWzr" label="C.A.P"/>
               <widgets xsi:type="guigen:TextField" name="txtFrazPresWzr" label="Frazione"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbProvPresWzr" label="Provincia"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbComunePresWzr" label="Comune"/>
+              <widgets xsi:type="guigen:ComboBox" name="cbProvPresWzr" label="Provincia">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbComunePresWzr" label="Comune">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1"/>
+              </widgets>
               <widgets xsi:type="guigen:TextField" name="txtEmailPresWzr" label="EMail"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbInQualitaDiWzr" label="In qualità di"/>
+              <widgets xsi:type="guigen:ComboBox" name="cbInQualitaDiWzr" label="In qualità di">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.2"/>
+              </widgets>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiPresWzrNavigator" label="">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroDtPres" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaDtPres" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiBenef">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                    </results>
+                    <postExecData name="listaComBenef" type="//@typedefs/@types.22"/>
+                    <postExecData name="listaProvBenef" type="//@typedefs/@types.22"/>
+                  </action>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -344,7 +253,7 @@
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpBenef">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolBenef" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolBenef" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiBenefWzrContent">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -359,20 +268,24 @@
               <widgets xsi:type="guigen:TextField" name="txtIndirizzoBenefWzr" label="Indirizzo"/>
               <widgets xsi:type="guigen:TextField" name="txtCAPBenefWzr" label="C.A.P"/>
               <widgets xsi:type="guigen:TextField" name="txtFrazBenefWzr" label="Frazione"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbProvBenefWzr" label="Provincia"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbComuneBenefWzr" label="Comune"/>
+              <widgets xsi:type="guigen:ComboBox" name="cbProvBenefWzr" label="Provincia">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbComuneBenefWzr" label="Comune">
+                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0" path=""/>
+              </widgets>
               <widgets xsi:type="guigen:TextField" name="txtEmailBenefWzr" label="EMail"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiPBenefWzrNavigator" label="">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroDtBenef" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaDtBenef" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -382,7 +295,7 @@
           <panels xsi:type="guigen:FormPanel" name="pStepDatiInfoDettaglioWzr" label="Informazioni di dettaglio">
             <subpanels xsi:type="guigen:FormPanel" name="pUpDett">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
-              <widgets xsi:type="guigen:Image" name="imgLogoPiolDett" image="/PIOL.gif"/>
+              <widgets xsi:type="guigen:Image" name="imgLogoPiolDett" image="images/piol/PIOL.gif"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiDettWrz">
               <widgets xsi:type="guigen:TextField" name="txtDA1aWzr" label="Dato_1a"/>
@@ -401,19 +314,17 @@
                 <radio name="rbDato4_1Wzr" label="A"/>
                 <radio name="rbDato4_2Wzr" label="B"/>
               </widgets>
-              <widgets xsi:type="guigen:ComboBox" name="cbDato5Wzr" label="Dato 5"/>
-              <widgets xsi:type="guigen:ComboBox" name="cbDato6Wzr" label="Dato 6"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiDettWzrNavigator" label="">
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
               <widgets xsi:type="guigen:Button" name="bWizardIndietroDtDett" label="Indietro">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpBackAction"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaDtDett" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.9" pushCurrentPage="true"/>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8" pushCurrentPage="true"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -422,8 +333,42 @@
         <contentPanels name="cpMainAsWzr_Firma">
           <panels xsi:type="guigen:FormPanel" name="pStepFirmaWzr" label="Firma elettronica"/>
         </contentPanels>
-        
       </appArea>
     </appWindow>
   </structure>
+  <typedefs>
+    <types xsi:type="guigen:ComplexType" name="Persona">
+      <fields name="codFisc" type="//@typedefs/@types.9"/>
+      <fields name="nome" type="//@typedefs/@types.9"/>
+      <fields name="cognome" type="//@typedefs/@types.9"/>
+      <fields name="eta" type="//@typedefs/@types.2"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.13"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.14"/>
+  </typedefs>
 </guigen:GUIModel>
