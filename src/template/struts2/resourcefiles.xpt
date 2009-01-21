@@ -312,7 +312,7 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 
 <ul class="menuTendina">
 	«FOREACH this.topLevelMenu AS tlmenu»
-	<li>«tlmenu.name»</li>
+	<li><a href="#">«tlmenu.name»</a></li>
 	<ul class="menuTendina">
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
@@ -357,6 +357,7 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
 		«LET model.structure.appWindow.header AS header»
@@ -530,9 +531,41 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di una tabella. TODO: implementare«ENDREM»
+«REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
-«REM»TODO: utilizzare DisplayTag?«ENDREM»
+«REM»FAKE DATA. TODO: remove«ENDREM»
+<%@page import="java.util.List, java.util.ArrayList, «getDTOBaseJavaPackage(model)».Persona" %>
+<%
+List<Persona> listaPersone = new ArrayList<Persona>();
+for (int i=0; i<12; i++) {
+	Persona pers = new Persona();
+	pers.setNome("Nome " + i);
+	pers.setCognome("Cognome " + i);
+	listaPersone.add(pers);
+}
+request.setAttribute("listaPersone", listaPersone);
+%>
+«REM»tag implementation: KEEP«ENDREM»
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<display:table name="requestScope.listaPersone" 
+               export="true" 
+               defaultsort="1" 
+               defaultorder="descending" 
+               id="rowR" 
+               pagesize="5" 
+               requestURI="«getStrutsActionConfigName(panel)».do" 
+               class="righe_alternate" 
+               cellpadding="0" 
+               cellspacing="0" 
+               keepStatus="true" 
+               clearStatus="false">
+	«LET this.columnModel AS tabColMod»
+		«FOREACH tabColMod.columns AS currCol»
+		<display:column property="«currCol.name»" title="«currCol.name.toFirstUpper()»" sortable="false" headerClass="sortable" />
+		«ENDFOREACH»
+	«ENDLET»
+</display:table>
+</s:if>
 «ENDDEFINE»
 

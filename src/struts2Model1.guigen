@@ -71,6 +71,11 @@
                   <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                 </eventHandlers>
               </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bVaiATabella" label="Vai alla Tabella">
+                <eventHandlers>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                </eventHandlers>
+              </widgets>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="widgetButtonsPanel" label="Azioni sui Widgets">
               <widgets xsi:type="guigen:Button" name="hideWidgets" label="Nascondi Widget">
@@ -141,7 +146,50 @@
             </widgets>
           </panels>
         </contentPanels>
+        <contentPanels name="esempioTable">
+          <panels xsi:type="guigen:FormPanel" name="myTablePanel" label="Esempio tabella">
+            <widgets xsi:type="guigen:Table" name="myTable" label="Elenco Persone">
+              <columnModel>
+                <columns name="nome"/>
+                <columns name="cognome"/>
+              </columnModel>
+            </widgets>
+          </panels>
+        </contentPanels>
       </appArea>
     </appWindow>
   </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:ComplexType" name="Persona">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
+  </typedefs>
 </guigen:GUIModel>
