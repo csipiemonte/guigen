@@ -3062,16 +3062,6 @@ public interface GuigenPackage extends EPackage {
 	int FIELD_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.WidgetDataType
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
-	 * @generated
-	 */
-	int WIDGET_DATA_TYPE = 67;
-
-	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3079,7 +3069,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 68;
+	int UDLRC_SPEC_CONSTANTS = 67;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3089,7 +3079,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 69;
+	int EVENT_TYPES = 68;
 
 
 	/**
@@ -3100,7 +3090,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 70;
+	int DATA_LIFETIME_TYPE = 69;
 
 
 	/**
@@ -3111,7 +3101,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 71;
+	int SIMPLE_TYPE_CODES = 70;
 
 
 	/**
@@ -4742,16 +4732,6 @@ public interface GuigenPackage extends EPackage {
 	EReference getField_Type();
 
 	/**
-	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Widget Data Type</em>'.
-	 * @see it.csi.mddtools.guigen.WidgetDataType
-	 * @generated
-	 */
-	EEnum getWidgetDataType();
-
-	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6178,16 +6158,6 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FIELD__TYPE = eINSTANCE.getField_Type();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.WidgetDataType
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
-		 * @generated
-		 */
-		EEnum WIDGET_DATA_TYPE = eINSTANCE.getWidgetDataType();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.

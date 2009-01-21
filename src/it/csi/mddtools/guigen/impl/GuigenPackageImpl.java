@@ -77,7 +77,6 @@ import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityAction;
 import it.csi.mddtools.guigen.Widget;
-import it.csi.mddtools.guigen.WidgetDataType;
 import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 import it.csi.mddtools.guigen.WidgetTargetAction;
 
@@ -564,13 +563,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass fieldEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum widgetDataTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2059,15 +2051,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getWidgetDataType() {
-		return widgetDataTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EEnum getUDLRCSpecConstants() {
 		return udlrcSpecConstantsEEnum;
 	}
@@ -2349,7 +2332,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(fieldEClass, FIELD__TYPE);
 
 		// Create enums
-		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
 		eventTypesEEnum = createEEnum(EVENT_TYPES);
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
@@ -2651,13 +2633,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
-		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
-		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.NUMERICO);
-		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.DATA);
-		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.ORA);
-		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.DATAORA);
-
 		initEEnum(udlrcSpecConstantsEEnum, UDLRCSpecConstants.class, "UDLRCSpecConstants");
 		addEEnumLiteral(udlrcSpecConstantsEEnum, UDLRCSpecConstants.UP);
 		addEEnumLiteral(udlrcSpecConstantsEEnum, UDLRCSpecConstants.DOWN);

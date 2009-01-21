@@ -132,8 +132,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GuigenPackage.WIDGET_DATA_TYPE:
-				return createWidgetDataTypeFromString(eDataType, initialValue);
 			case GuigenPackage.UDLRC_SPEC_CONSTANTS:
 				return createUDLRCSpecConstantsFromString(eDataType, initialValue);
 			case GuigenPackage.EVENT_TYPES:
@@ -155,8 +153,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case GuigenPackage.WIDGET_DATA_TYPE:
-				return convertWidgetDataTypeToString(eDataType, instanceValue);
 			case GuigenPackage.UDLRC_SPEC_CONSTANTS:
 				return convertUDLRCSpecConstantsToString(eDataType, instanceValue);
 			case GuigenPackage.EVENT_TYPES:
@@ -748,26 +744,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public Field createField() {
 		FieldImpl field = new FieldImpl();
 		return field;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
-		WidgetDataType result = WidgetDataType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertWidgetDataTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

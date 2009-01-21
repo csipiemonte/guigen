@@ -10,7 +10,6 @@ import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Type;
-import it.csi.mddtools.guigen.WidgetDataType;
 
 import org.eclipse.emf.common.notify.Notification;
 

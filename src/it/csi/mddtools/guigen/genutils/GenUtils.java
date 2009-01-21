@@ -39,7 +39,7 @@ import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.Widget;
-import it.csi.mddtools.guigen.WidgetDataType;
+
 
 
 public class GenUtils {
@@ -349,27 +349,7 @@ public static String getFixedRadioButtonList(RadioButtons rb){
 }
 
 
-public static String mapWidgetDataType2JavaType(WidgetDataType t, String modifier){
-	if(t.equals(WidgetDataType.STRINGA))
-		return "java.lang.String";
-	else if(t.equals(WidgetDataType.DATA))
-		return "java.util.Date";
-	else if(t.equals(WidgetDataType.DATAORA))
-		return "java.util.Date";
-	else if(t.equals(WidgetDataType.ORA))
-		return "java.lang.String";
-	else if(t.equals(WidgetDataType.NUMERICO)){
-		// a seconda del modificatore varia il tipo
-		if (modifier!=null){
-			StringTokenizer stok = new StringTokenizer(modifier,",");
-			if (stok.countTokens()>1)
-				return "java.lang.Double"; // no decimali
-		}
-		else
-				return "java.lang.Double";
-	}// TODO approdondire...
-	return "java.lang.String";
-}
+
 
 
 /**
