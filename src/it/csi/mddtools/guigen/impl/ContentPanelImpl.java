@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -70,7 +72,7 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAppData() <em>App Data</em>}' reference list.
+	 * The cached value of the '{@link #getAppData() <em>App Data</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAppData()
@@ -169,7 +171,7 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 */
 	public EList<ApplicationData> getAppData() {
 		if (appData == null) {
-			appData = new EObjectResolvingEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.CONTENT_PANEL__APP_DATA);
+			appData = new EObjectContainmentEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.CONTENT_PANEL__APP_DATA);
 		}
 		return appData;
 	}
@@ -184,6 +186,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 		switch (featureID) {
 			case GuigenPackage.CONTENT_PANEL__PANELS:
 				return basicSetPanels(null, msgs);
+			case GuigenPackage.CONTENT_PANEL__APP_DATA:
+				return ((InternalEList<?>)getAppData()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

@@ -81,7 +81,7 @@ public interface ContentPanel extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>App Data</b></em>' reference list.
+	 * Returns the value of the '<em><b>App Data</b></em>' containment reference list.
 	 * The list contents are of type {@link it.csi.mddtools.guigen.ApplicationData}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -89,9 +89,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>App Data</em>' reference list.
+	 * @return the value of the '<em>App Data</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_AppData()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ApplicationData> getAppData();

@@ -228,7 +228,7 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__NAME = 1;
 
 	/**
-	 * The feature id for the '<em><b>App Data</b></em>' reference list.
+	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2293,7 +2293,7 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_ACTION__METHOD_NAME = ACTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Post Exec Data</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Post Exec Data</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3264,10 +3264,10 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getContentPanel_Name();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>App Data</em>'.
+	 * @return the meta object for the containment reference list '<em>App Data</em>'.
 	 * @see it.csi.mddtools.guigen.ContentPanel#getAppData()
 	 * @see #getContentPanel()
 	 * @generated
@@ -4225,10 +4225,10 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getExecAction_MethodName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ExecAction#getPostExecData <em>Post Exec Data</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ExecAction#getPostExecData <em>Post Exec Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Post Exec Data</em>'.
+	 * @return the meta object for the reference list '<em>Post Exec Data</em>'.
 	 * @see it.csi.mddtools.guigen.ExecAction#getPostExecData()
 	 * @see #getExecAction()
 	 * @generated
@@ -4936,7 +4936,7 @@ public interface GuigenPackage extends EPackage {
 		EAttribute CONTENT_PANEL__NAME = eINSTANCE.getContentPanel_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>App Data</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>App Data</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -5744,7 +5744,7 @@ public interface GuigenPackage extends EPackage {
 		EAttribute EXEC_ACTION__METHOD_NAME = eINSTANCE.getExecAction_MethodName();
 
 		/**
-		 * The meta object literal for the '<em><b>Post Exec Data</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Post Exec Data</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

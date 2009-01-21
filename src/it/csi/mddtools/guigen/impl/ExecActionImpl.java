@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -71,7 +72,7 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	protected String methodName = METHOD_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPostExecData() <em>Post Exec Data</em>}' containment reference list.
+	 * The cached value of the '{@link #getPostExecData() <em>Post Exec Data</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPostExecData()
@@ -139,7 +140,7 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 	 */
 	public EList<ApplicationData> getPostExecData() {
 		if (postExecData == null) {
-			postExecData = new EObjectContainmentEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.EXEC_ACTION__POST_EXEC_DATA);
+			postExecData = new EObjectResolvingEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.EXEC_ACTION__POST_EXEC_DATA);
 		}
 		return postExecData;
 	}
@@ -154,8 +155,6 @@ public class ExecActionImpl extends ActionImpl implements ExecAction {
 		switch (featureID) {
 			case GuigenPackage.EXEC_ACTION__RESULTS:
 				return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
-			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
-				return ((InternalEList<?>)getPostExecData()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

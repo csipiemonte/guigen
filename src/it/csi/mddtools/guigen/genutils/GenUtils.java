@@ -374,20 +374,13 @@ public static String mapWidgetDataType2JavaType(WidgetDataType t, String modifie
 
 /**
  * restituisce tutti gli application data con scope USER_ACTION dichiarati
- * dalle varie exec action relative al content panel in input
+ * nel content panel in input (e referenziati nelle varie exec-action interne)
  * @param cp
  * @return
  */
 public static ArrayList<ApplicationData> findAllActionScopedAppDataInContentPanel(ContentPanel cp){
 	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
-	ArrayList<Widget> allW = findAllWidgetsInContentPanel(cp);
-	Iterator<Widget> w_it = allW.iterator();
-	while(w_it.hasNext()){
-		Widget currW = w_it.next();
-		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(currW);
-		if (currAppDataList!=null)
-			ris.addAll(currAppDataList);
-	}
+	ris.addAll(cp.getAppData());
 	return ris;
 }
 

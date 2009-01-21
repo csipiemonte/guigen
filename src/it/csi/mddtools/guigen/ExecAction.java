@@ -70,7 +70,7 @@ public interface ExecAction extends Action {
 	void setMethodName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Post Exec Data</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Post Exec Data</b></em>' reference list.
 	 * The list contents are of type {@link it.csi.mddtools.guigen.ApplicationData}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -78,9 +78,9 @@ public interface ExecAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Post Exec Data</em>' containment reference list.
+	 * @return the value of the '<em>Post Exec Data</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecAction_PostExecData()
-	 * @model containment="true"
+	 * @model
 	 * @generated
 	 */
 	EList<ApplicationData> getPostExecData();
