@@ -594,22 +594,13 @@ public interface GuigenPackage extends EPackage {
 	int DATA_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_WIDGET__DATA_TYPE = WIDGET_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_WIDGET__DATA_TYPE_MODIFIER = WIDGET_FEATURE_COUNT + 1;
+	int DATA_WIDGET__DATA_TYPE_MODIFIER = WIDGET_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
@@ -618,7 +609,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_WIDGET__DATABINDING = WIDGET_FEATURE_COUNT + 2;
+	int DATA_WIDGET__DATABINDING = WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__DATA_TYPE = WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Data Widget</em>' class.
@@ -740,15 +740,6 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_FIELD__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_FIELD__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -765,6 +756,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_FIELD__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
@@ -831,15 +831,6 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_AREA__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_AREA__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -856,6 +847,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_AREA__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Rows</b></em>' attribute.
@@ -931,15 +931,6 @@ public interface GuigenPackage extends EPackage {
 	int CALENDAR__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALENDAR__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -956,6 +947,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CALENDAR__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Calendar</em>' class.
@@ -1013,15 +1013,6 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMBO_BOX__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1038,6 +1029,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMBO_BOX__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
@@ -1122,15 +1122,6 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TABLE__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1147,6 +1138,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TABLE__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
@@ -1231,15 +1231,6 @@ public interface GuigenPackage extends EPackage {
 	int CHECK_BOX__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHECK_BOX__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1256,6 +1247,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHECK_BOX__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Check Box</em>' class.
@@ -1442,15 +1442,6 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTONS__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RADIO_BUTTONS__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
-
-	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1467,6 +1458,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int RADIO_BUTTONS__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Radio</b></em>' containment reference list.
@@ -3456,15 +3456,15 @@ public interface GuigenPackage extends EPackage {
 	EClass getDataWidget();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Data Type</em>'.
+	 * @return the meta object for the reference '<em>Data Type</em>'.
 	 * @see it.csi.mddtools.guigen.DataWidget#getDataType()
 	 * @see #getDataWidget()
 	 * @generated
 	 */
-	EAttribute getDataWidget_DataType();
+	EReference getDataWidget_DataType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.DataWidget#getDataTypeModifier <em>Data Type Modifier</em>}'.
@@ -5092,12 +5092,12 @@ public interface GuigenPackage extends EPackage {
 		EClass DATA_WIDGET = eINSTANCE.getDataWidget();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Type</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DATA_WIDGET__DATA_TYPE = eINSTANCE.getDataWidget_DataType();
+		EReference DATA_WIDGET__DATA_TYPE = eINSTANCE.getDataWidget_DataType();
 
 		/**
 		 * The meta object literal for the '<em><b>Data Type Modifier</b></em>' attribute feature.

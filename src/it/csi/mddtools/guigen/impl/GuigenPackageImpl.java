@@ -961,8 +961,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDataWidget_DataType() {
-		return (EAttribute)dataWidgetEClass.getEStructuralFeatures().get(0);
+	public EReference getDataWidget_DataType() {
+		return (EReference)dataWidgetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -971,7 +971,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	public EAttribute getDataWidget_DataTypeModifier() {
-		return (EAttribute)dataWidgetEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)dataWidgetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -980,7 +980,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	public EReference getDataWidget_Databinding() {
-		return (EReference)dataWidgetEClass.getEStructuralFeatures().get(2);
+		return (EReference)dataWidgetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2169,9 +2169,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		commandWidgetEClass = createEClass(COMMAND_WIDGET);
 
 		dataWidgetEClass = createEClass(DATA_WIDGET);
-		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE);
 		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE_MODIFIER);
 		createEReference(dataWidgetEClass, DATA_WIDGET__DATABINDING);
+		createEReference(dataWidgetEClass, DATA_WIDGET__DATA_TYPE);
 
 		buttonEClass = createEClass(BUTTON);
 		createEAttribute(buttonEClass, BUTTON__IMAGE);
@@ -2471,9 +2471,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(commandWidgetEClass, CommandWidget.class, "CommandWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dataWidgetEClass, DataWidget.class, "DataWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDataWidget_DataType(), this.getWidgetDataType(), "dataType", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataWidget_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataWidget_Databinding(), this.getAppDataBinding(), null, "databinding", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataWidget_DataType(), this.getType(), null, "dataType", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(buttonEClass, Button.class, "Button", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getButton_Image(), ecorePackage.getEString(), "image", null, 0, 1, Button.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

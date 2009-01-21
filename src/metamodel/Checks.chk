@@ -87,6 +87,44 @@ context ApplicationData ERROR "E' necessario specificare il tipo dell Applicatio
 	
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding" :
 	this.appData!=null;
+
+context DataWidget ERROR "E'ncessario specificare il tipo del Widget" :
+	this.dataType!=null;
+
+context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding" :
+	(this.dataType==null 
+	 || this.databinding == null 
+	 || (this.databinding!=null && this.databinding.appData==null)
+	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
+	 || (this.databinding!=null 
+	 	&& this.databinding.appData!=null 
+	 	&& this.databinding.appData.type!=null 
+	 	&& ""!=(this.databinding.path))
+	 || (
+	 	this.dataType!=null 
+	 	&& this.databinding!=null 
+	 	&& this.databinding.appData!=null 
+	 	&& this.databinding.appData.type!=null
+	 	&& this.dataType==this.databinding.appData.type
+	 );
+
+context DataWidget WARNING "Non è possibile verificare a priori la corrispondenza di tipo tra widget e binding "+
+	"poichè è impostato l'attributo path: verificare manualmente" :
+	(this.dataType==null 
+	 || this.databinding == null 
+	 || (this.databinding!=null && this.databinding.appData==null)
+	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
+	 || (this.databinding!=null 
+	 	&& this.databinding.appData!=null 
+	 	&& this.databinding.appData.type!=null 
+	 	&& ""==(this.databinding.path))
+	 || (
+	 	this.dataType!=null 
+	 	&& this.databinding!=null 
+	 	&& this.databinding.appData!=null 
+	 	&& this.databinding.appData.type!=null
+	 	&& this.dataType==this.databinding.appData.type
+	 );	 
 	
 context ActionResult ERROR "Una ActionResult deve avere associata una azione effettiva" :  
 	this.action != null;

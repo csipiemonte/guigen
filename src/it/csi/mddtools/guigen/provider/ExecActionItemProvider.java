@@ -68,6 +68,7 @@ public class ExecActionItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMethodNamePropertyDescriptor(object);
+			addPostExecDataPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -95,6 +96,28 @@ public class ExecActionItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Post Exec Data feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPostExecDataPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExecAction_postExecData_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExecAction_postExecData_feature", "_UI_ExecAction_type"),
+				 GuigenPackage.Literals.EXEC_ACTION__POST_EXEC_DATA,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -107,7 +130,6 @@ public class ExecActionItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.EXEC_ACTION__RESULTS);
-			childrenFeatures.add(GuigenPackage.Literals.EXEC_ACTION__POST_EXEC_DATA);
 		}
 		return childrenFeatures;
 	}
@@ -175,7 +197,6 @@ public class ExecActionItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.EXEC_ACTION__RESULTS:
-			case GuigenPackage.EXEC_ACTION__POST_EXEC_DATA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -197,11 +218,6 @@ public class ExecActionItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EXEC_ACTION__RESULTS,
 				 GuigenFactory.eINSTANCE.createActionResult()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.EXEC_ACTION__POST_EXEC_DATA,
-				 GuigenFactory.eINSTANCE.createApplicationData()));
 	}
 
 }

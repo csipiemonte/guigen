@@ -461,58 +461,58 @@ public class SequenceAction implements IAction {
 	inserisce tutte le proeprty associate ai vari DataWidget contenuti nel content panel
 	a tutti i livelli
 «ENDREM»
-«DEFINE widgetsProperties FOR ContentPanel»
+«DEFINE widgetsProperties(GUIModel model) FOR ContentPanel»
 «LET findAllWidgetsInContentPanel(this) AS allW»
 «LET (List[Widget])allW AS allWidgets»
 «LET allWidgets.typeSelect(DataWidget) AS allDataWidgets»
-	«EXPAND widgetProperty FOREACH allDataWidgets»
+	«EXPAND widgetProperty(model) FOREACH allDataWidgets»
 «ENDLET»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR DataWidget»
+«DEFINE widgetProperty (GUIModel model) FOR DataWidget»
 	// tipo di data widget non gestito: «this»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR TextField»
+«DEFINE widgetProperty (GUIModel model) FOR TextField»
 	// TextField «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR TextArea»
+«DEFINE widgetProperty(GUIModel model) FOR TextArea»
 	// TextArea «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR Table»
+«DEFINE widgetProperty(GUIModel model) FOR Table»
 	// Table «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR RadioButtons»
+«DEFINE widgetProperty(GUIModel model) FOR RadioButtons»
 	// RadioButtons «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR CheckBox»
+«DEFINE widgetProperty(GUIModel model) FOR CheckBox»
 	// CheckBox «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty FOR ComboBox»
+«DEFINE widgetProperty(GUIModel model) FOR ComboBox»
 	// ComboBox «name»
-	«EXPAND property("widg_"+name, this.dataTypeModifier) FOR this.dataType»
+	«EXPAND property("widg_"+name, model) FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE property(String name, String modifier) FOR WidgetDataType»
-	private «mapWidgetDataType2JavaType(this, modifier)» _«name»;
+«DEFINE property(String name, GUIModel model) FOR Type»
+	private «toJavaType(this, model)» _«name»;
 	
-	public void set«name.toFirstUpper()»(«mapWidgetDataType2JavaType(this, modifier)» value){
+	public void set«name.toFirstUpper()»(«toJavaType(this, model)» value){
 		_«name» = value;
 	}
 	
-	public «mapWidgetDataType2JavaType(this, modifier)» get«name.toFirstUpper()»(){
+	public «toJavaType(this, model)» get«name.toFirstUpper()»(){
 		return _«name»;
 	}
 «ENDDEFINE»

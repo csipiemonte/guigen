@@ -15,9 +15,9 @@ package it.csi.mddtools.guigen;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDatabinding <em>Databinding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,33 +27,30 @@ package it.csi.mddtools.guigen;
  */
 public interface DataWidget extends Widget {
 	/**
-	 * Returns the value of the '<em><b>Data Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.WidgetDataType}.
+	 * Returns the value of the '<em><b>Data Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Data Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Type</em>' attribute.
-	 * @see it.csi.mddtools.guigen.WidgetDataType
-	 * @see #setDataType(WidgetDataType)
+	 * @return the value of the '<em>Data Type</em>' reference.
+	 * @see #setDataType(Type)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_DataType()
 	 * @model
 	 * @generated
 	 */
-	WidgetDataType getDataType();
+	Type getDataType();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}' attribute.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Type</em>' attribute.
-	 * @see it.csi.mddtools.guigen.WidgetDataType
+	 * @param value the new value of the '<em>Data Type</em>' reference.
 	 * @see #getDataType()
 	 * @generated
 	 */
-	void setDataType(WidgetDataType value);
+	void setDataType(Type value);
 
 	/**
 	 * Returns the value of the '<em><b>Data Type Modifier</b></em>' attribute.

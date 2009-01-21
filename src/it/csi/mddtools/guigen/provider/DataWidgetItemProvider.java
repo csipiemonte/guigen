@@ -63,8 +63,8 @@ public class DataWidgetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDataTypePropertyDescriptor(object);
 			addDataTypeModifierPropertyDescriptor(object);
+			addDataTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -86,7 +86,7 @@ public class DataWidgetItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
 				 null,
 				 null));
 	}
@@ -180,8 +180,8 @@ public class DataWidgetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DataWidget.class)) {
-			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
+			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.DATA_WIDGET__DATABINDING:
