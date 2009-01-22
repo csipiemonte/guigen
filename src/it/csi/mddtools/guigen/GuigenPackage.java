@@ -228,7 +228,7 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__NAME = 1;
 
 	/**
-	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
+	 * The feature id for the '<em><b>App Data</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1340,13 +1340,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__TYPEDEFS = 6;
 
 	/**
+	 * The feature id for the '<em><b>App Data Defs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__APP_DATA_DEFS = 7;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 7;
+	int GUI_MODEL_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -3062,6 +3071,44 @@ public interface GuigenPackage extends EPackage {
 	int FIELD_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl <em>Application Data Defs</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getApplicationDataDefs()
+	 * @generated
+	 */
+	int APPLICATION_DATA_DEFS = 67;
+
+	/**
+	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_DEFS__APP_DATA = 0;
+
+	/**
+	 * The number of structural features of the '<em>Application Data Defs</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_DEFS_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.WidgetDataType
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
+	 * @generated
+	 */
+	int WIDGET_DATA_TYPE = 68;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3069,7 +3116,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 67;
+	int UDLRC_SPEC_CONSTANTS = 69;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3079,7 +3126,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 68;
+	int EVENT_TYPES = 70;
 
 
 	/**
@@ -3090,7 +3137,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 69;
+	int DATA_LIFETIME_TYPE = 71;
 
 
 	/**
@@ -3101,7 +3148,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 70;
+	int SIMPLE_TYPE_CODES = 72;
 
 
 	/**
@@ -3254,10 +3301,10 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getContentPanel_Name();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>App Data</em>'.
+	 * @return the meta object for the reference list '<em>App Data</em>'.
 	 * @see it.csi.mddtools.guigen.ContentPanel#getAppData()
 	 * @see #getContentPanel()
 	 * @generated
@@ -3722,6 +3769,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGUIModel_Typedefs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>App Data Defs</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getAppDataDefs()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_AppDataDefs();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -4732,6 +4790,37 @@ public interface GuigenPackage extends EPackage {
 	EReference getField_Type();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationDataDefs <em>Application Data Defs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Application Data Defs</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationDataDefs
+	 * @generated
+	 */
+	EClass getApplicationDataDefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ApplicationDataDefs#getAppData <em>App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>App Data</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationDataDefs#getAppData()
+	 * @see #getApplicationDataDefs()
+	 * @generated
+	 */
+	EReference getApplicationDataDefs_AppData();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Widget Data Type</em>'.
+	 * @see it.csi.mddtools.guigen.WidgetDataType
+	 * @generated
+	 */
+	EEnum getWidgetDataType();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4916,7 +5005,7 @@ public interface GuigenPackage extends EPackage {
 		EAttribute CONTENT_PANEL__NAME = eINSTANCE.getContentPanel_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>App Data</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>App Data</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -5294,6 +5383,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__TYPEDEFS = eINSTANCE.getGUIModel_Typedefs();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data Defs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__APP_DATA_DEFS = eINSTANCE.getGUIModel_AppDataDefs();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -6158,6 +6255,34 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FIELD__TYPE = eINSTANCE.getField_Type();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl <em>Application Data Defs</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getApplicationDataDefs()
+		 * @generated
+		 */
+		EClass APPLICATION_DATA_DEFS = eINSTANCE.getApplicationDataDefs();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_DATA_DEFS__APP_DATA = eINSTANCE.getApplicationDataDefs_AppData();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.WidgetDataType
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
+		 * @generated
+		 */
+		EEnum WIDGET_DATA_TYPE = eINSTANCE.getWidgetDataType();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.

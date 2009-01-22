@@ -28,7 +28,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
-        eType="#//ApplicationData" containment="true"/>
+        eType="#//ApplicationData"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
@@ -104,6 +104,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" eType="#//Typedefs"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appDataDefs" eType="#//ApplicationDataDefs"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
@@ -280,5 +282,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Field">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationDataDefs">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
+        eType="#//ApplicationData" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -9,13 +9,13 @@
           <topLevelMenu name="mnhuUno" label="Uno"/>
           <topLevelMenu name="mnuDue" label="Due"/>
         </menubar>
-        <contentPanels name="cpRicerca">
+        <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.2">
           <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
             <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7"/>
             <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7"/>
             <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
               <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@structure/@appWindow/@appArea/@contentPanels.0/@appData.0 //@structure/@appWindow/@appArea/@contentPanels.0/@appData.1">
+                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.2">
                   <results resultCode="FOUND_MANY">
                     <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                   </results>
@@ -38,13 +38,11 @@
               </eventHandlers>
             </widgets>
           </panels>
-          <appData name="listaSoggetti" type="//@typedefs/@types.27"/>
-          <appData name="soggettoTrovato" type="//@typedefs/@types.26"/>
         </contentPanels>
         <contentPanels name="cpLista">
           <panels xsi:type="guigen:FormPanel" name="pListaRisultati" label="Lista risultati">
             <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.7" keySelector="cognome" valueSelector="toString()">
-              <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@appData.0"/>
+              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
             </widgets>
             <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
               <eventHandlers>
@@ -56,25 +54,24 @@
               </eventHandlers>
             </widgets>
             <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.26">
-              <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.0/@appData.0"/>
+              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
               <columnModel>
                 <columns selector="nome" label="Nome"/>
                 <columns selector="cognome" label="Cognome" sortable="true"/>
               </columnModel>
             </widgets>
           </panels>
-          <appData name="dettaglioSoggetto" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.26"/>
         </contentPanels>
-        <contentPanels name="cpDettaglio">
+        <contentPanels name="cpDettaglio" appData="//@appDataDefs/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Dettaglio soggetto">
             <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@appData.0" path="nome"/>
+              <databinding appData="//@appDataDefs/@appData.1" path="nome"/>
             </widgets>
             <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@appData.0" path="cognome"/>
+              <databinding appData="//@appDataDefs/@appData.2" path="cognome"/>
             </widgets>
             <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.7">
-              <databinding appData="//@structure/@appWindow/@appArea/@contentPanels.1/@appData.0" path="sex"/>
+              <databinding appData="//@appDataDefs/@appData.1" path="sex"/>
               <radio name="rbSexM" label="M"/>
               <radio name="rbSexF" label="F"/>
             </widgets>
@@ -84,7 +81,6 @@
               </eventHandlers>
             </widgets>
           </panels>
-          <appData name="soggettoAttivo" type="//@typedefs/@types.26"/>
         </contentPanels>
       </appArea>
     </appWindow>
@@ -122,4 +118,9 @@
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
   </typedefs>
+  <appDataDefs>
+    <appData name="listaSoggetti" type="//@typedefs/@types.27"/>
+    <appData name="dettaglioSoggetto" type="//@typedefs/@types.26"/>
+    <appData name="soggettoTrovato" type="//@typedefs/@types.26"/>
+  </appDataDefs>
 </guigen:GUIModel>

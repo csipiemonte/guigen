@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.GUIBehaviors;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GUIStructure;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getVersioneProdotto <em>Versione Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getVersioneComponente <em>Versione Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTypedefs <em>Typedefs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getAppDataDefs <em>App Data Defs</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,6 +152,16 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected Typedefs typedefs;
+
+	/**
+	 * The cached value of the '{@link #getAppDataDefs() <em>App Data Defs</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAppDataDefs()
+	 * @generated
+	 * @ordered
+	 */
+	protected ApplicationDataDefs appDataDefs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -388,6 +400,49 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ApplicationDataDefs getAppDataDefs() {
+		return appDataDefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAppDataDefs(ApplicationDataDefs newAppDataDefs, NotificationChain msgs) {
+		ApplicationDataDefs oldAppDataDefs = appDataDefs;
+		appDataDefs = newAppDataDefs;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__APP_DATA_DEFS, oldAppDataDefs, newAppDataDefs);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAppDataDefs(ApplicationDataDefs newAppDataDefs) {
+		if (newAppDataDefs != appDataDefs) {
+			NotificationChain msgs = null;
+			if (appDataDefs != null)
+				msgs = ((InternalEObject)appDataDefs).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__APP_DATA_DEFS, null, msgs);
+			if (newAppDataDefs != null)
+				msgs = ((InternalEObject)newAppDataDefs).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__APP_DATA_DEFS, null, msgs);
+			msgs = basicSetAppDataDefs(newAppDataDefs, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__APP_DATA_DEFS, newAppDataDefs, newAppDataDefs));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -397,6 +452,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return basicSetBeahviors(null, msgs);
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				return basicSetTypedefs(null, msgs);
+			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
+				return basicSetAppDataDefs(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -423,6 +480,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getVersioneComponente();
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				return getTypedefs();
+			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
+				return getAppDataDefs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -455,6 +514,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				setTypedefs((Typedefs)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
+				setAppDataDefs((ApplicationDataDefs)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -489,6 +551,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				setTypedefs((Typedefs)null);
 				return;
+			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
+				setAppDataDefs((ApplicationDataDefs)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -515,6 +580,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return VERSIONE_COMPONENTE_EDEFAULT == null ? versioneComponente != null : !VERSIONE_COMPONENTE_EDEFAULT.equals(versioneComponente);
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 				return typedefs != null;
+			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
+				return appDataDefs != null;
 		}
 		return super.eIsSet(featureID);
 	}

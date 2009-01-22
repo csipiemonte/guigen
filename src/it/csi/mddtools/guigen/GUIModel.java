@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getVersioneProdotto <em>Versione Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getVersioneComponente <em>Versione Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}</li>
  * </ul>
  * </p>
  *
@@ -212,5 +213,31 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setTypedefs(Typedefs value);
+
+	/**
+	 * Returns the value of the '<em><b>App Data Defs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>App Data Defs</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>App Data Defs</em>' containment reference.
+	 * @see #setAppDataDefs(ApplicationDataDefs)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_AppDataDefs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ApplicationDataDefs getAppDataDefs();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>App Data Defs</em>' containment reference.
+	 * @see #getAppDataDefs()
+	 * @generated
+	 */
+	void setAppDataDefs(ApplicationDataDefs value);
 
 } // GUIModel

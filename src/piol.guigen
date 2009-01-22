@@ -98,7 +98,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpMainAsWzr_SceltaProc">
+        <contentPanels name="cpMainAsWzr_SceltaProc" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2">
           <panels xsi:type="guigen:FormPanel" name="pStepSceltaProcWzr" label="Scelta procedimento">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpProc">
@@ -122,20 +122,17 @@
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaSceltaProc" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:ExecAction" methodName="preparaInfoGenerali">
+                  <action xsi:type="guigen:ExecAction" methodName="preparaInfoGenerali" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2">
                     <results resultCode="OK">
                       <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
                     </results>
-                    <postExecData name="listaRegioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
-                    <postExecData name="listaProvince" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
-                    <postExecData name="listaComuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
                   </action>
                 </eventHandlers>
               </widgets>
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpMainAsWzr_InfoGenerali">
+        <contentPanels name="cpMainAsWzr_InfoGenerali" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2">
           <panels xsi:type="guigen:FormPanel" name="pStepInfoGeneraliWzr" label="Informazioni generali">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUpGen">
@@ -168,13 +165,13 @@
                 </radio>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbRegioneProcWzr" label="Regione">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.2"/>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbProvinciaProcWzr" label="Provincia">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.1"/>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbComuneProcWzr" label="Comune">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.2"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.0"/>
               </widgets>
               <widgets xsi:type="guigen:TextArea" name="taAmbitoAltroWzr" label="Altro ambito di intervento"/>
             </subpanels>
@@ -187,13 +184,10 @@
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaInfoGen" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiPres">
+                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiPres" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.3">
                     <results resultCode="OK">
                       <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
                     </results>
-                    <postExecData name="listaProvPres" type="//@typedefs/@types.22"/>
-                    <postExecData name="listaComPres" type="//@typedefs/@types.22"/>
-                    <postExecData name="listaInQualitaDi" type="//@typedefs/@types.22"/>
                   </action>
                 </eventHandlers>
               </widgets>
@@ -217,14 +211,14 @@
               <widgets xsi:type="guigen:TextField" name="txtCAPPresWzr" label="C.A.P"/>
               <widgets xsi:type="guigen:TextField" name="txtFrazPresWzr" label="Frazione"/>
               <widgets xsi:type="guigen:ComboBox" name="cbProvPresWzr" label="Provincia">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.1"/>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbComunePresWzr" label="Comune">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.0"/>
               </widgets>
               <widgets xsi:type="guigen:TextField" name="txtEmailPresWzr" label="EMail"/>
               <widgets xsi:type="guigen:ComboBox" name="cbInQualitaDiWzr" label="In qualità di">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.2"/>
+                <multiDataBinding appData="//@appDataDefs/@appData.3"/>
               </widgets>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pStepDatiPresWzrNavigator" label="">
@@ -236,12 +230,10 @@
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bWizardConfermaDtPres" label="Conferma e prosegui">
                 <eventHandlers>
-                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiBenef">
+                  <action xsi:type="guigen:ExecAction" methodName="preparaDatiBenef" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
                     <results resultCode="OK">
                       <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
                     </results>
-                    <postExecData name="listaComBenef" type="//@typedefs/@types.22"/>
-                    <postExecData name="listaProvBenef" type="//@typedefs/@types.22"/>
                   </action>
                 </eventHandlers>
               </widgets>
@@ -269,10 +261,10 @@
               <widgets xsi:type="guigen:TextField" name="txtCAPBenefWzr" label="C.A.P"/>
               <widgets xsi:type="guigen:TextField" name="txtFrazBenefWzr" label="Frazione"/>
               <widgets xsi:type="guigen:ComboBox" name="cbProvBenefWzr" label="Provincia">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.1" path=""/>
+                <multiDataBinding appData="//@appDataDefs/@appData.1" path=""/>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbComuneBenefWzr" label="Comune">
-                <multiDataBinding appData="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.2/@widgets.1/@eventHandlers.0/@action/@postExecData.0" path=""/>
+                <multiDataBinding appData="//@appDataDefs/@appData.0" path=""/>
               </widgets>
               <widgets xsi:type="guigen:TextField" name="txtEmailBenefWzr" label="EMail"/>
             </subpanels>
@@ -371,4 +363,10 @@
     <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.13"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.14"/>
   </typedefs>
+  <appDataDefs>
+    <appData name="listaComuni" type="//@typedefs/@types.22"/>
+    <appData name="listaProvincie" type="//@typedefs/@types.22"/>
+    <appData name="listaRegioni" type="//@typedefs/@types.22"/>
+    <appData name="listaInQualitaDi" type="//@typedefs/@types.22"/>
+  </appDataDefs>
 </guigen:GUIModel>

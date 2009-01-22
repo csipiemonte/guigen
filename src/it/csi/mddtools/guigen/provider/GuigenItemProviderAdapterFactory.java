@@ -1410,6 +1410,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ApplicationDataDefs} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ApplicationDataDefsItemProvider applicationDataDefsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ApplicationDataDefs}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createApplicationDataDefsAdapter() {
+		if (applicationDataDefsItemProvider == null) {
+			applicationDataDefsItemProvider = new ApplicationDataDefsItemProvider(this);
+		}
+
+		return applicationDataDefsItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1566,6 +1589,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (complexTypeItemProvider != null) complexTypeItemProvider.dispose();
 		if (typedArrayItemProvider != null) typedArrayItemProvider.dispose();
 		if (fieldItemProvider != null) fieldItemProvider.dispose();
+		if (applicationDataDefsItemProvider != null) applicationDataDefsItemProvider.dispose();
 	}
 
 }

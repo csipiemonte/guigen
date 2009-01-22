@@ -548,6 +548,15 @@ public interface GuigenFactory extends EFactory {
 	Field createField();
 
 	/**
+	 * Returns a new object of class '<em>Application Data Defs</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Application Data Defs</em>'.
+	 * @generated
+	 */
+	ApplicationDataDefs createApplicationDataDefs();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
