@@ -71,6 +71,7 @@ public class GUIModelItemProvider
 			addCodComponentePropertyDescriptor(object);
 			addVersioneProdottoPropertyDescriptor(object);
 			addVersioneComponentePropertyDescriptor(object);
+			addPortalePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -164,6 +165,28 @@ public class GUIModelItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Portale feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPortalePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_portale_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_portale_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__PORTALE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -237,6 +260,7 @@ public class GUIModelItemProvider
 			case GuigenPackage.GUI_MODEL__COD_COMPONENTE:
 			case GuigenPackage.GUI_MODEL__VERSIONE_PRODOTTO:
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
+			case GuigenPackage.GUI_MODEL__PORTALE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.GUI_MODEL__STRUCTURE:

@@ -54,6 +54,7 @@ import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.ONOFFAction;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewAction;
@@ -607,6 +608,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum simpleTypeCodesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum portalNamesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1205,6 +1213,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getGUIModel_AppDataDefs() {
 		return (EReference)guiModelEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGUIModel_Portale() {
+		return (EAttribute)guiModelEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2139,6 +2156,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getPortalNames() {
+		return portalNamesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -2239,6 +2265,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(guiModelEClass, GUI_MODEL__VERSIONE_COMPONENTE);
 		createEReference(guiModelEClass, GUI_MODEL__TYPEDEFS);
 		createEReference(guiModelEClass, GUI_MODEL__APP_DATA_DEFS);
+		createEAttribute(guiModelEClass, GUI_MODEL__PORTALE);
 
 		guiStructureEClass = createEClass(GUI_STRUCTURE);
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
@@ -2393,6 +2420,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		eventTypesEEnum = createEEnum(EVENT_TYPES);
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
 		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
+		portalNamesEEnum = createEEnum(PORTAL_NAMES);
 	}
 
 	/**
@@ -2545,6 +2573,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getGUIModel_VersioneComponente(), ecorePackage.getEString(), "versioneComponente", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_Typedefs(), this.getTypedefs(), null, "typedefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_AppDataDefs(), this.getApplicationDataDefs(), null, "appDataDefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGUIModel_Portale(), this.getPortalNames(), "portale", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiStructureEClass, GUIStructure.class, "GUIStructure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2729,6 +2758,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.HOURS);
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BOOLEAN);
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BYTE);
+
+		initEEnum(portalNamesEEnum, PortalNames.class, "PortalNames");
+		addEEnumLiteral(portalNamesEEnum, PortalNames.SISTEMA_PIEMONTE);
+		addEEnumLiteral(portalNamesEEnum, PortalNames.INTRANET_RUPARPIEMONTE);
 
 		// Create resource
 		createResource(eNS_URI);

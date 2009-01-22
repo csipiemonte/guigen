@@ -1349,13 +1349,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__APP_DATA_DEFS = 7;
 
 	/**
+	 * The feature id for the '<em><b>Portale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__PORTALE = 8;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 8;
+	int GUI_MODEL_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -3152,6 +3161,17 @@ public interface GuigenPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.PortalNames <em>Portal Names</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.PortalNames
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
+	 * @generated
+	 */
+	int PORTAL_NAMES = 73;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationArea <em>Application Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3780,6 +3800,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGUIModel_AppDataDefs();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Portale</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getPortale()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_Portale();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -4861,6 +4892,16 @@ public interface GuigenPackage extends EPackage {
 	EEnum getSimpleTypeCodes();
 
 	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.PortalNames <em>Portal Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Portal Names</em>'.
+	 * @see it.csi.mddtools.guigen.PortalNames
+	 * @generated
+	 */
+	EEnum getPortalNames();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5391,6 +5432,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__APP_DATA_DEFS = eINSTANCE.getGUIModel_AppDataDefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Portale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__PORTALE = eINSTANCE.getGUIModel_Portale();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -6323,6 +6372,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum SIMPLE_TYPE_CODES = eINSTANCE.getSimpleTypeCodes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.PortalNames <em>Portal Names</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.PortalNames
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
+		 * @generated
+		 */
+		EEnum PORTAL_NAMES = eINSTANCE.getPortalNames();
 
 	}
 

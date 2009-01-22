@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getVersioneComponente <em>Versione Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}</li>
  * </ul>
  * </p>
  *
@@ -239,5 +240,34 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setAppDataDefs(ApplicationDataDefs value);
+
+	/**
+	 * Returns the value of the '<em><b>Portale</b></em>' attribute.
+	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.PortalNames}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Portale</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Portale</em>' attribute.
+	 * @see it.csi.mddtools.guigen.PortalNames
+	 * @see #setPortale(PortalNames)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_Portale()
+	 * @model
+	 * @generated
+	 */
+	PortalNames getPortale();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Portale</em>' attribute.
+	 * @see it.csi.mddtools.guigen.PortalNames
+	 * @see #getPortale()
+	 * @generated
+	 */
+	void setPortale(PortalNames value);
 
 } // GUIModel

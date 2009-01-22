@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GUIStructure;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.Typedefs;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getVersioneComponente <em>Versione Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTypedefs <em>Typedefs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getAppDataDefs <em>App Data Defs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getPortale <em>Portale</em>}</li>
  * </ul>
  * </p>
  *
@@ -162,6 +164,26 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected ApplicationDataDefs appDataDefs;
+
+	/**
+	 * The default value of the '{@link #getPortale() <em>Portale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPortale()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final PortalNames PORTALE_EDEFAULT = PortalNames.SISTEMA_PIEMONTE;
+
+	/**
+	 * The cached value of the '{@link #getPortale() <em>Portale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPortale()
+	 * @generated
+	 * @ordered
+	 */
+	protected PortalNames portale = PORTALE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -443,6 +465,27 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PortalNames getPortale() {
+		return portale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPortale(PortalNames newPortale) {
+		PortalNames oldPortale = portale;
+		portale = newPortale == null ? PORTALE_EDEFAULT : newPortale;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__PORTALE, oldPortale, portale));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -482,6 +525,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getTypedefs();
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 				return getAppDataDefs();
+			case GuigenPackage.GUI_MODEL__PORTALE:
+				return getPortale();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -517,6 +562,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 				setAppDataDefs((ApplicationDataDefs)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__PORTALE:
+				setPortale((PortalNames)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -554,6 +602,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 				setAppDataDefs((ApplicationDataDefs)null);
 				return;
+			case GuigenPackage.GUI_MODEL__PORTALE:
+				setPortale(PORTALE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -582,6 +633,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return typedefs != null;
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 				return appDataDefs != null;
+			case GuigenPackage.GUI_MODEL__PORTALE:
+				return portale != PORTALE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -604,6 +657,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 		result.append(versioneProdotto);
 		result.append(", versioneComponente: ");
 		result.append(versioneComponente);
+		result.append(", portale: ");
+		result.append(portale);
 		result.append(')');
 		return result.toString();
 	}

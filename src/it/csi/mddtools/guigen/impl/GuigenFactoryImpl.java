@@ -143,6 +143,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createDataLifetimeTypeFromString(eDataType, initialValue);
 			case GuigenPackage.SIMPLE_TYPE_CODES:
 				return createSimpleTypeCodesFromString(eDataType, initialValue);
+			case GuigenPackage.PORTAL_NAMES:
+				return createPortalNamesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -166,6 +168,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertDataLifetimeTypeToString(eDataType, instanceValue);
 			case GuigenPackage.SIMPLE_TYPE_CODES:
 				return convertSimpleTypeCodesToString(eDataType, instanceValue);
+			case GuigenPackage.PORTAL_NAMES:
+				return convertPortalNamesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -858,6 +862,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertSimpleTypeCodesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortalNames createPortalNamesFromString(EDataType eDataType, String initialValue) {
+		PortalNames result = PortalNames.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPortalNamesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
