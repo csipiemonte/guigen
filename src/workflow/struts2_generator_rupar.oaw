@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<workflow>
+
+    <!-- ***************************************************
+         modello da elaborare (scegliere la property in base
+         al tipo di operativita' (plugin/standalone)
+    -->
+	
+	<!-- utilizzare in modalita' standalone -->
+	<!--<property name="modelfile" value="src/prova2.xmi" />-->
+	<!--<property name="modelfile" value="src/piol.guigen" />-->
+	<!--<property name="modelfile" value="src/wicketModel1.xmi" />-->
+	
+	<!-- utilizzare in modalita' plugin -->
+	<property name="model" value="guigen/src/struts2Model1.guigen" />
+	<!--<property name="model" value="guigen/src/piol.guigen" />-->
+	
+	<!-- *****************************************************
+	     determina il tipo di applicazione da generare (e i 
+	     template da utilizzare).
+	     Puo' valere:
+	     -swingpreview: preview swing senza binding dati
+	     -wicket: applicazione completa basata su wicket
+	     -struts2
+	-->
+	<property name="target-platform" value="struts2"/>
+	
+	<!-- se true i generatori wicket non includeranno la directory relativa
+	     al componente nel path di destinazione (serve per la generazione 
+	     in un altro progetto eclipse "fratello". In questo caso la variabile 
+	     "target-project-name" deve essere valorizzata con il nome del progetto
+	     target -->
+	<property name="skip-component-dir-creation" value="true" />
+	
+	<!-- valorizzare con il nome del progetto eclipse target dove verranno
+	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
+	     al componente SW -->
+	<property name="target-project-name" value="struts2-rupar" />
+	
+	<property name="src-gen" value="../${target-project-name}" />
+	
+	<!-- set up EMF for standalone execution -->
+		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
+		<!--<platformUri value="d:/javatools/eclipses/europa-oAW-43/eclipse"/>-->
+		<platformUri value=".." />
+		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
+		
+	</bean>
+
+	<!-- load model and store it in slot 'model' -->
+	<component class="org.eclipse.mwe.emf.Reader">
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${model}" />
+		
+		<!-- usare se modalita' standalone -->
+		<!--<uri value="${modelfile}" />-->
+		
+		<!-- invariante rispetto alla modalita'-->
+		<modelSlot value="model" />
+	</component>
+
+	<!-- check model -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="metamodel::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+
+	<!--  generate code -->
+	<component class="org.openarchitectureware.xpand2.Generator">
+		<metaModel idRef="mm"/>
+		<expand
+			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+		<!--  protected regions configurator --> 
+	    <prSrcPaths value="${src-gen}" /> 
+	    <prDefaultExcludes value="true" /> 
+	    <prExcludes value="*.jar, *.svn-base, .metadata" />
+		<outlet path="${src-gen}" >
+			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+		</outlet>
+	</component>
+</workflow>

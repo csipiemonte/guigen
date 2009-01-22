@@ -1,0 +1,666 @@
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+==========================================================================================================================
+Definizione generale
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+	«EXPAND getHeaderMarkupRupar(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+	«EXPAND getHeaderMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+«ELSE»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
+TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+	«EXPAND getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+	«EXPAND getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+«ELSE»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF»
+
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
+
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+	«EXPAND getMenubarMarkupRupar(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+	«EXPAND getMenubarMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+«ELSE»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+	«EXPAND getFooterMarkupRupar(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+	«EXPAND getFooterMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+«ELSE»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Markup HTML per RUPAR
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+<!--head (con remincl: da implementare)-->
+<%--<r:include url="/include/primpa/head.html" resourceProvider="rp" />--%>
+<!--/head -->
+
+<!--head (senza remincl: TMP)-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<meta name="author" content="CSI-Piemonte" />
+		<title>Intranet RuparPiemonte - Interazione PA-Privati</title>
+		
+		<link href="<%=request.getContextPath()%>/css/css_rupar/primpa/indicePrimpa.css" type="text/css" rel="stylesheet" media="screen" id="skin" />
+		
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/menu.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/newWinPop.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/overOutHandler.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/primpa/pulsantiPadreFiglio.js"></script>
+		
+		<!--QUI SOTTO INCLUSIONE ELENCO DI TUTTI I JS DISPONIBILI
+		INSERIRE SOLO QUELLI CHE SERVONO PER UN NUOVO SERVIZIO DIRETTAMENTE SULL'HEAD DEL SERVIZIO-->
+		<!--#include virtual="/include/primpa/head_js_generali.html" -->
+		
+<!--/head -->
+
+		<link href="<%=request.getContextPath()%>/css/generali/NN4.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/print.css" rel="stylesheet" type="text/css" media="print" />
+		<link href="<%=request.getContextPath()%>/css/generali/struttura.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/skinRupar.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tabelle.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tabInput.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/testaliniServizi.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/loghi.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/cavalieri.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/cavalieri2.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/autenticazione_new/skin_autenticazione.css" rel="stylesheet" type="text/css" media="screen" id="skin" />
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/tab_righeAlterne.js"></script>
+
+		<style type="text/css">
+		
+			.errorMessage{color: red; font-size:8px;}
+			
+			/*--------------tabella con display-table, il class della tabella è personalizzabile--------------------------*/
+			
+			tr.even td {background: #eee;}
+			tr.odd td {background: #ccc;}
+			
+			table.righe_alternate {
+				width:90%;
+				overflow:hidden;
+				border:0;
+				margin:0 0 0 0;
+				padding:0;
+				font-size:0.95em;
+			}
+			
+			table.righe_alternate th {
+				background:#ddd; 
+				color:#444; 
+				padding: 2px 4px 2px 4px !important;
+				/*border-bottom:3px solid #fff;*/
+				/*border-left:3px solid #fff;*/
+				text-align:left;
+			}
+			table.righe_alternate th a, table.righe_alternate th a:visited {
+				color: black;
+			}
+			table.righe_alternate th a:hover {
+				color: black;
+				background:#ddd;
+			}
+			table.righe_alternate th.sortable{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_sugiu.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			table.righe_alternate th.order1{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_giu.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			table.righe_alternate th.order2{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_su.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			
+			/*--------------tabella con display-table paginator--------------------------*/
+			div.exportlinks {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				margin-bottom: 10px;
+				/*margin: 2px 0 10px 0;*/
+				width: 88%;
+			}
+			
+			span.export {
+				padding: 0 4px 1px 20px;
+				display: inline;
+				display: inline-block;
+				cursor: pointer;
+			}
+			
+			span.excel {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_excel.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.csv {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_csv.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.xml {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_xml.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.pdf {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_pdf.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.rtf {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_rtf.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.pagebanner {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				width: 88%;
+				margin-top: 10px;
+				display: block;
+				border-bottom: none;
+			}
+			
+			span.pagelinks {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				width: 88%;
+				display: block;
+				border-top: none;
+				margin-bottom: 10px;
+			}
+			
+			span.pagelinks a:hover{
+				/*
+				background-color: #eee;
+				color:#000;
+				*/
+				color:#fff;
+				background-color:#000;
+			}
+			
+			span.pagelinks a{
+				background-color: #eee;
+				color:#444;
+			}
+			
+			span.pagebanner a, a:hover{
+				background-color: #eee;
+				color:#000;
+			}
+			
+			div.exportlinks a, a:hover{
+				background-color: #eee;
+				color:#000;
+			}
+
+		</style>
+
+	</head>
+	<body id="homeAutenticazione">
+		<div id="pagina" class="colonnaUnica" align="center">
+
+			<!-- INTESTAZIONE -->
+			<div id="intestazione">
+	
+				<!--header (con remincl: TODO implementare-->
+				<%--<r:include url="/include/headerRuparNoCav.html" resourceProvider="rp" />--%>
+				<!--/header-->
+				<!--header (senza remincl: TMP)-->
+				<noscript>
+					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
+					Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
+					potrebbe essere necessario l'utilizzo dei <a href="javascript.shtml" title="informazioni su come abilitare le funzioni javascript su i più diffusi browser">Javascript</a>.</p>
+					</div>
+					<hr />
+				</noscript>
+ 
+				<div id="bannerRuparNoCav">
+					<p id="avviso" class="navigazionePagina"><a href="#navigazione" title="Salta i menu e vai direttamente ai contenuti">Salta l&#8217;intestazione</a></p>
+					<hr />
+					<h1><a id="A-inizio"><span class="alt">intranet.ruparpiemonte.it</span></a></h1>
+				</div>
+				<hr />
+				<div id="menuNN4" class="navigazionePagina">
+					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
+				</div>	
+				<!--/header-->				
+				
+				
+				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
+				TODO: verificare dove vanno questi link statici
+				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
+				«IF staticLinks != null»
+				«EXPAND getStaticLinkMarkup FOR staticLinks»
+				«ENDIF»
+				«ENDLET»
+				«ENDREM»
+	
+				<!-- MENU' DI NAVIGAZIONE -->
+				<div id="titoloEmenu">
+					<div id="menuDiNavigazione">
+				«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+				«LET model.structure.appWindow.appArea.menubar AS menubar»
+				«IF menubar != null»
+				<s:include value="menu.jsp" ></s:include>
+				«ENDIF»		
+				«ENDLET»
+					</div>
+				</div>
+				<!-- FINE MENU' DI NAVIGAZIONE -->
+	
+			</div>
+			<!--FINE INTESTAZIONE-->
+
+			<!-- CORPO -->
+			<div id="corpo">
+				<h2 class="alt">
+					Contenuti
+				</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
+TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+«DEFINE getStaticLinkMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+	<h2>Qui ci andranno i Link Statici</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getMenubarMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+<ul class="menuTendina">
+	«FOREACH this.topLevelMenu AS tlmenu»
+	<li><a href="#">«tlmenu.label»</a></li>
+	<ul class="menuTendina">
+		«FOREACH tlmenu.item AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.action AS currAction»
+		<s:url id="targetUrl" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+		<li><s:a href="%{targetUrl}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+	</ul>
+	«ENDFOREACH»
+</ul>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+<!--footer (con remincl: da implementare)-->
+<%--<r:include url="/include/footerRupar.html" resourceProvider="rp" />--%>
+<!--/footer-->
+
+<!--footer (senza remincl: TMP)-->
+			</div>
+			<!-- fine corpo -->
+
+			<div id="piedipagina">
+				<p id="noteSito" title="RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE"><span class="alt">RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE</span></p>
+				<p class="navigazionePagina"><a href="#A-inizio">Torna all'inizio della pagina</a></p>
+			</div>
+
+		</div>
+		<!--/pagina-->
+	</body>
+</html>
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+Markup HTML per SISTEMA PIEMONTE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+<!--head (con remincl: da implementare)-->
+<%--<r:include url="/include/primpa/head.html" resourceProvider="rp" />--%>
+<!--/head -->
+
+<!--head (senza remincl: TMP)-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<meta name="author" content="CSI-Piemonte" />
+		<title>Intranet RuparPiemonte - Interazione PA-Privati</title>
+		
+		<link href="<%=request.getContextPath()%>/css/css_rupar/primpa/indicePrimpa.css" type="text/css" rel="stylesheet" media="screen" id="skin" />
+		
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/menu.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/newWinPop.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/overOutHandler.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/primpa/pulsantiPadreFiglio.js"></script>
+		
+		<!--QUI SOTTO INCLUSIONE ELENCO DI TUTTI I JS DISPONIBILI
+		INSERIRE SOLO QUELLI CHE SERVONO PER UN NUOVO SERVIZIO DIRETTAMENTE SULL'HEAD DEL SERVIZIO-->
+		<!--#include virtual="/include/primpa/head_js_generali.html" -->
+		
+<!--/head -->
+
+		<link href="<%=request.getContextPath()%>/css/generali/NN4.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/print.css" rel="stylesheet" type="text/css" media="print" />
+		<link href="<%=request.getContextPath()%>/css/generali/struttura.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/skinRupar.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tabelle.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/tabInput.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/testaliniServizi.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/loghi.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/cavalieri.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/generali/cavalieri2.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/autenticazione_new/skin_autenticazione.css" rel="stylesheet" type="text/css" media="screen" id="skin" />
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/tab_righeAlterne.js"></script>
+
+		<style type="text/css">
+		
+			.errorMessage{color: red; font-size:8px;}
+			
+			/*--------------tabella con display-table, il class della tabella è personalizzabile--------------------------*/
+			
+			tr.even td {background: #eee;}
+			tr.odd td {background: #ccc;}
+			
+			table.righe_alternate {
+				width:90%;
+				overflow:hidden;
+				border:0;
+				margin:0 0 0 0;
+				padding:0;
+				font-size:0.95em;
+			}
+			
+			table.righe_alternate th {
+				background:#ddd; 
+				color:#444; 
+				padding: 2px 4px 2px 4px !important;
+				/*border-bottom:3px solid #fff;*/
+				/*border-left:3px solid #fff;*/
+				text-align:left;
+			}
+			table.righe_alternate th a, table.righe_alternate th a:visited {
+				color: black;
+			}
+			table.righe_alternate th a:hover {
+				color: black;
+				background:#ddd;
+			}
+			table.righe_alternate th.sortable{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_sugiu.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			table.righe_alternate th.order1{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_giu.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			table.righe_alternate th.order2{
+				background: #ddd url(<%=request.getContextPath()%>/images/freccia_su.gif) 98% 50% no-repeat;cursor:hand; cursor:pointer;
+			}
+			
+			
+			/*--------------tabella con display-table paginator--------------------------*/
+			div.exportlinks {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				margin-bottom: 10px;
+				/*margin: 2px 0 10px 0;*/
+				width: 88%;
+			}
+			
+			span.export {
+				padding: 0 4px 1px 20px;
+				display: inline;
+				display: inline-block;
+				cursor: pointer;
+			}
+			
+			span.excel {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_excel.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.csv {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_csv.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.xml {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_xml.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.pdf {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_pdf.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.rtf {
+				background-image: url(<%=request.getContextPath()%>/images/ico_file_rtf.png);
+				background-repeat:no-repeat;
+			}
+			
+			span.pagebanner {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				width: 88%;
+				margin-top: 10px;
+				display: block;
+				border-bottom: none;
+			}
+			
+			span.pagelinks {
+				background-color: #eee;
+				border: 1px dotted #999;
+				padding: 2px 4px 2px 4px;
+				width: 88%;
+				display: block;
+				border-top: none;
+				margin-bottom: 10px;
+			}
+			
+			span.pagelinks a:hover{
+				/*
+				background-color: #eee;
+				color:#000;
+				*/
+				color:#fff;
+				background-color:#000;
+			}
+			
+			span.pagelinks a{
+				background-color: #eee;
+				color:#444;
+			}
+			
+			span.pagebanner a, a:hover{
+				background-color: #eee;
+				color:#000;
+			}
+			
+			div.exportlinks a, a:hover{
+				background-color: #eee;
+				color:#000;
+			}
+
+		</style>
+
+	</head>
+	<body id="homeAutenticazione">
+		<div id="pagina" class="colonnaUnica" align="center">
+
+			<!-- INTESTAZIONE -->
+			<div id="intestazione">
+	
+				<!--header (con remincl: TODO implementare-->
+				<%--<r:include url="/include/headerRuparNoCav.html" resourceProvider="rp" />--%>
+				<!--/header-->
+				<!--header (senza remincl: TMP)-->
+				<noscript>
+					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
+					Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
+					potrebbe essere necessario l'utilizzo dei <a href="javascript.shtml" title="informazioni su come abilitare le funzioni javascript su i più diffusi browser">Javascript</a>.</p>
+					</div>
+					<hr />
+				</noscript>
+ 
+				<div id="bannerRuparNoCav">
+					<p id="avviso" class="navigazionePagina"><a href="#navigazione" title="Salta i menu e vai direttamente ai contenuti">Salta l&#8217;intestazione</a></p>
+					<hr />
+					<h1><a id="A-inizio"><span class="alt">intranet.ruparpiemonte.it</span></a></h1>
+				</div>
+				<hr />
+				<div id="menuNN4" class="navigazionePagina">
+					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
+				</div>	
+				<!--/header-->				
+				
+				
+				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
+				TODO: verificare dove vanno questi link statici
+				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
+				«IF staticLinks != null»
+				«EXPAND getStaticLinkMarkup FOR staticLinks»
+				«ENDIF»
+				«ENDLET»
+				«ENDREM»
+	
+				<!-- MENU' DI NAVIGAZIONE -->
+				<div id="titoloEmenu">
+					<div id="menuDiNavigazione">
+				«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+				«LET model.structure.appWindow.appArea.menubar AS menubar»
+				«IF menubar != null»
+				<s:include value="menu.jsp" ></s:include>
+				«ENDIF»		
+				«ENDLET»
+					</div>
+				</div>
+				<!-- FINE MENU' DI NAVIGAZIONE -->
+	
+			</div>
+			<!--FINE INTESTAZIONE-->
+
+			<!-- CORPO -->
+			<div id="corpo">
+				<h2 class="alt">
+					Contenuti
+				</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
+TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+«DEFINE getStaticLinkMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+	<h2>Qui ci andranno i Link Statici</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+<ul class="menuTendina">
+	«FOREACH this.topLevelMenu AS tlmenu»
+	<li><a href="#">«tlmenu.label»</a></li>
+	<ul class="menuTendina">
+		«FOREACH tlmenu.item AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.action AS currAction»
+		<s:url id="targetUrl" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+		<li><s:a href="%{targetUrl}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+	</ul>
+	«ENDFOREACH»
+</ul>
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+<!--footer (con remincl: da implementare)-->
+<%--<r:include url="/include/footerRupar.html" resourceProvider="rp" />--%>
+<!--/footer-->
+
+<!--footer (senza remincl: TMP)-->
+			</div>
+			<!-- fine corpo -->
+
+			<div id="piedipagina">
+				<p id="noteSito" title="RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE"><span class="alt">RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE</span></p>
+				<p class="navigazionePagina"><a href="#A-inizio">Torna all'inizio della pagina</a></p>
+			</div>
+
+		</div>
+		<!--/pagina-->
+	</body>
+</html>
+«ENDDEFINE»
