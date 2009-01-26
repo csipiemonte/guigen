@@ -440,16 +440,16 @@ public static String getOGNLForWidgetValue(DataWidget w){
 	if (w.getDatabinding()!=null){
 		AppDataBinding binding = w.getDatabinding();
 		if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
-			return "%{"+getFullBindingPath(binding)+"}";
+			return ""+getFullBindingPath(binding)+"";
 		}
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
-			return "%{"+getFullBindingPath(binding)+"}";  // unificato
+			return ""+getFullBindingPath(binding)+"";  // unificato
 		}
 		else
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
 	}
 	else
-		return "%{widg_"+w.getName()+"}"; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+		return "widg_"+w.getName()+""; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
 }
 
 public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
@@ -465,7 +465,7 @@ public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
 	}
 	else
-		return "%{widg_"+w.getName()+"}"; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+		return "widg_"+w.getName()+""; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
 }
 
 

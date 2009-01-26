@@ -130,9 +130,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 	<s:label value="«this.label»" for="widg_«this.name»"/>
-	<s:textfield name="widg_«this.name»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
+	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
 		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
-		value="«getOGNLForWidgetValue(this)»"
+		
 		 />
 </s:if>
 «ENDDEFINE»
@@ -143,11 +143,11 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:textarea name="widg_«this.name»" id="widg_«this.name»"
+<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
-	value="«getOGNLForWidgetValue(this)»"
+	
 	></s:textarea>
 </s:if>
 «ENDDEFINE»
@@ -158,9 +158,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="widg_«this.name»" list="#{«getFixedRadioButtonList(this)»}" 
+<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" list="#{«getFixedRadioButtonList(this)»}" 
 	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
-	value="«getOGNLForWidgetValue(this)»"
+	
 	/>
 </s:if>
 «ENDDEFINE»
@@ -171,9 +171,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:checkbox name="widg_«this.name»" id="widg_«this.name»" 
+<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" 
 	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
-	value="«getOGNLForWidgetValue(this)»"
+	
 	/>
 </s:if>
 «ENDDEFINE»
@@ -184,11 +184,11 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 <s:label value="«this.label»" for="widg_«this.name»"/>
-<s:select name="widg_«this.name»" id="widg_«this.name»"
+<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
           headerKey="00" headerValue="-- Selezionare un valore --"
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
-          value="«getOGNLForWidgetValue(this)»"
+          
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
           «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
           />

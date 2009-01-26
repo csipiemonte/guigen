@@ -464,7 +464,7 @@ public class SequenceAction implements IAction {
 «DEFINE widgetsProperties(GUIModel model) FOR ContentPanel»
 «LET findAllWidgetsInContentPanel(this) AS allW»
 «LET (List[Widget])allW AS allWidgets»
-«LET allWidgets.typeSelect(DataWidget) AS allDataWidgets»
+«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding==null) AS allDataWidgets»
 	«EXPAND widgetProperty(model) FOREACH allDataWidgets»
 «ENDLET»
 «ENDLET»
