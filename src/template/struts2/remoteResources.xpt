@@ -389,14 +389,12 @@ Markup HTML per SISTEMA PIEMONTE
 						<!-- COLONNA SX -->
 						<div id="colonnaSinistra">
 							<div id="menuDiNavigazioneSisp2">
-								<ul class="menuCavalieri">
 								«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
 								«LET model.structure.appWindow.appArea.menubar AS menubar»
 								«IF menubar != null»
 									<s:include value="menu.jsp"></s:include>
 								«ENDIF»		
 								«ENDLET»
-								</ul>
 							</div>
 						</div>
 						<!-- FINE COLONNA SX -->
@@ -434,7 +432,7 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-<ul>
+<ul class="menuCavalieri">
 «FOREACH this.topLevelMenu AS tlmenu»
 «IF hasUniqueMenuItem(tlmenu)»
 	«LET tlmenu.item.first() AS currMenuItem»
