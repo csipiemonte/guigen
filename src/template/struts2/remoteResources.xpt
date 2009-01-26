@@ -203,19 +203,30 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <ul class="menuTendina">
-	«FOREACH this.topLevelMenu AS tlmenu»
+«FOREACH this.topLevelMenu AS tlmenu»
+«IF hasUniqueMenuItem(tlmenu)»
+	«LET tlmenu.item.first() AS currMenuItem»
+	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+	«LET currMenuItem.eventHandler.action AS currAction»
+	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+	«ENDLET»
+	«ENDIF»
+	«ENDLET»
+«ELSE»
 	<li><a href="#">«tlmenu.label»</a></li>
 	<ul class="menuTendina">
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 		«LET currMenuItem.eventHandler.action AS currAction»
-		<s:url id="targetUrl" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-		<li><s:a href="%{targetUrl}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+		<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+		<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
-	</ul>
-	«ENDFOREACH»
+	</ul>	
+«ENDIF»
+«ENDFOREACH»
 </ul>
 «ENDDEFINE»
 
@@ -424,19 +435,30 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <ul>
-	«FOREACH this.topLevelMenu AS tlmenu»
+«FOREACH this.topLevelMenu AS tlmenu»
+«IF hasUniqueMenuItem(tlmenu)»
+	«LET tlmenu.item.first() AS currMenuItem»
+	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+	«LET currMenuItem.eventHandler.action AS currAction»
+	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+	«ENDLET»
+	«ENDIF»
+	«ENDLET»
+«ELSE»
 	<li><a href="#">«tlmenu.label»</a></li>
 	<ul>
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 		«LET currMenuItem.eventHandler.action AS currAction»
-		<s:url id="targetUrl" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-		<li><s:a href="%{targetUrl}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+		<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+		<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
-	</ul>
-	«ENDFOREACH»
+	</ul>	
+«ENDIF»
+«ENDFOREACH»
 </ul>
 «ENDDEFINE»
 

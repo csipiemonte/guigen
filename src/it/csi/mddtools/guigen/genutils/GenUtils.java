@@ -29,6 +29,7 @@ import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpAction;
+import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
@@ -477,7 +478,6 @@ public static String getFullBindingPath(AppDataBinding binding){
 	return ris;
 }
 
-
 //chiave dell'app data quando salvato in sessione
 public static String getAppDataKey(ApplicationData ad){
 	return "appData"+ad.getName();
@@ -487,7 +487,12 @@ public static String getAppDataKey(ApplicationData ad){
 public static String getAppDataPropertyName(ApplicationData ad){
 	return "appData"+ad.getName();
 }
-	
+
+// [DM] verifica se l'elemento Menu ha un solo Item o no
+public static boolean hasUniqueMenuItem(Menu currMenu) {
+	return (currMenu.getItem().size() == 1 ? true : false);
+}
+
 /////////////////////////////////////////////
 
 public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
