@@ -296,6 +296,71 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 
+«DEFINE actionStructureInit1(GUIModel model) FOR Action»
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public IAction initAction() {
+		«EXPAND addActionCode("onInit",1, model) FOR this»
+		IAction action = act_onInit_1; 
+		return action;
+	}
+	
+
+	
+«ENDDEFINE»
+
+«DEFINE actionStructureInit(GUIModel model) FOR Menubar»
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public IAction initAction(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, IAction>> cmdsByWidget = new HashMap<String, HashMap<String, IAction>>();
+		
+		«LET getAllEventSourceMenuItems() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		// contiene i comandi del menuItem «((MenuItem)currEventSource).name» per ogni Ev.H.
+		HashMap<String, IAction> cmds4«((MenuItem)currEventSource).name»ByEvh = 
+		  new HashMap<String, IAction>();
+		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«LET evhs AS currEvh»
+		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		«ENDLET»
+		«ENDLET»
+		cmdsByWidget.put("«((MenuItem)currEventSource).name»",cmds4«((MenuItem)currEventSource).name»ByEvh);	
+		«ENDFOREACH»
+		return cmdsByWidget.get(sourceWidget).get(eventType);
+		«ELSE»
+		return new IAction(){
+			public String doAction(BaseAction strutsAction){return null;}
+		};
+		«ENDIF»
+		«ENDLET»
+	}
+	
+	«LET getAllEventSourceMenuItems() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
+		«LET evhs AS currEvh»
+		public IAction initAction«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((MenuItem)currEvh.eContainer).name, model) FOR currEvh»
+		/// TODO la riga successiv aè un pezza...
+		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
+		return action;
+		}
+		«ENDLET»
+		«ENDLET»	
+		«ENDFOREACH»
+		«ENDIF»
+	«ENDLET»
+	
+«ENDDEFINE»
+
 
 «DEFINE addActionsCode(String actionsVarName, GUIModel model) FOR EventHandler»
     «LET this.action AS currAction»
@@ -404,8 +469,19 @@ public class SequenceAction implements IAction {
 		public void storeAppData(ExecResults res, BaseAction strutsAction){
 			// cast della action al tipo specifico per poter utilizzare direttamente
 			// le property
+			«LET findParentContentPanel(this) AS parentCP»
+			«IF parentCP != null»
 			«getStrutsActionClassName(findParentContentPanel(this))» specificAction = 
 			  («getStrutsActionClassName(findParentContentPanel(this))») strutsAction;
+			«ELSEIF this.eContainer.metaType == ApplicationArea»
+			«getStrutsHomeClassName(model)» specificAction = 
+			  («getStrutsHomeClassName(model)») strutsAction;
+			«ELSE»
+			«getStrutsMenuClassName(model)» specificAction = 
+			  («getStrutsMenuClassName(model)») strutsAction;
+			«ENDIF»
+			«ENDLET»
+			
 			  
 		«FOREACH this.postExecData AS currAppData»
 			// store del dato «currAppData.name»
@@ -519,6 +595,23 @@ public class SequenceAction implements IAction {
 
 «DEFINE storedAppDataProperties(GUIModel model) FOR ContentPanel»
 «LET findAllActionScopedAppDataInContentPanel(this) AS allAD»
+«LET (List[ApplicationData])allAD AS allAppData»
+	«EXPAND appDataProperty(model) FOREACH allAppData»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+«REM»serve per la on-init action: non usare altrove«ENDREM»
+«DEFINE storedAppDataProperties(GUIModel model) FOR Action»
+«LET findAllActionScopedAppData(this) AS allAD»
+«LET (List[ApplicationData])allAD AS allAppData»
+	«EXPAND appDataProperty(model) FOREACH allAppData»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE storedAppDataProperties(GUIModel model) FOR Menubar»
+«LET findAllActionScopedAppDataInMenubar(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
 	«EXPAND appDataProperty(model) FOREACH allAppData»
 «ENDLET»

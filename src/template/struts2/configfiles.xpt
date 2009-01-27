@@ -318,6 +318,20 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="HomePage">
 			<result>«getHomePageConfig(this)»</result>  
 		</action>
+		«LET this.structure.appWindow.appArea.onInitAction AS onInitAction»
+		<action name="HomePage" «IF onInitAction!=null»class="«getStrutsHomeFQN(this)»" «ENDIF»
+		>
+		    «IF onInitAction != null»
+		    «LET getAllPossibleJumps(onInitAction) AS allJumps»
+			«FOREACH allJumps AS currJump»
+			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+			«ENDFOREACH»
+			«ENDLET»
+			«ELSE»
+			<result>«getHomePageConfig(this)»</result>
+		    «ENDIF»
+		</action>
+		«ENDLET»
 	</package>
 
 </struts>
@@ -341,12 +355,18 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 		«LET currMenuItem.eventHandler.action AS currAction»
 		<action name="goTo«currMenuItem.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenuItem.name.toFirstUpper()»">	
-			<result>«getStrutsActionJspConfigName(((JumpAction)currAction).jumpTo)»</result>
+			«LET getAllPossibleJumps(currMenuItem) AS allJumps»
+			«FOREACH allJumps AS currJump»
+			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+			«ENDFOREACH»
+			«ENDLET»	
 		</action>
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
 		«ENDFOREACH»
+		
+		
 		
 		
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»

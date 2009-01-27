@@ -8,6 +8,9 @@
 	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
+	«IF this.structure.appWindow.appArea.onInitAction!=null»
+		«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 «ENDDEFINE»
@@ -127,6 +130,8 @@ TODO: Vedere se è necessario estendere la BaseAction.
 «DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
+import java.util.*;
+
 /**
  * «getStrutsMenuClassName(this)» Action Class.
  *
@@ -134,8 +139,11 @@ TODO: Vedere se è necessario estendere la BaseAction.
  */
 public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
+	
 	/**
 	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
 		return SUCCESS;
@@ -146,11 +154,29 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
 	«LET currMenuItem.eventHandler.action AS currAction»
 	/**
-	 * Jump to «((JumpAction)currAction).jumpTo.name» Content Panel.
+	 * 
 	 * @return SUCCESS result.
 	 */
 	public String goTo«currMenuItem.name.toFirstUpper()»() {
-		return SUCCESS;
+	//dumpModel(true); // TODO mettere solo se log=debug
+	    
+		// gestione degli eventi di tipo CLICKED
+		
+		
+		IAction action = initAction("«((MenuItem)currMenuItem).name»","CLICKED");
+		String result = action.doAction(this);
+		if(result != null) {
+			//dumpModel(false);
+			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+			return result;
+		} else {
+			//dumpModel(false);
+			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			return SUCCESS;
+		}
+		
+	
+		
 	}
 
 	«ENDLET»
@@ -158,6 +184,57 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	«ENDFOREACH»
 	«ENDFOREACH»
 
+    «EXPAND actionImplJavaFiles::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE struts2HomeJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+
+/**
+ * «getStrutsHomeClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+
+    «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitAction»
+    
+	/**
+	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
+	 */
+	public String execute() throws Exception {
+	//dumpModel(true); // TODO mettere solo se log=debug
+	    
+		// gestione degli eventi di tipo CLICKED
+		
+		
+		IAction action = initAction();
+		String result = action.doAction(this);
+		if(result != null) {
+			//dumpModel(false);
+			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+			return result;
+		} else {
+			//dumpModel(false);
+			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			return SUCCESS;
+		}
+		
+	
+	
+	}
+
+	«LET this.structure.appWindow.appArea.onInitAction AS onInitAction»
+	«IF onInitAction!=null»
+    «EXPAND actionImplJavaFiles::actionStructureInit1(this) FOR onInitAction»
+    «ENDIF»
+	«ENDLET»
 }
 «ENDFILE»
 «ENDDEFINE»

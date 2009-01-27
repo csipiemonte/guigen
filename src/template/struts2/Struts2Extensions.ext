@@ -79,12 +79,21 @@ String getFullDTOClassFile(ComplexType ct, GUIModel model) :
 /// MENU
 String getStrutsMenuClassName(GUIModel model) :
 	"MenuAction";
-
+	
 String getStrutsMenuFQN(GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getStrutsMenuClassName(model);
 
+String getStrutsHomeClassName(GUIModel model) :
+	"HomeAction";
+	
+String getStrutsHomeFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsHomeClassName(model);
+	
 String getStrutsMenuJavaFile(GUIModel model, boolean omit_root) :
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsMenuClassName(model) + ".java";
+
+String getStrutsHomeJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".java";
 
 String getStrutsMenuConfigName(GUIModel model) :
 	"menuAction";
@@ -219,10 +228,18 @@ let code = ((SimpleType)type).code :
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
-	
+
+List getAllPossibleJumps(MenuItem mi) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.MenuItem);
+
+List getAllPossibleJumps(Action a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Action);
+		
 List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
 	
+List getAllEventSourceMenuItems(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
 
 ContentPanel findParentContentPanel(Action a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Action);
@@ -232,7 +249,13 @@ String getFixedRadioButtonList(RadioButtons rb) : JAVA
 
 List findAllActionScopedAppDataInContentPanel(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInContentPanel(it.csi.mddtools.guigen.ContentPanel);
-		
+
+List findAllActionScopedAppDataInMenubar(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppDataInMenubar(it.csi.mddtools.guigen.Menubar);
+
+List findAllActionScopedAppData(Action a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppData(it.csi.mddtools.guigen.Action);
+			
 String getOGNLForWidgetValue(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetValue(it.csi.mddtools.guigen.DataWidget);
 

@@ -30,6 +30,8 @@ import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.Menu;
+import it.csi.mddtools.guigen.MenuItem;
+import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
@@ -52,6 +54,8 @@ public static ContentPanel findParentContentPanel (Action a){
 		EObject panel = widget.eContainer();
 		if(panel instanceof RadioButtons)
 			panel = panel.eContainer();
+		else if(widget instanceof MenuItem)
+			return null; // .. in realtà non è un pannello
 		return findParentContentPanel((Panel)panel);
 	}
 	else if (containerOfAction instanceof ActionResult){
@@ -67,6 +71,7 @@ public static ContentPanel findParentContentPanel (Action a){
 	}
 	
 }
+ 
 
 public static ContentPanel findParentContentPanel(Widget w){
 	EObject parent = w.eContainer();
@@ -216,6 +221,26 @@ public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp){
 	return getAllPossibleJumps(cp.getPanels());
 }
 
+public static List<ContentPanel> getAllPossibleJumps(Menubar mb){
+	List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
+	Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
+	List<ContentPanel> result = new ArrayList<ContentPanel>();
+	while(it_mi.hasNext()){
+		MenuItem currMI = it_mi.next();
+		EventHandler currEH = currMI.getEventHandler();
+		List<ContentPanel> currJumps = getAllPossibleJumps(currEH);
+		result.addAll(currJumps);
+	}
+	return result;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(MenuItem mi){
+	List<ContentPanel> result = new ArrayList<ContentPanel>();
+	EventHandler currEH = mi.getEventHandler();
+	result = getAllPossibleJumps(currEH);
+	return result;
+}
+
 public static List<ContentPanel> getAllPossibleJumps(Panel p){
 	if (p instanceof FormPanel)
 		return getAllPossibleJumps((FormPanel)p);
@@ -331,6 +356,30 @@ public static List<Widget> getAllEventSourceWidgets(ContentPanel cp){
 	return result;
 }
 
+
+public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb){
+	List<MenuItem> result = new ArrayList<MenuItem>();
+	Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
+	while(m_it.hasNext()){
+		Menu currMnu = m_it.next();
+		List<MenuItem> currMenuItems = getAllEventSourceMenuItems(currMnu);
+		result.addAll(currMenuItems);
+	}
+	return result;
+}
+
+public static List<MenuItem> getAllEventSourceMenuItems(Menu m){
+	List<MenuItem> result = new ArrayList<MenuItem>();
+	Iterator<MenuItem> it_mi = m.getItem().iterator();
+	while(it_mi.hasNext()){
+		MenuItem currMI = it_mi.next();
+		if (currMI.getEventHandler()!=null)
+			result.add(currMI);
+	}
+	// TODO aggiungere i submenu...
+	return result;
+}
+
 ///////
 
 public static String getFixedRadioButtonList(RadioButtons rb){
@@ -389,6 +438,38 @@ public static ArrayList<ApplicationData> findAllActionScopedAppData(Action a){
 	else	
 		return null;
 }
+
+public static List<ApplicationData> findAllActionScopedAppDataInMenubar(Menubar mb){
+	List<ApplicationData> result = new ArrayList<ApplicationData>();
+	Iterator<Menu> it_m = mb.getTopLevelMenu().iterator();
+	while(it_m.hasNext()){
+		Menu currMnu =it_m.next();
+		List<ApplicationData> parz = findAllActionScopedAppData(currMnu); 
+		if (parz!=null)result.addAll(parz);
+	}
+	return result;
+}
+
+public static List<ApplicationData> findAllActionScopedAppData(Menu m){
+	List<ApplicationData> result = new ArrayList<ApplicationData>();
+	Iterator<MenuItem> it_mi = m.getItem().iterator();
+	while(it_mi.hasNext()){
+		MenuItem currMI = it_mi.next();
+		if (currMI.getEventHandler()!=null){
+			List<ApplicationData>parz  = findAllActionScopedAppData(currMI.getEventHandler());
+			if (parz!=null) result.addAll(parz);
+		}
+	}
+	// submenu
+	Iterator<Menu> it_sm = m.getSubmenu().iterator();
+	while(it_sm.hasNext()){
+		Menu currSM = it_sm.next();
+		List<ApplicationData> parz = findAllActionScopedAppData(currSM); 
+		if (parz!=null) result.addAll(parz);
+	}
+	return result;
+}
+
 
 /**
  * restituisce gli app data diretti e quelli di eventuali exec action interne ai vari rami di result
@@ -599,24 +680,13 @@ public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType
  */
 public static void main(String[] args) {
 	try {
-		it.csi.mddtools.guigen.GuigenPackage.eINSTANCE.getClass();
-		ContentPanel cp = GuigenFactory.eINSTANCE.createContentPanel();
-		FormPanel p1 = GuigenFactory.eINSTANCE.createFormPanel();
-		cp.setPanels(p1);
-		Button b1 = GuigenFactory.eINSTANCE.createButton();
-		p1.getWidgets().add(b1);
-		EventHandler eh1 = GuigenFactory.eINSTANCE.createEventHandler();
-		b1.getEventHandlers().add(eh1);
-		ExecAction a1 = GuigenFactory.eINSTANCE.createExecAction();
-		eh1.setAction(a1);
-		
-		//ContentPanel out = findParentContentPanel(a1);
-		//System.out.println(""+out);
-		
-	    //TreeIterator<EObject> all = GuigenPackage.eINSTANCE.getWidget().;
-		//Iterator<EObject> it = all.;
-//		while(all.hasNext())
-//			System.out.println("-"+all.next());
+		MenuItem mi = GuigenFactory.eINSTANCE.createMenuItem();
+		EventHandler eh = GuigenFactory.eINSTANCE.createEventHandler();
+		mi.setEventHandler(eh);
+		ExecAction ex = GuigenFactory.eINSTANCE.createExecAction();
+		eh.setAction(ex);
+		findParentContentPanel(ex);
+		System.out.println();
 		
 	} catch (Exception e) {
 		// TODO: handle exception
