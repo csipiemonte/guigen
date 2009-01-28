@@ -571,7 +571,9 @@ public static String getAppDataPropertyName(ApplicationData ad){
 
 // [DM] verifica se l'elemento Menu ha un solo Item o no
 public static boolean hasUniqueMenuItem(Menu currMenu) {
-	return (currMenu.getItem().size() == 1 ? true : false);
+	int numItems = currMenu.getItem().size();
+	int numSubMenus = currMenu.getSubmenu().size();
+	return ((numItems == 1 && numSubMenus == 0) ? true : false);
 }
 
 /////////////////////////////////////////////

@@ -67,12 +67,8 @@
 		«ENDLET»
 		
 
-		«REM»Corpo della Pagina«ENDREM»
-		<s:form action="«getStrutsActionConfigName(this)»" method="post">
-		«LET this.panels AS currP»
-			«EXPAND genPanelSetupFunction(model, this) FOR currP»
-		«ENDLET»
-		</s:form>
+		«REM»Genera il corpo della Pagina«ENDREM»
+		«EXPAND setupContentPanel(model) FOR this»
 
 
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
@@ -86,36 +82,105 @@
 «ENDDEFINE»
 
 
-«REM»genera la funzione di setup di un singolo pannello
-e si richiama ricordivamente sui sottopannelli in modo da fare una visita
-depth first dell'albero della struttura a pannelli
-NOTA: il pannello è stato reso temporaneamente con il tag <fieldset> per rendere visivamente l'idea 
-del raggruppamento dei widget. Si può eventualmente rendere con il tag <div id="panel.«this.name»"> 
-o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
+«REM»
+==========================================================================================================================
+Gestione dei pannelli
+==========================================================================================================================
 «ENDREM»
-«DEFINE genPanelSetupFunction(GUIModel model, ContentPanel panel) FOR Panel»
+
+«REM»Genera il setup del «ENDREM»
+«DEFINE setupContentPanel(GUIModel model) FOR ContentPanel»
+<s:form action="«getStrutsActionConfigName(this)»" method="post">
+	«LET this.panels AS currP»
+		«EXPAND setupFirstLevelPanel(model, this) FOR currP»
+	«ENDLET»
+</s:form>
+«ENDDEFINE»
+
+
+«REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
+«DEFINE setupFirstLevelPanel(GUIModel model, ContentPanel panel) FOR Panel»
 <!-- Creazione del pannello «this» -->
+«EXPAND firstLevelPanelPreLayout FOR this»
+
 «IF this.metaType == FormPanel»
-	<fieldset>
-		<legend>«label.toUpperCase()»</legend>
-		«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
-		«EXPAND genPanelSetupFunction(model, panel) FOREACH ((FormPanel)this).subpanels»
-	</fieldset>
+	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
 «ELSEIF this.metaType == TabSetPanel»
-	«REM»TODO: IMPLEMENTARE«ENDREM»
+	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
 «ELSEIF this.metaType == DialogPanel»
 	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDIF»
+
+«EXPAND firstLevelPanelPostLayout FOR this»
+
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, ContentPanel panel) FOR FormPanel»
+
+	«REM»Espande i widget del FormPanel corrente«ENDREM»
 	«FOREACH this.widgets AS currWidg»
 		«EXPAND createAndAddWidgetMarkup(model, panel) FOR currWidg»
 	«ENDFOREACH»
+	
+	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
+	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform»
+		«EXPAND createAndAddSubpanel(model, panel) FOR currSubform»
+	«ENDFOREACH»
+	
 «ENDDEFINE»
 
+
+«REM»Genera un tabset panel«ENDREM»
+«DEFINE setupTabSetPanel(GUIModel model, ContentPanel panel) FOR TabSetPanel»
+	«REM»Definizione del pannello«ENDREM»
+	«EXPAND template::struts2::remoteResources::setupTabSetPanelByPortal(model) FOR this»
+
+	«REM»
+	«FOREACH this.tabs AS currTab»
+		«EXPAND createAndAddTab(model, panel) FOR this»
+	«ENDFOREACH»
+	«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Crea un sottopannello«ENDREM»
+«DEFINE createAndAddSubpanel(GUIModel model, ContentPanel panel) FOR Panel»
+<!-- Creazione del sottopannello «this» -->
+«EXPAND subPanelPreLayout FOR this»
+
+«IF this.metaType == FormPanel»
+	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
+«ELSEIF this.metaType == TabSetPanel»
+	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
+«ELSE»
+	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
+«ENDIF»
+
+«EXPAND subPanelPostLayout FOR this»
+
+«ENDDEFINE»
+
+
+«REM»Crea un tab«ENDREM»
+«DEFINE createAndAddTab(GUIModel model, ContentPanel panel) FOR Panel»
+<!-- Creazione del tab «this» -->
+«IF this.metaType == FormPanel»
+	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
+«ELSEIF this.metaType == TabSetPanel»
+	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
+«ELSE»
+	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+Gestione dei Widget
+==========================================================================================================================
+«ENDREM»
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Widget»
@@ -126,14 +191,11 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
-«REM»ABILITAZIONE: null=abilitato; true=abilitato, false=disabilitato«ENDREM»
-
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-	<s:label value="«this.label»" for="widg_«this.name»"/>
-	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" «IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
+	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
 		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
-		
-		 />
+	/>
 </s:if>
 «ENDDEFINE»
 
@@ -142,13 +204,11 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:label value="«this.label»" for="widg_«this.name»"/>
-<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
-	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
-	«IF this.rows != null»rows="«this.rows»"«ENDIF»
-	«IF this.columns != null»cols="«this.columns»"«ENDIF»
-	
-	></s:textarea>
+	<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
+		«IF this.rows != null»rows="«this.rows»"«ENDIF»
+		«IF this.columns != null»cols="«this.columns»"«ENDIF»
+		></s:textarea>
 </s:if>
 «ENDDEFINE»
 
@@ -157,11 +217,10 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:label value="«this.label»" for="widg_«this.name»"/>
-<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" list="#{«getFixedRadioButtonList(this)»}" 
-	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
-	
-	/>
+	<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
+		list="#{«getFixedRadioButtonList(this)»}" 
+		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
+		/>
 </s:if>
 «ENDDEFINE»
 
@@ -170,11 +229,9 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:label value="«this.label»" for="widg_«this.name»"/>
-<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" 
-	disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
-	
-	/>
+	<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
+		/>
 </s:if>
 «ENDDEFINE»
 
@@ -183,15 +240,13 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:label value="«this.label»" for="widg_«this.name»"/>
-<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
-          headerKey="00" headerValue="-- Selezionare un valore --"
-          list="«getOGNLForWidgetMultiValue(this)»"
-          disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
-          
-          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
-          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
-          />
+	<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+	          headerKey="00" headerValue="-- Selezionare un valore --"
+	          list="«getOGNLForWidgetMultiValue(this)»"
+	          disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
+	          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+	          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+	          />
 </s:if>
 «ENDDEFINE»
 
@@ -200,7 +255,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
+	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -209,7 +264,7 @@ o con altri tag HTML (<div>, <span>) a seconda delle richieste di Comunicazione.
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"/>
+	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"/>
 </s:if>
 «ENDDEFINE»
 
@@ -219,7 +274,7 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
+	<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
@@ -257,4 +312,61 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 </display:table>
 </s:if>
 «ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT
+==========================================================================================================================
+«ENDREM»
+
+«REM»comment«ENDREM»
+«DEFINE firstLevelPanelPreLayout FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout»
+	<h3>«this.label.toUpperCase()»</h3>
+	<table>
+«ELSE»
+	<fieldset>
+		<legend>«this.label.toUpperCase()»</legend>
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE firstLevelPanelPostLayout FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout»
+	</table>
+«ELSE»
+	</fieldset>
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE subPanelPreLayout FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout»
+	<h4>«this.label.toUpperCase()»</h4>
+	<table>
+«ELSE»
+	<fieldset>
+		<legend>«this.label.toUpperCase()»</legend>
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE subPanelPostLayout FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout»
+	</table>
+«ELSE»
+	</fieldset>
+«ENDIF»
+«ENDDEFINE»
+
+
+
+
+
+
+
 

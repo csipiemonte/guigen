@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="testrupar" codComponente="testbindingrupar" versioneProdotto="1.0.0" versioneComponente="1.0.0" portale="INTRANET_RUPARPIEMONTE">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header/>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnuAnagrafica" label="Gestione Anagrafiche">
+            <item name="mnuItmAnagrafica" label="Gestiona Anagrafiche">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+          <topLevelMenu name="mnuAziende" label="Gestione Aziende">
+            <item name="mnuItmRicercaAziende" label="Ricerca Aziende">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+              </eventHandler>
+            </item>
+            <item name="smnuItm22" label="Item 2.2">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+              </eventHandler>
+            </item>
+            <item name="smnuItm23" label="Item 2.3">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+        </menubar>
+        <contentPanels name="cpRicercaPersona" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale:" dataType="//@typedefs/@types.7" fieldLength="20"/>
+            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
+              <eventHandlers>
+                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
+                  <results resultCode="FOUND_MANY">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                  </results>
+                  <results resultCode="FOUND_ONE">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  </results>
+                  <results resultCode="FOUND_NONE">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </results>
+                </action>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
+              <eventHandlers>
+                <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
+                  <results resultCode="OK">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </results>
+                </action>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpListaPersone" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pListaRisultati" label="Lista risultati">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.7" keySelector="cognome" valueSelector="toString()">
+              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
+              <eventHandlers>
+                <action xsi:type="guigen:ExecAction" methodName="caricaDettaglioSoggetto">
+                  <results resultCode="OK">
+                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  </results>
+                </action>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.26">
+              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+              <columnModel>
+                <columns selector="nome" label="Nome"/>
+                <columns selector="cognome" label="Cognome" sortable="true"/>
+                <columns selector="codFisc" label="Codice Fiscale"/>
+              </columnModel>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpEditPersona" appData="//@appDataDefs/@appData.1">
+          <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Dettaglio soggetto">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="spDatiAnagrafici" label="Dati Anagrafici">
+              <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="" dataType="//@typedefs/@types.7" fieldLength="16">
+                <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50">
+                <databinding appData="//@appDataDefs/@appData.1" path="nome"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="50">
+                <databinding appData="//@appDataDefs/@appData.1" path="cognome"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="eta" label="Eta" dataType="//@typedefs/@types.0">
+                <databinding appData="//@appDataDefs/@appData.1" path="eta"/>
+              </widgets>
+              <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.1" path="sex"/>
+                <radio name="rbSexM" label="M"/>
+                <radio name="rbSexF" label="F"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="spIndirizzo" label="Indirizzo">
+              <widgets xsi:type="guigen:TextField" name="comune" label="Comune" dataType="//@typedefs/@types.7" fieldLength="50">
+                <databinding appData="//@appDataDefs/@appData.1" path="residenza.comune"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="via" label="Via" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.1" path="residenza.via"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="numCiv" label="Numero civico" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.1" path="residenza.numCiv"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="spButtons">
+              <widgets xsi:type="guigen:ConfirmButton" name="bSalvaModifiche" label="Salva Modifiche">
+                <eventHandlers>
+                  <action xsi:type="guigen:ExecAction" methodName="salvaModifichePersona" postExecData="//@appDataDefs/@appData.1">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bGotoRicerca" label="Altra ricerca">
+                <eventHandlers>
+                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpRicercaAzienda">
+          <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Ricerca Azienda">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <widgets xsi:type="guigen:TextField" name="tfRagioneSociale" label="Ragione Sociale:" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Ricerca">
+              <eventHandlers>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpAzienda2">
+          <panels xsi:type="guigen:FormPanel" name="pAzienda2" label="Azienda2">
+            <widgets xsi:type="guigen:TextField" name="tfAz2" label="Azienda 2:" dataType="//@typedefs/@types.7"/>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpAzienda3">
+          <panels xsi:type="guigen:FormPanel" name="pAzienda3" label="Azienda 3">
+            <widgets xsi:type="guigen:TextArea" name="taAz3" label="Azienda 3:" dataType="//@typedefs/@types.7" columns="50"/>
+          </panels>
+        </contentPanels>
+        <staticLinks/>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:ComplexType" name="Persona">
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="eta" type="//@typedefs/@types.0"/>
+      <fields name="sesso" type="//@typedefs/@types.7"/>
+      <fields name="residenza" type="//@typedefs/@types.28"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
+    <types xsi:type="guigen:ComplexType" name="Indirizzo">
+      <fields name="comune" type="//@typedefs/@types.7"/>
+      <fields name="via" type="//@typedefs/@types.7"/>
+      <fields name="numCiv" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@types.28"/>
+  </typedefs>
+  <appDataDefs>
+    <appData name="personeTrovate" type="//@typedefs/@types.27"/>
+    <appData name="dettaglioPersona" type="//@typedefs/@types.26"/>
+  </appDataDefs>
+</guigen:GUIModel>

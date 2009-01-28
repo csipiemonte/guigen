@@ -75,10 +75,24 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ENDDEFINE»
 
 
+«DEFINE setupTabSetPanelByPortal(GUIModel model) FOR TabSetPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+	«EXPAND setupTabSetPanelRupar(model) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+	«EXPAND setupTabSetPanelSistemaPiemonte(model) FOR this»
+«ELSE»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF»
+«ENDDEFINE»
+
 
 «REM»
 ==========================================================================================================================
 Markup HTML per RUPAR
+Riferimenti:  
+    - Repository RuparPiemonte (http://andromeda.csi.it:9053/sandbox/template/repository/)
+	- Pattern RuparPiemonte (http://andromeda.csi.it:9053/sandbox/template/repository/patterns/index.shtml)
+	- Reference implementation su Efesto (http://crizia.csi.it:10317/refimpl/login/welcome.do)
 ==========================================================================================================================
 «ENDREM»
 
@@ -214,17 +228,18 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 	«ENDIF»
 	«ENDLET»
 «ELSE»
-	<li><a href="#">«tlmenu.label»</a></li>
-	<ul class="menuTendina">
-		«FOREACH tlmenu.item AS currMenuItem»
-		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-		«LET currMenuItem.eventHandler.action AS currAction»
-		<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-		<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-		«ENDLET»
-		«ENDIF»
-		«ENDFOREACH»
-	</ul>	
+	<li><a href="#">«tlmenu.label»</a>
+		<ul>
+			«FOREACH tlmenu.item AS currMenuItem»
+			«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+			«LET currMenuItem.eventHandler.action AS currAction»
+			<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
+			<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
+			«ENDLET»
+			«ENDIF»
+			«ENDFOREACH»
+		</ul>
+	</li>
 «ENDIF»
 «ENDFOREACH»
 </ul>
@@ -252,9 +267,20 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ENDDEFINE»
 
 
+«REM»TODO: come faccio a riconoscere il tab attivo?«ENDREM»
+«DEFINE setupTabSetPanelRupar(GUIModel model) FOR TabSetPanel»
+	«FOREACH this.tabs AS currTab»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+
 «REM»
 ==========================================================================================================================
 Markup HTML per SISTEMA PIEMONTE
+Riferimenti:
+	- Pattern Sistema Piemonte (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/index.shtml)
+	- Reference implementation su Efesto ()
 ==========================================================================================================================
 «ENDREM»
 
@@ -274,7 +300,10 @@ Markup HTML per SISTEMA PIEMONTE
 		<meta name="author" content="CSI-Piemonte" />
 		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
 		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+		
 		<link type="text/css" href="<%=request.getContextPath()%>/css/generaliV3/templateBase/indiceTemplate.css" rel="stylesheet" media="screen" />
+		
+		<script src="<%=request.getContextPath()%>/js/generaliV3/jquery/jqsisp-0.9.pack.js" type="text/javascript"></script>
 <!--/head -->
 
 		<!-- [DM] esportazione stili proprietari -->
@@ -321,7 +350,7 @@ Markup HTML per SISTEMA PIEMONTE
 				
 				<div id="menuDiServizio">
 				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
-				TODO: verificare cosa siano realmente e dove vadano questi link statici«ENDREM»
+				TODO: verificare cosa siano realmente e come vadano implementati«ENDREM»
 				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
 				«IF staticLinks != null»
 					«EXPAND getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR staticLinks»
@@ -414,7 +443,7 @@ Markup HTML per SISTEMA PIEMONTE
 
 
 «REM»Genera la componente di markup (HTML) deli LINK STATICI. 
-TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 <p class="navigazionePagina">
 	Sistema piemonte - menu di navigazione
@@ -430,35 +459,73 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«REM»Genera la componente di markup (HTML) della MENUBAR.
+TODO: come faccio a sapere qual'è il menu attivo?
+NOTE IMPLEMENTATIVE: E' stato utilizzato il pattern menu (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/menu.shtml). 
+Questo pattern prevede due possibilità: 
+- menu "cavalieri" con struttura già espansa (non richiede JavaScript): quattro livelli
+- menu "dropDown) con struttura espandibile (richiede JavaScript): due livelli?
+Si è scelta l'opzione "cavalieri" in quanto non richiede nè JavaScript nè indicatori sequenziali per le voci di menu. 
+Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un check in fase di generazione del codice 
+(o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello, 
+e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di link.
+«ENDREM»
 «DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <ul class="menuCavalieri">
 «FOREACH this.topLevelMenu AS tlmenu»
 «IF hasUniqueMenuItem(tlmenu)»
-	«LET tlmenu.item.first() AS currMenuItem»
-	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-	«LET currMenuItem.eventHandler.action AS currAction»
-	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-	«ENDLET»
-	«ENDIF»
-	«ENDLET»
+	«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
+	<!-- ESPANDO SOTTOMENU CON UN SOLO ITEM «this» -->
+	«EXPAND getMenuItemMarkupSistemaPiemonte FOR tlmenu.item.first()»
 «ELSE»
-	<li><a href="#">«tlmenu.label»</a></li>
+<li class="sottomenu">«tlmenu.label»
 	<ul>
-		«FOREACH tlmenu.item AS currMenuItem»
-		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-		«LET currMenuItem.eventHandler.action AS currAction»
-		<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-		<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-		«ENDLET»
-		«ENDIF»
-		«ENDFOREACH»
-	</ul>	
+	«REM»Espando gli Item«ENDREM»
+	«FOREACH tlmenu.item AS currMenuItem»
+		«EXPAND getMenuItemMarkupSistemaPiemonte FOR currMenuItem»
+	«ENDFOREACH»
+
+	«REM»Espando i sottomenu«ENDREM»
+	«FOREACH tlmenu.submenu AS currSubMenu»
+		«EXPAND getSubMenuMarkupSistemaPiemonte FOR currSubMenu»
+	«ENDFOREACH»
+	</ul>
+</li>
 «ENDIF»
 «ENDFOREACH»
 </ul>
 «ENDDEFINE»
+
+«REM»Genera un MenuItem«ENDREM»
+«DEFINE getMenuItemMarkupSistemaPiemonte FOR MenuItem»
+«IF this.eventHandler.eventType == EventTypes::CLICKED»
+	«LET this.eventHandler.action AS currAction»
+	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	<li><s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu.items.«this.name»">«this.label»</s:a></li>
+	«ENDLET»
+«ELSE»
+	<li>«this.label»</li>
+«ENDIF»
+«ENDDEFINE»
+
+«REM»Genera un sottoMenu«ENDREM»
+«DEFINE getSubMenuMarkupSistemaPiemonte FOR Menu»
+<li class="sottomenu">«this.label»
+	<ul>
+	
+	«REM»Espando gli Item«ENDREM»
+	«FOREACH this.item AS currMenuItem»
+		«EXPAND getMenuItemMarkupSistemaPiemonte FOR currMenuItem»
+	«ENDFOREACH»
+
+	«REM»Espando i sottomenu«ENDREM»
+	«FOREACH this.submenu AS currSubMenu»
+		«EXPAND getSubMenuMarkupSistemaPiemonte FOR currSubMenu»
+	«ENDFOREACH»
+	</ul>
+</li>
+«ENDDEFINE»
+
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
@@ -493,4 +560,14 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 
 	</body>
 </html>
+«ENDDEFINE»
+
+
+«REM»TODO: come faccio a riconoscere il tab attivo?«ENDREM»
+«DEFINE setupTabSetPanelSistemaPiemonte(GUIModel model) FOR TabSetPanel»
+	<div class="conthTab">
+	«FOREACH this.tabs AS currTab»
+		<div class="tab3"><a href="#">«currTab.label»</a></div>
+	«ENDFOREACH»
+	</div>
 «ENDDEFINE»
