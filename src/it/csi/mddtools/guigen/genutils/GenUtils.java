@@ -377,6 +377,11 @@ public static List<MenuItem> getAllEventSourceMenuItems(Menu m){
 			result.add(currMI);
 	}
 	// TODO aggiungere i submenu...
+	Iterator<Menu> it_sm = m.getSubmenu().iterator();
+	while(it_sm.hasNext()){
+		Menu currSM = it_sm.next();
+		result.addAll(getAllEventSourceMenuItems(currSM));
+	}
 	return result;
 }
 
@@ -574,6 +579,18 @@ public static boolean hasUniqueMenuItem(Menu currMenu) {
 	int numItems = currMenu.getItem().size();
 	int numSubMenus = currMenu.getSubmenu().size();
 	return ((numItems == 1 && numSubMenus == 0) ? true : false);
+}
+
+public static List<MenuItem> getAllMenuItemRecursive(Menu m){
+	List<MenuItem> result = new ArrayList<MenuItem>();
+	result.addAll(m.getItem());
+	Iterator<Menu> it_sm = m.getSubmenu().iterator();
+	while(it_sm.hasNext()){
+		Menu currSM = it_sm.next();
+		List<MenuItem> currSMI = getAllMenuItemRecursive(currSM);
+		result.addAll(currSMI);
+	}
+	return result;
 }
 
 /////////////////////////////////////////////

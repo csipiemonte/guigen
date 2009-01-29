@@ -150,14 +150,14 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	}
 
 	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
-	«FOREACH tlmenu.item AS currMenuItem»
-	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-	«LET currMenuItem.eventHandler.action AS currAction»
+	«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
+	«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
+	«LET ((MenuItem)currMenuItem).eventHandler.action AS currAction»
 	/**
 	 * 
 	 * @return SUCCESS result.
 	 */
-	public String goTo«currMenuItem.name.toFirstUpper()»() {
+	public String goTo«((MenuItem)currMenuItem).name.toFirstUpper()»() {
 	//dumpModel(true); // TODO mettere solo se log=debug
 	    
 		// gestione degli eventi di tipo CLICKED
