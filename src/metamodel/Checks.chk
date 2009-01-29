@@ -42,6 +42,13 @@ context FormPanel ERROR "E'necessario impostare lo specificatore del layout NSEW
 
 context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 	this.tabs.size>0;
+
+///// Validazioni su struttura menu
+context Menu ERROR "Un menu deve avere almeno un menu item" :
+	this.item!=null && this.item.size>0;
+
+context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo" :
+	this.eventHandler!=null; 	
 	
 ///// Validazione su widget
 
