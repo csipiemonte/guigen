@@ -168,10 +168,12 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		if(result != null) {
 			//dumpModel(false);
 			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+			setActiveMenu("«((MenuItem)currMenuItem).name»");
 			return result;
 		} else {
 			//dumpModel(false);
 			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			setActiveMenu("«((MenuItem)currMenuItem).name»");
 			return SUCCESS;
 		}
 		
@@ -184,6 +186,12 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	«ENDFOREACH»
 	«ENDFOREACH»
 
+    public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
+    
+	public void setActiveMenu(String menuName){
+		session.put(ACTIVE_MENU_ATTRNAME, "menu.items."+menuName);
+	}
+	
     «EXPAND actionImplJavaFiles::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
 }
 «ENDFILE»
