@@ -15,13 +15,13 @@ Definizione generale
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND getHeaderMarkupRupar(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND getHeaderMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
-«ELSE»
+«ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
-«ENDIF»
+«ENDIF-»
 
 «ENDFILE»
 «ENDDEFINE»
@@ -31,13 +31,13 @@ Definizione generale
 TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
-«ELSE»
+«ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
-«ENDIF»
+«ENDIF-»
 
 «ENDDEFINE»
 
@@ -46,13 +46,13 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
 
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND getMenubarMarkupRupar(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND getMenubarMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
-«ELSE»
+«ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
-«ENDIF»
+«ENDIF-»
 
 «ENDFILE»
 «ENDDEFINE»
@@ -63,26 +63,26 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND getFooterMarkupRupar(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND getFooterMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
-«ELSE»
+«ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
-«ENDIF»
+«ENDIF-»
 
 «ENDFILE»
 «ENDDEFINE»
 
 
 «DEFINE setupTabSetPanelByPortal(GUIModel model) FOR TabSetPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND setupTabSetPanelRupar(model) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND setupTabSetPanelSistemaPiemonte(model) FOR this»
-«ELSE»
+«ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -176,22 +176,22 @@ Riferimenti:
 				
 				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
 				TODO: verificare dove vanno questi link statici
-				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
-				«IF staticLinks != null»
+				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks-»
+				«IF staticLinks != null-»
 				«EXPAND getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR staticLinks»
-				«ENDIF»
-				«ENDLET»
+				«ENDIF-»
+				«ENDLET-»
 				«ENDREM»
 	
 				<!-- MENU' DI NAVIGAZIONE -->
 				<div id="titoloEmenu">
 					<div id="menuDiNavigazione">
 				«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-				«LET model.structure.appWindow.appArea.menubar AS menubar»
-				«IF menubar != null»
+				«LET model.structure.appWindow.appArea.menubar AS menubar-»
+				«IF menubar != null-»
 				<s:include value="menu.jsp" ></s:include>
-				«ENDIF»		
-				«ENDLET»
+				«ENDIF-»		
+				«ENDLET-»
 					</div>
 				</div>
 				<!-- FINE MENU' DI NAVIGAZIONE -->
@@ -217,31 +217,31 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <ul class="menuTendina">
-«FOREACH this.topLevelMenu AS tlmenu»
-«IF hasUniqueMenuItem(tlmenu)»
-	«LET tlmenu.item.first() AS currMenuItem»
-	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-	«LET currMenuItem.eventHandler.action AS currAction»
+«FOREACH this.topLevelMenu AS tlmenu-»
+«IF hasUniqueMenuItem(tlmenu)-»
+	«LET tlmenu.item.first() AS currMenuItem-»
+	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
+	«LET currMenuItem.eventHandler.action AS currAction-»
 	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
 	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-	«ENDLET»
-	«ENDIF»
-	«ENDLET»
-«ELSE»
+	«ENDLET-»
+	«ENDIF-»
+	«ENDLET-»
+«ELSE-»
 	<li><a href="#">«tlmenu.label»</a>
 		<ul>
-			«FOREACH tlmenu.item AS currMenuItem»
-			«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-			«LET currMenuItem.eventHandler.action AS currAction»
+			«FOREACH tlmenu.item AS currMenuItem-»
+			«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
+			«LET currMenuItem.eventHandler.action AS currAction-»
 			<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
 			<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-			«ENDLET»
-			«ENDIF»
-			«ENDFOREACH»
+			«ENDLET-»
+			«ENDIF-»
+			«ENDFOREACH-»
 		</ul>
 	</li>
-«ENDIF»
-«ENDFOREACH»
+«ENDIF-»
+«ENDFOREACH-»
 </ul>
 «ENDDEFINE»
 
@@ -269,8 +269,8 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 
 «REM»TODO: come faccio a riconoscere il tab attivo?«ENDREM»
 «DEFINE setupTabSetPanelRupar(GUIModel model) FOR TabSetPanel»
-	«FOREACH this.tabs AS currTab»
-	«ENDFOREACH»
+	«FOREACH this.tabs AS currTab-»
+	«ENDFOREACH-»
 «ENDDEFINE»
 
 
@@ -351,11 +351,11 @@ Riferimenti:
 				<div id="menuDiServizio">
 				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
 				TODO: verificare cosa siano realmente e come vadano implementati«ENDREM»
-				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks»
-				«IF staticLinks != null»
+				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks-»
+				«IF staticLinks != null-»
 					«EXPAND getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR staticLinks»
-				«ENDIF»
-				«ENDLET»
+				«ENDIF-»
+				«ENDLET-»
 				</div>
 				
 				<noscript>
@@ -419,11 +419,11 @@ Riferimenti:
 						<div id="colonnaSinistra">
 							<div id="menuDiNavigazioneSisp2">
 								«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-								«LET model.structure.appWindow.appArea.menubar AS menubar»
-								«IF menubar != null»
+								«LET model.structure.appWindow.appArea.menubar AS menubar-»
+								«IF menubar != null-»
 									<s:include value="menu.jsp"></s:include>
-								«ENDIF»		
-								«ENDLET»
+								«ENDIF-»		
+								«ENDLET-»
 							</div>
 						</div>
 						<!-- FINE COLONNA SX -->
@@ -472,59 +472,79 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «ENDREM»
 «DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <ul class="menuCavalieri">
-«FOREACH this.topLevelMenu AS tlmenu»
-«IF hasUniqueMenuItem(tlmenu)»
+«LET 1 AS level -»
+«FOREACH this.topLevelMenu AS tlmenu -»
+«IF hasUniqueMenuItem(tlmenu)-»
 	«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
-	<!-- ESPANDO SOTTOMENU CON UN SOLO ITEM «this» -->
-	«EXPAND getMenuItemMarkupSistemaPiemonte FOR tlmenu.item.first()»
-«ELSE»
+	«EXPAND getMenuItemMarkupSistemaPiemonte(level) FOR tlmenu.item.first() -»
+«ELSE-»
 <li class="sottomenu">«tlmenu.label»
 	<ul>
 	«REM»Espando gli Item«ENDREM»
-	«FOREACH tlmenu.item AS currMenuItem»
-		«EXPAND getMenuItemMarkupSistemaPiemonte FOR currMenuItem»
-	«ENDFOREACH»
+	«FOREACH tlmenu.item AS currMenuItem-»
+		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem -»
+	«ENDFOREACH-»
 
 	«REM»Espando i sottomenu«ENDREM»
-	«FOREACH tlmenu.submenu AS currSubMenu»
-		«EXPAND getSubMenuMarkupSistemaPiemonte FOR currSubMenu»
-	«ENDFOREACH»
+	«FOREACH tlmenu.submenu AS currSubMenu-»
+		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu»
+	«ENDFOREACH-»
 	</ul>
 </li>
-«ENDIF»
-«ENDFOREACH»
+«ENDIF-»
+«ENDFOREACH-»
+«ENDLET-»
 </ul>
 «ENDDEFINE»
 
 «REM»Genera un MenuItem«ENDREM»
-«DEFINE getMenuItemMarkupSistemaPiemonte FOR MenuItem»
-«IF this.eventHandler.eventType == EventTypes::CLICKED»
-	«LET this.eventHandler.action AS currAction»
+«DEFINE getMenuItemMarkupSistemaPiemonte(int level) FOR MenuItem -»
+«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+	«LET this.eventHandler.action AS currAction-»
 	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-	<li><s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu.items.«this.name»">«this.label»</s:a></li>
-	«ENDLET»
-«ELSE»
+	<li «EXPAND getMenuItemCssSistemaPiemonte(level) FOR this -»>
+		<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">«this.label»</s:a>
+	</li>
+	«ENDLET-»
+«ELSE-»
 	<li>«this.label»</li>
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera un sottoMenu«ENDREM»
-«DEFINE getSubMenuMarkupSistemaPiemonte FOR Menu»
+«DEFINE getSubMenuMarkupSistemaPiemonte(int level) FOR Menu»
 <li class="sottomenu">«this.label»
 	<ul>
 	
 	«REM»Espando gli Item«ENDREM»
-	«FOREACH this.item AS currMenuItem»
-		«EXPAND getMenuItemMarkupSistemaPiemonte FOR currMenuItem»
-	«ENDFOREACH»
+	«FOREACH this.item AS currMenuItem-»
+		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem»
+	«ENDFOREACH-»
 
 	«REM»Espando i sottomenu«ENDREM»
-	«FOREACH this.submenu AS currSubMenu»
-		«EXPAND getSubMenuMarkupSistemaPiemonte FOR currSubMenu»
-	«ENDFOREACH»
+	«FOREACH this.submenu AS currSubMenu-»
+		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu»
+	«ENDFOREACH-»
 	</ul>
 </li>
 «ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE getMenuItemCssSistemaPiemonte(int level) FOR MenuItem -»
+«IF level == 1 -»
+class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo' : ''}" />"
+«ELSEIF level == 2 -»
+class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'sottomenuOn' : ''}" />"
+«ELSEIF level == 3 -»
+class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo3liv' : ''}" />"
+«ELSEIF level == 4 -»
+class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo4liv' : ''}" />"
+«ELSE -»
+«REM»vengono gestiti solo 4 livelli«ENDREM»
+«ENDIF -»
+«ENDDEFINE»
+
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
@@ -563,11 +583,21 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «ENDDEFINE»
 
 
-«REM»TODO: come faccio a riconoscere il tab attivo?«ENDREM»
+«REM»
+TODO: 
+1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
+     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
+     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
+2. Come si fa a riconoscere il tab attivo?
+3. Come si può implementare il meccanismo di cambio tab? (va fatto sulla classe Java della Action)
+«ENDREM»
 «DEFINE setupTabSetPanelSistemaPiemonte(GUIModel model) FOR TabSetPanel»
 	<div class="conthTab">
-	«FOREACH this.tabs AS currTab»
-		<div class="tab3"><a href="#">«currTab.label»</a></div>
-	«ENDFOREACH»
+	«FOREACH this.tabs AS currTab ITERATOR i-»
+		«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+		«LET i.lastIteration ? "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
+		<div class="«tabStyle»"><a href="#">«currTab.label»</a></div>
+		«ENDLET-»
+	«ENDFOREACH-»
 	</div>
 «ENDDEFINE»

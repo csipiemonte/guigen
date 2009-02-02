@@ -60,23 +60,23 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET model.structure.appWindow.header AS header»
-		«IF header != null»
+		«LET model.structure.appWindow.header AS header-»
+		«IF header != null-»
 		<s:include value="fragments/header.jsp" ></s:include>
-		«ENDIF»
-		«ENDLET»
+		«ENDIF-»
+		«ENDLET-»
 		
 
 		«REM»Genera il corpo della Pagina«ENDREM»
-		«EXPAND setupContentPanel(model) FOR this»
+		«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
 
 
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET model.structure.appWindow.footer AS footer»
-		«IF footer != null»
+		«LET model.structure.appWindow.footer AS footer-»
+		«IF footer != null-»
 		<s:include value="fragments/footer.jsp" ></s:include>
-		«ENDIF»
-		«ENDLET»
+		«ENDIF-»
+		«ENDLET-»
 
 «ENDFILE»
 «ENDDEFINE»
@@ -89,27 +89,27 @@ Gestione dei pannelli
 «ENDREM»
 
 «REM»Genera il setup del «ENDREM»
-«DEFINE setupContentPanel(GUIModel model) FOR ContentPanel»
+«DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 <s:form action="«getStrutsActionConfigName(this)»" method="post">
-	«LET this.panels AS currP»
-		«EXPAND setupFirstLevelPanel(model, this) FOR currP»
-	«ENDLET»
+	«LET this.panels AS currP-»
+		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
+	«ENDLET-»
 </s:form>
 «ENDDEFINE»
 
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«DEFINE setupFirstLevelPanel(GUIModel model, ContentPanel panel) FOR Panel»
+«DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
 <!-- Creazione del pannello «this» -->
 «EXPAND firstLevelPanelPreLayout FOR this»
 
-«IF this.metaType == FormPanel»
-	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
-«ELSEIF this.metaType == TabSetPanel»
-	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
-«ELSEIF this.metaType == DialogPanel»
+«IF this.metaType == FormPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+«ELSEIF this.metaType == TabSetPanel-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+«ELSEIF this.metaType == DialogPanel-»
 	«REM»TODO: IMPLEMENTARE«ENDREM»
-«ENDIF»
+«ENDIF-»
 
 «EXPAND firstLevelPanelPostLayout FOR this»
 
@@ -117,63 +117,109 @@ Gestione dei pannelli
 
 
 «REM»comment«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, ContentPanel panel) FOR FormPanel»
+«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR FormPanel»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
-	«FOREACH this.widgets AS currWidg»
+	«FOREACH this.widgets AS currWidg-»
 		«EXPAND createAndAddWidgetMarkup(model, panel) FOR currWidg»
-	«ENDFOREACH»
+	«ENDFOREACH-»
 	
 	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
-	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform»
-		«EXPAND createAndAddSubpanel(model, panel) FOR currSubform»
-	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
+		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, panel) FOR currSubform»
+	«ENDFOREACH-»
 	
 «ENDDEFINE»
 
 
-«REM»Genera un tabset panel«ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, ContentPanel panel) FOR TabSetPanel»
+«REM»
+Genera un tabset panel
+TODO: 
+1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
+     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
+     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
+2. come si implementano i singoli tab del tabbed panel?
+     - pagine jsp separate incluse a runtime?
+     - layer (<div>)?
+   Ricordarsi che il tipo di implementazione incide anche sul passaggio dei dati al submit del form.
+3. Come si implementa l'azione di cambio tab? 
+     Nel caso di pagine separate deve essere prevista nella Action (file Java) un nuovo tipo di azione (command) 
+     da inserire automaticamente nel caso il ContentPanel contenga uno o più TabbedPanel che preveda il settaggio 
+     del tab selezionato come attivo e il ricaricamento della pagina (jump action su se stessa) 
+     in modo da visualizzare il tab selezionato. 
+     Nel caso di implementazione a layer, lazione è da realizzare via Javascript. 
+     Ricordarsi che a seconda dell'implementazione scelta per i tab, 
+     può essere necessario una memorizzazione dei dati delle form.
+4. Come si riconosce il tab attivo? 
+     Come per il menu attivo, si potrebbe ipotizzare di salvare da qualche parte il tab attivo 
+     per poi utilizzare dinamicamente a runtime l'informazione sulla JSP via OGNL. 
+     Bisogna determinare lo scope di questa informazione (session, Action, page,...).
+5. I tabbed panels possono essere annidati: un sottopannello di un tab può essere a sua volta un tabbed panel, 
+     quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare 
+     dannose sovrapposizioni di nomi (i nomi dei componenti sono univoci a livello di ContentPanel?).
+«ENDREM»
+«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR TabSetPanel»
+	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.tabs.first().name»'}" />
+	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+	
 	«REM»Definizione del pannello«ENDREM»
 	«EXPAND template::struts2::remoteResources::setupTabSetPanelByPortal(model) FOR this»
 
-	«REM»
-	«FOREACH this.tabs AS currTab»
-		«EXPAND createAndAddTab(model, panel) FOR this»
-	«ENDFOREACH»
-	«ENDREM»
+	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
+	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
+	«FOREACH this.tabs AS currTab -»
+		«EXPAND createAndAddTab(model, skip_component_dir_creation, panel, this) FOR currTab-»
+		«EXPAND createTabIncludeDirective(model, panel, this) FOR currTab»
+	«ENDFOREACH-»
+	
 «ENDDEFINE»
 
 
 «REM»Crea un sottopannello«ENDREM»
-«DEFINE createAndAddSubpanel(GUIModel model, ContentPanel panel) FOR Panel»
+«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
 <!-- Creazione del sottopannello «this» -->
-«EXPAND subPanelPreLayout FOR this»
+«EXPAND subPanelPreLayout FOR this-»
 
-«IF this.metaType == FormPanel»
-	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
-«ELSEIF this.metaType == TabSetPanel»
-	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
-«ELSE»
+«IF this.metaType == FormPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+«ELSEIF this.metaType == TabSetPanel-»
+	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+«ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
-«ENDIF»
+«ENDIF-»
 
-«EXPAND subPanelPostLayout FOR this»
+«EXPAND subPanelPostLayout FOR this-»
 
 «ENDDEFINE»
 
 
-«REM»Crea un tab«ENDREM»
-«DEFINE createAndAddTab(GUIModel model, ContentPanel panel) FOR Panel»
+«REM»Crea i files per ogni singolo tab«ENDREM»
+«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel, TabSetPanel tabPanel) FOR Panel»
+«FILE getJspTabsMarkupDir(model, skip_component_dir_creation)+"/"+tabPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+
 <!-- Creazione del tab «this» -->
-«IF this.metaType == FormPanel»
-	«EXPAND setupFormPanel(model, panel) FOR (FormPanel)this»
-«ELSEIF this.metaType == TabSetPanel»
-	«EXPAND setupTabSetPanel(model, panel) FOR (TabSetPanel)this»
-«ELSE»
+«IF this.metaType == FormPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+«ELSEIF this.metaType == TabSetPanel-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+«ELSE-»
 	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
-«ENDIF»
+«ENDIF-»
+«ENDFILE»
 «ENDDEFINE»
+
+
+«REM»la direttiva di include per ogni file che rappresenta un Tab«ENDREM»
+«DEFINE createTabIncludeDirective(GUIModel model, ContentPanel panel, TabSetPanel tabPanel) FOR Panel»
+<s:if test="%{#«tabPanel.name»_selectedTab == '«tabPanel.name+"_"+this.name»'}">
+	<s:include value="«getJspTabsConfig()+"/"+tabPanel.name+"_"+this.name+".jsp"»" ></s:include>
+</s:if>
+«ENDDEFINE»
+
+
+
 
 
 «REM»
@@ -304,11 +350,11 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
                cellspacing="0" 
                keepStatus="true" 
                clearStatus="false">
-	«LET this.columnModel AS tabColMod»
-		«FOREACH tabColMod.columns AS currCol»
+	«LET this.columnModel AS tabColMod-»
+		«FOREACH tabColMod.columns AS currCol-»
 		<display:column property="«currCol.selector»" title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable" />
-		«ENDFOREACH»
-	«ENDLET»
+		«ENDFOREACH-»
+	«ENDLET-»
 </display:table>
 </s:if>
 «ENDDEFINE»
@@ -322,45 +368,45 @@ Gestione dei LAYOUT
 
 «REM»comment«ENDREM»
 «DEFINE firstLevelPanelPreLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
 	<h3>«this.label.toUpperCase()»</h3>
 	<table>
-«ELSE»
+«ELSE-»
 	<fieldset>
 		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
 «DEFINE firstLevelPanelPostLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
 	</table>
-«ELSE»
+«ELSE-»
 	</fieldset>
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
 «DEFINE subPanelPreLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
 	<h4>«this.label.toUpperCase()»</h4>
 	<table>
-«ELSE»
+«ELSE-»
 	<fieldset>
 		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
 «DEFINE subPanelPostLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
 	</table>
-«ELSE»
+«ELSE-»
 	</fieldset>
-«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 

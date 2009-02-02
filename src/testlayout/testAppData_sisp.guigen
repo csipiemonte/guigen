@@ -19,14 +19,21 @@
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
               </eventHandler>
             </item>
-            <item name="smnuItm22" label="Item 2.2">
+            <item name="mnuItm22" label="Item 2.2">
               <eventHandler>
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
               </eventHandler>
             </item>
-            <item name="smnuItm23" label="Item 2.3">
+            <item name="mnuItm23" label="Item 2.3">
               <eventHandler>
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+          <topLevelMenu name="mnuTab" label="Tab Examples">
+            <item name="mnuItmTab" label="Tab Example 1">
+              <eventHandler>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -34,9 +41,9 @@
         <contentPanels name="cpRicercaPersona" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale:" dataType="//@typedefs/@types.7" fieldLength="20"/>
+            <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.7" fieldLength="20"/>
             <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50"/>
-            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50"/>
             <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
               <eventHandlers>
                 <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
@@ -99,7 +106,7 @@
               <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50">
                 <databinding appData="//@appDataDefs/@appData.1" path="nome"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="50">
+              <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50">
                 <databinding appData="//@appDataDefs/@appData.1" path="cognome"/>
               </widgets>
               <widgets xsi:type="guigen:TextField" name="eta" label="Eta" dataType="//@typedefs/@types.0">
@@ -145,7 +152,7 @@
         <contentPanels name="cpRicercaAzienda">
           <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Ricerca Azienda">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <widgets xsi:type="guigen:TextField" name="tfRagioneSociale" label="Ragione Sociale:" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            <widgets xsi:type="guigen:TextField" name="tfRagioneSociale" label="Ragione Sociale" dataType="//@typedefs/@types.7" fieldLength="50"/>
             <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Ricerca">
               <eventHandlers>
                 <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
@@ -156,19 +163,22 @@
         <contentPanels name="cpAzienda2">
           <panels xsi:type="guigen:FormPanel" name="pAzienda2" label="Azienda2">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <widgets xsi:type="guigen:TextField" name="tfAz2" label="Azienda 2:" dataType="//@typedefs/@types.7"/>
+            <widgets xsi:type="guigen:TextField" name="tfAz2" label="Azienda 2" dataType="//@typedefs/@types.7"/>
           </panels>
         </contentPanels>
         <contentPanels name="cpAzienda3">
           <panels xsi:type="guigen:FormPanel" name="pAzienda3" label="Azienda 3">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <widgets xsi:type="guigen:TextArea" name="taAz3" label="Azienda 3:" dataType="//@typedefs/@types.7" columns="50"/>
+            <widgets xsi:type="guigen:TextArea" name="taAz3" label="Azienda 3" dataType="//@typedefs/@types.7" columns="50"/>
           </panels>
         </contentPanels>
         <contentPanels name="cpTabset1">
           <panels xsi:type="guigen:TabSetPanel" name="tspTabSetPanel1" label="Tabset Panel 1">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <tabs xsi:type="guigen:FormPanel" name="tab1" label="Tab 1"/>
+            <tabs xsi:type="guigen:FormPanel" name="tab1" label="Tab 1">
+              <widgets xsi:type="guigen:TextField" name="pippo" label="Pippo" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:TextField" name="pluto" label="Pluto" dataType="//@typedefs/@types.7"/>
+            </tabs>
             <tabs xsi:type="guigen:FormPanel" name="tab2" label="Tab 2"/>
             <tabs xsi:type="guigen:FormPanel" name="tab3" label="Tab 3"/>
           </panels>

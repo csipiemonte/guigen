@@ -56,6 +56,13 @@ String getHomePageConfig(GUIModel model) :
 // JSP Fragments (Header, footer, ecc...)
 String getJspFragmentsMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/fragments";
+	
+// JSP Tab (Tabbed Panels Includes)
+String getJspTabsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/tabs";
+
+String getJspTabsConfig() :
+	"/" + getPresentationMarkupConfig() + "/tabs";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,6 +145,7 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Type Mapping
 
 /// mapping di tipi model -> java
