@@ -309,7 +309,7 @@ Riferimenti:
 <!--/head -->
 
 	</head>
-	<body>
+	<body class="tema_generale">
 		<div id="pagina" class="colonnaUnica">
 			<!-- TESTATA -->
 			<div id="intestazione">
@@ -501,8 +501,10 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.action AS currAction-»
 	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-	<li «EXPAND getMenuItemCssSistemaPiemonte(level) FOR this -»>
-		<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">«this.label»</s:a>
+	<li «getMenuItemCssSistemaPiemonte(this, level)»>
+		<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			«getMenuItemLabelSistemaPiemonte(this.label, level)»
+		</s:a>
 	</li>
 	«ENDLET-»
 «ELSE-»
@@ -529,7 +531,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»comment
 «DEFINE getMenuItemCssSistemaPiemonte(int level) FOR MenuItem -»
 «IF level == 1 -»
 class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo' : ''}" />"
@@ -540,10 +542,10 @@ class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? '
 «ELSEIF level == 4 -»
 class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo4liv' : ''}" />"
 «ELSE -»
-«REM»vengono gestiti solo 4 livelli«ENDREM»
+vengono gestiti solo 4 livelli
 «ENDIF -»
 «ENDDEFINE»
-
+«ENDREM»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»

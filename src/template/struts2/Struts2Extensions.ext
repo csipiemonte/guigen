@@ -238,6 +238,24 @@ String getTablePortalStyle(GUIModel model) :
 		"class=\"\"  cellpadding=\"2\" cellspacing=\"2\"";
 
 
+String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
+	if (level == 1) then
+		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo' : ''}\" />\""
+	else if (level == 2) then
+		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_«this.name»' ? 'sottomenuOn' : ''}\" />\""
+	else if (level == 3) then
+		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo3liv' : ''}\" />\""
+	else if(level == 4) then
+		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo4liv' : ''}\" />\""
+	else
+		"";
+
+String getMenuItemLabelSistemaPiemonte(String label, int level) :
+	if (level == 1) then
+		"<s:if test=\"%{#session.active_menu == 'menu_items_mnuItmTab'}\"><span class=\"menu_alto\">" + label + "</span></s:if>" +
+		"<s:else>" + label + "</s:else>"
+	else
+		label;
 	
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////
