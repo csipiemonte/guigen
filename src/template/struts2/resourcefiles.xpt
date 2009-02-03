@@ -345,11 +345,9 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
                id="rowR" 
                pagesize="«this.pageSize»" 
                requestURI="«getStrutsActionConfigName(panel)».do" 
-               class="righe_alternate" 
-               cellpadding="0" 
-               cellspacing="0" 
-               keepStatus="true" 
-               clearStatus="false">
+               keepStatus="true"
+               clearStatus="false"
+               «getTablePortalStyle(model)» >
 	«LET this.columnModel AS tabColMod-»
 		«FOREACH tabColMod.columns AS currCol-»
 		<display:column property="«currCol.selector»" title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable" />
@@ -370,7 +368,7 @@ Gestione dei LAYOUT
 «DEFINE firstLevelPanelPreLayout FOR Panel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
 	<h3>«this.label.toUpperCase()»</h3>
-	<table>
+	<!--<table>-->
 «ELSE-»
 	<fieldset>
 		<legend>«this.label.toUpperCase()»</legend>
@@ -381,7 +379,7 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE firstLevelPanelPostLayout FOR Panel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
-	</table>
+	<!--</table>-->
 «ELSE-»
 	</fieldset>
 «ENDIF-»
@@ -391,7 +389,10 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelPreLayout FOR Panel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
+	«IF this.label != null -»
 	<h4>«this.label.toUpperCase()»</h4>
+	«ENDIF-»
+	
 	<table>
 «ELSE-»
 	<fieldset>
