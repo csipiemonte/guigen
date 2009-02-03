@@ -486,7 +486,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 
 	«REM»Espando i sottomenu«ENDREM»
 	«FOREACH tlmenu.submenu AS currSubMenu-»
-		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu»
+		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu -»
 	«ENDFOREACH-»
 	</ul>
 </li>
@@ -500,10 +500,11 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «DEFINE getMenuItemMarkupSistemaPiemonte(int level) FOR MenuItem -»
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.action AS currAction-»
+	<!-- LEVEL [«level»] -->
 	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
 	<li «getMenuItemCssSistemaPiemonte(this, level)»>
 		<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			«getMenuItemLabelSistemaPiemonte(this.label, level)»
+			«getMenuItemLabelSistemaPiemonte(this, level)»
 		</s:a>
 	</li>
 	«ENDLET-»
@@ -529,23 +530,6 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	</ul>
 </li>
 «ENDDEFINE»
-
-
-«REM»comment
-«DEFINE getMenuItemCssSistemaPiemonte(int level) FOR MenuItem -»
-«IF level == 1 -»
-class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo' : ''}" />"
-«ELSEIF level == 2 -»
-class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'sottomenuOn' : ''}" />"
-«ELSEIF level == 3 -»
-class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo3liv' : ''}" />"
-«ELSEIF level == 4 -»
-class="<s:property value="%{#session.active_menu == 'menu_items_«this.name»' ? 'attivo4liv' : ''}" />"
-«ELSE -»
-vengono gestiti solo 4 livelli
-«ENDIF -»
-«ENDDEFINE»
-«ENDREM»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
