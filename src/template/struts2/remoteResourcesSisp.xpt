@@ -1,0 +1,384 @@
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+**************************************************************************************************************************
+Markup HTML per SISTEMA PIEMONTE
+Riferimenti:
+	- Pattern Sistema Piemonte (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/index.shtml)
+	- Reference implementation su Efesto (http://crizia.csi.it:10317/refimplsisp/login/welcome.do)
+**************************************************************************************************************************
+«ENDREM»
+
+
+«REM»
+==========================================================================================================================
+Definizioni generali
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+<!--head (con remincl: da implementare)-->
+<%--<r:include url="/include/barre_irroratrici/head.html" resourceProvider="sp" />--%>
+<!--/head -->
+
+<!--head (senza remincl: TMP)-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
+		<meta name="author" content="CSI-Piemonte" />
+		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
+		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+
+		<link type="text/css" href="<%=request.getContextPath()%>/css/generaliV3/templateBase/indiceTemplate.css" rel="stylesheet" media="screen" />
+		<link type="text/css" href="<%=request.getContextPath()%>/css/generali/tab_righeAlterne.css" rel="stylesheet"  media="screen" />
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/tab_righeAlterne.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqsisp-0.9.pack.js"></script>
+<!--/head -->
+
+	</head>
+	<body class="tema_generale">
+		<div id="pagina" class="colonnaUnica">
+			<!-- TESTATA -->
+			<div id="intestazione">
+				
+				<!--header (con remincl: TODO implementare-->
+				<%--<r:include url="/include/???" resourceProvider="rp" />--%>
+				<!--/header-->
+				
+				<!--header (senza remincl: TMP)-->				
+				<p id="avviso" class="navigazionePagina">
+					<a href="#contPath" id="A-inizio"
+						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
+						l&#8217;intestazione</a><span class="alt">|</span>
+				</p>
+				<div id="logo">
+					<h1 class="alt">
+						<a href="http://www.sistemapiemonte.it/"
+							title="Home page SistemaPiemonte">Sistema Piemonte</a>
+					</h1>
+				</div>
+				<div id="scritta">
+					<span class="alt"> - <a
+						href="http://www.sistemapiemonte.it/"
+						title="Home page SistemaPiemonte">l'amministrazione pubblica
+							al tuo servizio</a> </span>
+				</div>
+				<hr />
+				<p class="navigazionePagina">
+					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
+						ai contenuti</a> |
+					<a href="#sfondo" title="vai al menu della sezione">vai al menu
+						della sezione</a>
+				</p>
+				<hr />
+				<div id="sisp">
+				</div>
+				
+				<div id="menuDiServizio">
+				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
+				TODO: verificare cosa siano realmente e come vadano implementati«ENDREM»
+				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks-»
+				«IF staticLinks != null-»
+					«EXPAND getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR staticLinks»
+				«ENDIF-»
+				«ENDLET-»
+				</div>
+				
+				<noscript>
+					<div id="avvisoJavascript">
+						<p>
+							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
+							<br />
+							Per poter usufruire in maniera completa dei servizi presenti in
+							SistemaPiemonte, &eacute; necessario utilizzare un browser che
+							supporti le funzioni Javascript.
+						</p>
+					</div>
+				</noscript>
+				<hr />
+				<!--inizioricerca-->
+
+				<!--/header-->
+				
+				<div id="contUtenza">
+					<div id="Utenza">
+						utente:
+						<strong>$$utente</strong>&nbsp;
+						<span class="logout"><a href="#" title="esci: questo link fa uscire dal servizio">esci</a></span>
+					</div>
+				</div>
+				
+				<!--filo d'arianna canale-->
+				<div id="contPath">
+					<div id="path">
+						sei in:
+						<a href="http://www.sistemapiemonte.it/index.shtml">sistema
+							piemonte</a><span class="connessionePath">,&nbsp;</span><a
+							href="http://www.sistemapiemonte.it/index.shtml">area
+							tematica</a><span class="connessionePath">,&nbsp;</span>
+						<span class="selezione">Reference implementation sistema piemonte</span>
+					</div>
+				</div>
+				<hr />
+				<!--fine filo arianna canale-->
+				
+				<div id="contTitoloEmenu">
+					<div id="titoloEmenu" class="nomeServizio">
+						<a href="#"><span class="txtHidden">home nome servizio</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- FINE TESTATA -->
+
+			<hr />
+			<div id="contenitore">
+			
+				<div id="corpo">
+					<!-- CORPO -->
+					<div id="sfondo">
+						<h2 class="alt">
+							menu della sezione
+						</h2>
+						
+						<!-- COLONNA SX -->
+						<div id="colonnaSinistra">
+							<div id="menuDiNavigazioneSisp2">
+								«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+								«LET model.structure.appWindow.appArea.menubar AS menubar-»
+								«IF menubar != null-»
+									<s:include value="menu.jsp"></s:include>
+								«ENDIF-»		
+								«ENDLET-»
+							</div>
+						</div>
+						<!-- FINE COLONNA SX -->
+						
+						<hr />
+						
+						<!-- COLONNA DX -->
+						<div id="colonnaDestra">
+							<h2 class="alt">
+								contenuti
+							</h2>
+
+							<div class="contenuti">
+								<s:actionerror />	
+			
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
+TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
+«DEFINE getStaticLinkMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+<p class="navigazionePagina">
+	Sistema piemonte - menu di navigazione
+</p>
+<ul class="menuTendinaOrizz" id="menu-1">
+	<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
+	<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
+	<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
+	<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
+	<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
+	<!-- <li><a href="#">profilo personale</a></li> -->					
+</ul>					
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR.
+TODO: come faccio a sapere qual'è il menu attivo?
+NOTE IMPLEMENTATIVE: E' stato utilizzato il pattern menu (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/menu.shtml). 
+Questo pattern prevede due possibilità: 
+- menu "cavalieri" con struttura già espansa (non richiede JavaScript): quattro livelli
+- menu "dropDown) con struttura espandibile (richiede JavaScript): due livelli?
+Si è scelta l'opzione "cavalieri" in quanto non richiede nè JavaScript nè indicatori sequenziali per le voci di menu. 
+Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un check in fase di generazione del codice 
+(o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello, 
+e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di link.
+«ENDREM»
+«DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+<ul class="menuCavalieri">
+«LET 1 AS level -»
+«FOREACH this.topLevelMenu AS tlmenu -»
+«IF hasUniqueMenuItem(tlmenu)-»
+	«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
+	«EXPAND getMenuItemMarkupSistemaPiemonte(level) FOR tlmenu.item.first() -»
+«ELSE-»
+<li class="sottomenu">«tlmenu.label»
+	<ul>
+	«REM»Espando gli Item«ENDREM»
+	«FOREACH tlmenu.item AS currMenuItem-»
+		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem -»
+	«ENDFOREACH-»
+
+	«REM»Espando i sottomenu«ENDREM»
+	«FOREACH tlmenu.submenu AS currSubMenu-»
+		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu -»
+	«ENDFOREACH-»
+	</ul>
+</li>
+«ENDIF-»
+«ENDFOREACH-»
+«ENDLET-»
+</ul>
+«ENDDEFINE»
+
+«REM»Genera un MenuItem«ENDREM»
+«DEFINE getMenuItemMarkupSistemaPiemonte(int level) FOR MenuItem -»
+«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+	«LET this.eventHandler.action AS currAction-»
+	<!-- LEVEL [«level»] -->
+	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	<li «getMenuItemCssSistemaPiemonte(this, level)»>
+		<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			«getMenuItemLabelSistemaPiemonte(this, level)»
+		</s:a>
+	</li>
+	«ENDLET-»
+«ELSE-»
+	<li>«this.label»</li>
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera un sottoMenu«ENDREM»
+«DEFINE getSubMenuMarkupSistemaPiemonte(int level) FOR Menu»
+<li class="sottomenu">«this.label»
+	<ul>
+	
+	«REM»Espando gli Item«ENDREM»
+	«FOREACH this.item AS currMenuItem-»
+		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem»
+	«ENDFOREACH-»
+
+	«REM»Espando i sottomenu«ENDREM»
+	«FOREACH this.submenu AS currSubMenu-»
+		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu»
+	«ENDFOREACH-»
+	</ul>
+</li>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+							</div>
+						</div>
+						<!-- FINE COLONNA DX -->
+					</div>
+					<!-- FINE CORPO -->
+					<hr />
+				</div>
+			</div>
+			<!--finericerca-->
+
+<!--footer (con remincl: da implementare)-->
+<%--<r:include url="/include/footer.html" resourceProvider="sp" />--%>
+<!--/footer-->
+
+<!--footer (senza remincl: TMP)-->
+			<!--piedipagina-->
+			<div id="piedipagina">
+				<p id="noteSito" title="per informazioni: info@sistemapiemonte.it">
+					<a href="mailto:info@sistemapiemonte.it"><span class="alt">per informazioni: info@sistemapiemonte.it</span></a>
+				</p>
+				<p class="navigazionePagina">
+					[ <a href="#intestazione">Torna all'inizio della pagina</a> ]
+				</p>
+			</div>
+			<!--/piedipagina-->
+
+		</div>
+		<!--/pagina-->
+
+	</body>
+</html>
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei PANNELLI
+==========================================================================================================================
+«ENDREM»
+
+«REM»
+TODO: 
+1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
+     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
+     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
+2. Come si fa a riconoscere il tab attivo?
+3. Come si può implementare il meccanismo di cambio tab? (va fatto sulla classe Java della Action)
+«ENDREM»
+«DEFINE setupTabSetPanelSistemaPiemonte(GUIModel model) FOR TabSetPanel»
+	<div class="conthTab">
+	«FOREACH this.tabs AS currTab ITERATOR i-»
+		«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+		«LET i.lastIteration ? "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
+		<div class="«tabStyle»"><a href="#">«currTab.label»</a></div>
+		«ENDLET-»
+	«ENDFOREACH-»
+	</div>
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT
+==========================================================================================================================
+«ENDREM»
+
+«REM»comment«ENDREM»
+«DEFINE firstLevelPanelPreLayoutSistemaPiemonte(ContentPanel cp) FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
+	<h3>«this.label.toUpperCase()»</h3>
+«ELSE-»
+	<fieldset>
+		<legend>«this.label.toUpperCase()»</legend>
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE firstLevelPanelPostLayoutSistemaPiemonte(ContentPanel cp) FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
+«ELSE-»
+	</fieldset>
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE subPanelPreLayoutSistemaPiemonte FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
+	«IF this.label != null -»
+	<h4>«this.label.toUpperCase()»</h4>
+	«ENDIF-»
+	<div class="contenuti">
+		<table>
+«ELSE-»
+	<fieldset>
+		<legend>«this.label.toUpperCase()»</legend>
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE subPanelPostLayoutSistemaPiemonte FOR Panel»
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
+		</table>
+	</div>
+«ELSE-»
+	</fieldset>
+«ENDIF-»
+«ENDDEFINE»

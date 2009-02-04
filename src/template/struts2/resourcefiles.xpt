@@ -101,7 +101,7 @@ Gestione dei pannelli
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
 «DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
 <!-- Creazione del pannello «this» -->
-«EXPAND firstLevelPanelPreLayout FOR this»
+«EXPAND remoteResources::firstLevelPanelPreLayout(model, panel) FOR this-»
 
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
@@ -111,7 +111,7 @@ Gestione dei pannelli
 	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDIF-»
 
-«EXPAND firstLevelPanelPostLayout FOR this»
+«EXPAND remoteResources::firstLevelPanelPostLayout(model, panel) FOR this-»
 
 «ENDDEFINE»
 
@@ -164,13 +164,13 @@ TODO:
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 	
 	«REM»Definizione del pannello«ENDREM»
-	«EXPAND template::struts2::remoteResources::setupTabSetPanelByPortal(model) FOR this»
+	«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
 	«FOREACH this.tabs AS currTab -»
 		«EXPAND createAndAddTab(model, skip_component_dir_creation, panel, this) FOR currTab-»
-		«EXPAND createTabIncludeDirective(model, panel, this) FOR currTab»
+		«EXPAND createTabIncludeDirective(model, panel, this) FOR currTab-»
 	«ENDFOREACH-»
 	
 «ENDDEFINE»
@@ -179,17 +179,17 @@ TODO:
 «REM»Crea un sottopannello«ENDREM»
 «DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
 <!-- Creazione del sottopannello «this» -->
-«EXPAND subPanelPreLayout FOR this-»
+«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
 
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, panel) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
 «ENDIF-»
 
-«EXPAND subPanelPostLayout FOR this-»
+«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
 
 «ENDDEFINE»
 
@@ -201,9 +201,9 @@ TODO:
 
 <!-- Creazione del tab «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
 «ENDIF-»
@@ -217,8 +217,6 @@ TODO:
 	<s:include value="«getJspTabsConfig()+"/"+tabPanel.name+"_"+this.name+".jsp"»" ></s:include>
 </s:if>
 «ENDDEFINE»
-
-
 
 
 
@@ -356,64 +354,4 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 </display:table>
 </s:if>
 «ENDDEFINE»
-
-
-«REM»
-==========================================================================================================================
-Gestione dei LAYOUT
-==========================================================================================================================
-«ENDREM»
-
-«REM»comment«ENDREM»
-«DEFINE firstLevelPanelPreLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	<h3>«this.label.toUpperCase()»</h3>
-	<!--<table>-->
-«ELSE-»
-	<fieldset>
-		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF-»
-«ENDDEFINE»
-
-
-«REM»comment«ENDREM»
-«DEFINE firstLevelPanelPostLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	<!--</table>-->
-«ELSE-»
-	</fieldset>
-«ENDIF-»
-«ENDDEFINE»
-
-
-«REM»comment«ENDREM»
-«DEFINE subPanelPreLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«IF this.label != null -»
-	<h4>«this.label.toUpperCase()»</h4>
-	«ENDIF-»
-	
-	<table>
-«ELSE-»
-	<fieldset>
-		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF-»
-«ENDDEFINE»
-
-
-«REM»comment«ENDREM»
-«DEFINE subPanelPostLayout FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	</table>
-«ELSE-»
-	</fieldset>
-«ENDIF-»
-«ENDDEFINE»
-
-
-
-
-
-
-
 
