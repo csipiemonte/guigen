@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
@@ -164,6 +165,9 @@ public class ApplicationDataItemProvider
 		else{
 			label+=" : <type undefined>";
 		}
+		// scope
+		label+= " (scope="+ad.getLifetimeExtent().getLiteral().toLowerCase()+")";
+			
 		return label == null || label.length() == 0 ?
 			getString("_UI_ApplicationData_type") :
 			getString("_UI_ApplicationData_type") + " " + label;
