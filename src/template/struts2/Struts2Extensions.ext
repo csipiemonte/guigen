@@ -146,6 +146,19 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
+// Classi spring
+
+String getSpringBEClassName() :
+	"BackEndFacade";
+
+String getSpringBEFQN(GUIModel model) :
+	getBaseJavaPackage(model)+".business."+getSpringBEClassName();
+
+
+String getSpringBEJavaFile(GUIModel model) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getSpringBEClassName()+".java";
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Type Mapping
 
 /// mapping di tipi model -> java
@@ -276,6 +289,12 @@ List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	
 List getAllEventSourceMenuItems(Menubar mb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
+
+List getAllExecActionsForEventHandler(EventHandler eh) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllExecActionsForEventHandler(it.csi.mddtools.guigen.EventHandler);
+
+List getAllExecActionsRecursive(Action a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllExecActionsRecursive(it.csi.mddtools.guigen.Action);
 
 ContentPanel findParentContentPanel(Action a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Action);

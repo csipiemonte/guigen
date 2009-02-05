@@ -13,6 +13,7 @@
 	«ENDIF»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
+	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
 «ENDDEFINE»
 
 
@@ -118,6 +119,8 @@ public class «getStrutsBaseActionClassName(this)» extends ActionSupport implemen
 		else
 			return true; // no info -> abilitato
 	}
+	
+	«EXPAND actionImplJavaFiles::springBEProperties FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -211,6 +214,7 @@ import java.util.*;
 public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
     «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitAction»
+    
     
 	/**
 	 *

@@ -421,9 +421,11 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="autodetect">
+	<bean id="springBackEnd" class="«getSpringBEFQN()»">
 
+	</bean>
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
-		<!-- Insert here your Spring Beans -->
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
 	«ENDPROTECT»
 
 </beans>

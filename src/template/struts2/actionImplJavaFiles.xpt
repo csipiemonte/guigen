@@ -462,7 +462,13 @@ public class SequenceAction implements IAction {
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
 		public ExecResults doLogic(BaseAction strutsAction){
 		
-			return «this.methodName»(strutsAction);
+			«LET findParentContentPanel(this) AS parentCP»
+			«IF parentCP != null»
+			return getSpringBackEnd().«this.methodName»((«getStrutsActionFQN(parentCP,model)»)strutsAction);
+			«ELSE»
+			return getSpringBackEnd().«this.methodName»((«getStrutsBaseActionFQN(model)»)strutsAction);
+			«ENDIF»
+			«ENDLET»
 		
 		}
 		
@@ -616,6 +622,18 @@ public class SequenceAction implements IAction {
 	«EXPAND appDataProperty(model) FOREACH allAppData»
 «ENDLET»
 «ENDLET»
+«ENDDEFINE»
+
+«DEFINE springBEProperties FOR GUIModel»
+	private «getSpringBEFQN()» _backEnd = null;
+	
+	public void setSpringBackEnd(«getSpringBEFQN()» be){
+		_backEnd = be;
+	}
+	
+	public «getSpringBEFQN()» getSpringBackEnd(){
+		return _backEnd;
+	}
 «ENDDEFINE»
 
 «DEFINE appDataProperty(GUIModel model) FOR ApplicationData»

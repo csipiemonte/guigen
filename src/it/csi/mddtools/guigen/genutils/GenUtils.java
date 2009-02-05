@@ -211,6 +211,43 @@ public static String getRegionUID(String sourceId){
 	return uid;
 }
 
+
+public static List<ExecAction> getAllExecActionsForEventHandler(EventHandler eh){
+	List<ExecAction> ris = new ArrayList<ExecAction>();
+	return getAllExecActionsRecursive(eh.getAction());
+}
+
+
+public static List<ExecAction> getAllExecActionsRecursive(Action a){
+	if (a instanceof ExecAction)
+		return getAllExecActionsRecursive((ExecAction) a);
+	else if (a instanceof SequenceAction)
+		return getAllExecActionsRecursive((SequenceAction)a);
+	else
+		return new ArrayList<ExecAction>();
+}
+
+public static List<ExecAction> getAllExecActionsRecursive(ExecAction ea){
+	List<ExecAction> ris = new ArrayList<ExecAction>();
+	ris.add(ea);
+	// cerca nei rami di outcome...
+	Iterator<ActionResult> it_ar = ea.getResults().iterator();
+	while(it_ar.hasNext()){
+		Action currResultAction = it_ar.next().getAction();
+		ris.addAll(getAllExecActionsRecursive(currResultAction));
+	}
+	return ris;
+}
+
+public static List<ExecAction> getAllExecActionsRecursive(SequenceAction sa){
+	List<ExecAction> ris = new ArrayList<ExecAction>();
+	Iterator<Action> it_steps = sa.getActions().iterator();
+	while(it_steps.hasNext()){
+		ris.addAll(getAllExecActionsRecursive(it_steps.next()));
+	}
+	return ris;
+}
+
 /**
  * Restituisce un array list di tutti i possibili salti ad altre pagine a partire da
  * un content panel prefissato. 

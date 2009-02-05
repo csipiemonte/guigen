@@ -42,3 +42,100 @@ public class «getDTOClassName(this)» implements java.io.Serializable{
 		return _«this.name»;
 	}
 «ENDDEFINE»
+
+«DEFINE springBEClasses FOR GUIModel-»
+«FILE getSpringBEJavaFile()»
+package «getBaseJavaPackage()».business;
+
+import java.util.*;
+import «getPresentationJavaPackage()».*;
+import «getDTOBaseJavaPackage()».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEImports")»
+
+«ENDPROTECT»
+
+public class «getSpringBEClassName()»{
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Costanti identificative degli Application Data
+	//////////////////////////////////////////////////////////////////////////////
+    «FOREACH this.appDataDefs.appData AS currAD»
+    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    «ENDFOREACH» 
+   
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi associati alla U.I.
+	//////////////////////////////////////////////////////////////////////////////
+	«EXPAND springBEMethods FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»inserisce un metodo per ogni ExecAction contenuta nel modello«ENDREM»
+«DEFINE springBEMethods FOR GUIModel-»
+	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+		«FOREACH getAllEventSourceWidgets(currCP) AS currESW-»
+			«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
+				«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
+					«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+				«ENDFOREACH-»
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
+	«FOREACH getAllEventSourceMenuItems(this.structure.appWindow.appArea.menubar) AS currESM-»
+		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
+			«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
+	«LET this.structure.appWindow.appArea.onInitAction AS onInitAct-»
+	«IF onInitAct != null-»
+		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitAction) AS currAct-»
+			«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+		«ENDFOREACH-»
+	«ENDIF-»
+	«ENDLET-»
+«ENDDEFINE»
+
+
+«DEFINE springBEMethod(GUIModel model) FOR ExecAction»
+	////////////////////////////////////////////////////////////////////////////////////
+	«FOREACH this.results AS currRes-»
+	public static final String «this.methodName.toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
+	«ENDFOREACH-»
+	
+	«LET findParentContentPanel() AS parentCP-»		
+	public «getPresentationJavaPackage(model)».ExecResults «this.methodName» (
+	«IF parentCP != null»
+		«getStrutsActionFQN(parentCP, model)» theAction
+	«ELSE»
+		«getStrutsBaseActionFQN( model)» theAction
+	«ENDIF»
+			
+	){
+		ExecResults result = new ExecResults();
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("springBE_"+this.methodName+"_code")»
+		// inserire qui la logica applicativa da eseguire
+			
+		// impostazione del result code
+		result.setResultCode("«this.results.first().resultCode»");
+		// impostazione degli app data risultanti
+		«FOREACH this.postExecData AS currAppData-»
+		//// impostazione dell'application Data «currAppData.name» (scope: «currAppData.lifetimeExtent.toString()»)
+		result.setAppData("«getAppDataKey(currAppData)»", null);
+		«ENDFOREACH-»
+		return result;
+		«ENDPROTECT»
+	}
+	
+	«ENDLET-»
+«ENDDEFINE»
