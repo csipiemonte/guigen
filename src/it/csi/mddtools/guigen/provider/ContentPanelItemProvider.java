@@ -69,6 +69,7 @@ public class ContentPanelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addAppDataPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -96,6 +97,28 @@ public class ContentPanelItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the App Data feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAppDataPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ContentPanel_appData_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ContentPanel_appData_feature", "_UI_ContentPanel_type"),
+				 GuigenPackage.Literals.CONTENT_PANEL__APP_DATA,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -108,7 +131,6 @@ public class ContentPanelItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__PANELS);
-			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__APP_DATA);
 		}
 		return childrenFeatures;
 	}
@@ -167,7 +189,6 @@ public class ContentPanelItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.CONTENT_PANEL__PANELS:
-			case GuigenPackage.CONTENT_PANEL__APP_DATA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -199,11 +220,6 @@ public class ContentPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.CONTENT_PANEL__APP_DATA,
-				 GuigenFactory.eINSTANCE.createApplicationData()));
 	}
 
 	/**
