@@ -122,6 +122,8 @@ public class VisibilityAction implements IAction {
 «FILE getPresentationJavaSrcDir(true)+"/ExecAction.java"»
 package «getPresentationJavaPackage()»;
 
+import «getDTOBaseJavaPackage()».*;
+
 ////ExecAction
 public abstract class ExecAction implements IAction {
 	String _esiti[] = null;
@@ -173,8 +175,8 @@ public abstract class ExecAction implements IAction {
 }
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/ExecResults.java"»
-package «getPresentationJavaPackage()»;
+«FILE getDTOBaseSrcDir(this)+"/ExecResults.java"»
+package «getDTOBaseJavaPackage()»;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -463,10 +465,13 @@ public class SequenceAction implements IAction {
 		public ExecResults doLogic(BaseAction strutsAction){
 		
 			«LET findParentContentPanel(this) AS parentCP»
+			Object model = strutsAction.toModel();
 			«IF parentCP != null»
-			return getSpringBackEnd().«this.methodName»((«getStrutsActionFQN(parentCP,model)»)strutsAction);
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(parentCP,false, false, model)»)model);
+			«ELSEIF this.eContainer.eContainer.metaType==MenuItem»
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, true, false, model)»)model);
 			«ELSE»
-			return getSpringBackEnd().«this.methodName»((«getStrutsBaseActionFQN(model)»)strutsAction);
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, false, true, model)»)model);
 			«ENDIF»
 			«ENDLET»
 		
@@ -501,6 +506,8 @@ public class SequenceAction implements IAction {
 			«ENDIF»
 		«ENDFOREACH»
 		}
+		
+		«REM»
 		public ExecResults «this.methodName»(BaseAction strutsAction){
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»
 			// inserire qui la logica applicativa da eseguire
@@ -516,6 +523,7 @@ public class SequenceAction implements IAction {
 			return results;
 		«ENDPROTECT»
 		}
+		«ENDREM»
 	};
 	// Exec Action end
 «ENDDEFINE»

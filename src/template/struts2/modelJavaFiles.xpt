@@ -3,6 +3,7 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE modelClasses FOR GUIModel»
+«REM»tipi complessi«ENDREM»
 «LET this.typedefs AS typedefs»
 «IF typedefs != null»
 «LET typedefs.types.typeSelect(ComplexType) AS complexType»
@@ -10,6 +11,16 @@
 «ENDLET»
 «ENDIF»
 «ENDLET»
+«REM»action model«ENDREM»
+«LET this.structure.appWindow.appArea.contentPanels AS currCP»
+«EXPAND actionModelFile(this) FOREACH currCP»
+«ENDLET»
+«IF this.structure.appWindow.appArea.menubar!=null»
+	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea.menubar»
+«ENDIF»
+«IF this.structure.appWindow.appArea.onInitAction!=null»
+	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
@@ -114,11 +125,13 @@ public class «getSpringBEClassName()»{
 	«ENDFOREACH-»
 	
 	«LET findParentContentPanel() AS parentCP-»		
-	public «getPresentationJavaPackage(model)».ExecResults «this.methodName» (
+	public ExecResults «this.methodName» (
 	«IF parentCP != null»
-		«getStrutsActionFQN(parentCP, model)» theAction
+		«getModelDTOFQN(parentCP, false, false, model)» theAction
+	«ELSEIF this.eContainer.eContainer.metaType == MenuItem»
+		«getModelDTOFQN(null, true, false, model)» theAction
 	«ELSE»
-		«getStrutsBaseActionFQN( model)» theAction
+		«getModelDTOFQN(null, false, true, model)» theAction
 	«ENDIF»
 			
 	){
@@ -138,4 +151,117 @@ public class «getSpringBEClassName()»{
 	}
 	
 	«ENDLET-»
+«ENDDEFINE»
+
+«REM»dto con solo le property delle action (parametri per spring)«ENDREM»
+«DEFINE actionModelFile(GUIModel model) FOR ContentPanel»
+«FILE getFullModelDTOClassFile(this,false,false,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+import java.util.*;
+
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata alla Schermata [«this.name»]
+ */
+public class «getModelDTOClassName(this,false,false,model)» implements java.io.Serializable{
+
+	////////////////////////////////////////////////////////////////////
+	/// oggetti in sessione
+	////////////////////////////////////////////////////////////////////
+
+	protected Map session;
+
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getSession() {
+		return this.session;
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
+	
+	////////////////////////////////////////////////////////////////////
+	/// campi per widget semplici
+	////////////////////////////////////////////////////////////////////
+	«EXPAND actionImplJavaFiles::widgetsProperties(model) FOR this»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE actionModelFile(GUIModel model) FOR Menubar»
+«FILE getFullModelDTOClassFile(null,true,false,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+import java.util.*;
+
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata al Menu
+ */
+public class «getModelDTOClassName(null,true,false,model)» implements java.io.Serializable{
+
+	////////////////////////////////////////////////////////////////////
+	/// oggetti in sessione
+	////////////////////////////////////////////////////////////////////
+
+	protected Map session;
+
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getSession() {
+		return this.session;
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE actionModelFile(GUIModel model) FOR ApplicationArea»
+«FILE getFullModelDTOClassFile(null,false,true,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+import java.util.*;
+
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata alla OnInit action
+ */
+public class «getModelDTOClassName(null,false,true,model)» implements java.io.Serializable{
+
+	////////////////////////////////////////////////////////////////////
+	/// oggetti in sessione
+	////////////////////////////////////////////////////////////////////
+
+	protected Map session;
+
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getSession() {
+		return this.session;
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«IF onInitAction!=null»
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitAction»
+	«ENDIF»
+	
+}
+«ENDFILE»
 «ENDDEFINE»

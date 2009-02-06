@@ -53,6 +53,9 @@ TODO: implementare se necessario
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.Map;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
@@ -76,7 +79,7 @@ import «getBaseJavaPackage(this)».util.*;
  * 
  * @author GuiGen
  */
-public class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware {
+public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware {
 
 	/**  */
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
@@ -93,7 +96,78 @@ public class «getStrutsBaseActionClassName(this)» extends ActionSupport implemen
 	}
 
 
-	// TODO: add here other stuff if needed
+    ////////////////////////////////////////////////////////////////////////
+    //// costruzione/lettura strato model da passare allo strato di logica
+    ////////////////////////////////////////////////////////////////////////
+    public abstract Class modelClass();
+    
+	private java.lang.reflect.Method findReadMethod(String name, Class cl) throws IntrospectionException{
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equals(name))
+				return currPd.getReadMethod();
+		}
+		return null;
+	}
+	
+	private java.lang.reflect.Method findWriteMethod(String name, Class cl) throws IntrospectionException{
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equals(name))
+				return currPd.getWriteMethod();
+		}
+		return null;
+	}
+	
+	public Object toModel(){
+		try{
+			Object modelObj = modelClass().newInstance();
+			BeanInfo targetBI = java.beans.Introspector.getBeanInfo(modelClass());
+			PropertyDescriptor [] targetPds = targetBI.getPropertyDescriptors();
+			for (int i = 0; i < targetPds.length; i++) {
+				PropertyDescriptor currTargetPD = targetPds[i];
+				java.lang.reflect.Method srcReadMethod = findReadMethod(currTargetPD.getReadMethod().getName(), this.getClass());
+				if (srcReadMethod!=null){
+					Object srcVal = srcReadMethod.invoke(this, new Object[]{});
+					currTargetPD.getWriteMethod().invoke(modelObj, new Object[]{srcVal});
+				}
+			}
+			return modelObj;
+		}
+		catch(Exception e){
+			System.out.println("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
+			throw new IllegalArgumentException("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
+			
+		}
+	}
+    
+    public void fromModel(Object modelObj){
+		try{
+			BeanInfo srcBI = java.beans.Introspector.getBeanInfo(modelClass());
+			PropertyDescriptor [] srcPds = srcBI.getPropertyDescriptors();
+			for (int i = 0; i < srcPds.length; i++) {
+				PropertyDescriptor currSrcPD = srcPds[i];
+				java.lang.reflect.Method srcReadMethod = currSrcPD.getReadMethod();
+				if (srcReadMethod!=null){
+					Object srcVal = srcReadMethod.invoke(modelObj, new Object[]{});
+					java.lang.reflect.Method targetWriteMethod = findWriteMethod(currSrcPD.getWriteMethod().getName(), this.getClass());
+					targetWriteMethod.invoke(modelObj, new Object[]{srcVal});
+				}
+			}
+		}
+		catch(Exception e){
+			System.out.println("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
+			throw new IllegalArgumentException("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
+			
+		}
+	}
+    
+    
+	///////////////////////////////////
 	public static boolean isWidgetVisible(String panelName, String widgetName, javax.servlet.http.HttpSession session){
 		Map<String, Boolean> panelStatus = (Map<String, Boolean>)session.getAttribute(panelName);
 		if (panelStatus!=null){
@@ -134,6 +208,7 @@ TODO: Vedere se è necessario estendere la BaseAction.
 «FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.*;
+import «getDTOBaseJavaPackage(this)».*;
 
 /**
  * «getStrutsMenuClassName(this)» Action Class.
@@ -144,6 +219,14 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
 	
+	
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(null, true, false, this)».class;
+	}
+	 
 	/**
 	 *
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
@@ -205,6 +288,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 «FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.*;
+import «getDTOBaseJavaPackage(this)».*;
 
 /**
  * «getStrutsHomeClassName(this)» Action Class.
@@ -215,6 +299,12 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 
     «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitAction»
     
+    /**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(null, false, true, this)».class;
+	}
     
 	/**
 	 *
@@ -258,6 +348,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 
 import java.util.*;
 import «getDTOBaseJavaPackage(model)».*;
+
 /**
  * «getStrutsActionClassName(this)» Action Class.
  *
@@ -270,6 +361,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     «EXPAND actionImplJavaFiles::widgetsProperties(model) FOR this»
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(this, false, false, model)».class;
+	}
+ 
 	/**
 	 *
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
