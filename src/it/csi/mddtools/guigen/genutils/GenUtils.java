@@ -248,6 +248,43 @@ public static List<ExecAction> getAllExecActionsRecursive(SequenceAction sa){
 	return ris;
 }
 
+
+public static boolean isInMenuBranch(ExecAction ea){
+	Object parent = ea.eContainer();
+	
+	if (parent instanceof EventHandler)
+		return isInMenuBranch((EventHandler)parent);
+	else if (parent instanceof ActionResult)
+		return isInMenuBranch((ActionResult)parent);
+	else if (parent instanceof SequenceAction)
+		return isInMenuBranch((SequenceAction)parent);
+	else
+		return false;
+}
+
+public static boolean isInMenuBranch(SequenceAction sa){
+	Object parent = sa.eContainer();
+	if (parent instanceof ActionResult)
+		return isInMenuBranch((ActionResult)parent);
+	else if (parent instanceof EventHandler)
+		return isInMenuBranch((EventHandler)parent);
+	else
+		return false;
+}
+
+public static boolean isInMenuBranch(EventHandler eh){
+	Object parent = eh.eContainer();
+	if (parent instanceof MenuItem)
+		return true;
+	else
+		return false;
+}
+
+public static boolean isInMenuBranch(ActionResult ar){
+	ExecAction parent = (ExecAction)ar.eContainer();
+	return isInMenuBranch(parent);
+	 
+}
 /**
  * Restituisce un array list di tutti i possibili salti ad altre pagine a partire da
  * un content panel prefissato. 

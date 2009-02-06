@@ -468,7 +468,7 @@ public class SequenceAction implements IAction {
 			Object model = strutsAction.toModel();
 			«IF parentCP != null»
 			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(parentCP,false, false, model)»)model);
-			«ELSEIF this.eContainer.eContainer.metaType==MenuItem»
+			«ELSEIF isInMenuBranch(this)»
 			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, true, false, model)»)model);
 			«ELSE»
 			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, false, true, model)»)model);

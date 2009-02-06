@@ -128,7 +128,7 @@ public class «getSpringBEClassName()»{
 	public ExecResults «this.methodName» (
 	«IF parentCP != null»
 		«getModelDTOFQN(parentCP, false, false, model)» theAction
-	«ELSEIF this.eContainer.eContainer.metaType == MenuItem»
+	«ELSEIF isInMenuBranch(this)»
 		«getModelDTOFQN(null, true, false, model)» theAction
 	«ELSE»
 		«getModelDTOFQN(null, false, true, model)» theAction
