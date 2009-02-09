@@ -550,6 +550,45 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.TREE_VIEW: {
+				TreeView treeView = (TreeView)theEObject;
+				T result = caseTreeView(treeView);
+				if (result == null) result = caseDataWidget(treeView);
+				if (result == null) result = caseMultiDataWidget(treeView);
+				if (result == null) result = caseWidget(treeView);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.PLAIN_TEXT: {
+				PlainText plainText = (PlainText)theEObject;
+				T result = casePlainText(plainText);
+				if (result == null) result = caseDataWidget(plainText);
+				if (result == null) result = caseWidget(plainText);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.MENU_VIEW: {
+				MenuView menuView = (MenuView)theEObject;
+				T result = caseMenuView(menuView);
+				if (result == null) result = caseCommandWidget(menuView);
+				if (result == null) result = caseWidget(menuView);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.GRID_PANEL_LAYOUT: {
+				GridPanelLayout gridPanelLayout = (GridPanelLayout)theEObject;
+				T result = caseGridPanelLayout(gridPanelLayout);
+				if (result == null) result = casePanelLayout(gridPanelLayout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC: {
+				GridWidgetLayoutSpec gridWidgetLayoutSpec = (GridWidgetLayoutSpec)theEObject;
+				T result = caseGridWidgetLayoutSpec(gridWidgetLayoutSpec);
+				if (result == null) result = caseWidgetLayoutSpecifier(gridWidgetLayoutSpec);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1571,6 +1610,81 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseApplicationDataDefs(ApplicationDataDefs object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tree View</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tree View</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTreeView(TreeView object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Plain Text</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Plain Text</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePlainText(PlainText object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Menu View</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Menu View</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMenuView(MenuView object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Grid Panel Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Grid Panel Layout</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGridPanelLayout(GridPanelLayout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Grid Widget Layout Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Grid Widget Layout Spec</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGridWidgetLayoutSpec(GridWidgetLayoutSpec object) {
 		return null;
 	}
 

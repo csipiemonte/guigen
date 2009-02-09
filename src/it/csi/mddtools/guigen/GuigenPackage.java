@@ -3108,6 +3108,317 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_DATA_DEFS_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TreeViewImpl <em>Tree View</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TreeViewImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeView()
+	 * @generated
+	 */
+	int TREE_VIEW = 68;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__NAME = DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__LABEL = DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__LAYOUT_SPEC = DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Tree View</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PlainTextImpl <em>Plain Text</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PlainTextImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPlainText()
+	 * @generated
+	 */
+	int PLAIN_TEXT = 69;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__NAME = DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__LABEL = DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__LAYOUT_SPEC = DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Static Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__STATIC_TEXT = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Plain Text</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MenuViewImpl <em>Menu View</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MenuViewImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenuView()
+	 * @generated
+	 */
+	int MENU_VIEW = 70;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__NAME = COMMAND_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__LABEL = COMMAND_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__LAYOUT_SPEC = COMMAND_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__EVENT_HANDLERS = COMMAND_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The number of structural features of the '<em>Menu View</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW_FEATURE_COUNT = COMMAND_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GridPanelLayoutImpl <em>Grid Panel Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.GridPanelLayoutImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGridPanelLayout()
+	 * @generated
+	 */
+	int GRID_PANEL_LAYOUT = 71;
+
+	/**
+	 * The feature id for the '<em><b>Columns</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_PANEL_LAYOUT__COLUMNS = PANEL_LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Rows</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_PANEL_LAYOUT__ROWS = PANEL_LAYOUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Grid Panel Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_PANEL_LAYOUT_FEATURE_COUNT = PANEL_LAYOUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl <em>Grid Widget Layout Spec</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGridWidgetLayoutSpec()
+	 * @generated
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC = 72;
+
+	/**
+	 * The feature id for the '<em><b>Row</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC__ROW = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Column</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC__COLUMN = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Grid Widget Layout Spec</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3115,7 +3426,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 68;
+	int WIDGET_DATA_TYPE = 73;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -3125,7 +3436,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 69;
+	int UDLRC_SPEC_CONSTANTS = 74;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3135,7 +3446,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 70;
+	int EVENT_TYPES = 75;
 
 
 	/**
@@ -3146,7 +3457,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 71;
+	int DATA_LIFETIME_TYPE = 76;
 
 
 	/**
@@ -3157,7 +3468,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 72;
+	int SIMPLE_TYPE_CODES = 77;
 
 
 	/**
@@ -3168,7 +3479,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 73;
+	int PORTAL_NAMES = 78;
 
 
 	/**
@@ -4842,6 +5153,111 @@ public interface GuigenPackage extends EPackage {
 	EReference getApplicationDataDefs_AppData();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TreeView <em>Tree View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tree View</em>'.
+	 * @see it.csi.mddtools.guigen.TreeView
+	 * @generated
+	 */
+	EClass getTreeView();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PlainText <em>Plain Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Plain Text</em>'.
+	 * @see it.csi.mddtools.guigen.PlainText
+	 * @generated
+	 */
+	EClass getPlainText();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PlainText#getStaticText <em>Static Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Text</em>'.
+	 * @see it.csi.mddtools.guigen.PlainText#getStaticText()
+	 * @see #getPlainText()
+	 * @generated
+	 */
+	EAttribute getPlainText_StaticText();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MenuView <em>Menu View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Menu View</em>'.
+	 * @see it.csi.mddtools.guigen.MenuView
+	 * @generated
+	 */
+	EClass getMenuView();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GridPanelLayout <em>Grid Panel Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Grid Panel Layout</em>'.
+	 * @see it.csi.mddtools.guigen.GridPanelLayout
+	 * @generated
+	 */
+	EClass getGridPanelLayout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridPanelLayout#getColumns <em>Columns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Columns</em>'.
+	 * @see it.csi.mddtools.guigen.GridPanelLayout#getColumns()
+	 * @see #getGridPanelLayout()
+	 * @generated
+	 */
+	EAttribute getGridPanelLayout_Columns();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridPanelLayout#getRows <em>Rows</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rows</em>'.
+	 * @see it.csi.mddtools.guigen.GridPanelLayout#getRows()
+	 * @see #getGridPanelLayout()
+	 * @generated
+	 */
+	EAttribute getGridPanelLayout_Rows();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec <em>Grid Widget Layout Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Grid Widget Layout Spec</em>'.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec
+	 * @generated
+	 */
+	EClass getGridWidgetLayoutSpec();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getRow <em>Row</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Row</em>'.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec#getRow()
+	 * @see #getGridWidgetLayoutSpec()
+	 * @generated
+	 */
+	EAttribute getGridWidgetLayoutSpec_Row();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getColumn <em>Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Column</em>'.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec#getColumn()
+	 * @see #getGridWidgetLayoutSpec()
+	 * @generated
+	 */
+	EAttribute getGridWidgetLayoutSpec_Column();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6322,6 +6738,96 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION_DATA_DEFS__APP_DATA = eINSTANCE.getApplicationDataDefs_AppData();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TreeViewImpl <em>Tree View</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TreeViewImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeView()
+		 * @generated
+		 */
+		EClass TREE_VIEW = eINSTANCE.getTreeView();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PlainTextImpl <em>Plain Text</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PlainTextImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPlainText()
+		 * @generated
+		 */
+		EClass PLAIN_TEXT = eINSTANCE.getPlainText();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLAIN_TEXT__STATIC_TEXT = eINSTANCE.getPlainText_StaticText();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenuViewImpl <em>Menu View</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MenuViewImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenuView()
+		 * @generated
+		 */
+		EClass MENU_VIEW = eINSTANCE.getMenuView();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GridPanelLayoutImpl <em>Grid Panel Layout</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.GridPanelLayoutImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGridPanelLayout()
+		 * @generated
+		 */
+		EClass GRID_PANEL_LAYOUT = eINSTANCE.getGridPanelLayout();
+
+		/**
+		 * The meta object literal for the '<em><b>Columns</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_PANEL_LAYOUT__COLUMNS = eINSTANCE.getGridPanelLayout_Columns();
+
+		/**
+		 * The meta object literal for the '<em><b>Rows</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_PANEL_LAYOUT__ROWS = eINSTANCE.getGridPanelLayout_Rows();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl <em>Grid Widget Layout Spec</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getGridWidgetLayoutSpec()
+		 * @generated
+		 */
+		EClass GRID_WIDGET_LAYOUT_SPEC = eINSTANCE.getGridWidgetLayoutSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Row</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_WIDGET_LAYOUT_SPEC__ROW = eINSTANCE.getGridWidgetLayoutSpec_Row();
+
+		/**
+		 * The meta object literal for the '<em><b>Column</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_WIDGET_LAYOUT_SPEC__COLUMN = eINSTANCE.getGridWidgetLayoutSpec_Column();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

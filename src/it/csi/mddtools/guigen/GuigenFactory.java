@@ -557,6 +557,51 @@ public interface GuigenFactory extends EFactory {
 	ApplicationDataDefs createApplicationDataDefs();
 
 	/**
+	 * Returns a new object of class '<em>Tree View</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tree View</em>'.
+	 * @generated
+	 */
+	TreeView createTreeView();
+
+	/**
+	 * Returns a new object of class '<em>Plain Text</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Plain Text</em>'.
+	 * @generated
+	 */
+	PlainText createPlainText();
+
+	/**
+	 * Returns a new object of class '<em>Menu View</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Menu View</em>'.
+	 * @generated
+	 */
+	MenuView createMenuView();
+
+	/**
+	 * Returns a new object of class '<em>Grid Panel Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Grid Panel Layout</em>'.
+	 * @generated
+	 */
+	GridPanelLayout createGridPanelLayout();
+
+	/**
+	 * Returns a new object of class '<em>Grid Widget Layout Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Grid Widget Layout Spec</em>'.
+	 * @generated
+	 */
+	GridWidgetLayoutSpec createGridWidgetLayoutSpec();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

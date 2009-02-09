@@ -215,8 +215,18 @@ public class PanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.PANEL__LAYOUT,
+				 GuigenFactory.eINSTANCE.createGridPanelLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.PANEL__LAYOUT_SPEC,
 				 GuigenFactory.eINSTANCE.createUDLRCWidgetLayoutSpec()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PANEL__LAYOUT_SPEC,
+				 GuigenFactory.eINSTANCE.createGridWidgetLayoutSpec()));
 	}
 
 	/**

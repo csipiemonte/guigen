@@ -243,6 +243,21 @@ public class FormPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMultiDataWidget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTreeView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createPlainText()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createMenuView()));
 	}
 
 }

@@ -35,10 +35,47 @@ context ApplicationArea ERROR "Deve essere definito almeno un contentPanel" :
 	this.contentPanels!=null && this.contentPanels.size>0;
 	
 context FormPanel ERROR "E'necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
-    this.layout.metaType!=UDLRCPanelLayout ||
-    ((this.layout.metaType==UDLRCPanelLayout && this.widgets.select(w|w.layoutSpec==null).size==0))
-    &&(this.layout.metaType==UDLRCPanelLayout && this.subpanels.select(w|w.layoutSpec==null).size==0)
-    ;
+    (this.layout.metaType!=UDLRCPanelLayout) 
+    ||
+    (
+    	(
+    		this.layout.metaType==UDLRCPanelLayout 
+    		&& 
+    		this.widgets.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.widgets.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
+    	)
+    	
+    	&&
+    	(
+    		this.layout.metaType==UDLRCPanelLayout 
+    		&& 
+    		this.subpanels.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.subpanels.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
+    	)
+    );
+
+context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostare la posizione in griglia per tutti i widget e i sottopannelli" :
+	this.layout.metaType!=GridPanelLayout 
+	||
+    (
+    	(
+    		this.layout.metaType==GridPanelLayout 
+    		&& 
+    		this.widgets.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.widgets.select(w|w.layoutSpec.metaType!=GridWidgetLayoutSpec).size==0
+    	)
+    	&&
+    	(
+    		this.layout.metaType==GridPanelLayout 
+    		&& 
+    		this.subpanels.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.subpanels.select(p|p.layoutSpec.metaType!=GridWidgetLayoutSpec).size==0
+    	)
+    );
 
 context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 	this.tabs.size>0;

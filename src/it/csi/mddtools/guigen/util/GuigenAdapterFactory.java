@@ -344,6 +344,26 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createApplicationDataDefsAdapter();
 			}
 			@Override
+			public Adapter caseTreeView(TreeView object) {
+				return createTreeViewAdapter();
+			}
+			@Override
+			public Adapter casePlainText(PlainText object) {
+				return createPlainTextAdapter();
+			}
+			@Override
+			public Adapter caseMenuView(MenuView object) {
+				return createMenuViewAdapter();
+			}
+			@Override
+			public Adapter caseGridPanelLayout(GridPanelLayout object) {
+				return createGridPanelLayoutAdapter();
+			}
+			@Override
+			public Adapter caseGridWidgetLayoutSpec(GridWidgetLayoutSpec object) {
+				return createGridWidgetLayoutSpecAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1312,6 +1332,76 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createApplicationDataDefsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TreeView <em>Tree View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TreeView
+	 * @generated
+	 */
+	public Adapter createTreeViewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PlainText <em>Plain Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PlainText
+	 * @generated
+	 */
+	public Adapter createPlainTextAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.MenuView <em>Menu View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.MenuView
+	 * @generated
+	 */
+	public Adapter createMenuViewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.GridPanelLayout <em>Grid Panel Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.GridPanelLayout
+	 * @generated
+	 */
+	public Adapter createGridPanelLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec <em>Grid Widget Layout Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec
+	 * @generated
+	 */
+	public Adapter createGridWidgetLayoutSpecAdapter() {
 		return null;
 	}
 

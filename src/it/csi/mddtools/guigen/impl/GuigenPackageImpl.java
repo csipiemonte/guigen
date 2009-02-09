@@ -40,6 +40,8 @@ import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIBehaviors;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GUIStructure;
+import it.csi.mddtools.guigen.GridPanelLayout;
+import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Header;
@@ -49,11 +51,13 @@ import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.JumpBackAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
+import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.ONOFFAction;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
@@ -70,6 +74,7 @@ import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
+import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
@@ -573,6 +578,41 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass applicationDataDefsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass treeViewEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass plainTextEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass menuViewEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gridPanelLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gridWidgetLayoutSpecEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2111,6 +2151,96 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTreeView() {
+		return treeViewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPlainText() {
+		return plainTextEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPlainText_StaticText() {
+		return (EAttribute)plainTextEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMenuView() {
+		return menuViewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGridPanelLayout() {
+		return gridPanelLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridPanelLayout_Columns() {
+		return (EAttribute)gridPanelLayoutEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridPanelLayout_Rows() {
+		return (EAttribute)gridPanelLayoutEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGridWidgetLayoutSpec() {
+		return gridWidgetLayoutSpecEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridWidgetLayoutSpec_Row() {
+		return (EAttribute)gridWidgetLayoutSpecEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridWidgetLayoutSpec_Column() {
+		return (EAttribute)gridWidgetLayoutSpecEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2414,6 +2544,21 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		applicationDataDefsEClass = createEClass(APPLICATION_DATA_DEFS);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__APP_DATA);
 
+		treeViewEClass = createEClass(TREE_VIEW);
+
+		plainTextEClass = createEClass(PLAIN_TEXT);
+		createEAttribute(plainTextEClass, PLAIN_TEXT__STATIC_TEXT);
+
+		menuViewEClass = createEClass(MENU_VIEW);
+
+		gridPanelLayoutEClass = createEClass(GRID_PANEL_LAYOUT);
+		createEAttribute(gridPanelLayoutEClass, GRID_PANEL_LAYOUT__COLUMNS);
+		createEAttribute(gridPanelLayoutEClass, GRID_PANEL_LAYOUT__ROWS);
+
+		gridWidgetLayoutSpecEClass = createEClass(GRID_WIDGET_LAYOUT_SPEC);
+		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__ROW);
+		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__COLUMN);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2494,6 +2639,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		simpleTypeEClass.getESuperTypes().add(this.getType());
 		complexTypeEClass.getESuperTypes().add(this.getType());
 		typedArrayEClass.getESuperTypes().add(this.getType());
+		treeViewEClass.getESuperTypes().add(this.getDataWidget());
+		treeViewEClass.getESuperTypes().add(this.getMultiDataWidget());
+		plainTextEClass.getESuperTypes().add(this.getDataWidget());
+		menuViewEClass.getESuperTypes().add(this.getCommandWidget());
+		gridPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
+		gridWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2721,6 +2872,21 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(applicationDataDefsEClass, ApplicationDataDefs.class, "ApplicationDataDefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplicationDataDefs_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(treeViewEClass, TreeView.class, "TreeView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(plainTextEClass, PlainText.class, "PlainText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPlainText_StaticText(), ecorePackage.getEString(), "staticText", null, 0, 1, PlainText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(menuViewEClass, MenuView.class, "MenuView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(gridPanelLayoutEClass, GridPanelLayout.class, "GridPanelLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGridPanelLayout_Columns(), ecorePackage.getEInt(), "columns", null, 0, 1, GridPanelLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridPanelLayout_Rows(), ecorePackage.getEInt(), "rows", null, 0, 1, GridPanelLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gridWidgetLayoutSpecEClass, GridWidgetLayoutSpec.class, "GridWidgetLayoutSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGridWidgetLayoutSpec_Row(), ecorePackage.getEInt(), "row", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridWidgetLayoutSpec_Column(), ecorePackage.getEInt(), "column", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

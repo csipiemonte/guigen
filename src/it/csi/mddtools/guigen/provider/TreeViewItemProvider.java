@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.TreeView;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,29 +17,24 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.Widget} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TreeView} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WidgetItemProvider
-	extends ItemProviderAdapter
+public class TreeViewItemProvider
+	extends DataWidgetItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -52,7 +47,7 @@ public class WidgetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WidgetItemProvider(AdapterFactory adapterFactory) {
+	public TreeViewItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -67,54 +62,8 @@ public class WidgetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addLabelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Widget_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Widget_name_feature", "_UI_Widget_type"),
-				 GuigenPackage.Literals.WIDGET__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Label feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLabelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Widget_label_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Widget_label_feature", "_UI_Widget_type"),
-				 GuigenPackage.Literals.WIDGET__LABEL,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -129,8 +78,7 @@ public class WidgetItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.WIDGET__LAYOUT_SPEC);
-			childrenFeatures.add(GuigenPackage.Literals.WIDGET__EVENT_HANDLERS);
+			childrenFeatures.add(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING);
 		}
 		return childrenFeatures;
 	}
@@ -149,17 +97,28 @@ public class WidgetItemProvider
 	}
 
 	/**
+	 * This returns TreeView.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TreeView"));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="["+((Widget)object).getName()+"]-"+((Widget)object).getLabel();
+		String label = ((TreeView)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Widget_type") :
-			getString("_UI_Widget_type") + " " + label;
+			getString("_UI_TreeView_type") :
+			getString("_UI_TreeView_type") + " " + label;
 	}
 
 	/**
@@ -173,13 +132,8 @@ public class WidgetItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Widget.class)) {
-			case GuigenPackage.WIDGET__NAME:
-			case GuigenPackage.WIDGET__LABEL:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.WIDGET__LAYOUT_SPEC:
-			case GuigenPackage.WIDGET__EVENT_HANDLERS:
+		switch (notification.getFeatureID(TreeView.class)) {
+			case GuigenPackage.TREE_VIEW__MULTI_DATA_BINDING:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -199,29 +153,31 @@ public class WidgetItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.WIDGET__LAYOUT_SPEC,
-				 GuigenFactory.eINSTANCE.createUDLRCWidgetLayoutSpec()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.WIDGET__LAYOUT_SPEC,
-				 GuigenFactory.eINSTANCE.createGridWidgetLayoutSpec()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.WIDGET__EVENT_HANDLERS,
-				 GuigenFactory.eINSTANCE.createEventHandler()));
+				(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING,
+				 GuigenFactory.eINSTANCE.createAppDataBinding()));
 	}
 
 	/**
-	 * Return the resource locator for this item provider's resources.
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GuigenPackage.Literals.DATA_WIDGET__DATABINDING ||
+			childFeature == GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

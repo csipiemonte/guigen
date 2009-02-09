@@ -120,6 +120,11 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TYPED_ARRAY: return createTypedArray();
 			case GuigenPackage.FIELD: return createField();
 			case GuigenPackage.APPLICATION_DATA_DEFS: return createApplicationDataDefs();
+			case GuigenPackage.TREE_VIEW: return createTreeView();
+			case GuigenPackage.PLAIN_TEXT: return createPlainText();
+			case GuigenPackage.MENU_VIEW: return createMenuView();
+			case GuigenPackage.GRID_PANEL_LAYOUT: return createGridPanelLayout();
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC: return createGridWidgetLayoutSpec();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -763,6 +768,56 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ApplicationDataDefs createApplicationDataDefs() {
 		ApplicationDataDefsImpl applicationDataDefs = new ApplicationDataDefsImpl();
 		return applicationDataDefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TreeView createTreeView() {
+		TreeViewImpl treeView = new TreeViewImpl();
+		return treeView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PlainText createPlainText() {
+		PlainTextImpl plainText = new PlainTextImpl();
+		return plainText;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MenuView createMenuView() {
+		MenuViewImpl menuView = new MenuViewImpl();
+		return menuView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GridPanelLayout createGridPanelLayout() {
+		GridPanelLayoutImpl gridPanelLayout = new GridPanelLayoutImpl();
+		return gridPanelLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GridWidgetLayoutSpec createGridWidgetLayoutSpec() {
+		GridWidgetLayoutSpecImpl gridWidgetLayoutSpec = new GridWidgetLayoutSpecImpl();
+		return gridWidgetLayoutSpec;
 	}
 
 	/**

@@ -1433,6 +1433,121 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TreeView} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TreeViewItemProvider treeViewItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TreeView}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTreeViewAdapter() {
+		if (treeViewItemProvider == null) {
+			treeViewItemProvider = new TreeViewItemProvider(this);
+		}
+
+		return treeViewItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PlainText} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PlainTextItemProvider plainTextItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PlainText}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPlainTextAdapter() {
+		if (plainTextItemProvider == null) {
+			plainTextItemProvider = new PlainTextItemProvider(this);
+		}
+
+		return plainTextItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MenuView} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MenuViewItemProvider menuViewItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MenuView}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMenuViewAdapter() {
+		if (menuViewItemProvider == null) {
+			menuViewItemProvider = new MenuViewItemProvider(this);
+		}
+
+		return menuViewItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.GridPanelLayout} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GridPanelLayoutItemProvider gridPanelLayoutItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.GridPanelLayout}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGridPanelLayoutAdapter() {
+		if (gridPanelLayoutItemProvider == null) {
+			gridPanelLayoutItemProvider = new GridPanelLayoutItemProvider(this);
+		}
+
+		return gridPanelLayoutItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.GridWidgetLayoutSpec} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GridWidgetLayoutSpecItemProvider gridWidgetLayoutSpecItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.GridWidgetLayoutSpec}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGridWidgetLayoutSpecAdapter() {
+		if (gridWidgetLayoutSpecItemProvider == null) {
+			gridWidgetLayoutSpecItemProvider = new GridWidgetLayoutSpecItemProvider(this);
+		}
+
+		return gridWidgetLayoutSpecItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1590,6 +1705,11 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (typedArrayItemProvider != null) typedArrayItemProvider.dispose();
 		if (fieldItemProvider != null) fieldItemProvider.dispose();
 		if (applicationDataDefsItemProvider != null) applicationDataDefsItemProvider.dispose();
+		if (treeViewItemProvider != null) treeViewItemProvider.dispose();
+		if (plainTextItemProvider != null) plainTextItemProvider.dispose();
+		if (menuViewItemProvider != null) menuViewItemProvider.dispose();
+		if (gridPanelLayoutItemProvider != null) gridPanelLayoutItemProvider.dispose();
+		if (gridWidgetLayoutSpecItemProvider != null) gridWidgetLayoutSpecItemProvider.dispose();
 	}
 
 }
