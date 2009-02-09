@@ -127,25 +127,24 @@ public class «getSpringBEClassName()»{
 	«LET findParentContentPanel() AS parentCP-»		
 	public ExecResults «this.methodName» (
 	«IF parentCP != null»
-		«getModelDTOFQN(parentCP, false, false, model)» theAction
+		«getModelDTOFQN(parentCP, false, false, model)» theModel
 	«ELSEIF isInMenuBranch(this)»
-		«getModelDTOFQN(null, true, false, model)» theAction
+		«getModelDTOFQN(null, true, false, model)» theModel
 	«ELSE»
-		«getModelDTOFQN(null, false, true, model)» theAction
+		«getModelDTOFQN(null, false, true, model)» theModel
 	«ENDIF»
 			
 	){
 		ExecResults result = new ExecResults();
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("springBE_"+this.methodName+"_code")»
-		// inserire qui la logica applicativa da eseguire
+		// inserire qui la logica applicativa da eseguire:
 			
 		// impostazione del result code
 		result.setResultCode("«this.results.first().resultCode»");
-		// impostazione degli app data risultanti
-		«FOREACH this.postExecData AS currAppData-»
-		//// impostazione dell'application Data «currAppData.name» (scope: «currAppData.lifetimeExtent.toString()»)
-		result.setAppData("«getAppDataKey(currAppData)»", null);
-		«ENDFOREACH-»
+		// modifica degli attributi del model (che verranno propagati allo strato
+		// di presentation). si può agire anche direttamente sull'attributo "session".
+		
+		result.setModel(theModel);
 		return result;
 		«ENDPROTECT»
 	}

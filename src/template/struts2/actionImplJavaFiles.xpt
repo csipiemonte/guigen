@@ -142,10 +142,18 @@ public abstract class ExecAction implements IAction {
 		}
 	}
 
+	/**
+	 * Esecuzione della logica di business.
+	 */
 	public String doAction(BaseAction strutsAction){
+		// action --> model
+		Object theModel = strutsAction.toModel();
 		// esecuzione azione
-		ExecResults execResults = doLogic(strutsAction); 
+		ExecResults execResults = doLogic(theModel); 
 		String result = execResults.getResultCode();
+		Object outModel = execResults.getModel();
+		// model --> action
+		strutsAction.fromModel(outModel);
 		// impostazione degli appData
 		storeAppData(execResults, strutsAction);
 		// determinazione esito e azione corrispondente
@@ -171,7 +179,7 @@ public abstract class ExecAction implements IAction {
 	
 	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
 	// corretto
-	public abstract ExecResults doLogic(BaseAction strutsAction);
+	public abstract ExecResults doLogic(Object theModel);
 }
 «ENDFILE»
 
@@ -184,7 +192,17 @@ import java.util.HashMap;
  
 public class ExecResults {
 	private String _resultCode;
-	private Map _appData = new HashMap();
+	
+	private Object _model;
+	
+	public void setModel(Object model){
+		_model=model;
+	}
+	
+	public Object getModel(){
+		return _model;
+	}
+	
 	
 	public void setResultCode(String code){
 		_resultCode = code; 
@@ -194,17 +212,6 @@ public class ExecResults {
 		return _resultCode;
 	}
 	
-	public void setAppData(String name, Object data){
-		_appData.put(name, data);
-	}
-	
-	public Object getAppData(String name){
-		return _appData.get(name);
-	}
-	
-	public Iterator<String> getAppDataNames(){
-		return (Iterator<String>) _appData.keySet().iterator();
-	}
 }
 «ENDFILE»
 
@@ -462,16 +469,15 @@ public class SequenceAction implements IAction {
     
     
 	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
-		public ExecResults doLogic(BaseAction strutsAction){
+		public ExecResults doLogic(Object theModel){
 		
 			«LET findParentContentPanel(this) AS parentCP»
-			Object model = strutsAction.toModel();
 			«IF parentCP != null»
-			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(parentCP,false, false, model)»)model);
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
 			«ELSEIF isInMenuBranch(this)»
-			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, true, false, model)»)model);
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, true, false, model)»)theModel);
 			«ELSE»
-			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, false, true, model)»)model);
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, false, true, model)»)theModel);
 			«ENDIF»
 			«ENDLET»
 		
@@ -496,13 +502,13 @@ public class SequenceAction implements IAction {
 			  
 		«FOREACH this.postExecData AS currAppData»
 			// store del dato «currAppData.name»
-			«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
-				(«toJavaType(currAppData.type,model)»)res.getAppData("«getAppDataKey(currAppData)»");
+			//«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
+			//	(«toJavaType(currAppData.type,model)»)res.get«getAppDataPropertyName(currAppData).toFirstUpper()»();
 			// il dato «currAppData.name» è salvato in un attributo della action corrente
-			specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
+			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
 			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
 			// il dato «currAppData.name» è salvato in sessione
-			strutsAction.getSession().put("«getAppDataKey(currAppData)»",_«getAppDataPropertyName(currAppData)»);
+			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
 			«ENDIF»
 		«ENDFOREACH»
 		}
