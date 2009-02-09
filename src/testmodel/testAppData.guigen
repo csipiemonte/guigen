@@ -1,87 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testbinding" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="test" codComponente="testbinding" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
       <header/>
       <appArea>
         <menubar>
-          <topLevelMenu name="mnhuUno" label="Uno"/>
-          <topLevelMenu name="mnuDue" label="Due"/>
+          <topLevelMenu name="menuUno" label="Menu uno">
+            <item name="menuUno" label="Menu uno"/>
+          </topLevelMenu>
         </menubar>
-        <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.2">
-          <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
-            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7"/>
-            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7"/>
-            <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
-              <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.2">
-                  <results resultCode="FOUND_MANY">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
-                  </results>
-                  <results resultCode="FOUND_ONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
-                  </results>
-                  <results resultCode="FOUND_NONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                  </results>
-                </action>
-              </eventHandlers>
-            </widgets>
-            <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
-              <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
-                  <results resultCode="OK">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                  </results>
-                </action>
-              </eventHandlers>
-            </widgets>
+        <contentPanels name="cpAllWidgets" appData="//@appDataDefs/@appData.2 //@appDataDefs/@appData.6 //@appDataDefs/@appData.3 //@appDataDefs/@appData.7 //@appDataDefs/@appData.1 //@appDataDefs/@appData.5 //@appDataDefs/@appData.0 //@appDataDefs/@appData.4">
+          <panels xsi:type="guigen:FormPanel" name="pAllWidgets" label="Tutti i widget">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pNobind" label="Widget con binding implicito">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tfNobind" label="text feld senza binding" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:TextArea" name="taNobind" label="textarea senza binding" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:CheckBox" name="ckNobind" label="Check senza binding" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:RadioButtons" name="rbsNobind" label="Radio buttons senza binding" dataType="//@typedefs/@types.7">
+                <radio name="rbNobind1" label="uno"/>
+                <radio name="rbNobind2" label="due"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pActbind" label="Widget con binding esplicito a appdata con scope USER_ACTION">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tfActbind" label="text feld bound to action appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.0"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextArea" name="taActbind" label="textarea bound to action appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.1" path=""/>
+              </widgets>
+              <widgets xsi:type="guigen:CheckBox" name="ckActbind" label="Check bound to action appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.3"/>
+              </widgets>
+              <widgets xsi:type="guigen:RadioButtons" name="rbsActbind" label="Radio buttons bound to action appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.3"/>
+                <radio name="rbActbind1" label="uno"/>
+                <radio name="rbActbind2" label="due"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pSessbind" label="Widget con binding esplicito a appdata con scope USER_SESSION">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tfSessbind" label="text feld bound to session appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.4"/>
+              </widgets>
+              <widgets xsi:type="guigen:TextArea" name="taSessbind" label="textarea bound to session appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.5"/>
+              </widgets>
+              <widgets xsi:type="guigen:CheckBox" name="ckSessbind" label="Check bound to session appdata" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.6"/>
+              </widgets>
+              <widgets xsi:type="guigen:RadioButtons" name="rbsSessbind" label="Radio buttons bound to session appdata" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.7"/>
+                <radio name="rbSessbind1" label="uno"/>
+                <radio name="rbSessbind2" label="due"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pComandi" label="Comandi">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bSubmitData" label="Submit all data!">
+                <eventHandlers>
+                  <action xsi:type="guigen:ExecAction" methodName="manageAllData" postExecData="//@appDataDefs/@appData.2 //@appDataDefs/@appData.6 //@appDataDefs/@appData.3 //@appDataDefs/@appData.7 //@appDataDefs/@appData.1 //@appDataDefs/@appData.5 //@appDataDefs/@appData.0 //@appDataDefs/@appData.4">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                  </action>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpLista">
-          <panels xsi:type="guigen:FormPanel" name="pListaRisultati" label="Lista risultati">
-            <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.7" keySelector="cognome" valueSelector="toString()">
-              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
-            </widgets>
-            <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
-              <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="caricaDettaglioSoggetto">
-                  <results resultCode="OK">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
-                  </results>
-                </action>
-              </eventHandlers>
-            </widgets>
-            <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.26">
-              <multiDataBinding appData="//@appDataDefs/@appData.0"/>
-              <columnModel>
-                <columns selector="nome" label="Nome"/>
-                <columns selector="cognome" label="Cognome" sortable="true"/>
-              </columnModel>
-            </widgets>
-          </panels>
-        </contentPanels>
-        <contentPanels name="cpDettaglio" appData="//@appDataDefs/@appData.1">
-          <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Dettaglio soggetto">
-            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7">
-              <databinding appData="//@appDataDefs/@appData.1" path="nome"/>
-            </widgets>
-            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7">
-              <databinding appData="//@appDataDefs/@appData.2" path="cognome"/>
-            </widgets>
-            <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.7">
-              <databinding appData="//@appDataDefs/@appData.1" path="sex"/>
-              <radio name="rbSexM" label="M"/>
-              <radio name="rbSexF" label="F"/>
-            </widgets>
-            <widgets xsi:type="guigen:ConfirmButton" name="bGotoRicerca" label="Altra ricerca">
-              <eventHandlers>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-              </eventHandlers>
-            </widgets>
-          </panels>
-        </contentPanels>
+        <onInitAction xsi:type="guigen:ExecAction" methodName="initStartupData" postExecData="//@appDataDefs/@appData.6 //@appDataDefs/@appData.7 //@appDataDefs/@appData.5 //@appDataDefs/@appData.4">
+          <results resultCode="OK">
+            <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </results>
+        </onInitAction>
       </appArea>
     </appWindow>
   </structure>
@@ -119,8 +113,13 @@
     <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
   </typedefs>
   <appDataDefs>
-    <appData name="listaSoggetti" type="//@typedefs/@types.27"/>
-    <appData name="dettaglioSoggetto" type="//@typedefs/@types.26"/>
-    <appData name="soggettoTrovato" type="//@typedefs/@types.26"/>
+    <appData name="ad4tfAction" type="//@typedefs/@types.7"/>
+    <appData name="ad4taAction" type="//@typedefs/@types.7"/>
+    <appData name="ad4ckAction" type="//@typedefs/@types.7"/>
+    <appData name="ad4rbAction" type="//@typedefs/@types.7"/>
+    <appData name="ad4tfSession" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="ad4taSession" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="ad4ckSession" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="ad4rbSession" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
   </appDataDefs>
 </guigen:GUIModel>

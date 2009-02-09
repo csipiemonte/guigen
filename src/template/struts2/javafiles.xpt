@@ -101,47 +101,60 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     ////////////////////////////////////////////////////////////////////////
     public abstract Class modelClass();
     
-	private java.lang.reflect.Method findReadMethod(String name, Class cl) throws IntrospectionException{
+	private java.lang.reflect.Method findReadMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=name.substring(3);
 		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
-		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor currPd = pds[i];
-			if (currPd.getName().equals(name))
+			if (currPd.getName().equalsIgnoreCase(name))
 				return currPd.getReadMethod();
 		}
 		return null;
 	}
-	
-	private java.lang.reflect.Method findWriteMethod(String name, Class cl) throws IntrospectionException{
+
+	private java.lang.reflect.Method findWriteMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=name.substring(3);
 		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
-		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor currPd = pds[i];
-			if (currPd.getName().equals(name))
+			if (currPd.getName().equalsIgnoreCase(name))
 				return currPd.getWriteMethod();
 		}
 		return null;
 	}
-	
-	public Object toModel(){
-		try{
+
+	public Object toModel() {
+		try {
 			Object modelObj = modelClass().newInstance();
-			BeanInfo targetBI = java.beans.Introspector.getBeanInfo(modelClass());
-			PropertyDescriptor [] targetPds = targetBI.getPropertyDescriptors();
+			BeanInfo targetBI = java.beans.Introspector
+					.getBeanInfo(modelClass());
+			PropertyDescriptor[] targetPds = targetBI.getPropertyDescriptors();
 			for (int i = 0; i < targetPds.length; i++) {
 				PropertyDescriptor currTargetPD = targetPds[i];
-				java.lang.reflect.Method srcReadMethod = findReadMethod(currTargetPD.getReadMethod().getName(), this.getClass());
-				if (srcReadMethod!=null){
+				java.lang.reflect.Method srcReadMethod = findReadMethod(currTargetPD.getReadMethod().getName(),this.getClass());
+				if (srcReadMethod != null) {
 					Object srcVal = srcReadMethod.invoke(this, new Object[]{});
-					currTargetPD.getWriteMethod().invoke(modelObj, new Object[]{srcVal});
+					java.lang.reflect.Method currWriteMethod = currTargetPD.getWriteMethod();
+					if (currWriteMethod!=null){
+						currTargetPD.getWriteMethod().invoke(modelObj,
+								new Object[]{srcVal});
+					}
 				}
 			}
 			return modelObj;
-		}
-		catch(Exception e){
-			System.out.println("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
-			throw new IllegalArgumentException("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
-			
+		} catch (Exception e) {
+			System.out
+					.println("Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+			e.printStackTrace();
+			throw new IllegalArgumentException(
+					"Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+
 		}
 	}
     
