@@ -43,10 +43,9 @@ Definizioni generali
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
+«REM»Genera la componente di markup (HTML) deli LINK STATICI.
 TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -54,14 +53,12 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
-
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getMenubarMarkupRupar(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -69,7 +66,6 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
 «ENDFILE»
 «ENDDEFINE»
 
@@ -98,6 +94,26 @@ Gestione dei PANNELLI
 ==========================================================================================================================
 «ENDREM»
 
+«REM»
+************** Form Panel **************
+«ENDREM»
+
+«REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
+«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::setupFirstLevelFormPanelSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»
+************** Tabset Panel **************
+«ENDREM»
+
 «REM»comment«ENDREM»
 «DEFINE setupTabSetPanelByPortal(GUIModel model) FOR TabSetPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
@@ -117,24 +133,23 @@ Gestione dei LAYOUT
 ==========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»AL MOMENTO NON USATO: tenuto solo per retrocompatibilità«ENDREM»
 «DEFINE firstLevelPanelPreLayout(GUIModel model, ContentPanel cp) FOR Panel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::firstLevelPanelPreLayoutRupar(cp) FOR this»
+	«EXPAND remoteResourcesRupar::firstLevelPanelPreLayoutRupar(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::firstLevelPanelPreLayoutSistemaPiemonte(cp) FOR this»
+	«EXPAND remoteResourcesSisp::firstLevelPanelPreLayoutSistemaPiemonte(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
 «ENDDEFINE»
 
-
-«REM»comment«ENDREM»
+«REM»AL MOMENTO NON USATO: tenuto solo per retrocompatibilità«ENDREM»
 «DEFINE firstLevelPanelPostLayout(GUIModel model, ContentPanel cp) FOR Panel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::firstLevelPanelPostLayoutRupar(cp) FOR this»
+	«EXPAND remoteResourcesRupar::firstLevelPanelPostLayoutRupar(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::firstLevelPanelPostLayoutSistemaPiemonte(cp) FOR this»
+	«EXPAND remoteResourcesSisp::firstLevelPanelPostLayoutSistemaPiemonte(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»

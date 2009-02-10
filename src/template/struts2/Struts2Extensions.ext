@@ -158,6 +158,7 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi spring
 
@@ -246,14 +247,11 @@ let code = ((SimpleType)type).code :
   	(nillable ? "0" : "0")
 	else 
   	"???";
-  	
 
-
-	
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// STYLES
+/// PORTAL THEMES AND STYLES
 
 String getTablePortalStyle(GUIModel model) :
 	if(model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE) then
@@ -283,8 +281,8 @@ String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
 		"<s:else>" + item.label + "</s:else>"
 	else
 		item.label;
-	
-	
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
@@ -349,7 +347,18 @@ List getAllMenuItemRecursive(Menu m) : JAVA
 
 boolean isInMenuBranch(ExecAction ea) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.isInMenuBranch(it.csi.mddtools.guigen.ExecAction);
-		
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayout(FormPanel firstLevPanel) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnsLayout(it.csi.mddtools.guigen.FormPanel);
+
+// [DM]
+Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Fake data for widgets (only when needed)                                                 //
 /// TODO: remove or comment in PRODUCTION                                                    //

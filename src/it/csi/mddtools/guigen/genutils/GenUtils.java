@@ -28,12 +28,14 @@ import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
@@ -41,7 +43,12 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.UDLRCPanelLayout;
+import it.csi.mddtools.guigen.UDLRCSpecConstants;
+import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 
 
 
@@ -666,6 +673,102 @@ public static List<MenuItem> getAllMenuItemRecursive(Menu m){
 	}
 	return result;
 }
+
+
+/**
+ * Restituisce tutti i sottopannelli di un formPanel di primo livello che sono posizionati
+ * nella posizione specificata (per UDLRC layout)
+ *  
+ * @param firstLevPanel
+ * @param layout
+ * @return
+ * @author [DM]
+ */
+public static List<Panel> getSubPanelsByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) {
+	List<Panel> result = new ArrayList<Panel>();
+	
+	Iterator<Panel> itSp = firstLevPanel.getSubpanels().iterator();
+	while ( itSp.hasNext() ) {
+		Panel currPan = itSp.next();
+		UDLRCWidgetLayoutSpec curLay = (UDLRCWidgetLayoutSpec)currPan.getLayoutSpec();
+		if ( curLay != null && curLay.getValue() == quadrante) {
+			result.add(currPan);
+		}
+	}
+	
+	return result;
+}
+
+
+/**
+ * Restituisce il sottopannello di un FormPanel di primo livello situato nella posizione indicata.
+ * Vengono fatte, per semplificare la generazione, le seguenti assunzioni:
+ * - il layout UDLRC viene applicato solo al primo livello (check)
+ * - è ammesso un solo sottopannello per ciascuno dei cinque quadranti (check)
+ * - non sono ammessi direttamente widget come figli di un pannello di primo livello con layout UDLRC
+ * 
+ * @param firstLevPanel
+ * @param quadrante
+ * @return
+ * @author [DM]
+ */
+public static Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) {
+	return GenUtils.getSubPanelsByLayout(firstLevPanel, quadrante).get(0);
+}
+
+
+
+
+/**
+ * Ho un FormPanel di primo livello con layout UDLRC: quante colonne imposto sull'HTML?
+ * - [U][D] L R C -> layout 3 colonne
+ * - [U][D] L C   -> layout 2 colonne
+ * - [U][D] L R   -> combinazione illegale (check)
+ * - [U][D] C     -> layout 1 colonna
+ * 
+ * @param firstLevPanel
+ * @param layout
+ * @return
+ * @author [DM]
+ */
+public static int getColumnsLayout(FormPanel firstLevPanel) {
+	
+	PanelLayout currPanLay = firstLevPanel.getLayout();
+	int columns = 1;
+	
+	if ( currPanLay instanceof VerticalFlowPanelLayout ) {
+		System.out.println("=====> LAYOUT [VerticalFlowPanelLayout]");
+		columns = 1;
+	} else if ( currPanLay instanceof UDLRCPanelLayout ) {
+		int left = GenUtils.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
+		int right = GenUtils.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
+		System.out.println("=====> LAYOUT [UDLRCPanelLayout] - LEFT {" + left + "} : RIGHT {" + right + "}");
+		
+		if ( right == 1 ) {
+			// layout 3 colonne
+			columns = 3;
+		} else if ( left == 1 ) {
+			// layout 2 colonne
+			columns = 2;
+		} else {
+			// layout 1 colonna
+		}
+	} else if ( currPanLay instanceof HorizontalFlowPanelLayout ) {
+		// ??? come lo gestisco
+		System.out.println("=====> LAYOUT [HorizontalFlowPanelLayout]");
+		columns = 1;
+	}
+
+	return columns;
+}
+
+
+
+
+
+
+
+
 
 /////////////////////////////////////////////
 

@@ -31,55 +31,61 @@
 «DEFINE jspFragmentsFile(boolean skip_component_dir_creation) FOR GUIModel»
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.header AS header»
-			«IF header != null»
-				«EXPAND template::struts2::remoteResources::getHeaderMarkup(this, skip_component_dir_creation) FOR header»
-			«ENDIF»
-		«ENDLET»
+		«LET this.structure.appWindow.header AS header-»
+			«IF header != null-»
+				«EXPAND template::struts2::remoteResources::getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
+			«ENDIF-»
+		«ENDLET-»
 
 		«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.appArea.menubar AS menubar»
-			«IF menubar != null»
-				«EXPAND template::struts2::remoteResources::getMenubarMarkup(this, skip_component_dir_creation) FOR menubar»
-			«ENDIF»		
-		«ENDLET»
+		«LET this.structure.appWindow.appArea.menubar AS menubar-»
+			«IF menubar != null-»
+				«EXPAND template::struts2::remoteResources::getMenubarMarkup(this, skip_component_dir_creation) FOR menubar-»
+			«ENDIF-»
+		«ENDLET-»
 
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.footer AS footer»
-			«IF footer != null»
-				«EXPAND template::struts2::remoteResources::getFooterMarkup(this, skip_component_dir_creation) FOR footer»
-			«ENDIF»
-		«ENDLET»
+		«LET this.structure.appWindow.footer AS footer-»
+			«IF footer != null-»
+				«EXPAND template::struts2::remoteResources::getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
+			«ENDIF-»
+		«ENDLET-»
 
 «ENDDEFINE»
 
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)»<%@ taglib uri="/struts-tags" prefix="s" %>
+«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET model.structure.appWindow.header AS header-»
-		«IF header != null-»
-		<s:include value="fragments/header.jsp" ></s:include>
-		«ENDIF-»
-		«ENDLET-»
-		
+		«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
 
 		«REM»Genera il corpo della Pagina«ENDREM»
 		«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
 
-
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET model.structure.appWindow.footer AS footer-»
-		«IF footer != null-»
-		<s:include value="fragments/footer.jsp" ></s:include>
-		«ENDIF-»
-		«ENDLET-»
-
-«ENDFILE»
+		«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
+«ENDFILE-»
 «ENDDEFINE»
+
+
+«REM»Inserisce, se necessario, la direttiva include per la header«ENDREM»
+«DEFINE setupHeader(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«IF model.structure.appWindow.header != null-»
+	<s:include value="fragments/header.jsp" ></s:include>
+	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Inserisce, se necessario, la direttiva include per il footer«ENDREM»
+«DEFINE setupFooter(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«IF model.structure.appWindow.footer != null-»
+	<s:include value="fragments/footer.jsp" ></s:include>
+	«ENDIF-»
+«ENDDEFINE»
+
 
 
 «REM»
@@ -90,51 +96,75 @@ Gestione dei pannelli
 
 «REM»Genera il setup del «ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-<s:form action="«getStrutsActionConfigName(this)»" method="post">
+<%--<s:form action="«getStrutsActionConfigName(this)»" method="post">--%><%-- temporaneamente commentato... --%>
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
-</s:form>
+<%--</s:form>--%><%-- temporaneamente commentato... --%>
 «ENDDEFINE»
 
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
-<!-- Creazione del pannello «this» -->
-«EXPAND remoteResources::firstLevelPanelPreLayout(model, panel) FOR this-»
-
+«DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR Panel»
+<!-- Creazione del pannello di primo livello «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this»
+	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this»
+	«REM»Al momento facciamo l'assunzione che al primo livello posso mettere solo Form Panels.«ENDREM»
 «ELSEIF this.metaType == DialogPanel-»
 	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDIF-»
-
-«EXPAND remoteResources::firstLevelPanelPostLayout(model, panel) FOR this-»
-
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR FormPanel»
+«REM»Crea un sottopannello«ENDREM»
+«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR Panel»
+<!-- Creazione del sottopannello «this» -->
+«IF expandLayout-»
+«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
+«ENDIF-»
 
-	«REM»Espande i widget del FormPanel corrente«ENDREM»
-	«FOREACH this.widgets AS currWidg-»
-		«EXPAND createAndAddWidgetMarkup(model, panel) FOR currWidg»
-	«ENDFOREACH-»
-	
-	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
-	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
-		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, panel) FOR currSubform»
-	«ENDFOREACH-»
-	
+«IF this.metaType == FormPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this-»
+«ELSEIF this.metaType == TabSetPanel-»
+	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp) FOR (TabSetPanel)this-»
+«ELSE-»
+	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
+«ENDIF-»
+
+«IF expandLayout-»
+«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»
+************** Form Panel **************
+«ENDREM»
+
+«REM»comment«ENDREM»
+«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+	«REM»Espande i widget del FormPanel corrente«ENDREM»
+	«FOREACH this.widgets AS currWidg-»
+		«EXPAND createAndAddWidgetMarkup(model, cp) FOR currWidg»
+	«ENDFOREACH-»
+
+	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
+	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
+		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR currSubform»
+	«ENDFOREACH-»
+
+«ENDDEFINE»
+
+
+«REM»
+************** Tabset Panel **************
+«ENDREM»
+
+«REM»
 Genera un tabset panel
-TODO: 
+TODO:
 1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
      - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
      - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
@@ -142,68 +172,50 @@ TODO:
      - pagine jsp separate incluse a runtime?
      - layer (<div>)?
    Ricordarsi che il tipo di implementazione incide anche sul passaggio dei dati al submit del form.
-3. Come si implementa l'azione di cambio tab? 
-     Nel caso di pagine separate deve essere prevista nella Action (file Java) un nuovo tipo di azione (command) 
-     da inserire automaticamente nel caso il ContentPanel contenga uno o più TabbedPanel che preveda il settaggio 
-     del tab selezionato come attivo e il ricaricamento della pagina (jump action su se stessa) 
-     in modo da visualizzare il tab selezionato. 
-     Nel caso di implementazione a layer, lazione è da realizzare via Javascript. 
-     Ricordarsi che a seconda dell'implementazione scelta per i tab, 
+3. Come si implementa l'azione di cambio tab?
+     Nel caso di pagine separate deve essere prevista nella Action (file Java) un nuovo tipo di azione (command)
+     da inserire automaticamente nel caso il ContentPanel contenga uno o più TabbedPanel che preveda il settaggio
+     del tab selezionato come attivo e il ricaricamento della pagina (jump action su se stessa)
+     in modo da visualizzare il tab selezionato.
+     Nel caso di implementazione a layer, lazione è da realizzare via Javascript.
+     Ricordarsi che a seconda dell'implementazione scelta per i tab,
      può essere necessario una memorizzazione dei dati delle form.
-4. Come si riconosce il tab attivo? 
-     Come per il menu attivo, si potrebbe ipotizzare di salvare da qualche parte il tab attivo 
-     per poi utilizzare dinamicamente a runtime l'informazione sulla JSP via OGNL. 
+4. Come si riconosce il tab attivo?
+     Come per il menu attivo, si potrebbe ipotizzare di salvare da qualche parte il tab attivo
+     per poi utilizzare dinamicamente a runtime l'informazione sulla JSP via OGNL.
      Bisogna determinare lo scope di questa informazione (session, Action, page,...).
-5. I tabbed panels possono essere annidati: un sottopannello di un tab può essere a sua volta un tabbed panel, 
-     quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare 
+5. I tabbed panels possono essere annidati: un sottopannello di un tab può essere a sua volta un tabbed panel,
+     quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare
      dannose sovrapposizioni di nomi (i nomi dei componenti sono univoci a livello di ContentPanel?).
 «ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR TabSetPanel»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.tabs.first().name»'}" />
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-	
+
 	«REM»Definizione del pannello«ENDREM»
 	«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
 	«FOREACH this.tabs AS currTab -»
-		«EXPAND createAndAddTab(model, skip_component_dir_creation, panel, this) FOR currTab-»
-		«EXPAND createTabIncludeDirective(model, panel, this) FOR currTab-»
+		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this) FOR currTab-»
+		«EXPAND createTabIncludeDirective(model, cp, this) FOR currTab-»
 	«ENDFOREACH-»
-	
-«ENDDEFINE»
-
-
-«REM»Crea un sottopannello«ENDREM»
-«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel) FOR Panel»
-<!-- Creazione del sottopannello «this» -->
-«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
-
-«IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this-»
-«ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, panel) FOR (TabSetPanel)this-»
-«ELSE-»
-	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
-«ENDIF-»
-
-«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
 
 «ENDDEFINE»
 
 
 «REM»Crea i files per ogni singolo tab«ENDREM»
-«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel panel, TabSetPanel tabPanel) FOR Panel»
+«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel) FOR Panel»
 «FILE getJspTabsMarkupDir(model, skip_component_dir_creation)+"/"+tabPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 <!-- Creazione del tab «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, panel) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, panel) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
 «ENDIF-»
@@ -212,11 +224,18 @@ TODO:
 
 
 «REM»la direttiva di include per ogni file che rappresenta un Tab«ENDREM»
-«DEFINE createTabIncludeDirective(GUIModel model, ContentPanel panel, TabSetPanel tabPanel) FOR Panel»
+«DEFINE createTabIncludeDirective(GUIModel model, ContentPanel cp, TabSetPanel tabPanel) FOR Panel»
 <s:if test="%{#«tabPanel.name»_selectedTab == '«tabPanel.name+"_"+this.name»'}">
 	<s:include value="«getJspTabsConfig()+"/"+tabPanel.name+"_"+this.name+".jsp"»" ></s:include>
 </s:if>
 «ENDDEFINE»
+
+
+«REM»
+************** Dialog Panel **************
+«ENDREM»
+
+
 
 
 
@@ -227,29 +246,29 @@ Gestione dei Widget
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Widget»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»
 <!-- [GUIGEN] widget non gestito: «this» -->
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextField»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF» 
-		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
+		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
+		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 	/>
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR TextArea»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
+		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 		«IF this.rows != null»rows="«this.rows»"«ENDIF»
 		«IF this.columns != null»cols="«this.columns»"«ENDIF»
 		></s:textarea>
@@ -258,36 +277,36 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR RadioButtons»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
-		list="#{«getFixedRadioButtonList(this)»}" 
-		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
+		list="#{«getFixedRadioButtonList(this)»}"
+		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 		/>
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR CheckBox»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-		disabled="#session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" 
+		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 		/>
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ComboBox»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
 	          headerKey="00" headerValue="-- Selezionare un valore --"
 	          list="«getOGNLForWidgetMultiValue(this)»"
-	          disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"
+	          disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 	          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
 	          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
 	          />
@@ -296,53 +315,53 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Button»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ConfirmButton»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled"/>
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
 </s:if>
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di un pulsante di reset del form. 
+«REM»Genera la componente di markup (HTML) di un pulsante di reset del form.
 NOTA: implementato per il momento SOLO in HTML«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR ResetButton»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-	<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«panel.name».«this.name»_enabled!=null && !#session.«panel.name».«this.name»_enabled" />
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+	<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Image»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Image»
 <!-- [GUIGEN] Crea il widget «this» -->
 <img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR Table»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
 
 «REM»tag implementation: KEEP«ENDREM»
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-<display:table name="«getOGNLForWidgetMultiValue(this)»" 
-               export="true" 
-               defaultsort="1" 
-               defaultorder="descending" 
-               id="rowR" 
-               pagesize="«this.pageSize»" 
-               requestURI="«getStrutsActionConfigName(panel)».do" 
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+<display:table name="«getOGNLForWidgetMultiValue(this)»"
+               export="true"
+               defaultsort="1"
+               defaultorder="descending"
+               id="rowR"
+               pagesize="«this.pageSize»"
+               requestURI="«getStrutsActionConfigName(cp)».do"
                keepStatus="true"
                clearStatus="false"
                «getTablePortalStyle(model)» >
@@ -353,5 +372,13 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 	«ENDLET-»
 </display:table>
 </s:if>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) di un MenuView (segnaposto per il menu).«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR MenuView»
+«IF model.structure.appWindow.appArea.menubar != null-»
+	<s:include value="fragments/menu.jsp"></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
