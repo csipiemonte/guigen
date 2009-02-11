@@ -713,7 +713,11 @@ public static List<Panel> getSubPanelsByLayout(FormPanel firstLevPanel, UDLRCSpe
  * @author [DM]
  */
 public static Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) {
-	return GenUtils.getSubPanelsByLayout(firstLevPanel, quadrante).get(0);
+	Panel res = null;
+	if ( getSubPanelsByLayout(firstLevPanel, quadrante).size() > 0 ) {
+		res = GenUtils.getSubPanelsByLayout(firstLevPanel, quadrante).get(0);
+	}
+	return res;
 }
 
 
