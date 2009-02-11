@@ -103,7 +103,9 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     
 	private java.lang.reflect.Method findReadMethod(String name, Class cl)
 			throws IntrospectionException {
-		name=name.substring(3);
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
 		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
 		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
@@ -116,7 +118,9 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 
 	private java.lang.reflect.Method findWriteMethod(String name, Class cl)
 			throws IntrospectionException {
-		name=name.substring(3);
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
 		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
 		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
 		for (int i = 0; i < pds.length; i++) {
@@ -158,24 +162,33 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		}
 	}
     
-    public void fromModel(Object modelObj){
-		try{
+    public void fromModel(Object modelObj) {
+		try {
 			BeanInfo srcBI = java.beans.Introspector.getBeanInfo(modelClass());
-			PropertyDescriptor [] srcPds = srcBI.getPropertyDescriptors();
+			PropertyDescriptor[] srcPds = srcBI.getPropertyDescriptors();
 			for (int i = 0; i < srcPds.length; i++) {
 				PropertyDescriptor currSrcPD = srcPds[i];
-				java.lang.reflect.Method srcReadMethod = currSrcPD.getReadMethod();
-				if (srcReadMethod!=null){
-					Object srcVal = srcReadMethod.invoke(modelObj, new Object[]{});
-					java.lang.reflect.Method targetWriteMethod = findWriteMethod(currSrcPD.getWriteMethod().getName(), this.getClass());
-					targetWriteMethod.invoke(modelObj, new Object[]{srcVal});
+				java.lang.reflect.Method srcReadMethod = currSrcPD
+						.getReadMethod();
+				if (srcReadMethod != null) {
+					Object srcVal = srcReadMethod.invoke(modelObj,
+							new Object[]{});
+					java.lang.reflect.Method targetWriteMethod = findWriteMethod(
+							currSrcPD.getReadMethod().getName(), this
+									.getClass());
+					if (targetWriteMethod!=null){
+						targetWriteMethod.invoke(this, new Object[]{srcVal});
+					}
 				}
 			}
-		}
-		catch(Exception e){
-			System.out.println("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
-			throw new IllegalArgumentException("Errore interno nella costruzione del modello, classe:"+modelClass()+": "+e);
-			
+		} catch (Exception e) {
+			System.out
+					.println("Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+			throw new IllegalArgumentException(
+					"Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+
 		}
 	}
     
