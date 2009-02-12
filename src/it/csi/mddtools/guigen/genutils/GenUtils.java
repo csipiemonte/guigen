@@ -7,17 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.eclipse.core.internal.watson.ElementTreeIterator;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
 import it.csi.mddtools.guigen.AppDataBinding;
-import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
-import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataLifetimeType;
@@ -26,6 +22,8 @@ import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.FormPanel;
+import it.csi.mddtools.guigen.GridPanelLayout;
+import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
@@ -42,13 +40,11 @@ import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
-import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
-import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 
 
 
@@ -715,12 +711,10 @@ public static List<Panel> getSubPanelsByLayout(FormPanel firstLevPanel, UDLRCSpe
 public static Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) {
 	Panel res = null;
 	if ( getSubPanelsByLayout(firstLevPanel, quadrante).size() > 0 ) {
-		res = GenUtils.getSubPanelsByLayout(firstLevPanel, quadrante).get(0);
+		res = getSubPanelsByLayout(firstLevPanel, quadrante).get(0);
 	}
 	return res;
 }
-
-
 
 
 /**
@@ -741,12 +735,10 @@ public static int getColumnsLayout(FormPanel firstLevPanel) {
 	int columns = 1;
 	
 	if ( currPanLay instanceof VerticalFlowPanelLayout ) {
-		System.out.println("=====> LAYOUT [VerticalFlowPanelLayout]");
 		columns = 1;
 	} else if ( currPanLay instanceof UDLRCPanelLayout ) {
-		int left = GenUtils.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
-		int right = GenUtils.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
-		System.out.println("=====> LAYOUT [UDLRCPanelLayout] - LEFT {" + left + "} : RIGHT {" + right + "}");
+		int left = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
+		int right = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
 		
 		if ( right == 1 ) {
 			// layout 3 colonne
@@ -759,7 +751,6 @@ public static int getColumnsLayout(FormPanel firstLevPanel) {
 		}
 	} else if ( currPanLay instanceof HorizontalFlowPanelLayout ) {
 		// ??? come lo gestisco
-		System.out.println("=====> LAYOUT [HorizontalFlowPanelLayout]");
 		columns = 1;
 	}
 
@@ -767,10 +758,125 @@ public static int getColumnsLayout(FormPanel firstLevPanel) {
 }
 
 
+/**
+ * nota: moltiplico per due perchè il custom tag <customtag:panelGrid> ragiona in termini di
+ *       colonne reali, quindi vale l'equazione
+ *       1 widget = label + widget = 2 colonne
+ * @param p
+ * @return
+ * @author [DM]
+ */
+public static String getGridPanelColumnsNumber(FormPanel p) {
+	int columns = 0;
+	
+	if ( p.getLayout() instanceof VerticalFlowPanelLayout ) {
+		columns = 2;
+	} else if ( p.getLayout() instanceof GridPanelLayout ) {
+		columns = ((GridPanelLayout)p.getLayout()).getColumns() * 2;
+	} else if ( p.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		columns = p.getWidgets().size() * 2;
+	}
+	
+	return Integer.toString(columns);
+}
 
 
+/**
+ * Restituisce una lista 
+ * @param p
+ * @return
+ * @author [DM]
+ */
+public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
+	ArrayList<Widget> res = new ArrayList<Widget>();
+	
+	if ( p.getLayout() instanceof VerticalFlowPanelLayout ) {
+		res.addAll(p.getWidgets());
+	} else if ( p.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		res.addAll(p.getWidgets());
+	} else if ( p.getLayout() instanceof GridPanelLayout ) {
+		int cols = ((GridPanelLayout)p.getLayout()).getColumns();
+		int rows = ((GridPanelLayout)p.getLayout()).getRows();
+
+		// ciclo sulle righe
+		for ( int r=1; r <= rows; r++ ) {
+			// ciclo sulle colonne
+			for ( int c=1; c <= cols; c++ ) {
+				System.out.println("=====> GETTING WIDGET : ROW {" + r + "} - COLUMN {" + c + "}");
+				res.add(getWidgetByRowColumn(p, r, c));
+			}
+		}
+	}
+	
+	return res;
+}
 
 
+/**
+ * 
+ * @param p
+ * @param row
+ * @param col
+ * @return
+ * @author [DM]
+ */
+public static Widget getWidgetByRowColumn(FormPanel p, int row, int col) {
+	Widget res = null;
+	Iterator<Widget> it = p.getWidgets().iterator();
+	while ( it.hasNext() ) {
+		Widget tmp = it.next();
+		int r = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getRow();
+		int c = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getColumn();
+		if ( r == row && c == col ) {
+			res = tmp;
+			break;
+		}
+	}
+	
+	if ( res == null ) {
+		// widget non trovato
+		throw new IllegalArgumentException("Errore di generazione: GridPanelLayout, manca il widget in posizione row: "+row+" col: "+col);
+	}
+	
+	return res;
+}
+
+
+/**
+ * 
+ * @param model
+ * @param cp
+ * @param fp
+ * @param w
+ * @param isFirst
+ * @param isLast
+ * @param counter1
+ * @return
+ */
+public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) {
+	String res = "";
+	
+	if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		res = "";
+	} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		if ( isFirst ) {
+			res = "position=\"first\"";
+		} else if ( isLast ) {
+			res = "position=\"last\"";
+		}
+	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		int wc = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getColumn();
+		int cols = ((GridPanelLayout)fp.getLayout()).getColumns();
+
+		if ( wc == 1 ) {
+			res = "position=\"first\"";
+		} else if ( wc == cols ) {
+			res = "position=\"last\"";
+		}		
+	}
+	
+	return res;
+}
 
 
 
