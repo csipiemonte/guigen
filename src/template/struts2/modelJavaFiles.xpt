@@ -12,6 +12,7 @@
 «ENDIF»
 «ENDLET»
 «REM»action model«ENDREM»
+«EXPAND baseActionModelfile(this) FOR this»
 «LET this.structure.appWindow.appArea.contentPanels AS currCP»
 «EXPAND actionModelFile(this) FOREACH currCP»
 «ENDLET»
@@ -152,6 +153,70 @@ public class «getSpringBEClassName()»{
 	«ENDLET-»
 «ENDDEFINE»
 
+
+«DEFINE baseActionModelfile(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
+
+import java.util.Map;
+
+public abstract class BaseSessionAwareDTO implements java.io.Serializable{
+	protected Map session;
+	
+	public void setSession(Map session){
+		this.session = session;
+	}
+	
+	public Map getSession(){
+		return this.session;
+	}
+	
+	/**
+	 * dump di debug dello stato interno del DTO
+	 */
+	public String dump() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(""+getClass().getName()+"{\n");
+		sb.append("\telenco fields:\n");
+		java.beans.BeanInfo bi;
+		try {
+			bi = java.beans.Introspector.getBeanInfo(this.getClass());
+			java.beans.PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+			for (int i = 0; i < pds.length; i++) {
+				java.beans.PropertyDescriptor currPD = pds[i];
+				java.lang.reflect.Method currReadMethod = currPD
+						.getReadMethod();
+				if (currReadMethod != null) {
+					try {
+						Object srcVal = currReadMethod.invoke(this,
+								new Object[]{});
+						sb.append("\t\t" + currPD.getName() + "=" + srcVal
+								+ "\n");
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (java.lang.reflect.InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (java.beans.IntrospectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		sb.append("\t\t");
+
+		sb.append("\tsessione:\n");
+
+		sb.append("}\n");
+		return sb.toString();
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
 «REM»dto con solo le property delle action (parametri per spring)«ENDREM»
 «DEFINE actionModelFile(GUIModel model) FOR ContentPanel»
 «FILE getFullModelDTOClassFile(this,false,false,model)»
@@ -163,21 +228,8 @@ import java.util.*;
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata alla Schermata [«this.name»]
  */
-public class «getModelDTOClassName(this,false,false,model)» implements java.io.Serializable{
+public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionAwareDTO {
 
-	////////////////////////////////////////////////////////////////////
-	/// oggetti in sessione
-	////////////////////////////////////////////////////////////////////
-
-	protected Map session;
-
-
-	public void setSession(Map session) {
-		this.session = session;
-	}
-	public Map getSession() {
-		return this.session;
-	}
 	
 	////////////////////////////////////////////////////////////////////
 	/// application data
@@ -188,6 +240,8 @@ public class «getModelDTOClassName(this,false,false,model)» implements java.io.S
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////
 	«EXPAND actionImplJavaFiles::widgetsProperties(model) FOR this»
+	
+	
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -203,27 +257,15 @@ import java.util.*;
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata al Menu
  */
-public class «getModelDTOClassName(null,true,false,model)» implements java.io.Serializable{
+public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAwareDTO {
 
-	////////////////////////////////////////////////////////////////////
-	/// oggetti in sessione
-	////////////////////////////////////////////////////////////////////
-
-	protected Map session;
-
-
-	public void setSession(Map session) {
-		this.session = session;
-	}
-	public Map getSession() {
-		return this.session;
-	}
-	
+		
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 	
+
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -238,21 +280,8 @@ import java.util.*;
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata alla OnInit action
  */
-public class «getModelDTOClassName(null,false,true,model)» implements java.io.Serializable{
+public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAwareDTO {
 
-	////////////////////////////////////////////////////////////////////
-	/// oggetti in sessione
-	////////////////////////////////////////////////////////////////////
-
-	protected Map session;
-
-
-	public void setSession(Map session) {
-		this.session = session;
-	}
-	public Map getSession() {
-		return this.session;
-	}
 	
 	////////////////////////////////////////////////////////////////////
 	/// application data
@@ -261,6 +290,7 @@ public class «getModelDTOClassName(null,false,true,model)» implements java.io.Se
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitAction»
 	«ENDIF»
 	
+
 }
 «ENDFILE»
 «ENDDEFINE»

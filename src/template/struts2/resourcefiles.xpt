@@ -250,6 +250,19 @@ Gestione dei Widget
 <!-- [GUIGEN] widget non gestito: «this» -->
 «ENDDEFINE»
 
+«REM»Genera la componente di markup (HTML) di un PlainText.«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR PlainText»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
+	«IF label!=null»<s:label label="«label»"/>«ENDIF»
+	«IF this.databinding!=null»
+	<s:property value="«getOGNLForWidgetValue(this)»" />
+	«ELSE»
+	<s:text name="widg_«this.name»">«staticText»</s:text>
+	«ENDIF»
+	
+</s:if>
+«ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»

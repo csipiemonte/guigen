@@ -651,6 +651,14 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 «DEFINE appDataProperty(GUIModel model) FOR ApplicationData»
+«IF this.lifetimeExtent==DataLifetimeType::USER_ACTION-»
+«EXPAND appDataPropertyActionScoped(model) FOR this-»
+«ELSE-»
+«EXPAND appDataPropertySessionScoped(model) FOR this-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE appDataPropertyActionScoped(GUIModel model) FOR ApplicationData»
 	private «toJavaType(this.type, model)» _«getAppDataPropertyName(this)» = «defaultInitVal(this.type,model)»;
 	
 	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
@@ -662,3 +670,13 @@ public class SequenceAction implements IAction {
 	}
 «ENDDEFINE»
 
+«DEFINE appDataPropertySessionScoped(GUIModel model) FOR ApplicationData»
+	
+	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
+		getSession().put("«getAppDataKey(this)»", value);
+	}
+	
+	public «toJavaType(this.type, model)» get«getAppDataPropertyName(this).toFirstUpper()»(){
+		return («toJavaType(this.type, model)»)(getSession().get("«getAppDataKey(this)»"));
+	}
+«ENDDEFINE»
