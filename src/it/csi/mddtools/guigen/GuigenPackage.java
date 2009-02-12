@@ -3410,13 +3410,22 @@ public interface GuigenPackage extends EPackage {
 	int GRID_WIDGET_LAYOUT_SPEC__COLUMN = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Hspan</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC__HSPAN = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Grid Widget Layout Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 2;
+	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -5258,6 +5267,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getGridWidgetLayoutSpec_Column();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan <em>Hspan</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Hspan</em>'.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan()
+	 * @see #getGridWidgetLayoutSpec()
+	 * @generated
+	 */
+	EAttribute getGridWidgetLayoutSpec_Hspan();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6828,6 +6848,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GRID_WIDGET_LAYOUT_SPEC__COLUMN = eINSTANCE.getGridWidgetLayoutSpec_Column();
+
+		/**
+		 * The meta object literal for the '<em><b>Hspan</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_WIDGET_LAYOUT_SPEC__HSPAN = eINSTANCE.getGridWidgetLayoutSpec_Hspan();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

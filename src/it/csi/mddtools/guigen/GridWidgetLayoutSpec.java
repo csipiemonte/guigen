@@ -17,6 +17,7 @@ package it.csi.mddtools.guigen;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getRow <em>Row</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getColumn <em>Column</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan <em>Hspan</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,5 +77,31 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * @generated
 	 */
 	void setColumn(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Hspan</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hspan</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Hspan</em>' attribute.
+	 * @see #setHspan(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec_Hspan()
+	 * @model
+	 * @generated
+	 */
+	int getHspan();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan <em>Hspan</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Hspan</em>' attribute.
+	 * @see #getHspan()
+	 * @generated
+	 */
+	void setHspan(int value);
 
 } // GridWidgetLayoutSpec

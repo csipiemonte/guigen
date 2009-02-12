@@ -63,6 +63,7 @@ public class GridWidgetLayoutSpecItemProvider
 
 			addRowPropertyDescriptor(object);
 			addColumnPropertyDescriptor(object);
+			addHspanPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +113,28 @@ public class GridWidgetLayoutSpecItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Hspan feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addHspanPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GridWidgetLayoutSpec_hspan_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GridWidgetLayoutSpec_hspan_feature", "_UI_GridWidgetLayoutSpec_type"),
+				 GuigenPackage.Literals.GRID_WIDGET_LAYOUT_SPEC__HSPAN,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GridWidgetLayoutSpec.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -148,6 +171,7 @@ public class GridWidgetLayoutSpecItemProvider
 		switch (notification.getFeatureID(GridWidgetLayoutSpec.class)) {
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__ROW:
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__COLUMN:
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

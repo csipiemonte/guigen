@@ -2241,6 +2241,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGridWidgetLayoutSpec_Hspan() {
+		return (EAttribute)gridWidgetLayoutSpecEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2558,6 +2567,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		gridWidgetLayoutSpecEClass = createEClass(GRID_WIDGET_LAYOUT_SPEC);
 		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__ROW);
 		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__COLUMN);
+		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__HSPAN);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -2887,6 +2897,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(gridWidgetLayoutSpecEClass, GridWidgetLayoutSpec.class, "GridWidgetLayoutSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGridWidgetLayoutSpec_Row(), ecorePackage.getEInt(), "row", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGridWidgetLayoutSpec_Column(), ecorePackage.getEInt(), "column", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridWidgetLayoutSpec_Hspan(), ecorePackage.getEInt(), "hspan", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
