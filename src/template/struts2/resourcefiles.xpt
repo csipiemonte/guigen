@@ -56,8 +56,9 @@
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+«FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@taglib uri="/customtag" prefix="customtag" %>
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
 		«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
@@ -72,7 +73,7 @@
 
 
 «REM»Inserisce, se necessario, la direttiva include per la header«ENDREM»
-«DEFINE setupHeader(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«DEFINE setupHeader(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
 	«IF model.structure.appWindow.header != null-»
 	<s:include value="fragments/header.jsp" ></s:include>
 	«ENDIF-»
@@ -80,7 +81,7 @@
 
 
 «REM»Inserisce, se necessario, la direttiva include per il footer«ENDREM»
-«DEFINE setupFooter(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«DEFINE setupFooter(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
 	«IF model.structure.appWindow.footer != null-»
 	<s:include value="fragments/footer.jsp" ></s:include>
 	«ENDIF-»
@@ -94,13 +95,13 @@ Gestione dei pannelli
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Genera il setup del «ENDREM»
+«REM»Genera il setup del Content Panel«ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-<%--<s:form action="«getStrutsActionConfigName(this)»" method="post">--%><%-- temporaneamente commentato... --%>
+<s:form action="«getStrutsActionConfigName(this)»" method="post" theme="simple">
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
-<%--</s:form>--%><%-- temporaneamente commentato... --%>
+</s:form>
 «ENDDEFINE»
 
 
@@ -120,20 +121,12 @@ Gestione dei pannelli
 «REM»Crea un sottopannello«ENDREM»
 «DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR Panel»
 <!-- Creazione del sottopannello «this» -->
-«IF expandLayout-»
-«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
-«ENDIF-»
-
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
-«ENDIF-»
-
-«IF expandLayout-»
-«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -143,17 +136,22 @@ Gestione dei pannelli
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR FormPanel»
+	«IF expandLayout-»
+		«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
+	«ENDIF-»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
-	«FOREACH this.widgets AS currWidg-»
-		«EXPAND createAndAddWidgetMarkup(model, cp) FOR currWidg»
-	«ENDFOREACH-»
+	«EXPAND createWidgets(model, cp) FOR this»
 
 	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
 	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
 		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR currSubform»
 	«ENDFOREACH-»
+
+	«IF expandLayout-»
+		«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
+	«ENDIF-»
 
 «ENDDEFINE»
 
@@ -188,7 +186,7 @@ TODO:
      quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare
      dannose sovrapposizioni di nomi (i nomi dei componenti sono univoci a livello di ContentPanel?).
 «ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR TabSetPanel»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.tabs.first().name»'}" />
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
@@ -199,7 +197,7 @@ TODO:
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
 	«FOREACH this.tabs AS currTab -»
-		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this) FOR currTab-»
+		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this, expandLayout) FOR currTab-»
 		«EXPAND createTabIncludeDirective(model, cp, this) FOR currTab-»
 	«ENDFOREACH-»
 
@@ -207,15 +205,14 @@ TODO:
 
 
 «REM»Crea i files per ogni singolo tab«ENDREM»
-«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel) FOR Panel»
+«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel, boolean expandLayout) FOR Panel»
 «FILE getJspTabsMarkupDir(model, skip_component_dir_creation)+"/"+tabPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
-
 <!-- Creazione del tab «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
 «ENDIF-»
@@ -245,13 +242,31 @@ Gestione dei Widget
 ==========================================================================================================================
 «ENDREM»
 
+«REM»TODO: nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine corretto«ENDREM»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR FormPanel»
+«LET getWidgetsByOrder(this) AS widgetsList»
+	«FOREACH widgetsList AS currWidg ITERATOR wi-»
+		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Widget)currWidg»
+	«ENDFOREACH-»
+«ENDLET»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) che va di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«EXPAND remoteResources::createWidgetPreLayout(model, fp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this»
+«EXPAND remoteResources::createWidgetPostLayout(model, fp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
+
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»
 <!-- [GUIGEN] widget non gestito: «this» -->
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un PlainText.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel panel) FOR PlainText»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel panel) FOR PlainText»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
 	«IF label!=null»<s:label label="«label»"/>«ENDIF»
@@ -265,10 +280,10 @@ Gestione dei Widget
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
 		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
 	/>
@@ -277,7 +292,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
@@ -290,7 +305,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
@@ -302,7 +317,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
@@ -313,7 +328,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
@@ -328,7 +343,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
@@ -337,7 +352,7 @@ Gestione dei Widget
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
@@ -347,7 +362,7 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.
 NOTA: implementato per il momento SOLO in HTML«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 	<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
@@ -356,14 +371,14 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 
 
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Image»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Image»
 <!-- [GUIGEN] Crea il widget «this» -->
 <img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
 
 «REM»tag implementation: KEEP«ENDREM»
@@ -389,9 +404,19 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 
 
 «REM»Genera la componente di markup (HTML) di un MenuView (segnaposto per il menu).«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp) FOR MenuView»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR MenuView»
 «IF model.structure.appWindow.appArea.menubar != null-»
 	<s:include value="fragments/menu.jsp"></s:include>
 «ENDIF-»
 «ENDDEFINE»
 
+
+«REM»Genera la componente di markup (HTML) di un TreeView.«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TreeView»
+
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
+
+«ENDDEFINE»

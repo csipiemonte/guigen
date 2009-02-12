@@ -214,7 +214,7 @@ TODO: è stato copiato qui il codice originariamente creato per Sistema Piemonte 
 ==========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»
 «DEFINE firstLevelPanelPreLayoutRupar(GUIModel model, ContentPanel cp) FOR Panel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
 	<h3>«this.label.toUpperCase()»</h3>
@@ -224,18 +224,16 @@ TODO: è stato copiato qui il codice originariamente creato per Sistema Piemonte 
 «ENDIF-»
 «ENDDEFINE»
 
-
-«REM»comment«ENDREM»
 «DEFINE firstLevelPanelPostLayoutRupar(GUIModel model, ContentPanel cp) FOR Panel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
 «ELSE-»
 	</fieldset>
 «ENDIF-»
 «ENDDEFINE»
-
+«ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPreLayoutRupar FOR Panel»
+«DEFINE subPanelPreLayoutRupar FOR FormPanel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
 	«IF this.label != null -»
 	<h4>«this.label.toUpperCase()»</h4>
@@ -250,7 +248,7 @@ TODO: è stato copiato qui il codice originariamente creato per Sistema Piemonte 
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPostLayoutRupar FOR Panel»
+«DEFINE subPanelPostLayoutRupar FOR FormPanel»
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
 		</table>
 	</div>

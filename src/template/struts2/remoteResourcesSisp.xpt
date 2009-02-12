@@ -43,6 +43,7 @@ Definizioni generali
 
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/tab_righeAlterne.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqsisp-0.9.pack.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/portaleIndice/funzioniPortaleIndice.js"></script>
 <!--/head -->
 
 	</head>
@@ -299,9 +300,7 @@ Gestione dei PANNELLI
 		<!-- titolo pannello 1° livello -->
 		<h3>«this.label.toUpperCase()»</h3>
 		
-		<s:form action="«getStrutsActionConfigName(cp)»" method="post"><%-- temporaneamente qui... --%>
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR this»
-		</s:form><%-- temporaneamente qui... --%>
 
 	</div>
 	<!-------------- FINE COLONNA UNICA -------------->
@@ -352,11 +351,9 @@ Gestione dei PANNELLI
 		<!-- titolo pannello 1° livello -->
 		<h3>«this.label.toUpperCase()»</h3>
 
-		<s:form action="«getStrutsActionConfigName(cp)»" method="post"><%-- temporaneamente qui... --%>
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
-		«ENDLET»
-		</s:form><%-- temporaneamente qui... --%>
+		«ENDLET-»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 		
 		
@@ -412,11 +409,9 @@ Gestione dei PANNELLI
 		<!-- titolo pannello primo livello -->
 		<h3>«this.label.toUpperCase()»</h3>
 
-		<s:form action="«getStrutsActionConfigName(cp)»" method="post"><%-- temporaneamente qui... --%>
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
 		«ENDLET»
-		</s:form><%-- temporaneamente qui... --%>
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
 
@@ -473,11 +468,9 @@ Gestione dei PANNELLI
 		<!-- titolo pannello primo livello -->
 		<h3>«this.label.toUpperCase()»</h3>
 
-		<s:form action="«getStrutsActionConfigName(cp)»" method="post"><%-- temporaneamente qui... --%>
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
 		«ENDLET»
-		</s:form><%-- temporaneamente qui... --%>
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
 
@@ -541,37 +534,30 @@ Gestione dei LAYOUT
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Vuoto: tenuto solo per retrocompatibilità«ENDREM»
-«DEFINE firstLevelPanelPreLayoutSistemaPiemonte(GUIModel model, ContentPanel cp) FOR Panel»
-«ENDDEFINE»
-
-«REM»Vuoto: tenuto solo per retrocompatibilità«ENDREM»
-«DEFINE firstLevelPanelPostLayoutSistemaPiemonte(GUIModel model, ContentPanel cp) FOR Panel»
+«REM»comment«ENDREM»
+«DEFINE subPanelPreLayoutSistemaPiemonte FOR FormPanel»
+«IF this.label != null -»
+<h4>«this.label.toUpperCase()»</h4>
+«ENDIF-»
+<div class="contenuti">
+	<customtag:panelGrid id="«this.name»" errorDetails="true" errorMessage="true" columns="«getGridPanelColumnsNumber(this)»">
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPreLayoutSistemaPiemonte FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«IF this.label != null -»
-	<h4>«this.label.toUpperCase()»</h4>
-	«ENDIF-»
-	<div class="contenuti">
-		<table>
-«ELSE-»
-	<fieldset>
-		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF-»
+«DEFINE subPanelPostLayoutSistemaPiemonte FOR FormPanel»
+	</customtag:panelGrid>	
+</div>
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPostLayoutSistemaPiemonte FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-		</table>
-	</div>
-«ELSE-»
-	</fieldset>
-«ENDIF-»
+«DEFINE createWidgetPreLayoutSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+<customtag:column labelField="true" textLabel="«this.label»" «getCustomagColumnPosition(fp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
+
+«REM»comment«ENDREM»
+«DEFINE createWidgetPostLayoutSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+</customtag:column>
+«ENDDEFINE»

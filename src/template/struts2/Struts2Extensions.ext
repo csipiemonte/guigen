@@ -253,10 +253,18 @@ let code = ((SimpleType)type).code :
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// PORTAL THEMES AND STYLES
 
+String getStrutsThemeByPortal(GUIModel model) :
+	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
+		"csi" //"csirupar"
+	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
+		"csi" //"csisisp"
+	else
+		"csi";
+
 String getTablePortalStyle(GUIModel model) :
-	if(model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE) then
+	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
 		"class=\"righe_alternate\"  cellpadding=\"0\" cellspacing=\"0\""
-	else if(model.portale == guigen::PortalNames::SISTEMA_PIEMONTE) then
+	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
 		"class=\"col\" cellpadding=\"2\" cellspacing=\"2\""
 	else
 		"class=\"\" cellpadding=\"2\" cellspacing=\"2\"";
@@ -356,7 +364,17 @@ int getColumnsLayout(FormPanel firstLevPanel) : JAVA
 Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
 
+// [DM]
+String getGridPanelColumnsNumber(FormPanel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getGridPanelColumnsNumber(it.csi.mddtools.guigen.FormPanel);
 
+// [DM]
+List getWidgetsByOrder(FormPanel p)  : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetsByOrder(it.csi.mddtools.guigen.FormPanel);
+
+// [DM]
+String getCustomagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getCustomtagColumnPosition(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget, java.lang.Boolean, java.lang.Boolean);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
