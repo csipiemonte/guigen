@@ -128,10 +128,23 @@ context ApplicationData ERROR "E' necessario specificare il nome dell Applicatio
 
 context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data" :
 	this.type!=null;
+
+
+/// constraints su binding
 	
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding" :
 	this.appData!=null;
 
+context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo Array Of TreeCategory e invece è "+this.multiDataBinding.appData.type :
+	this.multiDataBinding==null ||
+	(this.multiDataBinding.appData.type.metaType==TypedArray &&
+	(
+		(((TypedArray)this.multiDataBinding.appData.type)).componentType).metaType==SimpleType 
+		&&
+		((SimpleType)(((TypedArray)this.multiDataBinding.appData.type).componentType)).code==SimpleTypeCodes::TREE_CATEGORY
+		
+	);
+	
 context DataWidget ERROR "E'ncessario specificare il tipo del Widget" :
 	this.dataType!=null;
 
