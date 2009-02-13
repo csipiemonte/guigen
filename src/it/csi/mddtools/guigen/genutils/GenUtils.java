@@ -1038,6 +1038,9 @@ public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
 	SimpleType csiWFloat = createDT("WrappedFloat", SimpleTypeCodes.FLOAT, true);
 	//basicTypesMap.put(Float.class, csiWFloat);
 	SimpleType csiWLong = createDT("WrappedLong", SimpleTypeCodes.LONG, true);
+	
+	SimpleType csiTreeCat = createDT("TreeCategory", SimpleTypeCodes.TREE_CATEGORY, true);
+	
 	//basicTypesMap.put(Long.class, csiWLong);
 	// array di tipi semplici
 	it.csi.mddtools.guigen.TypedArray csiIntegerArray = createTA("Array of Integer", csiInteger);
@@ -1066,13 +1069,15 @@ public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
 	it.csi.mddtools.guigen.TypedArray csiWFloatArray = createTA("Array of WrappedFloat", csiWFloat);
 	//basicTypesMap.put(getTypedArrayClass(Float.class), csiWFloatArray);
 	it.csi.mddtools.guigen.TypedArray csiWLongArray = createTA("Array of WrappedLong", csiWLong);
+	
+	it.csi.mddtools.guigen.TypedArray csiTreeCatArray = createTA("Array of TreeCategory", csiTreeCat);
 	//basicTypesMap.put(getTypedArrayClass(Long.class), csiWLongArray);
 	
 	it.csi.mddtools.guigen.Type [] types = new it.csi.mddtools.guigen.Type[]{
 			csiInteger,csiBoolean,csiByte,csiDate,csiDouble,csiFloat,csiLong,csiString,
-			csiWInteger,csiWBoolean,csiWDouble,csiWFloat,csiWLong,
+			csiWInteger,csiWBoolean,csiWDouble,csiWFloat,csiWLong,csiTreeCat,
 			csiIntegerArray,csiBooleanArray,csiByteArray,csiDateArray,csiDoubleArray,csiFloatArray,csiLongArray,csiStringArray,
-			csiWIntegerArray,csiWBooleanArray,csiWDoubleArray,csiWFloatArray,csiWLongArray
+			csiWIntegerArray,csiWBooleanArray,csiWDoubleArray,csiWFloatArray,csiWLongArray, csiTreeCatArray
 	};
 	return types;
 }

@@ -116,7 +116,15 @@ public enum SimpleTypeCodes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BYTE(9, "BYTE", "BYTE");
+	BYTE(9, "BYTE", "BYTE"), /**
+	 * The '<em><b>TREE CATEGORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TREE_CATEGORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TREE_CATEGORY(10, "TREE_CATEGORY", "TREE_CATEGORY");
 
 	/**
 	 * The '<em><b>INT</b></em>' literal value.
@@ -269,6 +277,21 @@ public enum SimpleTypeCodes implements Enumerator {
 	public static final int BYTE_VALUE = 9;
 
 	/**
+	 * The '<em><b>TREE CATEGORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>TREE CATEGORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #TREE_CATEGORY
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TREE_CATEGORY_VALUE = 10;
+
+	/**
 	 * An array of all the '<em><b>Simple Type Codes</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -286,6 +309,7 @@ public enum SimpleTypeCodes implements Enumerator {
 			HOURS,
 			BOOLEAN,
 			BYTE,
+			TREE_CATEGORY,
 		};
 
 	/**
@@ -346,6 +370,7 @@ public enum SimpleTypeCodes implements Enumerator {
 			case HOURS_VALUE: return HOURS;
 			case BOOLEAN_VALUE: return BOOLEAN;
 			case BYTE_VALUE: return BYTE;
+			case TREE_CATEGORY_VALUE: return TREE_CATEGORY;
 		}
 		return null;
 	}
