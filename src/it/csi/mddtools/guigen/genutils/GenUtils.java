@@ -34,6 +34,7 @@ import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
@@ -45,6 +46,8 @@ import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
+import it.csi.mddtools.guigen.impl.PlainTextImpl;
 
 
 
@@ -795,15 +798,22 @@ public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
 	} else if ( p.getLayout() instanceof HorizontalFlowPanelLayout ) {
 		res.addAll(p.getWidgets());
 	} else if ( p.getLayout() instanceof GridPanelLayout ) {
-		int cols = ((GridPanelLayout)p.getLayout()).getColumns();
-		int rows = ((GridPanelLayout)p.getLayout()).getRows();
+		int cols  = ((GridPanelLayout)p.getLayout()).getColumns();
+		int rows  = ((GridPanelLayout)p.getLayout()).getRows();
+		Integer hspan = 0;
 
 		// ciclo sulle righe
 		for ( int r=1; r <= rows; r++ ) {
 			// ciclo sulle colonne
 			for ( int c=1; c <= cols; c++ ) {
-				System.out.println("=====> GETTING WIDGET : ROW {" + r + "} - COLUMN {" + c + "}");
-				res.add(getWidgetByRowColumn(p, r, c));
+				//System.out.println("#####> 1: GETTING WIDGET : ROW {" + r + "} - COLUMN {" + c + "} - HSPAN {" + hspan + "}");
+				Widget w = getWidgetByRowColumn(p, r, c, hspan);
+				//System.out.println("-----> 2: FOUND WIDGET : ROW {" + r + "-" + c + "} {" + w + "} - HSPAN {" + hspan + "}");
+				if ( w != null ) {
+					res.add(w);
+					hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+					//System.out.println("-----> 3: ADDED WIDGET : ROW {" + r + "-" + c + "} {" + w + "} - HSPAN {" + hspan + "}");
+				}
 			}
 		}
 	}
@@ -820,22 +830,41 @@ public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
  * @return
  * @author [DM]
  */
-public static Widget getWidgetByRowColumn(FormPanel p, int row, int col) {
+public static Widget getWidgetByRowColumn(FormPanel p, int row, int col, Integer hspan) {
 	Widget res = null;
 	Iterator<Widget> it = p.getWidgets().iterator();
 	while ( it.hasNext() ) {
 		Widget tmp = it.next();
 		int r = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getRow();
 		int c = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getColumn();
+		//int s = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getHspan();
 		if ( r == row && c == col ) {
 			res = tmp;
 			break;
 		}
 	}
 	
+	// widget non trovato:
 	if ( res == null ) {
-		// widget non trovato
-		throw new IllegalArgumentException("Errore di generazione: GridPanelLayout, manca il widget in posizione row: "+row+" col: "+col);
+		if ( hspan > 0 ) {
+			// non c'è perchè non ci deve essere causa colspan di una cella precedente:
+			// tutto bene, ritorno null e lo gestisco sopra
+			
+			//System.out.println(".....> [getWidgetByRowColumn] manca posizione {" + row + "}{" + col + "} : " + "DECREMENTO hspan '" + hspan + "' -> '" + (hspan-1) + "'");
+			hspan = hspan - 1;
+		} else {
+			// non c'è perchè ci dovrebbe essere ma è stato dimenticato:
+			// aggiungo un PlainText vuoto
+			res = GuigenFactory.eINSTANCE.createPlainText();
+			res.setLabel("");
+			res.setName(p.getName() + "_" + row + "_" + col);
+			GridWidgetLayoutSpec wls = GuigenFactory.eINSTANCE.createGridWidgetLayoutSpec();
+			wls.setColumn(col);
+			wls.setRow(row);
+			wls.setHspan(0);
+			res.setLayoutSpec(wls);
+			//System.out.println("'''''> [getWidgetByRowColumn] manca posizione {" + row + "}{" + col + "} : " + "AGGIUNGO PlainText '" + res + "'");
+		}
 	}
 	
 	return res;
@@ -850,34 +879,132 @@ public static Widget getWidgetByRowColumn(FormPanel p, int row, int col) {
  * @param w
  * @param isFirst
  * @param isLast
- * @param counter1
+ * @param isLabel
  * @return
+ * @author [DM]
  */
-public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) {
+public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast, Boolean isLabel) {
+	String P_FIRST = "position=\"first\"";
+	String P_LAST  = "position=\"last\"";
+	
 	String res = "";
 	
 	if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
-		res = "";
+		// niente da impostare, per il momento va bene blank
 	} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 		if ( isFirst ) {
-			res = "position=\"first\"";
+			res = P_FIRST;
 		} else if ( isLast ) {
-			res = "position=\"last\"";
+			res = P_LAST;
 		}
 	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
-		int wc = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getColumn();
-		int cols = ((GridPanelLayout)fp.getLayout()).getColumns();
+		int wcols = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getColumn();   // colonna del widget
+		int pcols = ((GridPanelLayout)fp.getLayout()).getColumns();          // colonne totali nel pannello
+		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget   
 
-		if ( wc == 1 ) {
-			res = "position=\"first\"";
-		} else if ( wc == cols ) {
-			res = "position=\"last\"";
-		}		
+		if ( hspan > 1 ) {
+			if ( isLabel ) {
+				// la label non puo' mai avere last, ma solo first
+				if ( wcols == 1 ) {
+					res = P_FIRST;
+				}
+			} else {
+				// una cella con un widget non puo' mai avere first, ma solo last
+				int landingCol = (wcols - 1) + hspan;
+				if ( landingCol == pcols ) {
+					res = P_LAST;
+				}
+			}
+			
+		} else {
+			if ( wcols == 1 ) {
+				res = P_FIRST;
+			} else if ( wcols == pcols ) {
+				res = P_LAST;
+			}
+		}
 	}
 	
 	return res;
 }
 
+
+/**
+ * 
+ * @param fp
+ * @param w
+ * @return
+ * @author [DM]
+ */
+public static boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) {
+	boolean res = false;
+	if ( fp.getLayout() instanceof GridPanelLayout ) {
+		if ( ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan() > 1 ) {
+			res = true;
+		}
+	}
+	return res;
+}
+
+
+/**
+ * Non metto l'else della Visibility nel caso di VerticalFlowPanelLayout
+ * o nel caso di GridPanelLayout con span della cella = numero totale colonne
+ * (è come se eliminassi un'intera riga...)
+ * 
+ * @param fp
+ * @param w
+ * @return
+ */
+public static boolean needHandleCustomtagCloseHspan(FormPanel fp, Widget w) {
+	boolean res = true;
+	
+	if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		res = false;
+	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		int pcols = ((GridPanelLayout)fp.getLayout()).getColumns();          // colonne totali nel pannello
+		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget 
+		if ( hspan == pcols ) {
+			res = false;
+		}
+	}
+	return res;
+}
+
+
+/**
+ * 
+ * @param fp
+ * @param w
+ * @return
+ * @author [DM]
+ */
+public static int getCustomtagHeaderColspan(Widget w) {
+	int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+	return ((hspan * 2) - 1);
+}
+
+
+/**
+ * 
+ * @param fp
+ * @param w
+ * @return
+ * @author [DM]
+ */
+public static String getCustomtagCloseColspan(FormPanel fp, Widget w) {
+	String res = "";
+	
+	if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		// NON CI DOVREI PASSARE... comunque lasciamo
+	} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		// niente da impostare, va bene blank
+	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		
+	}
+	
+	return res;
+}
 
 
 /////////////////////////////////////////////

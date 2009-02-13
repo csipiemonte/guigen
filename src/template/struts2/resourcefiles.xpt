@@ -138,7 +138,7 @@ Gestione dei pannelli
 «REM»comment«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR FormPanel»
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelPreLayout(model) FOR this-»
+		«EXPAND remoteResources::subPanelControlHeader(model) FOR this-»
 	«ENDIF-»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
@@ -150,7 +150,7 @@ Gestione dei pannelli
 	«ENDFOREACH-»
 
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelPostLayout(model) FOR this-»
+		«EXPAND remoteResources::subPanelControlFooter(model) FOR this-»
 	«ENDIF-»
 
 «ENDDEFINE»
@@ -254,9 +254,12 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) che va di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-«EXPAND remoteResources::createWidgetPreLayout(model, fp, isFirst, isLast) FOR this-»
+<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+«EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
 «EXPAND createWidgetMarkup(model, cp) FOR this»
-«EXPAND remoteResources::createWidgetPostLayout(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
+</s:if>
+«EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
 «ENDDEFINE»
 
 
@@ -265,108 +268,89 @@ Gestione dei Widget
 <!-- [GUIGEN] widget non gestito: «this» -->
 «ENDDEFINE»
 
+
 «REM»Genera la componente di markup (HTML) di un PlainText.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel panel) FOR PlainText»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR PlainText»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«panel.name»==null || #session.«panel.name».«this.name»_visible==null || #session.«panel.name».«this.name»_visible" >
-	«IF label!=null»<s:label label="«label»"/>«ENDIF»
-	«IF this.databinding!=null»
-	<s:property value="«getOGNLForWidgetValue(this)»" />
-	«ELSE»
-	<s:text name="widg_«this.name»">«staticText»</s:text>
-	«ENDIF»
-	
-</s:if>
+«IF this.databinding!=null-»
+<s:property value="«getOGNLForWidgetValue(this)»" />
+«ELSE-»
+<s:text name="widg_«this.name»">«staticText»</s:text>
+«ENDIF-»
 «ENDDEFINE»
+
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
-		«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
-		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
-	/>
-</s:if>
+<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
+	«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
+	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
-		«IF this.rows != null»rows="«this.rows»"«ENDIF»
-		«IF this.columns != null»cols="«this.columns»"«ENDIF»
-		></s:textarea>
-</s:if>
+<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	«IF this.rows != null»rows="«this.rows»"«ENDIF»
+	«IF this.columns != null»cols="«this.columns»"«ENDIF»
+	></s:textarea>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
-		list="#{«getFixedRadioButtonList(this)»}"
-		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
-		/>
-</s:if>
+<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
+	list="#{«getFixedRadioButtonList(this)»}"
+	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-		disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
-		/>
-</s:if>
+<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-	          headerKey="00" headerValue="-- Selezionare un valore --"
-	          list="«getOGNLForWidgetMultiValue(this)»"
-	          disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
-	          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
-	          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
-	          />
-</s:if>
+<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+          headerKey="00" headerValue="-- Selezionare un valore --"
+          list="«getOGNLForWidgetMultiValue(this)»"
+          disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+          />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
-</s:if>
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
-<!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
-</s:if>
+<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.
-NOTA: implementato per il momento SOLO in HTML«ENDREM»
+«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
-	<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
-</s:if>
+<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
 «ENDDEFINE»
 
 
@@ -380,9 +364,6 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
-
-«REM»tag implementation: KEEP«ENDREM»
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
                export="true"
                defaultsort="1"
@@ -399,7 +380,6 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 		«ENDFOREACH-»
 	«ENDLET-»
 </display:table>
-</s:if>
 «ENDDEFINE»
 
 

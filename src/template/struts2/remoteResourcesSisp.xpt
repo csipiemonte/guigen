@@ -300,7 +300,8 @@ Gestione dei PANNELLI
 		<!-- titolo pannello 1° livello -->
 		<h3>«this.label.toUpperCase()»</h3>
 		
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR this»
+		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR this»
 
 	</div>
 	<!-------------- FINE COLONNA UNICA -------------->
@@ -339,7 +340,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -352,7 +353,7 @@ Gestione dei PANNELLI
 		<h3>«this.label.toUpperCase()»</h3>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR centerPanel»
 		«ENDLET-»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 		
@@ -361,7 +362,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -383,7 +384,7 @@ Gestione dei PANNELLI
 	<!------------------ COLONNA SX ------------------>
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR leftPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR leftPanel»
 		«ENDLET»
 	</div>
 	<!---------------- FINE COLONNA SX ---------------->
@@ -398,7 +399,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -410,7 +411,7 @@ Gestione dei PANNELLI
 		<h3>«this.label.toUpperCase()»</h3>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR centerPanel»
 		«ENDLET»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
@@ -419,7 +420,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -442,7 +443,7 @@ Gestione dei PANNELLI
 	<!-- ---------------- COLONNA SX ---------------- -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR leftPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR leftPanel»
 		«ENDLET»
 	</div>
 	<!-- -------------- FINE COLONNA SX -------------- -->
@@ -456,7 +457,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -469,7 +470,7 @@ Gestione dei PANNELLI
 		<h3>«this.label.toUpperCase()»</h3>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR centerPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR centerPanel»
 		«ENDLET»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
@@ -478,7 +479,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -493,7 +494,7 @@ Gestione dei PANNELLI
 		<h2 class="alt">informazioni</h2>
 		
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false) FOR rightPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR rightPanel»
 		«ENDLET»
 	</div>
 	<!-- -------- FINE COLONNA EXTRA (DESTRA) -------- -->
@@ -535,29 +536,48 @@ Gestione dei LAYOUT
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPreLayoutSistemaPiemonte FOR FormPanel»
+«DEFINE subPanelControlHeaderSistemaPiemonte FOR FormPanel»
 «IF this.label != null -»
 <h4>«this.label.toUpperCase()»</h4>
 «ENDIF-»
 <div class="contenuti">
+	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
 	<customtag:panelGrid id="«this.name»" errorDetails="true" errorMessage="true" columns="«getGridPanelColumnsNumber(this)»">
+	«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPostLayoutSistemaPiemonte FOR FormPanel»
-	</customtag:panelGrid>	
+«DEFINE subPanelControlFooterSistemaPiemonte FOR FormPanel»
+	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
+	</customtag:panelGrid>
+	«ENDIF-»
 </div>
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
-«DEFINE createWidgetPreLayoutSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:column labelField="true" textLabel="«this.label»" «getCustomagColumnPosition(fp, this, isFirst, isLast)»>
+«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«IF needHandleCustomtagHeaderHspan(fp, this)-»
+<customtag:column textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ELSE-»
+<customtag:column labelField="true" textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»comment«ENDREM»
-«DEFINE createWidgetPostLayoutSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 </customtag:column>
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«IF needHandleCustomtagCloseHspan(fp, this) -»
+<s:else>
+	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»/>
+</s:else>
+«ENDIF-»
 «ENDDEFINE»

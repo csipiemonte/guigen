@@ -134,11 +134,11 @@ Gestione dei LAYOUT
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPreLayout(GUIModel model) FOR FormPanel»
+«DEFINE subPanelControlHeader(GUIModel model) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelPreLayoutRupar FOR this»
+	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelPreLayoutSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -146,11 +146,11 @@ Gestione dei LAYOUT
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelPostLayout(GUIModel model) FOR FormPanel»
+«DEFINE subPanelControlFooter(GUIModel model) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar FOR this»
+	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelPostLayoutSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -158,11 +158,11 @@ Gestione dei LAYOUT
 
 
 «REM»comment«ENDREM»
-«DEFINE createWidgetPreLayout(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::createWidgetPreLayoutRupar(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::widgetControlHeaderRupar(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::createWidgetPreLayoutSistemaPiemonte(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlHeaderSistemaPiemonte(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -170,12 +170,26 @@ Gestione dei LAYOUT
 
 
 «REM»comment«ENDREM»
-«DEFINE createWidgetPostLayout(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::createWidgetPostLayoutRupar(fp, isFirst, isLast) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::widgetControlFooterRupar(fp, isFirst, isLast) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::createWidgetPostLayoutSistemaPiemonte(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlFooterSistemaPiemonte(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
 «ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE widgetClose(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«REM»«EXPAND remoteResourcesRupar::widgetCloseRupar(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetCloseSistemaPiemonte(fp, isFirst, isLast) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+
