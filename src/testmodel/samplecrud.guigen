@@ -9,7 +9,7 @@
           <topLevelMenu name="mnuGstPersona" label="Gestione soggetti">
             <item name="mnuGstPersona" label="Gestione soggetti">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -19,7 +19,7 @@
                 <action xsi:type="guigen:SequenceAction">
                   <actions xsi:type="guigen:ExecAction" methodName="caricaProgetti" postExecData="//@appDataDefs/@appData.2">
                     <results resultCode="OK">
-                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
                     </results>
                   </actions>
                 </action>
@@ -27,6 +27,19 @@
             </item>
           </topLevelMenu>
         </menubar>
+        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4">
+          <panels xsi:type="guigen:FormPanel" name="pProva" label="Provatree">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:TreeView" name="treeProva" label="" dataType="//@typedefs/@types.7">
+                <multiDataBinding appData="//@appDataDefs/@appData.4"/>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
         <contentPanels name="cpRicercaPersona" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0 //@appDataDefs/@appData.3">
           <panels xsi:type="guigen:FormPanel" name="pMainRicercaPersona">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
@@ -51,13 +64,13 @@
                   <eventHandlers>
                     <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
                       <results resultCode="FOUND_MANY">
-                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
-                      </results>
-                      <results resultCode="FOUND_ONE">
                         <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
+                      <results resultCode="FOUND_ONE">
+                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
                       <results resultCode="FOUND_NONE">
-                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                       </results>
                     </action>
                   </eventHandlers>
@@ -66,7 +79,7 @@
                   <eventHandlers>
                     <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
                       <results resultCode="OK">
-                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                        <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                       </results>
                     </action>
                   </eventHandlers>
@@ -98,7 +111,7 @@
                 <eventHandlers>
                   <action xsi:type="guigen:ExecAction" methodName="caricaDettaglioSoggetto">
                     <results resultCode="OK">
-                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
                     </results>
                   </action>
                 </eventHandlers>
@@ -162,7 +175,7 @@
                 <eventHandlers>
                   <action xsi:type="guigen:ExecAction" methodName="resetRicerca" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
                     <results resultCode="OK">
-                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                     </results>
                   </action>
                 </eventHandlers>
@@ -171,7 +184,7 @@
                 <eventHandlers>
                   <action xsi:type="guigen:ExecAction" methodName="salvaModifichePersona" postExecData="//@appDataDefs/@appData.1">
                     <results resultCode="OK">
-                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
                     </results>
                   </action>
                 </eventHandlers>
@@ -226,7 +239,7 @@
           </panels>
         </contentPanels>
         <staticLinks/>
-        <onInitAction xsi:type="guigen:ExecAction" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3">
+        <onInitAction xsi:type="guigen:ExecAction" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4">
           <results resultCode="OK">
             <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
           </results>
@@ -285,11 +298,14 @@
       <fields name="codIstat" type="//@typedefs/@types.7"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
+    <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_CATEGORY"/>
+    <types xsi:type="guigen:TypedArray" name="Array of TreeCat" componentType="//@typedefs/@types.33"/>
   </typedefs>
   <appDataDefs>
     <appData name="personeTrovate" type="//@typedefs/@types.27"/>
     <appData name="dettaglioPersona" type="//@typedefs/@types.26"/>
     <appData name="progettiUtente" type="//@typedefs/@types.30"/>
     <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
+    <appData name="myTree" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
   </appDataDefs>
 </guigen:GUIModel>
