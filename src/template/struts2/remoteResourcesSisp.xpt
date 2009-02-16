@@ -340,7 +340,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::UP) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -362,7 +362,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::DOWN) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -384,7 +384,7 @@ Gestione dei PANNELLI
 	<!------------------ COLONNA SX ------------------>
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::LEFT) FOR leftPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET»
 	</div>
 	<!---------------- FINE COLONNA SX ---------------->
@@ -399,7 +399,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::UP) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -420,7 +420,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::DOWN) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -443,7 +443,7 @@ Gestione dei PANNELLI
 	<!-- ---------------- COLONNA SX ---------------- -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::LEFT) FOR leftPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET»
 	</div>
 	<!-- -------------- FINE COLONNA SX -------------- -->
@@ -457,7 +457,7 @@ Gestione dei PANNELLI
 		«IF upPanel != null -»
 		<!-- ##### UDLRC Layout: UP PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::UP) FOR upPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
 		«ENDIF-»
@@ -479,7 +479,7 @@ Gestione dei PANNELLI
 		«IF downPanel != null -»
 		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
 		<div>
-			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::DOWN) FOR downPanel»
+			«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		</div>
 		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
 		«ENDIF-»
@@ -494,7 +494,7 @@ Gestione dei PANNELLI
 		<h2 class="alt">informazioni</h2>
 		
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::RIGHT) FOR rightPanel»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
 		«ENDLET»
 	</div>
 	<!-- -------- FINE COLONNA EXTRA (DESTRA) -------- -->
@@ -546,6 +546,18 @@ Gestione dei LAYOUT
 	«ENDIF-»
 «ENDDEFINE»
 
+«REM»comment«ENDREM»
+«DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR CommandPanel»
+«LET (this.layout == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype»
+<div «ptype»>
+«ENDLET»
+«ENDDEFINE»
+
+«REM»comment«ENDREM»
+«DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«REM»Non faccio niente (per il momento)«ENDREM»
+«ENDDEFINE»
+
 
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR FormPanel»
@@ -555,18 +567,24 @@ Gestione dei LAYOUT
 </div>
 «ENDDEFINE»
 
+«REM»comment«ENDREM»
+«DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR CommandPanel»
+</div>
+«ENDDEFINE»
+
+«REM»comment«ENDREM»
+«DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«REM»Non faccio niente (per il momento)«ENDREM»
+«ENDDEFINE»
+
 
 «REM»comment«ENDREM»
 «DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF this.metaType == Button || this.metaType == ConfirmButton || this.metaType == ResetButton -»
-	<customtag:column colSpan="2" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«IF needHandleCustomtagHeaderHspan(fp, this)-»
+<customtag:column textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-	«IF needHandleCustomtagHeaderHspan(fp, this)-»
-	<customtag:column textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
-	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-	«ELSE-»
-	<customtag:column labelField="true" textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-	«ENDIF-»
+<customtag:column labelField="true" textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 
@@ -584,4 +602,49 @@ Gestione dei LAYOUT
 	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»/>
 </s:else>
 «ENDIF-»
+«ENDDEFINE»
+
+
+«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«IF fp.layout.metaType == UDLRCPanelLayout-»
+«LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side»
+<div «side»>
+«ENDLET»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«IF fp.layout.metaType == UDLRCPanelLayout-»
+</div>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+
+«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+
+«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«REM»per il momento non fare niente...«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«REM»per il momento non fare niente...«ENDREM»
 «ENDDEFINE»

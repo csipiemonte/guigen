@@ -14,6 +14,7 @@ import it.csi.mddtools.guigen.Action;
 import it.csi.mddtools.guigen.ActionResult;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataLifetimeType;
@@ -22,6 +23,7 @@ import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecAction;
 import it.csi.mddtools.guigen.FormPanel;
+import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
@@ -34,6 +36,7 @@ import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
@@ -960,7 +963,6 @@ public static boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) {
  */
 public static boolean needHandleCustomtagCloseHspan(FormPanel fp, Widget w) {
 	boolean res = true;
-	
 	if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
 		res = false;
 	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
@@ -1014,7 +1016,69 @@ public static String getCustomtagCloseColspan(FormPanel fp, Widget w) {
 }
 
 
-/////////////////////////////////////////////
+/**
+ * 
+ * @param model
+ * @param b
+ * @return
+ * @author [DM]
+ */
+public static String getButtonStyleByLayout(GUIModel model, Button b) {
+	String res = "";
+	if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+		res = getButtonStyleSistemaPiemonte(model, b);
+	} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+		
+	}
+	return res;
+}
+
+/**
+ * Non mi piace molto questa implementazione, ma...
+ * 
+ * @param model
+ * @param b
+ * @return
+ * @author [DM]
+ */
+public static String getButtonStyleSistemaPiemonte(GUIModel model, Button b) {
+	int btnStyleL = 70;
+	int PIXEL_PER_CHAR = 8; // consideriamo una media di 8px per ogni carattere
+
+	if ( b.getLabel() != null ) {
+		int lblLen = b.getLabel().length();
+		int size = lblLen * PIXEL_PER_CHAR;
+		
+		if ( size <= 70 ) {
+			btnStyleL = 70;
+		} else if ( size > 70 && size <= 95 ) {
+			btnStyleL = 95;
+		} else if ( size > 95 && size <= 160 ) {	
+			btnStyleL = 160;
+		} else if ( size > 160 && size <= 190 ) {
+			btnStyleL = 190;
+		} else if ( size > 190 && size <= 205 ) {
+			btnStyleL = 205;
+		} else if ( size > 205 && size <= 255 ) {
+			btnStyleL = 255;
+		} else if ( size > 255 ) {
+			btnStyleL = 330;
+		}
+	}
+	
+	String btnStyleT = "";
+	if ( b.getLayoutSpec() != null && b.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec ) {
+		btnStyleT = "nav";
+	} else {
+		btnStyleT = "funz";
+	}
+	
+	return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
     // tipi semplici
