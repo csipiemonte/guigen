@@ -336,13 +336,13 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante (Button).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
+<s:submit name="widg_«this.name»" method="«getClickHandlerMethodName(this)»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
+<s:submit name="widg_«this.name»" method="«getClickHandlerMethodName(this)»" id="widg_«this.name»" value="«this.label»" disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
 «ENDDEFINE»
 
 

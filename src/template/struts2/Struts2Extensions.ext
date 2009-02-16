@@ -161,6 +161,13 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 String getHandlerMethodName(Widget source, EventHandler evh) :
 	"handle"+source.name.toFirstUpper()+"_"+evh.eventType.toString();
 
+String getClickHandlerMethodName(Widget source) :
+	( source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1 ? 
+		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())
+		:
+		"execute" 
+	);
+	 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi spring
 

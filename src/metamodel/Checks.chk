@@ -132,6 +132,12 @@ context ApplicationData ERROR "E' necessario specificare il tipo dell Applicatio
 ///////////////////////////////////////////////////////////////////
 //// constraints su azioni
 
+// un menu view non può avere event handler associati (eredita quelli del menu vero e proprio di cui
+// è segnaposto
+context MenuView ERROR "ad una MenuView non è possibile associare evnet handler, in quanto eredita gli event handler"+
+						" della struttura menu globale (di cui funge solo da segnaposto)" :
+	this.eventHandlers.size==0;
+
 // un Treeview può avere solo un event handler di tipo click
 context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED" :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
