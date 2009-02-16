@@ -119,12 +119,12 @@ Gestione dei pannelli
 
 
 «REM»Crea un sottopannello«ENDREM»
-«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR Panel»
+«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
 <!-- Creazione del sottopannello «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
 «ENDIF-»
@@ -136,9 +136,9 @@ Gestione dei pannelli
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR FormPanel»
+«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelControlHeader(model) FOR this-»
+		«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«ENDIF-»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
@@ -146,11 +146,11 @@ Gestione dei pannelli
 
 	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
 	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
-		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true) FOR currSubform»
+		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
 	«ENDFOREACH-»
 
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelControlFooter(model) FOR this-»
+		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 	«ENDIF-»
 
 «ENDDEFINE»
@@ -186,7 +186,7 @@ TODO:
      quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare
      dannose sovrapposizioni di nomi (i nomi dei componenti sono univoci a livello di ContentPanel?).
 «ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.tabs.first().name»'}" />
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
@@ -197,7 +197,7 @@ TODO:
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
 	«FOREACH this.tabs AS currTab -»
-		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this, expandLayout) FOR currTab-»
+		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
 		«EXPAND createTabIncludeDirective(model, cp, this) FOR currTab-»
 	«ENDFOREACH-»
 
@@ -205,14 +205,14 @@ TODO:
 
 
 «REM»Crea i files per ogni singolo tab«ENDREM»
-«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel, boolean expandLayout) FOR Panel»
+«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
 «FILE getJspTabsMarkupDir(model, skip_component_dir_creation)+"/"+tabPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!-- Creazione del tab «this» -->
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
 «ENDIF-»

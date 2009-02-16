@@ -32,35 +32,41 @@
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpRicercaPersona" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
-          <panels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
+          <panels xsi:type="guigen:FormPanel" name="pRicercaPersona" label="Criteri ricerca">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.7" fieldLength="20"/>
-            <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50"/>
-            <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50"/>
-            <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
-              <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
-                  <results resultCode="FOUND_MANY">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
-                  </results>
-                  <results resultCode="FOUND_ONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
-                  </results>
-                  <results resultCode="FOUND_NONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                  </results>
-                </action>
-              </eventHandlers>
-            </widgets>
-            <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
-              <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
-                  <results resultCode="OK">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                  </results>
-                </action>
-              </eventHandlers>
-            </widgets>
+            <subpanels xsi:type="guigen:FormPanel" name="pRicerca">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.7" fieldLength="20"/>
+              <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50"/>
+              <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pRicercaButtons">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
+                <eventHandlers>
+                  <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
+                    <results resultCode="FOUND_MANY">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    </results>
+                    <results resultCode="FOUND_ONE">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                    <results resultCode="FOUND_NONE">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                  </action>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
+                <eventHandlers>
+                  <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                  </action>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
           </panels>
         </contentPanels>
         <contentPanels name="cpListaPersone" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">

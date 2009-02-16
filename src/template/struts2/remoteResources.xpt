@@ -134,11 +134,11 @@ Gestione dei LAYOUT
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model) FOR FormPanel»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -146,11 +146,11 @@ Gestione dei LAYOUT
 
 
 «REM»comment«ENDREM»
-«DEFINE subPanelControlFooter(GUIModel model) FOR FormPanel»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»

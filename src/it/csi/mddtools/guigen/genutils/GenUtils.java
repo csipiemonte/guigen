@@ -34,7 +34,6 @@ import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
-import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceAction;
@@ -46,8 +45,7 @@ import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
-import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
-import it.csi.mddtools.guigen.impl.PlainTextImpl;
+
 
 
 
@@ -785,7 +783,8 @@ public static String getGridPanelColumnsNumber(FormPanel p) {
 
 
 /**
- * Restituisce una lista 
+ * Restituisce una lista di widget nell'ordine corretto di posizionamento.
+ * 
  * @param p
  * @return
  * @author [DM]
@@ -823,6 +822,8 @@ public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
 
 
 /**
+ * Restituisce il widget che, in un GridLayout, si trova nella posizione specificata
+ * (riga - colonna). e gestisce i casi particolari di colspan e widget dimenticato.
  * 
  * @param p
  * @param row
@@ -930,7 +931,8 @@ public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean 
 
 
 /**
- * 
+ * L'attributo hspan di un widget deve essere gestito solo nel caso di 
+ * GridPanelLayout  
  * @param fp
  * @param w
  * @return
@@ -1000,7 +1002,12 @@ public static String getCustomtagCloseColspan(FormPanel fp, Widget w) {
 	} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 		// niente da impostare, va bene blank
 	} else if ( fp.getLayout() instanceof GridPanelLayout ) {
-		
+		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget
+		int s = 2;
+		if ( hspan > 1 ) {
+			s = hspan * 2;
+		}
+		res = "colSpan=\"" + s +"\"";
 	}
 	
 	return res;
