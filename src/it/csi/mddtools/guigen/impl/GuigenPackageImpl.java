@@ -22,6 +22,7 @@ import it.csi.mddtools.guigen.CheckBox;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
+import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
@@ -51,6 +52,7 @@ import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.JumpBackAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
+import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
@@ -613,6 +615,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass gridWidgetLayoutSpecEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass commandPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass menuPanelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2250,6 +2266,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCommandPanel() {
+		return commandPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMenuPanel() {
+		return menuPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2569,6 +2603,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__COLUMN);
 		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__HSPAN);
 
+		commandPanelEClass = createEClass(COMMAND_PANEL);
+
+		menuPanelEClass = createEClass(MENU_PANEL);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2655,6 +2693,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		menuViewEClass.getESuperTypes().add(this.getCommandWidget());
 		gridPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
 		gridWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
+		commandPanelEClass.getESuperTypes().add(this.getFormPanel());
+		menuPanelEClass.getESuperTypes().add(this.getFormPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2898,6 +2938,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getGridWidgetLayoutSpec_Row(), ecorePackage.getEInt(), "row", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGridWidgetLayoutSpec_Column(), ecorePackage.getEInt(), "column", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGridWidgetLayoutSpec_Hspan(), ecorePackage.getEInt(), "hspan", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(commandPanelEClass, CommandPanel.class, "CommandPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(menuPanelEClass, MenuPanel.class, "MenuPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

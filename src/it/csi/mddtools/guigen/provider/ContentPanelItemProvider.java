@@ -220,6 +220,16 @@ public class ContentPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createCommandPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createMenuPanel()));
 	}
 
 	/**

@@ -589,6 +589,22 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.COMMAND_PANEL: {
+				CommandPanel commandPanel = (CommandPanel)theEObject;
+				T result = caseCommandPanel(commandPanel);
+				if (result == null) result = caseFormPanel(commandPanel);
+				if (result == null) result = casePanel(commandPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.MENU_PANEL: {
+				MenuPanel menuPanel = (MenuPanel)theEObject;
+				T result = caseMenuPanel(menuPanel);
+				if (result == null) result = caseFormPanel(menuPanel);
+				if (result == null) result = casePanel(menuPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1685,6 +1701,36 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseGridWidgetLayoutSpec(GridWidgetLayoutSpec object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Command Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Command Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCommandPanel(CommandPanel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Menu Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Menu Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMenuPanel(MenuPanel object) {
 		return null;
 	}
 

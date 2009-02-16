@@ -364,6 +364,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createGridWidgetLayoutSpecAdapter();
 			}
 			@Override
+			public Adapter caseCommandPanel(CommandPanel object) {
+				return createCommandPanelAdapter();
+			}
+			@Override
+			public Adapter caseMenuPanel(MenuPanel object) {
+				return createMenuPanelAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1402,6 +1410,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGridWidgetLayoutSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CommandPanel <em>Command Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CommandPanel
+	 * @generated
+	 */
+	public Adapter createCommandPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.MenuPanel <em>Menu Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.MenuPanel
+	 * @generated
+	 */
+	public Adapter createMenuPanelAdapter() {
 		return null;
 	}
 

@@ -3428,6 +3428,152 @@ public interface GuigenPackage extends EPackage {
 	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandPanelImpl <em>Command Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CommandPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandPanel()
+	 * @generated
+	 */
+	int COMMAND_PANEL = 73;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__NAME = FORM_PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LABEL = FORM_PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LAYOUT = FORM_PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LAYOUT_SPEC = FORM_PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Subpanels</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__SUBPANELS = FORM_PANEL__SUBPANELS;
+
+	/**
+	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__WIDGETS = FORM_PANEL__WIDGETS;
+
+	/**
+	 * The number of structural features of the '<em>Command Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MenuPanelImpl <em>Menu Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MenuPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenuPanel()
+	 * @generated
+	 */
+	int MENU_PANEL = 74;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__NAME = FORM_PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LABEL = FORM_PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LAYOUT = FORM_PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LAYOUT_SPEC = FORM_PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Subpanels</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__SUBPANELS = FORM_PANEL__SUBPANELS;
+
+	/**
+	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__WIDGETS = FORM_PANEL__WIDGETS;
+
+	/**
+	 * The number of structural features of the '<em>Menu Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3435,7 +3581,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 73;
+	int WIDGET_DATA_TYPE = 75;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -3445,7 +3591,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 74;
+	int UDLRC_SPEC_CONSTANTS = 76;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3455,7 +3601,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 75;
+	int EVENT_TYPES = 77;
 
 
 	/**
@@ -3466,7 +3612,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 76;
+	int DATA_LIFETIME_TYPE = 78;
 
 
 	/**
@@ -3477,7 +3623,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 77;
+	int SIMPLE_TYPE_CODES = 79;
 
 
 	/**
@@ -3488,7 +3634,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 78;
+	int PORTAL_NAMES = 80;
 
 
 	/**
@@ -5278,6 +5424,26 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getGridWidgetLayoutSpec_Hspan();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandPanel <em>Command Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Command Panel</em>'.
+	 * @see it.csi.mddtools.guigen.CommandPanel
+	 * @generated
+	 */
+	EClass getCommandPanel();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MenuPanel <em>Menu Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Menu Panel</em>'.
+	 * @see it.csi.mddtools.guigen.MenuPanel
+	 * @generated
+	 */
+	EClass getMenuPanel();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6856,6 +7022,26 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GRID_WIDGET_LAYOUT_SPEC__HSPAN = eINSTANCE.getGridWidgetLayoutSpec_Hspan();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandPanelImpl <em>Command Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CommandPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandPanel()
+		 * @generated
+		 */
+		EClass COMMAND_PANEL = eINSTANCE.getCommandPanel();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenuPanelImpl <em>Menu Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MenuPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMenuPanel()
+		 * @generated
+		 */
+		EClass MENU_PANEL = eINSTANCE.getMenuPanel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

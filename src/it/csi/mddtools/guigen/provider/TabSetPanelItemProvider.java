@@ -166,6 +166,16 @@ public class TabSetPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.TAB_SET_PANEL__TABS,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.TAB_SET_PANEL__TABS,
+				 GuigenFactory.eINSTANCE.createCommandPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.TAB_SET_PANEL__TABS,
+				 GuigenFactory.eINSTANCE.createMenuPanel()));
 	}
 
 }

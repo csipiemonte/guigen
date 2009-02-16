@@ -1548,6 +1548,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CommandPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CommandPanelItemProvider commandPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CommandPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCommandPanelAdapter() {
+		if (commandPanelItemProvider == null) {
+			commandPanelItemProvider = new CommandPanelItemProvider(this);
+		}
+
+		return commandPanelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MenuPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MenuPanelItemProvider menuPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MenuPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMenuPanelAdapter() {
+		if (menuPanelItemProvider == null) {
+			menuPanelItemProvider = new MenuPanelItemProvider(this);
+		}
+
+		return menuPanelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1710,6 +1756,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (menuViewItemProvider != null) menuViewItemProvider.dispose();
 		if (gridPanelLayoutItemProvider != null) gridPanelLayoutItemProvider.dispose();
 		if (gridWidgetLayoutSpecItemProvider != null) gridWidgetLayoutSpecItemProvider.dispose();
+		if (commandPanelItemProvider != null) commandPanelItemProvider.dispose();
+		if (menuPanelItemProvider != null) menuPanelItemProvider.dispose();
 	}
 
 }

@@ -125,6 +125,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.MENU_VIEW: return createMenuView();
 			case GuigenPackage.GRID_PANEL_LAYOUT: return createGridPanelLayout();
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC: return createGridWidgetLayoutSpec();
+			case GuigenPackage.COMMAND_PANEL: return createCommandPanel();
+			case GuigenPackage.MENU_PANEL: return createMenuPanel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -818,6 +820,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public GridWidgetLayoutSpec createGridWidgetLayoutSpec() {
 		GridWidgetLayoutSpecImpl gridWidgetLayoutSpec = new GridWidgetLayoutSpecImpl();
 		return gridWidgetLayoutSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CommandPanel createCommandPanel() {
+		CommandPanelImpl commandPanel = new CommandPanelImpl();
+		return commandPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MenuPanel createMenuPanel() {
+		MenuPanelImpl menuPanel = new MenuPanelImpl();
+		return menuPanel;
 	}
 
 	/**

@@ -167,6 +167,16 @@ public class DialogPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				 GuigenFactory.eINSTANCE.createCommandPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				 GuigenFactory.eINSTANCE.createMenuPanel()));
 	}
 
 }
