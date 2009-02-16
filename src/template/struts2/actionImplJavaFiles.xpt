@@ -553,6 +553,27 @@ public class SequenceAction implements IAction {
 	«ENDLET»
 «ENDDEFINE»
 
+«REM»property sempre presenti:
+- idNodo per gestire eventuali click su un treeView
+«ENDREM»
+«DEFINE commonProperties FOR ContentPanel»
+	/////////////////////////////////////////
+	/// property comuni a tutte le action
+	/////////////////////////////////////////
+	
+	// nodo selezionato in un eventuale tree
+	private String _idNodo = "";
+	
+	public void setIdNodo(String val){
+		_idNodo = val;
+	}
+	
+	public String getIdNodo(){
+		return _idNodo;
+	}
+	
+«ENDDEFINE»
+
 «REM»
 	inserisce tutte le proeprty associate ai vari DataWidget contenuti nel content panel
 	a tutti i livelli

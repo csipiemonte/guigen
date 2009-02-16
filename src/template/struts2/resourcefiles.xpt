@@ -397,7 +397,11 @@ Gestione dei Widget
 				<customtag:tree
 					name="«getOGNLForWidgetMultiValue(this)»" folder="images" imgOpen="minus.gif"
 					imgClosed="plus.gif" imgDot="dot.gif" linkOnTree="true"
+					«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
+					requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())».do" showChildNumber="false">
+					«ELSE-»
 					requestURI="«getStrutsActionConfigName(cp)».do" showChildNumber="false">
+					«ENDIF-»
 				</customtag:tree>
 			</div>
 «ENDDEFINE»

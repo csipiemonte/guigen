@@ -35,6 +35,13 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7"/>
               <widgets xsi:type="guigen:TreeView" name="treeProva" label="" dataType="//@typedefs/@types.7">
+                <eventHandlers>
+                  <action xsi:type="guigen:ExecAction" methodName="manageTreeSelection">
+                    <results resultCode="OK">
+                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    </results>
+                  </action>
+                </eventHandlers>
                 <multiDataBinding appData="//@appDataDefs/@appData.4"/>
               </widgets>
             </subpanels>

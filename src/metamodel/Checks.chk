@@ -129,6 +129,16 @@ context ApplicationData ERROR "E' necessario specificare il nome dell Applicatio
 context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data" :
 	this.type!=null;
 
+///////////////////////////////////////////////////////////////////
+//// constraints su azioni
+
+// un Treeview può avere solo un event handler di tipo click
+context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED" :
+	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
+
+// un CommandWidget può avere solo un event handler di tipo click
+context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED" :
+	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
 /// constraints su binding
 	
@@ -205,5 +215,3 @@ context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può esser
 context ActionOnWidgets ERROR "Le azioni che hanno come oggeto un widget devono essere associate ad almeno un widget" :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 	
-context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED" :
-	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
