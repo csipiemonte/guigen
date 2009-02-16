@@ -534,25 +534,6 @@ public class SequenceAction implements IAction {
 	// Exec Action end
 «ENDDEFINE»
 
-«REM»aggiunge la definizione delle property corrispondenti ai button di un pannello,
-     necessarie per capire quale sia la fonte dell'evento di tipo clicked
-«ENDREM»
-«DEFINE buttonFlagsInAction FOR ContentPanel»
-	«LET getAllEventSourceWidgets() AS allEventSources»
-	«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
-	«FOREACH allClickSources AS currClickSource»
-	private boolean _widg_«((Widget)currClickSource).name»;
-	
-	public void setWidg_«((Widget)currClickSource).name»(boolean value){
-		_widg_«((Widget)currClickSource).name» = true;
-		System.out.println("_widg_«((Widget)currClickSource).name»->"+value);
-		System.out.println("forzo a true...");
-	}
-	«ENDFOREACH»
-	«ENDLET»
-	«ENDLET»
-«ENDDEFINE»
-
 «REM»property sempre presenti:
 - idNodo per gestire eventuali click su un treeView
 «ENDREM»

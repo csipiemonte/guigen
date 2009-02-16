@@ -386,8 +386,6 @@ import «getDTOBaseJavaPackage(model)».*;
  */
 public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» {
 
-
-    «EXPAND actionImplJavaFiles::buttonFlagsInAction FOR this»
     «EXPAND actionImplJavaFiles::widgetsProperties(model) FOR this»
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 	«EXPAND actionImplJavaFiles::commonProperties FOR this»
@@ -401,29 +399,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
  	«LET getAllEventSourceWidgets() AS allEventSources»
 	«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
 	/**
-	 *
-	 * @return Il risultato delle azioni, SUCCESS altrimenti.
+	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici
+	 * @return SUCCESS.
 	 */
 	public String execute() throws Exception {
-	    dumpModel(true); // TODO mettere solo se log=debug
-	    
-		// gestione degli eventi di tipo CLICKED
-		«FOREACH allClickSources AS currClickSource»
-		if(_widg_«((Widget)currClickSource).name») {
-			IAction action = initAction("«((Widget)currClickSource).name»","CLICKED");
-			String result = action.doAction(this);
-			if(result != null) {
-				dumpModel(false);
-				System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
-				return result;
-			} else {
-				dumpModel(false);
-				System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
-				return SUCCESS;
-			}
-		}
-		«ENDFOREACH»
-		// se arrivo qui non ci sono eventi da gestire ...
 		return SUCCESS;
 	}
 	
