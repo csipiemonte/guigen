@@ -162,14 +162,14 @@ Gestione dei pannelli
 «REM»«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
-	«EXPAND createWidgets(model, cp) FOR this»
+	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 «ENDDEFINE»
 
 «REM»«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
-	«EXPAND createWidgets(model, cp) FOR this»
+	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 «ENDDEFINE»
 
@@ -290,7 +290,7 @@ Gestione dei Widget
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 <s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
 «EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
 «EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
 </s:if>
 «EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»

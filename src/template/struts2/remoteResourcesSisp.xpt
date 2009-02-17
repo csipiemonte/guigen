@@ -385,7 +385,7 @@ Gestione dei PANNELLI
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-		«ENDLET»
+		«ENDLET-»
 	</div>
 	<!---------------- FINE COLONNA SX ---------------->
 
@@ -412,7 +412,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET»
+		«ENDLET-»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
 
@@ -444,7 +444,7 @@ Gestione dei PANNELLI
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-		«ENDLET»
+		«ENDLET-»
 	</div>
 	<!-- -------------- FINE COLONNA SX -------------- -->
 
@@ -471,7 +471,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET»
+		«ENDLET-»
 		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
 
 
@@ -495,7 +495,7 @@ Gestione dei PANNELLI
 		
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
-		«ENDLET»
+		«ENDLET-»
 	</div>
 	<!-- -------- FINE COLONNA EXTRA (DESTRA) -------- -->
 
@@ -548,9 +548,9 @@ Gestione dei LAYOUT
 
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR CommandPanel»
-«LET (this.layout.metaType == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout.metaType == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype»
+«LET (this.layout.metaType == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout.metaType == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype-»
 <div «ptype»>
-«ENDLET»
+«ENDLET-»
 «ENDDEFINE»
 
 «REM»comment«ENDREM»
@@ -607,9 +607,9 @@ Gestione dei LAYOUT
 
 «DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 «IF fp.layout.metaType == UDLRCPanelLayout-»
-«LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side»
+«LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side-»
 <div «side»>
-«ENDLET»
+«ENDLET-»
 «ENDIF-»
 «ENDDEFINE»
 
