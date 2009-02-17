@@ -15,6 +15,8 @@ import it.csi.mddtools.guigen.ActionResult;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataLifetimeType;
@@ -32,6 +34,8 @@ import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.JumpAction;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
+import it.csi.mddtools.guigen.MenuPanel;
+import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.Panel;
@@ -43,6 +47,7 @@ import it.csi.mddtools.guigen.SequenceAction;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
@@ -763,9 +768,9 @@ public static int getColumnsLayout(FormPanel firstLevPanel) {
 
 
 /**
- * nota: moltiplico per due perchè il custom tag <customtag:panelGrid> ragiona in termini di
- *       colonne reali, quindi vale l'equazione
- *       1 widget = label + widget = 2 colonne
+ * nota: moltiplico per due perch&egrave; il custom tag <code>&lt;customtag:panelGrid&gt;</code> 
+ *       ragiona in termini di colonne reali, quindi vale l'equazione:
+ *           1 widget = label + widget = 2 colonne
  * @param p
  * @return
  * @author [DM]
@@ -826,7 +831,7 @@ public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
 
 /**
  * Restituisce il widget che, in un GridLayout, si trova nella posizione specificata
- * (riga - colonna). e gestisce i casi particolari di colspan e widget dimenticato.
+ * (riga - colonna), e gestisce i casi particolari di colspan e widget dimenticato.
  * 
  * @param p
  * @param row
@@ -934,8 +939,8 @@ public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean 
 
 
 /**
- * L'attributo hspan di un widget deve essere gestito solo nel caso di 
- * GridPanelLayout  
+ * L'attributo hspan di un widget deve essere gestito solo nel caso di GridPanelLayout.
+ *  
  * @param fp
  * @param w
  * @return
@@ -955,7 +960,7 @@ public static boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) {
 /**
  * Non metto l'else della Visibility nel caso di VerticalFlowPanelLayout
  * o nel caso di GridPanelLayout con span della cella = numero totale colonne
- * (è come se eliminassi un'intera riga...)
+ * (&egrave; come se eliminassi un'intera riga...)
  * 
  * @param fp
  * @param w
@@ -1180,9 +1185,83 @@ public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType
 }
 
 
-//////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// JAVA METHODS FOR CHECKS
+
+/**
+ * Controlla che tutti i widget di un CommandPanel siano dei CommandWidget.
+ * 
+ * @param cp  Il CommandPanel da controllare.
+ * @return  true se tutti i widget sono dei CommandWidget, false altrimenti.
+ * @author [DM]
+ */
+public static boolean commandPanelCommandWidgetCheck(CommandPanel cp) {
+	for (Widget w : cp.getWidgets()) {
+		if ( !(w instanceof CommandWidget) ) {
+			System.out.println("=====> WIDGET [" + w + "] non è un CommandWidget");
+			return false;
+		}
+	}
+	return true;
+}
+
+/**
+ * Un CommandPanel pu&ograve; avere solo due tipi di layout: 
+ *    [a] HorizontalFlowPanelLayout, 
+ *    [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+ * 
+ * @param cp  Il CommandPanel da controllare.
+ * @return  true se il layout &egrace; corretto, false altrimenti.
+ * @author [DM]
+ */
+public static boolean commandPanelLayoutCheck(CommandPanel cp) {
+	boolean res = true;
+	
+	if ( cp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		res = false;
+	} else if ( cp.getLayout() instanceof UDLRCPanelLayout ) { 
+		for ( Widget w : cp.getWidgets() ) {
+			if ( !(w.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec) ) {
+				res = false;
+				break;				
+			}
+			
+			UDLRCWidgetLayoutSpec ls = (UDLRCWidgetLayoutSpec)w.getLayoutSpec();
+			if ( ls.getValue() != UDLRCSpecConstants.LEFT && ls.getValue() != UDLRCSpecConstants.RIGHT ) {
+				res = false;
+				break;				
+			}
+		}
+	}
+
+	return res;
+}
 
 
+/**
+ * Controlla che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
+ * 
+ * @param cp  Il CommandPanel da controllare.
+ * @return  true se tutti i widget sono dei CommandWidget, false altrimenti.
+ * @author [DM]
+ */
+public static boolean menuPanelWidgetCheck(MenuPanel mp) {
+	for (Widget w : mp.getWidgets()) {
+		if ( !(w instanceof MenuView) && !(w instanceof TreeView) ) {
+			System.out.println("=====> WIDGET [" + w + "] non è un MenuView o un TreeView");
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// MAIN
 
 /**
  * @param args

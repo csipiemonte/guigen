@@ -117,54 +117,19 @@ String getWebSrcDir(GUIModel model, boolean omit_root) :
 
 
 
+////////////////////////////////////////////////////////////
+/// Estensioni di utilita'                                //
+////////////////////////////////////////////////////////////
+
+// [DM] Verifica che la stringa passata non sia nulla o sia blank
+boolean isNullOrEmpty(String s) :
+	s == null || s.length == 0;
 
 
-//String getDocsRootDir() :
-//  "docs";
 
-//String getTestDir() :
-//  "test";
-  
-//String getTestJavaDir() :
-//  "test/java";
- 
-//String getTestXmlFilesDir(String codServizio) :
-//	getTestDir()+"/java/test/"+removeSeparator(codServizio);
-  
-//String getEjbConfigRootDir() :
-//  getConfigRootDir()+"/ejb";
-  
-//String getSpecificEjbConfigRootDir(String codEjb) :
-//  getEjbConfigRootDir()+"/"+codEjb;
-  
-// conf/<tipobinding>/<codwar>
-//String getSpecificWarConfigRootDir(String codBinding, String codWar) :
-//  getWarConfigRootDir()+"/"+codBinding+"/"+codWar;
-
-//String getWarResourcesRootDir() :
-//  "src/web";
-  
-//String getSpecificWarResourcesRootDir(String codBinding, String codWar) :
-//  getWarResourcesRootDir()+"/"+codBinding+"/"+codWar;
-  
-//String getComponentJavaPkg(ComponenteProdotto comp, String codProd) :
-//  "it.csi."+codProd.toLowerCase()+"."+comp.codComponente.toLowerCase();
-  
-//String fullEjbStdClassesDir(String codProd, String codComp) :
-//    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/business";
-    
-//String getFullEJBStdPkg(String codProd, String codComp) :
-//	    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".business";
-
-//String getSQLSrcDir(String codProd,String codComp) :
-//	"src/sql";
-	    
-// STD: DSP_STD_0000_GUI_081007_V02_Logging.pdf#4.2
-//String getLoggerPrefixForComponent(String codProd, String codComponent) :
-//	codComponent.toLowerCase();
-
-	
-/// standard specifici per CSI
+////////////////////////////////////////////////////////////
+/// Estensioni java                                       //
+////////////////////////////////////////////////////////////
 	
 ContentPanel findParentContentPanel(Action a) : JAVA
 it.csi.mddtools.guigen.genutils.GenUtils.findParentContentPanel(it.csi.mddtools.guigen.Action);

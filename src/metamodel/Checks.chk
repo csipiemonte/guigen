@@ -1,6 +1,9 @@
 import guigen;
 
+extension org::openarchitectureware::util::stdlib::naming;
 extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+
 
 /////////////////////////////////////////////////
 // Check indipendenti dalla piattaforma target //
@@ -220,4 +223,54 @@ context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può esser
 
 context ActionOnWidgets ERROR "Le azioni che hanno come oggeto un widget devono essere associate ad almeno un widget" :
 	this.targetWidgets != null && this.targetWidgets.size>0;
-	
+
+
+/////////////////////////////////////////////////////////////////////
+// [DM] check su CommandPanel
+// Il CommanPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
+// 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
+// 2) può contenere solo CommandWidget
+// 3) non può contenere sottopannelli
+// 4) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
+// 5) non deve avere label (*da verificare*) 
+// 1
+context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPanel " + loc() :
+	this.eContainer.metaType == FormPanel;
+// 2
+context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget " + loc() :
+	commandPanelCommandWidgetCheck(this);
+// 3
+context CommandPanel ERROR "Un CommandPanel non può contenere sottopannelli " + loc() :
+	this.subpanels.size == 0;
+// 4
+context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
+	commandPanelLayoutCheck(this); // TODO: implementare
+// 5
+context CommandPanel ERROR "Un CommandPanel non deve avere label " + loc() :
+	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+
+
+/////////////////////////////////////////////////////////////////////
+// [DM] check su MenuPanel
+// Il MenuPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
+// 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
+// 2) può contenere solo widget di tipo MenuView o TreeView
+// 3) non può contenere sottopannelli
+// 4) può avere solo un layout Vertical
+// 5) non deve avere label (*da verificare*)
+// 1
+context MenuPanel ERROR "Un MenuPanel deve essere contenuto in un FormPanel " + loc() :
+	this.eContainer.metaType == FormPanel;
+// 2
+context MenuPanel ERROR "Un MenuPanel può contenere solo widget di tipo MenuView o TreeView " + loc() :
+	menuPanelWidgetCheck(this);
+// 3
+context MenuPanel ERROR "Un MenuPanel non può contenere sottopannelli " + loc() :
+	this.subpanels.size == 0;
+// 4
+context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalFlowPanelLayout " + loc() :
+	this.layout.metaType == VerticalFlowPanelLayout; // TODO: implementare
+// 5
+context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
+	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+
