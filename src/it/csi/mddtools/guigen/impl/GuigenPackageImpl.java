@@ -2979,7 +2979,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.HOURS);
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BOOLEAN);
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.BYTE);
-		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.TREE_CATEGORY);
+		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.TREE_NODE);
 
 		initEEnum(portalNamesEEnum, PortalNames.class, "PortalNames");
 		addEEnumLiteral(portalNamesEEnum, PortalNames.SISTEMA_PIEMONTE);

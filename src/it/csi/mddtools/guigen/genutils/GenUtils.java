@@ -1115,7 +1115,7 @@ public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
 	//basicTypesMap.put(Float.class, csiWFloat);
 	SimpleType csiWLong = createDT("WrappedLong", SimpleTypeCodes.LONG, true);
 	
-	SimpleType csiTreeCat = createDT("TreeCategory", SimpleTypeCodes.TREE_CATEGORY, true);
+	SimpleType csiTreeCat = createDT("TreeNode", SimpleTypeCodes.TREE_NODE, true);
 	
 	//basicTypesMap.put(Long.class, csiWLong);
 	// array di tipi semplici
@@ -1146,7 +1146,7 @@ public static it.csi.mddtools.guigen.Type[] generateCSIBaseTypes(){
 	//basicTypesMap.put(getTypedArrayClass(Float.class), csiWFloatArray);
 	it.csi.mddtools.guigen.TypedArray csiWLongArray = createTA("Array of WrappedLong", csiWLong);
 	
-	it.csi.mddtools.guigen.TypedArray csiTreeCatArray = createTA("Array of TreeCategory", csiTreeCat);
+	it.csi.mddtools.guigen.TypedArray csiTreeCatArray = createTA("Array of TreeNode", csiTreeCat);
 	//basicTypesMap.put(getTypedArrayClass(Long.class), csiWLongArray);
 	
 	it.csi.mddtools.guigen.Type [] types = new it.csi.mddtools.guigen.Type[]{
