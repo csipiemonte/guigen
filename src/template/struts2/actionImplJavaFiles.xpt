@@ -3,7 +3,7 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE actionImplClasses FOR GUIModel»
-«FILE getPresentationJavaSrcDir(true)+"/IAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/ICommand.java"»
 package «getPresentationJavaPackage()»;
 
 /**
@@ -11,31 +11,31 @@ package «getPresentationJavaPackage()»;
  * @author CSI Piemonte
  *
  */
-public interface IAction {
+public interface ICommand {
 	/**
 	 * Esegue l'azione corrispondente
 	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
-	public String doAction(BaseAction strutsAction);
+	public String doCommand(BaseAction strutsAction);
 };
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/JumpAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"»
 package «getPresentationJavaPackage()»;
 
 /// JUMP_ACTION
-public class JumpAction implements IAction {
+public class JumpCommand implements ICommand {
 	String name;
 	String _currentPageName = null;
 	boolean _pushCurrent;
-	public JumpAction(String panelName, String currentPageName,
+	public JumpCommand(String panelName, String currentPageName,
 			boolean pushCurrent) {
 		name = panelName;
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
-	public String doAction(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) {
 		if (_pushCurrent) {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
@@ -45,24 +45,24 @@ public class JumpAction implements IAction {
 };
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/OnOffAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"»
 package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
 
-public class OnOffAction implements IAction {
+public class OnOffCommand implements ICommand {
 	String _containerName = null;
 	String[] _targets = null;
 	boolean _show = true;
 
-	public OnOffAction(String containerName, String targets[], boolean show) {
+	public OnOffCommand(String containerName, String targets[], boolean show) {
 		_containerName = containerName;
 		_targets = targets;
 		_show = show;
 	}
 
-	public String doAction(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) {
 		System.out.println("on-off action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
@@ -82,24 +82,24 @@ public class OnOffAction implements IAction {
 }
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/VisibilityAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/VisibilityCommand.java"»
 package «getPresentationJavaPackage()»;
 
 import java.util.Map;
 import java.util.HashMap;
 
-public class VisibilityAction implements IAction {
+public class VisibilityCommand implements ICommand {
 	String _containerName = null;
 	String[] _targets = null;
 	boolean _show = true;
 
-	public VisibilityAction(String containerName, String targets[], boolean show) {
+	public VisibilityCommand(String containerName, String targets[], boolean show) {
 		_containerName = containerName;
 		_targets = targets;
 		_show = show;
 	}
 
-	public String doAction(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) {
 		System.out.println("visibility action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
@@ -119,20 +119,19 @@ public class VisibilityAction implements IAction {
 }
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/ExecAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/ExecCommand.java"»
 package «getPresentationJavaPackage()»;
 
 import «getDTOBaseJavaPackage()».*;
 
-////ExecAction
-public abstract class ExecAction implements IAction {
+////ExecCommand
+public abstract class ExecCommand implements ICommand {
 	String _esiti[] = null;
 	//JFrame _frame = null;
-	IAction _azioni[] = null;
+	ICommand _azioni[] = null;
 	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
 
-	//public ExecAction(JFrame frame, String esiti[], IAction[] azioni) {
-	public ExecAction(String esiti[], IAction[] azioni) {
+	public ExecCommand(String esiti[], ICommand[] azioni) {
 		_esiti = esiti;
 		//_frame = frame;
 		_azioni = azioni;
@@ -145,7 +144,7 @@ public abstract class ExecAction implements IAction {
 	/**
 	 * Esecuzione della logica di business.
 	 */
-	public String doAction(BaseAction strutsAction){
+	public String doCommand(BaseAction strutsAction){
 		// action --> model
 		Object theModel = strutsAction.toModel();
 		// esecuzione azione
@@ -157,14 +156,14 @@ public abstract class ExecAction implements IAction {
 		// impostazione degli appData
 		storeAppData(execResults, strutsAction);
 		// determinazione esito e azione corrispondente
-		IAction resultAction = null;
+		ICommand resultAction = null;
 		for (int i = 0; i<_esiti.length; i++){
 			if (_esiti[i].equals(result))
 				resultAction = _azioni[i];
 		}
 		// esecuzione azione conseguente all'esito
 		if(resultAction!=null){
-			return resultAction.doAction(strutsAction);
+			return resultAction.doCommand(strutsAction);
 		}
 		else
 			throw new IllegalStateException("Il result code "+result+" non è tra quelli previsti ("+_esiti+")");
@@ -215,13 +214,13 @@ public class ExecResults {
 }
 «ENDFILE»
 
-«FILE getPresentationJavaSrcDir(true)+"/SequenceAction.java"»
+«FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
 package «getPresentationJavaPackage()»;
 
 /// SEQUENCE_ACTION
-public class SequenceAction implements IAction {
-	IAction[] _actions;
-	public SequenceAction(IAction[] actions) {
+public class SequenceCommand implements ICommand {
+	ICommand[] _actions;
+	public SequenceCommand(ICommand[] actions) {
 		_actions = actions;
 	}
 	
@@ -230,15 +229,15 @@ public class SequenceAction implements IAction {
 	 * incluse come step, mantenendo il più recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doAction(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) {
 		String result=null;
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
-				IAction currAct = _actions[i];
+				ICommand currAct = _actions[i];
 				// TODO standardizzare log
 				System.out
 						.println("sequenza, azione #" + i + ":" + currAct);
-				String currResult = currAct.doAction(strutsAction);
+				String currResult = currAct.doCommand(strutsAction);
 				if (currResult!=null)
 					result=currResult;
 			}
@@ -259,27 +258,27 @@ public class SequenceAction implements IAction {
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	public IAction initAction(String sourceWidget, String eventType) {
-		HashMap<String, HashMap<String, IAction>> cmdsByWidget = new HashMap<String, HashMap<String, IAction>>();
+	public ICommand initCommand(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 		«LET getAllEventSourceWidgets() AS eventSources»
 		«IF eventSources.size>0»
 		«FOREACH eventSources AS currEventSource»
 		// contiene i comandi del widget «((Widget)currEventSource).name» per ogni Ev.H.
-		HashMap<String, IAction> cmds4«((Widget)currEventSource).name»ByEvh = 
-		  new HashMap<String, IAction>();
+		HashMap<String, ICommand> cmds4«((Widget)currEventSource).name»ByEvh = 
+		  new HashMap<String, ICommand>();
 		«LET ((Widget)currEventSource).eventHandlers AS evhs»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
 		«FOREACH evhs AS currEvh»
-		cmds4«((Widget)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		cmds4«((Widget)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
 		«ENDFOREACH»
 		«ENDLET»
 		cmdsByWidget.put("«((Widget)currEventSource).name»",cmds4«((Widget)currEventSource).name»ByEvh);	
 		«ENDFOREACH»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
-		return new IAction(){
-			public String doAction(BaseAction strutsAction){return null;}
+		return new ICommand(){
+			public String doCommand(BaseAction strutsAction){return null;}
 		};
 		«ENDIF»
 		«ENDLET»
@@ -290,10 +289,10 @@ public class SequenceAction implements IAction {
 		«FOREACH eventSources AS currEventSource»
 		«LET ((Widget)currEventSource).eventHandlers AS evhs»
 		«FOREACH evhs AS currEvh»
-		public IAction initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		public ICommand initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name, model) FOR currEvh»
 		/// TODO la riga successiv aè un pezza...
-		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
+		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
 		return action;
 		}
 		«ENDFOREACH»
@@ -310,9 +309,9 @@ public class SequenceAction implements IAction {
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	public IAction initAction() {
+	public ICommand initCommand() {
 		«EXPAND addActionCode("onInit",1, model) FOR this»
-		IAction action = act_onInit_1; 
+		ICommand action = act_onInit_1; 
 		return action;
 	}
 	
@@ -325,27 +324,27 @@ public class SequenceAction implements IAction {
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	public IAction initAction(String sourceWidget, String eventType) {
-		HashMap<String, HashMap<String, IAction>> cmdsByWidget = new HashMap<String, HashMap<String, IAction>>();
+	public ICommand initCommand(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 		«LET getAllEventSourceMenuItems() AS eventSources»
 		«IF eventSources.size>0»
 		«FOREACH eventSources AS currEventSource»
 		// contiene i comandi del menuItem «((MenuItem)currEventSource).name» per ogni Ev.H.
-		HashMap<String, IAction> cmds4«((MenuItem)currEventSource).name»ByEvh = 
-		  new HashMap<String, IAction>();
+		HashMap<String, ICommand> cmds4«((MenuItem)currEventSource).name»ByEvh = 
+		  new HashMap<String, ICommand>();
 		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
 		«LET evhs AS currEvh»
-		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initAction«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
 		«ENDLET»
 		«ENDLET»
 		cmdsByWidget.put("«((MenuItem)currEventSource).name»",cmds4«((MenuItem)currEventSource).name»ByEvh);	
 		«ENDFOREACH»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
-		return new IAction(){
-			public String doAction(BaseAction strutsAction){return null;}
+		return new ICommand(){
+			public String doCommand(BaseAction strutsAction){return null;}
 		};
 		«ENDIF»
 		«ENDLET»
@@ -356,10 +355,10 @@ public class SequenceAction implements IAction {
 		«FOREACH eventSources AS currEventSource»
 		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
 		«LET evhs AS currEvh»
-		public IAction initAction«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		public ICommand initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((MenuItem)currEvh.eContainer).name, model) FOR currEvh»
 		/// TODO la riga successiv aè un pezza...
-		IAction action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
+		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
 		return action;
 		}
 		«ENDLET»
@@ -378,7 +377,7 @@ public class SequenceAction implements IAction {
     «ENDLET»
     «ENDLET»
     
-	IAction [] «actionsVarName» = new IAction[]{
+	ICommand [] «actionsVarName» = new ICommand[]{
 	«LET this.command AS currAct»
 		«LET 1 AS actionNumber»
 		act_«actionsVarName»_«actionNumber»
@@ -392,41 +391,41 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpCommand»
-	/// Jump Action begin
-	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
-	/// Jump Action end
+	/// Jump Command begin
+	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
+	/// Jump Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogCommand»
-	// ShowDialog Action begin
-	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
-	// ShowDialog Action end
+	// ShowDialog Command begin
+	ShowDialogCommand act_«actionsVarName»_«actionNumber» = new ShowDialogCommand("«this.dialog.name»");
+	// ShowDialog Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpBackCommand»
-	//JumpBack Action begin
-	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
-	// JumpBack Action end
+	//JumpBack Command begin
+	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand();
+	// JumpBack Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR SequenceCommand»
-	// SequenceAction begin
+	// SequenceCommand begin
     «FOREACH commands AS currAct»
     «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct), model) FOR currAct»
     «ENDFOREACH»
     
-    IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
+    ICommand [] act_«actionsVarName»_«actionNumber»_steps = new ICommand[]{
     «FOREACH commands AS currAct»
     act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
     «ENDFOREACH»
     };
-	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
-	// SequenceAction end
+	SequenceCommand act_«actionsVarName»_«actionNumber» = new SequenceCommand(act_«actionsVarName»_«actionNumber»_steps);
+	// SequenceCommand end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ONOFFCommand»
 	«LET findParentContentPanel().name AS containerName»
-	// ONOFF Action begin
+	// ONOFF Command begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
     «FOREACH this.targetWidgets AS currWidg»
@@ -434,41 +433,41 @@ public class SequenceAction implements IAction {
     «ENDFOREACH»
     };
     
-	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
-	//ONOFF Action end
+	OnOffCommand act_«actionsVarName»_«actionNumber» = new OnOffCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+	//ONOFF Command end
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityCommand»
 	«LET findParentContentPanel().name AS containerName»
-	// VisibilityAction begin
+	// VisibilityCommand begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
     «FOREACH this.targetWidgets AS currWidg»
     "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
     «ENDFOREACH»
     };
-	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
-	// Visibility Action end
+	VisibilityCommand act_«actionsVarName»_«actionNumber» = new VisibilityCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+	// Visibility Command end
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecCommand»
-	// ExecAction begin
+	// ExecCommand begin
     String [] resultNames=new String []{
       «FOREACH this.results AS currRes»
       "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
       «ENDFOREACH»
     };
     
-    IAction [] actionsForResults = new IAction[«this.results.size»];
+    ICommand [] actionsForResults = new ICommand[«this.results.size»];
     «FOREACH results AS currRes»
     «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes),model) FOR currRes.command»
     actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     
     
-	ExecAction act_«actionsVarName»_«actionNumber» = new ExecAction(resultNames, actionsForResults){
+	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames, actionsForResults){
 		public ExecResults doLogic(Object theModel){
 		
 			«LET findParentContentPanel(this) AS parentCP»

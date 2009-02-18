@@ -279,8 +279,8 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		// gestione degli eventi di tipo CLICKED
 		
 		
-		IAction action = initAction("«((MenuItem)currMenuItem).name»","CLICKED");
-		String result = action.doAction(this);
+		ICommand action = initCommand("«((MenuItem)currMenuItem).name»","CLICKED");
+		String result = action.doCommand(this);
 		if(result != null) {
 			//dumpModel(false);
 			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
@@ -346,8 +346,8 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 		// gestione degli eventi di tipo CLICKED
 		
 		
-		IAction action = initAction();
-		String result = action.doAction(this);
+		ICommand action = initCommand();
+		String result = action.doCommand(this);
 		if(result != null) {
 			//dumpModel(false);
 			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
@@ -421,8 +421,8 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	public String «getHandlerMethodName(currClickWidget, currClickWidget.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())»()
 		throws Exception
 	{
-		IAction action = initAction("«(currClickWidget).name»","CLICKED");
-		String result = action.doAction(this);
+		ICommand action = initCommand("«(currClickWidget).name»","CLICKED");
+		String result = action.doCommand(this);
 		if(result != null) {
 			dumpModel(false);
 			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
