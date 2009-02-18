@@ -111,19 +111,19 @@ columns != null && columns.size>0;
 context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED" :
 	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
 
-context EventHandler ERROR "Un action Listener deve innescare un'azione a fronte di un tipo di evento" :
-	this.action!=null;
+context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento" :
+	this.command!=null;
 	
-context JumpAction ERROR "E'necessario impostare il pannello target di una Jump Action" :
+context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command" :
 	this.jumpTo != null;
 	
-context ShowDialogAction ERROR "E'necessario impostare il dialog target di una Show Dialog Action" :
+context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand" :
     this.dialog != null;
     
-context ExecAction ERROR "Una ExecAction deve avere almeno un ActionResult associato" :
+context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato" :
 	this.results!=null && this.results.size>0;
 
-context ExecAction ERROR "E'necessario specificare il nome del metodo associato all'esecuzione" :
+context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione" :
 	this.methodName!=null && this.methodName.length>0;
 
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
@@ -201,26 +201,26 @@ context DataWidget WARNING "Non è possibile verificare a priori la corrispondenz
 	 	&& this.dataType==this.databinding.appData.type
 	 );	 
 	
-context ActionResult ERROR "Una ActionResult deve avere associata una azione effettiva" :  
-	this.action != null;
+context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo" :  
+	this.command != null;
 	
-context SequenceAction ERROR "Una SequenceAction deve prevedere almeno uno step nella sequenza di azioni" :
-	this.actions!= null && this.actions.size>0;
+context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi" :
+	this.commands!= null && this.commands.size>0;
 
-context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una JumpAction" :
-	(this.actions.select(a|a.metaType == JumpAction).size==0) ||
-	  (this.actions.select(a|a.metaType == JumpAction).size==1) && (this.actions.last().metaType == JumpAction)
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand" :
+	(this.commands.select(a|a.metaType == JumpCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpCommand).size==1) && (this.commands.last().metaType == JumpCommand)
 	;
 
-context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una JumpBackAction" :
-	(this.actions.select(a|a.metaType == JumpBackAction).size==0) ||
-	  (this.actions.select(a|a.metaType == JumpBackAction).size==1) && (this.actions.last().metaType == JumpBackAction);
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand" :
+	(this.commands.select(a|a.metaType == JumpBackCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpBackCommand).size==1) && (this.commands.last().metaType == JumpBackCommand);
 
 //context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una ShowDialogAction" :
 //	(this.actions.select(a|a.metaType == ShowDialogAction).size==0) ||
 //	  (this.actions.select(a|a.metaType == ShowDialogAction).size==1) && (this.actions.last().metaType == ShowDialogAction);
 
-context ActionOnWidgets ERROR "Le azioni che hanno come oggeto un widget devono essere associate ad almeno un widget" :
+context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget" :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 
 

@@ -107,7 +107,7 @@ public class EventHandlerItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.EVENT_HANDLER__ACTION);
+			childrenFeatures.add(GuigenPackage.Literals.EVENT_HANDLER__COMMAND);
 		}
 		return childrenFeatures;
 	}
@@ -166,7 +166,7 @@ public class EventHandlerItemProvider
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GuigenPackage.EVENT_HANDLER__ACTION:
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -186,48 +186,48 @@ public class EventHandlerItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createONOFFAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createONOFFCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createCustomAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createCustomCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createVisibilityAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createRefreshViewAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createJumpAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createExecAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createExecCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createShowDialogAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createSequenceAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createSequenceCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EVENT_HANDLER__ACTION,
-				 GuigenFactory.eINSTANCE.createJumpBackAction()));
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
 	}
 
 	/**

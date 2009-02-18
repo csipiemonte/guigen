@@ -220,36 +220,36 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createColumnAdapter();
 			}
 			@Override
-			public Adapter caseAction(Action object) {
-				return createActionAdapter();
+			public Adapter caseCommand(Command object) {
+				return createCommandAdapter();
 			}
 			@Override
-			public Adapter caseActionEvent(ActionEvent object) {
-				return createActionEventAdapter();
+			public Adapter caseCommandEvent(CommandEvent object) {
+				return createCommandEventAdapter();
 			}
 			@Override
-			public Adapter caseONOFFAction(ONOFFAction object) {
-				return createONOFFActionAdapter();
+			public Adapter caseONOFFCommand(ONOFFCommand object) {
+				return createONOFFCommandAdapter();
 			}
 			@Override
-			public Adapter caseCustomAction(CustomAction object) {
-				return createCustomActionAdapter();
+			public Adapter caseCustomCommand(CustomCommand object) {
+				return createCustomCommandAdapter();
 			}
 			@Override
-			public Adapter caseVisibilityAction(VisibilityAction object) {
-				return createVisibilityActionAdapter();
+			public Adapter caseVisibilityCommand(VisibilityCommand object) {
+				return createVisibilityCommandAdapter();
 			}
 			@Override
-			public Adapter caseRefreshViewAction(RefreshViewAction object) {
-				return createRefreshViewActionAdapter();
+			public Adapter caseRefreshViewCommand(RefreshViewCommand object) {
+				return createRefreshViewCommandAdapter();
 			}
 			@Override
-			public Adapter caseJumpAction(JumpAction object) {
-				return createJumpActionAdapter();
+			public Adapter caseJumpCommand(JumpCommand object) {
+				return createJumpCommandAdapter();
 			}
 			@Override
-			public Adapter caseExecAction(ExecAction object) {
-				return createExecActionAdapter();
+			public Adapter caseExecCommand(ExecCommand object) {
+				return createExecCommandAdapter();
 			}
 			@Override
 			public Adapter caseEventHandler(EventHandler object) {
@@ -260,24 +260,24 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createWidgetTargetActionAdapter();
 			}
 			@Override
-			public Adapter caseActionOnWidgets(ActionOnWidgets object) {
-				return createActionOnWidgetsAdapter();
+			public Adapter caseCommandOnWidgets(CommandOnWidgets object) {
+				return createCommandOnWidgetsAdapter();
 			}
 			@Override
 			public Adapter caseDialogPanel(DialogPanel object) {
 				return createDialogPanelAdapter();
 			}
 			@Override
-			public Adapter caseShowDialogAction(ShowDialogAction object) {
-				return createShowDialogActionAdapter();
+			public Adapter caseShowDialogCommand(ShowDialogCommand object) {
+				return createShowDialogCommandAdapter();
 			}
 			@Override
-			public Adapter caseActionResult(ActionResult object) {
-				return createActionResultAdapter();
+			public Adapter caseCommandOutcome(CommandOutcome object) {
+				return createCommandOutcomeAdapter();
 			}
 			@Override
-			public Adapter caseActionOnPanels(ActionOnPanels object) {
-				return createActionOnPanelsAdapter();
+			public Adapter caseCommandOnPanels(CommandOnPanels object) {
+				return createCommandOnPanelsAdapter();
 			}
 			@Override
 			public Adapter caseHeader(Header object) {
@@ -296,12 +296,12 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createStaticLinksAdapter();
 			}
 			@Override
-			public Adapter caseSequenceAction(SequenceAction object) {
-				return createSequenceActionAdapter();
+			public Adapter caseSequenceCommand(SequenceCommand object) {
+				return createSequenceCommandAdapter();
 			}
 			@Override
-			public Adapter caseJumpBackAction(JumpBackAction object) {
-				return createJumpBackActionAdapter();
+			public Adapter caseJumpBackCommand(JumpBackCommand object) {
+				return createJumpBackCommandAdapter();
 			}
 			@Override
 			public Adapter caseApplicationData(ApplicationData object) {
@@ -910,114 +910,114 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.Action <em>Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.Action
+	 * @see it.csi.mddtools.guigen.Command
 	 * @generated
 	 */
-	public Adapter createActionAdapter() {
+	public Adapter createCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActionEvent <em>Action Event</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CommandEvent <em>Command Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ActionEvent
+	 * @see it.csi.mddtools.guigen.CommandEvent
 	 * @generated
 	 */
-	public Adapter createActionEventAdapter() {
+	public Adapter createCommandEventAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ONOFFAction <em>ONOFF Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ONOFFCommand <em>ONOFF Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ONOFFAction
+	 * @see it.csi.mddtools.guigen.ONOFFCommand
 	 * @generated
 	 */
-	public Adapter createONOFFActionAdapter() {
+	public Adapter createONOFFCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomAction <em>Custom Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomCommand <em>Custom Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.CustomAction
+	 * @see it.csi.mddtools.guigen.CustomCommand
 	 * @generated
 	 */
-	public Adapter createCustomActionAdapter() {
+	public Adapter createCustomCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.VisibilityAction <em>Visibility Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.VisibilityCommand <em>Visibility Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.VisibilityAction
+	 * @see it.csi.mddtools.guigen.VisibilityCommand
 	 * @generated
 	 */
-	public Adapter createVisibilityActionAdapter() {
+	public Adapter createVisibilityCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RefreshViewAction <em>Refresh View Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RefreshViewCommand <em>Refresh View Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.RefreshViewAction
+	 * @see it.csi.mddtools.guigen.RefreshViewCommand
 	 * @generated
 	 */
-	public Adapter createRefreshViewActionAdapter() {
+	public Adapter createRefreshViewCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.JumpAction <em>Jump Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.JumpCommand <em>Jump Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.JumpAction
+	 * @see it.csi.mddtools.guigen.JumpCommand
 	 * @generated
 	 */
-	public Adapter createJumpActionAdapter() {
+	public Adapter createJumpCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ExecAction <em>Exec Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ExecCommand <em>Exec Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ExecAction
+	 * @see it.csi.mddtools.guigen.ExecCommand
 	 * @generated
 	 */
-	public Adapter createExecActionAdapter() {
+	public Adapter createExecCommandAdapter() {
 		return null;
 	}
 
@@ -1050,16 +1050,16 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActionOnWidgets <em>Action On Widgets</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CommandOnWidgets <em>Command On Widgets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ActionOnWidgets
+	 * @see it.csi.mddtools.guigen.CommandOnWidgets
 	 * @generated
 	 */
-	public Adapter createActionOnWidgetsAdapter() {
+	public Adapter createCommandOnWidgetsAdapter() {
 		return null;
 	}
 
@@ -1078,44 +1078,44 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ShowDialogAction <em>Show Dialog Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ShowDialogCommand <em>Show Dialog Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ShowDialogAction
+	 * @see it.csi.mddtools.guigen.ShowDialogCommand
 	 * @generated
 	 */
-	public Adapter createShowDialogActionAdapter() {
+	public Adapter createShowDialogCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActionResult <em>Action Result</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CommandOutcome <em>Command Outcome</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ActionResult
+	 * @see it.csi.mddtools.guigen.CommandOutcome
 	 * @generated
 	 */
-	public Adapter createActionResultAdapter() {
+	public Adapter createCommandOutcomeAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActionOnPanels <em>Action On Panels</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CommandOnPanels <em>Command On Panels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ActionOnPanels
+	 * @see it.csi.mddtools.guigen.CommandOnPanels
 	 * @generated
 	 */
-	public Adapter createActionOnPanelsAdapter() {
+	public Adapter createCommandOnPanelsAdapter() {
 		return null;
 	}
 
@@ -1176,30 +1176,30 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.SequenceAction <em>Sequence Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.SequenceCommand <em>Sequence Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.SequenceAction
+	 * @see it.csi.mddtools.guigen.SequenceCommand
 	 * @generated
 	 */
-	public Adapter createSequenceActionAdapter() {
+	public Adapter createSequenceCommandAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.JumpBackAction <em>Jump Back Action</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.JumpBackCommand <em>Jump Back Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.JumpBackAction
+	 * @see it.csi.mddtools.guigen.JumpBackCommand
 	 * @generated
 	 */
-	public Adapter createJumpBackActionAdapter() {
+	public Adapter createJumpBackCommandAdapter() {
 		return null;
 	}
 

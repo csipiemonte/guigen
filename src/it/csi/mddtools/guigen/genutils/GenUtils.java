@@ -10,11 +10,12 @@ import java.util.StringTokenizer;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
-import it.csi.mddtools.guigen.Action;
-import it.csi.mddtools.guigen.ActionResult;
+
+import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
@@ -23,7 +24,7 @@ import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
-import it.csi.mddtools.guigen.ExecAction;
+import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GridPanelLayout;
@@ -31,7 +32,7 @@ import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
-import it.csi.mddtools.guigen.JumpAction;
+import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -43,7 +44,7 @@ import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
-import it.csi.mddtools.guigen.SequenceAction;
+import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
@@ -58,7 +59,7 @@ import it.csi.mddtools.guigen.Widget;
 
 
 public class GenUtils {
-public static ContentPanel findParentContentPanel (Action a){
+public static ContentPanel findParentContentPanel (Command a){
 	EObject containerOfAction = a.eContainer();
 	//String name= containerOfAction.eClass().getName();
 	if (containerOfAction instanceof EventHandler){
@@ -70,13 +71,13 @@ public static ContentPanel findParentContentPanel (Action a){
 			return null; // .. in realtà non è un pannello
 		return findParentContentPanel((Panel)panel);
 	}
-	else if (containerOfAction instanceof ActionResult){
-		ExecAction execAct= (ExecAction)containerOfAction.eContainer();
+	else if (containerOfAction instanceof CommandOutcome){
+		ExecCommand execAct= (ExecCommand)containerOfAction.eContainer();
 		return findParentContentPanel(execAct);
 	}
-	else if (containerOfAction instanceof SequenceAction){
+	else if (containerOfAction instanceof SequenceCommand){
 		// sequence action
-		return findParentContentPanel(((SequenceAction)containerOfAction));
+		return findParentContentPanel(((SequenceCommand)containerOfAction));
 	}
 	else{
 		return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"
@@ -224,36 +225,36 @@ public static String getRegionUID(String sourceId){
 }
 
 
-public static List<ExecAction> getAllExecActionsForEventHandler(EventHandler eh){
-	List<ExecAction> ris = new ArrayList<ExecAction>();
-	return getAllExecActionsRecursive(eh.getAction());
+public static List<ExecCommand> getAllExecActionsForEventHandler(EventHandler eh){
+	List<ExecCommand> ris = new ArrayList<ExecCommand>();
+	return getAllExecActionsRecursive(eh.getCommand());
 }
 
 
-public static List<ExecAction> getAllExecActionsRecursive(Action a){
-	if (a instanceof ExecAction)
-		return getAllExecActionsRecursive((ExecAction) a);
-	else if (a instanceof SequenceAction)
-		return getAllExecActionsRecursive((SequenceAction)a);
+public static List<ExecCommand> getAllExecActionsRecursive(Command a){
+	if (a instanceof ExecCommand)
+		return getAllExecActionsRecursive((ExecCommand) a);
+	else if (a instanceof SequenceCommand)
+		return getAllExecActionsRecursive((SequenceCommand)a);
 	else
-		return new ArrayList<ExecAction>();
+		return new ArrayList<ExecCommand>();
 }
 
-public static List<ExecAction> getAllExecActionsRecursive(ExecAction ea){
-	List<ExecAction> ris = new ArrayList<ExecAction>();
+public static List<ExecCommand> getAllExecActionsRecursive(ExecCommand ea){
+	List<ExecCommand> ris = new ArrayList<ExecCommand>();
 	ris.add(ea);
 	// cerca nei rami di outcome...
-	Iterator<ActionResult> it_ar = ea.getResults().iterator();
+	Iterator<CommandOutcome> it_ar = ea.getResults().iterator();
 	while(it_ar.hasNext()){
-		Action currResultAction = it_ar.next().getAction();
+		Command currResultAction = it_ar.next().getCommand();
 		ris.addAll(getAllExecActionsRecursive(currResultAction));
 	}
 	return ris;
 }
 
-public static List<ExecAction> getAllExecActionsRecursive(SequenceAction sa){
-	List<ExecAction> ris = new ArrayList<ExecAction>();
-	Iterator<Action> it_steps = sa.getActions().iterator();
+public static List<ExecCommand> getAllExecActionsRecursive(SequenceCommand sa){
+	List<ExecCommand> ris = new ArrayList<ExecCommand>();
+	Iterator<Command> it_steps = sa.getCommands().iterator();
 	while(it_steps.hasNext()){
 		ris.addAll(getAllExecActionsRecursive(it_steps.next()));
 	}
@@ -261,23 +262,23 @@ public static List<ExecAction> getAllExecActionsRecursive(SequenceAction sa){
 }
 
 
-public static boolean isInMenuBranch(ExecAction ea){
+public static boolean isInMenuBranch(ExecCommand ea){
 	Object parent = ea.eContainer();
 	
 	if (parent instanceof EventHandler)
 		return isInMenuBranch((EventHandler)parent);
-	else if (parent instanceof ActionResult)
-		return isInMenuBranch((ActionResult)parent);
-	else if (parent instanceof SequenceAction)
-		return isInMenuBranch((SequenceAction)parent);
+	else if (parent instanceof CommandOutcome)
+		return isInMenuBranch((CommandOutcome)parent);
+	else if (parent instanceof SequenceCommand)
+		return isInMenuBranch((SequenceCommand)parent);
 	else
 		return false;
 }
 
-public static boolean isInMenuBranch(SequenceAction sa){
+public static boolean isInMenuBranch(SequenceCommand sa){
 	Object parent = sa.eContainer();
-	if (parent instanceof ActionResult)
-		return isInMenuBranch((ActionResult)parent);
+	if (parent instanceof CommandOutcome)
+		return isInMenuBranch((CommandOutcome)parent);
 	else if (parent instanceof EventHandler)
 		return isInMenuBranch((EventHandler)parent);
 	else
@@ -292,8 +293,8 @@ public static boolean isInMenuBranch(EventHandler eh){
 		return false;
 }
 
-public static boolean isInMenuBranch(ActionResult ar){
-	ExecAction parent = (ExecAction)ar.eContainer();
+public static boolean isInMenuBranch(CommandOutcome ar){
+	ExecCommand parent = (ExecCommand)ar.eContainer();
 	return isInMenuBranch(parent);
 	 
 }
@@ -381,7 +382,7 @@ public static List<ContentPanel> getAllPossibleJumps(Widget w){
 }
 
 public static List<ContentPanel> getAllPossibleJumps(EventHandler evh){
-	Action a = evh.getAction();
+	Command a = evh.getCommand();
 	if (a==null)
 		return null;
 	else{
@@ -389,34 +390,34 @@ public static List<ContentPanel> getAllPossibleJumps(EventHandler evh){
 	}
 }
 
-public static List<ContentPanel> getAllPossibleJumps(Action a){
-	if (a instanceof JumpAction)
-		return getAllPossibleJumps((JumpAction)a);
-	else if (a instanceof ExecAction)
-		return getAllPossibleJumps((ExecAction)a);
-	else if (a instanceof SequenceAction)
-		return getAllPossibleJumps((SequenceAction)a);
+public static List<ContentPanel> getAllPossibleJumps(Command a){
+	if (a instanceof JumpCommand)
+		return getAllPossibleJumps((JumpCommand)a);
+	else if (a instanceof ExecCommand)
+		return getAllPossibleJumps((ExecCommand)a);
+	else if (a instanceof SequenceCommand)
+		return getAllPossibleJumps((SequenceCommand)a);
 	else
 		return null;
 }
 
-public static List<ContentPanel> getAllPossibleJumps(JumpAction a){
+public static List<ContentPanel> getAllPossibleJumps(JumpCommand a){
 	List<ContentPanel> ris = new ArrayList<ContentPanel>();
 	ris.add(a.getJumpTo());
 	return ris;
 }
 
-public static List<ContentPanel> getAllPossibleJumps(SequenceAction a){
-	Action lastStep = a.getActions().get(a.getActions().size()-1);
+public static List<ContentPanel> getAllPossibleJumps(SequenceCommand a){
+	Command lastStep = a.getCommands().get(a.getCommands().size()-1);
 	return getAllPossibleJumps(lastStep);
 }
 
 
-public static List<ContentPanel> getAllPossibleJumps(ActionResult ar){
-	return getAllPossibleJumps(ar.getAction());
+public static List<ContentPanel> getAllPossibleJumps(CommandOutcome ar){
+	return getAllPossibleJumps(ar.getCommand());
 }
-public static List<ContentPanel> getAllPossibleJumps(ExecAction a){
-	Iterator<ActionResult> res_it = a.getResults().iterator();
+public static List<ContentPanel> getAllPossibleJumps(ExecCommand a){
+	Iterator<CommandOutcome> res_it = a.getResults().iterator();
 	HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
 	while(res_it.hasNext()){
 		List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
@@ -518,14 +519,14 @@ public static ArrayList<ApplicationData> findAllActionScopedAppData(Widget w){
 }
 
 public static ArrayList<ApplicationData> findAllActionScopedAppData(EventHandler eh){
-	return findAllActionScopedAppData(eh.getAction());
+	return findAllActionScopedAppData(eh.getCommand());
 }
 
-public static ArrayList<ApplicationData> findAllActionScopedAppData(Action a){
-	if (a instanceof SequenceAction)
-		return findAllActionScopedAppData((SequenceAction)a);
-	else if (a instanceof ExecAction)
-		return findAllActionScopedAppData((ExecAction)a);
+public static ArrayList<ApplicationData> findAllActionScopedAppData(Command a){
+	if (a instanceof SequenceCommand)
+		return findAllActionScopedAppData((SequenceCommand)a);
+	else if (a instanceof ExecCommand)
+		return findAllActionScopedAppData((ExecCommand)a);
 	else	
 		return null;
 }
@@ -567,11 +568,11 @@ public static List<ApplicationData> findAllActionScopedAppData(Menu m){
  * @param a
  * @return
  */
-public static ArrayList<ApplicationData> findAllActionScopedAppData(ExecAction a){
+public static ArrayList<ApplicationData> findAllActionScopedAppData(ExecCommand a){
 	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
 	if (a.getPostExecData()!=null)
 		ris.addAll(a.getPostExecData());
-	Iterator<ActionResult> a_it = a.getResults().iterator();
+	Iterator<CommandOutcome> a_it = a.getResults().iterator();
 	while(a_it.hasNext()){
 		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
 		if (currAppDataList!=null)
@@ -580,8 +581,8 @@ public static ArrayList<ApplicationData> findAllActionScopedAppData(ExecAction a
 	return ris;
 }
 
-public static ArrayList<ApplicationData> findAllActionScopedAppData(ActionResult r){
-	return findAllActionScopedAppData(r.getAction());
+public static ArrayList<ApplicationData> findAllActionScopedAppData(CommandOutcome r){
+	return findAllActionScopedAppData(r.getCommand());
 }
 
 /**
@@ -589,9 +590,9 @@ public static ArrayList<ApplicationData> findAllActionScopedAppData(ActionResult
  * @param a
  * @return
  */
-public static ArrayList<ApplicationData> findAllActionScopedAppData(SequenceAction a){
+public static ArrayList<ApplicationData> findAllActionScopedAppData(SequenceCommand a){
 	ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
-	Iterator<Action> a_it = a.getActions().iterator();
+	Iterator<Command> a_it = a.getCommands().iterator();
 	while(a_it.hasNext()){
 		ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
 		if (currAppDataList!=null)
@@ -1271,8 +1272,8 @@ public static void main(String[] args) {
 		MenuItem mi = GuigenFactory.eINSTANCE.createMenuItem();
 		EventHandler eh = GuigenFactory.eINSTANCE.createEventHandler();
 		mi.setEventHandler(eh);
-		ExecAction ex = GuigenFactory.eINSTANCE.createExecAction();
-		eh.setAction(ex);
+		ExecCommand ex = GuigenFactory.eINSTANCE.createExecCommand();
+		eh.setCommand(ex);
 		findParentContentPanel(ex);
 		System.out.println();
 		

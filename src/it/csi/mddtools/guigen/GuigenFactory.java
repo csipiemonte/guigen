@@ -323,67 +323,67 @@ public interface GuigenFactory extends EFactory {
 	Column createColumn();
 
 	/**
-	 * Returns a new object of class '<em>Action Event</em>'.
+	 * Returns a new object of class '<em>Command Event</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Action Event</em>'.
+	 * @return a new object of class '<em>Command Event</em>'.
 	 * @generated
 	 */
-	ActionEvent createActionEvent();
+	CommandEvent createCommandEvent();
 
 	/**
-	 * Returns a new object of class '<em>ONOFF Action</em>'.
+	 * Returns a new object of class '<em>ONOFF Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>ONOFF Action</em>'.
+	 * @return a new object of class '<em>ONOFF Command</em>'.
 	 * @generated
 	 */
-	ONOFFAction createONOFFAction();
+	ONOFFCommand createONOFFCommand();
 
 	/**
-	 * Returns a new object of class '<em>Custom Action</em>'.
+	 * Returns a new object of class '<em>Custom Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Custom Action</em>'.
+	 * @return a new object of class '<em>Custom Command</em>'.
 	 * @generated
 	 */
-	CustomAction createCustomAction();
+	CustomCommand createCustomCommand();
 
 	/**
-	 * Returns a new object of class '<em>Visibility Action</em>'.
+	 * Returns a new object of class '<em>Visibility Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Visibility Action</em>'.
+	 * @return a new object of class '<em>Visibility Command</em>'.
 	 * @generated
 	 */
-	VisibilityAction createVisibilityAction();
+	VisibilityCommand createVisibilityCommand();
 
 	/**
-	 * Returns a new object of class '<em>Refresh View Action</em>'.
+	 * Returns a new object of class '<em>Refresh View Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Refresh View Action</em>'.
+	 * @return a new object of class '<em>Refresh View Command</em>'.
 	 * @generated
 	 */
-	RefreshViewAction createRefreshViewAction();
+	RefreshViewCommand createRefreshViewCommand();
 
 	/**
-	 * Returns a new object of class '<em>Jump Action</em>'.
+	 * Returns a new object of class '<em>Jump Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Jump Action</em>'.
+	 * @return a new object of class '<em>Jump Command</em>'.
 	 * @generated
 	 */
-	JumpAction createJumpAction();
+	JumpCommand createJumpCommand();
 
 	/**
-	 * Returns a new object of class '<em>Exec Action</em>'.
+	 * Returns a new object of class '<em>Exec Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Exec Action</em>'.
+	 * @return a new object of class '<em>Exec Command</em>'.
 	 * @generated
 	 */
-	ExecAction createExecAction();
+	ExecCommand createExecCommand();
 
 	/**
 	 * Returns a new object of class '<em>Event Handler</em>'.
@@ -404,22 +404,22 @@ public interface GuigenFactory extends EFactory {
 	DialogPanel createDialogPanel();
 
 	/**
-	 * Returns a new object of class '<em>Show Dialog Action</em>'.
+	 * Returns a new object of class '<em>Show Dialog Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Show Dialog Action</em>'.
+	 * @return a new object of class '<em>Show Dialog Command</em>'.
 	 * @generated
 	 */
-	ShowDialogAction createShowDialogAction();
+	ShowDialogCommand createShowDialogCommand();
 
 	/**
-	 * Returns a new object of class '<em>Action Result</em>'.
+	 * Returns a new object of class '<em>Command Outcome</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Action Result</em>'.
+	 * @return a new object of class '<em>Command Outcome</em>'.
 	 * @generated
 	 */
-	ActionResult createActionResult();
+	CommandOutcome createCommandOutcome();
 
 	/**
 	 * Returns a new object of class '<em>Header</em>'.
@@ -458,22 +458,22 @@ public interface GuigenFactory extends EFactory {
 	StaticLinks createStaticLinks();
 
 	/**
-	 * Returns a new object of class '<em>Sequence Action</em>'.
+	 * Returns a new object of class '<em>Sequence Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Sequence Action</em>'.
+	 * @return a new object of class '<em>Sequence Command</em>'.
 	 * @generated
 	 */
-	SequenceAction createSequenceAction();
+	SequenceCommand createSequenceCommand();
 
 	/**
-	 * Returns a new object of class '<em>Jump Back Action</em>'.
+	 * Returns a new object of class '<em>Jump Back Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Jump Back Action</em>'.
+	 * @return a new object of class '<em>Jump Back Command</em>'.
 	 * @generated
 	 */
-	JumpBackAction createJumpBackAction();
+	JumpBackCommand createJumpBackCommand();
 
 	/**
 	 * Returns a new object of class '<em>Application Data</em>'.

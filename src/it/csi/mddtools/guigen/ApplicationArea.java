@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStatusbar <em>Statusbar</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStaticLinks <em>Static Links</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,29 +153,29 @@ public interface ApplicationArea extends EObject {
 	void setStaticLinks(StaticLinks value);
 
 	/**
-	 * Returns the value of the '<em><b>On Init Action</b></em>' containment reference.
+	 * Returns the value of the '<em><b>On Init Command</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>On Init Action</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>On Init Command</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>On Init Action</em>' containment reference.
-	 * @see #setOnInitAction(Action)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_OnInitAction()
+	 * @return the value of the '<em>On Init Command</em>' containment reference.
+	 * @see #setOnInitCommand(Command)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_OnInitCommand()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Action getOnInitAction();
+	Command getOnInitCommand();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}' containment reference.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>On Init Action</em>' containment reference.
-	 * @see #getOnInitAction()
+	 * @param value the new value of the '<em>On Init Command</em>' containment reference.
+	 * @see #getOnInitCommand()
 	 * @generated
 	 */
-	void setOnInitAction(Action value);
+	void setOnInitCommand(Command value);
 
 } // ApplicationArea

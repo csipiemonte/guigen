@@ -86,7 +86,7 @@ public class ApplicationAreaItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__STATUSBAR);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__CONTENT_PANELS);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__STATIC_LINKS);
-			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION);
+			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND);
 		}
 		return childrenFeatures;
 	}
@@ -143,7 +143,7 @@ public class ApplicationAreaItemProvider
 			case GuigenPackage.APPLICATION_AREA__STATUSBAR:
 			case GuigenPackage.APPLICATION_AREA__CONTENT_PANELS:
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
-			case GuigenPackage.APPLICATION_AREA__ON_INIT_ACTION:
+			case GuigenPackage.APPLICATION_AREA__ON_INIT_COMMAND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -188,48 +188,48 @@ public class ApplicationAreaItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createONOFFAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createONOFFCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createCustomAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createCustomCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createVisibilityAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createRefreshViewAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createJumpAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createExecAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createExecCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createShowDialogAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createSequenceAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createSequenceCommand()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_ACTION,
-				 GuigenFactory.eINSTANCE.createJumpBackAction()));
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
 	}
 
 	/**

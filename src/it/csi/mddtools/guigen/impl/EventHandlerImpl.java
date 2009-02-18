@@ -6,7 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
-import it.csi.mddtools.guigen.Action;
+import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.GuigenPackage;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getAction <em>Action</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getEventType <em>Event Type</em>}</li>
  * </ul>
  * </p>
@@ -36,14 +36,14 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	/**
-	 * The cached value of the '{@link #getAction() <em>Action</em>}' containment reference.
+	 * The cached value of the '{@link #getCommand() <em>Command</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAction()
+	 * @see #getCommand()
 	 * @generated
 	 * @ordered
 	 */
-	protected Action action;
+	protected Command command;
 
 	/**
 	 * The default value of the '{@link #getEventType() <em>Event Type</em>}' attribute.
@@ -89,8 +89,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Action getAction() {
-		return action;
+	public Command getCommand() {
+		return command;
 	}
 
 	/**
@@ -98,11 +98,11 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetAction(Action newAction, NotificationChain msgs) {
-		Action oldAction = action;
-		action = newAction;
+	public NotificationChain basicSetCommand(Command newCommand, NotificationChain msgs) {
+		Command oldCommand = command;
+		command = newCommand;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__ACTION, oldAction, newAction);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__COMMAND, oldCommand, newCommand);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -113,18 +113,18 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAction(Action newAction) {
-		if (newAction != action) {
+	public void setCommand(Command newCommand) {
+		if (newCommand != command) {
 			NotificationChain msgs = null;
-			if (action != null)
-				msgs = ((InternalEObject)action).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.EVENT_HANDLER__ACTION, null, msgs);
-			if (newAction != null)
-				msgs = ((InternalEObject)newAction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.EVENT_HANDLER__ACTION, null, msgs);
-			msgs = basicSetAction(newAction, msgs);
+			if (command != null)
+				msgs = ((InternalEObject)command).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.EVENT_HANDLER__COMMAND, null, msgs);
+			if (newCommand != null)
+				msgs = ((InternalEObject)newCommand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.EVENT_HANDLER__COMMAND, null, msgs);
+			msgs = basicSetCommand(newCommand, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__ACTION, newAction, newAction));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__COMMAND, newCommand, newCommand));
 	}
 
 	/**
@@ -156,8 +156,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.EVENT_HANDLER__ACTION:
-				return basicSetAction(null, msgs);
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
+				return basicSetCommand(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -170,8 +170,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.EVENT_HANDLER__ACTION:
-				return getAction();
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
+				return getCommand();
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				return getEventType();
 		}
@@ -186,8 +186,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.EVENT_HANDLER__ACTION:
-				setAction((Action)newValue);
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
+				setCommand((Command)newValue);
 				return;
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				setEventType((EventTypes)newValue);
@@ -204,8 +204,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.EVENT_HANDLER__ACTION:
-				setAction((Action)null);
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
+				setCommand((Command)null);
 				return;
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				setEventType(EVENT_TYPE_EDEFAULT);
@@ -222,8 +222,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.EVENT_HANDLER__ACTION:
-				return action != null;
+			case GuigenPackage.EVENT_HANDLER__COMMAND:
+				return command != null;
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				return eventType != EVENT_TYPE_EDEFAULT;
 		}

@@ -305,7 +305,7 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 
-«DEFINE actionStructureInit1(GUIModel model) FOR Action»
+«DEFINE actionStructureInit1(GUIModel model) FOR Command»
     /**
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
@@ -372,14 +372,14 @@ public class SequenceAction implements IAction {
 
 
 «DEFINE addActionsCode(String actionsVarName, GUIModel model) FOR EventHandler»
-    «LET this.action AS currAction»
+    «LET this.command AS currAction»
     «LET 1 AS actionNumber»
     	«EXPAND addActionCode(actionsVarName,actionNumber, model) FOR currAction»
     «ENDLET»
     «ENDLET»
     
 	IAction [] «actionsVarName» = new IAction[]{
-	«LET this.action AS currAct»
+	«LET this.command AS currAct»
 		«LET 1 AS actionNumber»
 		act_«actionsVarName»_«actionNumber»
 		«ENDLET»
@@ -387,44 +387,44 @@ public class SequenceAction implements IAction {
 	};
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR Action»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR Command»
 // azione non supportata «this»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpCommand»
 	/// Jump Action begin
 	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogCommand»
 	// ShowDialog Action begin
 	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
 	// ShowDialog Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpBackAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpBackCommand»
 	//JumpBack Action begin
 	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
 	// JumpBack Action end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR SequenceAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR SequenceCommand»
 	// SequenceAction begin
-    «FOREACH actions AS currAct»
-    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct), model) FOR currAct»
+    «FOREACH commands AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct), model) FOR currAct»
     «ENDFOREACH»
     
     IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
-    «FOREACH actions AS currAct»
-    act_«actionsVarName+"step_"+actions.indexOf(currAct)»«IF currAct!=actions.last()»,«ENDIF»
+    «FOREACH commands AS currAct»
+    act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
     «ENDFOREACH»
     };
 	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
 	// SequenceAction end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ONOFFAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ONOFFCommand»
 	«LET findParentContentPanel().name AS containerName»
 	// ONOFF Action begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
@@ -439,7 +439,7 @@ public class SequenceAction implements IAction {
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityCommand»
 	«LET findParentContentPanel().name AS containerName»
 	// VisibilityAction begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
@@ -453,7 +453,7 @@ public class SequenceAction implements IAction {
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecCommand»
 	// ExecAction begin
     String [] resultNames=new String []{
       «FOREACH this.results AS currRes»
@@ -463,7 +463,7 @@ public class SequenceAction implements IAction {
     
     IAction [] actionsForResults = new IAction[«this.results.size»];
     «FOREACH results AS currRes»
-    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes),model) FOR currRes.action»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes),model) FOR currRes.command»
     actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     
@@ -624,7 +624,7 @@ public class SequenceAction implements IAction {
 «ENDDEFINE»
 
 «REM»serve per la on-init action: non usare altrove«ENDREM»
-«DEFINE storedAppDataProperties(GUIModel model) FOR Action»
+«DEFINE storedAppDataProperties(GUIModel model) FOR Command»
 «LET findAllActionScopedAppData(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
 	«EXPAND appDataProperty(model) FOREACH allAppData»

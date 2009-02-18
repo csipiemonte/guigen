@@ -146,7 +146,7 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «IF hasUniqueMenuItem(tlmenu)-»
 	«LET tlmenu.item.first() AS currMenuItem-»
 	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
-	«LET currMenuItem.eventHandler.action AS currAction-»
+	«LET currMenuItem.eventHandler.command AS currAction-»
 	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
 	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
 	«ENDLET-»
@@ -157,7 +157,7 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 		<ul>
 			«FOREACH tlmenu.item AS currMenuItem-»
 			«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
-			«LET currMenuItem.eventHandler.action AS currAction-»
+			«LET currMenuItem.eventHandler.command AS currAction-»
 			<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
 			<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
 			«ENDLET-»

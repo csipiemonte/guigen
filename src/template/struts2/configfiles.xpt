@@ -318,7 +318,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="HomePage">
 			<result>«getHomePageConfig(this)»</result>  
 		</action>
-		«LET this.structure.appWindow.appArea.onInitAction AS onInitAction»
+		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 		<action name="HomePage" «IF onInitAction!=null»class="«getStrutsHomeFQN(this)»"«ENDIF»>
 		    «IF onInitAction != null»
 		    «LET getAllPossibleJumps(onInitAction) AS allJumps»
@@ -352,7 +352,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
 		«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
 		«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
-		«LET ((MenuItem)currMenuItem).eventHandler.action AS currAction»
+		«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
 		<action name="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»">	
 			«LET getAllPossibleJumps(((MenuItem)currMenuItem)) AS allJumps»
 			«FOREACH allJumps AS currJump»

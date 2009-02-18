@@ -19,7 +19,7 @@
 «IF this.structure.appWindow.appArea.menubar!=null»
 	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea.menubar»
 «ENDIF»
-«IF this.structure.appWindow.appArea.onInitAction!=null»
+«IF this.structure.appWindow.appArea.onInitCommand!=null»
 	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea»
 «ENDIF»
 «ENDDEFINE»
@@ -99,27 +99,27 @@ public class «getSpringBEClassName()»{
 		«FOREACH getAllEventSourceWidgets(currCP) AS currESW-»
 			«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
 				«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
-					«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+					«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
 				«ENDFOREACH-»
 			«ENDFOREACH-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
 	«FOREACH getAllEventSourceMenuItems(this.structure.appWindow.appArea.menubar) AS currESM-»
 		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
-			«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+			«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
-	«LET this.structure.appWindow.appArea.onInitAction AS onInitAct-»
+	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
 	«IF onInitAct != null-»
-		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitAction) AS currAct-»
-			«EXPAND springBEMethod(this) FOR (ExecAction)currAct-»
+		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»
+			«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
 
-«DEFINE springBEMethod(GUIModel model) FOR ExecAction»
+«DEFINE springBEMethod(GUIModel model) FOR ExecCommand»
 	////////////////////////////////////////////////////////////////////////////////////
 	«FOREACH this.results AS currRes-»
 	public static final String «this.methodName.toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
@@ -289,8 +289,8 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«IF onInitAction!=null»
-	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitAction»
+	«IF onInitCommand!=null»
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitCommand»
 	«ENDIF»
 	
 

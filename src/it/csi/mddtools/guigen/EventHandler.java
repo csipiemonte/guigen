@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.EventHandler#getAction <em>Action</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}</li>
  * </ul>
  * </p>
@@ -27,30 +27,30 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface EventHandler extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Action</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Command</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Action</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Command</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Action</em>' containment reference.
-	 * @see #setAction(Action)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_Action()
+	 * @return the value of the '<em>Command</em>' containment reference.
+	 * @see #setCommand(Command)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_Command()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Action getAction();
+	Command getCommand();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.EventHandler#getAction <em>Action</em>}' containment reference.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action</em>' containment reference.
-	 * @see #getAction()
+	 * @param value the new value of the '<em>Command</em>' containment reference.
+	 * @see #getCommand()
 	 * @generated
 	 */
-	void setAction(Action value);
+	void setCommand(Command value);
 
 	/**
 	 * Returns the value of the '<em><b>Event Type</b></em>' attribute.

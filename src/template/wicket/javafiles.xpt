@@ -294,8 +294,8 @@ public final class «getWicketPanelClassName(panelName)» extends Panel {
 	add(new org.apache.wicket.markup.html.basic.Label("menu.«tlmenu.name»", "«tlmenu.label»"));
 		«FOREACH tlmenu.item AS currMenuItem»
 		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-		«LET currMenuItem.eventHandler.action AS currAction»
-		add(new org.apache.wicket.markup.html.link.BookmarkablePageLink("menu.items.«currMenuItem.name»", «getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class));
+		«LET currMenuItem.eventHandler.command AS currAction»
+		add(new org.apache.wicket.markup.html.link.BookmarkablePageLink("menu.items.«currMenuItem.name»", «getWicketPageFQN(((JumpCommand)currAction).jumpTo, model)».class));
 		«ENDLET»
 		«ENDIF»
 		«ENDFOREACH»
@@ -469,14 +469,14 @@ add(widg_«this.name»);
 // [GUIGEN] Crea il widget «this»
 org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
 	"widg.«this.name»", new org.apache.wicket.model.Model("")) {
-	«LET this.eventHandlers.first().action AS currAction»
+	«LET this.eventHandlers.first().command AS currAction»
 		@Override
 		public void onSubmit() {
 			«REM»Estrarre il codice delle azioni e generalizzare«ENDREM»
-			«IF currAction.metaType == JumpAction»
+			«IF currAction.metaType == JumpCommand»
 			System.out.println("Button widg_«this.name» ha been pressed!");
-			setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
-			«ELSEIF currAction.metaType == JumpBackAction»
+			setResponsePage(«getWicketPageFQN(((JumpCommand)currAction).jumpTo, model)».class);
+			«ELSEIF currAction.metaType == JumpBackCommand»
 			// DO NOTHING
 			«ENDIF»
 		}
@@ -492,23 +492,23 @@ add(widg_«this.name»);
 org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wicket.markup.html.form.Button(
 "widg.«this.name»", new org.apache.wicket.model.Model("")) {
 «REM»TODO: estrarre la logica delle azioni da qui e generalizzare«ENDREM»
-«LET this.eventHandlers.first().action AS currAction»
+«LET this.eventHandlers.first().command AS currAction»
 	@Override
 	public void onSubmit() {
 		String esito = null;
-		«IF currAction.metaType == JumpAction»
+		«IF currAction.metaType == JumpCommand»
 		«REM»GENERAZIONE: se Push Current Page vale true, inserire in uno stack (sessione?) la pagina di provenienza«ENDREM»
-		setResponsePage(«getWicketPageFQN(((JumpAction)currAction).jumpTo, model)».class);
-		«ELSEIF currAction.metaType == JumpBackAction»
+		setResponsePage(«getWicketPageFQN(((JumpCommand)currAction).jumpTo, model)».class);
+		«ELSEIF currAction.metaType == JumpBackCommand»
 		«REM»GENERAZIONE: recuperare dallo stack (sessione?) la pagina di provenienza«ENDREM»
-		«ELSEIF currAction.metaType == ExecAction»
+		«ELSEIF currAction.metaType == ExecCommand»
 		
 		«REM»
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID()»
 		«ENDPROTECT»
 		«ENDREM»
 		
-		«FOREACH ((ExecAction)currAction).results AS currRes»
+		«FOREACH ((ExecCommand)currAction).results AS currRes»
 		if ( "«currRes.resultCode»".equals(esito) ) {
 			
 		}
@@ -518,12 +518,12 @@ org.apache.wicket.markup.html.form.Button widg_«this.name» = new org.apache.wick
 }
 		
 		«REM»E' una regione protetta nella quale verrà inserito manualmente il codice«ENDREM»
-		«ELSEIF currAction.metaType == SequenceAction»
+		«ELSEIF currAction.metaType == SequenceCommand»
 		«REM»E' una sequenza di azioni di qualunque tipo«ENDREM»
-		«ELSEIF currAction.metaType == ONOFFAction»
+		«ELSEIF currAction.metaType == ONOFFCommand»
 		«REM»CICLARE SU«((ONOFFAction)currAction).targetWidgets»«ENDREM»
 		«REM»Rende i widget indicati abilitati o disabilitati (metodo setEnabled(true/false))«ENDREM»
-		«ELSEIF currAction.metaType == VisibilityAction»
+		«ELSEIF currAction.metaType == VisibilityCommand»
 		«REM»CICLARE SU«((VisibilityAction)currAction).targetWidgets»«ENDREM»
 		«REM»Rende i widget indicati visibili o invisibili (metodo setVisible(true/false) chiamato sui widgets)
 		NOTA: rendere final tutte le definizioni dei widgets«ENDREM»
@@ -560,7 +560,7 @@ NOTA: implementato per il momento SOLO in HTML«ENDREM»
 
 
 «REM»GESTIONE DELLE AZIONI«ENDREM»
-«DEFINE creaAzione FOR Action»
+«DEFINE creaAzione FOR Command»
 
 «ENDDEFINE»
 

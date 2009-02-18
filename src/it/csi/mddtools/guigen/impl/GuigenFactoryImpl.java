@@ -94,23 +94,23 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.DISABLED_COMPONENT_SET: return createDisabledComponentSet();
 			case GuigenPackage.COLUMN_MODEL: return createColumnModel();
 			case GuigenPackage.COLUMN: return createColumn();
-			case GuigenPackage.ACTION_EVENT: return createActionEvent();
-			case GuigenPackage.ONOFF_ACTION: return createONOFFAction();
-			case GuigenPackage.CUSTOM_ACTION: return createCustomAction();
-			case GuigenPackage.VISIBILITY_ACTION: return createVisibilityAction();
-			case GuigenPackage.REFRESH_VIEW_ACTION: return createRefreshViewAction();
-			case GuigenPackage.JUMP_ACTION: return createJumpAction();
-			case GuigenPackage.EXEC_ACTION: return createExecAction();
+			case GuigenPackage.COMMAND_EVENT: return createCommandEvent();
+			case GuigenPackage.ONOFF_COMMAND: return createONOFFCommand();
+			case GuigenPackage.CUSTOM_COMMAND: return createCustomCommand();
+			case GuigenPackage.VISIBILITY_COMMAND: return createVisibilityCommand();
+			case GuigenPackage.REFRESH_VIEW_COMMAND: return createRefreshViewCommand();
+			case GuigenPackage.JUMP_COMMAND: return createJumpCommand();
+			case GuigenPackage.EXEC_COMMAND: return createExecCommand();
 			case GuigenPackage.EVENT_HANDLER: return createEventHandler();
 			case GuigenPackage.DIALOG_PANEL: return createDialogPanel();
-			case GuigenPackage.SHOW_DIALOG_ACTION: return createShowDialogAction();
-			case GuigenPackage.ACTION_RESULT: return createActionResult();
+			case GuigenPackage.SHOW_DIALOG_COMMAND: return createShowDialogCommand();
+			case GuigenPackage.COMMAND_OUTCOME: return createCommandOutcome();
 			case GuigenPackage.HEADER: return createHeader();
 			case GuigenPackage.FOOTER: return createFooter();
 			case GuigenPackage.APP_WINDOW: return createAppWindow();
 			case GuigenPackage.STATIC_LINKS: return createStaticLinks();
-			case GuigenPackage.SEQUENCE_ACTION: return createSequenceAction();
-			case GuigenPackage.JUMP_BACK_ACTION: return createJumpBackAction();
+			case GuigenPackage.SEQUENCE_COMMAND: return createSequenceCommand();
+			case GuigenPackage.JUMP_BACK_COMMAND: return createJumpBackCommand();
 			case GuigenPackage.APPLICATION_DATA: return createApplicationData();
 			case GuigenPackage.APP_DATA_BINDING: return createAppDataBinding();
 			case GuigenPackage.MULTI_DATA_WIDGET: return createMultiDataWidget();
@@ -517,9 +517,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ActionEvent createActionEvent() {
-		ActionEventImpl actionEvent = new ActionEventImpl();
-		return actionEvent;
+	public CommandEvent createCommandEvent() {
+		CommandEventImpl commandEvent = new CommandEventImpl();
+		return commandEvent;
 	}
 
 	/**
@@ -527,9 +527,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ONOFFAction createONOFFAction() {
-		ONOFFActionImpl onoffAction = new ONOFFActionImpl();
-		return onoffAction;
+	public ONOFFCommand createONOFFCommand() {
+		ONOFFCommandImpl onoffCommand = new ONOFFCommandImpl();
+		return onoffCommand;
 	}
 
 	/**
@@ -537,9 +537,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CustomAction createCustomAction() {
-		CustomActionImpl customAction = new CustomActionImpl();
-		return customAction;
+	public CustomCommand createCustomCommand() {
+		CustomCommandImpl customCommand = new CustomCommandImpl();
+		return customCommand;
 	}
 
 	/**
@@ -547,9 +547,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VisibilityAction createVisibilityAction() {
-		VisibilityActionImpl visibilityAction = new VisibilityActionImpl();
-		return visibilityAction;
+	public VisibilityCommand createVisibilityCommand() {
+		VisibilityCommandImpl visibilityCommand = new VisibilityCommandImpl();
+		return visibilityCommand;
 	}
 
 	/**
@@ -557,9 +557,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RefreshViewAction createRefreshViewAction() {
-		RefreshViewActionImpl refreshViewAction = new RefreshViewActionImpl();
-		return refreshViewAction;
+	public RefreshViewCommand createRefreshViewCommand() {
+		RefreshViewCommandImpl refreshViewCommand = new RefreshViewCommandImpl();
+		return refreshViewCommand;
 	}
 
 	/**
@@ -567,9 +567,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JumpAction createJumpAction() {
-		JumpActionImpl jumpAction = new JumpActionImpl();
-		return jumpAction;
+	public JumpCommand createJumpCommand() {
+		JumpCommandImpl jumpCommand = new JumpCommandImpl();
+		return jumpCommand;
 	}
 
 	/**
@@ -577,9 +577,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExecAction createExecAction() {
-		ExecActionImpl execAction = new ExecActionImpl();
-		return execAction;
+	public ExecCommand createExecCommand() {
+		ExecCommandImpl execCommand = new ExecCommandImpl();
+		return execCommand;
 	}
 
 	/**
@@ -607,9 +607,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ShowDialogAction createShowDialogAction() {
-		ShowDialogActionImpl showDialogAction = new ShowDialogActionImpl();
-		return showDialogAction;
+	public ShowDialogCommand createShowDialogCommand() {
+		ShowDialogCommandImpl showDialogCommand = new ShowDialogCommandImpl();
+		return showDialogCommand;
 	}
 
 	/**
@@ -617,9 +617,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ActionResult createActionResult() {
-		ActionResultImpl actionResult = new ActionResultImpl();
-		return actionResult;
+	public CommandOutcome createCommandOutcome() {
+		CommandOutcomeImpl commandOutcome = new CommandOutcomeImpl();
+		return commandOutcome;
 	}
 
 	/**
@@ -667,9 +667,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SequenceAction createSequenceAction() {
-		SequenceActionImpl sequenceAction = new SequenceActionImpl();
-		return sequenceAction;
+	public SequenceCommand createSequenceCommand() {
+		SequenceCommandImpl sequenceCommand = new SequenceCommandImpl();
+		return sequenceCommand;
 	}
 
 	/**
@@ -677,9 +677,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JumpBackAction createJumpBackAction() {
-		JumpBackActionImpl jumpBackAction = new JumpBackActionImpl();
-		return jumpBackAction;
+	public JumpBackCommand createJumpBackCommand() {
+		JumpBackCommandImpl jumpBackCommand = new JumpBackCommandImpl();
+		return jumpBackCommand;
 	}
 
 	/**

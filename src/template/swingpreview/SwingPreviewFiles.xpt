@@ -54,8 +54,8 @@ public class MainFrame extends JFrame {
 				MainFrame.this.dispose();
 			}
 		}; // end anonymous class
-		«IF this.structure.appWindow.appArea.onInitAction!=null»
-		«EXPAND addActionCode("onAppInitAction", 0) FOR this.structure.appWindow.appArea.onInitAction»
+		«IF this.structure.appWindow.appArea.onInitCommand!=null»
+		«EXPAND addActionCode("onAppInitAction", 0) FOR this.structure.appWindow.appArea.onInitCommand»
 		act_onAppInitAction_0.doAction(); 
 		«ENDIF»
 		this.addWindowListener( windowListener );
@@ -357,14 +357,14 @@ public class MainFrame extends JFrame {
 «ENDDEFINE»
 
 «DEFINE addActionsCode(String actionsVarName) FOR EventHandler»
-    «LET this.action AS currAction»
+    «LET this.command AS currAction»
     «LET 1 AS actionNumber»
     	«EXPAND addActionCode(actionsVarName,actionNumber) FOR currAction»
     «ENDLET»
     «ENDLET»
     
 	IAction [] «actionsVarName» = new IAction[]{
-	«LET this.action AS currAct»
+	«LET this.command AS currAct»
 		«LET 1 AS actionNumber»
 		act_«actionsVarName»_«actionNumber»
 		«ENDLET»
@@ -372,36 +372,36 @@ public class MainFrame extends JFrame {
 	};
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Action»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR Command»
 // azione non supportata «this»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpCommand»
 	JumpAction act_«actionsVarName»_«actionNumber» = new JumpAction("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ShowDialogCommand»
 	ShowDialogAction act_«actionsVarName»_«actionNumber» = new ShowDialogAction("«this.dialog.name»");
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR JumpBackCommand»
 	JumpBackAction act_«actionsVarName»_«actionNumber» = new JumpBackAction();
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceAction»
-    «FOREACH actions AS currAct»
-    «EXPAND addActionCode(actionsVarName+"step",actions.indexOf(currAct)) FOR currAct»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR SequenceCommand»
+    «FOREACH commands AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct)) FOR currAct»
     «ENDFOREACH»
     
     IAction [] act_«actionsVarName»_«actionNumber»_steps = new IAction[]{
-    «FOREACH actions AS currAct»
-    act_«actionsVarName+"step_"+actions.indexOf(currAct)»«IF currAct!=actions.last()»,«ENDIF»
+    «FOREACH commands AS currAct»
+    act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
     «ENDFOREACH»
     };
 	SequenceAction act_«actionsVarName»_«actionNumber» = new SequenceAction(act_«actionsVarName»_«actionNumber»_steps);
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ONOFFCommand»
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
     «FOREACH this.targetWidgets AS currWidg»
@@ -412,7 +412,7 @@ public class MainFrame extends JFrame {
 	OnOffAction act_«actionsVarName»_«actionNumber» = new OnOffAction(act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR VisibilityCommand»
 	//prepara i nomi dei componenti target da mostrare/nascondere
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
     «FOREACH this.targetWidgets AS currWidg»
@@ -422,7 +422,7 @@ public class MainFrame extends JFrame {
 	VisibilityAction act_«actionsVarName»_«actionNumber» = new VisibilityAction(act_«actionsVarName»_«actionNumber»_targets,«this.show»);
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecAction»
+«DEFINE addActionCode(String actionsVarName, int actionNumber) FOR ExecCommand»
     String [] resultNames=new String []{
       «FOREACH this.results AS currRes»
       "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
@@ -431,7 +431,7 @@ public class MainFrame extends JFrame {
     
     IAction [] actionsForResults = new IAction[«this.results.size»];
     «FOREACH results AS currRes»
-    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.action»
+    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes)) FOR currRes.command»
     actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     

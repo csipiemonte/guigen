@@ -344,61 +344,61 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ACTION: {
-				Action action = (Action)theEObject;
-				T result = caseAction(action);
+			case GuigenPackage.COMMAND: {
+				Command command = (Command)theEObject;
+				T result = caseCommand(command);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ACTION_EVENT: {
-				ActionEvent actionEvent = (ActionEvent)theEObject;
-				T result = caseActionEvent(actionEvent);
+			case GuigenPackage.COMMAND_EVENT: {
+				CommandEvent commandEvent = (CommandEvent)theEObject;
+				T result = caseCommandEvent(commandEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ONOFF_ACTION: {
-				ONOFFAction onoffAction = (ONOFFAction)theEObject;
-				T result = caseONOFFAction(onoffAction);
-				if (result == null) result = caseAction(onoffAction);
-				if (result == null) result = caseActionOnWidgets(onoffAction);
+			case GuigenPackage.ONOFF_COMMAND: {
+				ONOFFCommand onoffCommand = (ONOFFCommand)theEObject;
+				T result = caseONOFFCommand(onoffCommand);
+				if (result == null) result = caseCommand(onoffCommand);
+				if (result == null) result = caseCommandOnWidgets(onoffCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.CUSTOM_ACTION: {
-				CustomAction customAction = (CustomAction)theEObject;
-				T result = caseCustomAction(customAction);
-				if (result == null) result = caseAction(customAction);
+			case GuigenPackage.CUSTOM_COMMAND: {
+				CustomCommand customCommand = (CustomCommand)theEObject;
+				T result = caseCustomCommand(customCommand);
+				if (result == null) result = caseCommand(customCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.VISIBILITY_ACTION: {
-				VisibilityAction visibilityAction = (VisibilityAction)theEObject;
-				T result = caseVisibilityAction(visibilityAction);
-				if (result == null) result = caseAction(visibilityAction);
-				if (result == null) result = caseActionOnWidgets(visibilityAction);
+			case GuigenPackage.VISIBILITY_COMMAND: {
+				VisibilityCommand visibilityCommand = (VisibilityCommand)theEObject;
+				T result = caseVisibilityCommand(visibilityCommand);
+				if (result == null) result = caseCommand(visibilityCommand);
+				if (result == null) result = caseCommandOnWidgets(visibilityCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.REFRESH_VIEW_ACTION: {
-				RefreshViewAction refreshViewAction = (RefreshViewAction)theEObject;
-				T result = caseRefreshViewAction(refreshViewAction);
-				if (result == null) result = caseAction(refreshViewAction);
-				if (result == null) result = caseActionOnWidgets(refreshViewAction);
-				if (result == null) result = caseActionOnPanels(refreshViewAction);
+			case GuigenPackage.REFRESH_VIEW_COMMAND: {
+				RefreshViewCommand refreshViewCommand = (RefreshViewCommand)theEObject;
+				T result = caseRefreshViewCommand(refreshViewCommand);
+				if (result == null) result = caseCommand(refreshViewCommand);
+				if (result == null) result = caseCommandOnWidgets(refreshViewCommand);
+				if (result == null) result = caseCommandOnPanels(refreshViewCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.JUMP_ACTION: {
-				JumpAction jumpAction = (JumpAction)theEObject;
-				T result = caseJumpAction(jumpAction);
-				if (result == null) result = caseAction(jumpAction);
+			case GuigenPackage.JUMP_COMMAND: {
+				JumpCommand jumpCommand = (JumpCommand)theEObject;
+				T result = caseJumpCommand(jumpCommand);
+				if (result == null) result = caseCommand(jumpCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.EXEC_ACTION: {
-				ExecAction execAction = (ExecAction)theEObject;
-				T result = caseExecAction(execAction);
-				if (result == null) result = caseAction(execAction);
+			case GuigenPackage.EXEC_COMMAND: {
+				ExecCommand execCommand = (ExecCommand)theEObject;
+				T result = caseExecCommand(execCommand);
+				if (result == null) result = caseCommand(execCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -414,10 +414,10 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ACTION_ON_WIDGETS: {
-				ActionOnWidgets actionOnWidgets = (ActionOnWidgets)theEObject;
-				T result = caseActionOnWidgets(actionOnWidgets);
-				if (result == null) result = caseAction(actionOnWidgets);
+			case GuigenPackage.COMMAND_ON_WIDGETS: {
+				CommandOnWidgets commandOnWidgets = (CommandOnWidgets)theEObject;
+				T result = caseCommandOnWidgets(commandOnWidgets);
+				if (result == null) result = caseCommand(commandOnWidgets);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -428,23 +428,23 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.SHOW_DIALOG_ACTION: {
-				ShowDialogAction showDialogAction = (ShowDialogAction)theEObject;
-				T result = caseShowDialogAction(showDialogAction);
-				if (result == null) result = caseAction(showDialogAction);
+			case GuigenPackage.SHOW_DIALOG_COMMAND: {
+				ShowDialogCommand showDialogCommand = (ShowDialogCommand)theEObject;
+				T result = caseShowDialogCommand(showDialogCommand);
+				if (result == null) result = caseCommand(showDialogCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ACTION_RESULT: {
-				ActionResult actionResult = (ActionResult)theEObject;
-				T result = caseActionResult(actionResult);
+			case GuigenPackage.COMMAND_OUTCOME: {
+				CommandOutcome commandOutcome = (CommandOutcome)theEObject;
+				T result = caseCommandOutcome(commandOutcome);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.ACTION_ON_PANELS: {
-				ActionOnPanels actionOnPanels = (ActionOnPanels)theEObject;
-				T result = caseActionOnPanels(actionOnPanels);
-				if (result == null) result = caseAction(actionOnPanels);
+			case GuigenPackage.COMMAND_ON_PANELS: {
+				CommandOnPanels commandOnPanels = (CommandOnPanels)theEObject;
+				T result = caseCommandOnPanels(commandOnPanels);
+				if (result == null) result = caseCommand(commandOnPanels);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -472,17 +472,17 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.SEQUENCE_ACTION: {
-				SequenceAction sequenceAction = (SequenceAction)theEObject;
-				T result = caseSequenceAction(sequenceAction);
-				if (result == null) result = caseAction(sequenceAction);
+			case GuigenPackage.SEQUENCE_COMMAND: {
+				SequenceCommand sequenceCommand = (SequenceCommand)theEObject;
+				T result = caseSequenceCommand(sequenceCommand);
+				if (result == null) result = caseCommand(sequenceCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.JUMP_BACK_ACTION: {
-				JumpBackAction jumpBackAction = (JumpBackAction)theEObject;
-				T result = caseJumpBackAction(jumpBackAction);
-				if (result == null) result = caseAction(jumpBackAction);
+			case GuigenPackage.JUMP_BACK_COMMAND: {
+				JumpBackCommand jumpBackCommand = (JumpBackCommand)theEObject;
+				T result = caseJumpBackCommand(jumpBackCommand);
+				if (result == null) result = caseCommand(jumpBackCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1165,122 +1165,122 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAction(Action object) {
+	public T caseCommand(Command object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Action Event</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Command Event</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Action Event</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Command Event</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseActionEvent(ActionEvent object) {
+	public T caseCommandEvent(CommandEvent object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>ONOFF Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>ONOFF Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>ONOFF Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>ONOFF Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseONOFFAction(ONOFFAction object) {
+	public T caseONOFFCommand(ONOFFCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Custom Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Custom Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseCustomAction(CustomAction object) {
+	public T caseCustomCommand(CustomCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Visibility Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Visibility Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Visibility Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Visibility Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVisibilityAction(VisibilityAction object) {
+	public T caseVisibilityCommand(VisibilityCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Refresh View Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Refresh View Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Refresh View Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Refresh View Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseRefreshViewAction(RefreshViewAction object) {
+	public T caseRefreshViewCommand(RefreshViewCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Jump Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Jump Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Jump Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Jump Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJumpAction(JumpAction object) {
+	public T caseJumpCommand(JumpCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Exec Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Exec Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Exec Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Exec Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseExecAction(ExecAction object) {
+	public T caseExecCommand(ExecCommand object) {
 		return null;
 	}
 
@@ -1315,17 +1315,17 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Action On Widgets</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Command On Widgets</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Action On Widgets</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Command On Widgets</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseActionOnWidgets(ActionOnWidgets object) {
+	public T caseCommandOnWidgets(CommandOnWidgets object) {
 		return null;
 	}
 
@@ -1345,47 +1345,47 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Show Dialog Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Show Dialog Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Show Dialog Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Show Dialog Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseShowDialogAction(ShowDialogAction object) {
+	public T caseShowDialogCommand(ShowDialogCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Action Result</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Command Outcome</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Action Result</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Command Outcome</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseActionResult(ActionResult object) {
+	public T caseCommandOutcome(CommandOutcome object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Action On Panels</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Command On Panels</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Action On Panels</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Command On Panels</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseActionOnPanels(ActionOnPanels object) {
+	public T caseCommandOnPanels(CommandOnPanels object) {
 		return null;
 	}
 
@@ -1450,32 +1450,32 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Sequence Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Sequence Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Sequence Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Sequence Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSequenceAction(SequenceAction object) {
+	public T caseSequenceCommand(SequenceCommand object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Jump Back Action</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Jump Back Command</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Jump Back Action</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Jump Back Command</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJumpBackAction(JumpBackAction object) {
+	public T caseJumpBackCommand(JumpBackCommand object) {
 		return null;
 	}
 

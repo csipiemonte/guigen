@@ -835,164 +835,164 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActionEvent} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CommandEvent} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ActionEventItemProvider actionEventItemProvider;
+	protected CommandEventItemProvider commandEventItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActionEvent}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CommandEvent}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createActionEventAdapter() {
-		if (actionEventItemProvider == null) {
-			actionEventItemProvider = new ActionEventItemProvider(this);
+	public Adapter createCommandEventAdapter() {
+		if (commandEventItemProvider == null) {
+			commandEventItemProvider = new CommandEventItemProvider(this);
 		}
 
-		return actionEventItemProvider;
+		return commandEventItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ONOFFAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ONOFFCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ONOFFActionItemProvider onoffActionItemProvider;
+	protected ONOFFCommandItemProvider onoffCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ONOFFAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ONOFFCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createONOFFActionAdapter() {
-		if (onoffActionItemProvider == null) {
-			onoffActionItemProvider = new ONOFFActionItemProvider(this);
+	public Adapter createONOFFCommandAdapter() {
+		if (onoffCommandItemProvider == null) {
+			onoffCommandItemProvider = new ONOFFCommandItemProvider(this);
 		}
 
-		return onoffActionItemProvider;
+		return onoffCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected CustomActionItemProvider customActionItemProvider;
+	protected CustomCommandItemProvider customCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createCustomActionAdapter() {
-		if (customActionItemProvider == null) {
-			customActionItemProvider = new CustomActionItemProvider(this);
+	public Adapter createCustomCommandAdapter() {
+		if (customCommandItemProvider == null) {
+			customCommandItemProvider = new CustomCommandItemProvider(this);
 		}
 
-		return customActionItemProvider;
+		return customCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.VisibilityAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.VisibilityCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected VisibilityActionItemProvider visibilityActionItemProvider;
+	protected VisibilityCommandItemProvider visibilityCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.VisibilityAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.VisibilityCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createVisibilityActionAdapter() {
-		if (visibilityActionItemProvider == null) {
-			visibilityActionItemProvider = new VisibilityActionItemProvider(this);
+	public Adapter createVisibilityCommandAdapter() {
+		if (visibilityCommandItemProvider == null) {
+			visibilityCommandItemProvider = new VisibilityCommandItemProvider(this);
 		}
 
-		return visibilityActionItemProvider;
+		return visibilityCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RefreshViewAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RefreshViewCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RefreshViewActionItemProvider refreshViewActionItemProvider;
+	protected RefreshViewCommandItemProvider refreshViewCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RefreshViewAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RefreshViewCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createRefreshViewActionAdapter() {
-		if (refreshViewActionItemProvider == null) {
-			refreshViewActionItemProvider = new RefreshViewActionItemProvider(this);
+	public Adapter createRefreshViewCommandAdapter() {
+		if (refreshViewCommandItemProvider == null) {
+			refreshViewCommandItemProvider = new RefreshViewCommandItemProvider(this);
 		}
 
-		return refreshViewActionItemProvider;
+		return refreshViewCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JumpActionItemProvider jumpActionItemProvider;
+	protected JumpCommandItemProvider jumpCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createJumpActionAdapter() {
-		if (jumpActionItemProvider == null) {
-			jumpActionItemProvider = new JumpActionItemProvider(this);
+	public Adapter createJumpCommandAdapter() {
+		if (jumpCommandItemProvider == null) {
+			jumpCommandItemProvider = new JumpCommandItemProvider(this);
 		}
 
-		return jumpActionItemProvider;
+		return jumpCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ExecAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ExecCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ExecActionItemProvider execActionItemProvider;
+	protected ExecCommandItemProvider execCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ExecAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ExecCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createExecActionAdapter() {
-		if (execActionItemProvider == null) {
-			execActionItemProvider = new ExecActionItemProvider(this);
+	public Adapter createExecCommandAdapter() {
+		if (execCommandItemProvider == null) {
+			execCommandItemProvider = new ExecCommandItemProvider(this);
 		}
 
-		return execActionItemProvider;
+		return execCommandItemProvider;
 	}
 
 	/**
@@ -1042,49 +1042,49 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ShowDialogAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ShowDialogCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ShowDialogActionItemProvider showDialogActionItemProvider;
+	protected ShowDialogCommandItemProvider showDialogCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ShowDialogAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ShowDialogCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createShowDialogActionAdapter() {
-		if (showDialogActionItemProvider == null) {
-			showDialogActionItemProvider = new ShowDialogActionItemProvider(this);
+	public Adapter createShowDialogCommandAdapter() {
+		if (showDialogCommandItemProvider == null) {
+			showDialogCommandItemProvider = new ShowDialogCommandItemProvider(this);
 		}
 
-		return showDialogActionItemProvider;
+		return showDialogCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActionResult} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CommandOutcome} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ActionResultItemProvider actionResultItemProvider;
+	protected CommandOutcomeItemProvider commandOutcomeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActionResult}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CommandOutcome}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createActionResultAdapter() {
-		if (actionResultItemProvider == null) {
-			actionResultItemProvider = new ActionResultItemProvider(this);
+	public Adapter createCommandOutcomeAdapter() {
+		if (commandOutcomeItemProvider == null) {
+			commandOutcomeItemProvider = new CommandOutcomeItemProvider(this);
 		}
 
-		return actionResultItemProvider;
+		return commandOutcomeItemProvider;
 	}
 
 	/**
@@ -1180,49 +1180,49 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SequenceAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SequenceCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SequenceActionItemProvider sequenceActionItemProvider;
+	protected SequenceCommandItemProvider sequenceCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SequenceAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SequenceCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSequenceActionAdapter() {
-		if (sequenceActionItemProvider == null) {
-			sequenceActionItemProvider = new SequenceActionItemProvider(this);
+	public Adapter createSequenceCommandAdapter() {
+		if (sequenceCommandItemProvider == null) {
+			sequenceCommandItemProvider = new SequenceCommandItemProvider(this);
 		}
 
-		return sequenceActionItemProvider;
+		return sequenceCommandItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpBackAction} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpBackCommand} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JumpBackActionItemProvider jumpBackActionItemProvider;
+	protected JumpBackCommandItemProvider jumpBackCommandItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpBackAction}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpBackCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createJumpBackActionAdapter() {
-		if (jumpBackActionItemProvider == null) {
-			jumpBackActionItemProvider = new JumpBackActionItemProvider(this);
+	public Adapter createJumpBackCommandAdapter() {
+		if (jumpBackCommandItemProvider == null) {
+			jumpBackCommandItemProvider = new JumpBackCommandItemProvider(this);
 		}
 
-		return jumpBackActionItemProvider;
+		return jumpBackCommandItemProvider;
 	}
 
 	/**
@@ -1725,23 +1725,23 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (disabledComponentSetItemProvider != null) disabledComponentSetItemProvider.dispose();
 		if (columnModelItemProvider != null) columnModelItemProvider.dispose();
 		if (columnItemProvider != null) columnItemProvider.dispose();
-		if (actionEventItemProvider != null) actionEventItemProvider.dispose();
-		if (onoffActionItemProvider != null) onoffActionItemProvider.dispose();
-		if (customActionItemProvider != null) customActionItemProvider.dispose();
-		if (visibilityActionItemProvider != null) visibilityActionItemProvider.dispose();
-		if (refreshViewActionItemProvider != null) refreshViewActionItemProvider.dispose();
-		if (jumpActionItemProvider != null) jumpActionItemProvider.dispose();
-		if (execActionItemProvider != null) execActionItemProvider.dispose();
+		if (commandEventItemProvider != null) commandEventItemProvider.dispose();
+		if (onoffCommandItemProvider != null) onoffCommandItemProvider.dispose();
+		if (customCommandItemProvider != null) customCommandItemProvider.dispose();
+		if (visibilityCommandItemProvider != null) visibilityCommandItemProvider.dispose();
+		if (refreshViewCommandItemProvider != null) refreshViewCommandItemProvider.dispose();
+		if (jumpCommandItemProvider != null) jumpCommandItemProvider.dispose();
+		if (execCommandItemProvider != null) execCommandItemProvider.dispose();
 		if (eventHandlerItemProvider != null) eventHandlerItemProvider.dispose();
 		if (dialogPanelItemProvider != null) dialogPanelItemProvider.dispose();
-		if (showDialogActionItemProvider != null) showDialogActionItemProvider.dispose();
-		if (actionResultItemProvider != null) actionResultItemProvider.dispose();
+		if (showDialogCommandItemProvider != null) showDialogCommandItemProvider.dispose();
+		if (commandOutcomeItemProvider != null) commandOutcomeItemProvider.dispose();
 		if (headerItemProvider != null) headerItemProvider.dispose();
 		if (footerItemProvider != null) footerItemProvider.dispose();
 		if (appWindowItemProvider != null) appWindowItemProvider.dispose();
 		if (staticLinksItemProvider != null) staticLinksItemProvider.dispose();
-		if (sequenceActionItemProvider != null) sequenceActionItemProvider.dispose();
-		if (jumpBackActionItemProvider != null) jumpBackActionItemProvider.dispose();
+		if (sequenceCommandItemProvider != null) sequenceCommandItemProvider.dispose();
+		if (jumpBackCommandItemProvider != null) jumpBackCommandItemProvider.dispose();
 		if (applicationDataItemProvider != null) applicationDataItemProvider.dispose();
 		if (appDataBindingItemProvider != null) appDataBindingItemProvider.dispose();
 		if (multiDataWidgetItemProvider != null) multiDataWidgetItemProvider.dispose();

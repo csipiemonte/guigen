@@ -6,11 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
-import it.csi.mddtools.guigen.Action;
-import it.csi.mddtools.guigen.ActionEvent;
-import it.csi.mddtools.guigen.ActionOnPanels;
-import it.csi.mddtools.guigen.ActionOnWidgets;
-import it.csi.mddtools.guigen.ActionResult;
+
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
@@ -22,19 +18,24 @@ import it.csi.mddtools.guigen.CheckBox;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
+import it.csi.mddtools.guigen.Command;
+import it.csi.mddtools.guigen.CommandEvent;
+import it.csi.mddtools.guigen.CommandOnPanels;
+import it.csi.mddtools.guigen.CommandOnWidgets;
+import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
-import it.csi.mddtools.guigen.CustomAction;
+import it.csi.mddtools.guigen.CustomCommand;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.DisabledComponentSet;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
-import it.csi.mddtools.guigen.ExecAction;
+import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.Footer;
 import it.csi.mddtools.guigen.FormPanel;
@@ -48,25 +49,25 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Header;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.Image;
-import it.csi.mddtools.guigen.JumpAction;
-import it.csi.mddtools.guigen.JumpBackAction;
+import it.csi.mddtools.guigen.JumpBackCommand;
+import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
-import it.csi.mddtools.guigen.ONOFFAction;
+import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
-import it.csi.mddtools.guigen.RefreshViewAction;
+import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.ResetButton;
-import it.csi.mddtools.guigen.SequenceAction;
-import it.csi.mddtools.guigen.ShowDialogAction;
+import it.csi.mddtools.guigen.SequenceCommand;
+import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StaticLinks;
@@ -84,7 +85,7 @@ import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
-import it.csi.mddtools.guigen.VisibilityAction;
+import it.csi.mddtools.guigen.VisibilityCommand;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetDataType;
 import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
@@ -369,56 +370,56 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass actionEClass = null;
+	private EClass commandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass actionEventEClass = null;
+	private EClass commandEventEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass onoffActionEClass = null;
+	private EClass onoffCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass customActionEClass = null;
+	private EClass customCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass visibilityActionEClass = null;
+	private EClass visibilityCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass refreshViewActionEClass = null;
+	private EClass refreshViewCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass jumpActionEClass = null;
+	private EClass jumpCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass execActionEClass = null;
+	private EClass execCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -439,7 +440,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass actionOnWidgetsEClass = null;
+	private EClass commandOnWidgetsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -453,21 +454,21 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass showDialogActionEClass = null;
+	private EClass showDialogCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass actionResultEClass = null;
+	private EClass commandOutcomeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass actionOnPanelsEClass = null;
+	private EClass commandOnPanelsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -502,14 +503,14 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass sequenceActionEClass = null;
+	private EClass sequenceCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass jumpBackActionEClass = null;
+	private EClass jumpBackCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -799,7 +800,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationArea_OnInitAction() {
+	public EReference getApplicationArea_OnInitCommand() {
 		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1582,8 +1583,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAction() {
-		return actionEClass;
+	public EClass getCommand() {
+		return commandEClass;
 	}
 
 	/**
@@ -1591,8 +1592,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActionEvent() {
-		return actionEventEClass;
+	public EClass getCommandEvent() {
+		return commandEventEClass;
 	}
 
 	/**
@@ -1600,8 +1601,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getONOFFAction() {
-		return onoffActionEClass;
+	public EClass getONOFFCommand() {
+		return onoffCommandEClass;
 	}
 
 	/**
@@ -1609,8 +1610,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getONOFFAction_Enable() {
-		return (EAttribute)onoffActionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getONOFFCommand_Enable() {
+		return (EAttribute)onoffCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1618,8 +1619,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCustomAction() {
-		return customActionEClass;
+	public EClass getCustomCommand() {
+		return customCommandEClass;
 	}
 
 	/**
@@ -1627,8 +1628,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVisibilityAction() {
-		return visibilityActionEClass;
+	public EClass getVisibilityCommand() {
+		return visibilityCommandEClass;
 	}
 
 	/**
@@ -1636,8 +1637,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVisibilityAction_Show() {
-		return (EAttribute)visibilityActionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getVisibilityCommand_Show() {
+		return (EAttribute)visibilityCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1645,8 +1646,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRefreshViewAction() {
-		return refreshViewActionEClass;
+	public EClass getRefreshViewCommand() {
+		return refreshViewCommandEClass;
 	}
 
 	/**
@@ -1654,8 +1655,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJumpAction() {
-		return jumpActionEClass;
+	public EClass getJumpCommand() {
+		return jumpCommandEClass;
 	}
 
 	/**
@@ -1663,8 +1664,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getJumpAction_JumpTo() {
-		return (EReference)jumpActionEClass.getEStructuralFeatures().get(0);
+	public EReference getJumpCommand_JumpTo() {
+		return (EReference)jumpCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1672,8 +1673,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJumpAction_PushCurrentPage() {
-		return (EAttribute)jumpActionEClass.getEStructuralFeatures().get(1);
+	public EAttribute getJumpCommand_PushCurrentPage() {
+		return (EAttribute)jumpCommandEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1681,8 +1682,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExecAction() {
-		return execActionEClass;
+	public EClass getExecCommand() {
+		return execCommandEClass;
 	}
 
 	/**
@@ -1690,8 +1691,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExecAction_Results() {
-		return (EReference)execActionEClass.getEStructuralFeatures().get(0);
+	public EReference getExecCommand_Results() {
+		return (EReference)execCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1699,8 +1700,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExecAction_MethodName() {
-		return (EAttribute)execActionEClass.getEStructuralFeatures().get(1);
+	public EAttribute getExecCommand_MethodName() {
+		return (EAttribute)execCommandEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1708,8 +1709,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExecAction_PostExecData() {
-		return (EReference)execActionEClass.getEStructuralFeatures().get(2);
+	public EReference getExecCommand_PostExecData() {
+		return (EReference)execCommandEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1726,7 +1727,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventHandler_Action() {
+	public EReference getEventHandler_Command() {
 		return (EReference)eventHandlerEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1753,8 +1754,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActionOnWidgets() {
-		return actionOnWidgetsEClass;
+	public EClass getCommandOnWidgets() {
+		return commandOnWidgetsEClass;
 	}
 
 	/**
@@ -1762,8 +1763,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActionOnWidgets_TargetWidgets() {
-		return (EReference)actionOnWidgetsEClass.getEStructuralFeatures().get(0);
+	public EReference getCommandOnWidgets_TargetWidgets() {
+		return (EReference)commandOnWidgetsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1789,8 +1790,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getShowDialogAction() {
-		return showDialogActionEClass;
+	public EClass getShowDialogCommand() {
+		return showDialogCommandEClass;
 	}
 
 	/**
@@ -1798,8 +1799,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShowDialogAction_Dialog() {
-		return (EReference)showDialogActionEClass.getEStructuralFeatures().get(0);
+	public EReference getShowDialogCommand_Dialog() {
+		return (EReference)showDialogCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1807,8 +1808,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActionResult() {
-		return actionResultEClass;
+	public EClass getCommandOutcome() {
+		return commandOutcomeEClass;
 	}
 
 	/**
@@ -1816,8 +1817,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getActionResult_ResultCode() {
-		return (EAttribute)actionResultEClass.getEStructuralFeatures().get(0);
+	public EAttribute getCommandOutcome_ResultCode() {
+		return (EAttribute)commandOutcomeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1825,8 +1826,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActionResult_Action() {
-		return (EReference)actionResultEClass.getEStructuralFeatures().get(1);
+	public EReference getCommandOutcome_Command() {
+		return (EReference)commandOutcomeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1834,8 +1835,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActionOnPanels() {
-		return actionOnPanelsEClass;
+	public EClass getCommandOnPanels() {
+		return commandOnPanelsEClass;
 	}
 
 	/**
@@ -1843,8 +1844,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActionOnPanels_TargetPanels() {
-		return (EReference)actionOnPanelsEClass.getEStructuralFeatures().get(0);
+	public EReference getCommandOnPanels_TargetPanels() {
+		return (EReference)commandOnPanelsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1915,8 +1916,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSequenceAction() {
-		return sequenceActionEClass;
+	public EClass getSequenceCommand() {
+		return sequenceCommandEClass;
 	}
 
 	/**
@@ -1924,8 +1925,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSequenceAction_Actions() {
-		return (EReference)sequenceActionEClass.getEStructuralFeatures().get(0);
+	public EReference getSequenceCommand_Commands() {
+		return (EReference)sequenceCommandEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1933,8 +1934,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJumpBackAction() {
-		return jumpBackActionEClass;
+	public EClass getJumpBackCommand() {
+		return jumpBackCommandEClass;
 	}
 
 	/**
@@ -2367,7 +2368,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(applicationAreaEClass, APPLICATION_AREA__STATUSBAR);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__CONTENT_PANELS);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__STATIC_LINKS);
-		createEReference(applicationAreaEClass, APPLICATION_AREA__ON_INIT_ACTION);
+		createEReference(applicationAreaEClass, APPLICATION_AREA__ON_INIT_COMMAND);
 
 		menubarEClass = createEClass(MENUBAR);
 		createEReference(menubarEClass, MENUBAR__TOP_LEVEL_MENU);
@@ -2491,50 +2492,50 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(columnEClass, COLUMN__LABEL);
 		createEAttribute(columnEClass, COLUMN__SORTABLE);
 
-		actionEClass = createEClass(ACTION);
+		commandEClass = createEClass(COMMAND);
 
-		actionEventEClass = createEClass(ACTION_EVENT);
+		commandEventEClass = createEClass(COMMAND_EVENT);
 
-		onoffActionEClass = createEClass(ONOFF_ACTION);
-		createEAttribute(onoffActionEClass, ONOFF_ACTION__ENABLE);
+		onoffCommandEClass = createEClass(ONOFF_COMMAND);
+		createEAttribute(onoffCommandEClass, ONOFF_COMMAND__ENABLE);
 
-		customActionEClass = createEClass(CUSTOM_ACTION);
+		customCommandEClass = createEClass(CUSTOM_COMMAND);
 
-		visibilityActionEClass = createEClass(VISIBILITY_ACTION);
-		createEAttribute(visibilityActionEClass, VISIBILITY_ACTION__SHOW);
+		visibilityCommandEClass = createEClass(VISIBILITY_COMMAND);
+		createEAttribute(visibilityCommandEClass, VISIBILITY_COMMAND__SHOW);
 
-		refreshViewActionEClass = createEClass(REFRESH_VIEW_ACTION);
+		refreshViewCommandEClass = createEClass(REFRESH_VIEW_COMMAND);
 
-		jumpActionEClass = createEClass(JUMP_ACTION);
-		createEReference(jumpActionEClass, JUMP_ACTION__JUMP_TO);
-		createEAttribute(jumpActionEClass, JUMP_ACTION__PUSH_CURRENT_PAGE);
+		jumpCommandEClass = createEClass(JUMP_COMMAND);
+		createEReference(jumpCommandEClass, JUMP_COMMAND__JUMP_TO);
+		createEAttribute(jumpCommandEClass, JUMP_COMMAND__PUSH_CURRENT_PAGE);
 
-		execActionEClass = createEClass(EXEC_ACTION);
-		createEReference(execActionEClass, EXEC_ACTION__RESULTS);
-		createEAttribute(execActionEClass, EXEC_ACTION__METHOD_NAME);
-		createEReference(execActionEClass, EXEC_ACTION__POST_EXEC_DATA);
+		execCommandEClass = createEClass(EXEC_COMMAND);
+		createEReference(execCommandEClass, EXEC_COMMAND__RESULTS);
+		createEAttribute(execCommandEClass, EXEC_COMMAND__METHOD_NAME);
+		createEReference(execCommandEClass, EXEC_COMMAND__POST_EXEC_DATA);
 
 		eventHandlerEClass = createEClass(EVENT_HANDLER);
-		createEReference(eventHandlerEClass, EVENT_HANDLER__ACTION);
+		createEReference(eventHandlerEClass, EVENT_HANDLER__COMMAND);
 		createEAttribute(eventHandlerEClass, EVENT_HANDLER__EVENT_TYPE);
 
 		widgetTargetActionEClass = createEClass(WIDGET_TARGET_ACTION);
 
-		actionOnWidgetsEClass = createEClass(ACTION_ON_WIDGETS);
-		createEReference(actionOnWidgetsEClass, ACTION_ON_WIDGETS__TARGET_WIDGETS);
+		commandOnWidgetsEClass = createEClass(COMMAND_ON_WIDGETS);
+		createEReference(commandOnWidgetsEClass, COMMAND_ON_WIDGETS__TARGET_WIDGETS);
 
 		dialogPanelEClass = createEClass(DIALOG_PANEL);
 		createEReference(dialogPanelEClass, DIALOG_PANEL__DIALOG_CONTENT);
 
-		showDialogActionEClass = createEClass(SHOW_DIALOG_ACTION);
-		createEReference(showDialogActionEClass, SHOW_DIALOG_ACTION__DIALOG);
+		showDialogCommandEClass = createEClass(SHOW_DIALOG_COMMAND);
+		createEReference(showDialogCommandEClass, SHOW_DIALOG_COMMAND__DIALOG);
 
-		actionResultEClass = createEClass(ACTION_RESULT);
-		createEAttribute(actionResultEClass, ACTION_RESULT__RESULT_CODE);
-		createEReference(actionResultEClass, ACTION_RESULT__ACTION);
+		commandOutcomeEClass = createEClass(COMMAND_OUTCOME);
+		createEAttribute(commandOutcomeEClass, COMMAND_OUTCOME__RESULT_CODE);
+		createEReference(commandOutcomeEClass, COMMAND_OUTCOME__COMMAND);
 
-		actionOnPanelsEClass = createEClass(ACTION_ON_PANELS);
-		createEReference(actionOnPanelsEClass, ACTION_ON_PANELS__TARGET_PANELS);
+		commandOnPanelsEClass = createEClass(COMMAND_ON_PANELS);
+		createEReference(commandOnPanelsEClass, COMMAND_ON_PANELS__TARGET_PANELS);
 
 		headerEClass = createEClass(HEADER);
 
@@ -2547,10 +2548,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		staticLinksEClass = createEClass(STATIC_LINKS);
 
-		sequenceActionEClass = createEClass(SEQUENCE_ACTION);
-		createEReference(sequenceActionEClass, SEQUENCE_ACTION__ACTIONS);
+		sequenceCommandEClass = createEClass(SEQUENCE_COMMAND);
+		createEReference(sequenceCommandEClass, SEQUENCE_COMMAND__COMMANDS);
 
-		jumpBackActionEClass = createEClass(JUMP_BACK_ACTION);
+		jumpBackCommandEClass = createEClass(JUMP_BACK_COMMAND);
 
 		applicationDataEClass = createEClass(APPLICATION_DATA);
 		createEAttribute(applicationDataEClass, APPLICATION_DATA__NAME);
@@ -2667,22 +2668,22 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		udlrcPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
 		udlrcWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
 		imageEClass.getESuperTypes().add(this.getWidget());
-		onoffActionEClass.getESuperTypes().add(this.getAction());
-		onoffActionEClass.getESuperTypes().add(this.getActionOnWidgets());
-		customActionEClass.getESuperTypes().add(this.getAction());
-		visibilityActionEClass.getESuperTypes().add(this.getAction());
-		visibilityActionEClass.getESuperTypes().add(this.getActionOnWidgets());
-		refreshViewActionEClass.getESuperTypes().add(this.getAction());
-		refreshViewActionEClass.getESuperTypes().add(this.getActionOnWidgets());
-		refreshViewActionEClass.getESuperTypes().add(this.getActionOnPanels());
-		jumpActionEClass.getESuperTypes().add(this.getAction());
-		execActionEClass.getESuperTypes().add(this.getAction());
-		actionOnWidgetsEClass.getESuperTypes().add(this.getAction());
+		onoffCommandEClass.getESuperTypes().add(this.getCommand());
+		onoffCommandEClass.getESuperTypes().add(this.getCommandOnWidgets());
+		customCommandEClass.getESuperTypes().add(this.getCommand());
+		visibilityCommandEClass.getESuperTypes().add(this.getCommand());
+		visibilityCommandEClass.getESuperTypes().add(this.getCommandOnWidgets());
+		refreshViewCommandEClass.getESuperTypes().add(this.getCommand());
+		refreshViewCommandEClass.getESuperTypes().add(this.getCommandOnWidgets());
+		refreshViewCommandEClass.getESuperTypes().add(this.getCommandOnPanels());
+		jumpCommandEClass.getESuperTypes().add(this.getCommand());
+		execCommandEClass.getESuperTypes().add(this.getCommand());
+		commandOnWidgetsEClass.getESuperTypes().add(this.getCommand());
 		dialogPanelEClass.getESuperTypes().add(this.getPanel());
-		showDialogActionEClass.getESuperTypes().add(this.getAction());
-		actionOnPanelsEClass.getESuperTypes().add(this.getAction());
-		sequenceActionEClass.getESuperTypes().add(this.getAction());
-		jumpBackActionEClass.getESuperTypes().add(this.getAction());
+		showDialogCommandEClass.getESuperTypes().add(this.getCommand());
+		commandOnPanelsEClass.getESuperTypes().add(this.getCommand());
+		sequenceCommandEClass.getESuperTypes().add(this.getCommand());
+		jumpBackCommandEClass.getESuperTypes().add(this.getCommand());
 		multiDataWidgetEClass.getESuperTypes().add(this.getWidget());
 		simpleTypeEClass.getESuperTypes().add(this.getType());
 		complexTypeEClass.getESuperTypes().add(this.getType());
@@ -2703,7 +2704,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getApplicationArea_Statusbar(), this.getStatusbar(), null, "statusbar", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_StaticLinks(), this.getStaticLinks(), null, "staticLinks", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getApplicationArea_OnInitAction(), this.getAction(), null, "onInitAction", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationArea_OnInitCommand(), this.getCommand(), null, "onInitCommand", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menubarEClass, Menubar.class, "Menubar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenubar_TopLevelMenu(), this.getMenu(), null, "topLevelMenu", null, 0, -1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2827,50 +2828,50 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getColumn_Label(), ecorePackage.getEString(), "label", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_Sortable(), ecorePackage.getEBoolean(), "sortable", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(actionEClass, Action.class, "Action", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(commandEClass, Command.class, "Command", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(actionEventEClass, ActionEvent.class, "ActionEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(commandEventEClass, CommandEvent.class, "CommandEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(onoffActionEClass, ONOFFAction.class, "ONOFFAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getONOFFAction_Enable(), ecorePackage.getEBoolean(), "enable", null, 0, 1, ONOFFAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(onoffCommandEClass, ONOFFCommand.class, "ONOFFCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getONOFFCommand_Enable(), ecorePackage.getEBoolean(), "enable", null, 0, 1, ONOFFCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(customActionEClass, CustomAction.class, "CustomAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(customCommandEClass, CustomCommand.class, "CustomCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(visibilityActionEClass, VisibilityAction.class, "VisibilityAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVisibilityAction_Show(), ecorePackage.getEBoolean(), "show", null, 0, 1, VisibilityAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(visibilityCommandEClass, VisibilityCommand.class, "VisibilityCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVisibilityCommand_Show(), ecorePackage.getEBoolean(), "show", null, 0, 1, VisibilityCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(refreshViewActionEClass, RefreshViewAction.class, "RefreshViewAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(refreshViewCommandEClass, RefreshViewCommand.class, "RefreshViewCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(jumpActionEClass, JumpAction.class, "JumpAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getJumpAction_JumpTo(), this.getContentPanel(), null, "jumpTo", null, 0, 1, JumpAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJumpAction_PushCurrentPage(), ecorePackage.getEBoolean(), "pushCurrentPage", null, 0, 1, JumpAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(jumpCommandEClass, JumpCommand.class, "JumpCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJumpCommand_JumpTo(), this.getContentPanel(), null, "jumpTo", null, 0, 1, JumpCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJumpCommand_PushCurrentPage(), ecorePackage.getEBoolean(), "pushCurrentPage", null, 0, 1, JumpCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(execActionEClass, ExecAction.class, "ExecAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExecAction_Results(), this.getActionResult(), null, "results", null, 0, -1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExecAction_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExecAction_PostExecData(), this.getApplicationData(), null, "postExecData", null, 0, -1, ExecAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(execCommandEClass, ExecCommand.class, "ExecCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExecCommand_Results(), this.getCommandOutcome(), null, "results", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExecCommand_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExecCommand_PostExecData(), this.getApplicationData(), null, "postExecData", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventHandlerEClass, EventHandler.class, "EventHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEventHandler_Action(), this.getAction(), null, "action", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEventHandler_Command(), this.getCommand(), null, "command", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventHandler_EventType(), this.getEventTypes(), "eventType", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(widgetTargetActionEClass, WidgetTargetAction.class, "WidgetTargetAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(actionOnWidgetsEClass, ActionOnWidgets.class, "ActionOnWidgets", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActionOnWidgets_TargetWidgets(), this.getWidget(), null, "targetWidgets", null, 1, -1, ActionOnWidgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(commandOnWidgetsEClass, CommandOnWidgets.class, "CommandOnWidgets", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCommandOnWidgets_TargetWidgets(), this.getWidget(), null, "targetWidgets", null, 1, -1, CommandOnWidgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dialogPanelEClass, DialogPanel.class, "DialogPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDialogPanel_DialogContent(), this.getPanel(), null, "dialogContent", null, 0, 1, DialogPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(showDialogActionEClass, ShowDialogAction.class, "ShowDialogAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getShowDialogAction_Dialog(), this.getDialogPanel(), null, "dialog", null, 0, 1, ShowDialogAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(showDialogCommandEClass, ShowDialogCommand.class, "ShowDialogCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getShowDialogCommand_Dialog(), this.getDialogPanel(), null, "dialog", null, 0, 1, ShowDialogCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(actionResultEClass, ActionResult.class, "ActionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getActionResult_ResultCode(), ecorePackage.getEString(), "resultCode", null, 0, 1, ActionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActionResult_Action(), this.getAction(), null, "action", null, 1, 1, ActionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(commandOutcomeEClass, CommandOutcome.class, "CommandOutcome", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCommandOutcome_ResultCode(), ecorePackage.getEString(), "resultCode", null, 0, 1, CommandOutcome.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCommandOutcome_Command(), this.getCommand(), null, "command", null, 1, 1, CommandOutcome.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(actionOnPanelsEClass, ActionOnPanels.class, "ActionOnPanels", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActionOnPanels_TargetPanels(), this.getPanel(), null, "targetPanels", null, 0, -1, ActionOnPanels.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(commandOnPanelsEClass, CommandOnPanels.class, "CommandOnPanels", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCommandOnPanels_TargetPanels(), this.getPanel(), null, "targetPanels", null, 0, -1, CommandOnPanels.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(headerEClass, Header.class, "Header", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2883,10 +2884,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(staticLinksEClass, StaticLinks.class, "StaticLinks", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(sequenceActionEClass, SequenceAction.class, "SequenceAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSequenceAction_Actions(), this.getAction(), null, "actions", null, 0, -1, SequenceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(sequenceCommandEClass, SequenceCommand.class, "SequenceCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSequenceCommand_Commands(), this.getCommand(), null, "commands", null, 0, -1, SequenceCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(jumpBackActionEClass, JumpBackAction.class, "JumpBackAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(jumpBackCommandEClass, JumpBackCommand.class, "JumpBackCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(applicationDataEClass, ApplicationData.class, "ApplicationData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getApplicationData_Name(), ecorePackage.getEString(), "name", null, 0, 1, ApplicationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

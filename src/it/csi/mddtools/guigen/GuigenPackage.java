@@ -116,13 +116,13 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_AREA__STATIC_LINKS = 4;
 
 	/**
-	 * The feature id for the '<em><b>On Init Action</b></em>' containment reference.
+	 * The feature id for the '<em><b>On Init Command</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_AREA__ON_INIT_ACTION = 5;
+	int APPLICATION_AREA__ON_INIT_COMMAND = 5;
 
 	/**
 	 * The number of structural features of the '<em>Application Area</em>' class.
@@ -2078,52 +2078,52 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionImpl <em>Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAction()
+	 * @see it.csi.mddtools.guigen.impl.CommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommand()
 	 * @generated
 	 */
-	int ACTION = 37;
+	int COMMAND = 37;
 
 	/**
-	 * The number of structural features of the '<em>Action</em>' class.
+	 * The number of structural features of the '<em>Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_FEATURE_COUNT = 0;
+	int COMMAND_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionEventImpl <em>Action Event</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandEventImpl <em>Command Event</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ActionEventImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionEvent()
+	 * @see it.csi.mddtools.guigen.impl.CommandEventImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandEvent()
 	 * @generated
 	 */
-	int ACTION_EVENT = 38;
+	int COMMAND_EVENT = 38;
 
 	/**
-	 * The number of structural features of the '<em>Action Event</em>' class.
+	 * The number of structural features of the '<em>Command Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_EVENT_FEATURE_COUNT = 0;
+	int COMMAND_EVENT_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ONOFFActionImpl <em>ONOFF Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl <em>ONOFF Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ONOFFActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getONOFFAction()
+	 * @see it.csi.mddtools.guigen.impl.ONOFFCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getONOFFCommand()
 	 * @generated
 	 */
-	int ONOFF_ACTION = 39;
+	int ONOFF_COMMAND = 39;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2132,7 +2132,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ONOFF_ACTION__TARGET_WIDGETS = ACTION_FEATURE_COUNT + 0;
+	int ONOFF_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Enable</b></em>' attribute.
@@ -2141,45 +2141,45 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ONOFF_ACTION__ENABLE = ACTION_FEATURE_COUNT + 1;
+	int ONOFF_COMMAND__ENABLE = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>ONOFF Action</em>' class.
+	 * The number of structural features of the '<em>ONOFF Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ONOFF_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
+	int ONOFF_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomActionImpl <em>Custom Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomCommandImpl <em>Custom Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.CustomActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomAction()
+	 * @see it.csi.mddtools.guigen.impl.CustomCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCommand()
 	 * @generated
 	 */
-	int CUSTOM_ACTION = 40;
+	int CUSTOM_COMMAND = 40;
 
 	/**
-	 * The number of structural features of the '<em>Custom Action</em>' class.
+	 * The number of structural features of the '<em>Custom Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 0;
+	int CUSTOM_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.VisibilityActionImpl <em>Visibility Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl <em>Visibility Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.VisibilityActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVisibilityAction()
+	 * @see it.csi.mddtools.guigen.impl.VisibilityCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVisibilityCommand()
 	 * @generated
 	 */
-	int VISIBILITY_ACTION = 41;
+	int VISIBILITY_COMMAND = 41;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2188,7 +2188,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VISIBILITY_ACTION__TARGET_WIDGETS = ACTION_FEATURE_COUNT + 0;
+	int VISIBILITY_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Show</b></em>' attribute.
@@ -2197,26 +2197,26 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VISIBILITY_ACTION__SHOW = ACTION_FEATURE_COUNT + 1;
+	int VISIBILITY_COMMAND__SHOW = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Visibility Action</em>' class.
+	 * The number of structural features of the '<em>Visibility Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VISIBILITY_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
+	int VISIBILITY_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RefreshViewActionImpl <em>Refresh View Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RefreshViewCommandImpl <em>Refresh View Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.RefreshViewActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRefreshViewAction()
+	 * @see it.csi.mddtools.guigen.impl.RefreshViewCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRefreshViewCommand()
 	 * @generated
 	 */
-	int REFRESH_VIEW_ACTION = 42;
+	int REFRESH_VIEW_COMMAND = 42;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2225,7 +2225,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFRESH_VIEW_ACTION__TARGET_WIDGETS = ACTION_FEATURE_COUNT + 0;
+	int REFRESH_VIEW_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Panels</b></em>' reference list.
@@ -2234,26 +2234,26 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFRESH_VIEW_ACTION__TARGET_PANELS = ACTION_FEATURE_COUNT + 1;
+	int REFRESH_VIEW_COMMAND__TARGET_PANELS = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Refresh View Action</em>' class.
+	 * The number of structural features of the '<em>Refresh View Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFRESH_VIEW_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
+	int REFRESH_VIEW_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpActionImpl <em>Jump Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpCommandImpl <em>Jump Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.JumpActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpAction()
+	 * @see it.csi.mddtools.guigen.impl.JumpCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpCommand()
 	 * @generated
 	 */
-	int JUMP_ACTION = 43;
+	int JUMP_COMMAND = 43;
 
 	/**
 	 * The feature id for the '<em><b>Jump To</b></em>' reference.
@@ -2262,7 +2262,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_ACTION__JUMP_TO = ACTION_FEATURE_COUNT + 0;
+	int JUMP_COMMAND__JUMP_TO = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Push Current Page</b></em>' attribute.
@@ -2271,26 +2271,26 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_ACTION__PUSH_CURRENT_PAGE = ACTION_FEATURE_COUNT + 1;
+	int JUMP_COMMAND__PUSH_CURRENT_PAGE = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Jump Action</em>' class.
+	 * The number of structural features of the '<em>Jump Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
+	int JUMP_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ExecActionImpl <em>Exec Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ExecCommandImpl <em>Exec Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ExecActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExecAction()
+	 * @see it.csi.mddtools.guigen.impl.ExecCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExecCommand()
 	 * @generated
 	 */
-	int EXEC_ACTION = 44;
+	int EXEC_COMMAND = 44;
 
 	/**
 	 * The feature id for the '<em><b>Results</b></em>' containment reference list.
@@ -2299,7 +2299,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION__RESULTS = ACTION_FEATURE_COUNT + 0;
+	int EXEC_COMMAND__RESULTS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
@@ -2308,7 +2308,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION__METHOD_NAME = ACTION_FEATURE_COUNT + 1;
+	int EXEC_COMMAND__METHOD_NAME = COMMAND_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Post Exec Data</b></em>' reference list.
@@ -2317,16 +2317,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION__POST_EXEC_DATA = ACTION_FEATURE_COUNT + 2;
+	int EXEC_COMMAND__POST_EXEC_DATA = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Exec Action</em>' class.
+	 * The number of structural features of the '<em>Exec Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 3;
+	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
@@ -2339,13 +2339,13 @@ public interface GuigenPackage extends EPackage {
 	int EVENT_HANDLER = 45;
 
 	/**
-	 * The feature id for the '<em><b>Action</b></em>' containment reference.
+	 * The feature id for the '<em><b>Command</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_HANDLER__ACTION = 0;
+	int EVENT_HANDLER__COMMAND = 0;
 
 	/**
 	 * The feature id for the '<em><b>Event Type</b></em>' attribute.
@@ -2385,14 +2385,14 @@ public interface GuigenPackage extends EPackage {
 	int WIDGET_TARGET_ACTION_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionOnWidgetsImpl <em>Action On Widgets</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl <em>Command On Widgets</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ActionOnWidgetsImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnWidgets()
+	 * @see it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOnWidgets()
 	 * @generated
 	 */
-	int ACTION_ON_WIDGETS = 47;
+	int COMMAND_ON_WIDGETS = 47;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -2401,16 +2401,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_ON_WIDGETS__TARGET_WIDGETS = ACTION_FEATURE_COUNT + 0;
+	int COMMAND_ON_WIDGETS__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Action On Widgets</em>' class.
+	 * The number of structural features of the '<em>Command On Widgets</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_ON_WIDGETS_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int COMMAND_ON_WIDGETS_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.DialogPanelImpl <em>Dialog Panel</em>}' class.
@@ -2477,14 +2477,14 @@ public interface GuigenPackage extends EPackage {
 	int DIALOG_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShowDialogActionImpl <em>Show Dialog Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShowDialogCommandImpl <em>Show Dialog Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ShowDialogActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShowDialogAction()
+	 * @see it.csi.mddtools.guigen.impl.ShowDialogCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShowDialogCommand()
 	 * @generated
 	 */
-	int SHOW_DIALOG_ACTION = 49;
+	int SHOW_DIALOG_COMMAND = 49;
 
 	/**
 	 * The feature id for the '<em><b>Dialog</b></em>' reference.
@@ -2493,26 +2493,26 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHOW_DIALOG_ACTION__DIALOG = ACTION_FEATURE_COUNT + 0;
+	int SHOW_DIALOG_COMMAND__DIALOG = COMMAND_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Show Dialog Action</em>' class.
+	 * The number of structural features of the '<em>Show Dialog Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHOW_DIALOG_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int SHOW_DIALOG_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionResultImpl <em>Action Result</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandOutcomeImpl <em>Command Outcome</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ActionResultImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionResult()
+	 * @see it.csi.mddtools.guigen.impl.CommandOutcomeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOutcome()
 	 * @generated
 	 */
-	int ACTION_RESULT = 50;
+	int COMMAND_OUTCOME = 50;
 
 	/**
 	 * The feature id for the '<em><b>Result Code</b></em>' attribute.
@@ -2521,35 +2521,35 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_RESULT__RESULT_CODE = 0;
+	int COMMAND_OUTCOME__RESULT_CODE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Action</b></em>' containment reference.
+	 * The feature id for the '<em><b>Command</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_RESULT__ACTION = 1;
+	int COMMAND_OUTCOME__COMMAND = 1;
 
 	/**
-	 * The number of structural features of the '<em>Action Result</em>' class.
+	 * The number of structural features of the '<em>Command Outcome</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_RESULT_FEATURE_COUNT = 2;
+	int COMMAND_OUTCOME_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActionOnPanelsImpl <em>Action On Panels</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandOnPanelsImpl <em>Command On Panels</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ActionOnPanelsImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnPanels()
+	 * @see it.csi.mddtools.guigen.impl.CommandOnPanelsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOnPanels()
 	 * @generated
 	 */
-	int ACTION_ON_PANELS = 51;
+	int COMMAND_ON_PANELS = 51;
 
 	/**
 	 * The feature id for the '<em><b>Target Panels</b></em>' reference list.
@@ -2558,16 +2558,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_ON_PANELS__TARGET_PANELS = ACTION_FEATURE_COUNT + 0;
+	int COMMAND_ON_PANELS__TARGET_PANELS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Action On Panels</em>' class.
+	 * The number of structural features of the '<em>Command On Panels</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION_ON_PANELS_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int COMMAND_ON_PANELS_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.HeaderImpl <em>Header</em>}' class.
@@ -2673,51 +2673,51 @@ public interface GuigenPackage extends EPackage {
 	int STATIC_LINKS_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SequenceActionImpl <em>Sequence Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SequenceCommandImpl <em>Sequence Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.SequenceActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSequenceAction()
+	 * @see it.csi.mddtools.guigen.impl.SequenceCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSequenceCommand()
 	 * @generated
 	 */
-	int SEQUENCE_ACTION = 56;
+	int SEQUENCE_COMMAND = 56;
 
 	/**
-	 * The feature id for the '<em><b>Actions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Commands</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE_ACTION__ACTIONS = ACTION_FEATURE_COUNT + 0;
+	int SEQUENCE_COMMAND__COMMANDS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Sequence Action</em>' class.
+	 * The number of structural features of the '<em>Sequence Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
+	int SEQUENCE_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpBackActionImpl <em>Jump Back Action</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpBackCommandImpl <em>Jump Back Command</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.JumpBackActionImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackAction()
+	 * @see it.csi.mddtools.guigen.impl.JumpBackCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackCommand()
 	 * @generated
 	 */
-	int JUMP_BACK_ACTION = 57;
+	int JUMP_BACK_COMMAND = 57;
 
 	/**
-	 * The number of structural features of the '<em>Jump Back Action</em>' class.
+	 * The number of structural features of the '<em>Jump Back Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_BACK_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 0;
+	int JUMP_BACK_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl <em>Application Data</em>}' class.
@@ -3703,15 +3703,15 @@ public interface GuigenPackage extends EPackage {
 	EReference getApplicationArea_StaticLinks();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitAction <em>On Init Action</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>On Init Action</em>'.
-	 * @see it.csi.mddtools.guigen.ApplicationArea#getOnInitAction()
+	 * @return the meta object for the containment reference '<em>On Init Command</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand()
 	 * @see #getApplicationArea()
 	 * @generated
 	 */
-	EReference getApplicationArea_OnInitAction();
+	EReference getApplicationArea_OnInitCommand();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Menubar <em>Menubar</em>}'.
@@ -4624,161 +4624,161 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getColumn_Sortable();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Action <em>Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Action</em>'.
-	 * @see it.csi.mddtools.guigen.Action
+	 * @return the meta object for class '<em>Command</em>'.
+	 * @see it.csi.mddtools.guigen.Command
 	 * @generated
 	 */
-	EClass getAction();
+	EClass getCommand();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActionEvent <em>Action Event</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandEvent <em>Command Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Action Event</em>'.
-	 * @see it.csi.mddtools.guigen.ActionEvent
+	 * @return the meta object for class '<em>Command Event</em>'.
+	 * @see it.csi.mddtools.guigen.CommandEvent
 	 * @generated
 	 */
-	EClass getActionEvent();
+	EClass getCommandEvent();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ONOFFAction <em>ONOFF Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ONOFFCommand <em>ONOFF Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>ONOFF Action</em>'.
-	 * @see it.csi.mddtools.guigen.ONOFFAction
+	 * @return the meta object for class '<em>ONOFF Command</em>'.
+	 * @see it.csi.mddtools.guigen.ONOFFCommand
 	 * @generated
 	 */
-	EClass getONOFFAction();
+	EClass getONOFFCommand();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ONOFFAction#isEnable <em>Enable</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ONOFFCommand#isEnable <em>Enable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Enable</em>'.
-	 * @see it.csi.mddtools.guigen.ONOFFAction#isEnable()
-	 * @see #getONOFFAction()
+	 * @see it.csi.mddtools.guigen.ONOFFCommand#isEnable()
+	 * @see #getONOFFCommand()
 	 * @generated
 	 */
-	EAttribute getONOFFAction_Enable();
+	EAttribute getONOFFCommand_Enable();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomAction <em>Custom Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomCommand <em>Custom Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Custom Action</em>'.
-	 * @see it.csi.mddtools.guigen.CustomAction
+	 * @return the meta object for class '<em>Custom Command</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCommand
 	 * @generated
 	 */
-	EClass getCustomAction();
+	EClass getCustomCommand();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.VisibilityAction <em>Visibility Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.VisibilityCommand <em>Visibility Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Visibility Action</em>'.
-	 * @see it.csi.mddtools.guigen.VisibilityAction
+	 * @return the meta object for class '<em>Visibility Command</em>'.
+	 * @see it.csi.mddtools.guigen.VisibilityCommand
 	 * @generated
 	 */
-	EClass getVisibilityAction();
+	EClass getVisibilityCommand();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.VisibilityAction#isShow <em>Show</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.VisibilityCommand#isShow <em>Show</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Show</em>'.
-	 * @see it.csi.mddtools.guigen.VisibilityAction#isShow()
-	 * @see #getVisibilityAction()
+	 * @see it.csi.mddtools.guigen.VisibilityCommand#isShow()
+	 * @see #getVisibilityCommand()
 	 * @generated
 	 */
-	EAttribute getVisibilityAction_Show();
+	EAttribute getVisibilityCommand_Show();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RefreshViewAction <em>Refresh View Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RefreshViewCommand <em>Refresh View Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Refresh View Action</em>'.
-	 * @see it.csi.mddtools.guigen.RefreshViewAction
+	 * @return the meta object for class '<em>Refresh View Command</em>'.
+	 * @see it.csi.mddtools.guigen.RefreshViewCommand
 	 * @generated
 	 */
-	EClass getRefreshViewAction();
+	EClass getRefreshViewCommand();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpAction <em>Jump Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpCommand <em>Jump Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Jump Action</em>'.
-	 * @see it.csi.mddtools.guigen.JumpAction
+	 * @return the meta object for class '<em>Jump Command</em>'.
+	 * @see it.csi.mddtools.guigen.JumpCommand
 	 * @generated
 	 */
-	EClass getJumpAction();
+	EClass getJumpCommand();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.JumpAction#getJumpTo <em>Jump To</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.JumpCommand#getJumpTo <em>Jump To</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Jump To</em>'.
-	 * @see it.csi.mddtools.guigen.JumpAction#getJumpTo()
-	 * @see #getJumpAction()
+	 * @see it.csi.mddtools.guigen.JumpCommand#getJumpTo()
+	 * @see #getJumpCommand()
 	 * @generated
 	 */
-	EReference getJumpAction_JumpTo();
+	EReference getJumpCommand_JumpTo();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpAction#isPushCurrentPage <em>Push Current Page</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpCommand#isPushCurrentPage <em>Push Current Page</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Push Current Page</em>'.
-	 * @see it.csi.mddtools.guigen.JumpAction#isPushCurrentPage()
-	 * @see #getJumpAction()
+	 * @see it.csi.mddtools.guigen.JumpCommand#isPushCurrentPage()
+	 * @see #getJumpCommand()
 	 * @generated
 	 */
-	EAttribute getJumpAction_PushCurrentPage();
+	EAttribute getJumpCommand_PushCurrentPage();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ExecAction <em>Exec Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ExecCommand <em>Exec Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Exec Action</em>'.
-	 * @see it.csi.mddtools.guigen.ExecAction
+	 * @return the meta object for class '<em>Exec Command</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand
 	 * @generated
 	 */
-	EClass getExecAction();
+	EClass getExecCommand();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ExecAction#getResults <em>Results</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ExecCommand#getResults <em>Results</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Results</em>'.
-	 * @see it.csi.mddtools.guigen.ExecAction#getResults()
-	 * @see #getExecAction()
+	 * @see it.csi.mddtools.guigen.ExecCommand#getResults()
+	 * @see #getExecCommand()
 	 * @generated
 	 */
-	EReference getExecAction_Results();
+	EReference getExecCommand_Results();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecAction#getMethodName <em>Method Name</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecCommand#getMethodName <em>Method Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Method Name</em>'.
-	 * @see it.csi.mddtools.guigen.ExecAction#getMethodName()
-	 * @see #getExecAction()
+	 * @see it.csi.mddtools.guigen.ExecCommand#getMethodName()
+	 * @see #getExecCommand()
 	 * @generated
 	 */
-	EAttribute getExecAction_MethodName();
+	EAttribute getExecCommand_MethodName();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ExecAction#getPostExecData <em>Post Exec Data</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ExecCommand#getPostExecData <em>Post Exec Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Post Exec Data</em>'.
-	 * @see it.csi.mddtools.guigen.ExecAction#getPostExecData()
-	 * @see #getExecAction()
+	 * @see it.csi.mddtools.guigen.ExecCommand#getPostExecData()
+	 * @see #getExecCommand()
 	 * @generated
 	 */
-	EReference getExecAction_PostExecData();
+	EReference getExecCommand_PostExecData();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EventHandler <em>Event Handler</em>}'.
@@ -4791,15 +4791,15 @@ public interface GuigenPackage extends EPackage {
 	EClass getEventHandler();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.EventHandler#getAction <em>Action</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Action</em>'.
-	 * @see it.csi.mddtools.guigen.EventHandler#getAction()
+	 * @return the meta object for the containment reference '<em>Command</em>'.
+	 * @see it.csi.mddtools.guigen.EventHandler#getCommand()
 	 * @see #getEventHandler()
 	 * @generated
 	 */
-	EReference getEventHandler_Action();
+	EReference getEventHandler_Command();
 
 	/**
 	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}'.
@@ -4823,25 +4823,25 @@ public interface GuigenPackage extends EPackage {
 	EClass getWidgetTargetAction();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActionOnWidgets <em>Action On Widgets</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandOnWidgets <em>Command On Widgets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Action On Widgets</em>'.
-	 * @see it.csi.mddtools.guigen.ActionOnWidgets
+	 * @return the meta object for class '<em>Command On Widgets</em>'.
+	 * @see it.csi.mddtools.guigen.CommandOnWidgets
 	 * @generated
 	 */
-	EClass getActionOnWidgets();
+	EClass getCommandOnWidgets();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ActionOnWidgets#getTargetWidgets <em>Target Widgets</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetWidgets <em>Target Widgets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Target Widgets</em>'.
-	 * @see it.csi.mddtools.guigen.ActionOnWidgets#getTargetWidgets()
-	 * @see #getActionOnWidgets()
+	 * @see it.csi.mddtools.guigen.CommandOnWidgets#getTargetWidgets()
+	 * @see #getCommandOnWidgets()
 	 * @generated
 	 */
-	EReference getActionOnWidgets_TargetWidgets();
+	EReference getCommandOnWidgets_TargetWidgets();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.DialogPanel <em>Dialog Panel</em>}'.
@@ -4865,78 +4865,78 @@ public interface GuigenPackage extends EPackage {
 	EReference getDialogPanel_DialogContent();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShowDialogAction <em>Show Dialog Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShowDialogCommand <em>Show Dialog Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Show Dialog Action</em>'.
-	 * @see it.csi.mddtools.guigen.ShowDialogAction
+	 * @return the meta object for class '<em>Show Dialog Command</em>'.
+	 * @see it.csi.mddtools.guigen.ShowDialogCommand
 	 * @generated
 	 */
-	EClass getShowDialogAction();
+	EClass getShowDialogCommand();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ShowDialogAction#getDialog <em>Dialog</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ShowDialogCommand#getDialog <em>Dialog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Dialog</em>'.
-	 * @see it.csi.mddtools.guigen.ShowDialogAction#getDialog()
-	 * @see #getShowDialogAction()
+	 * @see it.csi.mddtools.guigen.ShowDialogCommand#getDialog()
+	 * @see #getShowDialogCommand()
 	 * @generated
 	 */
-	EReference getShowDialogAction_Dialog();
+	EReference getShowDialogCommand_Dialog();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActionResult <em>Action Result</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandOutcome <em>Command Outcome</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Action Result</em>'.
-	 * @see it.csi.mddtools.guigen.ActionResult
+	 * @return the meta object for class '<em>Command Outcome</em>'.
+	 * @see it.csi.mddtools.guigen.CommandOutcome
 	 * @generated
 	 */
-	EClass getActionResult();
+	EClass getCommandOutcome();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ActionResult#getResultCode <em>Result Code</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CommandOutcome#getResultCode <em>Result Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Result Code</em>'.
-	 * @see it.csi.mddtools.guigen.ActionResult#getResultCode()
-	 * @see #getActionResult()
+	 * @see it.csi.mddtools.guigen.CommandOutcome#getResultCode()
+	 * @see #getCommandOutcome()
 	 * @generated
 	 */
-	EAttribute getActionResult_ResultCode();
+	EAttribute getCommandOutcome_ResultCode();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ActionResult#getAction <em>Action</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.CommandOutcome#getCommand <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Action</em>'.
-	 * @see it.csi.mddtools.guigen.ActionResult#getAction()
-	 * @see #getActionResult()
+	 * @return the meta object for the containment reference '<em>Command</em>'.
+	 * @see it.csi.mddtools.guigen.CommandOutcome#getCommand()
+	 * @see #getCommandOutcome()
 	 * @generated
 	 */
-	EReference getActionResult_Action();
+	EReference getCommandOutcome_Command();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActionOnPanels <em>Action On Panels</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandOnPanels <em>Command On Panels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Action On Panels</em>'.
-	 * @see it.csi.mddtools.guigen.ActionOnPanels
+	 * @return the meta object for class '<em>Command On Panels</em>'.
+	 * @see it.csi.mddtools.guigen.CommandOnPanels
 	 * @generated
 	 */
-	EClass getActionOnPanels();
+	EClass getCommandOnPanels();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ActionOnPanels#getTargetPanels <em>Target Panels</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.CommandOnPanels#getTargetPanels <em>Target Panels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Target Panels</em>'.
-	 * @see it.csi.mddtools.guigen.ActionOnPanels#getTargetPanels()
-	 * @see #getActionOnPanels()
+	 * @see it.csi.mddtools.guigen.CommandOnPanels#getTargetPanels()
+	 * @see #getCommandOnPanels()
 	 * @generated
 	 */
-	EReference getActionOnPanels_TargetPanels();
+	EReference getCommandOnPanels_TargetPanels();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Header <em>Header</em>}'.
@@ -5012,35 +5012,35 @@ public interface GuigenPackage extends EPackage {
 	EClass getStaticLinks();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SequenceAction <em>Sequence Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SequenceCommand <em>Sequence Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Sequence Action</em>'.
-	 * @see it.csi.mddtools.guigen.SequenceAction
+	 * @return the meta object for class '<em>Sequence Command</em>'.
+	 * @see it.csi.mddtools.guigen.SequenceCommand
 	 * @generated
 	 */
-	EClass getSequenceAction();
+	EClass getSequenceCommand();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.SequenceAction#getActions <em>Actions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.SequenceCommand#getCommands <em>Commands</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Actions</em>'.
-	 * @see it.csi.mddtools.guigen.SequenceAction#getActions()
-	 * @see #getSequenceAction()
+	 * @return the meta object for the containment reference list '<em>Commands</em>'.
+	 * @see it.csi.mddtools.guigen.SequenceCommand#getCommands()
+	 * @see #getSequenceCommand()
 	 * @generated
 	 */
-	EReference getSequenceAction_Actions();
+	EReference getSequenceCommand_Commands();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpBackAction <em>Jump Back Action</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpBackCommand <em>Jump Back Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Jump Back Action</em>'.
-	 * @see it.csi.mddtools.guigen.JumpBackAction
+	 * @return the meta object for class '<em>Jump Back Command</em>'.
+	 * @see it.csi.mddtools.guigen.JumpBackCommand
 	 * @generated
 	 */
-	EClass getJumpBackAction();
+	EClass getJumpBackCommand();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationData <em>Application Data</em>}'.
@@ -5576,12 +5576,12 @@ public interface GuigenPackage extends EPackage {
 		EReference APPLICATION_AREA__STATIC_LINKS = eINSTANCE.getApplicationArea_StaticLinks();
 
 		/**
-		 * The meta object literal for the '<em><b>On Init Action</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>On Init Command</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference APPLICATION_AREA__ON_INIT_ACTION = eINSTANCE.getApplicationArea_OnInitAction();
+		EReference APPLICATION_AREA__ON_INIT_COMMAND = eINSTANCE.getApplicationArea_OnInitCommand();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
@@ -6344,34 +6344,34 @@ public interface GuigenPackage extends EPackage {
 		EAttribute COLUMN__SORTABLE = eINSTANCE.getColumn_Sortable();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionImpl <em>Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAction()
+		 * @see it.csi.mddtools.guigen.impl.CommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommand()
 		 * @generated
 		 */
-		EClass ACTION = eINSTANCE.getAction();
+		EClass COMMAND = eINSTANCE.getCommand();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionEventImpl <em>Action Event</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandEventImpl <em>Command Event</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ActionEventImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionEvent()
+		 * @see it.csi.mddtools.guigen.impl.CommandEventImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandEvent()
 		 * @generated
 		 */
-		EClass ACTION_EVENT = eINSTANCE.getActionEvent();
+		EClass COMMAND_EVENT = eINSTANCE.getCommandEvent();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ONOFFActionImpl <em>ONOFF Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl <em>ONOFF Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ONOFFActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getONOFFAction()
+		 * @see it.csi.mddtools.guigen.impl.ONOFFCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getONOFFCommand()
 		 * @generated
 		 */
-		EClass ONOFF_ACTION = eINSTANCE.getONOFFAction();
+		EClass ONOFF_COMMAND = eINSTANCE.getONOFFCommand();
 
 		/**
 		 * The meta object literal for the '<em><b>Enable</b></em>' attribute feature.
@@ -6379,27 +6379,27 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ONOFF_ACTION__ENABLE = eINSTANCE.getONOFFAction_Enable();
+		EAttribute ONOFF_COMMAND__ENABLE = eINSTANCE.getONOFFCommand_Enable();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomActionImpl <em>Custom Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomCommandImpl <em>Custom Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.CustomActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomAction()
+		 * @see it.csi.mddtools.guigen.impl.CustomCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCommand()
 		 * @generated
 		 */
-		EClass CUSTOM_ACTION = eINSTANCE.getCustomAction();
+		EClass CUSTOM_COMMAND = eINSTANCE.getCustomCommand();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.VisibilityActionImpl <em>Visibility Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl <em>Visibility Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.VisibilityActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVisibilityAction()
+		 * @see it.csi.mddtools.guigen.impl.VisibilityCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getVisibilityCommand()
 		 * @generated
 		 */
-		EClass VISIBILITY_ACTION = eINSTANCE.getVisibilityAction();
+		EClass VISIBILITY_COMMAND = eINSTANCE.getVisibilityCommand();
 
 		/**
 		 * The meta object literal for the '<em><b>Show</b></em>' attribute feature.
@@ -6407,27 +6407,27 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VISIBILITY_ACTION__SHOW = eINSTANCE.getVisibilityAction_Show();
+		EAttribute VISIBILITY_COMMAND__SHOW = eINSTANCE.getVisibilityCommand_Show();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RefreshViewActionImpl <em>Refresh View Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RefreshViewCommandImpl <em>Refresh View Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.RefreshViewActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRefreshViewAction()
+		 * @see it.csi.mddtools.guigen.impl.RefreshViewCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRefreshViewCommand()
 		 * @generated
 		 */
-		EClass REFRESH_VIEW_ACTION = eINSTANCE.getRefreshViewAction();
+		EClass REFRESH_VIEW_COMMAND = eINSTANCE.getRefreshViewCommand();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpActionImpl <em>Jump Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpCommandImpl <em>Jump Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.JumpActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpAction()
+		 * @see it.csi.mddtools.guigen.impl.JumpCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpCommand()
 		 * @generated
 		 */
-		EClass JUMP_ACTION = eINSTANCE.getJumpAction();
+		EClass JUMP_COMMAND = eINSTANCE.getJumpCommand();
 
 		/**
 		 * The meta object literal for the '<em><b>Jump To</b></em>' reference feature.
@@ -6435,7 +6435,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference JUMP_ACTION__JUMP_TO = eINSTANCE.getJumpAction_JumpTo();
+		EReference JUMP_COMMAND__JUMP_TO = eINSTANCE.getJumpCommand_JumpTo();
 
 		/**
 		 * The meta object literal for the '<em><b>Push Current Page</b></em>' attribute feature.
@@ -6443,17 +6443,17 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JUMP_ACTION__PUSH_CURRENT_PAGE = eINSTANCE.getJumpAction_PushCurrentPage();
+		EAttribute JUMP_COMMAND__PUSH_CURRENT_PAGE = eINSTANCE.getJumpCommand_PushCurrentPage();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ExecActionImpl <em>Exec Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ExecCommandImpl <em>Exec Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ExecActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExecAction()
+		 * @see it.csi.mddtools.guigen.impl.ExecCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExecCommand()
 		 * @generated
 		 */
-		EClass EXEC_ACTION = eINSTANCE.getExecAction();
+		EClass EXEC_COMMAND = eINSTANCE.getExecCommand();
 
 		/**
 		 * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
@@ -6461,7 +6461,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXEC_ACTION__RESULTS = eINSTANCE.getExecAction_Results();
+		EReference EXEC_COMMAND__RESULTS = eINSTANCE.getExecCommand_Results();
 
 		/**
 		 * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
@@ -6469,7 +6469,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXEC_ACTION__METHOD_NAME = eINSTANCE.getExecAction_MethodName();
+		EAttribute EXEC_COMMAND__METHOD_NAME = eINSTANCE.getExecCommand_MethodName();
 
 		/**
 		 * The meta object literal for the '<em><b>Post Exec Data</b></em>' reference list feature.
@@ -6477,7 +6477,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXEC_ACTION__POST_EXEC_DATA = eINSTANCE.getExecAction_PostExecData();
+		EReference EXEC_COMMAND__POST_EXEC_DATA = eINSTANCE.getExecCommand_PostExecData();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
@@ -6490,12 +6490,12 @@ public interface GuigenPackage extends EPackage {
 		EClass EVENT_HANDLER = eINSTANCE.getEventHandler();
 
 		/**
-		 * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Command</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_HANDLER__ACTION = eINSTANCE.getEventHandler_Action();
+		EReference EVENT_HANDLER__COMMAND = eINSTANCE.getEventHandler_Command();
 
 		/**
 		 * The meta object literal for the '<em><b>Event Type</b></em>' attribute feature.
@@ -6516,14 +6516,14 @@ public interface GuigenPackage extends EPackage {
 		EClass WIDGET_TARGET_ACTION = eINSTANCE.getWidgetTargetAction();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionOnWidgetsImpl <em>Action On Widgets</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl <em>Command On Widgets</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ActionOnWidgetsImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnWidgets()
+		 * @see it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOnWidgets()
 		 * @generated
 		 */
-		EClass ACTION_ON_WIDGETS = eINSTANCE.getActionOnWidgets();
+		EClass COMMAND_ON_WIDGETS = eINSTANCE.getCommandOnWidgets();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Widgets</b></em>' reference list feature.
@@ -6531,7 +6531,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ACTION_ON_WIDGETS__TARGET_WIDGETS = eINSTANCE.getActionOnWidgets_TargetWidgets();
+		EReference COMMAND_ON_WIDGETS__TARGET_WIDGETS = eINSTANCE.getCommandOnWidgets_TargetWidgets();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.DialogPanelImpl <em>Dialog Panel</em>}' class.
@@ -6552,14 +6552,14 @@ public interface GuigenPackage extends EPackage {
 		EReference DIALOG_PANEL__DIALOG_CONTENT = eINSTANCE.getDialogPanel_DialogContent();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShowDialogActionImpl <em>Show Dialog Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShowDialogCommandImpl <em>Show Dialog Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ShowDialogActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShowDialogAction()
+		 * @see it.csi.mddtools.guigen.impl.ShowDialogCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShowDialogCommand()
 		 * @generated
 		 */
-		EClass SHOW_DIALOG_ACTION = eINSTANCE.getShowDialogAction();
+		EClass SHOW_DIALOG_COMMAND = eINSTANCE.getShowDialogCommand();
 
 		/**
 		 * The meta object literal for the '<em><b>Dialog</b></em>' reference feature.
@@ -6567,17 +6567,17 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SHOW_DIALOG_ACTION__DIALOG = eINSTANCE.getShowDialogAction_Dialog();
+		EReference SHOW_DIALOG_COMMAND__DIALOG = eINSTANCE.getShowDialogCommand_Dialog();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionResultImpl <em>Action Result</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandOutcomeImpl <em>Command Outcome</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ActionResultImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionResult()
+		 * @see it.csi.mddtools.guigen.impl.CommandOutcomeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOutcome()
 		 * @generated
 		 */
-		EClass ACTION_RESULT = eINSTANCE.getActionResult();
+		EClass COMMAND_OUTCOME = eINSTANCE.getCommandOutcome();
 
 		/**
 		 * The meta object literal for the '<em><b>Result Code</b></em>' attribute feature.
@@ -6585,25 +6585,25 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACTION_RESULT__RESULT_CODE = eINSTANCE.getActionResult_ResultCode();
+		EAttribute COMMAND_OUTCOME__RESULT_CODE = eINSTANCE.getCommandOutcome_ResultCode();
 
 		/**
-		 * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Command</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ACTION_RESULT__ACTION = eINSTANCE.getActionResult_Action();
+		EReference COMMAND_OUTCOME__COMMAND = eINSTANCE.getCommandOutcome_Command();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActionOnPanelsImpl <em>Action On Panels</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandOnPanelsImpl <em>Command On Panels</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ActionOnPanelsImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActionOnPanels()
+		 * @see it.csi.mddtools.guigen.impl.CommandOnPanelsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandOnPanels()
 		 * @generated
 		 */
-		EClass ACTION_ON_PANELS = eINSTANCE.getActionOnPanels();
+		EClass COMMAND_ON_PANELS = eINSTANCE.getCommandOnPanels();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Panels</b></em>' reference list feature.
@@ -6611,7 +6611,7 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ACTION_ON_PANELS__TARGET_PANELS = eINSTANCE.getActionOnPanels_TargetPanels();
+		EReference COMMAND_ON_PANELS__TARGET_PANELS = eINSTANCE.getCommandOnPanels_TargetPanels();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.HeaderImpl <em>Header</em>}' class.
@@ -6678,32 +6678,32 @@ public interface GuigenPackage extends EPackage {
 		EClass STATIC_LINKS = eINSTANCE.getStaticLinks();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SequenceActionImpl <em>Sequence Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SequenceCommandImpl <em>Sequence Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.SequenceActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSequenceAction()
+		 * @see it.csi.mddtools.guigen.impl.SequenceCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSequenceCommand()
 		 * @generated
 		 */
-		EClass SEQUENCE_ACTION = eINSTANCE.getSequenceAction();
+		EClass SEQUENCE_COMMAND = eINSTANCE.getSequenceCommand();
 
 		/**
-		 * The meta object literal for the '<em><b>Actions</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SEQUENCE_ACTION__ACTIONS = eINSTANCE.getSequenceAction_Actions();
+		EReference SEQUENCE_COMMAND__COMMANDS = eINSTANCE.getSequenceCommand_Commands();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpBackActionImpl <em>Jump Back Action</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpBackCommandImpl <em>Jump Back Command</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.JumpBackActionImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackAction()
+		 * @see it.csi.mddtools.guigen.impl.JumpBackCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpBackCommand()
 		 * @generated
 		 */
-		EClass JUMP_BACK_ACTION = eINSTANCE.getJumpBackAction();
+		EClass JUMP_BACK_COMMAND = eINSTANCE.getJumpBackCommand();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataImpl <em>Application Data</em>}' class.

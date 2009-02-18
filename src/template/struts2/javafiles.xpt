@@ -8,7 +8,7 @@
 	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
-	«IF this.structure.appWindow.appArea.onInitAction!=null»
+	«IF this.structure.appWindow.appArea.onInitCommand!=null»
 		«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
 	«ENDIF»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
@@ -268,7 +268,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
 	«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
 	«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
-	«LET ((MenuItem)currMenuItem).eventHandler.action AS currAction»
+	«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
 	/**
 	 * 
 	 * @return SUCCESS result.
@@ -327,7 +327,7 @@ import «getDTOBaseJavaPackage(this)».*;
  */
 public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
-    «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitAction»
+    «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
     
     /**
 	 * classe model associata
@@ -362,7 +362,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 	
 	}
 
-	«LET this.structure.appWindow.appArea.onInitAction AS onInitAction»
+	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 	«IF onInitAction!=null»
     «EXPAND actionImplJavaFiles::actionStructureInit1(this) FOR onInitAction»
     «ENDIF»
