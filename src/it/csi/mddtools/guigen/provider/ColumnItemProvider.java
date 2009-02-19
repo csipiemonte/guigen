@@ -68,6 +68,7 @@ public class ColumnItemProvider
 			addLabelPropertyDescriptor(object);
 			addSortablePropertyDescriptor(object);
 			addEditablePropertyDescriptor(object);
+			addEventActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -155,7 +156,29 @@ public class ColumnItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Event Active feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEventActivePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_eventActive_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_eventActive_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__EVENT_ACTIVE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -201,6 +224,7 @@ public class ColumnItemProvider
 			case GuigenPackage.COLUMN__LABEL:
 			case GuigenPackage.COLUMN__SORTABLE:
 			case GuigenPackage.COLUMN__EDITABLE:
+			case GuigenPackage.COLUMN__EVENT_ACTIVE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

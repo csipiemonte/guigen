@@ -2087,13 +2087,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__EDITABLE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Event Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__EVENT_ACTIVE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 4;
+	int COLUMN_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.
@@ -4653,15 +4662,26 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getColumn_Sortable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#isEditable <em>Editable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Editable</em>'.
-	 * @see it.csi.mddtools.guigen.Column#getEditable()
+	 * @see it.csi.mddtools.guigen.Column#isEditable()
 	 * @see #getColumn()
 	 * @generated
 	 */
 	EAttribute getColumn_Editable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#isEventActive <em>Event Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Event Active</em>'.
+	 * @see it.csi.mddtools.guigen.Column#isEventActive()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_EventActive();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -6398,6 +6418,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__EDITABLE = eINSTANCE.getColumn_Editable();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__EVENT_ACTIVE = eINSTANCE.getColumn_EventActive();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

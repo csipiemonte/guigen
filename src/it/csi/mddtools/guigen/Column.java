@@ -19,7 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#isEditable <em>Editable</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#isEventActive <em>Event Active</em>}</li>
  * </ul>
  * </p>
  *
@@ -115,21 +116,47 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Editable</em>' attribute.
-	 * @see #setEditable(String)
+	 * @see #setEditable(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Editable()
 	 * @model
 	 * @generated
 	 */
-	String getEditable();
+	boolean isEditable();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}' attribute.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#isEditable <em>Editable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Editable</em>' attribute.
-	 * @see #getEditable()
+	 * @see #isEditable()
 	 * @generated
 	 */
-	void setEditable(String value);
+	void setEditable(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Event Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Event Active</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event Active</em>' attribute.
+	 * @see #setEventActive(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_EventActive()
+	 * @model
+	 * @generated
+	 */
+	boolean isEventActive();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#isEventActive <em>Event Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Event Active</em>' attribute.
+	 * @see #isEventActive()
+	 * @generated
+	 */
+	void setEventActive(boolean value);
 
 } // Column
