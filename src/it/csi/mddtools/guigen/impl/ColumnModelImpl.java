@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnModelImpl#getColumns <em>Columns</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnModelImpl#getValueSelector <em>Value Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +50,25 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 	 * @ordered
 	 */
 	protected EList<Column> columns;
+
+	/**
+	 * The default value of the '{@link #getValueSelector() <em>Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VALUE_SELECTOR_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getValueSelector() <em>Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String valueSelector = VALUE_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +106,27 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getValueSelector() {
+		return valueSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValueSelector(String newValueSelector) {
+		String oldValueSelector = valueSelector;
+		valueSelector = newValueSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR, oldValueSelector, valueSelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -103,6 +146,8 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 		switch (featureID) {
 			case GuigenPackage.COLUMN_MODEL__COLUMNS:
 				return getColumns();
+			case GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR:
+				return getValueSelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -120,6 +165,9 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 				getColumns().clear();
 				getColumns().addAll((Collection<? extends Column>)newValue);
 				return;
+			case GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR:
+				setValueSelector((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -135,6 +183,9 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 			case GuigenPackage.COLUMN_MODEL__COLUMNS:
 				getColumns().clear();
 				return;
+			case GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR:
+				setValueSelector(VALUE_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,8 +200,26 @@ public class ColumnModelImpl extends EObjectImpl implements ColumnModel {
 		switch (featureID) {
 			case GuigenPackage.COLUMN_MODEL__COLUMNS:
 				return columns != null && !columns.isEmpty();
+			case GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR:
+				return VALUE_SELECTOR_EDEFAULT == null ? valueSelector != null : !VALUE_SELECTOR_EDEFAULT.equals(valueSelector);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (valueSelector: ");
+		result.append(valueSelector);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ColumnModelImpl

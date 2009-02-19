@@ -2023,13 +2023,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN_MODEL__COLUMNS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN_MODEL__VALUE_SELECTOR = 1;
+
+	/**
 	 * The number of structural features of the '<em>Column Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_MODEL_FEATURE_COUNT = 1;
+	int COLUMN_MODEL_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ColumnImpl <em>Column</em>}' class.
@@ -2069,13 +2078,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__SORTABLE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Editable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__EDITABLE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 3;
+	int COLUMN_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.
@@ -4581,6 +4599,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getColumnModel_Columns();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ColumnModel#getValueSelector <em>Value Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value Selector</em>'.
+	 * @see it.csi.mddtools.guigen.ColumnModel#getValueSelector()
+	 * @see #getColumnModel()
+	 * @generated
+	 */
+	EAttribute getColumnModel_ValueSelector();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Column <em>Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4622,6 +4651,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_Sortable();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Editable</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getEditable()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Editable();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -6310,6 +6350,14 @@ public interface GuigenPackage extends EPackage {
 		EReference COLUMN_MODEL__COLUMNS = eINSTANCE.getColumnModel_Columns();
 
 		/**
+		 * The meta object literal for the '<em><b>Value Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN_MODEL__VALUE_SELECTOR = eINSTANCE.getColumnModel_ValueSelector();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ColumnImpl <em>Column</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6342,6 +6390,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__SORTABLE = eINSTANCE.getColumn_Sortable();
+
+		/**
+		 * The meta object literal for the '<em><b>Editable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__EDITABLE = eINSTANCE.getColumn_Editable();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

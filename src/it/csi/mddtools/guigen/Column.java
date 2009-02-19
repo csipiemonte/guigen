@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +105,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setSortable(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Editable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editable</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editable</em>' attribute.
+	 * @see #setEditable(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Editable()
+	 * @model
+	 * @generated
+	 */
+	String getEditable();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getEditable <em>Editable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editable</em>' attribute.
+	 * @see #getEditable()
+	 * @generated
+	 */
+	void setEditable(String value);
 
 } // Column

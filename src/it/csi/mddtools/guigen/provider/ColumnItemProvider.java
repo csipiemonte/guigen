@@ -67,6 +67,7 @@ public class ColumnItemProvider
 			addSelectorPropertyDescriptor(object);
 			addLabelPropertyDescriptor(object);
 			addSortablePropertyDescriptor(object);
+			addEditablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -138,6 +139,28 @@ public class ColumnItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Editable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_editable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_editable_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__EDITABLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Column.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -177,6 +200,7 @@ public class ColumnItemProvider
 			case GuigenPackage.COLUMN__SELECTOR:
 			case GuigenPackage.COLUMN__LABEL:
 			case GuigenPackage.COLUMN__SORTABLE:
+			case GuigenPackage.COLUMN__EDITABLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

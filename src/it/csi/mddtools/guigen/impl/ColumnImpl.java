@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isSortable <em>Sortable</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getEditable <em>Editable</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,6 +92,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected boolean sortable = SORTABLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditable() <em>Editable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditable()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDITABLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditable() <em>Editable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditable()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editable = EDITABLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,6 +200,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditable() {
+		return editable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditable(String newEditable) {
+		String oldEditable = editable;
+		editable = newEditable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__EDITABLE, oldEditable, editable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -188,6 +230,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getLabel();
 			case GuigenPackage.COLUMN__SORTABLE:
 				return isSortable() ? Boolean.TRUE : Boolean.FALSE;
+			case GuigenPackage.COLUMN__EDITABLE:
+				return getEditable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,6 +252,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__SORTABLE:
 				setSortable(((Boolean)newValue).booleanValue());
+				return;
+			case GuigenPackage.COLUMN__EDITABLE:
+				setEditable((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,6 +277,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__SORTABLE:
 				setSortable(SORTABLE_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__EDITABLE:
+				setEditable(EDITABLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -248,6 +298,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
 			case GuigenPackage.COLUMN__SORTABLE:
 				return sortable != SORTABLE_EDEFAULT;
+			case GuigenPackage.COLUMN__EDITABLE:
+				return EDITABLE_EDEFAULT == null ? editable != null : !EDITABLE_EDEFAULT.equals(editable);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -268,6 +320,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(label);
 		result.append(", sortable: ");
 		result.append(sortable);
+		result.append(", editable: ");
+		result.append(editable);
 		result.append(')');
 		return result.toString();
 	}

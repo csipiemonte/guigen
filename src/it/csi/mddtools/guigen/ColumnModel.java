@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ColumnModel#getColumns <em>Columns</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ColumnModel#getValueSelector <em>Value Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,5 +43,31 @@ public interface ColumnModel extends EObject {
 	 * @generated
 	 */
 	EList<Column> getColumns();
+
+	/**
+	 * Returns the value of the '<em><b>Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value Selector</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value Selector</em>' attribute.
+	 * @see #setValueSelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumnModel_ValueSelector()
+	 * @model
+	 * @generated
+	 */
+	String getValueSelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ColumnModel#getValueSelector <em>Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value Selector</em>' attribute.
+	 * @see #getValueSelector()
+	 * @generated
+	 */
+	void setValueSelector(String value);
 
 } // ColumnModel
