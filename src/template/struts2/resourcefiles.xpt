@@ -97,7 +97,7 @@ Gestione dei pannelli
 
 «REM»Genera il setup del Content Panel«ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-<s:form action="«getStrutsActionConfigName(this)»" method="post" theme="simple">
+<s:form action="«getStrutsActionConfigName(this)»" method="post" theme="csi">
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
@@ -403,7 +403,6 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
-               uid="row_«this.name»"
                excludedParams="*"
                export="true"
                defaultsort="1"
@@ -413,6 +412,7 @@ Gestione dei Widget
                requestURI="«getStrutsActionConfigName(cp)».do"
                keepStatus="true"
                clearStatus="false"
+               uid="row_«this.name»"
                «getTablePortalStyle(model)» >
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort">
@@ -427,7 +427,7 @@ Gestione dei Widget
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable-»
 		<display:column title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable">
-			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + #attr.row_«this.name».index + '].«currCol.selector»'}" cssClass="minim"/>
+			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" cssClass="minim"/>
 		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable" />
