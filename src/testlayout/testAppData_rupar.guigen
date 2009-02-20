@@ -9,24 +9,24 @@
           <topLevelMenu name="mnuAnagrafica" label="Gestione Anagrafiche">
             <item name="mnuItmAnagrafica" label="Gestiona Anagrafiche">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
             </item>
           </topLevelMenu>
           <topLevelMenu name="mnuAziende" label="Gestione Aziende">
             <item name="mnuItmRicercaAziende" label="Ricerca Aziende">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
               </eventHandler>
             </item>
             <item name="smnuItm22" label="Item 2.2">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
               </eventHandler>
             </item>
             <item name="smnuItm23" label="Item 2.3">
               <eventHandler>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -39,26 +39,26 @@
             <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="50"/>
             <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
               <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
+                <command xsi:type="guigen:ExecCommand" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
                   <results resultCode="FOUND_MANY">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                   </results>
                   <results resultCode="FOUND_ONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                   </results>
                   <results resultCode="FOUND_NONE">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                   </results>
-                </action>
+                </command>
               </eventHandlers>
             </widgets>
             <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
               <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="precompilaFormRicerca">
+                <command xsi:type="guigen:ExecCommand" methodName="precompilaFormRicerca">
                   <results resultCode="OK">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                   </results>
-                </action>
+                </command>
               </eventHandlers>
             </widgets>
           </panels>
@@ -71,11 +71,11 @@
             </widgets>
             <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
               <eventHandlers>
-                <action xsi:type="guigen:ExecAction" methodName="caricaDettaglioSoggetto">
+                <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggetto">
                   <results resultCode="OK">
-                    <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                   </results>
-                </action>
+                </command>
               </eventHandlers>
             </widgets>
             <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.26">
@@ -124,16 +124,16 @@
             <subpanels xsi:type="guigen:FormPanel" name="spButtons">
               <widgets xsi:type="guigen:ConfirmButton" name="bSalvaModifiche" label="Salva Modifiche">
                 <eventHandlers>
-                  <action xsi:type="guigen:ExecAction" methodName="salvaModifichePersona" postExecData="//@appDataDefs/@appData.1">
+                  <command xsi:type="guigen:ExecCommand" methodName="salvaModifichePersona" postExecData="//@appDataDefs/@appData.1">
                     <results resultCode="OK">
-                      <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                     </results>
-                  </action>
+                  </command>
                 </eventHandlers>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bGotoRicerca" label="Altra ricerca">
                 <eventHandlers>
-                  <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -145,7 +145,7 @@
             <widgets xsi:type="guigen:TextField" name="tfRagioneSociale" label="Ragione Sociale:" dataType="//@typedefs/@types.7" fieldLength="50"/>
             <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Ricerca">
               <eventHandlers>
-                <action xsi:type="guigen:JumpAction" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
               </eventHandlers>
             </widgets>
           </panels>
