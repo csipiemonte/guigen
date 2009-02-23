@@ -645,6 +645,14 @@ Gestione dei LAYOUT
 «ENDDEFINE»
 
 
+«REM»Lo UserDefinedWidget NON ha label, quindi la colonna della label non va considerata«ENDREM»
+«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+«LET needHandleCustomtagHeaderHspan(fp, this) ? getCustomtagHeaderColspan(this)+1 : 2 AS colSpan-»
+<customtag:column colSpan="«colSpan»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ENDLET-»
+«ENDDEFINE»
+
+
 «DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «REM»per il momento non fare niente...«ENDREM»
 «ENDDEFINE»
@@ -669,3 +677,4 @@ Gestione dei LAYOUT
 «DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «REM»per il momento non fare niente...«ENDREM»
 «ENDDEFINE»
+

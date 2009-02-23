@@ -69,6 +69,7 @@
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
 		«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
 «ENDFILE-»
+«EXPAND createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -88,6 +89,29 @@
 «ENDDEFINE»
 
 
+«REM»Genera il file JSP di uno UserDefinedWidget.«ENDREM»
+«DEFINE createUserDefinedWidgetJspFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«LET this.findAllWidgetsInContentPanel().select(w|w. metaType == UserDefinedWidget) AS widgetsList-»
+	«FOREACH widgetsList AS currWidg-»
+		«EXPAND createUserDefinedWidgetJspFile(model, skip_component_dir_creation, this) FOR (UserDefinedWidget)currWidg-»
+	«ENDFOREACH-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE createUserDefinedWidgetJspFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR UserDefinedWidget»
+«FILE getJspUserDefinedWidgetMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp" »<%@taglib uri="/struts-tags" prefix="s" %>
+
+<%-- Parametro per la gestione della abilitazione/disabilitazione del widget --%>
+<s:set name="«cp.name»_«this.name»_enabled_local" value="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
+
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
+<!-- Inserire qui il codice del widget -->
+«ENDPROTECT»
+
+«ENDFILE-»
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================
@@ -97,11 +121,12 @@ Gestione dei pannelli
 
 «REM»Genera il setup del Content Panel«ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-<s:form action="«getStrutsActionConfigName(this)»" method="post" theme="csi">
+<s:form action="«getStrutsActionConfigName(this)»" method="post">
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
 </s:form>
+
 «ENDDEFINE»
 
 
@@ -462,7 +487,19 @@ Gestione dei Widget
 </div>
 «ENDDEFINE»
 
+
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
 
+«ENDDEFINE»
+
+
+«REM»
+Genera la componente di markup (HTML) di uno UserDefinedWidget.
+La componente UserDefinedWidget consiste in una jsp separata dove lo sviluppatore scrive, in regione protetta,
+il codice necessario, e nella direttiva include inserita laddove il widget deve essere posizionato.
+NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tale widget.
+«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
+<s:include value="«getJspUserDefinedWidgetConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
 «ENDDEFINE»

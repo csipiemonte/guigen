@@ -64,6 +64,13 @@ String getJspTabsMarkupDir(GUIModel model, boolean omit_root) :
 String getJspTabsConfig() :
 	"/" + getPresentationMarkupConfig() + "/tabs";
 
+// JSP for UserDefinedWidget
+String getJspUserDefinedWidgetMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/userwidgets";
+
+String getJspUserDefinedWidgetConfig() :
+	"/" + getPresentationMarkupConfig() + "/userwidgets";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Classi Java comuni
@@ -132,7 +139,6 @@ String getStrutsBaseActionJavaFile(GUIModel model, boolean omit_root) :
 
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
 
@@ -158,15 +164,7 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
-String getHandlerMethodName(Widget source, EventHandler evh) :
-	"handle"+source.name.toFirstUpper()+"_"+evh.eventType.toString();
 
-String getClickHandlerMethodName(Widget source) :
-	( source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1 ? 
-		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())
-		:
-		"execute" 
-	);
 	 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi spring
@@ -177,9 +175,10 @@ String getSpringBEClassName() :
 String getSpringBEFQN(GUIModel model) :
 	getBaseJavaPackage(model)+".business."+getSpringBEClassName();
 
-
 String getSpringBEJavaFile(GUIModel model) :
 	getBaseJavaSrcDir(model, true)+"/business/"+getSpringBEClassName()+".java";
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Type Mapping
@@ -259,6 +258,20 @@ let code = ((SimpleType)type).code :
 	else 
   	"???";
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+String getHandlerMethodName(Widget source, EventHandler evh) :
+	"handle"+source.name.toFirstUpper()+"_"+evh.eventType.toString();
+
+String getClickHandlerMethodName(Widget source) :
+	( source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1 ? 
+		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())
+		:
+		"execute" 
+	);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
