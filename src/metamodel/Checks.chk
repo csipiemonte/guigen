@@ -119,6 +119,16 @@ context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una col
  context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile" :
  	!(this.editable && this.eventActive);
  
+ // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
+ context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout" :
+ 	this.eContainer.metaType == FormPanel
+ 	&& 
+ 	(
+ 		((FormPanel)this.eContainer).layout.metaType == VerticalFlowPanelLayout
+ 		|| 
+ 		((FormPanel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout
+ 	) ;
+ 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener

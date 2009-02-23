@@ -273,6 +273,12 @@ String getClickHandlerMethodName(Widget source) :
 		"execute" 
 	);
 
+// [DM] restituisce l'azione relativa ad una colonna della tabella
+String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
+	if (currCol.eventActive) then
+		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
+			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// PORTAL THEMES AND STYLES
@@ -292,7 +298,6 @@ String getTablePortalStyle(GUIModel model) :
 		"class=\"col\" cellpadding=\"2\" cellspacing=\"2\""
 	else
 		"class=\"\" cellpadding=\"2\" cellspacing=\"2\"";
-
 
 String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
 	//if (level == 1) then
@@ -419,15 +424,6 @@ String getCustomtagCloseColspan(FormPanel fp, Widget w) : JAVA
 // [DM]
 String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
-
-// [DM] restituisce l'azione relativa ad una colonna della tabella
-//String getColumnAction(Column currCol, Table table) : JAVA
-//	it.csi.mddtools.guigen.genutils.GenUtils.getColumnAction(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
-String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
-	if (currCol.eventActive) then
-		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
-			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

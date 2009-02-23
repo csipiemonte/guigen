@@ -185,6 +185,9 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="spDatiAnagrafici" label="Dati Anagrafici">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:HiddenValue" name="idPersona" dataType="//@typedefs/@types.0">
+                  <databinding appData="//@appDataDefs/@appData.1" path="id"/>
+                </widgets>
                 <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="" dataType="//@typedefs/@types.7" fieldLength="16">
                   <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
                 </widgets>
@@ -689,6 +692,7 @@
     <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
     <types xsi:type="guigen:ComplexType" name="Persona">
+      <fields name="id" type="//@typedefs/@types.0"/>
       <fields name="codFisc" type="//@typedefs/@types.7"/>
       <fields name="nome" type="//@typedefs/@types.7"/>
       <fields name="cognome" type="//@typedefs/@types.7"/>
