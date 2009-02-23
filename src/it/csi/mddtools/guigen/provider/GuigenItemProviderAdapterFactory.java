@@ -1594,6 +1594,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.HiddenValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected HiddenValueItemProvider hiddenValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.HiddenValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createHiddenValueAdapter() {
+		if (hiddenValueItemProvider == null) {
+			hiddenValueItemProvider = new HiddenValueItemProvider(this);
+		}
+
+		return hiddenValueItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UserDefinedWidget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UserDefinedWidgetItemProvider userDefinedWidgetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UserDefinedWidget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUserDefinedWidgetAdapter() {
+		if (userDefinedWidgetItemProvider == null) {
+			userDefinedWidgetItemProvider = new UserDefinedWidgetItemProvider(this);
+		}
+
+		return userDefinedWidgetItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1758,6 +1804,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (gridWidgetLayoutSpecItemProvider != null) gridWidgetLayoutSpecItemProvider.dispose();
 		if (commandPanelItemProvider != null) commandPanelItemProvider.dispose();
 		if (menuPanelItemProvider != null) menuPanelItemProvider.dispose();
+		if (hiddenValueItemProvider != null) hiddenValueItemProvider.dispose();
+		if (userDefinedWidgetItemProvider != null) userDefinedWidgetItemProvider.dispose();
 	}
 
 }

@@ -47,6 +47,7 @@ import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Header;
+import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.JumpBackCommand;
@@ -84,6 +85,7 @@ import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityCommand;
 import it.csi.mddtools.guigen.Widget;
@@ -630,6 +632,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass menuPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass hiddenValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userDefinedWidgetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2312,6 +2328,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getHiddenValue() {
+		return hiddenValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUserDefinedWidget() {
+		return userDefinedWidgetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2638,6 +2672,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		menuPanelEClass = createEClass(MENU_PANEL);
 
+		hiddenValueEClass = createEClass(HIDDEN_VALUE);
+
+		userDefinedWidgetEClass = createEClass(USER_DEFINED_WIDGET);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2726,6 +2764,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		gridWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
 		commandPanelEClass.getESuperTypes().add(this.getFormPanel());
 		menuPanelEClass.getESuperTypes().add(this.getFormPanel());
+		hiddenValueEClass.getESuperTypes().add(this.getDataWidget());
+		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2976,6 +3016,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(commandPanelEClass, CommandPanel.class, "CommandPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(menuPanelEClass, MenuPanel.class, "MenuPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(hiddenValueEClass, HiddenValue.class, "HiddenValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(userDefinedWidgetEClass, UserDefinedWidget.class, "UserDefinedWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

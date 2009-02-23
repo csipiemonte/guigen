@@ -372,6 +372,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createMenuPanelAdapter();
 			}
 			@Override
+			public Adapter caseHiddenValue(HiddenValue object) {
+				return createHiddenValueAdapter();
+			}
+			@Override
+			public Adapter caseUserDefinedWidget(UserDefinedWidget object) {
+				return createUserDefinedWidgetAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1438,6 +1446,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMenuPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.HiddenValue <em>Hidden Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.HiddenValue
+	 * @generated
+	 */
+	public Adapter createHiddenValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UserDefinedWidget <em>User Defined Widget</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UserDefinedWidget
+	 * @generated
+	 */
+	public Adapter createUserDefinedWidgetAdapter() {
 		return null;
 	}
 

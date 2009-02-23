@@ -3601,6 +3601,143 @@ public interface GuigenPackage extends EPackage {
 	int MENU_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.HiddenValueImpl <em>Hidden Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.HiddenValueImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getHiddenValue()
+	 * @generated
+	 */
+	int HIDDEN_VALUE = 75;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__NAME = DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__LABEL = DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__LAYOUT_SPEC = DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
+
+	/**
+	 * The number of structural features of the '<em>Hidden Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserDefinedWidgetImpl <em>User Defined Widget</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UserDefinedWidgetImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserDefinedWidget()
+	 * @generated
+	 */
+	int USER_DEFINED_WIDGET = 76;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__NAME = WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__LABEL = WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__LAYOUT_SPEC = WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The number of structural features of the '<em>User Defined Widget</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3608,7 +3745,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 75;
+	int WIDGET_DATA_TYPE = 77;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -3618,7 +3755,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 76;
+	int UDLRC_SPEC_CONSTANTS = 78;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3628,7 +3765,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 77;
+	int EVENT_TYPES = 79;
 
 
 	/**
@@ -3639,7 +3776,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 78;
+	int DATA_LIFETIME_TYPE = 80;
 
 
 	/**
@@ -3650,7 +3787,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 79;
+	int SIMPLE_TYPE_CODES = 81;
 
 
 	/**
@@ -3661,7 +3798,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 80;
+	int PORTAL_NAMES = 82;
 
 
 	/**
@@ -5504,6 +5641,26 @@ public interface GuigenPackage extends EPackage {
 	EClass getMenuPanel();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.HiddenValue <em>Hidden Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Hidden Value</em>'.
+	 * @see it.csi.mddtools.guigen.HiddenValue
+	 * @generated
+	 */
+	EClass getHiddenValue();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserDefinedWidget <em>User Defined Widget</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>User Defined Widget</em>'.
+	 * @see it.csi.mddtools.guigen.UserDefinedWidget
+	 * @generated
+	 */
+	EClass getUserDefinedWidget();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7126,6 +7283,26 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MENU_PANEL = eINSTANCE.getMenuPanel();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.HiddenValueImpl <em>Hidden Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.HiddenValueImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getHiddenValue()
+		 * @generated
+		 */
+		EClass HIDDEN_VALUE = eINSTANCE.getHiddenValue();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserDefinedWidgetImpl <em>User Defined Widget</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UserDefinedWidgetImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserDefinedWidget()
+		 * @generated
+		 */
+		EClass USER_DEFINED_WIDGET = eINSTANCE.getUserDefinedWidget();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

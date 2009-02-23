@@ -620,6 +620,24 @@ public interface GuigenFactory extends EFactory {
 	MenuPanel createMenuPanel();
 
 	/**
+	 * Returns a new object of class '<em>Hidden Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Hidden Value</em>'.
+	 * @generated
+	 */
+	HiddenValue createHiddenValue();
+
+	/**
+	 * Returns a new object of class '<em>User Defined Widget</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>User Defined Widget</em>'.
+	 * @generated
+	 */
+	UserDefinedWidget createUserDefinedWidget();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
