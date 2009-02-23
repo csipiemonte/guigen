@@ -535,23 +535,52 @@ public class SequenceCommand implements ICommand {
 
 «REM»property sempre presenti:
 - idNodo per gestire eventuali click su un treeView
+- idCella per gestire eventuali click sulla cella di una tabella
 «ENDREM»
 «DEFINE commonProperties FOR ContentPanel»
 	/////////////////////////////////////////
 	/// property comuni a tutte le action
 	/////////////////////////////////////////
-	
+
 	// nodo selezionato in un eventuale tree
 	private String _idNodo = "";
-	
+
 	public void setIdNodo(String val){
 		_idNodo = val;
 	}
-	
+
 	public String getIdNodo(){
 		return _idNodo;
 	}
-	
+
+
+	// riga selezionata in una eventuale tabella
+	// NOTA: l'id della cella selezionata è data da idRiga + idColonna
+	private String _idRiga = "";
+
+	public void setIdRiga(String val){
+		_idRiga = val;
+	}
+
+	public String getIdRiga(){
+		return _idRiga;
+	}
+
+	// colonna selezionata in una eventuale tabella
+	// NOTA: l'id della cella selezionata è data da idRiga + idColonna
+	private String _idColonna = "";
+
+	public void setIdColonna(String val){
+		_idColonna = val;
+	}
+
+	public String getIdColonna(){
+		return _idColonna;
+	}
+
+
+
+
 «ENDDEFINE»
 
 «REM»

@@ -302,8 +302,10 @@ Gestione dei PANNELLI
 	<div id="colonna">
 		<h2 class="alt">contenuti</h2>
 
+		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
 		<h3>«this.label.toUpperCase()»</h3>
+		«ENDIF-»
 		
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
@@ -355,7 +357,9 @@ Gestione dei PANNELLI
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
 		<!-- titolo pannello 1° livello -->
+		«IF !isNullOrEmpty(this.label) -»
 		<h3>«this.label.toUpperCase()»</h3>
+		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
@@ -413,7 +417,9 @@ Gestione dei PANNELLI
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
 		<!-- titolo pannello primo livello -->
+		«IF !isNullOrEmpty(this.label) -»
 		<h3>«this.label.toUpperCase()»</h3>
+		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
@@ -472,7 +478,9 @@ Gestione dei PANNELLI
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
 		<!-- titolo pannello primo livello -->
+		«IF !isNullOrEmpty(this.label) -»
 		<h3>«this.label.toUpperCase()»</h3>
+		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»

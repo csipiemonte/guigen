@@ -407,6 +407,14 @@ String getCustomtagCloseColspan(FormPanel fp, Widget w) : JAVA
 String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
 
+// [DM] restituisce l'azione relativa ad una colonna della tabella
+//String getColumnAction(Column currCol, Table table) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.getColumnAction(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
+String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
+	if (currCol.eventActive) then
+		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
+			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -424,10 +432,6 @@ boolean commandPanelLayoutCheck(CommandPanel cp) : JAVA
 // [DM] Controlla che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
 boolean menuPanelWidgetCheck(MenuPanel mp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.menuPanelWidgetCheck(it.csi.mddtools.guigen.MenuPanel);
-
-
-
-
 
 
 

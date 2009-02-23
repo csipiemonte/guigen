@@ -5,9 +5,9 @@ extension template::GenericExtensions;
 extension template::struts2::Struts2Extensions;
 
 
-/////////////////////////////////////////////////
-// Check indipendenti dalla piattaforma target //
-/////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Check indipendenti dalla piattaforma target                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // validazioni generali (prodotto/componente etc..)
 context GUIModel ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)" :
@@ -21,7 +21,9 @@ context GUIModel ERROR "E'necessario specificare la versione del prodotto nel fo
 
 context GUIModel ERROR "E'necessario specificare la versione del componente nel formato major.minor.bugfix" :
 	versioneComponente!=null && isVersioneFormalmenteCorretta(versioneComponente);
-	
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
 context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione" :
@@ -30,14 +32,18 @@ context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'in
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
 
-context Panel ERROR "il nome di un pannello deve essere univoco all'intenro di un content panel" :
+context Panel ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel" :
     findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
 	
 
-context ApplicationArea ERROR "Deve essere definito almeno un contentPanel" :
+context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel" :
 	this.contentPanels!=null && this.contentPanels.size>0;
-	
-context FormPanel ERROR "E'necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
+
+// [DM]
+context FormPanel ERROR "E' necessario impostare il layout su ogni FormPanel " + loc() :
+	this.layout != null;
+
+context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
     (this.layout.metaType!=UDLRCPanelLayout) 
     ||
     (
@@ -83,13 +89,17 @@ context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostar
 context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 	this.tabs.size>0;
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
 context Menu ERROR "Un menu deve avere almeno un menu item" :
 	this.item!=null && this.item.size>0;
 
 context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo" :
 	this.eventHandler!=null; 	
-	
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su widget
 
 context Widget ERROR "E'necessario impostare l'attributo 'name' del widget" :
@@ -100,12 +110,17 @@ context Widget ERROR "il name dei widgets in un content panel (eccettuati singol
      findAllWidgetsInContentPanel(findParentContentPanel(this)).select(w|((Widget)w).name==this.name).size==1;
      
 context Table ERROR "Non è stato impostato lo schema delle colonne" :
-this.columnModel!=null;
+	this.columnModel!=null;
 
 context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna" :
-columns != null && columns.size>0;
- 	
+	columns != null && columns.size>0;
+ 
+ // [DM] una colonna non può essere contemporaneamente editabile e cliccabile
+ context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile" :
+ 	!(this.editable && this.eventActive);
+ 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
 
 context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED" :
@@ -132,7 +147,8 @@ context ApplicationData ERROR "E' necessario specificare il nome dell Applicatio
 context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data" :
 	this.type!=null;
 
-///////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su azioni
 
 // un menu view non può avere event handler associati (eredita quelli del menu vero e proprio di cui
@@ -149,7 +165,9 @@ context TreeView ERROR "ad una TreeView è possibile associare solo la gestione d
 context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED" :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
-/// constraints su binding
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// constraints su binding
 	
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding" :
 	this.appData!=null;
@@ -223,8 +241,6 @@ context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può esse
 context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget" :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 
-
-/////////////////////////////////////////////////////////////////////
 // [DM] check su CommandPanel
 // Il CommanPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
 // 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
@@ -248,8 +264,6 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 context CommandPanel ERROR "Un CommandPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
 
-
-/////////////////////////////////////////////////////////////////////
 // [DM] check su MenuPanel
 // Il MenuPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
 // 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
@@ -272,4 +286,3 @@ context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalF
 // 5
 context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
-

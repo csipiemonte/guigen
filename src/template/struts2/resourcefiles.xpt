@@ -358,7 +358,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-          headerKey="00" headerValue="-- Selezionare un valore --"
+          headerKey="" headerValue="-- Selezionare un valore --"
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
@@ -383,8 +383,7 @@ Gestione dei Widget
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di un pulsante di reset del form.
-«ENDREM»
+«REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" «getButtonStyleByLayout(model, this)»
@@ -426,11 +425,12 @@ Gestione dei Widget
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable-»
-		<display:column title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable">
+		<display:column title="«currCol.label»" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" >
 			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" cssClass="minim"/>
 		</display:column>
 		«ELSE-»
-		<display:column property="«currCol.selector»" title="«currCol.label»" sortable="«currCol.sortable»" headerClass="sortable" />
+		<display:column property="«currCol.selector»" title="«currCol.label»" «getColumnAction(currCol, this, cp)»
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" />
 		«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»
@@ -448,18 +448,18 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) di un TreeView.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TreeView»
-			«REM»TODO: verificare se questo id va bene«ENDREM»
-			<div id="menuTree">
-				<customtag:tree
-					name="«getOGNLForWidgetMultiValue(this)»" folder="img/tree" imgOpen="minus.gif"
-					imgClosed="plus.gif" imgDot="dot.gif" linkOnTree="true"
-					«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
-					requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())».do" showChildNumber="false">
-					«ELSE-»
-					requestURI="«getStrutsActionConfigName(cp)».do" showChildNumber="false">
-					«ENDIF-»
-				</customtag:tree>
-			</div>
+«REM»TODO: verificare se questo id va bene«ENDREM»
+<div id="menuTree">
+	<customtag:tree
+		name="«getOGNLForWidgetMultiValue(this)»" folder="img/tree" imgOpen="minus.gif"
+		imgClosed="plus.gif" imgDot="dot.gif" linkOnTree="true"
+		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
+		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())».do" showChildNumber="false">
+		«ELSE-»
+		requestURI="«getStrutsActionConfigName(cp)».do" showChildNumber="false">
+		«ENDIF-»
+	</customtag:tree>
+</div>
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
