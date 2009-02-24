@@ -250,7 +250,7 @@ TODO:
 
 «DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-	<s:set name="«this.name»_selectedMultiPanel" value="%{'«this.name+"_"+this.panels.first().name»'}" />
+	«REM»<s:set name="«this.name»_selectedMultiPanel" value="%{'«this.name+"_"+this.panels.first().name»'}" />«ENDREM»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 
 	«REM»Definizione del pannello«ENDREM»
@@ -312,7 +312,7 @@ TODO:
 
 «REM»la direttiva di include per ogni file che rappresenta un MultiPanel subpanel«ENDREM»
 «DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel) FOR Panel»
-<s:if test="%{#«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'}">
+<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'">
 	<s:include value="«getJspMultipanelsConfig()+"/"+multiPanel.name+"_"+this.name+".jsp"»" ></s:include>
 </s:if>
 «ENDDEFINE»

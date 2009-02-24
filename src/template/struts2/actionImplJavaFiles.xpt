@@ -45,6 +45,25 @@ public class JumpCommand implements ICommand {
 };
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// ActivateMultiPanelItemCommand
+public class ActivateMultiPanelItemCommand implements ICommand {
+	String containerName; 
+	String itemName;
+	public ActivateMultiPanelItemCommand(String containerName, String itemName) {
+		this.containerName = containerName;
+		this.itemName = itemName;
+	}
+	public String doCommand(BaseAction strutsAction) {
+		System.out.println("Attivazione multipannello "+containerName+"."+itemName);
+		strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
+		return null;
+	}
+};
+«ENDFILE»
+
 «FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"»
 package «getPresentationJavaPackage()»;
 
@@ -394,6 +413,13 @@ public class SequenceCommand implements ICommand {
 	/// Jump Command begin
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ActivateMultiPanelItemCommand»
+	/// ActivateMultiPanelItem Command begin
+	ActivateMultiPanelItemCommand act_«actionsVarName»_«actionNumber» = 
+		new ActivateMultiPanelItemCommand("«this.multipanel.name»", "«this.activeItem.name»");
+	/// ActivateMultiPanelItem Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogCommand»
