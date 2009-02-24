@@ -115,19 +115,21 @@ context Table ERROR "Non è stato impostato lo schema delle colonne" :
 context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna" :
 	columns != null && columns.size>0;
  
- // [DM] una colonna non può essere contemporaneamente editabile e cliccabile
- context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile" :
- 	!(this.editable && this.eventActive);
+// [DM] una colonna non può essere contemporaneamente editabile e cliccabile
+context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile" :
+!(this.editable && this.eventActive);
  
- // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
- context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout" :
- 	this.eContainer.metaType == FormPanel
- 	&& 
- 	(
- 		((FormPanel)this.eContainer).layout.metaType == VerticalFlowPanelLayout
- 		|| 
- 		((FormPanel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout
- 	) ;
+// [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
+context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout" :
+ 	//this.eContainer.metaType == FormPanel
+ 	//&& 
+ 	//(
+ 	//	((FormPanel)this.eContainer).layout.metaType == VerticalFlowPanelLayout
+ 	//	|| 
+ 	//	((FormPanel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout
+ 	//) 
+ 	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout
+ 	;
  
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -254,7 +256,7 @@ context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono
 // [DM] check su CommandPanel
 // Il CommanPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
 // 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
-// 2) può contenere solo CommandWidget
+// 2) può contenere solo CommandWidget (o al massimo HiddenValue)
 // 3) non può contenere sottopannelli
 // 4) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
 // 5) non deve avere label (*da verificare*) 
@@ -262,7 +264,7 @@ context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono
 context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPanel " + loc() :
 	this.eContainer.metaType == FormPanel;
 // 2
-context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget " + loc() :
+context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget o HiddenValue" + loc() :
 	commandPanelCommandWidgetCheck(this);
 // 3
 context CommandPanel ERROR "Un CommandPanel non può contenere sottopannelli " + loc() :

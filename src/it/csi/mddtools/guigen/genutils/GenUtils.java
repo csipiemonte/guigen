@@ -31,6 +31,7 @@ import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.Menu;
@@ -814,13 +815,10 @@ public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
 		for ( int r=1; r <= rows; r++ ) {
 			// ciclo sulle colonne
 			for ( int c=1; c <= cols; c++ ) {
-				//System.out.println("#####> 1: GETTING WIDGET : ROW {" + r + "} - COLUMN {" + c + "} - HSPAN {" + hspan + "}");
 				Widget w = getWidgetByRowColumn(p, r, c, hspan);
-				//System.out.println("-----> 2: FOUND WIDGET : ROW {" + r + "-" + c + "} {" + w + "} - HSPAN {" + hspan + "}");
 				if ( w != null ) {
 					res.add(w);
 					hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
-					//System.out.println("-----> 3: ADDED WIDGET : ROW {" + r + "-" + c + "} {" + w + "} - HSPAN {" + hspan + "}");
 				}
 			}
 		}
@@ -1190,16 +1188,16 @@ public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType
 // JAVA METHODS FOR CHECKS
 
 /**
- * Controlla che tutti i widget di un CommandPanel siano dei CommandWidget.
+ * Controlla che tutti i widget di un CommandPanel siano dei CommandWidget
+ * o al massimo un HiddenValue.
  * 
  * @param cp  Il CommandPanel da controllare.
- * @return  true se tutti i widget sono dei CommandWidget, false altrimenti.
+ * @return  true se tutti i widget sono dei CommandWidget (o HiddenValue), false altrimenti.
  * @author [DM]
  */
 public static boolean commandPanelCommandWidgetCheck(CommandPanel cp) {
 	for (Widget w : cp.getWidgets()) {
-		if ( !(w instanceof CommandWidget) ) {
-			System.out.println("=====> WIDGET [" + w + "] non è un CommandWidget");
+		if ( !(w instanceof CommandWidget) && !(w instanceof HiddenValue) ) {
 			return false;
 		}
 	}
@@ -1249,7 +1247,6 @@ public static boolean commandPanelLayoutCheck(CommandPanel cp) {
 public static boolean menuPanelWidgetCheck(MenuPanel mp) {
 	for (Widget w : mp.getWidgets()) {
 		if ( !(w instanceof MenuView) && !(w instanceof TreeView) ) {
-			System.out.println("=====> WIDGET [" + w + "] non è un MenuView o un TreeView");
 			return false;
 		}
 	}
