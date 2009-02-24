@@ -7,10 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.Panel;
-import it.csi.mddtools.guigen.TabSetPanel;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,24 +15,25 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TabSetPanel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TabSetPanelItemProvider
-	extends MultiPanelItemProvider
+public class ActivateMultiPanelItemCommandItemProvider
+	extends CommandItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -48,7 +46,7 @@ public class TabSetPanelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TabSetPanelItemProvider(AdapterFactory adapterFactory) {
+	public ActivateMultiPanelItemCommandItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,33 +61,76 @@ public class TabSetPanelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addMultipanelPropertyDescriptor(object);
+			addActiveItemPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This returns TabSetPanel.gif.
+	 * This adds a property descriptor for the Multipanel feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMultipanelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ActivateMultiPanelItemCommand_multipanel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ActivateMultiPanelItemCommand_multipanel_feature", "_UI_ActivateMultiPanelItemCommand_type"),
+				 GuigenPackage.Literals.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Active Item feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addActiveItemPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ActivateMultiPanelItemCommand_activeItem_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ActivateMultiPanelItemCommand_activeItem_feature", "_UI_ActivateMultiPanelItemCommand_type"),
+				 GuigenPackage.Literals.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns ActivateMultiPanelItemCommand.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TabSetPanel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ActivateMultiPanelItemCommand"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="["+((Panel)object).getName()+"]-"+((Panel)object).getLabel();
-		return label == null || label.length() == 0 ?
-			getString("_UI_TabSetPanel_type") :
-			getString("_UI_TabSetPanel_type") + " " + label;
+		return getString("_UI_ActivateMultiPanelItemCommand_type");
 	}
 
 	/**

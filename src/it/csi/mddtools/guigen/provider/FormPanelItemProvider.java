@@ -162,6 +162,11 @@ public class FormPanelItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__SUBPANELS,
+				 GuigenFactory.eINSTANCE.createMultiPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__SUBPANELS,
 				 GuigenFactory.eINSTANCE.createTabSetPanel()));
 
 		newChildDescriptors.add

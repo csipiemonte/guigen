@@ -127,6 +127,7 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.TAB_SET_PANEL: {
 				TabSetPanel tabSetPanel = (TabSetPanel)theEObject;
 				T result = caseTabSetPanel(tabSetPanel);
+				if (result == null) result = caseMultiPanel(tabSetPanel);
 				if (result == null) result = casePanel(tabSetPanel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -617,6 +618,20 @@ public class GuigenSwitch<T> {
 				UserDefinedWidget userDefinedWidget = (UserDefinedWidget)theEObject;
 				T result = caseUserDefinedWidget(userDefinedWidget);
 				if (result == null) result = caseWidget(userDefinedWidget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.MULTI_PANEL: {
+				MultiPanel multiPanel = (MultiPanel)theEObject;
+				T result = caseMultiPanel(multiPanel);
+				if (result == null) result = casePanel(multiPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND: {
+				ActivateMultiPanelItemCommand activateMultiPanelItemCommand = (ActivateMultiPanelItemCommand)theEObject;
+				T result = caseActivateMultiPanelItemCommand(activateMultiPanelItemCommand);
+				if (result == null) result = caseCommand(activateMultiPanelItemCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1776,6 +1791,36 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseUserDefinedWidget(UserDefinedWidget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Multi Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Multi Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMultiPanel(MultiPanel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Activate Multi Panel Item Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Activate Multi Panel Item Command</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActivateMultiPanelItemCommand(ActivateMultiPanelItemCommand object) {
 		return null;
 	}
 

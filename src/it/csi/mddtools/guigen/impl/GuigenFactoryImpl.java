@@ -129,6 +129,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.MENU_PANEL: return createMenuPanel();
 			case GuigenPackage.HIDDEN_VALUE: return createHiddenValue();
 			case GuigenPackage.USER_DEFINED_WIDGET: return createUserDefinedWidget();
+			case GuigenPackage.MULTI_PANEL: return createMultiPanel();
+			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND: return createActivateMultiPanelItemCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -862,6 +864,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public UserDefinedWidget createUserDefinedWidget() {
 		UserDefinedWidgetImpl userDefinedWidget = new UserDefinedWidgetImpl();
 		return userDefinedWidget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultiPanel createMultiPanel() {
+		MultiPanelImpl multiPanel = new MultiPanelImpl();
+		return multiPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivateMultiPanelItemCommand createActivateMultiPanelItemCommand() {
+		ActivateMultiPanelItemCommandImpl activateMultiPanelItemCommand = new ActivateMultiPanelItemCommandImpl();
+		return activateMultiPanelItemCommand;
 	}
 
 	/**

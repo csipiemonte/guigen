@@ -36,10 +36,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//Panel">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tabs" upperBound="-1" eType="#//Panel"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//MultiPanel"/>
   <eClassifiers xsi:type="ecore:EClass" name="Panel" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -62,6 +59,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="databinding" eType="#//AppDataBinding"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Button" eSuperTypes="#//CommandWidget">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -314,4 +313,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="MenuPanel" eSuperTypes="#//FormPanel"/>
   <eClassifiers xsi:type="ecore:EClass" name="HiddenValue" eSuperTypes="#//DataWidget"/>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedWidget" eSuperTypes="#//Widget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiPanel" eSuperTypes="#//Panel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="panels" upperBound="-1"
+        eType="#//Panel" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivateMultiPanelItemCommand" eSuperTypes="#//Command">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multipanel" eType="#//MultiPanel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activeItem" eType="#//FormPanel"/>
+  </eClassifiers>
 </ecore:EPackage>

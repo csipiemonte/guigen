@@ -230,6 +230,11 @@ public class ApplicationAreaItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
 	}
 
 	/**

@@ -33,6 +33,16 @@
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:MultiPanel" name="pMulti" label="">
+                <panels xsi:type="guigen:FormPanel" name="pMulti1" label="Multi1">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="Multi1 testo" dataType="//@typedefs/@types.7"/>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="pMulti2" label="Multi2">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="taMulti2_ta" label="Text area" dataType="//@typedefs/@types.7"/>
+                </panels>
+              </subpanels>
               <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7"/>
               <widgets xsi:type="guigen:TreeView" name="treeProva" label="" dataType="//@typedefs/@types.7">
                 <eventHandlers>
@@ -43,6 +53,11 @@
                   </command>
                 </eventHandlers>
                 <multiDataBinding appData="//@appDataDefs/@appData.4"/>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti1" label="showMulti1">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.0"/>
+                </eventHandlers>
               </widgets>
             </subpanels>
           </panels>

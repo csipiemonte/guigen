@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.impl;
 
 
+import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
@@ -58,6 +59,7 @@ import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
+import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
@@ -652,6 +654,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass multiPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass activateMultiPanelItemCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -933,15 +949,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTabSetPanel_Tabs() {
-		return (EReference)tabSetPanelEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getPanel() {
 		return panelEClass;
 	}
@@ -1052,6 +1059,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getDataWidget_DataType() {
 		return (EReference)dataWidgetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDataWidget_Required() {
+		return (EAttribute)dataWidgetEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2346,6 +2362,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMultiPanel() {
+		return multiPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMultiPanel_Panels() {
+		return (EReference)multiPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActivateMultiPanelItemCommand() {
+		return activateMultiPanelItemCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActivateMultiPanelItemCommand_Multipanel() {
+		return (EReference)activateMultiPanelItemCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActivateMultiPanelItemCommand_ActiveItem() {
+		return (EReference)activateMultiPanelItemCommandEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2448,7 +2509,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(formPanelEClass, FORM_PANEL__WIDGETS);
 
 		tabSetPanelEClass = createEClass(TAB_SET_PANEL);
-		createEReference(tabSetPanelEClass, TAB_SET_PANEL__TABS);
 
 		panelEClass = createEClass(PANEL);
 		createEAttribute(panelEClass, PANEL__NAME);
@@ -2468,6 +2528,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE_MODIFIER);
 		createEReference(dataWidgetEClass, DATA_WIDGET__DATABINDING);
 		createEReference(dataWidgetEClass, DATA_WIDGET__DATA_TYPE);
+		createEAttribute(dataWidgetEClass, DATA_WIDGET__REQUIRED);
 
 		buttonEClass = createEClass(BUTTON);
 		createEAttribute(buttonEClass, BUTTON__IMAGE);
@@ -2676,6 +2737,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		userDefinedWidgetEClass = createEClass(USER_DEFINED_WIDGET);
 
+		multiPanelEClass = createEClass(MULTI_PANEL);
+		createEReference(multiPanelEClass, MULTI_PANEL__PANELS);
+
+		activateMultiPanelItemCommandEClass = createEClass(ACTIVATE_MULTI_PANEL_ITEM_COMMAND);
+		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL);
+		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2714,7 +2782,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		// Add supertypes to classes
 		formPanelEClass.getESuperTypes().add(this.getPanel());
-		tabSetPanelEClass.getESuperTypes().add(this.getPanel());
+		tabSetPanelEClass.getESuperTypes().add(this.getMultiPanel());
 		commandWidgetEClass.getESuperTypes().add(this.getWidget());
 		dataWidgetEClass.getESuperTypes().add(this.getWidget());
 		buttonEClass.getESuperTypes().add(this.getCommandWidget());
@@ -2766,6 +2834,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		menuPanelEClass.getESuperTypes().add(this.getFormPanel());
 		hiddenValueEClass.getESuperTypes().add(this.getDataWidget());
 		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
+		multiPanelEClass.getESuperTypes().add(this.getPanel());
+		activateMultiPanelItemCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2793,7 +2863,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getFormPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tabSetPanelEClass, TabSetPanel.class, "TabSetPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTabSetPanel_Tabs(), this.getPanel(), null, "tabs", null, 0, -1, TabSetPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(panelEClass, Panel.class, "Panel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2813,6 +2882,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getDataWidget_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataWidget_Databinding(), this.getAppDataBinding(), null, "databinding", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataWidget_DataType(), this.getType(), null, "dataType", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataWidget_Required(), ecorePackage.getEBoolean(), "required", "false", 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(buttonEClass, Button.class, "Button", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getButton_Image(), ecorePackage.getEString(), "image", null, 0, 1, Button.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3020,6 +3090,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(hiddenValueEClass, HiddenValue.class, "HiddenValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(userDefinedWidgetEClass, UserDefinedWidget.class, "UserDefinedWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(multiPanelEClass, MultiPanel.class, "MultiPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMultiPanel_Panels(), this.getPanel(), null, "panels", null, 0, -1, MultiPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(activateMultiPanelItemCommandEClass, ActivateMultiPanelItemCommand.class, "ActivateMultiPanelItemCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActivateMultiPanelItemCommand_Multipanel(), this.getMultiPanel(), null, "multipanel", null, 0, 1, ActivateMultiPanelItemCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActivateMultiPanelItemCommand_ActiveItem(), this.getFormPanel(), null, "activeItem", null, 0, 1, ActivateMultiPanelItemCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

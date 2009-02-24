@@ -214,6 +214,11 @@ public class ContentPanelItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createMultiPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createTabSetPanel()));
 
 		newChildDescriptors.add

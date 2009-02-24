@@ -491,7 +491,7 @@ depth first dell'albero della struttura a pannelli«ENDREM»
     	    «EXPAND genPanelSetupFunction FOREACH ((FormPanel)this).subpanels»
 «ELSEIF this.metaType==TabSetPanel»
     	    «EXPAND setupTabSetPanel FOR (TabSetPanel)this»
-    	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).tabs»
+    	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).panels»
 «ELSEIF this.metaType==DialogPanel»
 			«EXPAND genPanelSetupFunction FOR ((DialogPanel)this).dialogContent»
 «ENDIF»
@@ -747,7 +747,7 @@ private JTabbedPane setupTabSetPanel_«this.name»(){
     «ENDIF»
     
 	
-	«FOREACH this.tabs AS currTab»
+	«FOREACH this.panels AS currTab»
 	// TODO tab «currTab»
 		«EXPAND createAndAddTab("p",this.layout,currTab.layoutSpec) FOR currTab»
 	«ENDFOREACH»

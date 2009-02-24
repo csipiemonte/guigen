@@ -161,6 +161,11 @@ public class DialogPanelItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				 GuigenFactory.eINSTANCE.createMultiPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
 				 GuigenFactory.eINSTANCE.createTabSetPanel()));
 
 		newChildDescriptors.add

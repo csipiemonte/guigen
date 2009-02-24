@@ -87,8 +87,13 @@ context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostar
     );
 
 context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
-	this.tabs.size>0;
+	this.panels.size>0;
 
+context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno" :
+	this.panels.size>0;
+	
+context MultiPanel ERROR "Un multipanel può contenere solo FormPanel come pannelli interni" :
+	this.panels.select(p|!p.metaType.isAssignableFrom(FormPanel)).size==0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
@@ -152,6 +157,16 @@ context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome as
 
 context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione" :
 	this.methodName!=null && this.methodName.length>0;
+
+context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel" :
+	this.multipanel!=null;
+	
+context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il sottopannello da attivare" :
+	this.activeItem!=null;
+	
+context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato" :
+	this.multipanel.panels.select(p|p==this.activeItem).size>0;
+
 
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
 	this.name!=null && this.name.length>0;

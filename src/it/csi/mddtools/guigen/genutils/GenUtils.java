@@ -40,6 +40,7 @@ import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiDataWidget;
+import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PortalNames;
@@ -162,6 +163,8 @@ public static ArrayList<Widget> findAllWidgetsInPanel(Panel p){
 		return findAllWidgetsInPanel((FormPanel)p);
 	else if (p instanceof TabSetPanel)
 		return findAllWidgetsInPanel((TabSetPanel)p);
+	else if (p instanceof MultiPanel)
+		return findAllWidgetsInPanel((MultiPanel)p);
 	else if (p instanceof DialogPanel)
 		return findAllWidgetsInPanel((DialogPanel)p);
 	else
@@ -188,12 +191,12 @@ public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
  * @return
  */
 	public static ArrayList<Widget> findAllWidgetsInPanel(TabSetPanel tsp) {
-		if (tsp.getTabs() == null)
+		if (tsp.getPanels() == null)
 			return null;
 		else {
 			ArrayList<Widget> ris = new ArrayList<Widget>();
-			if (tsp.getTabs() != null) {
-				Iterator<Panel> it = tsp.getTabs().iterator();
+			if (tsp.getPanels() != null) {
+				Iterator<Panel> it = tsp.getPanels().iterator();
 				while (it.hasNext()) {
 					ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
 					ris.addAll(tmp);
@@ -203,6 +206,28 @@ public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
 		}
 	}
 
+	/**
+	 * Compila una lista di tutti i widget appartenenti ad uno dei sottopannelli del 
+	 * multipanel in oggetto.
+	 * @param mp
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(MultiPanel mp) {
+		if (mp.getPanels() == null)
+			return null;
+		else {
+			ArrayList<Widget> ris = new ArrayList<Widget>();
+			if (mp.getPanels() != null) {
+				Iterator<Panel> it = mp.getPanels().iterator();
+				while (it.hasNext()) {
+					ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
+					ris.addAll(tmp);
+				}
+			}
+			return ris;
+		}
+	}	
+	
 public static boolean isVersioneFormalmenteCorretta(String codVer){
 	StringTokenizer stok = new StringTokenizer(codVer, ".");
 	if (stok.countTokens()!=3)
@@ -332,6 +357,8 @@ public static List<ContentPanel> getAllPossibleJumps(MenuItem mi){
 public static List<ContentPanel> getAllPossibleJumps(Panel p){
 	if (p instanceof FormPanel)
 		return getAllPossibleJumps((FormPanel)p);
+	else if (p instanceof MultiPanel)
+		return getAllPossibleJumps((MultiPanel)p);
 	else
 		return null; // TODO gestire i tabset panel....
 }
@@ -364,6 +391,23 @@ public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
 	List<ContentPanel> result= new ArrayList<ContentPanel>();
 	result.addAll(recursiveDestinations);
 	result.addAll(firstLevelDestinations);
+	return result;
+}
+
+public static List<ContentPanel> getAllPossibleJumps(MultiPanel p){
+	// scende in tutti i sotto pannelli
+	HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
+	List<Panel> subpanels = p.getPanels();
+	if (subpanels!=null){
+		Iterator<Panel> panels_it = subpanels.iterator();
+		while(panels_it.hasNext()){
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
+			if (currSubJumps!=null)
+				recursiveDestinations.addAll(currSubJumps);
+		}
+	}	
+	List<ContentPanel> result= new ArrayList<ContentPanel>();
+	result.addAll(recursiveDestinations);
 	return result;
 }
 

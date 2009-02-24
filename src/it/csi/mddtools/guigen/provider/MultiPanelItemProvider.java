@@ -7,9 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.MultiPanel;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,24 +18,23 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.DataWidget} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MultiPanel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataWidgetItemProvider
-	extends WidgetItemProvider
+public class MultiPanelItemProvider
+	extends PanelItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -48,7 +47,7 @@ public class DataWidgetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataWidgetItemProvider(AdapterFactory adapterFactory) {
+	public MultiPanelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,77 +62,8 @@ public class DataWidgetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDataTypeModifierPropertyDescriptor(object);
-			addDataTypePropertyDescriptor(object);
-			addRequiredPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Data Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDataTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataWidget_dataType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataWidget_dataType_feature", "_UI_DataWidget_type"),
-				 GuigenPackage.Literals.DATA_WIDGET__DATA_TYPE,
-				 true,
-				 false,
-				 false,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Required feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRequiredPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataWidget_required_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataWidget_required_feature", "_UI_DataWidget_type"),
-				 GuigenPackage.Literals.DATA_WIDGET__REQUIRED,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Data Type Modifier feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDataTypeModifierPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataWidget_dataTypeModifier_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataWidget_dataTypeModifier_feature", "_UI_DataWidget_type"),
-				 GuigenPackage.Literals.DATA_WIDGET__DATA_TYPE_MODIFIER,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -148,7 +78,7 @@ public class DataWidgetItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.DATA_WIDGET__DATABINDING);
+			childrenFeatures.add(GuigenPackage.Literals.MULTI_PANEL__PANELS);
 		}
 		return childrenFeatures;
 	}
@@ -167,14 +97,14 @@ public class DataWidgetItemProvider
 	}
 
 	/**
-	 * This returns DataWidget.gif.
+	 * This returns MultiPanel.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataWidget"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MultiPanel"));
 	}
 
 	/**
@@ -185,10 +115,10 @@ public class DataWidgetItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((DataWidget)object).getName();
+		String label = ((MultiPanel)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_DataWidget_type") :
-			getString("_UI_DataWidget_type") + " " + label;
+			getString("_UI_MultiPanel_type") :
+			getString("_UI_MultiPanel_type") + " " + label;
 	}
 
 	/**
@@ -202,13 +132,8 @@ public class DataWidgetItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(DataWidget.class)) {
-			case GuigenPackage.DATA_WIDGET__DATA_TYPE_MODIFIER:
-			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
-			case GuigenPackage.DATA_WIDGET__REQUIRED:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.DATA_WIDGET__DATABINDING:
+		switch (notification.getFeatureID(MultiPanel.class)) {
+			case GuigenPackage.MULTI_PANEL__PANELS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -228,8 +153,33 @@ public class DataWidgetItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.DATA_WIDGET__DATABINDING,
-				 GuigenFactory.eINSTANCE.createAppDataBinding()));
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createFormPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createMultiPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createTabSetPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createDialogPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createCommandPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createMenuPanel()));
 	}
 
 }

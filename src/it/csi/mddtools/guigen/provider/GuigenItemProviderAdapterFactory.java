@@ -1640,6 +1640,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MultiPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MultiPanelItemProvider multiPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MultiPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMultiPanelAdapter() {
+		if (multiPanelItemProvider == null) {
+			multiPanelItemProvider = new MultiPanelItemProvider(this);
+		}
+
+		return multiPanelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActivateMultiPanelItemCommandItemProvider activateMultiPanelItemCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActivateMultiPanelItemCommandAdapter() {
+		if (activateMultiPanelItemCommandItemProvider == null) {
+			activateMultiPanelItemCommandItemProvider = new ActivateMultiPanelItemCommandItemProvider(this);
+		}
+
+		return activateMultiPanelItemCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1806,6 +1852,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (menuPanelItemProvider != null) menuPanelItemProvider.dispose();
 		if (hiddenValueItemProvider != null) hiddenValueItemProvider.dispose();
 		if (userDefinedWidgetItemProvider != null) userDefinedWidgetItemProvider.dispose();
+		if (multiPanelItemProvider != null) multiPanelItemProvider.dispose();
+		if (activateMultiPanelItemCommandItemProvider != null) activateMultiPanelItemCommandItemProvider.dispose();
 	}
 
 }

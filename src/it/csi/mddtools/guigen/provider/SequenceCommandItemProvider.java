@@ -192,6 +192,11 @@ public class SequenceCommandItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
 				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
+				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
 	}
 
 }

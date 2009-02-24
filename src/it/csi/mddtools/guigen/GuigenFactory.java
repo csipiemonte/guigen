@@ -638,6 +638,24 @@ public interface GuigenFactory extends EFactory {
 	UserDefinedWidget createUserDefinedWidget();
 
 	/**
+	 * Returns a new object of class '<em>Multi Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Multi Panel</em>'.
+	 * @generated
+	 */
+	MultiPanel createMultiPanel();
+
+	/**
+	 * Returns a new object of class '<em>Activate Multi Panel Item Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Activate Multi Panel Item Command</em>'.
+	 * @generated
+	 */
+	ActivateMultiPanelItemCommand createActivateMultiPanelItemCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

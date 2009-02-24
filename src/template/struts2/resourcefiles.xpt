@@ -152,6 +152,8 @@ Gestione dei pannelli
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+«ELSEIF this.metaType == MultiPanel-»
+	«EXPAND setupMultiPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
 	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSE-»
@@ -231,7 +233,7 @@ TODO:
 «ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.tabs.first().name»'}" />
+	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.panels.first().name»'}" />
 	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 
 	«REM»Definizione del pannello«ENDREM»
@@ -239,13 +241,29 @@ TODO:
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
-	«FOREACH this.tabs AS currTab -»
+	«FOREACH this.panels AS currTab -»
 		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
 		«EXPAND createTabIncludeDirective(model, cp, this) FOR currTab-»
 	«ENDFOREACH-»
 
 «ENDDEFINE»
 
+«DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
+	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+	<s:set name="«this.name»_selectedMultiPanel" value="%{'«this.name+"_"+this.panels.first().name»'}" />
+	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+
+	«REM»Definizione del pannello«ENDREM»
+	«REM»«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»«REM»
+
+	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli
+	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
+	«FOREACH this.panels AS currSubPan -»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currSubPan-»
+	«ENDFOREACH-»
+
+«ENDDEFINE»
 
 «REM»Crea i files per ogni singolo tab«ENDREM»
 «DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
@@ -266,11 +284,36 @@ TODO:
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»crea i files per ogni singolo subpanel«ENDREM»
+«DEFINE createAndAddMultiPanelSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, MultiPanel multiPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
+«FILE getJspMultiPanelsMarkupDir(model, skip_component_dir_creation)+"/"+multiPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+<!-- Creazione del multi panel «this» -->
+«IF this.metaType == FormPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
+«ELSEIF this.metaType == MenuPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
+«ELSEIF this.metaType == CommandPanel-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+«ELSEIF this.metaType == TabSetPanel-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+«ELSE-»
+	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
+«ENDIF-»
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»la direttiva di include per ogni file che rappresenta un Tab«ENDREM»
 «DEFINE createTabIncludeDirective(GUIModel model, ContentPanel cp, TabSetPanel tabPanel) FOR Panel»
 <s:if test="%{#«tabPanel.name»_selectedTab == '«tabPanel.name+"_"+this.name»'}">
 	<s:include value="«getJspTabsConfig()+"/"+tabPanel.name+"_"+this.name+".jsp"»" ></s:include>
+</s:if>
+«ENDDEFINE»
+
+«REM»la direttiva di include per ogni file che rappresenta un MultiPanel subpanel«ENDREM»
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel) FOR Panel»
+<s:if test="%{#«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'}">
+	<s:include value="«getJspMultipanelsConfig()+"/"+multiPanel.name+"_"+this.name+".jsp"»" ></s:include>
 </s:if>
 «ENDDEFINE»
 

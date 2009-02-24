@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDatabinding <em>Databinding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#getDataType <em>Data Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.DataWidgetImpl#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +75,26 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 	 * @ordered
 	 */
 	protected Type dataType;
+
+	/**
+	 * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRequired()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REQUIRED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRequired()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean required = REQUIRED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,6 +151,27 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 		dataType = newDataType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.DATA_WIDGET__DATA_TYPE, oldDataType, dataType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isRequired() {
+		return required;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRequired(boolean newRequired) {
+		boolean oldRequired = required;
+		required = newRequired;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.DATA_WIDGET__REQUIRED, oldRequired, required));
 	}
 
 	/**
@@ -225,6 +267,8 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 				if (resolve) return getDataType();
 				return basicGetDataType();
+			case GuigenPackage.DATA_WIDGET__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -245,6 +289,9 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				return;
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 				setDataType((Type)newValue);
+				return;
+			case GuigenPackage.DATA_WIDGET__REQUIRED:
+				setRequired(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -267,6 +314,9 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 				setDataType((Type)null);
 				return;
+			case GuigenPackage.DATA_WIDGET__REQUIRED:
+				setRequired(REQUIRED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -285,6 +335,8 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				return databinding != null;
 			case GuigenPackage.DATA_WIDGET__DATA_TYPE:
 				return dataType != null;
+			case GuigenPackage.DATA_WIDGET__REQUIRED:
+				return required != REQUIRED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -301,6 +353,8 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (dataTypeModifier: ");
 		result.append(dataTypeModifier);
+		result.append(", required: ");
+		result.append(required);
 		result.append(')');
 		return result.toString();
 	}

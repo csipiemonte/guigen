@@ -228,6 +228,11 @@ public class EventHandlerItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
 	}
 
 	/**

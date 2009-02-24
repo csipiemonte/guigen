@@ -18,6 +18,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDatabinding <em>Databinding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.DataWidget#getDataType <em>Data Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.DataWidget#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,6 +52,33 @@ public interface DataWidget extends Widget {
 	 * @generated
 	 */
 	void setDataType(Type value);
+
+	/**
+	 * Returns the value of the '<em><b>Required</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Required</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Required</em>' attribute.
+	 * @see #setRequired(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_Required()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isRequired();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.DataWidget#isRequired <em>Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Required</em>' attribute.
+	 * @see #isRequired()
+	 * @generated
+	 */
+	void setRequired(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Data Type Modifier</b></em>' attribute.
