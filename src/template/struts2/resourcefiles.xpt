@@ -163,10 +163,10 @@ Gestione dei pannelli
 
 
 «REM»
-************** Form Panel **************
+************** Form Panel e tipi derivati (CommandPanel, MenuPanel) **************
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»Genera un form panel«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
@@ -186,14 +186,14 @@ Gestione dei pannelli
 
 «ENDDEFINE»
 
-«REM»«ENDREM»
+«REM»Genera un CommandPanel«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 «ENDDEFINE»
 
-«REM»«ENDREM»
+«REM»Genera un MenuPanel«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
@@ -202,91 +202,36 @@ Gestione dei pannelli
 
 
 «REM»
-************** Tabset Panel **************
+************** Multi Panel e tipi derivati (TabsetPanel) **************
 «ENDREM»
 
-«REM»
-Genera un tabset panel
-TODO:
-1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
-     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
-     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
-2. come si implementano i singoli tab del tabbed panel?
-     - pagine jsp separate incluse a runtime?
-     - layer (<div>)?
-   Ricordarsi che il tipo di implementazione incide anche sul passaggio dei dati al submit del form.
-3. Come si implementa l'azione di cambio tab?
-     Nel caso di pagine separate deve essere prevista nella Action (file Java) un nuovo tipo di azione (command)
-     da inserire automaticamente nel caso il ContentPanel contenga uno o più TabbedPanel che preveda il settaggio
-     del tab selezionato come attivo e il ricaricamento della pagina (jump action su se stessa)
-     in modo da visualizzare il tab selezionato.
-     Nel caso di implementazione a layer, lazione è da realizzare via Javascript.
-     Ricordarsi che a seconda dell'implementazione scelta per i tab,
-     può essere necessario una memorizzazione dei dati delle form.
-4. Come si riconosce il tab attivo?
-     Come per il menu attivo, si potrebbe ipotizzare di salvare da qualche parte il tab attivo
-     per poi utilizzare dinamicamente a runtime l'informazione sulla JSP via OGNL.
-     Bisogna determinare lo scope di questa informazione (session, Action, page,...).
-5. I tabbed panels possono essere annidati: un sottopannello di un tab può essere a sua volta un tabbed panel,
-     quindi l'informazione DEI tab attivi va strutturata opportunamente in maniera da evitare
-     dannose sovrapposizioni di nomi (i nomi dei componenti sono univoci a livello di ContentPanel?).
-«ENDREM»
+«REM»Genera un MultiPanel«ENDREM»
+«DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
+	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli«ENDREM»
+	«FOREACH this.panels AS currSubPan -»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currSubPan-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«REM»Genera un TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
-	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-	<s:set name="«this.name»_selectedTab" value="%{'«this.name+"_"+this.panels.first().name»'}" />
-	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-
 	«REM»Definizione del pannello«ENDREM»
 	«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
 	«FOREACH this.panels AS currTab -»
-		«EXPAND createAndAddTab(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
-		«EXPAND createTabIncludeDirective(model, cp, this) FOR currTab-»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currTab-»
 	«ENDFOREACH-»
 
 «ENDDEFINE»
 
-«DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
-	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-	«REM»<s:set name="«this.name»_selectedMultiPanel" value="%{'«this.name+"_"+this.panels.first().name»'}" />«ENDREM»
-	«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 
-	«REM»Definizione del pannello«ENDREM»
-	«REM»«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»«REM»
-
-	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli
-	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
-	«FOREACH this.panels AS currSubPan -»
-		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currSubPan-»
-	«ENDFOREACH-»
-
-«ENDDEFINE»
-
-«REM»Crea i files per ogni singolo tab«ENDREM»
-«DEFINE createAndAddTab(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, TabSetPanel tabPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
-«FILE getJspTabsMarkupDir(model, skip_component_dir_creation)+"/"+tabPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
-<!-- Creazione del tab «this» -->
-«IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
-«ELSEIF this.metaType == MenuPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
-«ELSEIF this.metaType == CommandPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
-«ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
-«ELSE-»
-	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
-«ENDIF-»
-«ENDFILE»
-«ENDDEFINE»
-
-«REM»crea i files per ogni singolo subpanel«ENDREM»
+«REM»Crea i sottopannelli di un MultiPanel (e dei sottotipi: TabsetPanel)«ENDREM»
 «DEFINE createAndAddMultiPanelSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, MultiPanel multiPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
-«FILE getJspMultiPanelsMarkupDir(model, skip_component_dir_creation)+"/"+multiPanel.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this)»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!-- Creazione del multi panel «this» -->
 «IF this.metaType == FormPanel-»
@@ -295,34 +240,31 @@ TODO:
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+«ELSEIF this.metaType == MultiPanel-»
+	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
 	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSE-»
-	<!-- ERRORE tipo di tab «this» non gestito!!!! -->
+	<!-- ERRORE. MultiPanel: tipo di sottopannello «this» non gestito!!!! -->
 «ENDIF-»
 «ENDFILE»
 «ENDDEFINE»
 
-«REM»la direttiva di include per ogni file che rappresenta un Tab«ENDREM»
-«DEFINE createTabIncludeDirective(GUIModel model, ContentPanel cp, TabSetPanel tabPanel) FOR Panel»
-<s:if test="%{#«tabPanel.name»_selectedTab == '«tabPanel.name+"_"+this.name»'}">
-	<s:include value="«getJspTabsConfig()+"/"+tabPanel.name+"_"+this.name+".jsp"»" ></s:include>
+
+«REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
+(o di un sottotipo: TabsetPanel)«ENDREM»
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel) FOR Panel»
+<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'">
+	<s:include value="«getMultiPanelJspInclude(multiPanel, this)»" ></s:include>
 </s:if>
 «ENDDEFINE»
 
-«REM»la direttiva di include per ogni file che rappresenta un MultiPanel subpanel«ENDREM»
-«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel) FOR Panel»
-<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'">
-	<s:include value="«getJspMultipanelsConfig()+"/"+multiPanel.name+"_"+this.name+".jsp"»" ></s:include>
-</s:if>
-«ENDDEFINE»
 
 
 «REM»
 ************** Dialog Panel **************
+TODO: da implementare (dopo avere capito cosa è in realtà
 «ENDREM»
-
-
 
 
 

@@ -56,7 +56,7 @@ String getHomePageConfig(GUIModel model) :
 // JSP Fragments (Header, footer, ecc...)
 String getJspFragmentsMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/fragments";
-	
+
 // JSP Tab (Tabbed Panels Includes)
 String getJspTabsMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/tabs";
@@ -68,10 +68,21 @@ String getJspTabsConfig() :
 String getJspMultiPanelsMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/multipanels";
 
-String getJspMultipanelsConfig() :
+String getJspMultiPanelsConfig() :
 	"/" + getPresentationMarkupConfig() + "/multipanels";
 
+// JSP MultiPanels fragments
+String getJspMultiPanelFullName(GUIModel model, boolean omit_root, MultiPanel mp, Panel p) :
+	if ( mp.metaType == MultiPanel ) then
+		getJspMultiPanelsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp"
+	else if ( mp.metaType == TabSetPanel ) then
+		getJspTabsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp";
 
+String getMultiPanelJspInclude(MultiPanel mp, Panel p) :
+	if ( mp.metaType == MultiPanel ) then
+		getJspMultiPanelsConfig() + "/" + mp.name + "_" + p.name + ".jsp"
+	else if ( mp.metaType == TabSetPanel ) then
+		getJspTabsConfig() + "/" + mp.name + "_" + p.name + ".jsp";
 
 // JSP for UserDefinedWidget
 String getJspUserDefinedWidgetMarkupDir(GUIModel model, boolean omit_root) :
@@ -99,13 +110,11 @@ String getFQNDTOClassName(ComplexType ct, GUIModel model) :
 String getFullDTOClassFile(ComplexType ct, GUIModel model) :
 	getDTOBaseSrcDir(model)+"/"+getDTOClassName(ct)+".java";	
 
-
 String getModelDTOClassName(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
     ( forMenu? "GlobalMenuModel":
     	(forHome? "GlobalHomeModel": cp.name.toFirstUpper()+"Model") 
     );
-	
-	
+
 String getModelDTOFQN(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
 	getDTOBaseJavaPackage(model) + "." + getModelDTOClassName(cp, forMenu, forHome, model);
 

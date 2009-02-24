@@ -533,7 +533,7 @@ TODO:
 	<div class="conthTab">
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
-		«LET i.lastIteration ? "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
+		«LET i.lastIteration ? "<s:property value=\"%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
 		<div class="«tabStyle»"><a href="#">«currTab.label»</a></div>
 		«ENDLET-»
 	«ENDFOREACH-»
