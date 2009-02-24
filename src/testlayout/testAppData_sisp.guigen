@@ -728,20 +728,21 @@
                   </widgets>
                 </panels>
               </subpanels>
-              <subpanels xsi:type="guigen:FormPanel" name="fpScelta" label="Scegli il pannello">
-                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="txtPanelNum" label="Pannello" dataType="//@typedefs/@types.0" fieldLength="5"/>
-              </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="cpScelta">
-                <layout xsi:type="guigen:UDLRCPanelLayout"/>
-                <widgets xsi:type="guigen:ConfirmButton" name="btnScelta" label="Vai al pannello">
-                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva1" label="Attiva 1">
                   <eventHandlers>
-                    <command xsi:type="guigen:ExecCommand" methodName="cambiaPannello">
-                      <results resultCode="OK">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
-                      </results>
-                    </command>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.0"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva2" label="Attiva 2">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva3" label="Attiva 3">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>
