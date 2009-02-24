@@ -388,6 +388,50 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createActivateMultiPanelItemCommandAdapter();
 			}
 			@Override
+			public Adapter caseAutenticationMethod(AutenticationMethod object) {
+				return createAutenticationMethodAdapter();
+			}
+			@Override
+			public Adapter caseUISecurityConstraint(UISecurityConstraint object) {
+				return createUISecurityConstraintAdapter();
+			}
+			@Override
+			public Adapter caseUCBasedSecurityConstraint(UCBasedSecurityConstraint object) {
+				return createUCBasedSecurityConstraintAdapter();
+			}
+			@Override
+			public Adapter caseSecurityModel(SecurityModel object) {
+				return createSecurityModelAdapter();
+			}
+			@Override
+			public Adapter caseActor(Actor object) {
+				return createActorAdapter();
+			}
+			@Override
+			public Adapter caseUseCase(UseCase object) {
+				return createUseCaseAdapter();
+			}
+			@Override
+			public Adapter caseActorBasedSecurityConstraint(ActorBasedSecurityConstraint object) {
+				return createActorBasedSecurityConstraintAdapter();
+			}
+			@Override
+			public Adapter caseCustomSecurityConstraint(CustomSecurityConstraint object) {
+				return createCustomSecurityConstraintAdapter();
+			}
+			@Override
+			public Adapter caseOPAUTHSSO(OPAUTHSSO object) {
+				return createOPAUTHSSOAdapter();
+			}
+			@Override
+			public Adapter caseSSOBARTSSO(SSOBARTSSO object) {
+				return createSSOBARTSSOAdapter();
+			}
+			@Override
+			public Adapter caseCustomAuthentication(CustomAuthentication object) {
+				return createCustomAuthenticationAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1510,6 +1554,160 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createActivateMultiPanelItemCommandAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AutenticationMethod <em>Autentication Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AutenticationMethod
+	 * @generated
+	 */
+	public Adapter createAutenticationMethodAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UISecurityConstraint <em>UI Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UISecurityConstraint
+	 * @generated
+	 */
+	public Adapter createUISecurityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UCBasedSecurityConstraint <em>UC Based Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UCBasedSecurityConstraint
+	 * @generated
+	 */
+	public Adapter createUCBasedSecurityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.SecurityModel <em>Security Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.SecurityModel
+	 * @generated
+	 */
+	public Adapter createSecurityModelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.Actor
+	 * @generated
+	 */
+	public Adapter createActorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UseCase <em>Use Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UseCase
+	 * @generated
+	 */
+	public Adapter createUseCaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActorBasedSecurityConstraint <em>Actor Based Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ActorBasedSecurityConstraint
+	 * @generated
+	 */
+	public Adapter createActorBasedSecurityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomSecurityConstraint <em>Custom Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CustomSecurityConstraint
+	 * @generated
+	 */
+	public Adapter createCustomSecurityConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.OPAUTHSSO <em>OPAUTHSSO</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.OPAUTHSSO
+	 * @generated
+	 */
+	public Adapter createOPAUTHSSOAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.SSOBARTSSO <em>SSOBARTSSO</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.SSOBARTSSO
+	 * @generated
+	 */
+	public Adapter createSSOBARTSSOAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomAuthentication <em>Custom Authentication</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CustomAuthentication
+	 * @generated
+	 */
+	public Adapter createCustomAuthenticationAdapter() {
 		return null;
 	}
 

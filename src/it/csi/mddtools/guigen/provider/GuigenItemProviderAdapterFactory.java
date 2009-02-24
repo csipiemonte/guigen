@@ -1686,6 +1686,213 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UCBasedSecurityConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UCBasedSecurityConstraintItemProvider ucBasedSecurityConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UCBasedSecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUCBasedSecurityConstraintAdapter() {
+		if (ucBasedSecurityConstraintItemProvider == null) {
+			ucBasedSecurityConstraintItemProvider = new UCBasedSecurityConstraintItemProvider(this);
+		}
+
+		return ucBasedSecurityConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SecurityModel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SecurityModelItemProvider securityModelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SecurityModel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSecurityModelAdapter() {
+		if (securityModelItemProvider == null) {
+			securityModelItemProvider = new SecurityModelItemProvider(this);
+		}
+
+		return securityModelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Actor} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActorItemProvider actorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Actor}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActorAdapter() {
+		if (actorItemProvider == null) {
+			actorItemProvider = new ActorItemProvider(this);
+		}
+
+		return actorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UseCase} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UseCaseItemProvider useCaseItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UseCase}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUseCaseAdapter() {
+		if (useCaseItemProvider == null) {
+			useCaseItemProvider = new UseCaseItemProvider(this);
+		}
+
+		return useCaseItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActorBasedSecurityConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActorBasedSecurityConstraintItemProvider actorBasedSecurityConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActorBasedSecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActorBasedSecurityConstraintAdapter() {
+		if (actorBasedSecurityConstraintItemProvider == null) {
+			actorBasedSecurityConstraintItemProvider = new ActorBasedSecurityConstraintItemProvider(this);
+		}
+
+		return actorBasedSecurityConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomSecurityConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomSecurityConstraintItemProvider customSecurityConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomSecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomSecurityConstraintAdapter() {
+		if (customSecurityConstraintItemProvider == null) {
+			customSecurityConstraintItemProvider = new CustomSecurityConstraintItemProvider(this);
+		}
+
+		return customSecurityConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.OPAUTHSSO} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OPAUTHSSOItemProvider opauthssoItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.OPAUTHSSO}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOPAUTHSSOAdapter() {
+		if (opauthssoItemProvider == null) {
+			opauthssoItemProvider = new OPAUTHSSOItemProvider(this);
+		}
+
+		return opauthssoItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SSOBARTSSO} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SSOBARTSSOItemProvider ssobartssoItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SSOBARTSSO}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSSOBARTSSOAdapter() {
+		if (ssobartssoItemProvider == null) {
+			ssobartssoItemProvider = new SSOBARTSSOItemProvider(this);
+		}
+
+		return ssobartssoItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomAuthentication} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomAuthenticationItemProvider customAuthenticationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomAuthentication}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomAuthenticationAdapter() {
+		if (customAuthenticationItemProvider == null) {
+			customAuthenticationItemProvider = new CustomAuthenticationItemProvider(this);
+		}
+
+		return customAuthenticationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1854,6 +2061,15 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (userDefinedWidgetItemProvider != null) userDefinedWidgetItemProvider.dispose();
 		if (multiPanelItemProvider != null) multiPanelItemProvider.dispose();
 		if (activateMultiPanelItemCommandItemProvider != null) activateMultiPanelItemCommandItemProvider.dispose();
+		if (ucBasedSecurityConstraintItemProvider != null) ucBasedSecurityConstraintItemProvider.dispose();
+		if (securityModelItemProvider != null) securityModelItemProvider.dispose();
+		if (actorItemProvider != null) actorItemProvider.dispose();
+		if (useCaseItemProvider != null) useCaseItemProvider.dispose();
+		if (actorBasedSecurityConstraintItemProvider != null) actorBasedSecurityConstraintItemProvider.dispose();
+		if (customSecurityConstraintItemProvider != null) customSecurityConstraintItemProvider.dispose();
+		if (opauthssoItemProvider != null) opauthssoItemProvider.dispose();
+		if (ssobartssoItemProvider != null) ssobartssoItemProvider.dispose();
+		if (customAuthenticationItemProvider != null) customAuthenticationItemProvider.dispose();
 	}
 
 }

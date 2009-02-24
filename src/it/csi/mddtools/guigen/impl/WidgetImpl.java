@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 
@@ -38,6 +39,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getLayoutSpec <em>Layout Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getEventHandlers <em>Event Handlers</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultVisible <em>Default Visible</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultEnabled <em>Default Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -103,6 +107,56 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * @ordered
 	 */
 	protected EList<EventHandler> eventHandlers;
+
+	/**
+	 * The cached value of the '{@link #getSecurityConstraints() <em>Security Constraints</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<UISecurityConstraint> securityConstraints;
+
+	/**
+	 * The default value of the '{@link #isDefaultVisible() <em>Default Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefaultVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEFAULT_VISIBLE_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isDefaultVisible() <em>Default Visible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefaultVisible()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean defaultVisible = DEFAULT_VISIBLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDefaultEnabled() <em>Default Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefaultEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEFAULT_ENABLED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isDefaultEnabled() <em>Default Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefaultEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean defaultEnabled = DEFAULT_ENABLED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -225,6 +279,60 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<UISecurityConstraint> getSecurityConstraints() {
+		if (securityConstraints == null) {
+			securityConstraints = new EObjectContainmentEList<UISecurityConstraint>(UISecurityConstraint.class, this, GuigenPackage.WIDGET__SECURITY_CONSTRAINTS);
+		}
+		return securityConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isDefaultVisible() {
+		return defaultVisible;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultVisible(boolean newDefaultVisible) {
+		boolean oldDefaultVisible = defaultVisible;
+		defaultVisible = newDefaultVisible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGET__DEFAULT_VISIBLE, oldDefaultVisible, defaultVisible));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isDefaultEnabled() {
+		return defaultEnabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultEnabled(boolean newDefaultEnabled) {
+		boolean oldDefaultEnabled = defaultEnabled;
+		defaultEnabled = newDefaultEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGET__DEFAULT_ENABLED, oldDefaultEnabled, defaultEnabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -232,6 +340,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return basicSetLayoutSpec(null, msgs);
 			case GuigenPackage.WIDGET__EVENT_HANDLERS:
 				return ((InternalEList<?>)getEventHandlers()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
+				return ((InternalEList<?>)getSecurityConstraints()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,6 +362,12 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return getLayoutSpec();
 			case GuigenPackage.WIDGET__EVENT_HANDLERS:
 				return getEventHandlers();
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
+				return getSecurityConstraints();
+			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
+				return isDefaultVisible() ? Boolean.TRUE : Boolean.FALSE;
+			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
+				return isDefaultEnabled() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -278,6 +394,16 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				getEventHandlers().clear();
 				getEventHandlers().addAll((Collection<? extends EventHandler>)newValue);
 				return;
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
+				getSecurityConstraints().clear();
+				getSecurityConstraints().addAll((Collection<? extends UISecurityConstraint>)newValue);
+				return;
+			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
+				setDefaultVisible(((Boolean)newValue).booleanValue());
+				return;
+			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
+				setDefaultEnabled(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -302,6 +428,15 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__EVENT_HANDLERS:
 				getEventHandlers().clear();
 				return;
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
+				getSecurityConstraints().clear();
+				return;
+			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
+				setDefaultVisible(DEFAULT_VISIBLE_EDEFAULT);
+				return;
+			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
+				setDefaultEnabled(DEFAULT_ENABLED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -322,6 +457,12 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return layoutSpec != null;
 			case GuigenPackage.WIDGET__EVENT_HANDLERS:
 				return eventHandlers != null && !eventHandlers.isEmpty();
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
+				return securityConstraints != null && !securityConstraints.isEmpty();
+			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
+				return defaultVisible != DEFAULT_VISIBLE_EDEFAULT;
+			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
+				return defaultEnabled != DEFAULT_ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -340,6 +481,10 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 		result.append(name);
 		result.append(", label: ");
 		result.append(label);
+		result.append(", defaultVisible: ");
+		result.append(defaultVisible);
+		result.append(", defaultEnabled: ");
+		result.append(defaultEnabled);
 		result.append(')');
 		return result.toString();
 	}

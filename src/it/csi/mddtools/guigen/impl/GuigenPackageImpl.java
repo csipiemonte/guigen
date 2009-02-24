@@ -8,11 +8,14 @@ package it.csi.mddtools.guigen.impl;
 
 
 import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
+import it.csi.mddtools.guigen.Actor;
+import it.csi.mddtools.guigen.ActorBasedSecurityConstraint;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
+import it.csi.mddtools.guigen.AutenticationMethod;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
@@ -29,7 +32,9 @@ import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.CustomAuthentication;
 import it.csi.mddtools.guigen.CustomCommand;
+import it.csi.mddtools.guigen.CustomSecurityConstraint;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
@@ -69,6 +74,7 @@ import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.ResetButton;
+import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
@@ -84,9 +90,12 @@ import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
+import it.csi.mddtools.guigen.UCBasedSecurityConstraint;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.UISecurityConstraint;
+import it.csi.mddtools.guigen.UseCase;
 import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityCommand;
@@ -668,6 +677,83 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass autenticationMethodEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass uiSecurityConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ucBasedSecurityConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass securityModelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass actorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass useCaseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass actorBasedSecurityConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customSecurityConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass opauthssoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ssobartssoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customAuthenticationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1039,6 +1125,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWidget_SecurityConstraints() {
+		return (EReference)widgetEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWidget_DefaultVisible() {
+		return (EAttribute)widgetEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWidget_DefaultEnabled() {
+		return (EAttribute)widgetEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCommandWidget() {
 		return commandWidgetEClass;
 	}
@@ -1311,6 +1424,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getGUIModel_Portale() {
 		return (EAttribute)guiModelEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGUIModel_SecurityModel() {
+		return (EReference)guiModelEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2407,6 +2529,195 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAutenticationMethod() {
+		return autenticationMethodEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUISecurityConstraint() {
+		return uiSecurityConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getUISecurityConstraint_Visible() {
+		return (EAttribute)uiSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getUISecurityConstraint_Enabled() {
+		return (EAttribute)uiSecurityConstraintEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUCBasedSecurityConstraint() {
+		return ucBasedSecurityConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUCBasedSecurityConstraint_UseCase() {
+		return (EReference)ucBasedSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSecurityModel() {
+		return securityModelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityModel_AutenticationMethod() {
+		return (EReference)securityModelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityModel_Actors() {
+		return (EReference)securityModelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityModel_UseCases() {
+		return (EReference)securityModelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActor() {
+		return actorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getActor_Code() {
+		return (EAttribute)actorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUseCase() {
+		return useCaseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUseCase_Permission() {
+		return (EReference)useCaseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getUseCase_Code() {
+		return (EAttribute)useCaseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActorBasedSecurityConstraint() {
+		return actorBasedSecurityConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActorBasedSecurityConstraint_Actor() {
+		return (EReference)actorBasedSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomSecurityConstraint() {
+		return customSecurityConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOPAUTHSSO() {
+		return opauthssoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSSOBARTSSO() {
+		return ssobartssoEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomAuthentication() {
+		return customAuthenticationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2521,6 +2832,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(widgetEClass, WIDGET__LABEL);
 		createEReference(widgetEClass, WIDGET__LAYOUT_SPEC);
 		createEReference(widgetEClass, WIDGET__EVENT_HANDLERS);
+		createEReference(widgetEClass, WIDGET__SECURITY_CONSTRAINTS);
+		createEAttribute(widgetEClass, WIDGET__DEFAULT_VISIBLE);
+		createEAttribute(widgetEClass, WIDGET__DEFAULT_ENABLED);
 
 		commandWidgetEClass = createEClass(COMMAND_WIDGET);
 
@@ -2562,6 +2876,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(guiModelEClass, GUI_MODEL__TYPEDEFS);
 		createEReference(guiModelEClass, GUI_MODEL__APP_DATA_DEFS);
 		createEAttribute(guiModelEClass, GUI_MODEL__PORTALE);
+		createEReference(guiModelEClass, GUI_MODEL__SECURITY_MODEL);
 
 		guiStructureEClass = createEClass(GUI_STRUCTURE);
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
@@ -2744,6 +3059,38 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL);
 		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM);
 
+		autenticationMethodEClass = createEClass(AUTENTICATION_METHOD);
+
+		uiSecurityConstraintEClass = createEClass(UI_SECURITY_CONSTRAINT);
+		createEAttribute(uiSecurityConstraintEClass, UI_SECURITY_CONSTRAINT__VISIBLE);
+		createEAttribute(uiSecurityConstraintEClass, UI_SECURITY_CONSTRAINT__ENABLED);
+
+		ucBasedSecurityConstraintEClass = createEClass(UC_BASED_SECURITY_CONSTRAINT);
+		createEReference(ucBasedSecurityConstraintEClass, UC_BASED_SECURITY_CONSTRAINT__USE_CASE);
+
+		securityModelEClass = createEClass(SECURITY_MODEL);
+		createEReference(securityModelEClass, SECURITY_MODEL__AUTENTICATION_METHOD);
+		createEReference(securityModelEClass, SECURITY_MODEL__ACTORS);
+		createEReference(securityModelEClass, SECURITY_MODEL__USE_CASES);
+
+		actorEClass = createEClass(ACTOR);
+		createEAttribute(actorEClass, ACTOR__CODE);
+
+		useCaseEClass = createEClass(USE_CASE);
+		createEReference(useCaseEClass, USE_CASE__PERMISSION);
+		createEAttribute(useCaseEClass, USE_CASE__CODE);
+
+		actorBasedSecurityConstraintEClass = createEClass(ACTOR_BASED_SECURITY_CONSTRAINT);
+		createEReference(actorBasedSecurityConstraintEClass, ACTOR_BASED_SECURITY_CONSTRAINT__ACTOR);
+
+		customSecurityConstraintEClass = createEClass(CUSTOM_SECURITY_CONSTRAINT);
+
+		opauthssoEClass = createEClass(OPAUTHSSO);
+
+		ssobartssoEClass = createEClass(SSOBARTSSO);
+
+		customAuthenticationEClass = createEClass(CUSTOM_AUTHENTICATION);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -2836,6 +3183,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
 		multiPanelEClass.getESuperTypes().add(this.getPanel());
 		activateMultiPanelItemCommandEClass.getESuperTypes().add(this.getCommand());
+		ucBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
+		actorBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
+		customSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
+		opauthssoEClass.getESuperTypes().add(this.getAutenticationMethod());
+		ssobartssoEClass.getESuperTypes().add(this.getAutenticationMethod());
+		customAuthenticationEClass.getESuperTypes().add(this.getAutenticationMethod());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2875,6 +3228,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getWidget_Label(), ecorePackage.getEString(), "label", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWidget_LayoutSpec(), this.getWidgetLayoutSpecifier(), null, "layoutSpec", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWidget_EventHandlers(), this.getEventHandler(), null, "eventHandlers", null, 0, -1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWidget_SecurityConstraints(), this.getUISecurityConstraint(), null, "securityConstraints", null, 0, -1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWidget_DefaultVisible(), ecorePackage.getEBoolean(), "defaultVisible", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWidget_DefaultEnabled(), ecorePackage.getEBoolean(), "defaultEnabled", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandWidgetEClass, CommandWidget.class, "CommandWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2916,6 +3272,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getGUIModel_Typedefs(), this.getTypedefs(), null, "typedefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_AppDataDefs(), this.getApplicationDataDefs(), null, "appDataDefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGUIModel_Portale(), this.getPortalNames(), "portale", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGUIModel_SecurityModel(), this.getSecurityModel(), null, "securityModel", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiStructureEClass, GUIStructure.class, "GUIStructure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3097,6 +3454,38 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(activateMultiPanelItemCommandEClass, ActivateMultiPanelItemCommand.class, "ActivateMultiPanelItemCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivateMultiPanelItemCommand_Multipanel(), this.getMultiPanel(), null, "multipanel", null, 0, 1, ActivateMultiPanelItemCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivateMultiPanelItemCommand_ActiveItem(), this.getFormPanel(), null, "activeItem", null, 0, 1, ActivateMultiPanelItemCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(autenticationMethodEClass, AutenticationMethod.class, "AutenticationMethod", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(uiSecurityConstraintEClass, UISecurityConstraint.class, "UISecurityConstraint", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getUISecurityConstraint_Visible(), ecorePackage.getEBoolean(), "visible", null, 0, 1, UISecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUISecurityConstraint_Enabled(), ecorePackage.getEBoolean(), "enabled", null, 0, 1, UISecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(ucBasedSecurityConstraintEClass, UCBasedSecurityConstraint.class, "UCBasedSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUCBasedSecurityConstraint_UseCase(), this.getUseCase(), null, "useCase", null, 0, 1, UCBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(securityModelEClass, SecurityModel.class, "SecurityModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSecurityModel_AutenticationMethod(), this.getAutenticationMethod(), null, "autenticationMethod", null, 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityModel_Actors(), this.getActor(), null, "actors", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityModel_UseCases(), this.getUseCase(), null, "useCases", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(actorEClass, Actor.class, "Actor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getActor_Code(), ecorePackage.getEString(), "code", null, 0, 1, Actor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(useCaseEClass, UseCase.class, "UseCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUseCase_Permission(), this.getActor(), null, "permission", null, 0, -1, UseCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUseCase_Code(), ecorePackage.getEString(), "code", null, 0, 1, UseCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(actorBasedSecurityConstraintEClass, ActorBasedSecurityConstraint.class, "ActorBasedSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActorBasedSecurityConstraint_Actor(), this.getActor(), null, "actor", null, 0, 1, ActorBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customSecurityConstraintEClass, CustomSecurityConstraint.class, "CustomSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(opauthssoEClass, it.csi.mddtools.guigen.OPAUTHSSO.class, "OPAUTHSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(ssobartssoEClass, it.csi.mddtools.guigen.SSOBARTSSO.class, "SSOBARTSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(customAuthenticationEClass, CustomAuthentication.class, "CustomAuthentication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

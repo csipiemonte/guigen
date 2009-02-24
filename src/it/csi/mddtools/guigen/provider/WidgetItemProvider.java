@@ -69,6 +69,8 @@ public class WidgetItemProvider
 
 			addNamePropertyDescriptor(object);
 			addLabelPropertyDescriptor(object);
+			addDefaultVisiblePropertyDescriptor(object);
+			addDefaultEnabledPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -118,6 +120,50 @@ public class WidgetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Default Visible feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultVisiblePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Widget_defaultVisible_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Widget_defaultVisible_feature", "_UI_Widget_type"),
+				 GuigenPackage.Literals.WIDGET__DEFAULT_VISIBLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Default Enabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultEnabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Widget_defaultEnabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Widget_defaultEnabled_feature", "_UI_Widget_type"),
+				 GuigenPackage.Literals.WIDGET__DEFAULT_ENABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -131,6 +177,7 @@ public class WidgetItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.WIDGET__LAYOUT_SPEC);
 			childrenFeatures.add(GuigenPackage.Literals.WIDGET__EVENT_HANDLERS);
+			childrenFeatures.add(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS);
 		}
 		return childrenFeatures;
 	}
@@ -176,10 +223,13 @@ public class WidgetItemProvider
 		switch (notification.getFeatureID(Widget.class)) {
 			case GuigenPackage.WIDGET__NAME:
 			case GuigenPackage.WIDGET__LABEL:
+			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
+			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.WIDGET__LAYOUT_SPEC:
 			case GuigenPackage.WIDGET__EVENT_HANDLERS:
+			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -211,6 +261,21 @@ public class WidgetItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.WIDGET__EVENT_HANDLERS,
 				 GuigenFactory.eINSTANCE.createEventHandler()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createUCBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createActorBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGET__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createCustomSecurityConstraint()));
 	}
 
 	/**

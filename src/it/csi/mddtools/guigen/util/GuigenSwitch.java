@@ -635,6 +635,78 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.AUTENTICATION_METHOD: {
+				AutenticationMethod autenticationMethod = (AutenticationMethod)theEObject;
+				T result = caseAutenticationMethod(autenticationMethod);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.UI_SECURITY_CONSTRAINT: {
+				UISecurityConstraint uiSecurityConstraint = (UISecurityConstraint)theEObject;
+				T result = caseUISecurityConstraint(uiSecurityConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.UC_BASED_SECURITY_CONSTRAINT: {
+				UCBasedSecurityConstraint ucBasedSecurityConstraint = (UCBasedSecurityConstraint)theEObject;
+				T result = caseUCBasedSecurityConstraint(ucBasedSecurityConstraint);
+				if (result == null) result = caseUISecurityConstraint(ucBasedSecurityConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.SECURITY_MODEL: {
+				SecurityModel securityModel = (SecurityModel)theEObject;
+				T result = caseSecurityModel(securityModel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ACTOR: {
+				Actor actor = (Actor)theEObject;
+				T result = caseActor(actor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.USE_CASE: {
+				UseCase useCase = (UseCase)theEObject;
+				T result = caseUseCase(useCase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ACTOR_BASED_SECURITY_CONSTRAINT: {
+				ActorBasedSecurityConstraint actorBasedSecurityConstraint = (ActorBasedSecurityConstraint)theEObject;
+				T result = caseActorBasedSecurityConstraint(actorBasedSecurityConstraint);
+				if (result == null) result = caseUISecurityConstraint(actorBasedSecurityConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.CUSTOM_SECURITY_CONSTRAINT: {
+				CustomSecurityConstraint customSecurityConstraint = (CustomSecurityConstraint)theEObject;
+				T result = caseCustomSecurityConstraint(customSecurityConstraint);
+				if (result == null) result = caseUISecurityConstraint(customSecurityConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.OPAUTHSSO: {
+				OPAUTHSSO opauthsso = (OPAUTHSSO)theEObject;
+				T result = caseOPAUTHSSO(opauthsso);
+				if (result == null) result = caseAutenticationMethod(opauthsso);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.SSOBARTSSO: {
+				SSOBARTSSO ssobartsso = (SSOBARTSSO)theEObject;
+				T result = caseSSOBARTSSO(ssobartsso);
+				if (result == null) result = caseAutenticationMethod(ssobartsso);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.CUSTOM_AUTHENTICATION: {
+				CustomAuthentication customAuthentication = (CustomAuthentication)theEObject;
+				T result = caseCustomAuthentication(customAuthentication);
+				if (result == null) result = caseAutenticationMethod(customAuthentication);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1821,6 +1893,171 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseActivateMultiPanelItemCommand(ActivateMultiPanelItemCommand object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Autentication Method</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Autentication Method</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAutenticationMethod(AutenticationMethod object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>UI Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>UI Security Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUISecurityConstraint(UISecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>UC Based Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>UC Based Security Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUCBasedSecurityConstraint(UCBasedSecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Security Model</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Security Model</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSecurityModel(SecurityModel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Actor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Actor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActor(Actor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Use Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Use Case</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUseCase(UseCase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Actor Based Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Actor Based Security Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActorBasedSecurityConstraint(ActorBasedSecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Security Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCustomSecurityConstraint(CustomSecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>OPAUTHSSO</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>OPAUTHSSO</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOPAUTHSSO(OPAUTHSSO object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>SSOBARTSSO</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>SSOBARTSSO</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSSOBARTSSO(SSOBARTSSO object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Authentication</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Authentication</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCustomAuthentication(CustomAuthentication object) {
 		return null;
 	}
 

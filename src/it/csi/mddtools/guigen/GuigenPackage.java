@@ -1228,13 +1228,40 @@ public interface GuigenPackage extends EPackage {
 	int WIDGET__EVENT_HANDLERS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGET__SECURITY_CONSTRAINTS = 4;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGET__DEFAULT_VISIBLE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGET__DEFAULT_ENABLED = 6;
+
+	/**
 	 * The number of structural features of the '<em>Widget</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIDGET_FEATURE_COUNT = 4;
+	int WIDGET_FEATURE_COUNT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1271,6 +1298,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMMAND_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_WIDGET__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_WIDGET__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The number of structural features of the '<em>Command Widget</em>' class.
@@ -1316,6 +1370,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1399,6 +1480,33 @@ public interface GuigenPackage extends EPackage {
 	int BUTTON__EVENT_HANDLERS = COMMAND_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUTTON__SECURITY_CONSTRAINTS = COMMAND_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUTTON__DEFAULT_VISIBLE = COMMAND_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUTTON__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1451,6 +1559,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_FIELD__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1541,6 +1676,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_AREA__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1642,6 +1804,33 @@ public interface GuigenPackage extends EPackage {
 	int CALENDAR__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1721,6 +1910,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMBO_BOX__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1831,6 +2047,33 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1937,6 +2180,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHECK_BOX__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -2065,13 +2335,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__PORTALE = 8;
 
 	/**
+	 * The feature id for the '<em><b>Security Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__SECURITY_MODEL = 9;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 9;
+	int GUI_MODEL_FEATURE_COUNT = 10;
 
 	/**
 	 * The feature id for the '<em><b>App Window</b></em>' containment reference.
@@ -2135,6 +2414,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int RADIO_BUTTONS__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -2227,6 +2533,33 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTON__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2281,6 +2614,33 @@ public interface GuigenPackage extends EPackage {
 	int RESET_BUTTON__EVENT_HANDLERS = BUTTON__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_BUTTON__SECURITY_CONSTRAINTS = BUTTON__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_BUTTON__DEFAULT_VISIBLE = BUTTON__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_BUTTON__DEFAULT_ENABLED = BUTTON__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2333,6 +2693,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONFIRM_BUTTON__EVENT_HANDLERS = BUTTON__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIRM_BUTTON__SECURITY_CONSTRAINTS = BUTTON__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIRM_BUTTON__DEFAULT_VISIBLE = BUTTON__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIRM_BUTTON__DEFAULT_ENABLED = BUTTON__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -2450,6 +2837,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMAGE__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMAGE__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMAGE__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMAGE__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -3172,6 +3586,33 @@ public interface GuigenPackage extends EPackage {
 	int MULTI_DATA_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3397,6 +3838,33 @@ public interface GuigenPackage extends EPackage {
 	int TREE_VIEW__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3487,6 +3955,33 @@ public interface GuigenPackage extends EPackage {
 	int PLAIN_TEXT__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3575,6 +4070,33 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int MENU_VIEW__EVENT_HANDLERS = COMMAND_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__SECURITY_CONSTRAINTS = COMMAND_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__DEFAULT_VISIBLE = COMMAND_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
 
 	/**
 	 * The number of structural features of the '<em>Menu View</em>' class.
@@ -3811,6 +4333,33 @@ public interface GuigenPackage extends EPackage {
 	int HIDDEN_VALUE__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3892,6 +4441,33 @@ public interface GuigenPackage extends EPackage {
 	int USER_DEFINED_WIDGET__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
 
 	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
 	 * The number of structural features of the '<em>User Defined Widget</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3938,6 +4514,359 @@ public interface GuigenPackage extends EPackage {
 	int ACTIVATE_MULTI_PANEL_ITEM_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AutenticationMethodImpl <em>Autentication Method</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AutenticationMethodImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAutenticationMethod()
+	 * @generated
+	 */
+	int AUTENTICATION_METHOD = 79;
+
+	/**
+	 * The number of structural features of the '<em>Autentication Method</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTENTICATION_METHOD_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UISecurityConstraintImpl <em>UI Security Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UISecurityConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUISecurityConstraint()
+	 * @generated
+	 */
+	int UI_SECURITY_CONSTRAINT = 80;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_SECURITY_CONSTRAINT__VISIBLE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_SECURITY_CONSTRAINT__ENABLED = 1;
+
+	/**
+	 * The number of structural features of the '<em>UI Security Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UI_SECURITY_CONSTRAINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UCBasedSecurityConstraintImpl <em>UC Based Security Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UCBasedSecurityConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUCBasedSecurityConstraint()
+	 * @generated
+	 */
+	int UC_BASED_SECURITY_CONSTRAINT = 81;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_BASED_SECURITY_CONSTRAINT__VISIBLE = UI_SECURITY_CONSTRAINT__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_BASED_SECURITY_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Use Case</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_BASED_SECURITY_CONSTRAINT__USE_CASE = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>UC Based Security Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_BASED_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SecurityModelImpl <em>Security Model</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.SecurityModelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSecurityModel()
+	 * @generated
+	 */
+	int SECURITY_MODEL = 82;
+
+	/**
+	 * The feature id for the '<em><b>Autentication Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__AUTENTICATION_METHOD = 0;
+
+	/**
+	 * The feature id for the '<em><b>Actors</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__ACTORS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Use Cases</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__USE_CASES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Security Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActorImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActor()
+	 * @generated
+	 */
+	int ACTOR = 83;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR__CODE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Actor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UseCaseImpl <em>Use Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UseCaseImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUseCase()
+	 * @generated
+	 */
+	int USE_CASE = 84;
+
+	/**
+	 * The feature id for the '<em><b>Permission</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE__PERMISSION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE__CODE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Use Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorBasedSecurityConstraintImpl <em>Actor Based Security Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActorBasedSecurityConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorBasedSecurityConstraint()
+	 * @generated
+	 */
+	int ACTOR_BASED_SECURITY_CONSTRAINT = 85;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_BASED_SECURITY_CONSTRAINT__VISIBLE = UI_SECURITY_CONSTRAINT__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_BASED_SECURITY_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Actor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_BASED_SECURITY_CONSTRAINT__ACTOR = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Actor Based Security Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_BASED_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomSecurityConstraintImpl <em>Custom Security Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CustomSecurityConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomSecurityConstraint()
+	 * @generated
+	 */
+	int CUSTOM_SECURITY_CONSTRAINT = 86;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_SECURITY_CONSTRAINT__VISIBLE = UI_SECURITY_CONSTRAINT__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_SECURITY_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
+
+	/**
+	 * The number of structural features of the '<em>Custom Security Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.OPAUTHSSOImpl <em>OPAUTHSSO</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.OPAUTHSSOImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getOPAUTHSSO()
+	 * @generated
+	 */
+	int OPAUTHSSO = 87;
+
+	/**
+	 * The number of structural features of the '<em>OPAUTHSSO</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPAUTHSSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SSOBARTSSOImpl <em>SSOBARTSSO</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.SSOBARTSSOImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSSOBARTSSO()
+	 * @generated
+	 */
+	int SSOBARTSSO = 88;
+
+	/**
+	 * The number of structural features of the '<em>SSOBARTSSO</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SSOBARTSSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomAuthenticationImpl <em>Custom Authentication</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CustomAuthenticationImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomAuthentication()
+	 * @generated
+	 */
+	int CUSTOM_AUTHENTICATION = 89;
+
+	/**
+	 * The number of structural features of the '<em>Custom Authentication</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_AUTHENTICATION_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3945,7 +4874,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 79;
+	int WIDGET_DATA_TYPE = 90;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -3955,7 +4884,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 80;
+	int UDLRC_SPEC_CONSTANTS = 91;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -3965,7 +4894,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 81;
+	int EVENT_TYPES = 92;
 
 
 	/**
@@ -3976,7 +4905,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 82;
+	int DATA_LIFETIME_TYPE = 93;
 
 
 	/**
@@ -3987,7 +4916,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 83;
+	int SIMPLE_TYPE_CODES = 94;
 
 
 	/**
@@ -3998,7 +4927,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 84;
+	int PORTAL_NAMES = 95;
 
 
 	/**
@@ -4310,6 +5239,39 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWidget_EventHandlers();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.Widget#getSecurityConstraints <em>Security Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Security Constraints</em>'.
+	 * @see it.csi.mddtools.guigen.Widget#getSecurityConstraints()
+	 * @see #getWidget()
+	 * @generated
+	 */
+	EReference getWidget_SecurityConstraints();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Widget#isDefaultVisible <em>Default Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Visible</em>'.
+	 * @see it.csi.mddtools.guigen.Widget#isDefaultVisible()
+	 * @see #getWidget()
+	 * @generated
+	 */
+	EAttribute getWidget_DefaultVisible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Widget#isDefaultEnabled <em>Default Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Enabled</em>'.
+	 * @see it.csi.mddtools.guigen.Widget#isDefaultEnabled()
+	 * @see #getWidget()
+	 * @generated
+	 */
+	EAttribute getWidget_DefaultEnabled();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandWidget <em>Command Widget</em>}'.
@@ -4641,6 +5603,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGUIModel_Portale();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Security Model</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getSecurityModel()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_SecurityModel();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -5914,6 +6887,226 @@ public interface GuigenPackage extends EPackage {
 	EReference getActivateMultiPanelItemCommand_ActiveItem();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AutenticationMethod <em>Autentication Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Autentication Method</em>'.
+	 * @see it.csi.mddtools.guigen.AutenticationMethod
+	 * @generated
+	 */
+	EClass getAutenticationMethod();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UISecurityConstraint <em>UI Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>UI Security Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.UISecurityConstraint
+	 * @generated
+	 */
+	EClass getUISecurityConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.UISecurityConstraint#isVisible <em>Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Visible</em>'.
+	 * @see it.csi.mddtools.guigen.UISecurityConstraint#isVisible()
+	 * @see #getUISecurityConstraint()
+	 * @generated
+	 */
+	EAttribute getUISecurityConstraint_Visible();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.UISecurityConstraint#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see it.csi.mddtools.guigen.UISecurityConstraint#isEnabled()
+	 * @see #getUISecurityConstraint()
+	 * @generated
+	 */
+	EAttribute getUISecurityConstraint_Enabled();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UCBasedSecurityConstraint <em>UC Based Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>UC Based Security Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.UCBasedSecurityConstraint
+	 * @generated
+	 */
+	EClass getUCBasedSecurityConstraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.UCBasedSecurityConstraint#getUseCase <em>Use Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Use Case</em>'.
+	 * @see it.csi.mddtools.guigen.UCBasedSecurityConstraint#getUseCase()
+	 * @see #getUCBasedSecurityConstraint()
+	 * @generated
+	 */
+	EReference getUCBasedSecurityConstraint_UseCase();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SecurityModel <em>Security Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Security Model</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel
+	 * @generated
+	 */
+	EClass getSecurityModel();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.SecurityModel#getAutenticationMethod <em>Autentication Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Autentication Method</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getAutenticationMethod()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EReference getSecurityModel_AutenticationMethod();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.SecurityModel#getActors <em>Actors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Actors</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getActors()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EReference getSecurityModel_Actors();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.SecurityModel#getUseCases <em>Use Cases</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Use Cases</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getUseCases()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EReference getSecurityModel_UseCases();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Actor</em>'.
+	 * @see it.csi.mddtools.guigen.Actor
+	 * @generated
+	 */
+	EClass getActor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Actor#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.guigen.Actor#getCode()
+	 * @see #getActor()
+	 * @generated
+	 */
+	EAttribute getActor_Code();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UseCase <em>Use Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Use Case</em>'.
+	 * @see it.csi.mddtools.guigen.UseCase
+	 * @generated
+	 */
+	EClass getUseCase();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.UseCase#getPermission <em>Permission</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Permission</em>'.
+	 * @see it.csi.mddtools.guigen.UseCase#getPermission()
+	 * @see #getUseCase()
+	 * @generated
+	 */
+	EReference getUseCase_Permission();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.UseCase#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.guigen.UseCase#getCode()
+	 * @see #getUseCase()
+	 * @generated
+	 */
+	EAttribute getUseCase_Code();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActorBasedSecurityConstraint <em>Actor Based Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Actor Based Security Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.ActorBasedSecurityConstraint
+	 * @generated
+	 */
+	EClass getActorBasedSecurityConstraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ActorBasedSecurityConstraint#getActor <em>Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actor</em>'.
+	 * @see it.csi.mddtools.guigen.ActorBasedSecurityConstraint#getActor()
+	 * @see #getActorBasedSecurityConstraint()
+	 * @generated
+	 */
+	EReference getActorBasedSecurityConstraint_Actor();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomSecurityConstraint <em>Custom Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Security Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.CustomSecurityConstraint
+	 * @generated
+	 */
+	EClass getCustomSecurityConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.OPAUTHSSO <em>OPAUTHSSO</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>OPAUTHSSO</em>'.
+	 * @see it.csi.mddtools.guigen.OPAUTHSSO
+	 * @generated
+	 */
+	EClass getOPAUTHSSO();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SSOBARTSSO <em>SSOBARTSSO</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SSOBARTSSO</em>'.
+	 * @see it.csi.mddtools.guigen.SSOBARTSSO
+	 * @generated
+	 */
+	EClass getSSOBARTSSO();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomAuthentication <em>Custom Authentication</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Authentication</em>'.
+	 * @see it.csi.mddtools.guigen.CustomAuthentication
+	 * @generated
+	 */
+	EClass getCustomAuthentication();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6246,6 +7439,30 @@ public interface GuigenPackage extends EPackage {
 		EReference WIDGET__EVENT_HANDLERS = eINSTANCE.getWidget_EventHandlers();
 
 		/**
+		 * The meta object literal for the '<em><b>Security Constraints</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WIDGET__SECURITY_CONSTRAINTS = eINSTANCE.getWidget_SecurityConstraints();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIDGET__DEFAULT_VISIBLE = eINSTANCE.getWidget_DefaultVisible();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIDGET__DEFAULT_ENABLED = eINSTANCE.getWidget_DefaultEnabled();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandWidgetImpl <em>Command Widget</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6512,6 +7729,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GUI_MODEL__PORTALE = eINSTANCE.getGUIModel_Portale();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Model</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__SECURITY_MODEL = eINSTANCE.getGUIModel_SecurityModel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -7600,6 +8825,196 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM = eINSTANCE.getActivateMultiPanelItemCommand_ActiveItem();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AutenticationMethodImpl <em>Autentication Method</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AutenticationMethodImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAutenticationMethod()
+		 * @generated
+		 */
+		EClass AUTENTICATION_METHOD = eINSTANCE.getAutenticationMethod();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UISecurityConstraintImpl <em>UI Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UISecurityConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUISecurityConstraint()
+		 * @generated
+		 */
+		EClass UI_SECURITY_CONSTRAINT = eINSTANCE.getUISecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Visible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute UI_SECURITY_CONSTRAINT__VISIBLE = eINSTANCE.getUISecurityConstraint_Visible();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute UI_SECURITY_CONSTRAINT__ENABLED = eINSTANCE.getUISecurityConstraint_Enabled();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UCBasedSecurityConstraintImpl <em>UC Based Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UCBasedSecurityConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUCBasedSecurityConstraint()
+		 * @generated
+		 */
+		EClass UC_BASED_SECURITY_CONSTRAINT = eINSTANCE.getUCBasedSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Case</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference UC_BASED_SECURITY_CONSTRAINT__USE_CASE = eINSTANCE.getUCBasedSecurityConstraint_UseCase();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SecurityModelImpl <em>Security Model</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.SecurityModelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSecurityModel()
+		 * @generated
+		 */
+		EClass SECURITY_MODEL = eINSTANCE.getSecurityModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Autentication Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_MODEL__AUTENTICATION_METHOD = eINSTANCE.getSecurityModel_AutenticationMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Actors</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_MODEL__ACTORS = eINSTANCE.getSecurityModel_Actors();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Cases</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_MODEL__USE_CASES = eINSTANCE.getSecurityModel_UseCases();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActorImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActor()
+		 * @generated
+		 */
+		EClass ACTOR = eINSTANCE.getActor();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTOR__CODE = eINSTANCE.getActor_Code();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UseCaseImpl <em>Use Case</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UseCaseImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUseCase()
+		 * @generated
+		 */
+		EClass USE_CASE = eINSTANCE.getUseCase();
+
+		/**
+		 * The meta object literal for the '<em><b>Permission</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USE_CASE__PERMISSION = eINSTANCE.getUseCase_Permission();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute USE_CASE__CODE = eINSTANCE.getUseCase_Code();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorBasedSecurityConstraintImpl <em>Actor Based Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActorBasedSecurityConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorBasedSecurityConstraint()
+		 * @generated
+		 */
+		EClass ACTOR_BASED_SECURITY_CONSTRAINT = eINSTANCE.getActorBasedSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Actor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTOR_BASED_SECURITY_CONSTRAINT__ACTOR = eINSTANCE.getActorBasedSecurityConstraint_Actor();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomSecurityConstraintImpl <em>Custom Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CustomSecurityConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomSecurityConstraint()
+		 * @generated
+		 */
+		EClass CUSTOM_SECURITY_CONSTRAINT = eINSTANCE.getCustomSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.OPAUTHSSOImpl <em>OPAUTHSSO</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.OPAUTHSSOImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getOPAUTHSSO()
+		 * @generated
+		 */
+		EClass OPAUTHSSO = eINSTANCE.getOPAUTHSSO();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SSOBARTSSOImpl <em>SSOBARTSSO</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.SSOBARTSSOImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSSOBARTSSO()
+		 * @generated
+		 */
+		EClass SSOBARTSSO = eINSTANCE.getSSOBARTSSO();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomAuthenticationImpl <em>Custom Authentication</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CustomAuthenticationImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomAuthentication()
+		 * @generated
+		 */
+		EClass CUSTOM_AUTHENTICATION = eINSTANCE.getCustomAuthentication();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

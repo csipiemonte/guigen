@@ -58,6 +58,7 @@
                 <eventHandlers>
                   <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.0"/>
                 </eventHandlers>
+                <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti2" label="showMulti2">
                 <eventHandlers>
@@ -334,4 +335,9 @@
     <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
     <appData name="myTree" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.33"/>
   </appDataDefs>
+  <securityModel>
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+    <actors code="gestore"/>
+    <useCases permission="//@securityModel/@actors.0" code="UC-233.01"/>
+  </securityModel>
 </guigen:GUIModel>

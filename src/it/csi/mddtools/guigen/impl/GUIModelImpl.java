@@ -13,6 +13,7 @@ import it.csi.mddtools.guigen.GUIStructure;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import it.csi.mddtools.guigen.PortalNames;
+import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.Typedefs;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTypedefs <em>Typedefs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getAppDataDefs <em>App Data Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getPortale <em>Portale</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getSecurityModel <em>Security Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -184,6 +186,16 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected PortalNames portale = PORTALE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSecurityModel() <em>Security Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected SecurityModel securityModel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -486,6 +498,49 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SecurityModel getSecurityModel() {
+		return securityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSecurityModel(SecurityModel newSecurityModel, NotificationChain msgs) {
+		SecurityModel oldSecurityModel = securityModel;
+		securityModel = newSecurityModel;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__SECURITY_MODEL, oldSecurityModel, newSecurityModel);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSecurityModel(SecurityModel newSecurityModel) {
+		if (newSecurityModel != securityModel) {
+			NotificationChain msgs = null;
+			if (securityModel != null)
+				msgs = ((InternalEObject)securityModel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__SECURITY_MODEL, null, msgs);
+			if (newSecurityModel != null)
+				msgs = ((InternalEObject)newSecurityModel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__SECURITY_MODEL, null, msgs);
+			msgs = basicSetSecurityModel(newSecurityModel, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__SECURITY_MODEL, newSecurityModel, newSecurityModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -497,6 +552,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return basicSetTypedefs(null, msgs);
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 				return basicSetAppDataDefs(null, msgs);
+			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+				return basicSetSecurityModel(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -527,6 +584,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getAppDataDefs();
 			case GuigenPackage.GUI_MODEL__PORTALE:
 				return getPortale();
+			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+				return getSecurityModel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -565,6 +624,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__PORTALE:
 				setPortale((PortalNames)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+				setSecurityModel((SecurityModel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -605,6 +667,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__PORTALE:
 				setPortale(PORTALE_EDEFAULT);
 				return;
+			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+				setSecurityModel((SecurityModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -635,6 +700,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return appDataDefs != null;
 			case GuigenPackage.GUI_MODEL__PORTALE:
 				return portale != PORTALE_EDEFAULT;
+			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+				return securityModel != null;
 		}
 		return super.eIsSet(featureID);
 	}

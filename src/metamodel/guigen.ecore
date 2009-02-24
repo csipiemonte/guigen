@@ -52,6 +52,12 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventHandlers" upperBound="-1"
         eType="#//EventHandler" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securityConstraints" upperBound="-1"
+        eType="#//UISecurityConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommandWidget" eSuperTypes="#//Widget"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataWidget" eSuperTypes="#//Widget">
@@ -107,6 +113,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="appDataDefs" eType="#//ApplicationDataDefs"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="portale" eType="#//PortalNames"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securityModel" eType="#//SecurityModel"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="appWindow" eType="#//AppWindow"
@@ -321,4 +329,35 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="multipanel" eType="#//MultiPanel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activeItem" eType="#//FormPanel"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AutenticationMethod" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UISecurityConstraint" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UCBasedSecurityConstraint" eSuperTypes="#//UISecurityConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="useCase" eType="#//UseCase"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="autenticationMethod" eType="#//AutenticationMethod"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actors" upperBound="-1"
+        eType="#//Actor" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="useCases" upperBound="-1"
+        eType="#//UseCase" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Actor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UseCase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="permission" upperBound="-1"
+        eType="#//Actor"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActorBasedSecurityConstraint" eSuperTypes="#//UISecurityConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actor" eType="#//Actor"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomSecurityConstraint" eSuperTypes="#//UISecurityConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPAUTHSSO" eSuperTypes="#//AutenticationMethod"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SSOBARTSSO" eSuperTypes="#//AutenticationMethod"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomAuthentication" eSuperTypes="#//AutenticationMethod"/>
 </ecore:EPackage>

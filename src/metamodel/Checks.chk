@@ -313,3 +313,29 @@ context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalF
 // 5
 context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////
+/// constraints su security model
+////////////////////////////////////////////////////////////////////////////////////////
+
+context UISecurityConstraint ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
+"se non è specificato un metodo di AUTENTICAZIONE" :
+	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;
+	
+context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor" :
+	code!=null;
+
+context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case" :
+	code!=null;
+	
+context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce" :
+	this.useCase!=null;
+
+context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce" :
+	this.actor!=null;
+	
+context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
+" deve essere abilitato e contemporaneamente invisibile" :
+	this.enabled==false || (enabled==true && visible==true);
+	

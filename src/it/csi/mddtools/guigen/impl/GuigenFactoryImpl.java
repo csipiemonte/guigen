@@ -131,6 +131,15 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.USER_DEFINED_WIDGET: return createUserDefinedWidget();
 			case GuigenPackage.MULTI_PANEL: return createMultiPanel();
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND: return createActivateMultiPanelItemCommand();
+			case GuigenPackage.UC_BASED_SECURITY_CONSTRAINT: return createUCBasedSecurityConstraint();
+			case GuigenPackage.SECURITY_MODEL: return createSecurityModel();
+			case GuigenPackage.ACTOR: return createActor();
+			case GuigenPackage.USE_CASE: return createUseCase();
+			case GuigenPackage.ACTOR_BASED_SECURITY_CONSTRAINT: return createActorBasedSecurityConstraint();
+			case GuigenPackage.CUSTOM_SECURITY_CONSTRAINT: return createCustomSecurityConstraint();
+			case GuigenPackage.OPAUTHSSO: return createOPAUTHSSO();
+			case GuigenPackage.SSOBARTSSO: return createSSOBARTSSO();
+			case GuigenPackage.CUSTOM_AUTHENTICATION: return createCustomAuthentication();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -884,6 +893,96 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ActivateMultiPanelItemCommand createActivateMultiPanelItemCommand() {
 		ActivateMultiPanelItemCommandImpl activateMultiPanelItemCommand = new ActivateMultiPanelItemCommandImpl();
 		return activateMultiPanelItemCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UCBasedSecurityConstraint createUCBasedSecurityConstraint() {
+		UCBasedSecurityConstraintImpl ucBasedSecurityConstraint = new UCBasedSecurityConstraintImpl();
+		return ucBasedSecurityConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SecurityModel createSecurityModel() {
+		SecurityModelImpl securityModel = new SecurityModelImpl();
+		return securityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Actor createActor() {
+		ActorImpl actor = new ActorImpl();
+		return actor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UseCase createUseCase() {
+		UseCaseImpl useCase = new UseCaseImpl();
+		return useCase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActorBasedSecurityConstraint createActorBasedSecurityConstraint() {
+		ActorBasedSecurityConstraintImpl actorBasedSecurityConstraint = new ActorBasedSecurityConstraintImpl();
+		return actorBasedSecurityConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomSecurityConstraint createCustomSecurityConstraint() {
+		CustomSecurityConstraintImpl customSecurityConstraint = new CustomSecurityConstraintImpl();
+		return customSecurityConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPAUTHSSO createOPAUTHSSO() {
+		OPAUTHSSOImpl opauthsso = new OPAUTHSSOImpl();
+		return opauthsso;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SSOBARTSSO createSSOBARTSSO() {
+		SSOBARTSSOImpl ssobartsso = new SSOBARTSSOImpl();
+		return ssobartsso;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomAuthentication createCustomAuthentication() {
+		CustomAuthenticationImpl customAuthentication = new CustomAuthenticationImpl();
+		return customAuthentication;
 	}
 
 	/**

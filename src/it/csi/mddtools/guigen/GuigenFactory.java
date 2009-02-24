@@ -656,6 +656,87 @@ public interface GuigenFactory extends EFactory {
 	ActivateMultiPanelItemCommand createActivateMultiPanelItemCommand();
 
 	/**
+	 * Returns a new object of class '<em>UC Based Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>UC Based Security Constraint</em>'.
+	 * @generated
+	 */
+	UCBasedSecurityConstraint createUCBasedSecurityConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Security Model</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Security Model</em>'.
+	 * @generated
+	 */
+	SecurityModel createSecurityModel();
+
+	/**
+	 * Returns a new object of class '<em>Actor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Actor</em>'.
+	 * @generated
+	 */
+	Actor createActor();
+
+	/**
+	 * Returns a new object of class '<em>Use Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Use Case</em>'.
+	 * @generated
+	 */
+	UseCase createUseCase();
+
+	/**
+	 * Returns a new object of class '<em>Actor Based Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Actor Based Security Constraint</em>'.
+	 * @generated
+	 */
+	ActorBasedSecurityConstraint createActorBasedSecurityConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Custom Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Security Constraint</em>'.
+	 * @generated
+	 */
+	CustomSecurityConstraint createCustomSecurityConstraint();
+
+	/**
+	 * Returns a new object of class '<em>OPAUTHSSO</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>OPAUTHSSO</em>'.
+	 * @generated
+	 */
+	OPAUTHSSO createOPAUTHSSO();
+
+	/**
+	 * Returns a new object of class '<em>SSOBARTSSO</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SSOBARTSSO</em>'.
+	 * @generated
+	 */
+	SSOBARTSSO createSSOBARTSSO();
+
+	/**
+	 * Returns a new object of class '<em>Custom Authentication</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Authentication</em>'.
+	 * @generated
+	 */
+	CustomAuthentication createCustomAuthentication();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

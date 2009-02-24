@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTypedefs <em>Typedefs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -269,5 +270,31 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setPortale(PortalNames value);
+
+	/**
+	 * Returns the value of the '<em><b>Security Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Security Model</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Security Model</em>' containment reference.
+	 * @see #setSecurityModel(SecurityModel)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_SecurityModel()
+	 * @model containment="true"
+	 * @generated
+	 */
+	SecurityModel getSecurityModel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Security Model</em>' containment reference.
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	void setSecurityModel(SecurityModel value);
 
 } // GUIModel
