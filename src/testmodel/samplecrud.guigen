@@ -37,6 +37,15 @@
                 <panels xsi:type="guigen:FormPanel" name="pMulti1" label="Multi1">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="Multi1 testo" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bGeneraErroreField" label="Genera errore field">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="genFieldError">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
                 </panels>
                 <panels xsi:type="guigen:FormPanel" name="pMulti2" label="Multi2">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>

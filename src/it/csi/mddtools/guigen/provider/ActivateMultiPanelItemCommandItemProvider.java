@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Panel;
@@ -35,6 +36,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand} object.
@@ -168,11 +170,19 @@ public class ActivateMultiPanelItemCommandItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+		switch (notification.getFeatureID(ActivateMultiPanelItemCommand.class)) {
+		case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 

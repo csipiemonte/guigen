@@ -488,8 +488,8 @@ public class SequenceCommand implements ICommand {
     
     ICommand [] actionsForResults = new ICommand[«this.results.size»];
     «FOREACH results AS currRes»
-    «EXPAND addActionCode(actionsVarName+"_resAction",results.indexOf(currRes),model) FOR currRes.command»
-    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_resAction_"+results.indexOf(currRes)»;
+    «EXPAND addActionCode(actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action",results.indexOf(currRes),model) FOR currRes.command»
+    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     
     
