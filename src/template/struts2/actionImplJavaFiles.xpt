@@ -52,13 +52,25 @@ package «getPresentationJavaPackage()»;
 public class ActivateMultiPanelItemCommand implements ICommand {
 	String containerName; 
 	String itemName;
+	
+	/**
+	 * @param containerName il nome del multi-panel contenitore
+	 * @param itemName il nome dell'item da attivare (se null => non mostrare
+	 *  nessun pannello
+	 */
 	public ActivateMultiPanelItemCommand(String containerName, String itemName) {
 		this.containerName = containerName;
 		this.itemName = itemName;
 	}
 	public String doCommand(BaseAction strutsAction) {
-		System.out.println("Attivazione multipannello "+containerName+"."+itemName);
-		strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
+		if (itemName!=null){
+			System.out.println("Attivazione multipannello "+containerName+"."+itemName);
+			strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
+		}
+		else{
+			System.out.println("Disattivazione completa multipannello "+containerName);
+			strutsAction.getSession().remove(containerName+"_selectedMultiPanel");
+		}
 		return null;
 	}
 };

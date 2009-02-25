@@ -152,11 +152,9 @@ context ExecCommand ERROR "E'necessario specificare il nome del metodo associato
 
 context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel" :
 	this.multipanel!=null;
-	
-context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il sottopannello da attivare" :
-	this.activeItem!=null;
-	
+		
 context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato" :
+	this.activeItem==null || 
 	this.multipanel.panels.select(p|p==this.activeItem).size>0;
 
 
