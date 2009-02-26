@@ -153,6 +153,8 @@ public class VisibilityCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/ExecCommand.java"»
 package «getPresentationJavaPackage()»;
 
+import java.util.*;
+import com.opensymphony.xwork2.ActionSupport;
 import «getDTOBaseJavaPackage()».*;
 
 ////ExecCommand
@@ -186,6 +188,12 @@ public abstract class ExecCommand implements ICommand {
 		strutsAction.fromModel(outModel);
 		// impostazione degli appData
 		storeAppData(execResults, strutsAction);
+		// impostazione degli eventuali messaggi
+		updateMessages(
+			execResults.getFldErrors(), 
+			execResults.getGlobalErrors(), 
+			execResults.getGlobalMessages(), 
+			strutsAction);
 		// determinazione esito e azione corrispondente
 		ICommand resultAction = null;
 		for (int i = 0; i<_esiti.length; i++){
@@ -198,6 +206,32 @@ public abstract class ExecCommand implements ICommand {
 		}
 		else
 			throw new IllegalStateException("Il result code "+result+" non è tra quelli previsti ("+_esiti+")");
+	}
+	
+	/**
+	 * inserisce negli appositi campi della action struts2 gli errori/messaggi provenienti dalla
+	 * business logic.
+	 */
+	public void updateMessages(Map<String,String> fieldErrors, Collection<String> globalErrors, Collection<String> globalMessages, ActionSupport action){
+		if (fieldErrors!=null){
+			Iterator<String> fieldKey_it = fieldErrors.keySet().iterator();
+			while(fieldKey_it.hasNext()){
+				String currKey = fieldKey_it.next();
+				action.addFieldError(currKey, fieldErrors.get(currKey));
+			}
+		}
+		if (globalErrors!=null){
+			Iterator<String> it = globalErrors.iterator();
+			while(it.hasNext()){
+				action.addActionError(it.next());
+			}
+		}
+		if (globalMessages!=null){
+			Iterator<String> it = globalMessages.iterator();
+			while(it.hasNext()){
+				action.addActionMessage(it.next());
+			}
+		}
 	}
 	
 	/**
@@ -216,13 +250,13 @@ public abstract class ExecCommand implements ICommand {
 «FILE getDTOBaseSrcDir(this)+"/ExecResults.java"»
 package «getDTOBaseJavaPackage()»;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
  
 public class ExecResults {
 	private String _resultCode;
-	
+	private Map<String, String> fldErrors = new HashMap<String, String>();
+	private Collection<String> globalErrors=new ArrayList<String>();
+	private Collection<String> globalMessages=new ArrayList<String>();
 	private Object _model;
 	
 	public void setModel(Object model){
@@ -242,6 +276,29 @@ public class ExecResults {
 		return _resultCode;
 	}
 	
+	public Map<String, String> getFldErrors() {
+		return fldErrors;
+	}
+
+	public void setFldErrors(Map<String, String> fldErrors) {
+		this.fldErrors = fldErrors;
+	}
+
+	public Collection<String> getGlobalErrors() {
+		return globalErrors;
+	}
+
+	public void setGlobalErrors(Collection<String> globalErrors) {
+		this.globalErrors = globalErrors;
+	}
+
+	public Collection<String> getGlobalMessages() {
+		return globalMessages;
+	}
+
+	public void setGlobalMessages(Collection<String> globalMessages) {
+		this.globalMessages = globalMessages;
+	}
 }
 «ENDFILE»
 
