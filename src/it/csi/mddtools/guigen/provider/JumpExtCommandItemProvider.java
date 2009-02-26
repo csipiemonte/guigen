@@ -63,6 +63,7 @@ public class JumpExtCommandItemProvider
 
 			addStaticUrlPropertyDescriptor(object);
 			addRuntimeUrlProviderPropertyDescriptor(object);
+			addLocationCodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +113,28 @@ public class JumpExtCommandItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Location Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLocationCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_JumpExtCommand_locationCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_JumpExtCommand_locationCode_feature", "_UI_JumpExtCommand_type"),
+				 GuigenPackage.Literals.JUMP_EXT_COMMAND__LOCATION_CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns JumpExtCommand.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,7 +154,7 @@ public class JumpExtCommandItemProvider
 	@Override
 	public String getText(Object object) {
 		JumpExtCommand cmd = (JumpExtCommand)object;
-		String label = "Jump to external URL ";
+		String label = "Jump to page ["+cmd.getLocationCode()+"] at external URL ";
 		label += (cmd.getRuntimeUrlProvider()==null? "["+cmd.getStaticUrl()+"]":"provided by appData "+cmd.getRuntimeUrlProvider().getName());
 		return label == null || label.length() == 0 ?
 			getString("_UI_JumpExtCommand_type") :
@@ -151,9 +174,7 @@ public class JumpExtCommandItemProvider
 
 		switch (notification.getFeatureID(JumpExtCommand.class)) {
 			case GuigenPackage.JUMP_EXT_COMMAND__STATIC_URL:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER:
+			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

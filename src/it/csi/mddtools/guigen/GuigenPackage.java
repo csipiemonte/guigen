@@ -4977,13 +4977,22 @@ public interface GuigenPackage extends EPackage {
 	int JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER = COMMAND_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Location Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_EXT_COMMAND__LOCATION_CODE = COMMAND_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Jump Ext Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -7301,6 +7310,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getJumpExtCommand_RuntimeUrlProvider();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpExtCommand#getLocationCode <em>Location Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location Code</em>'.
+	 * @see it.csi.mddtools.guigen.JumpExtCommand#getLocationCode()
+	 * @see #getJumpExtCommand()
+	 * @generated
+	 */
+	EAttribute getJumpExtCommand_LocationCode();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9269,6 +9289,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER = eINSTANCE.getJumpExtCommand_RuntimeUrlProvider();
+
+		/**
+		 * The meta object literal for the '<em><b>Location Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JUMP_EXT_COMMAND__LOCATION_CODE = eINSTANCE.getJumpExtCommand_LocationCode();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

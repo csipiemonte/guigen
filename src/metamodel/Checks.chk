@@ -162,6 +162,10 @@ context JumpExtCommand ERROR "E'necessario specificare un url statico o un appli
 	||
 	(this.staticUrl==null || this.staticUrl.length==0) && this.runtimeUrlProvider!=null;
 
+context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare" :
+	this.locationCode!=null && this.locationCode.length>0;
+	
+
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
 	this.name!=null && this.name.length>0;
 

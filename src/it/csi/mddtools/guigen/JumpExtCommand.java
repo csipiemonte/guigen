@@ -17,6 +17,7 @@ package it.csi.mddtools.guigen;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.JumpExtCommand#getLocationCode <em>Location Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,5 +77,31 @@ public interface JumpExtCommand extends Command {
 	 * @generated
 	 */
 	void setRuntimeUrlProvider(ApplicationData value);
+
+	/**
+	 * Returns the value of the '<em><b>Location Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Location Code</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Location Code</em>' attribute.
+	 * @see #setLocationCode(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand_LocationCode()
+	 * @model
+	 * @generated
+	 */
+	String getLocationCode();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.JumpExtCommand#getLocationCode <em>Location Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Location Code</em>' attribute.
+	 * @see #getLocationCode()
+	 * @generated
+	 */
+	void setLocationCode(String value);
 
 } // JumpExtCommand

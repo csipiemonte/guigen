@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getStaticUrl <em>Static Url</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getRuntimeUrlProvider <em>Runtime Url Provider</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl#getLocationCode <em>Location Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,6 +62,26 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 	 * @ordered
 	 */
 	protected ApplicationData runtimeUrlProvider;
+
+	/**
+	 * The default value of the '{@link #getLocationCode() <em>Location Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocationCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOCATION_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLocationCode() <em>Location Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocationCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String locationCode = LOCATION_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,6 +166,27 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLocationCode() {
+		return locationCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocationCode(String newLocationCode) {
+		String oldLocationCode = locationCode;
+		locationCode = newLocationCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE, oldLocationCode, locationCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -153,6 +195,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 			case GuigenPackage.JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER:
 				if (resolve) return getRuntimeUrlProvider();
 				return basicGetRuntimeUrlProvider();
+			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
+				return getLocationCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,6 +214,9 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 				return;
 			case GuigenPackage.JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER:
 				setRuntimeUrlProvider((ApplicationData)newValue);
+				return;
+			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
+				setLocationCode((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -189,6 +236,9 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 			case GuigenPackage.JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER:
 				setRuntimeUrlProvider((ApplicationData)null);
 				return;
+			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
+				setLocationCode(LOCATION_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -205,6 +255,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 				return STATIC_URL_EDEFAULT == null ? staticUrl != null : !STATIC_URL_EDEFAULT.equals(staticUrl);
 			case GuigenPackage.JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER:
 				return runtimeUrlProvider != null;
+			case GuigenPackage.JUMP_EXT_COMMAND__LOCATION_CODE:
+				return LOCATION_CODE_EDEFAULT == null ? locationCode != null : !LOCATION_CODE_EDEFAULT.equals(locationCode);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,6 +273,8 @@ public class JumpExtCommandImpl extends CommandImpl implements JumpExtCommand {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (staticUrl: ");
 		result.append(staticUrl);
+		result.append(", locationCode: ");
+		result.append(locationCode);
 		result.append(')');
 		return result.toString();
 	}
