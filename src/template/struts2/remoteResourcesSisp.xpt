@@ -594,10 +594,10 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
-<customtag:column textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<customtag:column textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
 <customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-<customtag:column labelField="true" textLabel="«this.label»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+<customtag:column labelField="true" textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 
