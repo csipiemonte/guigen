@@ -1893,6 +1893,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.StdMessagePanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StdMessagePanelItemProvider stdMessagePanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.StdMessagePanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStdMessagePanelAdapter() {
+		if (stdMessagePanelItemProvider == null) {
+			stdMessagePanelItemProvider = new StdMessagePanelItemProvider(this);
+		}
+
+		return stdMessagePanelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2070,6 +2093,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (opauthssoItemProvider != null) opauthssoItemProvider.dispose();
 		if (ssobartssoItemProvider != null) ssobartssoItemProvider.dispose();
 		if (customAuthenticationItemProvider != null) customAuthenticationItemProvider.dispose();
+		if (stdMessagePanelItemProvider != null) stdMessagePanelItemProvider.dispose();
 	}
 
 }

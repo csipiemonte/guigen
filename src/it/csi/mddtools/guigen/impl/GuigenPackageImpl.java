@@ -81,6 +81,7 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StaticLinks;
 import it.csi.mddtools.guigen.Statusbar;
+import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextArea;
@@ -748,6 +749,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass customAuthenticationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stdMessagePanelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2718,6 +2726,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getStdMessagePanel() {
+		return stdMessagePanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStdMessagePanel_ShowGlobalMessages() {
+		return (EAttribute)stdMessagePanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStdMessagePanel_ShowFieldErrorDetails() {
+		return (EAttribute)stdMessagePanelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStdMessagePanel_ShowFieldErrors() {
+		return (EAttribute)stdMessagePanelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3091,6 +3135,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		customAuthenticationEClass = createEClass(CUSTOM_AUTHENTICATION);
 
+		stdMessagePanelEClass = createEClass(STD_MESSAGE_PANEL);
+		createEAttribute(stdMessagePanelEClass, STD_MESSAGE_PANEL__SHOW_GLOBAL_MESSAGES);
+		createEAttribute(stdMessagePanelEClass, STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS);
+		createEAttribute(stdMessagePanelEClass, STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3189,6 +3238,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		opauthssoEClass.getESuperTypes().add(this.getAutenticationMethod());
 		ssobartssoEClass.getESuperTypes().add(this.getAutenticationMethod());
 		customAuthenticationEClass.getESuperTypes().add(this.getAutenticationMethod());
+		stdMessagePanelEClass.getESuperTypes().add(this.getPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3486,6 +3536,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(ssobartssoEClass, it.csi.mddtools.guigen.SSOBARTSSO.class, "SSOBARTSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(customAuthenticationEClass, CustomAuthentication.class, "CustomAuthentication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(stdMessagePanelEClass, StdMessagePanel.class, "StdMessagePanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStdMessagePanel_ShowGlobalMessages(), ecorePackage.getEBoolean(), "showGlobalMessages", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStdMessagePanel_ShowFieldErrorDetails(), ecorePackage.getEBoolean(), "showFieldErrorDetails", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStdMessagePanel_ShowFieldErrors(), ecorePackage.getEBoolean(), "showFieldErrors", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

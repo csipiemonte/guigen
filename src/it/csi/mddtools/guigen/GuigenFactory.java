@@ -737,6 +737,15 @@ public interface GuigenFactory extends EFactory {
 	CustomAuthentication createCustomAuthentication();
 
 	/**
+	 * Returns a new object of class '<em>Std Message Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Std Message Panel</em>'.
+	 * @generated
+	 */
+	StdMessagePanel createStdMessagePanel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

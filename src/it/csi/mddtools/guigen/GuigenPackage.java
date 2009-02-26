@@ -4867,6 +4867,88 @@ public interface GuigenPackage extends EPackage {
 	int CUSTOM_AUTHENTICATION_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.StdMessagePanelImpl <em>Std Message Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.StdMessagePanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdMessagePanel()
+	 * @generated
+	 */
+	int STD_MESSAGE_PANEL = 90;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Show Global Messages</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__SHOW_GLOBAL_MESSAGES = PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Show Field Error Details</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS = PANEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Show Field Errors</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS = PANEL_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Std Message Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4874,7 +4956,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 90;
+	int WIDGET_DATA_TYPE = 91;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -4884,7 +4966,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 91;
+	int UDLRC_SPEC_CONSTANTS = 92;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -4894,7 +4976,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 92;
+	int EVENT_TYPES = 93;
 
 
 	/**
@@ -4905,7 +4987,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 93;
+	int DATA_LIFETIME_TYPE = 94;
 
 
 	/**
@@ -4916,7 +4998,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 94;
+	int SIMPLE_TYPE_CODES = 95;
 
 
 	/**
@@ -4927,7 +5009,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 95;
+	int PORTAL_NAMES = 96;
 
 
 	/**
@@ -7107,6 +7189,49 @@ public interface GuigenPackage extends EPackage {
 	EClass getCustomAuthentication();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.StdMessagePanel <em>Std Message Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Std Message Panel</em>'.
+	 * @see it.csi.mddtools.guigen.StdMessagePanel
+	 * @generated
+	 */
+	EClass getStdMessagePanel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.StdMessagePanel#isShowGlobalMessages <em>Show Global Messages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Show Global Messages</em>'.
+	 * @see it.csi.mddtools.guigen.StdMessagePanel#isShowGlobalMessages()
+	 * @see #getStdMessagePanel()
+	 * @generated
+	 */
+	EAttribute getStdMessagePanel_ShowGlobalMessages();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.StdMessagePanel#isShowFieldErrorDetails <em>Show Field Error Details</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Show Field Error Details</em>'.
+	 * @see it.csi.mddtools.guigen.StdMessagePanel#isShowFieldErrorDetails()
+	 * @see #getStdMessagePanel()
+	 * @generated
+	 */
+	EAttribute getStdMessagePanel_ShowFieldErrorDetails();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.StdMessagePanel#isShowFieldErrors <em>Show Field Errors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Show Field Errors</em>'.
+	 * @see it.csi.mddtools.guigen.StdMessagePanel#isShowFieldErrors()
+	 * @see #getStdMessagePanel()
+	 * @generated
+	 */
+	EAttribute getStdMessagePanel_ShowFieldErrors();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9015,6 +9140,40 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CUSTOM_AUTHENTICATION = eINSTANCE.getCustomAuthentication();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.StdMessagePanelImpl <em>Std Message Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.StdMessagePanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdMessagePanel()
+		 * @generated
+		 */
+		EClass STD_MESSAGE_PANEL = eINSTANCE.getStdMessagePanel();
+
+		/**
+		 * The meta object literal for the '<em><b>Show Global Messages</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STD_MESSAGE_PANEL__SHOW_GLOBAL_MESSAGES = eINSTANCE.getStdMessagePanel_ShowGlobalMessages();
+
+		/**
+		 * The meta object literal for the '<em><b>Show Field Error Details</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS = eINSTANCE.getStdMessagePanel_ShowFieldErrorDetails();
+
+		/**
+		 * The meta object literal for the '<em><b>Show Field Errors</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS = eINSTANCE.getStdMessagePanel_ShowFieldErrors();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
