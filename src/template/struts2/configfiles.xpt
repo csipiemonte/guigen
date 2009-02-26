@@ -343,6 +343,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
 			«ENDFOREACH»
 			«ENDLET»
+			«LET getAllPossibleExtJumps(onInitAction) AS allJumps»
+			«FOREACH allJumps AS currExtJump»
+			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
+				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+			</result>
+			«ENDFOREACH»
+			«ENDLET»
 			«ELSE»
 			<result>«getHomePageConfig(this)»</result>
 		    «ENDIF»
@@ -376,6 +383,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
 			«ENDFOREACH»
 			«ENDLET»	
+			«LET getAllPossibleExtJumps(((MenuItem)currMenuItem)) AS allJumps»
+			«FOREACH allJumps AS currExtJump»
+			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
+				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+			</result>
+			«ENDFOREACH»
+			«ENDLET»
 		</action>
 		«ENDLET»
 		«ENDIF»
@@ -402,6 +416,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	«LET getAllPossibleJumps(this) AS allJumps»
 	«FOREACH allJumps AS currJump»
 	<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+	«ENDFOREACH»
+	«ENDLET»
+	«LET getAllPossibleExtJumps(this) AS allJumps»
+	«FOREACH allJumps AS currExtJump»
+	<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
+				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+	</result>
 	«ENDFOREACH»
 	«ENDLET»
 </action>

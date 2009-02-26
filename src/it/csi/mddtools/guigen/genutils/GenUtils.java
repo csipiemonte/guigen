@@ -34,6 +34,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.JumpCommand;
+import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -334,6 +335,10 @@ public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp){
 	return getAllPossibleJumps(cp.getPanels());
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(ContentPanel cp){
+	return getAllPossibleExtJumps(cp.getPanels());
+}
+
 public static List<ContentPanel> getAllPossibleJumps(Menubar mb){
 	List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
 	Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
@@ -347,10 +352,30 @@ public static List<ContentPanel> getAllPossibleJumps(Menubar mb){
 	return result;
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(Menubar mb){
+	List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
+	Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
+	List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+	while(it_mi.hasNext()){
+		MenuItem currMI = it_mi.next();
+		EventHandler currEH = currMI.getEventHandler();
+		List<JumpExtCommand> currJumps = getAllPossibleExtJumps(currEH);
+		result.addAll(currJumps);
+	}
+	return result;
+}
+
 public static List<ContentPanel> getAllPossibleJumps(MenuItem mi){
 	List<ContentPanel> result = new ArrayList<ContentPanel>();
 	EventHandler currEH = mi.getEventHandler();
 	result = getAllPossibleJumps(currEH);
+	return result;
+}
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi){
+	List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+	EventHandler currEH = mi.getEventHandler();
+	result = getAllPossibleExtJumps(currEH);
 	return result;
 }
 
@@ -359,6 +384,15 @@ public static List<ContentPanel> getAllPossibleJumps(Panel p){
 		return getAllPossibleJumps((FormPanel)p);
 	else if (p instanceof MultiPanel)
 		return getAllPossibleJumps((MultiPanel)p);
+	else
+		return null; // TODO gestire i tabset panel....
+}
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(Panel p){
+	if (p instanceof FormPanel)
+		return getAllPossibleExtJumps((FormPanel)p);
+	else if (p instanceof MultiPanel)
+		return getAllPossibleExtJumps((MultiPanel)p);
 	else
 		return null; // TODO gestire i tabset panel....
 }
@@ -394,6 +428,37 @@ public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
 	return result;
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(FormPanel p){
+	// scende in tutti i sotto pannelli
+	HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
+	List<Panel> subpanels = p.getSubpanels();
+	if (subpanels!=null){
+		Iterator<Panel> panels_it = subpanels.iterator();
+		while(panels_it.hasNext()){
+			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panels_it.next());
+			if (currSubJumps!=null)
+				recursiveDestinations.addAll(currSubJumps);
+		}
+	}
+	// guarda i widget a primo livello
+	HashSet<JumpExtCommand> firstLevelDestinations = new HashSet<JumpExtCommand>();
+	List<Widget> widgets = p.getWidgets();
+	if (widgets!=null){
+		Iterator<Widget> widgets_it = widgets.iterator();
+		while(widgets_it.hasNext()){
+			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(widgets_it.next());
+			if (currSubJumps!=null)
+				firstLevelDestinations.addAll(currSubJumps);
+		}
+	}
+	
+	recursiveDestinations.addAll(firstLevelDestinations);
+	List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
+	result.addAll(recursiveDestinations);
+	result.addAll(firstLevelDestinations);
+	return result;
+}
+
 public static List<ContentPanel> getAllPossibleJumps(MultiPanel p){
 	// scende in tutti i sotto pannelli
 	HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
@@ -407,6 +472,23 @@ public static List<ContentPanel> getAllPossibleJumps(MultiPanel p){
 		}
 	}	
 	List<ContentPanel> result= new ArrayList<ContentPanel>();
+	result.addAll(recursiveDestinations);
+	return result;
+}
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(MultiPanel p){
+	// scende in tutti i sotto pannelli
+	HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
+	List<Panel> subpanels = p.getPanels();
+	if (subpanels!=null){
+		Iterator<Panel> panels_it = subpanels.iterator();
+		while(panels_it.hasNext()){
+			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panels_it.next());
+			if (currSubJumps!=null)
+				recursiveDestinations.addAll(currSubJumps);
+		}
+	}	
+	List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
 	result.addAll(recursiveDestinations);
 	return result;
 }
@@ -426,12 +508,36 @@ public static List<ContentPanel> getAllPossibleJumps(Widget w){
 	return result;
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(Widget w){
+	List<EventHandler> eventHandlers = w.getEventHandlers();
+	Iterator<EventHandler> evh_it = eventHandlers.iterator();
+	
+	HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
+	while(evh_it.hasNext()){
+		List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(evh_it.next());
+		if (currSubJumps!=null)
+			resultSet.addAll(currSubJumps);
+	}
+	List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+	result.addAll(resultSet);
+	return result;
+}
+
 public static List<ContentPanel> getAllPossibleJumps(EventHandler evh){
 	Command a = evh.getCommand();
 	if (a==null)
 		return null;
 	else{
 		return getAllPossibleJumps(a);
+	}
+}
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh){
+	Command a = evh.getCommand();
+	if (a==null)
+		return null;
+	else{
+		return getAllPossibleExtJumps(a);
 	}
 }
 
@@ -446,9 +552,37 @@ public static List<ContentPanel> getAllPossibleJumps(Command a){
 		return null;
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(Command a){
+	if (a instanceof JumpExtCommand)
+		return getAllPossibleExtJumps((JumpExtCommand)a);
+	else if (a instanceof ExecCommand)
+		return getAllPossibleExtJumps((ExecCommand)a);
+	else if (a instanceof SequenceCommand)
+		return getAllPossibleExtJumps((SequenceCommand)a);
+	else
+		return null;
+}
+
 public static List<ContentPanel> getAllPossibleJumps(JumpCommand a){
 	List<ContentPanel> ris = new ArrayList<ContentPanel>();
 	ris.add(a.getJumpTo());
+	return ris;
+}
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(JumpExtCommand a){
+	List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
+	if (a.getRuntimeUrlProvider()!=null){
+		String s = "${";
+		s+=getAppDataKey(a.getRuntimeUrlProvider());
+		s+="}";
+		JumpExtCommand currJD = GuigenFactory.eINSTANCE.createJumpExtCommand();
+		currJD.setLocationCode(a.getLocationCode());
+		currJD.setStaticUrl(s);
+		ris.add(currJD);
+	}
+	else{
+		ris.add(a);
+	}
 	return ris;
 }
 
@@ -457,10 +591,19 @@ public static List<ContentPanel> getAllPossibleJumps(SequenceCommand a){
 	return getAllPossibleJumps(lastStep);
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(SequenceCommand a){
+	Command lastStep = a.getCommands().get(a.getCommands().size()-1);
+	return getAllPossibleExtJumps(lastStep);
+}
 
 public static List<ContentPanel> getAllPossibleJumps(CommandOutcome ar){
 	return getAllPossibleJumps(ar.getCommand());
 }
+
+public static List<JumpExtCommand> getAllPossibleExtJumps(CommandOutcome ar){
+	return getAllPossibleExtJumps(ar.getCommand());
+}
+
 public static List<ContentPanel> getAllPossibleJumps(ExecCommand a){
 	Iterator<CommandOutcome> res_it = a.getResults().iterator();
 	HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
@@ -474,6 +617,18 @@ public static List<ContentPanel> getAllPossibleJumps(ExecCommand a){
 	return ris;
 }
 
+public static List<JumpExtCommand> getAllPossibleExtJumps(ExecCommand a){
+	Iterator<CommandOutcome> res_it = a.getResults().iterator();
+	HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
+	while(res_it.hasNext()){
+		List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(res_it.next());
+		if (currSubJumps!=null)
+			resultSet.addAll(currSubJumps);
+	}
+	List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
+	ris.addAll(resultSet);
+	return ris;
+}
 //////////////////////
 
 public static List<Widget> getAllEventSourceWidgets(ContentPanel cp){

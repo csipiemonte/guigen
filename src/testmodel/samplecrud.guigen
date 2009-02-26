@@ -27,7 +27,7 @@
             </item>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4">
+        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
           <panels xsi:type="guigen:FormPanel" name="pProva" label="Provatree">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
@@ -52,7 +52,9 @@
                   <widgets xsi:type="guigen:TextArea" name="taMulti2_ta" label="Text area" dataType="//@typedefs/@types.7"/>
                 </panels>
               </subpanels>
-              <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7"/>
+              <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.5"/>
+              </widgets>
               <widgets xsi:type="guigen:TreeView" name="treeProva" label="" dataType="//@typedefs/@types.7">
                 <eventHandlers>
                   <command xsi:type="guigen:ExecCommand" methodName="manageTreeSelection">
@@ -77,6 +79,16 @@
               <widgets xsi:type="guigen:ConfirmButton" name="bHideMulti" label="HideMulti*">
                 <eventHandlers>
                   <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bJumpCSI" label="www.csi.it">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpExtCommand" staticUrl="http://www.csi.it" locationCode="csiHome"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bJumpDynamic" label="dynamic external jump">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpExtCommand" runtimeUrlProvider="//@appDataDefs/@appData.5" locationCode="runtimeURL"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -348,6 +360,7 @@
     <appData name="progettiUtente" type="//@typedefs/@types.30"/>
     <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
     <appData name="myTree" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.33"/>
+    <appData name="externalURL" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
   </appDataDefs>
   <securityModel>
     <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>

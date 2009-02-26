@@ -45,6 +45,21 @@ public class JumpCommand implements ICommand {
 };
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// JUMP_ACTION
+public class JumpExtCommand implements ICommand {
+	String locationCode;
+	public JumpExtCommand(String locationCode) {
+		this.locationCode = locationCode;
+	}
+	public String doCommand(BaseAction strutsAction) {
+		return "GO_TO_"+locationCode;
+	}
+};
+«ENDFILE»
+
 «FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"»
 package «getPresentationJavaPackage()»;
 
@@ -482,6 +497,12 @@ public class SequenceCommand implements ICommand {
 	/// Jump Command begin
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpExtCommand»
+	/// Jump Ext Command begin
+	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»");
+	/// Jump Ext Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ActivateMultiPanelItemCommand»

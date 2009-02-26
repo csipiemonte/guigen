@@ -165,6 +165,10 @@ context JumpExtCommand ERROR "E'necessario specificare un url statico o un appli
 context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare" :
 	this.locationCode!=null && this.locationCode.length>0;
 	
+context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider" :
+	this.runtimeUrlProvider==null ||
+	this.runtimeUrlProvider.type.metaType==SimpleType &&
+	((SimpleType)(this.runtimeUrlProvider.type)).code==guigen::SimpleTypeCodes::STRING;
 
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
 	this.name!=null && this.name.length>0;
