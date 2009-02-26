@@ -1916,6 +1916,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.JumpExtCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected JumpExtCommandItemProvider jumpExtCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.JumpExtCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createJumpExtCommandAdapter() {
+		if (jumpExtCommandItemProvider == null) {
+			jumpExtCommandItemProvider = new JumpExtCommandItemProvider(this);
+		}
+
+		return jumpExtCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2094,6 +2117,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (ssobartssoItemProvider != null) ssobartssoItemProvider.dispose();
 		if (customAuthenticationItemProvider != null) customAuthenticationItemProvider.dispose();
 		if (stdMessagePanelItemProvider != null) stdMessagePanelItemProvider.dispose();
+		if (jumpExtCommandItemProvider != null) jumpExtCommandItemProvider.dispose();
 	}
 
 }

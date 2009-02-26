@@ -58,6 +58,7 @@ import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
+import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -756,6 +757,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass stdMessagePanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jumpExtCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2762,6 +2770,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJumpExtCommand() {
+		return jumpExtCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJumpExtCommand_StaticUrl() {
+		return (EAttribute)jumpExtCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJumpExtCommand_RuntimeUrlProvider() {
+		return (EReference)jumpExtCommandEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3140,6 +3175,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(stdMessagePanelEClass, STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS);
 		createEAttribute(stdMessagePanelEClass, STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS);
 
+		jumpExtCommandEClass = createEClass(JUMP_EXT_COMMAND);
+		createEAttribute(jumpExtCommandEClass, JUMP_EXT_COMMAND__STATIC_URL);
+		createEReference(jumpExtCommandEClass, JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3239,6 +3278,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		ssobartssoEClass.getESuperTypes().add(this.getAutenticationMethod());
 		customAuthenticationEClass.getESuperTypes().add(this.getAutenticationMethod());
 		stdMessagePanelEClass.getESuperTypes().add(this.getPanel());
+		jumpExtCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3541,6 +3581,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getStdMessagePanel_ShowGlobalMessages(), ecorePackage.getEBoolean(), "showGlobalMessages", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStdMessagePanel_ShowFieldErrorDetails(), ecorePackage.getEBoolean(), "showFieldErrorDetails", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStdMessagePanel_ShowFieldErrors(), ecorePackage.getEBoolean(), "showFieldErrors", null, 0, 1, StdMessagePanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(jumpExtCommandEClass, JumpExtCommand.class, "JumpExtCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJumpExtCommand_StaticUrl(), ecorePackage.getEString(), "staticUrl", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJumpExtCommand_RuntimeUrlProvider(), this.getApplicationData(), null, "runtimeUrlProvider", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

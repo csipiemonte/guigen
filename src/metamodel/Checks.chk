@@ -157,6 +157,10 @@ context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è
 	this.activeItem==null || 
 	this.multipanel.panels.select(p|p==this.activeItem).size>0;
 
+context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime" :
+	this.staticUrl!=null && this.runtimeUrlProvider==null 
+	||
+	(this.staticUrl==null || this.staticUrl.length==0) && this.runtimeUrlProvider!=null;
 
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
 	this.name!=null && this.name.length>0;

@@ -4949,6 +4949,43 @@ public interface GuigenPackage extends EPackage {
 	int STD_MESSAGE_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl <em>Jump Ext Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.JumpExtCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpExtCommand()
+	 * @generated
+	 */
+	int JUMP_EXT_COMMAND = 91;
+
+	/**
+	 * The feature id for the '<em><b>Static Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_EXT_COMMAND__STATIC_URL = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Runtime Url Provider</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER = COMMAND_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Jump Ext Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4956,7 +4993,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 91;
+	int WIDGET_DATA_TYPE = 92;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -4966,7 +5003,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 92;
+	int UDLRC_SPEC_CONSTANTS = 93;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -4976,7 +5013,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 93;
+	int EVENT_TYPES = 94;
 
 
 	/**
@@ -4987,7 +5024,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 94;
+	int DATA_LIFETIME_TYPE = 95;
 
 
 	/**
@@ -4998,7 +5035,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 95;
+	int SIMPLE_TYPE_CODES = 96;
 
 
 	/**
@@ -5009,7 +5046,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 96;
+	int PORTAL_NAMES = 97;
 
 
 	/**
@@ -7232,6 +7269,38 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getStdMessagePanel_ShowFieldErrors();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.JumpExtCommand <em>Jump Ext Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Jump Ext Command</em>'.
+	 * @see it.csi.mddtools.guigen.JumpExtCommand
+	 * @generated
+	 */
+	EClass getJumpExtCommand();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.JumpExtCommand#getStaticUrl <em>Static Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Url</em>'.
+	 * @see it.csi.mddtools.guigen.JumpExtCommand#getStaticUrl()
+	 * @see #getJumpExtCommand()
+	 * @generated
+	 */
+	EAttribute getJumpExtCommand_StaticUrl();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.JumpExtCommand#getRuntimeUrlProvider <em>Runtime Url Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Runtime Url Provider</em>'.
+	 * @see it.csi.mddtools.guigen.JumpExtCommand#getRuntimeUrlProvider()
+	 * @see #getJumpExtCommand()
+	 * @generated
+	 */
+	EReference getJumpExtCommand_RuntimeUrlProvider();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9174,6 +9243,32 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS = eINSTANCE.getStdMessagePanel_ShowFieldErrors();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.JumpExtCommandImpl <em>Jump Ext Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.JumpExtCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getJumpExtCommand()
+		 * @generated
+		 */
+		EClass JUMP_EXT_COMMAND = eINSTANCE.getJumpExtCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JUMP_EXT_COMMAND__STATIC_URL = eINSTANCE.getJumpExtCommand_StaticUrl();
+
+		/**
+		 * The meta object literal for the '<em><b>Runtime Url Provider</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER = eINSTANCE.getJumpExtCommand_RuntimeUrlProvider();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

@@ -141,6 +141,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SSOBARTSSO: return createSSOBARTSSO();
 			case GuigenPackage.CUSTOM_AUTHENTICATION: return createCustomAuthentication();
 			case GuigenPackage.STD_MESSAGE_PANEL: return createStdMessagePanel();
+			case GuigenPackage.JUMP_EXT_COMMAND: return createJumpExtCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -994,6 +995,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public StdMessagePanel createStdMessagePanel() {
 		StdMessagePanelImpl stdMessagePanel = new StdMessagePanelImpl();
 		return stdMessagePanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JumpExtCommand createJumpExtCommand() {
+		JumpExtCommandImpl jumpExtCommand = new JumpExtCommandImpl();
+		return jumpExtCommand;
 	}
 
 	/**
