@@ -50,6 +50,7 @@ import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
+import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
@@ -172,6 +173,8 @@ public static ArrayList<Widget> findAllWidgetsInPanel(Panel p){
 		return findAllWidgetsInPanel((MultiPanel)p);
 	else if (p instanceof DialogPanel)
 		return findAllWidgetsInPanel((DialogPanel)p);
+	else if (p instanceof StdMessagePanel)
+		return new ArrayList<Widget>(); // [DM] non ha sottopannelli, ritorno un ArrayList vuoto
 	else
 		throw new IllegalArgumentException("Tipo pannello non gestito");
 }

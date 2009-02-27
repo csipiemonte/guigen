@@ -541,6 +541,16 @@ TODO:
 «ENDDEFINE»
 
 
+«REM»
+************** StdMessagePanel (Pannello per errori) **************
+«ENDREM»
+
+«DEFINE setupStdMessagePanelSistemaPiemonte(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+<div class="contenuti">
+	<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
+</div>
+«ENDDEFINE»
+
 
 «REM»
 ==========================================================================================================================
@@ -555,7 +565,7 @@ Gestione dei LAYOUT
 «ENDIF-»
 <div class="contenuti">
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" errorDetails="true" errorMessage="true" columns="«getGridPanelColumnsNumber(this)»">
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
 	«ENDIF-»
 «ENDDEFINE»
 

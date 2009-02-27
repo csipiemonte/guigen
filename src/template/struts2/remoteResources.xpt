@@ -126,6 +126,21 @@ Gestione dei PANNELLI
 «ENDDEFINE»
 
 
+«REM»
+************** StdMessagePanel (Pannello per errori) **************
+«ENDREM»
+
+«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::setupStdMessagePanelSistemaPiemonte(model, cp) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================

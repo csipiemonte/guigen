@@ -480,17 +480,25 @@ public class GenUtilsStrutsValidation {
 			String format = DATE_FORMAT;
 			
 			if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
-				if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
-					format = DATETIME_SHORT_FORMAT;
-				} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
-					format = HOUR_SHORT_FORMAT;
+				if ( !isNullOrEmpty(validationRule[1]) ) {
+					format = validationRule[1];
+				} else {
+					if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
+						format = DATETIME_SHORT_FORMAT;
+					} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
+						format = HOUR_SHORT_FORMAT;
+					}
 				}
 			} else if ( validationRule[0].equals(DATE_EXTENDED_VALIDATOR) ) {
-				if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
-					format = DATETIME_EXTENDED_FORMAT;
-				} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
-					format = HOUR_EXTENDED_FORMAT;
-				}				
+				if ( !isNullOrEmpty(validationRule[1]) ) {
+					format = validationRule[1];
+				} else {
+					if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
+						format = DATETIME_EXTENDED_FORMAT;
+					} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
+						format = HOUR_EXTENDED_FORMAT;
+					}
+				}
 			} else if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
 				if ( !isNullOrEmpty(validationRule[1]) ) {
 					format = validationRule[1];

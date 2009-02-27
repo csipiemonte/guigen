@@ -156,6 +156,8 @@ Gestione dei pannelli
 	«EXPAND setupMultiPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
 	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+«ELSEIF this.metaType == StdMessagePanel-»
+	«EXPAND setupStdMessagePanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
 «ENDIF-»
@@ -261,11 +263,22 @@ Gestione dei pannelli
 «ENDDEFINE»
 
 
+«REM»
+************** StdMessagePanel (Pannello per errori) **************
+«ENDREM»
+
+«DEFINE setupStdMessagePanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR StdMessagePanel»
+	«EXPAND remoteResources::setupStdMessagePanel(model, cp) FOR this-»
+«ENDDEFINE»
+
 
 «REM»
 ************** Dialog Panel **************
 TODO: da implementare (dopo avere capito cosa è in realtà
 «ENDREM»
+
+
+
 
 
 
