@@ -102,7 +102,7 @@
 «FILE getJspUserDefinedWidgetMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp" »<%@taglib uri="/struts-tags" prefix="s" %>
 
 <%-- Parametro per la gestione della abilitazione/disabilitazione del widget --%>
-<s:set name="«cp.name»_«this.name»_enabled_local" value="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
+<s:set name="«cp.name»_«this.name»_enabled_local" value="isWidgetDisabled('«cp.name»','«this.name»')" />
 
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
 <!-- Inserire qui il codice del widget -->
@@ -312,7 +312,7 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) che va di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-<s:if test="#session.«cp.name»==null || #session.«cp.name».«this.name»_visible==null || #session.«cp.name».«this.name»_visible" >
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
 «EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
 «EXPAND createWidgetMarkup(model, cp) FOR this-»
 «EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
@@ -343,7 +343,7 @@ Gestione dei Widget
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 	«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
-	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 />
 «ENDDEFINE»
 
@@ -359,7 +359,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
 	></s:textarea>
@@ -371,7 +371,7 @@ Gestione dei Widget
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
 	list="#{«getFixedRadioButtonList(this)»}"
-	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	/>
 «ENDDEFINE»
 
@@ -380,7 +380,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
-	disabled="#session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	/>
 «ENDDEFINE»
 
@@ -391,7 +391,7 @@ Gestione dei Widget
 <s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
           headerKey="" headerValue="-- Selezionare un valore --"
           list="«getOGNLForWidgetMultiValue(this)»"
-          disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"
+          disabled="isWidgetDisabled('«cp.name»','«this.name»')"
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
           «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
           />
@@ -402,7 +402,8 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" method="«getClickHandlerMethodName(this)»" 
-	«getButtonStyleByLayout(model, this)» disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
+	«getButtonStyleByLayout(model, this)» 
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
 
@@ -410,7 +411,8 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" method="«getClickHandlerMethodName(this)»"
-	«getButtonStyleByLayout(model, this)» disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled"/>
+	«getButtonStyleByLayout(model, this)» 
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
 
@@ -418,7 +420,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" «getButtonStyleByLayout(model, this)»
-	disabled="session.«cp.name».«this.name»_enabled!=null && !#session.«cp.name».«this.name»_enabled" />
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
 
