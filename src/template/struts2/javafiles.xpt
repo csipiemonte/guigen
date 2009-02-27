@@ -14,8 +14,15 @@
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
+	«EXPAND strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
+
+«REM»
+==========================================================================================================================
+STRUTS2 BASE FILES
+===========================================================================================================================
+«ENDREM»
 
 «REM»Crea una Base action«ENDREM»
 «DEFINE applicationConstantsJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -85,9 +92,8 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	/**  */
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
 
-	/**  */
+	/** Riferimento alla sessione corrente */
 	protected Map session;
-
 
 	public void setSession(Map session) {
 		this.session = session;
@@ -238,6 +244,10 @@ TODO: Vedere se è necessario estendere la BaseAction.
 «FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.*;
+
+import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.validator.annotations.*;
+
 import «getDTOBaseJavaPackage(this)».*;
 
 /**
@@ -245,6 +255,7 @@ import «getDTOBaseJavaPackage(this)».*;
  *
  * @author GuiGen
  */
+@Validation()
 public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
@@ -274,27 +285,22 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	 * @return SUCCESS result.
 	 */
 	public String goTo«((MenuItem)currMenuItem).name.toFirstUpper()»() {
-	//dumpModel(true); // TODO mettere solo se log=debug
+		//dumpModel(true); // TODO mettere solo se log=debug
 	    
 		// gestione degli eventi di tipo CLICKED
-		
-		
 		ICommand action = initCommand("«((MenuItem)currMenuItem).name»","CLICKED");
 		String result = action.doCommand(this);
-		if(result != null) {
+		if (result != null) {
 			//dumpModel(false);
-			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+			//System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
 			setActiveMenu("«((MenuItem)currMenuItem).name»");
 			return result;
 		} else {
 			//dumpModel(false);
-			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			//System.out.println("=====> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
 			setActiveMenu("«((MenuItem)currMenuItem).name»");
 			return SUCCESS;
 		}
-		
-	
-		
 	}
 
 	«ENDLET»
@@ -305,10 +311,21 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
     public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
     
 	public void setActiveMenu(String menuName){
-		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_"+menuName);
+		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
 	}
 	
     «EXPAND actionImplJavaFiles::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    
+    
+   	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsMenuClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+    
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -318,6 +335,10 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 «FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.*;
+
+import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.validator.annotations.*;
+
 import «getDTOBaseJavaPackage(this)».*;
 
 /**
@@ -325,6 +346,7 @@ import «getDTOBaseJavaPackage(this)».*;
  *
  * @author GuiGen
  */
+@Validation()
 public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
     «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
@@ -332,7 +354,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
     /**
 	 * classe model associata
 	 */
-	public Class modelClass(){
+	public Class modelClass() {
 		return «getModelDTOFQN(null, false, true, this)».class;
 	}
     
@@ -341,26 +363,32 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
-	//dumpModel(true); // TODO mettere solo se log=debug
+		//dumpModel(true); // TODO mettere solo se log=debug
 	    
 		// gestione degli eventi di tipo CLICKED
-		
-		
 		ICommand action = initCommand();
 		String result = action.doCommand(this);
-		if(result != null) {
+		if (result != null) {
 			//dumpModel(false);
-			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+			//System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
 			return result;
 		} else {
 			//dumpModel(false);
-			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			//System.out.println("=====> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
 			return SUCCESS;
 		}
-		
-	
-	
 	}
+
+
+	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsHomeClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+
 
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 	«IF onInitAction!=null»
@@ -372,11 +400,21 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 «ENDDEFINE»
 
 
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
 import java.util.*;
+
+import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.validator.annotations.*;
+
 import «getDTOBaseJavaPackage(model)».*;
 
 /**
@@ -384,9 +422,10 @@ import «getDTOBaseJavaPackage(model)».*;
  *
  * @author GuiGen
  */
+@Validation()
 public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» {
 
-    «EXPAND actionImplJavaFiles::widgetsProperties(model) FOR this»
+    «EXPAND actionImplJavaFiles::widgetsProperties(model, true) FOR this»
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 	«EXPAND actionImplJavaFiles::commonProperties FOR this»
 	/**
@@ -423,13 +462,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	{
 		ICommand action = initCommand("«(currClickWidget).name»","CLICKED");
 		String result = action.doCommand(this);
-		if(result != null) {
-			dumpModel(false);
-			System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
+		if (result != null) {
+			//dumpModel(false);
+			//System.out.println("=====> 1 - RETURNING RESULT [" + result + "]");
 			return result;
 		} else {
-			dumpModel(false);
-			System.out.println("#####> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
+			//dumpModel(false);
+			//System.out.println("=====> 2 - RETURNING DEFAULT RESULT {" + SUCCESS + "}");
 			return SUCCESS;
 		}
 	}
@@ -438,24 +477,35 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	«ENDLET»
 	«ENDLET»
-		
-	void dumpModel(boolean pre){
+	
+	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsActionClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+	
+	
+	/**  */
+	void dumpModel(boolean pre) {
 		
 		System.out.println("#### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
 		System.out.println("[a] campi pubblici del model");
-		try{
+		try {
 			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
 			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
 			for (int i = 0; i < props.length; i++) {
 				java.beans.PropertyDescriptor pd = props[i];
 				java.lang.reflect.Method m = pd.getReadMethod();
-				if(m!=null){
+				if (m != null) {
 					Object pval = m.invoke(this, new Object[]{});
 					System.out.println(pd.getName() + ":" + pval);
 				}
 			}
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			System.out.println("Errore nel dump"+e);
 		}
 		System.out.println("[b] stato dei widget");
@@ -472,3 +522,119 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM VALIDATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Crea le classi dei validatori custom di Struts 2 definiti«ENDREM»
+«DEFINE strutsCustomValidatorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+
+	«REM»Validatori custom definiti dal generatore«ENDREM»
+	«EXPAND strutsCsiDateValidatorJavaFile(skip_component_dir_creation) FOR this»
+	
+	«REM»Validatori custom modellati dall'utente«ENDREM»
+	«FOREACH getUserCustomValidators() AS currValidator»
+		«EXPAND strutsCustomValidatorJavaFile((String)currValidator, skip_component_dir_creation) FOR this»
+	«ENDFOREACH»
+
+«ENDDEFINE»
+
+
+«REM»Crea la struttura di un validatore custom di Struts 2 come definito dall'utente. 
+Spettera' all'utente inserire nelle regioni protette il codice del validatore«ENDREM»
+«DEFINE strutsCustomValidatorJavaFile(String validatorName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".import")»
+/* Inserire qui gli altri import necessari al validatore */
+«ENDPROTECT»
+
+/**
+ * «validatorName.toUpperCase()» Custom Validation Class.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toUpperCase()» extends FieldValidatorSupport {
+
+	@Override
+	public void validate (Object object) throws ValidationException {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".validate")»
+		/* Inserire qui il codice che implementa la logica del validatore */
+		
+		// nome del campo
+		String fieldName = getFieldName();
+
+		// valore del campo, come generico Object da castare nel tipo desiderato/atteso
+		Object value = this.getFieldValue(fieldName, object);
+
+		«ENDPROTECT»
+	}
+	
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".other")»
+	/* Inserire qui proprieta' e metodi del validatore */
+	«ENDPROTECT»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Crea un validatore custom di Struts 2 per la gestione delle date«ENDREM»
+«DEFINE strutsCsiDateValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«LET getGuigenCustomValidators().get(0) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile((String)validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import java.text.SimpleDateFormat;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+/**
+ * Controlla che la data sia nel formato atteso.
+ *
+ * @author GuiGen
+ */
+public class «((String)validatorName).toFirstUpper()» extends FieldValidatorSupport {
+
+	/** Formato atteso della data (obbligatorio) */
+	private String format;
+	
+	
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+
+	public void validate(Object object) throws ValidationException {
+		// nome del campo
+		String fieldName = getFieldName();
+		System.out.println("=====> [CsiDateValidator::validate] FIELD NAME {" + fieldName + "}");
+		
+		// valore del campo
+		String value = (String)this.getFieldValue(fieldName, object);
+		System.out.println("=====> [CsiDateValidator::validate] FIELD VALUE {" + value + "}");
+		
+		if ( format == null || format.trim().length() == 0 ) {
+			addFieldError(fieldName, object);
+		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			try {
+				sdf.parse(value);
+			} catch (Exception e) {
+				addFieldError(fieldName, object);
+			}
+		}
+	}
+
+}
+«ENDFILE»
+«ENDLET»
+«ENDDEFINE»

@@ -18,7 +18,14 @@ String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 	
 String getPresentationMarkupConfig() :
 	"jsp";	
-	
+
+String getValidationJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/validator";
+
+String getValidationJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".validator";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Struts2
 
@@ -31,6 +38,8 @@ String getStrutsGlobalConfigFile(GUIModel model, boolean omit_root) :
 String getStrutsApplicationConfigFile(GUIModel model, boolean omit_root, String fileName) :
 	getWebModuleConfigDir(model, omit_root) + "/" + fileName + ".xml";
 
+String getStrutsValidationConfigFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/validators.xml";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Spring
@@ -182,8 +191,16 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Validatori e convertitori Struts2
 
-	 
+String getStrutsCustomValidatorFQN(String validatorName, GUIModel model) :
+	getValidationJavaPackage(model) + "." + validatorName.toFirstUpper();
+	
+String getStrutsCustomValidatorJavaFile(String validatorName, GUIModel model, boolean omit_root) :
+	getValidationJavaSrcDir(model, omit_root) + "/" + validatorName.toFirstUpper() + ".java";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi spring
 
@@ -218,11 +235,11 @@ String toJavaSimpleType(Type type) :
 	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
   	(nillable ? "java.lang.Boolean" : "boolean")
 	else if (code == guigen::SimpleTypeCodes::DATE) then
-  	(nillable ? "java.util.Date" : "java.lang.String")
+  	(nillable ? "java.lang.String" : "java.lang.String")
   	else if (code == guigen::SimpleTypeCodes::DATETIME) then
-  	(nillable ? "java.util.Date" : "java.util.Date")
+  	(nillable ? "java.lang.String" : "java.lang.String")
   	else if (code == guigen::SimpleTypeCodes::HOURS) then
-  	(nillable ? "java.util.Date" : "java.lang.String")
+  	(nillable ? "java.lang.String" : "java.lang.String")
 	else if (code == guigen::SimpleTypeCodes::BYTE) then
   	(nillable ? "byte" : "byte")
   	else if (code == guigen::SimpleTypeCodes::TREE_NODE) then
@@ -451,6 +468,18 @@ String getCustomtagCloseColspan(FormPanel fp, Widget w) : JAVA
 // [DM]
 String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] restituisce le annotazioni per la validazione del campo
+String getWidgetValidation(DataWidget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget);
+
+// [DM] restituisce la lista dei custom validators definiti dal generatore
+List getGuigenCustomValidators() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenCustomValidators();
+
+// [DM] restituisce la lista dei custom validators modellati dall'utente nei widget
+List getUserCustomValidators() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidators();
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

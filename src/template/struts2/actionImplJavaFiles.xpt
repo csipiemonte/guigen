@@ -694,62 +694,70 @@ public class SequenceCommand implements ICommand {
 		return _idColonna;
 	}
 
-
-
-
 «ENDDEFINE»
 
 «REM»
 	inserisce tutte le proeprty associate ai vari DataWidget contenuti nel content panel
 	a tutti i livelli
 «ENDREM»
-«DEFINE widgetsProperties(GUIModel model) FOR ContentPanel»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation) FOR ContentPanel»
 «LET findAllWidgetsInContentPanel(this) AS allW»
 «LET (List[Widget])allW AS allWidgets»
-«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding==null) AS allDataWidgets»
-	«EXPAND widgetProperty(model) FOREACH allDataWidgets»
+«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding == null) AS allDataWidgets»
+	«EXPAND widgetProperty(model, widgetValidation) FOREACH allDataWidgets»
 «ENDLET»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model) FOR DataWidget»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR DataWidget»
 	// tipo di data widget non gestito: «this»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model) FOR TextField»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR TextField»
 	// TextField «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model) FOR TextArea»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR TextArea»
 	// TextArea «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model) FOR Table»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR Table»
 	// Table «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«EXPAND property("widg_"+name, model, "") FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model) FOR RadioButtons»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR RadioButtons»
 	// RadioButtons «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model) FOR CheckBox»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR CheckBox»
 	// CheckBox «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model) FOR ComboBox»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR ComboBox»
 	// ComboBox «name»
-	«EXPAND property("widg_"+name, model) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE property(String name, GUIModel model) FOR Type»
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
 	private «toJavaType(this, model)» _«name»;
 	
+	«widgetValidation»
 	public void set«name.toFirstUpper()»(«toJavaType(this, model)» value){
 		_«name» = value;
 	}

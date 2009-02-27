@@ -16,6 +16,7 @@
 	«REM»Generazione dei files di Struts2«ENDREM»
 	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
 	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR this»
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
@@ -278,6 +279,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 ===========================================================================================================================
 «ENDREM»
 
+«REM»************************************ STRUTS 2 ************************************«ENDREM»
 
 «REM»Genera conf\web\<componente>\WEB-INF\struts.xml«ENDREM»
 «DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -432,6 +434,36 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «ENDDEFINE»
 
 
+«REM»Genera il file di Struts per la registrazione dei validatori custom«ENDREM»
+«DEFINE strutsValidationConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsValidationConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator Config 1.0//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-config-1.0.dtd">
+
+<validators>
+
+	<!-- Custom validators Definiti in GuiGen -->
+	«FOREACH getGuigenCustomValidators() AS currValidator»
+	<validator name="«(String)currValidator»" class="«getStrutsCustomValidatorFQN((String)currValidator, this)»"/>
+	«ENDFOREACH»
+
+	<!-- Custom validators modellati dall'utente nei widget -->
+	«FOREACH getUserCustomValidators() AS currValidator»
+	<validator name="«(String)currValidator»" class="«getStrutsCustomValidatorFQN((String)currValidator, this)»"/>
+	«ENDFOREACH»
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")»
+	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
+	«ENDPROTECT»
+
+</validators>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»************************************ SPRING ************************************«ENDREM»
+
 «REM»Genera il file di Spring per la parte EJB«ENDREM»
 «DEFINE ejbSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getSpringEjbConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
@@ -466,6 +498,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «ENDFILE»
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+FILES DI CONFIGURAZIONE DI ALTRE COMPONENTI
+===========================================================================================================================
+«ENDREM»
 
 «REM»Genera il file di configurazione della DisplayTag«ENDREM»
 «DEFINE displayTagConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»

@@ -16,27 +16,27 @@
           <topLevelMenu name="mnuAziende" label="Aziende">
             <item name="mnuItmAzienda1" label="Azienda 1">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda2" label="Azienda 2">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda3" label="Azienda 3">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda4" label="Azienda 4">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda5" label="Azienda 5">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.9"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -66,9 +66,9 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="pRicerca" label="Criteri ricerca">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.7" fieldLength="20"/>
-                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50"/>
-                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.9" fieldLength="20"/>
+                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.9" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.9" fieldLength="50"/>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pButtons">
                 <layout xsi:type="guigen:UDLRCPanelLayout"/>
@@ -122,7 +122,7 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="pRisultatiCombo" label="Risultati (combo)">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.7" keySelector="codFisc" valueSelector="nome + ' ' + cognome">
+                <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.9" keySelector="codFisc" valueSelector="nome + ' ' + cognome">
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
                 </widgets>
               </subpanels>
@@ -140,7 +140,7 @@
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="pRisultatiTable" label="Risultati (table)">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.26" pageSize="2">
+                <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@types.28" pageSize="2">
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggetto1">
                       <results resultCode="OK">
@@ -159,7 +159,7 @@
                   </columnModel>
                 </widgets>
               </subpanels>
-              <subpanels xsi:type="guigen:CommandPanel" name="cpAumento">
+              <subpanels xsi:type="guigen:CommandPanel" name="cpAzioni">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="bAumento" label="Concedi Aumento">
                   <eventHandlers>
@@ -168,6 +168,11 @@
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
                     </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bNuovo" label="Aggiungi nuovo">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>
@@ -193,41 +198,33 @@
                 <widgets xsi:type="guigen:HiddenValue" name="idPersona" dataType="//@typedefs/@types.0">
                   <databinding appData="//@appDataDefs/@appData.1" path="id"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="" dataType="//@typedefs/@types.7" fieldLength="16">
+                <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="" dataType="//@typedefs/@types.9" fieldLength="16">
                   <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="50">
+                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.9" fieldLength="50">
                   <databinding appData="//@appDataDefs/@appData.1" path="nome"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.7" fieldLength="50">
+                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.9" fieldLength="50">
                   <databinding appData="//@appDataDefs/@appData.1" path="cognome"/>
                 </widgets>
                 <widgets xsi:type="guigen:TextField" name="eta" label="Eta" dataType="//@typedefs/@types.0">
                   <databinding appData="//@appDataDefs/@appData.1" path="eta"/>
                 </widgets>
-                <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.9">
                   <databinding appData="//@appDataDefs/@appData.1" path="sex"/>
-                  <radio name="rbSexM" label="M"/>
-                  <radio name="rbSexF" label="F"/>
+                  <radio name="M" label="M"/>
+                  <radio name="F" label="F"/>
                 </widgets>
-              </subpanels>
-              <subpanels xsi:type="guigen:CommandPanel" name="copProva" label="">
-                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:ConfirmButton" name="button1" label="Horizontal Button 1"/>
-                <widgets xsi:type="guigen:ConfirmButton" name="button2" label="Button 2"/>
-                <widgets xsi:type="guigen:ConfirmButton" name="button3" label="Lungo pulsante orizzontale 3"/>
-                <widgets xsi:type="guigen:ResetButton" name="reset" label="reset"/>
-                <widgets xsi:type="guigen:Button" name="pippo" label="pippo"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spIndirizzo" label="Indirizzo">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="comune" label="Comune" dataType="//@typedefs/@types.7" fieldLength="50">
+                <widgets xsi:type="guigen:TextField" name="comune" label="Comune" dataType="//@typedefs/@types.9" fieldLength="50">
                   <databinding appData="//@appDataDefs/@appData.1" path="residenza.comune"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="via" label="Via" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:TextField" name="via" label="Via" dataType="//@typedefs/@types.9">
                   <databinding appData="//@appDataDefs/@appData.1" path="residenza.via"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="numCiv" label="Numero civico" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Numero civico" dataType="//@typedefs/@types.9">
                   <databinding appData="//@appDataDefs/@appData.1" path="residenza.numCiv"/>
                 </widgets>
               </subpanels>
@@ -261,102 +258,160 @@
             </subpanels>
           </panels>
         </contentPanels>
+        <contentPanels name="cpCreaPersona" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pDettaglio" label="Crea nuovo soggetto">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pDettaglioSoggetto" label="Nuovo Soggetto">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="spDatiAnagrafici" label="Dati Anagrafici">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="size:16,16" dataType="//@typedefs/@types.9" required="true" fieldLength="16"/>
+                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataTypeModifier="size:2,50" dataType="//@typedefs/@types.9" required="true" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataTypeModifier="size:2" dataType="//@typedefs/@types.9" required="true" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="eta" label="Eta" dataTypeModifier="range:18" dataType="//@typedefs/@types.0" required="true"/>
+                <widgets xsi:type="guigen:TextField" name="dataNascita" label="Data nascita" dataTypeModifier="short" dataType="//@typedefs/@types.3" required="true"/>
+                <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.9">
+                  <radio name="M" label="M"/>
+                  <radio name="F" label="F"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="spIndirizzo" label="Indirizzo">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="comune" label="Comune" dataType="//@typedefs/@types.9" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="via" label="Via" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Numero civico" dataTypeModifier="size:,20" dataType="//@typedefs/@types.9"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="spReddito" label="Reddito">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="reddito" label="Reddito mensile netto" dataTypeModifier="range:1000.00,1499.99" dataType="//@typedefs/@types.13"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="spButtons">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bCreaSoggetto" label="Crea">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="creaNuovaPersona" postExecData="//@appDataDefs/@appData.0">
+                      <results resultCode="SUCCESS">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bGotoDettaglio" label="Indietro">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="mpMenu" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvView" label=""/>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
         <contentPanels name="cpAzienda1">
           <panels xsi:type="guigen:FormPanel" name="pAzienda1" label="Azienda1">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="spA1vf" label="Dati Anagrafici">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-              <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.7"/>
-              <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.7"/>
-              <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.7" fieldLength="5"/>
+              <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+              <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+              <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="spA1hf" label="Horizontal Flow Layout">
               <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-              <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" fieldLength="20"/>
-              <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.7" fieldLength="5"/>
-              <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.7" fieldLength="5"/>
+              <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
+              <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
+              <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="spA1gf1" label="Grid Layout">
               <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
-              <widgets xsi:type="guigen:TextField" name="a1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r2_c3" label="R2 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r2_c1" label="R2 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
               </widgets>
-              <widgets xsi:type="guigen:TextField" name="a1_r3_c2" label="R3 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+              <widgets xsi:type="guigen:TextField" name="a1_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
               </widgets>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="spA1gf2" label="Grid Layout con Colspan">
               <layout xsi:type="guigen:GridPanelLayout" columns="4" rows="6"/>
-              <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+              <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" staticText="Testo R1 C2">
+              <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" staticText="Testo R1 C2">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2" hspan="1"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" staticText="Testo R1 C3">
+              <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" staticText="Testo R1 C3">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C4">
+              <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C4">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="4" hspan="1"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R2 C1">
+              <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R2 C1">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+              <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2" hspan="2"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.7" staticText="Testo R2 C4">
+              <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.9" staticText="Testo R2 C4">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="4"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+              <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="2"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" staticText="Testo R3 C3">
+              <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" staticText="Testo R3 C3">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+              <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="4"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.7" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+              <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.9" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="3"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.7" staticText="Testo R4 C4">
+              <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.9" staticText="Testo R4 C4">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="4"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.7" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+              <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.9" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="4"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.7" staticText="Testo R6 C1">
+              <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.9" staticText="Testo R6 C1">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.7" staticText="Testo R6 C2">
+              <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.9" staticText="Testo R6 C2">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="2"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.7" staticText="Testo R6 C3">
+              <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.9" staticText="Testo R6 C3">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="3"/>
               </widgets>
-              <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.7" staticText="Testo R6 C4">
+              <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.9" staticText="Testo R6 C4">
                 <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="4"/>
               </widgets>
             </subpanels>
@@ -383,97 +438,97 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="spA2vf" label="Dati Anagrafici">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA2hf" label="Horizontal Flow Layout">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" fieldLength="20"/>
-                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.7" fieldLength="5"/>
-                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA2gf1" label="Grid Layout">
                 <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA2gf2" label="Grid Layout con Colspan">
                 <layout xsi:type="guigen:GridPanelLayout" columns="4" rows="6"/>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" staticText="Testo R1 C2">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" staticText="Testo R1 C2">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" staticText="Testo R1 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" staticText="Testo R1 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R2 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R2 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2" hspan="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.7" staticText="Testo R2 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.9" staticText="Testo R2 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" staticText="Testo R3 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" staticText="Testo R3 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.7" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.9" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.7" staticText="Testo R4 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.9" staticText="Testo R4 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.7" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.9" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.7" staticText="Testo R6 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.9" staticText="Testo R6 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.7" staticText="Testo R6 C2">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.9" staticText="Testo R6 C2">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.7" staticText="Testo R6 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.9" staticText="Testo R6 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.7" staticText="Testo R6 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.9" staticText="Testo R6 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="4"/>
                 </widgets>
               </subpanels>
@@ -505,97 +560,97 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="spA3vf" label="Dati Anagrafici">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA3hf" label="Horizontal Flow Layout">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" fieldLength="20"/>
-                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.7" fieldLength="5"/>
-                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA3gf1" label="Grid Layout">
                 <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spA3gf2" label="Grid Layout con Colspan">
                 <layout xsi:type="guigen:GridPanelLayout" columns="4" rows="6"/>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" staticText="Testo R1 C2">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" staticText="Testo R1 C2">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" staticText="Testo R1 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" staticText="Testo R1 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r1_c4" label="R1 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.7" staticText="Testo R2 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c1" label="R1 C1" dataType="//@typedefs/@types.9" staticText="Testo R2 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" staticText="Testo R2 C2 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2" hspan="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.7" staticText="Testo R2 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r2_c4" label="R2 C4" dataType="//@typedefs/@types.9" staticText="Testo R2 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" staticText="Testo R3 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1" hspan="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" staticText="Testo R3 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" staticText="Testo R3 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.7" staticText="Testo R1 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r3_c4" label="R3 C4" dataType="//@typedefs/@types.9" staticText="Testo R1 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.7" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r4_c1" label="R4 C1" dataType="//@typedefs/@types.9" staticText="Testo R4 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.7" staticText="Testo R4 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r4_c4" label="R4 C4" dataType="//@typedefs/@types.9" staticText="Testo R4 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.7" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
+                <widgets xsi:type="guigen:PlainText" name="b1_r5_c1" label="R5 C1" dataType="//@typedefs/@types.9" staticText="Testo R5 C1 xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx xxxxxxxxxxxxxxx ">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1" hspan="4"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.7" staticText="Testo R6 C1">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c1" label="R6 C1" dataType="//@typedefs/@types.9" staticText="Testo R6 C1">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.7" staticText="Testo R6 C2">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c2" label="R6 C2" dataType="//@typedefs/@types.9" staticText="Testo R6 C2">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.7" staticText="Testo R6 C3">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c3" label="R6 C3" dataType="//@typedefs/@types.9" staticText="Testo R6 C3">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.7" staticText="Testo R6 C4">
+                <widgets xsi:type="guigen:PlainText" name="b1_r6_c4" label="R6 C4" dataType="//@typedefs/@types.9" staticText="Testo R6 C4">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="4"/>
                 </widgets>
               </subpanels>
@@ -622,43 +677,43 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <panels xsi:type="guigen:FormPanel" name="a4Tab1" label="Tab 1">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.7"/>
-                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </panels>
               <panels xsi:type="guigen:FormPanel" name="a4Tab2" label="Tab 2">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" fieldLength="20"/>
-                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.7" fieldLength="5"/>
-                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
+                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </panels>
               <panels xsi:type="guigen:FormPanel" name="a4Tab3" label="Tab 3">
                 <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
                 </widgets>
               </panels>
@@ -687,43 +742,43 @@
               <subpanels xsi:type="guigen:MultiPanel" name="mpAz5">
                 <panels xsi:type="guigen:FormPanel" name="a5mpsp1" label="MultiPanel Subpanel 1">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.7"/>
-                  <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.7"/>
-                  <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                  <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+                  <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+                  <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
                 </panels>
                 <panels xsi:type="guigen:FormPanel" name="a5mpsp2" label="MultiPanel Subpanel 2">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.7" fieldLength="20"/>
-                  <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.7" fieldLength="5"/>
-                  <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.7" fieldLength="5"/>
+                  <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
+                  <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
+                  <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
                 </panels>
                 <panels xsi:type="guigen:FormPanel" name="a5mpsp3" label="MultiPanel Subpanel 3">
                   <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
-                  <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.7" fieldLength="10">
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                     <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
                   </widgets>
                 </panels>
@@ -732,17 +787,17 @@
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva1" label="Attiva 1">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.0"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.0"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva2" label="Attiva 2">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.1"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.1"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva3" label="Attiva 3">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.8/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>
@@ -757,9 +812,11 @@
     <types xsi:type="guigen:SimpleType" name="Integer"/>
     <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
     <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
-    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="DateTime" code="DATETIME" nillable="true"/>
     <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
     <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Hours" code="HOURS" nillable="true"/>
     <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
     <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
     <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
@@ -771,37 +828,39 @@
     <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
     <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
     <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
-    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.13"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.14"/>
     <types xsi:type="guigen:ComplexType" name="Persona">
       <fields name="id" type="//@typedefs/@types.0"/>
-      <fields name="codFisc" type="//@typedefs/@types.7"/>
-      <fields name="nome" type="//@typedefs/@types.7"/>
-      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.9"/>
+      <fields name="nome" type="//@typedefs/@types.9"/>
+      <fields name="cognome" type="//@typedefs/@types.9"/>
       <fields name="eta" type="//@typedefs/@types.0"/>
-      <fields name="sesso" type="//@typedefs/@types.7"/>
-      <fields name="residenza" type="//@typedefs/@types.28"/>
-      <fields name="reddito" type="//@typedefs/@types.7"/>
-      <fields name="aumento" type="//@typedefs/@types.7"/>
+      <fields name="dataNascita" type="//@typedefs/@types.3"/>
+      <fields name="sesso" type="//@typedefs/@types.9"/>
+      <fields name="residenza" type="//@typedefs/@types.30"/>
+      <fields name="reddito" type="//@typedefs/@types.9"/>
+      <fields name="aumento" type="//@typedefs/@types.9"/>
+      <fields name="note" type="//@typedefs/@types.9"/>
     </types>
-    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.28"/>
     <types xsi:type="guigen:ComplexType" name="Indirizzo">
-      <fields name="comune" type="//@typedefs/@types.7"/>
-      <fields name="via" type="//@typedefs/@types.7"/>
-      <fields name="numCiv" type="//@typedefs/@types.7"/>
+      <fields name="comune" type="//@typedefs/@types.9"/>
+      <fields name="via" type="//@typedefs/@types.9"/>
+      <fields name="numCiv" type="//@typedefs/@types.9"/>
     </types>
-    <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@types.28"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@types.30"/>
   </typedefs>
   <appDataDefs>
-    <appData name="personeTrovate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
-    <appData name="dettaglioPersona" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.26"/>
-    <appData name="personeSelezionate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
+    <appData name="personeTrovate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
+    <appData name="dettaglioPersona" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
+    <appData name="personeSelezionate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
   </appDataDefs>
 </guigen:GUIModel>

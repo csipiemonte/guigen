@@ -125,7 +125,12 @@ public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp){
 		return findAllWidgetsInApplication();
 }
 
-private static ArrayList<Widget> findAllWidgetsInApplication() {
+
+/**
+ * Restituisce la lista completa dei widget dell'applicazione
+ * @return
+ */
+public static ArrayList<Widget> findAllWidgetsInApplication() {
 	TreeIterator<EObject> all= GuigenPackage.eINSTANCE.eAllContents();
 	ArrayList<Widget> allW = new ArrayList<Widget>();
 	while(all.hasNext()){
@@ -134,7 +139,6 @@ private static ArrayList<Widget> findAllWidgetsInApplication() {
 			allW.add((Widget)curr);
 	}
 	return allW;
-		
 }
 
 /**
@@ -818,11 +822,13 @@ public static String getOGNLForWidgetValue(DataWidget w){
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
 			return ""+getFullBindingPath(binding)+"";  // unificato
 		}
-		else
+		else {
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
+		}
 	}
-	else
-		return "widg_"+w.getName()+""; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+	else {
+		return getWidgetName(w);
+	}
 }
 
 public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
@@ -834,11 +840,26 @@ public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
 		else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
 			return ""+getFullBindingPath(binding)+""; // unificato
 		}
-		else
+		else {
 			throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+w);
+		}
 	}
-	else
-		return "widg_"+w.getName()+""; // TODO se cambiamo i nomi nel generatore occorre modificare anche questo
+	else {
+		return getWidgetName(w);
+	}
+}
+
+
+/**
+ * Restituisce il nome del widget. E' utilizzabile in molti contesti
+ * TODO: se cambiamo i nomi nel generatore occorre modificare anche questo
+ * 
+ * @param w Il widget
+ * @return  Il nome del widget
+ * @author [DM] 
+ */
+public static String getWidgetName(Widget w) {
+	return "widg_" + w.getName();
 }
 
 
