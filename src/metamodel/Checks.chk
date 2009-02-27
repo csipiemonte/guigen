@@ -259,6 +259,11 @@ context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può esse
 	  (this.commands.select(a|a.metaType == JumpCommand).size==1) && (this.commands.last().metaType == JumpCommand)
 	;
 
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand" :
+	(this.commands.select(a|a.metaType == JumpExtCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpExtCommand).size==1) && (this.commands.last().metaType == JumpExtCommand)
+	;
+
 context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand" :
 	(this.commands.select(a|a.metaType == JumpBackCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpBackCommand).size==1) && (this.commands.last().metaType == JumpBackCommand);
