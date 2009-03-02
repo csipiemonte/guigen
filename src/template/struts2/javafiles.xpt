@@ -619,8 +619,8 @@ public class «((String)validatorName).toFirstUpper()» extends FieldValidatorSupp
 
 	/** Formato atteso della data (obbligatorio) */
 	private String format;
-	
-	
+
+
 	public String getFormat() {
 		return format;
 	}
@@ -632,20 +632,20 @@ public class «((String)validatorName).toFirstUpper()» extends FieldValidatorSupp
 	public void validate(Object object) throws ValidationException {
 		// nome del campo
 		String fieldName = getFieldName();
-		System.out.println("=====> [CsiDateValidator::validate] FIELD NAME {" + fieldName + "}");
-		
+
 		// valore del campo
-		String value = (String)this.getFieldValue(fieldName, object);
-		System.out.println("=====> [CsiDateValidator::validate] FIELD VALUE {" + value + "}");
-		
+		String value = (String) this.getFieldValue(fieldName, object);
+
 		if ( format == null || format.trim().length() == 0 ) {
-			addFieldError(fieldName, object);
+			throw new ValidationException("Nessun formato specificato");
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat(format);
-			try {
-				sdf.parse(value);
-			} catch (Exception e) {
-				addFieldError(fieldName, object);
+			if ( value != null && value.trim().length() > 0 ) {
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				try {
+					sdf.parse(value);
+				} catch (Exception e) {
+					addFieldError(fieldName, object);
+				}
 			}
 		}
 	}
