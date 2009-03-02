@@ -334,11 +334,8 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	</package>
 
 	<package name="default" extends="jsp-package" namespace="/">
-		<action name="HomePage">
-			<result>«getHomePageConfig(this)»</result>  
-		</action>
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
-		<action name="HomePage" «IF onInitAction!=null»class="«getStrutsHomeFQN(this)»"«ENDIF»>
+		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
 		    «IF onInitAction != null»
 		    «LET getAllPossibleJumps(onInitAction) AS allJumps»
 			«FOREACH allJumps AS currJump»

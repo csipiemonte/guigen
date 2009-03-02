@@ -8,9 +8,7 @@
 	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
-	«IF this.structure.appWindow.appArea.onInitCommand!=null»
-		«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
-	«ENDIF»
+	«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
@@ -365,15 +363,23 @@ import «getDTOBaseJavaPackage(this)».*;
 @Validation()
 public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 
+	«IF this.structure.appWindow.appArea.onInitCommand != null»
     «EXPAND actionImplJavaFiles::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
+    «ENDIF»
     
     /**
 	 * classe model associata
 	 */
 	public Class modelClass() {
+		«IF this.structure.appWindow.appArea.onInitCommand != null»
 		return «getModelDTOFQN(null, false, true, this)».class;
+		«ELSE»
+		return java.lang.Object.class;
+		«ENDIF»
 	}
     
+    
+    «IF this.structure.appWindow.appArea.onInitCommand != null»
 	/**
 	 *
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
@@ -394,6 +400,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 			return SUCCESS;
 		}
 	}
+	«ENDIF»
 
 
 	/**
@@ -407,7 +414,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 
 
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
-	«IF onInitAction!=null»
+	«IF onInitAction != null»
     «EXPAND actionImplJavaFiles::actionStructureInit1(this) FOR onInitAction»
     «ENDIF»
 	«ENDLET»
