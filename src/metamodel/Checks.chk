@@ -92,8 +92,8 @@ context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno" :
 	this.panels.size>0;
 	
-context MultiPanel ERROR "Un multipanel può contenere solo FormPanel come pannelli interni" :
-	this.panels.select(p|!p.metaType.isAssignableFrom(FormPanel)).size==0;
+context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel come pannelli interni" :
+	this.panels.select(p|(!p.metaType.isAssignableFrom(FormPanel)&&!p.metaType.isAssignableFrom(CommandPanel))).size==0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
@@ -283,8 +283,9 @@ context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono
 // 4) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
 // 5) non deve avere label (*da verificare*) 
 // 1
-context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPanel " + loc() :
-	this.eContainer.metaType == FormPanel;
+context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPanel o in un MultiPanel/TabSetPanel" + loc() :
+	this.eContainer.metaType == FormPanel ||
+	this.eContainer.metaType.isAssignableFrom(MultiPanel);
 // 2
 context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget o HiddenValue" + loc() :
 	commandPanelCommandWidgetCheck(this);
