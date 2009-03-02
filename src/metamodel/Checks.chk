@@ -326,6 +326,9 @@ context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////
 
+context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato" :
+	this.minAuthLevel>=1 && this.minAuthLevel<=3;
+
 context UISecurityConstraint ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
 "se non è specificato un metodo di AUTENTICAZIONE" :
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;

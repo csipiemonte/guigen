@@ -4820,13 +4820,22 @@ public interface GuigenPackage extends EPackage {
 	int OPAUTHSSO = 87;
 
 	/**
+	 * The feature id for the '<em><b>Min Auth Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPAUTHSSO__MIN_AUTH_LEVEL = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>OPAUTHSSO</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAUTHSSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+	int OPAUTHSSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.SSOBARTSSOImpl <em>SSOBARTSSO</em>}' class.
@@ -7215,6 +7224,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getOPAUTHSSO();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.OPAUTHSSO#getMinAuthLevel <em>Min Auth Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Auth Level</em>'.
+	 * @see it.csi.mddtools.guigen.OPAUTHSSO#getMinAuthLevel()
+	 * @see #getOPAUTHSSO()
+	 * @generated
+	 */
+	EAttribute getOPAUTHSSO_MinAuthLevel();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.SSOBARTSSO <em>SSOBARTSSO</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9209,6 +9229,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPAUTHSSO = eINSTANCE.getOPAUTHSSO();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Auth Level</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPAUTHSSO__MIN_AUTH_LEVEL = eINSTANCE.getOPAUTHSSO_MinAuthLevel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.SSOBARTSSOImpl <em>SSOBARTSSO</em>}' class.

@@ -2716,6 +2716,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getOPAUTHSSO_MinAuthLevel() {
+		return (EAttribute)opauthssoEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSSOBARTSSO() {
 		return ssobartssoEClass;
 	}
@@ -3174,6 +3183,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		customSecurityConstraintEClass = createEClass(CUSTOM_SECURITY_CONSTRAINT);
 
 		opauthssoEClass = createEClass(OPAUTHSSO);
+		createEAttribute(opauthssoEClass, OPAUTHSSO__MIN_AUTH_LEVEL);
 
 		ssobartssoEClass = createEClass(SSOBARTSSO);
 
@@ -3582,6 +3592,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(customSecurityConstraintEClass, CustomSecurityConstraint.class, "CustomSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(opauthssoEClass, it.csi.mddtools.guigen.OPAUTHSSO.class, "OPAUTHSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOPAUTHSSO_MinAuthLevel(), ecorePackage.getEInt(), "minAuthLevel", "1", 0, 1, it.csi.mddtools.guigen.OPAUTHSSO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ssobartssoEClass, it.csi.mddtools.guigen.SSOBARTSSO.class, "SSOBARTSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
