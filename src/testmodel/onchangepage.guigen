@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="onchangepage" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header/>
+      <appArea>
+        <menubar/>
+        <contentPanels name="cpPrimo" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Principale">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:CommandPanel" name="pComandi">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bRicarica" label="Ricarica"/>
+              </subpanels>
+              <widgets xsi:type="guigen:ComboBox" name="cbComuni" label="Comuni" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+              </widgets>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="preparaPagina" postExecData="//@appDataDefs/@appData.0">
+            <results resultCode="OK">
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <staticLinks/>
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.0">
+          <results resultCode="OK">
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </results>
+        </onInitCommand>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:ComplexType" name="Persona">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="eta" type="//@typedefs/@types.0"/>
+      <fields name="sesso" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="residenza" type="//@typedefs/@types.28"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
+    <types xsi:type="guigen:ComplexType" name="Indirizzo">
+      <fields name="comune" type="//@typedefs/@types.7"/>
+      <fields name="via" type="//@typedefs/@types.7"/>
+      <fields name="numCiv" type="//@typedefs/@types.0"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Progetto">
+      <fields name="codice" type="//@typedefs/@types.7"/>
+      <fields name="nome" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@types.29"/>
+    <types xsi:type="guigen:ComplexType" name="Comune">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="codIstat" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
+    <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+  </typedefs>
+  <appDataDefs>
+    <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
+  </appDataDefs>
+</guigen:GUIModel>

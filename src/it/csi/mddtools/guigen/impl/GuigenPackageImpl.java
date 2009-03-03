@@ -1015,6 +1015,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getContentPanel_OnRefreshCommand() {
+		return (EReference)contentPanelEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFormPanel() {
 		return formPanelEClass;
 	}
@@ -2911,6 +2920,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(contentPanelEClass, CONTENT_PANEL__PANELS);
 		createEAttribute(contentPanelEClass, CONTENT_PANEL__NAME);
 		createEReference(contentPanelEClass, CONTENT_PANEL__APP_DATA);
+		createEReference(contentPanelEClass, CONTENT_PANEL__ON_REFRESH_COMMAND);
 
 		formPanelEClass = createEClass(FORM_PANEL);
 		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
@@ -3320,6 +3330,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getContentPanel_Panels(), this.getPanel(), null, "panels", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentPanel_OnRefreshCommand(), this.getCommand(), null, "onRefreshCommand", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

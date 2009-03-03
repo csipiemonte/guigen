@@ -131,6 +131,7 @@ public class ContentPanelItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__PANELS);
+			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND);
 		}
 		return childrenFeatures;
 	}
@@ -189,6 +190,7 @@ public class ContentPanelItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.CONTENT_PANEL__PANELS:
+			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -240,6 +242,61 @@ public class ContentPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createONOFFCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createCustomCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createExecCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createSequenceCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
 	}
 
 	/**

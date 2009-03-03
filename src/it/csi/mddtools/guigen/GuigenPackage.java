@@ -237,13 +237,22 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__APP_DATA = 2;
 
 	/**
+	 * The feature id for the '<em><b>On Refresh Command</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__ON_REFRESH_COMMAND = 3;
+
+	/**
 	 * The number of structural features of the '<em>Content Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_PANEL_FEATURE_COUNT = 3;
+	int CONTENT_PANEL_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -5228,6 +5237,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getContentPanel_AppData();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand <em>On Refresh Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>On Refresh Command</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_OnRefreshCommand();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FormPanel <em>Form Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7551,6 +7571,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTENT_PANEL__APP_DATA = eINSTANCE.getContentPanel_AppData();
+
+		/**
+		 * The meta object literal for the '<em><b>On Refresh Command</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__ON_REFRESH_COMMAND = eINSTANCE.getContentPanel_OnRefreshCommand();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.

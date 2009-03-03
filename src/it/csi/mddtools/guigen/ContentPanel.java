@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getPanels <em>Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand <em>On Refresh Command</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,5 +96,31 @@ public interface ContentPanel extends EObject {
 	 * @generated
 	 */
 	EList<ApplicationData> getAppData();
+
+	/**
+	 * Returns the value of the '<em><b>On Refresh Command</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>On Refresh Command</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>On Refresh Command</em>' containment reference.
+	 * @see #setOnRefreshCommand(Command)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_OnRefreshCommand()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Command getOnRefreshCommand();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand <em>On Refresh Command</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>On Refresh Command</em>' containment reference.
+	 * @see #getOnRefreshCommand()
+	 * @generated
+	 */
+	void setOnRefreshCommand(Command value);
 
 } // ContentPanel
