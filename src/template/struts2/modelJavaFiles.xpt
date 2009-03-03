@@ -96,6 +96,11 @@ public class «getSpringBEClassName()»{
 «REM»inserisce un metodo per ogni ExecAction contenuta nel modello«ENDREM»
 «DEFINE springBEMethods FOR GUIModel-»
 	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+		«IF currCP.onRefreshCommand!=null»
+			«FOREACH getAllExecActionsRecursive(currCP.onRefreshCommand) AS currAct-»
+				«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
+			«ENDFOREACH-»
+		«ENDIF»
 		«FOREACH getAllEventSourceWidgets(currCP) AS currESW-»
 			«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
 				«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»

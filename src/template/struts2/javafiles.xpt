@@ -436,6 +436,7 @@ STRUTS2 ACTIONS FILES
 import java.util.*;
 
 import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(model)».*;
@@ -446,7 +447,8 @@ import «getDTOBaseJavaPackage(model)».*;
  * @author GuiGen
  */
 @Validation()
-public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» {
+public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» 
+	implements Preparable{
 
     «EXPAND actionImplJavaFiles::widgetsProperties(model, true) FOR this»
 	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
@@ -510,6 +512,22 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDPROTECT»
 	}
 	
+	/**
+	 * Metodo di preparazione della schermata/action
+	 */
+	public void prepare(){
+		«IF this.onRefreshCommand!=null»
+		ICommand cmd = initOnRefreshCommand();
+		String res= cmd.doCommand(this);
+		System.out.println("onrefreshCommand returned:"+res+", ignoring");
+		«ENDIF»
+	}
+	
+	«LET this.onRefreshCommand AS onRefreshAction»
+	«IF onRefreshAction != null»
+    «EXPAND actionImplJavaFiles::actionStructureInit2(model) FOR onRefreshAction»
+    «ENDIF»
+	«ENDLET»
 	
 	/**  */
 	void dumpModel(boolean pre) {

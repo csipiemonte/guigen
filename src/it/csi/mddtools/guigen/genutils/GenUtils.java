@@ -63,6 +63,7 @@ import it.csi.mddtools.guigen.Widget;
 
 
 public class GenUtils {
+	
 public static ContentPanel findParentContentPanel (Command a){
 	EObject containerOfAction = a.eContainer();
 	//String name= containerOfAction.eClass().getName();
@@ -82,6 +83,9 @@ public static ContentPanel findParentContentPanel (Command a){
 	else if (containerOfAction instanceof SequenceCommand){
 		// sequence action
 		return findParentContentPanel(((SequenceCommand)containerOfAction));
+	}
+	else if (containerOfAction instanceof ContentPanel){
+		return (ContentPanel)containerOfAction;
 	}
 	else{
 		return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"

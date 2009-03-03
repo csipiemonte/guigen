@@ -422,6 +422,21 @@ public class SequenceCommand implements ICommand {
 	
 «ENDDEFINE»
 
+«DEFINE actionStructureInit2(GUIModel model) FOR Command»
+    /**
+     * inizializza la struttura dei command da eseguire
+     */
+	public ICommand initOnRefreshCommand() {
+		«EXPAND addActionCode("onRefresh",1, model) FOR this»
+		ICommand action = act_onRefresh_1; 
+		return action;
+	}
+	
+
+	
+«ENDDEFINE»
+
+
 «DEFINE actionStructureInit(GUIModel model) FOR Menubar»
     /**
      * inizializza la struttura dei command da eseguire per ciascun event handler 

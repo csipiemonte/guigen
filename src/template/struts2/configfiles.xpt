@@ -339,7 +339,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		    «IF onInitAction != null»
 		    «LET getAllPossibleJumps(onInitAction) AS allJumps»
 			«FOREACH allJumps AS currJump»
-			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
 			«ENDFOREACH»
 			«ENDLET»
 			«LET getAllPossibleExtJumps(onInitAction) AS allJumps»
@@ -379,7 +379,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»">	
 			«LET getAllPossibleJumps(((MenuItem)currMenuItem)) AS allJumps»
 			«FOREACH allJumps AS currJump»
-			<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
 			«ENDFOREACH»
 			«ENDLET»	
 			«LET getAllPossibleExtJumps(((MenuItem)currMenuItem)) AS allJumps»
@@ -417,7 +417,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	
 	«LET getAllPossibleJumps(this) AS allJumps»
 	«FOREACH allJumps AS currJump»
-	<result name="GO_TO_«((ContentPanel)currJump).name»">«getStrutsActionJspConfigName((ContentPanel)currJump)»</result>
+	<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
 	«ENDFOREACH»
 	«ENDLET»
 	«LET getAllPossibleExtJumps(this) AS allJumps»
