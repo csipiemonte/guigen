@@ -232,7 +232,7 @@
           description="costruisce l&apos;ear">
 
     <copy todir="${temp}/${target}/${earLib}">
-      <fileset dir="${lib}" includes="${ear-libs-filter}" />
+      <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
     </copy>
 
     <move file="${build}/archives/${target}/commons.jar"
@@ -277,7 +277,7 @@
       <classes dir="${build}/classes"
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
       <lib dir="${lib}" includes="*"
-            excludes="${war-exclude-libs-filter}" />
+            excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
     </war>
   </target>
 
@@ -484,6 +484,14 @@
                     commons-lang-2.2.jar,                  \
                     custom-component-attr-1.0.0.jar
 
+# - [ear-custom-libs-filter] -------------------------------------------------
+# Questo filter viene utilizzato per definire JAR aggiuntivi che devono 
+# essere inclusi all'interno dell'EAR prodotto.
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")»
+ear-custom-libs-filter =
+
+«ENDPROTECT»
+
 # - [war-exclude-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
 # venire inclusi all'interno del WAR.
@@ -499,6 +507,16 @@
                             log4j*.jar,                    \
                             commons*.jar,                  \
                             custom-component-attr-*.jar
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+
+«ENDPROTECT»
+
 
 # ----------------------------------------------------------------------------
   package.prefix = it.csi.${prodotto}.${componente}
@@ -589,6 +607,10 @@
 		<dependency org="others" name="displaytag" rev="1.2" />
 		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 		<dependency org="others" name="itext" rev="1.3" />
+		
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
+		<!-- Inserire qui le dipendenze aggiuntive -->
+		«ENDPROTECT»
 	</dependencies>
 
 </ivy-module>
