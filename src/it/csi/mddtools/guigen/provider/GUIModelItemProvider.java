@@ -203,6 +203,7 @@ public class GUIModelItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__TYPEDEFS);
 			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__APP_DATA_DEFS);
 			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__SECURITY_MODEL);
+			childrenFeatures.add(GuigenPackage.Literals.GUI_MODEL__TARGET_PLATFORM);
 		}
 		return childrenFeatures;
 	}
@@ -269,6 +270,7 @@ public class GUIModelItemProvider
 			case GuigenPackage.GUI_MODEL__TYPEDEFS:
 			case GuigenPackage.GUI_MODEL__APP_DATA_DEFS:
 			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
+			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -310,6 +312,11 @@ public class GUIModelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.GUI_MODEL__SECURITY_MODEL,
 				 GuigenFactory.eINSTANCE.createSecurityModel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.GUI_MODEL__TARGET_PLATFORM,
+				 GuigenFactory.eINSTANCE.createTargetPlatform()));
 	}
 
 	/**

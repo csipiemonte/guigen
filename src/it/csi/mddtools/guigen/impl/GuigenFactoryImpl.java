@@ -142,6 +142,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.CUSTOM_AUTHENTICATION: return createCustomAuthentication();
 			case GuigenPackage.STD_MESSAGE_PANEL: return createStdMessagePanel();
 			case GuigenPackage.JUMP_EXT_COMMAND: return createJumpExtCommand();
+			case GuigenPackage.TARGET_PLATFORM: return createTargetPlatform();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -167,6 +168,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createSimpleTypeCodesFromString(eDataType, initialValue);
 			case GuigenPackage.PORTAL_NAMES:
 				return createPortalNamesFromString(eDataType, initialValue);
+			case GuigenPackage.TARGET_PLATFORM_CODES:
+				return createTargetPlatformCodesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -192,6 +195,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertSimpleTypeCodesToString(eDataType, instanceValue);
 			case GuigenPackage.PORTAL_NAMES:
 				return convertPortalNamesToString(eDataType, instanceValue);
+			case GuigenPackage.TARGET_PLATFORM_CODES:
+				return convertTargetPlatformCodesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1012,6 +1017,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TargetPlatform createTargetPlatform() {
+		TargetPlatformImpl targetPlatform = new TargetPlatformImpl();
+		return targetPlatform;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -1124,6 +1139,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertPortalNamesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetPlatformCodes createTargetPlatformCodesFromString(EDataType eDataType, String initialValue) {
+		TargetPlatformCodes result = TargetPlatformCodes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTargetPlatformCodesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

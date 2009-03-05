@@ -1939,6 +1939,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TargetPlatform} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TargetPlatformItemProvider targetPlatformItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TargetPlatform}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTargetPlatformAdapter() {
+		if (targetPlatformItemProvider == null) {
+			targetPlatformItemProvider = new TargetPlatformItemProvider(this);
+		}
+
+		return targetPlatformItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2118,6 +2141,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (customAuthenticationItemProvider != null) customAuthenticationItemProvider.dispose();
 		if (stdMessagePanelItemProvider != null) stdMessagePanelItemProvider.dispose();
 		if (jumpExtCommandItemProvider != null) jumpExtCommandItemProvider.dispose();
+		if (targetPlatformItemProvider != null) targetPlatformItemProvider.dispose();
 	}
 
 }

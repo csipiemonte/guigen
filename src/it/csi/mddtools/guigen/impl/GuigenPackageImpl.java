@@ -85,6 +85,8 @@ import it.csi.mddtools.guigen.Statusbar;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TargetPlatform;
+import it.csi.mddtools.guigen.TargetPlatformCodes;
 import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
@@ -770,6 +772,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass targetPlatformEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -806,6 +815,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum portalNamesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum targetPlatformCodesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1458,6 +1474,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getGUIModel_SecurityModel() {
 		return (EReference)guiModelEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGUIModel_TargetPlatform() {
+		return (EReference)guiModelEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2824,6 +2849,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTargetPlatform() {
+		return targetPlatformEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTargetPlatform_Code() {
+		return (EAttribute)targetPlatformEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -2871,6 +2914,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getPortalNames() {
 		return portalNamesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTargetPlatformCodes() {
+		return targetPlatformCodesEEnum;
 	}
 
 	/**
@@ -2984,6 +3036,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(guiModelEClass, GUI_MODEL__APP_DATA_DEFS);
 		createEAttribute(guiModelEClass, GUI_MODEL__PORTALE);
 		createEReference(guiModelEClass, GUI_MODEL__SECURITY_MODEL);
+		createEReference(guiModelEClass, GUI_MODEL__TARGET_PLATFORM);
 
 		guiStructureEClass = createEClass(GUI_STRUCTURE);
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
@@ -3209,6 +3262,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(jumpExtCommandEClass, JUMP_EXT_COMMAND__RUNTIME_URL_PROVIDER);
 		createEAttribute(jumpExtCommandEClass, JUMP_EXT_COMMAND__LOCATION_CODE);
 
+		targetPlatformEClass = createEClass(TARGET_PLATFORM);
+		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3216,6 +3272,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
 		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
 		portalNamesEEnum = createEEnum(PORTAL_NAMES);
+		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
 	}
 
 	/**
@@ -3394,6 +3451,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getGUIModel_AppDataDefs(), this.getApplicationDataDefs(), null, "appDataDefs", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGUIModel_Portale(), this.getPortalNames(), "portale", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_SecurityModel(), this.getSecurityModel(), null, "securityModel", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGUIModel_TargetPlatform(), this.getTargetPlatform(), null, "targetPlatform", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiStructureEClass, GUIStructure.class, "GUIStructure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3619,6 +3677,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getJumpExtCommand_RuntimeUrlProvider(), this.getApplicationData(), null, "runtimeUrlProvider", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJumpExtCommand_LocationCode(), ecorePackage.getEString(), "locationCode", null, 0, 1, JumpExtCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -3660,6 +3721,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(portalNamesEEnum, PortalNames.class, "PortalNames");
 		addEEnumLiteral(portalNamesEEnum, PortalNames.SISTEMA_PIEMONTE);
 		addEEnumLiteral(portalNamesEEnum, PortalNames.INTRANET_RUPARPIEMONTE);
+
+		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
+		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
+		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS43);
 
 		// Create resource
 		createResource(eNS_URI);

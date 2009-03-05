@@ -755,6 +755,15 @@ public interface GuigenFactory extends EFactory {
 	JumpExtCommand createJumpExtCommand();
 
 	/**
+	 * Returns a new object of class '<em>Target Platform</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Target Platform</em>'.
+	 * @generated
+	 */
+	TargetPlatform createTargetPlatform();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

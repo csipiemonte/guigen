@@ -2353,13 +2353,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__SECURITY_MODEL = 9;
 
 	/**
+	 * The feature id for the '<em><b>Target Platform</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__TARGET_PLATFORM = 10;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 10;
+	int GUI_MODEL_FEATURE_COUNT = 11;
 
 	/**
 	 * The feature id for the '<em><b>App Window</b></em>' containment reference.
@@ -5013,6 +5022,34 @@ public interface GuigenPackage extends EPackage {
 	int JUMP_EXT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TargetPlatformImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatform()
+	 * @generated
+	 */
+	int TARGET_PLATFORM = 92;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_PLATFORM__CODE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Target Platform</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_PLATFORM_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5020,7 +5057,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 92;
+	int WIDGET_DATA_TYPE = 93;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5030,7 +5067,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 93;
+	int UDLRC_SPEC_CONSTANTS = 94;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5040,7 +5077,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 94;
+	int EVENT_TYPES = 95;
 
 
 	/**
@@ -5051,7 +5088,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 95;
+	int DATA_LIFETIME_TYPE = 96;
 
 
 	/**
@@ -5062,7 +5099,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 96;
+	int SIMPLE_TYPE_CODES = 97;
 
 
 	/**
@@ -5073,7 +5110,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 97;
+	int PORTAL_NAMES = 98;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.TargetPlatformCodes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
+	 * @generated
+	 */
+	int TARGET_PLATFORM_CODES = 99;
 
 
 	/**
@@ -5771,6 +5819,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGUIModel_SecurityModel();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target Platform</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getTargetPlatform()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_TargetPlatform();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -7361,6 +7420,27 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getJumpExtCommand_LocationCode();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TargetPlatform <em>Target Platform</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Target Platform</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform
+	 * @generated
+	 */
+	EClass getTargetPlatform();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.TargetPlatform#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform#getCode()
+	 * @see #getTargetPlatform()
+	 * @generated
+	 */
+	EAttribute getTargetPlatform_Code();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7419,6 +7499,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getPortalNames();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Target Platform Codes</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatformCodes
+	 * @generated
+	 */
+	EEnum getTargetPlatformCodes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -7999,6 +8089,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__SECURITY_MODEL = eINSTANCE.getGUIModel_SecurityModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Platform</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__TARGET_PLATFORM = eINSTANCE.getGUIModel_TargetPlatform();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -9355,6 +9453,24 @@ public interface GuigenPackage extends EPackage {
 		EAttribute JUMP_EXT_COMMAND__LOCATION_CODE = eINSTANCE.getJumpExtCommand_LocationCode();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TargetPlatformImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatform()
+		 * @generated
+		 */
+		EClass TARGET_PLATFORM = eINSTANCE.getTargetPlatform();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TARGET_PLATFORM__CODE = eINSTANCE.getTargetPlatform_Code();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -9413,6 +9529,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum PORTAL_NAMES = eINSTANCE.getPortalNames();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.TargetPlatformCodes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
+		 * @generated
+		 */
+		EEnum TARGET_PLATFORM_CODES = eINSTANCE.getTargetPlatformCodes();
 
 	}
 
