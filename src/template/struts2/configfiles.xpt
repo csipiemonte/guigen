@@ -8,11 +8,11 @@
 	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
 	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
 	«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-	«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»«REM»Vedere se e quando può essere necessario«ENDREM»
 	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
 	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
 	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
-	«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»«REM»Vedere se e quando può essere necessario«ENDREM»
+	«REM»Generazione dei files di configurazione specifici degli application servers«ENDREM»
+	«EXPAND appServerConfigurationFiles(skip_component_dir_creation) FOR this»
 	«REM»Generazione dei files di Struts2«ENDREM»
 	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
 	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
@@ -40,9 +40,11 @@
 <application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
   <display-name>«codComponente»-ear</display-name>
 
+  <!-- TEMPORANEAMENTE COMMENTATO
   <module>
     <ejb>«codComponente»-business.jar</ejb>
   </module>
+  -->
 
 
   <module>
@@ -141,22 +143,7 @@
 «ENDFILE»
 «ENDDEFINE»
 
-«REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
-«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» Scommentare se equando necessario
-«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN"
- "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
-<jboss>
-	<enterprise-beans>
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
-		<!-- Inserire qui le definizioni degli EJB -->
-		«ENDPROTECT»
-	</enterprise-beans>
-</jboss>
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+
 
 
 «REM»Genera il file MANIFEST del modulo JAR«ENDREM»
@@ -227,28 +214,62 @@
 	</jsp-config>
 	
 
-	<context-param>
-		<param-name>remincl.resource.provider.generic</param-name>
-		<param-value>http://integrazione.csi.it:9038</param-value>
-	</context-param>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 
+
+	<distributable />
+	<context-param>
+		<param-name>remincl.resource.provider.sp</param-name>
+		<param-value>http://tst-www.sistemapiemonte.it/</param-value>
+	</context-param>
 	<context-param>
 		<param-name>remincl.cache.time</param-name>
 		<param-value>10</param-value>
 	</context-param>
 
-
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
-
-	<taglib>
-		<taglib-uri>/WEB-INF/remincl.tld</taglib-uri>
-		<taglib-location>/WEB-INF/remincl.tld</taglib-location>
-	</taglib>
-
 </web-app>
 «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera i files di configurazione specifici per gli application server «ENDREM»
+«DEFINE appServerConfigurationFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43»
+		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+	«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92»
+		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«REM»************************************ JBoss ************************************«ENDREM»
+
+«REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
+«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare se equando necessario
+«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN"
+ "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
+<jboss>
+	<enterprise-beans>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+		<!-- Inserire qui le definizioni degli EJB -->
+		«ENDPROTECT»
+	</enterprise-beans>
+</jboss>
+«ENDFILE»
+«ENDREM»
 «ENDDEFINE»
 
 
@@ -270,6 +291,47 @@
 «ENDFILE»
 «ENDREM»
 «ENDDEFINE»
+
+
+«REM»************************************ BEA WebLogic ************************************«ENDREM»
+
+«REM»Genera il deployment descriptor per gli EJB specifico per BEA WEBLOGIC«ENDREM»
+«DEFINE wlEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» Scommentare se equando necessario
+«FILE getWlEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<weblogic-ejb-jar
+  xmlns="http://www.bea.com/ns/weblogic/90"
+  xmlns:j2ee="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.bea.com/ns/weblogic/90
+                      http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+	<!-- Inserire qui le definizioni degli EJB -->
+	«ENDPROTECT»
+
+</weblogic-ejb-jar>
+
+
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
+«REM»Genera il deployment descriptor WEB specifico per WEBLOGIC«ENDREM»
+«DEFINE wlWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getWlWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
+  <session-descriptor>
+    <persistent-store-type>replicated_if_clustered</persistent-store-type>
+  </session-descriptor>
+</weblogic-web-app>
+«ENDFILE»
+«ENDDEFINE»
+
+
 
 
 
@@ -446,7 +508,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	«ENDFOREACH»
 
 	<!-- Custom validators modellati dall'utente nei widget -->
-	«FOREACH getUserCustomValidators() AS currValidator»
+	«FOREACH getUserCustomValidatorsName() AS currValidator»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
 	<validator name="«(String)currValidator»" class="«getStrutsCustomValidatorFQN((String)currValidator, this)»"/>
 	«ENDFOREACH»
 

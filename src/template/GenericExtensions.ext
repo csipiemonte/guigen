@@ -27,11 +27,24 @@ String getIvyFileName(GUIModel model, boolean omit_root) :
 String getIvyConfFileName(GUIModel model, boolean omit_root) :
 	getBuildfilesDir(model, omit_root) + "/ivyconf.xml";
 
+String getAppServerLib(GUIModel model) :
+	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+		"jboss"
+	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+		"weblogic";
+
 
 /// configfiles
 
 String getConfigRootDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/conf";
+
+String getAppServerConfigFile(GUIModel model) :
+	if ( model.targetPlatform.code == TargetPlatformCodes::JBoss43 ) then
+		"jboss-web"
+	else if ( model.targetPlatform.code == TargetPlatformCodes::WLS92 ) then
+		"weblogic";
+
 
 /// parte EAR
 String getEarConfigRootDir(GUIModel model, boolean omit_root) :
@@ -63,6 +76,10 @@ String getEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
 String getJbossEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
 	getEjbConfigDir(model, omit_root) + "/jboss.xml";
 
+String getWlEjbDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/weblogic-ejb-jar.xml";
+
+
 
 /// parte JAR
 String getJarConfigRootDir(GUIModel model, boolean omit_root) :
@@ -91,6 +108,9 @@ String getReminclTldDescriptorFile(GUIModel model, boolean omit_root) :
 String getJbossWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/jboss-web.xml";
 
+String getWlWebDeploymentDescriptorFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/weblogic.xml";
+
 String getWebModuleMetaInfDir(GUIModel model, boolean omit_root) :
 	getWebModulesConfigDir(model, omit_root) + "/" + model.codComponente + "/META-INF";
 
@@ -114,7 +134,6 @@ String getBaseJavaPackage(GUIModel model) :
 
 String getWebSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
-
 
 
 ////////////////////////////////////////////////////////////

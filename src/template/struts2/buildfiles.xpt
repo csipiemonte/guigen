@@ -8,6 +8,12 @@
 «ENDDEFINE»
 
 
+«REM»
+==========================================================================================================================
+ANT FILES
+===========================================================================================================================
+«ENDREM»
+
 «REM»genera il file di build di ant«ENDREM»
 «DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModel»
 «FILE getBuildXmlFileName(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
@@ -238,7 +244,8 @@
     <move file="${build}/archives/${target}/commons.jar"
           tofile="${temp}/${target}/${earLib}/commons.jar"/>
 
-     <move file="${build}/archives/${target}/${webapp}-integration.jar" tofile="${temp}/${target}/${earLib}/${webapp}-integration.jar"/>
+    <move file="${build}/archives/${target}/${webapp}-integration.jar" tofile="${temp}/${target}/${earLib}/${webapp}-integration.jar"/>
+    <move file="${build}/archives/${target}/${webapp}-business.jar" tofile="${temp}/${target}/${earLib}/${webapp}-business.jar"/>
 
     <ear appxml="${temp}/conf/ear/${webapp}/META-INF/application.xml"
          destfile="${build}/archives/${target}/${ear-file-name}.ear">
@@ -250,7 +257,7 @@
         <attribute name="Built-By" value="${user.name}" />
         <attribute name="Built-Date" value="${DSTAMP}" />
         <attribute name="Target" value="${target}" />
-        <attribute name="Appl-Verison" value="${version}" />
+        <attribute name="Appl-Version" value="${version}" />
       </manifest>
     </ear>
   </target>
@@ -271,7 +278,7 @@
          roundup="false"
          manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
       <webinf dir="${conf}/web/${webapp}/WEB-INF"
-              includes="applicationContext.xml,jboss-web.xml,beanContext.xml" />
+              includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,*.tld" />
       <fileset dir="${srcweb}" />
       <classes dir="${build}/jsp" includes="**" />
       <classes dir="${build}/classes"
@@ -496,16 +503,16 @@ ear-custom-libs-filter =
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
-  war-exclude-libs-filter = jboss*.jar,                    \
-                            util-perf*.jar,                \
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+  war-exclude-libs-filter = util-perf*.jar,                \
                             spring*.jar,                   \
                             servlet*.jar,                  \
                             aop*.jar,                      \
                             util-beanlo*.jar,              \
                             csi*.jar,                      \
-                            jboss*.jar,                    \
                             log4j*.jar,                    \
                             commons*.jar,                  \
+                            «getAppServerLib(this)»*.jar,                    \
                             custom-component-attr-*.jar
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
@@ -522,13 +529,34 @@ war-exclude-custom-libs-filter =
   package.prefix = it.csi.${prodotto}.${componente}
 
   target = dev
-# - [Configurazione del Server (JBoss)] --------------------------------------
-  server = jboss
-  earLib = lib
+ 
+ «REM»DIFFERENZIZIONE WEBLOGIC-JBOSS«ENDREM»
+ «EXPAND appServerConfigurationBuildProperties FOR this»
 
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Build properties: configurazione del server«ENDREM»
+«DEFINE appServerConfigurationBuildProperties FOR GUIModel»
+«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+# - [Configurazione del Server (JBoss)] --------------------------------------
+  server = jboss
+  earLib = lib
+«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+# - [Configurazione del Server (WebLogic)] -----------------------------------
+  server = weblogic
+  earLib = APP-INF/lib
+«ENDIF-»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+IVY FILES (gestione delle dipendenze)
+===========================================================================================================================
+«ENDREM»
 
 «REM»genera i files di IVY«ENDREM»
 «DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModel»
@@ -590,9 +618,8 @@ war-exclude-custom-libs-filter =
 			<artifact name="spring-dao-2.0.7" type="jar" />
 		</dependency>
 		
-		<dependency org="others" name="jboss" rev="4.3.0">
-			<artifact name="jboss-j2ee-4.3.0" type="jar" />
-		</dependency>
+		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
+		«EXPAND appServerLibsIvy FOR this»
 
 		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
 		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
@@ -631,6 +658,21 @@ war-exclude-custom-libs-filter =
   </resolvers>
 </ivyconf>
 «ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
+«DEFINE appServerLibsIvy FOR GUIModel»
+«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+<dependency org="others" name="jboss" rev="4.3.0">
+	<artifact name="jboss-j2ee-4.3.0" type="jar" />
+</dependency>
+«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+<dependency org="sun" name="ejb" rev="2.1"/>
+<dependency org="sun" name="servlet" rev="2.4"/>
+<dependency org="sun" name="jms" rev="1.1"/>		
+<dependency org="sun" name="jta" rev="1.0.1"/>
+«ENDIF-»
 «ENDDEFINE»
 
 

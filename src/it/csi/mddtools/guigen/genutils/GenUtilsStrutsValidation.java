@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.CheckBox;
 import it.csi.mddtools.guigen.ComboBox;
@@ -84,9 +85,9 @@ public class GenUtilsStrutsValidation {
 	 * I custom validators definiti in pi&ugrave; widgets vengono conteggiati
 	 * una sola volta.
 	 *
-	 * @return La lista dei custom validators.
+	 * @return La lista dei nomi dei custom validators.
 	 */
-	public static List<String> getUserCustomValidators() {
+	public static List<String> getUserCustomValidatorsName() {
 		List<String> res = new ArrayList<String>();
 
 		for (Widget w : GenUtils.findAllWidgetsInApplication()) {
@@ -136,7 +137,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
 	public static String getWidgetValidationAnnotation(TextField w) {
-		//System.out.println("-----> [GenUtils::getWidgetValidation] FOR TextField " + w);
 		String res = "";
 		SimpleType t = (SimpleType)w.getDataType();
 
@@ -156,7 +156,6 @@ public class GenUtilsStrutsValidation {
 			res += applyValidationRule(w);
 		}
 
-		//System.out.println("=====> [GenUtils::getWidgetValidationAnnotation] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -168,7 +167,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
 	public static String getWidgetValidationAnnotation(TextArea w) {
-		//System.out.println("-----> [GenUtils::getWidgetValidation] FOR TextArea " + w);
 		String res = "";
 
 		// required validation (si suppone che la TextArea sia una stringa)
@@ -181,7 +179,6 @@ public class GenUtilsStrutsValidation {
 			res += applyValidationRule(w);
 		}
 
-		//System.out.println("=====> [GenUtils::getWidgetValidationAnnotation] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -193,7 +190,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
 	public static String getWidgetValidationAnnotation(RadioButtons w) {
-		//System.out.println("-----> [GenUtils::getWidgetValidationAnnotation] FOR RadioButtons " + w);
 		String res = "";
 
 		// required validation
@@ -206,7 +202,6 @@ public class GenUtilsStrutsValidation {
 			res += applyValidationRule(w);
 		}
 
-		//System.out.println("=====> [GenUtils::getWidgetValidationAnnotation] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -243,7 +238,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
 	public static String getWidgetValidationAnnotation(ComboBox w) {
-		//System.out.println("-----> [GenUtils::getWidgetValidation] FOR ComboBox " + w);
 		String res = "";
 
 		// required validation
@@ -256,7 +250,6 @@ public class GenUtilsStrutsValidation {
 			res += applyValidationRule(w);
 		}
 
-		//System.out.println("=====> [GenUtils::getWidgetValidationAnnotation] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -268,7 +261,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String getRequiredValidator(DataWidget w) {
-		//System.out.println("=====> [GenUtils::getRequiredValidator] FOR " + w);
 		return "@RequiredFieldValidator(type = ValidatorType.FIELD, fieldName = \"" + GenUtils.getWidgetName(w) + "\", " +
 					"message = \"Campo " + w.getLabel() + " obbligatorio\")";
 	}
@@ -281,7 +273,6 @@ public class GenUtilsStrutsValidation {
 	 * @return  L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String getRequiredStringValidator(DataWidget w) {
-		//System.out.println("=====> [GenUtils::getRequiredStringValidator] FOR " + w);
 		return "@RequiredStringValidator(type = ValidatorType.FIELD, fieldName = \"" + GenUtils.getWidgetName(w) + "\", " +
 					" message = \"Campo " + w.getLabel() + " obbligatorio\")";
 
@@ -297,7 +288,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyValidationRule(DataWidget w) {
-		//System.out.println("=====> [GenUtils::applyValidationRule]");
 		String res = "";
 
 		SimpleType type = (SimpleType)w.getDataType();
@@ -339,7 +329,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyStringValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyStringValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(STRING_SIZE_VALIDATOR) ) {
@@ -387,7 +376,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyNumericIntValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyNumericIntValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
@@ -430,7 +418,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyNumericDecValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyNumericDecValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
@@ -472,67 +459,7 @@ public class GenUtilsStrutsValidation {
 	 * @param fieldLabel Il nome del campo (<code>label</code> del widget) da utilizzare nel messaggio.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyDateValidationRulePIPPO(String[] validationRule, String fieldName, String fieldLabel, SimpleType type) {
-		//System.out.println("=====> [GenUtils::applyDateValidationRule]");
-		String res = "";
-
-		if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
-			res += getCustomValidatorAnnotation(validationRule[1], fieldName, fieldLabel);
-		} else {
-			// stabiliamo un formato di default che è quello data
-			String format = DATE_FORMAT;
-
-			if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
-				if ( !isNullOrEmpty(validationRule[1]) ) {
-					format = validationRule[1];
-				} else {
-					if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
-						format = DATETIME_SHORT_FORMAT;
-					} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
-						format = HOUR_SHORT_FORMAT;
-					}
-				}
-			} else if ( validationRule[0].equals(DATE_EXTENDED_VALIDATOR) ) {
-				if ( !isNullOrEmpty(validationRule[1]) ) {
-					format = validationRule[1];
-				} else {
-					if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
-						format = DATETIME_EXTENDED_FORMAT;
-					} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
-						format = HOUR_EXTENDED_FORMAT;
-					}
-				}
-			} else if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
-				if ( !isNullOrEmpty(validationRule[1]) ) {
-					format = validationRule[1];
-				}
-			}
-			//System.out.println("=====> [GenUtils::applyDateValidationRule] DATE FORMAT IS {" + format + "}");
-
-			// genero l'annotazione
-			res += "@CustomValidator(" +
-						"type = \"" + getGuigenCustomValidators().get(0) + "\", " +
-						"fieldName = \"" + fieldName + "\", " +
-						"message = \"Campo " + fieldLabel + " : formato non valido\", " +
-						"parameters = { @ValidationParameter( name = \"format\", value = \"" + format + "\" ) } " +
-					")";
-		}
-
-		//System.out.println("=====> [GenUtils::applyDateValidationRule] RETURNING {" + res + "}");
-		return res;
-	}
-
-
-	/**
-	 *
-	 * @param validationRule Le regole di validazione splittate in <i>validatore</i> (<code>validationRule[0]</code>)
-	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
-	 * @param fieldName  Il nome del campo da utilizzare.
-	 * @param fieldLabel Il nome del campo (<code>label</code> del widget) da utilizzare nel messaggio.
-	 * @return L'annotazione da inserire nella Action di Struts.
-	 */
 	public static String applyDateValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyDateValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
@@ -545,7 +472,6 @@ public class GenUtilsStrutsValidation {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, fieldLabel);
 		}
 
-		//System.out.println("=====> [GenUtils::applyDateValidationRule] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -559,7 +485,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyDateTimeValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyDateTimeValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
@@ -576,7 +501,6 @@ public class GenUtilsStrutsValidation {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, fieldLabel);
 		}
 
-		//System.out.println("=====> [GenUtils::applyDateTimeValidationRule] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -590,7 +514,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyHourValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyHourValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
@@ -607,7 +530,6 @@ public class GenUtilsStrutsValidation {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, fieldLabel);
 		}
 
-		//System.out.println("=====> [GenUtils::applyHourValidationRule] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -621,7 +543,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyCustomValidationRule(String[] validationRule, String fieldName, String fieldLabel) {
-		//System.out.println("=====> [GenUtils::applyCustomValidationRule]");
 		String res = "";
 
 		if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
@@ -630,7 +551,6 @@ public class GenUtilsStrutsValidation {
 			}
 		}
 
-		//System.out.println("=====> [GenUtils::applyCustomValidationRule] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -654,29 +574,7 @@ public class GenUtilsStrutsValidation {
 	 * @return Le regole di validazione splittate in <i>validatore</i> (<code>rule[0]</code>) e <i>parametri</i> (<code>rule[1]</code>).
 	 */
 	private static String[] getValidationRule(String dataTypeModifier) {
-		//System.out.println("=====> [GenUtils::getValidationRule] dataTypeModifier = {" + dataTypeModifier + "}");
-		String[] rule = new String[2];
-
-		if ( !isNullOrEmpty(dataTypeModifier) ) {
-			String dtm = dataTypeModifier.trim();
-			int i = dtm.indexOf(':');
-
-			//System.out.println("=====> [GenUtils::getValidationRule] : position is {" + i + "}");
-			if ( i > 0 ) {
-				// presenti validatore e parametri
-				rule[0] = dtm.substring(0, i).trim();
-				if ( i+1 < dtm.length() ) {
-					rule[1] = dtm.substring(i+1).trim();
-				}
-			} else if ( i < 0 ) {
-				// presente solo il validatore (parametri opzionali)
-				rule[0] = dtm;
-			}
-			// NOTA: se i == 0, significherebbe che manca il validatore (ad esempio ':1,7')
-		}
-
-		//System.out.println("=====> [GenUtils::getValidationRule] RETURNING {'" + rule[0] + "', '" + rule[1] + "'}");
-		return rule;
+		return splitString(dataTypeModifier, ":");
 	}
 
 
@@ -701,31 +599,7 @@ public class GenUtilsStrutsValidation {
 	 * @return Il range splittato in <i>min</i> (<code>range[0]</code>) e <i>max</i> (<code>max[1]</code>).
 	 */
 	private static String[] getRange(String stringRange) {
-		//System.out.println("=====> [GenUtils::getRange] stringRange = {" + stringRange + "}");
-		String[] range = new String[2];
-
-		if ( !isNullOrEmpty(stringRange) ) {
-			String sr = stringRange.trim();
-			int i = sr.indexOf(',');
-
-			//System.out.println("=====> [GenUtils::getRange] , position is {" + i + "}");
-			if ( i > 0 ) {
-				// presente minimo e massimo (<min>,<max>) oppure solo il minimo (<min>,)
-				range[0] = sr.substring(0, i).trim();
-				if ( i+1 < sr.length() ) {
-					range[1] = sr.substring(i+1).trim();
-				}
-			} else if ( i < 0 ) {
-				// presente solo il minimo espresso senza virgola (<min>)
-				range[0] = sr;
-			} else if ( i == 0 ) {
-				// presente solo il massimo (,<max>)
-				range[1] = sr.substring(1).trim();
-			}
-		}
-
-		//System.out.println("=====> [GenUtils::getRange] RETURNING {'" + range[0] + "', '" + range[1] + "'}");
-		return range;
+		return splitString(stringRange, ",");
 	}
 
 
@@ -767,22 +641,95 @@ public class GenUtilsStrutsValidation {
 
 
 	/**
-	 *
+	 * 
+	 * TODO: gestire eventualmente i parametri dei Custom Validators
 	 * @param validator  Il nome del Custom Validator.
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param fieldLabel Il nome del campo (<code>label</code> del widget) da utilizzare nel messaggio.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	private static String getCustomValidatorAnnotation(String validator, String fieldName, String fieldLabel) {
+		/*String res = "";
+
+		if ( !isNullOrEmpty(validator) ) {
+			String[] val = splitString(validator, "[");
+
+			res += "@CustomValidator(" +
+						"type = \"" + val[0] + "\", " +
+						"fieldName = \"" + fieldName + "\", " +
+						"message = \"Campo " + fieldLabel + " non valido\"" +
+						getCustomValidatorParametersAnnotation(val[1]) +
+				   ")";
+		}
+
+		return res;*/
+		
 		return "@CustomValidator(" +
 					"type = \"" + validator + "\", " +
 					"fieldName = \"" + fieldName + "\", " +
 					"message = \"Campo " + fieldLabel + " non valido\"" +
-					// TODO: gestione dei parametri?
-					//", parameters = { @ValidationParameter( name = \"" + paramName + "\", value = \"" + paraValue + "\" ) } " +
 				")";
 	}
 
+	
+	/**
+	 *
+	 * @param parameters
+	 * @return
+	 */
+	private static String getCustomValidatorParametersAnnotation(String parameters) {
+		String res = "";
+
+		if ( !isNullOrEmpty(parameters) ) {
+			// prendo solo i token validi (<param>:<value>)
+			List<String[]> tokList = getCustomValidatorParameters(parameters);
+
+			// aggiungo le annotazioni per i token validi
+			if ( tokList.size() > 0 ) {
+				res += ", parameters = { ";
+				int c = 1;
+				for ( String[] tok : tokList ) {
+					res += "@ValidationParameter( name = \"" + tok[0] + "\", value = \"" + tok[1] + "\" )";
+
+					if ( c < tokList.size() ) {
+						res += ", ";
+					}
+					c++;
+				} // END FOREACH
+				res += "} ";
+			}
+		}
+
+		return res;
+	}
+
+
+	/**
+	 *
+	 * @param parameters
+	 * @return
+	 */
+	private static List<String[]> getCustomValidatorParameters(String parameters) {
+		List<String[]> tokList = new ArrayList<String[]>();
+
+		if ( !isNullOrEmpty(parameters) ) {
+			StringTokenizer strTok = new StringTokenizer(parameters, "][");
+
+			if ( strTok.countTokens() > 0 ) {
+				while ( strTok.hasMoreTokens() ) {
+					String t = strTok.nextToken();
+					if ( !isNullOrEmpty(t) ) {
+						String[] parts = splitString(t.trim(), ":");
+						if ( !isNullOrEmpty(parts[0]) && !isNullOrEmpty(parts[1]) ) {
+							tokList.add(parts);
+						}
+					}
+				} // END WHILE
+			}
+		}
+
+		return tokList;
+	}
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -795,9 +742,48 @@ public class GenUtilsStrutsValidation {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS
 
-
+	/**
+	 *
+	 * @param s
+	 * @return
+	 */
 	public static boolean isNullOrEmpty(String s) {
 		return (s == null || s.trim().length() == 0);
+	}
+
+
+	/**
+	 *
+	 * @param s
+	 * @param sep
+	 * @return
+	 */
+	public static String[] splitString(String s, String sep) {
+		String[] res = new String[2];
+
+		if ( !isNullOrEmpty(s) ) {
+			String sr = s.trim();
+			int i = sr.indexOf(sep);
+
+			if ( i > 0 ) {
+				// presente chiave e valore (<key>sep<val>) oppure solo la chiave (<key>sep)
+				res[0] = sr.substring(0, i).trim();
+				if ( i+1 < sr.length() ) {
+					res[1] = sr.substring(i+1).trim();
+				}
+			} else if ( i < 0 ) {
+				// presente solo la chiave espressa senza separatore (<key>)
+				res[0] = sr;
+			} else if ( i == 0 ) {
+				// presente solo il valore espresso con il separatore davanti (sep<val>)
+				if ( !isNullOrEmpty(sr.substring(1).trim()) ) {
+					res[1] = sr.substring(1).trim();
+				}
+			}
+
+		}
+
+		return res;
 	}
 
 
