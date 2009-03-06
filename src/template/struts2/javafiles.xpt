@@ -76,12 +76,11 @@ import «getDTOBaseJavaPackage(this)».*;
  * in modo da ottenere le parti comuni, e dovranno implementare in proprio
  * le funzionalit&agrave; specifiche della pagina.
  * <p/>
- * La classe eredita da {@link com.opensymphony.xwork2.ActionSupport} il
- * metodo {@link com.opensymphony.xwork2.ActionSupport#execute()}, 
- * che consiste in una default implementation che non fa altro che 
- * ritornare "success". Questa implementazione pu&ograve; essere usata
- * quando si ha bisogno di visualizzare una pagina e non si vuole creare
- * una Action ad hoc.
+ * La classe eredita da {@link com.opensymphony.xwork2.ActionSupport} i
+ * metodi di utilit&agrave; necessari ad eseguire le principali operazioni
+ * (ad esempio conversione, validazione, ecc...) ed implementa l'interfaccia
+ * {@link org.apache.struts2.interceptor.SessionAware}, che permette
+ * alla Action di accedere alla sessione. 
  * 
  * @author GuiGen
  */
@@ -259,6 +258,8 @@ TODO: Vedere se è necessario estendere la BaseAction.
 
 import java.util.*;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
@@ -351,6 +352,8 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 
 import java.util.*;
 
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
@@ -435,6 +438,8 @@ STRUTS2 ACTIONS FILES
 «FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
 
 import java.util.*;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.Preparable;
