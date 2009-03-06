@@ -61,12 +61,12 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Active Item</em>' reference.
-	 * @see #setActiveItem(FormPanel)
+	 * @see #setActiveItem(Panel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getActivateMultiPanelItemCommand_ActiveItem()
 	 * @model
 	 * @generated
 	 */
-	FormPanel getActiveItem();
+	Panel getActiveItem();
 
 	/**
 	 * Sets the value of the '{@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand#getActiveItem <em>Active Item</em>}' reference.
@@ -76,6 +76,6 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * @see #getActiveItem()
 	 * @generated
 	 */
-	void setActiveItem(FormPanel value);
+	void setActiveItem(Panel value);
 
 } // ActivateMultiPanelItemCommand

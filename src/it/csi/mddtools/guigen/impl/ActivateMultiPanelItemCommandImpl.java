@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.MultiPanel;
 
+import it.csi.mddtools.guigen.Panel;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -52,7 +53,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	 * @generated
 	 * @ordered
 	 */
-	protected FormPanel activeItem;
+	protected Panel activeItem;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -116,10 +117,10 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FormPanel getActiveItem() {
+	public Panel getActiveItem() {
 		if (activeItem != null && activeItem.eIsProxy()) {
 			InternalEObject oldActiveItem = (InternalEObject)activeItem;
-			activeItem = (FormPanel)eResolveProxy(oldActiveItem);
+			activeItem = (Panel)eResolveProxy(oldActiveItem);
 			if (activeItem != oldActiveItem) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM, oldActiveItem, activeItem));
@@ -133,7 +134,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FormPanel basicGetActiveItem() {
+	public Panel basicGetActiveItem() {
 		return activeItem;
 	}
 
@@ -142,8 +143,8 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setActiveItem(FormPanel newActiveItem) {
-		FormPanel oldActiveItem = activeItem;
+	public void setActiveItem(Panel newActiveItem) {
+		Panel oldActiveItem = activeItem;
 		activeItem = newActiveItem;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM, oldActiveItem, activeItem));
@@ -179,7 +180,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 				setMultipanel((MultiPanel)newValue);
 				return;
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM:
-				setActiveItem((FormPanel)newValue);
+				setActiveItem((Panel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -197,7 +198,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 				setMultipanel((MultiPanel)null);
 				return;
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM:
-				setActiveItem((FormPanel)null);
+				setActiveItem((Panel)null);
 				return;
 		}
 		super.eUnset(featureID);

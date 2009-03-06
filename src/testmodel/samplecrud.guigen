@@ -55,20 +55,11 @@
                   <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                   <widgets xsi:type="guigen:ConfirmButton" name="bBottone3" label="fdfdfdfd"/>
                 </panels>
+                <panels xsi:type="guigen:StdMessagePanel" name="pErrors2" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
               </subpanels>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pErrors" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
               <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7">
                 <databinding appData="//@appDataDefs/@appData.5"/>
-              </widgets>
-              <widgets xsi:type="guigen:TreeView" name="treeProva" label="" dataType="//@typedefs/@types.7">
-                <eventHandlers>
-                  <command xsi:type="guigen:ExecCommand" methodName="manageTreeSelection">
-                    <results resultCode="OK">
-                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                    </results>
-                  </command>
-                </eventHandlers>
-                <multiDataBinding appData="//@appDataDefs/@appData.4"/>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti1" label="showMulti1">
                 <eventHandlers>
@@ -104,6 +95,11 @@
               <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti3" label="showMulti3">
                 <eventHandlers>
                   <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.2"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMultiError" label="showMultiError">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.3"/>
                 </eventHandlers>
               </widgets>
             </subpanels>
@@ -307,10 +303,51 @@
             </subpanels>
           </panels>
         </contentPanels>
+        <contentPanels name="cpDoppiMessaggi">
+          <panels xsi:type="guigen:FormPanel" name="pDoppiMessaggi" label="Doppi messaggi">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:MultiPanel" name="pMultiMessaggiErrori">
+              <panels xsi:type="guigen:FormPanel" name="pForm1" label="Form1">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="pForm1Data">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="taForm1" label="Text area form 1" dataType="//@typedefs/@types.7"/>
+                </subpanels>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="pMessaggi1" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              </panels>
+              <panels xsi:type="guigen:FormPanel" name="pForm2" label="Form2">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="pForm2Data">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                </subpanels>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="pMessaggi2" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+                <widgets xsi:type="guigen:TextArea" name="taForm2" label="Text area form 2" dataType="//@typedefs/@types.7"/>
+              </panels>
+            </subpanels>
+            <widgets xsi:type="guigen:ConfirmButton" name="bForm1" label="mostra form 1">
+              <eventHandlers>
+                <command xsi:type="guigen:ExecCommand" methodName="erroreSuForm1">
+                  <results resultCode="OK">
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@panels.0"/>
+                  </results>
+                </command>
+              </eventHandlers>
+            </widgets>
+            <widgets xsi:type="guigen:ConfirmButton" name="bForm2" label="mostra form 2">
+              <eventHandlers>
+                <command xsi:type="guigen:ExecCommand" methodName="erroreSuForm2">
+                  <results resultCode="OK">
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@panels.1"/>
+                  </results>
+                </command>
+              </eventHandlers>
+            </widgets>
+          </panels>
+        </contentPanels>
         <staticLinks/>
         <onInitCommand xsi:type="guigen:ExecCommand" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4">
           <results resultCode="OK">
-            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
           </results>
         </onInitCommand>
       </appArea>
@@ -382,4 +419,5 @@
     <actors code="gestore"/>
     <useCases permission="//@securityModel/@actors.0" code="UC-233.01"/>
   </securityModel>
+  <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>

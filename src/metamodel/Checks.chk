@@ -94,8 +94,14 @@ context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
 context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno" :
 	this.panels.size>0;
 	
-context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel come pannelli interni" :
-	this.panels.select(p|(!p.metaType.isAssignableFrom(FormPanel)&&!p.metaType.isAssignableFrom(CommandPanel))).size==0;
+context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel/StdMessagePanel come pannelli interni" :
+	this.panels.select(p|(
+			!p.metaType.isAssignableFrom(FormPanel)
+			&&
+			!p.metaType.isAssignableFrom(CommandPanel))
+			&&
+			!p.metaType.isAssignableFrom(StdMessagePanel)
+	).size==0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
