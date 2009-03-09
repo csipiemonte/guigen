@@ -3415,13 +3415,31 @@ public interface GuigenPackage extends EPackage {
 	int COMMAND_ON_PANELS_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Cod Canale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__COD_CANALE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Cod Applicativo</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__COD_APPLICATIVO = 1;
+
+	/**
 	 * The number of structural features of the '<em>Header</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HEADER_FEATURE_COUNT = 0;
+	int HEADER_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of structural features of the '<em>Footer</em>' class.
@@ -6535,6 +6553,28 @@ public interface GuigenPackage extends EPackage {
 	EClass getHeader();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Header#getCodCanale <em>Cod Canale</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Canale</em>'.
+	 * @see it.csi.mddtools.guigen.Header#getCodCanale()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_CodCanale();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Header#getCodApplicativo <em>Cod Applicativo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Applicativo</em>'.
+	 * @see it.csi.mddtools.guigen.Header#getCodApplicativo()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_CodApplicativo();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Footer <em>Footer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8701,6 +8741,22 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass HEADER = eINSTANCE.getHeader();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Canale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__COD_CANALE = eINSTANCE.getHeader_CodCanale();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Applicativo</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__COD_APPLICATIVO = eINSTANCE.getHeader_CodApplicativo();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FooterImpl <em>Footer</em>}' class.

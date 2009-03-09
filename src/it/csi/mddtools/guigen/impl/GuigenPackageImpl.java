@@ -2093,6 +2093,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getHeader_CodCanale() {
+		return (EAttribute)headerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHeader_CodApplicativo() {
+		return (EAttribute)headerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFooter() {
 		return footerEClass;
 	}
@@ -3138,6 +3156,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(commandOnPanelsEClass, COMMAND_ON_PANELS__TARGET_PANELS);
 
 		headerEClass = createEClass(HEADER);
+		createEAttribute(headerEClass, HEADER__COD_CANALE);
+		createEAttribute(headerEClass, HEADER__COD_APPLICATIVO);
 
 		footerEClass = createEClass(FOOTER);
 
@@ -3553,6 +3573,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getCommandOnPanels_TargetPanels(), this.getPanel(), null, "targetPanels", null, 0, -1, CommandOnPanels.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(headerEClass, Header.class, "Header", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getHeader_CodCanale(), ecorePackage.getEString(), "codCanale", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHeader_CodApplicativo(), ecorePackage.getEString(), "codApplicativo", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(footerEClass, Footer.class, "Footer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
