@@ -3,7 +3,7 @@
 
 «DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
 	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
-	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesFiles(skip_component_dir_creation) FOR this»
 	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
@@ -166,7 +166,10 @@ ANT FILES
   <!-- -->
   <target name="all-targets"
           description="Esegue il build per le varie distribuzioni in sequenza.">
+    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.all-targets")»
+    <!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
     <antcall target="distribution" />
+    «ENDPROTECT»
   </target>
 
   <!-- -->
@@ -213,7 +216,13 @@ ANT FILES
   <!-- -->
   <target name="environment-config"
           description="Predispone le configurazioni dipendenti dall'ambiente." >
-    <echo message="====== gestire qui i  replace delle variabile d'ambiente" />
+    <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+    <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@"  value="${remincl.resource.provider}"/>
+
+
+    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
+    <!-- gestire qui i  replace delle proprie variabile d'ambiente -->
+    «ENDPROTECT»
   </target>
 
   <!-- -->
@@ -232,9 +241,9 @@ ANT FILES
   <!-- ############################################################# -->
   <!-- -->
   <target name="package-ear"
-          depends="environment-recreate,compile-all, commons-jar,
-                   business-ejb-jar, integration-jar,package-war,
-                   environment-config"
+          depends="environment-recreate, environment-config, compile-all, 
+                   commons-jar, business-ejb-jar, integration-jar,
+                   package-war"
           description="costruisce l&apos;ear">
 
     <copy todir="${temp}/${target}/${earLib}">
@@ -288,7 +297,6 @@ ANT FILES
     </war>
   </target>
 
-
   <!-- -->
   <!-- ############################################################# -->
   <!-- # [PKG]: integration-jar                                    # -->
@@ -323,8 +331,6 @@ ANT FILES
       </metainf>
     </jar>
   </target>
-  
-
 
   <!-- -->
   <!-- ############################################################# -->
@@ -359,8 +365,6 @@ ANT FILES
 		<delete dir="${build}/cache" failonerror="no" />
 		<delete dir="${lib}" failonerror="no" />
   </target>
-
-  
 
   <!-- -->
   <!-- ############################################################# -->
@@ -438,7 +442,14 @@ ANT FILES
 «ENDDEFINE»
 
 
-«REM»genera il file di property di ant«ENDREM»
+«REM»Genera i files di properties di ant (generale e per i singoli ambienti)«ENDREM»
+«DEFINE buildPropertiesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesTemplateFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant (generale)«ENDREM»
 «DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»##############################################################################
 # Build.properties
@@ -489,6 +500,7 @@ ANT FILES
                     commons-logging-1.1.jar,               \
                     commons-logging-api-1.1.jar,           \
                     commons-lang-2.2.jar,                  \
+                    commons-httpclient-2.0.2.jar,          \
                     custom-component-attr-1.0.0.jar
 
 # - [ear-custom-libs-filter] -------------------------------------------------
@@ -528,7 +540,7 @@ war-exclude-custom-libs-filter =
 # ----------------------------------------------------------------------------
   package.prefix = it.csi.${prodotto}.${componente}
 
-  target = dev
+#  target = dev
  
  «REM»DIFFERENZIZIONE WEBLOGIC-JBOSS«ENDREM»
  «EXPAND appServerConfigurationBuildProperties FOR this»
@@ -548,6 +560,30 @@ war-exclude-custom-libs-filter =
   server = weblogic
   earLib = APP-INF/lib
 «ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant da usare come template per i files dei singoli ambienti«ENDREM»
+«DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)»####################################################
+# «codProdotto» - «codComponente»                  #
+# ==========                                       #
+# Configurazione di ambiente: <ambiente>           #
+####################################################
+
+nome.ambiente=<ambiente>
+
+
+#-[Variabili create dal generatore]-------------------------------------------------
+
+remincl.resource.provider=http://dev-www.sistemapiemonte.it
+
+
+#-[Variabili dell'applicativo]-------------------------------------------------
+
+
+
+«ENDFILE»
 «ENDDEFINE»
 
 
@@ -623,17 +659,14 @@ IVY FILES (gestione delle dipendenze)
 
 		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
 		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
-		
-		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
-		«EXPAND strutsThemeIvy FOR this»
-		
-		<dependency org="csipiemonte" name="remincl" rev="1.0.1">
-			<artifact name="remincl-1.0.1" type="jar"/>
-		</dependency>
+		<dependency org="csipiemonte" name="remincl" rev="1.0.1" />
 
 		<dependency org="others" name="displaytag" rev="1.2" />
 		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 		<dependency org="others" name="itext" rev="1.3" />
+		
+		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
+		«EXPAND strutsThemeIvy FOR this»		
 		
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->

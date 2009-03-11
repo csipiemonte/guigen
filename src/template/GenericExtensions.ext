@@ -21,6 +21,9 @@ String getBuildfilesDir(GUIModel model, boolean omit_root) :
 String getBuildPropertiesFileName(GUIModel model, boolean omit_root) :
 	getBuildfilesDir(model, omit_root) + "/build.properties";
 
+String getBuildPropertiesTemplateFileName(GUIModel model, boolean omit_root) :
+	getBuildfilesDir(model, omit_root) + "/env_template_file.properties";
+
 String getIvyFileName(GUIModel model, boolean omit_root) :
 	getBuildfilesDir(model, omit_root) + "/ivy.xml";
 
@@ -144,6 +147,9 @@ String getWebSrcDir(GUIModel model, boolean omit_root) :
 boolean isNullOrEmpty(String s) :
 	s == null || s.length == 0;
 
+// [DM]
+String escapeHtml(String str) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.escapeHtml(java.lang.String);
 
 
 ////////////////////////////////////////////////////////////

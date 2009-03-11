@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
@@ -1306,6 +1307,18 @@ public static String getButtonStyleSistemaPiemonte(GUIModel model, Button b) {
 	
 	return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
 }
+
+
+/**
+ * 
+ * @param str
+ * @return
+ * @author [DM]
+ */
+public static String escapeHtml(String str) {
+	return StringEscapeUtils.escapeHtml(str);
+}
+
 
 
 

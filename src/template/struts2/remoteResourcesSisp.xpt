@@ -23,12 +23,11 @@ Definizioni generali
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+<r:include url="/ris/include/«codCanale»/«codApplicativo»/head.html" resourceProvider="sp" />
+<!--/head -->
+«REM»RIMOSSO: implementata REMINCL
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (con remincl: da implementare)-->
-<%--<r:include url="/include/barre_irroratrici/head.html" resourceProvider="sp" />--%>
-<!--/head -->
-
 <!--head (senza remincl: TMP)-->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
 	<head>
@@ -50,6 +49,10 @@ Definizioni generali
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
 		
 <!--/head -->
+«ENDREM»
+
+		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
 
 	</head>
 	<body>
@@ -60,10 +63,11 @@ Definizioni generali
 			<!-- TESTATA -->
 			<div id="intestazione">
 
-				<!--header (con remincl: TODO implementare-->
-				<%--<r:include url="/include/???" resourceProvider="rp" />--%>
+				<!--header (con remincl)-->
+				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!--/header-->
 
+				«REM»RIMOSSO: implementata REMINCL
 				<!--header (senza remincl: TMP)-->
 				<p id="avviso" class="navigazionePagina">
 					<a href="#contPath" id="A-inizio"
@@ -118,6 +122,7 @@ Definizioni generali
 				</noscript>
 				<hr />
 				<!--/header (senza remincl: TMP)-->
+				«ENDREM»
 
 				<div id="contUtenza">
 					<div id="Utenza">
@@ -247,10 +252,10 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 			</div>
 			<!-- CONTENITORE + CORPO -->
 
-<!--footer (con remincl: da implementare)-->
-<%--<r:include url="/include/footer.html" resourceProvider="sp" />--%>
-<!--/footer-->
+<!--footer (con remincl)-->
+<r:include url="/ris/include/footerSisp.html" resourceProvider="sp" />
 
+«REM»RIMOSSO: implementata REMINICL
 <!--footer (senza remincl: TMP)-->
 			<!--piedipagina-->
 			<div id="piedipagina">
@@ -268,6 +273,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 
 	</body>
 </html>
+«ENDREM»
 «ENDDEFINE»
 
 
