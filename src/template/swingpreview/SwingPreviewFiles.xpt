@@ -486,9 +486,11 @@ e si richiama ricordivamente sui sottopannelli in modo da fare una visita
 depth first dell'albero della struttura a pannelli«ENDREM»
 «DEFINE genPanelSetupFunction FOR Panel»
 // funzione di creazione del pannello «this»
-«IF this.metaType==FormPanel»
+«IF this.metaType==FormPanel || this.metaType==CommandPanel»
     	    «EXPAND setupFormPanel FOR (FormPanel)this»
     	    «EXPAND genPanelSetupFunction FOREACH ((FormPanel)this).subpanels»
+«ELSEIF this.metaType==MenuPanel»
+    	    «EXPAND setupMenuPanel FOR (MenuPanel)this»
 «ELSEIF this.metaType==TabSetPanel»
     	    «EXPAND setupTabSetPanel FOR (TabSetPanel)this»
     	    «EXPAND genPanelSetupFunction FOREACH ((TabSetPanel)this).panels»
@@ -534,10 +536,48 @@ private JPanel setupFormPanel_«this.name»(){
 
 «ENDDEFINE»
 
+«DEFINE setupMenuPanel FOR MenuPanel»
+private JPanel setupFormPanel_«this.name»(){
+	JPanel p = new JPanel();
+	// impostazione layout del pannello
+    «IF this.layout.metaType==UDLRCPanelLayout»
+    p.setLayout(new java.awt.BorderLayout());
+    «ELSEIF this.layout.metaType==HorizontalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+    «ELSEIF this.layout.metaType==VerticalFlowPanelLayout»
+    p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
+    «ELSE»
+    p.setLayout(new java.awt.FlowLayout());
+    «ENDIF»
+    // impostazione del bordo con label se prevista la label
+    «IF label!=null»
+    p.setBorder(new TitledBorder("«label»"));
+    «ENDIF»
+    
+	«REM»«FOREACH this.widgets AS currWidg»
+		«EXPAND createAndAddWidget("p",this.layout) FOR currWidg»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType!=DialogPanel) AS currSubform»
+	// subpanel «currSubform»
+		«EXPAND createAndAddSubpanel("p",this.layout,currSubform.layoutSpec) FOR currSubform»
+	«ENDFOREACH»
+	«FOREACH this.subpanels.select(p|p.metaType==DialogPanel) AS currDialog»
+	// dialog «currDialog» 
+	// (crea solo la variabile senza effettuare l'add al container)
+		«EXPAND createSubpanel("p",this.layout,currDialog.layoutSpec) FOR currDialog»
+	«ENDFOREACH»
+	«ENDREM»
+	return p;
+}
+
+«ENDDEFINE»
+
 «DEFINE createAndAddSubpanel(String containerVarName,PanelLayout containerLayout,WidgetLayoutSpecifier widgetLayoutSpec) FOR Panel»
 // creazione sottopannello «this.name»
 Component subp_«this.name» = null;
-«IF this.metaType==FormPanel»
+«IF this.metaType==FormPanel || this.metaType==CommandPanel»
+	subp_«this.name» = setupFormPanel_«this.name»();
+«ELSEIF this.metaType==MenuPanel»
 	subp_«this.name» = setupFormPanel_«this.name»();
 «ELSEIF this.metaType==TabSetPanel»
 	subp_«this.name» = setupTabSetPanel_«this.name»(); 
@@ -591,6 +631,15 @@ _allWidgetsByName.put("«this.name»",widg_«this.name»);
 	«IF ((TextField)this).fieldLength != null»
 	widg_«this.name».setColumns(«((TextField)this).fieldLength»);
 	«ENDIF»
+JLabel lbl_«this.name» = new JLabel("«this.label»");
+«ELSEIF this.metaType==PlainText»
+«REM»Plain Text«ENDREM»
+JTextField widg_«this.name» = new JTextField("«this.name»");
+
+_allWidgetsByName.put("«this.name»",widg_«this.name»);
+	
+	widg_«this.name».setColumns(«((PlainText)this).staticText.length»);
+	
 JLabel lbl_«this.name» = new JLabel("«this.label»");
 «ELSEIF this.metaType==TextArea»
 «REM»Text Area«ENDREM»
