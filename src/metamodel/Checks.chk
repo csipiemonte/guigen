@@ -32,24 +32,24 @@ context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
-context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione" :
+context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione"+loc() :
 	((ApplicationArea)this.eContainer).contentPanels.select(cp|cp.name==this.name).size==1; 
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
 
-context Panel ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel" :
+context Panel ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel"+loc() :
     findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
 	
 
-context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel" :
+context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel"+loc() :
 	this.contentPanels!=null && this.contentPanels.size>0;
 
 // [DM]
 context FormPanel ERROR "E' necessario impostare il layout su ogni FormPanel " + loc() :
 	this.layout != null;
 
-context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli" :
+context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSEWC per tutti i widget e tutti i sottopannelli"+loc() :
     (this.layout.metaType!=UDLRCPanelLayout) 
     ||
     (
@@ -71,7 +71,7 @@ context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSE
     	)
     );
 
-context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostare la posizione in griglia per tutti i widget e i sottopannelli" :
+context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostare la posizione in griglia per tutti i widget e i sottopannelli"+loc() :
 	this.layout.metaType!=GridPanelLayout 
 	||
     (
@@ -92,13 +92,13 @@ context FormPanel ERROR "Il pannello ha il layout 'Grid': e' necessario impostar
     	)
     );
 
-context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab" :
+context TabSetPanel ERROR "Un tab set panel deve avere almeno un tab"+loc() :
 	this.panels.size>0;
 
-context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno" :
+context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno"+loc() :
 	this.panels.size>0;
 	
-context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel/StdMessagePanel come pannelli interni" :
+context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel/StdMessagePanel come pannelli interni"+loc() :
 	this.panels.select(p|(
 			!p.metaType.isAssignableFrom(FormPanel)
 			&&
@@ -109,83 +109,83 @@ context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPane
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
-context Menu ERROR "Un menu deve avere almeno un menu item" :
+context Menu ERROR "Un menu deve avere almeno un menu item"+loc() :
 	this.item!=null && this.item.size>0;
 
-context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo" :
+context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo"+loc() :
 	this.eventHandler!=null; 	
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su widget
 
-context Widget ERROR "E'necessario impostare l'attributo 'name' del widget" :
+context Widget ERROR "E'necessario impostare l'attributo 'name' del widget"+loc() :
 	this.name != null && this.name != "";
 
-context Widget ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco" :
+context Widget ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco"+loc() :
      this.metaType==RadioButton ||
      findAllWidgetsInContentPanel(findParentContentPanel(this)).select(w|((Widget)w).name==this.name).size==1;
      
-context Table ERROR "Non è stato impostato lo schema delle colonne" :
+context Table ERROR "Non è stato impostato lo schema delle colonne"+loc() :
 	this.columnModel!=null;
 
-context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna" :
+context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna"+loc() :
 	columns != null && columns.size>0;
  
 // [DM] una colonna non può essere contemporaneamente editabile e cliccabile
-context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile" :
+context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile"+loc() :
 !(this.editable && this.eventActive);
  
 // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
-context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout" :
+context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout"+loc() :
  	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;
  
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
 
-context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED" :
+context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED"+loc() :
 	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
 
-context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento" :
+context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento"+loc() :
 	this.command!=null;
 	
-context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command" :
+context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command"+loc() :
 	this.jumpTo != null;
 	
-context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand" :
+context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand"+loc() :
     this.dialog != null;
     
-context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato" :
+context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato"+loc() :
 	this.results!=null && this.results.size>0;
 
-context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione" :
+context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione"+loc() :
 	this.methodName!=null && this.methodName.length>0;
 
-context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel" :
+context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel"+loc() :
 	this.multipanel!=null;
 		
-context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato" :
+context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato"+loc() :
 	this.activeItem==null || 
 	this.multipanel.panels.select(p|p==this.activeItem).size>0;
 
-context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime" :
+context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime"+loc() :
 	this.staticUrl!=null && this.runtimeUrlProvider==null 
 	||
 	(this.staticUrl==null || this.staticUrl.length==0) && this.runtimeUrlProvider!=null;
 
-context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare" :
+context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare"+loc() :
 	this.locationCode!=null && this.locationCode.length>0;
 	
-context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider" :
+context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider"+loc() :
 	this.runtimeUrlProvider==null ||
 	this.runtimeUrlProvider.type.metaType==SimpleType &&
 	((SimpleType)(this.runtimeUrlProvider.type)).code==guigen::SimpleTypeCodes::STRING;
 
-context ApplicationData ERROR "E' necessario specificare il nome dell Application Data" :
+context ApplicationData ERROR "E' necessario specificare il nome dell Application Data"+loc() :
 	this.name!=null && this.name.length>0;
 
-context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data" :
+context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data"+loc() :
 	this.type!=null;
 
 
@@ -195,25 +195,25 @@ context ApplicationData ERROR "E' necessario specificare il tipo dell Applicatio
 // un menu view non può avere event handler associati (eredita quelli del menu vero e proprio di cui
 // è segnaposto
 context MenuView ERROR "ad una MenuView non è possibile associare evnet handler, in quanto eredita gli event handler"+
-						" della struttura menu globale (di cui funge solo da segnaposto)" :
+						" della struttura menu globale (di cui funge solo da segnaposto)"+loc() :
 	this.eventHandlers.size==0;
 
 // un Treeview può avere solo un event handler di tipo click
-context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED" :
+context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED"+loc() :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
 // un CommandWidget può avere solo un event handler di tipo click
-context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED" :
+context CommandWidget ERROR "ad un CommandWidget è possibile associare solo la gestione di un evento CLICKED"+loc() :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
 	
-context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding" :
+context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding"+loc() :
 	this.appData!=null;
 
-context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type :
+context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+","+loc() :
 	this.multiDataBinding==null ||
 	(this.multiDataBinding.appData!=null 
 	 && 
@@ -222,10 +222,10 @@ context TreeView ERROR "La fonte dati di un TreeView può solo essere un applicat
 	 ((SimpleType)this.multiDataBinding.appData.type).code==SimpleTypeCodes::TREE_NODE
 	 );
 	
-context DataWidget ERROR "E'ncessario specificare il tipo del Widget" :
+context DataWidget ERROR "E'ncessario specificare il tipo del Widget"+loc() :
 	this.dataType!=null;
 
-context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding" :
+context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding"+loc() :
 	(this.dataType==null 
 	 || this.databinding == null 
 	 || (this.databinding!=null && this.databinding.appData==null)
@@ -243,7 +243,7 @@ context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del dat
 	 );
 
 context DataWidget WARNING "Non è possibile verificare a priori la corrispondenza di tipo tra widget e binding "+
-	"poichè è impostato l'attributo path: verificare manualmente " :
+	"poichè è impostato l'attributo path: verificare manualmente "+loc() :
 	(this.dataType==null 
 	 || this.databinding == null 
 	 || (this.databinding!=null && this.databinding.appData==null)
@@ -260,23 +260,23 @@ context DataWidget WARNING "Non è possibile verificare a priori la corrispondenz
 	 	&& this.dataType==this.databinding.appData.type
 	 );	 
 	
-context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo" :  
+context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo"+loc() :  
 	this.command != null;
 	
-context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi" :
+context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi"+loc() :
 	this.commands!= null && this.commands.size>0;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand" :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand"+loc() :
 	(this.commands.select(a|a.metaType == JumpCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpCommand).size==1) && (this.commands.last().metaType == JumpCommand)
 	;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand" :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand"+loc() :
 	(this.commands.select(a|a.metaType == JumpExtCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpExtCommand).size==1) && (this.commands.last().metaType == JumpExtCommand)
 	;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand" :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand"+loc() :
 	(this.commands.select(a|a.metaType == JumpBackCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpBackCommand).size==1) && (this.commands.last().metaType == JumpBackCommand);
 
@@ -284,7 +284,7 @@ context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può esse
 //	(this.actions.select(a|a.metaType == ShowDialogAction).size==0) ||
 //	  (this.actions.select(a|a.metaType == ShowDialogAction).size==1) && (this.actions.last().metaType == ShowDialogAction);
 
-context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget" :
+context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget"+loc() :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 
 // [DM] check su CommandPanel
@@ -339,26 +339,26 @@ context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////
 
-context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato" :
+context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato"+loc() :
 	this.minAuthLevel>=1 && this.minAuthLevel<=3;
 
 context UISecurityConstraint ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
-"se non è specificato un metodo di AUTENTICAZIONE" :
+"se non è specificato un metodo di AUTENTICAZIONE"+loc() :
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;
 	
-context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor" :
+context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor"+loc() :
 	code!=null;
 
-context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case" :
+context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case"+loc() :
 	code!=null;
 	
-context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce" :
+context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce"+loc() :
 	this.useCase!=null;
 
-context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce" :
+context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce"+loc() :
 	this.actor!=null;
 	
 context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
-" deve essere abilitato e contemporaneamente invisibile" :
+" deve essere abilitato e contemporaneamente invisibile"+loc() :
 	this.enabled==false || (enabled==true && visible==true);
 	
