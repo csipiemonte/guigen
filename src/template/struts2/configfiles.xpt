@@ -187,6 +187,9 @@
 		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
 	</filter>
 
+«IF this.securityModel.autenticationMethod!=null»
+	«EXPAND security::authenticationFilterDefAndMapping(this) FOR this.securityModel.autenticationMethod»
+«ENDIF»
 	<filter-mapping>
 		<filter-name>ResponseOverrideFilter</filter-name>
 		<url-pattern>*.do</url-pattern>

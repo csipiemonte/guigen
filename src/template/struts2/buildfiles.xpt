@@ -218,7 +218,9 @@ ANT FILES
           description="Predispone le configurazioni dipendenti dall'ambiente." >
     <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@"  value="${remincl.resource.provider}"/>
-
+	«IF this.securityModel.autenticationMethod!=null-»
+		«EXPAND security::envConfigForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+	«ENDIF-»
 
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
     <!-- gestire qui i  replace delle proprie variabile d'ambiente -->
@@ -521,7 +523,12 @@ ear-custom-libs-filter =
                             servlet*.jar,                  \
                             aop*.jar,                      \
                             util-beanlo*.jar,              \
-                            csi*.jar,                      \
+                            csi-apachesoap*.jar,           \
+                            csi-core*.jar,         	       \
+                            csi-ejb*.jar,                  \
+                            csi-rmi*.jar,                  \
+                            csi-stadapter*.jar,            \
+                            csi-tools*.jar,                \
                             log4j*.jar,                    \
                             commons*.jar,                  \
                             «getAppServerLib(this)»*.jar,                    \
@@ -578,6 +585,9 @@ nome.ambiente=<ambiente>
 
 remincl.resource.provider=http://dev-www.sistemapiemonte.it
 
+«IF this.securityModel.autenticationMethod!=null-»
+«EXPAND security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+«ENDIF-»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
 
@@ -668,6 +678,9 @@ IVY FILES (gestione delle dipendenze)
 		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
 		«EXPAND strutsThemeIvy FOR this»		
 		
+		«IF this.securityModel.autenticationMethod!=null-»
+		«EXPAND security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«ENDIF-»
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
 		«ENDPROTECT»
