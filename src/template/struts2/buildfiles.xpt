@@ -503,6 +503,12 @@ ANT FILES
                     commons-logging-api-1.1.jar,           \
                     commons-lang-2.2.jar,                  \
                     commons-httpclient-2.0.2.jar,          \
+                    csi-stadapter-1.4.5.jar                \
+                    csi-apachesoap-1.4.5.jar               \
+                    csi-core-1.4.5.jar                     \
+                    csi-rmi-1.4.5.jar                      \
+                    csi-ejb*-1.4.5.jar                     \
+                    iridev2*.jar                           \
                     custom-component-attr-1.0.0.jar
 
 # - [ear-custom-libs-filter] -------------------------------------------------
@@ -531,7 +537,8 @@ ear-custom-libs-filter =
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
                             commons*.jar,                  \
-                            «getAppServerLib(this)»*.jar,                    \
+                            «getAppServerLib(this)»*.jar,  \
+                            iridev2*.jar                   \
                             custom-component-attr-*.jar
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
@@ -681,6 +688,9 @@ IVY FILES (gestione delle dipendenze)
 		«IF this.securityModel.autenticationMethod!=null-»
 		«EXPAND security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
 		«ENDIF-»
+		
+		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" />
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
 		«ENDPROTECT»

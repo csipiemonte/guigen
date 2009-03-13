@@ -27,7 +27,7 @@
             </item>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
+        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6">
           <panels xsi:type="guigen:FormPanel" name="pProva" label="Provatree">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
@@ -36,7 +36,9 @@
               <subpanels xsi:type="guigen:MultiPanel" name="pMulti" label="">
                 <panels xsi:type="guigen:FormPanel" name="pMulti1" label="Multi1">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="Multi1 testo" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="CF user" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@appData.6"/>
+                  </widgets>
                   <widgets xsi:type="guigen:ConfirmButton" name="bGeneraErroreField" label="Genera errore field">
                     <eventHandlers>
                       <command xsi:type="guigen:ExecCommand" methodName="genFieldError">
@@ -65,7 +67,6 @@
                 <eventHandlers>
                   <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.0"/>
                 </eventHandlers>
-                <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
               </widgets>
               <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti2" label="showMulti2">
                 <eventHandlers>
@@ -101,6 +102,9 @@
                 <eventHandlers>
                   <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.3"/>
                 </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="txtCF2" label="CF2" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.6"/>
               </widgets>
             </subpanels>
           </panels>
@@ -345,7 +349,7 @@
           </panels>
         </contentPanels>
         <staticLinks/>
-        <onInitCommand xsi:type="guigen:ExecCommand" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4">
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.6">
           <results resultCode="OK">
             <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
           </results>
@@ -413,9 +417,10 @@
     <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
     <appData name="myTree" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.33"/>
     <appData name="externalURL" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    <appData name="userCF" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
   </appDataDefs>
   <securityModel>
-    <autenticationMethod xsi:type="guigen:OPAUTHSSO" minAuthLevel="2"/>
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
     <actors code="gestore"/>
     <useCases permission="//@securityModel/@actors.0" code="UC-233.01"/>
   </securityModel>
