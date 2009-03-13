@@ -1,0 +1,229 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSO»
+	<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+		<filter-name>OP Filter</filter-name>
+		<filter-class>it.csi.opauth.filter.OPFilter</filter-class>
+		<init-param>
+			<param-name>it.csi.opauth.filter.loginAccessUrl</param-name>
+			<param-value>
+				http://@OP_SERVER@/portal/pls/portal/csi_custom.ext_login
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.minAuthLevel</param-name>
+			<param-value>«this.minAuthLevel»</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logger</param-name>
+			<param-value>@APP_PREFIX@.OPclient</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.serverName</param-name>
+			<param-value>@DEFAULT_APP_SERVER@</param-value>
+		</init-param>
+	</filter>
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>OP Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+«ENDDEFINE»
+
+«DEFINE irideIdFilterDef(GUIModel model) FOR AutenticationMethod»
+	<filter>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<filter-class>«getIrideIdAdapterFilterFQN(model)»</filter-class>
+	</filter>
+«ENDDEFINE»
+
+«DEFINE irideIdFilterMap(GUIModel model) FOR AutenticationMethod»
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	<!-- replace variabili di environment per opauth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@OP_SERVER@"  
+		value="${opauth.server.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${opauth.default.appserver}"/>	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR OPAUTHSSO»
+#-[configurazione opauth]--------------------------------------------------
+opauth.server.url = spintest.csi.it:7778
+opauth.default.appserver = localhost:8078
+opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSO»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	
+	<!-- ############################################################## -->
+    <!-- # OPAUTH                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="opauth4j" rev="1.0.2" />
+    <!-- <dependency org="csipiemonte" name="iride-simulation" rev="1.1.0" /> -->
+    <!-- <dependency org="csipiemonte" name="simula" rev="1.1.0" /> -->    
+    <!-- ############################################################## -->
+    <!-- # IBM                                                        # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="ibm" name="xml" rev="1.0.0" />
+    
+«ENDDEFINE»
+
+
+«DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
+«IF this.securityModel.autenticationMethod!=null»
+«EXPAND IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE IrideIdMaterializerFilter(GUIModel model) FOR AutenticationMethod»
+«FILE getIrideIdAdapterFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Inserisce in sessione l'identità digitale relativa all'utente autenticato.
+ * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
+ * logica applicativa.
+ * @author CSIPiemonte
+ *
+ */
+public class IrideIdAdapterFilter implements Filter{
+
+	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
+	
+	public static final String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+		HttpServletRequest hreq = (HttpServletRequest)req;
+		if (hreq.getSession().getAttribute(IRIDE_ID_SESSIONATTR)==null){
+			String marker = (String)hreq.getSession().getAttribute(AUTH_ID_MARKER);
+			if (marker!=null){
+				try {
+					Identita identita = new Identita(normalizeToken(marker));
+					System.out.println("Inserito in sessione marcatore IRIDE:"+identita);
+					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
+				} catch (MalformedIdTokenException e) {
+					// TODO mettere a posto messaggio
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		fchn.doFilter(req, resp);
+		
+	}
+
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// NOP
+	}
+
+	private String normalizeToken(String token){
+		  String tmp = null;
+		  
+		  StringTokenizer tok = new StringTokenizer(token, "~");
+		  
+		  String codiceFiscale = tok.nextToken();
+		  
+		  while( tok.hasMoreTokens() ){
+		   tmp = tok.nextToken();
+		   if(tmp.startsWith(codiceFiscale)){
+		    return tmp+"/";
+		   }
+		  }
+		  
+		  return tmp;
+		 }
+}
+«ENDFILE»
+«ENDDEFINE»
