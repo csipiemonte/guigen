@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getFields <em>Fields</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#isInitFields <em>Init Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +48,25 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 	 * @ordered
 	 */
 	protected EList<Field> fields;
+
+	/**
+	 * The default value of the '{@link #isInitFields() <em>Init Fields</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitFields()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INIT_FIELDS_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isInitFields() <em>Init Fields</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitFields()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean initFields = INIT_FIELDS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,6 +104,27 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInitFields() {
+		return initFields;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitFields(boolean newInitFields) {
+		boolean oldInitFields = initFields;
+		initFields = newInitFields;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMPLEX_TYPE__INIT_FIELDS, oldInitFields, initFields));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -101,6 +144,8 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 		switch (featureID) {
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
 				return getFields();
+			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
+				return isInitFields() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -118,6 +163,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 				getFields().clear();
 				getFields().addAll((Collection<? extends Field>)newValue);
 				return;
+			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
+				setInitFields(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -133,6 +181,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
 				getFields().clear();
 				return;
+			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
+				setInitFields(INIT_FIELDS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -147,8 +198,26 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 		switch (featureID) {
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
 				return fields != null && !fields.isEmpty();
+			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
+				return initFields != INIT_FIELDS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (initFields: ");
+		result.append(initFields);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ComplexTypeImpl

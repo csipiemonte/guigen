@@ -2354,6 +2354,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComplexType_InitFields() {
+		return (EAttribute)complexTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypedArray() {
 		return typedArrayEClass;
 	}
@@ -3197,6 +3206,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		complexTypeEClass = createEClass(COMPLEX_TYPE);
 		createEReference(complexTypeEClass, COMPLEX_TYPE__FIELDS);
+		createEAttribute(complexTypeEClass, COMPLEX_TYPE__INIT_FIELDS);
 
 		typedArrayEClass = createEClass(TYPED_ARRAY);
 		createEReference(typedArrayEClass, TYPED_ARRAY__COMPONENT_TYPE);
@@ -3614,6 +3624,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(complexTypeEClass, ComplexType.class, "ComplexType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComplexType_Fields(), this.getField(), null, "fields", null, 0, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexType_InitFields(), ecorePackage.getEBoolean(), "initFields", "false", 0, 1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typedArrayEClass, TypedArray.class, "TypedArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedArray_ComponentType(), this.getType(), null, "componentType", null, 0, 1, TypedArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

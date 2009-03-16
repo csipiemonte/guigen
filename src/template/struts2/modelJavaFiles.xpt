@@ -31,6 +31,21 @@ package «getDTOBaseJavaPackage(model)»;
 public class «getDTOClassName(this)» implements java.io.Serializable{
 «EXPAND property (model) FOREACH this.fields»
 
+	public «getDTOClassName(this)»(){
+	«IF this.initFields-»
+		«FOREACH fields.select(f|f.type.metaType==ComplexType) AS cf-»
+		«LET (ComplexType)(cf.type) AS tp»
+		this.set«cf.name.toFirstUpper()»(new «tp.toJavaType(model)»());
+		«ENDLET-»
+		«ENDFOREACH»
+		«FOREACH fields.select(f|f.type.metaType==TypedArray) AS taf-»
+		«LET (TypedArray)(taf.type) AS atp»
+		this.set«taf.name.toFirstUpper()»(new «atp.toJavaType(model)»());
+		«ENDLET-»
+		«ENDFOREACH»
+	«ENDIF»
+	}
+	
 	public String toString(){
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"toString")»
 		/// inserire qui la logica desiderata per la rappresenatazione a stringa

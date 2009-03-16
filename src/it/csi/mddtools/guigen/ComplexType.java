@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getFields <em>Fields</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComplexType#isInitFields <em>Init Fields</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,5 +41,32 @@ public interface ComplexType extends Type {
 	 * @generated
 	 */
 	EList<Field> getFields();
+
+	/**
+	 * Returns the value of the '<em><b>Init Fields</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Init Fields</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Init Fields</em>' attribute.
+	 * @see #setInitFields(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType_InitFields()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isInitFields();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ComplexType#isInitFields <em>Init Fields</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Init Fields</em>' attribute.
+	 * @see #isInitFields()
+	 * @generated
+	 */
+	void setInitFields(boolean value);
 
 } // ComplexType
