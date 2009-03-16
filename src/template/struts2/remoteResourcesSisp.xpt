@@ -310,7 +310,8 @@ Gestione dei PANNELLI
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
-		<h3>«this.label.toUpperCase()»</h3>
+		<%--<h3>«this.label.toUpperCase()»</h3>--%>
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 		
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
@@ -364,7 +365,8 @@ Gestione dei PANNELLI
 
 		<!-- titolo pannello 1° livello -->
 		«IF !isNullOrEmpty(this.label) -»
-		<h3>«this.label.toUpperCase()»</h3>
+		<%--<h3>«this.label.toUpperCase()»</h3>--%>
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
@@ -424,7 +426,8 @@ Gestione dei PANNELLI
 
 		<!-- titolo pannello primo livello -->
 		«IF !isNullOrEmpty(this.label) -»
-		<h3>«this.label.toUpperCase()»</h3>
+		<%--<h3>«this.label.toUpperCase()»</h3>--%>
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
@@ -485,7 +488,8 @@ Gestione dei PANNELLI
 
 		<!-- titolo pannello primo livello -->
 		«IF !isNullOrEmpty(this.label) -»
-		<h3>«this.label.toUpperCase()»</h3>
+		<%--<h3>«this.label.toUpperCase()»</h3>--%>
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
@@ -540,7 +544,8 @@ TODO:
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 		«LET i.lastIteration ? "<s:property value=\"%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#"+this.name+"_selectedTab == '"+this.name+"_"+currTab.name+"' ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
-		<div class="«tabStyle»"><a href="#">«currTab.label»</a></div>
+		<%--<div class="«tabStyle»"><a href="#">«currTab.label»</a></div>--%>
+		<div class="«tabStyle»"><a href="#"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></a></div>
 		«ENDLET-»
 	«ENDFOREACH-»
 	</div>
@@ -567,7 +572,8 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF !isNullOrEmpty(this.label) -»
-<h4>«this.label.toUpperCase()»</h4>
+<%--<h4>«this.label.toUpperCase()»</h4>--%>
+<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
 <div class="contenuti">
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
@@ -610,10 +616,12 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
-<customtag:column textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<%--<customtag:column textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />--%>
+<customtag:column textLabel="%{getText('«findParentContentPanel(this).name».«this.name».label')}" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
 <customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-<customtag:column labelField="true" textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+<%--<customtag:column labelField="true" textLabel="«this.label»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>--%>
+<customtag:column labelField="true" textLabel="%{getText('«findParentContentPanel(this).name».«this.name».label')}" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 

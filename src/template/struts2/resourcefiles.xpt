@@ -358,7 +358,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
@@ -369,7 +369,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»" label="«this.label»"
+<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»"
 	list="#{«getFixedRadioButtonList(this)»}"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	/>
@@ -379,7 +379,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	/>
 «ENDDEFINE»
@@ -388,7 +388,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" label="«this.label»"
+<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
           headerKey="" headerValue=""
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="isWidgetDisabled('«cp.name»','«this.name»')"
@@ -401,8 +401,8 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante (Button): al momento è renderizzata come un submit.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" method="«getClickHandlerMethodName(this)»" 
-	«getButtonStyleByLayout(model, this)» 
+<s:submit name="widg_«this.name»" id="widg_«this.name»" method="«getClickHandlerMethodName(this)»" 
+	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
@@ -410,8 +410,8 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" method="«getClickHandlerMethodName(this)»"
-	«getButtonStyleByLayout(model, this)» 
+<s:submit name="widg_«this.name»" id="widg_«this.name»" method="«getClickHandlerMethodName(this)»"
+	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
@@ -419,8 +419,8 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:reset name="widg_«this.name»" id="widg_«this.name»" value="«this.label»" «getButtonStyleByLayout(model, this)»
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
+<s:reset name="widg_«this.name»" id="widg_«this.name»" key="«findParentContentPanel(this).name».«this.name».label" 
+	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
 

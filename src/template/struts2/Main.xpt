@@ -4,12 +4,15 @@
 «IMPORT template::struts2::configfiles»
 «IMPORT template::struts2::javafiles»
 «IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::i18nfiles»
+
 
 «DEFINE main (boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
 	«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
@@ -25,9 +28,10 @@
 «ENDDEFINE»
 
 
-«REM»Genera le componenti di una Action Struts2 (classe Java, file JSP e definizione XML)«ENDREM»
+«REM»Genera le componenti di una Action Struts2 (classe Java, file JSP, definizione XML, resource bundle)«ENDREM»
 «DEFINE contentPanelFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 	«EXPAND template::struts2::javafiles::actionJavaFile(model, skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::resourcefiles::actionJspFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::i18nfiles::actionPropertiesFile(model, skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 

@@ -1485,6 +1485,17 @@ public static boolean menuPanelWidgetCheck(MenuPanel mp) {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// UTILITY METHODS
+
+/**
+ *
+ * @param s
+ * @return
+ */
+public static boolean isNullOrEmpty(String s) {
+	return (s == null || s.trim().length() == 0);
+}
 
 
 
@@ -1502,7 +1513,6 @@ public static void main(String[] args) {
 		ExecCommand ex = GuigenFactory.eINSTANCE.createExecCommand();
 		eh.setCommand(ex);
 		findParentContentPanel(ex);
-		System.out.println();
 		
 	} catch (Exception e) {
 		// TODO: handle exception

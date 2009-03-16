@@ -1,0 +1,65 @@
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE i18nFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND globalMessagesPropertiesFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+
+«REM»comment«ENDREM»
+«DEFINE globalMessagesPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsGlobalMessagesPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# Properties file globale dell'applicazione
+#######################################################################
+
+###
+# Label del menu
+###
+
+
+
+
+
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionPropertiesFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionPropertiesFile(this, model, skip_component_dir_creation)»#######################################################################
+# Properties file per il ContentPanel «this.name»
+#######################################################################
+
+###
+# Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
+###
+«FOREACH getContentPanelLabels(this) AS label-»
+«label»
+«ENDFOREACH-»
+
+
+###
+# Label dei widget (<contentpanel_name>.<widget_name>.label=<label>)
+###
+«FOREACH getWidgetsLabels(this) AS label-»
+«label»
+«ENDFOREACH-»
+
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDFILE»
+«ENDDEFINE»

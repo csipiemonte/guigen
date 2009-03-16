@@ -93,7 +93,7 @@ public class GenUtilsStrutsValidation {
 		for (Widget w : GenUtils.findAllWidgetsInApplication()) {
 			if ( w instanceof DataWidget ) {
 				String customValidator = getCustomValidatorName((DataWidget)w);
-				if ( !isNullOrEmpty(customValidator) ) {
+				if ( !GenUtils.isNullOrEmpty(customValidator) ) {
 					if ( !res.contains(customValidator) ) {
 						res.add(customValidator);
 					}
@@ -152,7 +152,7 @@ public class GenUtilsStrutsValidation {
 		}
 
 		// validation by rules
-		if ( !isNullOrEmpty(w.getDataTypeModifier()) ) {
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
 			res += applyValidationRule(w);
 		}
 
@@ -175,7 +175,7 @@ public class GenUtilsStrutsValidation {
 		}
 
 		// validation by rules
-		if ( !isNullOrEmpty(w.getDataTypeModifier()) ) {
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
 			res += applyValidationRule(w);
 		}
 
@@ -198,7 +198,7 @@ public class GenUtilsStrutsValidation {
 		}
 
 		// validation by rules
-		if ( !isNullOrEmpty(w.getDataTypeModifier()) ) {
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
 			res += applyValidationRule(w);
 		}
 
@@ -222,7 +222,7 @@ public class GenUtilsStrutsValidation {
 		}
 
 		// validation by rules
-		if ( !isNullOrEmpty(w.getDataTypeModifier()) ) {
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
 			res += applyValidationRule(w);
 		}
 
@@ -246,7 +246,7 @@ public class GenUtilsStrutsValidation {
 		}
 
 		// validation by rules
-		if ( !isNullOrEmpty(w.getDataTypeModifier()) ) {
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
 			res += applyValidationRule(w);
 		}
 
@@ -296,7 +296,7 @@ public class GenUtilsStrutsValidation {
 
 		// ricavo la regola di validazione
 		String[] validationRule = getValidationRule(w.getDataTypeModifier());
-		if ( !isNullOrEmpty(validationRule[0]) ) {
+		if ( !GenUtils.isNullOrEmpty(validationRule[0]) ) {
 			if ( type.getCode() == SimpleTypeCodes.STRING ) {
 				res += applyStringValidationRule(validationRule, fieldName, fieldLabel);
 			} else if ( type.getCode() == SimpleTypeCodes.INT || type.getCode() == SimpleTypeCodes.LONG ) {
@@ -332,30 +332,30 @@ public class GenUtilsStrutsValidation {
 		String res = "";
 
 		if ( validationRule[0].equals(STRING_SIZE_VALIDATOR) ) {
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				String[] range = getRange(validationRule[1]);
-				if ( !isNullOrEmpty(range[0]) || !isNullOrEmpty(range[1]) ) {
+				if ( !GenUtils.isNullOrEmpty(range[0]) || !GenUtils.isNullOrEmpty(range[1]) ) {
 					res += "@StringLengthFieldValidator(type = ValidatorType.FIELD, fieldName = \"" + fieldName + "\", ";
 					// minimo e massimo
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += "minLength = \"" + range[0] + "\", ";
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += "maxLength = \"" + range[1] + "\", ";
 					}
 					// messaggio
 					res += "message = \"Campo " + fieldLabel;
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += " : minimo " + range[0] + " caratteri";
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += " : massimo " + range[1] + " caratteri";
 					}
 					res += "\")";
 				}
 			}
 		} else if ( validationRule[0].equals(STRING_REGEXP_VALIDATOR) ) {
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				res += "@RegexFieldValidator(type = ValidatorType.FIELD, fieldName = \"" + fieldName + "\", " +
 						"expression = \"" + validationRule[1] + "\"";
 			}
@@ -379,23 +379,23 @@ public class GenUtilsStrutsValidation {
 		String res = "";
 
 		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				String[] range = getRange(validationRule[1]);
 				if ( range[0] != null || range[1] != null ) {
 					res += "@IntRangeFieldValidator(type = ValidatorType.FIELD, fieldName = \"" + fieldName + "\", ";
 					// minimo e massimo
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += "min = \"" + range[0] + "\", ";
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += "max = \"" + range[1] + "\", ";
 					}
 					// messaggio
 					res += "message = \"Campo " + fieldLabel;
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += " : valore minimo " + range[0];
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += " : valore massimo " + range[1];
 					}
 					res += "\")";
@@ -421,23 +421,23 @@ public class GenUtilsStrutsValidation {
 		String res = "";
 
 		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				String[] range = getRange(validationRule[1]);
 				if ( range[0] != null || range[1] != null ) {
 					res += "@DoubleRangeFieldValidator(type = ValidatorType.FIELD, fieldName = \"" + fieldName + "\", ";
 					// minimo e massimo
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += "minInclusive = \"" + range[0] + "\", ";
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += "maxInclusive = \"" + range[1] + "\", ";
 					}
 					// messaggio
 					res += "message = \"Campo " + fieldLabel;
-					if ( !isNullOrEmpty(range[0]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
 						res += " : valore minimo " + range[0];
 					}
-					if ( !isNullOrEmpty(range[1]) ) {
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
 						res += " : valore massimo " + range[1];
 					}
 					res += "\")";
@@ -464,7 +464,7 @@ public class GenUtilsStrutsValidation {
 
 		if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
 			String format = DATE_FORMAT;
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
 			res += getDateValidatorAnnotation(format, fieldName, fieldLabel);
@@ -493,7 +493,7 @@ public class GenUtilsStrutsValidation {
 			res += getDateValidatorAnnotation(DATETIME_EXTENDED_FORMAT, fieldName, fieldLabel);
 		} else if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
 			String format = DATETIME_SHORT_FORMAT;
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
 			res += getDateValidatorAnnotation(format, fieldName, fieldLabel);
@@ -522,7 +522,7 @@ public class GenUtilsStrutsValidation {
 			res += getDateValidatorAnnotation(HOUR_EXTENDED_FORMAT, fieldName, fieldLabel);
 		} else if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
 			String format = HOUR_SHORT_FORMAT;
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
 			res += getDateValidatorAnnotation(format, fieldName, fieldLabel);
@@ -546,7 +546,7 @@ public class GenUtilsStrutsValidation {
 		String res = "";
 
 		if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
-			if ( !isNullOrEmpty(validationRule[1]) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				res += getCustomValidatorAnnotation(validationRule[1], fieldName, fieldLabel);
 			}
 		}
@@ -613,7 +613,7 @@ public class GenUtilsStrutsValidation {
 		String res = null;
 
 		String[] validationRule = getValidationRule(((DataWidget) w).getDataTypeModifier());
-		if ( !isNullOrEmpty(validationRule[0]) && !isNullOrEmpty(validationRule[1]) ) {
+		if ( !GenUtils.isNullOrEmpty(validationRule[0]) && !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 			if ( CUSTOM_VALIDATOR.equals(validationRule[0]) ) {
 				res = validationRule[1];
 			}
@@ -651,7 +651,7 @@ public class GenUtilsStrutsValidation {
 	private static String getCustomValidatorAnnotation(String validator, String fieldName, String fieldLabel) {
 		/*String res = "";
 
-		if ( !isNullOrEmpty(validator) ) {
+		if ( !GenUtils.isNullOrEmpty(validator) ) {
 			String[] val = splitString(validator, "[");
 
 			res += "@CustomValidator(" +
@@ -680,7 +680,7 @@ public class GenUtilsStrutsValidation {
 	private static String getCustomValidatorParametersAnnotation(String parameters) {
 		String res = "";
 
-		if ( !isNullOrEmpty(parameters) ) {
+		if ( !GenUtils.isNullOrEmpty(parameters) ) {
 			// prendo solo i token validi (<param>:<value>)
 			List<String[]> tokList = getCustomValidatorParameters(parameters);
 
@@ -712,15 +712,15 @@ public class GenUtilsStrutsValidation {
 	private static List<String[]> getCustomValidatorParameters(String parameters) {
 		List<String[]> tokList = new ArrayList<String[]>();
 
-		if ( !isNullOrEmpty(parameters) ) {
+		if ( !GenUtils.isNullOrEmpty(parameters) ) {
 			StringTokenizer strTok = new StringTokenizer(parameters, "][");
 
 			if ( strTok.countTokens() > 0 ) {
 				while ( strTok.hasMoreTokens() ) {
 					String t = strTok.nextToken();
-					if ( !isNullOrEmpty(t) ) {
+					if ( !GenUtils.isNullOrEmpty(t) ) {
 						String[] parts = splitString(t.trim(), ":");
-						if ( !isNullOrEmpty(parts[0]) && !isNullOrEmpty(parts[1]) ) {
+						if ( !GenUtils.isNullOrEmpty(parts[0]) && !GenUtils.isNullOrEmpty(parts[1]) ) {
 							tokList.add(parts);
 						}
 					}
@@ -732,24 +732,9 @@ public class GenUtilsStrutsValidation {
 	}
 
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// JAVA METHODS FOR STRUTS 2 VALIDATION CHECKS
-
-
-
-
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// UTILITY METHODS
-
-	/**
-	 *
-	 * @param s
-	 * @return
-	 */
-	public static boolean isNullOrEmpty(String s) {
-		return (s == null || s.trim().length() == 0);
-	}
+	// JAVA METHODS
 
 
 	/**
@@ -761,7 +746,7 @@ public class GenUtilsStrutsValidation {
 	public static String[] splitString(String s, String sep) {
 		String[] res = new String[2];
 
-		if ( !isNullOrEmpty(s) ) {
+		if ( !GenUtils.isNullOrEmpty(s) ) {
 			String sr = s.trim();
 			int i = sr.indexOf(sep);
 
@@ -776,7 +761,7 @@ public class GenUtilsStrutsValidation {
 				res[0] = sr;
 			} else if ( i == 0 ) {
 				// presente solo il valore espresso con il separatore davanti (sep<val>)
-				if ( !isNullOrEmpty(sr.substring(1).trim()) ) {
+				if ( !GenUtils.isNullOrEmpty(sr.substring(1).trim()) ) {
 					res[1] = sr.substring(1).trim();
 				}
 			}
@@ -797,7 +782,6 @@ public class GenUtilsStrutsValidation {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//System.out.println(StringEscapeUtils.escapeHtml("\"אטלעש & % <> ; : \" '&#224;'"));
 		
 	}
 

@@ -47,6 +47,10 @@ String getStrutsApplicationConfigFile(GUIModel model, boolean omit_root, String 
 String getStrutsValidationConfigFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/validators.xml";
 
+String getStrutsGlobalMessagesPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/globalMessages.properties";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Spring
 
@@ -204,6 +208,9 @@ String getStrutsActionJspFile(ContentPanel panel, GUIModel model, boolean omit_r
 
 String getStrutsActionJspConfigName(ContentPanel panel) :
 	"/" + getPresentationMarkupConfig() + "/" + getStrutsActionJspName(panel) + ".jsp";
+
+String getStrutsActionPropertiesFile(ContentPanel panel, GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".properties";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -367,7 +374,7 @@ String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
 	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\">" + item.label + "</span></s:if>" +
 	//	"<s:else>" + item.label + "</s:else>"
 	//else
-	item.label;
+		item.label;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -495,6 +502,14 @@ List getGuigenCustomValidators() : JAVA
 // [DM] restituisce la lista dei custom validators modellati dall'utente nei widget
 List getUserCustomValidatorsName() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
+
+// [DM] restituisce la lista delle label dei pannelli di un ContentPanel
+List getContentPanelLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] restituisce la lista delle label dei widgets di un ContentPanel
+List getWidgetsLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
