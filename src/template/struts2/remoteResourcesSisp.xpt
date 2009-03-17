@@ -174,7 +174,7 @@ TODO: come faccio a sapere qual'è il menu attivo?
 NOTE IMPLEMENTATIVE: E' stato utilizzato il pattern menu (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/menu.shtml).
 Questo pattern prevede due possibilità:
 - menu "cavalieri" con struttura già espansa (non richiede JavaScript): quattro livelli
-- menu "dropDown) con struttura espandibile (richiede JavaScript): due livelli?
+- menu "dropDown" con struttura espandibile (richiede JavaScript): due livelli?
 Si è scelta l'opzione "cavalieri" in quanto non richiede nè JavaScript nè indicatori sequenziali per le voci di menu.
 Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un check in fase di generazione del codice
 (o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello,
@@ -222,7 +222,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	</li>
 	«ENDLET-»
 «ELSE-»
-	<li>«this.label»</li>
+	<li><s:text name="«this.name».label" /></li>
 «ENDIF-»
 «ENDDEFINE»
 
