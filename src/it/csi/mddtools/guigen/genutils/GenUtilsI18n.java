@@ -3,11 +3,15 @@ package it.csi.mddtools.guigen.genutils;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.HiddenValue;
+import it.csi.mddtools.guigen.Menu;
+import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuView;
+import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.TabSetPanel;
@@ -27,6 +31,23 @@ import it.csi.mddtools.guigen.Widget;
  */
 public class GenUtilsI18n {
 
+	/**
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	public static List<String> getMenuBarLabels(Menubar mb) {
+		List<String> res = new ArrayList<String>();
+		
+		if ( mb != null ) {
+			for ( Menu menu : mb.getTopLevelMenu() ) {
+				res.addAll(getSubMenuLabels(menu));
+			}
+		}
+		
+		return res;
+	}	
+	
 	
 	/**
 	 * 
@@ -62,7 +83,11 @@ public class GenUtilsI18n {
 		ArrayList<Widget> widgets = GenUtils.findAllWidgetsInContentPanel(cp);
 
 		for ( Widget widget : widgets ) {
-			if ( widgetHasLabel(widget) ) {
+			if ( widget instanceof Table ) {
+				// aggiungo le label delle colonne della tabella
+				res.addAll(getTableColumnsLabels((Table)widget, cp));
+			}
+			else if ( widgetHasLabel(widget) ) {
 				lbl = getWidgetLabel(widget, cp);
 				if ( lbl != null ) {
 					res.add(lbl);
@@ -77,6 +102,68 @@ public class GenUtilsI18n {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//
 	
+	/**
+	 * 
+	 * @param menu
+	 * @return
+	 */
+	private static List<String> getSubMenuLabels(Menu menu) {
+		List<String> res = new ArrayList<String>();
+		String lbl = null;
+		
+		// label del menu
+		lbl = getMenuLabel(menu);
+		if ( lbl != null ) {
+			res.add(lbl);
+		}
+		
+		// label degli item del menu
+		for ( MenuItem item : menu.getItem() ) {
+			lbl = getMenuItemLabel(item);
+			if ( lbl != null ) {
+				res.add(lbl);
+			}
+		}
+		
+		// label dei sottomenu
+		for ( Menu subMenu : menu.getSubmenu() ) {
+			res.addAll(getSubMenuLabels(subMenu));
+		}
+		
+		return res;
+	}
+
+
+	/**
+	 * 
+	 * @param menu
+	 * @param prefix
+	 * @return
+	 */
+	private static String getMenuLabel(Menu menu) {
+		String res = null;
+		if ( !GenUtils.isNullOrEmpty(menu.getLabel()) ) {
+			res = menu.getName() + ".label=" + menu.getLabel();
+		}
+		return res;
+	}
+	
+	
+	/**
+	 * 
+	 * @param item
+	 * @param prefix
+	 * @return
+	 */
+	private static String getMenuItemLabel(MenuItem item) {
+		String res = null;
+		if ( !GenUtils.isNullOrEmpty(item.getLabel()) ) {
+			res = item.getName() + ".label=" + item.getLabel();
+		}
+		return res;
+	}	
+	
+
 	/**
 	 * 
 	 * @param p
@@ -147,21 +234,6 @@ public class GenUtilsI18n {
 	/**
 	 * 
 	 * @param w
-	 * @param cp
-	 * @return
-	 */
-	private static String getWidgetLabel(Widget w, ContentPanel cp) {
-		String res = null;
-		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
-			res = cp.getName() + "." + w.getName() + ".label=" + w.getLabel();
-		}
-		return res;		
-	}
-	
-	
-	/**
-	 * 
-	 * @param w
 	 * @return
 	 */
 	private static boolean widgetHasLabel(Widget w) {
@@ -174,5 +246,40 @@ public class GenUtilsI18n {
 		
 		return res;
 	}
+
+	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
+	private static List<String> getTableColumnsLabels(Table t, ContentPanel cp) {
+		List<String> res = new ArrayList<String>();
+		
+		for ( Column col : t.getColumnModel().getColumns() ) {
+			if ( !GenUtils.isNullOrEmpty(col.getLabel()) ) {
+				res.add(cp.getName() + "." + t.getName() + "." + col.getSelector() + ".label=" + col.getLabel());
+			}
+		}
+		
+		return res;
+	}
+	
+
+	/**
+	 * 
+	 * @param w
+	 * @param cp
+	 * @return
+	 */
+	private static String getWidgetLabel(Widget w, ContentPanel cp) {
+		String res = null;
+		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
+			res = cp.getName() + "." + w.getName() + ".label=" + w.getLabel();
+		}
+		return res;		
+	}
+	
+	
 	
 }

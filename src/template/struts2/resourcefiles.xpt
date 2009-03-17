@@ -59,15 +59,20 @@
 «FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@taglib uri="/struts-tags" prefix="s" %>
 <%@taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
+«IF hasTable(this) -»
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
-		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
+<fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
+«ENDIF-»
+
+	«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+	«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
 
 		«REM»Genera il corpo della Pagina«ENDREM»
-		«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
+	«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
 
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
+	«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
 «ENDFILE-»
 «EXPAND createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
@@ -236,6 +241,12 @@ Gestione dei pannelli
 «FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this)»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
+«IF hasTable(this) -»
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="«getStrutsActionPath(findParentContentPanel(this), model)»" />
+«ENDIF-»
+
 <!-- Creazione del multi panel «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
@@ -458,11 +469,11 @@ Gestione dei Widget
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable-»
-		<display:column title="«currCol.label»" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" >
+		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" >
 			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" cssClass="minim"/>
 		</display:column>
 		«ELSE-»
-		<display:column property="«currCol.selector»" title="«currCol.label»" «getColumnAction(currCol, this, cp)»
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" />
 		«ENDIF-»
 	«ENDFOREACH-»

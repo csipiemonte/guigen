@@ -6,11 +6,12 @@
 
 «DEFINE i18nFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND globalMessagesPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND homePagePropertiesFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
 
-«REM»comment«ENDREM»
+«REM»Crea il resource bundle globale dell'applicazione«ENDREM»
 «DEFINE globalMessagesPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsGlobalMessagesPropertiesFile(this, skip_component_dir_creation)»#######################################################################
 # Properties file globale dell'applicazione
@@ -19,10 +20,9 @@
 ###
 # Label del menu
 ###
-
-
-
-
+«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS label-»
+«label»
+«ENDFOREACH-»
 
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
@@ -32,6 +32,44 @@
 «ENDPROTECT»
 «ENDFILE»
 «ENDDEFINE»
+
+
+«REM»Crea il resource bundle della homepage dell'applicazione«ENDREM»
+«DEFINE homePagePropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsHomePropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# Properties file della HomePage dell'applicazione
+#######################################################################
+
+«LET this.structure.appWindow.appArea.contentPanels.first() AS cp-»
+###
+# Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
+###
+«FOREACH getContentPanelLabels(cp) AS label-»
+«label»
+«ENDFOREACH-»
+
+
+###
+# Label dei widget, nella forma
+#   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
+#   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
+###
+«FOREACH getWidgetsLabels(cp) AS label-»
+«label»
+«ENDFOREACH-»
+
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsHomeClassName(this)+"Properties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDLET-»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
 
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
@@ -49,7 +87,9 @@
 
 
 ###
-# Label dei widget (<contentpanel_name>.<widget_name>.label=<label>)
+# Label dei widget, nella forma
+#   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
+#   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
 ###
 «FOREACH getWidgetsLabels(this) AS label-»
 «label»

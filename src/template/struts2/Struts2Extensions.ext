@@ -19,6 +19,9 @@ String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 String getPresentationMarkupConfig() :
 	"jsp";	
 
+String getPresentationJavaPath(GUIModel model) :
+	getBaseJavaPath(model) + "/presentation/" + model.codComponente + "/action";
+
 String getValidationJavaSrcDir(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/validator";
 
@@ -162,6 +165,9 @@ String getStrutsHomeJavaFile(GUIModel model, boolean omit_root) :
 String getStrutsMenuConfigName(GUIModel model) :
 	"menuAction";
 
+String getStrutsHomePropertiesFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".properties";
+
 /// BaseAction
 String getStrutsBaseActionClassName(GUIModel model) :
 	"BaseAction";
@@ -199,6 +205,9 @@ String getStrutsActionConfigName(ContentPanel panel) :
 
 String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getStrutsActionClassName(panel);
+	
+String getStrutsActionPath(ContentPanel panel, GUIModel model) :
+	getPresentationJavaPath(model) + "/" + getStrutsActionClassName(panel);	
 	
 String getStrutsActionJavaFile(ContentPanel panel, GUIModel model, boolean omit_root) :
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".java";
@@ -371,10 +380,10 @@ String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
 
 String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
 	//if (level == 1) then
-	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\">" + item.label + "</span></s:if>" +
-	//	"<s:else>" + item.label + "</s:else>"
+	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
+	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
 	//else
-		item.label;
+		"<s:text name=\"" + item.name + ".label\" />";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -453,43 +462,43 @@ boolean isInMenuBranch(ExecCommand ea) : JAVA
 
 // [DM] restituisce il numero di colonne del layout
 int getColumnsLayout(FormPanel firstLevPanel) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getColumnsLayout(it.csi.mddtools.guigen.FormPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel);
 
 // [DM]
 Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
 
 // [DM]
 String getGridPanelColumnsNumber(FormPanel p) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getGridPanelColumnsNumber(it.csi.mddtools.guigen.FormPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getGridPanelColumnsNumber(it.csi.mddtools.guigen.FormPanel);
 
 // [DM]
 List getWidgetsByOrder(FormPanel p)  : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetsByOrder(it.csi.mddtools.guigen.FormPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getWidgetsByOrder(it.csi.mddtools.guigen.FormPanel);
 
 // [DM]
 String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast, Boolean isLabel) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getCustomtagColumnPosition(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagColumnPosition(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget, java.lang.Boolean, java.lang.Boolean, java.lang.Boolean);
 
 // [DM]
 boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.needHandleCustomtagHeaderHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagHeaderHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
 	
 // [DM]
 boolean needHandleCustomtagCloseHspan(FormPanel fp, Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.needHandleCustomtagCloseHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagCloseHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
 
 // [DM]
 int getCustomtagHeaderColspan(Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getCustomtagHeaderColspan(it.csi.mddtools.guigen.Widget);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagHeaderColspan(it.csi.mddtools.guigen.Widget);
 
 // [DM]
 String getCustomtagCloseColspan(FormPanel fp, Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getCustomtagCloseColspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagCloseColspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
 
 // [DM]
 String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
 
 // [DM] restituisce le annotazioni per la validazione del campo
 String getWidgetValidation(DataWidget w) : JAVA
@@ -503,6 +512,10 @@ List getGuigenCustomValidators() : JAVA
 List getUserCustomValidatorsName() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
 
+// [DM] restituisce la lista delle label del menu
+List getMenuBarLabels(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getMenuBarLabels(it.csi.mddtools.guigen.Menubar);
+
 // [DM] restituisce la lista delle label dei pannelli di un ContentPanel
 List getContentPanelLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
@@ -511,6 +524,14 @@ List getContentPanelLabels(ContentPanel cp) : JAVA
 List getWidgetsLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
 
+// [DM] verifica se un ContentPanel contiene o meno delle tabelle (problema della localizzazione della displaytag)
+boolean hasTable(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTable(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM] verifica se un Panel contiene o meno delle tabelle (problema della localizzazione della displaytag)
+boolean hasTable(Panel p) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTable(it.csi.mddtools.guigen.Panel);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Java Extensions for checks                                                               //
@@ -518,15 +539,15 @@ List getWidgetsLabels(ContentPanel cp) : JAVA
 
 // [DM] Controlla che tutti i widget di un CommandPanel siano dei CommandWidget.
 boolean commandPanelCommandWidgetCheck(CommandPanel cp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.commandPanelCommandWidgetCheck(it.csi.mddtools.guigen.CommandPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelCommandWidgetCheck(it.csi.mddtools.guigen.CommandPanel);
 
 // [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
 boolean commandPanelLayoutCheck(CommandPanel cp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
 
 // [DM] Controlla che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
 boolean menuPanelWidgetCheck(MenuPanel mp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.menuPanelWidgetCheck(it.csi.mddtools.guigen.MenuPanel);
+	it.csi.mddtools.guigen.genutils.GenUtilsChecks.menuPanelWidgetCheck(it.csi.mddtools.guigen.MenuPanel);
 
 
 
