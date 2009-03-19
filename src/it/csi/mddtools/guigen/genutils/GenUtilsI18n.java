@@ -99,8 +99,26 @@ public class GenUtilsI18n {
 	}	
 
 	
+	/**
+	 * 
+	 * @param w
+	 * @return
+	 */
+	public static String getText(Widget w) {
+		String res = "";
+		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
+			ContentPanel cp = GenUtils.findParentContentPanel(w);
+			if ( cp != null ) {
+				res = "%{getText(" + cp.getName() + "." + w.getName() + ".label)}";
+			}
+		}
+		return res;
+	}
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	//
+	// PRIVAT METHODS
 	
 	/**
 	 * 
