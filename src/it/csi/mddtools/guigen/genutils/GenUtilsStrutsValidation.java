@@ -114,15 +114,15 @@ public class GenUtilsStrutsValidation {
 	public static String getWidgetValidation(DataWidget w) {
 		String res = "";
 		if ( w.getDataType() instanceof SimpleType ) {
-			if (w instanceof TextField) {
+			if ( w instanceof TextField ) {
 				res += getWidgetValidationAnnotation((TextField)w);
-			} else if (w instanceof TextArea) {
+			} else if ( w instanceof TextArea ) {
 				res += getWidgetValidationAnnotation((TextArea)w);
-			} else if (w instanceof RadioButtons) {
+			} else if ( w instanceof RadioButtons ) {
 				res += getWidgetValidationAnnotation((RadioButtons)w);
-			} else if (w instanceof CheckBox) {
+			} else if ( w instanceof CheckBox ) {
 				res += getWidgetValidationAnnotation((CheckBox)w);
-			} else if (w instanceof ComboBox) {
+			} else if ( w instanceof ComboBox ) {
 				res += getWidgetValidationAnnotation((ComboBox)w);
 			}
 		}
@@ -191,10 +191,17 @@ public class GenUtilsStrutsValidation {
 	 */
 	public static String getWidgetValidationAnnotation(RadioButtons w) {
 		String res = "";
+		SimpleType t = (SimpleType)w.getDataType();
 
 		// required validation
 		if ( w.isRequired() ) {
-			res += getRequiredValidator(w);
+			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
+				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+				// i tipi DATA sono gestiti dal generatore come STRINGHE
+				res += getRequiredStringValidator(w);
+			} else {
+				res += getRequiredValidator(w);
+			}
 		}
 
 		// validation by rules
@@ -213,12 +220,18 @@ public class GenUtilsStrutsValidation {
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
 	public static String getWidgetValidationAnnotation(CheckBox w) {
-		//System.out.println("-----> [GenUtils::getWidgetValidation] FOR CheckBox " + w);
 		String res = "";
+		SimpleType t = (SimpleType)w.getDataType();
 
 		// required validation
 		if ( w.isRequired() ) {
-			res += getRequiredValidator(w);
+			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
+				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+				// i tipi DATA sono gestiti dal generatore come STRINGHE
+				res += getRequiredStringValidator(w);
+			} else {
+				res += getRequiredValidator(w);
+			}
 		}
 
 		// validation by rules
@@ -226,7 +239,6 @@ public class GenUtilsStrutsValidation {
 			res += applyValidationRule(w);
 		}
 
-		//System.out.println("=====> [GenUtils::getWidgetValidationAnnotation] RETURNING {" + res + "}");
 		return res;
 	}
 
@@ -239,10 +251,17 @@ public class GenUtilsStrutsValidation {
 	 */
 	public static String getWidgetValidationAnnotation(ComboBox w) {
 		String res = "";
+		SimpleType t = (SimpleType)w.getDataType();
 
 		// required validation
 		if ( w.isRequired() ) {
-			res += getRequiredValidator(w);
+			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
+				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+				// i tipi DATA sono gestiti dal generatore come STRINGHE
+				res += getRequiredStringValidator(w);
+			} else {
+				res += getRequiredValidator(w);
+			}
 		}
 
 		// validation by rules
