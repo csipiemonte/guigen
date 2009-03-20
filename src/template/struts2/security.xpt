@@ -275,7 +275,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	@Override
 	protected boolean specificCheck(Map session) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
@@ -297,7 +297,7 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	@Override
 	protected boolean specificCheck(Map session) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
@@ -320,7 +320,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	@Override
 	protected boolean specificCheck(Map session) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
@@ -438,17 +438,25 @@ public class IrideIdAdapterFilter implements Filter{
 «ENDDEFINE»
 
 «DEFINE getPageUIConstraintDef(GUIModel model) FOR ContentPanel»
-	protected Map<String, UISecConstraint> getPageUIConstraints(){
+	protected Map<String, UISecConstraint> getPageVisibilityUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
 		«LET (List[Widget])(this.findAllWidgetsInContentPanel()) AS allWidgets-»
-		«EXPAND uiConstraint(model) FOREACH allWidgets-» 
+		«EXPAND uiConstraint(model, "VISIB") FOREACH allWidgets-» 
+		«ENDLET-»
+		return allConstraints;
+	}
+	
+	protected Map<String, UISecConstraint> getPageONOFFUIConstraints(){
+		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
+		«LET (List[Widget])(this.findAllWidgetsInContentPanel()) AS allWidgets-»
+		«EXPAND uiConstraint(model, "ONOFF") FOREACH allWidgets-» 
 		«ENDLET-»
 		return allConstraints;
 	}
 «ENDDEFINE»
 
 
-«DEFINE uiConstraint(GUIModel model) FOR Widget-»
+«DEFINE uiConstraint(GUIModel model, String behavior) FOR Widget-»
 «IF securityConstraints.size>0-»
 		// constraints per «this»
 «FOREACH this.securityConstraints AS currConstraint-»
@@ -456,9 +464,11 @@ public class IrideIdAdapterFilter implements Filter{
 		«EXPAND uiConstraintNew(model) FOR currConstraint-» 
 «ENDFOREACH-»
 		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
-		«FOREACH securityConstraints AS currConstraint-»
+		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
+			«FOREACH selectedConstraints AS currConstraint-»
 			«name»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
-		«ENDFOREACH-»
+			«ENDFOREACH-»
+		«ENDLET-»
 		};
 		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
 		allConstraints.put("«name»", «name»_ctr);
@@ -535,7 +545,7 @@ public class IrideIdAdapterFilter implements Filter{
 // per supportare i security check
 
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
-		UISecConstraint ctr = allConstraints.get(widgShortName);
+		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
 		if (ctr!=null)
 			return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR);
 		else
@@ -543,7 +553,7 @@ public class IrideIdAdapterFilter implements Filter{
 	}
 	
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
-		UISecConstraint ctr = allConstraints.get(widgShortName);
+		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
 		if (ctr!=null)
 			return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR);
 		else

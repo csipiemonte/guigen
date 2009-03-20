@@ -526,7 +526,8 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	}
 	
 	«IF model.securityModel.autenticationMethod!=null»
-	protected Map<String, UISecConstraint> allConstraints = null;
+	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
+	protected Map<String, UISecConstraint> allOnOffConstraints = null;
 	«ENDIF»
 	
 	/**
@@ -536,7 +537,8 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	    
 	    «IF model.securityModel.autenticationMethod!=null»
 	    // caricamento struttura di constraints
-	    allConstraints = getPageUIConstraints();
+	    allVisibilityConstraints = getPageVisibilityUIConstraints();
+	    allOnOffConstraints = getPageONOFFUIConstraints();
 	    «ENDIF»
 		      
 		«IF this.onRefreshCommand!=null»
