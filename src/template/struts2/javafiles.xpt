@@ -1,6 +1,7 @@
 «IMPORT guigen»
 
 «IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -447,6 +448,7 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(model)».*;
+import «getSecurityJavaPackage(model)».*;
 
 /**
  * «getStrutsActionClassName(this)» Action Class.
@@ -490,6 +492,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	/**
 	 * Gestione dell'evento CLICKED sul widget [«currClickWidget.name»]
 	 */
+	«IF currClickWidget.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first().skipValidation-»
+	@SkipValidation
+	«ENDIF-»
 	public String «getHandlerMethodName(currClickWidget, currClickWidget.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())»()
 		throws Exception
 	{
@@ -520,22 +525,41 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDPROTECT»
 	}
 	
+	«IF model.securityModel.autenticationMethod!=null»
+	protected Map<String, UISecConstraint> allConstraints = null;
+	«ENDIF»
+	
 	/**
 	 * Metodo di preparazione della schermata/action
 	 */
 	public void prepare(){
+	    
+	    «IF model.securityModel.autenticationMethod!=null»
+	    // caricamento struttura di constraints
+	    allConstraints = getPageUIConstraints();
+	    «ENDIF»
+		      
 		«IF this.onRefreshCommand!=null»
+		// comandi eseguiti ad ogni refresh
 		ICommand cmd = initOnRefreshCommand();
 		String res= cmd.doCommand(this);
 		System.out.println("onrefreshCommand returned:"+res+", ignoring");
 		«ENDIF»
 	}
 	
+	«IF model.securityModel.autenticationMethod!=null»
+	«EXPAND security::securedWidgetCheck(model) FOR this»
+	«ENDIF»
+	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
     «EXPAND actionImplJavaFiles::actionStructureInit2(model) FOR onRefreshAction»
     «ENDIF»
 	«ENDLET»
+	
+	«IF model.securityModel.autenticationMethod!=null»
+	«EXPAND security::getPageUIConstraintDef(model) FOR this»
+	«ENDIF»
 	
 	/**  */
 	void dumpModel(boolean pre) {

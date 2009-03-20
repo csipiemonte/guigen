@@ -3262,13 +3262,22 @@ public interface GuigenPackage extends EPackage {
 	int EVENT_HANDLER__EVENT_TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Skip Validation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_HANDLER__SKIP_VALIDATION = 2;
+
+	/**
 	 * The number of structural features of the '<em>Event Handler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_HANDLER_FEATURE_COUNT = 2;
+	int EVENT_HANDLER_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of structural features of the '<em>Widget Target Action</em>' class.
@@ -6426,6 +6435,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getEventHandler_EventType();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.EventHandler#isSkipValidation <em>Skip Validation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Skip Validation</em>'.
+	 * @see it.csi.mddtools.guigen.EventHandler#isSkipValidation()
+	 * @see #getEventHandler()
+	 * @generated
+	 */
+	EAttribute getEventHandler_SkipValidation();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8643,6 +8663,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_HANDLER__EVENT_TYPE = eINSTANCE.getEventHandler_EventType();
+
+		/**
+		 * The meta object literal for the '<em><b>Skip Validation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_HANDLER__SKIP_VALIDATION = eINSTANCE.getEventHandler_SkipValidation();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}' class.

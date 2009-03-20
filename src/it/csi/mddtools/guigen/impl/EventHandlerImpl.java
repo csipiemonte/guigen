@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getEventType <em>Event Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#isSkipValidation <em>Skip Validation</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,6 +65,26 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * @ordered
 	 */
 	protected EventTypes eventType = EVENT_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSkipValidation() <em>Skip Validation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSkipValidation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SKIP_VALIDATION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSkipValidation() <em>Skip Validation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSkipValidation()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean skipValidation = SKIP_VALIDATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -153,6 +174,27 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSkipValidation() {
+		return skipValidation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSkipValidation(boolean newSkipValidation) {
+		boolean oldSkipValidation = skipValidation;
+		skipValidation = newSkipValidation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION, oldSkipValidation, skipValidation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -174,6 +216,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return getCommand();
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				return getEventType();
+			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
+				return isSkipValidation() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -191,6 +235,9 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return;
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				setEventType((EventTypes)newValue);
+				return;
+			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
+				setSkipValidation(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -210,6 +257,9 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				setEventType(EVENT_TYPE_EDEFAULT);
 				return;
+			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
+				setSkipValidation(SKIP_VALIDATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -226,6 +276,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return command != null;
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				return eventType != EVENT_TYPE_EDEFAULT;
+			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
+				return skipValidation != SKIP_VALIDATION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -242,6 +294,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (eventType: ");
 		result.append(eventType);
+		result.append(", skipValidation: ");
+		result.append(skipValidation);
 		result.append(')');
 		return result.toString();
 	}

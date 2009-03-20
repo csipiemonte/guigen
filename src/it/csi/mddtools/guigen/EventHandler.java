@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.EventHandler#isSkipValidation <em>Skip Validation</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,5 +81,31 @@ public interface EventHandler extends EObject {
 	 * @generated
 	 */
 	void setEventType(EventTypes value);
+
+	/**
+	 * Returns the value of the '<em><b>Skip Validation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Skip Validation</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Skip Validation</em>' attribute.
+	 * @see #setSkipValidation(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_SkipValidation()
+	 * @model
+	 * @generated
+	 */
+	boolean isSkipValidation();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.EventHandler#isSkipValidation <em>Skip Validation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Skip Validation</em>' attribute.
+	 * @see #isSkipValidation()
+	 * @generated
+	 */
+	void setSkipValidation(boolean value);
 
 } // EventHandler

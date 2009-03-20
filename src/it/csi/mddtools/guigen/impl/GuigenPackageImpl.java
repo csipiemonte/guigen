@@ -1976,6 +1976,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEventHandler_SkipValidation() {
+		return (EAttribute)eventHandlerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getWidgetTargetAction() {
 		return widgetTargetActionEClass;
 	}
@@ -3145,6 +3154,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		eventHandlerEClass = createEClass(EVENT_HANDLER);
 		createEReference(eventHandlerEClass, EVENT_HANDLER__COMMAND);
 		createEAttribute(eventHandlerEClass, EVENT_HANDLER__EVENT_TYPE);
+		createEAttribute(eventHandlerEClass, EVENT_HANDLER__SKIP_VALIDATION);
 
 		widgetTargetActionEClass = createEClass(WIDGET_TARGET_ACTION);
 
@@ -3563,6 +3573,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(eventHandlerEClass, EventHandler.class, "EventHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventHandler_Command(), this.getCommand(), null, "command", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventHandler_EventType(), this.getEventTypes(), "eventType", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEventHandler_SkipValidation(), ecorePackage.getEBoolean(), "skipValidation", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(widgetTargetActionEClass, WidgetTargetAction.class, "WidgetTargetAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

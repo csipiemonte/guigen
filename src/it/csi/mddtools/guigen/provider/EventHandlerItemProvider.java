@@ -69,6 +69,7 @@ public class EventHandlerItemProvider
 			super.getPropertyDescriptors(object);
 
 			addEventTypePropertyDescriptor(object);
+			addSkipValidationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -91,6 +92,28 @@ public class EventHandlerItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Skip Validation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSkipValidationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventHandler_skipValidation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventHandler_skipValidation_feature", "_UI_EventHandler_type"),
+				 GuigenPackage.Literals.EVENT_HANDLER__SKIP_VALIDATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -164,6 +187,7 @@ public class EventHandlerItemProvider
 
 		switch (notification.getFeatureID(EventHandler.class)) {
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
+			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.EVENT_HANDLER__COMMAND:
