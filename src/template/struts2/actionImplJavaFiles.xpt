@@ -817,6 +817,18 @@ public class SequenceCommand implements ICommand {
 	public «getSpringBEFQN()» getSpringBackEnd(){
 		return _backEnd;
 	}
+	
+	«IF securityModel.autenticationMethod!=null»
+	private «getSpringSecurityHelperFQN()» _securityHelper = null;
+	
+	public void setSpringSecurityHelper(«getSpringSecurityHelperFQN()» sh){
+		_securityHelper = sh;
+	}
+	
+	public «getSpringSecurityHelperFQN()» getSpringSecurityHelper(){
+		return _securityHelper;
+	}
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE appDataProperty(GUIModel model) FOR ApplicationData»

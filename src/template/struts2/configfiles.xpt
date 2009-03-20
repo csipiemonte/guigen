@@ -420,7 +420,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			«ENDFOREACH»
 			«ENDLET»
 			«ELSE»
-			<result>«getHomePageConfig(this)»</result>
+			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.contentPanels.first())»</result>
 		    «ENDIF»
 		</action>
 		«ENDLET»
@@ -554,9 +554,16 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 «FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="autodetect">
+	<!-- bean di business logic -->
 	<bean id="springBackEnd" class="«getSpringBEFQN()»">
 
 	</bean>
+	«IF securityModel.autenticationMethod!=null-»
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="«getSpringSecurityHelperFQN()»">
+
+	</bean>
+	«ENDIF»
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
 		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
 	«ENDPROTECT»

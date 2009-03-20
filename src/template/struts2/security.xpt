@@ -147,6 +147,7 @@ opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemon
 «IF this.securityModel.autenticationMethod!=null»
 «EXPAND IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
 «EXPAND constraintJavaFiles FOR this»
+«EXPAND springSecurityHelperClasses FOR this»
 «ENDIF»
 «ENDDEFINE»
 
@@ -490,7 +491,12 @@ public class IrideIdAdapterFilter implements Filter{
  				"«parentWidget.name»",
  				UISecConstraint.«behavior»,
  				«defaultBehavior»
- 			);
+ 			){
+ 				@Override
+					protected boolean specificCheck(Map session) {
+						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
+					}
+ 			};
 «ENDLET»
 «ENDLET»
 «ENDLET»
@@ -560,4 +566,71 @@ public class IrideIdAdapterFilter implements Filter{
 			return super.isWidgetVisible(cpName, widgShortName);
 	}
 
+«ENDDEFINE»
+
+
+
+«DEFINE springSecurityHelperClasses FOR GUIModel-»
+«FILE getSpringSecurityHelperJavaFile()»
+package «getBaseJavaPackage()».business;
+
+import java.util.*;
+import it.csi.iride2.policy.entity.*;
+import it.csi.iride2.policy.exceptions.*;
+import «getDTOBaseJavaPackage()».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
+
+«ENDPROTECT»
+
+public class «getSpringSecurityHelperClassName()»{
+
+       
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi di supporto alla sicurezza.
+	//////////////////////////////////////////////////////////////////////////////
+	«EXPAND springSecurityHelperMethods FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE springSecurityHelperMethods FOR GUIModel»
+	«EXPAND irideHelperMethods FOR this»
+	«EXPAND customConstraintsMethods FOR this»
+«ENDDEFINE»
+
+«DEFINE irideHelperMethods FOR GUIModel»
+	///////////////////////////////////////////////////////////////////////////////
+	//// Metodi per la sicurezza basata su IRIDE2
+	///////////////////////////////////////////////////////////////////////////////
+«ENDDEFINE»
+
+«DEFINE customConstraintsMethods FOR GUIModel»
+	///////////////////////////////////////////////////////////////////////////////
+	//// Metodi per la sicurezza custom
+	///////////////////////////////////////////////////////////////////////////////
+	
+	«FOREACH structure.appWindow.appArea.contentPanels AS cp-»
+	«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
+	«LET cpWidgets.select(w|w.securityConstraints.select(c|c.metaType==CustomSecurityConstraint).size>0) AS allCustomConstrainedWidgets-»
+	«FOREACH (List[CustomSecurityConstraint])(allCustomConstrainedWidgets.securityConstraints.select(c|c.metaType==CustomSecurityConstraint)) AS currCustomSC-»
+	public boolean customCheck«currCustomSC.methodNameSuffix.toFirstUpper()» (Map session){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+currCustomSC.methodNameSuffix)-»
+		/// inserire qui il codice del controllo custom
+		return true;
+		«ENDPROTECT»
+	}
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDFOREACH-»
 «ENDDEFINE»

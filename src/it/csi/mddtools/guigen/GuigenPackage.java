@@ -4855,13 +4855,22 @@ public interface GuigenPackage extends EPackage {
 	int CUSTOM_SECURITY_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Method Name Suffix</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_SECURITY_CONSTRAINT__METHOD_NAME_SUFFIX = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Custom Security Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+	int CUSTOM_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.OPAUTHSSOImpl <em>OPAUTHSSO</em>}' class.
@@ -7373,6 +7382,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getCustomSecurityConstraint();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CustomSecurityConstraint#getMethodNameSuffix <em>Method Name Suffix</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Name Suffix</em>'.
+	 * @see it.csi.mddtools.guigen.CustomSecurityConstraint#getMethodNameSuffix()
+	 * @see #getCustomSecurityConstraint()
+	 * @generated
+	 */
+	EAttribute getCustomSecurityConstraint_MethodNameSuffix();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.OPAUTHSSO <em>OPAUTHSSO</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9457,6 +9477,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CUSTOM_SECURITY_CONSTRAINT = eINSTANCE.getCustomSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Name Suffix</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_SECURITY_CONSTRAINT__METHOD_NAME_SUFFIX = eINSTANCE.getCustomSecurityConstraint_MethodNameSuffix();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.OPAUTHSSOImpl <em>OPAUTHSSO</em>}' class.

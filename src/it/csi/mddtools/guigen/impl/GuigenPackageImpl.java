@@ -2777,6 +2777,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCustomSecurityConstraint_MethodNameSuffix() {
+		return (EAttribute)customSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOPAUTHSSO() {
 		return opauthssoEClass;
 	}
@@ -3284,6 +3293,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(actorBasedSecurityConstraintEClass, ACTOR_BASED_SECURITY_CONSTRAINT__ACTOR);
 
 		customSecurityConstraintEClass = createEClass(CUSTOM_SECURITY_CONSTRAINT);
+		createEAttribute(customSecurityConstraintEClass, CUSTOM_SECURITY_CONSTRAINT__METHOD_NAME_SUFFIX);
 
 		opauthssoEClass = createEClass(OPAUTHSSO);
 		createEAttribute(opauthssoEClass, OPAUTHSSO__MIN_AUTH_LEVEL);
@@ -3703,6 +3713,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getActorBasedSecurityConstraint_Actor(), this.getActor(), null, "actor", null, 0, 1, ActorBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customSecurityConstraintEClass, CustomSecurityConstraint.class, "CustomSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomSecurityConstraint_MethodNameSuffix(), ecorePackage.getEString(), "methodNameSuffix", null, 0, 1, CustomSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(opauthssoEClass, it.csi.mddtools.guigen.OPAUTHSSO.class, "OPAUTHSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPAUTHSSO_MinAuthLevel(), ecorePackage.getEInt(), "minAuthLevel", "1", 0, 1, it.csi.mddtools.guigen.OPAUTHSSO.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
