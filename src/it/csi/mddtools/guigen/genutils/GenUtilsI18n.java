@@ -5,7 +5,6 @@ import java.util.List;
 
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ContentPanel;
-import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.Menu;
@@ -109,7 +108,7 @@ public class GenUtilsI18n {
 		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
 			ContentPanel cp = GenUtils.findParentContentPanel(w);
 			if ( cp != null ) {
-				res = "%{getText(" + cp.getName() + "." + w.getName() + ".label)}";
+				res = "%{getText('" + cp.getName() + "." + w.getName() + ".label')}";
 			}
 		}
 		return res;
