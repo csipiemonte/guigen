@@ -35,9 +35,11 @@ ANT FILES
          xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
 
   <description>Build file per il progetto: [«codProdotto»]</description>
+  
   <!-- -->
   <property file="buildfiles/build.properties" />
   <property file="buildfiles/${target}.properties" />
+  
   <!-- -->
   <path id="library.ref">
     <fileset dir="${lib}">
@@ -205,7 +207,7 @@ ANT FILES
   <target name="load-dependencies"
           depends="resolve-dependencies"
           description="Risolve le dipendenze esterne.">
-    <ivy:retrieve pattern="${basedir}/lib/${artifact}.${type}" />
+    <ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
   </target>
 
   <!-- -->
@@ -637,40 +639,16 @@ IVY FILES (gestione delle dipendenze)
 
 		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="aopalliance-1.0" type="jar" />
-		</dependency>
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-beans-2.0.7" type="jar" />
-		</dependency>
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-context-2.0.7" type="jar" />
-		</dependency>
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-core-2.0.7" type="jar" />
-		</dependency>
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-web-2.0.7" type="jar" />
-		</dependency>		
-		
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-aop-2.0.7" type="jar" />
-		</dependency>  
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-remoting-2.0.7" type="jar" />
-		</dependency>		
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-jdbc-2.0.7" type="jar" />
-		</dependency>
-
-		<dependency org="others" name="spring" rev="2.0.7">
 			<artifact name="spring-dao-2.0.7" type="jar" />
 		</dependency>
-		
+
 		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
 		«EXPAND appServerLibsIvy FOR this»
 
@@ -681,38 +659,44 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="others" name="displaytag" rev="1.2" />
 		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 		<dependency org="others" name="itext" rev="1.3" />
-		
+
 		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
-		«EXPAND strutsThemeIvy FOR this»		
-		
+		«EXPAND strutsThemeIvy FOR this»
+
 		«IF this.securityModel.autenticationMethod!=null-»
 		«EXPAND security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
 		«ENDIF-»
-		
+
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
 		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" />
+
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
 		«ENDPROTECT»
+		
+		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
+		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
+		
 	</dependencies>
 
 </ivy-module>
 «ENDFILE»
 
-«FILE getIvyConfFileName(skip_component_dir_creation)»<ivyconf>
-  <conf defaultCache="build/cache" defaultResolver="myUrlResolver"/>
-  <resolvers>
-    <url name="myUrlResolver">
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/lib/${artifact}.${type}" />
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/conf/${artifact}.${type}" />
+«REM»[DM] STDMDD-101: passaggio alla versione 2.0 di Ivy«ENDREM»
+«FILE getIvyConfFileName(skip_component_dir_creation)»<ivysettings>
+	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+	<resolvers>
+		<url name="myUrlResolver">
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
 
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/lib/${artifact}.${type}" />
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/lib/[artifact].[type]" />
 
-        <ivy pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/ivy-${module}.xml" />
-        <ivy pattern="http://repart.csi.it/java/${organisation}/${module}/ivy-${module}.xml" />
-    </url>
-  </resolvers>
-</ivyconf>
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+		</url>
+	</resolvers>
+</ivysettings>
 «ENDFILE»
 «ENDDEFINE»
 
@@ -725,7 +709,6 @@ IVY FILES (gestione delle dipendenze)
 </dependency>
 «ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
 <dependency org="sun" name="ejb" rev="2.1"/>
-<dependency org="sun" name="servlet" rev="2.4"/>
 <dependency org="sun" name="jms" rev="1.1"/>		
 <dependency org="sun" name="jta" rev="1.0.1"/>
 «ENDIF-»
@@ -735,24 +718,24 @@ IVY FILES (gestione delle dipendenze)
 «REM»Espande lo Struts Theme«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE-»
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
-		<artifact name="util-struts2-csitemplate-rupar-1.0.0" type="jar"/>
-		<artifact name="custom-component-1.0.0" type="jar"/>
-	</dependency>
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
+	<artifact name="util-struts2-csitemplate-rupar-1.0.0" type="jar"/>
+	<artifact name="custom-component-1.0.0" type="jar"/>
+</dependency>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE-»
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
-		<artifact name="util-struts2-csitemplate-sisp-1.0.0" type="jar"/>
-		<artifact name="custom-component-1.0.0" type="jar"/>
-		<artifact name="custom-component-attr-1.0.0" type="jar"/>
-	</dependency>
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
+	<artifact name="util-struts2-csitemplate-sisp-1.0.0" type="jar"/>
+	<artifact name="custom-component-1.0.0" type="jar"/>
+	<artifact name="custom-component-attr-1.0.0" type="jar"/>
+</dependency>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
 «ELSE-»
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
-		<artifact name="custom-component-1.0.0" type="jar"/>
-		<artifact name="custom-component-attr-1.0.0" type="jar"/>
-	</dependency>
-	<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
+	<artifact name="custom-component-1.0.0" type="jar"/>
+	<artifact name="custom-component-attr-1.0.0" type="jar"/>
+</dependency>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3"/>
 «ENDIF-»
 «ENDDEFINE»
 
