@@ -4707,13 +4707,22 @@ public interface GuigenPackage extends EPackage {
 	int SECURITY_MODEL__USE_CASES = 2;
 
 	/**
+	 * The feature id for the '<em><b>Security App ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__SECURITY_APP_ID = 3;
+
+	/**
 	 * The number of structural features of the '<em>Security Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_MODEL_FEATURE_COUNT = 3;
+	int SECURITY_MODEL_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
@@ -7298,6 +7307,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getSecurityModel_UseCases();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Security App ID</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getSecurityAppID()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EAttribute getSecurityModel_SecurityAppID();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9405,6 +9425,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SECURITY_MODEL__USE_CASES = eINSTANCE.getSecurityModel_UseCases();
+
+		/**
+		 * The meta object literal for the '<em><b>Security App ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_MODEL__SECURITY_APP_ID = eINSTANCE.getSecurityModel_SecurityAppID();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.

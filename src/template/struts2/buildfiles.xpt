@@ -222,6 +222,7 @@ ANT FILES
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@"  value="${remincl.resource.provider}"/>
 	«IF this.securityModel.autenticationMethod!=null-»
 		«EXPAND security::envConfigForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«EXPAND security::envConfigForAuthorization(this) FOR this.securityModel-»
 	«ENDIF-»
 
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
@@ -511,6 +512,9 @@ ANT FILES
                     csi-rmi-1.4.5.jar                      \
                     csi-ejb*-1.4.5.jar                     \
                     iridev2*.jar                           \
+                    «IF securityModel!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    weblogic-client*.jar                   \
+                    «ENDIF-»
                     custom-component-attr-1.0.0.jar
 
 # - [ear-custom-libs-filter] -------------------------------------------------
@@ -541,6 +545,7 @@ ear-custom-libs-filter =
                             commons*.jar,                  \
                             «getAppServerLib(this)»*.jar,  \
                             iridev2*.jar                   \
+                            weblogic*.jar				   \
                             custom-component-attr-*.jar
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
@@ -581,7 +586,8 @@ war-exclude-custom-libs-filter =
 
 «REM»Genera il file di property di ant da usare come template per i files dei singoli ambienti«ENDREM»
 «DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)»####################################################
+«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)-»
+####################################################
 # «codProdotto» - «codComponente»                  #
 # ==========                                       #
 # Configurazione di ambiente: <ambiente>           #
@@ -596,6 +602,7 @@ remincl.resource.provider=http://dev-www.sistemapiemonte.it
 
 «IF this.securityModel.autenticationMethod!=null-»
 «EXPAND security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+«EXPAND security::templatePropsForAuthorization(this) FOR this.securityModel-»
 «ENDIF-»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
@@ -665,6 +672,10 @@ IVY FILES (gestione delle dipendenze)
 
 		«IF this.securityModel.autenticationMethod!=null-»
 		«EXPAND security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«ENDIF-»
+
+		«IF this.securityModel!=null-»
+		«EXPAND security::ivyDependenciesForAuthorization(this) FOR this.securityModel-»
 		«ENDIF-»
 
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />

@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getAutenticationMethod <em>Autentication Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUseCases <em>Use Cases</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getSecurityAppID <em>Security App ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +74,26 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * @ordered
 	 */
 	protected EList<UseCase> useCases;
+
+	/**
+	 * The default value of the '{@link #getSecurityAppID() <em>Security App ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityAppID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SECURITY_APP_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSecurityAppID() <em>Security App ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityAppID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String securityAppID = SECURITY_APP_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -165,6 +186,27 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSecurityAppID() {
+		return securityAppID;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSecurityAppID(String newSecurityAppID) {
+		String oldSecurityAppID = securityAppID;
+		securityAppID = newSecurityAppID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID, oldSecurityAppID, securityAppID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -192,6 +234,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return getActors();
 			case GuigenPackage.SECURITY_MODEL__USE_CASES:
 				return getUseCases();
+			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
+				return getSecurityAppID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -216,6 +260,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				getUseCases().clear();
 				getUseCases().addAll((Collection<? extends UseCase>)newValue);
 				return;
+			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
+				setSecurityAppID((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -237,6 +284,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__USE_CASES:
 				getUseCases().clear();
 				return;
+			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
+				setSecurityAppID(SECURITY_APP_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -255,8 +305,26 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return actors != null && !actors.isEmpty();
 			case GuigenPackage.SECURITY_MODEL__USE_CASES:
 				return useCases != null && !useCases.isEmpty();
+			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
+				return SECURITY_APP_ID_EDEFAULT == null ? securityAppID != null : !SECURITY_APP_ID_EDEFAULT.equals(securityAppID);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (securityAppID: ");
+		result.append(securityAppID);
+		result.append(')');
+		return result.toString();
 	}
 
 } //SecurityModelImpl

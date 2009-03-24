@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getAutenticationMethod <em>Autentication Method</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUseCases <em>Use Cases</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,5 +87,31 @@ public interface SecurityModel extends EObject {
 	 * @generated
 	 */
 	EList<UseCase> getUseCases();
+
+	/**
+	 * Returns the value of the '<em><b>Security App ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Security App ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Security App ID</em>' attribute.
+	 * @see #setSecurityAppID(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_SecurityAppID()
+	 * @model
+	 * @generated
+	 */
+	String getSecurityAppID();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Security App ID</em>' attribute.
+	 * @see #getSecurityAppID()
+	 * @generated
+	 */
+	void setSecurityAppID(String value);
 
 } // SecurityModel

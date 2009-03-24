@@ -2705,6 +2705,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSecurityModel_SecurityAppID() {
+		return (EAttribute)securityModelEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getActor() {
 		return actorEClass;
 	}
@@ -3281,6 +3290,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(securityModelEClass, SECURITY_MODEL__AUTENTICATION_METHOD);
 		createEReference(securityModelEClass, SECURITY_MODEL__ACTORS);
 		createEReference(securityModelEClass, SECURITY_MODEL__USE_CASES);
+		createEAttribute(securityModelEClass, SECURITY_MODEL__SECURITY_APP_ID);
 
 		actorEClass = createEClass(ACTOR);
 		createEAttribute(actorEClass, ACTOR__CODE);
@@ -3701,6 +3711,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getSecurityModel_AutenticationMethod(), this.getAutenticationMethod(), null, "autenticationMethod", null, 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityModel_Actors(), this.getActor(), null, "actors", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityModel_UseCases(), this.getUseCase(), null, "useCases", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSecurityModel_SecurityAppID(), ecorePackage.getEString(), "securityAppID", null, 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actorEClass, Actor.class, "Actor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getActor_Code(), ecorePackage.getEString(), "code", null, 0, 1, Actor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -99,6 +99,12 @@
 «DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
 «ENDDEFINE»
 
+«DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
+	<!-- replace variabili di environment per opauth -->
+	<replace file="${build}/temp/«getSpringIRIDE2PDConfig(model)»" 
+		token="@IRIDE_PROVIDER_URL@"  
+		value="${iride2.pep.provider.url}"/>	
+«ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
 «ENDDEFINE»
@@ -116,6 +122,11 @@ opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemon
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
 «ENDDEFINE»
 
+«DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
+#-[configurazione iride2]--------------------------------------------------
+iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
+
+«ENDDEFINE»
 
 «DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
 «ENDDEFINE»
@@ -142,29 +153,44 @@ opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemon
     
 «ENDDEFINE»
 
+«REM»le librerie client weblogic sono da aggiungere solo se la target
+	 platform è JBOSS
+«ENDREM»
+«DEFINE ivyDependenciesForAuthorization(GUIModel model) FOR SecurityModel-»
+«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+	<!-- ############################################################## -->
+    <!-- # WEBLOGIC CLIENT (solo per JBoss)                           # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" />
+«ENDIF-»   
+«ENDDEFINE»
 
 «DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
 «IF this.securityModel.autenticationMethod!=null»
 «EXPAND IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
 «EXPAND constraintJavaFiles FOR this»
 «EXPAND springSecurityHelperClasses FOR this»
+«EXPAND iride2PDFile FOR this»
 «ENDIF»
 «ENDDEFINE»
 
 «DEFINE constraintJavaFiles FOR GUIModel»
 «FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
+import «getBaseJavaPackage(this)+".business.*;"»
 
 public interface UISecConstraint {
 
 	public static final int ONOFF_CONSTRAINED_BEHAVIOR = 1;
 	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
-	public boolean verifyConstraint(Map session, int checkedBehavior);
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh);
 }
 «ENDFILE»
 
 «FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
 
 public abstract class AbstractUISecConstraint implements UISecConstraint{
 
@@ -204,7 +230,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param session mantiene lo stato corrente del widget
 	 * @return
 	 */
-	protected boolean combineAll(Map session, int checkedBehavior) {
+	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh) {
 		if(checkedBehavior!=this.constrainedBehavior)
 			return false; // se il comportamento osservato è un'altro passo oltre
 		else{
@@ -214,7 +240,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 			if (currentState.booleanValue() == false)
 				return false;
 			else
-				return specificCheck(session);
+				return specificCheck(session, sh);
 		}
 	}
 
@@ -247,9 +273,9 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 			return null; // unspecified current state
 	}
 	
-	public boolean verifyConstraint(Map session, int checkedBehavior) {
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) {
 		
-		return combineAll(session, checkedBehavior);
+		return combineAll(session, checkedBehavior, sh);
 	}
 	
 	/**
@@ -258,7 +284,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param session
 	 * @return
 	 */
-	protected abstract boolean specificCheck(Map session);
+	public abstract boolean specificCheck(Map session, SecurityHelper sh);
 	
 }
 «ENDFILE»
@@ -266,6 +292,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 «FILE getSecurityJavaSrcDir(this,true)+"/CustomUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
 
 public class CustomUISecConstraint extends AbstractUISecConstraint {
 
@@ -274,7 +301,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	protected boolean specificCheck(Map session) {
+	public boolean specificCheck(Map session, SecurityHelper sh) {
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -284,6 +311,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 
 «FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
 
 public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 
@@ -296,9 +324,8 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	protected boolean specificCheck(Map session) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean specificCheck(Map session, SecurityHelper sh) {
+		return sh.verifyCurrentUserForActor(session, actorCode);
 	}
 
 }
@@ -307,6 +334,7 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
 
 public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 
@@ -319,9 +347,8 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	protected boolean specificCheck(Map session) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean specificCheck(Map session, SecurityHelper sh) {
+		return sh.verifyCurrentUserForUC(session, useCaseCode);
 	}
 
 }
@@ -330,6 +357,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 «FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
 
 public class ComplexUISecConstraint implements UISecConstraint {
 
@@ -342,12 +370,12 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	/**
 	 * Verifica se almeno uno dei constraints è soddisfatto.
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior) {
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) {
 		if (constraints!=null && constraints.length>0){
 			boolean verified = false;
 			for (int i = 0; i < constraints.length || verified; i++) {
 				UISecConstraint currCtr = constraints[i];
-				verified |= currCtr.verifyConstraint(session, checkedBehavior);
+				verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
 			}
 			return verified;
 		}
@@ -375,6 +403,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+
+import «getBaseJavaPackage(model)+".business.*;"»
 
 /**
  * Inserisce in sessione l'identità digitale relativa all'utente autenticato.
@@ -419,21 +449,17 @@ public class IrideIdAdapterFilter implements Filter{
 	}
 
 	private String normalizeToken(String token){
-		  String tmp = null;
-		  
-		  StringTokenizer tok = new StringTokenizer(token, "~");
-		  
-		  String codiceFiscale = tok.nextToken();
-		  
-		  while( tok.hasMoreTokens() ){
-		   tmp = tok.nextToken();
-		   if(tmp.startsWith(codiceFiscale)){
-		    return tmp+"/";
-		   }
-		  }
-		  
-		  return tmp;
-		 }
+		String tmp = null;
+		
+		if(token.indexOf("~") == -1){
+			return token;
+		}else{
+			String[] tok = token.split("~");
+			tmp = tok[6]+"/"+tok[4];
+		}
+				
+		return tmp;
+	}
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -493,7 +519,7 @@ public class IrideIdAdapterFilter implements Filter{
  				«defaultBehavior»
  			){
  				@Override
-					protected boolean specificCheck(Map session) {
+					public boolean specificCheck(Map session, SecurityHelper sh) {
 						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
 					}
  			};
@@ -553,7 +579,7 @@ public class IrideIdAdapterFilter implements Filter{
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
 		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
 		if (ctr!=null)
-			return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR);
+			return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 		else
 			return super.isWidgetDisabled(cpName, widgShortName);
 	}
@@ -561,7 +587,7 @@ public class IrideIdAdapterFilter implements Filter{
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
 		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
 		if (ctr!=null)
-			return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR);
+			return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 		else
 			return super.isWidgetVisible(cpName, widgShortName);
 	}
@@ -575,8 +601,15 @@ public class IrideIdAdapterFilter implements Filter{
 package «getBaseJavaPackage()».business;
 
 import java.util.*;
+import java.io.*;
+import it.csi.csi.porte.InfoPortaDelegata;
+import it.csi.csi.porte.proxy.PDProxy;
+import it.csi.csi.util.xml.PDConfigReader;
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
 import it.csi.iride2.policy.entity.*;
 import it.csi.iride2.policy.exceptions.*;
+import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 import «getDTOBaseJavaPackage()».*;
 
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
@@ -612,6 +645,134 @@ public class «getSpringSecurityHelperClassName()»{
 	///////////////////////////////////////////////////////////////////////////////
 	//// Metodi per la sicurezza basata su IRIDE2
 	///////////////////////////////////////////////////////////////////////////////
+	
+	public final static String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
+	
+	it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService iride = null;
+	
+	protected PolicyEnforcerBaseService getIridePEP(){
+		if (this.iride==null){
+			InputStream is = getClass().getResourceAsStream(IRIDE_PEP_RESOURCE);
+			if (is != null){
+				try {
+					InfoPortaDelegata info = PDConfigReader.read(is);
+					this.iride = (PolicyEnforcerBaseService)PDProxy.newInstance(info);
+					return this.iride;
+				} 
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2");
+				}
+			}
+			else 
+				// TODO gestire log
+				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata");
+		} 
+		else
+			return this.iride;
+	}
+	
+	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
+	
+	protected Identita getCurrentUser(Map session){
+		Identita id = (Identita)session.get(IRIDE_ID_SESSIONATTR);
+		if (id == null){
+			// TODO log
+			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
+		}
+		else{
+			return id;
+		}
+	}
+	
+	public final static Application IRIDE2_APPLICATION = new Application("«this.securityModel.securityAppID»");;
+	
+	public boolean verifyCurrentUserForUC(Map session, String useCaseCode){
+		Identita currentUser = getCurrentUser(session);
+		UseCase uc = new UseCase();
+		 
+		uc.setAppId(IRIDE2_APPLICATION);
+		uc.setId(useCaseCode);
+		try {
+			return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
+		} catch (InternalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+		} catch (IdentitaNonAutenticaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("verifyCurrentUserForUC: identità non autentica ["+currentUser+"],"+e);
+		} catch (NoSuchUseCaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e);
+		} catch (NoSuchApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+		} catch (UnrecoverableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
+		}
+		catch(Throwable e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+		}
+	}
+	
+	public boolean verifyCurrentUserForActor(Map session, String actorCode){
+		Identita currentUser = getCurrentUser(session);
+		Actor act = new Actor();
+		 
+		act.setAppId(IRIDE2_APPLICATION);
+		act.setId(actorCode);
+		try {
+			Actor [] actors = getIridePEP().findActorsForPersonaInApplication(currentUser, IRIDE2_APPLICATION);
+			if (actors!=null){
+				for (int i = 0; i < actors.length; i++) {
+					Actor actor = actors[i];
+					if (actor.equals(act))
+						return true;
+				}
+				return false;
+			}
+			else
+				return false;
+		} catch (InternalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+		} catch (IdentitaNonAutenticaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("verifyCurrentUserForUC: identità non autentica ["+currentUser+"],"+e);
+		} catch (NoSuchApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+		} catch (UnrecoverableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
+		}
+		catch(Throwable e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+		}
+	}
 «ENDDEFINE»
 
 «DEFINE customConstraintsMethods FOR GUIModel»
@@ -633,4 +794,125 @@ public class «getSpringSecurityHelperClassName()»{
 	«ENDLET-»
 	«ENDLET-»
 	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«DEFINE iride2PDFile FOR GUIModel»
+«FILE getSpringIRIDE2PDConfig()»<porta-delegata name="PolicyEnforcerBase">
+  <services>
+    <service
+      name="PolicyEnforcerBase"
+      public-interface-class="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService">
+      <operations>
+        <operation name="identificaUserPassword" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaUserPasswordPIN" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+            <param name="pin" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaCertificato" type="synch-call">
+          <param-list>
+            <param name="certificato" type="byte[]" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="isPersonaAutorizzataInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="isPersonaInRuolo" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="ruolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findRuoliForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findRuoliForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findUseCasesForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.UseCase[]"/>
+        </operation>
+        <operation name="findActorsForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+        <operation name="isIdentitaAutentica" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaSchema" type="synch-call">
+          <param-list>
+            <param name="codRuolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findActorsForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+    <url-pa>multi://pc41012.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="policyEnf"
+        class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+        url-pa="iride2/policy/PolicyEnforcementPoint_PA" >
+        <properties>
+          <property name="java.naming.provider.url" value="@IRIDE_PROVIDER_URL@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic" value="" />
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
 «ENDDEFINE»

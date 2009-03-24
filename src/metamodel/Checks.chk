@@ -338,6 +338,8 @@ context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 ////////////////////////////////////////////////////////////////////////////////////////
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////
+context SecurityModel ERROR "Occorre specificare il codice identificativo dell'applicazione per il sistema di sicurezza (es. id app. per IRIDE2)"+loc() :
+	this.securityAppID!=null;
 
 context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato"+loc() :
 	this.minAuthLevel>=1 && this.minAuthLevel<=3;
