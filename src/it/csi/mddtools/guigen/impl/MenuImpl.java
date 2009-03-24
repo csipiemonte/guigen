@@ -10,6 +10,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 
+import it.csi.mddtools.guigen.UISecurityConstraint;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getItem <em>Item</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getSubmenu <em>Submenu</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +104,16 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * @ordered
 	 */
 	protected EList<Menu> submenu;
+
+	/**
+	 * The cached value of the '{@link #getSecurityConstraints() <em>Security Constraints</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<UISecurityConstraint> securityConstraints;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -193,6 +205,18 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<UISecurityConstraint> getSecurityConstraints() {
+		if (securityConstraints == null) {
+			securityConstraints = new EObjectContainmentEList<UISecurityConstraint>(UISecurityConstraint.class, this, GuigenPackage.MENU__SECURITY_CONSTRAINTS);
+		}
+		return securityConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -200,6 +224,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return ((InternalEList<?>)getItem()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.MENU__SUBMENU:
 				return ((InternalEList<?>)getSubmenu()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+				return ((InternalEList<?>)getSecurityConstraints()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -220,6 +246,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return getItem();
 			case GuigenPackage.MENU__SUBMENU:
 				return getSubmenu();
+			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+				return getSecurityConstraints();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -247,6 +275,10 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				getSubmenu().clear();
 				getSubmenu().addAll((Collection<? extends Menu>)newValue);
 				return;
+			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+				getSecurityConstraints().clear();
+				getSecurityConstraints().addAll((Collection<? extends UISecurityConstraint>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -271,6 +303,9 @@ public class MenuImpl extends EObjectImpl implements Menu {
 			case GuigenPackage.MENU__SUBMENU:
 				getSubmenu().clear();
 				return;
+			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+				getSecurityConstraints().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -291,6 +326,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return item != null && !item.isEmpty();
 			case GuigenPackage.MENU__SUBMENU:
 				return submenu != null && !submenu.isEmpty();
+			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+				return securityConstraints != null && !securityConstraints.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -130,6 +130,7 @@ public class MenuItemItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.MENU_ITEM__EVENT_HANDLER);
+			childrenFeatures.add(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS);
 		}
 		return childrenFeatures;
 	}
@@ -189,6 +190,7 @@ public class MenuItemItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.MENU_ITEM__EVENT_HANDLER:
+			case GuigenPackage.MENU_ITEM__SECURITY_CONSTRAINTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -210,6 +212,21 @@ public class MenuItemItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_ITEM__EVENT_HANDLER,
 				 GuigenFactory.eINSTANCE.createEventHandler()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createUCBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createActorBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_ITEM__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createCustomSecurityConstraint()));
 	}
 
 	/**

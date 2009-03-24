@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MenuItem#getEventHandler <em>Event Handler</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MenuItem#getSecurityConstraints <em>Security Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +106,21 @@ public interface MenuItem extends EObject {
 	 * @generated
 	 */
 	void setEventHandler(EventHandler value);
+
+	/**
+	 * Returns the value of the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.UISecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Security Constraints</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem_SecurityConstraints()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<UISecurityConstraint> getSecurityConstraints();
 
 } // MenuItem

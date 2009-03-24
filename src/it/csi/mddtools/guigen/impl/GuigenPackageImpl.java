@@ -1697,6 +1697,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMenu_SecurityConstraints() {
+		return (EReference)menuEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMenuItem() {
 		return menuItemEClass;
 	}
@@ -1726,6 +1735,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getMenuItem_EventHandler() {
 		return (EReference)menuItemEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMenuItem_SecurityConstraints() {
+		return (EReference)menuItemEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3137,11 +3155,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(menuEClass, MENU__LABEL);
 		createEReference(menuEClass, MENU__ITEM);
 		createEReference(menuEClass, MENU__SUBMENU);
+		createEReference(menuEClass, MENU__SECURITY_CONSTRAINTS);
 
 		menuItemEClass = createEClass(MENU_ITEM);
 		createEAttribute(menuItemEClass, MENU_ITEM__NAME);
 		createEAttribute(menuItemEClass, MENU_ITEM__LABEL);
 		createEReference(menuItemEClass, MENU_ITEM__EVENT_HANDLER);
+		createEReference(menuItemEClass, MENU_ITEM__SECURITY_CONSTRAINTS);
 
 		disabledComponentSetEClass = createEClass(DISABLED_COMPONENT_SET);
 
@@ -3559,11 +3579,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getMenu_Label(), ecorePackage.getEString(), "label", null, 0, 1, Menu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMenu_Item(), this.getMenuItem(), null, "item", null, 0, -1, Menu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMenu_Submenu(), this.getMenu(), null, "submenu", null, 0, -1, Menu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMenu_SecurityConstraints(), this.getUISecurityConstraint(), null, "securityConstraints", null, 0, -1, Menu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menuItemEClass, MenuItem.class, "MenuItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMenuItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMenuItem_Label(), ecorePackage.getEString(), "label", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMenuItem_EventHandler(), this.getEventHandler(), null, "eventHandler", null, 0, 1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMenuItem_SecurityConstraints(), this.getUISecurityConstraint(), null, "securityConstraints", null, 0, -1, MenuItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(disabledComponentSetEClass, DisabledComponentSet.class, "DisabledComponentSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

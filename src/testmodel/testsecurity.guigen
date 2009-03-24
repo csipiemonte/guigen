@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testsecurity" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi"/>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnuTstW" label="Test Widget Constraints">
+            <item name="mnuTstW1" label="test widget security">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0" pushCurrentPage="true"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+          <topLevelMenu name="mnuSecUC1" label="Vis.X UC TRSACC">
+            <item name="mnuiSecUC1_inner" label="Vis X UC TRSACC">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+            </item>
+            <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+          </topLevelMenu>
+          <topLevelMenu name="mnuSecUC2" label="Vis.X UC OPEREN023">
+            <item name="mnuiSecUC2_inner" label="Vis X UC OPEREN023">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.1"/>
+            </item>
+            <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.1"/>
+          </topLevelMenu>
+          <topLevelMenu name="mnuSecUC3" label="V TRSACC E OPEREN023">
+            <item name="mnuiSecUC3_inner" label="V TRSACC E OPEREN023">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+            </item>
+            <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
+            <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+          </topLevelMenu>
+        </menubar>
+        <contentPanels name="cpTest">
+          <panels xsi:type="guigen:FormPanel" name="pMain">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pWidget" label="Test abilitazione condizionata">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check1"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecCustom2" label="sec. custom default disabled" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check2"/>
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecUC1" label="Abilitato a UC TRSACC001" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecUC2" label="Abilitato a UC OPEREN023" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bDisableAll" label="Forza disabilitazione">
+                  <eventHandlers skipValidation="true">
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bEnableAll" label="Forza abilitazione">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.1" enable="true"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <staticLinks/>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:ComplexType" name="Persona" initFields="true">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="eta" type="//@typedefs/@types.0"/>
+      <fields name="sesso" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="residenza" type="//@typedefs/@types.28"/>
+      <fields name="progetti" type="//@typedefs/@types.30"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
+    <types xsi:type="guigen:ComplexType" name="Indirizzo">
+      <fields name="comune" type="//@typedefs/@types.7"/>
+      <fields name="via" type="//@typedefs/@types.7"/>
+      <fields name="numCiv" type="//@typedefs/@types.0"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Progetto">
+      <fields name="codice" type="//@typedefs/@types.7"/>
+      <fields name="nome" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@types.29"/>
+    <types xsi:type="guigen:ComplexType" name="Comune">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="codIstat" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
+    <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+  </typedefs>
+  <appDataDefs/>
+  <securityModel securityAppID="BANDI">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+    <actors code="ADG-IST-MASTER"/>
+    <useCases permission="//@securityModel/@actors.0" code="TRSACC001"/>
+    <useCases permission="//@securityModel/@actors.0" code="OPEREN023"/>
+  </securityModel>
+  <targetPlatform/>
+</guigen:GUIModel>

@@ -373,7 +373,7 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) {
 		if (constraints!=null && constraints.length>0){
 			boolean verified = false;
-			for (int i = 0; i < constraints.length || verified; i++) {
+			for (int i = 0; i < constraints.length && !verified; i++) {
 				UISecConstraint currCtr = constraints[i];
 				verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
 			}
@@ -464,6 +464,12 @@ public class IrideIdAdapterFilter implements Filter{
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»
+#################################################################
+    constraints di sicurezza per Widget
+#################################################################
+«ENDREM»
 «DEFINE getPageUIConstraintDef(GUIModel model) FOR ContentPanel»
 	protected Map<String, UISecConstraint> getPageVisibilityUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
@@ -594,6 +600,126 @@ public class IrideIdAdapterFilter implements Filter{
 
 «ENDDEFINE»
 
+«REM»
+#################################################################
+    constraints di sicurezza per Menu
+#################################################################
+«ENDREM»
+«DEFINE getMenuUIConstraintDef(GUIModel model) FOR Menubar»
+	protected Map<String, UISecConstraint> getMenuVisibilityUIConstraints(){
+		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
+		«EXPAND uiConstraint(model, "VISIB") FOREACH topLevelMenu-» 
+		return allConstraints;
+	}
+	
+	protected Map<String, UISecConstraint> getMenuONOFFUIConstraints(){
+		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
+		«EXPAND uiConstraint(model, "ONOFF") FOREACH topLevelMenu-» 
+		return allConstraints;
+	}
+«ENDDEFINE»
+
+«DEFINE uiConstraint(GUIModel model, String behavior) FOR Menu-»
+«IF securityConstraints.size>0-»
+		// constraints per «this»
+«FOREACH this.securityConstraints AS currConstraint-»
+		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
+		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
+«ENDFOREACH-»
+		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
+		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
+			«FOREACH selectedConstraints AS currConstraint-»
+			«name»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
+			«ENDFOREACH-»
+		«ENDLET-»
+		};
+		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
+		allConstraints.put("«name»", «name»_ctr);
+«ENDIF-»
+	«EXPAND uiConstraint(model, behavior) FOREACH this.submenu»
+	«EXPAND uiConstraint(model, behavior) FOREACH this.item»
+«ENDDEFINE»
+
+«DEFINE uiConstraint(GUIModel model, String behavior) FOR MenuItem-»
+«IF securityConstraints.size>0-»
+		// constraints per «this»
+«FOREACH this.securityConstraints AS currConstraint-»
+		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
+		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
+«ENDFOREACH-»
+		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
+		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
+			«FOREACH selectedConstraints AS currConstraint-»
+			«name»_«securityConstraints.indexOf(currConstraint)»_ctr«IF securityConstraints.last()!=currConstraint»,«ENDIF»
+			«ENDFOREACH-»
+		«ENDLET-»
+		};
+		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
+		allConstraints.put("«name»", «name»_ctr);
+«ENDIF-»
+«ENDDEFINE»
+
+
+
+«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UISecurityConstraint»
+ 			null; /// ERRORE: constraint non gestito «this»
+«ENDDEFINE»
+
+«DEFINE uiConstraintNew4Menu(GUIModel model) FOR CustomSecurityConstraint»
+«LET this.eContainer AS parent»
+«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+ 			new CustomUISecConstraint(
+ 				"_menu",
+ 				"«itemName»",
+ 				UISecConstraint.«behavior»,
+ 				true
+ 			){
+ 				@Override
+					public boolean specificCheck(Map session, SecurityHelper sh) {
+						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
+					}
+ 			};
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE uiConstraintNew4Menu(GUIModel model) FOR UCBasedSecurityConstraint»
+«LET this.eContainer AS parent»
+«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+ 			new UCBasedUISecConstraint(
+ 				"_menu",
+ 				"«itemName»",
+ 				UISecConstraint.«behavior»,
+ 				true,
+ 				"«this.useCase.code»"
+ 			);
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE uiConstraintNew4Menu(GUIModel model) FOR ActorBasedSecurityConstraint»
+«LET this.eContainer AS parent»
+«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+ 			new ActorBasedUISecConstraint(
+ 				"_menu",
+ 				"«itemName»",
+ 				UISecConstraint.«behavior»,
+ 				true,
+ 				"«this.actor.code»"
+ 			);
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«REM»#######«ENDREM»
 
 
 «DEFINE springSecurityHelperClasses FOR GUIModel-»

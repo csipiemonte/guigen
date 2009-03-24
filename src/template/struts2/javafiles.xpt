@@ -59,18 +59,22 @@ TODO: implementare se necessario
 «DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
-import java.util.Map;
+import java.util.*;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 
 import org.apache.log4j.Logger;
+import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import «getBaseJavaPackage(this)».util.*;
 import «getDTOBaseJavaPackage(this)».*;
+«IF ((GUIModel)(this.eRootContainer)).securityModel!=null-»
+import «getSecurityJavaPackage(this)».*;
+«ENDIF-»
 
 /**
  * Base Action che contiene gli elementi comuni all'applicazione.
@@ -86,7 +90,7 @@ import «getDTOBaseJavaPackage(this)».*;
  * 
  * @author GuiGen
  */
-public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware {
+public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware, Preparable {
 
 	/**  */
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
@@ -101,7 +105,22 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		return this.session;
 	}
 
-
+	«IF securityModel.autenticationMethod!=null»
+	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
+	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
+	«ENDIF»
+	
+	
+	public void prepare(){
+	«IF securityModel.autenticationMethod!=null»
+	    // caricamento struttura di constraints
+	    if (allMenuVisibilityConstraints==null)
+	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
+	    if (allMenuOnOffConstraints==null)
+	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
+	«ENDIF»
+	}
+	
     ////////////////////////////////////////////////////////////////////////
     //// costruzione/lettura strato model da passare allo strato di logica
     ////////////////////////////////////////////////////////////////////////
@@ -207,24 +226,6 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * Metodi per visibilità/abilitazione
 	 */
 	
-	/**
-	 * @return true se il widget deve essere disabilitato
-	 */
-	public boolean isWidgetDisabled(String cpName, String widgShortName){
-		System.out.println("\n\nis disabled "+cpName+" "+widgShortName+"\n\n");
-		Map cpData = (Map)session.get(cpName);
-		if (cpData!=null){
-			Boolean enabledFlag=(Boolean)cpData.get(widgShortName+"_enabled");
-			if (enabledFlag!=null){
-				return !enabledFlag.booleanValue();
-			}
-			else
-				return false;
-		}
-		else
-			return false;
-		
-	}
 
 	/**
 	 * @return true se il widget deve essere reso visibile
@@ -245,7 +246,60 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		
 	}
 	
+	/**
+	 * @return true se il widget deve essere disabilitato
+	 */
+	public boolean isWidgetDisabled(String cpName, String widgShortName){
+		System.out.println("\n\nis disabled "+cpName+" "+widgShortName+"\n\n");
+		Map cpData = (Map)session.get(cpName);
+		if (cpData!=null){
+			Boolean enabledFlag=(Boolean)cpData.get(widgShortName+"_enabled");
+			if (enabledFlag!=null){
+				return !enabledFlag.booleanValue();
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+		
+	}
+
+	/**
+	 * @return true se il menu/menuItem deve essere reso visibile
+	 */
+	public boolean isMenuVisible(String menuName) {
+		System.out.println("\n\nis visible " + menuName + "\n\n");
+		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null)
+			status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		else
+			status = true;
+		return status;
+
+	}
+
+	/**
+	 * @return true se il menu/menuItem deve essere reso abilitato
+	 */
+	public boolean isMenuEnabled(String menuName) {
+		System.out.println("\n\nis enabled " + menuName + "\n\n");
+		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null)
+			status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		else
+			status = true;
+		return status;
+
+	}
+	
 	«EXPAND actionImplJavaFiles::springBEProperties FOR this»
+	
+	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»
+	«EXPAND security::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
+	«ENDIF»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -448,7 +502,9 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(model)».*;
+«IF ((GUIModel)(this.eRootContainer)).securityModel!=null-»
 import «getSecurityJavaPackage(model)».*;
+«ENDIF-»
 import «getBaseJavaPackage(model)».business.*;
 
 /**
@@ -535,11 +591,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 * Metodo di preparazione della schermata/action
 	 */
 	public void prepare(){
-	    
+	    super.prepare();
 	    «IF model.securityModel.autenticationMethod!=null»
 	    // caricamento struttura di constraints
-	    allVisibilityConstraints = getPageVisibilityUIConstraints();
-	    allOnOffConstraints = getPageONOFFUIConstraints();
+	    if (allVisibilityConstraints==null)
+	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
+	    if (allOnOffConstraints==null)
+	    	allOnOffConstraints = getPageONOFFUIConstraints();
 	    «ENDIF»
 		      
 		«IF this.onRefreshCommand!=null»

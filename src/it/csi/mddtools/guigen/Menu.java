@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Menu#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getItem <em>Item</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getSubmenu <em>Submenu</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Menu#getSecurityConstraints <em>Security Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,5 +114,21 @@ public interface Menu extends EObject {
 	 * @generated
 	 */
 	EList<Menu> getSubmenu();
+
+	/**
+	 * Returns the value of the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.UISecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Security Constraints</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_SecurityConstraints()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<UISecurityConstraint> getSecurityConstraints();
 
 } // Menu
