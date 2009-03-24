@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getColumnModel <em>Column Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getPageSize <em>Page Size</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isEnableExport <em>Enable Export</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +74,25 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * @ordered
 	 */
 	protected int pageSize = PAGE_SIZE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnableExport() <em>Enable Export</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableExport()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_EXPORT_EDEFAULT = true;
+	/**
+	 * The cached value of the '{@link #isEnableExport() <em>Enable Export</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableExport()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableExport = ENABLE_EXPORT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -205,6 +225,27 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnableExport() {
+		return enableExport;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableExport(boolean newEnableExport) {
+		boolean oldEnableExport = enableExport;
+		enableExport = newEnableExport;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TABLE__ENABLE_EXPORT, oldEnableExport, enableExport));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -230,6 +271,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return getColumnModel();
 			case GuigenPackage.TABLE__PAGE_SIZE:
 				return new Integer(getPageSize());
+			case GuigenPackage.TABLE__ENABLE_EXPORT:
+				return isEnableExport() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -250,6 +293,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return;
 			case GuigenPackage.TABLE__PAGE_SIZE:
 				setPageSize(((Integer)newValue).intValue());
+				return;
+			case GuigenPackage.TABLE__ENABLE_EXPORT:
+				setEnableExport(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -272,6 +318,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			case GuigenPackage.TABLE__PAGE_SIZE:
 				setPageSize(PAGE_SIZE_EDEFAULT);
 				return;
+			case GuigenPackage.TABLE__ENABLE_EXPORT:
+				setEnableExport(ENABLE_EXPORT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -290,6 +339,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return columnModel != null;
 			case GuigenPackage.TABLE__PAGE_SIZE:
 				return pageSize != PAGE_SIZE_EDEFAULT;
+			case GuigenPackage.TABLE__ENABLE_EXPORT:
+				return enableExport != ENABLE_EXPORT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -338,6 +389,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (pageSize: ");
 		result.append(pageSize);
+		result.append(", enableExport: ");
+		result.append(enableExport);
 		result.append(')');
 		return result.toString();
 	}

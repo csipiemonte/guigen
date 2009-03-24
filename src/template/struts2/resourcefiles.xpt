@@ -452,9 +452,10 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
+«LET this.enableExport ? "true" : "false" AS exportEnabled»
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
                excludedParams="*"
-               export="true"
+               export="«enableExport»"
                defaultsort="1"
                defaultorder="descending"
                id="widg_«this.name»"
@@ -486,6 +487,7 @@ Gestione dei Widget
 	«ENDFOREACH-»
 	«ENDLET-»
 </display:table>
+«ENDLET»
 «ENDDEFINE»
 
 

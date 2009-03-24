@@ -66,6 +66,7 @@ public class TableItemProvider
 			super.getPropertyDescriptors(object);
 
 			addPageSizePropertyDescriptor(object);
+			addEnableExportPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -88,6 +89,28 @@ public class TableItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Enable Export feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEnableExportPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Table_enableExport_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Table_enableExport_feature", "_UI_Table_type"),
+				 GuigenPackage.Literals.TABLE__ENABLE_EXPORT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -161,6 +184,7 @@ public class TableItemProvider
 
 		switch (notification.getFeatureID(Table.class)) {
 			case GuigenPackage.TABLE__PAGE_SIZE:
+			case GuigenPackage.TABLE__ENABLE_EXPORT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.TABLE__MULTI_DATA_BINDING:

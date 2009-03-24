@@ -2146,13 +2146,22 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__PAGE_SIZE = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Enable Export</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__ENABLE_EXPORT = DATA_WIDGET_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
+	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5745,6 +5754,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTable_PageSize();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Table#isEnableExport <em>Enable Export</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Export</em>'.
+	 * @see it.csi.mddtools.guigen.Table#isEnableExport()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_EnableExport();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CheckBox <em>Check Box</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8109,6 +8129,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TABLE__PAGE_SIZE = eINSTANCE.getTable_PageSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Export</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__ENABLE_EXPORT = eINSTANCE.getTable_EnableExport();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.
