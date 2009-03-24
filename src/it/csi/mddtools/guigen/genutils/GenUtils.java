@@ -892,6 +892,15 @@ public class GenUtils {
 			return ""; // non si dovrebbe mai essere iun questo caso (check sul modello)
 	}
 
+	/**
+	 * 
+	 * @param rb
+	 * @return
+	 */
+	public static String getFixedRadioButtonList(RadioButton rb) {
+		return "'"+rb.getName()+"':'"+rb.getLabel()+"'";
+	}
+
 
 	/**
 	 * restituisce tutti gli application data con scope USER_ACTION dichiarati

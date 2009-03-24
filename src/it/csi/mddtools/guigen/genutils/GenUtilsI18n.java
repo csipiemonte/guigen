@@ -13,6 +13,8 @@ import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.RadioButton;
+import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TreeView;
@@ -85,6 +87,9 @@ public class GenUtilsI18n {
 			if ( widget instanceof Table ) {
 				// aggiungo le label delle colonne della tabella
 				res.addAll(getTableColumnsLabels((Table)widget, cp));
+			}
+			else if ( widget instanceof RadioButtons ) {
+				res.addAll(getRadioButtonsLabels((RadioButtons)widget, cp));
 			}
 			else if ( widgetHasLabel(widget) ) {
 				lbl = getWidgetLabel(widget, cp);
@@ -282,6 +287,33 @@ public class GenUtilsI18n {
 		return res;
 	}
 	
+	
+	/**
+	 * 
+	 * @param rb
+	 * @param cp
+	 * @return
+	 */
+	private static List<String> getRadioButtonsLabels(RadioButtons rb, ContentPanel cp) {
+		List<String> res = new ArrayList<String>();
+		String lbl = null;
+		
+		// label del gruppo
+		lbl = getWidgetLabel(rb, cp);
+		if ( lbl != null ) {
+			res.add(lbl);
+		}
+		
+		// label dei singoli radio
+		for ( RadioButton radio : rb.getRadio() ) {
+			if ( !GenUtils.isNullOrEmpty(radio.getLabel()) ) {
+				res.add(cp.getName() + "." + rb.getName() + "." + radio.getName() + ".label=" + radio.getLabel());
+			}
+		}
+		
+		return res;
+	}
+	
 
 	/**
 	 * 
@@ -296,7 +328,5 @@ public class GenUtilsI18n {
 		}
 		return res;		
 	}
-	
-	
 	
 }

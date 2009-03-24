@@ -377,13 +377,20 @@ Gestione dei Widget
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) dei radio button. TODO: implementare«ENDREM»
+«REM»Genera la componente di markup (HTML) dei radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(this)»"
+«FOREACH this.radio AS currRadio»
+«EXPAND createWidgetMarkup(model, cp, this) FOR currRadio»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent) FOR RadioButton»
+<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(parent)»"
 	list="#{«getFixedRadioButtonList(this)»}"
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
-	/>
+	disabled="isWidgetDisabled('«cp.name»','«parent.name»')"
+	/> <s:text name="«cp.name».«parent.name».«this.name».label" />
 «ENDDEFINE»
 
 
