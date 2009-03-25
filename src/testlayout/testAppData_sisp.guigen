@@ -16,27 +16,34 @@
           <topLevelMenu name="mnuAziende" label="Aziende">
             <item name="mnuItmAzienda1" label="Azienda 1">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda2" label="Azienda 2">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda3" label="Azienda 3">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda4" label="Azienda 4">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.8"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.9"/>
               </eventHandler>
             </item>
             <item name="mnuItmAzienda5" label="Azienda 5">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.9"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.10"/>
+              </eventHandler>
+            </item>
+          </topLevelMenu>
+          <topLevelMenu name="mnuRicerca" label="Ricerca">
+            <item name="mnuItmRicerca" label="Ricerca">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -124,6 +131,13 @@
               <subpanels xsi:type="guigen:FormPanel" name="pRisultatiCombo" label="Risultati (combo)">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ComboBox" name="cbRisultati" label="Risultati" dataType="//@typedefs/@types.9" keySelector="codFisc" valueSelector="nome + ' ' + cognome">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggettoFromCB">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
                 </widgets>
               </subpanels>
@@ -325,6 +339,51 @@
               </subpanels>
             </subpanels>
           </panels>
+        </contentPanels>
+        <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
+          <panels xsi:type="guigen:FormPanel" name="Ricerca" label="pRicerca">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pRicercaCittadini" label="Ricerca cittadini">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pRicerca" label="">
+                <widgets xsi:type="guigen:ComboBox" name="regione" label="Regione" dataType="//@typedefs/@types.9" keySelector="codice" valueSelector="descrizione">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="provincia" label="Provincia" dataType="//@typedefs/@types.9" keySelector="codice" valueSelector="descrizione">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.4"/>
+                </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="comune" label="Comune" dataType="//@typedefs/@types.9" keySelector="codice" valueSelector="descrizione">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.5"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pButtons">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="mpMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvView"/>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="popolaCombo" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
+            <results resultCode="OK">
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+            </results>
+          </onRefreshCommand>
         </contentPanels>
         <contentPanels name="cpAzienda1">
           <panels xsi:type="guigen:FormPanel" name="pAzienda1" label="Azienda1">
@@ -797,17 +856,17 @@
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva1" label="Attiva 1">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.0"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0/@panels.0"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva2" label="Attiva 2">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.1"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0/@panels.1"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva3" label="Attiva 3">
                   <eventHandlers>
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.9/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>
@@ -867,11 +926,29 @@
       <fields name="numCiv" type="//@typedefs/@types.9"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@types.30"/>
+    <types xsi:type="guigen:ComplexType" name="Regione">
+      <fields name="codice" type="//@typedefs/@types.9"/>
+      <fields name="descrizione" type="//@typedefs/@types.9"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Provincia">
+      <fields name="codice" type="//@typedefs/@types.9"/>
+      <fields name="descrizione" type="//@typedefs/@types.9"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Comune">
+      <fields name="codice" type="//@typedefs/@types.9"/>
+      <fields name="descrizione" type="//@typedefs/@types.9"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Regione[]" componentType="//@typedefs/@types.32"/>
+    <types xsi:type="guigen:TypedArray" name="Provincia[]" componentType="//@typedefs/@types.33"/>
+    <types xsi:type="guigen:TypedArray" name="Comune[]" componentType="//@typedefs/@types.34"/>
   </typedefs>
   <appDataDefs>
     <appData name="personeTrovate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
     <appData name="dettaglioPersona" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
     <appData name="personeSelezionate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.22"/>
+    <appData name="listaRegioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="listaProvince" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
+    <appData name="listaComuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.37"/>
   </appDataDefs>
   <targetPlatform/>
 </guigen:GUIModel>

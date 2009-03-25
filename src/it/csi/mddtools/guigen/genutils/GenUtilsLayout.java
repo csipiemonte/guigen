@@ -1,6 +1,7 @@
 package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
@@ -440,7 +441,7 @@ public class GenUtilsLayout {
 	public static boolean hasTable(ContentPanel cp) {
 		boolean res = false;
 		
-		for (Widget w : GenUtils.findAllWidgetsInContentPanel(cp)) {
+		for ( Widget w : GenUtils.findAllWidgetsInContentPanel(cp) ) {
 			if ( w instanceof Table ) {
 				res = true;
 				break;
@@ -460,7 +461,7 @@ public class GenUtilsLayout {
 	public static boolean hasTable(Panel p) {
 		boolean res = false;
 		
-		for (Widget w : GenUtils.findAllWidgetsInPanel(p)) {
+		for ( Widget w : GenUtils.findAllWidgetsInPanel(p) ) {
 			if ( w instanceof Table ) {
 				res = true;
 				break;
