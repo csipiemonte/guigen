@@ -527,7 +527,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	}
  
  	«LET getAllEventSourceWidgets() AS allEventSources»
-	«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»
+	«REM»«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»«ENDREM»
 	/**
 	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici
 	 * @return SUCCESS.
@@ -543,19 +543,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	/// metodo: handle<nomeWidget>_<NOME_EVENTO>
 	/// es: handletreeVoci_CLICKED
 	//////////////////////////////////////////////////////////////////////////////////
-	«FOREACH allClickSources AS currClickSource»
-	«LET (Widget)currClickSource AS currClickWidget»
-	
+	«FOREACH allEventSources AS currEventSource»
+	«LET (Widget)currEventSource AS currEventWidget»
+	«FOREACH currEventWidget.eventHandlers AS currEventHandler»
 	/**
-	 * Gestione dell'evento CLICKED sul widget [«currClickWidget.name»]
+	 * Gestione dell'evento CLICKED sul widget [«currEventWidget.name»]
 	 */
-	«IF currClickWidget.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first().skipValidation-»
+	«IF currEventHandler.skipValidation-»
 	@SkipValidation
 	«ENDIF-»
-	public String «getHandlerMethodName(currClickWidget, currClickWidget.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())»()
+	public String «getHandlerMethodName(currEventWidget, currEventHandler)»()
 		throws Exception
 	{
-		ICommand action = initCommand("«(currClickWidget).name»","CLICKED");
+		ICommand action = initCommand("«(currEventWidget).name»","«currEventHandler.eventType»");
 		String result = action.doCommand(this);
 		if (result != null) {
 			//dumpModel(false);
@@ -567,10 +567,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			return SUCCESS;
 		}
 	}
+	«ENDFOREACH»
 	«ENDLET»
 	«ENDFOREACH»
 	
-	«ENDLET»
 	«ENDLET»
 	
 	/**
