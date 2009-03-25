@@ -410,6 +410,10 @@ Gestione dei Widget
           headerKey="" headerValue=""
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+          «IF (databinding!=null && databinding.appData.type.metaType==TypedArray) ||
+          	  (databinding==null && dataType.metaType==TypedArray)-»
+          multiple="true"
+          «ENDIF-»
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
           «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
           «getComboBoxValueChangedHandlerJS(this)»
