@@ -43,7 +43,7 @@
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpTest">
+        <contentPanels name="cpTest" appData="//@appDataDefs/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="pMain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -72,6 +72,12 @@
                 <widgets xsi:type="guigen:TextField" name="tfSecUC2" label="Abilitato a UC OPEREN023" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
                 </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbColori" label="Colori" dataType="//@typedefs/@types.7">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -93,6 +99,11 @@
               </subpanels>
             </subpanels>
           </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="initColori" postExecData="//@appDataDefs/@appData.0">
+            <results resultCode="OK">
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </results>
+          </onRefreshCommand>
         </contentPanels>
         <staticLinks/>
       </appArea>
@@ -152,7 +163,9 @@
     <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
   </typedefs>
-  <appDataDefs/>
+  <appDataDefs>
+    <appData name="listaColori" type="//@typedefs/@types.20"/>
+  </appDataDefs>
   <securityModel securityAppID="BANDI">
     <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
     <actors code="ADG-IST-MASTER"/>
