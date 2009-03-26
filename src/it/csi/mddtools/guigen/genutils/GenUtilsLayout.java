@@ -481,7 +481,7 @@ public class GenUtilsLayout {
 	public static String getComboBoxValueChangedHandlerStyle(GUIModel model) {
 		String res = "";
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
-			res = "funz70 overouthandler";
+			res = "funz70";
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
 			
 		}
