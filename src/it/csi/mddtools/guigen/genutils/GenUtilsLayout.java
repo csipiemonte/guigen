@@ -471,4 +471,21 @@ public class GenUtilsLayout {
 		return res;
 	}	
 	
+	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getComboBoxValueChangedHandlerStyle(GUIModel model) {
+		String res = "";
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = "funz70 overouthandler";
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			
+		}
+		return res;
+	}
+	
 }

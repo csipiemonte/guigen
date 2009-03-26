@@ -347,6 +347,7 @@
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="pRicerca" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ComboBox" name="regione" label="Regione" dataType="//@typedefs/@types.9" keySelector="codice" valueSelector="descrizione">
                   <eventHandlers eventType="VALUE_CHANGED">
                     <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
@@ -368,6 +369,12 @@
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pButtons">
                 <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnRicerca" label="Esegui ricerca">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
               </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
@@ -950,5 +957,8 @@
     <appData name="listaProvince" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
     <appData name="listaComuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.37"/>
   </appDataDefs>
+  <securityModel securityAppID="Bandi">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+  </securityModel>
   <targetPlatform/>
 </guigen:GUIModel>

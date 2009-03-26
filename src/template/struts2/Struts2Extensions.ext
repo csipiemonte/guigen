@@ -377,14 +377,12 @@ String getComboBoxValueChangedHandlerJS(ComboBox cb) :
 		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\"";
 
 // [DM]
-String getComboBoxValueChangedHandlerNoScript(ComboBox cb) :
+String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
 	//<noscript><p>
 	//	<s:submit value="conferma" name="confermaRegione" id="confermaRegione" />
 	//</p></noscript>
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><p>" + 
-		"	<s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" />" + 
-		"</p></noscript>";
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssStyle=\"" + getComboBoxValueChangedHandlerStyle(model) + "\" /></noscript>";
 
 // [DM] restituisce l'azione relativa ad una colonna della tabella
 String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
@@ -430,7 +428,6 @@ String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
 	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
 	//else
 		"<s:text name=\"" + item.name + ".label\" />";
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -585,6 +582,10 @@ boolean hasTable(Panel p) : JAVA
 // [DM]
 String getText(Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getText(it.csi.mddtools.guigen.Widget);
+
+// [DM]
+String getComboBoxValueChangedHandlerStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getComboBoxValueChangedHandlerStyle(it.csi.mddtools.guigen.GUIModel);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
