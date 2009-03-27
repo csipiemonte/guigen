@@ -108,9 +108,15 @@ public class ActorBasedSecurityConstraintItemProvider
 	@Override
 	public String getText(Object object) {
 		ActorBasedSecurityConstraint secCtr = (ActorBasedSecurityConstraint)object;
-		String label = (secCtr.isVisible()?"visible ":"not visible ")+
-		"and "+(secCtr.isEnabled()?"enabled ":"not enabled ")+
-		"for Actor:"+(secCtr.getActor()!=null?secCtr.getActor().getCode():"<undefined>");
+		String label = "";
+		if (!secCtr.isVisible()&&!secCtr.isEnabled())
+			label+="<unspecified constrained behavior>";
+		else if (secCtr.isVisible()&&secCtr.isEnabled())
+			label+="<incompatible constrained behavior: select only one>";
+		else
+			label += (secCtr.isVisible()?"visible ":"")+
+			""+(secCtr.isEnabled()?"enabled ":"")+
+			"for Actor:"+(secCtr.getActor()!=null?secCtr.getActor().getCode():"<undefined>");
 		return label;
 	}
 

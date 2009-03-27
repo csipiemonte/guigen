@@ -108,8 +108,14 @@ public class UCBasedSecurityConstraintItemProvider
 	@Override
 	public String getText(Object object) {
 		UCBasedSecurityConstraint secCtr = (UCBasedSecurityConstraint)object;
-		String label = (secCtr.isVisible()?"visible ":"not visible ")+
-		"and "+(secCtr.isEnabled()?"enabled ":"not enabled ")+
+		String label = "";
+		if (!secCtr.isVisible()&&!secCtr.isEnabled())
+			label+="<unspecified constrained behavior>";
+		else if (secCtr.isVisible()&&secCtr.isEnabled())
+			label+="<incompatible constrained behavior: select only one>";
+		else
+			label += (secCtr.isVisible()?"visible ":"")+
+		""+(secCtr.isEnabled()?"enabled ":"")+
 		"for UC:"+(secCtr.getUseCase()!=null?secCtr.getUseCase().getCode():"<undefined>");
 		return label;
 	}

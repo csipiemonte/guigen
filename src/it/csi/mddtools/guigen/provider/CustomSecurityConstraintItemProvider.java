@@ -109,9 +109,15 @@ public class CustomSecurityConstraintItemProvider
 	@Override
 	public String getText(Object object) {
 		CustomSecurityConstraint secCtr = (CustomSecurityConstraint)object;
-		String label = (secCtr.isVisible()?"visible ":"not visible ")+
-		"and "+(secCtr.isEnabled()?"enabled ":"not enabled ")+
-		"with custom constraint";
+		String label = "";
+		if (!secCtr.isVisible()&&!secCtr.isEnabled())
+			label+="<unspecified constrained behavior>";
+		else if (secCtr.isVisible()&&secCtr.isEnabled())
+			label+="<incompatible constrained behavior: select only one>";
+		else
+			label+=(secCtr.isVisible()?"visibile if ":"")+
+			""+(secCtr.isEnabled()?"enabled if ":"")+
+			"custom constraint ["+secCtr.getMethodNameSuffix()+"] satisfied";
 		return label;
 	}
 
