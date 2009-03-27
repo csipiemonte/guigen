@@ -269,6 +269,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * @return true se il menu/menuItem deve essere reso visibile
 	 */
 	public boolean isMenuVisible(String menuName) {
+	«IF securityModel!=null-»
 		System.out.println("\n\nis visible " + menuName + "\n\n");
 		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
 		boolean status;
@@ -277,13 +278,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		else
 			status = true;
 		return status;
-
+	«ELSE-»
+		return true;
+	«ENDIF-»
 	}
 
 	/**
 	 * @return true se il menu/menuItem deve essere reso abilitato
 	 */
 	public boolean isMenuEnabled(String menuName) {
+	«IF securityModel!=null-»
 		System.out.println("\n\nis enabled " + menuName + "\n\n");
 		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
 		boolean status;
@@ -292,7 +296,9 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		else
 			status = true;
 		return status;
-
+	«ELSE»
+		return true;
+	«ENDIF»
 	}
 	
 	«EXPAND actionImplJavaFiles::springBEProperties FOR this»

@@ -126,9 +126,7 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="pRicercaPersonaInner" label="Ricerca Persona">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="tfCF" label="Cod. fisc." dataType="//@typedefs/@types.7" fieldLength="16">
-                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.0"/>
-                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfCF" label="Cod. fisc." dataType="//@typedefs/@types.7" fieldLength="16"/>
                 <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.7" fieldLength="20"/>
                 <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome:" dataType="//@typedefs/@types.7" fieldLength="30"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="bRicerca" label="Esegui Ricerca">
@@ -145,7 +143,6 @@
                       </results>
                     </command>
                   </eventHandlers>
-                  <securityConstraints xsi:type="guigen:ActorBasedSecurityConstraint" visible="true" actor="//@securityModel/@actors.0"/>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila">
                   <eventHandlers>
@@ -423,10 +420,5 @@
     <appData name="externalURL" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
     <appData name="userCF" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
   </appDataDefs>
-  <securityModel>
-    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
-    <actors code="gestore"/>
-    <useCases permission="//@securityModel/@actors.0" code="UC-233.01"/>
-  </securityModel>
   <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>
