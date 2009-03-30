@@ -490,7 +490,11 @@ import javax.servlet.http.HttpServletRequest;
 import «getBaseJavaPackage(model)+".business.*;"»
 
 /**
- * Inserisce in sessione l'identità digitale relativa all'utente autenticato.
+ * Inserisce in sessione:
+ * <ul> 
+ *  <li>l'identità digitale relativa all'utente autenticato.
+ *  <li>l'oggetto currentUser
+ * </ul>
  * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
  * logica applicativa.
  * @author CSIPiemonte
@@ -499,7 +503,11 @@ import «getBaseJavaPackage(model)+".business.*;"»
 public class IrideIdAdapterFilter implements Filter{
 
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
-	
+	«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
+	«LET (ApplicationData)(appDataDefs.appData.select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
+	«ENDLET-»
+	«ENDLET-»
 	public static final String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -512,6 +520,14 @@ public class IrideIdAdapterFilter implements Filter{
 					Identita identita = new Identita(normalizeToken(marker));
 					System.out.println("Inserito in sessione marcatore IRIDE:"+identita);
 					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
+					«getDTOBaseJavaPackage(model)».UserInfo userInfo = new «getDTOBaseJavaPackage(model)».UserInfo();
+					userInfo.setNome(identita.getNome());
+					userInfo.setCognome(identita.getCognome());
+					userInfo.setEnte("--");
+					userInfo.setRuolo("--");
+					userInfo.setCodFisc(identita.getCodFiscale());
+					userInfo.setIdIride(identita.toString());
+					hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 				} catch (MalformedIdTokenException e) {
 					// TODO mettere a posto messaggio
 					e.printStackTrace();

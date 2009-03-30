@@ -43,7 +43,7 @@
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpTest" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpTest" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pMain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -80,6 +80,9 @@
                 </widgets>
                 <widgets xsi:type="guigen:ComboBox" name="cbMultipla" label="Colori" dataType="//@typedefs/@types.20">
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfCodFiscCurentUser" label="CF currentUser" dataType="//@typedefs/@types.7" fieldLength="16">
+                  <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
@@ -165,9 +168,18 @@
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+    </types>
   </typedefs>
   <appDataDefs>
     <appData name="listaColori" type="//@typedefs/@types.20"/>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
   </appDataDefs>
   <securityModel securityAppID="BANDI">
     <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
@@ -175,5 +187,5 @@
     <useCases permission="//@securityModel/@actors.0" code="TRSACC001"/>
     <useCases permission="//@securityModel/@actors.0" code="OPEREN023"/>
   </securityModel>
-  <targetPlatform code="JBoss43"/>
+  <targetPlatform/>
 </guigen:GUIModel>

@@ -362,4 +362,11 @@ context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a 
 context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
 " deve essere abilitato e contemporaneamente invisibile"+loc() :
 	this.enabled==false || !(enabled==true && visible==true);
+
+/// verifica se sono presenti il tipo UserInfo e l'app data currentUser
+context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
+	((GUIModel)this.eRootContainer).typedefs.types.findByName("UserInfo")!=null;	
+	
+context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
+	((GUIModel)this.eRootContainer).appDataDefs.findChildByName("currentUser",ApplicationData) != null;
 	
