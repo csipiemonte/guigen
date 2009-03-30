@@ -72,6 +72,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import «getBaseJavaPackage(this)».util.*;
 import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
 «IF ((GUIModel)(this.eRootContainer)).securityModel!=null-»
 import «getSecurityJavaPackage(this)».*;
 «ENDIF-»
@@ -111,7 +112,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	«ENDIF»
 	
 	
-	public void prepare(){
+	public void prepare() throws Exception{
 	«IF securityModel.autenticationMethod!=null»
 	    // caricamento struttura di constraints
 	    if (allMenuVisibilityConstraints==null)
@@ -273,8 +274,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		System.out.println("\n\nis visible " + menuName + "\n\n");
 		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
 		boolean status;
-		if (ctr!=null)
-			status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		if (ctr!=null){
+			try{
+				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				// TODO log
+				System.out.println("errore durante verifica->false");
+				return false;
+			}
+		}
 		else
 			status = true;
 		return status;
@@ -291,8 +300,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		System.out.println("\n\nis enabled " + menuName + "\n\n");
 		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
 		boolean status;
-		if (ctr!=null)
-			status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		if (ctr!=null){
+			try{
+				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				// TODO log
+				System.out.println("errore durante verifica->false");
+				return false;
+			}
+		}
 		else
 			status = true;
 		return status;
@@ -326,6 +343,7 @@ import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
 
 /**
  * «getStrutsMenuClassName(this)» Action Class.
@@ -362,7 +380,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	 * 
 	 * @return SUCCESS result.
 	 */
-	public String goTo«((MenuItem)currMenuItem).name.toFirstUpper()»() {
+	public String goTo«((MenuItem)currMenuItem).name.toFirstUpper()»() throws Exception{
 		//dumpModel(true); // TODO mettere solo se log=debug
 	    
 		// gestione degli eventi di tipo CLICKED
@@ -596,7 +614,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	/**
 	 * Metodo di preparazione della schermata/action
 	 */
-	public void prepare(){
+	public void prepare() throws Exception{
 	    super.prepare();
 	    «IF model.securityModel.autenticationMethod!=null»
 	    // caricamento struttura di constraints

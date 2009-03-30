@@ -185,7 +185,7 @@ public interface UISecConstraint {
 
 	public static final int ONOFF_CONSTRAINED_BEHAVIOR = 1;
 	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh);
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
 }
 «ENDFILE»
 
@@ -231,7 +231,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param session mantiene lo stato corrente del widget
 	 * @return
 	 */
-	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh) {
+	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		if(checkedBehavior!=this.constrainedBehavior)
 			return false; // se il comportamento osservato è un'altro passo oltre
 		else{
@@ -274,7 +274,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 			return null; // unspecified current state
 	}
 	
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) {
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		
 		return combineAll(session, checkedBehavior, sh);
 	}
@@ -285,7 +285,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	 * @param session
 	 * @return
 	 */
-	public abstract boolean specificCheck(Map session, SecurityHelper sh);
+	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
 	
 }
 «ENDFILE»
@@ -302,7 +302,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh) {
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		// TODO Auto-generated method stub
 		return true;
 	}
@@ -325,7 +325,7 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh) {
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForActor(session, actorCode);
 	}
 
@@ -348,7 +348,7 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 	
 	@Override
-	public boolean specificCheck(Map session, SecurityHelper sh) {
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
 		return sh.verifyCurrentUserForUC(session, useCaseCode);
 	}
 
@@ -371,7 +371,7 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	/**
 	 * Verifica se almeno uno dei constraints è soddisfatto.
 	 */
-	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) {
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
 		if (constraints!=null && constraints.length>0){
 			boolean verified = false;
 			for (int i = 0; i < constraints.length && !verified; i++) {
@@ -624,7 +624,7 @@ public class IrideIdAdapterFilter implements Filter{
  				«defaultBehavior»
  			){
  				@Override
-					public boolean specificCheck(Map session, SecurityHelper sh) {
+					public boolean specificCheck(Map session, SecurityHelper sh) throws BEException{
 						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
 					}
  			};
@@ -683,16 +683,32 @@ public class IrideIdAdapterFilter implements Filter{
 
 	public boolean isWidgetDisabled(String cpName, String widgShortName) {
 		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
-		if (ctr!=null)
-			return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		if (ctr!=null){
+			try{
+				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				// TODO log
+				System.out.println("errore durante verifica->disable");
+				return true; // forzo la DISABILITAZIONE
+			}
+		}
 		else
 			return super.isWidgetDisabled(cpName, widgShortName);
 	}
 	
 	public boolean isWidgetVisible(String cpName, String widgShortName) {
 		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
-		if (ctr!=null)
-			return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+		if (ctr!=null){
+			try{
+				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				// TODO log
+				System.out.println("errore durante verifica->hide");
+				return false; // forzo l'invisibilita'
+			}
+		}
 		else
 			return super.isWidgetVisible(cpName, widgShortName);
 	}
@@ -775,7 +791,7 @@ public class IrideIdAdapterFilter implements Filter{
  				true
  			){
  				@Override
-					public boolean specificCheck(Map session, SecurityHelper sh) {
+					public boolean specificCheck(Map session, SecurityHelper sh) throws BEException{
 						return getSpringSecurityHelper().customCheck«methodNameSuffix.toFirstUpper()»(session);
 					}
  			};
@@ -900,7 +916,9 @@ public class «getSpringSecurityHelperClassName()»{
 	
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
 	
-	protected Identita getCurrentUser(Map session){
+	protected Identita getCurrentUser(Map session)
+		throws BEException
+	{
 		Identita id = (Identita)session.get(IRIDE_ID_SESSIONATTR);
 		if (id == null){
 			// TODO log
@@ -913,7 +931,9 @@ public class «getSpringSecurityHelperClassName()»{
 	
 	public final static Application IRIDE2_APPLICATION = new Application("«this.securityModel.securityAppID»");;
 	
-	public boolean verifyCurrentUserForUC(Map session, String useCaseCode){
+	public boolean verifyCurrentUserForUC(Map session, String useCaseCode)
+		throws BEException
+	{
 		Identita currentUser = getCurrentUser(session);
 		UseCase uc = new UseCase();
 		 
@@ -953,7 +973,9 @@ public class «getSpringSecurityHelperClassName()»{
 		}
 	}
 	
-	public boolean verifyCurrentUserForActor(Map session, String actorCode){
+	public boolean verifyCurrentUserForActor(Map session, String actorCode)
+		throws BEException
+	{
 		Identita currentUser = getCurrentUser(session);
 		Actor act = new Actor();
 		 
@@ -1009,10 +1031,17 @@ public class «getSpringSecurityHelperClassName()»{
 	«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
 	«LET cpWidgets.select(w|w.securityConstraints.select(c|c.metaType==CustomSecurityConstraint).size>0) AS allCustomConstrainedWidgets-»
 	«FOREACH (List[CustomSecurityConstraint])(allCustomConstrainedWidgets.securityConstraints.select(c|c.metaType==CustomSecurityConstraint)) AS currCustomSC-»
-	public boolean customCheck«currCustomSC.methodNameSuffix.toFirstUpper()» (Map session){
+	public boolean customCheck«currCustomSC.methodNameSuffix.toFirstUpper()» (Map session)
+		throws BEException
+	{
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+currCustomSC.methodNameSuffix)-»
 		/// inserire qui il codice del controllo custom
-		return true;
+		try{
+			return true;
+		}
+		catch(Throwable ex){
+			throw new BEException("Errore durante l'esecuzione del metodo", ex);
+		}
 		«ENDPROTECT»
 	}
 	«ENDFOREACH-»

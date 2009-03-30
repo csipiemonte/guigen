@@ -17,7 +17,7 @@ public interface ICommand {
 	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
-	public String doCommand(BaseAction strutsAction);
+	public String doCommand(BaseAction strutsAction) throws Exception;
 };
 «ENDFILE»
 
@@ -35,7 +35,7 @@ public class JumpCommand implements ICommand {
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		if (_pushCurrent) {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
@@ -54,7 +54,7 @@ public class JumpExtCommand implements ICommand {
 	public JumpExtCommand(String locationCode) {
 		this.locationCode = locationCode;
 	}
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		return "GO_TO_"+locationCode;
 	}
 };
@@ -77,7 +77,7 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 		this.containerName = containerName;
 		this.itemName = itemName;
 	}
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		if (itemName!=null){
 			System.out.println("Attivazione multipannello "+containerName+"."+itemName);
 			strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
@@ -108,7 +108,7 @@ public class OnOffCommand implements ICommand {
 		_show = show;
 	}
 
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		System.out.println("on-off action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
@@ -145,7 +145,7 @@ public class VisibilityCommand implements ICommand {
 		_show = show;
 	}
 
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		System.out.println("visibility action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
@@ -192,7 +192,7 @@ public abstract class ExecCommand implements ICommand {
 	/**
 	 * Esecuzione della logica di business.
 	 */
-	public String doCommand(BaseAction strutsAction){
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		// action --> model
 		Object theModel = strutsAction.toModel();
 		// esecuzione azione
@@ -258,7 +258,7 @@ public abstract class ExecCommand implements ICommand {
 	
 	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
 	// corretto
-	public abstract ExecResults doLogic(Object theModel);
+	public abstract ExecResults doLogic(Object theModel) throws Exception;
 }
 «ENDFILE»
 
@@ -332,7 +332,7 @@ public class SequenceCommand implements ICommand {
 	 * incluse come step, mantenendo il più recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doCommand(BaseAction strutsAction) {
+	public String doCommand(BaseAction strutsAction) throws Exception{
 		String result=null;
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
@@ -381,7 +381,9 @@ public class SequenceCommand implements ICommand {
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
 		return new ICommand(){
-			public String doCommand(BaseAction strutsAction){return null;}
+			public String doCommand(BaseAction strutsAction)throws Exception{
+			   return null;
+			}
 		};
 		«ENDIF»
 		«ENDLET»
@@ -599,7 +601,7 @@ public class SequenceCommand implements ICommand {
     
     
 	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames, actionsForResults){
-		public ExecResults doLogic(Object theModel){
+		public ExecResults doLogic(Object theModel) throws Exception{
 		
 			«LET findParentContentPanel(this) AS parentCP»
 			«IF parentCP != null»
