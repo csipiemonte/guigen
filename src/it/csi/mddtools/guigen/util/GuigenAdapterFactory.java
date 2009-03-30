@@ -444,6 +444,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createTargetPlatformAdapter();
 			}
 			@Override
+			public Adapter caseUserInfoPanel(UserInfoPanel object) {
+				return createUserInfoPanelAdapter();
+			}
+			@Override
+			public Adapter caseUserDefinedPanel(UserDefinedPanel object) {
+				return createUserDefinedPanelAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1762,6 +1770,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTargetPlatformAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UserInfoPanel
+	 * @generated
+	 */
+	public Adapter createUserInfoPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UserDefinedPanel <em>User Defined Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UserDefinedPanel
+	 * @generated
+	 */
+	public Adapter createUserDefinedPanelAdapter() {
 		return null;
 	}
 

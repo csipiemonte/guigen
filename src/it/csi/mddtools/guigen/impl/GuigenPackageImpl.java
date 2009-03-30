@@ -100,7 +100,9 @@ import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UseCase;
+import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserDefinedWidget;
+import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityCommand;
 import it.csi.mddtools.guigen.Widget;
@@ -773,6 +775,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass targetPlatformEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userInfoPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userDefinedPanelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2948,6 +2964,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getUserInfoPanel() {
+		return userInfoPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUserDefinedPanel() {
+		return userDefinedPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3355,6 +3389,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		targetPlatformEClass = createEClass(TARGET_PLATFORM);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
 
+		userInfoPanelEClass = createEClass(USER_INFO_PANEL);
+
+		userDefinedPanelEClass = createEClass(USER_DEFINED_PANEL);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3456,6 +3494,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		customAuthenticationEClass.getESuperTypes().add(this.getAutenticationMethod());
 		stdMessagePanelEClass.getESuperTypes().add(this.getPanel());
 		jumpExtCommandEClass.getESuperTypes().add(this.getCommand());
+		userInfoPanelEClass.getESuperTypes().add(this.getPanel());
+		userDefinedPanelEClass.getESuperTypes().add(this.getPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3778,6 +3818,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(userDefinedPanelEClass, UserDefinedPanel.class, "UserDefinedPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

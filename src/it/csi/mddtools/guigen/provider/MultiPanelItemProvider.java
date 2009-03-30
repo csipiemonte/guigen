@@ -185,6 +185,16 @@ public class MultiPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
 	}
 
 }

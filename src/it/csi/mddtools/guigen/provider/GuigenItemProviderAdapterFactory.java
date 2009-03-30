@@ -1962,6 +1962,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UserInfoPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UserInfoPanelItemProvider userInfoPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UserInfoPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUserInfoPanelAdapter() {
+		if (userInfoPanelItemProvider == null) {
+			userInfoPanelItemProvider = new UserInfoPanelItemProvider(this);
+		}
+
+		return userInfoPanelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UserDefinedPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UserDefinedPanelItemProvider userDefinedPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UserDefinedPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUserDefinedPanelAdapter() {
+		if (userDefinedPanelItemProvider == null) {
+			userDefinedPanelItemProvider = new UserDefinedPanelItemProvider(this);
+		}
+
+		return userDefinedPanelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2142,6 +2188,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (stdMessagePanelItemProvider != null) stdMessagePanelItemProvider.dispose();
 		if (jumpExtCommandItemProvider != null) jumpExtCommandItemProvider.dispose();
 		if (targetPlatformItemProvider != null) targetPlatformItemProvider.dispose();
+		if (userInfoPanelItemProvider != null) userInfoPanelItemProvider.dispose();
+		if (userDefinedPanelItemProvider != null) userDefinedPanelItemProvider.dispose();
 	}
 
 }

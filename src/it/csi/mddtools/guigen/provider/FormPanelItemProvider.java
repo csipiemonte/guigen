@@ -191,6 +191,16 @@ public class FormPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__SUBPANELS,
+				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__SUBPANELS,
+				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createCommandWidget()));
 

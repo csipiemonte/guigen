@@ -245,6 +245,16 @@ public class ContentPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createONOFFCommand()));
 

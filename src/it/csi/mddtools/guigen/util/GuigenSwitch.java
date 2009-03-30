@@ -727,6 +727,20 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.USER_INFO_PANEL: {
+				UserInfoPanel userInfoPanel = (UserInfoPanel)theEObject;
+				T result = caseUserInfoPanel(userInfoPanel);
+				if (result == null) result = casePanel(userInfoPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.USER_DEFINED_PANEL: {
+				UserDefinedPanel userDefinedPanel = (UserDefinedPanel)theEObject;
+				T result = caseUserDefinedPanel(userDefinedPanel);
+				if (result == null) result = casePanel(userDefinedPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2123,6 +2137,36 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseTargetPlatform(TargetPlatform object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>User Info Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>User Info Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUserInfoPanel(UserInfoPanel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>User Defined Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>User Defined Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUserDefinedPanel(UserDefinedPanel object) {
 		return null;
 	}
 

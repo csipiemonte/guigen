@@ -764,6 +764,24 @@ public interface GuigenFactory extends EFactory {
 	TargetPlatform createTargetPlatform();
 
 	/**
+	 * Returns a new object of class '<em>User Info Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>User Info Panel</em>'.
+	 * @generated
+	 */
+	UserInfoPanel createUserInfoPanel();
+
+	/**
+	 * Returns a new object of class '<em>User Defined Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>User Defined Panel</em>'.
+	 * @generated
+	 */
+	UserDefinedPanel createUserDefinedPanel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

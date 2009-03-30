@@ -5131,6 +5131,116 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UserInfoPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserInfoPanel()
+	 * @generated
+	 */
+	int USER_INFO_PANEL = 93;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The number of structural features of the '<em>User Info Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserDefinedPanelImpl <em>User Defined Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UserDefinedPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserDefinedPanel()
+	 * @generated
+	 */
+	int USER_DEFINED_PANEL = 94;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The number of structural features of the '<em>User Defined Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5138,7 +5248,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 93;
+	int WIDGET_DATA_TYPE = 95;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5148,7 +5258,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 94;
+	int UDLRC_SPEC_CONSTANTS = 96;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5158,7 +5268,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 95;
+	int EVENT_TYPES = 97;
 
 
 	/**
@@ -5169,7 +5279,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 96;
+	int DATA_LIFETIME_TYPE = 98;
 
 
 	/**
@@ -5180,7 +5290,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 97;
+	int SIMPLE_TYPE_CODES = 99;
 
 
 	/**
@@ -5191,7 +5301,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 98;
+	int PORTAL_NAMES = 100;
 
 
 	/**
@@ -5202,7 +5312,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 99;
+	int TARGET_PLATFORM_CODES = 101;
 
 
 	/**
@@ -7621,6 +7731,26 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_Code();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>User Info Panel</em>'.
+	 * @see it.csi.mddtools.guigen.UserInfoPanel
+	 * @generated
+	 */
+	EClass getUserInfoPanel();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserDefinedPanel <em>User Defined Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>User Defined Panel</em>'.
+	 * @see it.csi.mddtools.guigen.UserDefinedPanel
+	 * @generated
+	 */
+	EClass getUserDefinedPanel();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9721,6 +9851,26 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TARGET_PLATFORM__CODE = eINSTANCE.getTargetPlatform_Code();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UserInfoPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserInfoPanel()
+		 * @generated
+		 */
+		EClass USER_INFO_PANEL = eINSTANCE.getUserInfoPanel();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserDefinedPanelImpl <em>User Defined Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UserDefinedPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUserDefinedPanel()
+		 * @generated
+		 */
+		EClass USER_DEFINED_PANEL = eINSTANCE.getUserDefinedPanel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
