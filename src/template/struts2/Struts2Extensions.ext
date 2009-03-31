@@ -375,23 +375,19 @@ String getClickHandlerMethodName(Widget source) :
 		"execute" 
 	);
 
-// [DM]
+// [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 String getComboBoxValueChangedHandlerJS(ComboBox cb) :
-	//onclick="onCBClick(document.forms[0].regione,'confermaRegione','conferma','searchPage.do')" 
-	//onfocus="inFocus(document.forms[0].regione)" 
-	//onblur="lostFocus(document.forms[0].regione,'confermaRegione','conferma','searchPage.do')"
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\"" + 
 		"onfocus=\"inFocus(this)\"" +
 		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\"";
 
-// [DM]
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
-	//<noscript><p>
-	//	<s:submit value="conferma" name="confermaRegione" id="confermaRegione" />
-	//</p></noscript>
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssStyle=\"" + getComboBoxValueChangedHandlerStyle(model) + "\" /></noscript>";
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssStyle=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			"\" /></noscript>";
 
 // [DM] restituisce l'azione relativa ad una colonna della tabella
 String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
