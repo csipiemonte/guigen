@@ -122,14 +122,13 @@ public class ActivateMultiPanelItemCommandItemProvider
 
 				//ContentPanel containerOfAction = GenUtils.findParentContentPanel((Command)object);
 				ActivateMultiPanelItemCommand cmd = (ActivateMultiPanelItemCommand)object;
-				ArrayList<FormPanel> result = new ArrayList<FormPanel>();
+				ArrayList<Panel> result = new ArrayList<Panel>();
 				if (cmd.getMultipanel()!=null){
 					// rendi selezionabili solo gli item del multipanel selezionato
 					Iterator<Panel> it_p = cmd.getMultipanel().getPanels().iterator();
 					while(it_p.hasNext()){
 						Panel currP = it_p.next();
-						if (currP instanceof FormPanel)
-							result.add((FormPanel)currP);
+							result.add((Panel)currP);
 					}
 				}
 					
@@ -160,8 +159,8 @@ public class ActivateMultiPanelItemCommandItemProvider
 	public String getText(Object object) {
 		String label="Activate Multipanel Item ";
 		ActivateMultiPanelItemCommand actCmd = (ActivateMultiPanelItemCommand)object;
-		label+=(actCmd.getMultipanel()!=null?actCmd.getMultipanel().getName():"<???>");
-		label+=(actCmd.getActiveItem()!=null?actCmd.getActiveItem().getName():"<???>");
+		label+="."+(actCmd.getMultipanel()!=null?actCmd.getMultipanel().getName():"<???>");
+		label+="."+(actCmd.getActiveItem()!=null?actCmd.getActiveItem().getName():"<???>");
 		return label;
 	}
 
