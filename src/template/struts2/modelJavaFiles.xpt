@@ -171,18 +171,24 @@ public class «getSpringBEExcClassName()» extends Exception {
 	)
 	throws BEException
 	{
-		ExecResults result = new ExecResults();
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("springBE_"+this.methodName+"_code")»
-		// inserire qui la logica applicativa da eseguire:
+		try{
+			ExecResults result = new ExecResults();
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("springBE_"+this.methodName+"_code")»
+			// inserire qui la logica applicativa da eseguire:
 			
-		// impostazione del result code
-		result.setResultCode("«this.results.first().resultCode»");
-		// modifica degli attributi del model (che verranno propagati allo strato
-		// di presentation). si può agire anche direttamente sull'attributo "session".
+			// impostazione del result code
+			result.setResultCode("«this.results.first().resultCode»");
+			// modifica degli attributi del model (che verranno propagati allo strato
+			// di presentation). si può agire anche direttamente sull'attributo "session".
 		
-		result.setModel(theModel);
-		return result;
+			result.setModel(theModel);
+			return result;
 		«ENDPROTECT»
+		}
+		catch(Throwable e){
+		  // TODO log
+		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
+		}
 	}
 	
 	«ENDLET-»
