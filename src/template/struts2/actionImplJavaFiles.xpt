@@ -715,6 +715,13 @@ public class SequenceCommand implements ICommand {
 	// tipo di data widget non gestito: «this»
 «ENDDEFINE»
 
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR HiddenValue»
+	// HiddenValue «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR TextField»
 	// TextField «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
