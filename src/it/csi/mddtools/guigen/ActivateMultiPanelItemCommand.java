@@ -61,9 +61,11 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Active Item</em>' reference.
+	 * @see #isSetActiveItem()
+	 * @see #unsetActiveItem()
 	 * @see #setActiveItem(Panel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getActivateMultiPanelItemCommand_ActiveItem()
-	 * @model
+	 * @model unsettable="true"
 	 * @generated
 	 */
 	Panel getActiveItem();
@@ -73,9 +75,34 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Active Item</em>' reference.
+	 * @see #isSetActiveItem()
+	 * @see #unsetActiveItem()
 	 * @see #getActiveItem()
 	 * @generated
 	 */
 	void setActiveItem(Panel value);
+
+	/**
+	 * Unsets the value of the '{@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand#getActiveItem <em>Active Item</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetActiveItem()
+	 * @see #getActiveItem()
+	 * @see #setActiveItem(Panel)
+	 * @generated
+	 */
+	void unsetActiveItem();
+
+	/**
+	 * Returns whether the value of the '{@link it.csi.mddtools.guigen.ActivateMultiPanelItemCommand#getActiveItem <em>Active Item</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Active Item</em>' reference is set.
+	 * @see #unsetActiveItem()
+	 * @see #getActiveItem()
+	 * @see #setActiveItem(Panel)
+	 * @generated
+	 */
+	boolean isSetActiveItem();
 
 } // ActivateMultiPanelItemCommand

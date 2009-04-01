@@ -56,6 +56,15 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	protected Panel activeItem;
 
 	/**
+	 * This is true if the Active Item reference has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean activeItemESet;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -146,8 +155,33 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 	public void setActiveItem(Panel newActiveItem) {
 		Panel oldActiveItem = activeItem;
 		activeItem = newActiveItem;
+		boolean oldActiveItemESet = activeItemESet;
+		activeItemESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM, oldActiveItem, activeItem));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM, oldActiveItem, activeItem, !oldActiveItemESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetActiveItem() {
+		Panel oldActiveItem = activeItem;
+		boolean oldActiveItemESet = activeItemESet;
+		activeItem = null;
+		activeItemESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM, oldActiveItem, null, oldActiveItemESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetActiveItem() {
+		return activeItemESet;
 	}
 
 	/**
@@ -198,7 +232,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 				setMultipanel((MultiPanel)null);
 				return;
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM:
-				setActiveItem((Panel)null);
+				unsetActiveItem();
 				return;
 		}
 		super.eUnset(featureID);
@@ -215,7 +249,7 @@ public class ActivateMultiPanelItemCommandImpl extends CommandImpl implements Ac
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL:
 				return multipanel != null;
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM:
-				return activeItem != null;
+				return isSetActiveItem();
 		}
 		return super.eIsSet(featureID);
 	}
