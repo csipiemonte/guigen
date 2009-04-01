@@ -571,20 +571,20 @@ public class SequenceCommand implements ICommand {
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecCommand»
 	// ExecCommand begin
-    String [] resultNames=new String []{
+    String [] resultNames4«methodName»=new String []{
       «FOREACH this.results AS currRes»
       "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
       «ENDFOREACH»
     };
     
-    ICommand [] actionsForResults = new ICommand[«this.results.size»];
+    ICommand [] actionsForResults4«methodName» = new ICommand[«this.results.size»];
     «FOREACH results AS currRes»
     «EXPAND addActionCode(actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action",results.indexOf(currRes),model) FOR currRes.command»
-    actionsForResults[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action_"+results.indexOf(currRes)»;
+    actionsForResults4«methodName»[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action_"+results.indexOf(currRes)»;
     «ENDFOREACH»
     
     
-	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames, actionsForResults){
+	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«methodName», actionsForResults4«methodName»){
 		public ExecResults doLogic(Object theModel) throws Exception{
 		
 			«LET findParentContentPanel(this) AS parentCP»
