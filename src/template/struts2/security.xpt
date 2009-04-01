@@ -303,7 +303,7 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	
 	@Override
 	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
-		// TODO Auto-generated method stub
+		// viene sempre ridefinito
 		return true;
 	}
 
@@ -411,7 +411,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		if (inPreChain) {
 			Param cachedResult = cache.get(call);
 			if (cachedResult != null) {
-				System.out.println("PDCache: found result for " + call);
+				//System.out.println("PDCache: found result for " + call);
 				prevres.setResult(cachedResult);
 				prevres.setSkipInvoke(true);
 			}
@@ -421,7 +421,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		else { // post chain
 			if (prevres.getException() == null) {
 				// metti in cache il risultato
-				System.out.println("PDCache: caching result for " + call);
+				//System.out.println("PDCache: caching result for " + call);
 				cache.put(call, prevres.getResult());
 			}
 		}
@@ -455,7 +455,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 
 		@Override
 		public int hashCode() {
-			// TODO hash code migliorabiule come distribuzione...
+			
 			return paramsKey.hashCode();
 		}
 
@@ -488,6 +488,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import «getBaseJavaPackage(model)+".business.*;"»
+import org.apache.log4j.*;
+import «getBaseJavaPackage(model)».util.*;
 
 /**
  * Inserisce in sessione:
@@ -510,6 +512,9 @@ public class IrideIdAdapterFilter implements Filter{
 	«ENDLET-»
 	public static final String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
 	
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");
+	
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
 		HttpServletRequest hreq = (HttpServletRequest)req;
@@ -518,7 +523,7 @@ public class IrideIdAdapterFilter implements Filter{
 			if (marker!=null){
 				try {
 					Identita identita = new Identita(normalizeToken(marker));
-					System.out.println("Inserito in sessione marcatore IRIDE:"+identita);
+					log.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
 					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
 					«getDTOBaseJavaPackage(model)».UserInfo userInfo = new «getDTOBaseJavaPackage(model)».UserInfo();
 					userInfo.setNome(identita.getNome());
@@ -529,8 +534,7 @@ public class IrideIdAdapterFilter implements Filter{
 					userInfo.setIdIride(identita.toString());
 					hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 				} catch (MalformedIdTokenException e) {
-					// TODO mettere a posto messaggio
-					e.printStackTrace();
+					log.error("[IrideIdAdapterFilter::doFilter] "+e.toString(),e);
 				}
 			}
 		}
@@ -677,7 +681,7 @@ public class IrideIdAdapterFilter implements Filter{
 «ENDDEFINE»
 
 
-«DEFINE securedWidgetCheck(GUIModel modle) FOR ContentPanel»
+«DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanel»
 // ridefinizione dei metodi di verifica visibilità/validazione
 // per supportare i security check
 
@@ -688,8 +692,7 @@ public class IrideIdAdapterFilter implements Filter{
 				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				// TODO log
-				System.out.println("errore durante verifica->disable");
+				log.error("[«getStrutsActionClassName(this)»::isWidgetDisabled] errore durante verifica->disable");
 				return true; // forzo la DISABILITAZIONE
 			}
 		}
@@ -704,8 +707,7 @@ public class IrideIdAdapterFilter implements Filter{
 				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				// TODO log
-				System.out.println("errore durante verifica->hide");
+				log.error("[«getStrutsActionClassName(this)»::isWidgetVisible] errore durante verifica->hide");
 				return false; // forzo l'invisibilita'
 			}
 		}
@@ -852,6 +854,8 @@ import it.csi.iride2.policy.entity.*;
 import it.csi.iride2.policy.exceptions.*;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 import «getDTOBaseJavaPackage()».*;
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
 
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
 
@@ -859,7 +863,8 @@ import «getDTOBaseJavaPackage()».*;
 
 public class «getSpringSecurityHelperClassName()»{
 
-       
+    /**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");   
 
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi di supporto alla sicurezza.
@@ -901,13 +906,12 @@ public class «getSpringSecurityHelperClassName()»{
 					return this.iride;
 				} 
 				catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error("[SecurityHelper::getIridePEP] errore nella parsificazione della configurazione di IRIDE2:"+e,e);
 					throw new IllegalArgumentException("errore nella parsificazione della configurazione di IRIDE2");
 				}
 			}
 			else 
-				// TODO gestire log
+				log.error("[SecurityHelper::getIridePEP] configurazione di IRIDE2 non trovata");
 				throw new IllegalArgumentException("configurazione di IRIDE2 non trovata");
 		} 
 		else
@@ -921,7 +925,7 @@ public class «getSpringSecurityHelperClassName()»{
 	{
 		Identita id = (Identita)session.get(IRIDE_ID_SESSIONATTR);
 		if (id == null){
-			// TODO log
+			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
 			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
 		}
 		else{
@@ -942,33 +946,26 @@ public class «getSpringSecurityHelperClassName()»{
 		try {
 			return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
 		} catch (InternalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
 		} catch (IdentitaNonAutenticaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] identità non autentica ["+currentUser+"],"+e);
 			throw new IllegalArgumentException("verifyCurrentUserForUC: identità non autentica ["+currentUser+"],"+e);
 		} catch (NoSuchUseCaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] use case ["+uc+"] non valido"+e);
 			throw new IllegalArgumentException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e);
 		} catch (NoSuchApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] applicazione "+IRIDE2_APPLICATION+" non valida"+e);
 			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
 		} catch (UnrecoverableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore di sistema in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
 		}
 		catch(Throwable e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
 		}
 	}
@@ -994,29 +991,23 @@ public class «getSpringSecurityHelperClassName()»{
 			else
 				return false;
 		} catch (InternalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e);
 			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
 		} catch (IdentitaNonAutenticaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] identità non autentica ["+currentUser+"],"+e,e);
 			throw new IllegalArgumentException("verifyCurrentUserForUC: identità non autentica ["+currentUser+"],"+e);
 		} catch (NoSuchApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] applicazione "+IRIDE2_APPLICATION+" non valida"+e,e);
 			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
 		} catch (UnrecoverableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore di sistema in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
 		}
 		catch(Throwable e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
 		}
 	}
@@ -1040,7 +1031,8 @@ public class «getSpringSecurityHelperClassName()»{
 			return true;
 		}
 		catch(Throwable ex){
-			throw new BEException("Errore durante l'esecuzione del metodo", ex);
+			log.error("[SecurityHelper::customCheck«currCustomSC.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheck«currCustomSC.methodNameSuffix.toFirstUpper()»", ex);
 		}
 		«ENDPROTECT»
 	}

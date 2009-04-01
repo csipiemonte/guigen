@@ -79,11 +79,9 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 	}
 	public String doCommand(BaseAction strutsAction) throws Exception{
 		if (itemName!=null){
-			System.out.println("Attivazione multipannello "+containerName+"."+itemName);
 			strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
 		}
 		else{
-			System.out.println("Disattivazione completa multipannello "+containerName);
 			strutsAction.getSession().remove(containerName+"_selectedMultiPanel");
 		}
 		return null;
@@ -109,7 +107,6 @@ public class OnOffCommand implements ICommand {
 	}
 
 	public String doCommand(BaseAction strutsAction) throws Exception{
-		System.out.println("on-off action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
 				(Map<String, Boolean>) strutsAction.session.get(_containerName);		
@@ -118,8 +115,6 @@ public class OnOffCommand implements ICommand {
 				strutsAction.session.put(_containerName, cpWidgetsStatus);
 			}
 			for (int i = 0; i < _targets.length; i++) {
-				System.out.println("on-off action on " + _targets[i]);
-				
 				cpWidgetsStatus.put(_targets[i]+"_enabled", new Boolean(_show));
 			}
 		}
@@ -146,7 +141,6 @@ public class VisibilityCommand implements ICommand {
 	}
 
 	public String doCommand(BaseAction strutsAction) throws Exception{
-		System.out.println("visibility action!");
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
 				(Map<String, Boolean>) strutsAction.session.get(_containerName);			
@@ -155,8 +149,6 @@ public class VisibilityCommand implements ICommand {
 				strutsAction.session.put(_containerName, cpWidgetsStatus);
 			}
 			for (int i = 0; i < _targets.length; i++) {
-				System.out.println("visibility action on " + _targets[i]);
-				
 				cpWidgetsStatus.put(_targets[i]+"_visible", new Boolean(_show));
 			}
 		}
@@ -175,13 +167,11 @@ import «getDTOBaseJavaPackage()».*;
 ////ExecCommand
 public abstract class ExecCommand implements ICommand {
 	String _esiti[] = null;
-	//JFrame _frame = null;
 	ICommand _azioni[] = null;
 	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
 
 	public ExecCommand(String esiti[], ICommand[] azioni) {
 		_esiti = esiti;
-		//_frame = frame;
 		_azioni = azioni;
 		if (_esiti != null) {
 			for (int i = 0; i < _esiti.length; i++)
@@ -337,14 +327,10 @@ public class SequenceCommand implements ICommand {
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
 				ICommand currAct = _actions[i];
-				// TODO standardizzare log
-				System.out
-						.println("sequenza, azione #" + i + ":" + currAct);
 				String currResult = currAct.doCommand(strutsAction);
 				if (currResult!=null)
 					result=currResult;
 			}
-			System.out.println("Il risultato finale della sequence è "+result);
 		}
 		return result;
 	}
@@ -396,7 +382,6 @@ public class SequenceCommand implements ICommand {
 		«FOREACH evhs AS currEvh»
 		public ICommand initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name, model) FOR currEvh»
-		/// TODO la riga successiv aè un pezza...
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
 		return action;
 		}
@@ -477,7 +462,6 @@ public class SequenceCommand implements ICommand {
 		«LET evhs AS currEvh»
 		public ICommand initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((MenuItem)currEvh.eContainer).name, model) FOR currEvh»
-		/// TODO la riga successiv aè un pezza...
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
 		return action;
 		}

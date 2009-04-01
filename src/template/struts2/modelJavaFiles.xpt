@@ -75,7 +75,11 @@ public class «getDTOClassName(this)» implements java.io.Serializable{
 package «getBaseJavaPackage()».business;
 
 import java.util.*;
+
 import «getDTOBaseJavaPackage()».*;
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
 
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEImports")»
 
@@ -83,6 +87,9 @@ import «getDTOBaseJavaPackage()».*;
 
 public class «getSpringBEClassName()»{
 
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
@@ -186,7 +193,7 @@ public class «getSpringBEExcClassName()» extends Exception {
 		«ENDPROTECT»
 		}
 		catch(Throwable e){
-		  // TODO log
+		  log.error("[«getSpringBEClassName()»::«this.methodName»] Errore occorso nell'esecuzione del metodo:"+e,e);
 		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
 		}
 	}
@@ -199,6 +206,8 @@ public class «getSpringBEExcClassName()» extends Exception {
 «FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
 
 import java.util.Map;
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
 
 public abstract class BaseSessionAwareDTO implements java.io.Serializable{
 	protected Map session;
@@ -210,6 +219,9 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable{
 	public Map getSession(){
 		return this.session;
 	}
+	
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".dto");
 	
 	/**
 	 * dump di debug dello stato interno del DTO
@@ -242,7 +254,6 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable{
 				}
 			}
 		} catch (java.beans.IntrospectionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
