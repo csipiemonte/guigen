@@ -40,6 +40,8 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.UserDefinedPanel;
+import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 
 
@@ -181,6 +183,10 @@ public class GenUtils {
 			return findAllWidgetsInPanel((DialogPanel)p);
 		else if (p instanceof StdMessagePanel)
 			return new ArrayList<Widget>(); // [DM] non ha sottopannelli, ritorno un ArrayList vuoto
+		else if (p instanceof UserInfoPanel)
+			return new ArrayList<Widget>(); // [DM] non ha sottopannelli, ritorno un ArrayList vuoto
+		else if (p instanceof UserDefinedPanel)
+			return new ArrayList<Widget>(); // [DM] come lo gestiamo? non posso sapere a priori se ha qualcosa, ritorno un ArrayList vuoto
 		else
 			throw new IllegalArgumentException("Tipo pannello non gestito");
 	}

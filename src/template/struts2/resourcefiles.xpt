@@ -28,7 +28,7 @@
 
 
 «REM»Espande i frammenti JSP comuni all'applicazione«ENDREM»
-«DEFINE jspFragmentsFile(boolean skip_component_dir_creation) FOR GUIModel»
+«DEFINE jspFragmentsFile(boolean skip_component_dir_creation) FOR GUIModel-»
 
 		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
 		«LET this.structure.appWindow.header AS header-»
@@ -65,14 +65,14 @@
 <fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
 «ENDIF-»
 
-	«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-	«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
+«REM»Genera la HEADER«ENDREM»
+«EXPAND setupHeader(model, skip_component_dir_creation) FOR this-»
 
-		«REM»Genera il corpo della Pagina«ENDREM»
-	«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
+«REM»Genera il corpo della Pagina«ENDREM»
+«EXPAND setupContentPanel(model, skip_component_dir_creation) FOR this-»
 
-		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-	«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
+«REM»Genera la FOOTER«ENDREM»
+«EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
 «ENDFILE-»
 «EXPAND createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
@@ -80,9 +80,9 @@
 
 «REM»Inserisce, se necessario, la direttiva include per la header«ENDREM»
 «DEFINE setupHeader(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-	«IF model.structure.appWindow.header != null-»
-	<s:include value="fragments/header.jsp" ></s:include>
-	«ENDIF-»
+«IF model.structure.appWindow.header != null-»
+<s:include value="fragments/header.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -163,6 +163,10 @@ Gestione dei pannelli
 	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSEIF this.metaType == StdMessagePanel-»
 	«EXPAND setupStdMessagePanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
+«ELSEIF this.metaType == UserInfoPanel-»
+	«EXPAND setupUserInfoPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserInfoPanel)this-»
+«ELSEIF this.metaType == UserDefinedPanel-»
+	«EXPAND setupUserDefinedPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
 «ELSE-»
 	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
 «ENDIF-»
@@ -281,6 +285,18 @@ Gestione dei pannelli
 «DEFINE setupStdMessagePanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR StdMessagePanel»
 	«EXPAND remoteResources::setupStdMessagePanel(model, cp) FOR this-»
 «ENDDEFINE»
+
+
+«REM»Genera uno UserInfoPanel«ENDREM»
+«DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserInfoPanel»
+	«EXPAND remoteResources::setupUserInfoPanel(model, cp) FOR this-»
+«ENDDEFINE»
+
+«REM»Genera uno UserDefinedPanel«ENDREM»
+«DEFINE setupUserDefinedPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserDefinedPanel»
+	«EXPAND remoteResources::setupUserDefinedPanel(model, cp) FOR this-»
+«ENDDEFINE»
+
 
 
 «REM»

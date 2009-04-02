@@ -22,7 +22,7 @@ Definizioni generali
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«codCanale»/«codApplicativo»/head.html" resourceProvider="sp" />
 <!--/head -->
 «REM»RIMOSSO: implementata REMINCL
@@ -556,6 +556,36 @@ TODO:
 	<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
 </div>
 «ENDDEFINE»
+
+
+«REM»
+************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
+«ENDREM»
+
+«DEFINE setupUserInfoPanelSistemaPiemonte(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+«LET model.appDataDefs.appData.select(ad|ad.name=="currentUser").first() AS currentUserAD-»
+<div id="contUtente"> 
+	<div id="Utente">
+		<span id="datiUtente">
+			Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong><br/>
+			Ruolo: <strong><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></strong>
+		</span>
+		<span class="logoutApplicativo"><a href="#" title="chiudi: questo link fa uscire dal servizio">esci</a></span>
+	</div>
+</div>
+«ENDLET-»
+«ENDDEFINE»
+
+
+
+«REM»
+************** UserDefinedPanel (Pannello definito dall'utente) **************
+«ENDREM»
+
+«DEFINE setupUserDefinedPanelSistemaPiemonte(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
+
+«ENDDEFINE»
+
 
 
 «REM»

@@ -141,6 +141,39 @@ Gestione dei PANNELLI
 «ENDDEFINE»
 
 
+«REM»
+************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
+«ENDREM»
+«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::setupUserInfoPanelSistemaPiemonte(model, cp) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+
+
+«REM»
+************** UserDefinedPanel (Pannello definito dall'utente) **************
+«ENDREM»
+«DEFINE setupUserDefinedPanel(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::setupUserDefinedPanelSistemaPiemonte(model, cp) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+
+
+
+
+
 
 «REM»
 ==========================================================================================================================
