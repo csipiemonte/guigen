@@ -7,6 +7,7 @@
 «DEFINE resourceFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND indexJspFile(skip_component_dir_creation) FOR this»
 	«EXPAND jspFragmentsFile(skip_component_dir_creation) FOR this»
+	«EXPAND jspErrorFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -30,27 +31,33 @@
 «REM»Espande i frammenti JSP comuni all'applicazione«ENDREM»
 «DEFINE jspFragmentsFile(boolean skip_component_dir_creation) FOR GUIModel-»
 
-		«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.header AS header-»
-			«IF header != null-»
-				«EXPAND template::struts2::remoteResources::getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
-			«ENDIF-»
-		«ENDLET-»
+	«REM»Genera la HEADER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
+	«LET this.structure.appWindow.header AS header-»
+		«IF header != null-»
+			«EXPAND template::struts2::remoteResources::getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
+		«ENDIF-»
+	«ENDLET-»
 
 		«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.appArea.menubar AS menubar-»
-			«IF menubar != null-»
-				«EXPAND template::struts2::remoteResources::getMenubarMarkup(this, skip_component_dir_creation) FOR menubar-»
-			«ENDIF-»
-		«ENDLET-»
+	«LET this.structure.appWindow.appArea.menubar AS menubar-»
+		«IF menubar != null-»
+			«EXPAND template::struts2::remoteResources::getMenubarMarkup(this, skip_component_dir_creation) FOR menubar-»
+		«ENDIF-»
+	«ENDLET-»
 
 		«REM»Genera la FOOTER (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-		«LET this.structure.appWindow.footer AS footer-»
-			«IF footer != null-»
-				«EXPAND template::struts2::remoteResources::getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
-			«ENDIF-»
-		«ENDLET-»
+	«LET this.structure.appWindow.footer AS footer-»
+		«IF footer != null-»
+			«EXPAND template::struts2::remoteResources::getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
+		«ENDIF-»
+	«ENDLET-»
 
+«ENDDEFINE»
+
+
+«REM»Crea le pagine di errore dell'applicazione«ENDREM»
+«DEFINE jspErrorFiles(boolean skip_component_dir_creation) FOR GUIModel-»
+«EXPAND remoteResources::getJspErrorFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -379,7 +386,7 @@ Gestione dei Widget
 «IF this.databinding!=null-»
 <s:property value="«getOGNLForWidgetValue(this)»" />
 «ELSE-»
-<s:text name="«cp.name».«this.name».label" />
+«IF !isNullOrEmpty(this.label)»<s:text name="«cp.name».«this.name».label" />«ENDIF»
 «ENDIF-»
 «ENDDEFINE»
 

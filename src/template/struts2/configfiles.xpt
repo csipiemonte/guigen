@@ -205,11 +205,7 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/jsp/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/jsp/error.jsp</location>
+		<location>/jsp/error/notFound.jsp</location>
 	</error-page>
 
 	<jsp-config>
@@ -394,7 +390,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		
 		<default-interceptor-ref name="jsp-stack"/>
 		
-		<!-- TODO: definire secondo necessita'
+		<!-- gestione globale delle eccezioni -->
 		<global-results>
 			<result name="errorFatal">/jsp/error/fatalError.jsp</result>
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
@@ -403,7 +399,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<exception-mapping result="errorFatal" exception="java.lang.Throwable"/>
 			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
 		</global-exception-mappings>
-		-->
+
 	</package>
 
 	<package name="default" extends="jsp-package" namespace="/">

@@ -17,7 +17,124 @@ Riferimenti:
 
 «REM»
 ==========================================================================================================================
-Definizioni generali
+Definizioni generali: Pagine di ERRORE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
+«DEFINE getJspPageNotFoundErrorSistemaPiemonte FOR GUIModel-»
+«EXPAND getJspErrorPageHeader FOR this-»
+<h3><s:text name="error.notfound.title" /></h3> 
+<div class="contenuti">
+	<div class="messaggioKo">
+		Attenzione! <br/> Pagina non trovata
+		<s:text name="error.notfound.warning" /> <br/> <s:text name="error.notfound.message" />
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavDx">
+			<s:url id="homePageUrl" action="HomePage" />
+			<s:a href="%{homePageUrl}" title="%{getText('error.notfound.btnmsg')" cssClass="nav95"><s:text name="error.notfound.btnmsg" /></s:a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooter FOR this-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
+«DEFINE getJspApplicationErrorSistemaPiemonte FOR GUIModel-»
+«EXPAND getJspErrorPageHeader FOR this-»
+<h3><s:text name="error.applicationerror.title" /></h3> 
+<div class="contenuti">
+	<div class="messaggioKo">
+		<s:property value="#session.errore"/>
+		<s:actionerror/>
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavDx">
+			<s:url id="homePageUrl" action="HomePage" />
+			<s:a href="%{homePageUrl}" title="%{getText('error.applicationerror.btnmsg')" cssClass="nav95"><s:text name="error.applicationerror.btnmsg" /></s:a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooter FOR this-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
+«DEFINE getJspFatalErrorSistemaPiemonte FOR GUIModel-»
+«EXPAND getJspErrorPageHeader FOR this-»
+<h3><s:text name="error.fatalerror.title" /></h3> 
+<div class="contenuti">
+	<div class="messaggioKo">
+		<s:text name="error.fatalerror.message" />
+		<s:actionerror/>
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavDx">
+			<s:url id="homePageUrl" action="HomePage" />
+			<s:a href="%{homePageUrl}" title="%{getText('error.fatalerror.btnmsg')" cssClass="nav95"><s:text name="error.fatalerror.btnmsg" /></s:a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooter FOR this-»
+«ENDDEFINE»
+
+
+«REM»Parte iniziale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageHeader FOR GUIModel-»
+	«IF this.structure.appWindow.header != null-»
+	<s:include value="fragments/header.jsp" ></s:include>
+	«ENDIF-»
+
+	<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+	«IF this.structure.appWindow.appArea.menubar != null-»
+	<div id="sfondo">
+		<h2 class="alt">menu della sezione</h2>
+	
+		<!------------------ COLONNA SX ------------------>
+		<div id="colonnaSinistra">
+			<s:include value="fragments/menu.jsp"></s:include>
+		</div>
+		<!---------------- FINE COLONNA SX ---------------->
+	
+		<hr />
+	
+		<!------------------ COLONNA DX ------------------>
+		<div id="colonnaDestra">
+			<h2 class="alt">contenuti</h2>
+	«ELSE-»	
+	<div id="sfondoColonna">
+	
+		<!----------------- COLONNA UNICA ---------------->
+		<div id="colonna">
+			<h2 class="alt">contenuti</h2>
+	«ENDIF-»
+	
+«ENDDEFINE»
+
+«REM»Parte finale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageFooter FOR GUIModel-»
+	«IF this.structure.appWindow.appArea.menubar != null-»
+		</div>
+		<!---------------- FINE COLONNA DX ---------------->
+	«ELSE-»	
+		</div>
+		<!-------------- FINE COLONNA UNICA -------------->
+	«ENDIF-»
+	</div>
+	<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->	
+	
+	«IF this.structure.appWindow.footer != null-»
+	<s:include value="fragments/footer.jsp" ></s:include>
+	«ENDIF-»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Definizioni generali: header, footer, ecc
 ==========================================================================================================================
 «ENDREM»
 
