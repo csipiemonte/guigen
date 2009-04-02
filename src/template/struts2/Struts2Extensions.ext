@@ -68,12 +68,14 @@ String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
 String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione servizi supplier
 
 String getSpringIRIDE2PDConfig(GUIModel model) :
 	getEjbConfigDir(model, true) + "/iride2_pep_defPD_ejb.xml";
-	
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files JSP comuni
 
@@ -115,6 +117,13 @@ String getMultiPanelJspInclude(MultiPanel mp, Panel p) :
 		getJspMultiPanelsConfig() + "/" + mp.name + "_" + p.name + ".jsp"
 	else if ( mp.metaType == TabSetPanel ) then
 		getJspTabsConfig() + "/" + mp.name + "_" + p.name + ".jsp";
+
+// JSP for UserDefinedPanels
+String getJspUserDefinedPanelMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/userpanels";
+
+String getJspUserDefinedPanelConfig() :
+	"/" + getPresentationMarkupConfig() + "/userpanels";
 
 // JSP for UserDefinedWidget
 String getJspUserDefinedWidgetMarkupDir(GUIModel model, boolean omit_root) :

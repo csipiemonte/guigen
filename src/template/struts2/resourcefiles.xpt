@@ -287,16 +287,35 @@ Gestione dei pannelli
 «ENDDEFINE»
 
 
-«REM»Genera uno UserInfoPanel«ENDREM»
+«REM»
+************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
+«ENDREM»
+
 «DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserInfoPanel»
 	«EXPAND remoteResources::setupUserInfoPanel(model, cp) FOR this-»
 «ENDDEFINE»
 
-«REM»Genera uno UserDefinedPanel«ENDREM»
+
+«REM»
+************** UserDefinedPanel (Pannello definito dall'utente) **************
+«ENDREM»
+
 «DEFINE setupUserDefinedPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserDefinedPanel»
-	«EXPAND remoteResources::setupUserDefinedPanel(model, cp) FOR this-»
+	«EXPAND userDefinedPanelInclude(model, cp) FOR this»
+	«EXPAND userDefinedPanelFile(model, skip_component_dir_creation, cp) FOR this»
 «ENDDEFINE»
 
+«DEFINE userDefinedPanelInclude(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
+<s:include value="«getJspUserDefinedPanelConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
+«ENDDEFINE»
+
+«DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR UserDefinedPanel»
+«FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
+<!-- Inserire il codice del pannello -->
+«ENDPROTECT»
+«ENDFILE»
+«ENDDEFINE»
 
 
 «REM»
