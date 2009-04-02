@@ -13,6 +13,7 @@ import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.TabSetPanel;
@@ -90,6 +91,9 @@ public class GenUtilsI18n {
 			}
 			else if ( widget instanceof RadioButtons ) {
 				res.addAll(getRadioButtonsLabels((RadioButtons)widget, cp));
+			}
+			else if ( widget instanceof PlainText ) {
+				res.addAll(getPlainTextLabels((PlainText)widget, cp));
 			}
 			else if ( widgetHasLabel(widget) ) {
 				lbl = getWidgetLabel(widget, cp);
@@ -280,7 +284,7 @@ public class GenUtilsI18n {
 		
 		for ( Column col : t.getColumnModel().getColumns() ) {
 			if ( !GenUtils.isNullOrEmpty(col.getLabel()) ) {
-				res.add(cp.getName() + "." + t.getName() + "." + col.getSelector() + ".label=" + col.getLabel());
+				res.add(cp.getName() + "." + t.getName() + "." + col.getSelector() + ".label=" + col.getLabel().trim());
 			}
 		}
 		
@@ -307,13 +311,39 @@ public class GenUtilsI18n {
 		// label dei singoli radio
 		for ( RadioButton radio : rb.getRadio() ) {
 			if ( !GenUtils.isNullOrEmpty(radio.getLabel()) ) {
-				res.add(cp.getName() + "." + rb.getName() + "." + radio.getName() + ".label=" + radio.getLabel());
+				res.add(cp.getName() + "." + rb.getName() + "." + radio.getName() + ".label=" + radio.getLabel().trim());
 			}
 		}
 		
 		return res;
 	}
 	
+	
+	/**
+	 * 
+	 * @param t
+	 * @param cp
+	 * @return
+	 */
+	private static List<String> getPlainTextLabels(PlainText t, ContentPanel cp) {
+		List<String> res = new ArrayList<String>();
+		String lbl = null;
+		
+		// label del gruppo
+		lbl = getWidgetLabel(t, cp);
+		if ( lbl != null ) {
+			res.add(lbl);
+		}		
+		
+		// static text
+		if ( !GenUtils.isNullOrEmpty(t.getStaticText()) ) {
+			res.add(cp.getName() + "." + t.getName() + ".statictext.label=" + t.getStaticText().trim());
+		}
+		
+		
+		return res;
+	}
+
 
 	/**
 	 * 
@@ -324,7 +354,7 @@ public class GenUtilsI18n {
 	private static String getWidgetLabel(Widget w, ContentPanel cp) {
 		String res = null;
 		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
-			res = cp.getName() + "." + w.getName() + ".label=" + w.getLabel();
+			res = cp.getName() + "." + w.getName() + ".label=" + w.getLabel().trim();
 		}
 		return res;		
 	}
