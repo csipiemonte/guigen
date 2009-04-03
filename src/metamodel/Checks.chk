@@ -205,6 +205,9 @@ context TreeView ERROR "ad una TreeView è possibile associare solo la gestione d
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
+context ContentPanel ERROR "Il content panel "+name+" non referenzia tutti gli Application Data "+
+	"referenziati dai widget in esso contenuti. AppData mancanti:"+findUnresolvedAppDataBinding() :
+	findUnresolvedAppDataBinding().size==0; 
 	
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding"+loc() :
 	this.appData!=null;

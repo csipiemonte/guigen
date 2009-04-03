@@ -1,10 +1,17 @@
 package it.csi.mddtools.guigen.genutils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
+import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
+import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
@@ -86,4 +93,34 @@ public class GenUtilsChecks {
 		return true;
 	}
 
+	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(
+			ContentPanel cp) {
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+		ArrayList<Widget> cpWidgets = GenUtils.findAllWidgetsInContentPanel(cp);
+		Iterator<Widget> it_w = cpWidgets.iterator();
+	
+		while (it_w.hasNext()) {
+			Widget w = (Widget) it_w.next();
+		
+			if (w instanceof DataWidget) {
+				if (((DataWidget) w).getDatabinding() != null) {
+					
+					ApplicationData ad = ((DataWidget) w).getDatabinding()
+							.getAppData();
+					if (!cp.getAppData().contains(ad))
+						ris.add(ad);
+				}
+			}
+			if (w instanceof MultiDataWidget) {
+				if (((MultiDataWidget) w).getMultiDataBinding() != null) {
+					ApplicationData ad = ((MultiDataWidget) w)
+							.getMultiDataBinding().getAppData();
+					if (!cp.getAppData().contains(ad))
+						ris.add(ad);
+				}
+			}
+		}
+
+		return ris;
+	}
 }
