@@ -405,7 +405,7 @@ String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
 // [DM] restituisce l'azione relativa ad una colonna della tabella
 String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
 	if (currCol.eventActive) then
-		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
 

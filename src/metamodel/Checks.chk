@@ -202,6 +202,14 @@ context MenuView ERROR "ad una MenuView non è possibile associare evnet handler,
 context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED"+loc() :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
+// per rendere "eventActive" una colonna di una table occorre specificare un event handler clicked nella table
+context Column ERROR "una colonna di una Table può essere dichiarata 'eventActive' solo se la tabella "+
+	"definisce un Event Handler di tipo CLICKED:"+loc() :
+	!eventActive ||
+	(eventActive)
+	&& 
+	((Table)(((ColumnModel)this.eContainer).eContainer))
+		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
