@@ -452,6 +452,10 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createUserDefinedPanelAdapter();
 			}
 			@Override
+			public Adapter caseWizardPanel(WizardPanel object) {
+				return createWizardPanelAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1798,6 +1802,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUserDefinedPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.WizardPanel <em>Wizard Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.WizardPanel
+	 * @generated
+	 */
+	public Adapter createWizardPanelAdapter() {
 		return null;
 	}
 

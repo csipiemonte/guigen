@@ -197,6 +197,11 @@ public class DialogPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
 				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				 GuigenFactory.eINSTANCE.createWizardPanel()));
 	}
 
 }

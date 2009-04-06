@@ -2008,6 +2008,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.WizardPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WizardPanelItemProvider wizardPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.WizardPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWizardPanelAdapter() {
+		if (wizardPanelItemProvider == null) {
+			wizardPanelItemProvider = new WizardPanelItemProvider(this);
+		}
+
+		return wizardPanelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2190,6 +2213,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (targetPlatformItemProvider != null) targetPlatformItemProvider.dispose();
 		if (userInfoPanelItemProvider != null) userInfoPanelItemProvider.dispose();
 		if (userDefinedPanelItemProvider != null) userDefinedPanelItemProvider.dispose();
+		if (wizardPanelItemProvider != null) wizardPanelItemProvider.dispose();
 	}
 
 }

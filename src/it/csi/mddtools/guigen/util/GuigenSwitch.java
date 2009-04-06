@@ -741,6 +741,14 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.WIZARD_PANEL: {
+				WizardPanel wizardPanel = (WizardPanel)theEObject;
+				T result = caseWizardPanel(wizardPanel);
+				if (result == null) result = caseMultiPanel(wizardPanel);
+				if (result == null) result = casePanel(wizardPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2167,6 +2175,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseUserDefinedPanel(UserDefinedPanel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Wizard Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Wizard Panel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWizardPanel(WizardPanel object) {
 		return null;
 	}
 

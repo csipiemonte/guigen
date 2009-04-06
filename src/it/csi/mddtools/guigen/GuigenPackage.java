@@ -5241,6 +5241,70 @@ public interface GuigenPackage extends EPackage {
 	int USER_DEFINED_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.WizardPanelImpl <em>Wizard Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.WizardPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardPanel()
+	 * @generated
+	 */
+	int WIZARD_PANEL = 95;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__NAME = MULTI_PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__LABEL = MULTI_PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__LAYOUT = MULTI_PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__LAYOUT_SPEC = MULTI_PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Panels</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__PANELS = MULTI_PANEL__PANELS;
+
+	/**
+	 * The number of structural features of the '<em>Wizard Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5248,7 +5312,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 95;
+	int WIDGET_DATA_TYPE = 96;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5258,7 +5322,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 96;
+	int UDLRC_SPEC_CONSTANTS = 97;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5268,7 +5332,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 97;
+	int EVENT_TYPES = 98;
 
 
 	/**
@@ -5279,7 +5343,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 98;
+	int DATA_LIFETIME_TYPE = 99;
 
 
 	/**
@@ -5290,7 +5354,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 99;
+	int SIMPLE_TYPE_CODES = 100;
 
 
 	/**
@@ -5301,7 +5365,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 100;
+	int PORTAL_NAMES = 101;
 
 
 	/**
@@ -5312,7 +5376,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 101;
+	int TARGET_PLATFORM_CODES = 102;
 
 
 	/**
@@ -7751,6 +7815,16 @@ public interface GuigenPackage extends EPackage {
 	EClass getUserDefinedPanel();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WizardPanel <em>Wizard Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Wizard Panel</em>'.
+	 * @see it.csi.mddtools.guigen.WizardPanel
+	 * @generated
+	 */
+	EClass getWizardPanel();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9871,6 +9945,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass USER_DEFINED_PANEL = eINSTANCE.getUserDefinedPanel();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.WizardPanelImpl <em>Wizard Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.WizardPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardPanel()
+		 * @generated
+		 */
+		EClass WIZARD_PANEL = eINSTANCE.getWizardPanel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

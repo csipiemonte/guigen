@@ -145,6 +145,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TARGET_PLATFORM: return createTargetPlatform();
 			case GuigenPackage.USER_INFO_PANEL: return createUserInfoPanel();
 			case GuigenPackage.USER_DEFINED_PANEL: return createUserDefinedPanel();
+			case GuigenPackage.WIZARD_PANEL: return createWizardPanel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1042,6 +1043,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public UserDefinedPanel createUserDefinedPanel() {
 		UserDefinedPanelImpl userDefinedPanel = new UserDefinedPanelImpl();
 		return userDefinedPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WizardPanel createWizardPanel() {
+		WizardPanelImpl wizardPanel = new WizardPanelImpl();
+		return wizardPanel;
 	}
 
 	/**

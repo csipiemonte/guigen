@@ -782,6 +782,15 @@ public interface GuigenFactory extends EFactory {
 	UserDefinedPanel createUserDefinedPanel();
 
 	/**
+	 * Returns a new object of class '<em>Wizard Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Wizard Panel</em>'.
+	 * @generated
+	 */
+	WizardPanel createWizardPanel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

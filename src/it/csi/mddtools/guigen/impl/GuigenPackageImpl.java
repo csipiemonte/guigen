@@ -110,6 +110,7 @@ import it.csi.mddtools.guigen.WidgetDataType;
 import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 import it.csi.mddtools.guigen.WidgetTargetAction;
 
+import it.csi.mddtools.guigen.WizardPanel;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -789,6 +790,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass userDefinedPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wizardPanelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2982,6 +2990,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getWizardPanel() {
+		return wizardPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3393,6 +3410,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		userDefinedPanelEClass = createEClass(USER_DEFINED_PANEL);
 
+		wizardPanelEClass = createEClass(WIZARD_PANEL);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3496,6 +3515,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		jumpExtCommandEClass.getESuperTypes().add(this.getCommand());
 		userInfoPanelEClass.getESuperTypes().add(this.getPanel());
 		userDefinedPanelEClass.getESuperTypes().add(this.getPanel());
+		wizardPanelEClass.getESuperTypes().add(this.getMultiPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3822,6 +3842,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(userDefinedPanelEClass, UserDefinedPanel.class, "UserDefinedPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(wizardPanelEClass, WizardPanel.class, "WizardPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
