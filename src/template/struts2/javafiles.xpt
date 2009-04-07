@@ -459,25 +459,15 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws Exception {
-		if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::execute] dump model before");
-				dumpModel(false);
-		}
+		
+		log.debug("[«getStrutsMenuClassName(this)»::execute] START");
+		
 		ICommand action = initCommand();
 		String result = action.doCommand(this);
 		if (result != null) {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::execute] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsMenuClassName(this)»::execute] returning result [" + result + "]");
-			}
 			return result;
 		} else {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::execute] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsMenuClassName(this)»::execute] returning default result [SUCCESS]");
-			}
+			log.debug("[«getStrutsMenuClassName(this)»::execute] END");
 			return SUCCESS;
 		}
 	}
