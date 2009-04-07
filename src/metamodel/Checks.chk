@@ -107,6 +107,9 @@ context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPane
 			!p.metaType.isAssignableFrom(StdMessagePanel)
 	).size==0;
 
+context MultiPanel ERROR "Gli item dei multi panel non possono contenere DataWidget diochiarati required: "+loc() :
+	findAllWidgetsInPanel(this).select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
 context Menu ERROR "Un menu deve avere almeno un menu item"+loc() :
@@ -182,12 +185,8 @@ context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di t
 	this.runtimeUrlProvider.type.metaType==SimpleType &&
 	((SimpleType)(this.runtimeUrlProvider.type)).code==guigen::SimpleTypeCodes::STRING;
 
-context ApplicationData ERROR "E' necessario specificare il nome dell Application Data"+loc() :
-	this.name!=null && this.name.length>0;
-
-context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data"+loc() :
-	this.type!=null;
-
+context VisibilityCommand ERROR "Il comando di commutazione di visibilità è incomaptibile con i widget dichiarati required "+loc() :
+	this.targetWidgets.select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su azioni
@@ -220,6 +219,12 @@ context ContentPanel ERROR "Il content panel "+name+" non referenzia tutti gli A
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding"+loc() :
 	this.appData!=null;
 
+context ApplicationData ERROR "E' necessario specificare il nome dell Application Data"+loc() :
+	this.name!=null && this.name.length>0;
+
+context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data"+loc() :
+	this.type!=null;
+ 
 context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+","+loc() :
 	this.multiDataBinding==null ||
 	(this.multiDataBinding.appData!=null 
@@ -228,6 +233,10 @@ context TreeView ERROR "La fonte dati di un TreeView può solo essere un applicat
 	 &&
 	 ((SimpleType)this.multiDataBinding.appData.type).code==SimpleTypeCodes::TREE_NODE
 	 );
+
+context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type :
+	this.multiDataBinding.appData.type.metaType==TypedArray && 
+	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
 	
 context DataWidget ERROR "E'ncessario specificare il tipo del Widget"+loc() :
 	this.dataType!=null;
@@ -266,7 +275,12 @@ context DataWidget WARNING "Non è possibile verificare a priori la corrispondenz
 	 	&& this.databinding.appData.type!=null
 	 	&& this.dataType==this.databinding.appData.type
 	 );	 
-	
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//// constraints su commands
+//////////////////////////////////////////////////////////////////////////////	
 context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo"+loc() :  
 	this.command != null;
 	
@@ -351,6 +365,12 @@ context SecurityModel ERROR "Occorre specificare il codice identificativo dell'a
 context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato"+loc() :
 	this.minAuthLevel>=1 && this.minAuthLevel<=3;
 
+context SSOBARTSSO ERROR "Il meccanismo di autenticazione basato su SSOBART non è attualmente implementato" :
+	false;
+
+context CustomAuthentication ERROR "Il meccanismo di autenticazione custom non è attualmente implementato" :
+	false;
+
 context CustomSecurityConstraint ERROR "E' necessario specificare il nome del metodo:"+loc() :
 	!isNullOrEmpty(this.methodNameSuffix);
 
@@ -373,6 +393,14 @@ context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a 
 context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
 " deve essere abilitato e contemporaneamente invisibile"+loc() :
 	this.enabled==false || !(enabled==true && visible==true);
+
+context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint su un widget dichiarato required:"+loc() :
+	(DataWidget.isAssignableFrom(eContainer.metaType)?
+		(((DataWidget)eContainer).required==false) 
+		:
+	 	true
+	);
+	
 
 /// verifica se sono presenti il tipo UserInfo e l'app data currentUser
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :

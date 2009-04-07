@@ -72,24 +72,19 @@
                 <widgets xsi:type="guigen:TextField" name="tfSecUC2" label="Abilitato a UC OPEREN023" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
                 </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbColori" label="Colore" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:ComboBox" name="cbColori" label="Colore" dataType="//@typedefs/@types.7" keySelector="cod" valueSelector="name">
                   <eventHandlers eventType="VALUE_CHANGED">
                     <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                   </eventHandlers>
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
                 </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbMultipla" label="Colori" dataType="//@typedefs/@types.20">
+                <widgets xsi:type="guigen:ComboBox" name="cbMultipla" label="Colori" dataType="//@typedefs/@types.20" keySelector="cod" valueSelector="name">
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
                 </widgets>
                 <widgets xsi:type="guigen:TextField" name="tfCodFiscCurentUser" label="CF currentUser" dataType="//@typedefs/@types.7" fieldLength="16">
                   <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
                 </widgets>
-                <widgets xsi:type="guigen:Table" name="tblColori" defaultEnabled="false" dataType="//@typedefs/@types.7">
-                  <multiDataBinding appData="//@appDataDefs/@appData.0"/>
-                  <columnModel>
-                    <columns selector="" label="colore"/>
-                  </columnModel>
-                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfValidato" label="testo tra 2 e 10 caratteri" dataTypeModifier="size:2,10" dataType="//@typedefs/@types.7" required="true"/>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -104,12 +99,13 @@
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bEventoStrano" label="Evento non clicked...">
-                  <eventHandlers eventType="VALUE_CHANGED">
-                    <command xsi:type="guigen:JumpExtCommand" staticUrl="http://www.csi.it" locationCode="csi"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.4"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
               </subpanels>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="pErrori" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
             </subpanels>
           </panels>
           <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="initColori" postExecData="//@appDataDefs/@appData.0">
@@ -123,6 +119,7 @@
           </onRefreshCommand>
         </contentPanels>
         <staticLinks/>
+        <onInitCommand xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
       </appArea>
     </appWindow>
   </structure>
@@ -187,9 +184,14 @@
       <fields name="ruolo" type="//@typedefs/@types.7"/>
       <fields name="idIride" type="//@typedefs/@types.7"/>
     </types>
+    <types xsi:type="guigen:ComplexType" name="Colore">
+      <fields name="cod" type="//@typedefs/@types.7"/>
+      <fields name="name" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.35"/>
   </typedefs>
   <appDataDefs>
-    <appData name="listaColori" type="//@typedefs/@types.20"/>
+    <appData name="listaColori" type="//@typedefs/@types.36"/>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
     <appData name="XXXXX" type="//@typedefs/@types.0"/>
   </appDataDefs>
