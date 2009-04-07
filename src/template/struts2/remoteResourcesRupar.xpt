@@ -1,5 +1,6 @@
 «IMPORT guigen»
 
+«IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -7,188 +8,88 @@
 «REM»
 **************************************************************************************************************************
 Markup HTML per RUPAR
-Riferimenti:  
-    - Repository RuparPiemonte (http://andromeda.csi.it:9053/sandbox/template/repository/)
-	- Pattern RuparPiemonte (http://andromeda.csi.it:9053/sandbox/template/repository/patterns/index.shtml)
-	- Reference implementation su Efesto (http://crizia.csi.it:10317/refimpl/login/welcome.do)
+Riferimenti:
+    - Repository RuparPiemonte (http://dev-portale.ruparpiemonte.it/sandbox/template/repository/index.shtml)
+	- Pattern RuparPiemonte (http://dev-portale.ruparpiemonte.it/sandbox/template/repository/patterns/index.shtml)
+	- Reference implementation su Efesto (http://dev-proxy.csi.it:10080/refimpl/)
 **************************************************************************************************************************
 «ENDREM»
 
 
 «REM»
 ==========================================================================================================================
-Definizioni generali
+Definizioni generali: Pagine di ERRORE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
+«DEFINE getJspPageNotFoundErrorRupar FOR GUIModel-»
+«EXPAND getJspErrorPageHeader FOR this-»
+
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
+«DEFINE getJspApplicationErrorRupar FOR GUIModel-»
+
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
+«DEFINE getJspFatalErrorRupar FOR GUIModel-»
+
+«ENDDEFINE»
+
+
+«REM»Parte iniziale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageHeader FOR GUIModel-»
+
+«ENDDEFINE»
+
+«REM»Parte finale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageFooter FOR GUIModel-»
+
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Definizioni generali: header, footer, ecc
 ==========================================================================================================================
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Header»
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (con remincl: da implementare)-->
-<%--<r:include url="/include/primpa/head.html" resourceProvider="rp" />--%>
-<!--/head -->
+«DEFINE getHeaderMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 
-<!--head (senza remincl: TMP)-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<meta name="author" content="CSI-Piemonte" />
-		<title>Intranet RuparPiemonte - Interazione PA-Privati</title>
-		
-		<link href="<%=request.getContextPath()%>/css/css_rupar/primpa/indicePrimpa.css" type="text/css" rel="stylesheet" media="screen" id="skin" />
-		
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/menu.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/newWinPop.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/overOutHandler.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/js_rupar/primpa/pulsantiPadreFiglio.js"></script>
-		
-		<!--QUI SOTTO INCLUSIONE ELENCO DI TUTTI I JS DISPONIBILI
-		INSERIRE SOLO QUELLI CHE SERVONO PER UN NUOVO SERVIZIO DIRETTAMENTE SULL'HEAD DEL SERVIZIO-->
-		<!--#include virtual="/include/primpa/head_js_generali.html" -->
-		
-<!--/head -->
-
-		<link href="<%=request.getContextPath()%>/css/generali/NN4.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/print.css" rel="stylesheet" type="text/css" media="print" />
-		<link href="<%=request.getContextPath()%>/css/generali/struttura.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/skinRupar.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/tabelle.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/tabInput.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/testaliniServizi.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/loghi.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/cavalieri.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/generali/cavalieri2.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/autenticazione_new/skin_autenticazione.css" rel="stylesheet" type="text/css" media="screen" id="skin" />
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/tab_righeAlterne.js"></script>
-
-		<!-- [DM] esportazione stili proprietari -->
-		<link href="<%=request.getContextPath()%>/css/guigen/guigen_rupar.css" rel="stylesheet" type="text/css" media="screen" />
-
-	</head>
-	<body id="homeAutenticazione">
-		<div id="pagina" class="colonnaUnica" align="center">
-
-			<!-- INTESTAZIONE -->
-			<div id="intestazione">
-	
-				<!--header (con remincl: TODO implementare-->
-				<%--<r:include url="/include/headerRuparNoCav.html" resourceProvider="rp" />--%>
-				<!--/header-->
-				
-				<!--header (senza remincl: TMP)-->
-				<noscript>
-					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
-					Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
-					potrebbe essere necessario l'utilizzo dei <a href="javascript.shtml" title="informazioni su come abilitare le funzioni javascript su i più diffusi browser">Javascript</a>.</p>
-					</div>
-					<hr />
-				</noscript>
- 
-				<div id="bannerRuparNoCav">
-					<p id="avviso" class="navigazionePagina"><a href="#navigazione" title="Salta i menu e vai direttamente ai contenuti">Salta l&#8217;intestazione</a></p>
-					<hr />
-					<h1><a id="A-inizio"><span class="alt">intranet.ruparpiemonte.it</span></a></h1>
-				</div>
-				<hr />
-				<div id="menuNN4" class="navigazionePagina">
-					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
-				</div>	
-				<!--/header-->				
-				
-				
-				«REM»Genera i LINK STATICI (NOTA: è una possibile implementazione, migliorabile)
-				TODO: verificare dove vanno questi link statici
-				«LET model.structure.appWindow.appArea.staticLinks AS staticLinks-»
-				«IF staticLinks != null-»
-				«EXPAND getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR staticLinks»
-				«ENDIF-»
-				«ENDLET-»
-				«ENDREM»
-	
-				<!-- MENU' DI NAVIGAZIONE -->
-				<div id="titoloEmenu">
-					<div id="menuDiNavigazione">
-				«REM»Genera la MENU BAR (NOTA: è una possibile implementazione, migliorabile)«ENDREM»
-				«LET model.structure.appWindow.appArea.menubar AS menubar-»
-				«IF menubar != null-»
-				<s:include value="menu.jsp" ></s:include>
-				«ENDIF-»		
-				«ENDLET-»
-					</div>
-				</div>
-				<!-- FINE MENU' DI NAVIGAZIONE -->
-	
-			</div>
-			<!--FINE INTESTAZIONE-->
-
-			<!-- CORPO -->
-			<div id="corpo">
-				<h2 class="alt">
-					Contenuti
-				</h2>
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) deli LINK STATICI. 
-TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+«REM»Genera la componente di markup (HTML) deli LINK STATICI.
+TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-	<h2>Qui ci andranno i Link Statici</h2>
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-<ul class="menuTendina">
-«FOREACH this.topLevelMenu AS tlmenu-»
-«IF hasUniqueMenuItem(tlmenu)-»
-	«LET tlmenu.item.first() AS currMenuItem-»
-	«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
-	«LET currMenuItem.eventHandler.command AS currAction-»
-	<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-	<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-	«ENDLET-»
-	«ENDIF-»
-	«ENDLET-»
-«ELSE-»
-	<li><a href="#">«tlmenu.label»</a>
-		<ul>
-			«FOREACH tlmenu.item AS currMenuItem-»
-			«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED-»
-			«LET currMenuItem.eventHandler.command AS currAction-»
-			<s:url id="targetUrl«currMenuItem.name.toFirstUpper()»" action="goTo«currMenuItem.name.toFirstUpper()»FromMenu" />
-			<li><s:a href="%{targetUrl«currMenuItem.name.toFirstUpper()»}" id="menu.items.«currMenuItem.name»">«currMenuItem.label»</s:a></li>
-			«ENDLET-»
-			«ENDIF-»
-			«ENDFOREACH-»
-		</ul>
-	</li>
-«ENDIF-»
-«ENDFOREACH-»
-</ul>
+
 «ENDDEFINE»
+
+«REM»Genera un MenuItem«ENDREM»
+«DEFINE getMenuItemMarkupRupar(int level) FOR MenuItem -»
+
+«ENDDEFINE»
+
+«REM»Genera un sottoMenu«ENDREM»
+«DEFINE getSubMenuMarkupRupar(int level) FOR Menu»
+
+«ENDDEFINE»
+
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-<!--footer (con remincl: da implementare)-->
-<%--<r:include url="/include/footerRupar.html" resourceProvider="rp" />--%>
-<!--/footer-->
 
-<!--footer (senza remincl: TMP)-->
-			</div>
-			<!-- fine corpo -->
-
-			<div id="piedipagina">
-				<p id="noteSito" title="RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE"><span class="alt">RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE</span></p>
-				<p class="navigazionePagina"><a href="#A-inizio">Torna all'inizio della pagina</a></p>
-			</div>
-
-		</div>
-		<!--/pagina-->
-	</body>
-</html>
 «ENDDEFINE»
 
 
@@ -199,60 +100,215 @@ Gestione dei PANNELLI
 ==========================================================================================================================
 «ENDREM»
 
-«REM»TODO: come faccio a riconoscere il tab attivo?«ENDREM»
+
+«REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
+«DEFINE setupFirstLevelFormPanelRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+
+«REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
+«DEFINE setupVFLRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+
+«REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
+«DEFINE setupUDLRCLRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+
+«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
+«DEFINE setupUnaColonnaRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
+«DEFINE setupDueColonneRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+
+«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
+«DEFINE setupTreColonneRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+
+«ENDDEFINE»
+
+
+«REM»
+************** Tabset Panel **************
+«ENDREM»
+
+«REM»
+TODO:
+1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
+     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
+     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
+2. Come si fa a riconoscere il tab attivo?
+3. Come si può implementare il meccanismo di cambio tab? (va fatto sulla classe Java della Action)
+«ENDREM»
 «DEFINE setupTabSetPanelRupar(GUIModel model) FOR TabSetPanel»
-	«FOREACH this.panels AS currTab-»
-	«ENDFOREACH-»
+
+«ENDDEFINE»
+
+
+«REM»
+************** StdMessagePanel (Pannello per errori) **************
+«ENDREM»
+
+«DEFINE setupStdMessagePanelRupar(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+
+«ENDDEFINE»
+
+
+«REM»
+************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
+«ENDREM»
+
+«DEFINE setupUserInfoPanelRupar(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+
 «ENDDEFINE»
 
 
 
 «REM»
 ==========================================================================================================================
-Gestione dei LAYOUT
-TODO: è stato copiato qui il codice originariamente creato per Sistema Piemonte -> adattarlo a Rupar
+Gestione dei LAYOUT - PANNELLI
 ==========================================================================================================================
 «ENDREM»
 
-«REM»
-«DEFINE firstLevelPanelPreLayoutRupar(GUIModel model, ContentPanel cp) FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	<h3>«this.label.toUpperCase()»</h3>
-«ELSE-»
-	<fieldset>
-		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF-»
+«REM»Genara la header di un sottopannello di tipo FormPanel«ENDREM»
+«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR FormPanel»
+
 «ENDDEFINE»
 
-«DEFINE firstLevelPanelPostLayoutRupar(GUIModel model, ContentPanel cp) FOR Panel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-«ELSE-»
-	</fieldset>
-«ENDIF-»
+«REM»Genara la header di un sottopannello di tipo CommandPanel«ENDREM»
+«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR CommandPanel»
+
 «ENDDEFINE»
+
+«REM»Genara la header di un sottopannello di tipo MenuPanel«ENDREM»
+«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR MenuPanel»
+
+«ENDDEFINE»
+
+
+«REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
+«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR FormPanel»
+
+«ENDDEFINE»
+
+«REM»Genara la footer di un sottopannello di tipo CommandPanel«ENDREM»
+«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR CommandPanel»
+
+«ENDDEFINE»
+
+«REM»Genara la footer di un sottopannello di tipo MenuPanel«ENDREM»
+«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR MenuPanel»
+
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT - WIDGETS
+==========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
-«DEFINE subPanelPreLayoutRupar FOR FormPanel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«IF this.label != null -»
-	<h4>«this.label.toUpperCase()»</h4>
-	«ENDIF-»
-	<div class="contenuti">
-		<table>
-«ELSE-»
-	<fieldset>
-		<legend>«this.label.toUpperCase()»</legend>
-«ENDIF-»
+«REM»--------------- Widget ---------------«ENDREM»
+
+«REM»Genera la header di un widget generico«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget generico«ENDREM»
+«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+
+«ENDDEFINE»
+
+«REM»Genera la clausola di chiusura di un widget generico«ENDREM»
+«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
-«DEFINE subPanelPostLayoutRupar FOR FormPanel»
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-		</table>
-	</div>
-«ELSE-»
-	</fieldset>
-«ENDIF-»
+«REM»--------------- HiddenValue ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«ENDDEFINE»
+
+«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«ENDDEFINE»
+
+
+«REM»--------------- Button ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+
+«ENDDEFINE»
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«ENDDEFINE»
+
+
+«REM»--------------- Table ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
+
+«ENDDEFINE»
+
+
+«REM»--------------- UserDefinedWidget ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+
+«ENDDEFINE»
+
+
+«REM»--------------- MenuView ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«ENDDEFINE»
+
+«REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«ENDDEFINE»
+
+
+«REM»--------------- TreeView ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+«REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
+«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+

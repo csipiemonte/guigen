@@ -226,9 +226,9 @@ Gestione dei pannelli
 «REM»Genera un MultiPanel«ENDREM»
 «DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
 	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli«ENDREM»
-	«FOREACH this.panels AS currSubPan -»
+	«FOREACH this.panels AS currSubPan ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currSubPan-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currSubPan-»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
@@ -239,9 +239,9 @@ Gestione dei pannelli
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
 	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
-	«FOREACH this.panels AS currTab -»
+	«FOREACH this.panels AS currTab ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this) FOR currTab-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currTab-»
 	«ENDFOREACH-»
 
 «ENDDEFINE»
@@ -278,8 +278,8 @@ Gestione dei pannelli
 
 «REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
 (o di un sottotipo: TabsetPanel)«ENDREM»
-«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel) FOR Panel»
-<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'">
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst) FOR Panel»
+<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'«IF isFirst» || #session.«multiPanel.name»_selectedMultiPanel == null«ENDIF»">
 	<s:include value="«getMultiPanelJspInclude(multiPanel, this)»" ></s:include>
 </s:if>
 «ENDDEFINE»
