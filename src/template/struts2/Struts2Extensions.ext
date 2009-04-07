@@ -447,6 +447,37 @@ String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
 	//else
 		"<s:text name=\"" + item.name + ".label\" />";
 
+String getMenuCssSistemaPiemonte(Menu menu, int level, boolean actionActive) :
+	if (level == 1) then
+		"class=\"sottomenu\""
+	else if (level == 2) then
+		"class=\"sottomenu\""
+	else if (level == 3) then
+		"class=\"sottomenu\""
+	else if(level == 4) then
+		"class=\"sottomenu\""
+	else
+		"";
+
+String getMenuLinkCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		"cssClass=\"attivosottomenu\""
+	else if (level == 2) then
+		"cssClass=\"attivosottomenu\""
+	else if (level == 3) then
+		"cssClass=\"attivosottomenu\""
+	else if(level == 4) then
+		"cssClass=\"attivosottomenu\""
+	else
+		"";
+
+String getMenuLabelSistemaPiemonte(Menu menu, int level) :
+	//if (level == 1) then
+	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
+	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
+	//else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
@@ -457,6 +488,9 @@ List getAllPossibleJumps(ContentPanel cp) : JAVA
 List getAllPossibleJumps(MenuItem mi) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.MenuItem);
 
+List getAllPossibleJumps(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Menu);
+
 List getAllPossibleJumps(Command a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Command);
 
@@ -466,6 +500,9 @@ List getAllPossibleExtJumps(ContentPanel cp) : JAVA
 List getAllPossibleExtJumps(MenuItem mi) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.MenuItem);
 
+List getAllPossibleExtJumps(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Menu);
+
 List getAllPossibleExtJumps(Command a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Command);
 
@@ -474,6 +511,9 @@ List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	
 List getAllEventSourceMenuItems(Menubar mb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
+
+List getAllEventSourceMenus(Menubar mb) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenus(it.csi.mddtools.guigen.Menubar);
 
 List getAllExecActionsForEventHandler(EventHandler eh) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllExecActionsForEventHandler(it.csi.mddtools.guigen.EventHandler);

@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getItem <em>Item</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getSubmenu <em>Submenu</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MenuImpl#getEventHandler <em>Event Handler</em>}</li>
  * </ul>
  * </p>
  *
@@ -114,6 +116,16 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * @ordered
 	 */
 	protected EList<UISecurityConstraint> securityConstraints;
+
+	/**
+	 * The cached value of the '{@link #getEventHandler() <em>Event Handler</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEventHandler()
+	 * @generated
+	 * @ordered
+	 */
+	protected EventHandler eventHandler;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -217,6 +229,49 @@ public class MenuImpl extends EObjectImpl implements Menu {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EventHandler getEventHandler() {
+		return eventHandler;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEventHandler(EventHandler newEventHandler, NotificationChain msgs) {
+		EventHandler oldEventHandler = eventHandler;
+		eventHandler = newEventHandler;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MENU__EVENT_HANDLER, oldEventHandler, newEventHandler);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEventHandler(EventHandler newEventHandler) {
+		if (newEventHandler != eventHandler) {
+			NotificationChain msgs = null;
+			if (eventHandler != null)
+				msgs = ((InternalEObject)eventHandler).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MENU__EVENT_HANDLER, null, msgs);
+			if (newEventHandler != null)
+				msgs = ((InternalEObject)newEventHandler).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MENU__EVENT_HANDLER, null, msgs);
+			msgs = basicSetEventHandler(newEventHandler, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MENU__EVENT_HANDLER, newEventHandler, newEventHandler));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -226,6 +281,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return ((InternalEList<?>)getSubmenu()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
 				return ((InternalEList<?>)getSecurityConstraints()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.MENU__EVENT_HANDLER:
+				return basicSetEventHandler(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -248,6 +305,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return getSubmenu();
 			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
 				return getSecurityConstraints();
+			case GuigenPackage.MENU__EVENT_HANDLER:
+				return getEventHandler();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -279,6 +338,9 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				getSecurityConstraints().clear();
 				getSecurityConstraints().addAll((Collection<? extends UISecurityConstraint>)newValue);
 				return;
+			case GuigenPackage.MENU__EVENT_HANDLER:
+				setEventHandler((EventHandler)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -306,6 +368,9 @@ public class MenuImpl extends EObjectImpl implements Menu {
 			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
 				getSecurityConstraints().clear();
 				return;
+			case GuigenPackage.MENU__EVENT_HANDLER:
+				setEventHandler((EventHandler)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -328,6 +393,8 @@ public class MenuImpl extends EObjectImpl implements Menu {
 				return submenu != null && !submenu.isEmpty();
 			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
 				return securityConstraints != null && !securityConstraints.isEmpty();
+			case GuigenPackage.MENU__EVENT_HANDLER:
+				return eventHandler != null;
 		}
 		return super.eIsSet(featureID);
 	}

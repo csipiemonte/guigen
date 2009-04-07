@@ -2956,13 +2956,22 @@ public interface GuigenPackage extends EPackage {
 	int MENU__SECURITY_CONSTRAINTS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Event Handler</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU__EVENT_HANDLER = 5;
+
+	/**
 	 * The number of structural features of the '<em>Menu</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_FEATURE_COUNT = 5;
+	int MENU_FEATURE_COUNT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6337,6 +6346,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getMenu_SecurityConstraints();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.Menu#getEventHandler <em>Event Handler</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Event Handler</em>'.
+	 * @see it.csi.mddtools.guigen.Menu#getEventHandler()
+	 * @see #getMenu()
+	 * @generated
+	 */
+	EReference getMenu_EventHandler();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MenuItem <em>Menu Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8701,6 +8721,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MENU__SECURITY_CONSTRAINTS = eINSTANCE.getMenu_SecurityConstraints();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Handler</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MENU__EVENT_HANDLER = eINSTANCE.getMenu_EventHandler();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenuItemImpl <em>Menu Item</em>}' class.

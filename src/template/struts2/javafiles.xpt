@@ -363,9 +363,34 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	}
 
 	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
-	«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
-	«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
-	«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
+		«IF tlmenu.eventHandler!=null»
+	/**
+	 * 
+	 * @return SUCCESS result.
+	 */
+	public String goTo«tlmenu.name.toFirstUpper()»() throws Exception{
+	    
+		// gestione degli eventi di tipo CLICKED
+		ICommand action = initCommand("«tlmenu.name»","CLICKED");
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning result [" + result + "]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return result;
+		} else {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return SUCCESS;
+		}
+	}		
+		«ENDIF»
+		«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
+		«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
+		«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
 	/**
 	 * 
 	 * @return SUCCESS result.
@@ -390,9 +415,9 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		}
 	}
 
-	«ENDLET»
-	«ENDIF»
-	«ENDFOREACH»
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
 	«ENDFOREACH»
 
     public static final String ACTIVE_MENU_ATTRNAME = "active_menu";

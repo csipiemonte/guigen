@@ -432,6 +432,23 @@ public class SequenceCommand implements ICommand {
 	public ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
+		«LET getAllEventSourceMenus() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		// contiene i comandi del menu «((Menu)currEventSource).name» per ogni Ev.H.
+		HashMap<String, ICommand> cmds4«((Menu)currEventSource).name»ByEvh = 
+		  new HashMap<String, ICommand>();
+		«LET ((Menu)currEventSource).eventHandler AS evhs»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«LET evhs AS currEvh»
+		cmds4«((Menu)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((Menu)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		«ENDLET»
+		«ENDLET»
+		cmdsByWidget.put("«((Menu)currEventSource).name»",cmds4«((Menu)currEventSource).name»ByEvh);	
+		«ENDFOREACH»
+		«ENDIF»
+		«ENDLET»
+		
 		«LET getAllEventSourceMenuItems() AS eventSources»
 		«IF eventSources.size>0»
 		«FOREACH eventSources AS currEventSource»
@@ -441,18 +458,21 @@ public class SequenceCommand implements ICommand {
 		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
 		«LET evhs AS currEvh»
-		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
 		«ENDLET»
 		«ENDLET»
 		cmdsByWidget.put("«((MenuItem)currEventSource).name»",cmds4«((MenuItem)currEventSource).name»ByEvh);	
 		«ENDFOREACH»
+		«ENDIF»
+		«ENDLET»
+		
+		«IF getAllEventSourceMenuItems().size>0 || getAllEventSourceMenus().size>0»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
 		«ELSE»
 		return new ICommand(){
 			public String doCommand(BaseAction strutsAction){return null;}
 		};
 		«ENDIF»
-		«ENDLET»
 	}
 	
 	«LET getAllEventSourceMenuItems() AS eventSources»
@@ -463,6 +483,22 @@ public class SequenceCommand implements ICommand {
 		public ICommand initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((MenuItem)currEvh.eContainer).name, model) FOR currEvh»
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
+		return action;
+		}
+		«ENDLET»
+		«ENDLET»	
+		«ENDFOREACH»
+		«ENDIF»
+	«ENDLET»
+	
+	«LET getAllEventSourceMenus() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		«LET ((Menu)currEventSource).eventHandler AS evhs»
+		«LET evhs AS currEvh»
+		public ICommand initCommand«((Menu)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Menu)currEvh.eContainer).name, model) FOR currEvh»
+		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Menu)currEvh.eContainer).name»_1; 
 		return action;
 		}
 		«ENDLET»

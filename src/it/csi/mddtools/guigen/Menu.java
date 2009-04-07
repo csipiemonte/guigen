@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Menu#getItem <em>Item</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getSubmenu <em>Submenu</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Menu#getSecurityConstraints <em>Security Constraints</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Menu#getEventHandler <em>Event Handler</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +131,31 @@ public interface Menu extends EObject {
 	 * @generated
 	 */
 	EList<UISecurityConstraint> getSecurityConstraints();
+
+	/**
+	 * Returns the value of the '<em><b>Event Handler</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Event Handler</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event Handler</em>' containment reference.
+	 * @see #setEventHandler(EventHandler)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_EventHandler()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EventHandler getEventHandler();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Menu#getEventHandler <em>Event Handler</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Event Handler</em>' containment reference.
+	 * @see #getEventHandler()
+	 * @generated
+	 */
+	void setEventHandler(EventHandler value);
 
 } // Menu

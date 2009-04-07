@@ -306,21 +306,8 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 		«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
 		«EXPAND getMenuItemMarkupSistemaPiemonte(level) FOR tlmenu.item.first() -»
 	«ELSE-»
-	<s:if test="isMenuVisible('«tlmenu.name»')" >
-	<li class="sottomenu"><s:text name="«tlmenu.name».label" />
-		<ul>
-		«REM»Espando gli Item«ENDREM»
-		«FOREACH tlmenu.item AS currMenuItem-»
-			«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem -»
-		«ENDFOREACH-»
-
-		«REM»Espando i sottomenu«ENDREM»
-		«FOREACH tlmenu.submenu AS currSubMenu-»
-			«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu -»
-		«ENDFOREACH-»
-		</ul>
-	</li>
-	</s:if>
+		«EXPAND getMenuMarkupSistemaPiemonte(level) FOR tlmenu»
+	
 	«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»
@@ -350,6 +337,49 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «ENDIF-»
 	</s:if>
 «ENDDEFINE»
+
+«DEFINE getMenuMarkupSistemaPiemonte(int level) FOR Menu -»
+	<s:if test="isMenuVisible('«this.name»')" >
+«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+	«LET this.eventHandler.command AS currAction-»
+	  <s:if test="isMenuEnabled('«this.name»')" >
+	    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	    <li «getMenuCssSistemaPiemonte(this, level, true)»>
+		  <s:a «getMenuLinkCssSistemaPiemonte(this, level)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			  «getMenuLabelSistemaPiemonte(this, level)»
+		  </s:a>
+		  «IF this.item.size>0 || this.submenu.size>0»
+		  <ul>
+		  	«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
+	  	  	«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+	  	  </ul>
+	  	  «ENDIF»
+	    </li>
+	  </s:if>
+	  <s:else>
+	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
+	  	«IF this.item.size>0 || this.submenu.size>0»
+		  <ul>
+	  		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
+	  		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+	      </ul>
+	    «ENDIF»
+	  	</li>
+	  </s:else>
+	«ENDLET-»
+«ELSE-»
+	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
+	  	«IF this.item.size>0 || this.submenu.size>0»
+		  <ul>
+	  		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
+	  		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+	  	  </ul>
+	  	«ENDIF»
+	  	</li>
+«ENDIF-»
+	</s:if>
+«ENDDEFINE»
+
 
 «REM»Genera un sottoMenu«ENDREM»
 «DEFINE getSubMenuMarkupSistemaPiemonte(int level) FOR Menu»

@@ -460,6 +460,26 @@ public class GenUtils {
 	 * @param mi
 	 * @return
 	 */
+	public static List<ContentPanel> getAllPossibleJumps(Menu m){
+		List<ContentPanel> result = new ArrayList<ContentPanel>();
+		EventHandler currEH = m.getEventHandler();
+		result = getAllPossibleJumps(currEH);
+		// vai nei sottomenu
+		if (m.getSubmenu().size()>0){
+			Iterator<Menu> it_subm = m.getSubmenu().iterator();
+			while(it_subm.hasNext()){
+				Menu currSubm = it_subm.next();
+				result.addAll(getAllPossibleJumps(currSubm));
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param mi
+	 * @return
+	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi){
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
 		EventHandler currEH = mi.getEventHandler();
@@ -467,6 +487,25 @@ public class GenUtils {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @param mi
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Menu m){
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+		EventHandler currEH = m.getEventHandler();
+		result = getAllPossibleExtJumps(currEH);
+		// vai nei sottomenu
+		if (m.getSubmenu().size()>0){
+			Iterator<Menu> it_subm = m.getSubmenu().iterator();
+			while(it_subm.hasNext()){
+				Menu currSubm = it_subm.next();
+				result.addAll(getAllPossibleExtJumps(currSubm));
+			}
+		}
+		return result;
+	}
 	/**
 	 * 
 	 * @param p
@@ -875,6 +914,40 @@ public class GenUtils {
 		return result;
 	}
 
+	
+	/**
+	 * 
+	 * @param mb
+	 * @return
+	 */
+	public static List<Menu> getAllEventSourceMenus(Menubar mb){
+		List<Menu> result = new ArrayList<Menu>();
+		Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
+		while(m_it.hasNext()){
+			Menu currMnu = m_it.next();
+			List<Menu> currMenus = getAllEventSourceMenus(currMnu);
+			result.addAll(currMenus);
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 */
+	public static List<Menu> getAllEventSourceMenus(Menu m){
+		List<Menu> result = new ArrayList<Menu>();
+		if (m.getEventHandler()!=null)
+			result.add(m);
+		Iterator<Menu> it_m = m.getSubmenu().iterator();
+		while(it_m.hasNext()){
+			Menu currSM = it_m.next();
+			result.addAll(getAllEventSourceMenus(currSM));
+		}
+		return result;
+	}
+	
 	//////////////////////
 
 	/**
