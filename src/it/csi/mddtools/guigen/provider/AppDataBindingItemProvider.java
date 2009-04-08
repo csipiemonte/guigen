@@ -8,7 +8,9 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.AppDataBinding;
+import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.MultiDataWidget;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,6 +20,9 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -135,6 +140,16 @@ public class AppDataBindingItemProvider
 	public String getText(Object object) {
 		AppDataBinding binding = (AppDataBinding)object;
 		String label = "";
+		// aggiungo un testoi che descriva se si tratta di data binding o fonte dati
+		EStructuralFeature container  = binding.eContainingFeature();
+		if (container.getName().equals("databinding")){
+			label += "value ";
+		}
+		else if(container.getName().equals("multiDataBinding")){
+			label += "collection ";
+		}
+		else label+= "???";
+		//
 		if (binding.getAppData()!=null){
 			label+= "bound to " +binding.getAppData().getName();
 			if (binding.getPath()!=null && binding.getPath().length()>0)
@@ -142,7 +157,9 @@ public class AppDataBindingItemProvider
 		}
 		else
 			label+="<not bound>";
-		return getString("_UI_AppDataBinding_type") + " " + label;
+		
+		//return getString("_UI_AppDataBinding_type") + " " + label;
+		return " " + label;
 	}
 
 	/**
