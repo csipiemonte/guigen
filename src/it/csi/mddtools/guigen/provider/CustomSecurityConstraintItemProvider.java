@@ -115,9 +115,9 @@ public class CustomSecurityConstraintItemProvider
 		else if (secCtr.isVisible()&&secCtr.isEnabled())
 			label+="<incompatible constrained behavior: select only one>";
 		else
-			label+=(secCtr.isVisible()?"visibile if ":"")+
-			""+(secCtr.isEnabled()?"enabled if ":"")+
-			"custom constraint ["+secCtr.getMethodNameSuffix()+"] satisfied";
+			label+=(secCtr.isVisible()?"visibile ":"")+
+			""+(secCtr.isEnabled()?"enabled ":"")+
+			"if custom constraint ["+secCtr.getMethodNameSuffix()+"] satisfied";
 		return label;
 	}
 

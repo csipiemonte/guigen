@@ -114,9 +114,9 @@ public class UCBasedSecurityConstraintItemProvider
 		else if (secCtr.isVisible()&&secCtr.isEnabled())
 			label+="<incompatible constrained behavior: select only one>";
 		else
-			label += (secCtr.isVisible()?"visible ":"")+
-		""+(secCtr.isEnabled()?"enabled ":"")+
-		"for UC:"+(secCtr.getUseCase()!=null?secCtr.getUseCase().getCode():"<undefined>");
+			label += (secCtr.isVisible()?"visible if ":"")+
+		""+(secCtr.isEnabled()?"enabled if ":"")+
+		"current user is allowed for UC:"+(secCtr.getUseCase()!=null?secCtr.getUseCase().getCode():"<undefined>");
 		return label;
 	}
 

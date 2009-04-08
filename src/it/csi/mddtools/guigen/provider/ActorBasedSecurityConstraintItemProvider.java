@@ -114,9 +114,9 @@ public class ActorBasedSecurityConstraintItemProvider
 		else if (secCtr.isVisible()&&secCtr.isEnabled())
 			label+="<incompatible constrained behavior: select only one>";
 		else
-			label += (secCtr.isVisible()?"visible ":"")+
-			""+(secCtr.isEnabled()?"enabled ":"")+
-			"for Actor:"+(secCtr.getActor()!=null?secCtr.getActor().getCode():"<undefined>");
+			label += (secCtr.isVisible()?"visible if":"")+
+			""+(secCtr.isEnabled()?"enabled if":"")+
+			"current user is Actor:"+(secCtr.getActor()!=null?secCtr.getActor().getCode():"<undefined>");
 		return label;
 	}
 

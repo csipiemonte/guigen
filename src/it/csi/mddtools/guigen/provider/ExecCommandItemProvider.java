@@ -185,7 +185,7 @@ public class ExecCommandItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -194,7 +194,6 @@ public class ExecCommandItemProvider
 		switch (notification.getFeatureID(ExecCommand.class)) {
 			case GuigenPackage.EXEC_COMMAND__METHOD_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case GuigenPackage.EXEC_COMMAND__RESULTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
