@@ -149,12 +149,14 @@ public class GridWidgetLayoutSpecItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		GridWidgetLayoutSpec gridWidgetLayoutSpec = (GridWidgetLayoutSpec)object;
-		return getString("_UI_GridWidgetLayoutSpec_type") + " " + gridWidgetLayoutSpec.getRow();
+		String label = "";
+		label+= "[r:"+gridWidgetLayoutSpec.getRow()+", c:"+gridWidgetLayoutSpec.getColumn()+"] span: "+gridWidgetLayoutSpec.getHspan();
+		return getString("_UI_GridWidgetLayoutSpec_type") + " " + label;
 	}
 
 	/**

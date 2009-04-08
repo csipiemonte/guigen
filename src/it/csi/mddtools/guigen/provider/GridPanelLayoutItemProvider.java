@@ -126,12 +126,14 @@ public class GridPanelLayoutItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		GridPanelLayout gridPanelLayout = (GridPanelLayout)object;
-		return getString("_UI_GridPanelLayout_type") + " " + gridPanelLayout.getColumns();
+		String label = "";
+		label+=": "+gridPanelLayout.getRows()+" rows X "+gridPanelLayout.getColumns()+" columns";
+		return getString("_UI_GridPanelLayout_type") + label;
 	}
 
 	/**
