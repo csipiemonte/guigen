@@ -42,9 +42,13 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
             </item>
-            <item name="mnu_3_2" label="menu 3-2">
+            <item name="mnu_3_2" label="gen. Err.Unrecov.">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <command xsi:type="guigen:ExecCommand" methodName="generaErroreUnrecoverable">
+                  <results resultCode="ERROR">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </results>
+                </command>
               </eventHandler>
             </item>
           </topLevelMenu>
