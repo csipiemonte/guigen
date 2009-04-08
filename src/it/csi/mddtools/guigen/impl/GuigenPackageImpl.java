@@ -3475,7 +3475,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		checkBoxEClass.getESuperTypes().add(this.getDataWidget());
 		radioButtonsEClass.getESuperTypes().add(this.getDataWidget());
 		radioButtonEClass.getESuperTypes().add(this.getWidget());
-		radioButtonEClass.getESuperTypes().add(this.getMultiDataWidget());
 		resetButtonEClass.getESuperTypes().add(this.getButton());
 		confirmButtonEClass.getESuperTypes().add(this.getButton());
 		horizontalFlowPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());

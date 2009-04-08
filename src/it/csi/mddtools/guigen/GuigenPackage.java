@@ -2587,22 +2587,13 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTON__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
-	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RADIO_BUTTON__MULTI_DATA_BINDING = WIDGET_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Radio Button</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
+	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.

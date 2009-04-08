@@ -133,6 +133,7 @@ public class MenuItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.MENU__ITEM);
 			childrenFeatures.add(GuigenPackage.Literals.MENU__SUBMENU);
 			childrenFeatures.add(GuigenPackage.Literals.MENU__SECURITY_CONSTRAINTS);
+			childrenFeatures.add(GuigenPackage.Literals.MENU__EVENT_HANDLER);
 		}
 		return childrenFeatures;
 	}
@@ -194,6 +195,7 @@ public class MenuItemProvider
 			case GuigenPackage.MENU__ITEM:
 			case GuigenPackage.MENU__SUBMENU:
 			case GuigenPackage.MENU__SECURITY_CONSTRAINTS:
+			case GuigenPackage.MENU__EVENT_HANDLER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -235,6 +237,11 @@ public class MenuItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU__SECURITY_CONSTRAINTS,
 				 GuigenFactory.eINSTANCE.createCustomSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU__EVENT_HANDLER,
+				 GuigenFactory.eINSTANCE.createEventHandler()));
 	}
 
 	/**

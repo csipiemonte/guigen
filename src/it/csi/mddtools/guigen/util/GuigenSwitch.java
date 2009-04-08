@@ -246,7 +246,6 @@ public class GuigenSwitch<T> {
 				RadioButton radioButton = (RadioButton)theEObject;
 				T result = caseRadioButton(radioButton);
 				if (result == null) result = caseWidget(radioButton);
-				if (result == null) result = caseMultiDataWidget(radioButton);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
