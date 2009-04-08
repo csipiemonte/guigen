@@ -17,6 +17,7 @@ import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.CustomSecurityConstraint;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
@@ -40,6 +41,7 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
@@ -1120,7 +1122,55 @@ public class GenUtils {
 		return ris;
 	}
 
+	///////////////////////////////
+	
+	
+	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4Menus(Menubar mb){
+		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
+		Iterator<Menu> it_m = mb.getTopLevelMenu().iterator();
+		while(it_m.hasNext()){
+			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4Menu(it_m.next());
+			result.addAll(currRis);
+		}
+		return result;
+	}
 
+	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4Menu(Menu m){
+		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
+		if(m.getSecurityConstraints().size()>0){
+			Iterator<UISecurityConstraint> it_sc = m.getSecurityConstraints().iterator();
+			while(it_sc.hasNext()){
+				UISecurityConstraint currSC = it_sc.next();
+				if (currSC instanceof CustomSecurityConstraint)
+					result.add((CustomSecurityConstraint)currSC);
+			}
+		}
+		Iterator<MenuItem> it_mi = m.getItem().iterator();
+		Iterator<Menu> it_subm = m.getSubmenu().iterator();
+		while(it_mi.hasNext()){
+			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4MenuItem(it_mi.next());
+			result.addAll(currRis);
+		}
+		while(it_subm.hasNext()){
+			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4Menu(it_subm.next());
+			result.addAll(currRis);
+		}
+		return result;
+	}
+	
+	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
+		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
+		if (mi.getSecurityConstraints().size()>0){
+			Iterator<UISecurityConstraint> it_sc = mi.getSecurityConstraints().iterator();
+			while(it_sc.hasNext()){
+				UISecurityConstraint currSC = it_sc.next();
+				if (currSC instanceof CustomSecurityConstraint)
+					result.add((CustomSecurityConstraint)currSC);
+			}	
+		}
+		return result;
+	}
+	
 	/**
 	 * restituisce la stringa OGNL per il value del data widget.
 	 * Se il widget ha un app data binding viene referenziato quello, altrimenti

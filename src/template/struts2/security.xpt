@@ -1019,13 +1019,13 @@ public class «getSpringSecurityHelperClassName()»{
 	///////////////////////////////////////////////////////////////////////////////
 	
 	«FOREACH structure.appWindow.appArea.contentPanels AS cp-»
-	«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
-	«LET cpWidgets.select(w|w.securityConstraints.select(c|c.metaType==CustomSecurityConstraint).size>0) AS allCustomConstrainedWidgets-»
-	«FOREACH (List[CustomSecurityConstraint])(allCustomConstrainedWidgets.securityConstraints.select(c|c.metaType==CustomSecurityConstraint)) AS currCustomSC-»
+		«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
+			«LET cpWidgets.select(w|w.securityConstraints.select(c|c.metaType==CustomSecurityConstraint).size>0) AS allCustomConstrainedWidgets-»
+			«FOREACH (List[CustomSecurityConstraint])(allCustomConstrainedWidgets.securityConstraints.select(c|c.metaType==CustomSecurityConstraint)) AS currCustomSC-»
 	public boolean customCheck«currCustomSC.methodNameSuffix.toFirstUpper()» (Map session)
 		throws BEException
 	{
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+currCustomSC.methodNameSuffix)-»
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+currCustomSC.methodNameSuffix)-»
 		/// inserire qui il codice del controllo custom
 		try{
 			return true;
@@ -1034,11 +1034,30 @@ public class «getSpringSecurityHelperClassName()»{
 			log.error("[SecurityHelper::customCheck«currCustomSC.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
 			throw new BEException("Errore durante l'esecuzione del metodo customCheck«currCustomSC.methodNameSuffix.toFirstUpper()»", ex);
 		}
-		«ENDPROTECT»
+			«ENDPROTECT»
 	}
-	«ENDFOREACH-»
-	«ENDLET-»
-	«ENDLET-»
+			«ENDFOREACH-»
+			«ENDLET-»
+		«ENDLET-»
+		«LET getAllCustomSecConstraints4Menus(this.structure.appWindow.appArea.menubar) AS customCtr4Menu-»
+			«FOREACH customCtr4Menu AS currMenuCustomCtr-»
+		
+	public boolean customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()» (Map session)
+		throws BEException
+	{
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+(((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix))-»
+		/// inserire qui il codice del controllo custom
+		try{
+			return true;
+		}
+		catch(Throwable ex){
+			log.error("[SecurityHelper::customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»", ex);
+		}
+			«ENDPROTECT»
+	}		
+			«ENDFOREACH-»
+		«ENDLET»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
