@@ -39,9 +39,9 @@ Definizioni generali: Pagine di ERRORE
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspPageNotFoundErrorSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::getJspPageNotFoundError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -55,9 +55,9 @@ Definizioni generali: Pagine di ERRORE
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspApplicationErrorSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::getJspApplicationError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -71,9 +71,9 @@ Definizioni generali: Pagine di ERRORE
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspFatalErrorSistemaPiemonte FOR this»
+	«EXPAND remoteResourcesSisp::getJspFatalError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -95,9 +95,9 @@ Definizioni generali: header, footer, ecc
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getHeaderMarkupRupar(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesRupar::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getHeaderMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesSisp::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -110,9 +110,9 @@ Definizioni generali: header, footer, ecc
 TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getStaticLinkMarkupRupar(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesRupar::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getStaticLinkMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesSisp::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -123,9 +123,9 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getMenubarMarkupRupar(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesRupar::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getMenubarMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesSisp::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -139,9 +139,9 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getFooterMarkupRupar(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesRupar::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getFooterMarkupSistemaPiemonte(model, skip_component_dir_creation) FOR this»
+	«EXPAND remoteResourcesSisp::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -164,9 +164,9 @@ Gestione dei PANNELLI
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupFirstLevelFormPanelSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND remoteResourcesSisp::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -174,15 +174,26 @@ Gestione dei PANNELLI
 
 
 «REM»
-************** Tabset Panel **************
+************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanelByPortal(GUIModel model) FOR TabSetPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupTabSetPanelRupar(model) FOR this»
+	«EXPAND remoteResourcesRupar::setupTabSetPanel(model) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupTabSetPanelSistemaPiemonte(model) FOR this»
+	«EXPAND remoteResourcesSisp::setupTabSetPanel(model) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»WizardPanel«ENDREM»
+«DEFINE setupWizardPanelByPortal(GUIModel model) FOR WizardPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::setupWizardPanel(model) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::setupWizardPanel(model) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -195,9 +206,9 @@ Gestione dei PANNELLI
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::setupStdMessagePanel(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupStdMessagePanelSistemaPiemonte(model, cp) FOR this»
+	«EXPAND remoteResourcesSisp::setupStdMessagePanel(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -211,7 +222,7 @@ Gestione dei PANNELLI
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupUserInfoPanelSistemaPiemonte(model, cp) FOR this»
+	«EXPAND remoteResourcesSisp::setupUserInfoPanel(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -228,9 +239,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -239,9 +250,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -250,9 +261,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeaderRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeaderSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -262,9 +273,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -273,9 +284,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -284,9 +295,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayoutRupar(quadrante) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooterSistemaPiemonte(quadrante) FOR this»
+	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -296,9 +307,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetControlHeaderRupar(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::widgetControlHeader(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeaderSistemaPiemonte(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -308,9 +319,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetControlFooterRupar(fp, isFirst, isLast) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::widgetControlFooter(fp, isFirst, isLast) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooterSistemaPiemonte(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlFooter(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -320,9 +331,9 @@ Gestione dei LAYOUT
 «REM»comment«ENDREM»
 «DEFINE widgetClose(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetCloseRupar(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«REM»«EXPAND remoteResourcesRupar::widgetClose(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetCloseSistemaPiemonte(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetClose(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»

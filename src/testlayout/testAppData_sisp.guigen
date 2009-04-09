@@ -3,7 +3,7 @@
   <structure>
     <appWindow>
       <footer/>
-      <header codCanale="finanziamenti" codApplicativo="pbandi"/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="Finanziamenti" linkCanale="http://www.sistemapiemonte.it/finanziamenti/index.shtml" nomeApplicativo="Bandi"/>
       <appArea>
         <menubar>
           <topLevelMenu name="mnuAnagrafica" label="Anagrafiche">
@@ -37,6 +37,11 @@
             <item name="mnuItmAzienda5" label="Azienda 5">
               <eventHandler>
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.10"/>
+              </eventHandler>
+            </item>
+            <item name="mnuItmAzienda6" label="Azienda 6">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -790,12 +795,6 @@
                 <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
               </panels>
               <panels xsi:type="guigen:FormPanel" name="a4Tab2" label="Tab 2">
-                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="indirizzo" label="Indirizzo" dataType="//@typedefs/@types.9" fieldLength="20"/>
-                <widgets xsi:type="guigen:TextField" name="numCiv" label="Num. civ." dataType="//@typedefs/@types.9" fieldLength="5"/>
-                <widgets xsi:type="guigen:TextField" name="cap" label="CAP" dataType="//@typedefs/@types.9" fieldLength="5"/>
-              </panels>
-              <panels xsi:type="guigen:FormPanel" name="a4Tab3" label="Tab 3">
                 <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
                 <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
@@ -824,6 +823,31 @@
                 <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
                 </widgets>
+              </panels>
+              <panels xsi:type="guigen:FormPanel" name="a4Tab3" label="Esempio Wizard">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WizardPanel" name="a4Tab3Wiz">
+                  <panels xsi:type="guigen:FormPanel" name="step1" label="Caratteristiche">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="st1pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 1"/>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="step2" label="Dati fiscali e inventario">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="st2pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 2"/>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="step3" label="Riepilogo dati inseriti 3">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="st3pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 3"/>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="step4" label="Riepilogo dati inseriti 4">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="st4pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 4"/>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="step5" label="Riepilogo dati inseriti 5">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="st5pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 5"/>
+                  </panels>
+                </subpanels>
               </panels>
             </subpanels>
           </panels>
@@ -906,6 +930,125 @@
                 <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva3" label="Attiva 3">
                   <eventHandlers>
                     <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.10/@panels/@subpanels.3/@subpanels.0/@panels.2"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpAzienda6" appData="//@appDataDefs/@appData.6">
+          <panels xsi:type="guigen:FormPanel" name="pAzienda6" label="Azienda 6">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fA6up">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+              <subpanels xsi:type="guigen:UserInfoPanel" name="uiPanel"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="fA6down">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="DOWN"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="fA6left">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <widgets xsi:type="guigen:MenuView" name="mvA6"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="fA6center">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="spDatiAnagrafici" label="Dati Anagrafici">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfCodFisc" label="Codice Fiscale" dataTypeModifier="" dataType="//@typedefs/@types.9" required="true" fieldLength="16"/>
+                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9" required="true" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataTypeModifier="" dataType="//@typedefs/@types.9" required="true" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="tfEta" label="Età" dataTypeModifier="" dataType="//@typedefs/@types.0" required="true"/>
+                <widgets xsi:type="guigen:TextField" name="dataNascita" label="Data nascita" dataTypeModifier="" dataType="//@typedefs/@types.3" required="true"/>
+                <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.9">
+                  <radio name="M" label="M"/>
+                  <radio name="F" label="F"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:TabSetPanel" name="tA6tabpanel" label="">
+                <panels xsi:type="guigen:FormPanel" name="a6Tab1" label="Tab 1">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="nome" label="Nome" dataType="//@typedefs/@types.9"/>
+                  <widgets xsi:type="guigen:TextField" name="cognome" label="Cognome" dataType="//@typedefs/@types.9"/>
+                  <widgets xsi:type="guigen:TextField" name="eta" label="Eta'" dataType="//@typedefs/@types.9" fieldLength="5"/>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="a6Tab2" label="Tab 2">
+                  <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="3"/>
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c1" label="R1 C1" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c2" label="R2 C2" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c3" label="R3 C3" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c3" label="R1 C3" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c1" label="R3 C1" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c3" label="R2 C3" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r2_c1" label="R2 C1" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r1_c2" label="R1 C2" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="a_r3_c2" label="R3 C2" dataType="//@typedefs/@types.9" fieldLength="10">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
+                  </widgets>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="a6Tab3" label="Esempio Wizard">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WizardPanel" name="a6Tab3Wiz">
+                    <panels xsi:type="guigen:FormPanel" name="step1" label="Caratteristiche">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="st1pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 1"/>
+                    </panels>
+                    <panels xsi:type="guigen:FormPanel" name="step2" label="Dati fiscali e inventario">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="st2pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 2"/>
+                    </panels>
+                    <panels xsi:type="guigen:FormPanel" name="step3" label="Riepilogo dati inseriti 3">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="st3pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 3"/>
+                    </panels>
+                    <panels xsi:type="guigen:FormPanel" name="step4" label="Riepilogo dati inseriti 4">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="st4pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 4"/>
+                    </panels>
+                    <panels xsi:type="guigen:FormPanel" name="step5" label="Riepilogo dati inseriti 5">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="st5pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 5"/>
+                    </panels>
+                  </subpanels>
+                </panels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="spIndirizzo" label="Indirizzo">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="comune" label="Comune" dataType="//@typedefs/@types.9" fieldLength="50"/>
+                <widgets xsi:type="guigen:TextField" name="via" label="Via" dataType="//@typedefs/@types.9"/>
+                <widgets xsi:type="guigen:TextField" name="numCiv" label="Numero civico" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="spButtons">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bCreaSoggetto" label="Crea">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bGotoDettaglio" label="Indietro">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>

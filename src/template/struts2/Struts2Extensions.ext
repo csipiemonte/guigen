@@ -102,25 +102,36 @@ String getJspTabsMarkupDir(GUIModel model, boolean omit_root) :
 String getJspTabsConfig() :
 	"/" + getPresentationMarkupConfig() + "/tabs";
 
-// Jsp MultiPanel subpanel
+// Jsp MultiPanel includes
 String getJspMultiPanelsMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/multipanels";
 
 String getJspMultiPanelsConfig() :
 	"/" + getPresentationMarkupConfig() + "/multipanels";
 
+// Jsp WizardPanel includes
+String getJspWizardPanelsMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/wizardpanels";
+
+String getJspWizardPanelsConfig() :
+	"/" + getPresentationMarkupConfig() + "/wizardpanels";
+
 // JSP MultiPanels fragments
 String getJspMultiPanelFullName(GUIModel model, boolean omit_root, MultiPanel mp, Panel p) :
 	if ( mp.metaType == MultiPanel ) then
 		getJspMultiPanelsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp"
 	else if ( mp.metaType == TabSetPanel ) then
-		getJspTabsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp";
+		getJspTabsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp"
+	else if ( mp.metaType == WizardPanel ) then
+		getJspWizardPanelsMarkupDir(model, omit_root) + "/" + mp.name + "_" + p.name + ".jsp";
 
 String getMultiPanelJspInclude(MultiPanel mp, Panel p) :
 	if ( mp.metaType == MultiPanel ) then
 		getJspMultiPanelsConfig() + "/" + mp.name + "_" + p.name + ".jsp"
 	else if ( mp.metaType == TabSetPanel ) then
-		getJspTabsConfig() + "/" + mp.name + "_" + p.name + ".jsp";
+		getJspTabsConfig() + "/" + mp.name + "_" + p.name + ".jsp"
+	else if ( mp.metaType == WizardPanel ) then
+		getJspWizardPanelsConfig() + "/" + mp.name + "_" + p.name + ".jsp";
 
 // JSP for UserDefinedPanels
 String getJspUserDefinedPanelMarkupDir(GUIModel model, boolean omit_root) :

@@ -22,7 +22,7 @@ Definizioni generali: Pagine di ERRORE
 «ENDREM»
 
 «REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
-«DEFINE getJspPageNotFoundErrorSistemaPiemonte FOR GUIModel-»
+«DEFINE getJspPageNotFoundError FOR GUIModel-»
 «EXPAND getJspErrorPageHeader FOR this-»
 <h3><s:text name="error.notfound.title" /></h3>
 <div class="contenuti">
@@ -42,7 +42,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
-«DEFINE getJspApplicationErrorSistemaPiemonte FOR GUIModel-»
+«DEFINE getJspApplicationError FOR GUIModel-»
 «EXPAND getJspErrorPageHeader FOR this-»
 <h3><s:text name="error.applicationerror.title" /></h3>
 <div class="contenuti">
@@ -62,7 +62,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
-«DEFINE getJspFatalErrorSistemaPiemonte FOR GUIModel-»
+«DEFINE getJspFatalError FOR GUIModel-»
 «EXPAND getJspErrorPageHeader FOR this-»
 <h3><s:text name="error.fatalerror.title" /></h3>
 <div class="contenuti">
@@ -138,7 +138,7 @@ Definizioni generali: header, footer, ecc
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«codCanale»/«codApplicativo»/head.html" resourceProvider="sp" />
 <!--/head -->
 «REM»RIMOSSO: implementata REMINCL
@@ -253,11 +253,9 @@ Definizioni generali: header, footer, ecc
 				<div id="contPath">
 					<div id="path">
 						sei in:
-						<a href="http://www.sistemapiemonte.it/index.shtml">sistema
-							piemonte</a><span class="connessionePath">,&nbsp;</span><a
-							href="http://www.sistemapiemonte.it/index.shtml">area
-							tematica</a><span class="connessionePath">,&nbsp;</span>
-						<span class="selezione">Reference implementation sistema piemonte</span>
+						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
+						<a href="«this.linkCanale»">«this.nomeCanale»</a><span class="connessionePath">,&nbsp;</span>
+						<span class="selezione">«this.nomeApplicativo»</span>
 					</div>
 				</div>
 				<hr />
@@ -282,7 +280,7 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) deli LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
-«DEFINE getStaticLinkMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 «ENDDEFINE»
 
 
@@ -297,16 +295,16 @@ Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un c
 (o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello,
 e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di link.
 «ENDREM»
-«DEFINE getMenubarMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <div id="menuDiNavigazioneSisp2">
 	<ul class="menuCavalieri">
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
 	«IF hasUniqueMenuItem(tlmenu)-»
 		«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
-		«EXPAND getMenuItemMarkupSistemaPiemonte(level) FOR tlmenu.item.first() -»
+		«EXPAND getMenuItemMarkup(level) FOR tlmenu.item.first() -»
 	«ELSE-»
-		«EXPAND getMenuMarkupSistemaPiemonte(level) FOR tlmenu»
+		«EXPAND getMenuMarkup(level) FOR tlmenu»
 	
 	«ENDIF-»
 	«ENDFOREACH-»
@@ -316,7 +314,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «ENDDEFINE»
 
 «REM»Genera un MenuItem«ENDREM»
-«DEFINE getMenuItemMarkupSistemaPiemonte(int level) FOR MenuItem -»
+«DEFINE getMenuItemMarkup(int level) FOR MenuItem -»
 	<s:if test="isMenuVisible('«this.name»')" >
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
@@ -338,7 +336,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	</s:if>
 «ENDDEFINE»
 
-«DEFINE getMenuMarkupSistemaPiemonte(int level) FOR Menu -»
+«DEFINE getMenuMarkup(int level) FOR Menu -»
 	<s:if test="isMenuVisible('«this.name»')" >
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
@@ -350,8 +348,8 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 		  </s:a>
 		  «IF this.item.size>0 || this.submenu.size>0»
 		  <ul>
-		  	«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
-	  	  	«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+		  	«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
+	  	  	«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
 	  	  </ul>
 	  	  «ENDIF»
 	    </li>
@@ -360,8 +358,8 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
 	  	«IF this.item.size>0 || this.submenu.size>0»
 		  <ul>
-	  		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
-	  		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+	  		«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
+	  		«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
 	      </ul>
 	    «ENDIF»
 	  	</li>
@@ -371,8 +369,8 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
 	  	«IF this.item.size>0 || this.submenu.size>0»
 		  <ul>
-	  		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOREACH this.item»
-	  		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOREACH this.submenu»
+	  		«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
+	  		«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
 	  	  </ul>
 	  	«ENDIF»
 	  	</li>
@@ -382,19 +380,19 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 
 
 «REM»Genera un sottoMenu«ENDREM»
-«DEFINE getSubMenuMarkupSistemaPiemonte(int level) FOR Menu»
+«DEFINE getSubMenuMarkup(int level) FOR Menu»
 <s:if test="isMenuVisible('«this.name»')" >
   <li class="sottomenu">«this.label»
 	<ul>
 
 	«REM»Espando gli Item«ENDREM»
 	«FOREACH this.item AS currMenuItem-»
-		«EXPAND getMenuItemMarkupSistemaPiemonte(level+1) FOR currMenuItem»
+		«EXPAND getMenuItemMarkup(level+1) FOR currMenuItem»
 	«ENDFOREACH-»
 
 	«REM»Espando i sottomenu«ENDREM»
 	«FOREACH this.submenu AS currSubMenu-»
-		«EXPAND getSubMenuMarkupSistemaPiemonte(level+1) FOR currSubMenu»
+		«EXPAND getSubMenuMarkup(level+1) FOR currSubMenu»
 	«ENDFOREACH-»
 	</ul>
   </li>
@@ -403,7 +401,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkupSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 					<hr />
 
 				</div>
@@ -444,12 +442,12 @@ Gestione dei PANNELLI
 
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
-«DEFINE setupFirstLevelFormPanelSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«EXPAND setupVFLSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-	«EXPAND setupUDLRCLSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
 	«REM»Come lo gestisco?«ENDREM»
 «ENDIF-»
@@ -458,7 +456,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
-«DEFINE setupVFLSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
 <div id="sfondoColonna">
 
@@ -483,14 +481,14 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
-«DEFINE setupUDLRCLSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 «LET getColumnsLayout(this) AS numeroColonne-»
 «IF numeroColonne == 1 -»
-	«EXPAND setupUnaColonnaSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF numeroColonne == 2 -»
-	«EXPAND setupDueColonneSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF numeroColonne == 3 -»
-	«EXPAND setupTreColonneSistemaPiemonte(model, skip_component_dir_creation, cp) FOR this»
+	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
 
 «ENDIF-»
@@ -499,7 +497,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
-«DEFINE setupUnaColonnaSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
 <div id="sfondoColonna">
 
@@ -548,7 +546,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
-«DEFINE setupDueColonneSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
 <div id="sfondo">
 	<h2 class="alt">menu della sezione</h2>
@@ -607,7 +605,7 @@ Gestione dei PANNELLI
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
-«DEFINE setupTreColonneSistemaPiemonte(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
 <div id="sfondo" class="treColonne">
 	<h2 class="alt">menu della sezione</h2>
@@ -677,21 +675,14 @@ Gestione dei PANNELLI
 
 
 «REM»
-************** Tabset Panel **************
+************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
 «ENDREM»
 
-«REM»
-TODO:
-1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
-     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
-     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
-2. Come si fa a riconoscere il tab attivo?
-3. Come si può implementare il meccanismo di cambio tab? (va fatto sulla classe Java della Action)
-«ENDREM»
-«DEFINE setupTabSetPanelSistemaPiemonte(GUIModel model) FOR TabSetPanel»
+«REM»TabsetPanel«ENDREM»
+«DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
 	<div class="conthTab">
 	«FOREACH this.panels AS currTab ITERATOR i-»
-		«REM»TAPPO PER PROVARE SENZA LOGICA JAVA DI APPOGGIO -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+		«REM»TAPPO PER PROVARE CON LOGICA JAVA DI APPOGGIO TEMPORANEA -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 		«LET i.lastIteration ? "<s:property value=\"%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"'" + (i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "") + " ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
 		<s:url id="«this.name»_«currTab.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
@@ -703,12 +694,41 @@ TODO:
 	</div>
 «ENDDEFINE»
 
+«REM»WizardPanel
+
+<li><span><a href="#">1. caratteristiche</a></span></li>
+<li><span class="evidenza"><strong>2.<span class="alt">sezione attiva:</span> dati fiscali e inventario</strong></span></li>
+<li><span>3. riepilogo dati inseriti</span></li>
+
+«ENDREM»
+«DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
+	<div id="wizard">
+	«FOREACH this.panels AS currStep ITERATOR i-»
+		«REM»TAPPO PER PROVARE CON LOGICA JAVA DI APPOGGIO TEMPORANEA -> SOSTITUIRE CON LOGICA VERA«ENDREM»
+		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
+		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«this.name»_«currStep.name»'}" />
+		</s:url>
+		<li>
+		<s:if test="%{#session.«this.name»_selectedMultiPanel == '«this.name»_«currStep.name»'«stepExtraCondition»}">
+			<span class="evidenza"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span>
+		</s:if>
+		<s:else>
+			<span><s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></span>
+		</s:else>
+		</li>
+		«ENDLET-»
+	«ENDFOREACH-»
+	</div>
+«ENDDEFINE»
+
 
 «REM»
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
 
-«DEFINE setupStdMessagePanelSistemaPiemonte(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
 <div class="contenuti">
 	<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
 </div>
@@ -719,7 +739,7 @@ TODO:
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 
-«DEFINE setupUserInfoPanelSistemaPiemonte(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 «LET model.appDataDefs.appData.select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 <div id="contUtente">
 	<div id="Utente">
@@ -742,44 +762,48 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»Genara la header di un sottopannello di tipo FormPanel«ENDREM»
-«DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF !isNullOrEmpty(this.label) -»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
+«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
 <div class="contenuti">
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
 	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
 	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genara la header di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
 «LET (this.layout.metaType == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout.metaType == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype-»
 <div «ptype»>
 «ENDLET-»
 «ENDDEFINE»
 
 «REM»Genara la header di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlHeaderSistemaPiemonte(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR MenuPanel»
 «REM»Non faccio niente (per il momento)«ENDREM»
 «ENDDEFINE»
 
 
 «REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
-«DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
 	</customtag:panelGrid>
 	«ENDIF-»
 </div>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genara la footer di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR CommandPanel»
 </div>
 «ENDDEFINE»
 
 «REM»Genara la footer di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlFooterSistemaPiemonte(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR MenuPanel»
 «REM»Non faccio niente (per il momento)«ENDREM»
 «ENDDEFINE»
 
@@ -794,7 +818,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
 <customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
 <customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
@@ -804,12 +828,12 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 </customtag:column>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagCloseHspan(fp, this) -»
 <s:else>
 	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»/>
@@ -821,22 +845,22 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 
 «REM»--------------- Button ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 «IF fp.layout.metaType == UDLRCPanelLayout-»
 «LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side-»
 <div «side»>
@@ -845,21 +869,21 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 «IF fp.layout.metaType == UDLRCPanelLayout-»
 </div>
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 «ENDDEFINE»
 
 
 «REM»--------------- Table ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
 «LET needHandleCustomtagHeaderHspan(fp, this) ? getCustomtagHeaderColspan(this)+1 : 2 AS colSpan-»
 <customtag:column colSpan="«colSpan»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDLET-»
@@ -869,7 +893,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
 «LET needHandleCustomtagHeaderHspan(fp, this) ? getCustomtagHeaderColspan(this)+1 : 2 AS colSpan-»
 <customtag:column colSpan="«colSpan»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDLET-»
@@ -879,29 +903,29 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 
 «REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseSistemaPiemonte(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 

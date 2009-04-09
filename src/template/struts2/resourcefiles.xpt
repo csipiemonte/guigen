@@ -161,13 +161,15 @@ Gestione dei pannelli
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == MenuPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
+	«EXPAND setupMenuPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
 	«EXPAND setupMultiPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
 	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+«ELSEIF this.metaType == WizardPanel-»
+	«EXPAND setupWizardPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
 «ELSEIF this.metaType == StdMessagePanel-»
 	«EXPAND setupStdMessagePanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
 «ELSEIF this.metaType == UserInfoPanel-»
@@ -205,14 +207,14 @@ Gestione dei pannelli
 «ENDDEFINE»
 
 «REM»Genera un CommandPanel«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE setupCommandPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 «ENDDEFINE»
 
 «REM»Genera un MenuPanel«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE setupMenuPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
@@ -220,7 +222,7 @@ Gestione dei pannelli
 
 
 «REM»
-************** Multi Panel e tipi derivati (TabsetPanel) **************
+************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
 «ENDREM»
 
 «REM»Genera un MultiPanel«ENDREM»
@@ -237,14 +239,25 @@ Gestione dei pannelli
 	«REM»Definizione del pannello«ENDREM»
 	«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»
 
-	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs
-	TODO: determinare meccanismo di inclusione del tab selezionato (deafult: primo tab)«ENDREM»
+	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currTab ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currTab-»
 	«ENDFOREACH-»
-
 «ENDDEFINE»
+
+«REM»Genera un WizardPanel«ENDREM»
+«DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WizardPanel»
+	«REM»Definizione del pannello«ENDREM»
+	«EXPAND remoteResources::setupWizardPanelByPortal(model) FOR this-»
+	
+	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
+	«FOREACH this.panels AS currStep ITERATOR i -»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currStep-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currStep-»
+	«ENDFOREACH-»	
+«ENDDEFINE»
+
 
 
 «REM»Crea i sottopannelli di un MultiPanel (e dei sottotipi: TabsetPanel)«ENDREM»
@@ -269,6 +282,8 @@ Gestione dei pannelli
 	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
 	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+«ELSEIF this.metaType == WizardPanel-»
+	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
 «ELSE-»
 	<!-- ERRORE. MultiPanel: tipo di sottopannello «this» non gestito!!!! -->
 «ENDIF-»

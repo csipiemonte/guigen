@@ -23,20 +23,19 @@ Definizioni generali: Pagine di ERRORE
 «ENDREM»
 
 «REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
-«DEFINE getJspPageNotFoundErrorRupar FOR GUIModel-»
-«EXPAND getJspErrorPageHeader FOR this-»
+«DEFINE getJspPageNotFoundError FOR GUIModel-»
 
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
-«DEFINE getJspApplicationErrorRupar FOR GUIModel-»
+«DEFINE getJspApplicationError FOR GUIModel-»
 
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
-«DEFINE getJspFatalErrorRupar FOR GUIModel-»
+«DEFINE getJspFatalError FOR GUIModel-»
 
 «ENDDEFINE»
 
@@ -60,35 +59,35 @@ Definizioni generali: header, footer, ecc
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) deli LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
-«DEFINE getStaticLinkMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
-«DEFINE getMenubarMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 
 «ENDDEFINE»
 
 «REM»Genera un MenuItem«ENDREM»
-«DEFINE getMenuItemMarkupRupar(int level) FOR MenuItem -»
+«DEFINE getMenuItemMarkup(int level) FOR MenuItem -»
 
 «ENDDEFINE»
 
 «REM»Genera un sottoMenu«ENDREM»
-«DEFINE getSubMenuMarkupRupar(int level) FOR Menu»
+«DEFINE getSubMenuMarkup(int level) FOR Menu»
 
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkupRupar(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 
 «ENDDEFINE»
 
@@ -102,53 +101,51 @@ Gestione dei PANNELLI
 
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
-«DEFINE setupFirstLevelFormPanelRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
-«DEFINE setupVFLRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
-«DEFINE setupUDLRCLRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
-«DEFINE setupUnaColonnaRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
-«DEFINE setupDueColonneRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
-«DEFINE setupTreColonneRupar(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
 «ENDDEFINE»
 
 
 «REM»
-************** Tabset Panel **************
+************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
 «ENDREM»
 
-«REM»
-TODO:
-1. stili: ci sono stili diversi da gestire sulla base della posizione del pannello e della sua attivazione o meno
-     - tab3 (tab normale), tabAttivo3 (nel caso il tab sia attivo)
-     - tabUltimo3 (ultimo tab del pannello), tabAttivoUltimo3 (nel caso l'ultimo tab sia attivo)
-2. Come si fa a riconoscere il tab attivo?
-3. Come si può implementare il meccanismo di cambio tab? (va fatto sulla classe Java della Action)
-«ENDREM»
-«DEFINE setupTabSetPanelRupar(GUIModel model) FOR TabSetPanel»
+«REM»TabsetPanel«ENDREM»
+«DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
+
+«ENDDEFINE»
+
+«REM»WizardPanel«ENDREM»
+«DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
 
 «ENDDEFINE»
 
@@ -157,7 +154,7 @@ TODO:
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
 
-«DEFINE setupStdMessagePanelRupar(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
 
 «ENDDEFINE»
 
@@ -166,7 +163,7 @@ TODO:
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 
-«DEFINE setupUserInfoPanelRupar(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 
 «ENDDEFINE»
 
@@ -179,33 +176,33 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»Genara la header di un sottopannello di tipo FormPanel«ENDREM»
-«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
 
 «ENDDEFINE»
 
 «REM»Genara la header di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
 
 «ENDDEFINE»
 
 «REM»Genara la header di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlHeaderRupar(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR MenuPanel»
 
 «ENDDEFINE»
 
 
 «REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
-«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
 
 «ENDDEFINE»
 
 «REM»Genara la footer di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR CommandPanel»
 
 «ENDDEFINE»
 
 «REM»Genara la footer di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlFooterRupar(UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR MenuPanel»
 
 «ENDDEFINE»
 
@@ -220,17 +217,17 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 
 «ENDDEFINE»
 
@@ -238,39 +235,39 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 
 «REM»--------------- Button ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
 «ENDDEFINE»
 
 
 «REM»--------------- Table ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
 
 «ENDDEFINE»
 
@@ -278,7 +275,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
 
 «ENDDEFINE»
 
@@ -286,29 +283,29 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 
 «REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeaderRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooterRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetCloseRupar(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 

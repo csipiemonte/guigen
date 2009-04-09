@@ -21,6 +21,7 @@ import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WizardPanel;
 
 
 /**
@@ -211,16 +212,6 @@ public class GenUtilsI18n {
 			}
 
 		} 
-		else if ( p instanceof MultiPanel ) {
-			List<Panel> mpl = ((MultiPanel)p).getPanels();
-			for (Panel panel : mpl) {
-				lbl = getPanelLabel(panel, cp);
-				if ( lbl != null) {
-					res.add(lbl);
-				}
-				res.addAll(getSubPanelsLabels(panel, cp));				
-			}
-		} 
 		else if ( p instanceof TabSetPanel ) {
 			List<Panel> tpl = ((TabSetPanel)p).getPanels();
 			for ( Panel tab : tpl ) {
@@ -231,6 +222,28 @@ public class GenUtilsI18n {
 				res.addAll(getSubPanelsLabels(tab, cp));				
 			}
 		}
+		else if ( p instanceof WizardPanel ) {
+			List<Panel> wpl = ((WizardPanel)p).getPanels();
+			int c = 1;
+			for ( Panel step : wpl ) {
+				lbl = getPanelLabel(step, cp, c);
+				if ( lbl != null) {
+					res.add(lbl);
+				}
+				res.addAll(getSubPanelsLabels(step, cp));
+				c++;
+			}
+		}
+		else if ( p instanceof MultiPanel ) {
+			List<Panel> mpl = ((MultiPanel)p).getPanels();
+			for (Panel panel : mpl) {
+				lbl = getPanelLabel(panel, cp);
+				if ( lbl != null) {
+					res.add(lbl);
+				}
+				res.addAll(getSubPanelsLabels(panel, cp));				
+			}
+		} 
 		else {
 			lbl = getPanelLabel(p, cp);
 			if ( lbl != null) {
@@ -255,6 +268,24 @@ public class GenUtilsI18n {
 		}
 		return res;
 	}
+	
+
+	/**
+	 * 
+	 * @param p
+	 * @param cp
+	 * @param c
+	 * @return
+	 */
+	private static String getPanelLabel(Panel p, ContentPanel cp, int c) {
+		String res = null;
+		String lab = p.getLabel();
+		if ( !GenUtils.isNullOrEmpty(lab) ) {
+			lab = Integer.toString(c) + ". " + lab;
+			res = cp.getName() + "." + p.getName() + ".label=" + lab;
+		}
+		return res;
+	}	
 	
 	
 	/**
