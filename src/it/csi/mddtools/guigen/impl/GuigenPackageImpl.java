@@ -2180,6 +2180,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getHeader_NomeCanale() {
+		return (EAttribute)headerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHeader_LinkCanale() {
+		return (EAttribute)headerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHeader_NomeApplicativo() {
+		return (EAttribute)headerEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFooter() {
 		return footerEClass;
 	}
@@ -3286,6 +3313,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		headerEClass = createEClass(HEADER);
 		createEAttribute(headerEClass, HEADER__COD_CANALE);
 		createEAttribute(headerEClass, HEADER__COD_APPLICATIVO);
+		createEAttribute(headerEClass, HEADER__NOME_CANALE);
+		createEAttribute(headerEClass, HEADER__LINK_CANALE);
+		createEAttribute(headerEClass, HEADER__NOME_APPLICATIVO);
 
 		footerEClass = createEClass(FOOTER);
 
@@ -3719,6 +3749,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(headerEClass, Header.class, "Header", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHeader_CodCanale(), ecorePackage.getEString(), "codCanale", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHeader_CodApplicativo(), ecorePackage.getEString(), "codApplicativo", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHeader_NomeCanale(), ecorePackage.getEString(), "nomeCanale", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHeader_LinkCanale(), ecorePackage.getEString(), "linkCanale", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHeader_NomeApplicativo(), ecorePackage.getEString(), "nomeApplicativo", null, 0, 1, Header.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(footerEClass, Footer.class, "Footer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

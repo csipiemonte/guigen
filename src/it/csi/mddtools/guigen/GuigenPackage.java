@@ -3469,13 +3469,40 @@ public interface GuigenPackage extends EPackage {
 	int HEADER__COD_APPLICATIVO = 1;
 
 	/**
+	 * The feature id for the '<em><b>Nome Canale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__NOME_CANALE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Link Canale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__LINK_CANALE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Nome Applicativo</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER__NOME_APPLICATIVO = 4;
+
+	/**
 	 * The number of structural features of the '<em>Header</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HEADER_FEATURE_COUNT = 2;
+	int HEADER_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of structural features of the '<em>Footer</em>' class.
@@ -6867,6 +6894,39 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getHeader_CodApplicativo();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Header#getNomeCanale <em>Nome Canale</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nome Canale</em>'.
+	 * @see it.csi.mddtools.guigen.Header#getNomeCanale()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_NomeCanale();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Header#getLinkCanale <em>Link Canale</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Link Canale</em>'.
+	 * @see it.csi.mddtools.guigen.Header#getLinkCanale()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_LinkCanale();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Header#getNomeApplicativo <em>Nome Applicativo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nome Applicativo</em>'.
+	 * @see it.csi.mddtools.guigen.Header#getNomeApplicativo()
+	 * @see #getHeader()
+	 * @generated
+	 */
+	EAttribute getHeader_NomeApplicativo();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Footer <em>Footer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9152,6 +9212,30 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute HEADER__COD_APPLICATIVO = eINSTANCE.getHeader_CodApplicativo();
+
+		/**
+		 * The meta object literal for the '<em><b>Nome Canale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__NOME_CANALE = eINSTANCE.getHeader_NomeCanale();
+
+		/**
+		 * The meta object literal for the '<em><b>Link Canale</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__LINK_CANALE = eINSTANCE.getHeader_LinkCanale();
+
+		/**
+		 * The meta object literal for the '<em><b>Nome Applicativo</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER__NOME_APPLICATIVO = eINSTANCE.getHeader_NomeApplicativo();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FooterImpl <em>Footer</em>}' class.

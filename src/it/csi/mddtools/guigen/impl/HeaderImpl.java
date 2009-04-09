@@ -24,6 +24,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getCodCanale <em>Cod Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getCodApplicativo <em>Cod Applicativo</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getNomeCanale <em>Nome Canale</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getLinkCanale <em>Link Canale</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getNomeApplicativo <em>Nome Applicativo</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +69,61 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	 * @ordered
 	 */
 	protected String codApplicativo = COD_APPLICATIVO_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNomeCanale() <em>Nome Canale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNomeCanale()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOME_CANALE_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getNomeCanale() <em>Nome Canale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNomeCanale()
+	 * @generated
+	 * @ordered
+	 */
+	protected String nomeCanale = NOME_CANALE_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getLinkCanale() <em>Link Canale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLinkCanale()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LINK_CANALE_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getLinkCanale() <em>Link Canale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLinkCanale()
+	 * @generated
+	 * @ordered
+	 */
+	protected String linkCanale = LINK_CANALE_EDEFAULT;
+	/**
+	 * The default value of the '{@link #getNomeApplicativo() <em>Nome Applicativo</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNomeApplicativo()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOME_APPLICATIVO_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getNomeApplicativo() <em>Nome Applicativo</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNomeApplicativo()
+	 * @generated
+	 * @ordered
+	 */
+	protected String nomeApplicativo = NOME_APPLICATIVO_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,6 +191,69 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getNomeCanale() {
+		return nomeCanale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNomeCanale(String newNomeCanale) {
+		String oldNomeCanale = nomeCanale;
+		nomeCanale = newNomeCanale;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.HEADER__NOME_CANALE, oldNomeCanale, nomeCanale));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLinkCanale() {
+		return linkCanale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLinkCanale(String newLinkCanale) {
+		String oldLinkCanale = linkCanale;
+		linkCanale = newLinkCanale;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.HEADER__LINK_CANALE, oldLinkCanale, linkCanale));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNomeApplicativo() {
+		return nomeApplicativo;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNomeApplicativo(String newNomeApplicativo) {
+		String oldNomeApplicativo = nomeApplicativo;
+		nomeApplicativo = newNomeApplicativo;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.HEADER__NOME_APPLICATIVO, oldNomeApplicativo, nomeApplicativo));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -140,6 +261,12 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return getCodCanale();
 			case GuigenPackage.HEADER__COD_APPLICATIVO:
 				return getCodApplicativo();
+			case GuigenPackage.HEADER__NOME_CANALE:
+				return getNomeCanale();
+			case GuigenPackage.HEADER__LINK_CANALE:
+				return getLinkCanale();
+			case GuigenPackage.HEADER__NOME_APPLICATIVO:
+				return getNomeApplicativo();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +284,15 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return;
 			case GuigenPackage.HEADER__COD_APPLICATIVO:
 				setCodApplicativo((String)newValue);
+				return;
+			case GuigenPackage.HEADER__NOME_CANALE:
+				setNomeCanale((String)newValue);
+				return;
+			case GuigenPackage.HEADER__LINK_CANALE:
+				setLinkCanale((String)newValue);
+				return;
+			case GuigenPackage.HEADER__NOME_APPLICATIVO:
+				setNomeApplicativo((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,6 +312,15 @@ public class HeaderImpl extends EObjectImpl implements Header {
 			case GuigenPackage.HEADER__COD_APPLICATIVO:
 				setCodApplicativo(COD_APPLICATIVO_EDEFAULT);
 				return;
+			case GuigenPackage.HEADER__NOME_CANALE:
+				setNomeCanale(NOME_CANALE_EDEFAULT);
+				return;
+			case GuigenPackage.HEADER__LINK_CANALE:
+				setLinkCanale(LINK_CANALE_EDEFAULT);
+				return;
+			case GuigenPackage.HEADER__NOME_APPLICATIVO:
+				setNomeApplicativo(NOME_APPLICATIVO_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,6 +337,12 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return COD_CANALE_EDEFAULT == null ? codCanale != null : !COD_CANALE_EDEFAULT.equals(codCanale);
 			case GuigenPackage.HEADER__COD_APPLICATIVO:
 				return COD_APPLICATIVO_EDEFAULT == null ? codApplicativo != null : !COD_APPLICATIVO_EDEFAULT.equals(codApplicativo);
+			case GuigenPackage.HEADER__NOME_CANALE:
+				return NOME_CANALE_EDEFAULT == null ? nomeCanale != null : !NOME_CANALE_EDEFAULT.equals(nomeCanale);
+			case GuigenPackage.HEADER__LINK_CANALE:
+				return LINK_CANALE_EDEFAULT == null ? linkCanale != null : !LINK_CANALE_EDEFAULT.equals(linkCanale);
+			case GuigenPackage.HEADER__NOME_APPLICATIVO:
+				return NOME_APPLICATIVO_EDEFAULT == null ? nomeApplicativo != null : !NOME_APPLICATIVO_EDEFAULT.equals(nomeApplicativo);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -210,6 +361,12 @@ public class HeaderImpl extends EObjectImpl implements Header {
 		result.append(codCanale);
 		result.append(", codApplicativo: ");
 		result.append(codApplicativo);
+		result.append(", nomeCanale: ");
+		result.append(nomeCanale);
+		result.append(", linkCanale: ");
+		result.append(linkCanale);
+		result.append(", nomeApplicativo: ");
+		result.append(nomeApplicativo);
 		result.append(')');
 		return result.toString();
 	}

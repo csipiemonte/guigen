@@ -68,11 +68,28 @@
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pUno" label="Uno">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:UserDefinedWidget" name="uswUno"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:TabSetPanel" name="pTabs" label="Tabs">
+                <panels xsi:type="guigen:FormPanel" name="tabUno" label="Uno">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="tf1_1" label="Text field 1_1" dataType="//@typedefs/@types.7"/>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="tabDue" label="Due">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="tf2_1" label="Text field 2_1" dataType="//@typedefs/@types.7"/>
+                </panels>
+              </subpanels>
             </subpanels>
           </panels>
+          <onRefreshCommand xsi:type="guigen:SequenceCommand">
+            <commands xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.0" show="true"/>
+            <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </onRefreshCommand>
         </contentPanels>
         <staticLinks/>
-        <onInitCommand xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
       </appArea>
     </appWindow>
   </structure>

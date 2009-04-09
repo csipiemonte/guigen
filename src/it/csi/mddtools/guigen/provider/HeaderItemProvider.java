@@ -65,6 +65,9 @@ public class HeaderItemProvider
 
 			addCodCanalePropertyDescriptor(object);
 			addCodApplicativoPropertyDescriptor(object);
+			addNomeCanalePropertyDescriptor(object);
+			addLinkCanalePropertyDescriptor(object);
+			addNomeApplicativoPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,6 +117,72 @@ public class HeaderItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Nome Canale feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNomeCanalePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Header_nomeCanale_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Header_nomeCanale_feature", "_UI_Header_type"),
+				 GuigenPackage.Literals.HEADER__NOME_CANALE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Link Canale feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkCanalePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Header_linkCanale_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Header_linkCanale_feature", "_UI_Header_type"),
+				 GuigenPackage.Literals.HEADER__LINK_CANALE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Nome Applicativo feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNomeApplicativoPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Header_nomeApplicativo_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Header_nomeApplicativo_feature", "_UI_Header_type"),
+				 GuigenPackage.Literals.HEADER__NOME_APPLICATIVO,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Header.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -128,11 +197,11 @@ public class HeaderItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Header)object).getCodCanale();
+		String label = ((Header)object).getCodCanale()+"/"+((Header)object).getCodApplicativo();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Header_type") :
 			getString("_UI_Header_type") + " " + label;
@@ -152,6 +221,9 @@ public class HeaderItemProvider
 		switch (notification.getFeatureID(Header.class)) {
 			case GuigenPackage.HEADER__COD_CANALE:
 			case GuigenPackage.HEADER__COD_APPLICATIVO:
+			case GuigenPackage.HEADER__NOME_CANALE:
+			case GuigenPackage.HEADER__LINK_CANALE:
+			case GuigenPackage.HEADER__NOME_APPLICATIVO:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
