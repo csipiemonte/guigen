@@ -702,7 +702,9 @@ Gestione dei PANNELLI
 
 «ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
+<div class="contenutiTab">
 	<div id="wizard">
+		<h3 class="alt">Sezioni</h3>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«REM»TAPPO PER PROVARE CON LOGICA JAVA DI APPOGGIO TEMPORANEA -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
@@ -721,6 +723,7 @@ Gestione dei PANNELLI
 		«ENDLET-»
 	«ENDFOREACH-»
 	</div>
+</div>
 «ENDDEFINE»
 
 
