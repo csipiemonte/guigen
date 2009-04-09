@@ -552,8 +552,11 @@ Gestione dei Widget
 «REM»TODO: verificare se questo id va bene«ENDREM»
 <div id="menuTree">
 	<customtag:tree
-		name="«getOGNLForWidgetMultiValue(this)»" folder="img/tree" imgOpen="minus.gif"
-		imgClosed="plus.gif" imgDot="dot.gif" linkOnTree="true" id="«name»"
+		name="«getOGNLForWidgetMultiValue(this)»"
+		cssUlClass="tree" 
+        cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen" 
+        cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot" 
+		linkOnTree="true" id="«name»"
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
 		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())».do" showChildNumber="false">
 		«ELSE-»
