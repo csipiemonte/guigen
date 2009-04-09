@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
@@ -339,9 +340,26 @@ public class GenUtilsLayout {
 	 */
 	public static int getCustomtagHeaderColspan(Widget w) {
 		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+		
 		return ((hspan * 2) - 1);
 	}
 
+	/**
+	 * 
+	 * @param fp
+	 * @param w
+	 * @return
+	 * @author [DM]
+	 */
+	public static int getCustomtagHeaderColspan(PlainText w) {
+		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+		int res = ((hspan * 2) - 1);
+		if ( w.getLabel() == null ) {
+			res = res + 1;
+		}
+		return res;
+	}	
+	
 
 	/**
 	 * 

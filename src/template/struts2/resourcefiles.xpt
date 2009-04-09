@@ -378,7 +378,7 @@ Gestione dei Widget
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) che va di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget generico (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 <s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
 «EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
@@ -387,6 +387,18 @@ Gestione dei Widget
 </s:if>
 «EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
 «ENDDEFINE»
+
+
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget generico (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
+«EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
+</s:if>
+«EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
 
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»

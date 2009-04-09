@@ -845,6 +845,19 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 
+«REM»--------------- PlainText ---------------«ENDREM»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«IF needHandleCustomtagHeaderHspan(fp, this)-»
+	«IF this.label != null-»
+	<customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+	«ENDIF-»
+	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ELSE-»
+	<customtag:column labelField="true" «IF this.label != null»textLabel="«getText(this)»" labelFor="widg_«this.name»"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ENDIF-»
+«ENDDEFINE»
+
+
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
