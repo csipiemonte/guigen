@@ -77,6 +77,17 @@ String getSpringIRIDE2PDConfig(GUIModel model) :
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+String getReminclResourceProvider(GUIModel model) :
+	if ( model.portale == PortalNames::INTRANET_RUPARPIEMONTE ) then
+		"http://dev-portale.ruparpiemonte.it"
+	else if ( model.portale == PortalNames::SISTEMA_PIEMONTE ) then
+		"http://dev-www.sistemapiemonte.it"
+	else
+		"";
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files JSP comuni
 
 // Index Page (for redirection purpoose only)
@@ -439,7 +450,36 @@ String getTablePortalStyle(GUIModel model) :
 	else
 		"class=\"\" cellpadding=\"2\" cellspacing=\"2\"";
 
+
+//------------------------------------------- RUPAR -------------------------------------------
+
+String getMenuItemCssRupar(MenuItem item, int level) :
+	if (level == 1) then
+		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'on' : ''}\" />\""
+	else
+		"";
+
+String getMenuItemLabelRupar(MenuItem item, int level) :
+	//TODO: implementare correttamente
+	"<s:text name=\"" + item.name + ".label\" />";
+
+String getMenuCssRupar(Menu menu, int level, boolean actionActive) :
+	//TODO: implementare correttamente
+	"";
+
+String getMenuLinkCssRupar(Menu menu, int level) :
+	//TODO: implementare correttamente
+	"";
+
+String getMenuLabelRupar(Menu menu, int level) :
+	//TODO: implementare correttamente
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+
+//------------------------------------- SISTEMA PIEMONTE --------------------------------------
+
 String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
+	//TODO: implementare correttamente
 	//if (level == 1) then
 	//	"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'attivo' : ''}\" />\""
 	//else if (level == 2) then
@@ -452,6 +492,7 @@ String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
 		"";
 
 String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
+	//TODO: implementare correttamente
 	//if (level == 1) then
 	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
 	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
@@ -483,6 +524,7 @@ String getMenuLinkCssSistemaPiemonte(Menu menu, int level) :
 		"";
 
 String getMenuLabelSistemaPiemonte(Menu menu, int level) :
+	//TODO: implementare correttamente
 	//if (level == 1) then
 	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
 	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
@@ -577,8 +619,8 @@ boolean isInMenuBranch(ExecCommand ea) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.isInMenuBranch(it.csi.mddtools.guigen.ExecCommand);
 
 // [DM] restituisce il numero di colonne del layout
-int getColumnsLayout(FormPanel firstLevPanel) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel);
+int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
 
 // [DM]
 Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA

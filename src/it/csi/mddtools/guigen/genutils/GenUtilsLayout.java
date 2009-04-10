@@ -91,7 +91,7 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static int getColumnsLayout(FormPanel firstLevPanel) {
+	public static int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) {
 		
 		PanelLayout currPanLay = firstLevPanel.getLayout();
 		int columns = 1;
@@ -99,18 +99,11 @@ public class GenUtilsLayout {
 		if ( currPanLay instanceof VerticalFlowPanelLayout ) {
 			columns = 1;
 		} else if ( currPanLay instanceof UDLRCPanelLayout ) {
-			int left = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
-			int right = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
-			
-			if ( right == 1 ) {
-				// layout 3 colonne
-				columns = 3;
-			} else if ( left == 1 ) {
-				// layout 2 colonne
-				columns = 2;
-			} else {
-				// layout 1 colonna
-			}
+			if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+				columns = getUDLRCColumnsLayoutSisp(firstLevPanel);
+			} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+				columns = getUDLRCColumnsLayoutRupar(firstLevPanel);
+			}			
 		} else if ( currPanLay instanceof HorizontalFlowPanelLayout ) {
 			// ??? come lo gestisco
 			columns = 1;
@@ -118,7 +111,32 @@ public class GenUtilsLayout {
 
 		return columns;
 	}
+	
+	private static int getUDLRCColumnsLayoutRupar(FormPanel firstLevPanel) {
+		int columns = 1;
+		// al momento gestico l'UDLRC come colonna unica...
+		return columns;
+	}
+	
+	private static int getUDLRCColumnsLayoutSisp(FormPanel firstLevPanel) {
+		int columns = 1;
 
+		int left = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
+		int right = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
+		
+		if ( right == 1 ) {
+			// layout 3 colonne
+			columns = 3;
+		} else if ( left == 1 ) {
+			// layout 2 colonne
+			columns = 2;
+		} else {
+			// layout 1 colonna
+		}
+		
+		return columns;
+	}	
+	
 
 	/**
 	 * nota: moltiplico per due perch&egrave; il custom tag <code>&lt;customtag:panelGrid&gt;</code> 

@@ -60,7 +60,86 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<r:include url="/include/«codApplicativo»/head.html" resourceProvider="sp" />
+<!--/head -->
+«REM»RIMOSSO: implementata REMINCL
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<meta name="author" content="CSI-Piemonte" />
+		<title>Intranet RuparPiemonte - Nome servizio</title>
 
+		<link href="/css_rupar/generali/NN4.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="/css_rupar/generali/print.css" rel="stylesheet" type="text/css" media="print" />
+		<link href="/css_rupar/generali/templateBASE/indiceTemplate.css" type="text/css" rel="stylesheet" media="screen" id="skin" />
+
+		<script type="text/javascript" src="/js_rupar/menu.js"></script>
+		<script type="text/javascript" src="/js_rupar/newWinPop.js"></script>
+		<script type="text/javascript" src="/js_rupar/overOutHandler.js"></script>
+
+		<!--QUI SOTTO INCLUSIONE ELENCO DI TUTTI I JS DISPONIBILI
+		INSERIRE SOLO QUELLI CHE SERVONO PER UN NUOVO SERVIZIO DIRETTAMENTE SULL'HEAD DEL SERVIZIO-->
+		<!--#include virtual="/include/templateBASE/head_js_generali.html" -->
+<!--/head -->
+«ENDREM»
+
+	</head>
+	<body>
+		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
+
+			<!-- INTESTAZIONE -->
+			<div id="intestazione">
+
+				<!-- testalino -->
+				
+				<!-- fine testalino -->
+
+				«REM»RIMOSSO: implementata REMINCL
+				<!-- testalino -->
+				<noscript>
+					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
+						Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
+				 		potrebbe essere necessario l'utilizzo dei <a href="javascript.shtml" title="informazioni su come abilitare le funzioni javascript su i pi&ugrave; diffusi browser">Javascript</a>.</p>
+					</div>
+					<hr />
+				</noscript>
+
+				<div id="bannerRuparNoCav">
+					<p id="avviso" class="navigazionePagina"><a href="#navigazione" title="Salta i menu e vai direttamente ai contenuti">Salta l&#8217;intestazione</a></p>
+					<hr />
+					<h1><a id="A-inizio"><span class="alt">intranet.ruparpiemonte.it</span></a></h1>
+				</div>
+
+				<hr />
+
+				<div id="menuNN4" class="navigazionePagina">
+					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
+				</div>
+				<!-- fine testalino -->
+				«ENDREM»
+
+				<hr />
+
+				<!-- MENU' DI NAVIGAZIONE -->
+				<div id="titoloEmenu">
+					<h2><a id="navigazione"><span class="alt">«this.nomeCanale» - «this.nomeApplicativo»</span></a></h2>
+					«IF model.structure.appWindow.appArea.menubar != null-»
+					<s:include value="fragments/menu.jsp"></s:include>
+					«ENDIF-»
+				</div>
+				<!-- FINE MENU' DI NAVIGAZIONE -->
+
+			</div>
+			<div class="left"></div>
+			<!--FINE INTESTAZIONE-->
+
+			<hr />
+
+			<!-- CORPO -->
+			<div id="corpo">
+				<h2 class="alt">Contenuti</h2>
 «ENDDEFINE»
 
 
@@ -70,25 +149,82 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
+«REM»Genera la componente di markup (HTML) della MENUBAR.
+NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-
+<div id="menuDiNavigazione">
+	<span class="alt">Menu di navigazione</span>
+	<ul class="menuTendina" id="menu-2">
+		«LET 1 AS level -»
+		«FOREACH this.topLevelMenu AS tlmenu -»
+		«IF hasUniqueMenuItem(tlmenu)-»
+			«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
+			«EXPAND getMenuItemMarkup(level) FOR tlmenu.item.first() -»
+		«ELSE-»
+			«EXPAND getMenuMarkup(level) FOR tlmenu»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDLET-»
+	</ul>
+</div>
 «ENDDEFINE»
 
 «REM»Genera un MenuItem«ENDREM»
 «DEFINE getMenuItemMarkup(int level) FOR MenuItem -»
+	<s:if test="isMenuVisible('«this.name»')" >
+«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+	«LET this.eventHandler.command AS currAction-»
+	  <s:if test="isMenuEnabled('«this.name»')" >
+	  	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	    <li «getMenuItemCssRupar(this, level)»>
+		  <s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			  «getMenuItemLabelRupar(this, level)»
+		  </s:a>
+	    </li>	  	
+	  </s:if>
+	  <s:else>	  
+	  	<li><s:text name="«this.name».label" /></li>
+	  </s:else>
+	«ENDLET-»	  
+«ELSE -»
+ 
+«ENDIF-»
+	</s:if>
+«ENDDEFINE»
 
+«REM»Genera un Menu«ENDREM»
+«DEFINE getMenuMarkup(int level) FOR Menu -»
+	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera un sottoMenu«ENDREM»
 «DEFINE getSubMenuMarkup(int level) FOR Menu»
-
+	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+			</div>
+			<!-- FINE CORPO -->
 
+			<hr />
+
+			<r:include url="/include/footerRupar.html" resourceProvider="sp" />
+
+«REM»RIMOSSO: implementata REMINICL
+			<!--PIE DI PAGINA-->
+			<div id="piedipagina">
+				<p id="noteSito" title="RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE"><span class="alt">RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE</span></p>
+				<p class="navigazionePagina"><a href="#A-inizio">Torna all'inizio della pagina</a></p>
+			</div>
+			<!--FINE PIE DI PAGINA-->
+
+		</div>
+		<!--/pagina-->
+	</body>
+</html>
+«ENDREM»
 «ENDDEFINE»
 
 
@@ -103,35 +239,118 @@ Gestione dei PANNELLI
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 
+«IF this.layout.metaType == VerticalFlowPanelLayout-»
+	«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
+	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
+	«REM»Come lo gestisco?«ENDREM»
+«ENDIF-»
+
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+<!--righe-->
+<div id="righe">
 
+	<!----------------- COLONNA UNICA ---------------->
+	<div id="colonna">
+	
+		«IF !isNullOrEmpty(this.label) -»
+		<!-- titolo pannello 1° livello -->
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
+		«ENDIF-»
+		
+		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
+
+	</div>
+	<!-------------- FINE COLONNA UNICA -------------->
+
+</div>
+<!--/righe-->
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
+«LET getColumnsLayout(this, model) AS numeroColonne-»
+«IF numeroColonne == 1 -»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF numeroColonne == 2 -»
+	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF numeroColonne == 3 -»
+	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
+«ELSE-»
+	«REM»Cosa succede se arrivo qui???«ENDREM»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
 «DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+<!--righe-->
+<div id="righe">
 
+	<!----------------- COLONNA UNICA ---------------->
+	<div id="colonna">
+	
+		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
+		«IF upPanel != null -»
+		<!-- ##### UDLRC Layout: UP PANEL ##### -->
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
+		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
+		«ENDIF-»
+		«ENDLET-»
+
+
+		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
+
+		«IF !isNullOrEmpty(this.label) -»
+		<!-- titolo pannello 1° livello -->
+		<h3><s:text name="«cp.name».«this.name».label" /></h3>
+		«ENDIF-»
+		
+		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
+		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
+		«ENDLET-»
+		«ENDLET-»
+		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
+
+
+		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
+		«IF downPanel != null -»
+		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
+		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
+		«ENDIF-»
+		«ENDLET-»
+
+	</div>
+	<!-------------- FINE COLONNA UNICA -------------->
+
+</div>
+<!--/righe-->
 «ENDDEFINE»
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
 «DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
+	«REM»TEMPORANEAMENTE gestisco l'UDLRC come una sola colonna ignorando RIGHT e LEFT«ENDREM»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ENDDEFINE»
 
 
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
+«REM»
+Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)
+NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
+«ENDREM»
 «DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
+	«REM»TEMPORANEAMENTE gestisco l'UDLRC come una sola colonna ignorando RIGHT e LEFT«ENDREM»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ENDDEFINE»
 
 
@@ -155,7 +374,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-
+<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
 «ENDDEFINE»
 
 
@@ -164,7 +383,14 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
-
+«LET model.appDataDefs.appData.select(ad|ad.name=="currentUser").first() AS currentUserAD-»
+<div id="Utente">
+	<span id="datiUtente">Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong></span>
+	<span class="bugFix">&nbsp;|&nbsp;</span>
+	<span id="chiudiSessione"><a href="#" title="chiudi sessione: questo link fa uscire dal servizio">chiudi sessione</a></span>
+	<div class="both"></div>
+</div>
+«ENDLET-»
 «ENDDEFINE»
 
 
@@ -177,7 +403,15 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genara la header di un sottopannello di tipo FormPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
-
+«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
+<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
+«ENDIF-»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
+<%--<div class="contenuti">--%>
+	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
+	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genara la header di un sottopannello di tipo CommandPanel«ENDREM»
@@ -193,7 +427,12 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
-
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
+	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
+	</customtag:panelGrid>
+	«ENDIF-»
+<%--</div>--%>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genara la footer di un sottopannello di tipo CommandPanel«ENDREM»
@@ -218,17 +457,39 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-
+«IF needHandleCustomtagHeaderHspan(fp, this)-»
+<customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ELSE-»
+<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-
+</customtag:column>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«IF needHandleCustomtagCloseHspan(fp, this) -»
+<s:else>
+	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»/>
+</s:else>
+«ENDIF-»
+«ENDDEFINE»
 
+
+«REM»--------------- PlainText ---------------«ENDREM»
+«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«IF needHandleCustomtagHeaderHspan(fp, this)-»
+	«IF this.label != null-»
+	<customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+	«ENDIF-»
+	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ELSE-»
+	<customtag:column labelField="true" «IF this.label != null»textLabel="«getText(this)»" labelFor="widg_«this.name»"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+«ENDIF-»
 «ENDDEFINE»
 
 

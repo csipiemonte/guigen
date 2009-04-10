@@ -1,5 +1,6 @@
 «IMPORT guigen»
 «EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
 	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
@@ -598,7 +599,7 @@ nome.ambiente=<ambiente>
 
 #-[Variabili create dal generatore]-------------------------------------------------
 
-remincl.resource.provider=http://dev-www.sistemapiemonte.it
+remincl.resource.provider=«getReminclResourceProvider(this)»
 
 «IF this.securityModel.autenticationMethod!=null-»
 «EXPAND security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»

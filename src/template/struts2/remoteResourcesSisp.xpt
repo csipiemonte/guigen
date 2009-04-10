@@ -304,8 +304,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 		«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
 		«EXPAND getMenuItemMarkup(level) FOR tlmenu.item.first() -»
 	«ELSE-»
-		«EXPAND getMenuMarkup(level) FOR tlmenu»
-	
+		«EXPAND getMenuMarkup(level) FOR tlmenu -»
 	«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»
@@ -336,6 +335,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	</s:if>
 «ENDDEFINE»
 
+«REM»Genera un Menu«ENDREM»
 «DEFINE getMenuMarkup(int level) FOR Menu -»
 	<s:if test="isMenuVisible('«this.name»')" >
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
@@ -482,7 +482,7 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-«LET getColumnsLayout(this) AS numeroColonne-»
+«LET getColumnsLayout(this, model) AS numeroColonne-»
 «IF numeroColonne == 1 -»
 	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF numeroColonne == 2 -»
@@ -490,7 +490,7 @@ Gestione dei PANNELLI
 «ELSEIF numeroColonne == 3 -»
 	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
-
+	«REM»Cosa succede se arrivo qui???«ENDREM»
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
@@ -516,8 +516,8 @@ Gestione dei PANNELLI
 
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
-		<!-- titolo pannello 1° livello -->
 		«IF !isNullOrEmpty(this.label) -»
+		<!-- titolo pannello 1° livello -->
 		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
@@ -575,8 +575,8 @@ Gestione dei PANNELLI
 
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
-		<!-- titolo pannello primo livello -->
 		«IF !isNullOrEmpty(this.label) -»
+		<!-- titolo pannello primo livello -->
 		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
@@ -634,8 +634,8 @@ Gestione dei PANNELLI
 
 		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
 
-		<!-- titolo pannello primo livello -->
 		«IF !isNullOrEmpty(this.label) -»
+		<!-- titolo pannello primo livello -->
 		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
 
@@ -732,9 +732,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-<%--<div class="contenuti">--%>
-	<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
-<%--</div>--%>
+<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
 «ENDDEFINE»
 
 
