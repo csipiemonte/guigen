@@ -401,46 +401,44 @@ Gestione dei LAYOUT - PANNELLI
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Genara la header di un sottopannello di tipo FormPanel«ENDREM»
+«REM»Genera la header di un sottopannello di tipo FormPanel solo se non è un FormPanel "contenitore"«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
 «IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
-<%--<div class="contenuti">--%>
-	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
-	«ENDIF-»
+«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
+<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
+«ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
 
-«REM»Genara la header di un sottopannello di tipo CommandPanel«ENDREM»
+«REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
 <div class="azioniForm">
 «ENDDEFINE»
 
-«REM»Genara la header di un sottopannello di tipo MenuPanel«ENDREM»
+«REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR MenuPanel»
 
 «ENDDEFINE»
 
 
-«REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
+«REM»Genera la footer di un sottopannello di tipo FormPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
-	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-	</customtag:panelGrid>
-	«ENDIF-»
-<%--</div>--%>
+«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
+</customtag:panelGrid>
+«ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
 
-«REM»Genara la footer di un sottopannello di tipo CommandPanel«ENDREM»
+«REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR CommandPanel»
 </div>
 «ENDDEFINE»
 
-«REM»Genara la footer di un sottopannello di tipo MenuPanel«ENDREM»
+«REM»Genera la footer di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR MenuPanel»
 
 «ENDDEFINE»
