@@ -1041,7 +1041,26 @@
                   <subpanels xsi:type="guigen:WizardPanel" name="a6Tab3Wiz">
                     <panels xsi:type="guigen:FormPanel" name="step1" label="Caratteristiche">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:PlainText" name="st1pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 1"/>
+                      <subpanels xsi:type="guigen:FormPanel" name="caratteristiche" label="Caratteristiche">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <widgets xsi:type="guigen:PlainText" name="st1pt1" dataType="//@typedefs/@types.10" staticText="Wizard step 1"/>
+                        <widgets xsi:type="guigen:TextField" name="myPippo" label="Pippo" dataType="//@typedefs/@types.9"/>
+                      </subpanels>
+                      <subpanels xsi:type="guigen:CommandPanel" name="mycommand">
+                        <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                        <widgets xsi:type="guigen:ConfirmButton" name="myConfirm1" label="Conferma">
+                          <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                          <eventHandlers>
+                            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
+                          </eventHandlers>
+                        </widgets>
+                        <widgets xsi:type="guigen:ConfirmButton" name="myConfirm2" label="Conferma">
+                          <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                          <eventHandlers>
+                            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.11"/>
+                          </eventHandlers>
+                        </widgets>
+                      </subpanels>
                     </panels>
                     <panels xsi:type="guigen:FormPanel" name="step2" label="Dati fiscali e inventario">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>

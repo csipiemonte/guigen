@@ -767,7 +767,7 @@ Gestione dei LAYOUT - PANNELLI
 «IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <div class="contenuti">
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
 	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
@@ -790,7 +790,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genara la footer di un sottopannello di tipo FormPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) -»
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
 	</customtag:panelGrid>
 	«ENDIF-»
