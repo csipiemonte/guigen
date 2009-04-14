@@ -1,7 +1,6 @@
 package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
-import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;

@@ -22,32 +22,66 @@ Definizioni generali: Pagine di ERRORE
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
+«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundError FOR GUIModel-»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
 
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
+«DEFINE getJspFatalError FOR GUIModel-»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationError FOR GUIModel-»
+«EXPAND getJspErrorPageHeaderStruts FOR this-»
 
-«ENDDEFINE»
-
-
-«REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
-«DEFINE getJspFatalError FOR GUIModel-»
-
+«EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeader FOR GUIModel-»
+«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
+<%@ taglib uri="/struts-tags" prefix="s" %>
+	«IF this.structure.appWindow.header != null-»
+	<s:include value="../fragments/header.jsp" ></s:include>
+	«ENDIF-»
 
 «ENDDEFINE»
 
 «REM»Parte finale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageFooter FOR GUIModel-»
+«DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
 
+	«IF this.structure.appWindow.footer != null-»
+	<s:include value="../fragments/footer.jsp" ></s:include>
+	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Parte iniziale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="globalMessages" />
+
+	«IF this.structure.appWindow.header != null-»
+	<jsp:include page="../fragments/header.jsp" />
+	«ENDIF-»
+
+«ENDDEFINE»
+
+«REM»Parte finale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
+
+	«IF this.structure.appWindow.footer != null-»
+	<jsp:include page="../fragments/footer.jsp" />
+	«ENDIF-»
 «ENDDEFINE»
 
 

@@ -21,34 +21,50 @@ Definizioni generali: Pagine di ERRORE
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
+«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundError FOR GUIModel-»
-«EXPAND getJspErrorPageHeader FOR this-»
-<h3><s:text name="error.notfound.title" /></h3>
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<h3><fmt:message key="error.notfound.title" /></h3>
 <div class="contenuti">
 	<div class="messaggioKo">
-		Attenzione! <br/> Pagina non trovata
-		<s:text name="error.notfound.warning" /> <br/> <s:text name="error.notfound.message" />
+		<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<s:url id="homePageUrl" action="HomePage" />
-			<s:a href="%{homePageUrl}" title="%{getText('error.notfound.btnmsg')" cssClass="nav95"><s:text name="error.notfound.btnmsg" /></s:a>
+			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" cssClass="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
 		</div>
 	</div>
 </div>
-«EXPAND getJspErrorPageFooter FOR this-»
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
+«DEFINE getJspFatalError FOR GUIModel-»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<h3><fmt:message key="error.fatalerror.title" /></h3>
+<div class="contenuti">
+	<div class="messaggioKo">
+		<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavDx">
+			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" cssClass="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationError FOR GUIModel-»
-«EXPAND getJspErrorPageHeader FOR this-»
+«EXPAND getJspErrorPageHeaderStruts FOR this-»
 <h3><s:text name="error.applicationerror.title" /></h3>
 <div class="contenuti">
 	<div class="messaggioKo">
-		<s:property value="#session.errore"/>
-		<s:actionerror/>
+		<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
+		<s:property value="%{exception.message}"/>
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
@@ -57,75 +73,67 @@ Definizioni generali: Pagine di ERRORE
 		</div>
 	</div>
 </div>
-«EXPAND getJspErrorPageFooter FOR this-»
-«ENDDEFINE»
-
-
-«REM»Crea la pagina di errore per un Errore generico (FATAL) [java.lang.Throwable]«ENDREM»
-«DEFINE getJspFatalError FOR GUIModel-»
-«EXPAND getJspErrorPageHeader FOR this-»
-<h3><s:text name="error.fatalerror.title" /></h3>
-<div class="contenuti">
-	<div class="messaggioKo">
-		<s:text name="error.fatalerror.message" />
-		<s:actionerror/>
-	</div>
-	<div class="pulsNav">
-		<div class="pulsNavDx">
-			<s:url id="homePageUrl" action="HomePage" />
-			<s:a href="%{homePageUrl}" title="%{getText('error.fatalerror.btnmsg')" cssClass="nav95"><s:text name="error.fatalerror.btnmsg" /></s:a>
-		</div>
-	</div>
-</div>
-«EXPAND getJspErrorPageFooter FOR this-»
+«EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeader FOR GUIModel-»
+«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
+<%@ taglib uri="/struts-tags" prefix="s" %>
 	«IF this.structure.appWindow.header != null-»
 	<s:include value="../fragments/header.jsp" ></s:include>
 	«ENDIF-»
 
 	<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
-	«IF this.structure.appWindow.appArea.menubar != null-»
-	<div id="sfondo">
-		<h2 class="alt">menu della sezione</h2>
-
-		<!------------------ COLONNA SX ------------------>
-		<div id="colonnaSinistra">
-			<s:include value="../fragments/menu.jsp"></s:include>
-		</div>
-		<!---------------- FINE COLONNA SX ---------------->
-
-		<hr />
-
-		<!------------------ COLONNA DX ------------------>
-		<div id="colonnaDestra">
-			<h2 class="alt">contenuti</h2>
-	«ELSE-»
 	<div id="sfondoColonna">
 
 		<!----------------- COLONNA UNICA ---------------->
 		<div id="colonna">
 			<h2 class="alt">contenuti</h2>
-	«ENDIF-»
 «ENDDEFINE»
 
 «REM»Parte finale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageFooter FOR GUIModel-»
-	«IF this.structure.appWindow.appArea.menubar != null-»
-		</div>
-		<!---------------- FINE COLONNA DX ---------------->
-	«ELSE-»
+«DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
 		</div>
 		<!-------------- FINE COLONNA UNICA -------------->
-	«ENDIF-»
+
 	</div>
 	<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
 
 	«IF this.structure.appWindow.footer != null-»
 	<s:include value="../fragments/footer.jsp" ></s:include>
+	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Parte iniziale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="globalMessages" />
+
+	«IF this.structure.appWindow.header != null-»
+	<jsp:include page="/jsp/fragments/header.jsp" />
+	«ENDIF-»
+
+	<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+	<div id="sfondoColonna">
+
+		<!----------------- COLONNA UNICA ---------------->
+		<div id="colonna">
+			<h2 class="alt">contenuti</h2>
+«ENDDEFINE»
+
+«REM»Parte finale della pagina di errore«ENDREM»
+«DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
+		</div>
+		<!-------------- FINE COLONNA UNICA -------------->
+
+	</div>
+	<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+
+	«IF this.structure.appWindow.footer != null-»
+	<jsp:include page="/jsp/fragments/footer.jsp" />
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -851,7 +859,7 @@ Gestione dei LAYOUT - WIDGETS
 	«ENDIF-»
 	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-	<customtag:column labelField="true" «IF this.label != null»textLabel="«getText(this)»" labelFor="widg_«this.name»"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+	<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="widg_«this.name»"«ELSE»colSpan="2"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 

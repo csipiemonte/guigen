@@ -203,10 +203,16 @@
 		<url-pattern>/struts/*</url-pattern>
 	</filter-mapping>
 
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/jsp/error/notFound.jsp</location>
 	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/error/fatalError.jsp</location>
+	</error-page>
+
 
 	<jsp-config>
 		<jsp-property-group>
@@ -214,7 +220,7 @@
 			<page-encoding>UTF-8</page-encoding>
 		</jsp-property-group>
 	</jsp-config>
-	
+
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
@@ -392,32 +398,37 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		
 		<!-- gestione globale delle eccezioni -->
 		<global-results>
-			<result name="errorFatal">/jsp/error/fatalError.jsp</result>
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
 		</global-results>
 		<global-exception-mappings>
-			<exception-mapping result="errorFatal" exception="java.lang.Throwable"/>
 			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
 		</global-exception-mappings>
 
 	</package>
 
 	<package name="default" extends="jsp-package" namespace="/">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>		
+		
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
 		    «IF onInitAction != null»
-		    «LET getAllPossibleJumps(onInitAction) AS allJumps»
-			«FOREACH allJumps AS currJump»
+		    «LET getAllPossibleJumps(onInitAction) AS allJumps-»
+			«FOREACH allJumps AS currJump-»
 			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
-			«ENDFOREACH»
-			«ENDLET»
-			«LET getAllPossibleExtJumps(onInitAction) AS allJumps»
-			«FOREACH allJumps AS currExtJump»
+			«ENDFOREACH-»
+			«ENDLET-»
+			«LET getAllPossibleExtJumps(onInitAction) AS allJumps-»
+			«FOREACH allJumps AS currExtJump-»
 			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
 				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
 			</result>
-			«ENDFOREACH»
-			«ENDLET»
+			«ENDFOREACH-»
+			«ENDLET-»
 			«ELSE»
 			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.contentPanels.first())»</result>
 		    «ENDIF»
@@ -503,18 +514,18 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<result name="input">«getStrutsActionJspConfigName(this)»</result>
 	<result name="success">«getStrutsActionJspConfigName(this)»</result>
 	
-	«LET getAllPossibleJumps(this) AS allJumps»
-	«FOREACH allJumps AS currJump»
+	«LET getAllPossibleJumps(this) AS allJumps-»
+	«FOREACH allJumps AS currJump-»
 	<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
-	«ENDFOREACH»
-	«ENDLET»
-	«LET getAllPossibleExtJumps(this) AS allJumps»
-	«FOREACH allJumps AS currExtJump»
+	«ENDFOREACH-»
+	«ENDLET-»
+	«LET getAllPossibleExtJumps(this) AS allJumps-»
+	«FOREACH allJumps AS currExtJump-»
 	<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
-				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+		<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
 	</result>
-	«ENDFOREACH»
-	«ENDLET»
+	«ENDFOREACH-»
+	«ENDLET-»
 </action>
 «ENDDEFINE»
 

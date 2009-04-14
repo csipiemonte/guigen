@@ -34,9 +34,9 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
-«REM»Crea la pagina di errore 404 Page Not Found«ENDREM»
+«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"»
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
@@ -50,14 +50,14 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
-«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
-«DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
+«DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"»
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
+	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspApplicationError FOR this»
+	«EXPAND remoteResourcesSisp::getJspFatalError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -66,14 +66,14 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
-«REM»Crea le pagine di errore dell'applicazione«ENDREM»
-«DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
+«DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"»
 
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
+	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspFatalError FOR this»
+	«EXPAND remoteResourcesSisp::getJspApplicationError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
