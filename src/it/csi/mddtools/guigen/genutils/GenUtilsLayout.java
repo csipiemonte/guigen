@@ -418,13 +418,13 @@ public class GenUtilsLayout {
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
 			res = getButtonStyleSistemaPiemonte(model, b);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
-			
+			res = getButtonStyleRupar(model, b);
 		}
 		return res;
 	}
 
 	/**
-	 * Non mi piace molto questa implementazione, ma...
+	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
 	 * @param model
 	 * @param b
@@ -465,8 +465,37 @@ public class GenUtilsLayout {
 		
 		return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
 	}
-	
-	
+
+
+	/**
+	 * Non mi piace molto questa implementazione (troppo empirica), ma...
+	 * 
+	 * @param model
+	 * @param b
+	 * @return
+	 * @author [DM]
+	 */	
+	public static String getButtonStyleRupar(GUIModel model, Button b) {
+		String css = "";
+
+		if ( b.getLabel() != null ) {
+			int lblLen = b.getLabel().length();
+			
+			if ( lblLen > 0 && lblLen < 15 ) {
+				css = "";
+			} else if ( lblLen >= 15 && lblLen <= 20 ) {
+				css = " big";
+			} else if ( lblLen >= 21 && lblLen <= 31 ) {
+				css = " bigger";
+			} else if ( lblLen >= 32 ) {
+				css = " biggest";
+			}
+		}
+		
+		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
+	}
+
+
 	/**
 	 * Verifica se un ContentPanel contiene o meno delle tabelle 
 	 * (problema della localizzazione della displaytag)
