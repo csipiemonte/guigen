@@ -219,7 +219,7 @@ Gestione dei PANNELLI
 «ENDREM»
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»TODO: al momento non so come gestire RUPAR«ENDREM»
+	«EXPAND remoteResourcesRupar::setupUserInfoPanel(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupUserInfoPanel(model, cp) FOR this»
 «ELSE-»
@@ -238,7 +238,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
@@ -249,7 +249,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
@@ -260,7 +260,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
@@ -272,7 +272,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
@@ -283,7 +283,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
@@ -294,7 +294,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::subPanelPostLayout(quadrante) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
@@ -314,7 +314,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetControlHeader(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSE-»
@@ -326,7 +326,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetControlFooter(fp, isFirst, isLast) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::widgetControlFooter(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlFooter(fp, isFirst, isLast) FOR this»
 «ELSE-»
@@ -338,7 +338,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetClose(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::widgetClose(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetClose(fp, isFirst, isLast) FOR this»
 «ELSE-»
@@ -352,7 +352,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la header di un widget di tipo PlainText«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«REM»«EXPAND remoteResourcesRupar::widgetControlHeader(model, cp, fp, isFirst, isLast) FOR this»«ENDREM»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSE-»
