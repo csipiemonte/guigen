@@ -3,7 +3,7 @@
   <structure>
     <appWindow>
       <footer/>
-      <header codCanale="finanziamenti" codApplicativo="pbandi"/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="finanziamenti" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="bandi"/>
       <appArea>
         <menubar>
           <topLevelMenu name="mnu_1" label="menu 1">
@@ -90,6 +90,11 @@
           </onRefreshCommand>
         </contentPanels>
         <staticLinks/>
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="prova" postExecData="//@appDataDefs/@appData.0">
+          <results resultCode="OK">
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </results>
+        </onInitCommand>
       </appArea>
     </appWindow>
   </structure>
@@ -161,7 +166,7 @@
     <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.35"/>
   </typedefs>
   <appDataDefs>
-    <appData name="listaColori" type="//@typedefs/@types.36"/>
+    <appData name="listaColori" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
     <appData name="XXXXX" type="//@typedefs/@types.0"/>
   </appDataDefs>

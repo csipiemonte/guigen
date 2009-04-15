@@ -584,9 +584,23 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="autodetect">
 	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
 	<bean id="springBackEnd" class="«getSpringBEFQN()»">
+	«FOREACH structure.appWindow.appArea.contentPanels AS currCP-»
+		<property name="«getSpringCPBEClassName(currCP)»">
+			<ref bean="«getSpringCPBEClassName(currCP)»"/>
+		</property>
+	«ENDFOREACH-»
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+	<bean id="«getSpringCPBEClassName(currCP)»" class="«getSpringCPBEFQN(this,currCP)»">
 
 	</bean>
+	«ENDFOREACH»
+	
 	«IF securityModel.autenticationMethod!=null-»
 	<!-- helper per le funzioni di securizzazione -->
 	<bean id="springSecurityHelper" class="«getSpringSecurityHelperFQN()»">

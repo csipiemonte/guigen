@@ -71,6 +71,8 @@ public class «getDTOClassName(this)» implements java.io.Serializable{
 «ENDDEFINE»
 
 «DEFINE springBEClasses FOR GUIModel-»
+«EXPAND CPBEJavaFile(this) FOREACH this.structure.appWindow.appArea.contentPanels-»
+
 «FILE getSpringBEJavaFile()»
 package «getBaseJavaPackage()».business;
 
@@ -100,8 +102,29 @@ public class «getSpringBEClassName()»{
 
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi associati alla U.I.
+	/// - i metodi relativi a menu e azioni di inizializzazione sono direttamente 
+	///   implementati in questa classe
+	/// - i metodi relativi ai singoli content panel sono delegati nei rispettivi
+	///   bean
 	//////////////////////////////////////////////////////////////////////////////
 	«EXPAND springBEMethods FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property relative ai bean spring associati agli specifici content panel
+	//////////////////////////////////////////////////////////////////////////////
+	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+	
+	private «getSpringCPBEClassName(currCP)» _«getSpringCPBEClassName(currCP)» = null;
+	
+	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEClassName(currCP)» bean){
+		_«getSpringCPBEClassName(currCP)» = bean;
+	}
+	
+	public «getSpringCPBEClassName(currCP)» get«getSpringCPBEClassName(currCP)»(){
+		return _«getSpringCPBEClassName(currCP)»;
+	}
+	«ENDFOREACH-»
+	
 	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
@@ -128,42 +151,101 @@ public class «getSpringBEExcClassName()» extends Exception {
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»bean spring associato alla logica del singolo pannello«ENDREM»
+«DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanel»
+«FILE getSpringCPBEJavaFile(model,this)»
+package «getBaseJavaPackage(model)».business;
+
+import java.util.*;
+
+import «getDTOBaseJavaPackage(model)».*;
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage(model)».util.*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
+
+«ENDPROTECT»
+
+public class «getSpringCPBEClassName()»{
+
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	
+    //////////////////////////////////////////////////////////////////////////////
+	/// Costanti identificative degli Application Data
+	//////////////////////////////////////////////////////////////////////////////
+    «FOREACH this.appData AS currAD»
+    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    «ENDFOREACH» 
+   
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi associati alla U.I.
+	//////////////////////////////////////////////////////////////////////////////
+	«EXPAND springBEMethods(model) FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"SpringBEProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»metodi per il singolo CPBE«ENDREM»
+«DEFINE springBEMethods(GUIModel model) FOR ContentPanel»
+	«IF this.onRefreshCommand!=null»
+		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
+			«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDIF»
+	«FOREACH getAllEventSourceWidgets(this) AS currESW-»
+		«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
+			«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
+				«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
 «REM»inserisce un metodo per ogni ExecAction contenuta nel modello«ENDREM»
 «DEFINE springBEMethods FOR GUIModel-»
 	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
 		«IF currCP.onRefreshCommand!=null»
 			«FOREACH getAllExecActionsRecursive(currCP.onRefreshCommand) AS currAct-»
-				«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
+				«EXPAND springBEMethodDelegation(this,currCP) FOR (ExecCommand)currAct-»
 			«ENDFOREACH-»
 		«ENDIF»
 		«FOREACH getAllEventSourceWidgets(currCP) AS currESW-»
 			«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
 				«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
-					«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
+					«EXPAND springBEMethodDelegation(this,currCP) FOR (ExecCommand)currAct-»
 				«ENDFOREACH-»
 			«ENDFOREACH-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
 	«FOREACH getAllEventSourceMenuItems(this.structure.appWindow.appArea.menubar) AS currESM-»
 		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
-			«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
+			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
 	«IF onInitAct != null-»
 		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»
-			«EXPAND springBEMethod(this) FOR (ExecCommand)currAct-»
+			«EXPAND springBEMethod(this,"Home") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
 
-«DEFINE springBEMethod(GUIModel model) FOR ExecCommand»
+«DEFINE springBEMethod(GUIModel model, String contextID) FOR ExecCommand»
 	////////////////////////////////////////////////////////////////////////////////////
-	«FOREACH this.results AS currRes-»
-	public static final String «this.methodName.toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
-	«ENDFOREACH-»
 	
 	«LET findParentContentPanel() AS parentCP-»		
 	public ExecResults «this.methodName» (
@@ -178,9 +260,14 @@ public class «getSpringBEExcClassName()» extends Exception {
 	)
 	throws BEException
 	{
+	    /// definizione costanti di outcome
+	    «FOREACH this.results AS currRes-»
+		final String «this.methodName.toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
+		«ENDFOREACH-»
+	    ///
 		try{
 			ExecResults result = new ExecResults();
-			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("springBE_"+this.methodName+"_code")»
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+this.methodName+"_code")»
 			// inserire qui la logica applicativa da eseguire:
 			
 			// impostazione del result code
@@ -199,6 +286,26 @@ public class «getSpringBEExcClassName()» extends Exception {
 	}
 	
 	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp) FOR ExecCommand»
+	////////////////////////////////////////////////////////////////////////////////////
+			
+	public ExecResults «this.methodName» (
+	«IF cp != null»
+		«getModelDTOFQN(cp, false, false, model)» theModel
+	«ELSEIF isInMenuBranch(this)»
+		«getModelDTOFQN(null, true, false, model)» theModel
+	«ELSE»
+		«getModelDTOFQN(null, false, true, model)» theModel
+	«ENDIF»
+			
+	)
+	throws BEException
+	{
+	    return get«getSpringCPBEClassName(cp)»().«this.methodName»(theModel);
+	}
+	
 «ENDDEFINE»
 
 

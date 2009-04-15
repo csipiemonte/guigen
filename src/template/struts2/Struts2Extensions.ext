@@ -298,6 +298,17 @@ String getSpringBEFQN(GUIModel model) :
 String getSpringBEJavaFile(GUIModel model) :
 	getBaseJavaSrcDir(model, true)+"/business/"+getSpringBEClassName()+".java";
 
+String getSpringCPBEClassName(ContentPanel cp) :
+	"CPBE"+cp.name.toFirstUpper();
+
+String getSpringCPBEFQN(GUIModel model, ContentPanel cp) :
+	getBaseJavaPackage(model)+".business."+getSpringCPBEClassName(cp);
+
+String getSpringCPBEJavaFile(GUIModel model, ContentPanel cp) :
+	getBaseJavaSrcDir(model, true)+"/business/"+getSpringCPBEClassName(cp)+".java";
+
+
+
 String getSpringBEExcClassName() :
 	"BEException";
 
