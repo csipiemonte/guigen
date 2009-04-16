@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getType <em>Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#isRequired <em>Required</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.FieldImpl#getDataTypeModifier <em>Data Type Modifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +64,46 @@ public class FieldImpl extends EObjectImpl implements Field {
 	 * @ordered
 	 */
 	protected Type type;
+
+	/**
+	 * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRequired()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REQUIRED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRequired()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean required = REQUIRED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataTypeModifier() <em>Data Type Modifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataTypeModifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DATA_TYPE_MODIFIER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDataTypeModifier() <em>Data Type Modifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataTypeModifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected String dataTypeModifier = DATA_TYPE_MODIFIER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,6 +188,48 @@ public class FieldImpl extends EObjectImpl implements Field {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isRequired() {
+		return required;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRequired(boolean newRequired) {
+		boolean oldRequired = required;
+		required = newRequired;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.FIELD__REQUIRED, oldRequired, required));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDataTypeModifier() {
+		return dataTypeModifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataTypeModifier(String newDataTypeModifier) {
+		String oldDataTypeModifier = dataTypeModifier;
+		dataTypeModifier = newDataTypeModifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.FIELD__DATA_TYPE_MODIFIER, oldDataTypeModifier, dataTypeModifier));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -154,6 +238,10 @@ public class FieldImpl extends EObjectImpl implements Field {
 			case GuigenPackage.FIELD__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
+			case GuigenPackage.FIELD__REQUIRED:
+				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
+			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
+				return getDataTypeModifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,6 +259,12 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return;
 			case GuigenPackage.FIELD__TYPE:
 				setType((Type)newValue);
+				return;
+			case GuigenPackage.FIELD__REQUIRED:
+				setRequired(((Boolean)newValue).booleanValue());
+				return;
+			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
+				setDataTypeModifier((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -190,6 +284,12 @@ public class FieldImpl extends EObjectImpl implements Field {
 			case GuigenPackage.FIELD__TYPE:
 				setType((Type)null);
 				return;
+			case GuigenPackage.FIELD__REQUIRED:
+				setRequired(REQUIRED_EDEFAULT);
+				return;
+			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
+				setDataTypeModifier(DATA_TYPE_MODIFIER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -206,6 +306,10 @@ public class FieldImpl extends EObjectImpl implements Field {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.FIELD__TYPE:
 				return type != null;
+			case GuigenPackage.FIELD__REQUIRED:
+				return required != REQUIRED_EDEFAULT;
+			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
+				return DATA_TYPE_MODIFIER_EDEFAULT == null ? dataTypeModifier != null : !DATA_TYPE_MODIFIER_EDEFAULT.equals(dataTypeModifier);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -222,6 +326,10 @@ public class FieldImpl extends EObjectImpl implements Field {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", required: ");
+		result.append(required);
+		result.append(", dataTypeModifier: ");
+		result.append(dataTypeModifier);
 		result.append(')');
 		return result.toString();
 	}

@@ -66,6 +66,8 @@ public class FieldItemProvider
 
 			addNamePropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
+			addRequiredPropertyDescriptor(object);
+			addDataTypeModifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +112,50 @@ public class FieldItemProvider
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Required feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRequiredPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Field_required_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Field_required_feature", "_UI_Field_type"),
+				 GuigenPackage.Literals.FIELD__REQUIRED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Type Modifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataTypeModifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Field_dataTypeModifier_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Field_dataTypeModifier_feature", "_UI_Field_type"),
+				 GuigenPackage.Literals.FIELD__DATA_TYPE_MODIFIER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}

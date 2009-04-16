@@ -3883,13 +3883,31 @@ public interface GuigenPackage extends EPackage {
 	int FIELD__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__REQUIRED = 2;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__DATA_TYPE_MODIFIER = 3;
+
+	/**
 	 * The number of structural features of the '<em>Field</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIELD_FEATURE_COUNT = 2;
+	int FIELD_FEATURE_COUNT = 4;
 
 	/**
 	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
@@ -7276,6 +7294,28 @@ public interface GuigenPackage extends EPackage {
 	EReference getField_Type();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Field#isRequired <em>Required</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Required</em>'.
+	 * @see it.csi.mddtools.guigen.Field#isRequired()
+	 * @see #getField()
+	 * @generated
+	 */
+	EAttribute getField_Required();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Field#getDataTypeModifier <em>Data Type Modifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Type Modifier</em>'.
+	 * @see it.csi.mddtools.guigen.Field#getDataTypeModifier()
+	 * @see #getField()
+	 * @generated
+	 */
+	EAttribute getField_DataTypeModifier();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationDataDefs <em>Application Data Defs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9528,6 +9568,22 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FIELD__TYPE = eINSTANCE.getField_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__REQUIRED = eINSTANCE.getField_Required();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Type Modifier</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FIELD__DATA_TYPE_MODIFIER = eINSTANCE.getField_DataTypeModifier();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl <em>Application Data Defs</em>}' class.

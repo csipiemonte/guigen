@@ -2504,6 +2504,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getField_Required() {
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getField_DataTypeModifier() {
+		return (EAttribute)fieldEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getApplicationDataDefs() {
 		return applicationDataDefsEClass;
 	}
@@ -3363,6 +3381,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		fieldEClass = createEClass(FIELD);
 		createEAttribute(fieldEClass, FIELD__NAME);
 		createEReference(fieldEClass, FIELD__TYPE);
+		createEAttribute(fieldEClass, FIELD__REQUIRED);
+		createEAttribute(fieldEClass, FIELD__DATA_TYPE_MODIFIER);
 
 		applicationDataDefsEClass = createEClass(APPLICATION_DATA_DEFS);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__APP_DATA);
@@ -3799,6 +3819,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getField_Name(), ecorePackage.getEString(), "name", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getField_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(applicationDataDefsEClass, ApplicationDataDefs.class, "ApplicationDataDefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplicationDataDefs_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
