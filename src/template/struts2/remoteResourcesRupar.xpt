@@ -95,7 +95,7 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/include/«codApplicativo»/head.html" resourceProvider="sp" />
-<!--/head -->
+<!-- fine head (con remincl) -->
 «REM»RIMOSSO: implementata REMINCL
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -126,12 +126,12 @@ Definizioni generali: header, footer, ecc
 			<!-- INTESTAZIONE -->
 			<div id="intestazione">
 
-				<!-- testalino -->
-				
-				<!-- fine testalino -->
+				<!-- testalino (con remincl) -->
+				<r:include url="/include/headerRuparNoCav.html" resourceProvider="sp" />
+				<!-- fine testalino (con remincl) -->
 
 				«REM»RIMOSSO: implementata REMINCL
-				<!-- testalino -->
+				<!-- testalino (senza remincl) -->
 				<noscript>
 					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
 						Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
@@ -151,7 +151,7 @@ Definizioni generali: header, footer, ecc
 				<div id="menuNN4" class="navigazionePagina">
 					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
 				</div>
-				<!-- fine testalino -->
+				<!-- fine testalino (senza remincl) -->
 				«ENDREM»
 
 				<hr />
@@ -286,10 +286,10 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!--righe-->
+<!-- righe -->
 <div id="righe">
 
-	<!----------------- COLONNA UNICA ---------------->
+	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
 	
 		«IF !isNullOrEmpty(this.label) -»
@@ -301,10 +301,10 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 	</div>
-	<!-------------- FINE COLONNA UNICA -------------->
+	<!-- ============ FINE COLONNA UNICA ============ -->
 
 </div>
-<!--/righe-->
+<!-- fine righe-->
 «ENDDEFINE»
 
 
@@ -326,22 +326,22 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
 «DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!--righe-->
+<!-- righe -->
 <div id="righe">
 
-	<!----------------- COLONNA UNICA ---------------->
+	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
 	
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
-		<!-- ##### UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** UDLRC Layout: UP PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 
-		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
@@ -353,22 +353,22 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
-		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
 
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
-		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 	</div>
-	<!-------------- FINE COLONNA UNICA -------------->
+	<!-- ============ FINE COLONNA UNICA ============ -->
 
 </div>
-<!--/righe-->
+<!-- fine righe -->
 «ENDDEFINE»
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»

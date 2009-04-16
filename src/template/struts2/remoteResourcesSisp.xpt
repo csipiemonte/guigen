@@ -84,10 +84,10 @@ Definizioni generali: Pagine di ERRORE
 	<s:include value="../fragments/header.jsp" ></s:include>
 	«ENDIF-»
 
-	<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="sfondoColonna">
 
-		<!----------------- COLONNA UNICA ---------------->
+		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 			<h2 class="alt">contenuti</h2>
 «ENDDEFINE»
@@ -95,10 +95,10 @@ Definizioni generali: Pagine di ERRORE
 «REM»Parte finale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
 		</div>
-		<!-------------- FINE COLONNA UNICA -------------->
+		<!-- ============ FINE COLONNA UNICA ============ -->
 
 	</div>
-	<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
 	«IF this.structure.appWindow.footer != null-»
 	<s:include value="../fragments/footer.jsp" ></s:include>
@@ -116,10 +116,10 @@ Definizioni generali: Pagine di ERRORE
 	<jsp:include page="/jsp/fragments/header.jsp" />
 	«ENDIF-»
 
-	<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="sfondoColonna">
 
-		<!----------------- COLONNA UNICA ---------------->
+		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 			<h2 class="alt">contenuti</h2>
 «ENDDEFINE»
@@ -127,10 +127,10 @@ Definizioni generali: Pagine di ERRORE
 «REM»Parte finale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
 		</div>
-		<!-------------- FINE COLONNA UNICA -------------->
+		<!-- ============ FINE COLONNA UNICA ============ -->
 
 	</div>
-	<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
 	«IF this.structure.appWindow.footer != null-»
 	<jsp:include page="/jsp/fragments/footer.jsp" />
@@ -148,7 +148,7 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«codCanale»/«codApplicativo»/head.html" resourceProvider="sp" />
-<!--/head -->
+<!-- fine head (con remincl) -->
 «REM»RIMOSSO: implementata REMINCL
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -186,9 +186,9 @@ Definizioni generali: header, footer, ecc
 			<!-- TESTATA -->
 			<div id="intestazione">
 
-				<!--header (con remincl)-->
+				<!-- header (con remincl) -->
 				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
-				<!--/header-->
+				<!-- fine header (con remincl) -->
 
 				«REM»RIMOSSO: implementata REMINCL
 				<!--header (senza remincl: TMP)-->
@@ -257,7 +257,7 @@ Definizioni generali: header, footer, ecc
 				</div>
 				«ENDLET-»
 				«ENDIF-»
-				<!--filo d'arianna canale-->
+				<!-- filo d'arianna canale -->
 				<div id="contPath">
 					<div id="path">
 						sei in:
@@ -267,7 +267,7 @@ Definizioni generali: header, footer, ecc
 					</div>
 				</div>
 				<hr />
-				<!--fine filo arianna canale-->
+				<!-- fine filo arianna canale -->
 
 				<div id="contTitoloEmenu">
 					<div id="titoloEmenu" class="nomeServizio">
@@ -416,7 +416,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 			</div>
 			<!-- CONTENITORE + CORPO -->
 
-<!--footer (con remincl)-->
+<!-- footer (con remincl) -->
 <r:include url="/ris/include/footerSisp.html" resourceProvider="sp" />
 
 «REM»RIMOSSO: implementata REMINICL
@@ -465,10 +465,10 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+<!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="sfondoColonna">
 
-	<!----------------- COLONNA UNICA ---------------->
+	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
 		<h2 class="alt">contenuti</h2>
 
@@ -481,10 +481,10 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 	</div>
-	<!-------------- FINE COLONNA UNICA -------------->
+	<!-- ============ FINE COLONNA UNICA ============ -->
 
 </div>
-<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
@@ -506,23 +506,23 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
 «DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+<!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="sfondoColonna">
 
-	<!----------------- COLONNA UNICA ---------------->
+	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
 		<h2 class="alt">contenuti</h2>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
-		<!-- ##### UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** UDLRC Layout: UP PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 
-		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
@@ -534,54 +534,54 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
-		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
 
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
-		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 	</div>
-	<!-------------- FINE COLONNA UNICA -------------->
+	<!-- ============ FINE COLONNA UNICA ============ -->
 
 </div>
-<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
 «DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+<!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="sfondo">
 	<h2 class="alt">menu della sezione</h2>
 
-	<!------------------ COLONNA SX ------------------>
+	<!-- ================ COLONNA SX ================ -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET-»
 	</div>
-	<!---------------- FINE COLONNA SX ---------------->
+	<!-- ============== FINE COLONNA SX ============== -->
 
 	<hr />
 
-	<!------------------ COLONNA DX ------------------>
+	<!-- ================ COLONNA DX ================ -->
 	<div id="colonnaDestra">
 		<h2 class="alt">contenuti</h2>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
-		<!-- ##### UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** UDLRC Layout: UP PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
-		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello primo livello -->
@@ -593,54 +593,54 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
-		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
 
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
-		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 	</div>
-	<!---------------- FINE COLONNA DX ---------------->
+	<!-- ============== FINE COLONNA DX ============== -->
 
 </div>
-<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
 «DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ----------------------- PANNELLO CONTENUTI ---------------------- -->
+<!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="sfondo" class="treColonne">
 	<h2 class="alt">menu della sezione</h2>
 
-	<!-- ---------------- COLONNA SX ---------------- -->
+	<!-- ================ COLONNA SX ================ -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET-»
 	</div>
-	<!-- -------------- FINE COLONNA SX -------------- -->
+	<!-- ============== FINE COLONNA SX ============== -->
 
 	<hr />
 
-	<!-- ----------------- COLONNA CENTRALE ---------------- -->
+	<!-- ================= COLONNA CENTRALE ================ -->
 	<div id="colonnaCentrale">
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
-		<!-- ##### UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** UDLRC Layout: UP PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ##### FINE UDLRC Layout: UP PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 
-		<!-- ##### UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello primo livello -->
@@ -652,22 +652,22 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
-		<!-- ##### FINE UDLRC Layout: CENTER PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
 
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
-		<!-- ##### UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ##### FINE UDLRC Layout: DOWN PANEL ##### -->
+		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
 
 	</div>
-	<!-- -------------- FINE COLONNA CENTRALE -------------- -->
+	<!-- ============== FINE COLONNA CENTRALE ============== -->
 
 
-	<!-- ----------- COLONNA EXTRA (DESTRA) ---------- -->
+	<!-- =========== COLONNA EXTRA (DESTRA) ========== -->
 	<div id="colonnaExtra">
 		<h2 class="alt">informazioni</h2>
 
@@ -675,10 +675,10 @@ Gestione dei PANNELLI
 		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
 		«ENDLET-»
 	</div>
-	<!-- -------- FINE COLONNA EXTRA (DESTRA) -------- -->
+	<!-- ======== FINE COLONNA EXTRA (DESTRA) ======== -->
 
 </div>
-<!-- -------------------- FINE PANNELLO CONTENUTI -------------------- -->
+<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
