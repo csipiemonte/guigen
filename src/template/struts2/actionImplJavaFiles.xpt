@@ -8,13 +8,13 @@ package «getPresentationJavaPackage()»;
 
 /**
  * Interfaccia comune di tutte le azioni di presentation
- * @author CSI Piemonte
  *
+ * @author CSI Piemonte
  */
 public interface ICommand {
 	/**
 	 * Esegue l'azione corrispondente
-	 * @return il codice del RESULT struts conseguente all'azioen (se l'azione comporta)
+	 * @return il codice del RESULT struts conseguente all'azione (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
 	public String doCommand(BaseAction strutsAction) throws Exception;
@@ -210,7 +210,7 @@ public abstract class ExecCommand implements ICommand {
 			return resultAction.doCommand(strutsAction);
 		}
 		else
-			throw new IllegalStateException("Il result code "+result+" non è tra quelli previsti ("+_esiti+")");
+			throw new IllegalStateException("Il result code "+result+" non e' tra quelli previsti ("+_esiti+")");
 	}
 	
 	/**
@@ -240,7 +240,7 @@ public abstract class ExecCommand implements ICommand {
 	}
 	
 	/**
-	 * Deve essere implamentata nella sottoclasse in modo da impostare in sessioen o action i valori
+	 * Deve essere implamentata nella sottoclasse in modo da impostare in sessione o action i valori
 	 * degli app data previsti dalla exec action
 	 */
 	public abstract void storeAppData(ExecResults res, BaseAction strutsAction);
@@ -319,7 +319,7 @@ public class SequenceCommand implements ICommand {
 	
 	/**
 	 * La sequence action esegue in sequenza tutte le azioni atomiche
-	 * incluse come step, mantenendo il più recente risultato non nullo restituito
+	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
 	public String doCommand(BaseAction strutsAction) throws Exception{
@@ -656,10 +656,10 @@ public class SequenceCommand implements ICommand {
 			// store del dato «currAppData.name»
 			//«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
 			//	(«toJavaType(currAppData.type,model)»)res.get«getAppDataPropertyName(currAppData).toFirstUpper()»();
-			// il dato «currAppData.name» è salvato in un attributo della action corrente
+			// il dato «currAppData.name» e' salvato in un attributo della action corrente
 			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
 			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
-			// il dato «currAppData.name» è salvato in sessione
+			// il dato «currAppData.name» e' salvato in sessione
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
 			«ENDIF»
 		«ENDFOREACH»
@@ -708,7 +708,7 @@ public class SequenceCommand implements ICommand {
 
 
 	// riga selezionata in una eventuale tabella
-	// NOTA: l'id della cella selezionata è data da idRiga + idColonna
+	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
 	private String _idRiga = "";
 
 	public void setIdRiga(String val){
@@ -720,7 +720,7 @@ public class SequenceCommand implements ICommand {
 	}
 
 	// colonna selezionata in una eventuale tabella
-	// NOTA: l'id della cella selezionata è data da idRiga + idColonna
+	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
 	private String _idColonna = "";
 
 	public void setIdColonna(String val){

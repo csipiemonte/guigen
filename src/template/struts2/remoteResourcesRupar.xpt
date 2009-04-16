@@ -408,7 +408,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" />
+<customtag:panelGrid id="«this.name»" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="rupar" />
 «ENDDEFINE»
 
 
@@ -442,7 +442,7 @@ Gestione dei LAYOUT - PANNELLI
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
 «IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false">
+<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="rupar">
 «ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
