@@ -11,6 +11,7 @@
               <eventHandler>
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0" pushCurrentPage="true"/>
               </eventHandler>
+              <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="menuSemprAbilitato"/>
             </item>
           </topLevelMenu>
           <topLevelMenu name="mnuSecUC1" label="Vis.X UC TRSACC">
@@ -115,6 +116,81 @@
               <command xsi:type="guigen:ExecCommand" methodName="initcolori2" postExecData="//@appDataDefs/@appData.0">
                 <results resultCode="OK">
                   <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </results>
+              </command>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpTest2" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
+          <panels xsi:type="guigen:FormPanel" name="pMain">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pWidget" label="Test abilitazione condizionata">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check1bis"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecCustom2" label="sec. custom default disabled" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check2bis"/>
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecUC1" label="Abilitato a UC TRSACC001" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfSecUC2" label="Abilitato a UC OPEREN023" dataType="//@typedefs/@types.7">
+                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
+                </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbColori" label="Colore" dataType="//@typedefs/@types.7" keySelector="cod" valueSelector="name">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbMultipla" label="Colori" dataType="//@typedefs/@types.20" keySelector="cod" valueSelector="name">
+                  <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfCodFiscCurentUser" label="CF currentUser" dataType="//@typedefs/@types.7" fieldLength="16">
+                  <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
+                </widgets>
+                <widgets xsi:type="guigen:TextField" name="tfValidato" label="testo tra 2 e 10 caratteri" dataTypeModifier="size:2,10" dataType="//@typedefs/@types.7" required="true"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bDisableAll" label="Forza disabilitazione">
+                  <eventHandlers skipValidation="true">
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bEnableAll" label="Forza abilitazione">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.1" enable="true"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bEventoStrano" label="Evento non clicked...">
+                  <eventHandlers>
+                    <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.4"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="pErrori" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="initColori" postExecData="//@appDataDefs/@appData.0">
+            <results resultCode="OK">
+              <command xsi:type="guigen:ExecCommand" methodName="initcolori2" postExecData="//@appDataDefs/@appData.0">
+                <results resultCode="OK">
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                 </results>
               </command>
             </results>
