@@ -811,10 +811,10 @@ public class SequenceCommand implements ICommand {
 	}
 «ENDDEFINE»
 
-«DEFINE storedAppDataProperties(GUIModel model) FOR ContentPanel»
+«DEFINE storedAppDataProperties(GUIModel model, boolean expandVisitorFieldValidator) FOR ContentPanel»
 «LET findAllActionScopedAppDataInContentPanel(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model) FOREACH allAppData»
+	«EXPAND appDataProperty(model, expandVisitorFieldValidator) FOREACH allAppData»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
@@ -823,7 +823,7 @@ public class SequenceCommand implements ICommand {
 «DEFINE storedAppDataProperties(GUIModel model) FOR Command»
 «LET findAllActionScopedAppData(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model) FOREACH allAppData»
+	«EXPAND appDataProperty(model, false) FOREACH allAppData»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
@@ -831,7 +831,7 @@ public class SequenceCommand implements ICommand {
 «DEFINE storedAppDataProperties(GUIModel model) FOR Menubar»
 «LET findAllActionScopedAppDataInMenubar(this) AS allAD»
 «LET (List[ApplicationData])allAD AS allAppData»
-	«EXPAND appDataProperty(model) FOREACH allAppData»
+	«EXPAND appDataProperty(model, false) FOREACH allAppData»
 «ENDLET»
 «ENDLET»
 «ENDDEFINE»
@@ -860,17 +860,18 @@ public class SequenceCommand implements ICommand {
 	«ENDIF»
 «ENDDEFINE»
 
-«DEFINE appDataProperty(GUIModel model) FOR ApplicationData»
+«DEFINE appDataProperty(GUIModel model, boolean expandVisitorFieldValidator) FOR ApplicationData»
 «IF this.lifetimeExtent==DataLifetimeType::USER_ACTION-»
-«EXPAND appDataPropertyActionScoped(model) FOR this-»
+«EXPAND appDataPropertyActionScoped(model, expandVisitorFieldValidator) FOR this-»
 «ELSE-»
-«EXPAND appDataPropertySessionScoped(model) FOR this-»
+«EXPAND appDataPropertySessionScoped(model, expandVisitorFieldValidator) FOR this-»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE appDataPropertyActionScoped(GUIModel model) FOR ApplicationData»
+«DEFINE appDataPropertyActionScoped(GUIModel model, boolean expandVisitorFieldValidator) FOR ApplicationData»
 	private «toJavaType(this.type, model)» _«getAppDataPropertyName(this)» = «defaultInitVal(this.type,model)»;
 	
+	«getVisitorFieldValidator(this, expandVisitorFieldValidator)»
 	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
 		_«getAppDataPropertyName(this)» = value;
 	}
@@ -880,8 +881,9 @@ public class SequenceCommand implements ICommand {
 	}
 «ENDDEFINE»
 
-«DEFINE appDataPropertySessionScoped(GUIModel model) FOR ApplicationData»
+«DEFINE appDataPropertySessionScoped(GUIModel model, boolean expandVisitorFieldValidator) FOR ApplicationData»
 	
+	«getVisitorFieldValidator(this, expandVisitorFieldValidator)»
 	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
 		getSession().put("«getAppDataKey(this)»", value);
 	}

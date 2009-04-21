@@ -829,10 +829,10 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
-<customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+<customtag:column textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
 <customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 
@@ -855,11 +855,11 @@ Gestione dei LAYOUT - WIDGETS
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
 	«IF this.label != null-»
-	<customtag:column textLabel="«getText(this)»" labelFor="widg_«this.name»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
+	<customtag:column textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
 	«ENDIF-»
 	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ELSE-»
-	<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="widg_«this.name»"«ELSE»colSpan="2"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
+	<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ELSE»colSpan="2"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
 «ENDDEFINE»
 

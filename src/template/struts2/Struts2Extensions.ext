@@ -673,6 +673,10 @@ String getCustomtagCloseColspan(FormPanel fp, Widget w) : JAVA
 String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
 
+// [DM]
+String getWidgetLabelFor(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget);
+
 // [DM] restituisce le annotazioni per la validazione del campo
 String getWidgetValidation(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget);
@@ -684,6 +688,18 @@ List getGuigenCustomValidators() : JAVA
 // [DM] restituisce la lista dei custom validators modellati dall'utente nei widget
 List getUserCustomValidatorsName() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
+
+// [DM] restituisce (se necessaria) l'annotazione per un Visitor Filed Validator
+String getVisitorFieldValidator(ApplicationData ad, Boolean expandVisitorFieldValidator) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getVisitorFieldValidator(it.csi.mddtools.guigen.ApplicationData, java.lang.Boolean);
+
+// [DM] verifica se e' necessaria 
+boolean isValidatorAnnotationRequired(ComplexType t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.isValidatorAnnotationRequired(it.csi.mddtools.guigen.ComplexType);
+
+// [DM] restituisce (se necessaria) l'annotazione di validazione per il field di un DTO
+String getValidatorFieldAnnotationForDTO(Field f) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getValidatorFieldAnnotationForDTO(it.csi.mddtools.guigen.Field);
 
 // [DM] restituisce la lista delle label del menu
 List getMenuBarLabels(Menubar mb) : JAVA
@@ -712,6 +728,7 @@ String getText(Widget w) : JAVA
 // [DM]
 String getComboBoxValueChangedHandlerStyle(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getComboBoxValueChangedHandlerStyle(it.csi.mddtools.guigen.GUIModel);
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

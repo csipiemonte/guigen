@@ -1299,6 +1299,21 @@ public class GenUtils {
 		return result;
 	}
 
+	
+	/**
+	 * 
+	 * @param w
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getWidgetLabelFor(Widget w) {
+		if ( w instanceof DataWidget ) {
+			return getOGNLForWidgetValue((DataWidget)w);
+		}
+		return getWidgetName(w);
+	}
+	
+	
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO

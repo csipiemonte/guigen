@@ -228,6 +228,7 @@
             <subpanels xsi:type="guigen:FormPanel" name="pDettaglioSoggetto" label="Dettaglio Soggetto">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="editPersonaErrors" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
               <subpanels xsi:type="guigen:FormPanel" name="spDatiAnagrafici" label="Dati Anagrafici">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:HiddenValue" name="idPersona" dataType="//@typedefs/@types.0">
@@ -1137,13 +1138,13 @@
     <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.12"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.13"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.14"/>
-    <types xsi:type="guigen:ComplexType" name="Persona">
+    <types xsi:type="guigen:ComplexType" name="Persona" initFields="true">
       <fields name="id" type="//@typedefs/@types.0"/>
-      <fields name="codFisc" type="//@typedefs/@types.9"/>
-      <fields name="nome" type="//@typedefs/@types.9"/>
-      <fields name="cognome" type="//@typedefs/@types.9"/>
-      <fields name="eta" type="//@typedefs/@types.0"/>
-      <fields name="dataNascita" type="//@typedefs/@types.3"/>
+      <fields name="codFisc" type="//@typedefs/@types.9" required="true" dataTypeModifier="size:16,16"/>
+      <fields name="nome" type="//@typedefs/@types.9" required="true"/>
+      <fields name="cognome" type="//@typedefs/@types.9" required="true"/>
+      <fields name="eta" type="//@typedefs/@types.0" required="true" dataTypeModifier="range:1,150"/>
+      <fields name="dataNascita" type="//@typedefs/@types.3" required="true" dataTypeModifier="format"/>
       <fields name="sesso" type="//@typedefs/@types.9"/>
       <fields name="residenza" type="//@typedefs/@types.30"/>
       <fields name="reddito" type="//@typedefs/@types.9"/>
@@ -1152,9 +1153,9 @@
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.28"/>
     <types xsi:type="guigen:ComplexType" name="Indirizzo">
-      <fields name="comune" type="//@typedefs/@types.9"/>
-      <fields name="via" type="//@typedefs/@types.9"/>
-      <fields name="numCiv" type="//@typedefs/@types.9"/>
+      <fields name="comune" type="//@typedefs/@types.9" required="true"/>
+      <fields name="via" type="//@typedefs/@types.9" required="true"/>
+      <fields name="numCiv" type="//@typedefs/@types.9" required="true"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@types.30"/>
     <types xsi:type="guigen:ComplexType" name="Regione">

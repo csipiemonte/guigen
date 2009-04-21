@@ -24,14 +24,21 @@
 «ENDIF»
 «ENDDEFINE»
 
+
+«REM»comment«ENDREM»
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
 «FILE getFullDTOClassFile(this,model)»
 package «getDTOBaseJavaPackage(model)»;
 
-public class «getDTOClassName(this)» implements java.io.Serializable{
+«IF isValidatorAnnotationRequired(this)-»
+import com.opensymphony.xwork2.validator.annotations.*;
+
+@Validation
+«ENDIF-»
+public class «getDTOClassName(this)» implements java.io.Serializable {
 «EXPAND property (model) FOREACH this.fields»
 
-	public «getDTOClassName(this)»(){
+	public «getDTOClassName(this)»() {
 	«IF this.initFields-»
 		«FOREACH fields.select(f|f.type.metaType==ComplexType) AS cf-»
 		«LET (ComplexType)(cf.type) AS tp»
@@ -56,11 +63,14 @@ public class «getDTOClassName(this)» implements java.io.Serializable{
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»comment«ENDREM»
 «DEFINE property(GUIModel model) FOR Field»
 
 	/// Field [«name»]
 	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
 	
+	«getValidatorFieldAnnotationForDTO(this)»
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
 		_«this.name» = val;
 	}
@@ -70,6 +80,8 @@ public class «getDTOClassName(this)» implements java.io.Serializable{
 	}
 «ENDDEFINE»
 
+
+«REM»comment«ENDREM»
 «DEFINE springBEClasses FOR GUIModel-»
 «EXPAND CPBEJavaFile(this) FOREACH this.structure.appWindow.appArea.contentPanels-»
 
@@ -150,6 +162,7 @@ public class «getSpringBEExcClassName()» extends Exception {
 }
 «ENDFILE»
 «ENDDEFINE»
+
 
 «REM»bean spring associato alla logica del singolo pannello«ENDREM»
 «DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanel»
@@ -316,7 +329,7 @@ import java.util.Map;
 import org.apache.log4j.*;
 import «getBaseJavaPackage()».util.*;
 
-public abstract class BaseSessionAwareDTO implements java.io.Serializable{
+public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 	protected Map session;
 	
 	public void setSession(Map session){
@@ -393,7 +406,7 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
+	«EXPAND actionImplJavaFiles::storedAppDataProperties(model, false) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
