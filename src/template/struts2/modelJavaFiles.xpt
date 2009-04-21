@@ -29,12 +29,12 @@
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
 «FILE getFullDTOClassFile(this,model)»
 package «getDTOBaseJavaPackage(model)»;
-
+«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
 «IF isValidatorAnnotationRequired(this)-»
 import com.opensymphony.xwork2.validator.annotations.*;
 
 @Validation
-«ENDIF-»
+«ENDIF-»«ENDREM»
 public class «getDTOClassName(this)» implements java.io.Serializable {
 «EXPAND property (model) FOREACH this.fields»
 
@@ -70,7 +70,8 @@ public class «getDTOClassName(this)» implements java.io.Serializable {
 	/// Field [«name»]
 	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
 	
-	«getValidatorFieldAnnotationForDTO(this)»
+	«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
+	«getValidatorFieldAnnotationForDTO(this)»«ENDREM»
 	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
 		_«this.name» = val;
 	}
