@@ -309,6 +309,15 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	«ENDIF»
 	}
 	
+	/**
+	 * @return true se il menu/menuItem deve essere reso attivo (ovvero &grave; stato cliccato)
+	 */
+	public boolean isMenuActive(String menuName) {
+		String menu = "menu_items_" + menuName;
+		return menu.equals((String)session.get("active_menu"));
+	}
+	
+
 	«EXPAND actionImplJavaFiles::springBEProperties FOR this»
 	
 	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»

@@ -147,7 +147,7 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«codCanale»/«codApplicativo»/head.html" resourceProvider="sp" />
+<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
 «REM»RIMOSSO: implementata REMINCL
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -326,12 +326,17 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	  <s:if test="isMenuEnabled('«this.name»')" >
-	    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-	    <li «getMenuItemCssSistemaPiemonte(this, level)»>
-		  <s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuItemLabelSistemaPiemonte(this, level)»
-		  </s:a>
-	    </li>
+	    <s:if test="isMenuActive('«this.name»')" >
+	       <li «getMenuItemCssSistemaPiemonte(this, level, true)»>«getMenuItemLabelSistemaPiemonte(this, level, true)»</li>
+	    </s:if>
+	    <s:else>
+	      <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	      <li «getMenuItemCssSistemaPiemonte(this, level, false)»>
+		    <s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			  «getMenuItemLabelSistemaPiemonte(this, level, false)»
+		    </s:a>
+	      </li>
+	    </s:else>
 	  </s:if>
 	  <s:else>
 	  	<li><s:text name="«this.name».label" /></li>
@@ -349,11 +354,16 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	  <s:if test="isMenuEnabled('«this.name»')" >
-	    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
 	    <li «getMenuCssSistemaPiemonte(this, level, true)»>
-		  <s:a «getMenuLinkCssSistemaPiemonte(this, level)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuLabelSistemaPiemonte(this, level)»
-		  </s:a>
+		  <s:if test="isMenuActive('«this.name»')" >
+		    «getMenuLabelSistemaPiemonte(this, level, true)»
+		  </s:if>
+		  <s:else>
+		    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+		    <s:a «getMenuLinkCssSistemaPiemonte(this, level, false)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			  «getMenuLabelSistemaPiemonte(this, level, false)»
+		    </s:a>
+		  </s:else>
 		  «IF this.item.size>0 || this.submenu.size>0»
 		  <ul>
 		  	«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
@@ -363,7 +373,7 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 	    </li>
 	  </s:if>
 	  <s:else>
-	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
+	  	<li «getMenuCssSistemaPiemonte(this, level, false)»>«getMenuLabelSistemaPiemonte(this, level, false)»
 	  	«IF this.item.size>0 || this.submenu.size>0»
 		  <ul>
 	  		«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»

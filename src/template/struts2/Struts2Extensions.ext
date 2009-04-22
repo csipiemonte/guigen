@@ -489,58 +489,57 @@ String getMenuLabelRupar(Menu menu, int level) :
 
 //------------------------------------- SISTEMA PIEMONTE --------------------------------------
 
-String getMenuItemCssSistemaPiemonte(MenuItem item, int level) :
-	//TODO: implementare correttamente
-	//if (level == 1) then
-	//	"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'attivo' : ''}\" />\""
-	//else if (level == 2) then
-	//	"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'sottomenuOn' : ''}\" />\""
+String getMenuItemCssSistemaPiemonte(MenuItem item, int level, boolean isActive) :
+	if (level == 1) then
+		(isActive ? "class=\"attivo\"" : "")
+	else if (level == 2) then
+		(isActive ? "class=\"attivo\"" : "")
 	//else if (level == 3) then
-	//	"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'attivo3liv' : ''}\" />\""
+	//	(isActive ? "class=\"attivo3liv\"" : "")
 	//else if(level == 4) then
-	//	"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'attivo4liv' : ''}\" />\""
-	//else
+	//	(isActive ? "class=\"attivo4liv\"" : "")
+	else
 		"";
 
-String getMenuItemLabelSistemaPiemonte(MenuItem item, int level) :
-	//TODO: implementare correttamente
-	//if (level == 1) then
-	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
-	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
-	//else
+String getMenuItemLabelSistemaPiemonte(MenuItem item, int level, boolean isActive) :
+	if (level == 1) then
+		(isActive ? "<span class=\"menu_alto\">" : "") + "<s:text name=\"" + item.name + ".label\" />" + (isActive ? "</span>" : "")
+	//else if (level == 2) then
+	//	"<s:text name=\"" + item.name + ".label\" />"
+	//else if (level == 3) then
+	//	"<s:text name=\"" + item.name + ".label\" />"
+	//else if(level == 4) then
+	//	"<s:text name=\"" + item.name + ".label\" />"
+	else
 		"<s:text name=\"" + item.name + ".label\" />";
 
-String getMenuCssSistemaPiemonte(Menu menu, int level, boolean actionActive) :
+
+String getMenuCssSistemaPiemonte(Menu menu, int level, boolean isActive) :
 	if (level == 1) then
-		"class=\"sottomenu\""
+		"class=\"" + (isActive ? "sottomenuOn" : "sottomenu") + "\""
 	else if (level == 2) then
 		"class=\"sottomenu\""
-	else if (level == 3) then
-		"class=\"sottomenu\""
-	else if(level == 4) then
-		"class=\"sottomenu\""
+	//else if (level == 3) then
+	//	"class=\"sottomenu\""
+	//else if(level == 4) then
+	//	"class=\"sottomenu\""
 	else
 		"";
 
-String getMenuLinkCssSistemaPiemonte(Menu menu, int level) :
+String getMenuLinkCssSistemaPiemonte(Menu menu, int level, boolean isActive) :
 	if (level == 1) then
-		"cssClass=\"attivosottomenu\""
-	else if (level == 2) then
-		"cssClass=\"attivosottomenu\""
-	else if (level == 3) then
-		"cssClass=\"attivosottomenu\""
-	else if(level == 4) then
-		"cssClass=\"attivosottomenu\""
+		(isActive ? "cssClass=\"attivosottomenu\"" : "")
+	//else if (level == 2) then
+	//	"cssClass=\"attivosottomenu\""
+	//else if (level == 3) then
+	//	"cssClass=\"attivosottomenu\""
+	//else if(level == 4) then
+	//	"cssClass=\"attivosottomenu\""
 	else
 		"";
 
-String getMenuLabelSistemaPiemonte(Menu menu, int level) :
-	//TODO: implementare correttamente
-	//if (level == 1) then
-	//	"<s:if test=\"%{#session.active_menu == 'menu_items_"+item.name+"'}\"><span class=\"menu_alto\"><s:text name=\"" + item.name + ".label\" /></span></s:if>" +
-	//	"<s:else><s:text name=\"" + item.name + ".label\" /></s:else>"
-	//else
-		"<s:text name=\"" + menu.name + ".label\" />";
+String getMenuLabelSistemaPiemonte(Menu menu, int level, boolean isActive) :
+	"<s:text name=\"" + menu.name + ".label\" />";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
