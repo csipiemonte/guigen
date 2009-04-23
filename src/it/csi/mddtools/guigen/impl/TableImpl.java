@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getColumnModel <em>Column Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getPageSize <em>Page Size</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isEnableExport <em>Enable Export</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
  * </ul>
  * </p>
  *
@@ -93,6 +94,25 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * @ordered
 	 */
 	protected boolean enableExport = ENABLE_EXPORT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isCustomDecorator() <em>Custom Decorator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustomDecorator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CUSTOM_DECORATOR_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isCustomDecorator() <em>Custom Decorator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustomDecorator()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean customDecorator = CUSTOM_DECORATOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -246,6 +266,27 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isCustomDecorator() {
+		return customDecorator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCustomDecorator(boolean newCustomDecorator) {
+		boolean oldCustomDecorator = customDecorator;
+		customDecorator = newCustomDecorator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TABLE__CUSTOM_DECORATOR, oldCustomDecorator, customDecorator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -273,6 +314,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return new Integer(getPageSize());
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
 				return isEnableExport() ? Boolean.TRUE : Boolean.FALSE;
+			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
+				return isCustomDecorator() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -296,6 +339,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return;
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
 				setEnableExport(((Boolean)newValue).booleanValue());
+				return;
+			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
+				setCustomDecorator(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -321,6 +367,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
 				setEnableExport(ENABLE_EXPORT_EDEFAULT);
 				return;
+			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
+				setCustomDecorator(CUSTOM_DECORATOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -341,6 +390,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return pageSize != PAGE_SIZE_EDEFAULT;
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
 				return enableExport != ENABLE_EXPORT_EDEFAULT;
+			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
+				return customDecorator != CUSTOM_DECORATOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -391,6 +442,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 		result.append(pageSize);
 		result.append(", enableExport: ");
 		result.append(enableExport);
+		result.append(", customDecorator: ");
+		result.append(customDecorator);
 		result.append(')');
 		return result.toString();
 	}

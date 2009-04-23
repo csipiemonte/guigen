@@ -9,7 +9,7 @@
           <topLevelMenu name="mnuGstPersona" label="Gestione soggetti">
             <item name="mnuGstPersona2" label="Gestione soggetti">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
             </item>
           </topLevelMenu>
@@ -19,7 +19,7 @@
                 <command xsi:type="guigen:SequenceCommand">
                   <commands xsi:type="guigen:ExecCommand" methodName="caricaProgetti" postExecData="//@appDataDefs/@appData.2">
                     <results resultCode="OK">
-                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
                     </results>
                   </commands>
                 </command>
@@ -27,88 +27,6 @@
             </item>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6">
-          <panels xsi:type="guigen:FormPanel" name="pProva" label="Provatree">
-            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
-              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-              <subpanels xsi:type="guigen:MultiPanel" name="pMulti" label="">
-                <panels xsi:type="guigen:FormPanel" name="pMulti1" label="Multi1">
-                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="CF user" dataType="//@typedefs/@types.7">
-                    <databinding appData="//@appDataDefs/@appData.6"/>
-                  </widgets>
-                  <widgets xsi:type="guigen:ConfirmButton" name="bGeneraErroreField" label="Genera errore field">
-                    <eventHandlers>
-                      <command xsi:type="guigen:ExecCommand" methodName="genFieldError">
-                        <results resultCode="OK">
-                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-                        </results>
-                      </command>
-                    </eventHandlers>
-                  </widgets>
-                </panels>
-                <panels xsi:type="guigen:FormPanel" name="pMulti2" label="Multi2">
-                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextArea" name="taMulti2_ta" label="Text area" dataType="//@typedefs/@types.7"/>
-                </panels>
-                <panels xsi:type="guigen:CommandPanel" name="pMulti3">
-                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:ConfirmButton" name="bBottone3" label="fdfdfdfd"/>
-                </panels>
-                <panels xsi:type="guigen:StdMessagePanel" name="pErrors2" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
-              </subpanels>
-              <subpanels xsi:type="guigen:StdMessagePanel" name="pErrors" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
-              <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7">
-                <databinding appData="//@appDataDefs/@appData.5"/>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti1" label="showMulti1">
-                <eventHandlers>
-                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.0"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti2" label="showMulti2">
-                <eventHandlers>
-                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.1"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bHideMulti" label="HideMulti*">
-                <eventHandlers>
-                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bJumpCSI" label="www.csi.it">
-                <eventHandlers>
-                  <command xsi:type="guigen:JumpExtCommand" staticUrl="http://www.csi.it" locationCode="csiHome"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bJumpDynamic" label="dynamic external jump">
-                <eventHandlers>
-                  <command xsi:type="guigen:JumpExtCommand" runtimeUrlProvider="//@appDataDefs/@appData.5" locationCode="runtimeURL"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bDisable" label="Disabilita tfProva">
-                <eventHandlers>
-                  <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@widgets.0"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti3" label="showMulti3">
-                <eventHandlers>
-                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.2"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:ConfirmButton" name="bShowMultiError" label="showMultiError">
-                <eventHandlers>
-                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.0/@panels.3"/>
-                </eventHandlers>
-              </widgets>
-              <widgets xsi:type="guigen:TextField" name="txtCF2" label="CF2" dataType="//@typedefs/@types.7">
-                <databinding appData="//@appDataDefs/@appData.6"/>
-              </widgets>
-            </subpanels>
-          </panels>
-        </contentPanels>
         <contentPanels name="cpRicercaPersona" appData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0 //@appDataDefs/@appData.3">
           <panels xsi:type="guigen:FormPanel" name="pMainRicercaPersona">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
@@ -136,7 +54,7 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="precompilaFormRicerca">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -145,13 +63,13 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="ricercaSoggetto" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
                       <results resultCode="FOUND_MANY">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
                       </results>
                       <results resultCode="FOUND_ONE">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
                       <results resultCode="FOUND_NONE">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -181,7 +99,7 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:FormPanel" name="pListaRisultatiInner" label="Lista risultati">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:Table" name="tblPersoneTrovate" label="Persone trovate" dataType="//@typedefs/@types.7" pageSize="20">
+                <widgets xsi:type="guigen:Table" name="tblPersoneTrovate" label="Persone trovate" dataType="//@typedefs/@types.7" pageSize="20" customDecorator="true">
                   <multiDataBinding appData="//@appDataDefs/@appData.0"/>
                   <columnModel>
                     <columns selector="cognome" label="Cognome"/>
@@ -195,7 +113,7 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggetto">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -264,7 +182,7 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="resetRicerca" postExecData="//@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -273,7 +191,7 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="salvaModifichePersona" postExecData="//@appDataDefs/@appData.1">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -347,7 +265,7 @@
               <eventHandlers>
                 <command xsi:type="guigen:ExecCommand" methodName="erroreSuForm1">
                   <results resultCode="OK">
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@panels.0"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.0/@panels.0"/>
                   </results>
                 </command>
               </eventHandlers>
@@ -356,17 +274,99 @@
               <eventHandlers>
                 <command xsi:type="guigen:ExecCommand" methodName="erroreSuForm2">
                   <results resultCode="OK">
-                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@panels.1"/>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.0/@panels.1"/>
                   </results>
                 </command>
               </eventHandlers>
             </widgets>
           </panels>
         </contentPanels>
+        <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6">
+          <panels xsi:type="guigen:FormPanel" name="pProva" label="Provatree">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:MultiPanel" name="pMulti" label="">
+                <panels xsi:type="guigen:FormPanel" name="pMulti1" label="Multi1">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="txtMulti1_txt" label="CF user" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@appData.6"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bGeneraErroreField" label="Genera errore field">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="genFieldError">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="pMulti2" label="Multi2">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="taMulti2_ta" label="Text area" dataType="//@typedefs/@types.7"/>
+                </panels>
+                <panels xsi:type="guigen:CommandPanel" name="pMulti3">
+                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bBottone3" label="fdfdfdfd"/>
+                </panels>
+                <panels xsi:type="guigen:StdMessagePanel" name="pErrors2" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="pErrors" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              <widgets xsi:type="guigen:TextField" name="tfProva" label="prova" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.5"/>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti1" label="showMulti1">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0/@panels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti2" label="showMulti2">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0/@panels.1"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bHideMulti" label="HideMulti*">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bJumpCSI" label="www.csi.it">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpExtCommand" staticUrl="http://www.csi.it" locationCode="csiHome"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bJumpDynamic" label="dynamic external jump">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpExtCommand" runtimeUrlProvider="//@appDataDefs/@appData.5" locationCode="runtimeURL"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bDisable" label="Disabilita tfProva">
+                <eventHandlers>
+                  <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMulti3" label="showMulti3">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0/@panels.2"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bShowMultiError" label="showMultiError">
+                <eventHandlers>
+                  <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0" activeItem="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@subpanels.0/@panels.3"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:TextField" name="txtCF2" label="CF2" dataType="//@typedefs/@types.7">
+                <databinding appData="//@appDataDefs/@appData.6"/>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
         <staticLinks/>
         <onInitCommand xsi:type="guigen:ExecCommand" methodName="inizializzazioneApplicazione" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.6">
           <results resultCode="OK">
-            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
           </results>
         </onInitCommand>
       </appArea>

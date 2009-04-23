@@ -2155,13 +2155,22 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__ENABLE_EXPORT = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Custom Decorator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__CUSTOM_DECORATOR = DATA_WIDGET_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
+	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6002,6 +6011,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTable_EnableExport();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Table#isCustomDecorator <em>Custom Decorator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Decorator</em>'.
+	 * @see it.csi.mddtools.guigen.Table#isCustomDecorator()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_CustomDecorator();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CheckBox <em>Check Box</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8492,6 +8512,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TABLE__ENABLE_EXPORT = eINSTANCE.getTable_EnableExport();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom Decorator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__CUSTOM_DECORATOR = eINSTANCE.getTable_CustomDecorator();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.

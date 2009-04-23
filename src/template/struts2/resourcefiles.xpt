@@ -539,6 +539,9 @@ Gestione dei Widget
                keepStatus="true"
                clearStatus="false"
                uid="row_«this.name»"
+               «IF customDecorator-»
+               decorator="«getTableDecoratorFQN(model,this)»"
+               «ENDIF-»
                «getTablePortalStyle(model)» >
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort">

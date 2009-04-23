@@ -240,6 +240,16 @@ String getIridePDCacheFQN(GUIModel model) :
 	
 String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
+
+
+String getTableDecoratorClassName(Table tbl) :
+	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
+	
+String getTableDecoratorFQN(GUIModel model, Table tbl) :
+	getPresentationJavaPackage(model)+"."+getTableDecoratorClassName(tbl);
+	
+String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
+	getPresentationJavaSrcDir(model, true) + "/" + getTableDecoratorClassName(tbl) + ".java";	
 	
 /// Pattern Command Actions Classes
 

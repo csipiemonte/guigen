@@ -14,6 +14,7 @@
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
 	«EXPAND strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR this»
+	«EXPAND strutsCustomDecoratorsJavaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND security::securityJavaFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
@@ -745,6 +746,51 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM DECORATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+«DEFINE strutsCustomDecoratorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+
+	«REM»Validatori custom definiti dal generatore«ENDREM»
+	«FOREACH structure.appWindow.appArea.contentPanels AS currCP»
+		«LET findAllWidgetsInContentPanel(currCP).typeSelect(Table) AS allTables»
+			«EXPAND tableDecoratorJavaFile(this) FOREACH allTables»
+		«ENDLET»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE tableDecoratorJavaFile(GUIModel model) FOR Table»
+«IF customDecorator»
+«FILE getTableDecoratorJavaFile(model, this)»package «getPresentationJavaPackage(model)»;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.import")»
+/// inserire qui eventuali import aggiuntive
+«ENDPROTECT»
+
+import org.displaytag.decorator.TableDecorator;
+
+public class «getTableDecoratorClassName(this)» extends TableDecorator {
+
+	
+	public «getTableDecoratorClassName(this)»() {
+		super();
+		
+	}
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.body")»
+    /// Questo spazio e' destinato alla definizione del Decorator.
+    /// La documentazione sull'utilizzo dei decoratori della display tag e' disponibile all'url:
+    /// http://displaytag.sourceforge.net/1.2  
+«ENDPROTECT»
+
+}
+
+«ENDFILE»
+«ENDIF»
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================

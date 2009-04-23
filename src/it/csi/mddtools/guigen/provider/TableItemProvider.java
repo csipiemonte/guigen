@@ -67,6 +67,7 @@ public class TableItemProvider
 
 			addPageSizePropertyDescriptor(object);
 			addEnableExportPropertyDescriptor(object);
+			addCustomDecoratorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -107,6 +108,28 @@ public class TableItemProvider
 				 getString("_UI_Table_enableExport_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Table_enableExport_feature", "_UI_Table_type"),
 				 GuigenPackage.Literals.TABLE__ENABLE_EXPORT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Custom Decorator feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCustomDecoratorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Table_customDecorator_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Table_customDecorator_feature", "_UI_Table_type"),
+				 GuigenPackage.Literals.TABLE__CUSTOM_DECORATOR,
 				 true,
 				 false,
 				 false,
@@ -185,6 +208,7 @@ public class TableItemProvider
 		switch (notification.getFeatureID(Table.class)) {
 			case GuigenPackage.TABLE__PAGE_SIZE:
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
+			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.TABLE__MULTI_DATA_BINDING:
