@@ -87,6 +87,7 @@ public class ApplicationAreaItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__CONTENT_PANELS);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__STATIC_LINKS);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND);
+			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_AREA__MODULES);
 		}
 		return childrenFeatures;
 	}
@@ -144,6 +145,7 @@ public class ApplicationAreaItemProvider
 			case GuigenPackage.APPLICATION_AREA__CONTENT_PANELS:
 			case GuigenPackage.APPLICATION_AREA__STATIC_LINKS:
 			case GuigenPackage.APPLICATION_AREA__ON_INIT_COMMAND:
+			case GuigenPackage.APPLICATION_AREA__MODULES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -240,6 +242,11 @@ public class ApplicationAreaItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__MODULES,
+				 GuigenFactory.eINSTANCE.createAppModule()));
 	}
 
 	/**

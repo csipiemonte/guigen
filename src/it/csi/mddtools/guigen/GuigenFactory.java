@@ -791,6 +791,33 @@ public interface GuigenFactory extends EFactory {
 	WizardPanel createWizardPanel();
 
 	/**
+	 * Returns a new object of class '<em>App Module</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>App Module</em>'.
+	 * @generated
+	 */
+	AppModule createAppModule();
+
+	/**
+	 * Returns a new object of class '<em>Type Namespace</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Namespace</em>'.
+	 * @generated
+	 */
+	TypeNamespace createTypeNamespace();
+
+	/**
+	 * Returns a new object of class '<em>App Data Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>App Data Group</em>'.
+	 * @generated
+	 */
+	AppDataGroup createAppDataGroup();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

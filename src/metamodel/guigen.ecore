@@ -16,6 +16,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="onInitCommand" eType="#//Command"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
+        eType="#//AppModule" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Menubar">
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelMenu" upperBound="-1"
@@ -283,6 +285,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Typedefs">
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//Type" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namespaces" upperBound="-1"
+        eType="#//TypeNamespace" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -322,6 +326,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationDataDefs">
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
         eType="#//ApplicationData" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
+        eType="#//AppDataGroup" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PortalNames">
     <eLiterals name="SISTEMA_PIEMONTE"/>
@@ -412,4 +418,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="UserInfoPanel" eSuperTypes="#//Panel"/>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedPanel" eSuperTypes="#//Panel"/>
   <eClassifiers xsi:type="ecore:EClass" name="WizardPanel" eSuperTypes="#//MultiPanel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AppModule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentPanels" upperBound="-1"
+        eType="#//ContentPanel" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeNamespace">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AppDataGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
+        eType="#//ApplicationData" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

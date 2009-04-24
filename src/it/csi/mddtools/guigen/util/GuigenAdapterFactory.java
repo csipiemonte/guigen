@@ -456,6 +456,18 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createWizardPanelAdapter();
 			}
 			@Override
+			public Adapter caseAppModule(AppModule object) {
+				return createAppModuleAdapter();
+			}
+			@Override
+			public Adapter caseTypeNamespace(TypeNamespace object) {
+				return createTypeNamespaceAdapter();
+			}
+			@Override
+			public Adapter caseAppDataGroup(AppDataGroup object) {
+				return createAppDataGroupAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1816,6 +1828,48 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWizardPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AppModule <em>App Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AppModule
+	 * @generated
+	 */
+	public Adapter createAppModuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TypeNamespace <em>Type Namespace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TypeNamespace
+	 * @generated
+	 */
+	public Adapter createTypeNamespaceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AppDataGroup <em>App Data Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AppDataGroup
+	 * @generated
+	 */
+	public Adapter createAppDataGroupAdapter() {
 		return null;
 	}
 

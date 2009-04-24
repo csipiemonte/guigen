@@ -2031,6 +2031,75 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AppModule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AppModuleItemProvider appModuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AppModule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAppModuleAdapter() {
+		if (appModuleItemProvider == null) {
+			appModuleItemProvider = new AppModuleItemProvider(this);
+		}
+
+		return appModuleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypeNamespace} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeNamespaceItemProvider typeNamespaceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TypeNamespace}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeNamespaceAdapter() {
+		if (typeNamespaceItemProvider == null) {
+			typeNamespaceItemProvider = new TypeNamespaceItemProvider(this);
+		}
+
+		return typeNamespaceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AppDataGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AppDataGroupItemProvider appDataGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AppDataGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAppDataGroupAdapter() {
+		if (appDataGroupItemProvider == null) {
+			appDataGroupItemProvider = new AppDataGroupItemProvider(this);
+		}
+
+		return appDataGroupItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2214,6 +2283,9 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (userInfoPanelItemProvider != null) userInfoPanelItemProvider.dispose();
 		if (userDefinedPanelItemProvider != null) userDefinedPanelItemProvider.dispose();
 		if (wizardPanelItemProvider != null) wizardPanelItemProvider.dispose();
+		if (appModuleItemProvider != null) appModuleItemProvider.dispose();
+		if (typeNamespaceItemProvider != null) typeNamespaceItemProvider.dispose();
+		if (appDataGroupItemProvider != null) appDataGroupItemProvider.dispose();
 	}
 
 }

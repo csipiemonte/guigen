@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStaticLinks <em>Static Links</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getModules <em>Modules</em>}</li>
  * </ul>
  * </p>
  *
@@ -177,5 +178,21 @@ public interface ApplicationArea extends EObject {
 	 * @generated
 	 */
 	void setOnInitCommand(Command value);
+
+	/**
+	 * Returns the value of the '<em><b>Modules</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.AppModule}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Modules</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Modules</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Modules()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<AppModule> getModules();
 
 } // ApplicationArea

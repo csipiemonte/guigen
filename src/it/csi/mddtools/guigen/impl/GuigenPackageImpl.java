@@ -11,6 +11,8 @@ import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
 import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.ActorBasedSecurityConstraint;
 import it.csi.mddtools.guigen.AppDataBinding;
+import it.csi.mddtools.guigen.AppDataGroup;
+import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
@@ -92,6 +94,7 @@ import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UCBasedSecurityConstraint;
@@ -803,6 +806,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass appModuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeNamespaceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass appDataGroupEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -976,6 +1000,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getApplicationArea_OnInitCommand() {
 		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplicationArea_Modules() {
+		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2396,6 +2429,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTypedefs_Namespaces() {
+		return (EReference)typedefsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getType() {
 		return typeEClass;
 	}
@@ -2542,6 +2584,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getApplicationDataDefs_AppData() {
 		return (EReference)applicationDataDefsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplicationDataDefs_Groups() {
+		return (EReference)applicationDataDefsEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3062,6 +3113,78 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAppModule() {
+		return appModuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAppModule_Name() {
+		return (EAttribute)appModuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppModule_ContentPanels() {
+		return (EReference)appModuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeNamespace() {
+		return typeNamespaceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeNamespace_Name() {
+		return (EAttribute)typeNamespaceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeNamespace_Types() {
+		return (EReference)typeNamespaceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAppDataGroup() {
+		return appDataGroupEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppDataGroup_AppData() {
+		return (EReference)appDataGroupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3155,6 +3278,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(applicationAreaEClass, APPLICATION_AREA__CONTENT_PANELS);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__STATIC_LINKS);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__ON_INIT_COMMAND);
+		createEReference(applicationAreaEClass, APPLICATION_AREA__MODULES);
 
 		menubarEClass = createEClass(MENUBAR);
 		createEReference(menubarEClass, MENUBAR__TOP_LEVEL_MENU);
@@ -3373,6 +3497,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		typedefsEClass = createEClass(TYPEDEFS);
 		createEReference(typedefsEClass, TYPEDEFS__TYPES);
+		createEReference(typedefsEClass, TYPEDEFS__NAMESPACES);
 
 		typeEClass = createEClass(TYPE);
 		createEAttribute(typeEClass, TYPE__NAME);
@@ -3396,6 +3521,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		applicationDataDefsEClass = createEClass(APPLICATION_DATA_DEFS);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__APP_DATA);
+		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__GROUPS);
 
 		treeViewEClass = createEClass(TREE_VIEW);
 
@@ -3481,6 +3607,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		userDefinedPanelEClass = createEClass(USER_DEFINED_PANEL);
 
 		wizardPanelEClass = createEClass(WIZARD_PANEL);
+
+		appModuleEClass = createEClass(APP_MODULE);
+		createEAttribute(appModuleEClass, APP_MODULE__NAME);
+		createEReference(appModuleEClass, APP_MODULE__CONTENT_PANELS);
+
+		typeNamespaceEClass = createEClass(TYPE_NAMESPACE);
+		createEAttribute(typeNamespaceEClass, TYPE_NAMESPACE__NAME);
+		createEReference(typeNamespaceEClass, TYPE_NAMESPACE__TYPES);
+
+		appDataGroupEClass = createEClass(APP_DATA_GROUP);
+		createEReference(appDataGroupEClass, APP_DATA_GROUP__APP_DATA);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -3594,6 +3731,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getApplicationArea_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_StaticLinks(), this.getStaticLinks(), null, "staticLinks", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_OnInitCommand(), this.getCommand(), null, "onInitCommand", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationArea_Modules(), this.getAppModule(), null, "modules", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menubarEClass, Menubar.class, "Menubar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenubar_TopLevelMenu(), this.getMenu(), null, "topLevelMenu", null, 0, -1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3812,6 +3950,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(typedefsEClass, Typedefs.class, "Typedefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedefs_Types(), this.getType(), null, "types", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypedefs_Namespaces(), this.getTypeNamespace(), null, "namespaces", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3835,6 +3974,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(applicationDataDefsEClass, ApplicationDataDefs.class, "ApplicationDataDefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplicationDataDefs_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationDataDefs_Groups(), this.getAppDataGroup(), null, "groups", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(treeViewEClass, TreeView.class, "TreeView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3920,6 +4060,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(userDefinedPanelEClass, UserDefinedPanel.class, "UserDefinedPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wizardPanelEClass, WizardPanel.class, "WizardPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(appModuleEClass, AppModule.class, "AppModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAppModule_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeNamespaceEClass, TypeNamespace.class, "TypeNamespace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeNamespace_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypeNamespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeNamespace_Types(), this.getType(), null, "types", null, 0, -1, TypeNamespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(appDataGroupEClass, AppDataGroup.class, "AppDataGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAppDataGroup_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, AppDataGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

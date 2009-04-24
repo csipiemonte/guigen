@@ -7,9 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.AppDataGroup;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.Typedefs;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,12 +31,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.Typedefs} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.AppDataGroup} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TypedefsItemProvider
+public class AppDataGroupItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -50,7 +50,7 @@ public class TypedefsItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypedefsItemProvider(AdapterFactory adapterFactory) {
+	public AppDataGroupItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -81,8 +81,7 @@ public class TypedefsItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.TYPEDEFS__TYPES);
-			childrenFeatures.add(GuigenPackage.Literals.TYPEDEFS__NAMESPACES);
+			childrenFeatures.add(GuigenPackage.Literals.APP_DATA_GROUP__APP_DATA);
 		}
 		return childrenFeatures;
 	}
@@ -101,14 +100,14 @@ public class TypedefsItemProvider
 	}
 
 	/**
-	 * This returns Typedefs.gif.
+	 * This returns AppDataGroup.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Typedefs"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AppDataGroup"));
 	}
 
 	/**
@@ -119,7 +118,7 @@ public class TypedefsItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Typedefs_type");
+		return getString("_UI_AppDataGroup_type");
 	}
 
 	/**
@@ -133,9 +132,8 @@ public class TypedefsItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Typedefs.class)) {
-			case GuigenPackage.TYPEDEFS__TYPES:
-			case GuigenPackage.TYPEDEFS__NAMESPACES:
+		switch (notification.getFeatureID(AppDataGroup.class)) {
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -155,23 +153,8 @@ public class TypedefsItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.TYPEDEFS__TYPES,
-				 GuigenFactory.eINSTANCE.createSimpleType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.TYPEDEFS__TYPES,
-				 GuigenFactory.eINSTANCE.createComplexType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.TYPEDEFS__TYPES,
-				 GuigenFactory.eINSTANCE.createTypedArray()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.TYPEDEFS__NAMESPACES,
-				 GuigenFactory.eINSTANCE.createTypeNamespace()));
+				(GuigenPackage.Literals.APP_DATA_GROUP__APP_DATA,
+				 GuigenFactory.eINSTANCE.createApplicationData()));
 	}
 
 	/**

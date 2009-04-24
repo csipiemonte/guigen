@@ -82,6 +82,7 @@ public class ApplicationDataDefsItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_DATA_DEFS__APP_DATA);
+			childrenFeatures.add(GuigenPackage.Literals.APPLICATION_DATA_DEFS__GROUPS);
 		}
 		return childrenFeatures;
 	}
@@ -134,6 +135,7 @@ public class ApplicationDataDefsItemProvider
 
 		switch (notification.getFeatureID(ApplicationDataDefs.class)) {
 			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -155,6 +157,11 @@ public class ApplicationDataDefsItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.APPLICATION_DATA_DEFS__APP_DATA,
 				 GuigenFactory.eINSTANCE.createApplicationData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_DATA_DEFS__GROUPS,
+				 GuigenFactory.eINSTANCE.createAppDataGroup()));
 	}
 
 	/**

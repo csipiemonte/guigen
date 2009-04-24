@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getTypes <em>Types</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Typedefs#getNamespaces <em>Namespaces</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,5 +43,21 @@ public interface Typedefs extends EObject {
 	 * @generated
 	 */
 	EList<Type> getTypes();
+
+	/**
+	 * Returns the value of the '<em><b>Namespaces</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.TypeNamespace}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Namespaces</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Namespaces</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_Namespaces()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<TypeNamespace> getNamespaces();
 
 } // Typedefs

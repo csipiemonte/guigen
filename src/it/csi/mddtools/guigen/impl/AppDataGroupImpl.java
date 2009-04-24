@@ -8,7 +8,6 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.AppDataGroup;
 import it.csi.mddtools.guigen.ApplicationData;
-import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
@@ -27,19 +26,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Application Data Defs</b></em>'.
+ * An implementation of the model object '<em><b>App Data Group</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl#getAppData <em>App Data</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl#getGroups <em>Groups</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.AppDataGroupImpl#getAppData <em>App Data</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationDataDefs {
+public class AppDataGroupImpl extends EObjectImpl implements AppDataGroup {
 	/**
 	 * The cached value of the '{@link #getAppData() <em>App Data</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -51,21 +49,11 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	protected EList<ApplicationData> appData;
 
 	/**
-	 * The cached value of the '{@link #getGroups() <em>Groups</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGroups()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AppDataGroup> groups;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ApplicationDataDefsImpl() {
+	protected AppDataGroupImpl() {
 		super();
 	}
 
@@ -76,7 +64,7 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.APPLICATION_DATA_DEFS;
+		return GuigenPackage.Literals.APP_DATA_GROUP;
 	}
 
 	/**
@@ -86,21 +74,9 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	 */
 	public EList<ApplicationData> getAppData() {
 		if (appData == null) {
-			appData = new EObjectContainmentEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA);
+			appData = new EObjectContainmentEList<ApplicationData>(ApplicationData.class, this, GuigenPackage.APP_DATA_GROUP__APP_DATA);
 		}
 		return appData;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AppDataGroup> getGroups() {
-		if (groups == null) {
-			groups = new EObjectContainmentEList<AppDataGroup>(AppDataGroup.class, this, GuigenPackage.APPLICATION_DATA_DEFS__GROUPS);
-		}
-		return groups;
 	}
 
 	/**
@@ -111,10 +87,8 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				return ((InternalEList<?>)getAppData()).basicRemove(otherEnd, msgs);
-			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
-				return ((InternalEList<?>)getGroups()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -127,10 +101,8 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				return getAppData();
-			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
-				return getGroups();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -144,13 +116,9 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				getAppData().clear();
 				getAppData().addAll((Collection<? extends ApplicationData>)newValue);
-				return;
-			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
-				getGroups().clear();
-				getGroups().addAll((Collection<? extends AppDataGroup>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -164,11 +132,8 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				getAppData().clear();
-				return;
-			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
-				getGroups().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -182,12 +147,10 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.APPLICATION_DATA_DEFS__APP_DATA:
+			case GuigenPackage.APP_DATA_GROUP__APP_DATA:
 				return appData != null && !appData.isEmpty();
-			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
-				return groups != null && !groups.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ApplicationDataDefsImpl
+} //AppDataGroupImpl

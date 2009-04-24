@@ -146,6 +146,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.USER_INFO_PANEL: return createUserInfoPanel();
 			case GuigenPackage.USER_DEFINED_PANEL: return createUserDefinedPanel();
 			case GuigenPackage.WIZARD_PANEL: return createWizardPanel();
+			case GuigenPackage.APP_MODULE: return createAppModule();
+			case GuigenPackage.TYPE_NAMESPACE: return createTypeNamespace();
+			case GuigenPackage.APP_DATA_GROUP: return createAppDataGroup();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1053,6 +1056,36 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public WizardPanel createWizardPanel() {
 		WizardPanelImpl wizardPanel = new WizardPanelImpl();
 		return wizardPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppModule createAppModule() {
+		AppModuleImpl appModule = new AppModuleImpl();
+		return appModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeNamespace createTypeNamespace() {
+		TypeNamespaceImpl typeNamespace = new TypeNamespaceImpl();
+		return typeNamespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppDataGroup createAppDataGroup() {
+		AppDataGroupImpl appDataGroup = new AppDataGroupImpl();
+		return appDataGroup;
 	}
 
 	/**

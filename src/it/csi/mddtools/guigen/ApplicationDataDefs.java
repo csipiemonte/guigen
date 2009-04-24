@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationDataDefs#getAppData <em>App Data</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationDataDefs#getGroups <em>Groups</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,5 +43,21 @@ public interface ApplicationDataDefs extends EObject {
 	 * @generated
 	 */
 	EList<ApplicationData> getAppData();
+
+	/**
+	 * Returns the value of the '<em><b>Groups</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.AppDataGroup}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Groups</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Groups</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_Groups()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<AppDataGroup> getGroups();
 
 } // ApplicationDataDefs
