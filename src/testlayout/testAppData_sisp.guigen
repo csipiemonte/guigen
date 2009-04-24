@@ -247,10 +247,21 @@
                   <databinding appData="//@appDataDefs/@appData.1" path="eta"/>
                 </widgets>
                 <widgets xsi:type="guigen:RadioButtons" name="rbsSex" label="Sesso" dataType="//@typedefs/@types.9">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:ExecCommand" methodName="abilitaDisabilitaSuRadio">
+                      <results resultCode="ABILITA">
+                        <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.0/@subpanels.1/@widgets.6" show="true"/>
+                      </results>
+                      <results resultCode="DISABILITA">
+                        <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.0/@subpanels.1/@widgets.6"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
                   <databinding appData="//@appDataDefs/@appData.1" path="sesso"/>
                   <radio name="M" label="M"/>
                   <radio name="F" label="F"/>
                 </widgets>
+                <widgets xsi:type="guigen:TextField" name="squadraDiCalcio" label="Squadra di Calcio" dataType="//@typedefs/@types.9"/>
               </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="spIndirizzo" label="Indirizzo">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>

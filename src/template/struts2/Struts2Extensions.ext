@@ -434,15 +434,27 @@ String getClickHandlerMethodName(Widget source) :
 // [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 String getComboBoxValueChangedHandlerJS(ComboBox cb) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\"" + 
-		"onfocus=\"inFocus(this)\"" +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\"";
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" " + 
+		"onfocus=\"inFocus(this)\" " +
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssStyle=\"" + 
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
+String getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" "; 
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssStyle=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
 			"\" /></noscript>";
 
 // [DM] restituisce l'azione relativa ad una colonna della tabella
@@ -699,8 +711,8 @@ List getUserCustomValidatorsName() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
 
 // [DM] restituisce (se necessaria) l'annotazione per un Visitor Filed Validator
-String getVisitorFieldValidator(ApplicationData ad, Boolean expandVisitorFieldValidator) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getVisitorFieldValidator(it.csi.mddtools.guigen.ApplicationData, java.lang.Boolean);
+String getVisitorFieldValidator(ApplicationData ad, ContentPanel cp, Boolean expandVisitorFieldValidator) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getVisitorFieldValidator(it.csi.mddtools.guigen.ApplicationData, it.csi.mddtools.guigen.ContentPanel, java.lang.Boolean);
 
 // [DM] verifica se e' necessaria 
 boolean isValidatorAnnotationRequired(ComplexType t) : JAVA
@@ -722,6 +734,10 @@ List getContentPanelLabels(ContentPanel cp) : JAVA
 List getWidgetsLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
 
+// [DM] restituisce la lista delle label dei widgets di un ContentPanel
+List getApplicationDataLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getApplicationDataLabels(it.csi.mddtools.guigen.ContentPanel);
+
 // [DM] verifica se un ContentPanel contiene o meno delle tabelle (problema della localizzazione della displaytag)
 boolean hasTable(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTable(it.csi.mddtools.guigen.ContentPanel);
@@ -737,6 +753,10 @@ String getText(Widget w) : JAVA
 // [DM]
 String getComboBoxValueChangedHandlerStyle(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getComboBoxValueChangedHandlerStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] restituisce la lista delle label per i Visitor Validators sui Typedefs
+List getVisitorValidatorLabels(List complexTypesList) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getVisitorValidatorLabels(java.util.List);
 
 
 

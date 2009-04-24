@@ -39,13 +39,22 @@ error.applicationerror.warning=Attenzione!
 error.applicationerror.message=Si è verificato un errore
 error.applicationerror.btnmsg=torna alla home
 
+
 ###
 # Label del menu
 ###
-«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS label-»
-«label»
+«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS menuLabel-»
+«menuLabel»
 «ENDFOREACH-»
 
+«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
+###
+# Label della validazione mediante Visitor Validator degli ApplicationDAta dell'applicazione
+###
+«FOREACH getVisitorValidatorLabels(this.typedefs.types.select(e|e.metaType == ComplexType)) AS validatorLabel-»
+«validatorLabel»
+«ENDFOREACH-»
+«ENDREM»
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
 ###
@@ -75,6 +84,7 @@ error.applicationerror.btnmsg=torna alla home
 # Label dei widget, nella forma
 #   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
 #   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
+#   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
 ###
 «FOREACH getWidgetsLabels(cp) AS label-»
 «label»
@@ -103,8 +113,8 @@ error.applicationerror.btnmsg=torna alla home
 ###
 # Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
 ###
-«FOREACH getContentPanelLabels(this) AS label-»
-«label»
+«FOREACH getContentPanelLabels(this) AS cpLabel-»
+«cpLabel»
 «ENDFOREACH-»
 
 
@@ -112,11 +122,21 @@ error.applicationerror.btnmsg=torna alla home
 # Label dei widget, nella forma
 #   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
 #   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
+#   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
 ###
-«FOREACH getWidgetsLabels(this) AS label-»
-«label»
+«FOREACH getWidgetsLabels(this) AS wLabel-»
+«wLabel»
 «ENDFOREACH-»
 
+«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
+###
+# Label degli ApplicationData, nella forma
+#   - VISITOR VALIDATOR : <contentpanel_name>.<applicationdata_name>.visitorvalidator.label=<label>
+###
+«FOREACH getApplicationDataLabels(this) AS adLabel-»
+«adLabel»
+«ENDFOREACH-»
+«ENDREM»
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")»
 ###
