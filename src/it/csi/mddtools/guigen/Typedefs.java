@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Typedefs</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface Typedefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_Types()
 	 * @model containment="true"
@@ -53,6 +60,9 @@ public interface Typedefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Namespaces</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_Namespaces()
 	 * @model containment="true"

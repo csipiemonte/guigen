@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Application Data</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,9 @@ public interface ApplicationData extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationData_Name()
@@ -62,6 +69,9 @@ public interface ApplicationData extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lifetime Extent</em>' attribute.
 	 * @see it.csi.mddtools.guigen.DataLifetimeType
 	 * @see #setLifetimeExtent(DataLifetimeType)
@@ -90,6 +100,9 @@ public interface ApplicationData extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationData_Type()

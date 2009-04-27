@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Multi Data Widget</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface MultiDataWidget extends Widget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multi Data Binding</em>' containment reference.
 	 * @see #setMultiDataBinding(AppDataBinding)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMultiDataWidget_MultiDataBinding()

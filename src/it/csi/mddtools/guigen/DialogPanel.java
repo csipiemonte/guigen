@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Dialog Panel</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface DialogPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Dialog Content</em>' containment reference.
 	 * @see #setDialogContent(Panel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDialogPanel_DialogContent()

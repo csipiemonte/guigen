@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Type Namespace</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -36,6 +40,9 @@ public interface TypeNamespace extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypeNamespace_Name()
@@ -63,6 +70,9 @@ public interface TypeNamespace extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypeNamespace_Types()
 	 * @model containment="true"

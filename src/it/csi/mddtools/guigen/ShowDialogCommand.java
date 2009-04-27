@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Show Dialog Command</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface ShowDialogCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Dialog</em>' reference.
 	 * @see #setDialog(DialogPanel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getShowDialogCommand_Dialog()

@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Application Area</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -41,6 +45,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Menubar</em>' containment reference.
 	 * @see #setMenubar(Menubar)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Menubar()
@@ -67,6 +74,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Titlebar</em>' containment reference.
 	 * @see #setTitlebar(Titlebar)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Titlebar()
@@ -93,6 +103,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Statusbar</em>' containment reference.
 	 * @see #setStatusbar(Statusbar)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Statusbar()
@@ -120,6 +133,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Content Panels</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_ContentPanels()
 	 * @model containment="true"
@@ -135,6 +151,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Links</em>' containment reference.
 	 * @see #setStaticLinks(StaticLinks)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_StaticLinks()
@@ -161,6 +180,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>On Init Command</em>' containment reference.
 	 * @see #setOnInitCommand(Command)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_OnInitCommand()
@@ -188,6 +210,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Modules</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Modules()
 	 * @model containment="true"

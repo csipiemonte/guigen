@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Widget</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -41,6 +45,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_Name()
@@ -67,6 +74,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_Label()
@@ -93,6 +103,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Layout Spec</em>' containment reference.
 	 * @see #setLayoutSpec(WidgetLayoutSpecifier)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_LayoutSpec()
@@ -120,6 +133,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handlers</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_EventHandlers()
 	 * @model containment="true"
@@ -136,6 +152,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_SecurityConstraints()
 	 * @model containment="true"
@@ -152,6 +171,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Default Visible</em>' attribute.
 	 * @see #setDefaultVisible(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_DefaultVisible()
@@ -179,6 +201,9 @@ public interface Widget extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Default Enabled</em>' attribute.
 	 * @see #setDefaultEnabled(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_DefaultEnabled()

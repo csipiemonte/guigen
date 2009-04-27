@@ -3176,8 +3176,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAppDataGroup_Name() {
+		return (EAttribute)appDataGroupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getAppDataGroup_AppData() {
-		return (EReference)appDataGroupEClass.getEStructuralFeatures().get(0);
+		return (EReference)appDataGroupEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3617,6 +3626,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(typeNamespaceEClass, TYPE_NAMESPACE__TYPES);
 
 		appDataGroupEClass = createEClass(APP_DATA_GROUP);
+		createEAttribute(appDataGroupEClass, APP_DATA_GROUP__NAME);
 		createEReference(appDataGroupEClass, APP_DATA_GROUP__APP_DATA);
 
 		// Create enums
@@ -4070,6 +4080,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getTypeNamespace_Types(), this.getType(), null, "types", null, 0, -1, TypeNamespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(appDataGroupEClass, AppDataGroup.class, "AppDataGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAppDataGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppDataGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppDataGroup_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, AppDataGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>UC Based Security Constraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface UCBasedSecurityConstraint extends UISecurityConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Case</em>' reference.
 	 * @see #setUseCase(UseCase)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getUCBasedSecurityConstraint_UseCase()

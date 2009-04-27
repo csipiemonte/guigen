@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenFactory
  * @model kind="package"
  * @generated
@@ -5470,13 +5473,22 @@ public interface GuigenPackage extends EPackage {
 	int APP_DATA_GROUP = 98;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_GROUP__NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>App Data</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_DATA_GROUP__APP_DATA = 0;
+	int APP_DATA_GROUP__APP_DATA = 1;
 
 	/**
 	 * The number of structural features of the '<em>App Data Group</em>' class.
@@ -5485,7 +5497,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APP_DATA_GROUP_FEATURE_COUNT = 1;
+	int APP_DATA_GROUP_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -8192,6 +8204,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getAppDataGroup();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.AppDataGroup#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataGroup#getName()
+	 * @see #getAppDataGroup()
+	 * @generated
+	 */
+	EAttribute getAppDataGroup_Name();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.AppDataGroup#getAppData <em>App Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10475,6 +10498,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass APP_DATA_GROUP = eINSTANCE.getAppDataGroup();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APP_DATA_GROUP__NAME = eINSTANCE.getAppDataGroup_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>App Data</b></em>' containment reference list feature.

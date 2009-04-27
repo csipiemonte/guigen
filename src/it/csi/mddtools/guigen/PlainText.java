@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Plain Text</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface PlainText extends DataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Text</em>' attribute.
 	 * @see #setStaticText(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPlainText_StaticText()

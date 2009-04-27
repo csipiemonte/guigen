@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>UDLRC Widget Layout Spec</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface UDLRCWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see it.csi.mddtools.guigen.UDLRCSpecConstants
 	 * @see #setValue(UDLRCSpecConstants)

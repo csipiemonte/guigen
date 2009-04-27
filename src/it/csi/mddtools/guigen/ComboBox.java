@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Combo Box</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Key Selector</em>' attribute.
 	 * @see #setKeySelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_KeySelector()
@@ -60,6 +67,9 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value Selector</em>' attribute.
 	 * @see #setValueSelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_ValueSelector()

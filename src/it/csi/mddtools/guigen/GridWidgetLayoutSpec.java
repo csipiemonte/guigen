@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Grid Widget Layout Spec</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Row</em>' attribute.
 	 * @see #setRow(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec_Row()
@@ -60,6 +67,9 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Column</em>' attribute.
 	 * @see #setColumn(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec_Column()
@@ -86,6 +96,9 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Hspan</em>' attribute.
 	 * @see #setHspan(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec_Hspan()

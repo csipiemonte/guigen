@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Jump Ext Command</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface JumpExtCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Url</em>' attribute.
 	 * @see #setStaticUrl(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand_StaticUrl()
@@ -60,6 +67,9 @@ public interface JumpExtCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Runtime Url Provider</em>' reference.
 	 * @see #setRuntimeUrlProvider(ApplicationData)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand_RuntimeUrlProvider()
@@ -86,6 +96,9 @@ public interface JumpExtCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Location Code</em>' attribute.
 	 * @see #setLocationCode(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand_LocationCode()

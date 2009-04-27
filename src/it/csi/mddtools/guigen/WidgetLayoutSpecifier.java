@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Widget Layout Specifier</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWidgetLayoutSpecifier()
  * @model abstract="true"

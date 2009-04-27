@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Column</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Selector</em>' attribute.
 	 * @see #setSelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Selector()
@@ -63,6 +70,9 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Label()
@@ -89,6 +99,9 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Sortable</em>' attribute.
 	 * @see #setSortable(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Sortable()
@@ -115,6 +128,9 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Editable</em>' attribute.
 	 * @see #setEditable(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Editable()
@@ -141,6 +157,9 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Active</em>' attribute.
 	 * @see #setEventActive(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_EventActive()

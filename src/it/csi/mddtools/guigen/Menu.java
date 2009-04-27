@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Menu</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -40,6 +44,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Name()
@@ -66,6 +73,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Label()
@@ -93,6 +103,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Item()
 	 * @model containment="true"
@@ -109,6 +122,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Submenu</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Submenu()
 	 * @model containment="true"
@@ -125,6 +141,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_SecurityConstraints()
 	 * @model containment="true"
@@ -140,6 +159,9 @@ public interface Menu extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handler</em>' containment reference.
 	 * @see #setEventHandler(EventHandler)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_EventHandler()

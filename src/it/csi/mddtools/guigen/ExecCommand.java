@@ -13,6 +13,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Exec Command</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -36,6 +40,9 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Results</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_Results()
 	 * @model containment="true"
@@ -51,6 +58,9 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Method Name</em>' attribute.
 	 * @see #setMethodName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_MethodName()
@@ -78,6 +88,9 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Post Exec Data</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_PostExecData()
 	 * @model

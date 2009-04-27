@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Std Message Panel</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface StdMessagePanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Global Messages</em>' attribute.
 	 * @see #setShowGlobalMessages(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getStdMessagePanel_ShowGlobalMessages()
@@ -60,6 +67,9 @@ public interface StdMessagePanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Field Error Details</em>' attribute.
 	 * @see #setShowFieldErrorDetails(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getStdMessagePanel_ShowFieldErrorDetails()
@@ -86,6 +96,9 @@ public interface StdMessagePanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Field Errors</em>' attribute.
 	 * @see #setShowFieldErrors(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getStdMessagePanel_ShowFieldErrors()

@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Text Area</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface TextArea extends DataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rows</em>' attribute.
 	 * @see #setRows(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTextArea_Rows()
@@ -61,6 +68,9 @@ public interface TextArea extends DataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Columns</em>' attribute.
 	 * @see #setColumns(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTextArea_Columns()

@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Command Outcome</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface CommandOutcome extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result Code</em>' attribute.
 	 * @see #setResultCode(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOutcome_ResultCode()
@@ -60,6 +67,9 @@ public interface CommandOutcome extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Command</em>' containment reference.
 	 * @see #setCommand(Command)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOutcome_Command()

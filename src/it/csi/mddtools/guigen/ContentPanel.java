@@ -14,6 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Content Panel</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Panels</em>' containment reference.
 	 * @see #setPanels(Panel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_Panels()
@@ -63,6 +70,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_Name()
@@ -90,6 +100,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_AppData()
 	 * @model
@@ -105,6 +118,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>On Refresh Command</em>' containment reference.
 	 * @see #setOnRefreshCommand(Command)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_OnRefreshCommand()

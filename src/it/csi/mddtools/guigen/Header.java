@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Header</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -38,6 +42,9 @@ public interface Header extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Canale</em>' attribute.
 	 * @see #setCodCanale(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_CodCanale()
@@ -64,6 +71,9 @@ public interface Header extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Applicativo</em>' attribute.
 	 * @see #setCodApplicativo(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_CodApplicativo()
@@ -90,6 +100,9 @@ public interface Header extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nome Canale</em>' attribute.
 	 * @see #setNomeCanale(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_NomeCanale()
@@ -116,6 +129,9 @@ public interface Header extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Link Canale</em>' attribute.
 	 * @see #setLinkCanale(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_LinkCanale()
@@ -142,6 +158,9 @@ public interface Header extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nome Applicativo</em>' attribute.
 	 * @see #setNomeApplicativo(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_NomeApplicativo()

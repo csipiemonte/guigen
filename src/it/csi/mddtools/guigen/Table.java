@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Table</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,9 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Column Model</em>' containment reference.
 	 * @see #setColumnModel(ColumnModel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTable_ColumnModel()
@@ -61,6 +68,9 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Page Size</em>' attribute.
 	 * @see #setPageSize(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTable_PageSize()
@@ -88,6 +98,9 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable Export</em>' attribute.
 	 * @see #setEnableExport(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTable_EnableExport()
@@ -114,6 +127,9 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Custom Decorator</em>' attribute.
 	 * @see #setCustomDecorator(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTable_CustomDecorator()

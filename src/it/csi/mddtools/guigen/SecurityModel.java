@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Security Model</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -38,6 +42,9 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Autentication Method</em>' containment reference.
 	 * @see #setAutenticationMethod(AutenticationMethod)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_AutenticationMethod()
@@ -65,6 +72,9 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actors</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_Actors()
 	 * @model containment="true"
@@ -81,6 +91,9 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Cases</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_UseCases()
 	 * @model containment="true"
@@ -96,6 +109,9 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security App ID</em>' attribute.
 	 * @see #setSecurityAppID(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_SecurityAppID()

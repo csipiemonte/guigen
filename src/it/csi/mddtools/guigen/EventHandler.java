@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Event Handler</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,9 @@ public interface EventHandler extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Command</em>' containment reference.
 	 * @see #setCommand(Command)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_Command()
@@ -62,6 +69,9 @@ public interface EventHandler extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Type</em>' attribute.
 	 * @see it.csi.mddtools.guigen.EventTypes
 	 * @see #setEventType(EventTypes)
@@ -90,6 +100,9 @@ public interface EventHandler extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Skip Validation</em>' attribute.
 	 * @see #setSkipValidation(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_SkipValidation()

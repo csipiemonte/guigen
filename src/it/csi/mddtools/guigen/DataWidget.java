@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Data Widget</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,9 @@ public interface DataWidget extends Widget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Type</em>' reference.
 	 * @see #setDataType(Type)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_DataType()
@@ -62,6 +69,9 @@ public interface DataWidget extends Widget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Required</em>' attribute.
 	 * @see #setRequired(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_Required()
@@ -88,6 +98,9 @@ public interface DataWidget extends Widget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Type Modifier</em>' attribute.
 	 * @see #setDataTypeModifier(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_DataTypeModifier()
@@ -114,6 +127,9 @@ public interface DataWidget extends Widget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Databinding</em>' containment reference.
 	 * @see #setDatabinding(AppDataBinding)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDataWidget_Databinding()

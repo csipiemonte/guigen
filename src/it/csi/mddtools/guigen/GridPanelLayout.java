@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Grid Panel Layout</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface GridPanelLayout extends PanelLayout {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Columns</em>' attribute.
 	 * @see #setColumns(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridPanelLayout_Columns()
@@ -59,6 +66,9 @@ public interface GridPanelLayout extends PanelLayout {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rows</em>' attribute.
 	 * @see #setRows(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridPanelLayout_Rows()

@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Application Data Defs</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface ApplicationDataDefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_AppData()
 	 * @model containment="true"
@@ -53,6 +60,9 @@ public interface ApplicationDataDefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Groups</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_Groups()
 	 * @model containment="true"

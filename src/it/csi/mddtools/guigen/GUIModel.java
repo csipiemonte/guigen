@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>GUI Model</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -43,6 +47,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Structure</em>' containment reference.
 	 * @see #setStructure(GUIStructure)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_Structure()
@@ -69,6 +76,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Beahviors</em>' containment reference.
 	 * @see #setBeahviors(GUIBehaviors)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_Beahviors()
@@ -95,6 +105,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Prodotto</em>' attribute.
 	 * @see #setCodProdotto(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_CodProdotto()
@@ -121,6 +134,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Componente</em>' attribute.
 	 * @see #setCodComponente(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_CodComponente()
@@ -147,6 +163,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Prodotto</em>' attribute.
 	 * @see #setVersioneProdotto(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_VersioneProdotto()
@@ -173,6 +192,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Componente</em>' attribute.
 	 * @see #setVersioneComponente(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_VersioneComponente()
@@ -199,6 +221,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Typedefs</em>' containment reference.
 	 * @see #setTypedefs(Typedefs)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_Typedefs()
@@ -225,6 +250,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data Defs</em>' containment reference.
 	 * @see #setAppDataDefs(ApplicationDataDefs)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_AppDataDefs()
@@ -252,6 +280,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Portale</em>' attribute.
 	 * @see it.csi.mddtools.guigen.PortalNames
 	 * @see #setPortale(PortalNames)
@@ -280,6 +311,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Model</em>' containment reference.
 	 * @see #setSecurityModel(SecurityModel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_SecurityModel()
@@ -306,6 +340,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target Platform</em>' containment reference.
 	 * @see #setTargetPlatform(TargetPlatform)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_TargetPlatform()

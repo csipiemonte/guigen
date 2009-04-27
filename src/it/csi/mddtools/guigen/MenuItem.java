@@ -14,6 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Menu Item</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface MenuItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem_Name()
@@ -63,6 +70,9 @@ public interface MenuItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem_Label()
@@ -89,6 +99,9 @@ public interface MenuItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handler</em>' containment reference.
 	 * @see #setEventHandler(EventHandler)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem_EventHandler()
@@ -116,6 +129,9 @@ public interface MenuItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuItem_SecurityConstraints()
 	 * @model containment="true"

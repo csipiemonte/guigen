@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Jump Command</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[TODO: add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface JumpCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Jump To</em>' reference.
 	 * @see #setJumpTo(ContentPanel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpCommand_JumpTo()
@@ -59,6 +66,9 @@ public interface JumpCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Push Current Page</em>' attribute.
 	 * @see #setPushCurrentPage(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getJumpCommand_PushCurrentPage()
