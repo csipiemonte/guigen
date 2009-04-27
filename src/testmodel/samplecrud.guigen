@@ -82,7 +82,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpListaPersone" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpListaPersone" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pMainListaPersone">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -111,7 +111,7 @@
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="bDettaglio" label="DEttaglio soggetto">
                   <eventHandlers>
-                    <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggetto">
+                    <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggetto" postExecData="//@appDataDefs/@appData.1">
                       <results resultCode="OK">
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                       </results>
@@ -427,13 +427,13 @@
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
   </typedefs>
   <appDataDefs>
-    <appData name="personeTrovate" type="//@typedefs/@types.27"/>
-    <appData name="dettaglioPersona" type="//@typedefs/@types.26"/>
+    <appData name="personeTrovate" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <appData name="dettaglioPersona" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.26"/>
     <appData name="progettiUtente" type="//@typedefs/@types.30"/>
     <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
     <appData name="myTree" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.33"/>
     <appData name="externalURL" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
     <appData name="userCF" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
   </appDataDefs>
-  <targetPlatform code="JBoss43"/>
+  <targetPlatform/>
 </guigen:GUIModel>

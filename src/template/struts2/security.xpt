@@ -2,12 +2,34 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
+«DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethod»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
+<!-- authentication method non supportato: «this.metaType» -->
+«ENDDEFINE»
+
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
 <!-- authentication method non supportato: «this.metaType» -->
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
-<!-- authentication method non supportato: «this.metaType» -->
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
@@ -90,7 +112,10 @@
 		value="${componente}"/>
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@DEFAULT_APP_SERVER@"  
-		value="${opauth.default.appserver}"/>	
+		value="${opauth.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>	
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
