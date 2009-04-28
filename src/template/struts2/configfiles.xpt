@@ -498,7 +498,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		«ENDFOREACH»
 		
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
-		«LET this.structure.appWindow.appArea.contentPanels AS contentPanels»
+		«LET (List[ContentPanel])getAllContentPanels(this) AS contentPanels»
 			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels»
 		«ENDLET»
 	
@@ -543,13 +543,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 <validators>
 
 	<!-- Custom validators Definiti in GuiGen -->
-	«FOREACH getGuigenCustomValidators() AS currValidator»
-	<validator name="«(String)currValidator»" class="«getStrutsCustomValidatorFQN((String)currValidator, this)»"/>
+	«FOREACH (List[String])getGuigenCustomValidators() AS currValidator»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
 	«ENDFOREACH»
 
 	<!-- Custom validators modellati dall'utente nei widget -->
-	«FOREACH getUserCustomValidatorsName() AS currValidator»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
-	<validator name="«(String)currValidator»" class="«getStrutsCustomValidatorFQN((String)currValidator, this)»"/>
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
 	«ENDFOREACH»
 
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")»
@@ -590,7 +590,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	
 	<!-- bean di facade -->
 	<bean id="springBackEnd" class="«getSpringBEFQN()»">
-	«FOREACH structure.appWindow.appArea.contentPanels AS currCP-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 		<property name="«getSpringCPBEClassName(currCP)»">
 			<ref bean="«getSpringCPBEClassName(currCP)»"/>
 		</property>
@@ -598,7 +598,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	</bean>
 	
 	<!-- bean relativi ai singoli content panel -->
-	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 	<bean id="«getSpringCPBEClassName(currCP)»" class="«getSpringCPBEFQN(this,currCP)»">
 
 	</bean>

@@ -751,6 +751,10 @@ public class SequenceCommand implements ICommand {
 	// tipo di data widget non gestito: «this»
 «ENDDEFINE»
 
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR PlainText»
+	«REM»Non facciamo ninte. Implementare in futuro se servisse«ENDREM»
+«ENDDEFINE»
+
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR HiddenValue»
 	// HiddenValue «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»

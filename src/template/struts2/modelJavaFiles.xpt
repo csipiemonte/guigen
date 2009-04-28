@@ -6,14 +6,14 @@
 «REM»tipi complessi«ENDREM»
 «LET this.typedefs AS typedefs»
 «IF typedefs != null»
-«LET typedefs.types.typeSelect(ComplexType) AS complexType»
+«LET ((List[Type])getAllTypes(this)).typeSelect(ComplexType) AS complexType»
 «EXPAND modelClass(this) FOREACH complexType»
 «ENDLET»
 «ENDIF»
 «ENDLET»
 «REM»action model«ENDREM»
 «EXPAND baseActionModelfile(this) FOR this»
-«LET this.structure.appWindow.appArea.contentPanels AS currCP»
+«LET (List[ContentPanel])getAllContentPanels(this) AS currCP»
 «EXPAND actionModelFile(this) FOREACH currCP»
 «ENDLET»
 «IF this.structure.appWindow.appArea.menubar!=null»
@@ -36,7 +36,7 @@ import com.opensymphony.xwork2.validator.annotations.*;
 @Validation
 «ENDIF-»«ENDREM»
 public class «getDTOClassName(this)» implements java.io.Serializable {
-«EXPAND property (model) FOREACH this.fields»
+«EXPAND property(model) FOREACH this.fields»
 
 	public «getDTOClassName(this)»() {
 	«IF this.initFields-»
@@ -84,7 +84,7 @@ public class «getDTOClassName(this)» implements java.io.Serializable {
 
 «REM»comment«ENDREM»
 «DEFINE springBEClasses FOR GUIModel-»
-«EXPAND CPBEJavaFile(this) FOREACH this.structure.appWindow.appArea.contentPanels-»
+«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this)-»
 
 «FILE getSpringBEJavaFile()»
 package «getBaseJavaPackage()».business;
@@ -108,7 +108,7 @@ public class «getSpringBEClassName()»{
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
-    «FOREACH this.appDataDefs.appData AS currAD»
+    «FOREACH (List[ApplicationData])getAllApplicationData(this) AS currAD»
     public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
     «ENDFOREACH» 
    
@@ -125,7 +125,7 @@ public class «getSpringBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property relative ai bean spring associati agli specifici content panel
 	//////////////////////////////////////////////////////////////////////////////
-	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 	
 	private «getSpringCPBEClassName(currCP)» _«getSpringCPBEClassName(currCP)» = null;
 	
@@ -229,7 +229,7 @@ public class «getSpringCPBEClassName()»{
 
 «REM»inserisce un metodo per ogni ExecAction contenuta nel modello«ENDREM»
 «DEFINE springBEMethods FOR GUIModel-»
-	«FOREACH this.structure.appWindow.appArea.contentPanels AS currCP-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 		«IF currCP.onRefreshCommand!=null»
 			«FOREACH getAllExecActionsRecursive(currCP.onRefreshCommand) AS currAct-»
 				«EXPAND springBEMethodDelegation(this,currCP) FOR (ExecCommand)currAct-»

@@ -755,7 +755,7 @@ STRUTS2 CUSTOM DECORATORS CLASSES
 «DEFINE strutsCustomDecoratorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
 
 	«REM»Validatori custom definiti dal generatore«ENDREM»
-	«FOREACH structure.appWindow.appArea.contentPanels AS currCP»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP»
 		«LET findAllWidgetsInContentPanel(currCP).typeSelect(Table) AS allTables»
 			«EXPAND tableDecoratorJavaFile(this) FOREACH allTables»
 		«ENDLET»
@@ -805,8 +805,8 @@ STRUTS2 CUSTOM VALIDATORS CLASSES
 	«EXPAND strutsCsiDateValidatorJavaFile(skip_component_dir_creation) FOR this»
 	
 	«REM»Validatori custom modellati dall'utente«ENDREM»
-	«FOREACH getUserCustomValidatorsName() AS currValidator»
-		«EXPAND strutsCustomValidatorJavaFile((String)currValidator, skip_component_dir_creation) FOR this»
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator»
+		«EXPAND strutsCustomValidatorJavaFile(currValidator, skip_component_dir_creation) FOR this»
 	«ENDFOREACH»
 
 «ENDDEFINE»
@@ -855,8 +855,8 @@ public class «validatorName.toUpperCase()» extends FieldValidatorSupport {
 
 «REM»Crea un validatore custom di Struts 2 per la gestione delle date«ENDREM»
 «DEFINE strutsCsiDateValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«LET getGuigenCustomValidators().get(0) AS validatorName»
-«FILE getStrutsCustomValidatorJavaFile((String)validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+«LET ((List[String])getGuigenCustomValidators()).get(0) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
 
 import java.text.SimpleDateFormat;
 
@@ -868,7 +868,7 @@ import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
  *
  * @author GuiGen
  */
-public class «((String)validatorName).toFirstUpper()» extends FieldValidatorSupport {
+public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 
 	/** Formato atteso della data (obbligatorio) */
 	private String format;

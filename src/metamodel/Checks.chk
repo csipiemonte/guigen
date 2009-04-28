@@ -40,7 +40,7 @@ context Header ERROR "E'necessario impostare il link (di produzione) del canale 
 ///// Validazione su pannelli
 
 context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione"+loc() :
-	((ApplicationArea)this.eContainer).contentPanels.select(cp|cp.name==this.name).size==1; 
+	isContentPanelUnique(this); 
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 	this.name != null && this.name != "";
@@ -411,8 +411,8 @@ context UISecurityConstraint ERROR "Non è possibile specificare un UI security c
 
 /// verifica se sono presenti il tipo UserInfo e l'app data currentUser
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
-	((GUIModel)this.eRootContainer).typedefs.types.findByName("UserInfo")!=null;	
+	((List[Type])getAllTypes((GUIModel)this.eRootContainer)).findByName("UserInfo") != null;	
 	
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
-	((GUIModel)this.eRootContainer).appDataDefs.findChildByName("currentUser",ApplicationData) != null;
+	((List[ApplicationData])getAllApplicationData((GUIModel)this.eRootContainer)).findByName("currentUser") != null;
 	

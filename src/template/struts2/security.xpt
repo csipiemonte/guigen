@@ -531,7 +531,7 @@ public class IrideIdAdapterFilter implements Filter{
 
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
 	«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
-	«LET (ApplicationData)(appDataDefs.appData.select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+	«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
 	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
 	«ENDLET-»
 	«ENDLET-»
@@ -1043,7 +1043,7 @@ public class «getSpringSecurityHelperClassName()»{
 	//// Metodi per la sicurezza custom
 	///////////////////////////////////////////////////////////////////////////////
 	
-	«FOREACH structure.appWindow.appArea.contentPanels AS cp-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS cp-»
 		«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
 			«LET cpWidgets.select(w|w.securityConstraints.select(c|c.metaType==CustomSecurityConstraint).size>0) AS allCustomConstrainedWidgets-»
 			«FOREACH (List[CustomSecurityConstraint])(allCustomConstrainedWidgets.securityConstraints.select(c|c.metaType==CustomSecurityConstraint)) AS currCustomSC-»

@@ -11,6 +11,10 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 
+import it.csi.mddtools.guigen.AppDataGroup;
+import it.csi.mddtools.guigen.AppModule;
+import it.csi.mddtools.guigen.ApplicationArea;
+import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationData;
@@ -24,6 +28,7 @@ import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.FormPanel;
+import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpCommand;
@@ -41,6 +46,9 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypeNamespace;
+import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
@@ -54,6 +62,69 @@ import it.csi.mddtools.guigen.Widget;
  * @author Davide Martinotti
  */
 public class GenUtils {
+	
+	/**
+	 * Restituisce tutti i ContentPanels dell'applicazione.
+	 * @param  model
+	 * @return 
+	 * @author [DM] 
+	 */
+	public static List<ContentPanel> getAllContentPanels(GUIModel model) {
+		ApplicationArea appArea =  model.getStructure().getAppWindow().getAppArea();
+		return getAllContentPanels(appArea);
+	}
+	
+	
+	/**
+	 * 
+	 * @param appArea
+	 * @return
+	 * @author [DM]
+	 */
+	public static List<ContentPanel> getAllContentPanels(ApplicationArea appArea) {
+		List<ContentPanel> res = new ArrayList<ContentPanel>();
+		
+		// ContentPanels a livello ApplicationArea (this.structure.appWindow.appArea.contentPanels)
+		res.addAll(appArea.getContentPanels());
+		
+		// ContentPanels a livello packages (AppModule)
+		for (AppModule module : appArea.getModules()) {
+			res.addAll(module.getContentPanels());
+		}
+		
+		return res;
+	}	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean isContentPanelUnique(ContentPanel contentPanel) {
+		ApplicationArea appArea = null;
+		if ( contentPanel.eContainer() instanceof ApplicationArea ) {
+			// ContentPanel a livello ApplicationArea
+			appArea = (ApplicationArea)contentPanel.eContainer();
+		} else if ( contentPanel.eContainer() instanceof AppModule ) {
+			// ContentPanels a livello packages (AppModule)
+			appArea = (ApplicationArea)((AppModule)contentPanel.eContainer()).eContainer();
+		}
+		
+		List<ContentPanel> cpList = getAllContentPanels(appArea);
+		int count = 0;
+		for (ContentPanel cp : cpList) {
+			if ( cp.getName().equals(contentPanel.getName()) ) {
+				count++;
+			}
+		}
+		
+		return (count == 1);
+	}
+	
+	
+	
+	
+	/////////////////////////////////////////
 	
 	/**
 	 * 
@@ -982,6 +1053,36 @@ public class GenUtils {
 		return "'"+rb.getName()+"':'"+rb.getLabel()+"'";
 	}
 
+	//////////////////////
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	public static List<ApplicationData> getAllApplicationData(GUIModel model) {
+		return getAllApplicationData(model.getAppDataDefs());
+	}
+
+	/**
+	 * 
+	 * @param appDataDefs
+	 * @return
+	 */
+	public static List<ApplicationData> getAllApplicationData(ApplicationDataDefs appDataDefs) {
+		List<ApplicationData> res = new ArrayList<ApplicationData>();
+
+		// ApplicationData a livello ApplicationDataDefs
+		res.addAll(appDataDefs.getAppData());
+
+		// ApplicationData a livello package (AppDataGroup)
+		for (AppDataGroup group : appDataDefs.getGroups()) {
+			res.addAll(group.getAppData());
+		} 
+
+		return res;
+	}	
+
 
 	/**
 	 * restituisce tutti gli application data con scope USER_ACTION dichiarati
@@ -1417,6 +1518,25 @@ public class GenUtils {
 		return ta;
 	}
 
+	
+	public static List<Type> getAllTypes(GUIModel model) {
+		return getAllTypes(model.getTypedefs());
+	}
+	
+	public static List<Type> getAllTypes(Typedefs typedef) {
+		List<Type> res = new ArrayList<Type>();
+		
+		// Tipi a livello di Typedefs
+		res.addAll(typedef.getTypes());
+		
+		// Tipi a livello di package (Ty)
+		for (TypeNamespace ns : typedef.getNamespaces()) {
+			res.addAll(ns.getTypes());
+		}
+		
+		return res;
+	}
+	
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS

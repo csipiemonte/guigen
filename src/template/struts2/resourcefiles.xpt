@@ -358,11 +358,9 @@ Gestione dei Widget
 
 «REM»TODO: nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine corretto«ENDREM»
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR FormPanel»
-«LET getWidgetsByOrder(this) AS widgetsList»
-	«FOREACH widgetsList AS currWidg ITERATOR wi-»
-		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Widget)currWidg»
-	«ENDFOREACH-»
-«ENDLET»
+«FOREACH (List[Widget])getWidgetsByOrder(this) AS currWidg ITERATOR wi-»
+	«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR currWidg»
+«ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»

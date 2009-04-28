@@ -51,7 +51,7 @@ error.applicationerror.btnmsg=torna alla home
 ###
 # Label della validazione mediante Visitor Validator degli ApplicationDAta dell'applicazione
 ###
-«FOREACH getVisitorValidatorLabels(this.typedefs.types.select(e|e.metaType == ComplexType)) AS validatorLabel-»
+«FOREACH getVisitorValidatorLabels(((List[Type])getAllTypes(this)).select(e|e.metaType == ComplexType)) AS validatorLabel-»
 «validatorLabel»
 «ENDFOREACH-»
 «ENDREM»

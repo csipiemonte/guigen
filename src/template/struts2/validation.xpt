@@ -5,7 +5,7 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE validationMetadata FOR GUIModel»
-	«LET this.structure.appWindow.appArea.contentPanels AS pages»
+	«LET (List[ContentPanel])getAllContentPanels(this) AS pages»
 		«EXPAND validationMetadata(this) FOREACH pages»
 	«ENDLET»
 «ENDDEFINE»
