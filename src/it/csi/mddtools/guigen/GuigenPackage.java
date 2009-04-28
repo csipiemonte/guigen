@@ -2608,13 +2608,22 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTON__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__VALUE = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Radio Button</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+	int RADIO_BUTTON_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6377,6 +6386,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getRadioButton();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RadioButton#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.guigen.RadioButton#getValue()
+	 * @see #getRadioButton()
+	 * @generated
+	 */
+	EAttribute getRadioButton_Value();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ResetButton <em>Reset Button</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8962,6 +8982,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass RADIO_BUTTON = eINSTANCE.getRadioButton();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RADIO_BUTTON__VALUE = eINSTANCE.getRadioButton_Value();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ResetButtonImpl <em>Reset Button</em>}' class.
