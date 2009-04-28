@@ -1028,20 +1028,21 @@ public class GenUtils {
 	 * @param rb
 	 * @return
 	 */
-	public static String getFixedRadioButtonList(RadioButtons rb){
+	public static String getFixedRadioButtonList(RadioButtons rb) {
 		String list = "";
-		if (rb.getRadio()!=null && rb.getRadio().size()>0){
+		if ( rb.getRadio() != null && rb.getRadio().size() > 0 ) {
 			Iterator<RadioButton> it = rb.getRadio().iterator();
-			while(it.hasNext()){
+			while ( it.hasNext() ) {
 				RadioButton currRadio = it.next();
-				String currRadioString = "'"+currRadio.getName()+"':'"+currRadio.getLabel()+"'";
-				list+=currRadioString+",";
+				String currRadioString = getFixedRadioButtonList(currRadio);
+				list += currRadioString + ",";
 			}
-			list = list.substring(0,list.length()-1); // tolgo ultimo ","
+			list = list.substring(0, list.length()-1); // tolgo ultimo ","
 			return list;
 		}
-		else
+		else {
 			return ""; // non si dovrebbe mai essere iun questo caso (check sul modello)
+		}
 	}
 
 	/**
@@ -1050,7 +1051,7 @@ public class GenUtils {
 	 * @return
 	 */
 	public static String getFixedRadioButtonList(RadioButton rb) {
-		return "'"+rb.getName()+"':'"+rb.getLabel()+"'";
+		return "'" + (!isNullOrEmpty(rb.getValue()) ? rb.getValue() : rb.getName()) + "':'" + rb.getLabel() + "'";
 	}
 
 	//////////////////////
