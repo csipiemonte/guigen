@@ -103,6 +103,21 @@ Definizioni generali: header, footer, ecc
 «ENDIF-»
 
 «ENDFILE»
+
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="globalMessages" />
+
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+
+«ENDFILE»
 «ENDDEFINE»
 
 

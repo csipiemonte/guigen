@@ -71,7 +71,7 @@ Definizioni generali: Pagine di ERRORE
 <fmt:setBundle basename="globalMessages" />
 
 	«IF this.structure.appWindow.header != null-»
-	<jsp:include page="../fragments/header.jsp" />
+	<jsp:include page="../fragments/headerNoStruts.jsp" />
 	«ENDIF-»
 
 «ENDDEFINE»
@@ -162,6 +162,46 @@ Definizioni generali: header, footer, ecc
 					«IF model.structure.appWindow.appArea.menubar != null-»
 					<s:include value="menu.jsp"></s:include>
 					«ENDIF-»
+				</div>
+				<!-- FINE MENU' DI NAVIGAZIONE -->
+
+			</div>
+			<div class="left"></div>
+			<!--FINE INTESTAZIONE-->
+
+			<hr />
+
+			<!-- CORPO -->
+			<div id="corpo">
+				<h2 class="alt">Contenuti</h2>
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+<r:include url="/include/«codApplicativo»/head.html" resourceProvider="sp" />
+<!-- fine head (con remincl) -->
+
+	</head>
+	<body>
+		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
+
+			<!-- INTESTAZIONE -->
+			<div id="intestazione">
+
+				<!-- testalino (con remincl) -->
+				<r:include url="/include/headerRuparNoCav.html" resourceProvider="sp" />
+				<!-- fine testalino (con remincl) -->
+
+				<hr />
+
+				<!-- MENU' DI NAVIGAZIONE -->
+				<div id="titoloEmenu">
+					<h2><a id="navigazione"><span class="alt">«this.nomeCanale» - «this.nomeApplicativo»</span></a></h2>
+					«REM»il menu utilizza struts... che facciamo?
+					«IF model.structure.appWindow.appArea.menubar != null-»
+					<s:include value="menu.jsp"></s:include>
+					«ENDIF-»«ENDREM»
 				</div>
 				<!-- FINE MENU' DI NAVIGAZIONE -->
 
