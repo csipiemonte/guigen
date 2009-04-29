@@ -437,6 +437,16 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		    «ENDIF»
 		</action>
 		«ENDLET»
+		
+		<action name="Logout" class="«getStrutsLogoutFQN(this)»">
+			<result name="SSO_LOGOUT" type="redirect">
+				<param name="location">@LOGOUT_URL@</param>
+			</result>
+			<result name="LOCAL_LOGOUT" type="redirect">
+				<param name="location">«this.structure.appWindow.header.linkCanale»</param>
+			</result>
+		</action>
+		
 	</package>
 
 </struts>

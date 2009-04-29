@@ -115,6 +115,9 @@
 		value="${opauth.default.appserver}"/>
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
 		value="${opauth.logout.url}"/>	
 «ENDDEFINE»
 
@@ -527,7 +530,7 @@ import «getBaseJavaPackage(model)».util.*;
  *
  * @author CSIPiemonte
  */
-public class IrideIdAdapterFilter implements Filter{
+public class «getIrideIdAdapterFilterClassName()» implements Filter{
 
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
 	«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»

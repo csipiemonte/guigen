@@ -285,14 +285,14 @@ ANT FILES
   <target name="package-war"
           description="Genera il war per lo strato web.">
     <copy todir="${build}/classes">
-      <fileset dir="${conf}/web/${webapp}/WEB-INF"
+      <fileset dir="${build}/temp/conf/web/${webapp}/WEB-INF"
                includes="struts*.xml,validators.xml,*.properties"/>
     </copy>
     <war destfile="${build}/archives/${target}/${war-file-name}.war"
          webxml="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml"
          roundup="false"
          manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
-      <webinf dir="${conf}/web/${webapp}/WEB-INF"
+      <webinf dir="${build}/temp/conf/web/${webapp}/WEB-INF"
               includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,*.tld" />
       <fileset dir="${srcweb}" />
       <classes dir="${build}/jsp" includes="**" />

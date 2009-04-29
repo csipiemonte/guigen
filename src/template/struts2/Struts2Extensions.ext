@@ -201,11 +201,21 @@ String getStrutsHomeClassName(GUIModel model) :
 String getStrutsHomeFQN(GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getStrutsHomeClassName(model);
 	
+String getStrutsHomeJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".java";
+	
 String getStrutsMenuJavaFile(GUIModel model, boolean omit_root) :
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsMenuClassName(model) + ".java";
 
-String getStrutsHomeJavaFile(GUIModel model, boolean omit_root) :
-	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsHomeClassName(model) + ".java";
+String getStrutsLogoutJavaFile(GUIModel model, boolean omit_root) :
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsLogoutClassName(model) + ".java";
+
+String getStrutsLogoutClassName(GUIModel model) :
+	"LogoutAction";
+	
+String getStrutsLogoutFQN(GUIModel model) :
+	getPresentationJavaPackage(model) + "." + getStrutsLogoutClassName(model);
+
 
 String getStrutsMenuConfigName(GUIModel model) :
 	"menuAction";

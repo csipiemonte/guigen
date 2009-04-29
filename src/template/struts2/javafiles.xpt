@@ -10,6 +10,7 @@
 	«EXPAND struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND struts2LogoutJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
@@ -524,6 +525,69 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
     «EXPAND actionImplJavaFiles::actionStructureInit1(this) FOR onInitAction»
     «ENDIF»
 	«ENDLET»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE struts2LogoutJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsLogoutJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+
+import «getDTOBaseJavaPackage(this)».*;
+
+/**
+ * «getStrutsLogoutClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+
+    
+    /**
+	 * nessuna classe model associata
+	 */
+	public Class modelClass() {
+		return null;
+	}
+    
+    
+    
+	/**
+	 *
+	 * @return SSO_LOGOUT.
+	 */
+	public String ssoLogout() throws Exception {
+		
+		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		
+		invalidateLocalSession();
+		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		return "SSO_LOGOUT";
+	}
+
+	
+	/**
+	 *
+	 * @return LOCAL_LOGOUT.
+	 */
+	public String localLogout() throws Exception {
+		
+		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		invalidateLocalSession();
+		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		return "LOCAL_LOGOUT";
+	}
+
+	protected void invalidateLocalSession(){
+		«IF securityModel!=null && securityModel.autenticationMethod!=null»
+		session.remove(«getIrideIdAdapterFilterFQN()».AUTH_ID_MARKER);
+		session.remove(«getIrideIdAdapterFilterFQN()».IRIDE_ID_SESSIONATTR);
+		«ENDIF»
+	}
+	
+
 }
 «ENDFILE»
 «ENDDEFINE»

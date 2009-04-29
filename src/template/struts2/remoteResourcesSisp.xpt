@@ -182,7 +182,8 @@ Definizioni generali: header, footer, ecc
 					<div id="Utenza">
 						utente:
 						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
-						<span class="logout"><a href="#session.servletContext.getInitParameter('logoutURL')" title="esci: questo link fa uscire dal servizio">esci</a></span>
+						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
+						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio">esci</s:a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -242,7 +243,7 @@ Definizioni generali: header, footer, ecc
 					<div id="Utenza">
 						utente:
 						<strong><%-- impossibile visualizzare l'utente --%></strong>&nbsp;
-						<span class="logout"><a href="#session.servletContext.getInitParameter('logoutURL')" title="esci: questo link fa uscire dal servizio">esci</a></span>
+						<span class="logout"><a href="Logout!ssoLogout.do" title="esci: questo link fa uscire dal servizio">esci</a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -252,7 +253,7 @@ Definizioni generali: header, footer, ecc
 					<div id="path">
 						sei in:
 						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
-						<a href="http://www.sistemapiemonte.it/«this.linkCanale»/index.shtml"><fmt:message key="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
+						<a href="«this.linkCanale»"><fmt:message key="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
 						<span class="selezione"><fmt:message key="header.applicativo.nome.label" /></span>
 					</div>
 				</div>
@@ -756,7 +757,8 @@ Gestione dei PANNELLI
 			Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong><br/>
 			Ruolo: <strong><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></strong>
 		</span>
-		<span class="logoutApplicativo"><a href="#" title="chiudi: questo link fa uscire dal servizio">esci</a></span>
+		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<span class="logoutApplicativo"><s:a href="%{localLogoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a></span>
 	</div>
 </div>
 «ENDLET-»
