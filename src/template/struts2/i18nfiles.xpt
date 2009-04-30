@@ -1,5 +1,6 @@
 «IMPORT guigen»
 
+«IMPORT template::struts2::remoteResources»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -43,14 +44,15 @@ error.applicationerror.btnmsg=torna alla home
 ###
 # Header e footer
 ###
-«IF this.structure.appWindow.header != null»
+
+«IF this.structure.appWindow.header != null-»
 # Header
-header.canale.nome.label=«this.structure.appWindow.header.nomeCanale»
-header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
-«ENDIF»
-«IF this.structure.appWindow.footer != null»
+«EXPAND remoteResources::headerLabels FOR this-»«REM»Le label si differenziano per PORTALE«ENDREM»
+«ENDIF-»
+
+«IF this.structure.appWindow.footer != null-»
 # Footer
-«ENDIF»
+«ENDIF-»
 «ENDIF»
 
 ###

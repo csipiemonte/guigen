@@ -39,7 +39,10 @@ context Header ERROR "E'necessario impostare il link (di produzione) del canale 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
-context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione"+loc() :
+context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel" + loc() :
+	this.contentPanels!=null && this.contentPanels.size>0;
+
+context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione" + loc() :
 	isContentPanelUnique(this); 
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
@@ -47,10 +50,6 @@ context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello" :
 
 context Panel ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel"+loc() :
     findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
-	
-
-context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel"+loc() :
-	this.contentPanels!=null && this.contentPanels.size>0;
 
 // [DM]
 context FormPanel ERROR "E' necessario impostare il layout su ogni FormPanel " + loc() :
@@ -116,6 +115,7 @@ context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPane
 
 context MultiPanel ERROR "Gli item dei multi panel non possono contenere DataWidget diochiarati required: "+loc() :
 	findAllWidgetsInPanel(this).select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
@@ -195,6 +195,7 @@ context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di t
 context VisibilityCommand ERROR "Il comando di commutazione di visibilità è incomaptibile con i widget dichiarati required "+loc() :
 	this.targetWidgets.select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su azioni
 
@@ -216,6 +217,7 @@ context Column ERROR "una colonna di una Table può essere dichiarata 'eventActiv
 	&& 
 	((Table)(((ColumnModel)this.eContainer).eContainer))
 		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
@@ -283,7 +285,9 @@ context DataWidget WARNING "Non è possibile verificare a priori la corrispondenz
 	 	&& this.dataType==this.databinding.appData.type
 	 );	 
 
-
+// [DM] Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType
+context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType" + loc() :
+	this.types.select(t|t.metaType == SimpleType).size == 0; 
 
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su commands

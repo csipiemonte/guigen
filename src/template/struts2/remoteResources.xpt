@@ -374,3 +374,22 @@ Gestione dei LAYOUT - WIDGETS
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
 «ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione delle LABEL (i18n)
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le label per la header«ENDREM»
+«DEFINE headerLabels FOR GUIModel-»
+«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::headerLabels FOR this-»
+«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::headerLabels FOR this-»
+«ELSE-»
+	«REM»Portale non gestito: cosa faccio?«ENDREM»
+«ENDIF-»
+«ENDDEFINE»

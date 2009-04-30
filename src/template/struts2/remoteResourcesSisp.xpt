@@ -149,6 +149,31 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
+«REM»RIMOSSO: implementata REMINCL
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--head (senza remincl: TMP)-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
+		<meta name="author" content="CSI-Piemonte" />
+		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
+		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+
+		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
+		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
+		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
+		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
+
+<!--/head -->
+«ENDREM»
 
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 
@@ -176,14 +201,71 @@ Definizioni generali: header, footer, ecc
 				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
+				«REM»RIMOSSO: implementata REMINCL
+				<!--header (senza remincl: TMP)-->
+				<p id="avviso" class="navigazionePagina">
+					<a href="#contPath" id="A-inizio"
+						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
+						l&#8217;intestazione</a><span class="alt">|</span>
+				</p>
+				<div id="logo">
+					<h1 class="alt">
+						<a href="http://www.sistemapiemonte.it/"
+							title="Home page SistemaPiemonte">Sistema Piemonte</a>
+					</h1>
+				</div>
+				<div id="scritta">
+					<span class="alt"> - <a
+						href="http://www.sistemapiemonte.it/"
+						title="Home page SistemaPiemonte">l'amministrazione pubblica
+							al tuo servizio</a> </span>
+				</div>
+				<hr />
+				<p class="navigazionePagina">
+					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
+						ai contenuti</a> |
+					<a href="#sfondo" title="vai al menu della sezione">vai al menu
+						della sezione</a>
+				</p>
+				<hr />
+				<div id="sisp">
+				</div>
+
+				<div id="menuDiServizio">
+					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
+					<ul class="menuTendinaOrizz" id="menu-1">
+						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
+						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
+						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
+						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
+						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
+						<!-- <li><a href="#">profilo personale</a></li> -->
+					</ul>
+				</div>
+
+				<noscript>
+					<div id="avvisoJavascript">
+						<p>
+							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
+							<br />
+							Per poter usufruire in maniera completa dei servizi presenti in
+							SistemaPiemonte, &eacute; necessario utilizzare un browser che
+							supporti le funzioni Javascript.
+						</p>
+					</div>
+				</noscript>
+				<hr />
+				<!--/header (senza remincl: TMP)-->
+				«ENDREM»
+
 				«IF model.securityModel!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
-						utente:
+						<s:property value="header.userinfo.head.label" />
 						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
 						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
-						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio">esci</s:a></span>
+						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:property value="header.ssologout.label" /></s:a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -191,7 +273,7 @@ Definizioni generali: header, footer, ecc
 				<!-- filo d'arianna canale -->
 				<div id="contPath">
 					<div id="path">
-						sei in:
+						<s:property value="header.filoarianna.head.label" />
 						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
 						<a href="http://www.sistemapiemonte.it/«this.linkCanale»/index.shtml"><s:property value="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
 						<span class="selezione"><s:property value="header.applicativo.nome.label" /></span>
@@ -202,7 +284,7 @@ Definizioni generali: header, footer, ecc
 
 				<div id="contTitoloEmenu">
 					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden">home nome servizio</span>
+						<a href="#"><span class="txtHidden"><s:property value="header.nomeservizio.label" /></span>
 						</a>
 					</div>
 				</div>
@@ -221,6 +303,31 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
+«REM»RIMOSSO: implementata REMINCL
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--head (senza remincl: TMP)-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
+		<meta name="author" content="CSI-Piemonte" />
+		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
+		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+
+		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
+		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
+		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
+		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
+		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
+
+<!--/head -->
+«ENDREM»
 		
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 
@@ -237,13 +344,70 @@ Definizioni generali: header, footer, ecc
 				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
+				«REM»RIMOSSO: implementata REMINCL
+				<!--header (senza remincl: TMP)-->
+				<p id="avviso" class="navigazionePagina">
+					<a href="#contPath" id="A-inizio"
+						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
+						l&#8217;intestazione</a><span class="alt">|</span>
+				</p>
+				<div id="logo">
+					<h1 class="alt">
+						<a href="http://www.sistemapiemonte.it/"
+							title="Home page SistemaPiemonte">Sistema Piemonte</a>
+					</h1>
+				</div>
+				<div id="scritta">
+					<span class="alt"> - <a
+						href="http://www.sistemapiemonte.it/"
+						title="Home page SistemaPiemonte">l'amministrazione pubblica
+							al tuo servizio</a> </span>
+				</div>
+				<hr />
+				<p class="navigazionePagina">
+					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
+						ai contenuti</a> |
+					<a href="#sfondo" title="vai al menu della sezione">vai al menu
+						della sezione</a>
+				</p>
+				<hr />
+				<div id="sisp">
+				</div>
+
+				<div id="menuDiServizio">
+					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
+					<ul class="menuTendinaOrizz" id="menu-1">
+						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
+						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
+						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
+						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
+						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
+						<!-- <li><a href="#">profilo personale</a></li> -->
+					</ul>
+				</div>
+
+				<noscript>
+					<div id="avvisoJavascript">
+						<p>
+							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
+							<br />
+							Per poter usufruire in maniera completa dei servizi presenti in
+							SistemaPiemonte, &eacute; necessario utilizzare un browser che
+							supporti le funzioni Javascript.
+						</p>
+					</div>
+				</noscript>
+				<hr />
+				<!--/header (senza remincl: TMP)-->
+				«ENDREM»
+
 				«IF model.securityModel!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
-						utente:
+						<fmt:message key="header.userinfo.head.label" />
 						<strong><%-- impossibile visualizzare l'utente --%></strong>&nbsp;
-						<span class="logout"><a href="Logout!ssoLogout.do" title="esci: questo link fa uscire dal servizio">esci</a></span>
+						<span class="logout"><a href="Logout!ssoLogout.do" title="esci: questo link fa uscire dal servizio"><fmt:message key="header.ssologout.label" />esci</a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -251,7 +415,7 @@ Definizioni generali: header, footer, ecc
 				<!-- filo d'arianna canale -->
 				<div id="contPath">
 					<div id="path">
-						sei in:
+						<fmt:message key="header.filoarianna.head.label" />
 						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
 						<a href="«this.linkCanale»"><fmt:message key="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
 						<span class="selezione"><fmt:message key="header.applicativo.nome.label" /></span>
@@ -262,7 +426,7 @@ Definizioni generali: header, footer, ecc
 
 				<div id="contTitoloEmenu">
 					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden">home nome servizio</span>
+						<a href="#"><span class="txtHidden"><fmt:message key="header.nomeservizio.label" /></span>
 						</a>
 					</div>
 				</div>
@@ -951,5 +1115,23 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione delle LABEL (i18n)
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le label per la header«ENDREM»
+«DEFINE headerLabels FOR GUIModel-»
+header.userinfo.head.label=utente:
+header.filoarianna.head.label=sei in:
+header.canale.nome.label=«this.structure.appWindow.header.nomeCanale»
+header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
+header.ssologout.label=esci
+header.nomeservizio.label=home nome servizio
 «ENDDEFINE»
 
