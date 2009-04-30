@@ -43,7 +43,15 @@ public enum PortalNames implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTRANET_RUPARPIEMONTE(1, "INTRANET_RUPARPIEMONTE", "INTRANET_RUPARPIEMONTE");
+	INTRANET_RUPARPIEMONTE(1, "INTRANET_RUPARPIEMONTE", "INTRANET_RUPARPIEMONTE"), /**
+	 * The '<em><b>NEUTRAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NEUTRAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NEUTRAL(-1, "NEUTRAL", "NEUTRAL");
 
 	/**
 	 * The '<em><b>SISTEMA PIEMONTE</b></em>' literal value.
@@ -76,6 +84,21 @@ public enum PortalNames implements Enumerator {
 	public static final int INTRANET_RUPARPIEMONTE_VALUE = 1;
 
 	/**
+	 * The '<em><b>NEUTRAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NEUTRAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NEUTRAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NEUTRAL_VALUE = -1;
+
+	/**
 	 * An array of all the '<em><b>Portal Names</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,6 +108,7 @@ public enum PortalNames implements Enumerator {
 		new PortalNames[] {
 			SISTEMA_PIEMONTE,
 			INTRANET_RUPARPIEMONTE,
+			NEUTRAL,
 		};
 
 	/**
@@ -137,6 +161,7 @@ public enum PortalNames implements Enumerator {
 		switch (value) {
 			case SISTEMA_PIEMONTE_VALUE: return SISTEMA_PIEMONTE;
 			case INTRANET_RUPARPIEMONTE_VALUE: return INTRANET_RUPARPIEMONTE;
+			case NEUTRAL_VALUE: return NEUTRAL;
 		}
 		return null;
 	}

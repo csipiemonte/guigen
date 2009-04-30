@@ -4135,6 +4135,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(portalNamesEEnum, PortalNames.class, "PortalNames");
 		addEEnumLiteral(portalNamesEEnum, PortalNames.SISTEMA_PIEMONTE);
 		addEEnumLiteral(portalNamesEEnum, PortalNames.INTRANET_RUPARPIEMONTE);
+		addEEnumLiteral(portalNamesEEnum, PortalNames.NEUTRAL);
 
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
