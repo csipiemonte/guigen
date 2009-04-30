@@ -139,7 +139,7 @@ public class GenUtils {
 			EObject panel = widget.eContainer();
 			if(panel instanceof RadioButtons)
 				panel = panel.eContainer();
-			else if(widget instanceof MenuItem)
+			else if(widget instanceof MenuItem || widget instanceof Menu)
 				return null; // .. in realtà non è un pannello
 			return findParentContentPanel((Panel)panel);
 		}
