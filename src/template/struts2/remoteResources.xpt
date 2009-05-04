@@ -2,7 +2,7 @@
 
 «IMPORT template::struts2::remoteResourcesRupar»
 «IMPORT template::struts2::remoteResourcesSisp»
-
+«IMPORT template::struts2::remoteResourcesNeutral»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -42,6 +42,8 @@ Definizioni generali: Pagine di ERRORE
 	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getJspPageNotFoundError FOR this»
+«ELSEIF this.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getJspPageNotFoundError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -58,6 +60,8 @@ Definizioni generali: Pagine di ERRORE
 	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getJspFatalError FOR this»
+«ELSEIF this.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getJspFatalError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -74,6 +78,8 @@ Definizioni generali: Pagine di ERRORE
 	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getJspApplicationError FOR this»
+«ELSEIF this.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getJspApplicationError FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -98,6 +104,8 @@ Definizioni generali: header, footer, ecc
 	«EXPAND remoteResourcesRupar::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -113,6 +121,8 @@ Definizioni generali: header, footer, ecc
 	«EXPAND remoteResourcesRupar::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -128,6 +138,8 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 	«EXPAND remoteResourcesRupar::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -141,6 +153,8 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 	«EXPAND remoteResourcesRupar::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -157,6 +171,8 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 	«EXPAND remoteResourcesRupar::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -182,6 +198,8 @@ Gestione dei PANNELLI
 	«EXPAND remoteResourcesRupar::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -198,6 +216,8 @@ Gestione dei PANNELLI
 	«EXPAND remoteResourcesRupar::setupTabSetPanel(model) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupTabSetPanel(model) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::setupTabSetPanel(model) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -209,6 +229,8 @@ Gestione dei PANNELLI
 	«EXPAND remoteResourcesRupar::setupWizardPanel(model) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupWizardPanel(model) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::setupWizardPanel(model) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -223,6 +245,8 @@ Gestione dei PANNELLI
 	«EXPAND remoteResourcesRupar::setupStdMessagePanel(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupStdMessagePanel(model, cp) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::setupStdMessagePanel(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -237,6 +261,8 @@ Gestione dei PANNELLI
 	«EXPAND remoteResourcesRupar::setupUserInfoPanel(model, cp) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::setupUserInfoPanel(model, cp) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::setupUserInfoPanel(model, cp) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -256,6 +282,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -267,6 +295,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -278,6 +308,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -290,6 +322,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -301,6 +335,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -312,6 +348,8 @@ Gestione dei LAYOUT - PANNELLI
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -332,6 +370,8 @@ Gestione dei LAYOUT - WIDGETS
 	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -344,6 +384,8 @@ Gestione dei LAYOUT - WIDGETS
 	«EXPAND remoteResourcesRupar::widgetControlFooter(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlFooter(fp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlFooter(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -356,6 +398,8 @@ Gestione dei LAYOUT - WIDGETS
 	«EXPAND remoteResourcesRupar::widgetClose(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetClose(fp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetClose(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -370,6 +414,8 @@ Gestione dei LAYOUT - WIDGETS
 	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(fp, isFirst, isLast) FOR this»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
@@ -389,6 +435,8 @@ Gestione delle LABEL (i18n)
 	«EXPAND remoteResourcesRupar::headerLabels FOR this-»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
 	«EXPAND remoteResourcesSisp::headerLabels FOR this-»
+«ELSEIF this.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::headerLabels FOR this-»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
