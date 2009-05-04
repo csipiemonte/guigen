@@ -875,8 +875,8 @@ public class SequenceCommand implements ICommand {
 «DEFINE appDataPropertyActionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
 	private «toJavaType(this.type, model)» _«getAppDataPropertyName(this)» = «defaultInitVal(this.type,model)»;
 	
-	«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
-	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»«ENDREM»
+	«REM»STDMDD-159: visitor validator.«ENDREM»
+	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»
 	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
 		_«getAppDataPropertyName(this)» = value;
 	}
@@ -888,8 +888,8 @@ public class SequenceCommand implements ICommand {
 
 «DEFINE appDataPropertySessionScoped(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
 	
-	«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
-	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»«ENDREM»
+	«REM»STDMDD-159: visitor validator.«ENDREM»
+	«getVisitorFieldValidator(this, cp, expandVisitorFieldValidator)»
 	public void set«getAppDataPropertyName(this).toFirstUpper()»(«toJavaType(this.type, model)» value){
 		getSession().put("«getAppDataKey(this)»", value);
 	}

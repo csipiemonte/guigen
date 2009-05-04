@@ -26,18 +26,8 @@ Definizioni generali: Pagine di ERRORE
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Crea le pagine di errore dell'applicazione«ENDREM»
-«DEFINE getJspErrorFiles(boolean skip_component_dir_creation) FOR GUIModel-»
-	«EXPAND getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this»
-	«EXPAND getJspApplicationErrorFile(skip_component_dir_creation) FOR this»
-	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
-
-
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"»
-
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -47,15 +37,11 @@ Definizioni generali: Pagine di ERRORE
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
-«ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"»
-
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -65,15 +51,11 @@ Definizioni generali: Pagine di ERRORE
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
-«ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"»
-
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -83,8 +65,6 @@ Definizioni generali: Pagine di ERRORE
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
-«ENDFILE»
 «ENDDEFINE»
 
 
@@ -97,9 +77,6 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
-
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -109,14 +86,10 @@ Definizioni generali: header, footer, ecc
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
+«ENDDEFINE»
 
-«ENDFILE»
 
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
-
-<fmt:setBundle basename="globalMessages" />
-
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -126,8 +99,6 @@ Definizioni generali: header, footer, ecc
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
-«ENDFILE»
 «ENDDEFINE»
 
 
@@ -148,7 +119,6 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -158,15 +128,11 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-«ENDFILE»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
-
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -176,8 +142,6 @@ TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «ELSE-»
 	«REM»Portale non gestito: cosa faccio?«ENDREM»
 «ENDIF-»
-
-«ENDFILE»
 «ENDDEFINE»
 
 
@@ -211,7 +175,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»TabsetPanel«ENDREM»
-«DEFINE setupTabSetPanelByPortal(GUIModel model) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::setupTabSetPanel(model) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -224,7 +188,7 @@ Gestione dei PANNELLI
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
-«DEFINE setupWizardPanelByPortal(GUIModel model) FOR WizardPanel»
+«DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::setupWizardPanel(model) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»

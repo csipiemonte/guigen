@@ -459,7 +459,7 @@ public class GenUtilsI18n {
 
 		// validation
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res.add(keyName + GenUtilsStrutsValidation.VALIDATOR_VALIDATION_LABEL + ".=" + GenUtilsStrutsValidation.getValidationLabel(w));
+			res.add(keyName + GenUtilsStrutsValidation.VALIDATOR_VALIDATION_LABEL + "=" + GenUtilsStrutsValidation.getValidationLabel(w));
 		}
 
 		return res;

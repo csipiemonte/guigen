@@ -1288,7 +1288,7 @@ public class GenUtilsStrutsValidation {
 	 * @return
 	 */
 	private static String getValidationKey(String keyName) {
-		return "key = \"" + keyName + ".validation.label\"";
+		return "key = \"" + keyName + VALIDATOR_VALIDATION_LABEL + "\"";
 	}	
 	
 	

@@ -62,14 +62,14 @@ error.applicationerror.btnmsg=torna alla home
 «menuLabel»
 «ENDFOREACH-»
 
-«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
+«REM»STDMDD-159: visitor validator.«ENDREM»
 ###
 # Label della validazione mediante Visitor Validator degli ApplicationDAta dell'applicazione
 ###
 «FOREACH getVisitorValidatorLabels(((List[Type])getAllTypes(this)).select(e|e.metaType == ComplexType)) AS validatorLabel-»
 «validatorLabel»
 «ENDFOREACH-»
-«ENDREM»
+
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
 ###
@@ -143,7 +143,7 @@ error.applicationerror.btnmsg=torna alla home
 «wLabel»
 «ENDFOREACH-»
 
-«REM»STDMDD-159: visitor validator. Temporaneamente commentato in attesa della soluzione per il classpath
+«REM»STDMDD-159: visitor validator.«ENDREM»
 ###
 # Label degli ApplicationData, nella forma
 #   - VISITOR VALIDATOR : <contentpanel_name>.<applicationdata_name>.visitorvalidator.label=<label>
@@ -151,7 +151,7 @@ error.applicationerror.btnmsg=torna alla home
 «FOREACH getApplicationDataLabels(this) AS adLabel-»
 «adLabel»
 «ENDFOREACH-»
-«ENDREM»
+
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")»
 ###

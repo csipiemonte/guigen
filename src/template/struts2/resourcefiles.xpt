@@ -34,30 +34,91 @@
 	«REM»Genera la HEADER«ENDREM»
 	«LET this.structure.appWindow.header AS header-»
 		«IF header != null-»
-			«EXPAND template::struts2::remoteResources::getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
+			«EXPAND getHeaderMarkup(this, skip_component_dir_creation) FOR header-»
 		«ENDIF-»
 	«ENDLET-»
 
 	«REM»Genera la MENU BAR«ENDREM»
 	«LET this.structure.appWindow.appArea.menubar AS menubar-»
 		«IF menubar != null-»
-			«EXPAND template::struts2::remoteResources::getMenubarMarkup(this, skip_component_dir_creation) FOR menubar-»
+			«EXPAND getMenubarMarkup(this, skip_component_dir_creation) FOR menubar-»
 		«ENDIF-»
 	«ENDLET-»
 
 	«REM»Genera la FOOTER«ENDREM»
 	«LET this.structure.appWindow.footer AS footer-»
 		«IF footer != null-»
-			«EXPAND template::struts2::remoteResources::getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
+			«EXPAND getFooterMarkup(this, skip_component_dir_creation) FOR footer-»
 		«ENDIF-»
 	«ENDLET-»
 
 «ENDDEFINE»
 
 
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+«EXPAND remoteResources::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
+«ENDFILE»
+
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="globalMessages" />
+
+«EXPAND remoteResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
+«EXPAND remoteResources::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+
+«EXPAND remoteResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«ENDFILE»
+«ENDDEFINE»
+
+
 «REM»Crea le pagine di errore dell'applicazione«ENDREM»
 «DEFINE jspErrorFiles(boolean skip_component_dir_creation) FOR GUIModel-»
-«EXPAND remoteResources::getJspErrorFiles(skip_component_dir_creation) FOR this»
+	«EXPAND getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this-»
+	«EXPAND getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
+	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
+«DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"-»
+«EXPAND remoteResources::getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
+«DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"-»
+«EXPAND remoteResources::getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
+«DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"-»
+«EXPAND remoteResources::getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
+«ENDFILE-»
 «ENDDEFINE»
 
 
@@ -237,7 +298,7 @@ Gestione dei pannelli
 «REM»Genera un TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
 	«REM»Definizione del pannello«ENDREM»
-	«EXPAND remoteResources::setupTabSetPanelByPortal(model) FOR this-»
+	«EXPAND remoteResources::setupTabSetPanel(model) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currTab ITERATOR i -»
@@ -249,7 +310,7 @@ Gestione dei pannelli
 «REM»Genera un WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WizardPanel»
 	«REM»Definizione del pannello«ENDREM»
-	«EXPAND remoteResources::setupWizardPanelByPortal(model) FOR this-»
+	«EXPAND remoteResources::setupWizardPanel(model) FOR this-»
 	
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currStep ITERATOR i -»

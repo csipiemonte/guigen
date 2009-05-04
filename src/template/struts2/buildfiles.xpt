@@ -256,11 +256,9 @@ ANT FILES
       <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
     </copy>
 
-    <move file="${build}/archives/${target}/commons.jar"
-          tofile="${temp}/${target}/${earLib}/commons.jar"/>
-
-    <move file="${build}/archives/${target}/${webapp}-integration.jar" tofile="${temp}/${target}/${earLib}/${webapp}-integration.jar"/>
-    <move file="${build}/archives/${target}/${webapp}-business.jar" tofile="${temp}/${target}/${earLib}/${webapp}-business.jar"/>
+    <delete file="${build}/archives/${target}/commons.jar" />
+    <delete file="${build}/archives/${target}/${webapp}-integration.jar" />
+    <delete file="${build}/archives/${target}/${webapp}-business.jar" />
 
     <ear appxml="${temp}/conf/ear/${webapp}/META-INF/application.xml"
          destfile="${build}/archives/${target}/${ear-file-name}.ear">
@@ -300,6 +298,7 @@ ANT FILES
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
       <lib dir="${lib}" includes="*"
             excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
+      <lib dir="${build}/archives/${target}/" includes="commons.jar, ${webapp}-integration.jar, ${webapp}-business.jar" />           
     </war>
   </target>
 
