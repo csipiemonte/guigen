@@ -66,6 +66,8 @@ import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
+import it.csi.mddtools.guigen.MessageSeverity;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.ONOFFCommand;
@@ -827,6 +829,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass msgBoxPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -870,6 +879,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum targetPlatformCodesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum messageSeverityEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1090,6 +1106,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getContentPanel_OnRefreshCommand() {
 		return (EReference)contentPanelEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContentPanel_Dialogs() {
+		return (EReference)contentPanelEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3203,6 +3228,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMsgBoxPanel() {
+		return msgBoxPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMsgBoxPanel_MessageSeverity() {
+		return (EAttribute)msgBoxPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMsgBoxPanel_TextMessages() {
+		return (EReference)msgBoxPanelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMsgBoxPanel_Commands() {
+		return (EReference)msgBoxPanelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3266,6 +3327,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getMessageSeverity() {
+		return messageSeverityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -3310,6 +3380,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(contentPanelEClass, CONTENT_PANEL__NAME);
 		createEReference(contentPanelEClass, CONTENT_PANEL__APP_DATA);
 		createEReference(contentPanelEClass, CONTENT_PANEL__ON_REFRESH_COMMAND);
+		createEReference(contentPanelEClass, CONTENT_PANEL__DIALOGS);
 
 		formPanelEClass = createEClass(FORM_PANEL);
 		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
@@ -3639,6 +3710,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(appDataGroupEClass, APP_DATA_GROUP__NAME);
 		createEReference(appDataGroupEClass, APP_DATA_GROUP__APP_DATA);
 
+		msgBoxPanelEClass = createEClass(MSG_BOX_PANEL);
+		createEAttribute(msgBoxPanelEClass, MSG_BOX_PANEL__MESSAGE_SEVERITY);
+		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__TEXT_MESSAGES);
+		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__COMMANDS);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3647,6 +3723,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
 		portalNamesEEnum = createEEnum(PORTAL_NAMES);
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
+		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
 	}
 
 	/**
@@ -3742,6 +3819,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		userInfoPanelEClass.getESuperTypes().add(this.getPanel());
 		userDefinedPanelEClass.getESuperTypes().add(this.getPanel());
 		wizardPanelEClass.getESuperTypes().add(this.getMultiPanel());
+		msgBoxPanelEClass.getESuperTypes().add(this.getPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3765,6 +3843,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getContentPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_OnRefreshCommand(), this.getCommand(), null, "onRefreshCommand", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentPanel_Dialogs(), this.getDialogPanel(), null, "dialogs", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4094,6 +4173,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getAppDataGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppDataGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppDataGroup_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, AppDataGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(msgBoxPanelEClass, MsgBoxPanel.class, "MsgBoxPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMsgBoxPanel_MessageSeverity(), this.getMessageSeverity(), "messageSeverity", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMsgBoxPanel_TextMessages(), this.getPlainText(), null, "textMessages", null, 0, -1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMsgBoxPanel_Commands(), this.getCommandPanel(), null, "commands", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -4140,6 +4224,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS43);
+
+		initEEnum(messageSeverityEEnum, MessageSeverity.class, "MessageSeverity");
+		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.INFO);
+		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.WARN);
+		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.ERROR);
 
 		// Create resource
 		createResource(eNS_URI);

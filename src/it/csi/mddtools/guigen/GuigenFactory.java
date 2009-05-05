@@ -818,6 +818,15 @@ public interface GuigenFactory extends EFactory {
 	AppDataGroup createAppDataGroup();
 
 	/**
+	 * Returns a new object of class '<em>Msg Box Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Msg Box Panel</em>'.
+	 * @generated
+	 */
+	MsgBoxPanel createMsgBoxPanel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

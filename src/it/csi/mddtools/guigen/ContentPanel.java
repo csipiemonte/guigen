@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand <em>On Refresh Command</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDialogs <em>Dialogs</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,5 +139,21 @@ public interface ContentPanel extends EObject {
 	 * @generated
 	 */
 	void setOnRefreshCommand(Command value);
+
+	/**
+	 * Returns the value of the '<em><b>Dialogs</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.DialogPanel}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dialogs</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dialogs</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_Dialogs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<DialogPanel> getDialogs();
 
 } // ContentPanel

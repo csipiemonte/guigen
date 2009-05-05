@@ -9,6 +9,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Panel;
 
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getOnRefreshCommand <em>On Refresh Command</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDialogs <em>Dialogs</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +94,16 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * @ordered
 	 */
 	protected Command onRefreshCommand;
+
+	/**
+	 * The cached value of the '{@link #getDialogs() <em>Dialogs</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDialogs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DialogPanel> dialogs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -236,6 +248,18 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<DialogPanel> getDialogs() {
+		if (dialogs == null) {
+			dialogs = new EObjectContainmentEList<DialogPanel>(DialogPanel.class, this, GuigenPackage.CONTENT_PANEL__DIALOGS);
+		}
+		return dialogs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -243,6 +267,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return basicSetPanels(null, msgs);
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				return basicSetOnRefreshCommand(null, msgs);
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+				return ((InternalEList<?>)getDialogs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -263,6 +289,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return getAppData();
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				return getOnRefreshCommand();
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+				return getDialogs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -289,6 +317,10 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)newValue);
 				return;
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+				getDialogs().clear();
+				getDialogs().addAll((Collection<? extends DialogPanel>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -313,6 +345,9 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)null);
 				return;
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+				getDialogs().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -333,6 +368,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return appData != null && !appData.isEmpty();
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 				return onRefreshCommand != null;
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+				return dialogs != null && !dialogs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -149,6 +149,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.APP_MODULE: return createAppModule();
 			case GuigenPackage.TYPE_NAMESPACE: return createTypeNamespace();
 			case GuigenPackage.APP_DATA_GROUP: return createAppDataGroup();
+			case GuigenPackage.MSG_BOX_PANEL: return createMsgBoxPanel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -176,6 +177,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createPortalNamesFromString(eDataType, initialValue);
 			case GuigenPackage.TARGET_PLATFORM_CODES:
 				return createTargetPlatformCodesFromString(eDataType, initialValue);
+			case GuigenPackage.MESSAGE_SEVERITY:
+				return createMessageSeverityFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -203,6 +206,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertPortalNamesToString(eDataType, instanceValue);
 			case GuigenPackage.TARGET_PLATFORM_CODES:
 				return convertTargetPlatformCodesToString(eDataType, instanceValue);
+			case GuigenPackage.MESSAGE_SEVERITY:
+				return convertMessageSeverityToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1093,6 +1098,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MsgBoxPanel createMsgBoxPanel() {
+		MsgBoxPanelImpl msgBoxPanel = new MsgBoxPanelImpl();
+		return msgBoxPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -1225,6 +1240,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertTargetPlatformCodesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MessageSeverity createMessageSeverityFromString(EDataType eDataType, String initialValue) {
+		MessageSeverity result = MessageSeverity.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMessageSeverityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

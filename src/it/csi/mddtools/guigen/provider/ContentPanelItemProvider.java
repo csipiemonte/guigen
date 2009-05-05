@@ -132,6 +132,7 @@ public class ContentPanelItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__PANELS);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND);
+			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS);
 		}
 		return childrenFeatures;
 	}
@@ -191,6 +192,7 @@ public class ContentPanelItemProvider
 				return;
 			case GuigenPackage.CONTENT_PANEL__PANELS:
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
+			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -260,6 +262,11 @@ public class ContentPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createMsgBoxPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createONOFFCommand()));
 
@@ -312,6 +319,34 @@ public class ContentPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS,
+				 GuigenFactory.eINSTANCE.createDialogPanel()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GuigenPackage.Literals.CONTENT_PANEL__PANELS ||
+			childFeature == GuigenPackage.Literals.CONTENT_PANEL__DIALOGS;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

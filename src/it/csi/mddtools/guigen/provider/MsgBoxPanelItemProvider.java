@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,21 +19,23 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MultiPanel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MsgBoxPanel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MultiPanelItemProvider
+public class MsgBoxPanelItemProvider
 	extends PanelItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +49,7 @@ public class MultiPanelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MultiPanelItemProvider(AdapterFactory adapterFactory) {
+	public MsgBoxPanelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,8 +64,31 @@ public class MultiPanelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addMessageSeverityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Message Severity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMessageSeverityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MsgBoxPanel_messageSeverity_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MsgBoxPanel_messageSeverity_feature", "_UI_MsgBoxPanel_type"),
+				 GuigenPackage.Literals.MSG_BOX_PANEL__MESSAGE_SEVERITY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -78,7 +103,8 @@ public class MultiPanelItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.MULTI_PANEL__PANELS);
+			childrenFeatures.add(GuigenPackage.Literals.MSG_BOX_PANEL__TEXT_MESSAGES);
+			childrenFeatures.add(GuigenPackage.Literals.MSG_BOX_PANEL__COMMANDS);
 		}
 		return childrenFeatures;
 	}
@@ -97,14 +123,14 @@ public class MultiPanelItemProvider
 	}
 
 	/**
-	 * This returns MultiPanel.gif.
+	 * This returns MsgBoxPanel.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MultiPanel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MsgBoxPanel"));
 	}
 
 	/**
@@ -115,10 +141,10 @@ public class MultiPanelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((MultiPanel)object).getName();
+		String label = ((MsgBoxPanel)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_MultiPanel_type") :
-			getString("_UI_MultiPanel_type") + " " + label;
+			getString("_UI_MsgBoxPanel_type") :
+			getString("_UI_MsgBoxPanel_type") + " " + label;
 	}
 
 	/**
@@ -132,8 +158,12 @@ public class MultiPanelItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(MultiPanel.class)) {
-			case GuigenPackage.MULTI_PANEL__PANELS:
+		switch (notification.getFeatureID(MsgBoxPanel.class)) {
+			case GuigenPackage.MSG_BOX_PANEL__MESSAGE_SEVERITY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
+			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -153,58 +183,13 @@ public class MultiPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createFormPanel()));
+				(GuigenPackage.Literals.MSG_BOX_PANEL__TEXT_MESSAGES,
+				 GuigenFactory.eINSTANCE.createPlainText()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMultiPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createTabSetPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createDialogPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				(GuigenPackage.Literals.MSG_BOX_PANEL__COMMANDS,
 				 GuigenFactory.eINSTANCE.createCommandPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMenuPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createWizardPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMsgBoxPanel()));
 	}
 
 }

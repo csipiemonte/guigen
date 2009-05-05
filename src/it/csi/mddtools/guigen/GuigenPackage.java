@@ -258,13 +258,22 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__ON_REFRESH_COMMAND = 3;
 
 	/**
+	 * The feature id for the '<em><b>Dialogs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__DIALOGS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Content Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_PANEL_FEATURE_COUNT = 4;
+	int CONTENT_PANEL_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -5509,6 +5518,88 @@ public interface GuigenPackage extends EPackage {
 	int APP_DATA_GROUP_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl <em>Msg Box Panel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MsgBoxPanelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMsgBoxPanel()
+	 * @generated
+	 */
+	int MSG_BOX_PANEL = 99;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Message Severity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__MESSAGE_SEVERITY = PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Text Messages</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__TEXT_MESSAGES = PANEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Commands</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__COMMANDS = PANEL_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Msg Box Panel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5516,7 +5607,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 99;
+	int WIDGET_DATA_TYPE = 100;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5526,7 +5617,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 100;
+	int UDLRC_SPEC_CONSTANTS = 101;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5536,7 +5627,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 101;
+	int EVENT_TYPES = 102;
 
 
 	/**
@@ -5547,7 +5638,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 102;
+	int DATA_LIFETIME_TYPE = 103;
 
 
 	/**
@@ -5558,7 +5649,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 103;
+	int SIMPLE_TYPE_CODES = 104;
 
 
 	/**
@@ -5569,7 +5660,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 104;
+	int PORTAL_NAMES = 105;
 
 
 	/**
@@ -5580,7 +5671,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 105;
+	int TARGET_PLATFORM_CODES = 106;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.MessageSeverity <em>Message Severity</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.MessageSeverity
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
+	 * @generated
+	 */
+	int MESSAGE_SEVERITY = 107;
 
 
 	/**
@@ -5764,6 +5866,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getContentPanel_OnRefreshCommand();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ContentPanel#getDialogs <em>Dialogs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Dialogs</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getDialogs()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_Dialogs();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FormPanel <em>Form Panel</em>}'.
@@ -8246,6 +8359,49 @@ public interface GuigenPackage extends EPackage {
 	EReference getAppDataGroup_AppData();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MsgBoxPanel <em>Msg Box Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Msg Box Panel</em>'.
+	 * @see it.csi.mddtools.guigen.MsgBoxPanel
+	 * @generated
+	 */
+	EClass getMsgBoxPanel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MsgBoxPanel#getMessageSeverity <em>Message Severity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message Severity</em>'.
+	 * @see it.csi.mddtools.guigen.MsgBoxPanel#getMessageSeverity()
+	 * @see #getMsgBoxPanel()
+	 * @generated
+	 */
+	EAttribute getMsgBoxPanel_MessageSeverity();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.MsgBoxPanel#getTextMessages <em>Text Messages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Text Messages</em>'.
+	 * @see it.csi.mddtools.guigen.MsgBoxPanel#getTextMessages()
+	 * @see #getMsgBoxPanel()
+	 * @generated
+	 */
+	EReference getMsgBoxPanel_TextMessages();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MsgBoxPanel#getCommands <em>Commands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Commands</em>'.
+	 * @see it.csi.mddtools.guigen.MsgBoxPanel#getCommands()
+	 * @see #getMsgBoxPanel()
+	 * @generated
+	 */
+	EReference getMsgBoxPanel_Commands();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8314,6 +8470,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getTargetPlatformCodes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.MessageSeverity <em>Message Severity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Message Severity</em>'.
+	 * @see it.csi.mddtools.guigen.MessageSeverity
+	 * @generated
+	 */
+	EEnum getMessageSeverity();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -8482,6 +8648,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTENT_PANEL__ON_REFRESH_COMMAND = eINSTANCE.getContentPanel_OnRefreshCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Dialogs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__DIALOGS = eINSTANCE.getContentPanel_Dialogs();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.
@@ -10544,6 +10718,40 @@ public interface GuigenPackage extends EPackage {
 		EReference APP_DATA_GROUP__APP_DATA = eINSTANCE.getAppDataGroup_AppData();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl <em>Msg Box Panel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MsgBoxPanelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMsgBoxPanel()
+		 * @generated
+		 */
+		EClass MSG_BOX_PANEL = eINSTANCE.getMsgBoxPanel();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Severity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MSG_BOX_PANEL__MESSAGE_SEVERITY = eINSTANCE.getMsgBoxPanel_MessageSeverity();
+
+		/**
+		 * The meta object literal for the '<em><b>Text Messages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MSG_BOX_PANEL__TEXT_MESSAGES = eINSTANCE.getMsgBoxPanel_TextMessages();
+
+		/**
+		 * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MSG_BOX_PANEL__COMMANDS = eINSTANCE.getMsgBoxPanel_Commands();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -10612,6 +10820,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum TARGET_PLATFORM_CODES = eINSTANCE.getTargetPlatformCodes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.MessageSeverity <em>Message Severity</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.MessageSeverity
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
+		 * @generated
+		 */
+		EEnum MESSAGE_SEVERITY = eINSTANCE.getMessageSeverity();
 
 	}
 

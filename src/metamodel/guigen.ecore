@@ -101,6 +101,8 @@
         <details key="documentation" value="[[TODO: add documentation here]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dialogs" upperBound="-1"
+        eType="#//DialogPanel" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1411,5 +1413,17 @@
         <details key="documentation" value="[[TODO: add documentation here]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MsgBoxPanel" eSuperTypes="#//Panel">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="messageSeverity" eType="#//MessageSeverity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="textMessages" upperBound="-1"
+        eType="#//PlainText" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commands" eType="#//CommandPanel"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MessageSeverity">
+    <eLiterals name="INFO"/>
+    <eLiterals name="WARN" value="1"/>
+    <eLiterals name="ERROR" value="2"/>
   </eClassifiers>
 </ecore:EPackage>
