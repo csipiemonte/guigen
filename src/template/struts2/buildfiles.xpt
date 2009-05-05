@@ -252,9 +252,11 @@ ANT FILES
                    package-war"
           description="costruisce l&apos;ear">
 
+	<!-- STDMDD-159 : tutte le librerie sono inserite a livello di WAR
     <copy todir="${temp}/${target}/${earLib}">
       <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
     </copy>
+    -->
 
     <delete file="${build}/archives/${target}/commons.jar" />
     <delete file="${build}/archives/${target}/${webapp}-integration.jar" />
@@ -296,8 +298,10 @@ ANT FILES
       <classes dir="${build}/jsp" includes="**" />
       <classes dir="${build}/classes"
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
-      <lib dir="${lib}" includes="*"
+      <lib dir="${lib}" includes="*" />
+      		<!-- STDMDD-159 : tutte le librerie sono inserite a livello di WAR
             excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
+            -->
       <lib dir="${build}/archives/${target}/" includes="commons.jar, ${webapp}-integration.jar, ${webapp}-business.jar" />           
     </war>
   </target>
