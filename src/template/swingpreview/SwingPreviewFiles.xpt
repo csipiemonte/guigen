@@ -854,6 +854,7 @@ Component subp_«this.name» = null;
 «ELSEIF this.metaType==TabSetPanel»
 	subp_«this.name» = setupTabSetPanel_«this.name»(); 
 «ELSEIF this.metaType==DialogPanel»
+«REM»da mettere a posto dopo modifica a dialog nel metamodello
     Component subp_«name»_content = null; // dialog content
 	«LET (DialogPanel)this AS thisDialog»
 	«LET  thisDialog.dialogContent AS currDialogContent»
@@ -869,7 +870,7 @@ Component subp_«this.name» = null;
 	((JDialog)subp_«this.name»).getContentPane().add(subp_«this.name»_content);
 	«ENDLET» 
 	«ENDLET»
-      
+«ENDREM»      
 «ELSE»
 // ERRORE tipo di pannello «this» non gestito!!!!
 «ENDIF»

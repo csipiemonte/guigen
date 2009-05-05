@@ -3409,13 +3409,22 @@ public interface GuigenPackage extends EPackage {
 	int DIALOG_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
-	 * The feature id for the '<em><b>Dialog Content</b></em>' containment reference.
+	 * The feature id for the '<em><b>Commands</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIALOG_PANEL__DIALOG_CONTENT = PANEL_FEATURE_COUNT + 0;
+	int DIALOG_PANEL__COMMANDS = PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Msg Boxes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG_PANEL__MSG_BOXES = PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Dialog Panel</em>' class.
@@ -3424,7 +3433,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIALOG_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
+	int DIALOG_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Dialog</b></em>' reference.
@@ -5582,22 +5591,13 @@ public interface GuigenPackage extends EPackage {
 	int MSG_BOX_PANEL__TEXT_MESSAGES = PANEL_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Commands</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MSG_BOX_PANEL__COMMANDS = PANEL_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Msg Box Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
+	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -7100,15 +7100,26 @@ public interface GuigenPackage extends EPackage {
 	EClass getDialogPanel();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.DialogPanel#getDialogContent <em>Dialog Content</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.DialogPanel#getCommands <em>Commands</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Dialog Content</em>'.
-	 * @see it.csi.mddtools.guigen.DialogPanel#getDialogContent()
+	 * @return the meta object for the containment reference '<em>Commands</em>'.
+	 * @see it.csi.mddtools.guigen.DialogPanel#getCommands()
 	 * @see #getDialogPanel()
 	 * @generated
 	 */
-	EReference getDialogPanel_DialogContent();
+	EReference getDialogPanel_Commands();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.DialogPanel#getMsgBoxes <em>Msg Boxes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Msg Boxes</em>'.
+	 * @see it.csi.mddtools.guigen.DialogPanel#getMsgBoxes()
+	 * @see #getDialogPanel()
+	 * @generated
+	 */
+	EReference getDialogPanel_MsgBoxes();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShowDialogCommand <em>Show Dialog Command</em>}'.
@@ -8391,17 +8402,6 @@ public interface GuigenPackage extends EPackage {
 	EReference getMsgBoxPanel_TextMessages();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MsgBoxPanel#getCommands <em>Commands</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Commands</em>'.
-	 * @see it.csi.mddtools.guigen.MsgBoxPanel#getCommands()
-	 * @see #getMsgBoxPanel()
-	 * @generated
-	 */
-	EReference getMsgBoxPanel_Commands();
-
-	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9666,12 +9666,20 @@ public interface GuigenPackage extends EPackage {
 		EClass DIALOG_PANEL = eINSTANCE.getDialogPanel();
 
 		/**
-		 * The meta object literal for the '<em><b>Dialog Content</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DIALOG_PANEL__DIALOG_CONTENT = eINSTANCE.getDialogPanel_DialogContent();
+		EReference DIALOG_PANEL__COMMANDS = eINSTANCE.getDialogPanel_Commands();
+
+		/**
+		 * The meta object literal for the '<em><b>Msg Boxes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DIALOG_PANEL__MSG_BOXES = eINSTANCE.getDialogPanel_MsgBoxes();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShowDialogCommandImpl <em>Show Dialog Command</em>}' class.
@@ -10742,14 +10750,6 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MSG_BOX_PANEL__TEXT_MESSAGES = eINSTANCE.getMsgBoxPanel_TextMessages();
-
-		/**
-		 * The meta object literal for the '<em><b>Commands</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MSG_BOX_PANEL__COMMANDS = eINSTANCE.getMsgBoxPanel_Commands();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

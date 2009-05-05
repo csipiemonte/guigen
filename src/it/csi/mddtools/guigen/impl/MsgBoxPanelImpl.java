@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getMessageSeverity <em>Message Severity</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getTextMessages <em>Text Messages</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getCommands <em>Commands</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,16 +71,6 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 	 * @ordered
 	 */
 	protected EList<PlainText> textMessages;
-
-	/**
-	 * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCommands()
-	 * @generated
-	 * @ordered
-	 */
-	protected CommandPanel commands;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,56 +129,11 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CommandPanel getCommands() {
-		return commands;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCommands(CommandPanel newCommands, NotificationChain msgs) {
-		CommandPanel oldCommands = commands;
-		commands = newCommands;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MSG_BOX_PANEL__COMMANDS, oldCommands, newCommands);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCommands(CommandPanel newCommands) {
-		if (newCommands != commands) {
-			NotificationChain msgs = null;
-			if (commands != null)
-				msgs = ((InternalEObject)commands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MSG_BOX_PANEL__COMMANDS, null, msgs);
-			if (newCommands != null)
-				msgs = ((InternalEObject)newCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MSG_BOX_PANEL__COMMANDS, null, msgs);
-			msgs = basicSetCommands(newCommands, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MSG_BOX_PANEL__COMMANDS, newCommands, newCommands));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				return ((InternalEList<?>)getTextMessages()).basicRemove(otherEnd, msgs);
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
-				return basicSetCommands(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -206,8 +150,6 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				return getMessageSeverity();
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				return getTextMessages();
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
-				return getCommands();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -228,9 +170,6 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				getTextMessages().clear();
 				getTextMessages().addAll((Collection<? extends PlainText>)newValue);
 				return;
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
-				setCommands((CommandPanel)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -249,9 +188,6 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				getTextMessages().clear();
 				return;
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
-				setCommands((CommandPanel)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -268,8 +204,6 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				return messageSeverity != MESSAGE_SEVERITY_EDEFAULT;
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				return textMessages != null && !textMessages.isEmpty();
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
-				return commands != null;
 		}
 		return super.eIsSet(featureID);
 	}

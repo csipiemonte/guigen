@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#getMessageSeverity <em>Message Severity</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#getTextMessages <em>Text Messages</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#getCommands <em>Commands</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,31 +70,5 @@ public interface MsgBoxPanel extends Panel {
 	 * @generated
 	 */
 	EList<PlainText> getTextMessages();
-
-	/**
-	 * Returns the value of the '<em><b>Commands</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Commands</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Commands</em>' containment reference.
-	 * @see #setCommands(CommandPanel)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getMsgBoxPanel_Commands()
-	 * @model containment="true"
-	 * @generated
-	 */
-	CommandPanel getCommands();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.MsgBoxPanel#getCommands <em>Commands</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Commands</em>' containment reference.
-	 * @see #getCommands()
-	 * @generated
-	 */
-	void setCommands(CommandPanel value);
 
 } // MsgBoxPanel

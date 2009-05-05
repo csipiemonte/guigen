@@ -80,7 +80,8 @@ public class DialogPanelItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT);
+			childrenFeatures.add(GuigenPackage.Literals.DIALOG_PANEL__COMMANDS);
+			childrenFeatures.add(GuigenPackage.Literals.DIALOG_PANEL__MSG_BOXES);
 		}
 		return childrenFeatures;
 	}
@@ -135,7 +136,8 @@ public class DialogPanelItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DialogPanel.class)) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -155,57 +157,12 @@ public class DialogPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createFormPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createMultiPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createTabSetPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createDialogPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				(GuigenPackage.Literals.DIALOG_PANEL__COMMANDS,
 				 GuigenFactory.eINSTANCE.createCommandPanel()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createMenuPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
-				 GuigenFactory.eINSTANCE.createWizardPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.DIALOG_PANEL__DIALOG_CONTENT,
+				(GuigenPackage.Literals.DIALOG_PANEL__MSG_BOXES,
 				 GuigenFactory.eINSTANCE.createMsgBoxPanel()));
 	}
 

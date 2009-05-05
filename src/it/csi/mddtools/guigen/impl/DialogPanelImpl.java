@@ -6,15 +6,21 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.MsgBoxPanel;
+import java.util.Collection;
 import it.csi.mddtools.guigen.Panel;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +29,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.DialogPanelImpl#getDialogContent <em>Dialog Content</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.DialogPanelImpl#getCommands <em>Commands</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.DialogPanelImpl#getMsgBoxes <em>Msg Boxes</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,15 +38,23 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	/**
-	 * The cached value of the '{@link #getDialogContent() <em>Dialog Content</em>}' containment reference.
+	 * The cached value of the '{@link #getCommands() <em>Commands</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDialogContent()
+	 * @see #getCommands()
 	 * @generated
 	 * @ordered
 	 */
-	protected Panel dialogContent;
-
+	protected CommandPanel commands;
+	/**
+	 * The cached value of the '{@link #getMsgBoxes() <em>Msg Boxes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMsgBoxes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MsgBoxPanel> msgBoxes;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,8 +79,8 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Panel getDialogContent() {
-		return dialogContent;
+	public CommandPanel getCommands() {
+		return commands;
 	}
 
 	/**
@@ -73,11 +88,11 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDialogContent(Panel newDialogContent, NotificationChain msgs) {
-		Panel oldDialogContent = dialogContent;
-		dialogContent = newDialogContent;
+	public NotificationChain basicSetCommands(CommandPanel newCommands, NotificationChain msgs) {
+		CommandPanel oldCommands = commands;
+		commands = newCommands;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT, oldDialogContent, newDialogContent);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.DIALOG_PANEL__COMMANDS, oldCommands, newCommands);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -88,18 +103,30 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDialogContent(Panel newDialogContent) {
-		if (newDialogContent != dialogContent) {
+	public void setCommands(CommandPanel newCommands) {
+		if (newCommands != commands) {
 			NotificationChain msgs = null;
-			if (dialogContent != null)
-				msgs = ((InternalEObject)dialogContent).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT, null, msgs);
-			if (newDialogContent != null)
-				msgs = ((InternalEObject)newDialogContent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT, null, msgs);
-			msgs = basicSetDialogContent(newDialogContent, msgs);
+			if (commands != null)
+				msgs = ((InternalEObject)commands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DIALOG_PANEL__COMMANDS, null, msgs);
+			if (newCommands != null)
+				msgs = ((InternalEObject)newCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.DIALOG_PANEL__COMMANDS, null, msgs);
+			msgs = basicSetCommands(newCommands, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT, newDialogContent, newDialogContent));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.DIALOG_PANEL__COMMANDS, newCommands, newCommands));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<MsgBoxPanel> getMsgBoxes() {
+		if (msgBoxes == null) {
+			msgBoxes = new EObjectContainmentEList<MsgBoxPanel>(MsgBoxPanel.class, this, GuigenPackage.DIALOG_PANEL__MSG_BOXES);
+		}
+		return msgBoxes;
 	}
 
 	/**
@@ -110,8 +137,10 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
-				return basicSetDialogContent(null, msgs);
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+				return basicSetCommands(null, msgs);
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
+				return ((InternalEList<?>)getMsgBoxes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -124,8 +153,10 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
-				return getDialogContent();
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+				return getCommands();
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
+				return getMsgBoxes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -135,11 +166,16 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
-				setDialogContent((Panel)newValue);
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+				setCommands((CommandPanel)newValue);
+				return;
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
+				getMsgBoxes().clear();
+				getMsgBoxes().addAll((Collection<? extends MsgBoxPanel>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -153,8 +189,11 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
-				setDialogContent((Panel)null);
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+				setCommands((CommandPanel)null);
+				return;
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
+				getMsgBoxes().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -168,8 +207,10 @@ public class DialogPanelImpl extends PanelImpl implements DialogPanel {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.DIALOG_PANEL__DIALOG_CONTENT:
-				return dialogContent != null;
+			case GuigenPackage.DIALOG_PANEL__COMMANDS:
+				return commands != null;
+			case GuigenPackage.DIALOG_PANEL__MSG_BOXES:
+				return msgBoxes != null && !msgBoxes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

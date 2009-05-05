@@ -2157,8 +2157,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDialogPanel_DialogContent() {
+	public EReference getDialogPanel_Commands() {
 		return (EReference)dialogPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDialogPanel_MsgBoxes() {
+		return (EReference)dialogPanelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3255,15 +3264,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMsgBoxPanel_Commands() {
-		return (EReference)msgBoxPanelEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3540,7 +3540,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(commandOnWidgetsEClass, COMMAND_ON_WIDGETS__TARGET_WIDGETS);
 
 		dialogPanelEClass = createEClass(DIALOG_PANEL);
-		createEReference(dialogPanelEClass, DIALOG_PANEL__DIALOG_CONTENT);
+		createEReference(dialogPanelEClass, DIALOG_PANEL__COMMANDS);
+		createEReference(dialogPanelEClass, DIALOG_PANEL__MSG_BOXES);
 
 		showDialogCommandEClass = createEClass(SHOW_DIALOG_COMMAND);
 		createEReference(showDialogCommandEClass, SHOW_DIALOG_COMMAND__DIALOG);
@@ -3713,7 +3714,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		msgBoxPanelEClass = createEClass(MSG_BOX_PANEL);
 		createEAttribute(msgBoxPanelEClass, MSG_BOX_PANEL__MESSAGE_SEVERITY);
 		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__TEXT_MESSAGES);
-		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__COMMANDS);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -4003,7 +4003,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getCommandOnWidgets_TargetWidgets(), this.getWidget(), null, "targetWidgets", null, 1, -1, CommandOnWidgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dialogPanelEClass, DialogPanel.class, "DialogPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDialogPanel_DialogContent(), this.getPanel(), null, "dialogContent", null, 0, 1, DialogPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDialogPanel_Commands(), this.getCommandPanel(), null, "commands", null, 0, 1, DialogPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDialogPanel_MsgBoxes(), this.getMsgBoxPanel(), null, "msgBoxes", null, 0, -1, DialogPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(showDialogCommandEClass, ShowDialogCommand.class, "ShowDialogCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getShowDialogCommand_Dialog(), this.getDialogPanel(), null, "dialog", null, 0, 1, ShowDialogCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4176,7 +4177,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(msgBoxPanelEClass, MsgBoxPanel.class, "MsgBoxPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMsgBoxPanel_MessageSeverity(), this.getMessageSeverity(), "messageSeverity", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMsgBoxPanel_TextMessages(), this.getPlainText(), null, "textMessages", null, 0, -1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMsgBoxPanel_Commands(), this.getCommandPanel(), null, "commands", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

@@ -104,7 +104,6 @@ public class MsgBoxPanelItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.MSG_BOX_PANEL__TEXT_MESSAGES);
-			childrenFeatures.add(GuigenPackage.Literals.MSG_BOX_PANEL__COMMANDS);
 		}
 		return childrenFeatures;
 	}
@@ -163,7 +162,6 @@ public class MsgBoxPanelItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
-			case GuigenPackage.MSG_BOX_PANEL__COMMANDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -185,11 +183,6 @@ public class MsgBoxPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MSG_BOX_PANEL__TEXT_MESSAGES,
 				 GuigenFactory.eINSTANCE.createPlainText()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MSG_BOX_PANEL__COMMANDS,
-				 GuigenFactory.eINSTANCE.createCommandPanel()));
 	}
 
 }
