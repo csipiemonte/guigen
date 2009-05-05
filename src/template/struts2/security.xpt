@@ -975,26 +975,26 @@ public class «getSpringSecurityHelperClassName()»{
 			return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
 		} catch (InternalException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		} catch (IdentitaNonAutenticaException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] identita' non autentica ["+currentUser+"],"+e);
-			throw new IllegalArgumentException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e);
+			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
 		} catch (NoSuchUseCaseException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] use case ["+uc+"] non valido"+e);
-			throw new IllegalArgumentException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e);
+			throw new BEException("verifyCurrentUserForUC: use case ["+uc+"] non valido"+e, e);
 		} catch (NoSuchApplicationException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] applicazione "+IRIDE2_APPLICATION+" non valida"+e);
-			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
 		} catch (UnrecoverableException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
 		} catch (SystemException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore di sistema in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
 		}
 		catch(Throwable e){
 			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}
 	
@@ -1020,23 +1020,23 @@ public class «getSpringSecurityHelperClassName()»{
 				return false;
 		} catch (InternalException e) {
 			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e);
-			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		} catch (IdentitaNonAutenticaException e) {
 			log.error("[SecurityHelper::verifyCurentUserForActor] identita' non autentica ["+currentUser+"],"+e,e);
-			throw new IllegalArgumentException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e);
+			throw new BEException("verifyCurrentUserForUC: identita' non autentica ["+currentUser+"],"+e, e);
 		} catch (NoSuchApplicationException e) {
 			log.error("[SecurityHelper::verifyCurentUserForActor] applicazione "+IRIDE2_APPLICATION+" non valida"+e,e);
-			throw new IllegalArgumentException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e);
+			throw new BEException("verifyCurrentUserForUC: applicazione "+IRIDE2_APPLICATION+" non valida"+e, e);
 		} catch (UnrecoverableException e) {
 			log.error("[SecurityHelper::verifyCurentUserForActor] Errore non recuperabile in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore non recuperabile in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore non recuperabile in verifyCurrentUserForUC:"+e, e);
 		} catch (SystemException e) {
 			log.error("[SecurityHelper::verifyCurentUserForActor] Errore di sistema in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore di sistema in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore di sistema in verifyCurrentUserForUC:"+e, e);
 		}
 		catch(Throwable e){
 			log.error("[SecurityHelper::verifyCurentUserForActor] Errore interno in verifyCurrentUserForUC:"+e,e);
-			throw new IllegalArgumentException("Errore interno in verifyCurrentUserForUC:"+e);
+			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}
 «ENDDEFINE»
