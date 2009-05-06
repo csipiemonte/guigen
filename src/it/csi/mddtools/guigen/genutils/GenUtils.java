@@ -36,6 +36,7 @@ import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.Menubar;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
@@ -270,13 +271,24 @@ public class GenUtils {
 	 * @return
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
-		Panel dlgContent = dp.getDialogContent();
-		if (dlgContent==null)
-			return null;
-		else
-			return findAllWidgetsInPanel(dlgContent);
+		ArrayList<Widget> result = new ArrayList<Widget>();
+		List<MsgBoxPanel> dlgBoxes = dp.getMsgBoxes();
+		if (dlgBoxes!=null){
+			Iterator<MsgBoxPanel> it = dlgBoxes.iterator();
+			while(it.hasNext()){
+				ArrayList<Widget> parz = findAllWidgetsInPanel(it.next());
+				result.addAll(parz);
+			}
+		}
+		result.addAll(findAllWidgetsInPanel(dp.getCommands()));
+		return result;
 	}
 
+	public static ArrayList<Widget> findAllWidgetsInPanel(MsgBoxPanel p) {
+		ArrayList<Widget> result = new ArrayList<Widget>();
+		result.addAll(p.getTextMessages());
+		return result;
+	}
 
 	/**
 	 * Compila una lista di tutti i widget appartenenti ad uno dei tab del tabset
@@ -589,6 +601,8 @@ public class GenUtils {
 			return getAllPossibleJumps((FormPanel)p);
 		else if (p instanceof MultiPanel)
 			return getAllPossibleJumps((MultiPanel)p);
+		else if (p instanceof DialogPanel)
+			return getAllPossibleJumps((DialogPanel)p);
 		else
 			return null; // TODO gestire i tabset panel....
 	}
@@ -603,6 +617,8 @@ public class GenUtils {
 			return getAllPossibleExtJumps((FormPanel)p);
 		else if (p instanceof MultiPanel)
 			return getAllPossibleExtJumps((MultiPanel)p);
+		else if (p instanceof DialogPanel)
+			return getAllPossibleExtJumps((DialogPanel)p);
 		else
 			return null; // TODO gestire i tabset panel....
 	}
@@ -643,6 +659,8 @@ public class GenUtils {
 		return result;
 	}
 
+	
+	
 	/**
 	 * 
 	 * @param p
@@ -679,6 +697,38 @@ public class GenUtils {
 		return result;
 	}
 
+	
+	///
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p){
+		// Un dialog panel può contenere jump solo nel command panel
+		if (p.getCommands()!=null)
+			return getAllPossibleJumps(p.getCommands());
+		else
+			return new ArrayList<ContentPanel>();
+	}
+
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(DialogPanel p){
+		// Un dialog panel può contenere jump solo nel command panel
+		if (p.getCommands()!=null)
+			return getAllPossibleExtJumps(p.getCommands());
+		else
+			return new ArrayList<JumpExtCommand>();
+	}
+	
+
+	///
+	
+	
 	/**
 	 * 
 	 * @param p
