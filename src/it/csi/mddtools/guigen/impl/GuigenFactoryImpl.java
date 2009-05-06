@@ -179,6 +179,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createTargetPlatformCodesFromString(eDataType, initialValue);
 			case GuigenPackage.MESSAGE_SEVERITY:
 				return createMessageSeverityFromString(eDataType, initialValue);
+			case GuigenPackage.COMMAND_STYLES:
+				return createCommandStylesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -208,6 +210,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertTargetPlatformCodesToString(eDataType, instanceValue);
 			case GuigenPackage.MESSAGE_SEVERITY:
 				return convertMessageSeverityToString(eDataType, instanceValue);
+			case GuigenPackage.COMMAND_STYLES:
+				return convertCommandStylesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1260,6 +1264,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertMessageSeverityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CommandStyles createCommandStylesFromString(EDataType eDataType, String initialValue) {
+		CommandStyles result = CommandStyles.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCommandStylesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

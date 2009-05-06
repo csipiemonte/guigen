@@ -8,19 +8,24 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandStyles;
 
+import it.csi.mddtools.guigen.GuigenPackage;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.guigen.CommandPanel} object.
@@ -57,8 +62,31 @@ public class CommandPanelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addCmdStylePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Cmd Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCmdStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CommandPanel_cmdStyle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CommandPanel_cmdStyle_feature", "_UI_CommandPanel_type"),
+				 GuigenPackage.Literals.COMMAND_PANEL__CMD_STYLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -76,14 +104,17 @@ public class CommandPanelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		String label = ((CommandPanel)object).getName();
+		CommandStyles style = ((CommandPanel)object).getCmdStyle();
+		String styleLabel = (style==null?"":(style.equals(CommandStyles.FUNCTIONAL)?" (FUN)": " (NAV)"));
+		
 		return label == null || label.length() == 0 ?
-			getString("_UI_CommandPanel_type") :
-			getString("_UI_CommandPanel_type") + " " + label;
+			getString("_UI_CommandPanel_type"):
+			getString("_UI_CommandPanel_type") + " " + label + styleLabel;
 	}
 
 	/**
@@ -96,6 +127,12 @@ public class CommandPanelItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(CommandPanel.class)) {
+			case GuigenPackage.COMMAND_PANEL__CMD_STYLE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

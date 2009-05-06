@@ -30,6 +30,7 @@ import it.csi.mddtools.guigen.CommandOnPanels;
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
@@ -886,6 +887,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum messageSeverityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum commandStylesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2751,6 +2759,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCommandPanel_CmdStyle() {
+		return (EAttribute)commandPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMenuPanel() {
 		return menuPanelEClass;
 	}
@@ -3336,6 +3353,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getCommandStyles() {
+		return commandStylesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -3631,6 +3657,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(gridWidgetLayoutSpecEClass, GRID_WIDGET_LAYOUT_SPEC__HSPAN);
 
 		commandPanelEClass = createEClass(COMMAND_PANEL);
+		createEAttribute(commandPanelEClass, COMMAND_PANEL__CMD_STYLE);
 
 		menuPanelEClass = createEClass(MENU_PANEL);
 
@@ -3724,6 +3751,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		portalNamesEEnum = createEEnum(PORTAL_NAMES);
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
 		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
+		commandStylesEEnum = createEEnum(COMMAND_STYLES);
 	}
 
 	/**
@@ -4094,6 +4122,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getGridWidgetLayoutSpec_Hspan(), ecorePackage.getEInt(), "hspan", null, 0, 1, GridWidgetLayoutSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandPanelEClass, CommandPanel.class, "CommandPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCommandPanel_CmdStyle(), this.getCommandStyles(), "cmdStyle", null, 0, 1, CommandPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menuPanelEClass, MenuPanel.class, "MenuPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4229,6 +4258,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.INFO);
 		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.WARN);
 		addEEnumLiteral(messageSeverityEEnum, MessageSeverity.ERROR);
+
+		initEEnum(commandStylesEEnum, CommandStyles.class, "CommandStyles");
+		addEEnumLiteral(commandStylesEEnum, CommandStyles.FUNCTIONAL);
+		addEEnumLiteral(commandStylesEEnum, CommandStyles.NAVIGATION);
 
 		// Create resource
 		createResource(eNS_URI);

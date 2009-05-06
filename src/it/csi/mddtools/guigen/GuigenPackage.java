@@ -4417,13 +4417,22 @@ public interface GuigenPackage extends EPackage {
 	int COMMAND_PANEL__WIDGETS = FORM_PANEL__WIDGETS;
 
 	/**
+	 * The feature id for the '<em><b>Cmd Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__CMD_STYLE = FORM_PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Command Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 0;
+	int COMMAND_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5683,6 +5692,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	int MESSAGE_SEVERITY = 107;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.CommandStyles <em>Command Styles</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.CommandStyles
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
+	 * @generated
+	 */
+	int COMMAND_STYLES = 108;
 
 
 	/**
@@ -7801,6 +7821,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getCommandPanel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CommandPanel#getCmdStyle <em>Cmd Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cmd Style</em>'.
+	 * @see it.csi.mddtools.guigen.CommandPanel#getCmdStyle()
+	 * @see #getCommandPanel()
+	 * @generated
+	 */
+	EAttribute getCommandPanel_CmdStyle();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MenuPanel <em>Menu Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8480,6 +8511,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getMessageSeverity();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.CommandStyles <em>Command Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Command Styles</em>'.
+	 * @see it.csi.mddtools.guigen.CommandStyles
+	 * @generated
+	 */
+	EEnum getCommandStyles();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -10244,6 +10285,14 @@ public interface GuigenPackage extends EPackage {
 		EClass COMMAND_PANEL = eINSTANCE.getCommandPanel();
 
 		/**
+		 * The meta object literal for the '<em><b>Cmd Style</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMMAND_PANEL__CMD_STYLE = eINSTANCE.getCommandPanel_CmdStyle();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenuPanelImpl <em>Menu Panel</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -10830,6 +10879,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum MESSAGE_SEVERITY = eINSTANCE.getMessageSeverity();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.CommandStyles <em>Command Styles</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.CommandStyles
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
+		 * @generated
+		 */
+		EEnum COMMAND_STYLES = eINSTANCE.getCommandStyles();
 
 	}
 
