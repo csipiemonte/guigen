@@ -1048,8 +1048,8 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Button ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF fp.layout.metaType == UDLRCPanelLayout-»
+«DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«IF cmdp.layout.metaType == UDLRCPanelLayout-»
 «LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side-»
 <div «side»>
 «ENDLET-»
@@ -1057,14 +1057,14 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF fp.layout.metaType == UDLRCPanelLayout-»
+«DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«IF cmdp.layout.metaType == UDLRCPanelLayout-»
 </div>
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetClose(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
 «ENDDEFINE»
 
 

@@ -1,6 +1,8 @@
 package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
@@ -404,6 +406,51 @@ public class GenUtilsLayout {
 		return res;
 	}
 
+	
+	/**
+	 * 
+	 * @param model
+	 * @param b
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getButtonDivStyleByLayout(GUIModel model, Button b) {
+		String res = "";
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = getButtonDivStyleSistemaPiemonte(model, b);
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			res = getButtonDivStyleRupar(model, b);
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare
+		}
+		return res;
+	}	
+	
+	public static String getButtonDivStyleSistemaPiemonte(GUIModel model, Button b) {
+		String res = "";
+		
+		String btnStyleT = "";
+		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+			btnStyleT = "Nav";
+		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+			btnStyleT = "Funz";
+		}
+		
+		if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.LEFT ) {
+			res = "class=\"puls" + btnStyleT + "Sx\"";
+		} else if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
+			res = "class=\"puls" + btnStyleT + "Dx\"";
+		}
+
+		return res;
+	}
+	
+	public static String getButtonDivStyleRupar(GUIModel model, Button b) {
+		String res = "";
+		// Nothing to do By now
+		return res;
+	}
+	
 
 	/**
 	 * 
@@ -418,6 +465,8 @@ public class GenUtilsLayout {
 			res = getButtonStyleSistemaPiemonte(model, b);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
 			res = getButtonStyleRupar(model, b);
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare
 		}
 		return res;
 	}
@@ -456,9 +505,9 @@ public class GenUtilsLayout {
 		}
 		
 		String btnStyleT = "";
-		if ( b.getLayoutSpec() != null && b.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec ) {
+		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
 			btnStyleT = "nav";
-		} else {
+		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
 			btnStyleT = "funz";
 		}
 		
