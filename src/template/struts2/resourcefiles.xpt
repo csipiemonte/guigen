@@ -209,7 +209,7 @@ Gestione dei pannelli
 «IF this.metaType == FormPanel-»
 	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this»
 «ELSEIF this.metaType == TabSetPanel-»
-	«REM»Al momento facciamo l'assunzione che al primo livello posso mettere solo Form Panels.«ENDREM»
+	«ERROR "Il TabSetPanel non è ammesso al primo livello"»
 «ELSEIF this.metaType == DialogPanel-»
 	«REM»TODO: IMPLEMENTARE«ENDREM»
 «ENDIF-»
@@ -238,7 +238,7 @@ Gestione dei pannelli
 «ELSEIF this.metaType == UserDefinedPanel-»
 	«EXPAND setupUserDefinedPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
 «ELSE-»
-	<!-- ERRORE tipo di pannello «this» non gestito!!!! -->
+	«ERROR "ERRORE tipo di pannello " + this + " non gestito!!!!"»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -346,7 +346,7 @@ Gestione dei pannelli
 «ELSEIF this.metaType == WizardPanel-»
 	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
 «ELSE-»
-	<!-- ERRORE. MultiPanel: tipo di sottopannello «this» non gestito!!!! -->
+	«ERROR "ERRORE. MultiPanel: tipo di sottopannello " + this + " non gestito"»
 «ENDIF-»
 «ENDFILE»
 «ENDDEFINE»
@@ -460,9 +460,9 @@ Gestione dei Widget
 
 
 
-«REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato)«ENDREM»
+«REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato, se succede da un errore)«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»
-<!-- [GUIGEN] widget non gestito: «this» -->
+«ERROR "Widget " + this + " non gestito"»
 «ENDDEFINE»
 
 
@@ -589,6 +589,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
 <!-- [GUIGEN] Crea il widget «this» -->
 «LET this.enableExport ? "true" : "false" AS exportEnabled»
+<s:set name="«cp.name»_«this.name»_clearStatus" value="isTableClearStatus('«cp.name»_«this.name»')" />
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
                excludedParams="*"
                export="«enableExport»"
@@ -598,7 +599,7 @@ Gestione dei Widget
                pagesize="«this.pageSize»"
                requestURI="«getStrutsActionConfigName(cp)».do"
                keepStatus="true"
-               clearStatus="false"
+               clearStatus="${«cp.name»_«this.name»_clearStatus}"
                uid="row_«this.name»"
                «IF customDecorator-»
                decorator="«getTableDecoratorFQN(model,this)»"
@@ -660,7 +661,7 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
-
+«ERROR "Il Widget Calendar non è ancora gestito"»
 «ENDDEFINE»
 
 

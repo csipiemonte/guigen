@@ -56,7 +56,6 @@ Genera una Base Action Struts2 che contiene gli elementi comuni all'applicazione
 Tutte le altre Action dell'applicazione dovranno ereditare da questa
 in modo da ottenere le parti comuni, e dovranno implementare in proprio
 le funzionalità specifiche della pagina.
-TODO: implementare se necessario
 «ENDREM»
 «DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
@@ -318,6 +317,25 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		String menu = "menu_items_" + menuName;
 		return menu.equals((String)session.get("active_menu"));
 	}
+
+
+	/**
+     * Gestione del reset della paginazione/sorting delle tabelle (Displaytag)
+     * @param tableName nome della tabella
+     * @return true se bisogna resettare paginazione/sorting, false altrimenti
+     */
+    public boolean isTableClearStatus(String tableName) {
+    	String sessionValue = tableName + "_clearStatus";
+    	Boolean clearStatus = (Boolean)session.get(sessionValue);
+    	if ( clearStatus == null ) {
+    		clearStatus = true;
+    	}
+    	if ( clearStatus ) {
+    		// la proprieta' e' "usa e getta"
+    		session.put(sessionValue, new Boolean(false));
+    	}
+    	return clearStatus;
+    }
 	
 
 	«EXPAND actionImplJavaFiles::springBEProperties FOR this»
@@ -330,10 +348,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 «ENDDEFINE»
 
 
-«REM»
-Genera una Action Struts2 per mappare il menu.
-TODO: Vedere se è necessario estendere la BaseAction.
-«ENDREM»
+«REM»Genera una Action Struts2 per mappare il menu.«ENDREM»
 «DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
@@ -454,6 +469,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 «ENDDEFINE»
 
 
+«REM»Genera la Action di Struts che gestisce la Home Page«ENDREM»
 «DEFINE struts2HomeJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
@@ -530,6 +546,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 «ENDDEFINE»
 
 
+«REM»Genera la Action di Struts che gestisce l'azione di Logout«ENDREM»
 «DEFINE struts2LogoutJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getStrutsLogoutJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
@@ -580,6 +597,10 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 		return "LOCAL_LOGOUT";
 	}
 
+
+	/**
+	 * Invalida gli attributi di autenticazione contenuti in sessione
+	 */
 	protected void invalidateLocalSession(){
 		«IF securityModel!=null && securityModel.autenticationMethod!=null»
 		session.remove(«getIrideIdAdapterFilterFQN()».AUTH_ID_MARKER);
@@ -804,8 +825,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     	session.put(selectedTabKey, selectedTabValue);
     	return SUCCESS;
     }
-    
-    
+
 }
 «ENDFILE»
 «ENDDEFINE»

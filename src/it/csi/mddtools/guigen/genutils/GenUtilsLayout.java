@@ -503,16 +503,7 @@ public class GenUtilsLayout {
 	 * @author [DM]
 	 */
 	public static boolean hasTable(ContentPanel cp) {
-		boolean res = false;
-		
-		for ( Widget w : GenUtils.findAllWidgetsInContentPanel(cp) ) {
-			if ( w instanceof Table ) {
-				res = true;
-				break;
-			}
-		}
-		
-		return res;
+		return GenUtils.findAllTablesInContentPanel(cp).size() > 0;
 	}
 	
 	/**
@@ -534,6 +525,17 @@ public class GenUtilsLayout {
 		
 		return res;
 	}	
+
+
+	/**
+	 * Verifica se un ContentPanel contiene o meno dei widget di tipo TreeView.
+	 * @param cp Il ContentPanel da verificare
+	 * @return  true se il ContentPanel contiene almeno un TreeView, false altrimenti.
+	 * @author [DM]
+	 */	
+	public static boolean hasTree(ContentPanel cp) {
+		return GenUtils.findAllTreeInContentPanel(cp).size() > 0;
+	}
 	
 	
 	/**

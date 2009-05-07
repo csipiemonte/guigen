@@ -47,6 +47,8 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.Typedefs;
@@ -333,6 +335,44 @@ public class GenUtils {
 			return ris;
 		}
 	}	
+
+	/**
+	 * Restituisce la lista dei widget di tipo Table contenuti in un ContentPanel.
+	 * @param cp Il ContentPanel
+	 * @return  Lista dei widget di tipo Table contenuti nel ContentPanel.
+	 * @author [DM]
+	 */
+	public static List<Table> findAllTablesInContentPanel(ContentPanel cp) {
+		List<Table> res = new ArrayList<Table>();
+		
+		for ( Widget w : findAllWidgetsInContentPanel(cp) ) {
+			if ( w instanceof Table ) {
+				res.add((Table)w);
+			}
+		}
+		
+		return res;
+	}
+
+	
+	/**
+	 * Restituisce la lista dei widget di tipo TreeView contenuti in un ContentPanel.
+	 * @param cp Il ContentPanel
+	 * @return  Lista dei widget di tipo TreeView contenuti nel ContentPanel.
+	 * @author [DM]
+	 */
+	public static List<TreeView> findAllTreeInContentPanel(ContentPanel cp) {
+		List<TreeView> res = new ArrayList<TreeView>();
+		
+		for ( Widget w : findAllWidgetsInContentPanel(cp) ) {
+			if ( w instanceof TreeView ) {
+				res.add((TreeView)w);
+			}
+		}
+		
+		return res;
+	}	
+	
 
 	/**
 	 * 

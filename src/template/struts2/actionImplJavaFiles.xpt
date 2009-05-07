@@ -695,6 +695,7 @@ public class SequenceCommand implements ICommand {
 	/// property comuni a tutte le action
 	/////////////////////////////////////////
 
+	«IF hasTree(this)»
 	// nodo selezionato in un eventuale tree
 	private String _idNodo = "";
 
@@ -705,8 +706,9 @@ public class SequenceCommand implements ICommand {
 	public String getIdNodo(){
 		return _idNodo;
 	}
+	«ENDIF»
 
-
+	«IF hasTable(this)»
 	// riga selezionata in una eventuale tabella
 	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
 	private String _idRiga = "";
@@ -730,6 +732,7 @@ public class SequenceCommand implements ICommand {
 	public String getIdColonna(){
 		return _idColonna;
 	}
+    «ENDIF»
 
 «ENDDEFINE»
 

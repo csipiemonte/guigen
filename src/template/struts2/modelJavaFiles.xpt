@@ -199,6 +199,11 @@ public class «getSpringCPBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	«EXPAND springBEMethods(model) FOR this»
 	
+	«REM»[DM] gestione del reset delle tabelle«ENDREM»
+	«IF hasTable(this)»
+	«EXPAND resetTableMethods FOR this»
+	«ENDIF»
+	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////
@@ -388,6 +393,20 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 }
 «ENDFILE»
 «ENDDEFINE»
+
+«REM»[DM] metodi statici per il reset delle tabelle (non bello... ma così è...)«ENDREM»
+«DEFINE resetTableMethods FOR ContentPanel»
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi statici per il reset delle tabelle
+	//////////////////////////////////////////////////////////////////////////////
+    «FOREACH (List[Table])findAllTablesInContentPanel(this) AS currTable»
+    public static void resetClearStatus_widg_«this.name»(java.util.Map session) {
+    	session.put("«this.name»_«currTable.name»_clearStatus", new Boolean(true));
+    }
+    «ENDFOREACH»
+	
+«ENDDEFINE»
+
 
 
 «REM»dto con solo le property delle action (parametri per spring)«ENDREM»
