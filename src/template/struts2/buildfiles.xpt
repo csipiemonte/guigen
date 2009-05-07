@@ -299,9 +299,7 @@ ANT FILES
       <classes dir="${build}/classes"
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
       <lib dir="${lib}" includes="*" />
-      		<!-- STDMDD-159 : tutte le librerie sono inserite a livello di WAR
             excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
-            -->
       <lib dir="${build}/archives/${target}/" includes="commons.jar, ${webapp}-integration.jar, ${webapp}-business.jar" />           
     </war>
   </target>
@@ -534,23 +532,10 @@ ear-custom-libs-filter =
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
 «REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
-  war-exclude-libs-filter = util-perf*.jar,                \
-                            spring*.jar,                   \
-                            servlet*.jar,                  \
-                            aop*.jar,                      \
-                            util-beanlo*.jar,              \
-                            csi-apachesoap*.jar,           \
-                            csi-core*.jar,         	       \
-                            csi-ejb*.jar,                  \
-                            csi-rmi*.jar,                  \
-                            csi-stadapter*.jar,            \
+  war-exclude-libs-filter = servlet*.jar,                  \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
-                            commons*.jar,                  \
-                            «getAppServerLib(this)»*.jar,  \
-                            iridev2*.jar                   \
-                            weblogic*.jar				   \
-                            custom-component-attr-*.jar
+                            «getAppServerLib(this)»*.jar
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
