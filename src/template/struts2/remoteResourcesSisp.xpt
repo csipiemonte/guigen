@@ -509,11 +509,15 @@ e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di lin
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	  <s:if test="isMenuEnabled('«this.name»')" >
-	    <li «getMenuCssSistemaPiemonte(this, level, true)»>
-		  <s:if test="isMenuActive('«this.name»')" >
-		    «getMenuLabelSistemaPiemonte(this, level, true)»
-		  </s:if>
-		  <s:else>
+		<s:if test="isMenuActive('«this.name»')" >
+		  <li «getMenuCssSistemaPiemonte(this, level, true)»>
+		    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+		    <s:a «getMenuLinkCssSistemaPiemonte(this, level, false)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+			  «getMenuLabelSistemaPiemonte(this, level, false)»
+		    </s:a>
+		</s:if>
+		<s:else>
+		  <li «getMenuCssSistemaPiemonte(this, level, false)»>
 		    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
 		    <s:a «getMenuLinkCssSistemaPiemonte(this, level, false)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 			  «getMenuLabelSistemaPiemonte(this, level, false)»
