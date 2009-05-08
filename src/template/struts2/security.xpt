@@ -571,13 +571,11 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 
 	}
 				
-	private boolean isHomePage(String requestURI){
-		if (
-			requestURI.indexOf("HomePage.do")>-1 
-		   )
-		   return true;
+	private boolean isHomePage(String requestURI) {
+		if (requestURI.indexOf("HomePage.do") > -1 || requestURI.endsWith("/"))
+			return true;
 		else
-		   return false;
+			return false;
 	}
 	
 	private boolean mustCheckPage(String requestURI){
