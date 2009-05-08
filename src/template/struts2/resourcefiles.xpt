@@ -541,6 +541,7 @@ Gestione dei Widget
 <s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(parent)»"
 	list="#{«getFixedRadioButtonList(this)»}"
 	disabled="isWidgetDisabled('«cp.name»','«parent.name»')"
+	«getRadioPortalStyle(model)»
 	«REM»«getRadioButtonsValueChangedHandlerJS(parent)»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
 	/> <s:text name="«cp.name».«parent.name».«this.name».label" />
 «ENDDEFINE»
@@ -551,6 +552,7 @@ Gestione dei Widget
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+	«getCheckboxPortalStyle(model)»
 	/>
 «ENDDEFINE»
 
@@ -630,9 +632,9 @@ Gestione dei Widget
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort">
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" />
+			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" «getCheckboxPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
-			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" />
+			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" «getRadioPortalStyle(model)» />
 		«ENDIF-»
 		</display:column>
 	«ENDIF-»
