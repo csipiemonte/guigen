@@ -493,8 +493,9 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
-	«IF this.fieldLength != null»size="«this.fieldLength»"«ENDIF»
+	«IF this.fieldLength != null»maxlength="«this.fieldLength»"«ENDIF»
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+	«getTextFieldStyleByLayout(model, this)»
 />
 «ENDDEFINE»
 

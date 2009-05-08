@@ -15,6 +15,7 @@ import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
@@ -113,12 +114,22 @@ public class GenUtilsLayout {
 		return columns;
 	}
 	
+	/**
+	 * 
+	 * @param firstLevPanel
+	 * @return
+	 */
 	private static int getUDLRCColumnsLayoutRupar(FormPanel firstLevPanel) {
 		int columns = 1;
 		// al momento gestico l'UDLRC come colonna unica...
 		return columns;
 	}
 	
+	/**
+	 * 
+	 * @param firstLevPanel
+	 * @return
+	 */
 	private static int getUDLRCColumnsLayoutSisp(FormPanel firstLevPanel) {
 		int columns = 1;
 
@@ -419,9 +430,9 @@ public class GenUtilsLayout {
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
 			res = getButtonDivStyleSistemaPiemonte(model, b);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
-			res = getButtonDivStyleRupar(model, b);
+			// TODO: implementare quando necessario
 		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
-			// TODO: implementare
+			// TODO: implementare quando necessario
 		}
 		return res;
 	}	
@@ -445,12 +456,6 @@ public class GenUtilsLayout {
 		return res;
 	}
 	
-	public static String getButtonDivStyleRupar(GUIModel model, Button b) {
-		String res = "";
-		// Nothing to do By now
-		return res;
-	}
-	
 
 	/**
 	 * 
@@ -466,7 +471,7 @@ public class GenUtilsLayout {
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
 			res = getButtonStyleRupar(model, b);
 		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
-			// TODO: implementare
+			// TODO: implementare quando necessario
 		}
 		return res;
 	}
@@ -543,6 +548,54 @@ public class GenUtilsLayout {
 		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param t
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getTextFieldStyleByLayout(GUIModel model, TextField t) {
+		String res = "";
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = getTextFieldStyleSistemaPiemonte(model, t);
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			// TODO: implementare quando necessario
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare quando necessario
+		}
+		return res;
+	}	
+	
+	/**
+	 * 
+	 * @param model
+	 * @param t
+	 * @return
+	 * @author [DM] STDMDD-188
+	 */
+	public static String getTextFieldStyleSistemaPiemonte(GUIModel model, TextField t) {
+		String res = "";
+		int len = t.getFieldLength();
+		if ( len > 0 ) {
+			String css = "";
+			if ( len <= 14 ) {
+				// "small" se Textfield.size in [1..14]
+				css = "small";
+			} else if ( len >= 15 && len <= 29  ) {
+				// "med" se Textfield.size in [15..29]
+				css = "med";
+			} else if ( len >= 30 ) {
+				// "maxi" se Textfield.size >= 30 
+				css = "maxi";
+			}
+			res = "cssClass=\"" + css + "\"";
+		}
+		
+		return res;		
+	}
+
+	
 
 	/**
 	 * Verifica se un ContentPanel contiene o meno delle tabelle 
