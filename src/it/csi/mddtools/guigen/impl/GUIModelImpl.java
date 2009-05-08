@@ -43,7 +43,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getSecurityModel <em>Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getStaticPresentationLink <em>Static Presentation Link</em>}</li>
  * </ul>
  * </p>
  *
@@ -209,26 +208,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected TargetPlatform targetPlatform;
-
-	/**
-	 * The default value of the '{@link #getStaticPresentationLink() <em>Static Presentation Link</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStaticPresentationLink()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String STATIC_PRESENTATION_LINK_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getStaticPresentationLink() <em>Static Presentation Link</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStaticPresentationLink()
-	 * @generated
-	 * @ordered
-	 */
-	protected String staticPresentationLink = STATIC_PRESENTATION_LINK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -617,27 +596,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getStaticPresentationLink() {
-		return staticPresentationLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStaticPresentationLink(String newStaticPresentationLink) {
-		String oldStaticPresentationLink = staticPresentationLink;
-		staticPresentationLink = newStaticPresentationLink;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK, oldStaticPresentationLink, staticPresentationLink));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -687,8 +645,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getSecurityModel();
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return getTargetPlatform();
-			case GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK:
-				return getStaticPresentationLink();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -733,9 +689,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)newValue);
-				return;
-			case GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK:
-				setStaticPresentationLink((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -782,9 +735,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)null);
 				return;
-			case GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK:
-				setStaticPresentationLink(STATIC_PRESENTATION_LINK_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -819,8 +769,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return securityModel != null;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return targetPlatform != null;
-			case GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK:
-				return STATIC_PRESENTATION_LINK_EDEFAULT == null ? staticPresentationLink != null : !STATIC_PRESENTATION_LINK_EDEFAULT.equals(staticPresentationLink);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -845,8 +793,6 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 		result.append(versioneComponente);
 		result.append(", portale: ");
 		result.append(portale);
-		result.append(", staticPresentationLink: ");
-		result.append(staticPresentationLink);
 		result.append(')');
 		return result.toString();
 	}
