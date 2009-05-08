@@ -2401,13 +2401,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__TARGET_PLATFORM = 10;
 
 	/**
+	 * The feature id for the '<em><b>Static Presentation Link</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__STATIC_PRESENTATION_LINK = 11;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 11;
+	int GUI_MODEL_FEATURE_COUNT = 12;
 
 	/**
 	 * The feature id for the '<em><b>App Window</b></em>' containment reference.
@@ -6457,6 +6466,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getGUIModel_TargetPlatform();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GUIModel#getStaticPresentationLink <em>Static Presentation Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Static Presentation Link</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getStaticPresentationLink()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EAttribute getGUIModel_StaticPresentationLink();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9141,6 +9161,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__TARGET_PLATFORM = eINSTANCE.getGUIModel_TargetPlatform();
+
+		/**
+		 * The meta object literal for the '<em><b>Static Presentation Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GUI_MODEL__STATIC_PRESENTATION_LINK = eINSTANCE.getGUIModel_StaticPresentationLink();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.

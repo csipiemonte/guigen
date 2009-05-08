@@ -190,6 +190,16 @@
 		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
 	</filter>
 
+    <filter>
+		<filter-name>Session Guard</filter-name>
+		<filter-class>it.csi.test.testsecurity.presentation.testsecurity.filter.AppSessionGuardFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>Session Guard</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 «IF this.securityModel.autenticationMethod!=null»
 	«EXPAND security::authenticationFilterDefAndMapping(this) FOR this.securityModel.autenticationMethod»
 «ENDIF»
@@ -406,7 +416,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<global-exception-mappings>
 			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
 		</global-exception-mappings>
-
+		
 	</package>
 
 	<package name="default" extends="jsp-package" namespace="/">
@@ -416,7 +426,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="fatalError">
 			<result>/jsp/error/fatalError.jsp</result>
 		</action>		
-		
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
 		    «IF onInitAction != null»

@@ -95,8 +95,15 @@
 	«EXPAND getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
+	«EXPAND getJspSessionExpiredFile FOR this-»
 «ENDDEFINE»
 
+«REM»Crea la pagina di sessione scaduta«ENDREM»
+«DEFINE getJspSessionExpiredFile FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, true) + "/sessionExpired.jsp"-»
+«EXPAND remoteResources::getJspPageSessionExpiredFile FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
 
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»

@@ -72,6 +72,7 @@ public class GUIModelItemProvider
 			addVersioneProdottoPropertyDescriptor(object);
 			addVersioneComponentePropertyDescriptor(object);
 			addPortalePropertyDescriptor(object);
+			addStaticPresentationLinkPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -187,6 +188,28 @@ public class GUIModelItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Static Presentation Link feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStaticPresentationLinkPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_staticPresentationLink_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_staticPresentationLink_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__STATIC_PRESENTATION_LINK,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -263,6 +286,7 @@ public class GUIModelItemProvider
 			case GuigenPackage.GUI_MODEL__VERSIONE_PRODOTTO:
 			case GuigenPackage.GUI_MODEL__VERSIONE_COMPONENTE:
 			case GuigenPackage.GUI_MODEL__PORTALE:
+			case GuigenPackage.GUI_MODEL__STATIC_PRESENTATION_LINK:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.GUI_MODEL__STRUCTURE:

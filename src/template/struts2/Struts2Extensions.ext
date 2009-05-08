@@ -242,6 +242,18 @@ String getIrideIdAdapterFilterFQN(GUIModel model) :
 String getIrideIdAdapterFilterJavaFile(GUIModel model, boolean omit_root) :
 	getFiltersJavaSrcDir(model, omit_root) + "/" + getIrideIdAdapterFilterClassName() + ".java";
 	
+	
+String getSessionGuardFilterClassName() :
+	"AppSessionGuardFilter";
+	
+String getSessionGuardFilterFQN(GUIModel model) :
+	getFiltersJavaPackage(model) + "." + getSessionGuardFilterClassName();
+	
+String getSessionGuardFilterJavaFile(GUIModel model, boolean omit_root) :
+	getFiltersJavaSrcDir(model, omit_root) + "/" + getSessionGuardFilterClassName() + ".java";
+		
+	
+	
 String getIridePDCacheClassName() :
 	"IridePDCache";
 	

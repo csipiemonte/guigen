@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getStaticPresentationLink <em>Static Presentation Link</em>}</li>
  * </ul>
  * </p>
  *
@@ -360,5 +361,30 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setTargetPlatform(TargetPlatform value);
+
+	/**
+	 * Returns the value of the '<em><b>Static Presentation Link</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Static Presentation Link</em>' attribute.
+	 * @see #setStaticPresentationLink(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_StaticPresentationLink()
+	 * @model
+	 * @generated
+	 */
+	String getStaticPresentationLink();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getStaticPresentationLink <em>Static Presentation Link</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Static Presentation Link</em>' attribute.
+	 * @see #getStaticPresentationLink()
+	 * @generated
+	 */
+	void setStaticPresentationLink(String value);
 
 } // GUIModel
