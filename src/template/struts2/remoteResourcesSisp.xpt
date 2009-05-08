@@ -31,7 +31,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" cssClass="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
+			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" class="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -49,7 +49,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" cssClass="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
+			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" class="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -75,6 +75,33 @@ Definizioni generali: Pagine di ERRORE
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
+
+
+«REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
+«DEFINE getJspPageSessionExpiredFile FOR GUIModel»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<h3><fmt:message key="error.sessionexpired.title" /></h3>
+<div class="contenuti">
+	<div class="messaggioKo">
+		<fmt:message key="error.sessionexpired.warning" /><br/>
+		<fmt:message key="error.sessionexpired.timeout" /><br/>
+		<span>
+			<fmt:message key="error.sessionexpired.datanotsaved" /><br/>
+			<fmt:message key="error.sessionexpired.authentication" />
+		</span>
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavSx">
+			<a href="http://www.sistemapiemonte.it/" title="<fmt:message key="error.sessionexpired.btnmsgportalhome" />" class="nav205"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		</div>
+		<div class="pulsNavDx">
+			<a href="HomePage.do" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
+
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»

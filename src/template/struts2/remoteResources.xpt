@@ -19,12 +19,7 @@ Al momento vengono gestiti i seguenti portali:
 *************************************************************************************************************************
 «ENDREM»
 
-«DEFINE getJspPageSessionExpiredFile FOR GUIModel»
-«REM»TODO: implementare sul serio e "portalizzare"«ENDREM»
-<html><body>
-<a href="#####">pagina presentazione</a>
-</body></body>
-«ENDDEFINE»
+
 
 «REM»
 ==========================================================================================================================
@@ -33,7 +28,7 @@ Definizioni generali: Pagine di ERRORE
 «ENDREM»
 
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
-«DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«DEFINE getJspPageNotFoundErrorFile FOR GUIModel-»
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -47,7 +42,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
-«DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«DEFINE getJspFatalErrorFile FOR GUIModel-»
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -61,7 +56,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
-«DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«DEFINE getJspApplicationErrorFile FOR GUIModel-»
 «IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
 «ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
@@ -73,6 +68,19 @@ Definizioni generali: Pagine di ERRORE
 «ENDIF-»
 «ENDDEFINE»
 
+
+«REM»Crea la pagina di errore per errore da Sessione scaduta«ENDREM»
+«DEFINE getJspPageSessionExpiredFile FOR GUIModel»
+«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::getJspPageSessionExpiredFile FOR this»
+«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::getJspPageSessionExpiredFile FOR this»
+«ELSEIF this.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::getJspPageSessionExpiredFile FOR this»
+«ELSE-»
+	«ERROR "Portale " + this.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
 
 
 «REM»

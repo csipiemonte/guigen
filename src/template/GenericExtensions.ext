@@ -143,6 +143,27 @@ String getWebSrcDir(GUIModel model, boolean omit_root) :
 
 
 ////////////////////////////////////////////////////////////
+/// Estensioni di layout                                  //
+////////////////////////////////////////////////////////////
+
+String getPortalName(GUIModel model) :
+	if ( model.portale == PortalNames::INTRANET_RUPARPIEMONTE ) then
+		"RuparPiemonte"
+	else if ( model.portale == PortalNames::SISTEMA_PIEMONTE ) then
+		"SistemaPiemonte"
+	else if ( model.portale == PortalNames::NEUTRAL ) then
+		""
+	else
+		"";
+
+String getApplicationName(GUIModel model) :
+	if ( model.structure.appWindow.header != null ) then
+		model.structure.appWindow.header.nomeApplicativo
+	else
+		"";
+
+
+////////////////////////////////////////////////////////////
 /// Estensioni di utilita'                                //
 ////////////////////////////////////////////////////////////
 

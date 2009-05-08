@@ -95,20 +95,15 @@
 	«EXPAND getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
-	«EXPAND getJspSessionExpiredFile FOR this-»
+	«EXPAND getJspSessionExpiredFile(skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
-«REM»Crea la pagina di sessione scaduta«ENDREM»
-«DEFINE getJspSessionExpiredFile FOR GUIModel-»
-«FILE getJspErrorPagesDir(this, true) + "/sessionExpired.jsp"-»
-«EXPAND remoteResources::getJspPageSessionExpiredFile FOR this-»
-«ENDFILE-»
-«ENDDEFINE»
+
 
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/notFound.jsp"-»
-«EXPAND remoteResources::getJspPageNotFoundErrorFile(skip_component_dir_creation) FOR this-»
+«EXPAND remoteResources::getJspPageNotFoundErrorFile FOR this-»
 «ENDFILE-»
 «ENDDEFINE»
 
@@ -116,7 +111,7 @@
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/fatalError.jsp"-»
-«EXPAND remoteResources::getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
+«EXPAND remoteResources::getJspFatalErrorFile FOR this-»
 «ENDFILE-»
 «ENDDEFINE»
 
@@ -124,9 +119,18 @@
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
 «FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/applicationError.jsp"-»
-«EXPAND remoteResources::getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
+«EXPAND remoteResources::getJspApplicationErrorFile FOR this-»
 «ENDFILE-»
 «ENDDEFINE»
+
+
+«REM»Crea la pagina di sessione scaduta«ENDREM»
+«DEFINE getJspSessionExpiredFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, true) + "/sessionExpired.jsp"-»
+«EXPAND remoteResources::getJspPageSessionExpiredFile FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
+
 
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
@@ -271,7 +275,6 @@ Gestione dei pannelli
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 	«ENDIF-»
-
 «ENDDEFINE»
 
 «REM»Genera un CommandPanel«ENDREM»
