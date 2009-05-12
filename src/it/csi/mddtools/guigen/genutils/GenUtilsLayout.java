@@ -10,6 +10,8 @@ import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
+import it.csi.mddtools.guigen.MessageSeverity;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
@@ -113,41 +115,6 @@ public class GenUtilsLayout {
 
 		return columns;
 	}
-	
-	/**
-	 * 
-	 * @param firstLevPanel
-	 * @return
-	 */
-	private static int getUDLRCColumnsLayoutRupar(FormPanel firstLevPanel) {
-		int columns = 1;
-		// al momento gestico l'UDLRC come colonna unica...
-		return columns;
-	}
-	
-	/**
-	 * 
-	 * @param firstLevPanel
-	 * @return
-	 */
-	private static int getUDLRCColumnsLayoutSisp(FormPanel firstLevPanel) {
-		int columns = 1;
-
-		int left = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
-		int right = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
-		
-		if ( right == 1 ) {
-			// layout 3 colonne
-			columns = 3;
-		} else if ( left == 1 ) {
-			// layout 2 colonne
-			columns = 2;
-		} else {
-			// layout 1 colonna
-		}
-		
-		return columns;
-	}	
 	
 
 	/**
@@ -437,25 +404,6 @@ public class GenUtilsLayout {
 		return res;
 	}	
 	
-	public static String getButtonDivStyleSistemaPiemonte(GUIModel model, Button b) {
-		String res = "";
-		
-		String btnStyleT = "";
-		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
-			btnStyleT = "Nav";
-		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
-			btnStyleT = "Funz";
-		}
-		
-		if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.LEFT ) {
-			res = "class=\"puls" + btnStyleT + "Sx\"";
-		} else if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
-			res = "class=\"puls" + btnStyleT + "Dx\"";
-		}
-
-		return res;
-	}
-	
 
 	/**
 	 * 
@@ -476,77 +424,6 @@ public class GenUtilsLayout {
 		return res;
 	}
 
-	/**
-	 * Non mi piace molto questa implementazione (troppo empirica), ma...
-	 * 
-	 * @param model
-	 * @param b
-	 * @return
-	 * @author [DM]
-	 */
-	public static String getButtonStyleSistemaPiemonte(GUIModel model, Button b) {
-		int btnStyleL = 70;
-		int PIXEL_PER_CHAR = 8; // consideriamo una media di 8px per ogni carattere
-
-		if ( b.getLabel() != null ) {
-			int lblLen = b.getLabel().length();
-			int size = lblLen * PIXEL_PER_CHAR;
-			
-			if ( size <= 70 ) {
-				btnStyleL = 70;
-			} else if ( size > 70 && size <= 95 ) {
-				btnStyleL = 95;
-			} else if ( size > 95 && size <= 160 ) {	
-				btnStyleL = 160;
-			} else if ( size > 160 && size <= 190 ) {
-				btnStyleL = 190;
-			} else if ( size > 190 && size <= 205 ) {
-				btnStyleL = 205;
-			} else if ( size > 205 && size <= 255 ) {
-				btnStyleL = 255;
-			} else if ( size > 255 ) {
-				btnStyleL = 330;
-			}
-		}
-		
-		String btnStyleT = "";
-		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
-			btnStyleT = "nav";
-		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
-			btnStyleT = "funz";
-		}
-		
-		return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
-	}
-
-
-	/**
-	 * Non mi piace molto questa implementazione (troppo empirica), ma...
-	 * 
-	 * @param model
-	 * @param b
-	 * @return
-	 * @author [DM]
-	 */	
-	public static String getButtonStyleRupar(GUIModel model, Button b) {
-		String css = "";
-
-		if ( b.getLabel() != null ) {
-			int lblLen = b.getLabel().length();
-			
-			if ( lblLen > 0 && lblLen < 15 ) {
-				css = "";
-			} else if ( lblLen >= 15 && lblLen <= 20 ) {
-				css = " big";
-			} else if ( lblLen >= 21 && lblLen <= 31 ) {
-				css = " bigger";
-			} else if ( lblLen >= 32 ) {
-				css = " biggest";
-			}
-		}
-		
-		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
-	}
 
 	/**
 	 * 
@@ -566,35 +443,6 @@ public class GenUtilsLayout {
 		}
 		return res;
 	}	
-	
-	/**
-	 * 
-	 * @param model
-	 * @param t
-	 * @return
-	 * @author [DM] STDMDD-188
-	 */
-	public static String getTextFieldStyleSistemaPiemonte(GUIModel model, TextField t) {
-		String res = "";
-		int len = t.getFieldLength();
-		if ( len > 0 ) {
-			String css = "";
-			if ( len <= 14 ) {
-				// "small" se Textfield.size in [1..14]
-				css = "small";
-			} else if ( len >= 15 && len <= 29  ) {
-				// "med" se Textfield.size in [15..29]
-				css = "med";
-			} else if ( len >= 30 ) {
-				// "maxi" se Textfield.size >= 30 
-				css = "maxi";
-			}
-			res = "cssClass=\"" + css + "\"";
-		}
-		
-		return res;		
-	}
-
 	
 
 	/**
@@ -651,9 +499,235 @@ public class GenUtilsLayout {
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
 			res = "funz70";
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
-			
+			// TODO: implementare quando necessario
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare quando necessario
 		}
 		return res;
 	}
+
+	
+	/**
+	 * 
+	 * @param model
+	 * @param t
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
+		String res = "";
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = getMsgBoxPanelStyleSistemaPiemonte(mbp);
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			// TODO: implementare quando necessario
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare quando necessario
+		}
+		return res;
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// PRIVATE METHODS (for specific layout)
+	
+	
+	/**
+	 * 
+	 * @param firstLevPanel
+	 * @return
+	 */
+	private static int getUDLRCColumnsLayoutRupar(FormPanel firstLevPanel) {
+		int columns = 1;
+		// al momento gestico l'UDLRC come colonna unica...
+		return columns;
+	}
+	
+	/**
+	 * 
+	 * @param firstLevPanel
+	 * @return
+	 */
+	private static int getUDLRCColumnsLayoutSisp(FormPanel firstLevPanel) {
+		int columns = 1;
+
+		int left = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
+		int right = getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
+		
+		if ( right == 1 ) {
+			// layout 3 colonne
+			columns = 3;
+		} else if ( left == 1 ) {
+			// layout 2 colonne
+			columns = 2;
+		} else {
+			// layout 1 colonna
+		}
+		
+		return columns;
+	}		
+	
+	
+	/**
+	 * 
+	 * @param model
+	 * @param b
+	 * @return
+	 */
+	private static String getButtonDivStyleSistemaPiemonte(GUIModel model, Button b) {
+		String res = "";
+		
+		String btnStyleT = "";
+		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+			btnStyleT = "Nav";
+		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+			btnStyleT = "Funz";
+		}
+		
+		if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.LEFT ) {
+			res = "class=\"puls" + btnStyleT + "Sx\"";
+		} else if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
+			res = "class=\"puls" + btnStyleT + "Dx\"";
+		}
+
+		return res;
+	}	
+	
+	
+	/**
+	 * Non mi piace molto questa implementazione (troppo empirica), ma...
+	 * 
+	 * @param model
+	 * @param b
+	 * @return
+	 * @author [DM]
+	 */
+	private static String getButtonStyleSistemaPiemonte(GUIModel model, Button b) {
+		int btnStyleL = 70;
+		int PIXEL_PER_CHAR = 8; // consideriamo una media di 8px per ogni carattere
+
+		if ( b.getLabel() != null ) {
+			int lblLen = b.getLabel().length();
+			int size = lblLen * PIXEL_PER_CHAR;
+			
+			if ( size <= 70 ) {
+				btnStyleL = 70;
+			} else if ( size > 70 && size <= 95 ) {
+				btnStyleL = 95;
+			} else if ( size > 95 && size <= 160 ) {	
+				btnStyleL = 160;
+			} else if ( size > 160 && size <= 190 ) {
+				btnStyleL = 190;
+			} else if ( size > 190 && size <= 205 ) {
+				btnStyleL = 205;
+			} else if ( size > 205 && size <= 255 ) {
+				btnStyleL = 255;
+			} else if ( size > 255 ) {
+				btnStyleL = 330;
+			}
+		}
+		
+		String btnStyleT = "";
+		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+			btnStyleT = "nav";
+		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+			btnStyleT = "funz";
+		}
+		
+		return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
+	}
+
+
+	/**
+	 * Non mi piace molto questa implementazione (troppo empirica), ma...
+	 * 
+	 * @param model
+	 * @param b
+	 * @return
+	 * @author [DM]
+	 */	
+	private static String getButtonStyleRupar(GUIModel model, Button b) {
+		String css = "";
+
+		if ( b.getLabel() != null ) {
+			int lblLen = b.getLabel().length();
+			
+			if ( lblLen > 0 && lblLen < 15 ) {
+				css = "";
+			} else if ( lblLen >= 15 && lblLen <= 20 ) {
+				css = " big";
+			} else if ( lblLen >= 21 && lblLen <= 31 ) {
+				css = " bigger";
+			} else if ( lblLen >= 32 ) {
+				css = " biggest";
+			}
+		}
+		
+		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
+	}	
+	
+	
+	/**
+	 * 
+	 * @param model
+	 * @param t
+	 * @return
+	 * @author [DM] STDMDD-188
+	 */
+	private static String getTextFieldStyleSistemaPiemonte(GUIModel model, TextField t) {
+		String res = "";
+		int len = t.getFieldLength();
+		if ( len > 0 ) {
+			String css = "";
+			if ( len <= 14 ) {
+				// "small" se Textfield.size in [1..14]
+				css = "small";
+			} else if ( len >= 15 && len <= 29  ) {
+				// "med" se Textfield.size in [15..29]
+				css = "med";
+			} else if ( len >= 30 ) {
+				// "maxi" se Textfield.size >= 30 
+				css = "maxi";
+			}
+			res = "cssClass=\"" + css + "\"";
+		}
+		
+		return res;		
+	}
+	
+	
+	/**
+	 * 
+	 * @param mbp
+	 * @return
+	 */
+	private static String getMsgBoxPanelStyleSistemaPiemonte(MsgBoxPanel mbp) {
+		String res = "";
+		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
+			res = "class=\"messaggioOk\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
+			res = "class=\"messaggio\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
+			res = "class=\"messaggioKo\"";
+		}
+		
+		return res;	
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// MAIN
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+	}	
 	
 }

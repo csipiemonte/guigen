@@ -992,6 +992,32 @@ Gestione dei LAYOUT - PANNELLI
 «ENDDEFINE»
 
 
+«REM»
+************** Dialog Panel **************
+«ENDREM»
+«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel»
+
+«ENDDEFINE»
+
+
+«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel»
+
+«ENDDEFINE»
+
+
+«REM»
+************** MsgBoxPanel **************
+«ENDREM»
+«DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
+
+«ENDDEFINE»
+
+
+«DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
+
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================
@@ -1027,6 +1053,8 @@ Gestione dei LAYOUT - WIDGETS
 
 
 «REM»--------------- PlainText ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
 «IF needHandleCustomtagHeaderHspan(fp, this)-»
 	«IF this.label != null-»
@@ -1036,6 +1064,16 @@ Gestione dei LAYOUT - WIDGETS
 «ELSE-»
 	<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ELSE»colSpan="2"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
 «ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+
 «ENDDEFINE»
 
 

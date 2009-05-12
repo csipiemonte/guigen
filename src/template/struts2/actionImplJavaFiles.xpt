@@ -336,6 +336,22 @@ public class SequenceCommand implements ICommand {
 	}
 };
 «ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// SHOW_DIALOG_ACTION
+public class ShowDialogCommand implements ICommand {
+	String name;
+	public ShowDialogCommand(String panelName) {
+		name = panelName;
+	}
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		return "SHOW_"+name;
+	}
+};
+«ENDFILE»
+
 «ENDDEFINE»
 
 

@@ -43,6 +43,7 @@ import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.SequenceCommand;
+import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
@@ -65,42 +66,73 @@ import it.csi.mddtools.guigen.Widget;
  * @author Davide Martinotti
  */
 public class GenUtils {
-	
+
+	/**
+	 *
+	 * @param codVer
+	 * @return
+	 */
+	public static boolean isVersioneFormalmenteCorretta(String codVer){
+		StringTokenizer stok = new StringTokenizer(codVer, ".");
+		if (stok.countTokens()!=3)
+			return false;
+		else
+			return true;
+	}
+
+
+	/**
+	 *
+	 * @param sourceId
+	 * @return un id univoco della regione protetta univocamente derivabile
+	 * da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
+	 * creare problemi a seguito di eventuali formattazioni automatiche dei
+	 * commenti che dichiarano la protectred region
+	 */
+	public static String getRegionUID(String sourceId){
+		String uid = "R"+sourceId.hashCode();
+		return uid;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// content panels
+
 	/**
 	 * Restituisce tutti i ContentPanels dell'applicazione.
 	 * @param  model
-	 * @return 
-	 * @author [DM] 
+	 * @return
+	 * @author [DM]
 	 */
 	public static List<ContentPanel> getAllContentPanels(GUIModel model) {
 		ApplicationArea appArea =  model.getStructure().getAppWindow().getAppArea();
 		return getAllContentPanels(appArea);
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param appArea
 	 * @return
 	 * @author [DM]
 	 */
 	public static List<ContentPanel> getAllContentPanels(ApplicationArea appArea) {
 		List<ContentPanel> res = new ArrayList<ContentPanel>();
-		
+
 		// ContentPanels a livello ApplicationArea (this.structure.appWindow.appArea.contentPanels)
 		res.addAll(appArea.getContentPanels());
-		
+
 		// ContentPanels a livello packages (AppModule)
 		for (AppModule module : appArea.getModules()) {
 			res.addAll(module.getContentPanels());
 		}
-		
+
 		return res;
-	}	
-	
-	
+	}
+
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public static boolean isContentPanelUnique(ContentPanel contentPanel) {
@@ -112,7 +144,7 @@ public class GenUtils {
 			// ContentPanels a livello packages (AppModule)
 			appArea = (ApplicationArea)((AppModule)contentPanel.eContainer()).eContainer();
 		}
-		
+
 		List<ContentPanel> cpList = getAllContentPanels(appArea);
 		int count = 0;
 		for (ContentPanel cp : cpList) {
@@ -120,17 +152,16 @@ public class GenUtils {
 				count++;
 			}
 		}
-		
+
 		return (count == 1);
 	}
-	
-	
-	
-	
-	/////////////////////////////////////////
-	
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// find parent content panel
+
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
@@ -160,11 +191,11 @@ public class GenUtils {
 		else{
 			return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"
 		}
-		
+
 	}
- 
+
 	/**
-	 * 
+	 *
 	 * @param w
 	 * @return
 	 */
@@ -190,6 +221,9 @@ public class GenUtils {
 	}
 
 
+	//////////////////////////////////////////////////////////////////////////////////
+	// find all widgets in panels
+
 	/**
 	 * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del
 	 * content panel in oggetto. Se il content panel è nullo restituisco la lista completa
@@ -197,14 +231,22 @@ public class GenUtils {
 	 * @param cp
 	 * @return
 	 */
-	public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp){
-		if (cp != null)
-			return findAllWidgetsInPanel(cp.getPanels());
-		else
-			return findAllWidgetsInApplication();
+	public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp) {
+		ArrayList<Widget> res = new ArrayList<Widget>();
+		if ( cp != null ) {
+			// recupero i pannelli
+			res.addAll(findAllWidgetsInPanel(cp.getPanels()));
+			// recupero i DialogPanel
+			if ( cp.getDialogs().size() > 0 ) {
+				res.addAll(findAllWidgetsInDialogPanels(cp.getDialogs()));
+			}
+		} else {
+			res = findAllWidgetsInApplication();
+		}
+		return res;
 	}
-	
-	
+
+
 	/**
 	 * Restituisce la lista completa dei widget dell'applicazione
 	 * @return
@@ -230,7 +272,7 @@ public class GenUtils {
 		ArrayList<Widget> ris = new ArrayList<Widget>();
 		// widget primo livello
 		ris.addAll(p.getWidgets());
-		
+
 		// widget sottopannelli
 		if (p.getSubpanels() != null) {
 			Iterator<Panel> it = p.getSubpanels().iterator();
@@ -267,12 +309,27 @@ public class GenUtils {
 			throw new IllegalArgumentException("Tipo pannello non gestito");
 	}
 
+
+	/**
+	 * Compila una lista dei widget contenuti nei DialogPanel di un ContentPanel
+	 * @param l
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInDialogPanels(List<DialogPanel> l) {
+		ArrayList<Widget> res = new ArrayList<Widget>();
+		for (DialogPanel dp : l) {
+			res.addAll(findAllWidgetsInPanel(dp));
+		}
+		return res;
+	}
+
+
 	/**
 	 * compila una lista dei widget contenuti nel dialog
 	 * @param dp
 	 * @return
 	 */
-	public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp){
+	public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp) {
 		ArrayList<Widget> result = new ArrayList<Widget>();
 		List<MsgBoxPanel> dlgBoxes = dp.getMsgBoxes();
 		if (dlgBoxes!=null){
@@ -286,6 +343,11 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 * compila una lista dei widget contenuti in un MsgBoxPanel
+	 * @param dp
+	 * @return
+	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(MsgBoxPanel p) {
 		ArrayList<Widget> result = new ArrayList<Widget>();
 		result.addAll(p.getTextMessages());
@@ -315,7 +377,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * Compila una lista di tutti i widget appartenenti ad uno dei sottopannelli del 
+	 * Compila una lista di tutti i widget appartenenti ad uno dei sottopannelli del
 	 * multipanel in oggetto.
 	 * @param mp
 	 * @return
@@ -334,7 +396,10 @@ public class GenUtils {
 			}
 			return ris;
 		}
-	}	
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Restituisce la lista dei widget di tipo Table contenuti in un ContentPanel.
@@ -344,17 +409,18 @@ public class GenUtils {
 	 */
 	public static List<Table> findAllTablesInContentPanel(ContentPanel cp) {
 		List<Table> res = new ArrayList<Table>();
-		
+
 		for ( Widget w : findAllWidgetsInContentPanel(cp) ) {
 			if ( w instanceof Table ) {
 				res.add((Table)w);
 			}
 		}
-		
+
 		return res;
 	}
 
-	
+	//////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Restituisce la lista dei widget di tipo TreeView contenuti in un ContentPanel.
 	 * @param cp Il ContentPanel
@@ -363,46 +429,23 @@ public class GenUtils {
 	 */
 	public static List<TreeView> findAllTreeInContentPanel(ContentPanel cp) {
 		List<TreeView> res = new ArrayList<TreeView>();
-		
+
 		for ( Widget w : findAllWidgetsInContentPanel(cp) ) {
 			if ( w instanceof TreeView ) {
 				res.add((TreeView)w);
 			}
 		}
-		
+
 		return res;
-	}	
-	
-
-	/**
-	 * 
-	 * @param codVer
-	 * @return
-	 */
-	public static boolean isVersioneFormalmenteCorretta(String codVer){
-		StringTokenizer stok = new StringTokenizer(codVer, ".");
-		if (stok.countTokens()!=3)
-			return false;
-		else
-			return true;
 	}
 
 
-	/**
-	 * 
-	 * @param sourceId
-	 * @return un id univoco della regione protetta univocamente derivabile
-	 * da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
-	 * creare problemi a seguito di eventuali formattazioni automatiche dei 
-	 * commenti che dichiarano la protectred region 
-	 */
-	public static String getRegionUID(String sourceId){
-		String uid = "R"+sourceId.hashCode();
-		return uid;
-	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// exec actions
 
 	/**
-	 * 
+	 *
 	 * @param eh
 	 * @return
 	 */
@@ -410,9 +453,9 @@ public class GenUtils {
 		List<ExecCommand> ris = new ArrayList<ExecCommand>();
 		return getAllExecActionsRecursive(eh.getCommand());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
@@ -426,7 +469,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param ea
 	 * @return
 	 */
@@ -441,9 +484,9 @@ public class GenUtils {
 		}
 		return ris;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param sa
 	 * @return
 	 */
@@ -456,14 +499,19 @@ public class GenUtils {
 		return ris;
 	}
 
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// menu
+
 	/**
-	 * 
+	 *
 	 * @param ea
 	 * @return
 	 */
 	public static boolean isInMenuBranch(ExecCommand ea){
 		Object parent = ea.eContainer();
-		
+
 		if (parent instanceof EventHandler)
 			return isInMenuBranch((EventHandler)parent);
 		else if (parent instanceof CommandOutcome)
@@ -475,7 +523,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param sa
 	 * @return
 	 */
@@ -488,9 +536,9 @@ public class GenUtils {
 		else
 			return false;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param eh
 	 * @return
 	 */
@@ -501,43 +549,48 @@ public class GenUtils {
 		else
 			return false;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param ar
 	 * @return
 	 */
 	public static boolean isInMenuBranch(CommandOutcome ar){
 		ExecCommand parent = (ExecCommand)ar.eContainer();
 		return isInMenuBranch(parent);
-		 
+
 	}
-	
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// get all possible jumps
+
 	/**
 	 * Restituisce un array list di tutti i possibili salti ad altre pagine a partire da
-	 * un content panel prefissato. 
+	 * un content panel prefissato.
 	 * @param cp
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp){
-		return getAllPossibleJumps(cp.getPanels());
+		List<ContentPanel> res = new ArrayList<ContentPanel>();
+
+		// jumps for panels
+		res.addAll(getAllPossibleJumps(cp.getPanels()));
+
+		// jump for DialogPanels
+		for (DialogPanel dp : cp.getDialogs()) {
+			res.addAll(getAllPossibleJumps(dp));
+		}
+
+		return res;
 	}
 
 	/**
-	 * 
-	 * @param cp
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(ContentPanel cp){
-		return getAllPossibleExtJumps(cp.getPanels());
-	}
-
-	/**
-	 * 
+	 *
 	 * @param mb
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(Menubar mb){
+	public static List<ContentPanel> getAllPossibleJumps(Menubar mb) {
 		List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
 		Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
@@ -551,41 +604,23 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
-	 * @param mb
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(Menubar mb){
-		List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
-		Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		while(it_mi.hasNext()){
-			MenuItem currMI = it_mi.next();
-			EventHandler currEH = currMI.getEventHandler();
-			List<JumpExtCommand> currJumps = getAllPossibleExtJumps(currEH);
-			result.addAll(currJumps);
-		}
-		return result;
-	}
-
-	/**
-	 * 
+	 *
 	 * @param mi
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(MenuItem mi){
+	public static List<ContentPanel> getAllPossibleJumps(MenuItem mi) {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		EventHandler currEH = mi.getEventHandler();
 		result = getAllPossibleJumps(currEH);
 		return result;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param mi
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(Menu m){
+	public static List<ContentPanel> getAllPossibleJumps(Menu m) {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		EventHandler currEH = m.getEventHandler();
 		result = getAllPossibleJumps(currEH);
@@ -599,44 +634,13 @@ public class GenUtils {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * 
-	 * @param mi
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi){
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		EventHandler currEH = mi.getEventHandler();
-		result = getAllPossibleExtJumps(currEH);
-		return result;
-	}
-	
-	/**
-	 * 
-	 * @param mi
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(Menu m){
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		EventHandler currEH = m.getEventHandler();
-		result = getAllPossibleExtJumps(currEH);
-		// vai nei sottomenu
-		if (m.getSubmenu().size()>0){
-			Iterator<Menu> it_subm = m.getSubmenu().iterator();
-			while(it_subm.hasNext()){
-				Menu currSubm = it_subm.next();
-				result.addAll(getAllPossibleExtJumps(currSubm));
-			}
-		}
-		return result;
-	}
-	/**
-	 * 
+	 *
 	 * @param p
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(Panel p){
+	public static List<ContentPanel> getAllPossibleJumps(Panel p) {
 		if (p instanceof FormPanel)
 			return getAllPossibleJumps((FormPanel)p);
 		else if (p instanceof MultiPanel)
@@ -648,27 +652,11 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param p
 	 * @return
 	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(Panel p){
-		if (p instanceof FormPanel)
-			return getAllPossibleExtJumps((FormPanel)p);
-		else if (p instanceof MultiPanel)
-			return getAllPossibleExtJumps((MultiPanel)p);
-		else if (p instanceof DialogPanel)
-			return getAllPossibleExtJumps((DialogPanel)p);
-		else
-			return null; // TODO gestire i tabset panel....
-	}
-
-	/**
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public static List<ContentPanel> getAllPossibleJumps(FormPanel p){
+	public static List<ContentPanel> getAllPossibleJumps(FormPanel p) {
 		// scende in tutti i sotto pannelli
 		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
 		List<Panel> subpanels = p.getSubpanels();
@@ -691,7 +679,7 @@ public class GenUtils {
 					firstLevelDestinations.addAll(currSubJumps);
 			}
 		}
-		
+
 		recursiveDestinations.addAll(firstLevelDestinations);
 		List<ContentPanel> result= new ArrayList<ContentPanel>();
 		result.addAll(recursiveDestinations);
@@ -699,14 +687,235 @@ public class GenUtils {
 		return result;
 	}
 
-	
-	
 	/**
-	 * 
+	 *
 	 * @param p
 	 * @return
 	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(FormPanel p){
+	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p) {
+		// Un dialog panel può contenere jump solo nel command panel
+		if (p.getCommands()!=null)
+			return getAllPossibleJumps(p.getCommands());
+		else
+			return new ArrayList<ContentPanel>();
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(MultiPanel p) {
+		// scende in tutti i sotto pannelli
+		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
+		List<Panel> subpanels = p.getPanels();
+		if (subpanels!=null){
+			Iterator<Panel> panels_it = subpanels.iterator();
+			while(panels_it.hasNext()){
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
+				if (currSubJumps!=null)
+					recursiveDestinations.addAll(currSubJumps);
+			}
+		}
+		List<ContentPanel> result= new ArrayList<ContentPanel>();
+		result.addAll(recursiveDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param w
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(Widget w) {
+		List<EventHandler> eventHandlers = w.getEventHandlers();
+		Iterator<EventHandler> evh_it = eventHandlers.iterator();
+
+		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
+		while(evh_it.hasNext()){
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
+			if (currSubJumps!=null)
+				resultSet.addAll(currSubJumps);
+		}
+		List<ContentPanel> result = new ArrayList<ContentPanel>();
+		result.addAll(resultSet);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param evh
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh) {
+		Command a = evh.getCommand();
+		if (a==null)
+			return null;
+		else{
+			return getAllPossibleJumps(a);
+		}
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(Command a) {
+		if (a instanceof JumpCommand)
+			return getAllPossibleJumps((JumpCommand)a);
+		else if (a instanceof ExecCommand)
+			return getAllPossibleJumps((ExecCommand)a);
+		else if (a instanceof SequenceCommand)
+			return getAllPossibleJumps((SequenceCommand)a);
+		else
+			return null;
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(JumpCommand a) {
+		List<ContentPanel> ris = new ArrayList<ContentPanel>();
+		ris.add(a.getJumpTo());
+		return ris;
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(SequenceCommand a) {
+		Command lastStep = a.getCommands().get(a.getCommands().size()-1);
+		return getAllPossibleJumps(lastStep);
+	}
+
+	/**
+	 *
+	 * @param ar
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(CommandOutcome ar) {
+		return getAllPossibleJumps(ar.getCommand());
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(ExecCommand a) {
+		Iterator<CommandOutcome> res_it = a.getResults().iterator();
+		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
+		while(res_it.hasNext()){
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
+			if (currSubJumps!=null)
+				resultSet.addAll(currSubJumps);
+		}
+		List<ContentPanel> ris = new ArrayList<ContentPanel>();
+		ris.addAll(resultSet);
+		return ris;
+	}
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// get all possible extjumps
+
+	/**
+	 *
+	 * @param cp
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(ContentPanel cp) {
+		List<JumpExtCommand> res = new ArrayList<JumpExtCommand>();
+
+		// jumps for panels
+		res.addAll(getAllPossibleExtJumps(cp.getPanels()));
+
+		// jump for DialogPanels
+		for (DialogPanel dp : cp.getDialogs()) {
+			res.addAll(getAllPossibleExtJumps(dp));
+		}
+
+		return res;
+	}
+
+	/**
+	 *
+	 * @param mb
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Menubar mb) {
+		List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
+		Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+		while(it_mi.hasNext()){
+			MenuItem currMI = it_mi.next();
+			EventHandler currEH = currMI.getEventHandler();
+			List<JumpExtCommand> currJumps = getAllPossibleExtJumps(currEH);
+			result.addAll(currJumps);
+		}
+		return result;
+	}
+
+	/**
+	 *
+	 * @param mi
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi) {
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+		EventHandler currEH = mi.getEventHandler();
+		result = getAllPossibleExtJumps(currEH);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param mi
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Menu m) {
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+		EventHandler currEH = m.getEventHandler();
+		result = getAllPossibleExtJumps(currEH);
+		// vai nei sottomenu
+		if (m.getSubmenu().size()>0){
+			Iterator<Menu> it_subm = m.getSubmenu().iterator();
+			while(it_subm.hasNext()){
+				Menu currSubm = it_subm.next();
+				result.addAll(getAllPossibleExtJumps(currSubm));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Panel p) {
+		if (p instanceof FormPanel)
+			return getAllPossibleExtJumps((FormPanel)p);
+		else if (p instanceof MultiPanel)
+			return getAllPossibleExtJumps((MultiPanel)p);
+		else if (p instanceof DialogPanel)
+			return getAllPossibleExtJumps((DialogPanel)p);
+		else
+			return null; // TODO gestire i tabset panel....
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(FormPanel p) {
 		// scende in tutti i sotto pannelli
 		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
 		List<Panel> subpanels = p.getSubpanels();
@@ -729,7 +938,7 @@ public class GenUtils {
 					firstLevelDestinations.addAll(currSubJumps);
 			}
 		}
-		
+
 		recursiveDestinations.addAll(firstLevelDestinations);
 		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
 		result.addAll(recursiveDestinations);
@@ -737,66 +946,25 @@ public class GenUtils {
 		return result;
 	}
 
-	
-	///
 	/**
-	 * 
+	 *
 	 * @param p
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p){
-		// Un dialog panel può contenere jump solo nel command panel
-		if (p.getCommands()!=null)
-			return getAllPossibleJumps(p.getCommands());
-		else
-			return new ArrayList<ContentPanel>();
-	}
-
-	/**
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(DialogPanel p){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(DialogPanel p) {
 		// Un dialog panel può contenere jump solo nel command panel
 		if (p.getCommands()!=null)
 			return getAllPossibleExtJumps(p.getCommands());
 		else
 			return new ArrayList<JumpExtCommand>();
 	}
-	
 
-	///
-	
-	
 	/**
-	 * 
+	 *
 	 * @param p
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(MultiPanel p){
-		// scende in tutti i sotto pannelli
-		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
-		List<Panel> subpanels = p.getPanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while(panels_it.hasNext()){
-				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
-				if (currSubJumps!=null)
-					recursiveDestinations.addAll(currSubJumps);
-			}
-		}	
-		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
-	}
-
-	/**
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(MultiPanel p){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(MultiPanel p) {
 		// scende in tutti i sotto pannelli
 		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
 		List<Panel> subpanels = p.getPanels();
@@ -807,41 +975,21 @@ public class GenUtils {
 				if (currSubJumps!=null)
 					recursiveDestinations.addAll(currSubJumps);
 			}
-		}	
+		}
 		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
 		result.addAll(recursiveDestinations);
 		return result;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param w
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(Widget w){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Widget w) {
 		List<EventHandler> eventHandlers = w.getEventHandlers();
 		Iterator<EventHandler> evh_it = eventHandlers.iterator();
-		
-		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
-		while(evh_it.hasNext()){
-			List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
-			if (currSubJumps!=null)
-				resultSet.addAll(currSubJumps);
-		}
-		List<ContentPanel> result = new ArrayList<ContentPanel>();
-		result.addAll(resultSet);
-		return result;
-	}
 
-	/**
-	 * 
-	 * @param w
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(Widget w){
-		List<EventHandler> eventHandlers = w.getEventHandlers();
-		Iterator<EventHandler> evh_it = eventHandlers.iterator();
-		
 		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
 		while(evh_it.hasNext()){
 			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(evh_it.next());
@@ -854,25 +1002,11 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param evh
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh){
-		Command a = evh.getCommand();
-		if (a==null)
-			return null;
-		else{
-			return getAllPossibleJumps(a);
-		}
-	}
-
-	/**
-	 * 
-	 * @param evh
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh) {
 		Command a = evh.getCommand();
 		if (a==null)
 			return null;
@@ -882,27 +1016,11 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(Command a){
-		if (a instanceof JumpCommand)
-			return getAllPossibleJumps((JumpCommand)a);
-		else if (a instanceof ExecCommand)
-			return getAllPossibleJumps((ExecCommand)a);
-		else if (a instanceof SequenceCommand)
-			return getAllPossibleJumps((SequenceCommand)a);
-		else
-			return null;
-	}
-
-	/**
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(Command a){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(Command a) {
 		if (a instanceof JumpExtCommand)
 			return getAllPossibleExtJumps((JumpExtCommand)a);
 		else if (a instanceof ExecCommand)
@@ -914,24 +1032,13 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(JumpCommand a){
-		List<ContentPanel> ris = new ArrayList<ContentPanel>();
-		ris.add(a.getJumpTo());
-		return ris;
-	}
-
-	/**
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(JumpExtCommand a){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(JumpExtCommand a) {
 		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
-		if (a.getRuntimeUrlProvider()!=null){
+		if ( a.getRuntimeUrlProvider() != null ) {
 			String s = "${";
 			s+=getAppDataKey(a.getRuntimeUrlProvider());
 			s+="}";
@@ -940,114 +1047,302 @@ public class GenUtils {
 			currJD.setStaticUrl(s);
 			ris.add(currJD);
 		}
-		else{
+		else {
 			ris.add(a);
 		}
 		return ris;
 	}
-	
-	/**
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public static List<ContentPanel> getAllPossibleJumps(SequenceCommand a){
-		Command lastStep = a.getCommands().get(a.getCommands().size()-1);
-		return getAllPossibleJumps(lastStep);
-	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(SequenceCommand a){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(SequenceCommand a) {
 		Command lastStep = a.getCommands().get(a.getCommands().size()-1);
 		return getAllPossibleExtJumps(lastStep);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param ar
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(CommandOutcome ar){
-		return getAllPossibleJumps(ar.getCommand());
-	}
-	
-	/**
-	 * 
-	 * @param ar
-	 * @return
-	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(CommandOutcome ar){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(CommandOutcome ar) {
 		return getAllPossibleExtJumps(ar.getCommand());
-	}
-	
-	/**
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public static List<ContentPanel> getAllPossibleJumps(ExecCommand a){
-		Iterator<CommandOutcome> res_it = a.getResults().iterator();
-		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
-		while(res_it.hasNext()){
-			List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
-			if (currSubJumps!=null)
-				resultSet.addAll(currSubJumps);
-		}
-		List<ContentPanel> ris = new ArrayList<ContentPanel>();
-		ris.addAll(resultSet);
-		return ris;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(ExecCommand a){
+	public static List<JumpExtCommand> getAllPossibleExtJumps(ExecCommand a) {
 		Iterator<CommandOutcome> res_it = a.getResults().iterator();
 		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
-		while(res_it.hasNext()){
+		while(res_it.hasNext()) {
 			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(res_it.next());
-			if (currSubJumps!=null)
+			if ( currSubJumps != null ) {
 				resultSet.addAll(currSubJumps);
+			}
 		}
 		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
 		ris.addAll(resultSet);
 		return ris;
 	}
 
-	//////////////////////
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	// get all possible ShowDialogs
 
 	/**
-	 * 
+	 * Restituisce un array list di tutti i possibili salti ad altre pagine a partire da
+	 * un content panel prefissato.
 	 * @param cp
 	 * @return
 	 */
-	public static List<Widget> getAllEventSourceWidgets(ContentPanel cp){
+	public static List<DialogPanel> getAllPossibleShowDialogs(ContentPanel cp) {
+		List<DialogPanel> res = new ArrayList<DialogPanel>();
+
+		// show dialog for panels
+		res.addAll(getAllPossibleShowDialogs(cp.getPanels()));
+
+		// showdialog for DialogPanels
+		for (DialogPanel dp : cp.getDialogs()) {
+			res.addAll(getAllPossibleShowDialogs(dp));
+		}
+
+		return res;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(Panel p) {
+		if ( p instanceof FormPanel ) {
+			return getAllPossibleShowDialogs((FormPanel)p);
+		} else if ( p instanceof MultiPanel ) {
+			return getAllPossibleShowDialogs((MultiPanel)p);
+		} else if ( p instanceof DialogPanel ) {
+			return getAllPossibleShowDialogs((DialogPanel)p);
+		} else {
+			return null; // TODO gestire i tabset panel....
+		}
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(FormPanel p) {
+		// scende in tutti i sotto pannelli
+		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
+		List<Panel> subpanels = p.getSubpanels();
+		if (subpanels!=null){
+			Iterator<Panel> panels_it = subpanels.iterator();
+			while ( panels_it.hasNext() ) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panels_it.next());
+				if ( currSubShowDialogs != null ) {
+					recursiveDestinations.addAll(currSubShowDialogs);
+				}
+			}
+		}
+		
+		// guarda i widget a primo livello
+		HashSet<DialogPanel> firstLevelDestinations = new HashSet<DialogPanel>();
+		List<Widget> widgets = p.getWidgets();
+		if ( widgets != null ) {
+			Iterator<Widget> widgets_it = widgets.iterator();
+			while ( widgets_it.hasNext() ) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(widgets_it.next());
+				if ( currSubShowDialogs != null ) {
+					firstLevelDestinations.addAll(currSubShowDialogs);
+				}
+			}
+		}
+
+		recursiveDestinations.addAll(firstLevelDestinations);
+		List<DialogPanel> result = new ArrayList<DialogPanel>();
+		result.addAll(recursiveDestinations);
+		result.addAll(firstLevelDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(DialogPanel p) {
+		// Un DialogPanel può contenere showDialog solo nel command panel (ha senso?)
+		if ( p.getCommands() != null ) {
+			return getAllPossibleShowDialogs(p.getCommands());
+		} else {
+			return new ArrayList<DialogPanel>();
+		}
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(MultiPanel p) {
+		// scende in tutti i sotto pannelli
+		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
+		List<Panel> subpanels = p.getPanels();
+		if ( subpanels != null ) {
+			Iterator<Panel> panels_it = subpanels.iterator();
+			while ( panels_it.hasNext() ) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panels_it.next());
+				if  ( currSubShowDialogs != null ) {
+					recursiveDestinations.addAll(currSubShowDialogs);
+				}
+			}
+		}
+		List<DialogPanel> result = new ArrayList<DialogPanel>();
+		result.addAll(recursiveDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param w
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(Widget w) {
+		List<EventHandler> eventHandlers = w.getEventHandlers();
+		Iterator<EventHandler> evh_it = eventHandlers.iterator();
+
+		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
+		while ( evh_it.hasNext() ) {
+			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(evh_it.next());
+			if ( currSubShowDialogs != null ) {
+				resultSet.addAll(currSubShowDialogs);
+			}
+		}
+		List<DialogPanel> result = new ArrayList<DialogPanel>();
+		result.addAll(resultSet);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param evh
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(EventHandler evh) {
+		Command a = evh.getCommand();
+		if ( a == null ) {
+			return null;
+		} else {
+			return getAllPossibleShowDialogs(a);
+		}
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(Command a) {
+		if ( a instanceof ShowDialogCommand ) {
+			return getAllPossibleShowDialogs((ShowDialogCommand)a);
+		} else if ( a instanceof ExecCommand ) {
+			return getAllPossibleShowDialogs((ExecCommand)a);
+		} else if ( a instanceof SequenceCommand ) {
+			return getAllPossibleShowDialogs((SequenceCommand)a);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(ShowDialogCommand a) {
+		List<DialogPanel> ris = new ArrayList<DialogPanel>();
+		ris.add(a.getDialog());
+		return ris;
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(SequenceCommand a) {
+		Command lastStep = a.getCommands().get(a.getCommands().size()-1);
+		return getAllPossibleShowDialogs(lastStep);
+	}
+
+	/**
+	 *
+	 * @param ar
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(CommandOutcome ar) {
+		return getAllPossibleShowDialogs(ar.getCommand());
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(ExecCommand a) {
+		Iterator<CommandOutcome> res_it = a.getResults().iterator();
+		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
+		while ( res_it.hasNext() ) {
+			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(res_it.next());
+			if ( currSubShowDialogs != null ) {
+				resultSet.addAll(currSubShowDialogs);
+			}
+		}
+		
+		List<DialogPanel> ris = new ArrayList<DialogPanel>();
+		ris.addAll(resultSet);
+		return ris;
+	}	
+	
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// get all Event Source
+
+	/**
+	 *
+	 * @param cp
+	 * @return
+	 */
+	public static List<Widget> getAllEventSourceWidgets(ContentPanel cp) {
 		List<Widget> allWidgetsInCP = findAllWidgetsInContentPanel(cp);
 		Iterator<Widget> w_it = allWidgetsInCP.iterator();
 		List<Widget> result = new ArrayList<Widget>();
-		while(w_it.hasNext()){
+		while ( w_it.hasNext() ) {
 			Widget currW = w_it.next();
-			if (currW.getEventHandlers()!=null && currW.getEventHandlers().size()>0)
+			if ( currW.getEventHandlers() != null && currW.getEventHandlers().size() > 0 ) {
 				result.add(currW);
+			}
 		}
 		return result;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mb
 	 * @return
 	 */
-	public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb){
+	public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb) {
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
-		while(m_it.hasNext()){
+		while ( m_it.hasNext() ) {
 			Menu currMnu = m_it.next();
 			List<MenuItem> currMenuItems = getAllEventSourceMenuItems(currMnu);
 			result.addAll(currMenuItems);
@@ -1056,37 +1351,37 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param m
 	 * @return
 	 */
-	public static List<MenuItem> getAllEventSourceMenuItems(Menu m){
+	public static List<MenuItem> getAllEventSourceMenuItems(Menu m) {
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		Iterator<MenuItem> it_mi = m.getItem().iterator();
-		while(it_mi.hasNext()){
+		while ( it_mi.hasNext() ) {
 			MenuItem currMI = it_mi.next();
-			if (currMI.getEventHandler()!=null)
+			if ( currMI.getEventHandler() != null ) {
 				result.add(currMI);
+			}
 		}
 		// TODO aggiungere i submenu...
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
-		while(it_sm.hasNext()){
+		while ( it_sm.hasNext() ) {
 			Menu currSM = it_sm.next();
 			result.addAll(getAllEventSourceMenuItems(currSM));
 		}
 		return result;
 	}
 
-	
 	/**
-	 * 
+	 *
 	 * @param mb
 	 * @return
 	 */
-	public static List<Menu> getAllEventSourceMenus(Menubar mb){
+	public static List<Menu> getAllEventSourceMenus(Menubar mb) {
 		List<Menu> result = new ArrayList<Menu>();
 		Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
-		while(m_it.hasNext()){
+		while ( m_it.hasNext() ) {
 			Menu currMnu = m_it.next();
 			List<Menu> currMenus = getAllEventSourceMenus(currMnu);
 			result.addAll(currMenus);
@@ -1095,26 +1390,29 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param m
 	 * @return
 	 */
-	public static List<Menu> getAllEventSourceMenus(Menu m){
+	public static List<Menu> getAllEventSourceMenus(Menu m) {
 		List<Menu> result = new ArrayList<Menu>();
-		if (m.getEventHandler()!=null)
+		if ( m.getEventHandler() != null ) {
 			result.add(m);
+		}
 		Iterator<Menu> it_m = m.getSubmenu().iterator();
-		while(it_m.hasNext()){
+		while ( it_m.hasNext() ) {
 			Menu currSM = it_m.next();
 			result.addAll(getAllEventSourceMenus(currSM));
 		}
 		return result;
 	}
-	
-	//////////////////////
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * 
+	 *
 	 * @param rb
 	 * @return
 	 */
@@ -1131,12 +1429,12 @@ public class GenUtils {
 			return list;
 		}
 		else {
-			return ""; // non si dovrebbe mai essere iun questo caso (check sul modello)
+			return ""; // non si dovrebbe mai essere in questo caso (check sul modello)
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param rb
 	 * @return
 	 */
@@ -1147,7 +1445,7 @@ public class GenUtils {
 	//////////////////////
 
 	/**
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -1156,7 +1454,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param appDataDefs
 	 * @return
 	 */
@@ -1169,10 +1467,10 @@ public class GenUtils {
 		// ApplicationData a livello package (AppDataGroup)
 		for (AppDataGroup group : appDataDefs.getGroups()) {
 			res.addAll(group.getAppData());
-		} 
+		}
 
 		return res;
-	}	
+	}
 
 
 	/**
@@ -1188,7 +1486,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param w
 	 * @return
 	 */
@@ -1203,9 +1501,9 @@ public class GenUtils {
 		}
 		return ris;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param eh
 	 * @return
 	 */
@@ -1214,7 +1512,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @return
 	 */
@@ -1223,12 +1521,12 @@ public class GenUtils {
 			return findAllActionScopedAppData((SequenceCommand)a);
 		else if (a instanceof ExecCommand)
 			return findAllActionScopedAppData((ExecCommand)a);
-		else	
+		else
 			return null;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mb
 	 * @return
 	 */
@@ -1237,14 +1535,14 @@ public class GenUtils {
 		Iterator<Menu> it_m = mb.getTopLevelMenu().iterator();
 		while(it_m.hasNext()){
 			Menu currMnu =it_m.next();
-			List<ApplicationData> parz = findAllActionScopedAppData(currMnu); 
+			List<ApplicationData> parz = findAllActionScopedAppData(currMnu);
 			if (parz!=null)result.addAll(parz);
 		}
 		return result;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param m
 	 * @return
 	 */
@@ -1262,7 +1560,7 @@ public class GenUtils {
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while(it_sm.hasNext()){
 			Menu currSM = it_sm.next();
-			List<ApplicationData> parz = findAllActionScopedAppData(currSM); 
+			List<ApplicationData> parz = findAllActionScopedAppData(currSM);
 			if (parz!=null) result.addAll(parz);
 		}
 		return result;
@@ -1289,7 +1587,7 @@ public class GenUtils {
 
 
 	/**
-	 * 
+	 *
 	 * @param r
 	 * @return
 	 */
@@ -1315,8 +1613,8 @@ public class GenUtils {
 	}
 
 	///////////////////////////////
-	
-	
+
+
 	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4Menus(Menubar mb){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		Iterator<Menu> it_m = mb.getTopLevelMenu().iterator();
@@ -1349,7 +1647,7 @@ public class GenUtils {
 		}
 		return result;
 	}
-	
+
 	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		if (mi.getSecurityConstraints().size()>0){
@@ -1358,11 +1656,11 @@ public class GenUtils {
 				UISecurityConstraint currSC = it_sc.next();
 				if (currSC instanceof CustomSecurityConstraint)
 					result.add((CustomSecurityConstraint)currSC);
-			}	
+			}
 		}
 		return result;
 	}
-	
+
 	/**
 	 * restituisce la stringa OGNL per il value del data widget.
 	 * Se il widget ha un app data binding viene referenziato quello, altrimenti
@@ -1390,7 +1688,7 @@ public class GenUtils {
 
 
 	/**
-	 * 
+	 *
 	 * @param w
 	 * @return
 	 */
@@ -1416,18 +1714,18 @@ public class GenUtils {
 	/**
 	 * Restituisce il nome del widget. E' utilizzabile in molti contesti
 	 * TODO: se cambiamo i nomi nel generatore occorre modificare anche questo
-	 * 
+	 *
 	 * @param w Il widget
 	 * @return  Il nome del widget
-	 * @author [DM] 
+	 * @author [DM]
 	 */
 	public static String getWidgetName(Widget w) {
 		return "widg_" + w.getName();
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param binding
 	 * @return
 	 */
@@ -1440,7 +1738,7 @@ public class GenUtils {
 		return ris;
 	}
 
-	
+
 	/**
 	 * chiave dell'app data quando salvato in sessione
 	 * @param ad
@@ -1449,8 +1747,8 @@ public class GenUtils {
 	public static String getAppDataKey(ApplicationData ad){
 		return "appData"+ad.getName();
 	}
-	
-	
+
+
 	/**
 	 * nome della property associata all'appdata quando viene inserito nella action
 	 * @param ad
@@ -1459,8 +1757,8 @@ public class GenUtils {
 	public static String getAppDataPropertyName(ApplicationData ad){
 		return "appData"+ad.getName();
 	}
-	
-	
+
+
 	/**
 	 * verifica se l'elemento Menu ha un solo Item o no
 	 * @param currMenu
@@ -1472,10 +1770,10 @@ public class GenUtils {
 		int numSubMenus = currMenu.getSubmenu().size();
 		return ((numItems == 1 && numSubMenus == 0) ? true : false);
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param m
 	 * @return
 	 */
@@ -1491,9 +1789,9 @@ public class GenUtils {
 		return result;
 	}
 
-	
+
 	/**
-	 * 
+	 *
 	 * @param w
 	 * @return
 	 * @author [DM]
@@ -1504,8 +1802,8 @@ public class GenUtils {
 		}
 		return getWidgetName(w);
 	}
-	
-	
+
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO
@@ -1539,9 +1837,9 @@ public class GenUtils {
 		SimpleType csiWFloat = createDT("WrappedFloat", SimpleTypeCodes.FLOAT, true);
 		//basicTypesMap.put(Float.class, csiWFloat);
 		SimpleType csiWLong = createDT("WrappedLong", SimpleTypeCodes.LONG, true);
-		
+
 		SimpleType csiTreeCat = createDT("TreeNode", SimpleTypeCodes.TREE_NODE, true);
-		
+
 		//basicTypesMap.put(Long.class, csiWLong);
 		// array di tipi semplici
 		it.csi.mddtools.guigen.TypedArray csiIntegerArray = createTA("Array of Integer", csiInteger);
@@ -1570,10 +1868,10 @@ public class GenUtils {
 		it.csi.mddtools.guigen.TypedArray csiWFloatArray = createTA("Array of WrappedFloat", csiWFloat);
 		//basicTypesMap.put(getTypedArrayClass(Float.class), csiWFloatArray);
 		it.csi.mddtools.guigen.TypedArray csiWLongArray = createTA("Array of WrappedLong", csiWLong);
-		
+
 		it.csi.mddtools.guigen.TypedArray csiTreeCatArray = createTA("Array of TreeNode", csiTreeCat);
 		//basicTypesMap.put(getTypedArrayClass(Long.class), csiWLongArray);
-		
+
 		it.csi.mddtools.guigen.Type [] types = new it.csi.mddtools.guigen.Type[]{
 				csiInteger,csiBoolean,csiByte,csiDate,csiDouble,csiFloat,csiLong,csiString,
 				csiWInteger,csiWBoolean,csiWDouble,csiWFloat,csiWLong,csiTreeCat,
@@ -1582,7 +1880,7 @@ public class GenUtils {
 		};
 		return types;
 	}
-	
+
 	public static Class getTypedArrayClass(Class javaCompType){
 		Object dummyArray = Array.newInstance(javaCompType, 0);
 		return dummyArray.getClass();
@@ -1594,14 +1892,14 @@ public class GenUtils {
 		dt.setNillable(nillable);
 		return dt;
 	}
-	
+
 	public static it.csi.mddtools.guigen.TypedArray createTA(String name,SimpleType dt){
 		it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
 		ta.setName(name);
 		ta.setComponentType(dt);
 		return ta;
 	}
-	
+
 	public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType dt){
 		it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
 		ta.setName(name);
@@ -1609,29 +1907,29 @@ public class GenUtils {
 		return ta;
 	}
 
-	
+
 	public static List<Type> getAllTypes(GUIModel model) {
 		return getAllTypes(model.getTypedefs());
 	}
-	
+
 	public static List<Type> getAllTypes(Typedefs typedef) {
 		List<Type> res = new ArrayList<Type>();
-		
+
 		// Tipi a livello di Typedefs
 		res.addAll(typedef.getTypes());
-		
+
 		// Tipi a livello di package (Ty)
 		for (TypeNamespace ns : typedef.getNamespaces()) {
 			res.addAll(ns.getTypes());
 		}
-		
+
 		return res;
 	}
-	
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS
-	
+
 	/**
 	 * Verifica se una stringa &egrave; nulla o vuota.
 	 * @param s La Stringa da verificare.
@@ -1645,7 +1943,7 @@ public class GenUtils {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// MAIN
-	
+
 	/**
 	 * @param args
 	 */
@@ -1657,7 +1955,7 @@ public class GenUtils {
 			ExecCommand ex = GuigenFactory.eINSTANCE.createExecCommand();
 			eh.setCommand(ex);
 			findParentContentPanel(ex);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

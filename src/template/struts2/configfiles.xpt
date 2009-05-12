@@ -431,22 +431,29 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		</action>
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
-		    «IF onInitAction != null»
-		    «LET getAllPossibleJumps(onInitAction) AS allJumps-»
+		«IF onInitAction != null»
+		    «LET (List[ContentPanel])getAllPossibleJumps(onInitAction) AS allJumps-»
 			«FOREACH allJumps AS currJump-»
-			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
+			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
 			«ENDFOREACH-»
 			«ENDLET-»
-			«LET getAllPossibleExtJumps(onInitAction) AS allJumps-»
-			«FOREACH allJumps AS currExtJump-»
-			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
-				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+			
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-»
+			«FOREACH allExtJumps AS currExtJump-»
+			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH-»
 			«ENDLET-»
-			«ELSE»
+		    
+		    «LET (List[DialogPanel])getAllPossibleShowDialogs(onInitAction) AS allShowDialogs-»
+			«FOREACH allShowDialogs AS currShowDialog-»
+			<result name="GO_TO_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
+			«ENDFOREACH-»
+			«ENDLET-»			
+		«ELSE»
 			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.contentPanels.first())»</result>
-		    «ENDIF»
+		«ENDIF»
 		</action>
 		«ENDLET»
 		
@@ -478,45 +485,49 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		«REM»Espande il menu«ENDREM»
 		<!-- MENU -->
 		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
-			«IF tlmenu.eventHandler.eventType == EventTypes::CLICKED»
-			«LET tlmenu.eventHandler.command AS currAction»
+			
+		«IF tlmenu.eventHandler.eventType == EventTypes::CLICKED»
+		«LET tlmenu.eventHandler.command AS currAction»
 		<action name="goTo«tlmenu.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«tlmenu.name.toFirstUpper()»">	
-				«LET getAllPossibleJumps(tlmenu) AS allJumps»
-				«FOREACH allJumps AS currJump»
-			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
-				«ENDFOREACH»
-				«ENDLET»	
-				«LET getAllPossibleExtJumps(tlmenu) AS allJumps»
-				«FOREACH allJumps AS currExtJump»
-			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
-				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
-			</result>
-				«ENDFOREACH»
-				«ENDLET»
-		</action>
-			«ENDLET»
-			«ENDIF»
-		
-			«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
-			«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
-			«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
-		<action name="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«((MenuItem)currMenuItem).name.toFirstUpper()»">	
-				«LET getAllPossibleJumps(((MenuItem)currMenuItem)) AS allJumps»
-				«FOREACH allJumps AS currJump»
-			<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
-				«ENDFOREACH»
-				«ENDLET»	
-				«LET getAllPossibleExtJumps(((MenuItem)currMenuItem)) AS allJumps»
-				«FOREACH allJumps AS currExtJump»
-			<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
-				<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
-			</result>
-				«ENDFOREACH»
-				«ENDLET»
-		</action>
-			«ENDLET»
-			«ENDIF»
+			«LET (List[ContentPanel])getAllPossibleJumps(tlmenu) AS allJumps»
+			«FOREACH allJumps AS currJump»
+			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
 			«ENDFOREACH»
+			«ENDLET»	
+			
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps»
+			«FOREACH allExtJumps AS currExtJump»
+			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
+			</result>
+			«ENDFOREACH»
+			«ENDLET»
+		</action>
+		«ENDLET»
+		«ENDIF»
+		
+		«FOREACH (List[MenuItem])getAllMenuItemRecursive(tlmenu) AS currMenuItem»
+		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenuItem.eventHandler.command AS currAction»
+		<action name="goTo«currMenuItem.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenuItem.name.toFirstUpper()»">	
+			«LET (List[ContentPanel])getAllPossibleJumps(currMenuItem) AS allJumps»
+			«FOREACH allJumps AS currJump»
+			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
+			«ENDFOREACH»
+			«ENDLET»	
+			
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenuItem) AS allExtJumps»
+			«FOREACH allExtJumps AS currExtJump»
+			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+				<param name="location">«currExtJump.staticUrl»</param>
+			</result>
+			«ENDFOREACH»
+			«ENDLET»
+		</action>
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»
+	
 		«ENDFOREACH»
 		
 		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
@@ -539,18 +550,25 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<result name="input">«getStrutsActionJspConfigName(this)»</result>
 	<result name="success">«getStrutsActionJspConfigName(this)»</result>
 	
-	«LET getAllPossibleJumps(this) AS allJumps-»
+	«LET (List[ContentPanel])getAllPossibleJumps(this) AS allJumps-»
 	«FOREACH allJumps AS currJump-»
-	<result name="GO_TO_«((ContentPanel)currJump).name»" type="chain">«getStrutsActionConfigName((ContentPanel)currJump)»</result>
+	<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
 	«ENDFOREACH-»
 	«ENDLET-»
-	«LET getAllPossibleExtJumps(this) AS allJumps-»
-	«FOREACH allJumps AS currExtJump-»
-	<result name="GO_TO_«((JumpExtCommand)currExtJump).locationCode»" type="redirect">
-		<param name="location">«((JumpExtCommand)currExtJump).staticUrl»</param>
+	
+	«LET (List[JumpExtCommand])getAllPossibleExtJumps(this) AS allExtJumps-»
+	«FOREACH allExtJumps AS currExtJump-»
+	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+		<param name="location">«currExtJump.staticUrl»</param>
 	</result>
 	«ENDFOREACH-»
 	«ENDLET-»
+	
+	«LET (List[DialogPanel])getAllPossibleShowDialogs(this) AS allShowDialogs-»
+	«FOREACH allShowDialogs AS currShowDialog-»
+	<result name="SHOW_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
+	«ENDFOREACH-»
+	«ENDLET-»	
 </action>
 «ENDDEFINE»
 

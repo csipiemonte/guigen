@@ -8,6 +8,7 @@ import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
+import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.HiddenValue;
@@ -15,6 +16,7 @@ import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PlainText;
@@ -172,6 +174,26 @@ public class GenUtilsI18n {
 		return res;
 	}
 	
+	
+	/**
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	public static List<String> getDialogPanelLabels(ContentPanel cp) {
+		List<String> res = new ArrayList<String>();
+
+		for ( DialogPanel dp : cp.getDialogs() ) {
+			// titolo del DialogPanel
+			String lbl = getPanelLabel(dp, cp);
+			if ( lbl != null ) {
+				res.add(lbl);
+			}			
+		}
+
+		System.out.println("=====> getDialogPanelLabels() {" + cp.getName() + "} -> " + res);
+		return res;
+	}
 	
 	
 
@@ -413,9 +435,11 @@ public class GenUtilsI18n {
 		String lbl = null;
 
 		// label del gruppo
-		lbl = getWidgetLabel(t, cp);
-		if ( lbl != null ) {
-			res.add(lbl);
+		if ( !(t.eContainer() instanceof MsgBoxPanel) ) {
+			lbl = getWidgetLabel(t, cp);
+			if ( lbl != null ) {
+				res.add(lbl);
+			}
 		}
 
 		// static text

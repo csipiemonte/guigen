@@ -3,6 +3,7 @@
 «IMPORT template::struts2::remoteResources»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
 
 «DEFINE resourceFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND indexJspFile(skip_component_dir_creation) FOR this»
@@ -154,6 +155,7 @@
 «EXPAND setupFooter(model, skip_component_dir_creation) FOR this-»
 «ENDFILE-»
 «EXPAND createUserDefinedWidgetJspFiles(model, skip_component_dir_creation) FOR this-»
+«EXPAND createDialogPanelJspFiles(model, skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -196,6 +198,14 @@
 «ENDDEFINE»
 
 
+«REM»Genera i files JSP per i DialoPanels.«ENDREM»
+«DEFINE createDialogPanelJspFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FOREACH this.dialogs AS currentDialog»
+	«EXPAND setupDialogPanel(model, skip_component_dir_creation, this) FOR currentDialog»
+«ENDFOREACH»
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================
@@ -210,7 +220,6 @@ Gestione dei pannelli
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
 </s:form>
-
 «ENDDEFINE»
 
 
@@ -219,10 +228,8 @@ Gestione dei pannelli
 <!-- Creazione del pannello di primo livello «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this»
-«ELSEIF this.metaType == TabSetPanel-»
-	«ERROR "Il TabSetPanel non è ammesso al primo livello"»
-«ELSEIF this.metaType == DialogPanel-»
-	«REM»TODO: IMPLEMENTARE«ENDREM»
+«ELSE-»
+	«ERROR "Il pannello di tipo " + this.metaType + " non è ammesso al primo livello - " + loc()»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -249,7 +256,7 @@ Gestione dei pannelli
 «ELSEIF this.metaType == UserDefinedPanel-»
 	«EXPAND setupUserDefinedPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
 «ELSE-»
-	«ERROR "ERRORE tipo di pannello " + this + " non gestito!!!!"»
+	«ERROR "ERRORE tipo di pannello " + this.metaType + " non gestito! " + loc()»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -413,12 +420,42 @@ Gestione dei pannelli
 
 «REM»
 ************** Dialog Panel **************
-TODO: da implementare (dopo avere capito cosa è in realtà
+Il DialogPanel sarà un pannello figlio di ContentPanel, posizionabile solo al primo livello.
+Può contenere solo BoxPanel (nuovo pannello da creare) e CommandPanel
+Il BoxPanel è un nuovo tipo di pannello (da creare), che può essere di tipo:
+  * INFO    (box con bordo verde)  -> messaggi generici
+  * WARNING (box con bordo nero)   -> messaggi di warning
+  * ERROR   (box con bordo rosso)  -> messaggi di errore
+Ogni BoxPanel può contenere uno o più PlainText che possono avere o staticText o un databinding con un testo dinamico 
+(ad esempio messaggio proveniente dalla business logic).
+I CommandPanel saranno gestiti come gli altri CommandPanel (pulsanti con eventi).
+DialogPanel e BoxPanel ammettono solo VerticalFlowLayout.
+Il DialogPanel è implementato come un file sepèarato che però afferisce alla stessa Action del ContentPanel che lo contiene, 
+in modo che condividano le stesse proprietà (importante per la business logic)
 «ENDREM»
+«DEFINE setupDialogPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR DialogPanel-»
+«FILE getJspDialogPanelFullName(model, skip_component_dir_creation, this)-»<%@ taglib uri="/struts-tags" prefix="s" %>
+«EXPAND remoteResources::dialogPanelControlHeader(model) FOR this-»
+
+«FOREACH this.msgBoxes AS currentMsgBox-»
+	«EXPAND setupMsgBoxPanel(model, cp) FOR currentMsgBox-»
+«ENDFOREACH-»
+
+«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, true, null) FOR this.commands-»
+
+«EXPAND remoteResources::dialogPanelControlFooter(model) FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
 
 
-
-
+«REM»
+************** MsgBoxPanel **************
+«ENDREM»
+«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+«EXPAND remoteResources::msgBoxPanelControlHeader(model) FOR this-»
+«EXPAND createWidgets(model, cp) FOR this»
+«EXPAND remoteResources::msgBoxPanelControlFooter(model) FOR this-»
+«ENDDEFINE»
 
 
 «REM»
@@ -446,6 +483,11 @@ Gestione dei Widget
 	«ENDFOREACH-»
 «ENDDEFINE»
 
+«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+	«FOREACH this.textMessages AS currTxt ITERATOR wi-»
+		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (PlainText)currTxt»
+	«ENDFOREACH»
+«ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget generico (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
@@ -467,6 +509,16 @@ Gestione dei Widget
 «EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
 </s:if>
 «EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
+
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo PlainText (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mbp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mbp, isFirst, isLast) FOR this-»
+</s:if>
 «ENDDEFINE»
 
 

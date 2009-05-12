@@ -100,10 +100,18 @@ error.sessionexpired.btnmsgservicehome=torna al servizio
 ###
 # Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
 ###
-«FOREACH getContentPanelLabels(cp) AS label-»
-«label»
+«FOREACH getContentPanelLabels(cp) AS cpLabel-»
+«cpLabel»
 «ENDFOREACH-»
 
+«IF cp.dialogs.size > 0»
+###
+# Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
+###
+«FOREACH getDialogPanelLabels(cp) AS dpLabel-»
+«dpLabel»
+«ENDFOREACH-»
+«ENDIF»
 
 ###
 # Label dei widget, nella forma
@@ -111,8 +119,8 @@ error.sessionexpired.btnmsgservicehome=torna al servizio
 #   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
 #   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
 ###
-«FOREACH getWidgetsLabels(cp) AS label-»
-«label»
+«FOREACH getWidgetsLabels(cp) AS wLabel-»
+«wLabel»
 «ENDFOREACH-»
 
 
@@ -142,6 +150,14 @@ error.sessionexpired.btnmsgservicehome=torna al servizio
 «cpLabel»
 «ENDFOREACH-»
 
+«IF this.dialogs.size > 0»
+###
+# Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
+###
+«FOREACH getDialogPanelLabels(this) AS dpLabel-»
+«dpLabel»
+«ENDFOREACH-»
+«ENDIF»
 
 ###
 # Label dei widget, nella forma

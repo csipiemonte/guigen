@@ -160,6 +160,19 @@ String getJspUserDefinedWidgetMarkupDir(GUIModel model, boolean omit_root) :
 String getJspUserDefinedWidgetConfig() :
 	"/" + getPresentationMarkupConfig() + "/userwidgets";
 
+// JSP for DialogPanel
+String getJspDialogPanelMarkupDir(GUIModel model, boolean omit_root) :
+	getPresentationMarkupDir(model, omit_root) + "/dialogpanels";
+	
+String getJspDialogPanelConfig() :
+	"/" + getPresentationMarkupConfig() + "/dialogpanels";
+
+String getJspDialogPanelFullName(GUIModel model, boolean omit_root, DialogPanel dp) :
+	getJspDialogPanelMarkupDir(model, omit_root) + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
+
+String getJspDialogPanelConfigName(DialogPanel dp) :
+	getJspDialogPanelConfig() + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Classi Java comuni
@@ -631,6 +644,12 @@ List getAllPossibleExtJumps(Menu m) : JAVA
 List getAllPossibleExtJumps(Command a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Command);
 
+List getAllPossibleShowDialogs(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleShowDialogs(it.csi.mddtools.guigen.ContentPanel);
+
+List getAllPossibleShowDialogs(Command a) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleShowDialogs(it.csi.mddtools.guigen.Command);
+
 List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
 	
@@ -813,6 +832,15 @@ List getVisitorValidatorLabels(List complexTypesList) : JAVA
 // [DM] Restituisce la lista dei widget di tipo Table contenuti in un ContentPanel
 List findAllTablesInContentPanel(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findAllTablesInContentPanel(it.csi.mddtools.guigen.ContentPanel);
+
+// [DM]
+String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM] restituisce la lista delle label dei DialogPanels di un ContentPanel
+List getDialogPanelLabels(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getDialogPanelLabels(it.csi.mddtools.guigen.ContentPanel);
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

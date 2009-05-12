@@ -110,11 +110,7 @@
                   <widgets xsi:type="guigen:ConfirmButton" name="bPrecompila" label="Precompila àéèìòù">
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
                     <eventHandlers>
-                      <command xsi:type="guigen:ExecCommand" methodName="precompilaFormRicerca">
-                        <results resultCode="OK">
-                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
-                        </results>
-                      </command>
+                      <command xsi:type="guigen:ShowDialogCommand" dialog="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@dialogs.0"/>
                     </eventHandlers>
                   </widgets>
                 </subpanels>
@@ -257,6 +253,23 @@
                 <subpanels xsi:type="guigen:UserInfoPanel" name="uiPanel"/>
               </subpanels>
             </panels>
+            <dialogs name="dpPrecompilaWarn" label="Funzione non disponibile">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <commands name="precompilaWarnCmd" cmdStyle="NAVIGATION">
+                <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnBack" label="Indietro">
+                  <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+              </commands>
+              <msgBoxes name="bpWarn" messageSeverity="WARN">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <textMessages name="ptWarn" dataType="//@typedefs/@types.9" staticText="Attenzione!!"/>
+                <textMessages name="ptWarnMsg" dataType="//@typedefs/@types.9" staticText="La funzionalità &quot;Precompila&quot; non è stata ancora implementata"/>
+              </msgBoxes>
+            </dialogs>
           </contentPanels>
           <contentPanels name="cpListaPersone" appData="//@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@appData.0">
             <panels xsi:type="guigen:FormPanel" name="pListaRisultati" label="Lista risultati">
