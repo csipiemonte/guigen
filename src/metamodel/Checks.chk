@@ -422,4 +422,7 @@ context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito
 	
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
 	((List[ApplicationData])getAllApplicationData((GUIModel)this.eRootContainer)).findByName("currentUser") != null;
-	
+
+context ContentPanel ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
+	((GUIModel)this.eRootContainer).securityModel==null ||
+	appData.select(ab|ab.name=="currentUser").size==1;	
