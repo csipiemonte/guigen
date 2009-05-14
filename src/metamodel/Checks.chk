@@ -127,7 +127,13 @@ context Menu ERROR "Un menu deve avere almeno un menu item"+loc() :
 context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
 	this.eventHandler!=null; 	
 
+// [MA] univocità name Menu/MenuItem
+context Menu ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello:"+loc() : 
+	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
 
+context MenuItem ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello:"+loc() : 
+	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su widget
 

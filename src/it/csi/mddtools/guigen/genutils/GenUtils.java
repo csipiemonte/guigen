@@ -1,24 +1,13 @@
 package it.csi.mddtools.guigen.genutils;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
-
-
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppDataGroup;
 import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ApplicationArea;
-import it.csi.mddtools.guigen.ApplicationDataDefs;
-import it.csi.mddtools.guigen.CommandOutcome;
-import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.Command;
+import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomSecurityConstraint;
@@ -57,6 +46,16 @@ import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 
 
 /**
@@ -1407,8 +1406,39 @@ public class GenUtils {
 		return result;
 	}
 
+	public static boolean isMenuNameUnique(String name, Menubar menubar){
+		if (isNullOrEmpty(name))
+			return true;
+		else{
+			int nOccurs = 0;
+			Iterator<Menu> m_it = menubar.getTopLevelMenu().iterator();
+			while (m_it.hasNext()) {
+				Menu menu = (Menu) m_it.next();
+				nOccurs+=countOccurs(name,menu);
+			}
+			return nOccurs==1; // 1 ed 1 sola occorrenza = OK
+		}
+	}
 
-
+	private static int countOccurs(String name, Menu menu){
+		int nOccurs=0;
+		if (menu.getName().equals(name))
+			nOccurs++;
+		
+		Iterator<MenuItem> mnui_it = menu.getItem().iterator();
+		while (mnui_it.hasNext()) {
+			MenuItem menuItem = (MenuItem) mnui_it.next();
+			if (menuItem.getName().equals(name))
+				nOccurs++;
+			
+		}
+		Iterator<Menu> smenu_it = menu.getSubmenu().iterator();
+		while (smenu_it.hasNext()) {
+			Menu submenu = (Menu) smenu_it.next();
+			nOccurs+=countOccurs(name, submenu);
+		}
+		return nOccurs;
+	}
 	//////////////////////////////////////////////////////////////////////////////////
 
 	/**
