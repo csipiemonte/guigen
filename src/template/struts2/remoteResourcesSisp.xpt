@@ -287,10 +287,10 @@ Definizioni generali: header, footer, ecc
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
-						<s:property value="header.userinfo.head.label" />
+						<s:text name="header.userinfo.head.label" />
 						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
 						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
-						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:property value="header.ssologout.label" /></s:a></span>
+						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:text name="header.ssologout.label" /></s:a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -298,10 +298,10 @@ Definizioni generali: header, footer, ecc
 				<!-- filo d'arianna canale -->
 				<div id="contPath">
 					<div id="path">
-						<s:property value="header.filoarianna.head.label" />
+						<s:text name="header.filoarianna.head.label" />
 						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
-						<a href="«this.linkCanale»"><s:property value="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
-						<span class="selezione"><s:property value="header.applicativo.nome.label" /></span>
+						<a href="«this.linkCanale»"><s:text name="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
+						<span class="selezione"><s:text name="header.applicativo.nome.label" /></span>
 					</div>
 				</div>
 				<hr />
@@ -309,7 +309,7 @@ Definizioni generali: header, footer, ecc
 
 				<div id="contTitoloEmenu">
 					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden"><s:property value="header.nomeservizio.label" /></span>
+						<a href="#"><span class="txtHidden"><s:text name="header.nomeservizio.label" /></span>
 						</a>
 					</div>
 				</div>
