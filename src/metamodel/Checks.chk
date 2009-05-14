@@ -152,6 +152,11 @@ context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e
 context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un FormPanel con Vertical o Horizontal layout " + loc() :
  	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;
  
+// [DM] Button
+context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito " + loc() :
+	this.eContainer.metaType == CommandPanel;
+ 
+ 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener

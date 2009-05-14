@@ -629,9 +629,14 @@ public class GenUtilsLayout {
 		}
 		
 		String btnStyleT = "";
-		if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
-			btnStyleT = "nav";
-		} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+		if ( b.eContainer() instanceof CommandPanel ) {
+			if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+				btnStyleT = "nav";
+			} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+				btnStyleT = "funz";
+			}
+		} else {
+			// di default per il caso deprecato di button non contenuto in un CommandPanel
 			btnStyleT = "funz";
 		}
 		
