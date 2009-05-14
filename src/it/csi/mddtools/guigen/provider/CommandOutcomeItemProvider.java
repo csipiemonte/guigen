@@ -236,6 +236,11 @@ public class CommandOutcomeItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
+				 GuigenFactory.eINSTANCE.createNOPCommand()));
 	}
 
 	/**

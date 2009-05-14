@@ -176,6 +176,9 @@ context EventHandler ERROR "Un action Listener deve innescare un comando a front
 context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command"+loc() :
 	this.jumpTo != null;
 	
+context JumpCommand WARNING "L'utilizzo di JumpCommand sullo stesso pannello di partenza è deprecato. Preferibile NOPCommand:"+loc() :
+	!jumpToSameContentPanel(this);
+
 context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand"+loc() :
     this.dialog != null;
     

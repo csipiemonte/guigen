@@ -21,6 +21,21 @@ public interface ICommand {
 };
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/NOPCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// NO OPERATION
+public class NOPCommand implements ICommand {
+	
+	public NOPCommand() {
+		
+	}
+	public String doCommand(BaseAction strutsAction) throws Exception{
+		return null;
+	}
+};
+«ENDFILE»
+
 «FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"»
 package «getPresentationJavaPackage()»;
 
@@ -550,6 +565,12 @@ public class ShowDialogCommand implements ICommand {
 	/// Jump Command begin
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR NOPCommand»
+	/// NOP Command begin
+	NOPCommand act_«actionsVarName»_«actionNumber» = new NOPCommand();
+	/// NOP Command end
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpExtCommand»

@@ -262,6 +262,11 @@ public class EventHandlerItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
 				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createNOPCommand()));
 	}
 
 	/**

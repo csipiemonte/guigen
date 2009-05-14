@@ -2123,6 +2123,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.NOPCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NOPCommandItemProvider nopCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.NOPCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNOPCommandAdapter() {
+		if (nopCommandItemProvider == null) {
+			nopCommandItemProvider = new NOPCommandItemProvider(this);
+		}
+
+		return nopCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2310,6 +2333,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (typeNamespaceItemProvider != null) typeNamespaceItemProvider.dispose();
 		if (appDataGroupItemProvider != null) appDataGroupItemProvider.dispose();
 		if (msgBoxPanelItemProvider != null) msgBoxPanelItemProvider.dispose();
+		if (nopCommandItemProvider != null) nopCommandItemProvider.dispose();
 	}
 
 }

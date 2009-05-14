@@ -827,6 +827,15 @@ public interface GuigenFactory extends EFactory {
 	MsgBoxPanel createMsgBoxPanel();
 
 	/**
+	 * Returns a new object of class '<em>NOP Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>NOP Command</em>'.
+	 * @generated
+	 */
+	NOPCommand createNOPCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

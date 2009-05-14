@@ -150,6 +150,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TYPE_NAMESPACE: return createTypeNamespace();
 			case GuigenPackage.APP_DATA_GROUP: return createAppDataGroup();
 			case GuigenPackage.MSG_BOX_PANEL: return createMsgBoxPanel();
+			case GuigenPackage.NOP_COMMAND: return createNOPCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1105,6 +1106,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public MsgBoxPanel createMsgBoxPanel() {
 		MsgBoxPanelImpl msgBoxPanel = new MsgBoxPanelImpl();
 		return msgBoxPanel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NOPCommand createNOPCommand() {
+		NOPCommandImpl nopCommand = new NOPCommandImpl();
+		return nopCommand;
 	}
 
 	/**

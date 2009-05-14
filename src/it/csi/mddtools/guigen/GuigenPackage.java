@@ -5609,6 +5609,25 @@ public interface GuigenPackage extends EPackage {
 	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.NOPCommandImpl <em>NOP Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.NOPCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getNOPCommand()
+	 * @generated
+	 */
+	int NOP_COMMAND = 100;
+
+	/**
+	 * The number of structural features of the '<em>NOP Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOP_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5616,7 +5635,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 100;
+	int WIDGET_DATA_TYPE = 101;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5626,7 +5645,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 101;
+	int UDLRC_SPEC_CONSTANTS = 102;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5636,7 +5655,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 102;
+	int EVENT_TYPES = 103;
 
 
 	/**
@@ -5647,7 +5666,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 103;
+	int DATA_LIFETIME_TYPE = 104;
 
 
 	/**
@@ -5658,7 +5677,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 104;
+	int SIMPLE_TYPE_CODES = 105;
 
 
 	/**
@@ -5669,7 +5688,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 105;
+	int PORTAL_NAMES = 106;
 
 
 	/**
@@ -5680,7 +5699,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 106;
+	int TARGET_PLATFORM_CODES = 107;
 
 
 	/**
@@ -5691,7 +5710,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 107;
+	int MESSAGE_SEVERITY = 108;
 
 
 	/**
@@ -5702,7 +5721,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 108;
+	int COMMAND_STYLES = 109;
 
 
 	/**
@@ -8433,6 +8452,16 @@ public interface GuigenPackage extends EPackage {
 	EReference getMsgBoxPanel_TextMessages();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.NOPCommand <em>NOP Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>NOP Command</em>'.
+	 * @see it.csi.mddtools.guigen.NOPCommand
+	 * @generated
+	 */
+	EClass getNOPCommand();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10799,6 +10828,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MSG_BOX_PANEL__TEXT_MESSAGES = eINSTANCE.getMsgBoxPanel_TextMessages();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.NOPCommandImpl <em>NOP Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.NOPCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getNOPCommand()
+		 * @generated
+		 */
+		EClass NOP_COMMAND = eINSTANCE.getNOPCommand();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

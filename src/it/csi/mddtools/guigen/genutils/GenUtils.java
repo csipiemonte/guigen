@@ -561,6 +561,18 @@ public class GenUtils {
 	}
 
 
+	/**
+	 * 
+	 * @param jc
+	 * @return true se jc è in un ramo di content panel e il jump è a quel content panel
+	 */
+	public static boolean jumpToSameContentPanel(JumpCommand jc){
+		ContentPanel cp = findParentContentPanel(jc);
+		if (cp==null || !cp.equals(jc.getJumpTo()))
+			return false;
+		else
+			return true;
+	}
 	//////////////////////////////////////////////////////////////////////////////////
 	// get all possible jumps
 

@@ -71,6 +71,7 @@ import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.NOPCommand;
 import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
@@ -831,6 +832,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass msgBoxPanelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass nopCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3281,6 +3289,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getNOPCommand() {
+		return nopCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3742,6 +3759,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(msgBoxPanelEClass, MSG_BOX_PANEL__MESSAGE_SEVERITY);
 		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__TEXT_MESSAGES);
 
+		nopCommandEClass = createEClass(NOP_COMMAND);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3848,6 +3867,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		userDefinedPanelEClass.getESuperTypes().add(this.getPanel());
 		wizardPanelEClass.getESuperTypes().add(this.getMultiPanel());
 		msgBoxPanelEClass.getESuperTypes().add(this.getPanel());
+		nopCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4206,6 +4226,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(msgBoxPanelEClass, MsgBoxPanel.class, "MsgBoxPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMsgBoxPanel_MessageSeverity(), this.getMessageSeverity(), "messageSeverity", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMsgBoxPanel_TextMessages(), this.getPlainText(), null, "textMessages", null, 0, -1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(nopCommandEClass, NOPCommand.class, "NOPCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
