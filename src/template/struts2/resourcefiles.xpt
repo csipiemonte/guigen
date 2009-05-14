@@ -215,7 +215,7 @@ Gestione dei pannelli
 
 «REM»Genera il setup del Content Panel«ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-<s:form action="«getStrutsActionConfigName(this)»" method="post">
+<s:form id="«this.name»" name="«this.name»" action="«getStrutsActionConfigName(this)»" method="post">
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
 	«ENDLET-»
@@ -668,6 +668,7 @@ Gestione dei Widget
 <s:set name="«cp.name»_«this.name»_clearStatus" value="isTableClearStatus('«cp.name»_«this.name»')" />
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
                excludedParams="*"
+               form="«cp.name»"
                export="«enableExport»"
                defaultsort="1"
                defaultorder="descending"
