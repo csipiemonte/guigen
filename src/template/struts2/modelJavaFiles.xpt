@@ -253,6 +253,11 @@ public class «getSpringCPBEClassName()»{
 			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
+	«FOREACH getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
+		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
+			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
 	«IF onInitAct != null-»
 		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»

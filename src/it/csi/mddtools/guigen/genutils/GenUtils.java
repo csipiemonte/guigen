@@ -544,7 +544,7 @@ public class GenUtils {
 	 */
 	public static boolean isInMenuBranch(EventHandler eh){
 		Object parent = eh.eContainer();
-		if (parent instanceof MenuItem)
+		if (parent instanceof MenuItem || parent instanceof Menu)
 			return true;
 		else
 			return false;
