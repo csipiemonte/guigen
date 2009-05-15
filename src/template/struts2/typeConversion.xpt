@@ -1,0 +1,132 @@
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM TYPE CONVERTER PROPERTY FILE
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera il file di property«ENDREM»
+«DEFINE conversionPropertyFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsTypeConvertersPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# SAF2 global conversion goes here
+#######################################################################
+
+int=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+
+java.lang.Integer=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM TYPE CONVERTER CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera le classi dei convertitori«ENDREM»
+«DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il convertitore numerico«ENDREM»
+«DEFINE numericConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/CsiNumericConverter.java"»package «getTypeConverterJavaPackage(this)»;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.Map;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.util.TypeConversionException;
+
+
+/**
+ * Custom Type Converter per i tipi numerici.
+ * 
+ * @author [GUIGEN]
+ */
+public class CsiNumericConverter extends StrutsTypeConverter {
+
+	/**
+	 * 
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+		if ( values != null && values.length > 0 && values[0] != null && values[0].length() > 0 ) {
+			
+			NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+			
+			if ( toClass == Float.TYPE || toClass == Float.class || toClass == Double.TYPE || toClass == Double.class ) {
+				df.setMinimumFractionDigits(2);
+				df.setMaximumFractionDigits(2);					
+			}
+			
+			try {
+				Number n = df.parse(values[0]);
+	            
+	            // df.parse restituisce il tipo massimo quindi
+	            //  double, Double; float, Float  => Double
+	            //  int, Integer; long, Long      => Long
+	            // bisogna in qualche modo fare un "downcast" in dase a toClass
+	            
+	            if ( toClass == Integer.TYPE || toClass == Integer.class ) {
+	            	return ((Long)n).intValue();
+	            } else if ( toClass == Float.TYPE || toClass == Float.class ) {
+	            	return ((Double)n).floatValue();
+	            }
+				return n;
+            } catch ( ParseException e ) {
+                throw new TypeConversionException(e);
+            }
+
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+		NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
+		
+		if ( o instanceof Integer || o instanceof Long ) {
+			return df.format(o);
+		} 
+		else if ( o instanceof Float || o instanceof Double ) {
+			df.setMinimumFractionDigits(2);
+			df.setMaximumFractionDigits(2);
+			return df.format(o);
+		}
+		
+		return o.toString();
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»

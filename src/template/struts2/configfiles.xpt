@@ -1,6 +1,9 @@
 «IMPORT guigen»
+
+«IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+
 
 «DEFINE configFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«REM»Generazione dei file standard«ENDREM»
@@ -23,7 +26,9 @@
 	«REM»Generazione dei files specifici per il CSI«ENDREM»
 	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND typeConversion::conversionPropertyFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
+
 
 
 «REM»Genera un file MANIFEST il cui nome è passato come parametro «ENDREM»
@@ -401,6 +406,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
 				<interceptor-ref name="params" />
+				<interceptor-ref name="conversionError"/>
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="validation" />
 				<interceptor-ref name="workflow" />

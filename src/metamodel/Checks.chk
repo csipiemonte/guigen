@@ -383,7 +383,15 @@ context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalF
 context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
 	
+// [DM] check su DialogPanel	
+context DialogPanel ERROR "Un DialogPanel può essere inserito solo in un ContentPanel " + loc() :
+	this.eContainer.metaType == ContentPanel;
+
+// [DM] check su MsgBoxPanel
+context MsgBoxPanel ERROR "Un MsgBoxPanel può essere inserito solo all'interno di un un DialogPanel " + loc() :
+	this.eContainer.metaType == DialogPanel;	
 	
+
 ////////////////////////////////////////////////////////////////////////////////////////
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////

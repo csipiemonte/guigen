@@ -6,7 +6,6 @@ extension template::GenericExtensions;
 /// Estensioni specifiche per il framework Struts2                                           //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
 String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/action";
 
@@ -40,6 +39,13 @@ String getSecurityJavaSrcDir(GUIModel model, boolean omit_root) :
 String getSecurityJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".security";
 		
+String getTypeConverterJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/converter";
+
+String getTypeConverterJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".converter";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Struts2
 
@@ -57,6 +63,9 @@ String getStrutsValidationConfigFile(GUIModel model, boolean omit_root) :
 
 String getStrutsGlobalMessagesPropertiesFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/globalMessages.properties";
+
+String getStrutsTypeConvertersPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/xwork-conversion.properties";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

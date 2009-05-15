@@ -2,8 +2,10 @@
 
 «IMPORT template::struts2::actionImplJavaFiles»
 «IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+
 
 «DEFINE javaFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
@@ -17,6 +19,7 @@
 	«EXPAND strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND strutsCustomDecoratorsJavaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND security::securityJavaFiles(skip_component_dir_creation) FOR this»
+	«EXPAND typeConversion::conversionClassesFiles(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 
@@ -875,6 +878,8 @@ public class «getTableDecoratorClassName(this)» extends TableDecorator {
 «ENDFILE»
 «ENDIF»
 «ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================

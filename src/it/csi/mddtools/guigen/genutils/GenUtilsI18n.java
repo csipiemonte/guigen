@@ -191,7 +191,6 @@ public class GenUtilsI18n {
 			}			
 		}
 
-		System.out.println("=====> getDialogPanelLabels() {" + cp.getName() + "} -> " + res);
 		return res;
 	}
 	
