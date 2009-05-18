@@ -699,7 +699,8 @@ Gestione dei Widget
 		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
-			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" />
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" 
+			decorator="«getColumnDecoratorJavaPackage(model)».CsiCustomColumnDecorator" />
 		«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»
