@@ -572,7 +572,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	}
 				
 	private boolean isHomePage(String requestURI) {
-		if (requestURI.indexOf("HomePage.do") > -1 || requestURI.endsWith("/"))
+		if (requestURI.indexOf("HomePage.do") > -1 || requestURI.endsWith("/") || requestURI.indexOf("index.jsp") > -1)
 			return true;
 		else
 			return false;
@@ -584,6 +584,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			requestURI.indexOf("sessionExpired.do")>-1 ||
 			requestURI.indexOf("fatalError")>-1 ||
 			requestURI.indexOf("notFoundError")>-1 ||
+			requestURI.indexOf("sessionExpired.jsp")>-1 ||
 			requestURI.indexOf("Logout")>-1
 		   )
 		   return false;
