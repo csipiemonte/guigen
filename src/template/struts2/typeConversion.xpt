@@ -73,32 +73,43 @@ public class CsiNumericConverter extends StrutsTypeConverter {
 	 */
 	@Override
 	public Object convertFromString(Map context, String[] values, Class toClass) {
-		if ( values != null && values.length > 0 && values[0] != null && values[0].length() > 0 ) {
-			
+		if (values != null && values.length > 0 && values[0] != null
+				&& values[0].length() > 0) {
+
 			NumberFormat df = NumberFormat.getNumberInstance(Locale.ITALY);
-			
-			if ( toClass == Float.TYPE || toClass == Float.class || toClass == Double.TYPE || toClass == Double.class ) {
+
+			if (toClass == Float.TYPE || toClass == Float.class
+					|| toClass == Double.TYPE || toClass == Double.class) {
 				df.setMinimumFractionDigits(2);
-				df.setMaximumFractionDigits(2);					
+				df.setMaximumFractionDigits(2);
 			}
-			
+
 			try {
 				Number n = df.parse(values[0]);
-	            
-	            // df.parse restituisce il tipo massimo quindi
-	            //  double, Double; float, Float  => Double
-	            //  int, Integer; long, Long      => Long
-	            // bisogna in qualche modo fare un "downcast" in dase a toClass
-	            
-	            if ( toClass == Integer.TYPE || toClass == Integer.class ) {
-	            	return ((Long)n).intValue();
-	            } else if ( toClass == Float.TYPE || toClass == Float.class ) {
-	            	return ((Double)n).floatValue();
-	            }
+
+				// df.parse restituisce il tipo massimo quindi
+				//  [1] double, Double; float, Float  => Double se specifico i decimali
+				//  [2] double, Double; float, Float  => Long se non specifico i decimali
+				//  [3] int, Integer; long, Long      => Long
+				// bisogna in qualche modo fare un "downcast" in base a toClass
+
+				// Se il tipo target e' un decimale occorre gestire il caso [2]
+				if (toClass == Float.TYPE || toClass == Float.class || 
+					toClass == Double.TYPE || toClass == Double.class){
+					if (n instanceof Long){
+						n= new Double(n.doubleValue());
+					}
+				}
+				if (toClass == Integer.TYPE || toClass == Integer.class) {
+					return ((Long) n).intValue();
+				} else if (toClass == Float.TYPE || toClass == Float.class) {
+					
+					return ((Double) n).floatValue();
+				}
 				return n;
-            } catch ( ParseException e ) {
-                throw new TypeConversionException(e);
-            }
+			} catch (ParseException e) {
+				throw new TypeConversionException(e);
+			}
 
 		}
 		return null;
