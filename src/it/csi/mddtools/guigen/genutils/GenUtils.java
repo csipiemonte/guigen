@@ -6,6 +6,7 @@ import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
+import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.ComplexType;
@@ -16,6 +17,7 @@ import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecCommand;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GuigenFactory;
@@ -41,6 +43,7 @@ import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeNamespace;
+import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UserDefinedPanel;
@@ -1968,6 +1971,177 @@ public class GenUtils {
 		return res;
 	}
 
+	
+	public static boolean isNumeric(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.INT || t.getCode() == SimpleTypeCodes.LONG ||
+			t.getCode() == SimpleTypeCodes.DOUBLE || t.getCode() == SimpleTypeCodes.FLOAT;
+	}
+	
+	public static boolean isInteger(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.INT || t.getCode() == SimpleTypeCodes.LONG;
+	}	
+	
+	public static boolean isDecimal(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.DOUBLE || t.getCode() == SimpleTypeCodes.FLOAT;
+	}
+	
+	public static boolean isString(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.STRING;
+	}
+	
+	public static boolean isDate(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.DATE || t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS;
+	}	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// INTROSPECTION SUI TIPI DI DATO NEI SELETTORI
+	
+	
+	/**
+	 * 
+	 * @param col
+	 * @param table
+	 * @return
+	 */
+	public static String getColumnFormatter(Column col, Table table) {
+		//System.out.println("<------------------------------------------------------------------------------------------------------->");
+		String res = "";
+		
+		// ricavo il tipo (sicuramente ComplexType) del 
+		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+		
+		// ricavo il field 
+		Field f = getSelectedField(null, t, col.getSelector());
+		
+		if ( f != null ) {
+			// TODO: implementare la scelta del formatter sulla base del tipo (deve essere un SimpleType) ritornato
+			//System.out.println("#####> getColumnFormatter() returned {" + f.getName() + ", " + f.getType().getName() + "}");
+		}
+		//System.out.println("<------------------------------------------------------------------------------------------------------->");
+		return res;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * Ritorna il Field corrispondente al selettore passato.
+	 * 
+	 * @param ct
+	 * @param selector
+	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
+	 */
+	public static Field getSelectedField(Field f, Type ct, String selector) {
+		if ( ct instanceof SimpleType ) {
+			return getSelectedField(f, (SimpleType)ct, selector);
+		} else if ( ct instanceof TypedArray ) {
+			return getSelectedField(f, (TypedArray)ct, selector);
+		} else if ( ct instanceof ComplexType ) {
+			return getSelectedField(f, (ComplexType)ct, selector);
+		}
+		return null;
+	}
+
+
+	/**
+	 * Ritorna il Field corrispondente al selettore passato.
+	 * 
+	 * @param f
+	 * @param ct
+	 * @param selector
+	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
+	 */
+	private static Field getSelectedField(Field f, ComplexType ct, String selector) {
+		//System.out.println("**********> getSelectedField[ComplexType](" + ct.getName() + ", '" + selector + "')");
+		String[] parts = splitSelector(selector);
+		if ( parts == null ) { 
+			return null;
+		}
+		
+		Field f1 = getFieldByName(ct, parts[0]);
+		if ( f1 != null ) {
+			return getSelectedField(f1, f1.getType(), parts[1]);
+		}
+		return null;
+	}	
+	
+
+	/**
+	 * Ritorna il Field corrispondente al selettore passato.
+	 * 
+	 * @param f
+	 * @param ct
+	 * @param selector
+	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
+	 */
+	private static Field getSelectedField(Field f, SimpleType ct, String selector) {
+		//System.out.println("===========> getSelectedField[SimpleType](" + ct.getName() + ", '" + selector + "')");
+		if ( !GenUtils.isNullOrEmpty(selector) ) {
+			return null;
+		}
+		return f;
+	}	
+
+	/**
+	 * Ritorna il Field corrispondente al selettore passato.
+	 * 
+	 * @param f
+	 * @param ct
+	 * @param selector
+	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
+	 */
+	private static Field getSelectedField(Field f, TypedArray ct, String selector) {
+		//System.out.println("----------> getSelectedField[TypedArray](" + ct.getName() + ", '" + selector + "')");
+		return getSelectedField(f, ct.getComponentType(), selector);
+	}
+	
+	
+	/**
+	 * 
+	 * @param ct
+	 * @param fn
+	 * @return
+	 */
+	private static Field getFieldByName(ComplexType ct, String fn) {
+		//System.out.println("+++++++++++++++> Calling getFieldByName('" + ct.getName() + "', '" + fn + "')");
+		if ( ct != null ) {
+			for ( Field f : ct.getFields() ) {
+				if ( fn.equals(f.getName()) ) {
+					return f;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param selector
+	 * @return
+	 */
+	private static String[] splitSelector(String selector) {
+		//System.out.println(":::::::::::::::> splitSelector('" + selector + "')");
+		String[] res = new String[2];
+		if ( selector.indexOf(".") > 0 ) {
+			res[0] = selector.substring(0, selector.indexOf("."));
+			res[1] =  selector.substring(selector.indexOf(".")+1);
+		} else if ( selector.indexOf(".") < 0 ) {
+			res[0] = selector;
+		} else if ( selector.indexOf(".") == 0 ) { 
+			return null;
+		}		
+		
+		if ( res[0].indexOf("[") > 0 ) {
+			res[0] = res[0].substring(0, res[0].indexOf("["));
+		}
+		//System.out.println(":::::::::::::::> splitSelector('" + selector + "') RETURNDED {" + res + "}");
+		return res;
+	}
+	                      
+	
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS
@@ -1990,7 +2164,7 @@ public class GenUtils {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {
+		/*try {
 			MenuItem mi = GuigenFactory.eINSTANCE.createMenuItem();
 			EventHandler eh = GuigenFactory.eINSTANCE.createEventHandler();
 			mi.setEventHandler(eh);
@@ -2001,7 +2175,7 @@ public class GenUtils {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}
+		}*/	
 	}
 
 }

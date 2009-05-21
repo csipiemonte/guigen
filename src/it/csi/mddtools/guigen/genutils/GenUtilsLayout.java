@@ -1,9 +1,11 @@
 package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GridPanelLayout;
@@ -16,8 +18,12 @@ import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
+import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
+import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
@@ -527,6 +533,36 @@ public class GenUtilsLayout {
 	}
 	
 	
+	/**
+	 * 
+	 * @param col
+	 * @param t
+	 * @param model
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getColumnStyle(Column col, Table table, GUIModel model) {
+		String res = "";
+		
+		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+		Field f = GenUtils.getSelectedField(null, t, col.getSelector());
+		
+		if ( f != null) {
+			if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+				res = getColumnStyleSistemaPiemonte(f);
+			} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+				// TODO: implementare quando necessario
+			} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+				// TODO: implementare quando necessario
+			}
+		}
+
+		return res;
+	}	
+	
+	
+	
+	
 	
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -684,18 +720,30 @@ public class GenUtilsLayout {
 		String res = "";
 		int len = t.getFieldLength();
 		if ( len > 0 ) {
-			String css = "";
+			// stile per la lunghezza
+			String lenCss = "";
 			if ( len <= 14 ) {
 				// "small" se Textfield.size in [1..14]
-				css = "small";
+				lenCss = "small";
 			} else if ( len >= 15 && len <= 29  ) {
 				// "med" se Textfield.size in [15..29]
-				css = "med";
+				lenCss = "med";
 			} else if ( len >= 30 ) {
 				// "maxi" se Textfield.size >= 30 
-				css = "maxi";
+				lenCss = "maxi";
 			}
-			res = "cssClass=\"" + css + "\"";
+			
+			// stile per il formato (numerico o no)
+			String numCss = "";
+			Type tp = t.getDataType();
+			if ( tp instanceof SimpleType ) {
+				if ( GenUtils.isNumeric((SimpleType)tp) ) {
+					numCss = " numeri";
+				}
+			}
+			
+			// compongo
+			res = "cssClass=\"" + lenCss + numCss + "\"";
 		}
 		
 		return res;		
@@ -719,7 +767,21 @@ public class GenUtilsLayout {
 		
 		return res;	
 	}
+
 	
+	/**
+	 * 
+	 * @param f
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getColumnStyleSistemaPiemonte(Field f) {
+		String res = "";
+		if ( GenUtils.isNumeric((SimpleType)f.getType()) ) {
+			res = "class=\"numeri\"";
+		}
+		return res;
+	}
 	
 	
 	
