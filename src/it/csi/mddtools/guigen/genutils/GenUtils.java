@@ -1758,7 +1758,8 @@ public class GenUtils {
 
 	/**
 	 * Restituisce il nome del widget. E' utilizzabile in molti contesti
-	 * TODO: se cambiamo i nomi nel generatore occorre modificare anche questo
+	 * Ovunque nel generatore si faccia riferimento al nome del widget con queto pattern
+	 * bisogna effettuare una chiamata a questo metodo.
 	 *
 	 * @param w Il widget
 	 * @return  Il nome del widget
