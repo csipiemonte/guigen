@@ -27,6 +27,7 @@ import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
 
@@ -199,7 +200,6 @@ public class GenUtilsLayout {
 			Widget tmp = it.next();
 			int r = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getRow();
 			int c = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getColumn();
-			//int s = ((GridWidgetLayoutSpec)tmp.getLayoutSpec()).getHspan();
 			if ( r == row && c == col ) {
 				res = tmp;
 				break;
@@ -210,22 +210,19 @@ public class GenUtilsLayout {
 		if ( res == null ) {
 			if ( hspan > 0 ) {
 				// non c'è perchè non ci deve essere causa colspan di una cella precedente:
-				// tutto bene, ritorno null e lo gestisco sopra
-				
-				//System.out.println(".....> [getWidgetByRowColumn] manca posizione {" + row + "}{" + col + "} : " + "DECREMENTO hspan '" + hspan + "' -> '" + (hspan-1) + "'");
+				// tutto bene, ritorno null e lo gestisco nel metodo chiamante
 				hspan = hspan - 1;
 			} else {
 				// non c'è perchè ci dovrebbe essere ma è stato dimenticato:
 				// aggiungo un PlainText vuoto
 				res = GuigenFactory.eINSTANCE.createPlainText();
-				res.setLabel("");
+				res.setLabel(null);
 				res.setName(p.getName() + "_" + row + "_" + col);
 				GridWidgetLayoutSpec wls = GuigenFactory.eINSTANCE.createGridWidgetLayoutSpec();
 				wls.setColumn(col);
 				wls.setRow(row);
 				wls.setHspan(0);
 				res.setLayoutSpec(wls);
-				//System.out.println("'''''> [getWidgetByRowColumn] manca posizione {" + row + "}{" + col + "} : " + "AGGIUNGO PlainText '" + res + "'");
 			}
 		}
 		
@@ -235,17 +232,14 @@ public class GenUtilsLayout {
 
 	/**
 	 * 
-	 * @param model
-	 * @param cp
 	 * @param fp
 	 * @param w
 	 * @param isFirst
 	 * @param isLast
-	 * @param isLabel
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast, Boolean isLabel) {
+	public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) {
 		String P_FIRST = "position=\"first\"";
 		String P_LAST  = "position=\"last\"";
 		
@@ -253,38 +247,31 @@ public class GenUtilsLayout {
 		
 		if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
 			// niente da impostare, per il momento va bene blank
-		} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		} 
+		else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 			if ( isFirst ) {
 				res = P_FIRST;
 			} else if ( isLast ) {
 				res = P_LAST;
 			}
-		} else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		} 
+		else if ( fp.getLayout() instanceof GridPanelLayout ) {
 			int wcols = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getColumn();   // colonna del widget
 			int pcols = ((GridPanelLayout)fp.getLayout()).getColumns();          // colonne totali nel pannello
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget   
-
-			if ( hspan > 1 ) {
-				if ( isLabel ) {
-					// la label non puo' mai avere last, ma solo first
-					if ( wcols == 1 ) {
-						res = P_FIRST;
-					}
-				} else {
-					// una cella con un widget non puo' mai avere first, ma solo last
-					int landingCol = (wcols - 1) + hspan;
-					if ( landingCol == pcols ) {
-						res = P_LAST;
-					}
+			
+			if ( wcols == 1 ) {
+				res = P_FIRST;
+			} else {
+				int landingCol = wcols;
+				if ( hspan > 1 ) {
+					landingCol = (wcols - 1) + hspan;
 				}
 				
-			} else {
-				if ( wcols == 1 ) {
-					res = P_FIRST;
-				} else if ( wcols == pcols ) {
+				if ( landingCol == pcols ) {
 					res = P_LAST;
-				}
-			}
+				}				
+			}			
 		}
 		
 		return res;
@@ -341,10 +328,24 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static int getCustomtagHeaderColspan(Widget w) {
-		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+	public static String getCustomtagHeaderColspan(FormPanel fp, Widget w) {
+		String res = "";
+		int colspan = 1;
+
+		if ( needHandleCustomtagHeaderHspan(fp, w) ) {
+			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+			colspan = ((hspan * 2) - 1);
+		}
 		
-		return ((hspan * 2) - 1);
+		// Table e UserDefinedWidget non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof UserDefinedWidget ) {
+			colspan = colspan + 1;
+		}
+		
+		if ( colspan > 1 ) {
+			res = "colSpan=\"" + colspan + "\"";
+		}
+		return res;
 	}
 
 	/**
@@ -354,11 +355,21 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static int getCustomtagHeaderColspan(PlainText w) {
-		int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
-		int res = ((hspan * 2) - 1);
+	public static String getCustomtagHeaderColspan(FormPanel fp, PlainText w) {
+		String res = "";
+		int colspan = 1;
+
+		if ( needHandleCustomtagHeaderHspan(fp, w) ) {
+			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+			colspan = ((hspan * 2) - 1);
+		}
+		
 		if ( w.getLabel() == null ) {
-			res = res + 1;
+			colspan = colspan + 1; 
+		}		
+		
+		if ( colspan > 1 ) {
+			res = "colSpan=\"" + colspan + "\"";
 		}
 		return res;
 	}	
@@ -376,9 +387,11 @@ public class GenUtilsLayout {
 		
 		if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
 			// NON CI DOVREI PASSARE... comunque lasciamo
-		} else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		} 
+		else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 			// niente da impostare, va bene blank
-		} else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		} 
+		else if ( fp.getLayout() instanceof GridPanelLayout ) {
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget
 			int s = 2;
 			if ( hspan > 1 ) {
@@ -559,9 +572,6 @@ public class GenUtilsLayout {
 
 		return res;
 	}	
-	
-	
-	
 	
 	
 	

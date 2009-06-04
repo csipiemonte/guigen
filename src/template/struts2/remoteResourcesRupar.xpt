@@ -327,7 +327,7 @@ Gestione dei PANNELLI
 «ELSEIF this.layout.metaType == UDLRCPanelLayout-»
 	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-	«REM»Come lo gestisco?«ENDREM»
+	«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale Rupar"»
 «ENDIF-»
 
 «ENDDEFINE»
@@ -367,7 +367,7 @@ Gestione dei PANNELLI
 «ELSEIF numeroColonne == 3 -»
 	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
-	«REM»Cosa succede se arrivo qui???«ENDREM»
+	«ERROR "Portale Rupar. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
@@ -564,12 +564,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF needHandleCustomtagHeaderHspan(fp, this)-»
-<customtag:column textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
-<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-«ELSE-»
-<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-«ENDIF-»
+<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast)» «getCustomtagHeaderColspan(fp, this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
@@ -581,7 +576,7 @@ Gestione dei LAYOUT - WIDGETS
 «DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagCloseHspan(fp, this) -»
 <s:else>
-	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»/>
+	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)»/>
 </s:else>
 «ENDIF-»
 «ENDDEFINE»
@@ -591,14 +586,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«IF needHandleCustomtagHeaderHspan(fp, this)-»
-	«IF this.label != null-»
-	<customtag:column textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, true)» />
-	«ENDIF-»
-	<customtag:column colSpan="«getCustomtagHeaderColspan(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-«ELSE-»
-	<customtag:column labelField="true" «IF this.label != null»textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagColumnPosition(fp, this, isFirst, isLast, false)»>
-«ENDIF-»
+<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
