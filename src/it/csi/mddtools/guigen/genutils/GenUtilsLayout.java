@@ -574,6 +574,42 @@ public class GenUtilsLayout {
 	}	
 	
 	
+	/**
+	 * TODO: per il momento usiamo un unico metodo, se necessario differenziare per portale
+	 * @param model
+	 * @param w
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
+		String res = "";
+		
+		SimpleType t = null;
+		if ( w.getDatabinding() != null ) {
+			// recupero il tipo dal Databinding
+			Field f = GenUtils.getSelectedField(null, w.getDatabinding().getAppData().getType(), w.getDatabinding().getPath());
+			if ( f != null ) {
+				if ( f.getType() instanceof SimpleType ) {
+					t = (SimpleType)f.getType();
+				}
+			}
+		} 
+		else {
+			// recupero il tipo direttamente dal widget
+			if ( w.getDataType() instanceof SimpleType ) {
+				t = (SimpleType)w.getDataType();
+			}
+		}
+		
+		if ( t != null ) {
+			if ( GenUtils.isNumeric(t) ) {
+				res = "tdStyleClass=\"numeri\"";
+			}
+		}
+		return res;
+	}
+	
+	
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS (for specific layout)

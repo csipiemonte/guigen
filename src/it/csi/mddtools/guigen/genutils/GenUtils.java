@@ -2056,7 +2056,6 @@ public class GenUtils {
 	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
 	 */
 	private static Field getSelectedField(Field f, ComplexType ct, String selector) {
-		//System.out.println("**********> getSelectedField[ComplexType](" + ct.getName() + ", '" + selector + "')");
 		String[] parts = splitSelector(selector);
 		if ( parts == null ) { 
 			return null;
@@ -2079,7 +2078,6 @@ public class GenUtils {
 	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
 	 */
 	private static Field getSelectedField(Field f, SimpleType ct, String selector) {
-		//System.out.println("===========> getSelectedField[SimpleType](" + ct.getName() + ", '" + selector + "')");
 		if ( !GenUtils.isNullOrEmpty(selector) ) {
 			return null;
 		}
@@ -2095,7 +2093,6 @@ public class GenUtils {
 	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
 	 */
 	private static Field getSelectedField(Field f, TypedArray ct, String selector) {
-		//System.out.println("----------> getSelectedField[TypedArray](" + ct.getName() + ", '" + selector + "')");
 		return getSelectedField(f, ct.getComponentType(), selector);
 	}
 	
@@ -2107,7 +2104,6 @@ public class GenUtils {
 	 * @return
 	 */
 	private static Field getFieldByName(ComplexType ct, String fn) {
-		//System.out.println("+++++++++++++++> Calling getFieldByName('" + ct.getName() + "', '" + fn + "')");
 		if ( ct != null ) {
 			for ( Field f : ct.getFields() ) {
 				if ( fn.equals(f.getName()) ) {
@@ -2124,7 +2120,6 @@ public class GenUtils {
 	 * @return
 	 */
 	private static String[] splitSelector(String selector) {
-		//System.out.println(":::::::::::::::> splitSelector('" + selector + "')");
 		String[] res = new String[2];
 		if ( selector.indexOf(".") > 0 ) {
 			res[0] = selector.substring(0, selector.indexOf("."));
@@ -2138,7 +2133,6 @@ public class GenUtils {
 		if ( res[0].indexOf("[") > 0 ) {
 			res[0] = res[0].substring(0, res[0].indexOf("["));
 		}
-		//System.out.println(":::::::::::::::> splitSelector('" + selector + "') RETURNDED {" + res + "}");
 		return res;
 	}
 	                      
