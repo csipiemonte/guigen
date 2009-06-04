@@ -456,7 +456,7 @@ let code = ((SimpleType)type).code :
 	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
   	(nillable ? "null" : "0")
 	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
-  	(nillable ? "null" : "true")
+  	(nillable ? "null" : "false")
 	else if (code == guigen::SimpleTypeCodes::DATE) then
   	(nillable ? "null" : "null")
   	else if (code == guigen::SimpleTypeCodes::DATETIME) then
@@ -634,6 +634,9 @@ String getMenuLabelSistemaPiemonte(Menu menu, int level, boolean isActive) :
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
+
+String getWidgetName(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget);
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);

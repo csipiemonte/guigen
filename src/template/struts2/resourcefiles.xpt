@@ -554,7 +554,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:textfield name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
+<s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getTextFieldStyleByLayout(model, this)»
 />
@@ -564,14 +564,14 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR HiddenValue»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:hidden name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»" />
+<s:hidden name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:textarea name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
+<s:textarea name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
@@ -590,7 +590,7 @@ Gestione dei Widget
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent) FOR RadioButton»
-<s:radio id="widg_«this.name»" name="«getOGNLForWidgetValue(parent)»"
+<s:radio id="«getWidgetName(this)»" name="«getOGNLForWidgetValue(parent)»"
 	list="#{«getFixedRadioButtonList(this)»}"
 	disabled="isWidgetDisabled('«cp.name»','«parent.name»')"
 	«getRadioPortalStyle(model)»
@@ -602,17 +602,18 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:checkbox name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
+<s:checkbox name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getCheckboxPortalStyle(model)»
 	/>
+<s:hidden name="__checkbox_«getWidgetName(this)»" id="__checkbox_«getWidgetName(this)»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:select name="«getOGNLForWidgetValue(this)»" id="widg_«this.name»"
+<s:select name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
           headerKey="" headerValue=""
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="isWidgetDisabled('«cp.name»','«this.name»')"
@@ -631,7 +632,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante (Button): al momento è renderizzata come un submit.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" method="«getClickHandlerMethodName(this)»" 
+<s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»" 
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
@@ -640,7 +641,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:submit name="widg_«this.name»" id="widg_«this.name»" method="«getClickHandlerMethodName(this)»"
+<s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»"
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
@@ -649,7 +650,7 @@ Gestione dei Widget
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
 <!-- [GUIGEN] Crea il widget «this» -->
-<s:reset name="widg_«this.name»" id="widg_«this.name»" key="«findParentContentPanel(this).name».«this.name».label" 
+<s:reset name="«getWidgetName(this)»" id="«getWidgetName(this)»" key="«findParentContentPanel(this).name».«this.name».label" 
 	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
 
@@ -670,7 +671,7 @@ Gestione dei Widget
                excludedParams="*"
                form="«cp.name»"
                export="«enableExport»"
-               id="widg_«this.name»"
+               id="«getWidgetName(this)»"
                pagesize="«this.pageSize»"
                requestURI="«getStrutsActionConfigName(cp)».do"
                keepStatus="true"

@@ -798,47 +798,47 @@ public class ShowDialogCommand implements ICommand {
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR HiddenValue»
 	// HiddenValue «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR TextField»
 	// TextField «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR TextArea»
 	// TextArea «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR Table»
 	// Table «name»
-	«EXPAND property("widg_"+name, model, "") FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, "") FOR this.dataType»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR RadioButtons»
 	// RadioButtons «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR CheckBox»
 	// CheckBox «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR ComboBox»
 	// ComboBox «name»
 	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property("widg_"+name, model, widgetValidation) FOR this.dataType»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 

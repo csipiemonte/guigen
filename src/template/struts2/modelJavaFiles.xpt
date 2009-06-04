@@ -405,7 +405,7 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 	/// Metodi statici per il reset delle tabelle
 	//////////////////////////////////////////////////////////////////////////////
     «FOREACH (List[Table])findAllTablesInContentPanel(this) AS currTable»
-    public static void resetClearStatus_widg_«currTable.name»(java.util.Map session) {
+    public static void resetClearStatus_«getWidgetName(currTable)»(java.util.Map session) {
     	session.put("«this.name»_«currTable.name»_clearStatus", new Boolean(true));
     }
     «ENDFOREACH»
