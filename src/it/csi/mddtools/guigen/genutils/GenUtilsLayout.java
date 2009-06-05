@@ -725,7 +725,7 @@ public class GenUtilsLayout {
 			btnStyleT = "funz";
 		}
 		
-		return "cssClass=\"" + btnStyleT + btnStyleL + "\"";
+		return "cssClass=\"" + btnStyleT + btnStyleL + " overouthandler\"";
 	}
 
 
