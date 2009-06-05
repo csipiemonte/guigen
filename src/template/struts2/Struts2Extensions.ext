@@ -246,7 +246,6 @@ String getStrutsLogoutClassName(GUIModel model) :
 String getStrutsLogoutFQN(GUIModel model) :
 	getPresentationJavaPackage(model) + "." + getStrutsLogoutClassName(model);
 
-
 String getStrutsMenuConfigName(GUIModel model) :
 	"menuAction";
 
@@ -271,8 +270,7 @@ String getIrideIdAdapterFilterFQN(GUIModel model) :
 	
 String getIrideIdAdapterFilterJavaFile(GUIModel model, boolean omit_root) :
 	getFiltersJavaSrcDir(model, omit_root) + "/" + getIrideIdAdapterFilterClassName() + ".java";
-	
-	
+
 String getSessionGuardFilterClassName() :
 	"AppSessionGuardFilter";
 	
@@ -281,9 +279,7 @@ String getSessionGuardFilterFQN(GUIModel model) :
 	
 String getSessionGuardFilterJavaFile(GUIModel model, boolean omit_root) :
 	getFiltersJavaSrcDir(model, omit_root) + "/" + getSessionGuardFilterClassName() + ".java";
-		
-	
-	
+
 String getIridePDCacheClassName() :
 	"IridePDCache";
 	
@@ -292,7 +288,6 @@ String getIridePDCacheFQN(GUIModel model) :
 	
 String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
-
 
 String getTableDecoratorClassName(Table tbl) :
 	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
@@ -369,8 +364,6 @@ String getSpringCPBEFQN(GUIModel model, ContentPanel cp) :
 String getSpringCPBEJavaFile(GUIModel model, ContentPanel cp) :
 	getBaseJavaSrcDir(model, true)+"/business/"+getSpringCPBEClassName(cp)+".java";
 
-
-
 String getSpringBEExcClassName() :
 	"BEException";
 
@@ -398,39 +391,39 @@ String toJavaSimpleType(Type type) :
 	let code = ((SimpleType)type).code :
 	let nillable =  ((SimpleType)type).nillable :
 	if (code == guigen::SimpleTypeCodes::INT) then
-  	(nillable ? "java.lang.Integer" : "int")
+  		(nillable ? "java.lang.Integer" : "int")
 	else if (code == guigen::SimpleTypeCodes::STRING) then
-  	(nillable ? "java.lang.String" : "java.lang.String")
+  		(nillable ? "java.lang.String" : "java.lang.String")
 	else if (code == guigen::SimpleTypeCodes::FLOAT) then
-  	(nillable ? "java.lang.Float" : "float")
+  		(nillable ? "java.lang.Float" : "float")
   	else if (code == guigen::SimpleTypeCodes::LONG) then
-  	(nillable ? "java.lang.Long" : "long")
+  		(nillable ? "java.lang.Long" : "long")
 	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
-  	(nillable ? "java.lang.Double" : "double")
+  		(nillable ? "java.lang.Double" : "double")
 	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
-  	(nillable ? "java.lang.Boolean" : "boolean")
+  		(nillable ? "java.lang.Boolean" : "boolean")
 	else if (code == guigen::SimpleTypeCodes::DATE) then
-  	(nillable ? "java.lang.String" : "java.lang.String")
+  		(nillable ? "java.lang.String" : "java.lang.String")
   	else if (code == guigen::SimpleTypeCodes::DATETIME) then
-  	(nillable ? "java.lang.String" : "java.lang.String")
+  		(nillable ? "java.lang.String" : "java.lang.String")
   	else if (code == guigen::SimpleTypeCodes::HOURS) then
-  	(nillable ? "java.lang.String" : "java.lang.String")
+  		(nillable ? "java.lang.String" : "java.lang.String")
 	else if (code == guigen::SimpleTypeCodes::BYTE) then
-  	(nillable ? "byte" : "byte")
+  		(nillable ? "byte" : "byte")
   	else if (code == guigen::SimpleTypeCodes::TREE_NODE) then
   		"it.csi.custom.component.tree.base.TreeNode"
 	else 
-  	"???";
+  		"???";
 
 String toJavaType(Type type, GUIModel model) :
-if (type==null) then
-	"void"
-else if (type.metaType==SimpleType) then
-	toJavaSimpleType(type)
-else if (type.metaType==ComplexType) then
-      getDTOBaseJavaPackage(model)+"."+type.name.toFirstUpper() 
-else 
-	"java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">";
+	if (type==null) then
+		"void"
+	else if (type.metaType==SimpleType) then
+		toJavaSimpleType(type)
+	else if (type.metaType==ComplexType) then
+		getDTOBaseJavaPackage(model)+"."+type.name.toFirstUpper() 
+	else 
+		"java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">";
 
 String defaultInitVal(Type type, GUIModel model) :
 	if(type==null) then
@@ -443,30 +436,30 @@ String defaultInitVal(Type type, GUIModel model) :
 	  "null";
 
 String defaultSimpleInitVal(Type type) :
-let code = ((SimpleType)type).code :
+	let code = ((SimpleType)type).code :
 	let nillable =  ((SimpleType)type).nillable :
 	if (code == guigen::SimpleTypeCodes::INT) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == guigen::SimpleTypeCodes::STRING) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
 	else if (code == guigen::SimpleTypeCodes::FLOAT) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
   	else if (code == guigen::SimpleTypeCodes::LONG) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
-  	(nillable ? "null" : "false")
+  		(nillable ? "null" : "false")
 	else if (code == guigen::SimpleTypeCodes::DATE) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
   	else if (code == guigen::SimpleTypeCodes::DATETIME) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
   	else if (code == guigen::SimpleTypeCodes::HOURS) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
 	else if (code == guigen::SimpleTypeCodes::BYTE) then
-  	(nillable ? "0" : "0")
+  		(nillable ? "0" : "0")
 	else 
-  	"???";
+  		"???";
 
 
 
@@ -493,7 +486,7 @@ String getComboBoxValueChangedHandlerJS(ComboBox cb) :
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssStyle=\"" + 
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
 			"\" /></noscript>";
 
@@ -505,7 +498,7 @@ String getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
 String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssStyle=\"" + 
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
 			"\" /></noscript>";
 
@@ -524,6 +517,8 @@ String getStrutsThemeByPortal(GUIModel model) :
 		"csi" //"csirupar"
 	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
 		"csi" //"csisisp"
+	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
+		"csi" // TODO: definire quello corretto
 	else
 		"csi";
 
@@ -531,6 +526,8 @@ String getTablePortalStyle(GUIModel model) :
 	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
 		"class=\"righe_alternate\"  cellpadding=\"0\" cellspacing=\"0\""
 	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
+		"class=\"col\" cellpadding=\"2\" cellspacing=\"2\""
+	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
 		"class=\"col\" cellpadding=\"2\" cellspacing=\"2\""
 	else
 		"class=\"\" cellpadding=\"2\" cellspacing=\"2\"";
@@ -540,6 +537,8 @@ String getRadioPortalStyle(GUIModel model) :
 		"cssClass=\"noBorder\""
 	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
 		"cssClass=\"noBorder\""
+	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
+		"cssClass=\"noBorder\""
 	else
 		"";
 
@@ -547,6 +546,8 @@ String getCheckboxPortalStyle(GUIModel model) :
 	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
 		"cssClass=\"noBorder\""
 	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
+		"cssClass=\"noBorder\""
+	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
 		"cssClass=\"noBorder\""
 	else
 		"";
@@ -736,27 +737,27 @@ boolean jumpToSameContentPanel(JumpCommand jc) : JAVA
 int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
 
-// [DM]
+// [DM] restituisce il sottopannello situato nella posizione specificata di un layout UDLRC
 Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getSubPanelByLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
 
-// [DM]
+// [DM] restituisce il numero di colonne da impostare per il pannello indicato secondo il suo layout
 String getGridPanelColumnsNumber(FormPanel p) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getGridPanelColumnsNumber(it.csi.mddtools.guigen.FormPanel);
 
-// [DM]
+// [DM] Restituisce una lista di widget nell'ordine corretto di posizionamento peril il layout specificato
 List getWidgetsByOrder(FormPanel p)  : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getWidgetsByOrder(it.csi.mddtools.guigen.FormPanel);
 
-// [DM]
+// [DM] Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <customtag:column>
 String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagColumnPosition(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget, java.lang.Boolean, java.lang.Boolean);
 
-// [DM]
+// [DM] L'attributo hspan di un widget deve essere gestito solo nel caso di GridPanelLayout.
 boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagHeaderHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
 	
-// [DM]
+// [DM] Gestisce la clausola <s:else> della visibility di un widget (non va visualizzata in determinati casi).
 boolean needHandleCustomtagCloseHspan(FormPanel fp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagCloseHspan(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.Widget);
 
@@ -788,43 +789,43 @@ String getTextFieldStyleByLayout(GUIModel model, TextField t) : JAVA
 String getWidgetLabelFor(Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget);
 
-// [DM] restituisce le annotazioni per la validazione del campo
+// [DM] Restituisce le annotazioni per la validazione del campo
 String getWidgetValidation(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget);
 
-// [DM] restituisce la lista dei custom validators definiti dal generatore
+// [DM] Restituisce la lista dei custom validators definiti dal generatore
 List getGuigenCustomValidators() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenCustomValidators();
 
-// [DM] restituisce la lista dei custom validators modellati dall'utente nei widget
+// [DM] Restituisce la lista dei custom validators modellati dall'utente nei widget
 List getUserCustomValidatorsName() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getUserCustomValidatorsName();
 
-// [DM] restituisce (se necessaria) l'annotazione per un Visitor Filed Validator
+// [DM] Restituisce (se necessaria) l'annotazione per un Visitor Filed Validator
 String getVisitorFieldValidator(ApplicationData ad, ContentPanel cp, Boolean expandVisitorFieldValidator) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getVisitorFieldValidator(it.csi.mddtools.guigen.ApplicationData, it.csi.mddtools.guigen.ContentPanel, java.lang.Boolean);
 
-// [DM] verifica se e' necessaria 
+// [DM] Verifica se e' necessaria  l'annotazione per un Visitor Filed Validator
 boolean isValidatorAnnotationRequired(ComplexType t) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.isValidatorAnnotationRequired(it.csi.mddtools.guigen.ComplexType);
 
-// [DM] restituisce (se necessaria) l'annotazione di validazione per il field di un DTO
+// [DM] Restituisce (se necessaria) l'annotazione di validazione per il field di un DTO
 String getValidatorFieldAnnotationForDTO(Field f) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getValidatorFieldAnnotationForDTO(it.csi.mddtools.guigen.Field);
 
-// [DM] restituisce la lista delle label del menu
+// [DM] Restituisce la lista delle label del menu
 List getMenuBarLabels(Menubar mb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getMenuBarLabels(it.csi.mddtools.guigen.Menubar);
 
-// [DM] restituisce la lista delle label dei pannelli di un ContentPanel
+// [DM] Restituisce la lista delle label dei pannelli di un ContentPanel
 List getContentPanelLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
 
-// [DM] restituisce la lista delle label dei widgets di un ContentPanel
+// [DM] Restituisce la lista delle label dei widgets di un ContentPanel
 List getWidgetsLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
 
-// [DM] restituisce la lista delle label dei widgets di un ContentPanel
+// [DM] Restituisce la lista delle label dei widgets di un ContentPanel
 List getApplicationDataLabels(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getApplicationDataLabels(it.csi.mddtools.guigen.ContentPanel);
 

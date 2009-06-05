@@ -231,7 +231,7 @@ public class GenUtilsLayout {
 
 
 	/**
-	 * 
+	 * Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <code>&lt;customtag:column&gt;</code>
 	 * @param fp
 	 * @param w
 	 * @param isFirst
@@ -298,9 +298,11 @@ public class GenUtilsLayout {
 
 
 	/**
-	 * Non metto l'else della Visibility nel caso di VerticalFlowPanelLayout
-	 * o nel caso di GridPanelLayout con span della cella = numero totale colonne
-	 * (&egrave; come se eliminassi un'intera riga...)
+	 * Gestisce la clausola <code>&lt;s:else&gt;</code> della visibility di un widget.
+	 * 
+	 * Non metto la clausola <code>&lt;s:else&gt;</code> della Visibility di un widget
+	 * nel caso di VerticalFlowPanelLayout o nel caso di GridPanelLayout con span
+	 * della cella = numero totale colonne (&egrave; come se eliminassi un'intera riga).
 	 * 
 	 * @param fp
 	 * @param w
@@ -347,6 +349,7 @@ public class GenUtilsLayout {
 		}
 		return res;
 	}
+
 
 	/**
 	 * 
@@ -525,7 +528,7 @@ public class GenUtilsLayout {
 		return res;
 	}
 
-	
+
 	/**
 	 * 
 	 * @param model
@@ -544,8 +547,8 @@ public class GenUtilsLayout {
 		}
 		return res;
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param col
@@ -572,8 +575,8 @@ public class GenUtilsLayout {
 
 		return res;
 	}	
-	
-	
+
+
 	/**
 	 * TODO: per il momento usiamo un unico metodo, se necessario differenziare per portale
 	 * @param model
@@ -608,13 +611,13 @@ public class GenUtilsLayout {
 		}
 		return res;
 	}
-	
-	
-	
+
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS (for specific layout)
-	
-	
+
+
 	/**
 	 * 
 	 * @param firstLevPanel
