@@ -174,8 +174,7 @@ public class GenUtilsStrutsValidation {
 		// required validation
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
-			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
-				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
 				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
 			} else {
@@ -232,8 +231,7 @@ public class GenUtilsStrutsValidation {
 		// required validation
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
-			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
-				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
 				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
 			} else {
@@ -265,8 +263,7 @@ public class GenUtilsStrutsValidation {
 		// required validation
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
-			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
-				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
 				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
 			} else {
@@ -298,8 +295,7 @@ public class GenUtilsStrutsValidation {
 		// required validation
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
-			if ( t.getCode() == SimpleTypeCodes.STRING || t.getCode() == SimpleTypeCodes.DATE ||
-				 t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS ) {
+			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
 				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
 			} else {
@@ -325,8 +321,6 @@ public class GenUtilsStrutsValidation {
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
 	public static String applyValidationRule(DataWidget w, ContentPanel cp, boolean expandFieldName) {
-		String res = "";
-
 		SimpleType type = (SimpleType)w.getDataType();
 		String fieldName = GenUtils.getWidgetName(w);
 		String keyName = cp.getName() + "." + w.getName();
@@ -496,8 +490,7 @@ public class GenUtilsStrutsValidation {
 		
 		// required validation
 		if ( f.isRequired() ) {
-			if ( type.getCode() == SimpleTypeCodes.STRING || type.getCode() == SimpleTypeCodes.DATE ||
-					type.getCode() == SimpleTypeCodes.DATETIME || type.getCode() == SimpleTypeCodes.HOURS ) {
+			if ( GenUtils.isString(type) || GenUtils.isDateOrHour(type) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
 				res += getRequiredStringValidator(fieldName, keyName, expandFieldName);
 			} else {
@@ -565,19 +558,19 @@ public class GenUtilsStrutsValidation {
 		// ricavo la regola di validazione
 		String[] validationRule = getValidationRule(dataTypeModifier);
 		if ( !GenUtils.isNullOrEmpty(validationRule[0]) ) {
-			if ( type.getCode() == SimpleTypeCodes.STRING ) {
+			if ( GenUtils.isString(type) ) {
 				res += applyStringValidationRule(validationRule, fieldName, keyName, expandFieldName);
-			} else if ( type.getCode() == SimpleTypeCodes.INT || type.getCode() == SimpleTypeCodes.LONG ) {
-				// tipo numerico intero
+			} else if ( GenUtils.isInteger(type) ) {
+				// tipo numerico intero (INT o LONG)
 				res += applyNumericIntValidationRule(validationRule, fieldName, keyName, expandFieldName);
-			} else if ( type.getCode() == SimpleTypeCodes.DOUBLE || type.getCode() == SimpleTypeCodes.FLOAT ) {
-				// tipo numerico decimale
+			} else if ( GenUtils.isDecimal(type) ) {
+				// tipo numerico decimale (DOUBLE o FLOAT)
 				res += applyNumericDecValidationRule(validationRule, fieldName, keyName, expandFieldName);
 			} else if ( type.getCode() == SimpleTypeCodes.DATE ) {
 				res += applyDateValidationRule(validationRule, fieldName, keyName, expandFieldName);
 			} else if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
 				res += applyDateTimeValidationRule(validationRule, fieldName, keyName, expandFieldName);
-			} else if ( type.getCode() == SimpleTypeCodes.HOURS ) {
+			} else if ( GenUtils.isHour(type) ) {
 				res += applyHourValidationRule(validationRule, fieldName, keyName, expandFieldName);
 			} else {
 				// sugli altri tipi è comunque definibile un validatore custom

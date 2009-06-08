@@ -693,15 +693,13 @@ Gestione dei Widget
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable-»
-		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" >
+		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
 			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" cssClass="minim"/>
 		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
-			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" 
-			decorator="«getColumnDecoratorJavaPackage(model)».CsiCustomColumnDecorator"
-			«getColumnFormatter(currCol, this)» «getColumnStyle(currCol, this, model)»
-			/>
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)» />
 		«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»

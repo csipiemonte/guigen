@@ -1974,8 +1974,7 @@ public class GenUtils {
 
 	
 	public static boolean isNumeric(SimpleType t) {
-		return t.getCode() == SimpleTypeCodes.INT || t.getCode() == SimpleTypeCodes.LONG ||
-			t.getCode() == SimpleTypeCodes.DOUBLE || t.getCode() == SimpleTypeCodes.FLOAT;
+		return isInteger(t) || isDecimal(t);
 	}
 	
 	public static boolean isInteger(SimpleType t) {
@@ -1991,10 +1990,16 @@ public class GenUtils {
 	}
 	
 	public static boolean isDate(SimpleType t) {
-		return t.getCode() == SimpleTypeCodes.DATE || t.getCode() == SimpleTypeCodes.DATETIME || t.getCode() == SimpleTypeCodes.HOURS;
+		return t.getCode() == SimpleTypeCodes.DATE || t.getCode() == SimpleTypeCodes.DATETIME;
 	}	
 	
+	public static boolean isHour(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.HOURS;
+	}	
 	
+	public static boolean isDateOrHour(SimpleType t) {
+		return isDate(t) || isHour(t);
+	}		
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INTROSPECTION SUI TIPI DI DATO NEI SELETTORI
@@ -2007,7 +2012,6 @@ public class GenUtils {
 	 * @return
 	 */
 	public static String getColumnFormatter(Column col, Table table) {
-		//System.out.println("<------------------------------------------------------------------------------------------------------->");
 		String res = "";
 		
 		// ricavo il tipo (sicuramente ComplexType) del 
@@ -2017,15 +2021,53 @@ public class GenUtils {
 		Field f = getSelectedField(null, t, col.getSelector());
 		
 		if ( f != null ) {
-			// TODO: implementare la scelta del formatter sulla base del tipo (deve essere un SimpleType) ritornato
-			//System.out.println("#####> getColumnFormatter() returned {" + f.getName() + ", " + f.getType().getName() + "}");
+			// Scelta del formatter sulla base del tipo ritornato (deve essere un SimpleType) 
+			if ( f.getType() instanceof SimpleType ) {
+				SimpleType ft = (SimpleType) f.getType();
+				if ( isNumeric(ft) ) {
+					res = "format=\"{0,number,0,000.00}\"";
+				}
+				// al momento gestiamo solo formatter per campi NUMERICI (INTERI [INT, LONG] o DECIMALI [DOUBLE, FLOAT]).
+				// TODO: se necessario implementare altri comparatori				
+			}
 		}
-		//System.out.println("<------------------------------------------------------------------------------------------------------->");
 		return res;
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param col
+	 * @param table
+	 * @return
+	 */
+	public static String getColumnComparator(Column col, Table table) {
+		String res = "";
+
+		if ( col.isSortable() ) {
+			// ricavo il tipo (sicuramente ComplexType) del 
+			Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+			
+			// ricavo il field 
+			Field f = getSelectedField(null, t, col.getSelector());
+			
+			if ( f != null ) {
+				// scelta del Comparator sulla base del tipo ritornato (deve essere un SimpleType)
+				if ( f.getType() instanceof SimpleType ) {
+					SimpleType ft = (SimpleType)f.getType();
+					if ( ft.getCode() == SimpleTypeCodes.DATE ) {
+						res = "CsiDateComparator";
+					} else if ( ft.getCode() == SimpleTypeCodes.DATETIME ) {
+						res = "CsiDateTimeComparator";
+					}
+					// al momento gestiamo solo comparatori per campi DATE e DATETIME.
+					// TODO: se necessario implementare altri comparatori
+				}
+			}
+		}
+
+		return res;
+	}	
 	
 	
 	/**

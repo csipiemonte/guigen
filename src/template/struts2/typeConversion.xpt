@@ -144,6 +144,7 @@ public class CsiNumericConverter extends StrutsTypeConverter {
 «ENDDEFINE»
 
 
+
 «REM»
 ==========================================================================================================================
 DISPLAYTAG CUSTOM DECORATORS CLASSES
@@ -154,7 +155,6 @@ DISPLAYTAG CUSTOM DECORATORS CLASSES
 «DEFINE decoratorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND customColumnDecoratorClassFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
-
 
 
 «REM»Genera la classe per il decoratore numerico della displaytag«ENDREM»
@@ -221,6 +221,131 @@ public class CsiCustomColumnDecorator implements ColumnDecorator {
 		df.setMaximumFractionDigits(2);
 		return df.format(columnValue);
 	}	
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+DISPLAYTAG CUSTOM COMPARATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Genera le classi dei comparatori«ENDREM»
+«DEFINE comparatorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND dateComparatorClassFile(skip_component_dir_creation) FOR this»
+	«EXPAND dateTimeComparatorClassFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
+«DEFINE dateComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateComparator.java"»package «getComparatorJavaPackage(this)»;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+
+/**
+ * Comparatore custom per tipi Date (da usare con la DisplayTag)
+ *
+ * @author [GUIGEN]
+ */
+public class CsiDateComparator implements Comparator<String> {
+
+	/** Costante per il formato DATE */
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	public int compare(String o1, String o2) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+
+		try {
+			Date d1 = sdf.parse(o1);
+			Date d2 = sdf.parse(o2);
+			return d1.compareTo(d2);
+		} catch (ParseException e) {
+			return -1;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
+«DEFINE dateTimeComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateTimeComparator.java"»package «getComparatorJavaPackage(this)»;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+
+/**
+ * Comparatore custom per tipi DateTime  (da usare con la DisplayTag)
+ *
+ * @author [GUIGEN]
+ */
+public class CsiDateTimeComparator implements Comparator<String> {
+
+	/** Costante per il formato DATE */
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
+
+	/** Costante per il formato HOUR SHORT */
+	private static final String HOUR_SHORT_FORMAT = "hh:mm";
+
+	/** Costante per il formato HOUR EXTENDED */
+	private static final String HOUR_EXTENDED_FORMAT = "hh:mm:ss";
+
+	/** Costante per il formato DATETIME SHORT */
+	private static final String DATETIME_SHORT_FORMAT = DATE_FORMAT + "-" + HOUR_SHORT_FORMAT;
+
+	/** Costante per il formato DATETIME EXTENDED */
+	private static final String DATETIME_EXTENDED_FORMAT = DATE_FORMAT + "-" + HOUR_EXTENDED_FORMAT;
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
+	public int compare(String o1, String o2) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+
+		try {
+			// estrapolo la data dalle stringhe
+			String sd1 = o1.substring(0, o1.indexOf("-"));
+			String sd2 = o2.substring(0, o2.indexOf("-"));
+
+			// converto le stringhe della date in oggetti di tipo Date
+			Date d1 = sdf.parse(sd1);
+			Date d2 = sdf.parse(sd2);
+
+			// confronto gli oggetti Date
+			if ( d1.compareTo(d2) != 0 ) {
+				// le due date sono differenti, ne ritorno il confronto
+				return d1.compareTo(d2);
+			} else {
+				// le due date sono uguali, confronto la parte delle ore
+				String sm1 = o1.substring(o1.indexOf("-")+1);
+				String sm2 = o2.substring(o2.indexOf("-")+1);
+				return sm1.compareTo(sm2);
+			}
+		} catch (ParseException e) {
+			return -1;
+		}
+	}
 
 }
 «ENDFILE»

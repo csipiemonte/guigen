@@ -39,17 +39,9 @@ String getSecurityJavaSrcDir(GUIModel model, boolean omit_root) :
 String getSecurityJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".security";
 		
-String getTypeConverterJavaSrcDir(GUIModel model, boolean omit_root) :
-	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/converter";
 
-String getTypeConverterJavaPackage(GUIModel model) :
-	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".converter";
 
-String getColumnDecoratorJavaSrcDir(GUIModel model, boolean omit_root) :
-	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/decorator";
 
-String getColumnDecoratorJavaPackage(GUIModel model) :
-	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".decorator";
 	
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -289,18 +281,6 @@ String getIridePDCacheFQN(GUIModel model) :
 String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
 
-String getTableDecoratorClassName(Table tbl) :
-	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
-	
-String getTableDecoratorFQN(GUIModel model, Table tbl) :
-	getPresentationJavaPackage(model)+"."+getTableDecoratorClassName(tbl);
-	
-String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
-	getPresentationJavaSrcDir(model, true) + "/" + getTableDecoratorClassName(tbl) + ".java";	
-	
-/// Pattern Command Actions Classes
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
@@ -342,6 +322,12 @@ String getStrutsCustomValidatorFQN(String validatorName, GUIModel model) :
 String getStrutsCustomValidatorJavaFile(String validatorName, GUIModel model, boolean omit_root) :
 	getValidationJavaSrcDir(model, omit_root) + "/" + validatorName.toFirstUpper() + ".java";
 
+String getTypeConverterJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/converter";
+
+String getTypeConverterJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".converter";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi spring
@@ -381,6 +367,40 @@ String getSpringSecurityHelperFQN(GUIModel model) :
 
 String getSpringSecurityHelperJavaFile(GUIModel model) :
 	getBaseJavaSrcDir(model, true)+"/business/"+getSpringSecurityHelperClassName()+".java";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Classi relative alla Tag Library DisplayTag
+
+String getTableDecoratorClassName(Table tbl) :
+	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
+	
+String getTableDecoratorFQN(GUIModel model, Table tbl) :
+	getPresentationJavaPackage(model)+"."+getTableDecoratorClassName(tbl);
+	
+String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
+	getPresentationJavaSrcDir(model, true) + "/" + getTableDecoratorClassName(tbl) + ".java";
+
+String getColumnDecoratorJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/decorator";
+
+String getColumnDecoratorJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".decorator";
+
+String getComparatorJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/comparator";
+
+String getComparatorJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".comparator";
+
+
+String getColumnComparator(GUIModel model, Column col, Table t) :
+	let comparator = getColumnComparator(col, t) :
+	if ( !isNullOrEmpty(comparator) ) then
+		"comparator=\"" + getComparatorJavaPackage(model) + "." + comparator + "\""
+	else
+		"";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -868,6 +888,10 @@ List getDialogPanelLabels(ContentPanel cp) : JAVA
 // [DM]
 String getColumnFormatter(Column col, Table t) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnFormatter(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
+
+// [DM]
+String getColumnComparator(Column col, Table t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnComparator(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
 
 // [DM]
 String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
