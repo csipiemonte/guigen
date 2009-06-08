@@ -595,7 +595,7 @@ Gestione dei Widget
 	disabled="isWidgetDisabled('«cp.name»','«parent.name»')"
 	«getRadioPortalStyle(model)»
 	«REM»«getRadioButtonsValueChangedHandlerJS(parent)»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
-	/> <s:text name="«cp.name».«parent.name».«this.name».label" />
+	/> <label for="«getWidgetName(this)»«this.value»"><s:text name="«cp.name».«parent.name».«this.name».label" /></label>
 «ENDDEFINE»
 
 
@@ -614,7 +614,7 @@ Gestione dei Widget
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- [GUIGEN] Crea il widget «this» -->
 <s:select name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
-          headerKey="" headerValue=""
+          headerKey="" headerValue="" «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="isWidgetDisabled('«cp.name»','«this.name»')"
           «IF (databinding!=null && databinding.appData.type.metaType==TypedArray) ||
@@ -677,16 +677,14 @@ Gestione dei Widget
                keepStatus="true"
                clearStatus="${«cp.name»_«this.name»_clearStatus}"
                uid="row_«this.name»"
-               «IF customDecorator-»
-               decorator="«getTableDecoratorFQN(model,this)»"
-               «ENDIF-»
-               «getTablePortalStyle(model)» >
+               «IF customDecorator»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF»
+               «getTablePortalStyle(model, this)» >
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort">
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" «getCheckboxPortalStyle(model)» />
+			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
-			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" «getRadioPortalStyle(model)» />
+			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getRadioPortalStyle(model)» />
 		«ENDIF-»
 		</display:column>
 	«ENDIF-»
