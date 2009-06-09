@@ -586,7 +586,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
-<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)this.eRootContainer, this)»>
+<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)fp.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
