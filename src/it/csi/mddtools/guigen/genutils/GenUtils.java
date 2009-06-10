@@ -2025,7 +2025,7 @@ public class GenUtils {
 			if ( f.getType() instanceof SimpleType ) {
 				SimpleType ft = (SimpleType) f.getType();
 				if ( isNumeric(ft) ) {
-					res = "format=\"{0,number,0,000.00}\"";
+					res = "format=\"{0,number,#,##0.00}\"";
 				}
 				// al momento gestiamo solo formatter per campi NUMERICI (INTERI [INT, LONG] o DECIMALI [DOUBLE, FLOAT]).
 				// TODO: se necessario implementare altri comparatori				
