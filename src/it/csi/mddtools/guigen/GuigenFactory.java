@@ -836,6 +836,15 @@ public interface GuigenFactory extends EFactory {
 	NOPCommand createNOPCommand();
 
 	/**
+	 * Returns a new object of class '<em>Widgets Panel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Widgets Panel</em>'.
+	 * @generated
+	 */
+	WidgetsPanel createWidgetsPanel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

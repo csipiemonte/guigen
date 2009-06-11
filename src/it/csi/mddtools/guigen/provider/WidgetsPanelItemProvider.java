@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,12 +28,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MultiPanel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.WidgetsPanel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MultiPanelItemProvider
+public class WidgetsPanelItemProvider
 	extends PanelItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +47,7 @@ public class MultiPanelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MultiPanelItemProvider(AdapterFactory adapterFactory) {
+	public WidgetsPanelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -78,7 +78,7 @@ public class MultiPanelItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.MULTI_PANEL__PANELS);
+			childrenFeatures.add(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS);
 		}
 		return childrenFeatures;
 	}
@@ -97,14 +97,14 @@ public class MultiPanelItemProvider
 	}
 
 	/**
-	 * This returns MultiPanel.gif.
+	 * This returns WidgetsPanel.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MultiPanel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/WidgetsPanel"));
 	}
 
 	/**
@@ -115,10 +115,10 @@ public class MultiPanelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((MultiPanel)object).getName();
+		String label = ((WidgetsPanel)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_MultiPanel_type") :
-			getString("_UI_MultiPanel_type") + " " + label;
+			getString("_UI_WidgetsPanel_type") :
+			getString("_UI_WidgetsPanel_type") + " " + label;
 	}
 
 	/**
@@ -132,8 +132,8 @@ public class MultiPanelItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(MultiPanel.class)) {
-			case GuigenPackage.MULTI_PANEL__PANELS:
+		switch (notification.getFeatureID(WidgetsPanel.class)) {
+			case GuigenPackage.WIDGETS_PANEL__WIDGETS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -153,63 +153,103 @@ public class MultiPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createFormPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createCommandWidget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMultiPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createDataWidget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createTabSetPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createButton()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createDialogPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTextField()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createCommandPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTextArea()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMenuPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createCalendar()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createComboBox()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createUserInfoPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createUserDefinedPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createCheckBox()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createWizardPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createRadioButtons()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMsgBoxPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createRadioButton()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createWidgetsPanel()));
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createResetButton()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createConfirmButton()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createImage()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createMultiDataWidget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTreeView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createPlainText()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createMenuView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createHiddenValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
 	}
 
 }

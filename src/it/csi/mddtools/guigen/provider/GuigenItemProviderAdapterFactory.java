@@ -2146,6 +2146,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.WidgetsPanel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WidgetsPanelItemProvider widgetsPanelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.WidgetsPanel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWidgetsPanelAdapter() {
+		if (widgetsPanelItemProvider == null) {
+			widgetsPanelItemProvider = new WidgetsPanelItemProvider(this);
+		}
+
+		return widgetsPanelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2334,6 +2357,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (appDataGroupItemProvider != null) appDataGroupItemProvider.dispose();
 		if (msgBoxPanelItemProvider != null) msgBoxPanelItemProvider.dispose();
 		if (nopCommandItemProvider != null) nopCommandItemProvider.dispose();
+		if (widgetsPanelItemProvider != null) widgetsPanelItemProvider.dispose();
 	}
 
 }
