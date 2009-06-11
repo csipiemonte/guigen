@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class CommandPanelImpl extends EObjectImpl implements CommandPanel {
+public class CommandPanelImpl extends PanelImpl implements CommandPanel {
 	/**
 	 * The default value of the '{@link #getCmdStyle() <em>Cmd Style</em>}' attribute.
 	 * <!-- begin-user-doc -->

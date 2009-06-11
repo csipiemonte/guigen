@@ -35,7 +35,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class MenuPanelItemProvider
-	extends ItemProviderAdapter
+	extends PanelItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -116,7 +116,10 @@ public class MenuPanelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_MenuPanel_type");
+		String label = ((MenuPanel)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_MenuPanel_type") :
+			getString("_UI_MenuPanel_type") + " " + label;
 	}
 
 	/**
@@ -248,17 +251,6 @@ public class MenuPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

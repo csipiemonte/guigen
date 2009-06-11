@@ -592,12 +592,14 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.COMMAND_PANEL: {
 				CommandPanel commandPanel = (CommandPanel)theEObject;
 				T result = caseCommandPanel(commandPanel);
+				if (result == null) result = casePanel(commandPanel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GuigenPackage.MENU_PANEL: {
 				MenuPanel menuPanel = (MenuPanel)theEObject;
 				T result = caseMenuPanel(menuPanel);
+				if (result == null) result = casePanel(menuPanel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

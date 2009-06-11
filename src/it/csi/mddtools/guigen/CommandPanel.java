@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface CommandPanel extends EObject {
+public interface CommandPanel extends Panel {
 
 	/**
 	 * Returns the value of the '<em><b>Cmd Style</b></em>' attribute.

@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface MenuPanel extends EObject {
+public interface MenuPanel extends Panel {
 
 	/**
 	 * Returns the value of the '<em><b>Widgets</b></em>' containment reference list.

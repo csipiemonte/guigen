@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class MenuPanelImpl extends EObjectImpl implements MenuPanel {
+public class MenuPanelImpl extends PanelImpl implements MenuPanel {
 	/**
 	 * The cached value of the '{@link #getWidgets() <em>Widgets</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

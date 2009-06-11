@@ -3898,6 +3898,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		menuViewEClass.getESuperTypes().add(this.getCommandWidget());
 		gridPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
 		gridWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
+		commandPanelEClass.getESuperTypes().add(this.getPanel());
+		menuPanelEClass.getESuperTypes().add(this.getPanel());
 		hiddenValueEClass.getESuperTypes().add(this.getDataWidget());
 		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
 		multiPanelEClass.getESuperTypes().add(this.getPanel());

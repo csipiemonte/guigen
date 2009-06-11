@@ -38,7 +38,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class CommandPanelItemProvider
-	extends ItemProviderAdapter
+	extends PanelItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -283,17 +283,6 @@ public class CommandPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

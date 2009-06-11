@@ -4363,13 +4363,49 @@ public interface GuigenPackage extends EPackage {
 	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
 	 * The feature id for the '<em><b>Cmd Style</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL__CMD_STYLE = 0;
+	int COMMAND_PANEL__CMD_STYLE = PANEL_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -4378,7 +4414,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL__WIDGETS = 1;
+	int COMMAND_PANEL__WIDGETS = PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Command Panel</em>' class.
@@ -4387,7 +4423,43 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL_FEATURE_COUNT = 2;
+	int COMMAND_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -4396,7 +4468,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_PANEL__WIDGETS = 0;
+	int MENU_PANEL__WIDGETS = PANEL_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Menu Panel</em>' class.
@@ -4405,7 +4477,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_PANEL_FEATURE_COUNT = 1;
+	int MENU_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
