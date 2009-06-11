@@ -174,16 +174,6 @@ public class MultiPanelItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createCommandPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
-				 GuigenFactory.eINSTANCE.createMenuPanel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createStdMessagePanel()));
 
 		newChildDescriptors.add

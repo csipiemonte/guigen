@@ -4363,49 +4363,13 @@ public interface GuigenPackage extends EPackage {
 	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Cmd Style</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL__NAME = FORM_PANEL__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMMAND_PANEL__LABEL = FORM_PANEL__LABEL;
-
-	/**
-	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMMAND_PANEL__LAYOUT = FORM_PANEL__LAYOUT;
-
-	/**
-	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMMAND_PANEL__LAYOUT_SPEC = FORM_PANEL__LAYOUT_SPEC;
-
-	/**
-	 * The feature id for the '<em><b>Subpanels</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMMAND_PANEL__SUBPANELS = FORM_PANEL__SUBPANELS;
+	int COMMAND_PANEL__CMD_STYLE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -4414,16 +4378,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL__WIDGETS = FORM_PANEL__WIDGETS;
-
-	/**
-	 * The feature id for the '<em><b>Cmd Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMMAND_PANEL__CMD_STYLE = FORM_PANEL_FEATURE_COUNT + 0;
+	int COMMAND_PANEL__WIDGETS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Command Panel</em>' class.
@@ -4432,52 +4387,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MENU_PANEL__NAME = FORM_PANEL__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MENU_PANEL__LABEL = FORM_PANEL__LABEL;
-
-	/**
-	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MENU_PANEL__LAYOUT = FORM_PANEL__LAYOUT;
-
-	/**
-	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MENU_PANEL__LAYOUT_SPEC = FORM_PANEL__LAYOUT_SPEC;
-
-	/**
-	 * The feature id for the '<em><b>Subpanels</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MENU_PANEL__SUBPANELS = FORM_PANEL__SUBPANELS;
+	int COMMAND_PANEL_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -4486,7 +4396,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_PANEL__WIDGETS = FORM_PANEL__WIDGETS;
+	int MENU_PANEL__WIDGETS = 0;
 
 	/**
 	 * The number of structural features of the '<em>Menu Panel</em>' class.
@@ -4495,7 +4405,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MENU_PANEL_FEATURE_COUNT = FORM_PANEL_FEATURE_COUNT + 0;
+	int MENU_PANEL_FEATURE_COUNT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7915,6 +7825,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getCommandPanel_CmdStyle();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.CommandPanel#getWidgets <em>Widgets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Widgets</em>'.
+	 * @see it.csi.mddtools.guigen.CommandPanel#getWidgets()
+	 * @see #getCommandPanel()
+	 * @generated
+	 */
+	EReference getCommandPanel_Widgets();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MenuPanel <em>Menu Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7923,6 +7844,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMenuPanel();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.MenuPanel#getWidgets <em>Widgets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Widgets</em>'.
+	 * @see it.csi.mddtools.guigen.MenuPanel#getWidgets()
+	 * @see #getMenuPanel()
+	 * @generated
+	 */
+	EReference getMenuPanel_Widgets();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.HiddenValue <em>Hidden Value</em>}'.
@@ -10407,6 +10339,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute COMMAND_PANEL__CMD_STYLE = eINSTANCE.getCommandPanel_CmdStyle();
 
 		/**
+		 * The meta object literal for the '<em><b>Widgets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMMAND_PANEL__WIDGETS = eINSTANCE.getCommandPanel_Widgets();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenuPanelImpl <em>Menu Panel</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -10415,6 +10355,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MENU_PANEL = eINSTANCE.getMenuPanel();
+
+		/**
+		 * The meta object literal for the '<em><b>Widgets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MENU_PANEL__WIDGETS = eINSTANCE.getMenuPanel_Widgets();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.HiddenValueImpl <em>Hidden Value</em>}' class.

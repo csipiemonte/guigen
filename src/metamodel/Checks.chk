@@ -350,15 +350,10 @@ context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPane
 // 2
 context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget o HiddenValue" + loc() :
 	commandPanelCommandWidgetCheck(this);
-// 3
-context CommandPanel ERROR "Un CommandPanel non può contenere sottopannelli " + loc() :
-	this.subpanels.size == 0;
+
 // 4
 context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
 	commandPanelLayoutCheck(this);
-// 5
-context CommandPanel ERROR "Un CommandPanel non deve avere label " + loc() :
-	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
 
 // [DM] check su MenuPanel
 // Il MenuPanel è una sottoclasse di FormPanel con alcuni constraints aggiuntivi:
@@ -373,15 +368,7 @@ context MenuPanel ERROR "Un MenuPanel deve essere contenuto in un FormPanel " + 
 // 2
 context MenuPanel ERROR "Un MenuPanel può contenere solo widget di tipo MenuView o TreeView " + loc() :
 	menuPanelWidgetCheck(this);
-// 3
-context MenuPanel ERROR "Un MenuPanel non può contenere sottopannelli " + loc() :
-	this.subpanels.size == 0;
-// 4
-context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalFlowPanelLayout " + loc() :
-	this.layout.metaType == VerticalFlowPanelLayout;
-// 5
-context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
-	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+
 	
 // [DM] check su DialogPanel	
 context DialogPanel ERROR "Un DialogPanel può essere inserito solo in un ContentPanel " + loc() :

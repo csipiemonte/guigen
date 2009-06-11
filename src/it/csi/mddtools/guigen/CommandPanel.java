@@ -6,6 +6,9 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +23,7 @@ package it.csi.mddtools.guigen;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CommandPanel#getCmdStyle <em>Cmd Style</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.CommandPanel#getWidgets <em>Widgets</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,7 +31,7 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface CommandPanel extends FormPanel {
+public interface CommandPanel extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Cmd Style</b></em>' attribute.
@@ -57,4 +61,20 @@ public interface CommandPanel extends FormPanel {
 	 * @generated
 	 */
 	void setCmdStyle(CommandStyles value);
+
+	/**
+	 * Returns the value of the '<em><b>Widgets</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Widget}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Widgets</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Widgets</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandPanel_Widgets()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Widget> getWidgets();
 } // CommandPanel

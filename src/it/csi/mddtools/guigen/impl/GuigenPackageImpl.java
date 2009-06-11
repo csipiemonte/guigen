@@ -2784,8 +2784,26 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCommandPanel_Widgets() {
+		return (EReference)commandPanelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMenuPanel() {
 		return menuPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMenuPanel_Widgets() {
+		return (EReference)menuPanelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3701,8 +3719,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		commandPanelEClass = createEClass(COMMAND_PANEL);
 		createEAttribute(commandPanelEClass, COMMAND_PANEL__CMD_STYLE);
+		createEReference(commandPanelEClass, COMMAND_PANEL__WIDGETS);
 
 		menuPanelEClass = createEClass(MENU_PANEL);
+		createEReference(menuPanelEClass, MENU_PANEL__WIDGETS);
 
 		hiddenValueEClass = createEClass(HIDDEN_VALUE);
 
@@ -3878,8 +3898,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		menuViewEClass.getESuperTypes().add(this.getCommandWidget());
 		gridPanelLayoutEClass.getESuperTypes().add(this.getPanelLayout());
 		gridWidgetLayoutSpecEClass.getESuperTypes().add(this.getWidgetLayoutSpecifier());
-		commandPanelEClass.getESuperTypes().add(this.getFormPanel());
-		menuPanelEClass.getESuperTypes().add(this.getFormPanel());
 		hiddenValueEClass.getESuperTypes().add(this.getDataWidget());
 		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
 		multiPanelEClass.getESuperTypes().add(this.getPanel());
@@ -4173,8 +4191,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(commandPanelEClass, CommandPanel.class, "CommandPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCommandPanel_CmdStyle(), this.getCommandStyles(), "cmdStyle", null, 0, 1, CommandPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCommandPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, CommandPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menuPanelEClass, MenuPanel.class, "MenuPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMenuPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, MenuPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hiddenValueEClass, HiddenValue.class, "HiddenValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
