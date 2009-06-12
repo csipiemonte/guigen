@@ -1704,6 +1704,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPanelLayout_ColumnSizes() {
+		return (EAttribute)panelLayoutEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getHorizontalFlowPanelLayout() {
 		return horizontalFlowPanelLayoutEClass;
 	}
@@ -3551,6 +3560,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		confirmButtonEClass = createEClass(CONFIRM_BUTTON);
 
 		panelLayoutEClass = createEClass(PANEL_LAYOUT);
+		createEAttribute(panelLayoutEClass, PANEL_LAYOUT__COLUMN_SIZES);
 
 		horizontalFlowPanelLayoutEClass = createEClass(HORIZONTAL_FLOW_PANEL_LAYOUT);
 
@@ -4025,6 +4035,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(confirmButtonEClass, ConfirmButton.class, "ConfirmButton", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(panelLayoutEClass, PanelLayout.class, "PanelLayout", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPanelLayout_ColumnSizes(), ecorePackage.getEString(), "columnSizes", null, 0, 1, PanelLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(horizontalFlowPanelLayoutEClass, HorizontalFlowPanelLayout.class, "HorizontalFlowPanelLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

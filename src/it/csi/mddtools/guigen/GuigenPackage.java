@@ -2797,13 +2797,31 @@ public interface GuigenPackage extends EPackage {
 	int CONFIRM_BUTTON_FEATURE_COUNT = BUTTON_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Column Sizes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_LAYOUT__COLUMN_SIZES = 0;
+
+	/**
 	 * The number of structural features of the '<em>Panel Layout</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PANEL_LAYOUT_FEATURE_COUNT = 0;
+	int PANEL_LAYOUT_FEATURE_COUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Column Sizes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HORIZONTAL_FLOW_PANEL_LAYOUT__COLUMN_SIZES = PANEL_LAYOUT__COLUMN_SIZES;
 
 	/**
 	 * The number of structural features of the '<em>Horizontal Flow Panel Layout</em>' class.
@@ -2815,6 +2833,15 @@ public interface GuigenPackage extends EPackage {
 	int HORIZONTAL_FLOW_PANEL_LAYOUT_FEATURE_COUNT = PANEL_LAYOUT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Column Sizes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VERTICAL_FLOW_PANEL_LAYOUT__COLUMN_SIZES = PANEL_LAYOUT__COLUMN_SIZES;
+
+	/**
 	 * The number of structural features of the '<em>Vertical Flow Panel Layout</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2822,6 +2849,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int VERTICAL_FLOW_PANEL_LAYOUT_FEATURE_COUNT = PANEL_LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Column Sizes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UDLRC_PANEL_LAYOUT__COLUMN_SIZES = PANEL_LAYOUT__COLUMN_SIZES;
 
 	/**
 	 * The number of structural features of the '<em>UDLRC Panel Layout</em>' class.
@@ -4298,6 +4334,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int MENU_VIEW_FEATURE_COUNT = COMMAND_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Column Sizes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_PANEL_LAYOUT__COLUMN_SIZES = PANEL_LAYOUT__COLUMN_SIZES;
 
 	/**
 	 * The feature id for the '<em><b>Columns</b></em>' attribute.
@@ -6623,6 +6668,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPanelLayout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PanelLayout#getColumnSizes <em>Column Sizes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Column Sizes</em>'.
+	 * @see it.csi.mddtools.guigen.PanelLayout#getColumnSizes()
+	 * @see #getPanelLayout()
+	 * @generated
+	 */
+	EAttribute getPanelLayout_ColumnSizes();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.HorizontalFlowPanelLayout <em>Horizontal Flow Panel Layout</em>}'.
@@ -9353,6 +9409,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass PANEL_LAYOUT = eINSTANCE.getPanelLayout();
+
+		/**
+		 * The meta object literal for the '<em><b>Column Sizes</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PANEL_LAYOUT__COLUMN_SIZES = eINSTANCE.getPanelLayout_ColumnSizes();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.HorizontalFlowPanelLayoutImpl <em>Horizontal Flow Panel Layout</em>}' class.

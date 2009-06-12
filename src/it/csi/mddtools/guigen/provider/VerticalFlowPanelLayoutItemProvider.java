@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import java.util.Collection;
 import java.util.List;
 
@@ -78,7 +79,10 @@ public class VerticalFlowPanelLayoutItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_VerticalFlowPanelLayout_type");
+		String label = ((VerticalFlowPanelLayout)object).getColumnSizes();
+		return label == null || label.length() == 0 ?
+			getString("_UI_VerticalFlowPanelLayout_type") :
+			getString("_UI_VerticalFlowPanelLayout_type") + " " + label;
 	}
 
 	/**

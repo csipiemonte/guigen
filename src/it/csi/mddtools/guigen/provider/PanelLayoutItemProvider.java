@@ -7,6 +7,8 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PanelLayout;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,13 +17,16 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PanelLayout} object.
@@ -58,8 +63,31 @@ public class PanelLayoutItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addColumnSizesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Column Sizes feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addColumnSizesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PanelLayout_columnSizes_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PanelLayout_columnSizes_feature", "_UI_PanelLayout_type"),
+				 GuigenPackage.Literals.PANEL_LAYOUT__COLUMN_SIZES,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -70,7 +98,10 @@ public class PanelLayoutItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_PanelLayout_type");
+		String label = ((PanelLayout)object).getColumnSizes();
+		return label == null || label.length() == 0 ?
+			getString("_UI_PanelLayout_type") :
+			getString("_UI_PanelLayout_type") + " " + label;
 	}
 
 	/**
@@ -83,6 +114,12 @@ public class PanelLayoutItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(PanelLayout.class)) {
+			case GuigenPackage.PANEL_LAYOUT__COLUMN_SIZES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
