@@ -9,6 +9,7 @@ import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
+import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomSecurityConstraint;
@@ -26,6 +27,7 @@ import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
+import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
@@ -49,6 +51,7 @@ import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -264,27 +267,7 @@ public class GenUtils {
 		return allW;
 	}
 
-	/**
-	 * Compila una lista dei widget appartenenti al pannello in questione o ad
-	 * uno sei suoi sottopannelli.
-	 * @param p
-	 * @return
-	 */
-	public static ArrayList<Widget> findAllWidgetsInPanel(FormPanel p) {
-		ArrayList<Widget> ris = new ArrayList<Widget>();
-		// widget primo livello
-		ris.addAll(p.getWidgets());
 
-		// widget sottopannelli
-		if (p.getSubpanels() != null) {
-			Iterator<Panel> it = p.getSubpanels().iterator();
-			while (it.hasNext()) {
-				ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
-				ris.addAll(tmp);
-			}
-		}
-		return ris;
-	}
 
 
 	/**
@@ -295,6 +278,12 @@ public class GenUtils {
 	public static ArrayList<Widget> findAllWidgetsInPanel(Panel p){
 		if(p instanceof FormPanel)
 			return findAllWidgetsInPanel((FormPanel)p);
+		else if (p instanceof WidgetsPanel)
+			return findAllWidgetsInPanel((WidgetsPanel)p);
+		else if (p instanceof CommandPanel)
+			return findAllWidgetsInPanel((CommandPanel)p);
+		else if (p instanceof MenuPanel)
+			return findAllWidgetsInPanel((MenuPanel)p);
 		else if (p instanceof TabSetPanel)
 			return findAllWidgetsInPanel((TabSetPanel)p);
 		else if (p instanceof MultiPanel)
@@ -311,6 +300,58 @@ public class GenUtils {
 			throw new IllegalArgumentException("Tipo pannello non gestito");
 	}
 
+	/**
+	 * Compila una lista dei widget appartenenti al pannello in questione o ad
+	 * uno sei suoi sottopannelli.
+	 * @param p
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(FormPanel p) {
+		ArrayList<Widget> ris = new ArrayList<Widget>();
+		// widget primo livello (con l'introduzione del WidgetsPanel non sono più ammessi widgets direttanente nel FormPanel)
+		//ris.addAll(p.getWidgets());
+
+		// widget sottopannelli
+		if (p.getSubpanels() != null) {
+			Iterator<Panel> it = p.getSubpanels().iterator();
+			while (it.hasNext()) {
+				ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
+				ris.addAll(tmp);
+			}
+		}
+		return ris;
+	}	
+	
+	
+	/**
+	 * Compila una lista dei widget appartenenti al pannello in questione.
+	 * @param p
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(WidgetsPanel p) {
+		return new ArrayList<Widget>(p.getWidgets());
+	}	
+
+
+	/**
+	 * Compila una lista dei widget appartenenti al pannello in questione.
+	 * @param p
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(CommandPanel p) {
+		return new ArrayList<Widget>(p.getWidgets());
+	}	
+
+
+	/**
+	 * Compila una lista dei widget appartenenti al pannello in questione.
+	 * @param p
+	 * @return
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(MenuPanel p) {
+		return new ArrayList<Widget>(p.getWidgets());
+	}	
+	
 
 	/**
 	 * Compila una lista dei widget contenuti nei DialogPanel di un ContentPanel
@@ -657,12 +698,14 @@ public class GenUtils {
 	public static List<ContentPanel> getAllPossibleJumps(Panel p) {
 		if (p instanceof FormPanel)
 			return getAllPossibleJumps((FormPanel)p);
+		if (p instanceof CommandPanel)
+			return getAllPossibleJumps((CommandPanel)p);
 		else if (p instanceof MultiPanel)
 			return getAllPossibleJumps((MultiPanel)p);
 		else if (p instanceof DialogPanel)
 			return getAllPossibleJumps((DialogPanel)p);
 		else
-			return null; // TODO gestire i tabset panel....
+			return null;
 	}
 
 	/**
@@ -682,6 +725,31 @@ public class GenUtils {
 					recursiveDestinations.addAll(currSubJumps);
 			}
 		}
+		// guarda i widget a primo livello => con i WidgetsPanel non ci sono più
+		/*HashSet<ContentPanel> firstLevelDestinations = new HashSet<ContentPanel>();
+		List<Widget> widgets = p.getWidgets();
+		if (widgets!=null){
+			Iterator<Widget> widgets_it = widgets.iterator();
+			while(widgets_it.hasNext()){
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(widgets_it.next());
+				if (currSubJumps!=null)
+					firstLevelDestinations.addAll(currSubJumps);
+			}
+		}*/
+
+		//recursiveDestinations.addAll(firstLevelDestinations);
+		List<ContentPanel> result= new ArrayList<ContentPanel>();
+		result.addAll(recursiveDestinations);
+		//result.addAll(firstLevelDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(CommandPanel p) {
 		// guarda i widget a primo livello
 		HashSet<ContentPanel> firstLevelDestinations = new HashSet<ContentPanel>();
 		List<Widget> widgets = p.getWidgets();
@@ -694,13 +762,11 @@ public class GenUtils {
 			}
 		}
 
-		recursiveDestinations.addAll(firstLevelDestinations);
 		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(recursiveDestinations);
 		result.addAll(firstLevelDestinations);
 		return result;
-	}
-
+	}	
+	
 	/**
 	 *
 	 * @param p
@@ -916,6 +982,8 @@ public class GenUtils {
 	public static List<JumpExtCommand> getAllPossibleExtJumps(Panel p) {
 		if (p instanceof FormPanel)
 			return getAllPossibleExtJumps((FormPanel)p);
+		if (p instanceof CommandPanel)
+			return getAllPossibleExtJumps((CommandPanel)p);		
 		else if (p instanceof MultiPanel)
 			return getAllPossibleExtJumps((MultiPanel)p);
 		else if (p instanceof DialogPanel)
@@ -941,6 +1009,31 @@ public class GenUtils {
 					recursiveDestinations.addAll(currSubJumps);
 			}
 		}
+		// guarda i widget a primo livello => con i WidgetsPanel non esistono più
+		/*HashSet<JumpExtCommand> firstLevelDestinations = new HashSet<JumpExtCommand>();
+		List<Widget> widgets = p.getWidgets();
+		if (widgets!=null){
+			Iterator<Widget> widgets_it = widgets.iterator();
+			while(widgets_it.hasNext()){
+				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(widgets_it.next());
+				if (currSubJumps!=null)
+					firstLevelDestinations.addAll(currSubJumps);
+			}
+		}*/
+
+		//recursiveDestinations.addAll(firstLevelDestinations);
+		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
+		result.addAll(recursiveDestinations);
+		//result.addAll(firstLevelDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(CommandPanel p) {
 		// guarda i widget a primo livello
 		HashSet<JumpExtCommand> firstLevelDestinations = new HashSet<JumpExtCommand>();
 		List<Widget> widgets = p.getWidgets();
@@ -953,13 +1046,11 @@ public class GenUtils {
 			}
 		}
 
-		recursiveDestinations.addAll(firstLevelDestinations);
 		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
-		result.addAll(recursiveDestinations);
 		result.addAll(firstLevelDestinations);
 		return result;
-	}
-
+	}	
+	
 	/**
 	 *
 	 * @param p
@@ -1138,6 +1229,8 @@ public class GenUtils {
 	public static List<DialogPanel> getAllPossibleShowDialogs(Panel p) {
 		if ( p instanceof FormPanel ) {
 			return getAllPossibleShowDialogs((FormPanel)p);
+		} else if ( p instanceof CommandPanel ) {
+			return getAllPossibleShowDialogs((CommandPanel)p);
 		} else if ( p instanceof MultiPanel ) {
 			return getAllPossibleShowDialogs((MultiPanel)p);
 		} else if ( p instanceof DialogPanel ) {
@@ -1166,7 +1259,32 @@ public class GenUtils {
 			}
 		}
 		
-		// guarda i widget a primo livello
+		// guarda i widget a primo livello => con i WidgetsPanel non esistono più
+		/*HashSet<DialogPanel> firstLevelDestinations = new HashSet<DialogPanel>();
+		List<Widget> widgets = p.getWidgets();
+		if ( widgets != null ) {
+			Iterator<Widget> widgets_it = widgets.iterator();
+			while ( widgets_it.hasNext() ) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(widgets_it.next());
+				if ( currSubShowDialogs != null ) {
+					firstLevelDestinations.addAll(currSubShowDialogs);
+				}
+			}
+		}*/
+
+		//recursiveDestinations.addAll(firstLevelDestinations);
+		List<DialogPanel> result = new ArrayList<DialogPanel>();
+		result.addAll(recursiveDestinations);
+		//result.addAll(firstLevelDestinations);
+		return result;
+	}
+
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(CommandPanel p) {
 		HashSet<DialogPanel> firstLevelDestinations = new HashSet<DialogPanel>();
 		List<Widget> widgets = p.getWidgets();
 		if ( widgets != null ) {
@@ -1179,9 +1297,7 @@ public class GenUtils {
 			}
 		}
 
-		recursiveDestinations.addAll(firstLevelDestinations);
 		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(recursiveDestinations);
 		result.addAll(firstLevelDestinations);
 		return result;
 	}

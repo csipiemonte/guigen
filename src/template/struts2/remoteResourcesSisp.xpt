@@ -962,9 +962,6 @@ Gestione dei LAYOUT - PANNELLI
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
 <div class="contenuti">
-	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="sisp">
-	«ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -984,9 +981,6 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la footer di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
-	«IF !this.subpanels.isEmpty || !this.widgets.isEmpty -»
-	</customtag:panelGrid>
-	«ENDIF-»
 </div>
 «ENDIF-»
 «ENDDEFINE»
@@ -999,6 +993,25 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la footer di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR MenuPanel»
 «REM»Non faccio niente (per il momento)«ENDREM»
+«ENDDEFINE»
+
+
+«REM»
+************** WidgetsPanel **************
+«ENDREM»
+
+«REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
+«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«IF !this.widgets.isEmpty -»
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="sisp">
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
+«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«IF !this.widgets.isEmpty -»
+	</customtag:panelGrid>
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -1063,20 +1076,20 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(fp, this, isFirst, isLast)» «getCustomtagHeaderColspan(fp, this)»>
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 </customtag:column>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF needHandleCustomtagCloseHspan(fp, this) -»
+«DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+«IF needHandleCustomtagCloseHspan(wp, this) -»
 <s:else>
-	<customtag:column textValue="" «getCustomtagCloseColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)»/>
+	<customtag:column textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
 </s:else>
 «ENDIF-»
 «ENDDEFINE»
@@ -1085,8 +1098,8 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- PlainText ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
-<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)fp.eRootContainer, this)»>
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
+<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)wp.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
@@ -1105,15 +1118,15 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
 
@@ -1141,46 +1154,46 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Table ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR Table»
-<customtag:column «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)»>
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
-<customtag:column «getCustomtagHeaderColspan(fp, this)» «getCustomtagColumnPosition(fp, this, isFirst, isLast)»>
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlHeader(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlFooter(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
 «ENDDEFINE»
 
 
 «REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlHeader(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlFooter(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(FormPanel fp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
 «ENDDEFINE»
 
 

@@ -30,6 +30,7 @@ import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -132,7 +133,7 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getGridPanelColumnsNumber(FormPanel p) {
+	public static String getGridPanelColumnsNumber(WidgetsPanel p) {
 		int columns = 0;
 		
 		if ( p.getLayout() instanceof VerticalFlowPanelLayout ) {
@@ -154,7 +155,7 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static ArrayList<Widget> getWidgetsByOrder(FormPanel p) {
+	public static ArrayList<Widget> getWidgetsByOrder(WidgetsPanel p) {
 		ArrayList<Widget> res = new ArrayList<Widget>();
 		
 		if ( p.getLayout() instanceof VerticalFlowPanelLayout ) {
@@ -193,7 +194,7 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static Widget getWidgetByRowColumn(FormPanel p, int row, int col, Integer hspan) {
+	public static Widget getWidgetByRowColumn(WidgetsPanel p, int row, int col, Integer hspan) {
 		Widget res = null;
 		Iterator<Widget> it = p.getWidgets().iterator();
 		while ( it.hasNext() ) {
@@ -239,25 +240,25 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getCustomtagColumnPosition(FormPanel fp, Widget w, Boolean isFirst, Boolean isLast) {
+	public static String getCustomtagColumnPosition(WidgetsPanel wp, Widget w, Boolean isFirst, Boolean isLast) {
 		String P_FIRST = "position=\"first\"";
 		String P_LAST  = "position=\"last\"";
 		
 		String res = "";
 		
-		if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		if ( wp.getLayout() instanceof VerticalFlowPanelLayout ) {
 			// niente da impostare, per il momento va bene blank
 		} 
-		else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		else if ( wp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 			if ( isFirst ) {
 				res = P_FIRST;
 			} else if ( isLast ) {
 				res = P_LAST;
 			}
 		} 
-		else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		else if ( wp.getLayout() instanceof GridPanelLayout ) {
 			int wcols = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getColumn();   // colonna del widget
-			int pcols = ((GridPanelLayout)fp.getLayout()).getColumns();          // colonne totali nel pannello
+			int pcols = ((GridPanelLayout)wp.getLayout()).getColumns();          // colonne totali nel pannello
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget   
 			
 			if ( wcols == 1 ) {
@@ -286,9 +287,9 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static boolean needHandleCustomtagHeaderHspan(FormPanel fp, Widget w) {
+	public static boolean needHandleCustomtagHeaderHspan(WidgetsPanel wp, Widget w) {
 		boolean res = false;
-		if ( fp.getLayout() instanceof GridPanelLayout ) {
+		if ( wp.getLayout() instanceof GridPanelLayout ) {
 			if ( ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan() > 1 ) {
 				res = true;
 			}
@@ -308,12 +309,12 @@ public class GenUtilsLayout {
 	 * @param w
 	 * @return
 	 */
-	public static boolean needHandleCustomtagCloseHspan(FormPanel fp, Widget w) {
+	public static boolean needHandleCustomtagCloseHspan(WidgetsPanel wp, Widget w) {
 		boolean res = true;
-		if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		if ( wp.getLayout() instanceof VerticalFlowPanelLayout ) {
 			res = false;
-		} else if ( fp.getLayout() instanceof GridPanelLayout ) {
-			int pcols = ((GridPanelLayout)fp.getLayout()).getColumns();          // colonne totali nel pannello
+		} else if ( wp.getLayout() instanceof GridPanelLayout ) {
+			int pcols = ((GridPanelLayout)wp.getLayout()).getColumns();          // colonne totali nel pannello
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget 
 			if ( hspan == pcols ) {
 				res = false;
@@ -330,11 +331,11 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getCustomtagHeaderColspan(FormPanel fp, Widget w) {
+	public static String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) {
 		String res = "";
 		int colspan = 1;
 
-		if ( needHandleCustomtagHeaderHspan(fp, w) ) {
+		if ( needHandleCustomtagHeaderHspan(wp, w) ) {
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
 			colspan = ((hspan * 2) - 1);
 		}
@@ -358,11 +359,11 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getCustomtagHeaderColspan(FormPanel fp, PlainText w) {
+	public static String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) {
 		String res = "";
 		int colspan = 1;
 
-		if ( needHandleCustomtagHeaderHspan(fp, w) ) {
+		if ( needHandleCustomtagHeaderHspan(wp, w) ) {
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
 			colspan = ((hspan * 2) - 1);
 		}
@@ -385,16 +386,16 @@ public class GenUtilsLayout {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getCustomtagCloseColspan(FormPanel fp, Widget w) {
+	public static String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) {
 		String res = "";
 		
-		if ( fp.getLayout() instanceof VerticalFlowPanelLayout ) {
+		if ( wp.getLayout() instanceof VerticalFlowPanelLayout ) {
 			// NON CI DOVREI PASSARE... comunque lasciamo
 		} 
-		else if ( fp.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		else if ( wp.getLayout() instanceof HorizontalFlowPanelLayout ) {
 			// niente da impostare, va bene blank
 		} 
-		else if ( fp.getLayout() instanceof GridPanelLayout ) {
+		else if ( wp.getLayout() instanceof GridPanelLayout ) {
 			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();    // span del widget
 			int s = 2;
 			if ( hspan > 1 ) {

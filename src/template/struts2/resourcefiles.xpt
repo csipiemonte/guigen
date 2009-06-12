@@ -239,6 +239,8 @@ Gestione dei pannelli
 <!-- Creazione del sottopannello «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
+«ELSEIF this.metaType == WidgetsPanel-»
+	«EXPAND setupWidgetsPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WidgetsPanel)this-»
 «ELSEIF this.metaType == MenuPanel-»
 	«EXPAND setupMenuPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
@@ -262,17 +264,17 @@ Gestione dei pannelli
 
 
 «REM»
-************** Form Panel e tipi derivati (CommandPanel, MenuPanel) **************
+************** FormPanel **************
 «ENDREM»
 
-«REM»Genera un form panel«ENDREM»
+«REM»Genera un FormPanel«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«ENDIF-»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
-	«EXPAND createWidgets(model, cp) FOR this»
+	«REM»«EXPAND createWidgets(model, cp) FOR this»«ENDREM»
 
 	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
 	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
@@ -282,6 +284,16 @@ Gestione dei pannelli
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»
+************** WidgetsPanel e altri pannelli con widgets (CommandPanel, MenuPanel) **************
+«ENDREM»
+«DEFINE setupWidgetsPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
+	«EXPAND createWidgets(model, cp) FOR this»
+	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 «ENDDEFINE»
 
 «REM»Genera un CommandPanel«ENDREM»
@@ -352,10 +364,8 @@ Gestione dei pannelli
 <!-- Creazione del multi panel «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
-«ELSEIF this.metaType == MenuPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
 	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
@@ -464,8 +474,9 @@ Gestione dei Widget
 ==========================================================================================================================
 «ENDREM»
 
-«REM»TODO: nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine corretto«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR FormPanel»
+«REM»Crea i Widgets contenuti in un WidgetsPanel.
+Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine corretto«ENDREM»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR WidgetsPanel»
 «FOREACH (List[Widget])getWidgetsByOrder(this) AS currWidg ITERATOR wi-»
 	«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR currWidg»
 «ENDFOREACH-»
@@ -473,16 +484,24 @@ Gestione dei Widget
 
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
-		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Widget)currWidg»
+		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Button)currWidg»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
+«REM»Crea i Widgets contenuti in un MenuPanel (MenuView o TreeView)«ENDREM»
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR MenuPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
-		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Widget)currWidg»
+		«IF currWidg.metaType == MenuView»
+			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (MenuView)currWidg»
+		«ELSEIF currWidg.metaType == TreeView»
+			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (TreeView)currWidg»
+		«ELSE»
+			«ERROR "Tipo di widget non definito per un MenuPanel: " + loc()»
+		«ENDIF»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
+«REM»Crea i Widgets contenuti in un MsgBoxPanel (PlainText)«ENDREM»
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
 	«FOREACH this.textMessages AS currTxt ITERATOR wi-»
 		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (PlainText)currTxt»
@@ -490,25 +509,29 @@ Gestione dei Widget
 «ENDDEFINE»
 
 
+«REM»
+************** Clausole di visibilità e markup di Layout dei Widgets  **************
+«ENDREM»
+
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget generico (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 <s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
 «EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo PlainText (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
 <s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
 «EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, fp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
 «ENDDEFINE»
 
 
@@ -533,6 +556,31 @@ Gestione dei Widget
 «ENDDEFINE»
 
 
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo MenuView (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast) FOR this-»
+</s:if>
+«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo TreeView (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast) FOR this-»
+</s:if>
+«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
+
+
+«REM»
+************** Markup HTML dei Widgets specifici  **************
+«ENDREM»
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato, se succede da un errore)«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»

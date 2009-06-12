@@ -268,33 +268,6 @@ Gestione dei LAYOUT - PANNELLI
 «ENDDEFINE»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
-«ENDDEFINE»
-
-«REM»comment«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
-«ENDDEFINE»
-
-
-«REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
@@ -307,7 +280,52 @@ Gestione dei LAYOUT - PANNELLI
 «ENDIF-»
 «ENDDEFINE»
 
-«REM»comment«ENDREM»
+
+«REM»
+************** WidgetsPanel e pannelli conteneti widgets (CommandPanel e MenuPanel) **************
+«ENDREM»
+
+«REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
@@ -320,7 +338,21 @@ Gestione dei LAYOUT - PANNELLI
 «ENDIF-»
 «ENDDEFINE»
 
-«REM»comment«ENDREM»
+
+«REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+«REM»Genera la Footer di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
 	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
@@ -402,13 +434,13 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSE-»
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»
@@ -416,13 +448,13 @@ Gestione dei LAYOUT - WIDGETS
 
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesRupar::widgetControlFooter(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlFooter(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesNeutral::widgetControlFooter(wp, isFirst, isLast) FOR this»
 «ELSE-»
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»
@@ -430,13 +462,13 @@ Gestione dei LAYOUT - WIDGETS
 
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetClose(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesRupar::widgetClose(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetClose(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesNeutral::widgetClose(wp, isFirst, isLast) FOR this»
 «ELSE-»
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»
@@ -446,13 +478,13 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- PlainText ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, FormPanel fp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
 «IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(fp, isFirst, isLast) FOR this»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
 «ELSE-»
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»
@@ -483,7 +515,6 @@ Gestione dei LAYOUT - WIDGETS
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»
 «ENDDEFINE»
-
 
 
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
@@ -524,6 +555,94 @@ Gestione dei LAYOUT - WIDGETS
 	«EXPAND remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
 «ELSEIF model.portale == PortalNames::NEUTRAL -»
 	«EXPAND remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»--------------- MenuView ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetClose(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetClose(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
 «ELSE-»
 	«ERROR "Portale " + model.portale + " non gestito"»
 «ENDIF-»

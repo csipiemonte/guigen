@@ -93,8 +93,13 @@ public class GenUtilsChecks {
 		return true;
 	}
 
-	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(
-			ContentPanel cp) {
+	
+	/**
+	 * Verifica se esistono dei DataBinding (semplici o multi) non risolvibili
+	 * @param cp
+	 * @return
+	 */
+	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(ContentPanel cp) {
 		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
 		ArrayList<Widget> cpWidgets = GenUtils.findAllWidgetsInContentPanel(cp);
 		Iterator<Widget> it_w = cpWidgets.iterator();
@@ -104,23 +109,23 @@ public class GenUtilsChecks {
 		
 			if (w instanceof DataWidget) {
 				if (((DataWidget) w).getDatabinding() != null) {
-					
-					ApplicationData ad = ((DataWidget) w).getDatabinding()
-							.getAppData();
-					if (!cp.getAppData().contains(ad))
+					ApplicationData ad = ((DataWidget) w).getDatabinding().getAppData();
+					if (!cp.getAppData().contains(ad)) {
 						ris.add(ad);
+					}
 				}
 			}
 			if (w instanceof MultiDataWidget) {
 				if (((MultiDataWidget) w).getMultiDataBinding() != null) {
-					ApplicationData ad = ((MultiDataWidget) w)
-							.getMultiDataBinding().getAppData();
-					if (!cp.getAppData().contains(ad))
+					ApplicationData ad = ((MultiDataWidget) w).getMultiDataBinding().getAppData();
+					if (!cp.getAppData().contains(ad)) {
 						ris.add(ad);
+					}
 				}
 			}
 		}
 
 		return ris;
 	}
+
 }
