@@ -73,22 +73,26 @@ import org.eclipse.emf.ecore.EObject;
 public class GenUtils {
 
 	/**
-	 *
-	 * @param codVer
-	 * @return
+	 * Verifica che il codice della versione sia nella forma canonica:
+	 * 
+	 * &lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;
+	 * 
+	 * @param codVer Codice della versione.
+	 * @return true se il codice rispetta la convenzione, false altrimenti.
 	 */
 	public static boolean isVersioneFormalmenteCorretta(String codVer){
 		StringTokenizer stok = new StringTokenizer(codVer, ".");
-		if (stok.countTokens()!=3)
+		if (stok.countTokens()!=3) {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
 
 
 	/**
-	 *
-	 * @param sourceId
+	 * Genera un ID univoco da assegnare ad una Protected Region.
+	 * @param sourceId Stringa da cui ricavare l'ID (nome ContentPanel, Panel, Widget, ecc...)
 	 * @return un id univoco della regione protetta univocamente derivabile
 	 * da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
 	 * creare problemi a seguito di eventuali formattazioni automatiche dei
@@ -104,9 +108,9 @@ public class GenUtils {
 	// content panels
 
 	/**
-	 * Restituisce tutti i ContentPanels dell'applicazione.
-	 * @param  model
-	 * @return
+	 * Restituisce tutti i ContentPanel dell'applicazione.
+	 * @param  model  GUIModel che rappresenta l'applicazione.
+	 * @return Lista dei ContentPanel dell'applicazione.
 	 * @author [DM]
 	 */
 	public static List<ContentPanel> getAllContentPanels(GUIModel model) {
@@ -116,9 +120,9 @@ public class GenUtils {
 
 
 	/**
-	 *
-	 * @param appArea
-	 * @return
+	 * Restituisce tutti i ContentPanels contenuti in una ApplicationArea.
+	 * @param appArea  L'ApplicationArea interessata.
+	 * @return Lista dei ContentPanel dell'ApplicationArea data.
 	 * @author [DM]
 	 */
 	public static List<ContentPanel> getAllContentPanels(ApplicationArea appArea) {
@@ -137,8 +141,9 @@ public class GenUtils {
 
 
 	/**
-	 *
-	 * @return
+	 * Verifica che il name del ContentPanel sia univoco su tutta l'applicazione.
+	 * @param contentPanel Il ContentPanel da verificare.
+	 * @return true se il name del content panel è univoco, false altrimenti.
 	 */
 	public static boolean isContentPanelUnique(ContentPanel contentPanel) {
 		ApplicationArea appArea = null;
@@ -166,63 +171,68 @@ public class GenUtils {
 	// find parent content panel
 
 	/**
-	 *
-	 * @param a
-	 * @return
+	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
+	 * (direttamente o indirettamente) il Command in questione.
+	 * @param a Il Command di cui si vuole conoscere il ContentPanel.
+	 * @return Il ContentPanel che contiene il Command.
 	 */
-	public static ContentPanel findParentContentPanel (Command a){
+	public static ContentPanel findParentContentPanel (Command a) {
 		EObject containerOfAction = a.eContainer();
 		//String name= containerOfAction.eClass().getName();
-		if (containerOfAction instanceof EventHandler){
-			EObject widget=containerOfAction.eContainer();
+		if (containerOfAction instanceof EventHandler) {
+			EObject widget = containerOfAction.eContainer();
 			EObject panel = widget.eContainer();
-			if(panel instanceof RadioButtons)
+			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
-			else if(widget instanceof MenuItem || widget instanceof Menu)
+			} else if(widget instanceof MenuItem || widget instanceof Menu) {
 				return null; // .. in realtà non è un pannello
+			}
 			return findParentContentPanel((Panel)panel);
 		}
-		else if (containerOfAction instanceof CommandOutcome){
-			ExecCommand execAct= (ExecCommand)containerOfAction.eContainer();
+		else if (containerOfAction instanceof CommandOutcome) {
+			ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
 			return findParentContentPanel(execAct);
 		}
-		else if (containerOfAction instanceof SequenceCommand){
+		else if (containerOfAction instanceof SequenceCommand) {
 			// sequence action
 			return findParentContentPanel(((SequenceCommand)containerOfAction));
 		}
-		else if (containerOfAction instanceof ContentPanel){
+		else if (containerOfAction instanceof ContentPanel) {
 			return (ContentPanel)containerOfAction;
 		}
-		else{
+		else {
 			return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"
 		}
 
 	}
 
 	/**
-	 *
-	 * @param w
-	 * @return
+	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
+	 * (direttamente o indirettamente) il widget in questione.
+	 * @param w Il Widget di cui si vuole conoscere il ContentPanel.
+	 * @return Il ContentPanel che contiene il Widget.
 	 */
-	public static ContentPanel findParentContentPanel(Widget w){
+	public static ContentPanel findParentContentPanel(Widget w) {
 		EObject parent = w.eContainer();
-		if(w instanceof RadioButton)
+		if(w instanceof RadioButton) {
 			parent = parent.eContainer(); //old parent:RadioButtons
+		}
 		return findParentContentPanel((Panel)parent);
 	}
 
 	/**
-	 * Risale la gerarchia dei pannelli fino ad arrivare al content panel che contiene
+	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
 	 * (direttamente o indirettamente) il pannello in questione.
-	 * @param p
-	 * @return
+	 * @param p Il Panel di cui si vuole conoscere il ContentPanel.
+	 * @return Il ContentPanel che contiene il Panel.
 	 */
 	public static ContentPanel findParentContentPanel(Panel p){
 		EObject parent = p.eContainer();
-		if (parent instanceof ContentPanel)
+		if (parent instanceof ContentPanel) {
 			return (ContentPanel)parent;
-		else
+		} else {
 			return findParentContentPanel((Panel)parent);
+		}
 	}
 
 
@@ -231,10 +241,10 @@ public class GenUtils {
 
 	/**
 	 * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del
-	 * content panel in oggetto. Se il content panel è nullo restituisco la lista completa
+	 * ContentPanel in oggetto. Se il ContentPanel è nullo restituisco la lista completa
 	 * dei widget dell'applicazione
-	 * @param cp
-	 * @return
+	 * @param cp Il ContentPanel che si vuole esaminare
+	 * @return La lista dei Widget del ContentPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp) {
 		ArrayList<Widget> res = new ArrayList<Widget>();
@@ -254,15 +264,16 @@ public class GenUtils {
 
 	/**
 	 * Restituisce la lista completa dei widget dell'applicazione
-	 * @return
+	 * @return La lista dei Widget dell'applicazione.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInApplication() {
 		TreeIterator<EObject> all= GuigenPackage.eINSTANCE.eAllContents();
 		ArrayList<Widget> allW = new ArrayList<Widget>();
-		while(all.hasNext()){
+		while(all.hasNext()) {
 			EObject curr = all.next();
-			if (curr instanceof Widget)
+			if (curr instanceof Widget) {
 				allW.add((Widget)curr);
+			}
 		}
 		return allW;
 	}
@@ -308,9 +319,6 @@ public class GenUtils {
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(FormPanel p) {
 		ArrayList<Widget> ris = new ArrayList<Widget>();
-		// widget primo livello (con l'introduzione del WidgetsPanel non sono più ammessi widgets direttanente nel FormPanel)
-		//ris.addAll(p.getWidgets());
-
 		// widget sottopannelli
 		if (p.getSubpanels() != null) {
 			Iterator<Panel> it = p.getSubpanels().iterator();
@@ -612,11 +620,14 @@ public class GenUtils {
 	 */
 	public static boolean jumpToSameContentPanel(JumpCommand jc){
 		ContentPanel cp = findParentContentPanel(jc);
-		if (cp==null || !cp.equals(jc.getJumpTo()))
+		if (cp==null || !cp.equals(jc.getJumpTo())) {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
+
+	
 	//////////////////////////////////////////////////////////////////////////////////
 	// get all possible jumps
 
@@ -721,26 +732,14 @@ public class GenUtils {
 			Iterator<Panel> panels_it = subpanels.iterator();
 			while(panels_it.hasNext()){
 				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
-				if (currSubJumps!=null)
+				if (currSubJumps!=null) {
 					recursiveDestinations.addAll(currSubJumps);
+				}
 			}
 		}
-		// guarda i widget a primo livello => con i WidgetsPanel non ci sono più
-		/*HashSet<ContentPanel> firstLevelDestinations = new HashSet<ContentPanel>();
-		List<Widget> widgets = p.getWidgets();
-		if (widgets!=null){
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while(widgets_it.hasNext()){
-				List<ContentPanel> currSubJumps = getAllPossibleJumps(widgets_it.next());
-				if (currSubJumps!=null)
-					firstLevelDestinations.addAll(currSubJumps);
-			}
-		}*/
 
-		//recursiveDestinations.addAll(firstLevelDestinations);
 		List<ContentPanel> result= new ArrayList<ContentPanel>();
 		result.addAll(recursiveDestinations);
-		//result.addAll(firstLevelDestinations);
 		return result;
 	}
 
@@ -757,8 +756,9 @@ public class GenUtils {
 			Iterator<Widget> widgets_it = widgets.iterator();
 			while(widgets_it.hasNext()){
 				List<ContentPanel> currSubJumps = getAllPossibleJumps(widgets_it.next());
-				if (currSubJumps!=null)
+				if (currSubJumps!=null) {
 					firstLevelDestinations.addAll(currSubJumps);
+				}
 			}
 		}
 
@@ -774,10 +774,11 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p) {
 		// Un dialog panel può contenere jump solo nel command panel
-		if (p.getCommands()!=null)
+		if (p.getCommands()!=null) {
 			return getAllPossibleJumps(p.getCommands());
-		else
+		} else {
 			return new ArrayList<ContentPanel>();
+		}
 	}
 
 	/**
@@ -793,8 +794,9 @@ public class GenUtils {
 			Iterator<Panel> panels_it = subpanels.iterator();
 			while(panels_it.hasNext()){
 				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
-				if (currSubJumps!=null)
+				if (currSubJumps!=null) {
 					recursiveDestinations.addAll(currSubJumps);
+				}
 			}
 		}
 		List<ContentPanel> result= new ArrayList<ContentPanel>();
@@ -814,8 +816,9 @@ public class GenUtils {
 		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
 		while(evh_it.hasNext()){
 			List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
-			if (currSubJumps!=null)
+			if (currSubJumps!=null) {
 				resultSet.addAll(currSubJumps);
+			}
 		}
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		result.addAll(resultSet);
@@ -829,9 +832,9 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh) {
 		Command a = evh.getCommand();
-		if (a==null)
+		if (a==null) {
 			return null;
-		else{
+		} else {
 			return getAllPossibleJumps(a);
 		}
 	}
@@ -1009,22 +1012,9 @@ public class GenUtils {
 					recursiveDestinations.addAll(currSubJumps);
 			}
 		}
-		// guarda i widget a primo livello => con i WidgetsPanel non esistono più
-		/*HashSet<JumpExtCommand> firstLevelDestinations = new HashSet<JumpExtCommand>();
-		List<Widget> widgets = p.getWidgets();
-		if (widgets!=null){
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while(widgets_it.hasNext()){
-				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(widgets_it.next());
-				if (currSubJumps!=null)
-					firstLevelDestinations.addAll(currSubJumps);
-			}
-		}*/
 
-		//recursiveDestinations.addAll(firstLevelDestinations);
-		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
 		result.addAll(recursiveDestinations);
-		//result.addAll(firstLevelDestinations);
 		return result;
 	}
 
@@ -1113,9 +1103,9 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh) {
 		Command a = evh.getCommand();
-		if (a==null)
+		if (a==null) {
 			return null;
-		else{
+		} else{
 			return getAllPossibleExtJumps(a);
 		}
 	}
@@ -1259,23 +1249,8 @@ public class GenUtils {
 			}
 		}
 		
-		// guarda i widget a primo livello => con i WidgetsPanel non esistono più
-		/*HashSet<DialogPanel> firstLevelDestinations = new HashSet<DialogPanel>();
-		List<Widget> widgets = p.getWidgets();
-		if ( widgets != null ) {
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while ( widgets_it.hasNext() ) {
-				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(widgets_it.next());
-				if ( currSubShowDialogs != null ) {
-					firstLevelDestinations.addAll(currSubShowDialogs);
-				}
-			}
-		}*/
-
-		//recursiveDestinations.addAll(firstLevelDestinations);
 		List<DialogPanel> result = new ArrayList<DialogPanel>();
 		result.addAll(recursiveDestinations);
-		//result.addAll(firstLevelDestinations);
 		return result;
 	}
 
