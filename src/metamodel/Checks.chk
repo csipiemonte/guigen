@@ -178,6 +178,8 @@ context WidgetsPanel ERROR "Il WidgetsPanel ha il layout 'Grid': e' necessario i
     	)
     );
 
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto, il numero di colonne non corrisponde al numero atteso, la somma delle colonne non è 100 " + loc() :
+	columnSizesWidgetsPanelCheck(this);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

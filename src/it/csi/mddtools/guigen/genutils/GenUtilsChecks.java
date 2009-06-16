@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.CommandPanel;
@@ -18,6 +19,7 @@ import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 
 /**
@@ -128,4 +130,40 @@ public class GenUtilsChecks {
 		return ris;
 	}
 
+	
+	/**
+	 * Verifica che l'attributo columnSizes sia formalmente corretto.
+	 * @param wp
+	 * @return
+	 */
+	public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
+		StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
+		int cols = st.countTokens();
+		
+		// verifico che il numero delle colonne sia quello atteso
+		int expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
+		if ( cols != expectedCols ) {
+			return false;
+		}
+		
+		// verifico che ciascuna colonna sia fatta in formato numerico intero
+		int colsSum = 0;
+		while ( st.hasMoreTokens() ) {
+			try {
+				colsSum += Integer.parseInt(st.nextToken());
+			} catch ( NumberFormatException e ) {
+				//
+				return false;
+			}
+		}
+		
+		// verifico che la somma di tutte le colonne corrisponda a 100
+		if ( colsSum != 100 ) {
+			return false;
+		}
+		
+		// tutto bene, ritorno true
+		return true;
+	}
+	
 }

@@ -138,13 +138,32 @@ public class GenUtilsLayout {
 		
 		if ( p.getLayout() instanceof VerticalFlowPanelLayout ) {
 			columns = 2;
-		} else if ( p.getLayout() instanceof GridPanelLayout ) {
+		} 
+		else if ( p.getLayout() instanceof GridPanelLayout ) {
 			columns = ((GridPanelLayout)p.getLayout()).getColumns() * 2;
-		} else if ( p.getLayout() instanceof HorizontalFlowPanelLayout ) {
+		} 
+		else if ( p.getLayout() instanceof HorizontalFlowPanelLayout ) {
 			columns = p.getWidgets().size() * 2;
 		}
 		
 		return Integer.toString(columns);
+	}
+
+
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getPanelGridPercentCols(WidgetsPanel p) {
+		String res = "";
+		if ( !GenUtils.isNullOrEmpty(p.getLayout().getColumnSizes()) ) {
+			if ( p.getLayout() instanceof VerticalFlowPanelLayout || p.getLayout() instanceof GridPanelLayout ) {
+				res = "percentCols=\"" + p.getLayout().getColumnSizes() + "\"";
+			}
+		}
+		return res;
 	}
 
 
