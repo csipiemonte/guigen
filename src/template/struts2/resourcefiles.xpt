@@ -240,23 +240,25 @@ Gestione dei pannelli
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == WidgetsPanel-»
-	«EXPAND setupWidgetsPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WidgetsPanel)this-»
+	«EXPAND setupWidgetsPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WidgetsPanel)this-»
 «ELSEIF this.metaType == MenuPanel-»
 	«EXPAND setupMenuPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
 	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
-	«EXPAND setupMultiPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
+	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
 «ELSEIF this.metaType == WizardPanel-»
-	«EXPAND setupWizardPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
+	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
 «ELSEIF this.metaType == StdMessagePanel-»
-	«EXPAND setupStdMessagePanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
+	«EXPAND setupStdMessagePanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
 «ELSEIF this.metaType == UserInfoPanel-»
-	«EXPAND setupUserInfoPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserInfoPanel)this-»
+	«EXPAND setupUserInfoPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserInfoPanel)this-»
 «ELSEIF this.metaType == UserDefinedPanel-»
-	«EXPAND setupUserDefinedPanel(model,skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
+	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
+«ELSEIF this.metaType == MsgBoxPanel-»
+	«EXPAND setupMsgBoxPanel(model, cp) FOR (MsgBoxPanel)this-»
 «ELSE-»
 	«ERROR "ERRORE tipo di pannello " + this.metaType + " non gestito! " + loc()»
 «ENDIF-»
@@ -448,7 +450,7 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 «EXPAND remoteResources::dialogPanelControlHeader(model) FOR this-»
 
 «FOREACH this.msgBoxes AS currentMsgBox-»
-	«EXPAND setupMsgBoxPanel(model, cp) FOR currentMsgBox-»
+	«EXPAND setupMsgBoxPanel(model, cp, this) FOR currentMsgBox-»
 «ENDFOREACH-»
 
 «EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, true, null) FOR this.commands-»
@@ -461,11 +463,19 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 «REM»
 ************** MsgBoxPanel **************
 «ENDREM»
-«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+
+«REM»Crea un MsgBoxPanel contenuto in un DialogPanel«ENDREM»
+«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, DialogPanel dp) FOR MsgBoxPanel»
 «EXPAND remoteResources::msgBoxPanelControlHeader(model) FOR this-»
 «EXPAND createWidgets(model, cp) FOR this»
 «EXPAND remoteResources::msgBoxPanelControlFooter(model) FOR this-»
 «ENDDEFINE»
+
+«REM»Crea un MsgBoxPanel contenuto in un FormPanel«ENDREM»
+«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+«EXPAND createWidgets(model, cp) FOR this»
+«ENDDEFINE»
+
 
 
 «REM»

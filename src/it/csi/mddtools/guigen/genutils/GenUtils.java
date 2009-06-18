@@ -307,6 +307,8 @@ public class GenUtils {
 			return new ArrayList<Widget>(); // [DM] non ha sottopannelli, ritorno un ArrayList vuoto
 		else if (p instanceof UserDefinedPanel)
 			return new ArrayList<Widget>(); // [DM] come lo gestiamo? non posso sapere a priori se ha qualcosa, ritorno un ArrayList vuoto
+		else if (p instanceof MsgBoxPanel)
+			return findAllWidgetsInPanel((MsgBoxPanel)p);
 		else
 			throw new IllegalArgumentException("Tipo pannello non gestito");
 	}
@@ -434,9 +436,9 @@ public class GenUtils {
 	 * @return
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(MultiPanel mp) {
-		if (mp.getPanels() == null)
+		if ( mp.getPanels() == null ) {
 			return null;
-		else {
+		} else {
 			ArrayList<Widget> ris = new ArrayList<Widget>();
 			if (mp.getPanels() != null) {
 				Iterator<Panel> it = mp.getPanels().iterator();
@@ -449,6 +451,10 @@ public class GenUtils {
 		}
 	}
 
+	
+	
+	
+	
 
 	//////////////////////////////////////////////////////////////////////////////////
 

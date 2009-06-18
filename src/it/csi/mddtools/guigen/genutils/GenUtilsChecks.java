@@ -9,7 +9,9 @@ import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
+import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.HiddenValue;
+import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.MultiDataWidget;
@@ -137,31 +139,33 @@ public class GenUtilsChecks {
 	 * @return
 	 */
 	public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
-		StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
-		int cols = st.countTokens();
-		
-		// verifico che il numero delle colonne sia quello atteso
-		int expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
-		if ( cols != expectedCols ) {
-			return false;
-		}
-		
-		// verifico che ciascuna colonna sia fatta in formato numerico intero
-		int colsSum = 0;
-		while ( st.hasMoreTokens() ) {
-			try {
-				colsSum += Integer.parseInt(st.nextToken());
-			} catch ( NumberFormatException e ) {
-				//
+		// per il momento ignoriamo l'HorizontalFlowPanelLayout
+		if ( wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout ) {
+			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
+			int cols = st.countTokens();
+	
+			// verifico che il numero delle colonne sia quello atteso
+			int expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
+			if ( cols != expectedCols ) {
+				return false;
+			}
+	
+			// verifico che ciascuna colonna sia fatta in formato numerico intero
+			int colsSum = 0;
+			while ( st.hasMoreTokens() ) {
+				try {
+					colsSum += Integer.parseInt(st.nextToken());
+				} catch ( NumberFormatException e ) {
+					return false;
+				}
+			}
+	
+			// verifico che la somma di tutte le colonne corrisponda a 100
+			if ( colsSum != 100 ) {
 				return false;
 			}
 		}
-		
-		// verifico che la somma di tutte le colonne corrisponda a 100
-		if ( colsSum != 100 ) {
-			return false;
-		}
-		
+
 		// tutto bene, ritorno true
 		return true;
 	}
