@@ -842,6 +842,14 @@ public class ShowDialogCommand implements ICommand {
 	«ENDLET»
 «ENDDEFINE»
 
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR Calendar»
+	// Calendar «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+
 «DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
 	private «toJavaType(this, model)» _«name»;
 	

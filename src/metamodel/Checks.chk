@@ -188,6 +188,7 @@ context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attribu
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
+
 context Menu ERROR "Un menu deve avere almeno un menu item"+loc() :
 	this.item!=null && this.item.size>0;
 
@@ -231,7 +232,12 @@ context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un
 context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito " + loc() :
 	this.eContainer.metaType == CommandPanel;
  
- 
+ // [DM] Calendar
+ context Calendar ERROR "Un Calendar deve avere un DataType di tipo DATE " + loc() :
+ 	this.dataType.metaType == SimpleType && ((SimpleType)(this.dataType)).code == guigen::SimpleTypeCodes::DATE;
+
+ context Calendar if this.databinding != null ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
+	calendarDataBindingTypeCheck(this);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
@@ -296,7 +302,7 @@ context TreeView ERROR "ad una TreeView è possibile associare solo la gestione d
 
 // per rendere "eventActive" una colonna di una table occorre specificare un event handler clicked nella table
 context Column ERROR "una colonna di una Table può essere dichiarata 'eventActive' solo se la tabella "+
-	"definisce un Event Handler di tipo CLICKED:"+loc() :
+	"definisce un Event Handler di tipo CLICKED: "+loc() :
 	!eventActive ||
 	(eventActive)
 	&& 
@@ -307,25 +313,26 @@ context Column ERROR "una colonna di una Table può essere dichiarata 'eventActiv
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
 context ContentPanel ERROR "Il content panel "+name+" non referenzia tutti gli Application Data "+
-	"referenziati dai widget in esso contenuti. AppData mancanti:"+findUnresolvedAppDataBinding() :
-	findUnresolvedAppDataBinding().size==0; 
+	"referenziati dai widget in esso contenuti. AppData mancanti: "+findUnresolvedAppDataBinding() :
+	findUnresolvedAppDataBinding().size == 0; 
 	
-context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding"+loc() :
-	this.appData!=null;
+context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding "+loc() :
+	this.appData != null;
 
-context ApplicationData ERROR "E' necessario specificare il nome dell Application Data"+loc() :
-	this.name!=null && this.name.length>0;
+context ApplicationData ERROR "E' necessario specificare il nome dell Application Data "+loc() :
+	this.name != null && this.name.length > 0;
 
-context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data"+loc() :
-	this.type!=null;
+context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data "+loc() :
+	this.type != null;
  
 context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+","+loc() :
-	this.multiDataBinding==null ||
-	(this.multiDataBinding.appData!=null 
-	 && 
-	 this.multiDataBinding.appData.type.metaType==SimpleType 
-	 &&
-	 ((SimpleType)this.multiDataBinding.appData.type).code==SimpleTypeCodes::TREE_NODE
+	this.multiDataBinding == null ||
+	(
+		this.multiDataBinding.appData != null 
+	 	&& 
+	 	this.multiDataBinding.appData.type.metaType == SimpleType 
+	 	&&
+	 	((SimpleType)this.multiDataBinding.appData.type).code == SimpleTypeCodes::TREE_NODE
 	 );
 
 //context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type :

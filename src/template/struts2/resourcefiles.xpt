@@ -794,7 +794,11 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
-«ERROR "Il Widget Calendar non è ancora gestito"»
+<!-- [GUIGEN] Crea il widget «this» -->
+<s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
+	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+	«getCalendarStyleByLayout(model, this)»
+/>
 «ENDDEFINE»
 
 

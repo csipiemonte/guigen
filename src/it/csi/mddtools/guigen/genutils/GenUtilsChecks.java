@@ -5,17 +5,22 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
+import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.MultiDataWidget;
+import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TreeView;
+import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
@@ -168,6 +173,26 @@ public class GenUtilsChecks {
 
 		// tutto bene, ritorno true
 		return true;
+	}
+	
+	
+	/**
+	 * Verifica che il DataBinding di un Calendar (se esiste) sia di tipo Date.
+	 * @param c
+	 * @return
+	 */
+	public static boolean calendarDataBindingTypeCheck(Calendar c) {
+		Type t = c.getDatabinding().getAppData().getType();
+		Field f = GenUtils.getSelectedField(null, t, c.getDatabinding().getPath());
+		if ( f != null ) {
+			if ( f.getType() instanceof SimpleType ) {
+				SimpleType ft = (SimpleType)f.getType();
+				if ( ft.getCode() == SimpleTypeCodes.DATE ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 }

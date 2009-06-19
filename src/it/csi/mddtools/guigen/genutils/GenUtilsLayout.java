@@ -1,6 +1,7 @@
 package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandStyles;
@@ -486,6 +487,27 @@ public class GenUtilsLayout {
 		return res;
 	}	
 	
+	
+	/**
+	 * 
+	 * @param model
+	 * @param c
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCalendarStyleByLayout(GUIModel model, Calendar c) {
+		String res = "";
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = "cssClass=\"inputData calendario\"";
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			// TODO: implementare quando necessario
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			res = "cssClass=\"inputData calendario\"";
+		}
+		return res;
+	}	
+	
+	
 
 	/**
 	 * Verifica se un ContentPanel contiene o meno delle tabelle 
@@ -817,6 +839,7 @@ public class GenUtilsLayout {
 		
 		return res;		
 	}
+
 	
 	
 	/**

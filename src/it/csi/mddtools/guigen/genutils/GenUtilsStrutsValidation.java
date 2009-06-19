@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
 import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.ComplexType;
@@ -149,6 +150,8 @@ public class GenUtilsStrutsValidation {
 				res += getWidgetValidationAnnotation((CheckBox)w, cp);
 			} else if ( w instanceof ComboBox ) {
 				res += getWidgetValidationAnnotation((ComboBox)w, cp);
+			} else if ( w instanceof Calendar ) {
+				res += getWidgetValidationAnnotation((Calendar)w, cp);
 			}
 		}
 		else if ( w.getDataType() instanceof TypedArray ) {
@@ -311,6 +314,34 @@ public class GenUtilsStrutsValidation {
 		return res;
 	}
 
+	
+	/**
+	 * Genera le annotazioni per validare il DataWidget passato secondo le regole definite.
+	 *
+	 * @param w  Il DataWidget da validare (di tipo ComboBox).
+	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
+	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
+	 */	
+	public static String getWidgetValidationAnnotation(Calendar w, ContentPanel cp) {
+		String res = "";
+		SimpleType t = (SimpleType)w.getDataType();
+		boolean expandFieldName = true;
+
+		// required validation
+		if ( w.isRequired() ) {
+			String keyName = cp.getName() + "." + w.getName();
+			// i tipi DATA sono gestiti dal generatore come STRINGHE, e Calendar può essere solamente di tipo data
+			res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+		}
+
+		// validation by rules
+		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
+			res += applyValidationRule(w, cp, expandFieldName);
+		}
+
+		return res;
+	}	
+	
 
 	/**
 	 * Genera le annotazioni per i tipi di validazione espressi nel campo dataTypeModifier del widget.
