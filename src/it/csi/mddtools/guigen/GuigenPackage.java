@@ -165,13 +165,22 @@ public interface GuigenPackage extends EPackage {
 	int MENUBAR__TOP_LEVEL_MENU = 0;
 
 	/**
+	 * The feature id for the '<em><b>Remote Info Box</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENUBAR__REMOTE_INFO_BOX = 1;
+
+	/**
 	 * The number of structural features of the '<em>Menubar</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MENUBAR_FEATURE_COUNT = 1;
+	int MENUBAR_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.StatusbarImpl <em>Statusbar</em>}' class.
@@ -5924,6 +5933,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getMenubar_TopLevelMenu();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Menubar#isRemoteInfoBox <em>Remote Info Box</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Remote Info Box</em>'.
+	 * @see it.csi.mddtools.guigen.Menubar#isRemoteInfoBox()
+	 * @see #getMenubar()
+	 * @generated
+	 */
+	EAttribute getMenubar_RemoteInfoBox();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Statusbar <em>Statusbar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8801,6 +8821,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MENUBAR__TOP_LEVEL_MENU = eINSTANCE.getMenubar_TopLevelMenu();
+
+		/**
+		 * The meta object literal for the '<em><b>Remote Info Box</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MENUBAR__REMOTE_INFO_BOX = eINSTANCE.getMenubar_RemoteInfoBox();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.StatusbarImpl <em>Statusbar</em>}' class.

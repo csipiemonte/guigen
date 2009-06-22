@@ -1074,6 +1074,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMenubar_RemoteInfoBox() {
+		return (EAttribute)menubarEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getStatusbar() {
 		return statusbarEClass;
 	}
@@ -3466,6 +3475,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		menubarEClass = createEClass(MENUBAR);
 		createEReference(menubarEClass, MENUBAR__TOP_LEVEL_MENU);
+		createEAttribute(menubarEClass, MENUBAR__REMOTE_INFO_BOX);
 
 		statusbarEClass = createEClass(STATUSBAR);
 
@@ -3941,6 +3951,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(menubarEClass, Menubar.class, "Menubar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenubar_TopLevelMenu(), this.getMenu(), null, "topLevelMenu", null, 0, -1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMenubar_RemoteInfoBox(), ecorePackage.getEBoolean(), "remoteInfoBox", null, 0, 1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statusbarEClass, Statusbar.class, "Statusbar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

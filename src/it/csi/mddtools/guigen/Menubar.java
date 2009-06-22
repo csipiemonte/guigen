@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Menubar#getTopLevelMenu <em>Top Level Menu</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Menubar#isRemoteInfoBox <em>Remote Info Box</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,5 +50,31 @@ public interface Menubar extends EObject {
 	 * @generated
 	 */
 	EList<Menu> getTopLevelMenu();
+
+	/**
+	 * Returns the value of the '<em><b>Remote Info Box</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Remote Info Box</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Remote Info Box</em>' attribute.
+	 * @see #setRemoteInfoBox(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenubar_RemoteInfoBox()
+	 * @model
+	 * @generated
+	 */
+	boolean isRemoteInfoBox();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Menubar#isRemoteInfoBox <em>Remote Info Box</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Remote Info Box</em>' attribute.
+	 * @see #isRemoteInfoBox()
+	 * @generated
+	 */
+	void setRemoteInfoBox(boolean value);
 
 } // Menubar

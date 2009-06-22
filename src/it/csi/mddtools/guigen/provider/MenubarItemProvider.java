@@ -21,12 +21,14 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -65,8 +67,31 @@ public class MenubarItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addRemoteInfoBoxPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Remote Info Box feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRemoteInfoBoxPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Menubar_remoteInfoBox_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Menubar_remoteInfoBox_feature", "_UI_Menubar_type"),
+				 GuigenPackage.Literals.MENUBAR__REMOTE_INFO_BOX,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -118,7 +143,8 @@ public class MenubarItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Menubar_type");
+		Menubar menubar = (Menubar)object;
+		return getString("_UI_Menubar_type") + " " + menubar.isRemoteInfoBox();
 	}
 
 	/**
@@ -133,6 +159,9 @@ public class MenubarItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Menubar.class)) {
+			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GuigenPackage.MENUBAR__TOP_LEVEL_MENU:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

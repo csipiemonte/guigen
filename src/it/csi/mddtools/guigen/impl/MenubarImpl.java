@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.Menubar;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MenubarImpl#getTopLevelMenu <em>Top Level Menu</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MenubarImpl#isRemoteInfoBox <em>Remote Info Box</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +50,25 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 	 * @ordered
 	 */
 	protected EList<Menu> topLevelMenu;
+
+	/**
+	 * The default value of the '{@link #isRemoteInfoBox() <em>Remote Info Box</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRemoteInfoBox()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REMOTE_INFO_BOX_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isRemoteInfoBox() <em>Remote Info Box</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRemoteInfoBox()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean remoteInfoBox = REMOTE_INFO_BOX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +106,27 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isRemoteInfoBox() {
+		return remoteInfoBox;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRemoteInfoBox(boolean newRemoteInfoBox) {
+		boolean oldRemoteInfoBox = remoteInfoBox;
+		remoteInfoBox = newRemoteInfoBox;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MENUBAR__REMOTE_INFO_BOX, oldRemoteInfoBox, remoteInfoBox));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -103,6 +146,8 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 		switch (featureID) {
 			case GuigenPackage.MENUBAR__TOP_LEVEL_MENU:
 				return getTopLevelMenu();
+			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
+				return isRemoteInfoBox() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -120,6 +165,9 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 				getTopLevelMenu().clear();
 				getTopLevelMenu().addAll((Collection<? extends Menu>)newValue);
 				return;
+			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
+				setRemoteInfoBox(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -135,6 +183,9 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 			case GuigenPackage.MENUBAR__TOP_LEVEL_MENU:
 				getTopLevelMenu().clear();
 				return;
+			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
+				setRemoteInfoBox(REMOTE_INFO_BOX_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,8 +200,26 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 		switch (featureID) {
 			case GuigenPackage.MENUBAR__TOP_LEVEL_MENU:
 				return topLevelMenu != null && !topLevelMenu.isEmpty();
+			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
+				return remoteInfoBox != REMOTE_INFO_BOX_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (remoteInfoBox: ");
+		result.append(remoteInfoBox);
+		result.append(')');
+		return result.toString();
 	}
 
 } //MenubarImpl
