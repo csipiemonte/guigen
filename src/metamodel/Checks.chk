@@ -189,18 +189,25 @@ context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attribu
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazioni su struttura menu
 
-context Menu ERROR "Un menu deve avere almeno un menu item"+loc() :
-	this.item!=null && this.item.size>0;
-
-context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
-	this.eventHandler!=null; 	
-
 // [MA] univocità name Menu/MenuItem
-context Menu ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello:"+loc() : 
+context Menu ERROR "Il nome dei menu deve essere univoco all'interno del modello: "+loc() : 
 	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
 
-context MenuItem ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello:"+loc() : 
-	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
+context Menu WARNING "Il menu "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
+	this.eventHandler != null; 
+
+// [DM] STDMDD-241: razionalizzazione e completamento gestione casistiche rendering menu -> MenuItem DEPRECATO
+context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc() : 
+	false;
+
+//context Menu ERROR "Un menu deve avere almeno un menu item "+loc() :
+//	this.item!=null && this.item.size>0;
+
+//context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
+//	this.eventHandler!=null; 	
+
+//context MenuItem ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello: "+loc() : 
+//	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
 
 
 

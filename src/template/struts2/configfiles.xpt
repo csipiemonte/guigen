@@ -513,27 +513,27 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		«ENDLET»
 		«ENDIF»
 		
-		«FOREACH (List[MenuItem])getAllMenuItemRecursive(tlmenu) AS currMenuItem»
-		«IF currMenuItem.eventHandler.eventType == EventTypes::CLICKED»
-		«LET currMenuItem.eventHandler.command AS currAction»
-		<action name="goTo«currMenuItem.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenuItem.name.toFirstUpper()»">	
-			«LET (List[ContentPanel])getAllPossibleJumps(currMenuItem) AS allJumps»
+		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu»
+		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenu.eventHandler.command AS currAction»		
+		<action name="goTo«currMenu.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenu.name.toFirstUpper()»">	
+			«LET (List[ContentPanel])getAllPossibleJumps(currMenu) AS allJumps»
 			«FOREACH allJumps AS currJump»
 			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
 			«ENDFOREACH»
 			«ENDLET»	
 			
-			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenuItem) AS allExtJumps»
+			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps»
 			«FOREACH allExtJumps AS currExtJump»
 			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
 				<param name="location">«currExtJump.staticUrl»</param>
 			</result>
 			«ENDFOREACH»
 			«ENDLET»
-		</action>
+		</action>		
 		«ENDLET»
-		«ENDIF»
-		«ENDFOREACH»
+		«ENDIF»		
+		«ENDFOREACH»		
 	
 		«ENDFOREACH»
 		

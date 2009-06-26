@@ -248,13 +248,15 @@ public class «getSpringCPBEClassName()»{
 			«ENDFOREACH-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
+	«REM»MenuItem è DEPRECATO
 	«FOREACH getAllEventSourceMenuItems(this.structure.appWindow.appArea.menubar) AS currESM-»
 		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
 			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»
-	«FOREACH getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
-		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
+	«ENDREM»
+	«FOREACH (List[Menu])getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
+		«FOREACH getAllExecActionsForEventHandler(currESM.eventHandler) AS currAct-»
 			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDFOREACH-»

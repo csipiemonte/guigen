@@ -663,12 +663,10 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(Menubar mb) {
-		List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
-		Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
-		while(it_mi.hasNext()){
-			MenuItem currMI = it_mi.next();
-			EventHandler currEH = currMI.getEventHandler();
+		List<Menu> allEventSourceMenu = getAllEventSourceMenus(mb);
+		for (Menu currM : allEventSourceMenu) {
+			EventHandler currEH = currM.getEventHandler();
 			List<ContentPanel> currJumps = getAllPossibleJumps(currEH);
 			result.addAll(currJumps);
 		}
@@ -680,12 +678,12 @@ public class GenUtils {
 	 * @param mi
 	 * @return
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(MenuItem mi) {
+	/*public static List<ContentPanel> getAllPossibleJumps(MenuItem mi) {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		EventHandler currEH = mi.getEventHandler();
 		result = getAllPossibleJumps(currEH);
 		return result;
-	}
+	}*/
 
 	/**
 	 *
@@ -939,14 +937,12 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(Menubar mb) {
-		List<MenuItem> allEventSourceMenuItems = getAllEventSourceMenuItems(mb);
-		Iterator<MenuItem> it_mi = allEventSourceMenuItems.iterator();
+		List<Menu> allEventSourceMenu = getAllEventSourceMenus(mb);
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		while(it_mi.hasNext()){
-			MenuItem currMI = it_mi.next();
-			EventHandler currEH = currMI.getEventHandler();
+		for (Menu currM : allEventSourceMenu) {
+			EventHandler currEH = currM.getEventHandler();
 			List<JumpExtCommand> currJumps = getAllPossibleExtJumps(currEH);
-			result.addAll(currJumps);
+			result.addAll(currJumps);			
 		}
 		return result;
 	}
@@ -956,12 +952,12 @@ public class GenUtils {
 	 * @param mi
 	 * @return
 	 */
-	public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi) {
+	/*public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi) {
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
 		EventHandler currEH = mi.getEventHandler();
 		result = getAllPossibleExtJumps(currEH);
 		return result;
-	}
+	}*/
 
 	/**
 	 *
@@ -1450,7 +1446,7 @@ public class GenUtils {
 	 * @param mb
 	 * @return
 	 */
-	public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb) {
+	/*public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb) {
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
 		while ( m_it.hasNext() ) {
@@ -1459,14 +1455,14 @@ public class GenUtils {
 			result.addAll(currMenuItems);
 		}
 		return result;
-	}
+	}*/
 
 	/**
 	 *
 	 * @param m
 	 * @return
 	 */
-	public static List<MenuItem> getAllEventSourceMenuItems(Menu m) {
+	/*public static List<MenuItem> getAllEventSourceMenuItems(Menu m) {
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		Iterator<MenuItem> it_mi = m.getItem().iterator();
 		while ( it_mi.hasNext() ) {
@@ -1482,7 +1478,7 @@ public class GenUtils {
 			result.addAll(getAllEventSourceMenuItems(currSM));
 		}
 		return result;
-	}
+	}*/
 
 	/**
 	 *
@@ -1534,16 +1530,18 @@ public class GenUtils {
 
 	private static int countOccurs(String name, Menu menu){
 		int nOccurs=0;
-		if (menu.getName().equals(name))
+		if ( menu.getName().equals(name) ) {
 			nOccurs++;
+		}
 		
-		Iterator<MenuItem> mnui_it = menu.getItem().iterator();
+		/*Iterator<MenuItem> mnui_it = menu.getItem().iterator();
 		while (mnui_it.hasNext()) {
 			MenuItem menuItem = (MenuItem) mnui_it.next();
 			if (menuItem.getName().equals(name))
 				nOccurs++;
 			
-		}
+		}*/
+		
 		Iterator<Menu> smenu_it = menu.getSubmenu().iterator();
 		while (smenu_it.hasNext()) {
 			Menu submenu = (Menu) smenu_it.next();
@@ -1690,14 +1688,14 @@ public class GenUtils {
 	 */
 	public static List<ApplicationData> findAllActionScopedAppData(Menu m){
 		List<ApplicationData> result = new ArrayList<ApplicationData>();
-		Iterator<MenuItem> it_mi = m.getItem().iterator();
+		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
 		while(it_mi.hasNext()){
 			MenuItem currMI = it_mi.next();
 			if (currMI.getEventHandler()!=null){
 				List<ApplicationData>parz  = findAllActionScopedAppData(currMI.getEventHandler());
 				if (parz!=null) result.addAll(parz);
 			}
-		}
+		}*/
 		// submenu
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while(it_sm.hasNext()){
@@ -1777,20 +1775,23 @@ public class GenUtils {
 					result.add((CustomSecurityConstraint)currSC);
 			}
 		}
-		Iterator<MenuItem> it_mi = m.getItem().iterator();
-		Iterator<Menu> it_subm = m.getSubmenu().iterator();
+		
+		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
 		while(it_mi.hasNext()){
 			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4MenuItem(it_mi.next());
 			result.addAll(currRis);
-		}
+		}*/
+		
+		Iterator<Menu> it_subm = m.getSubmenu().iterator();
 		while(it_subm.hasNext()){
 			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4Menu(it_subm.next());
 			result.addAll(currRis);
 		}
+		
 		return result;
 	}
 
-	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
+	/*public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		if (mi.getSecurityConstraints().size()>0){
 			Iterator<UISecurityConstraint> it_sc = mi.getSecurityConstraints().iterator();
@@ -1801,7 +1802,7 @@ public class GenUtils {
 			}
 		}
 		return result;
-	}
+	}*/
 
 	/**
 	 * restituisce la stringa OGNL per il value del data widget.
@@ -1908,11 +1909,11 @@ public class GenUtils {
 	 * @return
 	 * @author [DM]
 	 */
-	public static boolean hasUniqueMenuItem(Menu currMenu) {
+	/*public static boolean hasUniqueMenuItem(Menu currMenu) {
 		int numItems = currMenu.getItem().size();
 		int numSubMenus = currMenu.getSubmenu().size();
 		return ((numItems == 1 && numSubMenus == 0) ? true : false);
-	}
+	}*/
 
 
 	/**
@@ -1920,7 +1921,7 @@ public class GenUtils {
 	 * @param m
 	 * @return
 	 */
-	public static List<MenuItem> getAllMenuItemRecursive(Menu m){
+	/*public static List<MenuItem> getAllMenuItemRecursive(Menu m){
 		List<MenuItem> result = new ArrayList<MenuItem>();
 		result.addAll(m.getItem());
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
@@ -1930,8 +1931,24 @@ public class GenUtils {
 			result.addAll(currSMI);
 		}
 		return result;
-	}
+	}*/
 
+	
+	/**
+	 *
+	 * @param m
+	 * @return
+	 */
+	public static List<Menu> getAllMenuRecursive(Menu m){
+		List<Menu> result = new ArrayList<Menu>();
+		result.addAll(m.getSubmenu());
+		for (Menu menu : m.getSubmenu()) {
+			List<Menu> currSM = getAllMenuRecursive(menu);
+			result.addAll(currSM);
+		}
+		return result;
+	}	
+	
 
 	/**
 	 *

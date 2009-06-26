@@ -215,12 +215,12 @@ public class GenUtilsI18n {
 		}
 
 		// label degli item del menu
-		for ( MenuItem item : menu.getItem() ) {
+		/*for ( MenuItem item : menu.getItem() ) {
 			lbl = getMenuItemLabel(item);
 			if ( lbl != null ) {
 				res.add(lbl);
 			}
-		}
+		}*/
 
 		// label dei sottomenu
 		for ( Menu subMenu : menu.getSubmenu() ) {
@@ -252,13 +252,13 @@ public class GenUtilsI18n {
 	 * @param prefix
 	 * @return
 	 */
-	private static String getMenuItemLabel(MenuItem item) {
+	/*private static String getMenuItemLabel(MenuItem item) {
 		String res = null;
 		if ( !GenUtils.isNullOrEmpty(item.getLabel()) ) {
 			res = item.getName() + ".label=" + item.getLabel();
 		}
 		return res;
-	}
+	}*/
 
 
 	/**

@@ -887,9 +887,12 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		allConstraints.put("«name»", «name»_ctr);
 «ENDIF-»
 	«EXPAND uiConstraint(model, behavior) FOREACH this.submenu»
+	«REM»MenuItem è DEPRECATO
 	«EXPAND uiConstraint(model, behavior) FOREACH this.item»
+	«ENDREM»
 «ENDDEFINE»
 
+«REM»MenuItem è DEPRECATO
 «DEFINE uiConstraint(GUIModel model, String behavior) FOR MenuItem-»
 «IF securityConstraints.size>0-»
 		// constraints per «this»
@@ -908,6 +911,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		allConstraints.put("«name»", «name»_ctr);
 «ENDIF-»
 «ENDDEFINE»
+«ENDREM»
 
 
 

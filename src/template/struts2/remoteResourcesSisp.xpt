@@ -481,124 +481,112 @@ Questo pattern prevede due possibilità:
 Si è scelta l'opzione "cavalieri" in quanto non richiede nè JavaScript nè indicatori sequenziali per le voci di menu.
 Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un check in fase di generazione del codice
 (o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello,
-e che il quarto livello sia obbligatoriamente un MenuItem con possibilità di link.
+e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 «ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <div id="menuDiNavigazioneSisp2">
 	<ul class="menuCavalieri">
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
-	«IF hasUniqueMenuItem(tlmenu)-»
-		«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
-		«EXPAND getMenuItemMarkup(level) FOR tlmenu.item.first() -»
-	«ELSE-»
-		«EXPAND getMenuMarkup(level) FOR tlmenu -»
-	«ENDIF-»
+		«IF tlmenu.submenu.size > 0»
+			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+		«ELSE»
+			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
 	</ul>
 </div>
 «ENDDEFINE»
 
-«REM»Genera un MenuItem«ENDREM»
-«DEFINE getMenuItemMarkup(int level) FOR MenuItem -»
-	<s:if test="isMenuVisible('«this.name»')" >
+
+«REM»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)«ENDREM»
+«DEFINE expandMenuNoChild(int level) FOR Menu -»
+<s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
-	  <s:if test="isMenuEnabled('«this.name»')" >
-	    <s:if test="isMenuActive('«this.name»')" >
-	       <li «getMenuItemCssSistemaPiemonte(this, level, true)»>«getMenuItemLabelSistemaPiemonte(this, level, true)»</li>
-	    </s:if>
-	    <s:else>
-	      <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-	      <li «getMenuItemCssSistemaPiemonte(this, level, false)»>
-		    <s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuItemLabelSistemaPiemonte(this, level, false)»
-		    </s:a>
-	      </li>
-	    </s:else>
-	  </s:if>
-	  <s:else>
-	  	<li><s:text name="«this.name».label" /></li>
-	  </s:else>
-	«ENDLET-»
-«ELSE-»
-	  	<li><s:text name="«this.name».label" /></li>
-«ENDIF-»
+	<s:if test="isMenuEnabled('«this.name»')" >
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
+			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
+				«getMenuNoChildLabelSistemaPiemonte(this, level)»
+			</s:a>
+		</li>
 	</s:if>
+	<s:else>
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+	</s:else>
+	«ENDLET»
+«ELSE»
+	<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+«ENDIF»
+</s:if>
 «ENDDEFINE»
 
-«REM»Genera un Menu«ENDREM»
-«DEFINE getMenuMarkup(int level) FOR Menu -»
-	<s:if test="isMenuVisible('«this.name»')" >
-«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-	«LET this.eventHandler.command AS currAction-»
-	  <s:if test="isMenuEnabled('«this.name»')" >
-		<s:if test="isMenuActive('«this.name»')" >
-		  <li «getMenuCssSistemaPiemonte(this, level, true)»>
-		    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-		    <s:a «getMenuLinkCssSistemaPiemonte(this, level, false)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuLabelSistemaPiemonte(this, level, false)»
-		    </s:a>
+
+«REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
+«DEFINE expandMenuWithChild(int level) FOR Menu»
+<s:if test="isMenuVisible('«this.name»')">
+	<s:if test="isAtLeastOneSubMenuVisible('«this.name»')">
+	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+		«LET this.eventHandler.command AS currAction-»
+		<s:if test="isMenuEnabled('«this.name»')">
+			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSistemaPiemonte(this, level)»>
+					«getMenuWithChildLabelSistemaPiemonte(this, level)»
+				</s:a>				
+				<ul>
+					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+				</ul>			
+			</li>
 		</s:if>
 		<s:else>
-		  <li «getMenuCssSistemaPiemonte(this, level, false)»>
-		    <s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-		    <s:a «getMenuLinkCssSistemaPiemonte(this, level, false)» href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuLabelSistemaPiemonte(this, level, false)»
-		    </s:a>
-		  </s:else>
-		  «IF this.item.size>0 || this.submenu.size>0»
-		  <ul>
-		  	«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
-	  	  	«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
-	  	  </ul>
-	  	  «ENDIF»
-	    </li>
-	  </s:if>
-	  <s:else>
-	  	<li «getMenuCssSistemaPiemonte(this, level, false)»>«getMenuLabelSistemaPiemonte(this, level, false)»
-	  	«IF this.item.size>0 || this.submenu.size>0»
-		  <ul>
-	  		«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
-	  		«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
-	      </ul>
-	    «ENDIF»
-	  	</li>
-	  </s:else>
-	«ENDLET-»
-«ELSE-»
-	  	<li «getMenuCssSistemaPiemonte(this, level, false)»><s:text name="«this.name».label" />
-	  	«IF this.item.size>0 || this.submenu.size>0»
-		  <ul>
-	  		«EXPAND getMenuItemMarkup(level+1) FOREACH this.item»
-	  		«EXPAND getSubMenuMarkup(level+1) FOREACH this.submenu»
-	  	  </ul>
-	  	«ENDIF»
-	  	</li>
-«ENDIF-»
+			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
+				<ul>
+					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+				</ul>			
+			</li>
+		</s:else>
+		«ENDLET»
+	«ELSE»
+		<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
+			<ul>
+				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+			</ul>		
+		</li>
+	«ENDIF»
 	</s:if>
+	<s:else>
+	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
+		«LET this.eventHandler.command AS currAction-»
+		<s:if test="isMenuEnabled('«this.name»')" >
+			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
+					«getMenuNoChildLabelSistemaPiemonte(this, level)»
+				</s:a>
+			</li>
+		</s:if>
+		<s:else>
+			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+		</s:else>
+		«ENDLET»
+	«ELSE»
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+	«ENDIF»
+	</s:else>
+</s:if>
 «ENDDEFINE»
 
 
 «REM»Genera un sottoMenu«ENDREM»
-«DEFINE getSubMenuMarkup(int level) FOR Menu»
-<s:if test="isMenuVisible('«this.name»')" >
-  <li class="sottomenu">«this.label»
-	<ul>
-
-	«REM»Espando gli Item«ENDREM»
-	«FOREACH this.item AS currMenuItem-»
-		«EXPAND getMenuItemMarkup(level+1) FOR currMenuItem»
-	«ENDFOREACH-»
-
-	«REM»Espando i sottomenu«ENDREM»
-	«FOREACH this.submenu AS currSubMenu-»
-		«EXPAND getSubMenuMarkup(level+1) FOR currSubMenu»
-	«ENDFOREACH-»
-	</ul>
-  </li>
-</s:if>
+«DEFINE expandSubMenu(int level) FOR Menu»
+«IF this.submenu.size > 0»
+	«EXPAND expandMenuWithChild(level) FOR this -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+«ELSE»
+	«EXPAND expandMenuNoChild(level) FOR this -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+«ENDIF»
 «ENDDEFINE»
 
 

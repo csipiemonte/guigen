@@ -547,12 +547,10 @@ String getTablePortalStyle(GUIModel model, Table t) :
 		"class=\"righe_alternate\""
 	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
 		"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\""
-		//"class=\"col\""
 	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
 		"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\""
-		//"class=\"col\""
 	else
-		"class=\"\"";
+		"";
 
 String getRadioPortalStyle(GUIModel model) :
 	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
@@ -577,82 +575,108 @@ String getCheckboxPortalStyle(GUIModel model) :
 
 //------------------------------------------- RUPAR -------------------------------------------
 
-String getMenuItemCssRupar(MenuItem item, int level) :
+String getMenuNoChildCssRupar(Menu menu, int level) :
 	if (level == 1) then
-		"class=\"<s:property value=\"%{#session.active_menu == 'menu_items_"+item.name+"' ? 'on' : ''}\" />\""
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
 	else
 		"";
 
-String getMenuItemLabelRupar(MenuItem item, int level) :
-	//TODO: implementare correttamente
-	"<s:text name=\"" + item.name + ".label\" />";
-
-String getMenuCssRupar(Menu menu, int level, boolean actionActive) :
+String getMenuNoChildLinkCssRupar(Menu menu, int level) :
 	//TODO: implementare correttamente
 	"";
 
-String getMenuLinkCssRupar(Menu menu, int level) :
+String getMenuNoChildLabelRupar(Menu menu, int level) :
+	//TODO: implementare correttamente
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+
+String getMenuWithChildCssRupar(Menu menu, int level) :
 	//TODO: implementare correttamente
 	"";
 
-String getMenuLabelRupar(Menu menu, int level) :
+String getMenuWithChildLinkCssRupar(Menu menu, int level) :
+	//TODO: implementare correttamente
+	"";
+
+String getMenuWithChildLabelRupar(Menu menu, int level) :
 	//TODO: implementare correttamente
 	"<s:text name=\"" + menu.name + ".label\" />";
 
 
 //------------------------------------- SISTEMA PIEMONTE --------------------------------------
 
-String getMenuItemCssSistemaPiemonte(MenuItem item, int level, boolean isActive) :
+String getMenuNoChildCssSistemaPiemonte(Menu menu, int level) :
 	if (level == 1) then
-		(isActive ? "class=\"attivo\"" : "")
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
 	else if (level == 2) then
-		(isActive ? "class=\"attivo\"" : "")
-	//else if (level == 3) then
-	//	(isActive ? "class=\"attivo3liv\"" : "")
-	//else if(level == 4) then
-	//	(isActive ? "class=\"attivo4liv\"" : "")
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivoL\"</s:if>"
 	else
 		"";
 
-String getMenuItemLabelSistemaPiemonte(MenuItem item, int level, boolean isActive) :
+String getMenuNoChildLinkCssSistemaPiemonte(Menu menu, int level) :
 	if (level == 1) then
-		(isActive ? "<span class=\"menu_alto\">" : "") + "<s:text name=\"" + item.name + ".label\" />" + (isActive ? "</span>" : "")
-	//else if (level == 2) then
-	//	"<s:text name=\"" + item.name + ".label\" />"
-	//else if (level == 3) then
-	//	"<s:text name=\"" + item.name + ".label\" />"
-	//else if(level == 4) then
-	//	"<s:text name=\"" + item.name + ".label\" />"
-	else
-		"<s:text name=\"" + item.name + ".label\" />";
-
-
-String getMenuCssSistemaPiemonte(Menu menu, int level, boolean isActive) :
-	if (level == 1) then
-		"class=\"" + (isActive ? "sottomenuOn" : "sottomenu") + "\""
+		""
 	else if (level == 2) then
-		"class=\"sottomenu\""
-	//else if (level == 3) then
-	//	"class=\"sottomenu\""
-	//else if(level == 4) then
-	//	"class=\"sottomenu\""
+		""
 	else
 		"";
 
-String getMenuLinkCssSistemaPiemonte(Menu menu, int level, boolean isActive) :
+String getMenuNoChildLabelSistemaPiemonte(Menu menu, int level) :
 	if (level == 1) then
-		"cssClass=\"attivosottomenu\""
-	//else if (level == 2) then
-	//	"cssClass=\"attivosottomenu\""
-	//else if (level == 3) then
-	//	"cssClass=\"attivosottomenu\""
-	//else if(level == 4) then
-	//	"cssClass=\"attivosottomenu\""
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+
+String getMenuWithChildCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"sottomenu<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'On' : ''}\" />\""
+	else if (level == 2) then
+		""
 	else
 		"";
 
-String getMenuLabelSistemaPiemonte(Menu menu, int level, boolean isActive) :
-	"<s:text name=\"" + menu.name + ".label\" />";
+String getMenuWithChildLinkCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"attivosottomenu\""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+String getMenuWithChildLabelSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+
+//------------------------------------------ NEUTRAL ------------------------------------------
+// al momento sfrutto SistemaPiemonte, poi bisognerà implementare uno specifico
+
+String getMenuNoChildCssNeutral(Menu menu, int level) :
+	getMenuNoChildCssSistemaPiemonte(menu, level);
+
+String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
+	getMenuNoChildLinkCssSistemaPiemonte(menu, level);
+
+String getMenuNoChildLabelNeutral(Menu menu, int level) :
+	getMenuNoChildLabelSistemaPiemonte(menu, level);
+
+
+String getMenuWithChildCssNeutral(Menu menu, int level) :
+	getMenuWithChildCssSistemaPiemonte(menu, level);
+
+String getMenuWithChildLinkCssNeutral(Menu menu, int level) :
+	getMenuWithChildLinkCssSistemaPiemonte(menu, level);
+
+String getMenuWithChildLabelNeutral(Menu menu, int level) :
+	getMenuWithChildLabelSistemaPiemonte(menu, level);
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -664,8 +688,8 @@ String getWidgetName(Widget w) : JAVA
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
 
-List getAllPossibleJumps(MenuItem mi) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.MenuItem);
+//List getAllPossibleJumps(MenuItem mi) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.MenuItem);
 
 List getAllPossibleJumps(Menu m) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.Menu);
@@ -676,8 +700,8 @@ List getAllPossibleJumps(Command a) : JAVA
 List getAllPossibleExtJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.ContentPanel);
 
-List getAllPossibleExtJumps(MenuItem mi) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.MenuItem);
+//List getAllPossibleExtJumps(MenuItem mi) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.MenuItem);
 
 List getAllPossibleExtJumps(Menu m) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Menu);
@@ -694,8 +718,8 @@ List getAllPossibleShowDialogs(Command a) : JAVA
 List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
 	
-List getAllEventSourceMenuItems(Menubar mb) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
+//List getAllEventSourceMenuItems(Menubar mb) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
 
 List getAllEventSourceMenus(Menubar mb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenus(it.csi.mddtools.guigen.Menubar);
@@ -740,11 +764,14 @@ String getAppDataPropertyName(ApplicationData ad) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataPropertyName(it.csi.mddtools.guigen.ApplicationData);
 
 // [DM] verifica se l'elemento Menu ha un solo Item o no
-boolean hasUniqueMenuItem(Menu currMenu) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.hasUniqueMenuItem(it.csi.mddtools.guigen.Menu);
+//boolean hasUniqueMenuItem(Menu currMenu) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.hasUniqueMenuItem(it.csi.mddtools.guigen.Menu);
 
-List getAllMenuItemRecursive(Menu m) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getAllMenuItemRecursive(it.csi.mddtools.guigen.Menu);
+//List getAllMenuItemRecursive(Menu m) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtils.getAllMenuItemRecursive(it.csi.mddtools.guigen.Menu);
+
+List getAllMenuRecursive(Menu m) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAllMenuRecursive(it.csi.mddtools.guigen.Menu);
 
 boolean isMenuNameUnique(String name, Menubar menubar) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.isMenuNameUnique(java.lang.String, it.csi.mddtools.guigen.Menubar);

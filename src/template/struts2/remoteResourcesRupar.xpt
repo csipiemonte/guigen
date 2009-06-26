@@ -238,51 +238,55 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 <div id="menuDiNavigazione">
 	<span class="alt">Menu di navigazione</span>
 	<ul class="menuTendina" id="menu-2">
-		«LET 1 AS level -»
-		«FOREACH this.topLevelMenu AS tlmenu -»
-		«IF hasUniqueMenuItem(tlmenu)-»
-			«REM»Se c'è un solo item, lo espando come fosse un primo livello«ENDREM»
-			«EXPAND getMenuItemMarkup(level) FOR tlmenu.item.first() -»
-		«ELSE-»
-			«EXPAND getMenuMarkup(level) FOR tlmenu»
-		«ENDIF-»
-		«ENDFOREACH-»
-		«ENDLET-»
+	«LET 1 AS level -»
+	«FOREACH this.topLevelMenu AS tlmenu -»
+		«IF tlmenu.submenu.size > 0»
+			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+		«ELSE»
+			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+		«ENDIF»
+	«ENDFOREACH-»
+	«ENDLET-»
 	</ul>
 </div>
 «ENDDEFINE»
 
-«REM»Genera un MenuItem«ENDREM»
-«DEFINE getMenuItemMarkup(int level) FOR MenuItem -»
-	<s:if test="isMenuVisible('«this.name»')" >
+
+«REM»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)«ENDREM»
+«DEFINE expandMenuNoChild(int level) FOR Menu -»
+<s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
-	  <s:if test="isMenuEnabled('«this.name»')" >
-	  	<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-	    <li «getMenuItemCssRupar(this, level)»>
-		  <s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-			  «getMenuItemLabelRupar(this, level)»
-		  </s:a>
-	    </li>	  	
-	  </s:if>
-	  <s:else>	  
-	  	<li><s:text name="«this.name».label" /></li>
-	  </s:else>
-	«ENDLET-»	  
-«ELSE -»
- 
-«ENDIF-»
+	<s:if test="isMenuEnabled('«this.name»')" >
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+		<li«getMenuNoChildCssRupar(this, level)»>
+			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssRupar(this, level)»>
+				«getMenuNoChildLabelRupar(this, level)»
+			</s:a>
+		</li>
 	</s:if>
+	<s:else>
+		<li«getMenuNoChildCssRupar(this, level)»>«getMenuNoChildLabelRupar(this, level)»</li>
+	</s:else>
+	«ENDLET»
+«ELSE»
+	<li«getMenuNoChildCssRupar(this, level)»>«getMenuNoChildLabelRupar(this, level)»</li>
+«ENDIF»
+</s:if>
 «ENDDEFINE»
 
-«REM»Genera un Menu«ENDREM»
-«DEFINE getMenuMarkup(int level) FOR Menu -»
-	«REM»TODO: IMPLEMENTARE«ENDREM»
+«REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
+«DEFINE expandMenuWithChild(int level) FOR Menu»
+	«ERROR "RUPAR: menu di secondo livello non ancora implementato"»
 «ENDDEFINE»
 
 «REM»Genera un sottoMenu«ENDREM»
-«DEFINE getSubMenuMarkup(int level) FOR Menu»
-	«REM»TODO: IMPLEMENTARE«ENDREM»
+«DEFINE expandSubMenu(int level) FOR Menu»
+«IF this.submenu.size > 0»
+	«EXPAND expandMenuWithChild(level) FOR this -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+«ELSE»
+	«EXPAND expandMenuNoChild(level) FOR this -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+«ENDIF»
 «ENDDEFINE»
 
 

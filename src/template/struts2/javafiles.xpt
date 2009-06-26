@@ -227,10 +227,9 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     
 	///////////////////////////////////
 	/**
-	 * Metodi per visibilita'/abilitazione
+	 * Metodi per visibilita'/abilitazione dei Widget
 	 */
 	
-
 	/**
 	 * @return true se il widget deve essere reso visibile
 	 */
@@ -267,8 +266,21 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		
 	}
 
+
+	///////////////////////////////////
 	/**
-	 * @return true se il menu/menuItem deve essere reso visibile
+	 * Metodi per visibilita'/abilitazione del menu
+	 */
+
+	«IF structure.appWindow.appArea.menubar != null»
+	static Map<String, List<String>> submenuMap = new HashMap<String, List<String>>();
+	static {
+		«EXPAND actionImplJavaFiles::submenuMap FOR structure.appWindow.appArea.menubar»
+	}
+	«ENDIF»
+
+	/**
+	 * @return true se il menu deve essere reso visibile
 	 */
 	public boolean isMenuVisible(String menuName) {
 	«IF securityModel!=null-»
@@ -292,7 +304,26 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	}
 
 	/**
-	 * @return true se il menu/menuItem deve essere reso abilitato
+	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
+	 */
+	public boolean isAtLeastOneSubMenuVisible(String menuName) {
+	«IF securityModel != null»
+		List<String> subMenuList = submenuMap.get(menuName);
+		if ( subMenuList != null ) {
+			for (String subMenu : subMenuList) {
+				if (isMenuVisible(subMenu)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	«ELSE»
+		return true;
+	«ENDIF»
+	}
+
+	/**
+	 * @return true se il menu deve essere reso abilitato
 	 */
 	public boolean isMenuEnabled(String menuName) {
 	«IF securityModel!=null-»
@@ -316,11 +347,26 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	}
 	
 	/**
-	 * @return true se il menu/menuItem deve essere reso attivo (ovvero &grave; stato cliccato)
+	 * @return true se il menu deve essere reso attivo (ovvero &grave; stato cliccato)
 	 */
 	public boolean isMenuActive(String menuName) {
 		String menu = "menu_items_" + menuName;
 		return menu.equals((String)session.get("active_menu"));
+	}
+
+	/**
+	 * @return true se un sottomenu del menu dato &egrave; attivo (ovvero &grave; stato cliccato)
+	 */
+	public boolean isSubMenuActive(String menuName) {
+		List<String> subMenuList = submenuMap.get(menuName);
+		if ( subMenuList != null ) {
+			for (String subMenu : subMenuList) {
+				if (isMenuActive(subMenu)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
@@ -419,36 +465,39 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		}
 	}		
 		«ENDIF»
-		«FOREACH getAllMenuItemRecursive(tlmenu) AS currMenuItem»
-		«IF ((MenuItem)currMenuItem).eventHandler.eventType == EventTypes::CLICKED»
-		«LET ((MenuItem)currMenuItem).eventHandler.command AS currAction»
+		
+		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu»
+		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenu.eventHandler.command AS currAction»
 	/**
 	 * 
 	 * @return SUCCESS result.
 	 */
-	public String goTo«((MenuItem)currMenuItem).name.toFirstUpper()»() throws Exception{
+	public String goTo«currMenu.name.toFirstUpper()»() throws Exception{
 	    
 		// gestione degli eventi di tipo CLICKED
-		ICommand action = initCommand("«((MenuItem)currMenuItem).name»","CLICKED");
+		ICommand action = initCommand("«currMenu.name»","CLICKED");
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«((MenuItem)currMenuItem).name.toFirstUpper()»] returning result [" + result + "]");
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning result [" + result + "]");
 			}
-			setActiveMenu("«((MenuItem)currMenuItem).name»");
+			setActiveMenu("«currMenu.name»");
 			return result;
 		} else {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«((MenuItem)currMenuItem).name.toFirstUpper()»] returning default result [SUCCESS]");
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning default result [SUCCESS]");
 			}
-			setActiveMenu("«((MenuItem)currMenuItem).name»");
+			setActiveMenu("«currMenu.name»");
 			return SUCCESS;
 		}
 	}
 
 		«ENDLET»
 		«ENDIF»
-		«ENDFOREACH»
+		«ENDFOREACH»		
+		
+		
 	«ENDFOREACH»
 
     public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
