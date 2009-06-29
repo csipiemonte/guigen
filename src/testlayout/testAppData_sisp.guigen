@@ -599,7 +599,7 @@
               </subpanels>
             </panels>
           </contentPanels>
-          <contentPanels name="cpRicercaPersonaNew" appData="//@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@appData.0">
+          <contentPanels name="cpRicercaPersonaNew" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.3">
             <panels xsi:type="guigen:FormPanel" name="pRicercaPersona" label="Ricerca Persona àèìòù'&amp;%$&lt;>'">
               <layout xsi:type="guigen:UDLRCPanelLayout"/>
               <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
@@ -622,9 +622,18 @@
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <subpanels xsi:type="guigen:WidgetsPanel" name="ricercaWidgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.9" fieldLength="20"/>
-                    <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.9" fieldLength="50"/>
-                    <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.9" fieldLength="50"/>
+                    <widgets xsi:type="guigen:TextField" name="tfCF" label="Codice fiscale" dataType="//@typedefs/@types.9" fieldLength="20">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.4" path="codFisc"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typedefs/@types.9" fieldLength="50">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.4" path="nome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" dataType="//@typedefs/@types.9" fieldLength="50">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.4" path="cognome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="tfNumRecord" label="Record" dataType="//@typedefs/@types.10" fieldLength="10">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.4" path="record"/>
+                    </widgets>
                   </subpanels>
                   <subpanels xsi:type="guigen:CommandPanel" name="pButtons">
                     <layout xsi:type="guigen:UDLRCPanelLayout"/>
@@ -643,11 +652,11 @@
                     </widgets>
                   </subpanels>
                 </subpanels>
-                <subpanels xsi:type="guigen:FormPanel" name="pRisultatiTable" label="Risultati (table)">
+                <subpanels xsi:type="guigen:FormPanel" name="pRisultatiTableMulti" label="Risultati (table selezione multipla)">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="risultatiWidgets">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="risultatiWidgetsMulti">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@namespaces.0/@types.0" pageSize="2">
+                    <widgets xsi:type="guigen:Table" name="tblRisultatiRicercaMulti" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@namespaces.0/@types.0" pageSize="2">
                       <eventHandlers>
                         <command xsi:type="guigen:ExecCommand" methodName="caricaDettaglioSoggettoNew">
                           <results resultCode="OK">
@@ -663,7 +672,23 @@
                         <columns selector="codFisc" label="Codice Fiscale" sortable="true" eventActive="true"/>
                         <columns selector="dataNascita" label="Data nascita" sortable="true"/>
                         <columns selector="reddito" label="Reddito" sortable="true"/>
-                        <columns selector="aumento" label="Aumento" editable="true"/>
+                      </columnModel>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="pRisultatiTableSingle" label="Risultati (table selezione singola)">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="risultatiWidgetsSingle">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:Table" name="tblRisultatiRicercaSingle" label="Risultati Ricerca (tabellare)" dataType="//@typedefs/@namespaces.0/@types.0" pageSize="2">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.3"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                      <columnModel valueSelector="codFisc">
+                        <columns selector="nome" label="Nome" sortable="true"/>
+                        <columns selector="cognome" label="Cognome" sortable="true"/>
+                        <columns selector="codFisc" label="Codice Fiscale" sortable="true"/>
+                        <columns selector="dataNascita" label="Data nascita" sortable="true"/>
+                        <columns selector="reddito" label="Reddito" sortable="true"/>
                       </columnModel>
                     </widgets>
                   </subpanels>
@@ -1778,6 +1803,12 @@
         <fields name="numCiv" type="//@typedefs/@types.9" required="true"/>
       </types>
       <types xsi:type="guigen:TypedArray" name="Array of Indirizzo" componentType="//@typedefs/@namespaces.0/@types.2"/>
+      <types xsi:type="guigen:ComplexType" name="FiltroPersone">
+        <fields name="codFisc" type="//@typedefs/@types.9"/>
+        <fields name="nome" type="//@typedefs/@types.9"/>
+        <fields name="cognome" type="//@typedefs/@types.9"/>
+        <fields name="record" type="//@typedefs/@types.10"/>
+      </types>
     </namespaces>
     <namespaces name="regione">
       <types xsi:type="guigen:ComplexType" name="Regione">
@@ -1804,6 +1835,7 @@
       <appData name="dettaglioPersona" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
       <appData name="personeSelezionate" type="//@typedefs/@types.22"/>
       <appData name="personaSelezionata" type="//@typedefs/@types.9"/>
+      <appData name="filtroPersone" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.4"/>
     </groups>
     <groups name="regione">
       <appData name="listaRegioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.3"/>
