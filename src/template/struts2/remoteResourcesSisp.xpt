@@ -469,6 +469,16 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) dei LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«LET model.structure.appWindow.header.codCanale AS codCanale»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+<!-- STATIC LINK -->
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<c:catch var="ex">
+	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»staticLink.html" resourceProvider="sp" />
+</c:catch>
+«ENDLET»
+«ENDLET»
 «ENDDEFINE»
 
 
@@ -495,6 +505,10 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
+	
+	«IF model.structure.appWindow.appArea.staticLinks != null-»
+		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
+	«ENDIF-»
 	</ul>
 </div>
 «ENDDEFINE»
