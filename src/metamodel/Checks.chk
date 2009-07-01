@@ -200,16 +200,6 @@ context Menu WARNING "Il menu "+this.name+" non ha nessun EventHandler associato
 context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc() : 
 	false;
 
-//context Menu ERROR "Un menu deve avere almeno un menu item "+loc() :
-//	this.item!=null && this.item.size>0;
-
-//context MenuItem WARNING "il menuItem "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
-//	this.eventHandler!=null; 	
-
-//context MenuItem ERROR "Il nome dei menu/menu-item deve essere univoco all'interno del modello: "+loc() : 
-//	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su widget
@@ -243,7 +233,7 @@ context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel
  context Calendar ERROR "Un Calendar deve avere un DataType di tipo DATE " + loc() :
  	this.dataType.metaType == SimpleType && ((SimpleType)(this.dataType)).code == guigen::SimpleTypeCodes::DATE;
 
- context Calendar if this.databinding != null ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
+ context Calendar if (this.databinding != null) ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
 	calendarDataBindingTypeCheck(this);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -301,7 +291,7 @@ context VisibilityCommand ERROR "Il comando di commutazione di visibilità è inco
 // è segnaposto
 context MenuView ERROR "ad una MenuView non è possibile associare evnet handler, in quanto eredita gli event handler"+
 						" della struttura menu globale (di cui funge solo da segnaposto)"+loc() :
-	this.eventHandlers.size==0;
+	this.eventHandlers.size == 0;
 
 // un Treeview può avere solo un event handler di tipo click
 context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED"+loc() :
@@ -314,7 +304,7 @@ context Column ERROR "una colonna di una Table può essere dichiarata 'eventActiv
 	(eventActive)
 	&& 
 	((Table)(((ColumnModel)this.eContainer).eContainer))
-		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1;
+		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size == 1;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -346,55 +336,59 @@ context TreeView ERROR "La fonte dati di un TreeView può solo essere un applicat
 //	this.multiDataBinding.appData.type.metaType==TypedArray && 
 //	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
 	
-context DataWidget ERROR "E'ncessario specificare il tipo del Widget"+loc() :
-	this.dataType!=null;
+context DataWidget ERROR "E'ncessario specificare il tipo del Widget "+loc() :
+	this.dataType != null;
 
-context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding"+loc() :
-	(this.dataType==null 
-	 || this.databinding == null 
-	 || (this.databinding!=null && this.databinding.appData==null)
-	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
-	 || (this.databinding!=null 
-	 	&& this.databinding.appData!=null 
-	 	&& this.databinding.appData.type!=null 
-	 	&& ""!=(this.databinding.path))
-	 || (
-	 	this.dataType!=null 
-	 	&& this.databinding!=null 
-	 	&& this.databinding.appData!=null 
-	 	&& this.databinding.appData.type!=null
-	 	&& this.dataType==this.databinding.appData.type
-	 );
+//context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding "+loc() :
+//	(this.dataType==null 
+//	 || this.databinding == null 
+//	 || (this.databinding!=null && this.databinding.appData==null)
+//	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type == null))
+//	 || (this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null 
+//	 	&& ""!=(this.databinding.path))
+//	 || (
+//	 	this.dataType!=null 
+//	 	&& this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null
+//	 	&& this.dataType==this.databinding.appData.type
+//	 );
 
-context DataWidget WARNING "Non è possibile verificare a priori la corrispondenza di tipo tra widget e binding "+
-	"poichè è impostato l'attributo path: verificare manualmente "+loc() :
-	(this.dataType==null 
-	 || this.databinding == null 
-	 || (this.databinding!=null && this.databinding.appData==null)
-	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
-	 || (this.databinding!=null 
-	 	&& this.databinding.appData!=null 
-	 	&& this.databinding.appData.type!=null 
-	 	&& ""==(this.databinding.path))
-	 || (
-	 	this.dataType!=null 
-	 	&& this.databinding!=null 
-	 	&& this.databinding.appData!=null 
-	 	&& this.databinding.appData.type!=null
-	 	&& this.dataType==this.databinding.appData.type
-	 );	 
+//context DataWidget WARNING "Non è possibile verificare a priori la corrispondenza di tipo tra widget e binding "+
+//	"poichè è impostato l'attributo path: verificare manualmente "+loc() :
+//	(this.dataType==null 
+//	 || this.databinding == null 
+//	 || (this.databinding!=null && this.databinding.appData==null)
+//	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
+//	 || (this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null 
+//	 	&& ""==(this.databinding.path))
+//	 || (
+//	 	this.dataType!=null 
+//	 	&& this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null
+//	 	&& this.dataType==this.databinding.appData.type
+//	 );
+
+context DataWidget if (this.databinding != null && this.metaType != Table) WARNING "Il tipo del widget non corrisponde con il tipo del databinding "+loc() : 
+	widgetDataBindingCorrispondenceCheck(this);
 
 // [DM] Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType
-context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType" + loc() :
+context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType " + loc() :
 	this.types.select(t|t.metaType == SimpleType).size == 0; 
+
 
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su commands
 //////////////////////////////////////////////////////////////////////////////	
-context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo"+loc() :  
+context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo "+loc() :  
 	this.command != null;
 	
-context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi"+loc() :
+context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi "+loc() :
 	this.commands!= null && this.commands.size>0;
 
 context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand"+loc() :

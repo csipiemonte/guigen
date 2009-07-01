@@ -26,7 +26,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
-import it.csi.mddtools.guigen.MenuItem;
+//import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
@@ -184,7 +184,8 @@ public class GenUtils {
 			EObject panel = widget.eContainer();
 			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
-			} else if(widget instanceof MenuItem || widget instanceof Menu) {
+			//} else if(widget instanceof MenuItem || widget instanceof Menu) { -> MenuItem è deprecato
+			} else if(widget instanceof Menu) {
 				return null; // .. in realtà non è un pannello
 			}
 			return findParentContentPanel((Panel)panel);
@@ -601,10 +602,12 @@ public class GenUtils {
 	 */
 	public static boolean isInMenuBranch(EventHandler eh){
 		Object parent = eh.eContainer();
-		if (parent instanceof MenuItem || parent instanceof Menu)
+		//if (parent instanceof MenuItem || parent instanceof Menu) // MenuItem è deprecato
+		if (parent instanceof Menu) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
@@ -994,7 +997,7 @@ public class GenUtils {
 		else if (p instanceof DialogPanel)
 			return getAllPossibleExtJumps((DialogPanel)p);
 		else
-			return null; // TODO gestire i tabset panel....
+			return null;
 	}
 
 	/**
@@ -1228,7 +1231,7 @@ public class GenUtils {
 		} else if ( p instanceof DialogPanel ) {
 			return getAllPossibleShowDialogs((DialogPanel)p);
 		} else {
-			return null; // TODO gestire i tabset panel....
+			return null;
 		}
 	}
 
@@ -1471,7 +1474,7 @@ public class GenUtils {
 				result.add(currMI);
 			}
 		}
-		// TODO aggiungere i submenu...
+		// submenu
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while ( it_sm.hasNext() ) {
 			Menu currSM = it_sm.next();

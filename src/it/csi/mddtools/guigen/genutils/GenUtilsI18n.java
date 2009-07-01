@@ -13,7 +13,7 @@ import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.Menu;
-import it.csi.mddtools.guigen.MenuItem;
+//import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;

@@ -195,4 +195,33 @@ public class GenUtilsChecks {
 		return false;
 	}
 	
+	
+	/**
+	 * 
+	 * @param w
+	 * @return
+	 */
+	public static boolean widgetDataBindingCorrispondenceCheck(DataWidget w) {
+		System.out.println("=====> START widgetDataBindingCorrispondenceCheck() FOR [" + w + "]");
+		Type dbt = w.getDatabinding().getAppData().getType();
+		System.out.println("----------> DataBinding TYPE [" + dbt + "]");
+		Field f = GenUtils.getSelectedField(null, dbt, w.getDatabinding().getPath());
+		System.out.println("----------> getSelectedField() RETURNED [" + f + "]");
+		if ( f != null ) {
+			if ( f.getType() instanceof SimpleType && w.getDataType() instanceof SimpleType) {
+				SimpleType ft = (SimpleType)f.getType();
+				SimpleType wdt = (SimpleType)w.getDataType();
+				System.out.println("----------> Field Type IS [" + ft + "]");
+				System.out.println("----------> Widget DataType IS [" + wdt + "]");
+				if ( ft.getCode() == wdt.getCode() ) {
+					System.out.println("=====> END widgetDataBindingCorrispondenceCheck() FOR [" + w.getName() + "] RETURNING true");
+					return true;
+				}
+			}
+		}
+		System.out.println("=====> END widgetDataBindingCorrispondenceCheck() FOR [" + w.getName() + "] RETURNING false");
+		System.out.println("<==============================================================================================================>");
+		return false;
+	}
+	
 }
