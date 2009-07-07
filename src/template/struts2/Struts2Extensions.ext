@@ -38,11 +38,8 @@ String getSecurityJavaSrcDir(GUIModel model, boolean omit_root) :
 
 String getSecurityJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".security";
-		
 
 
-
-	
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Struts2
@@ -66,6 +63,7 @@ String getStrutsTypeConvertersPropertiesFile(GUIModel model, boolean omit_root) 
 	getWebModuleConfigDir(model, omit_root) + "/xwork-conversion.properties";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Spring
 
@@ -76,11 +74,13 @@ String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione servizi supplier
 
 String getSpringIRIDE2PDConfig(GUIModel model) :
 	getEjbConfigDir(model, true) + "/iride2_pep_defPD_ejb.xml";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +95,7 @@ String getReminclResourceProvider(GUIModel model) :
 		""
 	else
 		"";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files JSP comuni
@@ -179,6 +180,7 @@ String getJspDialogPanelFullName(GUIModel model, boolean omit_root, DialogPanel 
 
 String getJspDialogPanelConfigName(DialogPanel dp) :
 	getJspDialogPanelConfig() + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,6 +284,7 @@ String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
 
@@ -313,6 +316,7 @@ String getStrutsActionPropertiesFile(ContentPanel panel, GUIModel model, boolean
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".properties";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Validatori e convertitori Struts2
 
@@ -327,6 +331,7 @@ String getTypeConverterJavaSrcDir(GUIModel model, boolean omit_root) :
 
 String getTypeConverterJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".converter";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -369,6 +374,7 @@ String getSpringSecurityHelperJavaFile(GUIModel model) :
 	getBaseJavaSrcDir(model, true)+"/business/"+getSpringSecurityHelperClassName()+".java";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Classi relative alla Tag Library DisplayTag
 
@@ -392,7 +398,6 @@ String getComparatorJavaSrcDir(GUIModel model, boolean omit_root) :
 
 String getComparatorJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".comparator";
-
 
 String getColumnComparator(GUIModel model, Column col, Table t) :
 	let comparator = getColumnComparator(col, t) :
@@ -529,6 +534,7 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp) :
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// PORTAL THEMES AND STYLES
 
@@ -562,15 +568,11 @@ String getRadioPortalStyle(GUIModel model) :
 	else
 		"";
 
-String getCheckboxPortalStyle(GUIModel model) :
-	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
-		"cssClass=\"noBorder\""
-	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
-		"cssClass=\"noBorder\""
-	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
-		"cssClass=\"noBorder\""
-	else
-		"";
+String getCheckboxPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
 
 //------------------------------------------- RUPAR -------------------------------------------
@@ -688,6 +690,7 @@ String getWidgetName(Widget w) : JAVA
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
 
+// STDMDD-241 : MenuItem è deprecato
 //List getAllPossibleJumps(MenuItem mi) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.MenuItem);
 
@@ -700,6 +703,7 @@ List getAllPossibleJumps(Command a) : JAVA
 List getAllPossibleExtJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.ContentPanel);
 
+// STDMDD-241 : MenuItem è deprecato
 //List getAllPossibleExtJumps(MenuItem mi) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.MenuItem);
 
@@ -718,6 +722,7 @@ List getAllPossibleShowDialogs(Command a) : JAVA
 List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
 	
+	// STDMDD-241 : MenuItem è deprecato
 //List getAllEventSourceMenuItems(Menubar mb) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
 
@@ -754,7 +759,6 @@ String getOGNLForWidgetValue(DataWidget w) : JAVA
 String getOGNLForWidgetMultiValue(MultiDataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetMultiValue(it.csi.mddtools.guigen.MultiDataWidget);
 
-
 // chiave dell'app data quando salvato in sessione
 String getAppDataKey(ApplicationData ad) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataKey(it.csi.mddtools.guigen.ApplicationData);
@@ -763,10 +767,11 @@ String getAppDataKey(ApplicationData ad) : JAVA
 String getAppDataPropertyName(ApplicationData ad) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAppDataPropertyName(it.csi.mddtools.guigen.ApplicationData);
 
-// [DM] verifica se l'elemento Menu ha un solo Item o no
+// [DM] verifica se l'elemento Menu ha un solo Item o no -> STDMDD-241 : MenuItem è deprecato
 //boolean hasUniqueMenuItem(Menu currMenu) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.hasUniqueMenuItem(it.csi.mddtools.guigen.Menu);
 
+// STDMDD-241 : MenuItem è deprecato
 //List getAllMenuItemRecursive(Menu m) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.getAllMenuItemRecursive(it.csi.mddtools.guigen.Menu);
 
@@ -794,7 +799,7 @@ Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante)
 String getGridPanelColumnsNumber(WidgetsPanel p) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getGridPanelColumnsNumber(it.csi.mddtools.guigen.WidgetsPanel);
 
-// [DM] Restituisce, se necessario, la percentuale delle colonne da impostare sulla PanelGri
+// [DM] Restituisce, se necessario, la percentuale delle colonne da impostare sulla PanelGrid
 String getPanelGridPercentCols(WidgetsPanel p) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getPanelGridPercentCols(it.csi.mddtools.guigen.WidgetsPanel);
 
@@ -814,19 +819,19 @@ boolean needHandleCustomtagHeaderHspan(WidgetsPanel wp, Widget w) : JAVA
 boolean needHandleCustomtagCloseHspan(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.needHandleCustomtagCloseHspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
-// [DM]
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
 String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
-// [DM]
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario) per un Widget di tipo PlainText.
 String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.PlainText);
 
-// [DM]
+// [DM] Gestisce l'attributo colSpan per la clausola <s:else> della visibility di un widget.
 String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagCloseColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
-// [DM]
+// [DM] Restituisce lo stile del <div> per i Button
 String getButtonDivStyleByLayout(GUIModel model, Button b) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
 	
@@ -937,6 +942,11 @@ String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
 // [DM]
 String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+String getColumnEditableField(Column currCol, Table table, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -26,7 +26,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
-//import it.csi.mddtools.guigen.MenuItem;
+//import it.csi.mddtools.guigen.MenuItem; // STDMDD-241 MenuItem è deprecato
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
@@ -80,9 +80,9 @@ public class GenUtils {
 	 * @param codVer Codice della versione.
 	 * @return true se il codice rispetta la convenzione, false altrimenti.
 	 */
-	public static boolean isVersioneFormalmenteCorretta(String codVer){
+	public static boolean isVersioneFormalmenteCorretta(String codVer) {
 		StringTokenizer stok = new StringTokenizer(codVer, ".");
-		if (stok.countTokens()!=3) {
+		if (stok.countTokens() != 3) {
 			return false;
 		} else {
 			return true;
@@ -92,11 +92,12 @@ public class GenUtils {
 
 	/**
 	 * Genera un ID univoco da assegnare ad una Protected Region.
+	 * 
 	 * @param sourceId Stringa da cui ricavare l'ID (nome ContentPanel, Panel, Widget, ecc...)
 	 * @return un id univoco della regione protetta univocamente derivabile
-	 * da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
-	 * creare problemi a seguito di eventuali formattazioni automatiche dei
-	 * commenti che dichiarano la protectred region
+	 *         da sourceId. Serve per avere degli id univoci ma abbastanza corti da non
+	 *         creare problemi a seguito di eventuali formattazioni automatiche dei
+	 *         commenti che dichiarano la Protected Region.
 	 */
 	public static String getRegionUID(String sourceId){
 		String uid = "R"+sourceId.hashCode();
@@ -109,6 +110,7 @@ public class GenUtils {
 
 	/**
 	 * Restituisce tutti i ContentPanel dell'applicazione.
+	 * 
 	 * @param  model  GUIModel che rappresenta l'applicazione.
 	 * @return Lista dei ContentPanel dell'applicazione.
 	 * @author [DM]
@@ -121,6 +123,7 @@ public class GenUtils {
 
 	/**
 	 * Restituisce tutti i ContentPanels contenuti in una ApplicationArea.
+	 * 
 	 * @param appArea  L'ApplicationArea interessata.
 	 * @return Lista dei ContentPanel dell'ApplicationArea data.
 	 * @author [DM]
@@ -142,8 +145,9 @@ public class GenUtils {
 
 	/**
 	 * Verifica che il name del ContentPanel sia univoco su tutta l'applicazione.
+	 * 
 	 * @param contentPanel Il ContentPanel da verificare.
-	 * @return true se il name del content panel è univoco, false altrimenti.
+	 * @return true se il name del content panel &egrave; univoco, false altrimenti.
 	 */
 	public static boolean isContentPanelUnique(ContentPanel contentPanel) {
 		ApplicationArea appArea = null;
@@ -173,6 +177,7 @@ public class GenUtils {
 	/**
 	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
 	 * (direttamente o indirettamente) il Command in questione.
+	 * 
 	 * @param a Il Command di cui si vuole conoscere il ContentPanel.
 	 * @return Il ContentPanel che contiene il Command.
 	 */
@@ -184,7 +189,7 @@ public class GenUtils {
 			EObject panel = widget.eContainer();
 			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
-			//} else if(widget instanceof MenuItem || widget instanceof Menu) { -> MenuItem è deprecato
+			//} else if(widget instanceof MenuItem || widget instanceof Menu) { -> STDMDD-241 MenuItem è deprecato
 			} else if(widget instanceof Menu) {
 				return null; // .. in realtà non è un pannello
 			}
@@ -210,6 +215,7 @@ public class GenUtils {
 	/**
 	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
 	 * (direttamente o indirettamente) il widget in questione.
+	 * 
 	 * @param w Il Widget di cui si vuole conoscere il ContentPanel.
 	 * @return Il ContentPanel che contiene il Widget.
 	 */
@@ -224,6 +230,7 @@ public class GenUtils {
 	/**
 	 * Risale la gerarchia dei pannelli fino ad arrivare al ContentPanel che contiene
 	 * (direttamente o indirettamente) il pannello in questione.
+	 * 
 	 * @param p Il Panel di cui si vuole conoscere il ContentPanel.
 	 * @return Il ContentPanel che contiene il Panel.
 	 */
@@ -241,10 +248,10 @@ public class GenUtils {
 	// find all widgets in panels
 
 	/**
-	 * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del
-	 * ContentPanel in oggetto. Se il ContentPanel è nullo restituisco la lista completa
-	 * dei widget dell'applicazione
-	 * @param cp Il ContentPanel che si vuole esaminare
+	 * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del ContentPanel in oggetto.
+	 * Se il ContentPanel &egrave; nullo restituisco la lista completa dei widget dell'applicazione.
+	 * 
+	 * @param cp Il ContentPanel che si vuole esaminare.
 	 * @return La lista dei Widget del ContentPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInContentPanel(ContentPanel cp) {
@@ -264,11 +271,12 @@ public class GenUtils {
 
 
 	/**
-	 * Restituisce la lista completa dei widget dell'applicazione
+	 * Restituisce la lista completa dei widget dell'applicazione.
+	 * 
 	 * @return La lista dei Widget dell'applicazione.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInApplication() {
-		TreeIterator<EObject> all= GuigenPackage.eINSTANCE.eAllContents();
+		TreeIterator<EObject> all = GuigenPackage.eINSTANCE.eAllContents();
 		ArrayList<Widget> allW = new ArrayList<Widget>();
 		while(all.hasNext()) {
 			EObject curr = all.next();
@@ -283,9 +291,10 @@ public class GenUtils {
 
 
 	/**
-	 * Compila una lista dei widget contenuti in un Panel
-	 * @param p Il Panel da esaminare
-	 * @return La lista dei widget del Panel
+	 * Compila una lista dei widget contenuti in un Panel.
+	 * 
+	 * @param p Il Panel da esaminare.
+	 * @return La lista dei widget del Panel  (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(Panel p){
 		if(p instanceof FormPanel)
@@ -317,17 +326,17 @@ public class GenUtils {
 	/**
 	 * Compila una lista dei widget appartenenti al pannello in questione o ad
 	 * uno sei suoi sottopannelli.
-	 * @param p
-	 * @return
+	 * 
+	 * @param p Il FormPanel da esaminare.
+	 * @return La lista dei widget del FormPanel (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(FormPanel p) {
 		ArrayList<Widget> ris = new ArrayList<Widget>();
 		// widget sottopannelli
 		if (p.getSubpanels() != null) {
-			Iterator<Panel> it = p.getSubpanels().iterator();
-			while (it.hasNext()) {
-				ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
-				ris.addAll(tmp);
+			for (Panel panel : p.getSubpanels()) {
+				ArrayList<Widget> tmp = findAllWidgetsInPanel(panel);
+				ris.addAll(tmp);				
 			}
 		}
 		return ris;
@@ -336,8 +345,9 @@ public class GenUtils {
 	
 	/**
 	 * Compila una lista dei widget appartenenti al pannello in questione.
-	 * @param p
-	 * @return
+	 * 
+	 * @param p Il WidgetsPanel da esaminare.
+	 * @return La lista dei widget del WidgetsPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(WidgetsPanel p) {
 		return new ArrayList<Widget>(p.getWidgets());
@@ -346,8 +356,9 @@ public class GenUtils {
 
 	/**
 	 * Compila una lista dei widget appartenenti al pannello in questione.
-	 * @param p
-	 * @return
+	 * 
+	 * @param p Il CommandPanel da esaminare.
+	 * @return La lista dei widget del CommandPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(CommandPanel p) {
 		return new ArrayList<Widget>(p.getWidgets());
@@ -356,8 +367,9 @@ public class GenUtils {
 
 	/**
 	 * Compila una lista dei widget appartenenti al pannello in questione.
-	 * @param p
-	 * @return
+	 * 
+	 * @param p Il MenuPanel da esaminare.
+	 * @return La lista dei widget del MenuPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(MenuPanel p) {
 		return new ArrayList<Widget>(p.getWidgets());
@@ -365,9 +377,10 @@ public class GenUtils {
 	
 
 	/**
-	 * Compila una lista dei widget contenuti nei DialogPanel di un ContentPanel
-	 * @param l
-	 * @return
+	 * Compila una lista dei widget appartenenti ad un insieme di DialogPanel.
+	 * 
+	 * @param l La lista di DialogPanel da esaminare.
+	 * @return La lista dei widget contenuti nei pannelli in esame.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInDialogPanels(List<DialogPanel> l) {
 		ArrayList<Widget> res = new ArrayList<Widget>();
@@ -379,18 +392,19 @@ public class GenUtils {
 
 
 	/**
-	 * compila una lista dei widget contenuti nel dialog
-	 * @param dp
-	 * @return
+	 * Compila una lista dei widget appartenenti al pannello in questione o ad
+	 * uno sei suoi sottopannelli.
+	 * 
+	 * @param dp Il DialogPanel da esaminare.
+	 * @return La lista dei widget del DialogPanel (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(DialogPanel dp) {
 		ArrayList<Widget> result = new ArrayList<Widget>();
 		List<MsgBoxPanel> dlgBoxes = dp.getMsgBoxes();
-		if (dlgBoxes!=null){
-			Iterator<MsgBoxPanel> it = dlgBoxes.iterator();
-			while(it.hasNext()){
-				ArrayList<Widget> parz = findAllWidgetsInPanel(it.next());
-				result.addAll(parz);
+		if ( dlgBoxes != null) {
+			for (MsgBoxPanel msgBoxPanel : dlgBoxes) {
+				ArrayList<Widget> parz = findAllWidgetsInPanel(msgBoxPanel);
+				result.addAll(parz);				
 			}
 		}
 		result.addAll(findAllWidgetsInPanel(dp.getCommands()));
@@ -398,9 +412,10 @@ public class GenUtils {
 	}
 
 	/**
-	 * compila una lista dei widget contenuti in un MsgBoxPanel
-	 * @param dp
-	 * @return
+	 * Compila una lista dei widget contenuti in un MsgBoxPanel.
+	 * 
+	 * @param p Il MsgBoxPanel da esaminare.
+	 * @return La lista dei widget del MsgBoxPanel.
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(MsgBoxPanel p) {
 		ArrayList<Widget> result = new ArrayList<Widget>();
@@ -409,21 +424,21 @@ public class GenUtils {
 	}
 
 	/**
-	 * Compila una lista di tutti i widget appartenenti ad uno dei tab del tabset
-	 * in oggetto.
-	 * @param tsp
-	 * @return
+	 * Compila una lista di tutti i widget appartenenti ai tab 
+	 * del TabSetPanel in oggetto (e dei loro sottopannelli).
+	 * 
+	 * @param tsp Il TabSetPanel da esaminare.
+	 * @return La lista dei widget del TabSetPanel (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(TabSetPanel tsp) {
-		if (tsp.getPanels() == null)
+		if (tsp.getPanels() == null) {
 			return null;
-		else {
+		} else {
 			ArrayList<Widget> ris = new ArrayList<Widget>();
-			if (tsp.getPanels() != null) {
-				Iterator<Panel> it = tsp.getPanels().iterator();
-				while (it.hasNext()) {
-					ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
-					ris.addAll(tmp);
+			if ( tsp.getPanels() != null ) {
+				for (Panel panel : tsp.getPanels()) {
+					ArrayList<Widget> tmp = findAllWidgetsInPanel(panel);
+					ris.addAll(tmp);					
 				}
 			}
 			return ris;
@@ -432,9 +447,10 @@ public class GenUtils {
 
 	/**
 	 * Compila una lista di tutti i widget appartenenti ad uno dei sottopannelli del
-	 * multipanel in oggetto.
-	 * @param mp
-	 * @return
+	 * MultiPanel in oggetto(e di tutti i suoi sottopannelli).
+	 * 
+	 * @param mp Il MultiPanel da esaminare.
+	 * @return La lista dei widget del MultiPanel (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(MultiPanel mp) {
 		if ( mp.getPanels() == null ) {
@@ -442,9 +458,8 @@ public class GenUtils {
 		} else {
 			ArrayList<Widget> ris = new ArrayList<Widget>();
 			if (mp.getPanels() != null) {
-				Iterator<Panel> it = mp.getPanels().iterator();
-				while (it.hasNext()) {
-					ArrayList<Widget> tmp = findAllWidgetsInPanel(it.next());
+				for (Panel panel : mp.getPanels()) {
+					ArrayList<Widget> tmp = findAllWidgetsInPanel(panel);
 					ris.addAll(tmp);
 				}
 			}
@@ -452,15 +467,13 @@ public class GenUtils {
 		}
 	}
 
-	
-	
-	
-	
+
 
 	//////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Restituisce la lista dei widget di tipo Table contenuti in un ContentPanel.
+	 * 
 	 * @param cp Il ContentPanel
 	 * @return  Lista dei widget di tipo Table contenuti nel ContentPanel.
 	 * @author [DM]
@@ -477,10 +490,13 @@ public class GenUtils {
 		return res;
 	}
 
+
+
 	//////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Restituisce la lista dei widget di tipo TreeView contenuti in un ContentPanel.
+	 * 
 	 * @param cp Il ContentPanel
 	 * @return  Lista dei widget di tipo TreeView contenuti nel ContentPanel.
 	 * @author [DM]
@@ -503,12 +519,13 @@ public class GenUtils {
 	// exec actions
 
 	/**
-	 *
-	 * @param eh
-	 * @return
+	 * Restituisce la lista delle ExecAction dell'EventHandler.
+	 * 
+	 * @param eh L'EventHandler da esaminare.
+	 * @return Lista degli ExecCommand associati all'EeventHandler dato.
 	 */
 	public static List<ExecCommand> getAllExecActionsForEventHandler(EventHandler eh){
-		List<ExecCommand> ris = new ArrayList<ExecCommand>();
+		//List<ExecCommand> ris = new ArrayList<ExecCommand>();
 		return getAllExecActionsRecursive(eh.getCommand());
 	}
 
@@ -567,7 +584,7 @@ public class GenUtils {
 	 * @param ea
 	 * @return
 	 */
-	public static boolean isInMenuBranch(ExecCommand ea){
+	public static boolean isInMenuBranch(ExecCommand ea) {
 		Object parent = ea.eContainer();
 
 		if (parent instanceof EventHandler)
@@ -585,7 +602,7 @@ public class GenUtils {
 	 * @param sa
 	 * @return
 	 */
-	public static boolean isInMenuBranch(SequenceCommand sa){
+	public static boolean isInMenuBranch(SequenceCommand sa) {
 		Object parent = sa.eContainer();
 		if (parent instanceof CommandOutcome)
 			return isInMenuBranch((CommandOutcome)parent);
@@ -600,9 +617,9 @@ public class GenUtils {
 	 * @param eh
 	 * @return
 	 */
-	public static boolean isInMenuBranch(EventHandler eh){
+	public static boolean isInMenuBranch(EventHandler eh) {
 		Object parent = eh.eContainer();
-		//if (parent instanceof MenuItem || parent instanceof Menu) // MenuItem è deprecato
+		//if (parent instanceof MenuItem || parent instanceof Menu) -> STDMDD-241 MenuItem è deprecato
 		if (parent instanceof Menu) {
 			return true;
 		} else {
@@ -676,10 +693,11 @@ public class GenUtils {
 		return result;
 	}
 
-	/**
+	/*
 	 *
 	 * @param mi
 	 * @return
+	 * @deprecated STDMDD-241 MenuItem è deprecato
 	 */
 	/*public static List<ContentPanel> getAllPossibleJumps(MenuItem mi) {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
@@ -950,10 +968,11 @@ public class GenUtils {
 		return result;
 	}
 
-	/**
+	/*
 	 *
 	 * @param mi
 	 * @return
+	 * @deprecated STDMDD-241 MenuItem è deprecato
 	 */
 	/*public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi) {
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
@@ -1444,10 +1463,11 @@ public class GenUtils {
 		return result;
 	}
 
-	/**
+	/*
 	 *
 	 * @param mb
 	 * @return
+	 * @deprecated STDMDD-241 MenuItem è deprecato
 	 */
 	/*public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb) {
 		List<MenuItem> result = new ArrayList<MenuItem>();
@@ -1517,6 +1537,12 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param menubar
+	 * @return
+	 */
 	public static boolean isMenuNameUnique(String name, Menubar menubar){
 		if (isNullOrEmpty(name))
 			return true;
@@ -1531,12 +1557,19 @@ public class GenUtils {
 		}
 	}
 
-	private static int countOccurs(String name, Menu menu){
+	/**
+	 * 
+	 * @param name
+	 * @param menu
+	 * @return
+	 */
+	private static int countOccurs(String name, Menu menu) {
 		int nOccurs=0;
 		if ( menu.getName().equals(name) ) {
 			nOccurs++;
 		}
 		
+		// STDMDD-241 MenuItem è deprecato
 		/*Iterator<MenuItem> mnui_it = menu.getItem().iterator();
 		while (mnui_it.hasNext()) {
 			MenuItem menuItem = (MenuItem) mnui_it.next();
@@ -1679,7 +1712,9 @@ public class GenUtils {
 		while(it_m.hasNext()){
 			Menu currMnu =it_m.next();
 			List<ApplicationData> parz = findAllActionScopedAppData(currMnu);
-			if (parz!=null)result.addAll(parz);
+			if (parz!=null) {
+				result.addAll(parz);
+			}
 		}
 		return result;
 	}
@@ -1691,6 +1726,8 @@ public class GenUtils {
 	 */
 	public static List<ApplicationData> findAllActionScopedAppData(Menu m){
 		List<ApplicationData> result = new ArrayList<ApplicationData>();
+		
+		// STDMDD-241 MenuItem è deprecato
 		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
 		while(it_mi.hasNext()){
 			MenuItem currMI = it_mi.next();
@@ -1699,13 +1736,17 @@ public class GenUtils {
 				if (parz!=null) result.addAll(parz);
 			}
 		}*/
+		
 		// submenu
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while(it_sm.hasNext()){
 			Menu currSM = it_sm.next();
 			List<ApplicationData> parz = findAllActionScopedAppData(currSM);
-			if (parz!=null) result.addAll(parz);
+			if (parz!=null) {
+				result.addAll(parz);
+			}
 		}
+
 		return result;
 	}
 
@@ -1717,13 +1758,15 @@ public class GenUtils {
 	 */
 	public static ArrayList<ApplicationData> findAllActionScopedAppData(ExecCommand a){
 		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
-		if (a.getPostExecData()!=null)
+		if (a.getPostExecData()!=null) {
 			ris.addAll(a.getPostExecData());
+		}
 		Iterator<CommandOutcome> a_it = a.getResults().iterator();
 		while(a_it.hasNext()){
 			ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
-			if (currAppDataList!=null)
+			if (currAppDataList!=null) {
 				ris.addAll(currAppDataList);
+			}
 		}
 		return ris;
 	}
@@ -1749,15 +1792,22 @@ public class GenUtils {
 		Iterator<Command> a_it = a.getCommands().iterator();
 		while(a_it.hasNext()){
 			ArrayList<ApplicationData> currAppDataList = findAllActionScopedAppData(a_it.next());
-			if (currAppDataList!=null)
+			if (currAppDataList!=null) {
 				ris.addAll(currAppDataList);
+			}
 		}
 		return ris;
 	}
 
+	
+
 	///////////////////////////////
 
-
+	/**
+	 * 
+	 * @param mb
+	 * @return
+	 */
 	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4Menus(Menubar mb){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		Iterator<Menu> it_m = mb.getTopLevelMenu().iterator();
@@ -1768,17 +1818,24 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param m
+	 * @return
+	 */
 	public static List<CustomSecurityConstraint> getAllCustomSecConstraints4Menu(Menu m){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		if(m.getSecurityConstraints().size()>0){
 			Iterator<UISecurityConstraint> it_sc = m.getSecurityConstraints().iterator();
 			while(it_sc.hasNext()){
 				UISecurityConstraint currSC = it_sc.next();
-				if (currSC instanceof CustomSecurityConstraint)
+				if (currSC instanceof CustomSecurityConstraint) {
 					result.add((CustomSecurityConstraint)currSC);
+				}
 			}
 		}
 		
+		// STDMDD-241 MenuItem è deprecato
 		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
 		while(it_mi.hasNext()){
 			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4MenuItem(it_mi.next());
@@ -1794,6 +1851,12 @@ public class GenUtils {
 		return result;
 	}
 
+	/*
+	 * 
+	 * @param mi
+	 * @return
+	 * @deprecated STDMDD-241 MenuItem è deprecato
+	 */
 	/*public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
 		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
 		if (mi.getSecurityConstraints().size()>0){
@@ -1806,6 +1869,7 @@ public class GenUtils {
 		}
 		return result;
 	}*/
+
 
 	/**
 	 * restituisce la stringa OGNL per il value del data widget.
@@ -1906,11 +1970,12 @@ public class GenUtils {
 	}
 
 
-	/**
+	/*
 	 * verifica se l'elemento Menu ha un solo Item o no
 	 * @param currMenu
 	 * @return
 	 * @author [DM]
+	 * @deprecated STDMDD-241 MenuItem è deprecato
 	 */
 	/*public static boolean hasUniqueMenuItem(Menu currMenu) {
 		int numItems = currMenu.getItem().size();
@@ -1919,10 +1984,11 @@ public class GenUtils {
 	}*/
 
 
-	/**
+	/*
 	 *
 	 * @param m
 	 * @return
+	 * @deprecated STDMDD-241 MenuItem è deprecato
 	 */
 	/*public static List<MenuItem> getAllMenuItemRecursive(Menu m){
 		List<MenuItem> result = new ArrayList<MenuItem>();
@@ -1967,6 +2033,41 @@ public class GenUtils {
 	}
 
 
+	/**
+	 * Restituisce il campo per l'editabilità di una colonna della tabella
+	 * @param currCol
+	 * @param table
+	 * @param cp
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getColumnEditableField(Column currCol, Table table, GUIModel model) {
+		String res = "";
+		
+		// ricavo il tipo (sicuramente ComplexType) del MultiDataBinding
+		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+		
+		// ricavo il field 
+		Field f = getSelectedField(null, t, currCol.getSelector());
+		
+		if ( f != null ) {
+			// Scelta del formatter sulla base del tipo ritornato (deve essere un SimpleType) 
+			if ( f.getType() instanceof SimpleType ) {
+				SimpleType ft = (SimpleType) f.getType();
+				// al momento gestiamo in maniera diversa solo i boolean
+				// TODO: se necessario implementare altri comparatori
+				if ( isBoolean(ft) ) {
+					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" />";
+				} else {
+					res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+				}
+			}
+		}		
+		
+		return res;
+	}
+	
+	
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO
@@ -1990,6 +2091,7 @@ public class GenUtils {
 		//basicTypesMap.put(Long.TYPE, csiLong);
 		SimpleType csiString = createDT("String", SimpleTypeCodes.STRING, false);
 		//basicTypesMap.put(String.class, csiString);
+		
 		// tipi wrapped (nillable)
 		SimpleType csiWInteger = createDT("WrappedInteger", SimpleTypeCodes.INT, true);
 		//basicTypesMap.put(Integer.class, csiWInteger);
@@ -2021,6 +2123,7 @@ public class GenUtils {
 		//basicTypesMap.put(getTypedArrayClass(Long.TYPE), csiLongArray);
 		it.csi.mddtools.guigen.TypedArray csiStringArray = createTA("Array of String", csiString);
 		//basicTypesMap.put(getTypedArrayClass(String.class), csiStringArray);
+		
 		// array di tipi wrapped
 		it.csi.mddtools.guigen.TypedArray csiWIntegerArray = createTA("Array of WrappedInteger", csiWInteger);
 		//basicTypesMap.put(getTypedArrayClass(Integer.class), csiWIntegerArray);
@@ -2044,10 +2147,23 @@ public class GenUtils {
 		return types;
 	}
 
+	/**
+	 * 
+	 * @param javaCompType
+	 * @return
+	 */
 	public static Class getTypedArrayClass(Class javaCompType){
 		Object dummyArray = Array.newInstance(javaCompType, 0);
 		return dummyArray.getClass();
 	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param code
+	 * @param nillable
+	 * @return
+	 */
 	public static SimpleType createDT(String name, SimpleTypeCodes code, boolean nillable){
 		SimpleType dt = GuigenFactory.eINSTANCE.createSimpleType();
 		dt.setName(name);
@@ -2056,6 +2172,12 @@ public class GenUtils {
 		return dt;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param dt
+	 * @return
+	 */
 	public static it.csi.mddtools.guigen.TypedArray createTA(String name,SimpleType dt){
 		it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
 		ta.setName(name);
@@ -2063,6 +2185,12 @@ public class GenUtils {
 		return ta;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param dt
+	 * @return
+	 */
 	public static it.csi.mddtools.guigen.TypedArray createTA(String name,ComplexType dt){
 		it.csi.mddtools.guigen.TypedArray ta = GuigenFactory.eINSTANCE.createTypedArray();
 		ta.setName(name);
@@ -2070,11 +2198,20 @@ public class GenUtils {
 		return ta;
 	}
 
-
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	public static List<Type> getAllTypes(GUIModel model) {
 		return getAllTypes(model.getTypedefs());
 	}
 
+	/**
+	 * 
+	 * @param typedef
+	 * @return
+	 */
 	public static List<Type> getAllTypes(Typedefs typedef) {
 		List<Type> res = new ArrayList<Type>();
 
@@ -2090,37 +2227,82 @@ public class GenUtils {
 	}
 
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isNumeric(SimpleType t) {
 		return isInteger(t) || isDecimal(t);
 	}
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isInteger(SimpleType t) {
 		return t.getCode() == SimpleTypeCodes.INT || t.getCode() == SimpleTypeCodes.LONG;
 	}	
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isDecimal(SimpleType t) {
 		return t.getCode() == SimpleTypeCodes.DOUBLE || t.getCode() == SimpleTypeCodes.FLOAT;
 	}
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isString(SimpleType t) {
 		return t.getCode() == SimpleTypeCodes.STRING;
 	}
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isDate(SimpleType t) {
 		return t.getCode() == SimpleTypeCodes.DATE || t.getCode() == SimpleTypeCodes.DATETIME;
 	}	
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isHour(SimpleType t) {
 		return t.getCode() == SimpleTypeCodes.HOURS;
 	}	
 	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
 	public static boolean isDateOrHour(SimpleType t) {
 		return isDate(t) || isHour(t);
 	}		
-	
+
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
+	public static boolean isBoolean(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.BOOLEAN;
+	}
+
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INTROSPECTION SUI TIPI DI DATO NEI SELETTORI
-	
 	
 	/**
 	 * 
@@ -2131,7 +2313,7 @@ public class GenUtils {
 	public static String getColumnFormatter(Column col, Table table) {
 		String res = "";
 		
-		// ricavo il tipo (sicuramente ComplexType) del 
+		// ricavo il tipo (sicuramente ComplexType) del MultiDataBinding
 		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
 		
 		// ricavo il field 
@@ -2148,6 +2330,7 @@ public class GenUtils {
 				// TODO: se necessario implementare altri comparatori				
 			}
 		}
+
 		return res;
 	}
 	
@@ -2190,6 +2373,7 @@ public class GenUtils {
 	/**
 	 * Ritorna il Field corrispondente al selettore passato.
 	 * 
+	 * @param f
 	 * @param ct
 	 * @param selector
 	 * @return Il Field corrispondente al selettore passato, null se il selettore non viene risolto.
@@ -2302,6 +2486,7 @@ public class GenUtils {
 
 	/**
 	 * Verifica se una stringa &egrave; nulla o vuota.
+	 * 
 	 * @param s La Stringa da verificare.
 	 * @return  true se la stringa &egrave; nulla o vuota, false altrimenti.
 	 */

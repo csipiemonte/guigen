@@ -10,16 +10,16 @@ extension template::struts2::Struts2Extensions;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // validazioni generali (prodotto/componente etc..)
-context GUIModel ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)" :
+context GUIModel ERROR "E' necessario specificare il codice prodotto (max 10 caratteri)" :
 	codProdotto!=null && codProdotto.length<=10;
 
-context GUIModel ERROR "E'necessario specificare il codice componente (max 20 caratteri)" :
+context GUIModel ERROR "E' necessario specificare il codice componente (max 20 caratteri)" :
 	codComponente!=null && codComponente.length<=20;
 
-context GUIModel ERROR "E'necessario specificare la versione del prodotto nel formato major.minor.bugfix" :
+context GUIModel ERROR "E' necessario specificare la versione del prodotto nel formato major.minor.bugfix" :
 	versioneProdotto!=null && isVersioneFormalmenteCorretta(versioneProdotto);
 
-context GUIModel ERROR "E'necessario specificare la versione del componente nel formato major.minor.bugfix" :
+context GUIModel ERROR "E' necessario specificare la versione del componente nel formato major.minor.bugfix" :
 	versioneComponente!=null && isVersioneFormalmenteCorretta(versioneComponente);
 
 context GUIModel ERROR "E' necessario scegliere la Target Platform" :
@@ -79,7 +79,7 @@ context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSE
     );
 
 // Con l'introduzione del WidgetsPanel, il FormPanel non deve più contenere widgets.
-context FormPanel ERROR "Un FormPanel non può contenere Widgets. L'attributo widgets è stato mantenuto solo per retrocompatibilità." + loc() :
+context FormPanel ERROR "Un FormPanel non può contenere Widgets. L'attributo widgets è stato mantenuto solo per retrocompatibilità. " + loc() :
 	this.widgets.size == 0;
 
 
@@ -204,7 +204,7 @@ context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc(
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su widget
 
-context Widget ERROR "E'necessario impostare l'attributo 'name' del widget"+loc() :
+context Widget ERROR "E'necessario impostare l'attributo 'name' del widget "+loc() :
 	this.name != null && this.name != "";
 
 context Widget ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco " + loc() :
@@ -239,43 +239,43 @@ context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
 
-context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED"+loc() :
+context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED "+loc() :
 	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
 
-context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento"+loc() :
+context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento "+loc() :
 	this.command!=null;
 	
-context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command"+loc() :
+context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command "+loc() :
 	this.jumpTo != null;
 	
-context JumpCommand WARNING "L'utilizzo di JumpCommand sullo stesso pannello di partenza è deprecato. Preferibile NOPCommand:"+loc() :
+context JumpCommand WARNING "L'utilizzo di JumpCommand sullo stesso pannello di partenza è deprecato. Preferibile NOPCommand: "+loc() :
 	!jumpToSameContentPanel(this);
 
-context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand"+loc() :
+context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand "+loc() :
     this.dialog != null;
     
-context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato"+loc() :
+context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato "+loc() :
 	this.results!=null && this.results.size>0;
 
-context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione"+loc() :
+context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione "+loc() :
 	this.methodName!=null && this.methodName.length>0;
 
-context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel"+loc() :
+context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel "+loc() :
 	this.multipanel!=null;
 		
-context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato"+loc() :
+context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato "+loc() :
 	this.activeItem==null || 
 	this.multipanel.panels.select(p|p==this.activeItem).size>0;
 
-context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime"+loc() :
+context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime "+loc() :
 	this.staticUrl!=null && this.runtimeUrlProvider==null 
 	||
 	(this.staticUrl==null || this.staticUrl.length==0) && this.runtimeUrlProvider!=null;
 
-context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare"+loc() :
+context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare "+loc() :
 	this.locationCode!=null && this.locationCode.length>0;
 	
-context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider"+loc() :
+context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider "+loc() :
 	this.runtimeUrlProvider==null ||
 	this.runtimeUrlProvider.type.metaType==SimpleType &&
 	((SimpleType)(this.runtimeUrlProvider.type)).code==guigen::SimpleTypeCodes::STRING;
@@ -290,11 +290,11 @@ context VisibilityCommand ERROR "Il comando di commutazione di visibilità è inco
 // un menu view non può avere event handler associati (eredita quelli del menu vero e proprio di cui
 // è segnaposto
 context MenuView ERROR "ad una MenuView non è possibile associare evnet handler, in quanto eredita gli event handler"+
-						" della struttura menu globale (di cui funge solo da segnaposto)"+loc() :
+						" della struttura menu globale (di cui funge solo da segnaposto) "+loc() :
 	this.eventHandlers.size == 0;
 
 // un Treeview può avere solo un event handler di tipo click
-context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED"+loc() :
+context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED "+loc() :
 	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
 
 // per rendere "eventActive" una colonna di una table occorre specificare un event handler clicked nella table
@@ -322,7 +322,7 @@ context ApplicationData ERROR "E' necessario specificare il nome dell Applicatio
 context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data "+loc() :
 	this.type != null;
  
-context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+","+loc() :
+context TreeView ERROR "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+", "+loc() :
 	this.multiDataBinding == null ||
 	(
 		this.multiDataBinding.appData != null 
@@ -332,11 +332,11 @@ context TreeView ERROR "La fonte dati di un TreeView può solo essere un applicat
 	 	((SimpleType)this.multiDataBinding.appData.type).code == SimpleTypeCodes::TREE_NODE
 	 );
 
-//context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type :
+//context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type+", "+loc() :
 //	this.multiDataBinding.appData.type.metaType==TypedArray && 
 //	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
 	
-context DataWidget ERROR "E'ncessario specificare il tipo del Widget "+loc() :
+context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
 	this.dataType != null;
 
 //context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding "+loc() :
@@ -391,75 +391,73 @@ context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando 
 context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi "+loc() :
 	this.commands!= null && this.commands.size>0;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand"+loc() :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand "+loc() :
 	(this.commands.select(a|a.metaType == JumpCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpCommand).size==1) && (this.commands.last().metaType == JumpCommand)
 	;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand"+loc() :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand "+loc() :
 	(this.commands.select(a|a.metaType == JumpExtCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpExtCommand).size==1) && (this.commands.last().metaType == JumpExtCommand)
 	;
 
-context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand"+loc() :
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand "+loc() :
 	(this.commands.select(a|a.metaType == JumpBackCommand).size==0) ||
 	  (this.commands.select(a|a.metaType == JumpBackCommand).size==1) && (this.commands.last().metaType == JumpBackCommand);
 
-//context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una ShowDialogAction" :
+//context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una ShowDialogAction "+loc() :
 //	(this.actions.select(a|a.metaType == ShowDialogAction).size==0) ||
 //	  (this.actions.select(a|a.metaType == ShowDialogAction).size==1) && (this.actions.last().metaType == ShowDialogAction);
 
-context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget"+loc() :
+context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget "+loc() :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 
-	
-	
 
 ////////////////////////////////////////////////////////////////////////////////////////
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////
-context SecurityModel ERROR "Occorre specificare il codice identificativo dell'applicazione per il sistema di sicurezza (es. id app. per IRIDE2)"+loc() :
+
+context SecurityModel ERROR "Occorre specificare il codice identificativo dell'applicazione per il sistema di sicurezza (es. id app. per IRIDE2) "+loc() :
 	this.securityAppID!=null;
 
-context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato"+loc() :
+context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato "+loc() :
 	this.minAuthLevel>=1 && this.minAuthLevel<=3;
 
-context SSOBARTSSO ERROR "Il meccanismo di autenticazione basato su SSOBART non è attualmente implementato" :
+context SSOBARTSSO ERROR "Il meccanismo di autenticazione basato su SSOBART non è attualmente implementato " :
 	false;
 
-context CustomAuthentication ERROR "Il meccanismo di autenticazione custom non è attualmente implementato" :
+context CustomAuthentication ERROR "Il meccanismo di autenticazione custom non è attualmente implementato " :
 	false;
 
-context CustomSecurityConstraint ERROR "E' necessario specificare il nome del metodo:"+loc() :
+context CustomSecurityConstraint ERROR "E' necessario specificare il nome del metodo: "+loc() :
 	!isNullOrEmpty(this.methodNameSuffix);
 
 context UISecurityConstraint ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
-"se non è specificato un metodo di AUTENTICAZIONE"+loc() :
+"se non è specificato un metodo di AUTENTICAZIONE "+loc() :
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;
 	
-context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor"+loc() :
+context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor "+loc() :
 	code!=null;
 
-context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case"+loc() :
+context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case "+loc() :
 	code!=null;
 	
-context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce"+loc() :
+context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce "+loc() :
 	this.useCase!=null;
 
-context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce"+loc() :
+context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce "+loc() :
 	this.actor!=null;
 	
 context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
-" deve essere abilitato e contemporaneamente invisibile"+loc() :
+" deve essere abilitato e contemporaneamente invisibile "+loc() :
 	this.enabled==false || !(enabled==true && visible==true);
 
-context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint su un widget dichiarato required:"+loc() :
+context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint su un widget dichiarato required: "+loc() :
 	(DataWidget.isAssignableFrom(eContainer.metaType)?
 		(((DataWidget)eContainer).required==false) 
 		:
 	 	true
 	);
-	
 
 /// verifica se sono presenti il tipo UserInfo e l'app data currentUser
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
@@ -470,4 +468,4 @@ context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito
 
 context ContentPanel ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
 	((GUIModel)this.eRootContainer).securityModel==null ||
-	appData.select(ab|ab.name=="currentUser").size==1;	
+	appData.select(ab|ab.name=="currentUser").size==1;

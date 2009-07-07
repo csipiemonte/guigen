@@ -13,7 +13,6 @@ import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.HiddenValue;
-import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.MultiDataWidget;
@@ -87,9 +86,9 @@ public class GenUtilsChecks {
 
 
 	/**
-	 * Controlla che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
+	 * Verifica che tutti i widget di un MenuPanel siano di tipo MenuView o TreeView.
 	 * 
-	 * @param cp  Il CommandPanel da controllare.
+	 * @param cp  Il CommandPanel da verificare.
 	 * @return  true se tutti i widget sono dei CommandWidget, false altrimenti.
 	 * @author [DM]
 	 */
@@ -104,9 +103,9 @@ public class GenUtilsChecks {
 
 	
 	/**
-	 * Verifica se esistono dei DataBinding (semplici o multi) non risolvibili
-	 * @param cp
-	 * @return
+	 * Verifica se esistono dei DataBinding (semplici o multi) non risolvibili.
+	 * @param cp Il ContentPanel da verificare.
+	 * @return La lista dei DataBinding che non è possibile risolvere.
 	 */
 	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(ContentPanel cp) {
 		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
@@ -124,6 +123,7 @@ public class GenUtilsChecks {
 					}
 				}
 			}
+			
 			if (w instanceof MultiDataWidget) {
 				if (((MultiDataWidget) w).getMultiDataBinding() != null) {
 					ApplicationData ad = ((MultiDataWidget) w).getMultiDataBinding().getAppData();
@@ -139,9 +139,9 @@ public class GenUtilsChecks {
 
 	
 	/**
-	 * Verifica che l'attributo columnSizes sia formalmente corretto.
-	 * @param wp
-	 * @return
+	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente corretto.
+	 * @param wpIl WidgetsPanel da verificare.
+	 * @return true se l'attributo &egrave; corretto, false altrimenti.
 	 */
 	public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
 		// per il momento ignoriamo l'HorizontalFlowPanelLayout
@@ -178,8 +178,8 @@ public class GenUtilsChecks {
 	
 	/**
 	 * Verifica che il DataBinding di un Calendar (se esiste) sia di tipo Date.
-	 * @param c
-	 * @return
+	 * @param c Il widget di tipo Calendar da verificare.
+	 * @return true se il DataBinding &egrave; del tipo atteso, false altrimenti.
 	 */
 	public static boolean calendarDataBindingTypeCheck(Calendar c) {
 		Type t = c.getDatabinding().getAppData().getType();
@@ -198,8 +198,8 @@ public class GenUtilsChecks {
 	
 	/**
 	 * Verifica la corrispondenza di tipo tra DataWidget e binding.
-	 * @param w
-	 * @return
+	 * @param w Il DataWidget da verificare.
+	 * @return true se c'&grave; corrispondenza di tipo tra DataWidget e binding, false altrimenti.
 	 * @author [DM]
 	 */
 	public static boolean widgetDataBindingCorrispondenceCheck(DataWidget w) {

@@ -80,7 +80,7 @@ public class GenUtilsStrutsValidation {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//JAVA METHODS FOR STRUTS 2 VALIDATION
 
-	/* **************************************  CUSTOM VALIDATORS **************************************/
+	/* **************************************  CUSTOM VALIDATORS ************************************* */
 	
 	/**
 	 * Restituisce la lista di tutti i custom validators definiti dal generatore.
@@ -124,7 +124,7 @@ public class GenUtilsStrutsValidation {
 	}
 
 	
-	/* **************************************  WIDGET VALIDATORS **************************************/
+	/* **************************************  WIDGET VALIDATORS ************************************* */
 	
 
 	/**
@@ -324,7 +324,6 @@ public class GenUtilsStrutsValidation {
 	 */	
 	public static String getWidgetValidationAnnotation(Calendar w, ContentPanel cp) {
 		String res = "";
-		SimpleType t = (SimpleType)w.getDataType();
 		boolean expandFieldName = true;
 
 		// required validation
@@ -381,7 +380,7 @@ public class GenUtilsStrutsValidation {
 	
 	
 	
-	/* **************************************  APPLICATION DATA ***************************************/
+	/* **************************************  APPLICATION DATA ************************************** */
 
 
 	/**
@@ -539,7 +538,7 @@ public class GenUtilsStrutsValidation {
 
 
 
-	/* ************************************  VALIDATOR ANNOTATIONS ************************************/
+	/* ************************************  VALIDATOR ANNOTATIONS *********************************** */
 
 	/**
 	 * Genera l'annotazione per il <code><b>RequiredFieldValidator</b></code>.
@@ -850,7 +849,7 @@ public class GenUtilsStrutsValidation {
 	}
 
 
-	/* ************************************  VALIDATOR LABELS ************************************/
+	/* ************************************  VALIDATOR LABELS *********************************** */
 
 	/**
 	 * 
@@ -893,12 +892,12 @@ public class GenUtilsStrutsValidation {
 		// ricavo la regola di validazione
 		String[] validationRule = getValidationRule(dataTypeModifier);
 		if ( !GenUtils.isNullOrEmpty(validationRule[0]) ) {
-			if ( type.getCode() == SimpleTypeCodes.STRING ) {
+			if ( GenUtils.isString(type) ) {
 				res += getStringValidationLabel(validationRule, fieldLabel);
-			} else if ( type.getCode() == SimpleTypeCodes.INT || type.getCode() == SimpleTypeCodes.LONG ) {
+			} else if ( GenUtils.isInteger(type) ) {
 				// tipo numerico intero
 				res += getNumericIntValidationLabel(validationRule, fieldLabel);
-			} else if ( type.getCode() == SimpleTypeCodes.DOUBLE || type.getCode() == SimpleTypeCodes.FLOAT ) {
+			} else if ( GenUtils.isDecimal(type) ) {
 				// tipo numerico decimale
 				res += getNumericDecValidationLabel(validationRule, fieldLabel);
 			} else if ( type.getCode() == SimpleTypeCodes.DATE ) {
@@ -1235,7 +1234,7 @@ public class GenUtilsStrutsValidation {
 	}
 
 	
-	/**
+	/*
 	 * TODO: al momento non utilizzato -> implementare
 	 * @param parameters
 	 * @return
@@ -1267,7 +1266,7 @@ public class GenUtilsStrutsValidation {
 	}*/
 
 
-	/**
+	/*
 	 * TODO: al momento non utilizzato -> implementare
 	 * @param parameters
 	 * @return
@@ -1334,18 +1333,13 @@ public class GenUtilsStrutsValidation {
 	 * @return La label da inserire nel file di properties relativo alla Action di Struts.
 	 */
 	private static String getCustomValidatorLabel(String validator, String fieldLabel) {
-
 		return "Campo " + fieldLabel + " non valido";
 	}
-	
-	
-	
-	
-	
+
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILS METHODS
-
 
 	/**
 	 *
@@ -1391,8 +1385,6 @@ public class GenUtilsStrutsValidation {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 }

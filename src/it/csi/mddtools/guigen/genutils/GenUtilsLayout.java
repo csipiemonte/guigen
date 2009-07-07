@@ -20,7 +20,6 @@ import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
 import it.csi.mddtools.guigen.SimpleType;
-import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Type;
@@ -100,7 +99,7 @@ public class GenUtilsLayout {
 	 * - [U][D] C     -> layout 1 colonna
 	 * 
 	 * @param firstLevPanel
-	 * @param layout
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @return
 	 * @author [DM]
 	 */
@@ -152,6 +151,7 @@ public class GenUtilsLayout {
 
 
 	/**
+	 * Restituisce, se necessario, la percentuale delle colonne da impostare sulla PanelGrid.
 	 * 
 	 * @param p
 	 * @return
@@ -211,6 +211,7 @@ public class GenUtilsLayout {
 	 * @param p
 	 * @param row
 	 * @param col
+	 * @param hspan
 	 * @return
 	 * @author [DM]
 	 */
@@ -252,9 +253,10 @@ public class GenUtilsLayout {
 
 
 	/**
-	 * Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <code>&lt;customtag:column&gt;</code>
-	 * @param fp
-	 * @param w
+	 * Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <code>&lt;customtag:column&gt;</code>.
+	 * 
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
 	 * @param isFirst
 	 * @param isLast
 	 * @return
@@ -302,8 +304,8 @@ public class GenUtilsLayout {
 	/**
 	 * L'attributo hspan di un widget deve essere gestito solo nel caso di GridPanelLayout.
 	 *  
-	 * @param fp
-	 * @param w
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
 	 * @return
 	 * @author [DM]
 	 */
@@ -325,8 +327,8 @@ public class GenUtilsLayout {
 	 * nel caso di VerticalFlowPanelLayout o nel caso di GridPanelLayout con span
 	 * della cella = numero totale colonne (&egrave; come se eliminassi un'intera riga).
 	 * 
-	 * @param fp
-	 * @param w
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
 	 * @return
 	 */
 	public static boolean needHandleCustomtagCloseHspan(WidgetsPanel wp, Widget w) {
@@ -345,10 +347,11 @@ public class GenUtilsLayout {
 
 
 	/**
+	 * Imposta l'attributo <code>colSpan</code> della Customtag component (nel caso sia necessario).
 	 * 
-	 * @param fp
-	 * @param w
-	 * @return
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
+	 * @return L'attributo <code>colSpan</code> correttamente settato (nel caso sia necessario).
 	 * @author [DM]
 	 */
 	public static String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) {
@@ -373,10 +376,12 @@ public class GenUtilsLayout {
 
 
 	/**
+	 * Imposta l'attributo <code>colSpan</code> della Customtag component (nel caso sia necessario)
+	 * per un Widget di tipo PlainText.
 	 * 
-	 * @param fp
-	 * @param w
-	 * @return
+	 * @param wp Il WidgetsPanel che contiene il PlainText da posizionare.
+	 * @param w  Il PlainText da posizionare.
+	 * @return L'attributo <code>colSpan</code> correttamente settato (nel caso sia necessario).
 	 * @author [DM]
 	 */
 	public static String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) {
@@ -400,10 +405,11 @@ public class GenUtilsLayout {
 	
 
 	/**
+	 * Gestisce l'attributo <code>colSpan</code> per la clausola <code>&lt;s:else&gt;</code> della visibility di un widget.
 	 * 
-	 * @param fp
-	 * @param w
-	 * @return
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
+	 * @return L'attributo <code>colSpan</code> correttamente settato (nel caso sia necessario).
 	 * @author [DM]
 	 */
 	public static String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) {
@@ -429,16 +435,17 @@ public class GenUtilsLayout {
 
 	
 	/**
-	 * 
-	 * @param model
-	 * @param b
+	 * Restituisce lo stile del <div> per i Button
+	 *  
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param b Il Button da gestire
 	 * @return
 	 * @author [DM]
 	 */
 	public static String getButtonDivStyleByLayout(GUIModel model, Button b) {
 		String res = "";
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
-			res = getButtonDivStyleSistemaPiemonte(model, b);
+			res = getButtonDivStyleSistemaPiemonte(b);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
 			// TODO: implementare quando necessario
 		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
@@ -450,17 +457,17 @@ public class GenUtilsLayout {
 
 	/**
 	 * 
-	 * @param model
-	 * @param b
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param b Il Button da gestire
 	 * @return
 	 * @author [DM]
 	 */
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
 		String res = "";
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
-			res = getButtonStyleSistemaPiemonte(model, b);
+			res = getButtonStyleSistemaPiemonte(b);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
-			res = getButtonStyleRupar(model, b);
+			res = getButtonStyleRupar(b);
 		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
 			// TODO: implementare quando necessario
 		}
@@ -470,15 +477,15 @@ public class GenUtilsLayout {
 
 	/**
 	 * 
-	 * @param model
-	 * @param t
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param t Il widget di tipo TextFiled da gestire
 	 * @return
 	 * @author [DM]
 	 */
 	public static String getTextFieldStyleByLayout(GUIModel model, TextField t) {
 		String res = "";
 		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
-			res = getTextFieldStyleSistemaPiemonte(model, t);
+			res = getTextFieldStyleSistemaPiemonte(t);
 		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
 			// TODO: implementare quando necessario
 		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
@@ -490,8 +497,8 @@ public class GenUtilsLayout {
 	
 	/**
 	 * 
-	 * @param model
-	 * @param c
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param c Il widget di tipo Calendar da gestire
 	 * @return
 	 * @author [DM]
 	 */
@@ -511,7 +518,7 @@ public class GenUtilsLayout {
 
 	/**
 	 * Verifica se un ContentPanel contiene o meno delle tabelle 
-	 * (problema della localizzazione della displaytag)
+	 * (problema della localizzazione della Displaytag)
 	 * @param cp Il ContentPanel da verificare
 	 * @return  true se il ContentPanel contiene almeno una tabella, false altrimenti.
 	 * @author [DM]
@@ -554,7 +561,7 @@ public class GenUtilsLayout {
 	
 	/**
 	 * 
-	 * @param model
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @return
 	 * @author [DM]
 	 */
@@ -573,8 +580,8 @@ public class GenUtilsLayout {
 
 	/**
 	 * 
-	 * @param model
-	 * @param t
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param mbp
 	 * @return
 	 * @author [DM]
 	 */
@@ -595,7 +602,7 @@ public class GenUtilsLayout {
 	 * 
 	 * @param col
 	 * @param t
-	 * @param model
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @return
 	 * @author [DM]
 	 */
@@ -620,9 +627,11 @@ public class GenUtilsLayout {
 
 
 	/**
+	 * 
 	 * TODO: per il momento usiamo un unico metodo, se necessario differenziare per portale
-	 * @param model
-	 * @param w
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param w Il widget di tipo PlainText da gestire
 	 * @return
 	 * @author [DM]
 	 */
@@ -651,6 +660,48 @@ public class GenUtilsLayout {
 				res = "tdStyleClass=\"numeri\"";
 			}
 		}
+		return res;
+	}
+
+	
+	/**
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCheckboxPortalStyle(GUIModel model) {
+		String res = "";
+
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = "cssClass=\"noBorder\"";
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			res = "cssClass=\"noBorder\"";
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			res = "cssClass=\"noBorder\"";
+		}
+	
+		return res;
+	}
+
+	
+	/**
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @return
+	 * @author [DM]
+	 */	
+	public static String getColumnEditableTextfieldPortalStyle(GUIModel model) {
+		String res = "";
+
+		if ( model.getPortale() == PortalNames.SISTEMA_PIEMONTE ) {
+			res = "cssClass=\"inputDataMed\"";
+		} else if ( model.getPortale() == PortalNames.INTRANET_RUPARPIEMONTE ) {
+			// TODO: implementare quando necessario
+		} else if ( model.getPortale() == PortalNames.NEUTRAL ) {
+			// TODO: implementare quando necessario
+		}
+	
 		return res;
 	}
 
@@ -698,11 +749,10 @@ public class GenUtilsLayout {
 	
 	/**
 	 * 
-	 * @param model
 	 * @param b
 	 * @return
 	 */
-	private static String getButtonDivStyleSistemaPiemonte(GUIModel model, Button b) {
+	private static String getButtonDivStyleSistemaPiemonte(Button b) {
 		String res = "";
 		
 		String btnStyleT = "";
@@ -725,12 +775,11 @@ public class GenUtilsLayout {
 	/**
 	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
-	 * @param model
 	 * @param b
 	 * @return
 	 * @author [DM]
 	 */
-	private static String getButtonStyleSistemaPiemonte(GUIModel model, Button b) {
+	private static String getButtonStyleSistemaPiemonte(Button b) {
 		int btnStyleL = 70;
 		int PIXEL_PER_CHAR = 8; // consideriamo una media di 8px per ogni carattere
 
@@ -774,12 +823,11 @@ public class GenUtilsLayout {
 	/**
 	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
-	 * @param model
 	 * @param b
 	 * @return
 	 * @author [DM]
 	 */	
-	private static String getButtonStyleRupar(GUIModel model, Button b) {
+	private static String getButtonStyleRupar(Button b) {
 		String css = "";
 
 		if ( b.getLabel() != null ) {
@@ -802,12 +850,11 @@ public class GenUtilsLayout {
 	
 	/**
 	 * 
-	 * @param model
 	 * @param t
 	 * @return
 	 * @author [DM] STDMDD-188
 	 */
-	private static String getTextFieldStyleSistemaPiemonte(GUIModel model, TextField t) {
+	private static String getTextFieldStyleSistemaPiemonte(TextField t) {
 		String res = "";
 		int len = t.getFieldLength();
 		if ( len > 0 ) {
@@ -885,8 +932,6 @@ public class GenUtilsLayout {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-
 	}	
 	
 }

@@ -749,7 +749,8 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable-»
 		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
-			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" cssClass="minim"/>
+			<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" «getColumnEditableTextfieldPortalStyle(model)» />
+			«REM»«getColumnEditableField(currCol, this, model)» STDMDD-263: sostituire riga precedente con questa«ENDREM»
 		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
