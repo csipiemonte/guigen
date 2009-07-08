@@ -73,10 +73,12 @@
 	</component>
 
 	<!--  generate code -->
-	<component class="org.openarchitectureware.xpand2.Generator">
+	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
 		<metaModel idRef="mm"/>
 		<expand
 			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+		<!-- AOP definition for extensions -->
+		<extensionAdvice value="template::${target-platform}::${portal}::aopExtension"/>
 		<!--  protected regions configurator --> 
 	    <prSrcPaths value="${src-gen}" /> 
 	    <prDefaultExcludes value="true" /> 
@@ -84,5 +86,10 @@
 		<outlet path="${src-gen}" >
 			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		</outlet>
+	</component>
+	
+	<!-- AOP definition for expand templates -->
+	<component adviceTarget="mygenerator" class="oaw.xpand2.GeneratorAdvice" id="myxptaop">
+		<advices value="template::struts2::${portal}::aop"/>
 	</component>
 </workflow>

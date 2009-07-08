@@ -55,6 +55,8 @@ public class JumpCommand implements ICommand {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
 		}
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData();
 		return "GO_TO_"+name;
 	}
 };
@@ -110,6 +112,8 @@ public class JumpExtCommand implements ICommand {
 		this.locationCode = locationCode;
 	}
 	public String doCommand(BaseAction strutsAction) throws Exception{
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData();
 		return "GO_TO_"+locationCode;
 	}
 };
@@ -766,6 +770,9 @@ public class ShowDialogCommand implements ICommand {
 			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
 			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
 			// il dato «currAppData.name» e' salvato in sessione
+			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
+			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::SAME_PAGE»
+			// il dato «currAppData.name» e' salvato temporaneamente in sessione
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
 			«ENDIF»
 		«ENDFOREACH»

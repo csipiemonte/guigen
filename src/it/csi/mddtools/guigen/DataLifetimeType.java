@@ -43,7 +43,15 @@ public enum DataLifetimeType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	USER_SESSION(1, "USER_SESSION", "USER_SESSION");
+	USER_SESSION(1, "USER_SESSION", "USER_SESSION"), /**
+	 * The '<em><b>SAME PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SAME_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	SAME_PAGE(2, "SAME_PAGE", "SAME_PAGE");
 
 	/**
 	 * The '<em><b>USER ACTION</b></em>' literal value.
@@ -82,6 +90,20 @@ public enum DataLifetimeType implements Enumerator {
 	public static final int USER_SESSION_VALUE = 1;
 
 	/**
+	 * The '<em><b>SAME PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
+	 * @see #SAME_PAGE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SAME_PAGE_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>Data Lifetime Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -91,6 +113,7 @@ public enum DataLifetimeType implements Enumerator {
 		new DataLifetimeType[] {
 			USER_ACTION,
 			USER_SESSION,
+			SAME_PAGE,
 		};
 
 	/**
@@ -143,6 +166,7 @@ public enum DataLifetimeType implements Enumerator {
 		switch (value) {
 			case USER_ACTION_VALUE: return USER_ACTION;
 			case USER_SESSION_VALUE: return USER_SESSION;
+			case SAME_PAGE_VALUE: return SAME_PAGE;
 		}
 		return null;
 	}

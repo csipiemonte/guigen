@@ -4330,6 +4330,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(dataLifetimeTypeEEnum, DataLifetimeType.class, "DataLifetimeType");
 		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_ACTION);
 		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_SESSION);
+		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.SAME_PAGE);
 
 		initEEnum(simpleTypeCodesEEnum, SimpleTypeCodes.class, "SimpleTypeCodes");
 		addEEnumLiteral(simpleTypeCodesEEnum, SimpleTypeCodes.INT);

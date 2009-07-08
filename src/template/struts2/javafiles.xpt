@@ -390,6 +390,13 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     }
 	
 
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. Deve essere implementato in tutte le sottoclassi associate
+	 *  ad un content panel.
+	 */
+	 public abstract void clearPageScopedAppData();
+	 
 	«EXPAND actionImplJavaFiles::springBEProperties FOR this»
 	
 	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»
@@ -519,6 +526,13 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		«ENDPROTECT»
 	}
     
+    /**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(){
+	 	// TODO: nel caso del menu i dati non vengono rimossi
+	 }
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -590,6 +604,14 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 		«ENDPROTECT»
 	}
 
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(){
+	 	// TODO: nel caso dell'on-init command non si ha ancora un 
+	 	// "content panel corrente" -> NOP
+	 }
 
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 	«IF onInitAction != null»
@@ -663,6 +685,13 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDIF»
 	}
 	
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	public void clearPageScopedAppData() {
+		//NOP
+	}
 
 }
 «ENDFILE»
@@ -845,6 +874,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
 	}
 	
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(){
+	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
+	 	getSession().remove("«getAppDataKey(currAd)»");
+	 	«ENDFOREACH-»
+	 }
 
 	«REM»Espande la struttura della InitAction«ENDREM»
     «EXPAND actionImplJavaFiles::actionStructureInit(model) FOR this»

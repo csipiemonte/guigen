@@ -1770,7 +1770,8 @@ public class GenUtils {
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
 				return ""+getFullBindingPath(binding)+"";
 			}
-			else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
+			else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)||
+					binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.SAME_PAGE)){
 				return ""+getFullBindingPath(binding)+"";  // unificato
 			}
 			else {
@@ -1794,7 +1795,8 @@ public class GenUtils {
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
 				return ""+getFullBindingPath(binding)+"";
 			}
-			else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)){
+			else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)||
+					binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.SAME_PAGE)){
 				return ""+getFullBindingPath(binding)+""; // unificato
 			}
 			else {
