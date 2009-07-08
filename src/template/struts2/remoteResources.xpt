@@ -561,6 +561,51 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 
+«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
+	«EXPAND remoteResourcesRupar::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
+	«EXPAND remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ELSEIF model.portale == PortalNames::NEUTRAL -»
+	«EXPAND remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ELSE-»
+	«ERROR "Portale " + model.portale + " non gestito"»
+«ENDIF-»
+«ENDDEFINE»
+
+
+
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
@@ -605,7 +650,7 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 
-«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+«REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
