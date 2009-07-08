@@ -1,0 +1,48 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::neutral::Struts2ExtensionsNeutral;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il layout Neutral ridefinite mediante AOP                      //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+around template::GenericExtensions::getPortalName(GUIModel model) :
+	"";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+// TODO: ridefinire mediante AOP
+around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel model) :
+	"";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// PORTAL THEMES AND STYLES
+
+//
+around template::struts2::Struts2Extensions::getStrutsThemeByPortal(GUIModel model) :
+	"csi"; // TODO: definire quello corretto
+
+//
+around template::struts2::Struts2Extensions::getTablePortalStyle(GUIModel model, Table t) :
+	"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\"";
+
+//
+around template::struts2::Struts2Extensions::getRadioPortalStyle(GUIModel model) :
+	"cssClass=\"noBorder\"";
+
+
+// [DM] Restituisce lo stile dei Calendar
+String getCalendarStyleByLayout(GUIModel model, Calendar c) :
+	"cssClass=\"inputData calendario\"";
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
+	getCheckboxPortalStyle(model);

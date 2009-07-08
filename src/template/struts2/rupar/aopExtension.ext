@@ -1,0 +1,50 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::rupar::Struts2ExtensionsRupar;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il layout RuparPiemonte ridefinite mediante AOP                //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+around template::GenericExtensions::getPortalName(GUIModel model) :
+	"RuparPiemonte";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+around getReminclResourceProvider(GUIModel model) :
+	"http://dev-portale.ruparpiemonte.it";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// PORTAL THEMES AND STYLES
+
+//
+around template::struts2::Struts2Extension::getStrutsThemeByPortal(GUIModel model) :
+	"csi"; //"csirupar"
+
+//
+around template::struts2::Struts2Extension::getTablePortalStyle(GUIModel model, Table t) :
+	"class=\"righe_alternate\"";
+
+//
+around template::struts2::Struts2Extension::getRadioPortalStyle(GUIModel model) :
+	"cssClass=\"noBorder\"";
+
+// [DM] restituisce il numero di colonne del layout
+around template::struts2::Struts2Extensions::getColumnsLayout(FormPanel firstLevPanel, GUIModel model) :
+	getColumnsLayout(firstLevPanel, model);
+
+// [DM] Restituisce lo stile dei Button
+around template::struts2::Struts2Extensions::getButtonStyleByLayout(GUIModel model, Button b) :
+	getButtonStyleByLayout(model, b);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
+	getCheckboxPortalStyle(model);

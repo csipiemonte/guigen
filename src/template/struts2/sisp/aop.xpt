@@ -1,0 +1,361 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::sisp::remoteResourcesSisp»
+
+
+«REM»
+**************************************************************************************************************************
+Markup HTML per SISTEMA PIEMONTE
+Riferimenti:
+	- Pattern Sistema Piemonte (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/index.shtml)
+	- Reference implementation su Efesto (http://dev-proxy.csi.it:10080/refimplsisp/)
+**************************************************************************************************************************
+«ENDREM»
+
+
+«REM»
+==========================================================================================================================
+Definizioni generali: Pagine di ERRORE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
+«AROUND template::struts2::remoteResources::getJspPageNotFoundErrorFile FOR GUIModel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getJspPageNotFoundError FOR this»
+«ENDAROUND»
+
+
+«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
+«AROUND template::struts2::remoteResources::getJspFatalErrorFile FOR GUIModel-»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getJspFatalError FOR this»
+«ENDAROUND»
+
+
+«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
+«AROUND template::struts2::remoteResources::getJspApplicationErrorFile FOR GUIModel-»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getJspApplicationError FOR this»
+«ENDAROUND»
+
+
+«REM»Crea la pagina di errore per errore da Sessione scaduta«ENDREM»
+«AROUND template::struts2::remoteResources::getJspPageSessionExpiredFile FOR GUIModel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getJspPageSessionExpiredFile FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Definizioni generali: header, footer, ecc
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«AROUND template::struts2::remoteResources::getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::struts2::remoteResources::getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) deli LINK STATICI.
+TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
+«AROUND template::struts2::remoteResources::getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
+«AROUND template::struts2::remoteResources::getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
+«AROUND template::struts2::remoteResources::getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei PANNELLI
+==========================================================================================================================
+«ENDREM»
+
+«REM»
+************** Form Panel **************
+«ENDREM»
+
+«REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
+«AROUND template::struts2::remoteResources::setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
+«ENDAROUND»
+
+
+«REM»
+************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
+«ENDREM»
+
+«REM»TabsetPanel«ENDREM»
+«AROUND template::struts2::remoteResources::setupTabSetPanel(GUIModel model) FOR TabSetPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::setupTabSetPanel(model) FOR this»
+«ENDAROUND»
+
+«REM»WizardPanel«ENDREM»
+«AROUND template::struts2::remoteResources::setupWizardPanel(GUIModel model) FOR WizardPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::setupWizardPanel(model) FOR this»
+«ENDAROUND»
+
+
+«REM»
+************** StdMessagePanel (Pannello per errori) **************
+«ENDREM»
+«AROUND template::struts2::remoteResources::setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::setupStdMessagePanel(model, cp) FOR this»
+«ENDAROUND»
+
+
+«REM»
+************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
+«ENDREM»
+«AROUND template::struts2::remoteResources::setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::setupUserInfoPanel(model, cp) FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT - PANNELLI
+==========================================================================================================================
+«ENDREM»
+
+«REM»comment«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ENDAROUND»
+
+«REM»comment«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ENDAROUND»
+
+
+«REM»
+************** WidgetsPanel e pannelli conteneti widgets (CommandPanel e MenuPanel) **************
+«ENDREM»
+
+«REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ENDAROUND»
+
+«REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ENDAROUND»
+
+«REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
+«ENDAROUND»
+
+«REM»Genera la Footer di un sottopannello di tipo MenuPanel«ENDREM»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
+«ENDAROUND»
+
+
+«REM»
+************** Dialog Panel **************
+«ENDREM»
+«AROUND template::struts2::remoteResources::dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::dialogPanelControlHeader(model) FOR this-»
+«ENDAROUND»
+
+
+«AROUND template::struts2::remoteResources::dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::dialogPanelControlFooter(model) FOR this-»
+«ENDAROUND»
+
+
+«REM»
+************** MsgBoxPanel **************
+«ENDREM»
+«AROUND template::struts2::remoteResources::msgBoxPanelControlHeader(GUIModel model) FOR MsgBoxPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::msgBoxPanelControlHeader FOR this»
+«ENDAROUND»
+
+
+«AROUND template::struts2::remoteResources::msgBoxPanelControlFooter(GUIModel model) FOR MsgBoxPanel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::msgBoxPanelControlFooter FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione dei LAYOUT - WIDGETS
+==========================================================================================================================
+«ENDREM»
+
+«REM»--------------- Widget ---------------«ENDREM»
+
+«REM»Genera la header di un widget generico«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la footer di un widget generico«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(wp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la clausola di chiusura di un widget generico«ENDREM»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(wp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»--------------- PlainText ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+«REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(mbp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+«REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(mbp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»--------------- HiddenValue ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo HiddenValue«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la footer di un widget di tipo HiddenValue«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue«ENDREM»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»--------------- MenuView ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la footer di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+«REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione delle LABEL (i18n) => file: i18nfiles.xpt
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le label per la header«ENDREM»
+«AROUND template::struts2::remoteResources::headerLabels FOR GUIModel-»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::headerLabels FOR this-»
+«ENDAROUND»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione del BUILD => file: buildfiles.xpt
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
+«AROUND template::struts2::remoteResources::strutsThemeIvy FOR GUIModel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::strutsThemeIvy FOR this-»
+«ENDAROUND»

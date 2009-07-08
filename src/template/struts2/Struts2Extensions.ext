@@ -2,6 +2,7 @@ import guigen;
 import ecore;
 extension template::GenericExtensions;
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Estensioni specifiche per il framework Struts2                                           //
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,18 +84,7 @@ String getSpringIRIDE2PDConfig(GUIModel model) :
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-/// Build files 
 
-String getReminclResourceProvider(GUIModel model) :
-	if ( model.portale == PortalNames::INTRANET_RUPARPIEMONTE ) then
-		"http://dev-portale.ruparpiemonte.it"
-	else if ( model.portale == PortalNames::SISTEMA_PIEMONTE ) then
-		"http://dev-www.sistemapiemonte.it"
-	else if ( model.portale == PortalNames::NEUTRAL ) then
-		""
-	else
-		"";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,152 +526,6 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp) :
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// PORTAL THEMES AND STYLES
-
-String getStrutsThemeByPortal(GUIModel model) :
-	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
-		"csi" //"csirupar"
-	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
-		"csi" //"csisisp"
-	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
-		"csi" // TODO: definire quello corretto
-	else
-		"csi";
-
-String getTablePortalStyle(GUIModel model, Table t) :
-	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
-		"class=\"righe_alternate\""
-	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
-		"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\""
-	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
-		"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\""
-	else
-		"";
-
-String getRadioPortalStyle(GUIModel model) :
-	if ( model.portale == guigen::PortalNames::INTRANET_RUPARPIEMONTE ) then
-		"cssClass=\"noBorder\""
-	else if ( model.portale == guigen::PortalNames::SISTEMA_PIEMONTE ) then
-		"cssClass=\"noBorder\""
-	else if ( model.portale == guigen::PortalNames::NEUTRAL ) then
-		"cssClass=\"noBorder\""
-	else
-		"";
-
-String getCheckboxPortalStyle(GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
-
-String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
-
-
-//------------------------------------------- RUPAR -------------------------------------------
-
-String getMenuNoChildCssRupar(Menu menu, int level) :
-	if (level == 1) then
-		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
-	else
-		"";
-
-String getMenuNoChildLinkCssRupar(Menu menu, int level) :
-	//TODO: implementare correttamente
-	"";
-
-String getMenuNoChildLabelRupar(Menu menu, int level) :
-	//TODO: implementare correttamente
-	"<s:text name=\"" + menu.name + ".label\" />";
-
-
-String getMenuWithChildCssRupar(Menu menu, int level) :
-	//TODO: implementare correttamente
-	"";
-
-String getMenuWithChildLinkCssRupar(Menu menu, int level) :
-	//TODO: implementare correttamente
-	"";
-
-String getMenuWithChildLabelRupar(Menu menu, int level) :
-	//TODO: implementare correttamente
-	"<s:text name=\"" + menu.name + ".label\" />";
-
-
-//------------------------------------- SISTEMA PIEMONTE --------------------------------------
-
-String getMenuNoChildCssSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
-	else if (level == 2) then
-		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivoL\"</s:if>"
-	else
-		"";
-
-String getMenuNoChildLinkCssSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		""
-	else if (level == 2) then
-		""
-	else
-		"";
-
-String getMenuNoChildLabelSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else if (level == 2) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else
-		"<s:text name=\"" + menu.name + ".label\" />";
-
-
-String getMenuWithChildCssSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		" class=\"sottomenu<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'On' : ''}\" />\""
-	else if (level == 2) then
-		""
-	else
-		"";
-
-String getMenuWithChildLinkCssSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		" class=\"attivosottomenu\""
-	else if (level == 2) then
-		""
-	else
-		"";
-
-String getMenuWithChildLabelSistemaPiemonte(Menu menu, int level) :
-	if (level == 1) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else if (level == 2) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else
-		"<s:text name=\"" + menu.name + ".label\" />";
-
-
-//------------------------------------------ NEUTRAL ------------------------------------------
-// al momento sfrutto SistemaPiemonte, poi bisognerà implementare uno specifico
-
-String getMenuNoChildCssNeutral(Menu menu, int level) :
-	getMenuNoChildCssSistemaPiemonte(menu, level);
-
-String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
-	getMenuNoChildLinkCssSistemaPiemonte(menu, level);
-
-String getMenuNoChildLabelNeutral(Menu menu, int level) :
-	getMenuNoChildLabelSistemaPiemonte(menu, level);
-
-
-String getMenuWithChildCssNeutral(Menu menu, int level) :
-	getMenuWithChildCssSistemaPiemonte(menu, level);
-
-String getMenuWithChildLinkCssNeutral(Menu menu, int level) :
-	getMenuWithChildLinkCssSistemaPiemonte(menu, level);
-
-String getMenuWithChildLabelNeutral(Menu menu, int level) :
-	getMenuWithChildLabelSistemaPiemonte(menu, level);
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
 String getWidgetName(Widget w) : JAVA
@@ -787,9 +631,7 @@ boolean isInMenuBranch(ExecCommand ea) : JAVA
 boolean jumpToSameContentPanel(JumpCommand jc) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.jumpToSameContentPanel(it.csi.mddtools.guigen.JumpCommand);
 
-// [DM] restituisce il numero di colonne del layout
-int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
 
 // [DM] restituisce il sottopannello situato nella posizione specificata di un layout UDLRC
 Panel getSubPanelByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) : JAVA
@@ -831,21 +673,13 @@ String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) : JAVA
 String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagCloseColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
-// [DM] Restituisce lo stile del <div> per i Button
-String getButtonDivStyleByLayout(GUIModel model, Button b) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
 	
-// [DM]
-String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
 
-// [DM]
-String getTextFieldStyleByLayout(GUIModel model, TextField t) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
 
-// [DM]
-String getCalendarStyleByLayout(GUIModel model, Calendar c) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCalendarStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Calendar);
+
+
+
 
 // [DM]
 String getWidgetLabelFor(Widget w) : JAVA
@@ -907,9 +741,7 @@ boolean hasTree(ContentPanel cp) : JAVA
 String getText(Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getText(it.csi.mddtools.guigen.Widget);
 
-// [DM]
-String getComboBoxValueChangedHandlerStyle(GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getComboBoxValueChangedHandlerStyle(it.csi.mddtools.guigen.GUIModel);
+
 
 // [DM] restituisce la lista delle label per i Visitor Validators sui Typedefs
 List getVisitorValidatorLabels(List complexTypesList) : JAVA
@@ -919,9 +751,7 @@ List getVisitorValidatorLabels(List complexTypesList) : JAVA
 List findAllTablesInContentPanel(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findAllTablesInContentPanel(it.csi.mddtools.guigen.ContentPanel);
 
-// [DM]
-String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
 
 // [DM] restituisce la lista delle label dei DialogPanels di un ContentPanel
 List getDialogPanelLabels(ContentPanel cp) : JAVA
@@ -935,9 +765,7 @@ String getColumnFormatter(Column col, Table t) : JAVA
 String getColumnComparator(Column col, Table t) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnComparator(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table);
 
-// [DM]
-String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
 
 // [DM]
 String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
@@ -976,3 +804,73 @@ boolean calendarDataBindingTypeCheck(Calendar c) : JAVA
 // [DM] Verifica la corrispondenza di tipo tra DataWidget e binding.
 boolean widgetDataBindingCorrispondenceCheck(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.widgetDataBindingCorrispondenceCheck(it.csi.mddtools.guigen.DataWidget);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni ridefinite per i portali specifici mediante AOP                               //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+String getReminclResourceProvider(GUIModel model) :
+	"";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// PORTAL THEMES AND STYLES
+
+String getStrutsThemeByPortal(GUIModel model) :
+	"csi";
+
+String getTablePortalStyle(GUIModel model, Table t) :
+	"";
+
+String getRadioPortalStyle(GUIModel model) :
+	"";
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayout(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayout(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayout(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile dei Calendar
+String getCalendarStyleByLayout(GUIModel model, Calendar c) :
+	"";
+
+// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
+String getComboBoxValueChangedHandlerStyle(GUIModel model) :
+	"";
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM] Restituisce lo stile di una colonna sulla base del tipo bindato alla colonna stessa
+String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);

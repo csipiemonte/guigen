@@ -1,4 +1,5 @@
 «IMPORT guigen»
+«IMPORT template::struts2::remoteResources»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -715,32 +716,9 @@ IVY FILES (gestione delle dipendenze)
 «ENDDEFINE»
 
 
-«REM»Espande lo Struts Theme«ENDREM»
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali
+NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE-»
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
-	<artifact name="util-struts2-csitemplate-rupar-1.0.0" type="jar"/>
-</dependency>
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
-	<artifact name="custom-component-1.0.3" type="jar"/>
-	<artifact name="custom-component-attr-1.0.3" type="jar"/>
-	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
-</dependency>
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE-»
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
-	<artifact name="util-struts2-csitemplate-sisp-1.0.0" type="jar"/>
-</dependency>
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
-	<artifact name="custom-component-1.0.3" type="jar"/>
-	<artifact name="custom-component-attr-1.0.3" type="jar"/>
-	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
-</dependency>
-«ELSE-»
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
-	<artifact name="custom-component-1.0.3" type="jar"/>
-	<artifact name="custom-component-attr-1.0.3" type="jar"/>
-	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
-</dependency>
-«ENDIF-»
+	«EXPAND remoteResources::strutsThemeIvy FOR this»
 «ENDDEFINE»
 

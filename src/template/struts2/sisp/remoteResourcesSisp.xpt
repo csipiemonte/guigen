@@ -3,6 +3,7 @@
 «IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::sisp::Struts2ExtensionsSisp»
 
 
 «REM»
@@ -10,7 +11,7 @@
 Markup HTML per SISTEMA PIEMONTE
 Riferimenti:
 	- Pattern Sistema Piemonte (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/index.shtml)
-	- Reference implementation su Efesto (http://dev-proxy.csi.it:10080/refimplNeutral/)
+	- Reference implementation su Efesto (http://dev-proxy.csi.it:10080/refimplsisp/)
 **************************************************************************************************************************
 «ENDREM»
 
@@ -31,7 +32,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" cssClass="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
+			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" class="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -49,7 +50,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" cssClass="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
+			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" class="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -80,15 +81,32 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<h3><fmt:message key="error.sessionexpired.title" /></h3>
+<div class="contenuti">
+	<div class="messaggioKo">
+		<fmt:message key="error.sessionexpired.warning" /><br/>
+		<fmt:message key="error.sessionexpired.timeout" /><br/>
+		<span>
+			<fmt:message key="error.sessionexpired.datanotsaved" /><br/>
+			<fmt:message key="error.sessionexpired.authentication" />
+		</span>
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavSx">
+			<a href="http://www.sistemapiemonte.it/" title="<fmt:message key="error.sessionexpired.btnmsgportalhome" />" class="nav205"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		</div>
+		<div class="pulsNavDx">
+			<a href="HomePage.do" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		</div>
+	</div>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
-<%@ taglib uri="/struts-tags" prefix="s" %>
+«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
 	«IF this.structure.appWindow.header != null-»
 	<s:include value="../fragments/header.jsp" ></s:include>
 	«ENDIF-»
@@ -116,8 +134,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="globalMessages" />
 
@@ -207,7 +224,7 @@ Definizioni generali: header, footer, ecc
 			<div id="intestazione">
 
 				<!-- header (con remincl) -->
-				<r:include url="/ris/include/headerNeutral.html" resourceProvider="sp" />
+				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
 				«REM»RIMOSSO: implementata REMINCL
@@ -271,10 +288,10 @@ Definizioni generali: header, footer, ecc
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
-						<s:property value="header.userinfo.head.label" />
+						<s:text name="header.userinfo.head.label" />
 						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
 						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
-						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:property value="header.ssologout.label" /></s:a></span>
+						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:text name="header.ssologout.label" /></s:a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -282,10 +299,10 @@ Definizioni generali: header, footer, ecc
 				<!-- filo d'arianna canale -->
 				<div id="contPath">
 					<div id="path">
-						<s:property value="header.filoarianna.head.label" />
+						<s:text name="header.filoarianna.head.label" />
 						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
-						<a href="http://www.sistemapiemonte.it/«this.linkCanale»/index.shtml"><s:property value="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
-						<span class="selezione"><s:property value="header.applicativo.nome.label" /></span>
+						<a href="«this.linkCanale»"><s:text name="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
+						<span class="selezione"><s:text name="header.applicativo.nome.label" /></span>
 					</div>
 				</div>
 				<hr />
@@ -293,7 +310,7 @@ Definizioni generali: header, footer, ecc
 
 				<div id="contTitoloEmenu">
 					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden"><s:property value="header.nomeservizio.label" /></span>
+						<a href="#"><span class="txtHidden"><s:text name="header.nomeservizio.label" /></span>
 						</a>
 					</div>
 				</div>
@@ -350,7 +367,7 @@ Definizioni generali: header, footer, ecc
 			<div id="intestazione">
 
 				<!-- header (con remincl) -->
-				<r:include url="/ris/include/headerNeutral.html" resourceProvider="sp" />
+				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
 				«REM»RIMOSSO: implementata REMINCL
@@ -453,6 +470,16 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) dei LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«LET model.structure.appWindow.header.codCanale AS codCanale»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+<!-- STATIC LINK -->
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<c:catch var="ex">
+	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»staticLink.html" resourceProvider="sp" />
+</c:catch>
+«ENDLET»
+«ENDLET»
 «ENDDEFINE»
 
 
@@ -479,6 +506,10 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
+	
+	«IF model.structure.appWindow.appArea.staticLinks != null-»
+		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
+	«ENDIF-»
 	</ul>
 </div>
 «ENDDEFINE»
@@ -491,18 +522,18 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')" >
 		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-		<li«getMenuNoChildCssNeutral(this, level)»>
-			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssNeutral(this, level)»>
-				«getMenuNoChildLabelNeutral(this, level)»
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
+			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
+				«getMenuNoChildLabelSistemaPiemonte(this, level)»
 			</s:a>
 		</li>
 	</s:if>
 	<s:else>
-		<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+	<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
 «ENDIF»
 </s:if>
 «ENDDEFINE»
@@ -515,10 +546,10 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
-			<li«getMenuWithChildCssNeutral(this, level)»>
+			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssNeutral(this, level)»>
-					«getMenuWithChildLabelNeutral(this, level)»
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSistemaPiemonte(this, level)»>
+					«getMenuWithChildLabelSistemaPiemonte(this, level)»
 				</s:a>				
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
@@ -526,7 +557,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
+			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 				</ul>			
@@ -534,7 +565,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
+		<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 			</ul>		
@@ -545,19 +576,19 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')" >
-			<li«getMenuNoChildCssNeutral(this, level)»>
+			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssNeutral(this, level)»>
-					«getMenuNoChildLabelNeutral(this, level)»
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
+					«getMenuNoChildLabelSistemaPiemonte(this, level)»
 				</s:a>
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
 	«ENDIF»
 	</s:else>
 </s:if>
@@ -583,7 +614,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 			<!-- CONTENITORE + CORPO -->
 
 <!-- footer (con remincl) -->
-<r:include url="/ris/include/footerNeutral.html" resourceProvider="sp" />
+<r:include url="/ris/include/footerSisp.html" resourceProvider="sp" />
 
 «REM»RIMOSSO: implementata REMINICL
 <!--footer (senza remincl: TMP)-->
@@ -617,15 +648,13 @@ Gestione dei PANNELLI
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-	«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale Neutral"»
-«ENDIF-»
-
+	«IF this.layout.metaType == VerticalFlowPanelLayout-»
+		«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
+	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
+		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
+	«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
+		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale SistemaPiemonte"»
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -644,7 +673,7 @@ Gestione dei PANNELLI
 		«ENDIF-»
 
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 	</div>
 	<!-- ============ FINE COLONNA UNICA ============ -->
@@ -664,7 +693,7 @@ Gestione dei PANNELLI
 «ELSEIF numeroColonne == 3 -»
 	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
-	«ERROR "Portale Neutral. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
+	«ERROR "Portale Sistema Piemonte. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
@@ -682,7 +711,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -697,7 +726,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
 		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
@@ -706,7 +735,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
 		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -728,7 +757,7 @@ Gestione dei PANNELLI
 	<!-- ================ COLONNA SX ================ -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET-»
 	</div>
 	<!-- ============== FINE COLONNA SX ============== -->
@@ -742,7 +771,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -756,7 +785,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
 		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
@@ -765,7 +794,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
 		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -787,7 +816,7 @@ Gestione dei PANNELLI
 	<!-- ================ COLONNA SX ================ -->
 	<div id="colonnaSinistra">
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
 		«ENDLET-»
 	</div>
 	<!-- ============== FINE COLONNA SX ============== -->
@@ -800,7 +829,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -815,7 +844,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
 		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
@@ -824,7 +853,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
 		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -838,7 +867,7 @@ Gestione dei PANNELLI
 		<h2 class="alt">informazioni</h2>
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
 		«ENDLET-»
 	</div>
 	<!-- ======== FINE COLONNA EXTRA (DESTRA) ======== -->
@@ -867,19 +896,12 @@ Gestione dei PANNELLI
 	</div>
 «ENDDEFINE»
 
-«REM»WizardPanel
-
-<li><span><a href="#">1. caratteristiche</a></span></li>
-<li><span class="evidenza"><strong>2.<span class="alt">sezione attiva:</span> dati fiscali e inventario</strong></span></li>
-<li><span>3. riepilogo dati inseriti</span></li>
-
-«ENDREM»
+«REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
 <div class="contenutiTab">
 	<div id="wizard">
 		<h3 class="alt">Sezioni</h3>
 	«FOREACH this.panels AS currStep ITERATOR i-»
-		«REM»TAPPO PER PROVARE CON LOGICA JAVA DI APPOGGIO TEMPORANEA -> SOSTITUIRE CON LOGICA VERA«ENDREM»
 		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
@@ -948,7 +970,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-«LET (this.layout.metaType == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout.metaType == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype-»
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "class=\"pulsNav\"" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "class=\"pulsFunz\"" : "" ) ) AS ptype-»
 <div «ptype»>
 «ENDLET-»
 «ENDDEFINE»
@@ -999,11 +1021,38 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** Dialog Panel **************
 «ENDREM»
-«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel»
+«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
+«IF model.structure.appWindow.header != null-»
+<s:include value="../fragments/header.jsp" ></s:include>
+«ENDIF-»
+
+<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
+	<div id="sfondoColonna">
+	
+		<!-- =============== COLONNA UNICA ============== -->
+		<div id="colonna">
+			<h2 class="alt">contenuti</h2>
+			
+			<h3><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h3>
+			<div class="contenuti">
 «ENDDEFINE»
 
 
-«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel»
+«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+			</div>
+		</div>
+		<!-- ============ FINE COLONNA UNICA ============ -->
+
+	</div>
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+
+</s:form>
+
+«IF model.structure.appWindow.footer != null-»
+<s:include value="../fragments/footer.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -1011,10 +1060,12 @@ Gestione dei LAYOUT - PANNELLI
 ************** MsgBoxPanel **************
 «ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
+<div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
 «ENDDEFINE»
 
 
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
+</div>
 «ENDDEFINE»
 
 
@@ -1056,13 +1107,15 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«REM»Al momento non si fa niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«IF !isLast»<br/>«ENDIF»
 «ENDDEFINE»
+
+
 
 
 «REM»--------------- HiddenValue ---------------«ENDREM»
@@ -1078,6 +1131,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
+
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
@@ -1097,9 +1151,7 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
 «IF cmdp.layout.metaType == UDLRCPanelLayout-»
-«LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side-»
-<div «side»>
-«ENDLET-»
+<div «getButtonDivStyleByLayout((GUIModel)this.eRootContainer, this)»>
 «ENDIF-»
 «ENDDEFINE»
 
@@ -1164,7 +1216,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»
 ==========================================================================================================================
-Gestione delle LABEL (i18n)
+Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 ==========================================================================================================================
 «ENDREM»
 
@@ -1178,3 +1230,22 @@ header.ssologout.label=esci
 header.nomeservizio.label=home nome servizio
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+Gestione del BUILD => file: buildfiles.xpt
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
+«DEFINE strutsThemeIvy FOR GUIModel»
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
+	<artifact name="util-struts2-csitemplate-sisp-1.0.0" type="jar"/>
+</dependency>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
+	<artifact name="custom-component-1.0.3" type="jar"/>
+	<artifact name="custom-component-attr-1.0.3" type="jar"/>
+	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
+</dependency>
+«ENDDEFINE»

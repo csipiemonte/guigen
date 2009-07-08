@@ -1,10 +1,8 @@
 «IMPORT guigen»
 
-«IMPORT template::struts2::remoteResourcesRupar»
-«IMPORT template::struts2::remoteResourcesSisp»
-«IMPORT template::struts2::remoteResourcesNeutral»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
 
 
 «REM»
@@ -16,6 +14,7 @@ Le definizioni specifiche per singolo portale sono situate in files separati.
 Al momento vengono gestiti i seguenti portali:
    - RuparPiemonte    (file remoteResourcesRupar)
    - Sistema Piemonte (file remoteResourcesSisp)
+   - Nutral           (file remoteResourcesNeutral) -> layout "neutrale" di default, ancora da implementare
 *************************************************************************************************************************
 «ENDREM»
 
@@ -29,57 +28,25 @@ Definizioni generali: Pagine di ERRORE
 
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundErrorFile FOR GUIModel-»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspPageNotFoundError FOR this»
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspPageNotFoundError FOR this»
-«ELSEIF this.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getJspPageNotFoundError FOR this»
-«ELSE-»
-	«ERROR "Portale " + this.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspPageNotFoundErrorFile] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalErrorFile FOR GUIModel-»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspFatalError FOR this»
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspFatalError FOR this»
-«ELSEIF this.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getJspFatalError FOR this»
-«ELSE-»
-	«ERROR "Portale " + this.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspFatalErrorFile] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationErrorFile FOR GUIModel-»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspApplicationError FOR this»
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspApplicationError FOR this»
-«ELSEIF this.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getJspApplicationError FOR this»
-«ELSE-»
-	«ERROR "Portale " + this.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspApplicationErrorFile] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di errore per errore da Sessione scaduta«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getJspPageSessionExpiredFile FOR this»
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getJspPageSessionExpiredFile FOR this»
-«ELSEIF this.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getJspPageSessionExpiredFile FOR this»
-«ELSE-»
-	«ERROR "Portale " + this.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspPageSessionExpiredFile] " + loc()»
 «ENDDEFINE»
 
 
@@ -91,71 +58,31 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getHeaderMarkup] " + loc()»
 «ENDDEFINE»
 
 
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getHeaderMarkupNoStruts] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) deli LINK STATICI.
 TODO: capire cosa sono e come vanno implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getStaticLinkMarkup] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getMenubarMarkup] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::getFooterMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::getFooterMarkup(model, skip_component_dir_creation) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::getFooterMarkup(model, skip_component_dir_creation) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getFooterMarkup] " + loc()»
 «ENDDEFINE»
 
 
@@ -172,15 +99,7 @@ Gestione dei PANNELLI
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [setupFirstLevelFormPanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -190,28 +109,12 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupTabSetPanel(model) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupTabSetPanel(model) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::setupTabSetPanel(model) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [setupTabSetPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupWizardPanel(model) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupWizardPanel(model) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::setupWizardPanel(model) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [setupWizardPanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -219,15 +122,7 @@ Gestione dei PANNELLI
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupStdMessagePanel(model, cp) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupStdMessagePanel(model, cp) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::setupStdMessagePanel(model, cp) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [setupStdMessagePanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -235,15 +130,7 @@ Gestione dei PANNELLI
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::setupUserInfoPanel(model, cp) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::setupUserInfoPanel(model, cp) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::setupUserInfoPanel(model, cp) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [setupUserInfoPanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -256,28 +143,12 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»comment«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> FormPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»comment«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> FormPanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -287,82 +158,34 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> WidgetsPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> WidgetsPanel] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> CommandPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> CommandPanel] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlHeader(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> MenuPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la Footer di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::subPanelControlFooter(quadrante) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> MenuPanel] " + loc()»
 «ENDDEFINE»
 
 
@@ -370,28 +193,12 @@ Gestione dei LAYOUT - PANNELLI
 ************** Dialog Panel **************
 «ENDREM»
 «DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::dialogPanelControlHeader(model) FOR this-»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::dialogPanelControlHeader(model) FOR this-»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::dialogPanelControlHeader(model) FOR this-»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [dialogPanelControlHeader] " + loc()»
 «ENDDEFINE»
 
 
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::dialogPanelControlFooter(model) FOR this-»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::dialogPanelControlFooter(model) FOR this-»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::dialogPanelControlFooter(model) FOR this-»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [dialogPanelControlFooter] " + loc()»
 «ENDDEFINE»
 
 
@@ -399,28 +206,12 @@ Gestione dei LAYOUT - PANNELLI
 ************** MsgBoxPanel **************
 «ENDREM»
 «DEFINE msgBoxPanelControlHeader(GUIModel model) FOR MsgBoxPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::msgBoxPanelControlHeader FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::msgBoxPanelControlHeader FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::msgBoxPanelControlHeader FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [msgBoxPanelControlHeader] " + loc()»
 «ENDDEFINE»
 
 
 «DEFINE msgBoxPanelControlFooter(GUIModel model) FOR MsgBoxPanel»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::msgBoxPanelControlFooter FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::msgBoxPanelControlFooter FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::msgBoxPanelControlFooter FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [msgBoxPanelControlFooter] " + loc()»
 «ENDDEFINE»
 
 
@@ -435,43 +226,19 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> Widget] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(wp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> Widget] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(wp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> Widget] " + loc()»
 «ENDDEFINE»
 
 
@@ -479,41 +246,17 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> PlainText] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(mbp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(mbp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(mbp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> PlainText] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(mbp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(mbp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(mbp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> PlainText] " + loc()»
 «ENDDEFINE»
 
 
@@ -521,87 +264,39 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> Button] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> Button] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
 «DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> Button] " + loc()»
 «ENDDEFINE»
 
 
-«REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
+«REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
 «DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
 
@@ -610,43 +305,19 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> MenuView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata widgetControlFooter -> [widgetControlFooter -> MenuView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
 «DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> MenuView] " + loc()»
 «ENDDEFINE»
 
 
@@ -654,62 +325,44 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> TreeView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> TreeView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
 «DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-«IF model.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSEIF model.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
-«ELSE-»
-	«ERROR "Portale " + model.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> TreeView] " + loc()»
 «ENDDEFINE»
 
 
 
 «REM»
 ==========================================================================================================================
-Gestione delle LABEL (i18n)
+Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 ==========================================================================================================================
 «ENDREM»
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
-«IF this.portale == PortalNames::INTRANET_RUPARPIEMONTE -»
-	«EXPAND remoteResourcesRupar::headerLabels FOR this-»
-«ELSEIF this.portale == PortalNames::SISTEMA_PIEMONTE -»
-	«EXPAND remoteResourcesSisp::headerLabels FOR this-»
-«ELSEIF this.portale == PortalNames::NEUTRAL -»
-	«EXPAND remoteResourcesNeutral::headerLabels FOR this-»
-«ELSE-»
-	«ERROR "Portale " + this.portale + " non gestito"»
-«ENDIF-»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [headerLabels] " + loc()»
 «ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione del BUILD => file: buildfiles.xpt
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
+«DEFINE strutsThemeIvy FOR GUIModel»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [strutsThemeIvy] " + loc()»
+«ENDDEFINE»
+

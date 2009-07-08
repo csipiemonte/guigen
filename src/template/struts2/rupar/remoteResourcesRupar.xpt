@@ -3,6 +3,7 @@
 «IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::rupar::Struts2ExtensionsRupar»
 
 
 «REM»
@@ -351,7 +352,7 @@ Gestione dei PANNELLI
 		«ENDIF-»
 		
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 	</div>
 	<!-- ============ FINE COLONNA UNICA ============ -->
@@ -388,7 +389,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
 		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -403,7 +404,7 @@ Gestione dei PANNELLI
 		
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
 		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
@@ -412,7 +413,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
 		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
 		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -632,6 +633,7 @@ Gestione dei LAYOUT - WIDGETS
 «DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
 
+
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
 «ENDDEFINE»
@@ -707,10 +709,30 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»
 ==========================================================================================================================
-Gestione delle LABEL (i18n)
+Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 ==========================================================================================================================
 «ENDREM»
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+Gestione del BUILD => file: buildfiles.xpt
+==========================================================================================================================
+«ENDREM»
+
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
+«DEFINE strutsThemeIvy FOR GUIModel»
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
+	<artifact name="util-struts2-csitemplate-rupar-1.0.0" type="jar"/>
+</dependency>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
+	<artifact name="custom-component-1.0.3" type="jar"/>
+	<artifact name="custom-component-attr-1.0.3" type="jar"/>
+	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
+</dependency>
 «ENDDEFINE»

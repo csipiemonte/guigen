@@ -13,7 +13,6 @@ import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.Menu;
-//import it.csi.mddtools.guigen.MenuItem;  // STDMDD-241 MenuItem è deprecato
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
@@ -243,22 +242,6 @@ public class GenUtilsI18n {
 		}
 		return res;
 	}
-
-
-	/*
-	 *
-	 * @param item
-	 * @param prefix
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*private static String getMenuItemLabel(MenuItem item) {
-		String res = null;
-		if ( !GenUtils.isNullOrEmpty(item.getLabel()) ) {
-			res = item.getName() + ".label=" + item.getLabel();
-		}
-		return res;
-	}*/
 
 
 	/**

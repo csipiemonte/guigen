@@ -1,0 +1,102 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout SistemaPiemonte                  //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
+	else if (level == 2) then
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivoL\"</s:if>"
+	else
+		"";
+
+//
+String getMenuNoChildLinkCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuNoChildLabelSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+//
+String getMenuWithChildCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"sottomenu<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'On' : ''}\" />\""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuWithChildLinkCssSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"attivosottomenu\""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuWithChildLabelSistemaPiemonte(Menu menu, int level) :
+	if (level == 1) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout SistemaPiemonte usate in AOP     //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutSisp(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayoutSisp(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayoutSisp(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayoutSisp(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalSisp(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]
+String getColumnStyleSisp(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyleSisp(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+	
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyleSisp(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.sisp.GenUtilsLayoutSisp.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);

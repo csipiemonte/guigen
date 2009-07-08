@@ -26,7 +26,6 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.Menu;
-//import it.csi.mddtools.guigen.MenuItem; // STDMDD-241 MenuItem è deprecato
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
@@ -189,7 +188,6 @@ public class GenUtils {
 			EObject panel = widget.eContainer();
 			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
-			//} else if(widget instanceof MenuItem || widget instanceof Menu) { -> STDMDD-241 MenuItem è deprecato
 			} else if(widget instanceof Menu) {
 				return null; // .. in realtà non è un pannello
 			}
@@ -619,7 +617,6 @@ public class GenUtils {
 	 */
 	public static boolean isInMenuBranch(EventHandler eh) {
 		Object parent = eh.eContainer();
-		//if (parent instanceof MenuItem || parent instanceof Menu) -> STDMDD-241 MenuItem è deprecato
 		if (parent instanceof Menu) {
 			return true;
 		} else {
@@ -692,19 +689,6 @@ public class GenUtils {
 		}
 		return result;
 	}
-
-	/*
-	 *
-	 * @param mi
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static List<ContentPanel> getAllPossibleJumps(MenuItem mi) {
-		List<ContentPanel> result = new ArrayList<ContentPanel>();
-		EventHandler currEH = mi.getEventHandler();
-		result = getAllPossibleJumps(currEH);
-		return result;
-	}*/
 
 	/**
 	 *
@@ -967,19 +951,6 @@ public class GenUtils {
 		}
 		return result;
 	}
-
-	/*
-	 *
-	 * @param mi
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static List<JumpExtCommand> getAllPossibleExtJumps(MenuItem mi) {
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		EventHandler currEH = mi.getEventHandler();
-		result = getAllPossibleExtJumps(currEH);
-		return result;
-	}*/
 
 	/**
 	 *
@@ -1463,46 +1434,6 @@ public class GenUtils {
 		return result;
 	}
 
-	/*
-	 *
-	 * @param mb
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static List<MenuItem> getAllEventSourceMenuItems(Menubar mb) {
-		List<MenuItem> result = new ArrayList<MenuItem>();
-		Iterator<Menu> m_it = mb.getTopLevelMenu().iterator();
-		while ( m_it.hasNext() ) {
-			Menu currMnu = m_it.next();
-			List<MenuItem> currMenuItems = getAllEventSourceMenuItems(currMnu);
-			result.addAll(currMenuItems);
-		}
-		return result;
-	}*/
-
-	/**
-	 *
-	 * @param m
-	 * @return
-	 */
-	/*public static List<MenuItem> getAllEventSourceMenuItems(Menu m) {
-		List<MenuItem> result = new ArrayList<MenuItem>();
-		Iterator<MenuItem> it_mi = m.getItem().iterator();
-		while ( it_mi.hasNext() ) {
-			MenuItem currMI = it_mi.next();
-			if ( currMI.getEventHandler() != null ) {
-				result.add(currMI);
-			}
-		}
-		// submenu
-		Iterator<Menu> it_sm = m.getSubmenu().iterator();
-		while ( it_sm.hasNext() ) {
-			Menu currSM = it_sm.next();
-			result.addAll(getAllEventSourceMenuItems(currSM));
-		}
-		return result;
-	}*/
-
 	/**
 	 *
 	 * @param mb
@@ -1568,15 +1499,6 @@ public class GenUtils {
 		if ( menu.getName().equals(name) ) {
 			nOccurs++;
 		}
-		
-		// STDMDD-241 MenuItem è deprecato
-		/*Iterator<MenuItem> mnui_it = menu.getItem().iterator();
-		while (mnui_it.hasNext()) {
-			MenuItem menuItem = (MenuItem) mnui_it.next();
-			if (menuItem.getName().equals(name))
-				nOccurs++;
-			
-		}*/
 		
 		Iterator<Menu> smenu_it = menu.getSubmenu().iterator();
 		while (smenu_it.hasNext()) {
@@ -1727,16 +1649,6 @@ public class GenUtils {
 	public static List<ApplicationData> findAllActionScopedAppData(Menu m){
 		List<ApplicationData> result = new ArrayList<ApplicationData>();
 		
-		// STDMDD-241 MenuItem è deprecato
-		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
-		while(it_mi.hasNext()){
-			MenuItem currMI = it_mi.next();
-			if (currMI.getEventHandler()!=null){
-				List<ApplicationData>parz  = findAllActionScopedAppData(currMI.getEventHandler());
-				if (parz!=null) result.addAll(parz);
-			}
-		}*/
-		
 		// submenu
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while(it_sm.hasNext()){
@@ -1835,13 +1747,6 @@ public class GenUtils {
 			}
 		}
 		
-		// STDMDD-241 MenuItem è deprecato
-		/*Iterator<MenuItem> it_mi = m.getItem().iterator();
-		while(it_mi.hasNext()){
-			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4MenuItem(it_mi.next());
-			result.addAll(currRis);
-		}*/
-		
 		Iterator<Menu> it_subm = m.getSubmenu().iterator();
 		while(it_subm.hasNext()){
 			List<CustomSecurityConstraint> currRis = getAllCustomSecConstraints4Menu(it_subm.next());
@@ -1850,25 +1755,6 @@ public class GenUtils {
 		
 		return result;
 	}
-
-	/*
-	 * 
-	 * @param mi
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static List<CustomSecurityConstraint> getAllCustomSecConstraints4MenuItem(MenuItem mi){
-		ArrayList<CustomSecurityConstraint> result = new ArrayList<CustomSecurityConstraint>();
-		if (mi.getSecurityConstraints().size()>0){
-			Iterator<UISecurityConstraint> it_sc = mi.getSecurityConstraints().iterator();
-			while(it_sc.hasNext()){
-				UISecurityConstraint currSC = it_sc.next();
-				if (currSC instanceof CustomSecurityConstraint)
-					result.add((CustomSecurityConstraint)currSC);
-			}
-		}
-		return result;
-	}*/
 
 
 	/**
@@ -1970,39 +1856,6 @@ public class GenUtils {
 	}
 
 
-	/*
-	 * verifica se l'elemento Menu ha un solo Item o no
-	 * @param currMenu
-	 * @return
-	 * @author [DM]
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static boolean hasUniqueMenuItem(Menu currMenu) {
-		int numItems = currMenu.getItem().size();
-		int numSubMenus = currMenu.getSubmenu().size();
-		return ((numItems == 1 && numSubMenus == 0) ? true : false);
-	}*/
-
-
-	/*
-	 *
-	 * @param m
-	 * @return
-	 * @deprecated STDMDD-241 MenuItem è deprecato
-	 */
-	/*public static List<MenuItem> getAllMenuItemRecursive(Menu m){
-		List<MenuItem> result = new ArrayList<MenuItem>();
-		result.addAll(m.getItem());
-		Iterator<Menu> it_sm = m.getSubmenu().iterator();
-		while(it_sm.hasNext()){
-			Menu currSM = it_sm.next();
-			List<MenuItem> currSMI = getAllMenuItemRecursive(currSM);
-			result.addAll(currSMI);
-		}
-		return result;
-	}*/
-
-	
 	/**
 	 *
 	 * @param m

@@ -1,0 +1,73 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout Neutral                          //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssNeutral(Menu menu, int level) :
+	if (level == 1) then
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
+	else if (level == 2) then
+		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivoL\"</s:if>"
+	else
+		"";
+
+//
+String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
+	if (level == 1) then
+		""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuNoChildLabelNeutral(Menu menu, int level) :
+	if (level == 1) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+//
+String getMenuWithChildCssNeutral(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"sottomenu<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'On' : ''}\" />\""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuWithChildLinkCssNeutral(Menu menu, int level) :
+	if (level == 1) then
+		" class=\"attivosottomenu\""
+	else if (level == 2) then
+		""
+	else
+		"";
+
+//
+String getMenuWithChildLabelNeutral(Menu menu, int level) :
+	if (level == 1) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else if (level == 2) then
+		"<s:text name=\"" + menu.name + ".label\" />"
+	else
+		"<s:text name=\"" + menu.name + ".label\" />";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout SistemaPiemonte usate in AOP     //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyle(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);

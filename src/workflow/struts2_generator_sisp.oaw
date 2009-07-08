@@ -25,6 +25,10 @@
 	-->
 	<property name="target-platform" value="struts2"/>
 	
+	<!-- AOP configuration: set here portal -->
+	<property name="target-portal" value="sisp"/>
+	
+	
 	<!-- se true i generatori wicket non includeranno la directory relativa
 	     al componente nel path di destinazione (serve per la generazione 
 	     in un altro progetto eclipse "fratello". In questo caso la variabile 
@@ -74,10 +78,14 @@
 	</component>
 
 	<!--  generate code -->
-	<component class="org.openarchitectureware.xpand2.Generator">
+	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
 		<metaModel idRef="mm"/>
 		<expand
 			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+		
+		<!-- AOP definition for extensions -->
+		<extensionAdvice value="template::${target-platform}::${target-portal}::aopExtension"/>
+		
 		<!--  protected regions configurator --> 
 	    <prSrcPaths value="${src-gen}" /> 
 	    <prDefaultExcludes value="true" /> 
@@ -86,4 +94,10 @@
 			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
 		</outlet>
 	</component>
+	
+	<!-- AOP definition for expand templates -->
+	<component adviceTarget="mygenerator" class="oaw.xpand2.GeneratorAdvice" id="myxptaop">
+		<advices value="template::struts2::${target-portal}::aop"/>
+	</component>
+
 </workflow>
