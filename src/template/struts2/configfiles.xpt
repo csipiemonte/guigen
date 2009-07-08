@@ -488,7 +488,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 <struts>
 	<package name="base" extends="jsp-package" namespace="/">
-
+		«REM»
+		<result-types>
+   			<result-type name="viewfragment"
+            	    class="«getViewFragResultFQN()»" />
+		</result-types>
+		«ENDREM»
+		
 		«REM»Espande il menu«ENDREM»
 		<!-- MENU -->
 		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
@@ -570,6 +576,16 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	</result>
 	«ENDFOREACH-»
 	«ENDLET-»
+	
+	«REM»
+	«LET (List[RefreshViewCommand])getAllPossibleRefreshView(this) AS allRefresh-»
+	«FOREACH allRefresh AS currRefresh-»
+	<result name="REFRESH_«this.name»_«FOREACH currRefresh.targetPanels AS currP SEPARATOR "_"»P«currP.name»«ENDFOREACH»_«FOREACH currRefresh.targetWidgets AS currW SEPARATOR "_"»W«currW.name»«ENDFOREACH»" type="viewfragment">
+		<param name="location">«getStrutsActionJspConfigName(this)»</param>
+	</result>
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDREM»
 	
 	«LET (List[DialogPanel])getAllPossibleShowDialogs(this) AS allShowDialogs-»
 	«FOREACH allShowDialogs AS currShowDialog-»

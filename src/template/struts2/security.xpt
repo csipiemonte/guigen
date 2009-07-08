@@ -431,18 +431,24 @@ import it.csi.iride2.policy.entity.*;
 
 public class «getIridePDCacheClassName()» implements FunctHandler{
 
-	static HashMap<Iride2CallKey, Param> cache = new HashMap<Iride2CallKey, Param>();
+	static HashMap<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
 
+	static final long TTL = 60*60*1000; // TTL = 1h
+	
 	public FHResult doOnInvokeSynch(String methodName, Param[] params,
 			FHResult prevres, Hashtable bag, boolean inPreChain)
 			throws CSIException {
 		Iride2CallKey call = new Iride2CallKey(methodName, params);
 		if (inPreChain) {
-			Param cachedResult = cache.get(call);
+			Iride2CallValue cachedResult = cache.get(call);
 			if (cachedResult != null) {
 				//System.out.println("PDCache: found result for " + call);
-				prevres.setResult(cachedResult);
-				prevres.setSkipInvoke(true);
+				if ((System.currentTimeMillis()-cachedResult.birthTime) < TTL){
+					prevres.setResult(cachedResult.result);
+					prevres.setSkipInvoke(true);
+				}
+				else
+					cache.remove(call);
 			}
 			// else continue and call PA...
 		}
@@ -451,10 +457,21 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			if (prevres.getException() == null) {
 				// metti in cache il risultato
 				//System.out.println("PDCache: caching result for " + call);
-				cache.put(call, prevres.getResult());
+				Iride2CallValue newVal = new Iride2CallValue(System.currentTimeMillis(), prevres.getResult());
+				cache.put(call, newVal);
 			}
 		}
 		return prevres;
+	}
+
+	class Iride2CallValue {
+		public long birthTime;
+		public Param result;
+		
+		public Iride2CallValue(long bt, Param p){
+			birthTime=bt;
+			result=p;
+		}
 	}
 	
 	class Iride2CallKey {

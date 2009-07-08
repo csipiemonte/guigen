@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testsecurity" versioneProdotto="1.0.0" versioneComponente="1.0.0" >
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testsecurity" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
@@ -7,40 +7,38 @@
       <appArea>
         <menubar>
           <topLevelMenu name="mnuTstW" label="Test Widget Constraints">
-            <item name="mnuTstW1" label="test widget security">
-              <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0" pushCurrentPage="true"/>
-              </eventHandler>
-              <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="menuSemprAbilitato"/>
-            </item>
+            <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="menuSemprAbilitato"/>
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0" pushCurrentPage="true"/>
+            </eventHandler>
           </topLevelMenu>
           <topLevelMenu name="mnuSecUC1" label="Vis.X UC TRSACC">
-            <item name="mnuiSecUC1_inner" label="Vis X UC TRSACC">
+            <submenu name="mnuiSecUC1_inner" label="mnuiSecUC1_inner">
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
               <eventHandler>
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
-              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
-            </item>
+            </submenu>
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
           </topLevelMenu>
           <topLevelMenu name="mnuSecUC2" label="Vis.X UC OPEREN023">
-            <item name="mnuiSecUC2_inner" label="Vis X UC OPEREN023">
+            <submenu name="mnuiSecUC2_inner" label="Vis X UC OPEREN023">
+              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.1"/>
               <eventHandler>
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
               </eventHandler>
-              <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.1"/>
-            </item>
+            </submenu>
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.1"/>
           </topLevelMenu>
           <topLevelMenu name="mnuSecUC3" label="V TRSACC E OPEREN023">
-            <item name="mnuiSecUC3_inner" label="V TRSACC E OPEREN023">
-              <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-              </eventHandler>
+            <submenu name="mnuiSecUC3_inner" label="V TRSACC E OPEREN023">
               <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
               <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
               <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="menuCustomConstraint"/>
-            </item>
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+            </submenu>
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true" useCase="//@securityModel/@useCases.1"/>
             <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" visible="true" useCase="//@securityModel/@useCases.0"/>
             <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="customMenuCtr2"/>
@@ -60,7 +58,7 @@
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-              <subpanels xsi:type="guigen:FormPanel" name="pWidget" label="Test abilitazione condizionata">
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check1"/>
@@ -88,6 +86,7 @@
                   <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
                 </widgets>
                 <widgets xsi:type="guigen:TextField" name="tfValidato" label="testo tra 2 e 10 caratteri" dataTypeModifier="size:2,10" dataType="//@typedefs/@types.7" required="true"/>
+                <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -106,7 +105,7 @@
                     <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.4"/>
                   </eventHandlers>
                 </widgets>
-                <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
+                <widgets xsi:type="guigen:HiddenValue" name="hidden" dataType="//@typedefs/@types.0"/>
               </subpanels>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pErrori" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
             </subpanels>
@@ -140,7 +139,7 @@
             <subpanels xsi:type="guigen:FormPanel" name="pCenter">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
-              <subpanels xsi:type="guigen:FormPanel" name="pWidget" label="Test abilitazione condizionata">
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pwidget" label="Test abilitazione condizionata">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check1bis"/>
@@ -186,7 +185,6 @@
                     <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@widgets.4"/>
                   </eventHandlers>
                 </widgets>
-                <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
               </subpanels>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pErrori" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
             </subpanels>

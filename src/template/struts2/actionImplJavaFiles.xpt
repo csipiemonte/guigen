@@ -60,6 +60,46 @@ public class JumpCommand implements ICommand {
 };
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// REFRESHVIEW_ACTION
+public class RefreshViewCommand implements ICommand {
+	String _currentPanelName = null;
+	String [] _targetPanels=null;
+	String [] _targetWidgets=null;
+	
+	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
+			String  [] targetWidgetNames) {
+		_currentPanelName = currentPanelName;
+		_targetPanels = targetPanelNames;
+		_targetWidgets = targetWidgetNames;
+	}
+	
+	
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		String suffix = "_";
+		if (_targetPanels != null && _targetPanels.length > 0) {
+			for (int i = 0; i < _targetPanels.length; i++) {
+				suffix += "P"+_targetPanels[i];
+				if (i!=_targetPanels.length-1)
+					suffix+="_";
+			}
+		}
+		suffix+="_";
+		if (_targetWidgets != null && _targetWidgets.length > 0) {
+			for (int i = 0; i < _targetWidgets.length; i++) {
+				suffix += "W" + _targetWidgets[i];
+				if (i!=_targetWidgets.length-1)
+					suffix+="_";
+			}
+		}
+		return "REFRESH_" + _currentPanelName + suffix;
+	}
+};
+«ENDFILE»
+
+
 «FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"»
 package «getPresentationJavaPackage()»;
 
@@ -569,6 +609,32 @@ public class ShowDialogCommand implements ICommand {
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
 «ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR RefreshViewCommand»
+	/// Refresh Command begin
+	String [] act_«actionsVarName»_«actionNumber»_panels = new String[]{
+		«FOREACH targetPanels AS tp SEPARATOR ","-»
+		"«tp.name»"
+		«ENDFOREACH-»
+	};
+	String [] act_«actionsVarName»_«actionNumber»_widgets = new String[]{
+		«FOREACH targetWidgets AS tw SEPARATOR ","-»
+		"«tw.name»"
+		«ENDFOREACH-»
+	};
+	«LET findParentContentPanel() AS cp-»
+	«IF cp!=null»
+	RefreshViewCommand act_«actionsVarName»_«actionNumber» = new RefreshViewCommand(
+	"«cp.name»", act_«actionsVarName»_«actionNumber»_panels, act_«actionsVarName»_«actionNumber»_widgets
+	);
+	«ELSE-»
+	«ERROR "refresh view può essere collegata solo a un widget in un content panel"-»
+	«ENDIF»
+	«ENDLET-»
+	
+	/// Refresh Command end
+«ENDDEFINE»
+
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR NOPCommand»
 	/// NOP Command begin
