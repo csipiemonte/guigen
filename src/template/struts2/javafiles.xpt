@@ -531,7 +531,11 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	 *  SAME_PAGE. 
 	 */
 	 public void clearPageScopedAppData(){
-	 	// TODO: nel caso del menu i dati non vengono rimossi
+	 	// non sapendo quale content panel si sta abbandonando vengono rimossi tutti
+	 	// gli appdata a scope PAGE
+	 	«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAD»
+	 	getSession().remove("«getAppDataKey(currAD)»");
+	 	«ENDFOREACH»
 	 }
 }
 «ENDFILE»
