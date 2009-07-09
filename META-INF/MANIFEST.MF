@@ -7,15 +7,30 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: it.csi.mddtools.guigen,
- it.csi.mddtools.guigen.genutils,
- it.csi.mddtools.guigen.impl,
- it.csi.mddtools.guigen.provider,
- it.csi.mddtools.guigen.util,
+Export-Package: it.csi.mddtools.guigen;uses:="org.eclipse.emf.common.util,org.eclipse.emf.ecore",
+ it.csi.mddtools.guigen.genutils;uses:="it.csi.mddtools.guigen",
+ it.csi.mddtools.guigen.impl;
+  uses:="org.eclipse.emf.ecore.impl,
+   org.eclipse.emf.common.notify,
+   it.csi.mddtools.guigen,
+   org.eclipse.emf.common.util,
+   org.eclipse.emf.ecore",
+ it.csi.mddtools.guigen.provider;
+  uses:="org.eclipse.emf.common,
+   org.eclipse.emf.common.notify,
+   org.eclipse.emf.edit.provider,
+   it.csi.mddtools.guigen.util,
+   org.eclipse.emf.common.util,
+   org.eclipse.emf.ecore",
+ it.csi.mddtools.guigen.util;
+  uses:="org.eclipse.emf.common.notify.impl,
+   it.csi.mddtools.guigen,
+   org.eclipse.emf.common.notify,
+   org.eclipse.emf.ecore",
  metamodel,
  template,
+ template.struts2,
  template.swingpreview,
- template.wicket,
  workflow
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
