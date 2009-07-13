@@ -3,7 +3,7 @@
 «IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::struts2::intranetrp::Struts2ExtensionsIntranetrp»
+«EXTENSION template::struts2::intracom::Struts2ExtensionsIntracom»
 
 
 «REM»
@@ -123,7 +123,7 @@ Definizioni generali: header, footer, ecc
 	<body>
 		<!-- HEADER -->
 		<div id="header">
-			<a href="http://www.comune.torino.it" class="torino"  title="Città di Torino"><span class="copri"><s:text name="header.nome.citta.label" /></span></a>
+			<a href="http://www.comune.torino.it" class="torino"  title="<s:text name="header.nome.citta.label" />"><span class="copri"><s:text name="header.nome.citta.label" /></span></a>
 			<h1><s:text name="header.applicativo.nome.label" /></h1>
 			«IF model.securityModel!=null-»
 			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»			
@@ -140,17 +140,25 @@ Definizioni generali: header, footer, ecc
 		</div>
 		<!-- FINE HEADER -->
 
+
 		«REM»TODO: cos'è, cosa rappresenta, come si implementa?
 		<!-- BARRA DI LINK: statici o applicativi? -->
 		<div id="barrag3">
 			<ul id="menutop">
 				<li><a href="cambiaprofilo.htm" title="Cambia profilo">cambia profilo</a></li>
 				<li><a href="#" class="bl" title="Contatti - Questo link si apre in una nuova finestra">contatti</a></li>
-				<!--<li class="mrlft"><a href="javascript:vis('contenitore')">aiuto contestuale</a></li>-->
+				<li class="mrlft"><a href="javascript:vis('contenitore')">aiuto contestuale</a></li>
 			</ul>
 		</div>
 		<!-- FINE BARRA DI LINK -->
 		«ENDREM»
+
+
+		<!-- MENU -->
+		«IF model.structure.appWindow.appArea.menubar != null-»
+		<s:include value="menu.jsp"></s:include>
+		«ENDIF-»
+		<!-- FINE MENU -->
 
 		<hr />
 
@@ -192,7 +200,7 @@ Definizioni generali: header, footer, ecc
 	<body>
 		<!-- HEADER -->
 		<div id="header">
-			<a href="http://www.comune.torino.it" class="torino"  title="Città di Torino"><span class="copri"><fmt:message key="header.nome.citta.label" /></span></a>
+			<a href="http://www.comune.torino.it" class="torino"  title="<fmt:message key="header.nome.citta.label" />"><span class="copri"><fmt:message key="header.nome.citta.label" /></span></a>
 			<h1><fmt:message key="header.applicativo.nome.label" /></h1>
 			«IF model.securityModel!=null-»
 			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»			
@@ -208,17 +216,25 @@ Definizioni generali: header, footer, ecc
 		</div>
 		<!-- FINE HEADER -->
 
+		
 		«REM»TODO: cos'è, cosa rappresenta, come si implementa?
 		<!-- BARRA DI LINK: statici o applicativi? -->
 		<div id="barrag3">
 			<ul id="menutop">
 				<li><a href="cambiaprofilo.htm" title="Cambia profilo">cambia profilo</a></li>
 				<li><a href="#" class="bl" title="Contatti - Questo link si apre in una nuova finestra">contatti</a></li>
-				<!--<li class="mrlft"><a href="javascript:vis('contenitore')">aiuto contestuale</a></li>-->
+				<li class="mrlft"><a href="javascript:vis('contenitore')">aiuto contestuale</a></li>
 			</ul>
 		</div>
 		<!-- FINE BARRA DI LINK -->
 		«ENDREM»
+		
+
+		<!-- MENU -->
+		«IF model.structure.appWindow.appArea.menubar != null-»
+		«REM»PROBLEMA!!! il menu utilizza STRUTS: qui come facciamo?«ENDREM»
+		«ENDIF-»
+		<!-- FINE MENU -->
 
 		<hr />
 
@@ -252,70 +268,54 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-
+<div id="barrag2">
+	<ul id="tabs">
+	«LET 1 AS level -»
+	«FOREACH this.topLevelMenu AS tlmenu -»
+		«IF tlmenu.submenu.size > 0»
+			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
+		«ELSE»
+			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
+		«ENDIF»
+	«ENDFOREACH-»
+	«ENDLET-»	
+	</ul>
+</div>
 «ENDDEFINE»
 
 
 «REM»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)«ENDREM»
 «DEFINE expandMenuNoChild(int level) FOR Menu -»
-«REM»
 <s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
-	<s:if test="isMenuEnabled('«this.name»')" >
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-		<li>
-			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-				«getMenuNoChildLabelIntranetrp(this, level)»
-			</s:a>
-		</li>
+	<s:if test="isMenuEnabled('«this.name»')">
+		<s:if test="!isMenuActive('«this.name»')">
+			<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+			<li«getMenuNoChildCssIntracom(this, level)»>
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+					«getMenuNoChildLabelIntracom(this, level)»
+				</s:a>
+			</li>
+		</s:if>
+		<s:else>
+			<li«getMenuNoChildCssIntracom(this, level)»>«getMenuNoChildLabelIntracom(this, level)»</li>
+		</s:else>
 	</s:if>
 	<s:else>
-		<li></li>
+		<li«getMenuNoChildCssIntracom(this, level)»>«getMenuNoChildLabelIntracom(this, level)»</li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li></li>
+	<li«getMenuNoChildCssIntracom(this, level)»>«getMenuNoChildLabelIntracom(this, level)»</li>
 «ENDIF»
 </s:if>
-«ENDREM»
 «ENDDEFINE»
 
 
 «REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
 «DEFINE expandMenuWithChild(int level) FOR Menu»
-«REM»
-<s:if test="isMenuVisible('«this.name»')">
-	<s:if test="isAtLeastOneSubMenuVisible('«this.name»')">
-	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')">
-
-		</s:if>
-		<s:else>
-		
-		</s:else>
-		«ENDLET»
-	«ELSE»
-	
-	«ENDIF»
-	</s:if>
-	<s:else>
-	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')" >
-	
-		</s:if>
-		<s:else>	
-
-		</s:else>
-		«ENDLET»
-	«ELSE»
-
-	«ENDIF»
-	</s:else>
-</s:if>
-«ENDREM»
+«REM»L'esempio fornito NON prevede sottomenu. TODO: implementare se necessario«ENDREM»
 «ENDDEFINE»
 
 
@@ -331,6 +331,12 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+					«REM»Pulsante indetro rimosso (usa JavaScript)
+					<!-- INDIETRO -->
+					<div class="indietro"><a href="javascript:history.go(-1)">indietro</a></div>
+					<!-- FINE INDIETRO -->
+					«ENDREM»
+				
 				</div>
 				<!-- FINE CORPO -->
 

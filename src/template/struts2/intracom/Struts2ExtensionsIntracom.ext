@@ -9,7 +9,10 @@ extension template::GenericExtensions;
 
 //
 String getMenuNoChildCssIntracom(Menu menu, int level) :
-	"";
+	if (level == 1) then
+		" class=\"<s:property value=\"%{isMenuActive('"+menu.name+"') ? 'attivo' : 'disattivo'}\" />\""
+	else
+		"";
 
 //
 String getMenuNoChildLinkCssIntracom(Menu menu, int level) :
