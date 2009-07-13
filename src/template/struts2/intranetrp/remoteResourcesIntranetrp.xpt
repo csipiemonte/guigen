@@ -213,7 +213,6 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)«ENDREM»
 «DEFINE expandMenuNoChild(int level) FOR Menu -»
-«REM»
 <s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
@@ -226,51 +225,36 @@ Definizioni generali: header, footer, ecc
 		</li>
 	</s:if>
 	<s:else>
-		<li></li>
+		<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li></li>
+	<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
 «ENDIF»
 </s:if>
-«ENDREM»
 «ENDDEFINE»
 
 
 «REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
 «DEFINE expandMenuWithChild(int level) FOR Menu»
-«REM»
 <s:if test="isMenuVisible('«this.name»')">
 	<s:if test="isAtLeastOneSubMenuVisible('«this.name»')">
-	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')">
-
-		</s:if>
-		<s:else>
-		
-		</s:else>
-		«ENDLET»
-	«ELSE»
-	
-	«ENDIF»
+		<li>
+			<s:if test="isMenuEnabled('«this.name»')">
+				<a href="javascript:gestsubmenu('«this.name»')">«getMenuWithChildLabelIntranetrp(this, level)»</a>
+			</s:if>
+			<s:else>
+				«getMenuWithChildLabelIntranetrp(this, level)»
+			</s:else>
+			<ul class="nascmenu" id="«this.name»">
+				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+			</ul>		
+		</li>
 	</s:if>
 	<s:else>
-	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')" >
-	
-		</s:if>
-		<s:else>	
-
-		</s:else>
-		«ENDLET»
-	«ELSE»
-
-	«ENDIF»
+		<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
 	</s:else>
 </s:if>
-«ENDREM»
 «ENDDEFINE»
 
 

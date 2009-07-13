@@ -522,18 +522,18 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')" >
 		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
-			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
-				«getMenuNoChildLabelSistemaPiemonte(this, level)»
+		<li«getMenuNoChildCssSisp(this, level)»>
+			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
+				«getMenuNoChildLabelSisp(this, level)»
 			</s:a>
 		</li>
 	</s:if>
 	<s:else>
-		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+		<li«getMenuNoChildCssSisp(this, level)»>«getMenuNoChildLabelSisp(this, level)»</li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+	<li«getMenuNoChildCssSisp(this, level)»>«getMenuNoChildLabelSisp(this, level)»</li>
 «ENDIF»
 </s:if>
 «ENDDEFINE»
@@ -546,10 +546,10 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
-			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>
+			<li«getMenuWithChildCssSisp(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSistemaPiemonte(this, level)»>
-					«getMenuWithChildLabelSistemaPiemonte(this, level)»
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSisp(this, level)»>
+					«getMenuWithChildLabelSisp(this, level)»
 				</s:a>				
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
@@ -557,7 +557,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
+			<li«getMenuWithChildCssSisp(this, level)»>«getMenuWithChildLabelSisp(this, level)»
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 				</ul>			
@@ -565,7 +565,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuWithChildCssSistemaPiemonte(this, level)»>«getMenuWithChildLabelSistemaPiemonte(this, level)»
+		<li«getMenuWithChildCssSisp(this, level)»>«getMenuWithChildLabelSisp(this, level)»
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 			</ul>		
@@ -576,19 +576,19 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')" >
-			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>
+			<li«getMenuNoChildCssSisp(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSistemaPiemonte(this, level)»>
-					«getMenuNoChildLabelSistemaPiemonte(this, level)»
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
+					«getMenuNoChildLabelSisp(this, level)»
 				</s:a>
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+			<li«getMenuNoChildCssSisp(this, level)»>«getMenuNoChildLabelSisp(this, level)»</li>
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuNoChildCssSistemaPiemonte(this, level)»>«getMenuNoChildLabelSistemaPiemonte(this, level)»</li>
+		<li«getMenuNoChildCssSisp(this, level)»>«getMenuNoChildLabelSisp(this, level)»</li>
 	«ENDIF»
 	</s:else>
 </s:if>
