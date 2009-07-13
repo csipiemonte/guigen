@@ -805,7 +805,22 @@ boolean calendarDataBindingTypeCheck(Calendar c) : JAVA
 boolean widgetDataBindingCorrispondenceCheck(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.widgetDataBindingCorrispondenceCheck(it.csi.mddtools.guigen.DataWidget);
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
+/// Estensioni abilitanti al Web 2.0                                                         //
+///******************************************************************************************//
+///////////////////////////////////////////////////////////////////////////////////////////////
+String getFragmentId(Panel p) :
+	"p_"+p.name;
 
+String startFragment(Panel p) :
+	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
+
+String endFragment(Panel p) :
+ "<!-- endFragment:"+getFragmentId(p)+" --></div>";
+
+String pageIdMarker(ContentPanel cp) :
+ "<!-- pageId:"+cp.name+"-->";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//

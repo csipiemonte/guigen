@@ -215,6 +215,7 @@ Gestione dei pannelli
 
 «REM»Genera il setup del Content Panel«ENDREM»
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«pageIdMarker()»
 <s:form id="«this.name»" name="«this.name»" action="«getStrutsActionConfigName(this)»" method="post">
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
@@ -271,6 +272,7 @@ Gestione dei pannelli
 
 «REM»Genera un FormPanel«ENDREM»
 «DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
+	«startFragment()»
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«ENDIF-»
@@ -286,6 +288,7 @@ Gestione dei pannelli
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 	«ENDIF-»
+	«endFragment()»
 «ENDDEFINE»
 
 
@@ -293,23 +296,29 @@ Gestione dei pannelli
 ************** WidgetsPanel e altri pannelli con widgets (CommandPanel, MenuPanel) **************
 «ENDREM»
 «DEFINE setupWidgetsPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«startFragment()»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un CommandPanel«ENDREM»
 «DEFINE setupCommandPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
+	«startFragment()»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un MenuPanel«ENDREM»
 «DEFINE setupMenuPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
+	«startFragment()»
 	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
 	«EXPAND createWidgets(model, cp) FOR this-»
 	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«endFragment()»
 «ENDDEFINE»
 
 
@@ -320,15 +329,18 @@ Gestione dei pannelli
 «REM»Genera un MultiPanel«ENDREM»
 «DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
 	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli«ENDREM»
+	«startFragment()»
 	«FOREACH this.panels AS currSubPan ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currSubPan-»
 	«ENDFOREACH-»
+	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
 	«REM»Definizione del pannello«ENDREM»
+	«startFragment()»
 	«EXPAND remoteResources::setupTabSetPanel(model) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
@@ -336,18 +348,21 @@ Gestione dei pannelli
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currTab-»
 	«ENDFOREACH-»
+	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WizardPanel»
 	«REM»Definizione del pannello«ENDREM»
+	«startFragment()»
 	«EXPAND remoteResources::setupWizardPanel(model) FOR this-»
 	
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currStep ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currStep-»
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currStep-»
-	«ENDFOREACH-»	
+	«ENDFOREACH-»
+	«endFragment()»	
 «ENDDEFINE»
 
 
@@ -395,7 +410,9 @@ Gestione dei pannelli
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR StdMessagePanel»
+	«startFragment()»
 	«EXPAND remoteResources::setupStdMessagePanel(model, cp) FOR this-»
+	«endFragment()»
 «ENDDEFINE»
 
 
@@ -404,7 +421,9 @@ Gestione dei pannelli
 «ENDREM»
 
 «DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserInfoPanel»
+	«startFragment()»
 	«EXPAND remoteResources::setupUserInfoPanel(model, cp) FOR this-»
+	«endFragment()»
 «ENDDEFINE»
 
 
@@ -423,9 +442,11 @@ Gestione dei pannelli
 
 «DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR UserDefinedPanel»
 «FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«startFragment()»
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
 <!-- Inserire il codice del pannello -->
 «ENDPROTECT»
+«endFragment()»
 «ENDFILE»
 «ENDDEFINE»
 
@@ -466,14 +487,18 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 
 «REM»Crea un MsgBoxPanel contenuto in un DialogPanel«ENDREM»
 «DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, DialogPanel dp) FOR MsgBoxPanel»
+«startFragment()»
 «EXPAND remoteResources::msgBoxPanelControlHeader(model) FOR this-»
 «EXPAND createWidgets(model, cp) FOR this»
 «EXPAND remoteResources::msgBoxPanelControlFooter(model) FOR this-»
+«endFragment()»
 «ENDDEFINE»
 
 «REM»Crea un MsgBoxPanel contenuto in un FormPanel«ENDREM»
 «DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+«startFragment()»
 «EXPAND createWidgets(model, cp) FOR this»
+«endFragment()»
 «ENDDEFINE»
 
 
