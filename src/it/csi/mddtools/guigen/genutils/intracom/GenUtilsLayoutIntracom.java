@@ -1,4 +1,4 @@
-package it.csi.mddtools.guigen.genutils.intranetrp;
+package it.csi.mddtools.guigen.genutils.intracom;
 
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
@@ -27,11 +27,11 @@ import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
 
 /**
  * Questa classe contiene i metodi di utilit&agrave; per la gestione di
- * alcuni aspetti del layout per il portale Intranet Regione Piemonte.
+ * alcuni aspetti del layout per il portale Intracom Torino.
  *
  * @author Davide Martinotti
  */
-public class GenUtilsLayoutIntranetrp {
+public class GenUtilsLayoutIntracom {
 
 
 	/**

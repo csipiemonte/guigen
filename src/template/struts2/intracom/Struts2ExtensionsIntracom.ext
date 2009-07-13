@@ -1,0 +1,72 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout Intracom Torino                          //
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssIntracom(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLinkCssIntracom(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLabelIntracom(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+//
+String getMenuWithChildCssIntracom(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLinkCssIntracom(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLabelIntracom(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout Intracom Torino usate in AOP             //
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutIntracom(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayoutIntracom(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayoutIntracom(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayoutIntracom(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalIntracom(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]
+String getColumnStyleIntracom(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyleIntracom(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+	
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyleIntracom(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intracom.GenUtilsLayoutIntracom.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
