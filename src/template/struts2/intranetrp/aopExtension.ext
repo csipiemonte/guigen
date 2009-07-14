@@ -74,6 +74,11 @@ around template::struts2::Struts2Extensions::getColumnStyle(Column col, Table t,
 around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
 	getCheckboxPortalStyleIntranetrp(model);
 
+// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
+//      Utilizzato per allineare a destra i dati numerici.
+around template::struts2::Struts2Extensions::getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) :
+	getCustomComponentColumnStyleByPortalIntranetrp(model, w);
+
 // [DM] Restituisce la classe per un TextField in una Table.
 // nota: deve rimanere in Java perché viene utilizzato anche da Java 
 around template::struts2::Struts2Extensions::getColumnEditableTextfieldPortalStyle(GUIModel model) :

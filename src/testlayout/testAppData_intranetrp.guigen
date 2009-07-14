@@ -11,27 +11,15 @@
               <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
             </eventHandler>
           </topLevelMenu>
-          <topLevelMenu name="mnuGestioneUtenza" label="gestione&lt;br/>utenza">
-            <submenu name="ricercaUtenza" label="ricerca utenza">
-              <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-              </eventHandler>
-            </submenu>
-            <submenu name="inserisciUtenza" label="inserisci utenza">
-              <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-              </eventHandler>
-            </submenu>
-          </topLevelMenu>
           <topLevelMenu name="mnuGestioneAnagrafica" label="gestione&lt;br/>utenza">
             <submenu name="ricercaSoggetto" label="ricerca soggetto">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
               </eventHandler>
             </submenu>
             <submenu name="inserisciSoggetto" label="inserisci soggetto">
               <eventHandler>
-                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.1"/>
               </eventHandler>
             </submenu>
           </topLevelMenu>
@@ -46,6 +34,56 @@
           <contentPanels name="cpRicercaSoggetto" appData="//@appDataDefs/@appData.0">
             <panels xsi:type="guigen:FormPanel" name="pRicercaSoggetto" label="Ricerca soggetto">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="mbCampiObbligatori">
+                <textMessages name="ptDatiObbligatori" defaultVisible="false" dataType="//@typedefs/@types.9" staticText="&lt;div class=&quot;fieldobbl&quot;>Inserire almeno un parametro di ricerca&lt;/div>"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pRicerca">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pRicercaWidgets">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cmdpCerca">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnCerca" label="Cerca"/>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpInserisciSoggetto">
+            <panels xsi:type="guigen:FormPanel" name="pInserisciSoggetto" label="Soggetto">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="mbCampiObbligatori">
+                <textMessages name="ptDatiObbligatori" defaultVisible="false" dataType="//@typedefs/@types.9" staticText="&lt;div class=&quot;fieldobbl&quot;>I campi contrassegnati da un asterisco sono obbligatori&lt;/div>"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pDatiAnagrafici">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiAnagraficiWidgets">
+                  <layout xsi:type="guigen:GridPanelLayout" columns="4" rows="11"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pIndirizzoPostel">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pIndirizzoPostelWidgets">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pComponentiGruppo" label="Componenti del gruppo">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pComponentiGruppoWidgets">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pRecapitiAlternativi" label="Recapiti alternativi">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pRecapitiAlternativiWidgets">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cmdpPulsanti">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ResetButton" name="btnAnnulla" label="Annulla modifica"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnSalva" label="Salva"/>
+              </subpanels>
             </panels>
           </contentPanels>
         </modules>

@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
@@ -161,7 +162,26 @@ public class GenUtilsLayoutIntranetrp {
 		return res;
 	}
 
-	
+
+	/**
+	 * Restituisce la classe da applicare ad una cella nella CustomComponent sulla base
+	 * del tipo di dato del Widget (PlainText).
+	 * Utilizzato per allineare a destra i dati numerici.
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param w Il widget di tipo PlainText da gestire
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
+		String res = "";
+		
+		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+		
+		return res;
+	}	
+
+
 	/**
 	 * Restituisce la classe per un TextField in una Table.
 	 * NOTA: Anche se il codice è semplice (e potrebbe stare in .ext) DEVE rimanere qui
