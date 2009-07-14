@@ -961,7 +961,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
-«IF !isNullOrEmpty(this.label)&& !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
+«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
 <div class="contenuti">
@@ -1021,6 +1021,8 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** Dialog Panel **************
 «ENDREM»
+
+«REM»Genera la header di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
 «IF model.structure.appWindow.header != null-»
 <s:include value="../fragments/header.jsp" ></s:include>
@@ -1039,7 +1041,7 @@ Gestione dei LAYOUT - PANNELLI
 			<div class="contenuti">
 «ENDDEFINE»
 
-
+«REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
 			</div>
 		</div>
@@ -1057,13 +1059,15 @@ Gestione dei LAYOUT - PANNELLI
 
 
 «REM»
-************** MsgBoxPanel **************
+************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
+
+«REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
 <div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
 «ENDDEFINE»
 
-
+«REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
 </div>
 «ENDDEFINE»

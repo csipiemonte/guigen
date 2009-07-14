@@ -441,44 +441,6 @@ public class GenUtilsLayout {
 	}
 
 
-	/**
-	 * 
-	 * TODO: per il momento usiamo un unico metodo, se necessario differenziare per portale
-	 * 
-	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
-	 * @param w Il widget di tipo PlainText da gestire
-	 * @return
-	 * @author [DM]
-	 */
-	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
-		String res = "";
-		
-		SimpleType t = null;
-		if ( w.getDatabinding() != null ) {
-			// recupero il tipo dal Databinding
-			Field f = GenUtils.getSelectedField(null, w.getDatabinding().getAppData().getType(), w.getDatabinding().getPath());
-			if ( f != null ) {
-				if ( f.getType() instanceof SimpleType ) {
-					t = (SimpleType)f.getType();
-				}
-			}
-		} 
-		else {
-			// recupero il tipo direttamente dal widget
-			if ( w.getDataType() instanceof SimpleType ) {
-				t = (SimpleType)w.getDataType();
-			}
-		}
-		
-		if ( t != null ) {
-			if ( GenUtils.isNumeric(t) ) {
-				res = "tdStyleClass=\"numeri\"";
-			}
-		}
-		return res;
-	}
-
-
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Metodi generici per funzionalità specifiche per layout: 
@@ -634,6 +596,23 @@ public class GenUtilsLayout {
 		return res;
 	}
 
+	
+	/**
+	 * 
+	 * Viene ridefinito tramite AOP per i seguenti portali:
+	 * - SistemaPiemonte
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param w Il widget di tipo PlainText da gestire
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
+		String res = "";
+		// TODO: implementare diversamente (se necessario)
+		return res;
+	}
+	
 	
 	/**
 	 * Restituisce la classe per un TextField in una Table.

@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
+import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
@@ -248,7 +249,46 @@ public class GenUtilsLayoutSisp {
 		return res;
 	}
 
-	
+
+	/**
+	 * Restituisce la classe da applicare ad una cella nella CustomComponent sulla base
+	 * del tipo di dato del Widget (PlainText).
+	 * Utilizzato per allineare a destra i dati numerici.
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param w Il widget di tipo PlainText da gestire
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
+		String res = "";
+		
+		SimpleType t = null;
+		if ( w.getDatabinding() != null ) {
+			// recupero il tipo dal Databinding
+			Field f = GenUtils.getSelectedField(null, w.getDatabinding().getAppData().getType(), w.getDatabinding().getPath());
+			if ( f != null ) {
+				if ( f.getType() instanceof SimpleType ) {
+					t = (SimpleType)f.getType();
+				}
+			}
+		} 
+		else {
+			// recupero il tipo direttamente dal widget
+			if ( w.getDataType() instanceof SimpleType ) {
+				t = (SimpleType)w.getDataType();
+			}
+		}
+		
+		if ( t != null ) {
+			if ( GenUtils.isNumeric(t) ) {
+				res = "tdStyleClass=\"numeri\"";
+			}
+		}
+		return res;
+	}
+
+
 	/**
 	 * Restituisce la classe per un TextField in una Table.
 	 * NOTA: Anche se il codice è semplice (e potrebbe stare in .ext) DEVE rimanere qui
@@ -293,18 +333,7 @@ public class GenUtilsLayoutSisp {
 		return columns;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// MAIN
