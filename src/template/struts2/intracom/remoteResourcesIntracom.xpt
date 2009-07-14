@@ -451,7 +451,12 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
-
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+<fieldset>
+	«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
+	<legend><s:text name="«findParentContentPanel(this).name».«this.name».label" /></legend>
+	«ENDIF»
+«ENDIF»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
@@ -467,7 +472,9 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la footer di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
-
+«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+</fieldset>
+«ENDIF»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
@@ -487,12 +494,16 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-
+	«IF !this.widgets.isEmpty -»
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="intracom" «getPanelGridPercentCols(this)»>
+	«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-
+	«IF !this.widgets.isEmpty -»
+	</customtag:panelGrid>
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -512,7 +523,7 @@ Gestione dei LAYOUT - PANNELLI
 
 
 «REM»
-************** MsgBoxPanel **************
+************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
 
 «REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
