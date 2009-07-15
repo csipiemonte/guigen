@@ -149,6 +149,7 @@ public class GenUtilsLayoutSisp {
 
 	/**
 	 * Restituisce lo stile per i TextField.
+	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param t Il widget di tipo TextFiled da gestire
 	 * @return

@@ -384,7 +384,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-
+<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="intranetrp" />
 «ENDDEFINE»
 
 
@@ -416,7 +416,9 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-<div class="pulsante">
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "class=\"pulsante\"" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "" : "" ) ) AS ptype-»
+<div «ptype»>
+«ENDLET-»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
@@ -503,27 +505,21 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«REM»
 <customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
-«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«REM»
 </customtag:column>
-«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-«REM»
 «IF needHandleCustomtagCloseHspan(wp, this) -»
 <s:else>
 	<customtag:column textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
 </s:else>
 «ENDIF-»
-«ENDREM»
 «ENDDEFINE»
 
 
@@ -531,9 +527,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«REM»
 <customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)wp.eRootContainer, this)»>
-«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
@@ -543,9 +537,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«REM»
 «IF !isLast»<br/>«ENDIF»
-«ENDREM»
 «ENDDEFINE»
 
 
@@ -583,16 +575,21 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-
+«REM»Nessun layout aggiuntivo necessario«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-
+«REM»Nessun layout aggiuntivo necessario«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«ENDDEFINE»
+
+«REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Button»
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
@@ -600,7 +597,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
-
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
@@ -608,7 +605,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
-
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 

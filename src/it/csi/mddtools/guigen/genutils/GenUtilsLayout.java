@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
+import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
@@ -14,6 +15,7 @@ import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
+import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
@@ -327,8 +329,8 @@ public class GenUtilsLayout {
 			colspan = ((hspan * 2) - 1);
 		}
 		
-		// Table e UserDefinedWidget non hanno label, quindi devo aggiungere 1 al colspan
-		if ( w instanceof Table || w instanceof UserDefinedWidget ) {
+		// Table e UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
 			colspan = colspan + 1;
 		}
 		

@@ -2,6 +2,7 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.ApplicationData;
@@ -10,6 +11,8 @@ import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
+import it.csi.mddtools.guigen.EventHandler;
+import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.HiddenValue;
@@ -132,6 +135,20 @@ public class GenUtilsChecks {
 					}
 				}
 			}
+			
+			// [DM] Verifico i DataBinding degli ExecCommand
+			if ( w.getEventHandlers() != null && w.getEventHandlers().size() > 0 ) {
+				for (EventHandler eh : w.getEventHandlers()) {
+					for (ExecCommand ec : GenUtils.getAllExecActionsForEventHandler(eh)) {
+						for (ApplicationData ad : ec.getPostExecData()) {
+							if (!cp.getAppData().contains(ad)) {
+								ris.add(ad);
+							}
+						}
+					}
+				}
+			}
+
 		}
 
 		return ris;

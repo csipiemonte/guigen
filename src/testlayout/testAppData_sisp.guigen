@@ -77,6 +77,16 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.2"/>
               </eventHandler>
             </submenu>
+            <submenu name="smnuMsgBoxPanel" label="MsgBoxPanel">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.3"/>
+              </eventHandler>
+            </submenu>
+            <submenu name="smnuButtons" label="Buttons">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.4"/>
+              </eventHandler>
+            </submenu>
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
@@ -1763,6 +1773,57 @@
                 </subpanels>
                 <subpanels xsi:type="guigen:MsgBoxPanel" name="msgError" messageSeverity="ERROR">
                   <textMessages name="ptErr" dataType="//@typedefs/@types.9" staticText="Questo è un MsgBoxPanel di ERROR"/>
+                </subpanels>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpTestButton" appData="//@appDataDefs/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pButtonTest" label="Test Button">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="mpMenu">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:MenuView" name="mvView"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpUp">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+                <subpanels xsi:type="guigen:UserInfoPanel" name="uiPanel"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpCenter" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:FormPanel" name="fpBtnGrid" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="fpBtnGridWidgets">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                    <widgets xsi:type="guigen:TextField" name="txt1" label="TextField 1" dataType="//@typedefs/@types.9">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnGrid1" label="Button 1">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnGrid2" label="Button 2">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txt2" label="TextField 2" dataType="//@typedefs/@types.9">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpBtnVertical" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="fpBtnVerticalWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:TextField" name="txt3" label="TextField 3" dataType="//@typedefs/@types.9"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnVert1" label="Button 1"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptxt1" dataType="//@typedefs/@types.9" staticText="Plain text"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnVert2" label="Button 2"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptxt2" dataType="//@typedefs/@types.9" staticText="Plain text 2"/>
+                  </subpanels>
                 </subpanels>
               </subpanels>
             </panels>

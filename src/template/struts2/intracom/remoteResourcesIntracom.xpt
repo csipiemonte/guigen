@@ -626,6 +626,11 @@ Gestione dei LAYOUT - WIDGETS
 «DEFINE widgetClose(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
 «ENDDEFINE»
 
+«REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Button»
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+«ENDDEFINE»
+
 
 «REM»--------------- Table ---------------«ENDREM»
 

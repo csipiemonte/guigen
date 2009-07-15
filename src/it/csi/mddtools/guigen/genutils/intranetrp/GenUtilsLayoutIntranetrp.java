@@ -21,6 +21,7 @@ import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 import it.csi.mddtools.guigen.genutils.GenUtils;
 import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
@@ -41,10 +42,6 @@ public class GenUtilsLayoutIntranetrp {
 	 * - [U][D] L C   -> layout 2 colonne
 	 * - [U][D] L R   -> combinazione illegale (check)
 	 * - [U][D] C     -> layout 1 colonna
-	 * 
-	 * Viene ridefinito tamite AOP per i seguenti portali:
-	 * - SistemaPiemonte
-	 * - RuparPiemonte
 	 * 
 	 * @param firstLevPanel
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
@@ -80,31 +77,52 @@ public class GenUtilsLayoutIntranetrp {
 
 	/**
 	 * Restituisce lo stile per i Button.
-	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param b Il Button da gestire
 	 * @return
-	 * @author [DM]
+	 * @author [DM] STDMDD-275
 	 */
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+		String btnStyleT = "";
 		
-		return "";
+		if ( b.eContainer() instanceof CommandPanel ) {
+			if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+				btnStyleT = "";
+			} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+				btnStyleT = "cssClass=\"bottone\"";
+			}
+		} else if ( b.eContainer() instanceof WidgetsPanel ) {
+			// se e' in un WidgetsPanel, interpreto come FUNCTIONAL
+			btnStyleT = "cssClass=\"bottone\"";
+		} else {
+			// di default per il caso di button non contenuto in un altro tipo di Panel 
+			btnStyleT = "";
+		}
+		
+		return btnStyleT;
 	}
 
 
 	/**
 	 * Restituisce lo stile per i TextField.
+	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param t Il widget di tipo TextFiled da gestire
 	 * @return
-	 * @author [DM] STDMDD-188
+	 * @author [DM] STDMDD-275
 	 */
 	public static String getTextFieldStyleByLayout(GUIModel model, TextField t) {
 		String res = "";
 
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+		// setto la lunghezza
+		res += "size=\"" + t.getFieldLength() + "\"";
+		
+		// impostazione della lunghezza massima (da implementare se necessario, ma come?)
+		//res += " maxlength=\"" + <??? come lo ricavo ???> + "\"";
+		
+		// setto lo stile (al momento non necessario)
+		//res += " cssClass=\"<stile_da_impostare>\"";
 		
 		return res;
 	}
