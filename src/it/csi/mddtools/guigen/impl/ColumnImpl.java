@@ -6,13 +6,16 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -29,6 +32,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isEditable <em>Editable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isEventActive <em>Event Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getEditableFlagSelector <em>Editable Flag Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataKeySelector <em>Multidata Key Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -154,6 +161,76 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String editableFlagSelector = EDITABLE_FLAG_SELECTOR_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getMultiDataBinding() <em>Multi Data Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultiDataBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected AppDataBinding multiDataBinding;
+
+	/**
+	 * The default value of the '{@link #getMultidataKeySelector() <em>Multidata Key Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataKeySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MULTIDATA_KEY_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMultidataKeySelector() <em>Multidata Key Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataKeySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String multidataKeySelector = MULTIDATA_KEY_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMultidataValueSelector() <em>Multidata Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MULTIDATA_VALUE_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMultidataValueSelector() <em>Multidata Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataValueSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String multidataValueSelector = MULTIDATA_VALUE_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMultidataPropertySelector() <em>Multidata Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataPropertySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MULTIDATA_PROPERTY_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMultidataPropertySelector() <em>Multidata Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultidataPropertySelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String multidataPropertySelector = MULTIDATA_PROPERTY_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -305,6 +382,126 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AppDataBinding getMultiDataBinding() {
+		return multiDataBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMultiDataBinding(AppDataBinding newMultiDataBinding, NotificationChain msgs) {
+		AppDataBinding oldMultiDataBinding = multiDataBinding;
+		multiDataBinding = newMultiDataBinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__MULTI_DATA_BINDING, oldMultiDataBinding, newMultiDataBinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultiDataBinding(AppDataBinding newMultiDataBinding) {
+		if (newMultiDataBinding != multiDataBinding) {
+			NotificationChain msgs = null;
+			if (multiDataBinding != null)
+				msgs = ((InternalEObject)multiDataBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.COLUMN__MULTI_DATA_BINDING, null, msgs);
+			if (newMultiDataBinding != null)
+				msgs = ((InternalEObject)newMultiDataBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.COLUMN__MULTI_DATA_BINDING, null, msgs);
+			msgs = basicSetMultiDataBinding(newMultiDataBinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__MULTI_DATA_BINDING, newMultiDataBinding, newMultiDataBinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMultidataKeySelector() {
+		return multidataKeySelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultidataKeySelector(String newMultidataKeySelector) {
+		String oldMultidataKeySelector = multidataKeySelector;
+		multidataKeySelector = newMultidataKeySelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR, oldMultidataKeySelector, multidataKeySelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMultidataValueSelector() {
+		return multidataValueSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultidataValueSelector(String newMultidataValueSelector) {
+		String oldMultidataValueSelector = multidataValueSelector;
+		multidataValueSelector = newMultidataValueSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR, oldMultidataValueSelector, multidataValueSelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMultidataPropertySelector() {
+		return multidataPropertySelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultidataPropertySelector(String newMultidataPropertySelector) {
+		String oldMultidataPropertySelector = multidataPropertySelector;
+		multidataPropertySelector = newMultidataPropertySelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR, oldMultidataPropertySelector, multidataPropertySelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:
+				return basicSetMultiDataBinding(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -320,6 +517,14 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return isEventActive();
 			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
 				return getEditableFlagSelector();
+			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:
+				return getMultiDataBinding();
+			case GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR:
+				return getMultidataKeySelector();
+			case GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR:
+				return getMultidataValueSelector();
+			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
+				return getMultidataPropertySelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,6 +554,18 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
 				setEditableFlagSelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:
+				setMultiDataBinding((AppDataBinding)newValue);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR:
+				setMultidataKeySelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR:
+				setMultidataValueSelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
+				setMultidataPropertySelector((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -380,6 +597,18 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
 				setEditableFlagSelector(EDITABLE_FLAG_SELECTOR_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:
+				setMultiDataBinding((AppDataBinding)null);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR:
+				setMultidataKeySelector(MULTIDATA_KEY_SELECTOR_EDEFAULT);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR:
+				setMultidataValueSelector(MULTIDATA_VALUE_SELECTOR_EDEFAULT);
+				return;
+			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
+				setMultidataPropertySelector(MULTIDATA_PROPERTY_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -404,6 +633,14 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return eventActive != EVENT_ACTIVE_EDEFAULT;
 			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
 				return EDITABLE_FLAG_SELECTOR_EDEFAULT == null ? editableFlagSelector != null : !EDITABLE_FLAG_SELECTOR_EDEFAULT.equals(editableFlagSelector);
+			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:
+				return multiDataBinding != null;
+			case GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR:
+				return MULTIDATA_KEY_SELECTOR_EDEFAULT == null ? multidataKeySelector != null : !MULTIDATA_KEY_SELECTOR_EDEFAULT.equals(multidataKeySelector);
+			case GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR:
+				return MULTIDATA_VALUE_SELECTOR_EDEFAULT == null ? multidataValueSelector != null : !MULTIDATA_VALUE_SELECTOR_EDEFAULT.equals(multidataValueSelector);
+			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
+				return MULTIDATA_PROPERTY_SELECTOR_EDEFAULT == null ? multidataPropertySelector != null : !MULTIDATA_PROPERTY_SELECTOR_EDEFAULT.equals(multidataPropertySelector);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -430,6 +667,12 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(eventActive);
 		result.append(", editableFlagSelector: ");
 		result.append(editableFlagSelector);
+		result.append(", multidataKeySelector: ");
+		result.append(multidataKeySelector);
+		result.append(", multidataValueSelector: ");
+		result.append(multidataValueSelector);
+		result.append(", multidataPropertySelector: ");
+		result.append(multidataPropertySelector);
 		result.append(')');
 		return result.toString();
 	}

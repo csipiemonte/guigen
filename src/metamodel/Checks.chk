@@ -224,6 +224,15 @@ context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e
 context Column if !editable ERROR "Non si puo' specificare l'attributo 'editableFlagSelector' se la colonna non e' editabile " + loc() :
 	editableFlagSelector == null;
 
+context Column if multiDataBinding !=null ERROR "configurare in alternativa il multidataBinding o il multidataPropertySelector " + loc () :
+	multidataPropertySelector == null;
+	
+context Column if multidataPropertySelector !=null ERROR "configurare in alternativa il multidataBinding o il multidataPropertySelector " + loc () :
+	multiDataBinding == null;
+
+context Column ERROR "Column.multidataPropertySelector non acora supportato" :
+	multidataPropertySelector == null;
+	 	
 //context Column if editable && editableFlagSelector != null ERROR ""
 
 

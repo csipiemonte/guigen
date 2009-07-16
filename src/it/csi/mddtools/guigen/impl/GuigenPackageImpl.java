@@ -1994,6 +1994,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getColumn_MultiDataBinding() {
+		return (EReference)columnEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_MultidataKeySelector() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_MultidataValueSelector() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_MultidataPropertySelector() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCommand() {
 		return commandEClass;
 	}
@@ -3615,6 +3651,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(columnEClass, COLUMN__EDITABLE);
 		createEAttribute(columnEClass, COLUMN__EVENT_ACTIVE);
 		createEAttribute(columnEClass, COLUMN__EDITABLE_FLAG_SELECTOR);
+		createEReference(columnEClass, COLUMN__MULTI_DATA_BINDING);
+		createEAttribute(columnEClass, COLUMN__MULTIDATA_KEY_SELECTOR);
+		createEAttribute(columnEClass, COLUMN__MULTIDATA_VALUE_SELECTOR);
+		createEAttribute(columnEClass, COLUMN__MULTIDATA_PROPERTY_SELECTOR);
 
 		commandEClass = createEClass(COMMAND);
 
@@ -4092,6 +4132,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getColumn_Editable(), ecorePackage.getEBoolean(), "editable", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_EventActive(), ecorePackage.getEBoolean(), "eventActive", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_EditableFlagSelector(), ecorePackage.getEString(), "editableFlagSelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getColumn_MultiDataBinding(), this.getAppDataBinding(), null, "multiDataBinding", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_MultidataKeySelector(), ecorePackage.getEString(), "multidataKeySelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_MultidataValueSelector(), ecorePackage.getEString(), "multidataValueSelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_MultidataPropertySelector(), ecorePackage.getEString(), "multidataPropertySelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandEClass, Command.class, "Command", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -26,6 +26,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#isEditable <em>Editable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isEventActive <em>Event Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getEditableFlagSelector <em>Editable Flag Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getMultiDataBinding <em>Multi Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataKeySelector <em>Multidata Key Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -204,5 +208,109 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setEditableFlagSelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multi Data Binding</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multi Data Binding</em>' containment reference.
+	 * @see #setMultiDataBinding(AppDataBinding)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultiDataBinding()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AppDataBinding getMultiDataBinding();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getMultiDataBinding <em>Multi Data Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multi Data Binding</em>' containment reference.
+	 * @see #getMultiDataBinding()
+	 * @generated
+	 */
+	void setMultiDataBinding(AppDataBinding value);
+
+	/**
+	 * Returns the value of the '<em><b>Multidata Key Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multidata Key Selector</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multidata Key Selector</em>' attribute.
+	 * @see #setMultidataKeySelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataKeySelector()
+	 * @model
+	 * @generated
+	 */
+	String getMultidataKeySelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getMultidataKeySelector <em>Multidata Key Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multidata Key Selector</em>' attribute.
+	 * @see #getMultidataKeySelector()
+	 * @generated
+	 */
+	void setMultidataKeySelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Multidata Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multidata Value Selector</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multidata Value Selector</em>' attribute.
+	 * @see #setMultidataValueSelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataValueSelector()
+	 * @model
+	 * @generated
+	 */
+	String getMultidataValueSelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getMultidataValueSelector <em>Multidata Value Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multidata Value Selector</em>' attribute.
+	 * @see #getMultidataValueSelector()
+	 * @generated
+	 */
+	void setMultidataValueSelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Multidata Property Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multidata Property Selector</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multidata Property Selector</em>' attribute.
+	 * @see #setMultidataPropertySelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataPropertySelector()
+	 * @model
+	 * @generated
+	 */
+	String getMultidataPropertySelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multidata Property Selector</em>' attribute.
+	 * @see #getMultidataPropertySelector()
+	 * @generated
+	 */
+	void setMultidataPropertySelector(String value);
 
 } // Column

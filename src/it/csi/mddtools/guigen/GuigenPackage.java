@@ -3184,13 +3184,49 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__EDITABLE_FLAG_SELECTOR = 5;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__MULTI_DATA_BINDING = 6;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Key Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__MULTIDATA_KEY_SELECTOR = 7;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__MULTIDATA_VALUE_SELECTOR = 8;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Property Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__MULTIDATA_PROPERTY_SELECTOR = 9;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 6;
+	int COLUMN_FEATURE_COUNT = 10;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -7040,6 +7076,50 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getColumn_EditableFlagSelector();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.Column#getMultiDataBinding <em>Multi Data Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Multi Data Binding</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getMultiDataBinding()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EReference getColumn_MultiDataBinding();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getMultidataKeySelector <em>Multidata Key Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multidata Key Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getMultidataKeySelector()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_MultidataKeySelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getMultidataValueSelector <em>Multidata Value Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multidata Value Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getMultidataValueSelector()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_MultidataValueSelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multidata Property Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getMultidataPropertySelector()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_MultidataPropertySelector();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9735,6 +9815,38 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__EDITABLE_FLAG_SELECTOR = eINSTANCE.getColumn_EditableFlagSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Multi Data Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COLUMN__MULTI_DATA_BINDING = eINSTANCE.getColumn_MultiDataBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Multidata Key Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__MULTIDATA_KEY_SELECTOR = eINSTANCE.getColumn_MultidataKeySelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Multidata Value Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__MULTIDATA_VALUE_SELECTOR = eINSTANCE.getColumn_MultidataValueSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Multidata Property Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__MULTIDATA_PROPERTY_SELECTOR = eINSTANCE.getColumn_MultidataPropertySelector();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

@@ -1810,6 +1810,30 @@ public class GenUtils {
 
 
 	/**
+	 *
+	 * @param w
+	 * @return
+	 */
+	public static String getOGNLForColumnMultiValue(Column c){
+		if (c.getMultiDataBinding()!=null){
+			AppDataBinding binding = c.getMultiDataBinding();
+			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
+				return ""+getFullBindingPath(binding)+"";
+			}
+			else if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_SESSION)||
+					binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.SAME_PAGE)){
+				return ""+getFullBindingPath(binding)+""; // unificato
+			}
+			else {
+				throw new IllegalArgumentException("Errore di generazione: tipo lifetime extent non supportato in "+c);
+			}
+		}
+		else {
+			throw new IllegalArgumentException("multibinding della colonna nullo");
+		}
+	}
+	
+	/**
 	 * Restituisce il nome del widget. E' utilizzabile in molti contesti
 	 * Ovunque nel generatore si faccia riferimento al nome del widget con queto pattern
 	 * bisogna effettuare una chiamata a questo metodo.
@@ -1923,8 +1947,24 @@ public class GenUtils {
 					res+="<s:hidden name=\""+nameResetter+"\" " +
 							"id=\""+ckIdResetter+"\" />";
 				} else {
-					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-					res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+					if (currCol.getMultiDataBinding()!=null){
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+								
+					          " headerKey=\"\" headerValue=\"\" "+
+					          " list=\""+getOGNLForColumnMultiValue(currCol)+"\" "+
+					          disabled +
+					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
+					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
+					          
+					          "/>";
+						
+						
+					}
+					else{
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+					}
 				}
 			}
 		}		
