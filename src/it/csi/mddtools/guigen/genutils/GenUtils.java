@@ -1912,14 +1912,15 @@ public class GenUtils {
 				// al momento gestiamo in maniera diversa solo i boolean
 				// TODO: se necessario implementare altri comparatori
 				if ( isBoolean(ft) ) {
-					String ckIdResetter = "%{'__checkbox_"+getWidgetName(table)+"_"+currCol.getSelector()+
+					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
+					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table)+"_"+currCol.getSelector()+
 						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String ckId = "%{'"+getWidgetName(table)+"_"+currCol.getSelector()+
 					"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
 					res+="\n";
-					res+="<s:hidden name=\""+ckIdResetter+"\" " +
+					res+="<s:hidden name=\""+nameResetter+"\" " +
 							"id=\""+ckIdResetter+"\" />";
 				} else {
 					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
