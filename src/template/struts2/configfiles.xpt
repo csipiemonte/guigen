@@ -1,5 +1,6 @@
 «IMPORT guigen»
 
+«IMPORT template::struts2::remoteResources»
 «IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
@@ -691,7 +692,10 @@ FILES DI CONFIGURAZIONE DI ALTRE COMPONENTI
 
 «REM»Genera il file di configurazione della DisplayTag«ENDREM»
 «DEFINE displayTagConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getWebModuleConfigDir(this, skip_component_dir_creation) + "/displaytag.properties"»#DISPLAYTAG CONFIGURATION FILE
+«FILE getWebModuleConfigDir(this, skip_component_dir_creation) + "/displaytag.properties"»############################################################################
+#DISPLAYTAG CONFIGURATION FILE
+############################################################################
+
 basic.empty.showtable=false
 basic.show.header=true
 
@@ -715,6 +719,22 @@ locale.provider=org.displaytag.localization.I18nJstlAdapter
 
 # locale.resolver (nothing by default, simply use locale from request)
 #locale.resolver=
+
+
+############################################################################
+# PAGINATION PARAMETERS
+
+pagination.sort.param=sort
+pagination.sortdirection.param=dir
+pagination.pagenumber.param=page
+pagination.searchid.param=searchid
+pagination.sort.asc.value=asc
+pagination.sort.desc.value=desc
+pagination.sort.skippagenumber=true
+
+
+############################################################################
+# EXPORT PARAMETERS
 
 export.types=excel pdf
 
@@ -746,50 +766,10 @@ export.rtf.label=<span class="export rtf" title="Esporta solo la pagina corrente
 export.rtf.include_header=true
 export.rtf.filename=Export.rtf
 
-# messages
-
-basic.msg.empty_list=<div id="ncsdf">Non ci sono elementi da visualizzare.</div>
-basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono elementi da visualizzare.</td></tr>
-error.msg.invalid_page=pagina non valida
-
-export.banner=<div class="opzioni">{0}</div>
-export.banner.sepchar= &nbsp;
-
-paging.banner.item_name=risultato
-paging.banner.items_name=risultati
-
-paging.banner.no_items_found=<div class="paginazione"><span class="sx">Nessun {0} trovato.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.one_item_found=<div class="paginazione"><span class="sx">Un {0} trovato.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.all_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati, tutti i {2} visualizzati.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.some_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati ({5} pagine)</span><span class="bugFix">&nbsp;|&nbsp;</span>
-
-paging.banner.full=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}"><< prec</a> | <a href="{3}">succ >></a> <a href="{4}">ultima</a></span></div>
-paging.banner.first=<span class="dx">{0} <a href="{3}">succ >></a> <a href="{4}">ultima</a></span></div>
-paging.banner.last=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}"><< prec</a></span></div>
-paging.banner.onepage=<span class="dx">pagina {0}</span></div>
-
-paging.banner.page.selected=<span class="evidenzaLink">{0}</span>
-paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
-paging.banner.page.separator=<span class="bugFix">&nbsp;|&nbsp;</span>
-pagination.sort.param=sort
-pagination.sortdirection.param=dir
-pagination.pagenumber.param=page
-pagination.searchid.param=searchid
-pagination.sort.asc.value=asc
-pagination.sort.desc.value=desc
-pagination.sort.skippagenumber=true
-
 # unused
-save.excel.banner=<a href="{0}" rel="external">save ({1} bytes)</a>
 save.excel.filename=export.xls
 
-#*******css personalizzati
-#css.tr.even=normalRow
-#css.tr.odd=alternateRow
-#css.th.sorted=siord
-#css.th.ascending=su
-#css.th.descending=giu
-#css.table
-#css.th.sortable=dis
+«REM»Proprietà della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)«ENDREM»
+«EXPAND remoteResources::displayTagConfigurationFile FOR this-»
 «ENDFILE»
 «ENDDEFINE»
