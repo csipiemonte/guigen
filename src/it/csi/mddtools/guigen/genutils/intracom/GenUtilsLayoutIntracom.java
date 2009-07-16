@@ -80,7 +80,6 @@ public class GenUtilsLayoutIntracom {
 
 	/**
 	 * Restituisce lo stile per i Button.
-	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param b Il Button da gestire
@@ -88,9 +87,16 @@ public class GenUtilsLayoutIntracom {
 	 * @author [DM]
 	 */
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+		String btnStyleT = "";
 		
-		return "";
+		// setto gli eventi (rollover)
+		btnStyleT += "onmouseover=\"this.className='pulsatt'\" onmouseout=\"this.className=''\" " +
+					 "onfocus=\"this.className='pulsatt'\" onblur=\"this.className=''\"";
+		
+		// setto lo stile (per il momento non necessario)
+		//btnStyleT += " cssClass=\"???\"";
+		
+		return btnStyleT;
 	}
 
 

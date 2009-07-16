@@ -367,7 +367,14 @@ Gestione dei PANNELLI
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
+	«IF this.layout.metaType == VerticalFlowPanelLayout-»
+		«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
+	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
+		«REM»«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»«ENDREM»
+		«ERROR "UDLRCPanelLayout non gestito al primo livello per portale Intracom Torino"»
+	«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
+		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale Intracom Torino"»
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -375,13 +382,31 @@ Gestione dei PANNELLI
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 
+«IF !isNullOrEmpty(this.label) -»
+<!-- titolo pannello 1° livello -->
+<h2><s:text name="«cp.name».«this.name».label" /></h2>
+«ENDIF-»
+
+«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»	
+
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
+«LET getColumnsLayout(this, model) AS numeroColonne-»
+«IF numeroColonne == 1 -»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF numeroColonne == 2 -»
+	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp) FOR this»
+«ELSEIF numeroColonne == 3 -»
+	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
+«ELSE-»
+	«ERROR "Portale Intranet Regione Piemonte. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 
@@ -389,23 +414,34 @@ Gestione dei PANNELLI
 «DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 
+«REM»Come si implementa il filo di Arianna?
+<!-- FILO DI ARIANNA -->
+<div id="navigazione">sei qui: <a href="#">home</a> &gt; <span>{ContentPanelName}</span></div>
+«ENDREM»
+
+«IF !isNullOrEmpty(this.label) -»
+<!-- titolo pannello 1° livello -->
+<h3><s:text name="«cp.name».«this.name».label" /></h3>
+«ENDIF-»
+
+«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»	
+
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
 «DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+	«REM»Gestisco l'UDLRC come una sola colonna ignorando LEFT«ENDREM»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
 «DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+	«REM»Gestisco l'UDLRC come una sola colonna ignorando LEFT«ENDREM»
+	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
 «ENDDEFINE»
 
 
@@ -429,7 +465,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-
+<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="intracom" />
 «ENDDEFINE»
 
 
@@ -461,7 +497,8 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-
+<div class="gestpulsanti">
+	<div class="pulsanti">
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
@@ -479,7 +516,8 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR CommandPanel»
-
+	</div>
+</div>
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo MenuPanel«ENDREM»
@@ -494,16 +532,20 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="intracom" «getPanelGridPercentCols(this)»>
-	«ENDIF-»
+«IF !isNullOrEmpty(this.label)»
+<!-- Titolo WidgetsPanel -->
+<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
+«ENDIF»
+«IF !this.widgets.isEmpty -»
+<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="intracom" «getPanelGridPercentCols(this)»>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	</customtag:panelGrid>
-	«ENDIF-»
+«IF !this.widgets.isEmpty -»
+</customtag:panelGrid>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -548,17 +590,21 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-
+<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-
+</customtag:column>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-
+«IF needHandleCustomtagCloseHspan(wp, this) -»
+<s:else>
+	<customtag:column textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
+</s:else>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -566,17 +612,17 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)wp.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«REM»Al momento non si fa niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«IF !isLast»<br/>«ENDIF»
 «ENDDEFINE»
 
 
@@ -614,12 +660,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-
+<span>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-
+</span>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
@@ -636,7 +682,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
-
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
@@ -644,7 +690,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
-
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 

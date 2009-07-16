@@ -344,7 +344,13 @@ Gestione dei PANNELLI
 «DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 
+«IF !isNullOrEmpty(this.label) -»
+<!-- titolo pannello 1° livello -->
+<h2><s:text name="«cp.name».«this.name».label" /></h2>
+«ENDIF-»
 
+«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»	
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
