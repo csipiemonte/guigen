@@ -145,7 +145,7 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
 				return getFields();
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
-				return isInitFields() ? Boolean.TRUE : Boolean.FALSE;
+				return isInitFields();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,7 +164,7 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 				getFields().addAll((Collection<? extends Field>)newValue);
 				return;
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
-				setInitFields(((Boolean)newValue).booleanValue());
+				setInitFields((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

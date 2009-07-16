@@ -239,7 +239,7 @@ public class FieldImpl extends EObjectImpl implements Field {
 				if (resolve) return getType();
 				return basicGetType();
 			case GuigenPackage.FIELD__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
+				return isRequired();
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				return getDataTypeModifier();
 		}
@@ -261,7 +261,7 @@ public class FieldImpl extends EObjectImpl implements Field {
 				setType((Type)newValue);
 				return;
 			case GuigenPackage.FIELD__REQUIRED:
-				setRequired(((Boolean)newValue).booleanValue());
+				setRequired((Boolean)newValue);
 				return;
 			case GuigenPackage.FIELD__DATA_TYPE_MODIFIER:
 				setDataTypeModifier((String)newValue);

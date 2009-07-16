@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#isSortable <em>Sortable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isEditable <em>Editable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#isEventActive <em>Event Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getEditableFlagSelector <em>Editable Flag Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -177,5 +178,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setEventActive(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Editable Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editable Flag Selector</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editable Flag Selector</em>' attribute.
+	 * @see #setEditableFlagSelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_EditableFlagSelector()
+	 * @model
+	 * @generated
+	 */
+	String getEditableFlagSelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getEditableFlagSelector <em>Editable Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editable Flag Selector</em>' attribute.
+	 * @see #getEditableFlagSelector()
+	 * @generated
+	 */
+	void setEditableFlagSelector(String value);
 
 } // Column

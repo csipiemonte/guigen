@@ -131,7 +131,7 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 			case GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS:
 				return getTargetWidgets();
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
-				return isEnable() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -150,7 +150,7 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
-				setEnable(((Boolean)newValue).booleanValue());
+				setEnable((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

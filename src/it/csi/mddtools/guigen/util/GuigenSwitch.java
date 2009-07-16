@@ -359,8 +359,8 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.ONOFF_COMMAND: {
 				ONOFFCommand onoffCommand = (ONOFFCommand)theEObject;
 				T result = caseONOFFCommand(onoffCommand);
-				if (result == null) result = caseCommand(onoffCommand);
 				if (result == null) result = caseCommandOnWidgets(onoffCommand);
+				if (result == null) result = caseCommand(onoffCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -374,17 +374,17 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.VISIBILITY_COMMAND: {
 				VisibilityCommand visibilityCommand = (VisibilityCommand)theEObject;
 				T result = caseVisibilityCommand(visibilityCommand);
-				if (result == null) result = caseCommand(visibilityCommand);
 				if (result == null) result = caseCommandOnWidgets(visibilityCommand);
+				if (result == null) result = caseCommand(visibilityCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GuigenPackage.REFRESH_VIEW_COMMAND: {
 				RefreshViewCommand refreshViewCommand = (RefreshViewCommand)theEObject;
 				T result = caseRefreshViewCommand(refreshViewCommand);
-				if (result == null) result = caseCommand(refreshViewCommand);
 				if (result == null) result = caseCommandOnWidgets(refreshViewCommand);
 				if (result == null) result = caseCommandOnPanels(refreshViewCommand);
+				if (result == null) result = caseCommand(refreshViewCommand);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

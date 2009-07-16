@@ -141,9 +141,9 @@ public abstract class UISecurityConstraintImpl extends EObjectImpl implements UI
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.UI_SECURITY_CONSTRAINT__VISIBLE:
-				return isVisible() ? Boolean.TRUE : Boolean.FALSE;
+				return isVisible();
 			case GuigenPackage.UI_SECURITY_CONSTRAINT__ENABLED:
-				return isEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,10 +157,10 @@ public abstract class UISecurityConstraintImpl extends EObjectImpl implements UI
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.UI_SECURITY_CONSTRAINT__VISIBLE:
-				setVisible(((Boolean)newValue).booleanValue());
+				setVisible((Boolean)newValue);
 				return;
 			case GuigenPackage.UI_SECURITY_CONSTRAINT__ENABLED:
-				setEnabled(((Boolean)newValue).booleanValue());
+				setEnabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

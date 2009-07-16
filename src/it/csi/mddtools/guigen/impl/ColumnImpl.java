@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isSortable <em>Sortable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isEditable <em>Editable</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#isEventActive <em>Event Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getEditableFlagSelector <em>Editable Flag Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -133,6 +134,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected boolean eventActive = EVENT_ACTIVE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditableFlagSelector() <em>Editable Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditableFlagSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDITABLE_FLAG_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditableFlagSelector() <em>Editable Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditableFlagSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editableFlagSelector = EDITABLE_FLAG_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +284,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditableFlagSelector() {
+		return editableFlagSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditableFlagSelector(String newEditableFlagSelector) {
+		String oldEditableFlagSelector = editableFlagSelector;
+		editableFlagSelector = newEditableFlagSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR, oldEditableFlagSelector, editableFlagSelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -271,11 +313,13 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__LABEL:
 				return getLabel();
 			case GuigenPackage.COLUMN__SORTABLE:
-				return isSortable() ? Boolean.TRUE : Boolean.FALSE;
+				return isSortable();
 			case GuigenPackage.COLUMN__EDITABLE:
-				return isEditable() ? Boolean.TRUE : Boolean.FALSE;
+				return isEditable();
 			case GuigenPackage.COLUMN__EVENT_ACTIVE:
-				return isEventActive() ? Boolean.TRUE : Boolean.FALSE;
+				return isEventActive();
+			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
+				return getEditableFlagSelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -295,13 +339,16 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				setLabel((String)newValue);
 				return;
 			case GuigenPackage.COLUMN__SORTABLE:
-				setSortable(((Boolean)newValue).booleanValue());
+				setSortable((Boolean)newValue);
 				return;
 			case GuigenPackage.COLUMN__EDITABLE:
-				setEditable(((Boolean)newValue).booleanValue());
+				setEditable((Boolean)newValue);
 				return;
 			case GuigenPackage.COLUMN__EVENT_ACTIVE:
-				setEventActive(((Boolean)newValue).booleanValue());
+				setEventActive((Boolean)newValue);
+				return;
+			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
+				setEditableFlagSelector((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,6 +377,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__EVENT_ACTIVE:
 				setEventActive(EVENT_ACTIVE_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
+				setEditableFlagSelector(EDITABLE_FLAG_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -352,6 +402,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return editable != EDITABLE_EDEFAULT;
 			case GuigenPackage.COLUMN__EVENT_ACTIVE:
 				return eventActive != EVENT_ACTIVE_EDEFAULT;
+			case GuigenPackage.COLUMN__EDITABLE_FLAG_SELECTOR:
+				return EDITABLE_FLAG_SELECTOR_EDEFAULT == null ? editableFlagSelector != null : !EDITABLE_FLAG_SELECTOR_EDEFAULT.equals(editableFlagSelector);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -376,6 +428,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(editable);
 		result.append(", eventActive: ");
 		result.append(eventActive);
+		result.append(", editableFlagSelector: ");
+		result.append(editableFlagSelector);
 		result.append(')');
 		return result.toString();
 	}

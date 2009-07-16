@@ -220,7 +220,13 @@ context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una col
 // [DM] una colonna non può essere contemporaneamente editabile e cliccabile
 context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile " + loc() :
 !(this.editable && this.eventActive);
- 
+
+context Column if !editable ERROR "Non si puo' specificare l'attributo 'editableFlagSelector' se la colonna non e' editabile " + loc() :
+	editableFlagSelector == null;
+
+//context Column if editable && editableFlagSelector != null ERROR ""
+
+
 // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
 context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un Pannello con Vertical o Horizontal layout " + loc() :
  	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;

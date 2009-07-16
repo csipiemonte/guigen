@@ -131,7 +131,7 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 			case GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS:
 				return getTargetWidgets();
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
-				return isShow() ? Boolean.TRUE : Boolean.FALSE;
+				return isShow();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -150,7 +150,7 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
-				setShow(((Boolean)newValue).booleanValue());
+				setShow((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -1912,9 +1912,13 @@ public class GenUtils {
 				// al momento gestiamo in maniera diversa solo i boolean
 				// TODO: se necessario implementare altri comparatori
 				if ( isBoolean(ft) ) {
-					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" />";
+					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" />";
+					res+="\n";
+					res+="<s:hidden name=\"__checkbox_"+getWidgetName(table)+"\" id=\"__checkbox_"+getWidgetName(table)+"\" />";
 				} else {
-					res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+					res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
 				}
 			}
 		}		

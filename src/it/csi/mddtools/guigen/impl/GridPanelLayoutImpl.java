@@ -140,9 +140,9 @@ public class GridPanelLayoutImpl extends PanelLayoutImpl implements GridPanelLay
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.GRID_PANEL_LAYOUT__COLUMNS:
-				return new Integer(getColumns());
+				return getColumns();
 			case GuigenPackage.GRID_PANEL_LAYOUT__ROWS:
-				return new Integer(getRows());
+				return getRows();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,10 +156,10 @@ public class GridPanelLayoutImpl extends PanelLayoutImpl implements GridPanelLay
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.GRID_PANEL_LAYOUT__COLUMNS:
-				setColumns(((Integer)newValue).intValue());
+				setColumns((Integer)newValue);
 				return;
 			case GuigenPackage.GRID_PANEL_LAYOUT__ROWS:
-				setRows(((Integer)newValue).intValue());
+				setRows((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

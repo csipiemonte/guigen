@@ -152,7 +152,7 @@ public class JumpCommandImpl extends CommandImpl implements JumpCommand {
 				if (resolve) return getJumpTo();
 				return basicGetJumpTo();
 			case GuigenPackage.JUMP_COMMAND__PUSH_CURRENT_PAGE:
-				return isPushCurrentPage() ? Boolean.TRUE : Boolean.FALSE;
+				return isPushCurrentPage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -169,7 +169,7 @@ public class JumpCommandImpl extends CommandImpl implements JumpCommand {
 				setJumpTo((ContentPanel)newValue);
 				return;
 			case GuigenPackage.JUMP_COMMAND__PUSH_CURRENT_PAGE:
-				setPushCurrentPage(((Boolean)newValue).booleanValue());
+				setPushCurrentPage((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

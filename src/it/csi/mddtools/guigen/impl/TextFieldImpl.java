@@ -98,7 +98,7 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
-				return new Integer(getFieldLength());
+				return getFieldLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -112,7 +112,7 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
-				setFieldLength(((Integer)newValue).intValue());
+				setFieldLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

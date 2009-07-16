@@ -217,7 +217,7 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 				return getEventType();
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
-				return isSkipValidation() ? Boolean.TRUE : Boolean.FALSE;
+				return isSkipValidation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -237,7 +237,7 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				setEventType((EventTypes)newValue);
 				return;
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
-				setSkipValidation(((Boolean)newValue).booleanValue());
+				setSkipValidation((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

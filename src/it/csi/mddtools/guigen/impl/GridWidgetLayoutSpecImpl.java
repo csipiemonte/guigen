@@ -182,11 +182,11 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__ROW:
-				return new Integer(getRow());
+				return getRow();
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__COLUMN:
-				return new Integer(getColumn());
+				return getColumn();
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
-				return new Integer(getHspan());
+				return getHspan();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -200,13 +200,13 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__ROW:
-				setRow(((Integer)newValue).intValue());
+				setRow((Integer)newValue);
 				return;
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__COLUMN:
-				setColumn(((Integer)newValue).intValue());
+				setColumn((Integer)newValue);
 				return;
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
-				setHspan(((Integer)newValue).intValue());
+				setHspan((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -268,7 +268,7 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				if (resolve) return getDataType();
 				return basicGetDataType();
 			case GuigenPackage.DATA_WIDGET__REQUIRED:
-				return isRequired() ? Boolean.TRUE : Boolean.FALSE;
+				return isRequired();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,7 +291,7 @@ public class DataWidgetImpl extends WidgetImpl implements DataWidget {
 				setDataType((Type)newValue);
 				return;
 			case GuigenPackage.DATA_WIDGET__REQUIRED:
-				setRequired(((Boolean)newValue).booleanValue());
+				setRequired((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

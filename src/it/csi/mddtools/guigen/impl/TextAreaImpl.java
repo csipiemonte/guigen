@@ -140,9 +140,9 @@ public class TextAreaImpl extends DataWidgetImpl implements TextArea {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.TEXT_AREA__ROWS:
-				return new Integer(getRows());
+				return getRows();
 			case GuigenPackage.TEXT_AREA__COLUMNS:
-				return new Integer(getColumns());
+				return getColumns();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,10 +156,10 @@ public class TextAreaImpl extends DataWidgetImpl implements TextArea {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.TEXT_AREA__ROWS:
-				setRows(((Integer)newValue).intValue());
+				setRows((Integer)newValue);
 				return;
 			case GuigenPackage.TEXT_AREA__COLUMNS:
-				setColumns(((Integer)newValue).intValue());
+				setColumns((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

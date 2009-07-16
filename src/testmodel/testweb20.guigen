@@ -44,6 +44,9 @@
                   <columnModel>
                     <columns selector="codIstat" label="codIstat" sortable="true"/>
                     <columns selector="nome" label="nome" sortable="true"/>
+                    <columns selector="capoluogo" label="capoluogo?" editable="true" editableFlagSelector="popolazioneEditabile"/>
+                    <columns selector="popolazione" label="popolazione" editable="true" editableFlagSelector="popolazioneEditabile"/>
+                    <columns selector="popolazioneEditabile" label="pop editabile?" editable="true"/>
                   </columnModel>
                 </widgets>
               </subpanels>
@@ -63,6 +66,15 @@
                     <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                   </eventHandlers>
                 </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bEditNone" label="Disabilita editing tutte righe">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="editNone" postExecData="//@appDataDefs/@appData.3">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
               </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -71,7 +83,6 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <staticLinks/>
         <onInitCommand xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3">
           <results resultCode="OK">
             <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
@@ -130,6 +141,9 @@
     <types xsi:type="guigen:ComplexType" name="Comune">
       <fields name="nome" type="//@typedefs/@types.7"/>
       <fields name="codIstat" type="//@typedefs/@types.7"/>
+      <fields name="capoluogo" type="//@typedefs/@types.1"/>
+      <fields name="popolazioneEditabile" type="//@typedefs/@types.1"/>
+      <fields name="popolazione" type="//@typedefs/@types.0"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>

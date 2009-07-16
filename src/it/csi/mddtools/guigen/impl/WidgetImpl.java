@@ -365,9 +365,9 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__SECURITY_CONSTRAINTS:
 				return getSecurityConstraints();
 			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
-				return isDefaultVisible() ? Boolean.TRUE : Boolean.FALSE;
+				return isDefaultVisible();
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
-				return isDefaultEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isDefaultEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -399,10 +399,10 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				getSecurityConstraints().addAll((Collection<? extends UISecurityConstraint>)newValue);
 				return;
 			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
-				setDefaultVisible(((Boolean)newValue).booleanValue());
+				setDefaultVisible((Boolean)newValue);
 				return;
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
-				setDefaultEnabled(((Boolean)newValue).booleanValue());
+				setDefaultEnabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

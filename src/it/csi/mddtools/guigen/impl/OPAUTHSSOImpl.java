@@ -95,7 +95,7 @@ public class OPAUTHSSOImpl extends AutenticationMethodImpl implements OPAUTHSSO 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.OPAUTHSSO__MIN_AUTH_LEVEL:
-				return new Integer(getMinAuthLevel());
+				return getMinAuthLevel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,7 +109,7 @@ public class OPAUTHSSOImpl extends AutenticationMethodImpl implements OPAUTHSSO 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.OPAUTHSSO__MIN_AUTH_LEVEL:
-				setMinAuthLevel(((Integer)newValue).intValue());
+				setMinAuthLevel((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

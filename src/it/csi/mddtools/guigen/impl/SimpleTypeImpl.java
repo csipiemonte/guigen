@@ -143,7 +143,7 @@ public class SimpleTypeImpl extends TypeImpl implements SimpleType {
 			case GuigenPackage.SIMPLE_TYPE__CODE:
 				return getCode();
 			case GuigenPackage.SIMPLE_TYPE__NILLABLE:
-				return isNillable() ? Boolean.TRUE : Boolean.FALSE;
+				return isNillable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,7 +160,7 @@ public class SimpleTypeImpl extends TypeImpl implements SimpleType {
 				setCode((SimpleTypeCodes)newValue);
 				return;
 			case GuigenPackage.SIMPLE_TYPE__NILLABLE:
-				setNillable(((Boolean)newValue).booleanValue());
+				setNillable((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

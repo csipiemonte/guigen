@@ -147,7 +147,7 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 			case GuigenPackage.MENUBAR__TOP_LEVEL_MENU:
 				return getTopLevelMenu();
 			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
-				return isRemoteInfoBox() ? Boolean.TRUE : Boolean.FALSE;
+				return isRemoteInfoBox();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,7 +166,7 @@ public class MenubarImpl extends EObjectImpl implements Menubar {
 				getTopLevelMenu().addAll((Collection<? extends Menu>)newValue);
 				return;
 			case GuigenPackage.MENUBAR__REMOTE_INFO_BOX:
-				setRemoteInfoBox(((Boolean)newValue).booleanValue());
+				setRemoteInfoBox((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

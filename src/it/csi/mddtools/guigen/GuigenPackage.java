@@ -3175,13 +3175,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__EVENT_ACTIVE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Editable Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__EDITABLE_FLAG_SELECTOR = 5;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 5;
+	int COLUMN_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -7020,6 +7029,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getColumn_EventActive();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getEditableFlagSelector <em>Editable Flag Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Editable Flag Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getEditableFlagSelector()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_EditableFlagSelector();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9707,6 +9727,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__EVENT_ACTIVE = eINSTANCE.getColumn_EventActive();
+
+		/**
+		 * The meta object literal for the '<em><b>Editable Flag Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__EDITABLE_FLAG_SELECTOR = eINSTANCE.getColumn_EditableFlagSelector();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

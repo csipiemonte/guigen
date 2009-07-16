@@ -311,11 +311,11 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			case GuigenPackage.TABLE__COLUMN_MODEL:
 				return getColumnModel();
 			case GuigenPackage.TABLE__PAGE_SIZE:
-				return new Integer(getPageSize());
+				return getPageSize();
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
-				return isEnableExport() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnableExport();
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
-				return isCustomDecorator() ? Boolean.TRUE : Boolean.FALSE;
+				return isCustomDecorator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -335,13 +335,13 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				setColumnModel((ColumnModel)newValue);
 				return;
 			case GuigenPackage.TABLE__PAGE_SIZE:
-				setPageSize(((Integer)newValue).intValue());
+				setPageSize((Integer)newValue);
 				return;
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
-				setEnableExport(((Boolean)newValue).booleanValue());
+				setEnableExport((Boolean)newValue);
 				return;
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
-				setCustomDecorator(((Boolean)newValue).booleanValue());
+				setCustomDecorator((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

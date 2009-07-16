@@ -182,11 +182,11 @@ public class StdMessagePanelImpl extends PanelImpl implements StdMessagePanel {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_GLOBAL_MESSAGES:
-				return isShowGlobalMessages() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowGlobalMessages();
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS:
-				return isShowFieldErrorDetails() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowFieldErrorDetails();
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS:
-				return isShowFieldErrors() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowFieldErrors();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -200,13 +200,13 @@ public class StdMessagePanelImpl extends PanelImpl implements StdMessagePanel {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_GLOBAL_MESSAGES:
-				setShowGlobalMessages(((Boolean)newValue).booleanValue());
+				setShowGlobalMessages((Boolean)newValue);
 				return;
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_FIELD_ERROR_DETAILS:
-				setShowFieldErrorDetails(((Boolean)newValue).booleanValue());
+				setShowFieldErrorDetails((Boolean)newValue);
 				return;
 			case GuigenPackage.STD_MESSAGE_PANEL__SHOW_FIELD_ERRORS:
-				setShowFieldErrors(((Boolean)newValue).booleanValue());
+				setShowFieldErrors((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
