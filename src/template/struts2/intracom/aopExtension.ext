@@ -30,7 +30,7 @@ around template::struts2::Struts2Extensions::getStrutsThemeByPortal(GUIModel mod
 
 //
 around template::struts2::Struts2Extensions::getTablePortalStyle(GUIModel model, Table t) :
-	"";
+	"class=\"tablesorter\"";
 
 //
 around template::struts2::Struts2Extensions::getRadioPortalStyle(GUIModel model) :
@@ -56,6 +56,10 @@ around template::struts2::Struts2Extensions::getTextFieldStyleByLayout(GUIModel 
 // [DM] Restituisce lo stile dei Calendar
 around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
 	"";
+
+// [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
+around template::struts2::Struts2Extensions::getCalendarImageByLayout(GUIModel model, Calendar c) :
+	getCalendarImageByLayoutIntracom(model, c);
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :

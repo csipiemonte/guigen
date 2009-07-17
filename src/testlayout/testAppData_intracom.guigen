@@ -18,7 +18,7 @@
           </topLevelMenu>
           <topLevelMenu name="mnuInserimentoPratica" label="INSERIMENTO PRATICA">
             <eventHandler>
-              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.1/@contentPanels.0"/>
             </eventHandler>
           </topLevelMenu>
           <topLevelMenu name="mnuConfigurazione" label="CONFIGURAZIONE">
@@ -39,7 +39,7 @@
         </contentPanels>
         <staticLinks/>
         <modules name="Ricerca">
-          <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.0">
+          <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0">
             <panels xsi:type="guigen:FormPanel" name="pRicerca" label="RICERCA PRATICHE EDILIZIE">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <subpanels xsi:type="guigen:FormPanel" name="pFiltriRicerca" label="Filtri di ricerca">
@@ -114,9 +114,63 @@
                   </subpanels>
                 </subpanels>
                 <subpanels xsi:type="guigen:CommandPanel" name="cmdpCerca" cmdStyle="NAVIGATION">
-                  <widgets xsi:type="guigen:ConfirmButton" name="btnCerca" label="cerca"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="btnCerca" label="cerca">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="ricercaPratica" postExecData="//@appDataDefs/@groups.0/@appData.0">
+                        <results resultCode="FOUND_MANY">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.1"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
                 </subpanels>
               </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpRisultatiRicerca" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pRisultatiRicerca" label="RISULTATI DELLA RICERCA">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="msgParametriRicerca">
+                <textMessages name="ptParametriRicerca" dataType="//@typedefs/@types.9" staticText="&lt;div class=&quot;parametri&quot;>&lt;strong>Riepilogo principali parametri di ricerca inseriti&lt;/strong>&lt;br />&lt;strong>anno:&lt;/strong> 2008 - &lt;strong>registro:&lt;/strong> 1 - Permesso di costruire - &lt;strong>progressivo:&lt;/strong> xxx&lt;/div>"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="risultatiRicercaWidgets">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:Table" name="tblRisultatiRicerca" dataType="//@typedefs/@namespaces.0/@types.0" pageSize="3">
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.2"/>
+                  <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                  <columnModel valueSelector="id">
+                    <columns selector="anno" label="Anno"/>
+                    <columns selector="registro" label="Registro"/>
+                    <columns selector="progressivo" label="Progressivo"/>
+                    <columns selector="richiedente" label="Richiedente"/>
+                    <columns selector="ubicazioneOpera" label="Ubicazione opera"/>
+                    <columns selector="progettista" label="Progettista"/>
+                  </columnModel>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cmdAzioni" cmdStyle="NAVIGATION">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnVisualizza" label="Visualizza">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="visualizzaPratica" postExecData="//@appDataDefs/@groups.0/@appData.1">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnModifica" label="Modifica"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="btnNuovaRicerca" label="Nuova ricerca">
+                  <eventHandlers>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpVisualizzaPratica">
+            <panels xsi:type="guigen:FormPanel" name="pVisualizzaPratica" label="VISUALIZZA PRATICA">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             </panels>
           </contentPanels>
         </modules>
@@ -124,22 +178,114 @@
           <contentPanels name="cpInserimentoPratica" appData="//@appDataDefs/@appData.0">
             <panels xsi:type="guigen:FormPanel" name="pInserimentoPratica" label="INSERIMENTO PRATICHE EDILIZIE">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="msgInfo">
+                <textMessages name="ptInfo" dataType="//@typedefs/@types.9" staticText="&lt;div class=&quot;parametri&quot;>&lt;strong>registro:&lt;/strong> 1 - permessi di costruire - &lt;strong>anno: &lt;/strong>2008&lt;/div>"/>
+              </subpanels>
               <subpanels xsi:type="guigen:FormPanel" name="pInserimento">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:TabSetPanel" name="pInserimentoTabs">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <panels xsi:type="guigen:FormPanel" name="tabNuovaPratica" label="Nuova pratica">
-                    <subpanels xsi:type="guigen:WidgetsPanel" name="datiWidgets">
-                      <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="5"/>
-                    </subpanels>
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="repertorioDiRiferimentoWidgets" label="Repertorio di riferimento">
-                      <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="ptTab1" label="Label" dataType="//@typedefs/@types.9" staticText="Testo"/>
+                      <widgets xsi:type="guigen:Calendar" name="cal1" label="Data" dataType="//@typedefs/@types.3"/>
                     </subpanels>
                   </panels>
-                  <panels xsi:type="guigen:FormPanel" name="tabCreaCollegamento" label="Crea collegamento"/>
-                  <panels xsi:type="guigen:FormPanel" name="tabPraticaPregressa" label="Pratica pregressa"/>
-                  <panels xsi:type="guigen:FormPanel" name="tabImportaDaCompilato" label="Importa da &quot;COMPILATO&quot;"/>
+                  <panels xsi:type="guigen:FormPanel" name="tabCreaCollegamento" label="Crea collegamento">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:FormPanel" name="tabCreaCollegamentoFp" label="Crea collegamento">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="creaCollegamentoWidgets" label="">
+                        <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                        <widgets xsi:type="guigen:PlainText" name="ptTab2" label="Label" dataType="//@typedefs/@types.9" staticText="Testo"/>
+                      </subpanels>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="tabPraticaPregressa" label="Pratica pregressa">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="praticaPregressaWidgets">
+                      <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="ptTab3" label="Label" dataType="//@typedefs/@types.9" staticText="Testo"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="tabImportaDaCompilato" label="Importa da &quot;COMPILATO&quot;">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="importaDaCompilatoWidgets">
+                      <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:PlainText" name="ptTab4" label="Label" dataType="//@typedefs/@types.9" staticText="Testo"/>
+                    </subpanels>
+                  </panels>
                 </subpanels>
-                <subpanels xsi:type="guigen:CommandPanel" name="cmdAvanti" cmdStyle="NAVIGATION"/>
+                <subpanels xsi:type="guigen:CommandPanel" name="cmdAvanti" cmdStyle="NAVIGATION">
+                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="btnAvanti" label="Avanti">
+                    <eventHandlers>
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.1/@contentPanels.1"/>
+                    </eventHandlers>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpInserimentoPraticaSteps" appData="//@appDataDefs/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pInserimentoPraticaSteps" label="INSERIMENTO PRATICHE EDILIZIE">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="msgInfo">
+                <textMessages name="ptInfo" dataType="//@typedefs/@types.9" staticText="&lt;div class=&quot;parametri&quot;>&lt;strong>registro:&lt;/strong> 1 - permessi di costruire - &lt;strong>anno: &lt;/strong>2008&lt;/div>"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:WizardPanel" name="insPraticaSteps">
+                <panels xsi:type="guigen:FormPanel" name="stepSoggetti" label="soggetti">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepSoggettiWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptSoggetto" label="Soggetto:" dataType="//@typedefs/@types.9" staticText="soggetto"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="stepOpere" label="opere">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepOpereWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptOpera" label="Opera:" dataType="//@typedefs/@types.9" staticText="opera opera"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="stepUbicazioni" label="ubicazioni">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepUbicazioniWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptUbicazione" label="Ubicazione:" dataType="//@typedefs/@types.9" staticText="ubi ubi"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="documenti" label="stepDocumenti">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepDocumentiWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptDocumento" label="Documento:" dataType="//@typedefs/@types.9" staticText="doc doc"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="stepEstremiCatastali" label="estremi catastali">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepEstremiCatastaliWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptEstremi" label="Estremi:" dataType="//@typedefs/@types.9" staticText="inferiore e superiore"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="stepDatiSpecifici" label="dati specifici">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepDatiSpecificiWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptNome" label="Nome:" dataType="//@typedefs/@types.9" staticText="name"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptCognome" label="Cognome:" dataType="//@typedefs/@types.9" staticText="surname"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="stepRiepilogo" label="riepilogo">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="stepRiepliogoWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="ptRiepilogo" label="Riepilogo:" dataType="//@typedefs/@types.9" staticText="riepilogo"/>
+                  </subpanels>
+                </panels>
               </subpanels>
             </panels>
           </contentPanels>
@@ -184,9 +330,26 @@
       <fields name="ruolo" type="//@typedefs/@types.9"/>
       <fields name="idIride" type="//@typedefs/@types.9"/>
     </types>
+    <namespaces name="pratica">
+      <types xsi:type="guigen:ComplexType" name="Pratica">
+        <fields name="id" type="//@typedefs/@types.10"/>
+        <fields name="anno" type="//@typedefs/@types.9"/>
+        <fields name="registro" type="//@typedefs/@types.9"/>
+        <fields name="progressivo" type="//@typedefs/@types.9"/>
+        <fields name="richiedente" type="//@typedefs/@types.9"/>
+        <fields name="ubicazioneOpera" type="//@typedefs/@types.9"/>
+        <fields name="progettista" type="//@typedefs/@types.9"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Pratica[]" componentType="//@typedefs/@namespaces.0/@types.0"/>
+    </namespaces>
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
+    <groups name="pratica">
+      <appData name="praticheTrovate" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+      <appData name="dettaglioPratica" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
+      <appData name="praticaSelezionata" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.10"/>
+    </groups>
   </appDataDefs>
   <targetPlatform/>
 </guigen:GUIModel>

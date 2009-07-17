@@ -1,6 +1,7 @@
 import guigen;
 import ecore;
 extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +35,18 @@ String getMenuWithChildLinkCssIntracom(Menu menu, int level) :
 String getMenuWithChildLabelIntracom(Menu menu, int level) :
 	"<s:text name=\"" + menu.name + ".label\" />";
 
+
+// 
+boolean expandFormPanelLayoutIntracom(FormPanel fp) :
+	// ORIGINALE
+	//(this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0))
+	// MODIFICATO
+	!(fp.eContainer.metaType == TabSetPanel || fp.eContainer.metaType == WizardPanel);
+
+// [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
+String getCalendarImageByLayoutIntracom(GUIModel model, Calendar c) :
+	//"<input type=\"image\" onclick=\"return showCalendar('" + getWidgetName(c) + "', '%d/%m/%Y');\" src=\"<%=request.getContextPath()%>/css/cal.gif\" class=\"poin\" />";
+	"<img src=\"<%=request.getContextPath()%>/css/cal.gif\" class=\"poin\" />";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

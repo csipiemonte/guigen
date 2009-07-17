@@ -117,8 +117,16 @@ Definizioni generali: header, footer, ecc
 		
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/import.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/caricamento.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/sort.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/stampa.css"  media="print" />
+		
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/visabs.js"></script>
+		<script type="text/javascript" src="js/calendar.js"></script>
+		<script type="text/javascript" src="js/calendar-it.js"></script>
+		<!--<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/jquery-latest.js"></script>-->
+		<!--<script type="text/javascript" src="js/jquery.tablesorter.js"></script>-->
+		<!--<script type="text/javascript" src="js/jquery.metadata.js"></script>-->
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -451,12 +459,44 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-
+<div id="menutab">
+	<ul>
+	«FOREACH this.panels AS currTab ITERATOR i-»
+		«LET "%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"'" + (i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
+		<s:url id="«this.name»_«currTab.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«this.name»_«currTab.name»'}" />
+		</s:url>
+		<s:if test="«tabSelectedCondition»">
+			<li id="attivo"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></li>
+		</s:if>
+		<s:else>
+			<li><s:a href="%{«this.name»_«currTab.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a></li>
+		</s:else>
+		«ENDLET»
+	«ENDFOREACH»
+	</ul>
+</div>
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
-
+<ul class="wizard">
+	«FOREACH this.panels AS currStep ITERATOR i-»
+		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
+		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«this.name»_«currStep.name»'}" />
+		</s:url>
+		<s:if test="%{#session.«this.name»_selectedMultiPanel == '«this.name»_«currStep.name»'«stepExtraCondition»}">
+			<li class="bldwiz"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></li>
+		</s:if>
+		<s:else>
+			<li><s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></li>
+		</s:else>		
+		«ENDLET»
+	«ENDFOREACH»
+</ul>
 «ENDDEFINE»
 
 
@@ -487,7 +527,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+«IF expandFormPanelLayoutIntracom(this) -»
 <fieldset>
 	«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 	<legend><s:text name="«findParentContentPanel(this).name».«this.name».label" /></legend>
@@ -509,7 +549,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la footer di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR FormPanel»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+«IF expandFormPanelLayoutIntracom(this) -»
 </fieldset>
 «ENDIF»
 «ENDDEFINE»
@@ -660,12 +700,10 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-<span>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-</span>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
@@ -808,8 +846,8 @@ save.excel.banner=<a href="{0}" rel="external">save ({1} bytes)</a>
 ############################################################################
 # CSS PERSONALIZZATI
 
-#css.tr.even=normalRow
-#css.tr.odd=alternateRow
+css.tr.even=
+css.tr.odd=rigag
 #css.th.sorted=siord
 #css.th.ascending=su
 #css.th.descending=giu
