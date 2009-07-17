@@ -259,7 +259,7 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')" >
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 		<li«getMenuNoChildCssRupar(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssRupar(this, level)»>
 				«getMenuNoChildLabelRupar(this, level)»
