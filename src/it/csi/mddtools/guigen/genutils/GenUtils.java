@@ -1961,6 +1961,18 @@ public class GenUtils {
 						
 						
 					}
+					else if (currCol.getMultidataPropertySelector()!=null){
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+								
+					          " headerKey=\"\" headerValue=\"\" "+
+					          " list= \""+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
+					          disabled +
+					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
+					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
+					          
+					          "/>";
+					}
 					else{
 						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";

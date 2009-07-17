@@ -53,6 +53,7 @@
                     <columns selector="codIstatGemellato" label="gemellato" editable="true" editableFlagSelector="popolazioneEditabile" multidataKeySelector="codIstat" multidataValueSelector="nome">
                       <multiDataBinding appData="//@appDataDefs/@appData.3"/>
                     </columns>
+                    <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie"/>
                   </columnModel>
                 </widgets>
               </subpanels>
@@ -151,7 +152,14 @@
       <fields name="popolazioneEditabile" type="//@typedefs/@types.1"/>
       <fields name="popolazione" type="//@typedefs/@types.0"/>
       <fields name="codIstatGemellato" type="//@typedefs/@types.7"/>
+      <fields name="codViaPrincipale" type="//@typedefs/@types.7"/>
+      <fields name="vie" type="//@typedefs/@types.33"/>
     </types>
+    <types xsi:type="guigen:ComplexType" name="Via">
+      <fields name="cod" type="//@typedefs/@types.7"/>
+      <fields name="nome" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Via []" componentType="//@typedefs/@types.32"/>
     <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
     <types xsi:type="guigen:ComplexType" name="UserInfo">
@@ -166,13 +174,13 @@
       <fields name="cod" type="//@typedefs/@types.7"/>
       <fields name="name" type="//@typedefs/@types.7"/>
     </types>
-    <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.35"/>
+    <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.37"/>
   </typedefs>
   <appDataDefs>
-    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
     <appData name="numeroFloat" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.11"/>
     <appData name="numeroInt" type="//@typedefs/@types.8"/>
-    <appData name="comuni" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.32"/>
+    <appData name="comuni" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.34"/>
     <appData name="attivo" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
   </appDataDefs>
   <targetPlatform code="JBoss43"/>
