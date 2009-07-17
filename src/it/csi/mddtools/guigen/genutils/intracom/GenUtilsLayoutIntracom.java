@@ -21,6 +21,7 @@ import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
+import it.csi.mddtools.guigen.WidgetsPanel;
 
 import it.csi.mddtools.guigen.genutils.GenUtils;
 import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
@@ -89,12 +90,29 @@ public class GenUtilsLayoutIntracom {
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
 		String btnStyleT = "";
 		
-		// setto gli eventi (rollover)
-		btnStyleT += "onmouseover=\"this.className='pulsatt'\" onmouseout=\"this.className=''\" " +
-					 "onfocus=\"this.className='pulsatt'\" onblur=\"this.className=''\"";
-		
-		// setto lo stile (per il momento non necessario)
-		//btnStyleT += " cssClass=\"???\"";
+		if ( b.eContainer() instanceof CommandPanel ) {
+			if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.NAVIGATION ) {
+				// setto lo stile (per il momento non necessario)
+				//btnStyleT += " cssClass=\"???\"";
+			} else if ( ((CommandPanel)b.eContainer()).getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+				// setto lo stile (per il momento non necessario)
+				//btnStyleT += " cssClass=\"???\"";
+			}
+			
+			// setto gli eventi (rollover)
+			btnStyleT += "onmouseover=\"this.className='pulsatt'\" onmouseout=\"this.className=''\" " +
+						 "onfocus=\"this.className='pulsatt'\" onblur=\"this.className=''\"";
+		} 
+		else if ( b.eContainer() instanceof WidgetsPanel ) {
+			// se e' in un WidgetsPanel, interpreto come FUNCTIONAL
+			btnStyleT += "cssClass=\"cercodfisc\" ";
+			btnStyleT += "onmouseover=\"this.className='pulsattcodf'\" onmouseout=\"this.className='cercodfisc'\" " + 
+						 "onfocus=\"this.className='pulsattcodf'\" onblur=\"this.className='cercodfisc'\"";
+		} 
+		else {
+			// di default per il caso di button non contenuto in un altro tipo di Panel 
+			btnStyleT = "";
+		}		
 		
 		return btnStyleT;
 	}
