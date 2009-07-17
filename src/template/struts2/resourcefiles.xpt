@@ -776,7 +776,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
                «IF customDecorator»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF»
                «getTablePortalStyle(model, this)» >
 	«IF this.databinding != null -»
-		<display:column headerClass="nosort">
+		<display:column headerClass="nosort" media="html" >
 		«IF this.databinding.appData.type.metaType == SimpleType -»
 			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
