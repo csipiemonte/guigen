@@ -138,9 +138,13 @@ public class GenUtilsLayoutIntranetrp {
 	 */
 	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
 		String res = "";
-
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
+			res = "class=\"boxmsgnota\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
+			res = "class=\"boxmsgnota\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
+			res = "class=\"boxmsgnota\"";
+		}
 		return res;
 	}
 

@@ -376,12 +376,28 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-
+«REM»TODO: capite come implementare
+	«FOREACH this.panels AS currTab ITERATOR i-»
+		<s:url id="«this.name»_«currTab.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«this.name»_«currTab.name»'}" />
+		</s:url>
+		<s:a href="%{«this.name»_«currTab.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+	«ENDFOREACH-»
+«ENDREM»
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
-
+«REM»TODO: capite come implementare
+	«FOREACH this.panels AS currStep ITERATOR i-»
+		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«this.name»_«currStep.name»'}" />
+		</s:url>
+		<s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+	«ENDFOREACH-»
+«ENDREM»
 «ENDDEFINE»
 
 
@@ -476,12 +492,16 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
-
+«IF model.structure.appWindow.header != null-»
+<s:include value="../fragments/header.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
-
+«IF model.structure.appWindow.footer != null-»
+<s:include value="../fragments/footer.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -491,12 +511,12 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
-
+<div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
-
+</div>
 «ENDDEFINE»
 
 
