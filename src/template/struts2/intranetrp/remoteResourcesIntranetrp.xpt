@@ -118,6 +118,9 @@ Definizioni generali: header, footer, ecc
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stile.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stampa.css" type="text/css" media="print" />
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/funzioni.js"></script>
+		
+		<!-- elementi aggiunti -->
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stili_aggiuntivi.css" type="text/css" media="screen" />
 	</head>
 	<body>
 
@@ -155,6 +158,9 @@ Definizioni generali: header, footer, ecc
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stile.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stampa.css" type="text/css" media="print" />
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/funzioni.js"></script>
+		
+		<!-- elementi aggiunti -->
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/stili_aggiuntivi.css" type="text/css" media="screen" />
 	</head>
 	<body>
 
@@ -376,28 +382,42 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-«REM»TODO: capite come implementare
+<div class="boxsup">
 	«FOREACH this.panels AS currTab ITERATOR i-»
+		«LET "%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"'" + (i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
 		<s:url id="«this.name»_«currTab.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«this.name»_«currTab.name»'}" />
 		</s:url>
-		<s:a href="%{«this.name»_«currTab.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+		<s:if test="«tabSelectedCondition»">
+			<s:a href="%{«this.name»_«currTab.name»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+		</s:if>
+		<s:else>
+			<s:a href="%{«this.name»_«currTab.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+		</s:else>
+		«ENDLET»
 	«ENDFOREACH-»
-«ENDREM»
+</div>
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
-«REM»TODO: capite come implementare
+<div class="boxsup">
 	«FOREACH this.panels AS currStep ITERATOR i-»
+		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«this.name»_«currStep.name»'}" />
 		</s:url>
-		<s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+		<s:if test="%{#session.«this.name»_selectedMultiPanel == '«this.name»_«currStep.name»'«stepExtraCondition»}">
+			<s:a href="%{«this.name»_«currStep.name»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+		</s:if>
+		<s:else>
+			<s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+		</s:else>
+		«ENDLET»
 	«ENDFOREACH-»
-«ENDREM»
+</div>
 «ENDDEFINE»
 
 
