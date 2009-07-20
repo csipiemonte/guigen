@@ -2287,6 +2287,31 @@ public class GenUtils {
 	}	
 	
 	
+	public static boolean isBoundToArray(AppDataBinding db){
+		if (db.getAppData()!=null){
+			if (db.getPath()==null || db.getPath().length()==0){
+				 return db.getAppData().getType() instanceof TypedArray;
+			}
+			else{
+				// verifico se il field e' un array
+				if (db.getAppData().getType() instanceof ComplexType){
+					Field fld = getSelectedField(null, (ComplexType)(db.getAppData().getType()), db.getPath());
+					System.out.println("\n\nfld:"+fld);
+					if (fld!=null){
+						return fld.getType() instanceof TypedArray;
+					}
+					else
+						throw new IllegalArgumentException("campo "+db.getAppData().getType()+"."+db.getPath()+" non trovato");
+				}
+				else
+					throw new IllegalArgumentException("si sta tentantdo di dereferenziare con 'path' un tipo non complesso:"+db.getAppData().getType());
+			}
+		}
+		else
+			return false;
+	}
+	
+	
 	/**
 	 * Ritorna il Field corrispondente al selettore passato.
 	 * 

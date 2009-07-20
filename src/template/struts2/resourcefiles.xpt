@@ -714,7 +714,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
           headerKey="" headerValue="" «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
           list="«getOGNLForWidgetMultiValue(this)»"
           disabled="isWidgetDisabled('«cp.name»','«this.name»')"
-          «IF (databinding!=null && databinding.appData.type.metaType==TypedArray) ||
+          «IF (databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray)-»
           multiple="true"
           «ENDIF-»

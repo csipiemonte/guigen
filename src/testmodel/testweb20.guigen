@@ -16,7 +16,7 @@
             </eventHandler>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpTestsoftRepaint" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4">
+        <contentPanels name="cpTestsoftRepaint" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test Repaint">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -56,6 +56,10 @@
                     <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie"/>
                   </columnModel>
                 </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbMulti" label="multi" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
+                  <databinding appData="//@appDataDefs/@appData.5" path="codVieAccesso"/>
+                  <multiDataBinding appData="//@appDataDefs/@appData.3" path="[0].vie"/>
+                </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -90,7 +94,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <onInitCommand xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3">
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5">
           <results resultCode="OK">
             <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
           </results>
@@ -154,6 +158,7 @@
       <fields name="codIstatGemellato" type="//@typedefs/@types.7"/>
       <fields name="codViaPrincipale" type="//@typedefs/@types.7"/>
       <fields name="vie" type="//@typedefs/@types.33"/>
+      <fields name="codVieAccesso" type="//@typedefs/@types.20"/>
     </types>
     <types xsi:type="guigen:ComplexType" name="Via">
       <fields name="cod" type="//@typedefs/@types.7"/>
@@ -182,6 +187,7 @@
     <appData name="numeroInt" type="//@typedefs/@types.8"/>
     <appData name="comuni" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.34"/>
     <appData name="attivo" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+    <appData name="comuneCorrente" type="//@typedefs/@types.31"/>
   </appDataDefs>
   <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>
