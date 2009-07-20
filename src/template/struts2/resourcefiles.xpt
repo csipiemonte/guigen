@@ -641,7 +641,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR PlainText»
 <!-- [GUIGEN] Crea il widget «this» -->
 «IF this.databinding!=null-»
-<s:property value="«getOGNLForWidgetValue(this)»" />
+<s:property value="«getOGNLForWidgetValue(this)»" escape="false" />
 «ELSE-»
 «IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«this.name».statictext.label" />«ENDIF»
 «ENDIF-»
