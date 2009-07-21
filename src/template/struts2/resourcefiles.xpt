@@ -384,6 +384,8 @@ Gestione dei pannelli
 <!-- Creazione del multi panel «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
+«ELSEIF this.metaType == UserDefinedPanel-»
+	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
 	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
