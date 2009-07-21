@@ -718,6 +718,8 @@ public class GenUtils {
 	public static List<ContentPanel> getAllPossibleJumps(Panel p) {
 		if (p instanceof FormPanel)
 			return getAllPossibleJumps((FormPanel)p);
+		if (p instanceof WidgetsPanel)
+			return getAllPossibleJumps((WidgetsPanel)p);
 		if (p instanceof CommandPanel)
 			return getAllPossibleJumps((CommandPanel)p);
 		else if (p instanceof MultiPanel)
@@ -752,6 +754,27 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */	
+	public static List<ContentPanel> getAllPossibleJumps(WidgetsPanel p) {
+		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
+		if ( p.getWidgets() != null ) {
+			for (Widget w : p.getWidgets()) {
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(w);
+				if (currSubJumps != null) {
+					recursiveDestinations.addAll(currSubJumps);
+				}
+			}
+		}
+		
+		List<ContentPanel> result= new ArrayList<ContentPanel>();
+		result.addAll(recursiveDestinations);
+		return result;
+	}
+	
 	/**
 	 *
 	 * @param p
@@ -980,8 +1003,10 @@ public class GenUtils {
 	public static List<JumpExtCommand> getAllPossibleExtJumps(Panel p) {
 		if (p instanceof FormPanel)
 			return getAllPossibleExtJumps((FormPanel)p);
+		if (p instanceof WidgetsPanel)
+			return getAllPossibleExtJumps((WidgetsPanel)p);
 		if (p instanceof CommandPanel)
-			return getAllPossibleExtJumps((CommandPanel)p);		
+			return getAllPossibleExtJumps((CommandPanel)p);
 		else if (p instanceof MultiPanel)
 			return getAllPossibleExtJumps((MultiPanel)p);
 		else if (p instanceof DialogPanel)
@@ -1003,8 +1028,9 @@ public class GenUtils {
 			Iterator<Panel> panels_it = subpanels.iterator();
 			while(panels_it.hasNext()){
 				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panels_it.next());
-				if (currSubJumps!=null)
+				if ( currSubJumps != null ) {
 					recursiveDestinations.addAll(currSubJumps);
+				}
 			}
 		}
 
@@ -1013,6 +1039,27 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(WidgetsPanel p) {	
+		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
+		if ( p.getWidgets() != null ) {
+			for (Widget w : p.getWidgets()) {
+				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(w);
+				if ( currSubJumps != null ) {
+					recursiveDestinations.addAll(currSubJumps);
+				}
+			}
+		}
+		
+		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
+		result.addAll(recursiveDestinations);
+		return result;	
+	}
+	
 	/**
 	 *
 	 * @param p
@@ -1214,6 +1261,8 @@ public class GenUtils {
 	public static List<DialogPanel> getAllPossibleShowDialogs(Panel p) {
 		if ( p instanceof FormPanel ) {
 			return getAllPossibleShowDialogs((FormPanel)p);
+		} else if ( p instanceof WidgetsPanel ) {
+			return getAllPossibleShowDialogs((WidgetsPanel)p);		
 		} else if ( p instanceof CommandPanel ) {
 			return getAllPossibleShowDialogs((CommandPanel)p);
 		} else if ( p instanceof MultiPanel ) {
@@ -1249,6 +1298,27 @@ public class GenUtils {
 		return result;
 	}
 
+	/**
+	 *
+	 * @param p
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(WidgetsPanel p) {
+		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
+		if ( p.getWidgets() != null ) {
+			for (Widget w : p.getWidgets()) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(w);
+				if ( currSubShowDialogs != null ) {
+					recursiveDestinations.addAll(currSubShowDialogs);
+				}
+			}
+		}
+		
+		List<DialogPanel> result = new ArrayList<DialogPanel>();
+		result.addAll(recursiveDestinations);
+		return result;
+	}
+	
 	/**
 	 *
 	 * @param p

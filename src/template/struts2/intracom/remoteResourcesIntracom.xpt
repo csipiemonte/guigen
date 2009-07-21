@@ -121,12 +121,12 @@ Definizioni generali: header, footer, ecc
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/stampa.css"  media="print" />
 		
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/visabs.js"></script>
-		<script type="text/javascript" src="js/calendar.js"></script>
-		<script type="text/javascript" src="js/calendar-it.js"></script>
-		<!--<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>-->
-		<!--<script type="text/javascript" src="js/jquery-latest.js"></script>-->
-		<!--<script type="text/javascript" src="js/jquery.tablesorter.js"></script>-->
-		<!--<script type="text/javascript" src="js/jquery.metadata.js"></script>-->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar-it.js"></script>
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.2.6.min.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-latest.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.tablesorter.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.metadata.js"></script>-->
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -202,8 +202,16 @@ Definizioni generali: header, footer, ecc
 		
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/import.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/caricamento.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/sort.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/stampa.css"  media="print" />
+		
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/visabs.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/calendar-it.js"></script>
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.2.6.min.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-latest.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.tablesorter.js"></script>-->
+		<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.metadata.js"></script>-->
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -378,8 +386,8 @@ Gestione dei PANNELLI
 	«IF this.layout.metaType == VerticalFlowPanelLayout-»
 		«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
 	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-		«REM»«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»«ENDREM»
-		«ERROR "UDLRCPanelLayout non gestito al primo livello per portale Intracom Torino"»
+		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
+		«REM»«ERROR "UDLRCPanelLayout non gestito al primo livello per portale Intracom Torino"»«ENDREM»
 	«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
 		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale Intracom Torino"»
 	«ENDIF-»
