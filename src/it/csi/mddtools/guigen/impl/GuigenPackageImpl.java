@@ -3449,8 +3449,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getScreenState_Name() {
+		return (EAttribute)screenStateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getScreenState_WidgetsOn() {
-		return (EReference)screenStateEClass.getEStructuralFeatures().get(0);
+		return (EReference)screenStateEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3459,7 +3468,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	public EReference getScreenState_WidgetsVisible() {
-		return (EReference)screenStateEClass.getEStructuralFeatures().get(1);
+		return (EReference)screenStateEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3981,6 +3990,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(widgetsPanelEClass, WIDGETS_PANEL__WIDGETS);
 
 		screenStateEClass = createEClass(SCREEN_STATE);
+		createEAttribute(screenStateEClass, SCREEN_STATE__NAME);
 		createEReference(screenStateEClass, SCREEN_STATE__WIDGETS_ON);
 		createEReference(screenStateEClass, SCREEN_STATE__WIDGETS_VISIBLE);
 
@@ -4475,6 +4485,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getWidgetsPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, WidgetsPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(screenStateEClass, ScreenState.class, "ScreenState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getScreenState_Name(), ecorePackage.getEString(), "name", null, 0, 1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getScreenState_WidgetsOn(), this.getWidget(), null, "widgetsOn", null, 0, -1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getScreenState_WidgetsVisible(), this.getWidget(), null, "widgetsVisible", null, 0, -1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -5801,13 +5801,22 @@ public interface GuigenPackage extends EPackage {
 	int SCREEN_STATE = 102;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE__NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Widgets On</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCREEN_STATE__WIDGETS_ON = 0;
+	int SCREEN_STATE__WIDGETS_ON = 1;
 
 	/**
 	 * The feature id for the '<em><b>Widgets Visible</b></em>' reference list.
@@ -5816,7 +5825,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCREEN_STATE__WIDGETS_VISIBLE = 1;
+	int SCREEN_STATE__WIDGETS_VISIBLE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Screen State</em>' class.
@@ -5825,7 +5834,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCREEN_STATE_FEATURE_COUNT = 2;
+	int SCREEN_STATE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStatesImpl <em>Screen States</em>}' class.
@@ -8870,6 +8879,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getScreenState();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ScreenState#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenState#getName()
+	 * @see #getScreenState()
+	 * @generated
+	 */
+	EAttribute getScreenState_Name();
+
+	/**
 	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ScreenState#getWidgetsOn <em>Widgets On</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11426,6 +11446,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SCREEN_STATE = eINSTANCE.getScreenState();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCREEN_STATE__NAME = eINSTANCE.getScreenState_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Widgets On</b></em>' reference list feature.

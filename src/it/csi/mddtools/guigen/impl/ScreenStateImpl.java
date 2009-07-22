@@ -12,10 +12,12 @@ import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -27,6 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getWidgetsOn <em>Widgets On</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ScreenStateImpl#getWidgetsVisible <em>Widgets Visible</em>}</li>
  * </ul>
@@ -35,6 +38,26 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * @generated
  */
 public class ScreenStateImpl extends EObjectImpl implements ScreenState {
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getWidgetsOn() <em>Widgets On</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -79,6 +102,27 @@ public class ScreenStateImpl extends EObjectImpl implements ScreenState {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SCREEN_STATE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Widget> getWidgetsOn() {
 		if (widgetsOn == null) {
 			widgetsOn = new EObjectResolvingEList<Widget>(Widget.class, this, GuigenPackage.SCREEN_STATE__WIDGETS_ON);
@@ -106,6 +150,8 @@ public class ScreenStateImpl extends EObjectImpl implements ScreenState {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GuigenPackage.SCREEN_STATE__NAME:
+				return getName();
 			case GuigenPackage.SCREEN_STATE__WIDGETS_ON:
 				return getWidgetsOn();
 			case GuigenPackage.SCREEN_STATE__WIDGETS_VISIBLE:
@@ -123,6 +169,9 @@ public class ScreenStateImpl extends EObjectImpl implements ScreenState {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GuigenPackage.SCREEN_STATE__NAME:
+				setName((String)newValue);
+				return;
 			case GuigenPackage.SCREEN_STATE__WIDGETS_ON:
 				getWidgetsOn().clear();
 				getWidgetsOn().addAll((Collection<? extends Widget>)newValue);
@@ -143,6 +192,9 @@ public class ScreenStateImpl extends EObjectImpl implements ScreenState {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.SCREEN_STATE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 			case GuigenPackage.SCREEN_STATE__WIDGETS_ON:
 				getWidgetsOn().clear();
 				return;
@@ -161,12 +213,30 @@ public class ScreenStateImpl extends EObjectImpl implements ScreenState {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.SCREEN_STATE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.SCREEN_STATE__WIDGETS_ON:
 				return widgetsOn != null && !widgetsOn.isEmpty();
 			case GuigenPackage.SCREEN_STATE__WIDGETS_VISIBLE:
 				return widgetsVisible != null && !widgetsVisible.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ScreenStateImpl
