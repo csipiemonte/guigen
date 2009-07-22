@@ -34,6 +34,11 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.1/@contentPanels.1"/>
               </eventHandler>
             </submenu>
+            <submenu name="testWidgets" label="Test Widgets">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.1/@contentPanels.2"/>
+              </eventHandler>
+            </submenu>
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
@@ -307,6 +312,15 @@
               </subpanels>
             </panels>
           </contentPanels>
+          <contentPanels name="cpTestWidgets">
+            <panels xsi:type="guigen:FormPanel" name="pTestWidgets" label="TEST WIDGETS">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="testWidgets">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:Calendar" name="dataNascita" label="Calendar" dataType="//@typedefs/@types.3"/>
+              </subpanels>
+            </panels>
+          </contentPanels>
         </modules>
       </appArea>
     </appWindow>
@@ -397,5 +411,5 @@
       <appData name="soggettoSelezionato" type="//@typedefs/@types.10"/>
     </groups>
   </appDataDefs>
-  <targetPlatform/>
+  <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>
