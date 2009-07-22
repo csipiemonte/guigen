@@ -2169,6 +2169,75 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ScreenState} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ScreenStateItemProvider screenStateItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ScreenState}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createScreenStateAdapter() {
+		if (screenStateItemProvider == null) {
+			screenStateItemProvider = new ScreenStateItemProvider(this);
+		}
+
+		return screenStateItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ScreenStates} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ScreenStatesItemProvider screenStatesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ScreenStates}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createScreenStatesAdapter() {
+		if (screenStatesItemProvider == null) {
+			screenStatesItemProvider = new ScreenStatesItemProvider(this);
+		}
+
+		return screenStatesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ScreenStateCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ScreenStateCommandItemProvider screenStateCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ScreenStateCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createScreenStateCommandAdapter() {
+		if (screenStateCommandItemProvider == null) {
+			screenStateCommandItemProvider = new ScreenStateCommandItemProvider(this);
+		}
+
+		return screenStateCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2358,6 +2427,9 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (msgBoxPanelItemProvider != null) msgBoxPanelItemProvider.dispose();
 		if (nopCommandItemProvider != null) nopCommandItemProvider.dispose();
 		if (widgetsPanelItemProvider != null) widgetsPanelItemProvider.dispose();
+		if (screenStateItemProvider != null) screenStateItemProvider.dispose();
+		if (screenStatesItemProvider != null) screenStatesItemProvider.dispose();
+		if (screenStateCommandItemProvider != null) screenStateCommandItemProvider.dispose();
 	}
 
 }

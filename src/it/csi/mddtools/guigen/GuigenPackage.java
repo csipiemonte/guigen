@@ -276,13 +276,31 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__DIALOGS = 4;
 
 	/**
+	 * The feature id for the '<em><b>States</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__STATES = 5;
+
+	/**
+	 * The feature id for the '<em><b>Default State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__DEFAULT_STATE = 6;
+
+	/**
 	 * The number of structural features of the '<em>Content Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_PANEL_FEATURE_COUNT = 5;
+	int CONTENT_PANEL_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -5773,6 +5791,99 @@ public interface GuigenPackage extends EPackage {
 	int WIDGETS_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ScreenStateImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenState()
+	 * @generated
+	 */
+	int SCREEN_STATE = 102;
+
+	/**
+	 * The feature id for the '<em><b>Widgets On</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE__WIDGETS_ON = 0;
+
+	/**
+	 * The feature id for the '<em><b>Widgets Visible</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE__WIDGETS_VISIBLE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Screen State</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStatesImpl <em>Screen States</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ScreenStatesImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenStates()
+	 * @generated
+	 */
+	int SCREEN_STATES = 103;
+
+	/**
+	 * The feature id for the '<em><b>States</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATES__STATES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Screen States</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATES_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStateCommandImpl <em>Screen State Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ScreenStateCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenStateCommand()
+	 * @generated
+	 */
+	int SCREEN_STATE_COMMAND = 104;
+
+	/**
+	 * The feature id for the '<em><b>Go To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE_COMMAND__GO_TO = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Screen State Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCREEN_STATE_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5780,7 +5891,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 102;
+	int WIDGET_DATA_TYPE = 105;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5790,7 +5901,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 103;
+	int UDLRC_SPEC_CONSTANTS = 106;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5800,7 +5911,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 104;
+	int EVENT_TYPES = 107;
 
 
 	/**
@@ -5811,7 +5922,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 105;
+	int DATA_LIFETIME_TYPE = 108;
 
 
 	/**
@@ -5822,7 +5933,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 106;
+	int SIMPLE_TYPE_CODES = 109;
 
 
 	/**
@@ -5833,7 +5944,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 107;
+	int PORTAL_NAMES = 110;
 
 
 	/**
@@ -5844,7 +5955,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 108;
+	int TARGET_PLATFORM_CODES = 111;
 
 
 	/**
@@ -5855,7 +5966,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 109;
+	int MESSAGE_SEVERITY = 112;
 
 
 	/**
@@ -5866,7 +5977,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 110;
+	int COMMAND_STYLES = 113;
 
 
 	/**
@@ -6072,6 +6183,28 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getContentPanel_Dialogs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ContentPanel#getStates <em>States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>States</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getStates()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_States();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ContentPanel#getDefaultState <em>Default State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Default State</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getDefaultState()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_DefaultState();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FormPanel <em>Form Panel</em>}'.
@@ -8727,6 +8860,80 @@ public interface GuigenPackage extends EPackage {
 	EReference getWidgetsPanel_Widgets();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ScreenState <em>Screen State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Screen State</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenState
+	 * @generated
+	 */
+	EClass getScreenState();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ScreenState#getWidgetsOn <em>Widgets On</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Widgets On</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenState#getWidgetsOn()
+	 * @see #getScreenState()
+	 * @generated
+	 */
+	EReference getScreenState_WidgetsOn();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ScreenState#getWidgetsVisible <em>Widgets Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Widgets Visible</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenState#getWidgetsVisible()
+	 * @see #getScreenState()
+	 * @generated
+	 */
+	EReference getScreenState_WidgetsVisible();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ScreenStates <em>Screen States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Screen States</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenStates
+	 * @generated
+	 */
+	EClass getScreenStates();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ScreenStates#getStates <em>States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>States</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenStates#getStates()
+	 * @see #getScreenStates()
+	 * @generated
+	 */
+	EReference getScreenStates_States();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ScreenStateCommand <em>Screen State Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Screen State Command</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenStateCommand
+	 * @generated
+	 */
+	EClass getScreenStateCommand();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ScreenStateCommand#getGoTo <em>Go To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Go To</em>'.
+	 * @see it.csi.mddtools.guigen.ScreenStateCommand#getGoTo()
+	 * @see #getScreenStateCommand()
+	 * @generated
+	 */
+	EReference getScreenStateCommand_GoTo();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8999,6 +9206,22 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTENT_PANEL__DIALOGS = eINSTANCE.getContentPanel_Dialogs();
+
+		/**
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__STATES = eINSTANCE.getContentPanel_States();
+
+		/**
+		 * The meta object literal for the '<em><b>Default State</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__DEFAULT_STATE = eINSTANCE.getContentPanel_DefaultState();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.
@@ -11193,6 +11416,68 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WIDGETS_PANEL__WIDGETS = eINSTANCE.getWidgetsPanel_Widgets();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ScreenStateImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenState()
+		 * @generated
+		 */
+		EClass SCREEN_STATE = eINSTANCE.getScreenState();
+
+		/**
+		 * The meta object literal for the '<em><b>Widgets On</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCREEN_STATE__WIDGETS_ON = eINSTANCE.getScreenState_WidgetsOn();
+
+		/**
+		 * The meta object literal for the '<em><b>Widgets Visible</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCREEN_STATE__WIDGETS_VISIBLE = eINSTANCE.getScreenState_WidgetsVisible();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ScreenStatesImpl <em>Screen States</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ScreenStatesImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenStates()
+		 * @generated
+		 */
+		EClass SCREEN_STATES = eINSTANCE.getScreenStates();
+
+		/**
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCREEN_STATES__STATES = eINSTANCE.getScreenStates_States();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ScreenStateCommandImpl <em>Screen State Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ScreenStateCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getScreenStateCommand()
+		 * @generated
+		 */
+		EClass SCREEN_STATE_COMMAND = eINSTANCE.getScreenStateCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Go To</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SCREEN_STATE_COMMAND__GO_TO = eINSTANCE.getScreenStateCommand_GoTo();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

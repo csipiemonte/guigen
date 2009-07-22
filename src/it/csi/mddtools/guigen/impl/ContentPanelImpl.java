@@ -13,6 +13,8 @@ import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Panel;
 
+import it.csi.mddtools.guigen.ScreenState;
+import it.csi.mddtools.guigen.ScreenStates;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -39,6 +41,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getOnRefreshCommand <em>On Refresh Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDialogs <em>Dialogs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getStates <em>States</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDefaultState <em>Default State</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,6 +108,26 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * @ordered
 	 */
 	protected EList<DialogPanel> dialogs;
+
+	/**
+	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStates()
+	 * @generated
+	 * @ordered
+	 */
+	protected ScreenStates states;
+
+	/**
+	 * The cached value of the '{@link #getDefaultState() <em>Default State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultState()
+	 * @generated
+	 * @ordered
+	 */
+	protected ScreenState defaultState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,6 +284,87 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ScreenStates getStates() {
+		return states;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStates(ScreenStates newStates, NotificationChain msgs) {
+		ScreenStates oldStates = states;
+		states = newStates;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.CONTENT_PANEL__STATES, oldStates, newStates);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStates(ScreenStates newStates) {
+		if (newStates != states) {
+			NotificationChain msgs = null;
+			if (states != null)
+				msgs = ((InternalEObject)states).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.CONTENT_PANEL__STATES, null, msgs);
+			if (newStates != null)
+				msgs = ((InternalEObject)newStates).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.CONTENT_PANEL__STATES, null, msgs);
+			msgs = basicSetStates(newStates, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.CONTENT_PANEL__STATES, newStates, newStates));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ScreenState getDefaultState() {
+		if (defaultState != null && defaultState.eIsProxy()) {
+			InternalEObject oldDefaultState = (InternalEObject)defaultState;
+			defaultState = (ScreenState)eResolveProxy(oldDefaultState);
+			if (defaultState != oldDefaultState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.CONTENT_PANEL__DEFAULT_STATE, oldDefaultState, defaultState));
+			}
+		}
+		return defaultState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ScreenState basicGetDefaultState() {
+		return defaultState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultState(ScreenState newDefaultState) {
+		ScreenState oldDefaultState = defaultState;
+		defaultState = newDefaultState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.CONTENT_PANEL__DEFAULT_STATE, oldDefaultState, defaultState));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -269,6 +374,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return basicSetOnRefreshCommand(null, msgs);
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 				return ((InternalEList<?>)getDialogs()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.CONTENT_PANEL__STATES:
+				return basicSetStates(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -291,6 +398,11 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return getOnRefreshCommand();
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 				return getDialogs();
+			case GuigenPackage.CONTENT_PANEL__STATES:
+				return getStates();
+			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
+				if (resolve) return getDefaultState();
+				return basicGetDefaultState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -321,6 +433,12 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				getDialogs().clear();
 				getDialogs().addAll((Collection<? extends DialogPanel>)newValue);
 				return;
+			case GuigenPackage.CONTENT_PANEL__STATES:
+				setStates((ScreenStates)newValue);
+				return;
+			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
+				setDefaultState((ScreenState)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -348,6 +466,12 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 				getDialogs().clear();
 				return;
+			case GuigenPackage.CONTENT_PANEL__STATES:
+				setStates((ScreenStates)null);
+				return;
+			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
+				setDefaultState((ScreenState)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -370,6 +494,10 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return onRefreshCommand != null;
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 				return dialogs != null && !dialogs.isEmpty();
+			case GuigenPackage.CONTENT_PANEL__STATES:
+				return states != null;
+			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
+				return defaultState != null;
 		}
 		return super.eIsSet(featureID);
 	}

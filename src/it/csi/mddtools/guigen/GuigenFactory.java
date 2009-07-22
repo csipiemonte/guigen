@@ -845,6 +845,33 @@ public interface GuigenFactory extends EFactory {
 	WidgetsPanel createWidgetsPanel();
 
 	/**
+	 * Returns a new object of class '<em>Screen State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Screen State</em>'.
+	 * @generated
+	 */
+	ScreenState createScreenState();
+
+	/**
+	 * Returns a new object of class '<em>Screen States</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Screen States</em>'.
+	 * @generated
+	 */
+	ScreenStates createScreenStates();
+
+	/**
+	 * Returns a new object of class '<em>Screen State Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Screen State Command</em>'.
+	 * @generated
+	 */
+	ScreenStateCommand createScreenStateCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

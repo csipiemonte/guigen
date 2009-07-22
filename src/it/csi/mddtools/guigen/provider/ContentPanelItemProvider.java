@@ -70,6 +70,7 @@ public class ContentPanelItemProvider
 
 			addNamePropertyDescriptor(object);
 			addAppDataPropertyDescriptor(object);
+			addDefaultStatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -119,6 +120,28 @@ public class ContentPanelItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Default State feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultStatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ContentPanel_defaultState_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ContentPanel_defaultState_feature", "_UI_ContentPanel_type"),
+				 GuigenPackage.Literals.CONTENT_PANEL__DEFAULT_STATE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -133,6 +156,7 @@ public class ContentPanelItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__PANELS);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS);
+			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__STATES);
 		}
 		return childrenFeatures;
 	}
@@ -193,6 +217,7 @@ public class ContentPanelItemProvider
 			case GuigenPackage.CONTENT_PANEL__PANELS:
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
+			case GuigenPackage.CONTENT_PANEL__STATES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -332,8 +357,18 @@ public class ContentPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__STATES,
+				 GuigenFactory.eINSTANCE.createScreenStates()));
 	}
 
 	/**

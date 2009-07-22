@@ -81,6 +81,9 @@ import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.ResetButton;
+import it.csi.mddtools.guigen.ScreenState;
+import it.csi.mddtools.guigen.ScreenStateCommand;
+import it.csi.mddtools.guigen.ScreenStates;
 import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.ShowDialogCommand;
@@ -853,6 +856,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass screenStateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass screenStatesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass screenStateCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1141,6 +1165,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getContentPanel_Dialogs() {
 		return (EReference)contentPanelEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContentPanel_States() {
+		return (EReference)contentPanelEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContentPanel_DefaultState() {
+		return (EReference)contentPanelEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3398,6 +3440,69 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getScreenState() {
+		return screenStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScreenState_WidgetsOn() {
+		return (EReference)screenStateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScreenState_WidgetsVisible() {
+		return (EReference)screenStateEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScreenStates() {
+		return screenStatesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScreenStates_States() {
+		return (EReference)screenStatesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScreenStateCommand() {
+		return screenStateCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScreenStateCommand_GoTo() {
+		return (EReference)screenStateCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3525,6 +3630,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(contentPanelEClass, CONTENT_PANEL__APP_DATA);
 		createEReference(contentPanelEClass, CONTENT_PANEL__ON_REFRESH_COMMAND);
 		createEReference(contentPanelEClass, CONTENT_PANEL__DIALOGS);
+		createEReference(contentPanelEClass, CONTENT_PANEL__STATES);
+		createEReference(contentPanelEClass, CONTENT_PANEL__DEFAULT_STATE);
 
 		formPanelEClass = createEClass(FORM_PANEL);
 		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
@@ -3873,6 +3980,16 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		widgetsPanelEClass = createEClass(WIDGETS_PANEL);
 		createEReference(widgetsPanelEClass, WIDGETS_PANEL__WIDGETS);
 
+		screenStateEClass = createEClass(SCREEN_STATE);
+		createEReference(screenStateEClass, SCREEN_STATE__WIDGETS_ON);
+		createEReference(screenStateEClass, SCREEN_STATE__WIDGETS_VISIBLE);
+
+		screenStatesEClass = createEClass(SCREEN_STATES);
+		createEReference(screenStatesEClass, SCREEN_STATES__STATES);
+
+		screenStateCommandEClass = createEClass(SCREEN_STATE_COMMAND);
+		createEReference(screenStateCommandEClass, SCREEN_STATE_COMMAND__GO_TO);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -3981,6 +4098,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		msgBoxPanelEClass.getESuperTypes().add(this.getPanel());
 		nopCommandEClass.getESuperTypes().add(this.getCommand());
 		widgetsPanelEClass.getESuperTypes().add(this.getPanel());
+		screenStateCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4006,6 +4124,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getContentPanel_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_OnRefreshCommand(), this.getCommand(), null, "onRefreshCommand", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_Dialogs(), this.getDialogPanel(), null, "dialogs", null, 0, -1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentPanel_States(), this.getScreenStates(), null, "states", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContentPanel_DefaultState(), this.getScreenState(), null, "defaultState", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4353,6 +4473,16 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(widgetsPanelEClass, WidgetsPanel.class, "WidgetsPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWidgetsPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, WidgetsPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(screenStateEClass, ScreenState.class, "ScreenState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getScreenState_WidgetsOn(), this.getWidget(), null, "widgetsOn", null, 0, -1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getScreenState_WidgetsVisible(), this.getWidget(), null, "widgetsVisible", null, 0, -1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(screenStatesEClass, ScreenStates.class, "ScreenStates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getScreenStates_States(), this.getScreenState(), null, "states", null, 0, -1, ScreenStates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(screenStateCommandEClass, ScreenStateCommand.class, "ScreenStateCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getScreenStateCommand_GoTo(), this.getScreenState(), null, "goTo", null, 0, 1, ScreenStateCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

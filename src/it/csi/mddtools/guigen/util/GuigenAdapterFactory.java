@@ -480,6 +480,18 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createWidgetsPanelAdapter();
 			}
 			@Override
+			public Adapter caseScreenState(ScreenState object) {
+				return createScreenStateAdapter();
+			}
+			@Override
+			public Adapter caseScreenStates(ScreenStates object) {
+				return createScreenStatesAdapter();
+			}
+			@Override
+			public Adapter caseScreenStateCommand(ScreenStateCommand object) {
+				return createScreenStateCommandAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1924,6 +1936,48 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWidgetsPanelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ScreenState <em>Screen State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ScreenState
+	 * @generated
+	 */
+	public Adapter createScreenStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ScreenStates <em>Screen States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ScreenStates
+	 * @generated
+	 */
+	public Adapter createScreenStatesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ScreenStateCommand <em>Screen State Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ScreenStateCommand
+	 * @generated
+	 */
+	public Adapter createScreenStateCommandAdapter() {
 		return null;
 	}
 

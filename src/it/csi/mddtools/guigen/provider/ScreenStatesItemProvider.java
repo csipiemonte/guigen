@@ -7,9 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.ScreenStates;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,24 +21,22 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.CommandOutcome} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ScreenStates} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class CommandOutcomeItemProvider
+public class ScreenStatesItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -52,7 +50,7 @@ public class CommandOutcomeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CommandOutcomeItemProvider(AdapterFactory adapterFactory) {
+	public ScreenStatesItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -67,31 +65,8 @@ public class CommandOutcomeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResultCodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Result Code feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addResultCodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CommandOutcome_resultCode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CommandOutcome_resultCode_feature", "_UI_CommandOutcome_type"),
-				 GuigenPackage.Literals.COMMAND_OUTCOME__RESULT_CODE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -106,7 +81,7 @@ public class CommandOutcomeItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND);
+			childrenFeatures.add(GuigenPackage.Literals.SCREEN_STATES__STATES);
 		}
 		return childrenFeatures;
 	}
@@ -125,14 +100,14 @@ public class CommandOutcomeItemProvider
 	}
 
 	/**
-	 * This returns CommandOutcome.gif.
+	 * This returns ScreenStates.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CommandOutcome"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ScreenStates"));
 	}
 
 	/**
@@ -143,10 +118,7 @@ public class CommandOutcomeItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CommandOutcome)object).getResultCode();
-		return label == null || label.length() == 0 ?
-			getString("_UI_CommandOutcome_type") :
-			getString("_UI_CommandOutcome_type") + " " + label;
+		return getString("_UI_ScreenStates_type");
 	}
 
 	/**
@@ -160,11 +132,8 @@ public class CommandOutcomeItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CommandOutcome.class)) {
-			case GuigenPackage.COMMAND_OUTCOME__RESULT_CODE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.COMMAND_OUTCOME__COMMAND:
+		switch (notification.getFeatureID(ScreenStates.class)) {
+			case GuigenPackage.SCREEN_STATES__STATES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -184,68 +153,8 @@ public class CommandOutcomeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createONOFFCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createCustomCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createExecCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createSequenceCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createNOPCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
+				(GuigenPackage.Literals.SCREEN_STATES__STATES,
+				 GuigenFactory.eINSTANCE.createScreenState()));
 	}
 
 	/**

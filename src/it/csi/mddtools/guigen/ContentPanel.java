@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getOnRefreshCommand <em>On Refresh Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDialogs <em>Dialogs</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getStates <em>States</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDefaultState <em>Default State</em>}</li>
  * </ul>
  * </p>
  *
@@ -155,5 +157,57 @@ public interface ContentPanel extends EObject {
 	 * @generated
 	 */
 	EList<DialogPanel> getDialogs();
+
+	/**
+	 * Returns the value of the '<em><b>States</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>States</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>States</em>' containment reference.
+	 * @see #setStates(ScreenStates)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_States()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ScreenStates getStates();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ContentPanel#getStates <em>States</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>States</em>' containment reference.
+	 * @see #getStates()
+	 * @generated
+	 */
+	void setStates(ScreenStates value);
+
+	/**
+	 * Returns the value of the '<em><b>Default State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default State</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default State</em>' reference.
+	 * @see #setDefaultState(ScreenState)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_DefaultState()
+	 * @model
+	 * @generated
+	 */
+	ScreenState getDefaultState();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ContentPanel#getDefaultState <em>Default State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default State</em>' reference.
+	 * @see #getDefaultState()
+	 * @generated
+	 */
+	void setDefaultState(ScreenState value);
 
 } // ContentPanel
