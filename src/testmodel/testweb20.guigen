@@ -33,7 +33,7 @@
               <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
               <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="tfFloat" label="Campo di test float" dataType="//@typedefs/@types.10">
+                <widgets xsi:type="guigen:TextField" name="tfFloat" label="Campo di test float" defaultEnabled="false" dataType="//@typedefs/@types.10">
                   <databinding appData="//@appDataDefs/@appData.1"/>
                 </widgets>
                 <widgets xsi:type="guigen:TextField" name="tfInteger" label="Campo di test integer" dataType="//@typedefs/@types.8">
@@ -55,10 +55,6 @@
                     </columns>
                     <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie"/>
                   </columnModel>
-                </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbMulti" label="multi" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
-                  <databinding appData="//@appDataDefs/@appData.5" path="codVieAccesso"/>
-                  <multiDataBinding appData="//@appDataDefs/@appData.3" path="[0].vie"/>
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
@@ -84,6 +80,11 @@
                         <command xsi:type="guigen:NOPCommand"/>
                       </results>
                     </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAbilita" label="abilita tfFloat">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0" enable="true"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>

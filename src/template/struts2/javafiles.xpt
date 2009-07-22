@@ -80,9 +80,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import «getBaseJavaPackage(this)».util.*;
 import «getDTOBaseJavaPackage(this)».*;
 import «getBaseJavaPackage()».business.*;
-«IF ((GUIModel)(this.eRootContainer)).securityModel!=null-»
+
 import «getSecurityJavaPackage(this)».*;
-«ENDIF-»
 
 /**
  * Base Action che contiene gli elementi comuni all'applicazione.
@@ -113,20 +112,22 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		return this.session;
 	}
 
-	«IF securityModel.autenticationMethod!=null»
+	
 	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
 	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
-	«ENDIF»
+	
 	
 	
 	public void prepare() throws Exception{
-	«IF securityModel.autenticationMethod!=null»
+	
+		«IF this.securityModel!=null»
 	    // caricamento struttura di constraints
 	    if (allMenuVisibilityConstraints==null)
 	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
 	    if (allMenuOnOffConstraints==null)
 	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
-	«ENDIF»
+	
+		«ENDIF»
 	}
 	
     ////////////////////////////////////////////////////////////////////////
@@ -720,9 +721,9 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
 
 import «getDTOBaseJavaPackage(model)».*;
-«IF ((GUIModel)(this.eRootContainer)).securityModel!=null-»
+
 import «getSecurityJavaPackage(model)».*;
-«ENDIF-»
+
 import «getBaseJavaPackage(model)».business.*;
 
 /**
@@ -810,23 +811,23 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDPROTECT»
 	}
 	
-	«IF model.securityModel.autenticationMethod!=null»
+	
 	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
 	protected Map<String, UISecConstraint> allOnOffConstraints = null;
-	«ENDIF»
+	
 	
 	/**
 	 * Metodo di preparazione della schermata/action
 	 */
 	public void prepare() throws Exception{
 	    super.prepare();
-	    «IF model.securityModel.autenticationMethod!=null»
+	    
 	    // caricamento struttura di constraints
 	    if (allVisibilityConstraints==null)
 	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
 	    if (allOnOffConstraints==null)
 	    	allOnOffConstraints = getPageONOFFUIConstraints();
-	    «ENDIF»
+	    
 		      
 		«IF this.onRefreshCommand!=null»
 		// comandi eseguiti ad ogni refresh
@@ -835,9 +836,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDIF»
 	}
 	
-	«IF model.securityModel.autenticationMethod!=null»
+	
 	«EXPAND security::securedWidgetCheck(model) FOR this»
-	«ENDIF»
+
 	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
@@ -845,9 +846,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     «ENDIF»
 	«ENDLET»
 	
-	«IF model.securityModel.autenticationMethod!=null»
+	
 	«EXPAND security::getPageUIConstraintDef(model) FOR this»
-	«ENDIF»
+	
 	
 	/**  */
 	void dumpModel(boolean pre) {

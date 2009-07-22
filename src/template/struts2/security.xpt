@@ -199,10 +199,10 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 «IF this.securityModel.autenticationMethod!=null»
 «EXPAND IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
 «EXPAND iridePDCacheClass(this) FOR this.securityModel»
-«EXPAND constraintJavaFiles FOR this»
-«EXPAND springSecurityHelperClasses FOR this»
 «EXPAND iride2PDFile FOR this»
 «ENDIF»
+«EXPAND constraintJavaFiles FOR this»
+«EXPAND springSecurityHelperClasses FOR this»
 «ENDDEFINE»
 
 «DEFINE constraintJavaFiles FOR GUIModel»
@@ -758,11 +758,46 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		};
 		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
 		allConstraints.put("«name»", «name»_ctr);
+«ELSE»
+		// constraint fittizio per «this»
+		UISecConstraint «name»_default«behavior.toLowerCase().toFirstUpper()»_ctr =
+		«EXPAND uiDummyConstraintNew(model, behavior) FOR this-»
+		 
+		UISecConstraint [] «name»_constraints = new UISecConstraint[]{
+			«name»_default«behavior.toLowerCase().toFirstUpper()»_ctr
+		};
+		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
+		allConstraints.put("«name»", «name»_ctr);
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE uiConstraintNew(GUIModel model) FOR UISecurityConstraint»
  			null; /// ERRORE: constraint non gestito «this»
+«ENDDEFINE»
+
+«DEFINE uiDummyConstraintNew(GUIModel model, String pBehavior) FOR Widget»
+«LET this AS parent»
+«REM»«IF parent.metaType.(Widget)»«ENDREM»
+«LET (Widget)parent AS parentWidget»
+«LET pBehavior!="VISIB" ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+«LET pBehavior!="VISIB" ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+ 			new CustomUISecConstraint(
+ 				"«((ContentPanel)(findParentContentPanel(parentWidget))).name»",
+ 				"«parentWidget.name»",
+ 				UISecConstraint.«behavior»,
+ 				«defaultBehavior»
+ 			){
+ 				@Override
+					public boolean specificCheck(Map session, SecurityHelper sh) throws BEException{
+						// dummy!!!
+						return true;
+					}
+ 			};
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«REM»«ENDIF»«ENDREM»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE uiConstraintNew(GUIModel model) FOR CustomSecurityConstraint»
