@@ -406,16 +406,16 @@ Gestione dei PANNELLI
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
 <div class="boxsup">
 	«FOREACH this.panels AS currTab ITERATOR i-»
-		«LET "%{#session."+this.name+"_selectedMultiPanel == '"+this.name+"_"+currTab.name+"'" + (i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
-		<s:url id="«this.name»_«currTab.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
-			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
-			<s:param name="selectedTabValue" value="%{'«this.name»_«currTab.name»'}" />
+		«LET "%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
+		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
 		</s:url>
 		<s:if test="«tabSelectedCondition»">
-			<s:a href="%{«this.name»_«currTab.name»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
 		</s:if>
 		<s:else>
-			<s:a href="%{«this.name»_«currTab.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
 		</s:else>
 		«ENDLET»
 	«ENDFOREACH-»
@@ -426,16 +426,16 @@ Gestione dei PANNELLI
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
 <div class="boxsup">
 	«FOREACH this.panels AS currStep ITERATOR i-»
-		«LET i.firstIteration ? " || #session."+this.name+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
-			<s:param name="selectedTabKey" value="%{'«this.name»_selectedMultiPanel'}" />
-			<s:param name="selectedTabValue" value="%{'«this.name»_«currStep.name»'}" />
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
+		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
-		<s:if test="%{#session.«this.name»_selectedMultiPanel == '«this.name»_«currStep.name»'«stepExtraCondition»}">
-			<s:a href="%{«this.name»_«currStep.name»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«stepExtraCondition»}">
+			<s:a href="%{«getMultiPanelName(this, currStep)»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
 		</s:if>
 		<s:else>
-			<s:a href="%{«this.name»_«currStep.name»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+			<s:a href="%{«getMultiPanelName(this, currStep)»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
 		</s:else>
 		«ENDLET»
 	«ENDFOREACH-»

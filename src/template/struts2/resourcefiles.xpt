@@ -404,7 +404,7 @@ Gestione dei pannelli
 «REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
 (o di un sottotipo: TabsetPanel)«ENDREM»
 «DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst) FOR Panel»
-<s:if test="#session.«multiPanel.name»_selectedMultiPanel == '«multiPanel.name+"_"+this.name»'«IF isFirst» || #session.«multiPanel.name»_selectedMultiPanel == null«ENDIF»">
+<s:if test="#session.«getSelectedMultiPanelName(multiPanel)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this)»'«IF isFirst» || #session.«getSelectedMultiPanelName(multiPanel)»_selectedMultiPanel == null«ENDIF»">
 	<s:include value="«getMultiPanelJspInclude(multiPanel, this)»" ></s:include>
 </s:if>
 «ENDDEFINE»
