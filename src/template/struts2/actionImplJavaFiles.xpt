@@ -133,6 +133,54 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 };
 «ENDFILE»
 
+
+«FILE getPresentationJavaSrcDir(true)+"/ScreenStateCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class ScreenStateCommand implements ICommand {
+	String _containerName = null;
+	String _stateName = null;
+	String[] _widgetsOn = null;
+	String[] _widgetsOff = null;
+	String[] _widgetsShown = null;
+	String[] _widgetsHidden = null;
+
+	public ScreenStateCommand(
+			String containerName,
+			String stateName, 
+			String widgetsOn[],
+			String widgetsOff[],
+			String widgetsShown[],
+			String widgetsHidden[]
+			) {
+		_containerName = containerName;
+		_stateName = stateName;
+		_widgetsOn = widgetsOn;
+		_widgetsOff = widgetsOff;
+		_widgetsShown = widgetsShown;
+		_widgetsHidden = widgetsHidden;
+	}
+
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
+		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
+		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
+		VisibilityCommand hide = new VisibilityCommand(_containerName, _widgetsHidden, false);
+		turnOn.doCommand(strutsAction);
+		turnOff.doCommand(strutsAction);
+		show.doCommand(strutsAction);
+		hide.doCommand(strutsAction);
+		if (_stateName != null){
+			strutsAction.getSession().put(_containerName+"_currentState",_stateName);
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
 «FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"»
 package «getPresentationJavaPackage()»;
 
@@ -685,6 +733,49 @@ public class ShowDialogCommand implements ICommand {
 	//ONOFF Command end
 	«ENDLET»
 «ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ScreenStateCommand»
+	«LET findParentContentPanel() AS parentCP-»
+	«LET parentCP.name AS containerName-»
+	// Screen State Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_on = new String[]{
+    «FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«currWidgOn.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_off = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«((Widget)currWidgOff).name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_show = new String[]{
+    «FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«currWidgVisible.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_hide = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«((Widget)currWidgHidden).name»"
+    «ENDFOREACH-»
+    };
+    
+	ScreenStateCommand act_«actionsVarName»_«actionNumber» = new ScreenStateCommand(
+	    «LET goTo!=null ? goTo.name : "??" AS stateName-»
+		"«containerName»","«stateName»", 
+		act_«actionsVarName»_«actionNumber»_on,
+		act_«actionsVarName»_«actionNumber»_off,
+		act_«actionsVarName»_«actionNumber»_show,
+		act_«actionsVarName»_«actionNumber»_hide);
+		«ENDLET-»
+	//Screen State Command end
+	«ENDLET-»
+	«ENDLET-»
+«ENDDEFINE»
+
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityCommand»
 	«LET findParentContentPanel().name AS containerName»

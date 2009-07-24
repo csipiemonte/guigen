@@ -828,6 +828,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	    if (allOnOffConstraints==null)
 	    	allOnOffConstraints = getPageONOFFUIConstraints();
 	    
+		«IF defaultState!=null-»
+		«EXPAND defaultStateCode FOR this»
+		«ENDIF-»
 		      
 		«IF this.onRefreshCommand!=null»
 		// comandi eseguiti ad ogni refresh
@@ -928,6 +931,47 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE defaultStateCode FOR ContentPanel»
+	// gestione dello stato di default
+	if (getSession().get("«name»_currentState")==null){
+	// Screen State Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] default_widgets_on = new String[]{
+    «FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«currWidgOn.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_off = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«((Widget)currWidgOff).name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_show = new String[]{
+    «FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«currWidgVisible.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_hide = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«((Widget)currWidgHidden).name»"
+    «ENDFOREACH-»
+    };
+    
+	ScreenStateCommand defaultScreenStateCmd = new ScreenStateCommand(
+		"«name»",null, 
+		default_widgets_on,
+		default_widgets_off,
+		default_widgets_show,
+		default_widgets_hide);
+	//Screen State Command end
+	
+	defaultScreenStateCmd.doCommand(this);
+	}
+	
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================
