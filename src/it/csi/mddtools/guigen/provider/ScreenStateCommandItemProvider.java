@@ -7,7 +7,11 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.ScreenState;
+import it.csi.mddtools.guigen.ScreenStateCommand;
+import it.csi.mddtools.guigen.genutils.GenUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,6 +26,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ScreenStateCommand} object.
@@ -67,22 +72,46 @@ public class ScreenStateCommandItemProvider
 	 * This adds a property descriptor for the Go To feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addGoToPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScreenStateCommand_goTo_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenStateCommand_goTo_feature", "_UI_ScreenStateCommand_type"),
-				 GuigenPackage.Literals.SCREEN_STATE_COMMAND__GO_TO,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ScreenStateCommand_goTo_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenStateCommand_goTo_feature", "_UI_ScreenStateCommand_type"),
+//				 GuigenPackage.Literals.SCREEN_STATE_COMMAND__GO_TO,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ScreenStateCommand_goTo_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ScreenStateCommand_goTo_feature",
+						"_UI_ScreenStateCommand_type"),
+				GuigenPackage.eINSTANCE.getScreenStateCommand_GoTo(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ScreenStateCommand ssc = (ScreenStateCommand)object;
+				ContentPanel parent = GenUtils.findParentContentPanel(ssc);
+				if (parent!=null){
+					if (parent.getStates()!=null){
+						return parent.getStates().getStates();
+					}
+					else
+						return null;
+				}
+				else 
+					return null;
+			}
+		});
 	}
 
 	/**
@@ -100,11 +129,13 @@ public class ScreenStateCommandItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ScreenStateCommand_type");
+		ScreenStateCommand st = (ScreenStateCommand)object;
+		String label = ": state->"+(st.getGoTo()!=null?st.getGoTo().getName():"???");
+		return getString("_UI_ScreenStateCommand_type")+label;
 	}
 
 	/**

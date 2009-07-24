@@ -7,9 +7,16 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.Command;
+import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.ScreenStates;
+import it.csi.mddtools.guigen.Widget;
 
 import it.csi.mddtools.guigen.ScreenState;
+import it.csi.mddtools.guigen.genutils.GenUtils;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -97,44 +104,79 @@ public class ScreenStateItemProvider
 	 * This adds a property descriptor for the Widgets On feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addWidgetsOnPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScreenState_widgetsOn_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenState_widgetsOn_feature", "_UI_ScreenState_type"),
-				 GuigenPackage.Literals.SCREEN_STATE__WIDGETS_ON,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ScreenState_widgetsOn_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenState_widgetsOn_feature", "_UI_ScreenState_type"),
+//				 GuigenPackage.Literals.SCREEN_STATE__WIDGETS_ON,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ScreenState_widgetsOn_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ScreenState_widgetsOn_feature",
+						"_UI_ScreenState_type"),
+				GuigenPackage.eINSTANCE.getScreenState_WidgetsOn(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ScreenState state = (ScreenState)object;
+				// ritorno solo i vidget gia' dichiarati visibili
+				return state.getWidgetsVisible();
+			}
+		});
 	}
 
 	/**
 	 * This adds a property descriptor for the Widgets Visible feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addWidgetsVisiblePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScreenState_widgetsVisible_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenState_widgetsVisible_feature", "_UI_ScreenState_type"),
-				 GuigenPackage.Literals.SCREEN_STATE__WIDGETS_VISIBLE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ScreenState_widgetsVisible_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenState_widgetsVisible_feature", "_UI_ScreenState_type"),
+//				 GuigenPackage.Literals.SCREEN_STATE__WIDGETS_VISIBLE,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ScreenState_widgetsVisible_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ScreenState_widgetsVisible_feature",
+						"_UI_ScreenState_type"),
+				GuigenPackage.eINSTANCE.getScreenState_WidgetsVisible(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ScreenState state = (ScreenState)object;
+				ScreenStates states = (ScreenStates)(state.eContainer()); 
+				ContentPanel containerOfState = (ContentPanel)(states.eContainer());
+				ArrayList<Widget> result = GenUtils.findAllWidgetsInContentPanel(containerOfState);
+
+				return result;
+			}
+		});
 	}
 
 	/**
