@@ -2366,7 +2366,6 @@ public class GenUtils {
 				// verifico se il field e' un array
 				if (db.getAppData().getType() instanceof ComplexType){
 					Field fld = getSelectedField(null, (ComplexType)(db.getAppData().getType()), db.getPath());
-					System.out.println("\n\nfld:"+fld);
 					if (fld!=null){
 						return fld.getType() instanceof TypedArray;
 					}
