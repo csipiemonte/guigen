@@ -42,10 +42,6 @@ public class GenUtilsLayoutSisp {
 	 * - [U][D] L R   -> combinazione illegale (check)
 	 * - [U][D] C     -> layout 1 colonna
 	 * 
-	 * Viene ridefinito tamite AOP per i seguenti portali:
-	 * - SistemaPiemonte
-	 * - RuparPiemonte
-	 * 
 	 * @param firstLevPanel
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @return
@@ -58,8 +54,7 @@ public class GenUtilsLayoutSisp {
 		if ( currPanLay instanceof VerticalFlowPanelLayout ) {
 			columns = 1;
 		} else if ( currPanLay instanceof UDLRCPanelLayout ) {
-				columns = getUDLRCColumnsLayoutSisp(firstLevPanel);
-					
+			columns = getUDLRCColumnsLayoutSisp(firstLevPanel);
 		} else if ( currPanLay instanceof HorizontalFlowPanelLayout ) {
 			// ??? come lo gestisco
 			columns = 1;

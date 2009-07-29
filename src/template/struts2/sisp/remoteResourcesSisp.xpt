@@ -520,7 +520,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 <s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
-	<s:if test="isMenuEnabled('«this.name»')" >
+	<s:if test="isMenuEnabled('«this.name»')">
 		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 		<li«getMenuNoChildCssSisp(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
@@ -575,7 +575,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 	<s:else>
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')" >
+		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuNoChildCssSisp(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
@@ -653,7 +653,7 @@ Gestione dei PANNELLI
 	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
 		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
 	«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale SistemaPiemonte"»
+		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale " + getPortalName()»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -693,7 +693,7 @@ Gestione dei PANNELLI
 «ELSEIF numeroColonne == 3 -»
 	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
-	«ERROR "Portale Sistema Piemonte. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
+	«ERROR "Portale " + getPortalName() + ". Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
@@ -903,7 +903,7 @@ Gestione dei PANNELLI
 		<h3 class="alt">Sezioni</h3>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«this.name»_«currStep.name»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
@@ -927,7 +927,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="sisp" />
+<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="«getPortalName()»" />
 «ENDDEFINE»
 
 
@@ -1006,7 +1006,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
 	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="sisp" «getPanelGridPercentCols(this)»>
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalName()»" «getPanelGridPercentCols(this)»>
 	«ENDIF-»
 «ENDDEFINE»
 

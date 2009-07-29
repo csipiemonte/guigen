@@ -8,15 +8,18 @@ extension template::struts2::rupar::Struts2ExtensionsRupar;
 /// Estensioni specifiche per il layout RuparPiemonte ridefinite mediante AOP                //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-around template::GenericExtensions::getPortalName(GUIModel model) :
+around template::GenericExtensions::getPortalName() :
 	"RuparPiemonte";
+
+around template::GenericExtensions::getPortalCode() :
+	"rupar";
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Build files 
 
-around getReminclResourceProvider(GUIModel model) :
+around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel model) :
 	"http://dev-portale.ruparpiemonte.it";
 
 

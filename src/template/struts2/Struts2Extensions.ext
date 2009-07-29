@@ -84,9 +84,6 @@ String getSpringIRIDE2PDConfig(GUIModel model) :
 
 
 
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files JSP comuni
 
@@ -572,7 +569,7 @@ List getAllPossibleShowDialogs(Command a) : JAVA
 List getAllEventSourceWidgets(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceWidgets(it.csi.mddtools.guigen.ContentPanel);
 	
-	// STDMDD-241 : MenuItem è deprecato
+// STDMDD-241 : MenuItem è deprecato
 //List getAllEventSourceMenuItems(Menubar mb) : JAVA
 //	it.csi.mddtools.guigen.genutils.GenUtils.getAllEventSourceMenuItems(it.csi.mddtools.guigen.Menubar);
 
@@ -796,11 +793,14 @@ boolean calendarDataBindingTypeCheck(Calendar c) : JAVA
 boolean widgetDataBindingCorrispondenceCheck(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.widgetDataBindingCorrispondenceCheck(it.csi.mddtools.guigen.DataWidget);
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
 /// Estensioni abilitanti al Web 2.0                                                         //
 ///******************************************************************************************//
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
 String getFragmentId(Panel p) :
 	"p_"+p.name;
 
@@ -808,17 +808,18 @@ String startFragment(Panel p) :
 	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
 
 String endFragment(Panel p) :
- "<!-- endFragment:"+getFragmentId(p)+" --></div>";
+	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
 
 String pageIdMarker(ContentPanel cp) :
- "<!-- pageId:"+cp.name+"-->";
+	"<!-- pageId:"+cp.name+"-->";
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
 /// Estensioni ridefinite per i portali specifici mediante AOP                               //
 ///******************************************************************************************//
 ///////////////////////////////////////////////////////////////////////////////////////////////
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Build files 

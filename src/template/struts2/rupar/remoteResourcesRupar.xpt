@@ -332,7 +332,7 @@ Gestione dei PANNELLI
 «ELSEIF this.layout.metaType == UDLRCPanelLayout-»
 	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
 «ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-	«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale Rupar"»
+	«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale " + getPortalName()»
 «ENDIF-»
 
 «ENDDEFINE»
@@ -372,7 +372,7 @@ Gestione dei PANNELLI
 «ELSEIF numeroColonne == 3 -»
 	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
 «ELSE-»
-	«ERROR "Portale Rupar. Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
+	«ERROR "Portale " + getPortalName() + ". Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
 «ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
@@ -462,7 +462,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="rupar" />
+<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="«getPortalName()»" />
 «ENDDEFINE»
 
 
@@ -534,7 +534,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
 	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="rupar" «getPanelGridPercentCols(this)»>
+	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalName()»" «getPanelGridPercentCols(this)»>
 	«ENDIF-»
 «ENDDEFINE»
 
