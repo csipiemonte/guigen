@@ -5,7 +5,13 @@
       <footer/>
       <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="Finanziamenti" linkCanale="http://www.sistemapiemonte.it/finanziamenti/index.shtml" nomeApplicativo="Bandi"/>
       <appArea>
-        <menubar/>
+        <menubar>
+          <topLevelMenu name="mnuHome">
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
         <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="fHomePage" label="Home Page">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
@@ -19,8 +25,9 @@
             <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
-              <subpanels xsi:type="guigen:FormPanel" name="sinistra" label="SINISTRA">
+              <subpanels xsi:type="guigen:MenuPanel" name="mnuPanel">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="mvView"/>
               </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="fpRight">

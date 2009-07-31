@@ -324,7 +324,8 @@ public class GenUtilsI18n {
 
 
 	/**
-	 *
+	 * Crea la label per un elemento di un WizardPanel
+	 * 
 	 * @param p
 	 * @param cp
 	 * @param c
@@ -334,7 +335,7 @@ public class GenUtilsI18n {
 		String res = null;
 		String lab = p.getLabel();
 		if ( !GenUtils.isNullOrEmpty(lab) ) {
-			lab = Integer.toString(c) + ". " + lab;
+			//lab = Integer.toString(c) + ". " + lab; rimosso il numero e spostato sui sinoli layout
 			res = cp.getName() + "." + p.getName() + ".label=" + lab;
 		}
 		return res;

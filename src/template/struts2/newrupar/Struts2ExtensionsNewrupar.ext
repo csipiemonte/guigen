@@ -4,12 +4,14 @@ extension template::GenericExtensions;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout SistemaPiemonte                  //
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0                //
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+// ATTENZIONE: verificare bene su TUTTI I LIVELLI (adesso funziona solo con 2 LIVELLI)
 
 //
 String getMenuNoChildCssNewrupar(Menu menu, int level) :
-	"";
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
 
 //
 String getMenuNoChildLinkCssNewrupar(Menu menu, int level) :
@@ -21,7 +23,10 @@ String getMenuNoChildLabelNewrupar(Menu menu, int level) :
 
 //
 String getMenuWithChildCssNewrupar(Menu menu, int level) :
-	"";
+	// attivazione solo del menu
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
+	// attivazione del menu padre se uno dei sottomenu è cliccato
+	//"<s:if test=\"isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
 
 //
 String getMenuWithChildLinkCssNewrupar(Menu menu, int level) :
@@ -31,10 +36,17 @@ String getMenuWithChildLinkCssNewrupar(Menu menu, int level) :
 String getMenuWithChildLabelNewrupar(Menu menu, int level) :
 	"<s:text name=\"" + menu.name + ".label\" />";
 
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
+	(leftPanel != null ? "West" : "") +
+	"Center"+
+	(rightPanel != null ? "East" : "");
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout SistemaPiemonte usate in AOP     //
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0 usate in AOP   //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] restituisce il numero di colonne del layout

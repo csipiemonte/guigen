@@ -147,12 +147,12 @@ Definizioni generali: header, footer, ecc
 
 		<script type="text/javascript">
 			jQuery(window).bind("load", function () {
-
+			
 				var outerLayout = jQuery('body').layout({
 					north__paneSelector: "#banner",
 					west__paneSelector: "#sx",
 					east__paneSelector: "#dx",
-					center__paneSelector: "#application_area",
+					center__paneSelector: "#applicationArea",
 					west__size: 40,
 					east__size: 40,
 					applyDefaultStyles: false,
@@ -160,17 +160,30 @@ Definizioni generali: header, footer, ecc
 					closable: false,
 					spacing_open: 0
 				});
-
-				var contentLayout = jQuery('div#application_area').layout({
+			
+				var contentLayout = jQuery('div#applicationArea').layout({
 					north__paneSelector: "#header",
-					west__paneSelector: "#left_panel",
-					center__paneSelector: "#center_panel",
-					east__paneSelector: "#right_panel",
+					center__paneSelector: "#contentPanel",
 					south__paneSelector: "#footer",
-
+					applyDefaultStyles: true
+				});
+			
+				var contentLayout = jQuery('div#contentPanel').layout({
+					north__paneSelector: "#northPanel",
+					center__paneSelector: "#westCenterEastWrapper",
+					south__paneSelector: "#southPanel",
+					applyDefaultStyles: true
+				});
+			
+				var contentWrapper = jQuery('div#westCenterEastWrapper').layout({
+					west__paneSelector: "#westPanel",
+					center__paneSelector: "#centerPanel",
+					east__paneSelector: "#eastPanel",
+					east__size: 200,
 					west__size: 200,
 					applyDefaultStyles: true
 				});
+			
 			});
 		</script>
 <!-- fine head (con remincl) -->
@@ -179,23 +192,30 @@ Definizioni generali: header, footer, ecc
 
 	<body>
 
-		<div id="banner">
-			BANNER RUPAR
-		</div>
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
 
-		<div id="sx">
-		</div>
-
-		<div id="dx">
-		</div>
-
-		<div id="application_area">
-
-			<!-- header (con remincl) -->
-			<div id="header">
-				HEADER
+			<!-- banner (facoltativo) -->
+			<div id="banner">
+				BANNER RUPAR
 			</div>
-			<!-- fine header (con remincl) -->
+
+			<!-- riempitivo sx (facoltativo) -->
+			<div id="sx">
+			</div>
+
+			<!-- riempitivo dx (facoltativo) -->
+			<div id="dx">
+			</div>
+
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
+
+				<!-- header (con remincl) (facoltativo) -->
+				<div id="header">
+					HEADER
+				</div>
+				<!-- fine header (con remincl) -->
 
 <!-- FINE HEADER -->
 «ENDDEFINE»
@@ -241,12 +261,12 @@ Definizioni generali: header, footer, ecc
 
 		<script type="text/javascript">
 			jQuery(window).bind("load", function () {
-
+			
 				var outerLayout = jQuery('body').layout({
 					north__paneSelector: "#banner",
 					west__paneSelector: "#sx",
 					east__paneSelector: "#dx",
-					center__paneSelector: "#application_area",
+					center__paneSelector: "#applicationArea",
 					west__size: 40,
 					east__size: 40,
 					applyDefaultStyles: false,
@@ -254,17 +274,30 @@ Definizioni generali: header, footer, ecc
 					closable: false,
 					spacing_open: 0
 				});
-
-				var contentLayout = jQuery('div#application_area').layout({
+			
+				var contentLayout = jQuery('div#applicationArea').layout({
 					north__paneSelector: "#header",
-					west__paneSelector: "#left_panel",
-					center__paneSelector: "#center_panel",
-					east__paneSelector: "#right_panel",
+					center__paneSelector: "#contentPanel",
 					south__paneSelector: "#footer",
-
+					applyDefaultStyles: true
+				});
+			
+				var contentLayout = jQuery('div#contentPanel').layout({
+					north__paneSelector: "#northPanel",
+					center__paneSelector: "#westCenterEastWrapper",
+					south__paneSelector: "#southPanel",
+					applyDefaultStyles: true
+				});
+			
+				var contentWrapper = jQuery('div#westCenterEastWrapper').layout({
+					west__paneSelector: "#westPanel",
+					center__paneSelector: "#centerPanel",
+					east__paneSelector: "#eastPanel",
+					east__size: 200,
 					west__size: 200,
 					applyDefaultStyles: true
 				});
+			
 			});
 		</script>
 <!-- fine head (con remincl) -->
@@ -273,23 +306,30 @@ Definizioni generali: header, footer, ecc
 
 	<body>
 
-		<div id="banner">
-			BANNER RUPAR
-		</div>
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
 
-		<div id="sx">
-		</div>
-
-		<div id="dx">
-		</div>
-
-		<div id="application_area">
-
-			<!-- header (con remincl) -->
-			<div id="header">
-				HEADER
+			<!-- banner (facoltativo) -->
+			<div id="banner">
+				BANNER RUPAR
 			</div>
-			<!-- fine header (con remincl) -->
+
+			<!-- riempitivo sx (facoltativo) -->
+			<div id="sx">
+			</div>
+
+			<!-- riempitivo dx (facoltativo) -->
+			<div id="dx">
+			</div>
+
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
+
+				<!-- header (con remincl) (facoltativo) -->
+				<div id="header">
+					HEADER
+				</div>
+				<!-- fine header (con remincl) -->
 
 <!-- FINE HEADER -->
 «ENDDEFINE»
@@ -308,7 +348,8 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 
 «REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-<div>
+<div id="mainMenu">
+	<h3></h3>
 	<ul>
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
@@ -335,7 +376,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')">
 		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
-		<li>
+		<li«getMenuNoChildCssNewrupar(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 				«getMenuNoChildLabelNewrupar(this, level)»
 			</s:a>
@@ -359,7 +400,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
-			<li>
+			<li«getMenuWithChildCssNewrupar(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					«getMenuWithChildLabelNewrupar(this, level)»
@@ -370,7 +411,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 			</li>
 		</s:if>
 		<s:else>
-			<li>«getMenuWithChildLabelNewrupar(this, level)»
+			<li«getMenuWithChildCssNewrupar(this, level)»>«getMenuWithChildLabelNewrupar(this, level)»
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 				</ul>			
@@ -378,7 +419,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li>«getMenuWithChildLabelNewrupar(this, level)»
+		<li«getMenuWithChildCssNewrupar(this, level)»>«getMenuWithChildLabelNewrupar(this, level)»
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 			</ul>		
@@ -389,7 +430,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
-			<li>
+			<li«getMenuNoChildCssNewrupar(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					«getMenuNoChildLabelNewrupar(this, level)»
@@ -421,11 +462,17 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 <!-- footer (con remincl) -->
-			<div id="footer">
-				FOOTER
+
+				<!-- pie' di pagina (facoltativo) -->
+				<div id="footer">
+					PIE' DI PAGINA
+				</div>
+
 			</div>
+			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
 
 		</div>
+		<!-- FINE PAGE (OBBLIGATORIO) -->
 
 	</body>
 </html>
@@ -455,191 +502,98 @@ Gestione dei PANNELLI
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="center_panel">
-
-	«IF !isNullOrEmpty(this.label) -»
-	<!-- titolo pannello PRIMO livello -->
-	<h3><s:text name="«cp.name».«this.name».label" /></h3>
-	«ENDIF-»
-
-		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-	«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
-
+<div id="contentPanel">
+	<div id="CenterWrapper" class="floatWrapper">
+		<div id="centerPanel">
+	
+			«IF !isNullOrEmpty(this.label) -»
+			<!-- titolo pannello PRIMO livello -->
+			<h3><s:text name="«cp.name».«this.name».label" /></h3>
+			«ENDIF-»
+	
+			«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+			«FOREACH this.subpanels AS subpanel»
+				«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::CENTER) FOR subpanel»
+			«ENDFOREACH»
+		</div>
+	</div>
 </div>
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
+
 
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-«LET getColumnsLayout(this, model) AS numeroColonne-»
-«IF numeroColonne == 1 -»
-	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF numeroColonne == 2 -»
-	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF numeroColonne == 3 -»
-	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
-«ELSE-»
-	«ERROR "Portale " + getPortalName() + ". Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
-
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
-«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="center_panel">
+<div id="contentPanel">
 
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
+	«IF upPanel != null -»
+	<!-- ================ UDLRC Layout UP PANEL ================ -->
+	<div id="northPanel">
 		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
+	</div>
+	<!-- ================ FINE UDLRC Layout UP PANEL ================ -->
+	«ENDIF-»
+	«ENDLET-»
+
+
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
+	<!-- ================ UDLRC Layout WEST-CENTER-EAST WRAPPER ================ -->
+	<div id="«getWestCenterEastWrapperId(leftPanel, rightPanel).toFirstLower()»Wrapper" class="floatWrapper">
+		«IF leftPanel != null -»
+		<!-- ***** UDLRC Layout LEFT PANEL ***** -->
+		<div id="westPanel">
+			«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
+		</div>
+		<!-- ***** FINE UDLRC Layout LEFT PANEL ***** -->
 		«ENDIF-»
-		«ENDLET-»
 
 
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello PRIMO livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
+		<!-- ***** UDLRC Layout CENTER PANEL ***** -->
+		<div id="centerPanel">
+			«IF !isNullOrEmpty(this.label) -»
+			<!-- titolo pannello PRIMO livello -->
+			<h3><s:text name="«cp.name».«this.name».label" /></h3>
+			«ENDIF-»
+	
+			«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
+				«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
+			«ENDLET-»
+		</div>
+		<!-- ***** FINE UDLRC Layout CENTER PANEL ***** -->
+
+
+		«IF rightPanel != null -»
+		<!-- ***** UDLRC Layout RIGHT PANEL ***** -->
+		<div id="eastPanel">
+			«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
+		</div>
+		<!-- ***** FINE UDLRC Layout RIGHT PANEL ***** -->
 		«ENDIF-»
 
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
+	</div>
+	<!-- ================ FINE UDLRC Layout WEST-CENTER-EAST WRAPPER ================ -->
+	«ENDLET-»
+	«ENDLET-»
 
 
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
+	«IF downPanel != null -»	
+	<!-- ================ UDLRC Layout DOWN PANEL ================ -->
+	<div id="southPanel">
 		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
+	</div>
+	<!-- ================ FINE UDLRC Layout DOWN PANEL ================ -->
+	«ENDIF-»
+	«ENDLET-»
 
 </div>
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
-«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-
-	«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-	«IF leftPanel != null -»
-	<!-- ================ COLONNA SINISTRA ================ -->
-	<div id="left_panel">
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-	</div>
-	<!-- ============== FINE COLONNA SINISTRA ============== -->
-	«ENDIF-»
-	«ENDLET-»
-
-	<!-- ================ COLONNA CENTRALE ================ -->
-	<div id="center_panel">
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello PRIMO livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
-		«ENDIF-»
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
-
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-	</div>
-	<!-- ============== FINE COLONNA CENTRALE ============== -->
-
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
-
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
-«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-
-	«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-	«IF leftPanel != null -»
-	<!-- ================ COLONNA SINISTRA ================ -->
-	<div id="left_panel">
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-	</div>
-	<!-- ============== FINE COLONNA SINISTRA ============== -->
-	«ENDIF-»
-	«ENDLET-»
-
-	<!-- ================= COLONNA CENTRALE ================ -->
-	<div id="center_panel">
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello PRIMO livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
-		«ENDIF-»
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
-
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-	</div>
-	<!-- ============== FINE COLONNA CENTRALE ============== -->
-
-	«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
-	«IF rightPanel != null -»
-	<!-- =========== COLONNA DESTRA ========== -->
-	<div id="right_panel">
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
-	</div>
-	<!-- ======== FINE COLONNA DESTRA ======== -->
-	«ENDIF-»
-	«ENDLET-»
-
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
 
 
 «REM»
@@ -648,15 +602,17 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-<div>
+<div class="tabSetPanel">
 	<ul>
 	«FOREACH this.panels AS currTab ITERATOR i-»
-		«LET "" AS tabStyle-»
+		«LET "<s:if test=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + "}\"> class=\"active\"</s:if>" AS tabStyle-»
 		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
 		</s:url>
-		<li><s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a></li>
+		<li«tabStyle»>
+			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+		</li>
 		«ENDLET-»
 	«ENDFOREACH-»
 	</ul>
@@ -665,25 +621,23 @@ Gestione dei PANNELLI
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
-<div>
-	<ul>
+<div class="wizardPanel">
+	<ol>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
-		<li>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«stepExtraCondition»}">
-			<li><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></li>
+			<li class="attivo"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></li>
 		</s:if>
 		<s:else>
 			<li><s:a href="%{«getMultiPanelName(this, currStep)»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></li>
 		</s:else>
-		</li>
 		«ENDLET-»
 	«ENDFOREACH-»	
-	</ul>
+	</ol>
 </div>
 «ENDDEFINE»
 
@@ -703,7 +657,7 @@ Gestione dei PANNELLI
 
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
-<div>
+<div class="userInfoPanel">
 
 </div>
 «ENDLET-»
@@ -723,14 +677,14 @@ Gestione dei LAYOUT - PANNELLI
 «IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
-<div>
+<div class="formPanel">
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "" : "" ) ) AS ptype-»
-<div «ptype»>
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "Nav" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "Funz" : "" ) ) AS ptype-»
+<div class="commandPanel «ptype»">
 «ENDLET-»
 «ENDDEFINE»
 
@@ -764,16 +718,18 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalCode()»" «getPanelGridPercentCols(this)»>
-	«ENDIF-»
+«IF !this.widgets.isEmpty -»
+<div class="widgetsPanel">
+<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalCode()»" «getPanelGridPercentCols(this)»>
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	</customtag:panelGrid>
-	«ENDIF-»
+«IF !this.widgets.isEmpty -»
+</customtag:panelGrid>
+</div>
+«ENDIF-»
 «ENDDEFINE»
 
 
