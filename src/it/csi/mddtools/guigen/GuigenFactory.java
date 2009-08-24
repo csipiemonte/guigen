@@ -872,6 +872,15 @@ public interface GuigenFactory extends EFactory {
 	ScreenStateCommand createScreenStateCommand();
 
 	/**
+	 * Returns a new object of class '<em>Shibboleth Authentication</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Shibboleth Authentication</em>'.
+	 * @generated
+	 */
+	ShibbolethAuthentication createShibbolethAuthentication();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

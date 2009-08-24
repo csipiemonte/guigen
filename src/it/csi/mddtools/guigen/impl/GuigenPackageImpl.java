@@ -86,6 +86,7 @@ import it.csi.mddtools.guigen.ScreenStateCommand;
 import it.csi.mddtools.guigen.ScreenStates;
 import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.SequenceCommand;
+import it.csi.mddtools.guigen.ShibbolethAuthentication;
 import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
@@ -871,6 +872,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass screenStateCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass shibbolethAuthenticationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3512,6 +3520,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getShibbolethAuthentication() {
+		return shibbolethAuthenticationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4000,6 +4017,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		screenStateCommandEClass = createEClass(SCREEN_STATE_COMMAND);
 		createEReference(screenStateCommandEClass, SCREEN_STATE_COMMAND__GO_TO);
 
+		shibbolethAuthenticationEClass = createEClass(SHIBBOLETH_AUTHENTICATION);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -4109,6 +4128,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		nopCommandEClass.getESuperTypes().add(this.getCommand());
 		widgetsPanelEClass.getESuperTypes().add(this.getPanel());
 		screenStateCommandEClass.getESuperTypes().add(this.getCommand());
+		shibbolethAuthenticationEClass.getESuperTypes().add(this.getAutenticationMethod());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4494,6 +4514,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(screenStateCommandEClass, ScreenStateCommand.class, "ScreenStateCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getScreenStateCommand_GoTo(), this.getScreenState(), null, "goTo", null, 0, 1, ScreenStateCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(shibbolethAuthenticationEClass, ShibbolethAuthentication.class, "ShibbolethAuthentication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

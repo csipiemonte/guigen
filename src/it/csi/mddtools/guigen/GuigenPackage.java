@@ -5893,6 +5893,25 @@ public interface GuigenPackage extends EPackage {
 	int SCREEN_STATE_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl <em>Shibboleth Authentication</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethAuthentication()
+	 * @generated
+	 */
+	int SHIBBOLETH_AUTHENTICATION = 105;
+
+	/**
+	 * The number of structural features of the '<em>Shibboleth Authentication</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIBBOLETH_AUTHENTICATION_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5900,7 +5919,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 105;
+	int WIDGET_DATA_TYPE = 106;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5910,7 +5929,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 106;
+	int UDLRC_SPEC_CONSTANTS = 107;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5920,7 +5939,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 107;
+	int EVENT_TYPES = 108;
 
 
 	/**
@@ -5931,7 +5950,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 108;
+	int DATA_LIFETIME_TYPE = 109;
 
 
 	/**
@@ -5942,7 +5961,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 109;
+	int SIMPLE_TYPE_CODES = 110;
 
 
 	/**
@@ -5953,7 +5972,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 110;
+	int PORTAL_NAMES = 111;
 
 
 	/**
@@ -5964,7 +5983,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 111;
+	int TARGET_PLATFORM_CODES = 112;
 
 
 	/**
@@ -5975,7 +5994,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 112;
+	int MESSAGE_SEVERITY = 113;
 
 
 	/**
@@ -5986,7 +6005,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 113;
+	int COMMAND_STYLES = 114;
 
 
 	/**
@@ -8954,6 +8973,16 @@ public interface GuigenPackage extends EPackage {
 	EReference getScreenStateCommand_GoTo();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShibbolethAuthentication <em>Shibboleth Authentication</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Shibboleth Authentication</em>'.
+	 * @see it.csi.mddtools.guigen.ShibbolethAuthentication
+	 * @generated
+	 */
+	EClass getShibbolethAuthentication();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11506,6 +11535,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SCREEN_STATE_COMMAND__GO_TO = eINSTANCE.getScreenStateCommand_GoTo();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl <em>Shibboleth Authentication</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethAuthentication()
+		 * @generated
+		 */
+		EClass SHIBBOLETH_AUTHENTICATION = eINSTANCE.getShibbolethAuthentication();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

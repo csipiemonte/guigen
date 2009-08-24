@@ -2238,6 +2238,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ShibbolethAuthentication} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ShibbolethAuthenticationItemProvider shibbolethAuthenticationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ShibbolethAuthentication}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createShibbolethAuthenticationAdapter() {
+		if (shibbolethAuthenticationItemProvider == null) {
+			shibbolethAuthenticationItemProvider = new ShibbolethAuthenticationItemProvider(this);
+		}
+
+		return shibbolethAuthenticationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2430,6 +2453,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (screenStateItemProvider != null) screenStateItemProvider.dispose();
 		if (screenStatesItemProvider != null) screenStatesItemProvider.dispose();
 		if (screenStateCommandItemProvider != null) screenStateCommandItemProvider.dispose();
+		if (shibbolethAuthenticationItemProvider != null) shibbolethAuthenticationItemProvider.dispose();
 	}
 
 }

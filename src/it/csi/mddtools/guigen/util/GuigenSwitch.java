@@ -804,6 +804,13 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.SHIBBOLETH_AUTHENTICATION: {
+				ShibbolethAuthentication shibbolethAuthentication = (ShibbolethAuthentication)theEObject;
+				T result = caseShibbolethAuthentication(shibbolethAuthentication);
+				if (result == null) result = caseAutenticationMethod(shibbolethAuthentication);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2380,6 +2387,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseScreenStateCommand(ScreenStateCommand object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Shibboleth Authentication</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Shibboleth Authentication</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseShibbolethAuthentication(ShibbolethAuthentication object) {
 		return null;
 	}
 

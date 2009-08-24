@@ -203,6 +203,11 @@ public class SecurityModelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.SECURITY_MODEL__AUTENTICATION_METHOD,
+				 GuigenFactory.eINSTANCE.createShibbolethAuthentication()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.SECURITY_MODEL__ACTORS,
 				 GuigenFactory.eINSTANCE.createActor()));
 

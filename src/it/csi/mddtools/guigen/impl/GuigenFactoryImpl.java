@@ -155,6 +155,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SCREEN_STATE: return createScreenState();
 			case GuigenPackage.SCREEN_STATES: return createScreenStates();
 			case GuigenPackage.SCREEN_STATE_COMMAND: return createScreenStateCommand();
+			case GuigenPackage.SHIBBOLETH_AUTHENTICATION: return createShibbolethAuthentication();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1160,6 +1161,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ScreenStateCommand createScreenStateCommand() {
 		ScreenStateCommandImpl screenStateCommand = new ScreenStateCommandImpl();
 		return screenStateCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ShibbolethAuthentication createShibbolethAuthentication() {
+		ShibbolethAuthenticationImpl shibbolethAuthentication = new ShibbolethAuthenticationImpl();
+		return shibbolethAuthentication;
 	}
 
 	/**
