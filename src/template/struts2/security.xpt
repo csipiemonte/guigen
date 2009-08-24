@@ -17,6 +17,12 @@
 	</context-param>
 «ENDDEFINE»
 
+«DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
 «ERROR "authentication method non supportato:" + this.metaType»»
@@ -27,11 +33,12 @@
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
-	<context-param>
-		<param-name>logoutURL</param-name>
-		<param-value>@LOGOUT_URL@</param-value>
-	</context-param>
+«ERROR "authentication method non supportato:" + this.metaType»»
 «ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
+«ENDDEFINE»
+
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
 «ERROR "authentication method non supportato:" + this.metaType»
@@ -122,6 +129,16 @@
 		value="${opauth.logout.url}"/>	
 «ENDDEFINE»
 
+«DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	<!-- replace variabili di environment per shibboleth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>	
+«ENDDEFINE»
+
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
 «ENDDEFINE»
 
@@ -145,10 +162,17 @@ opauth.default.appserver = localhost:8078
 opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
 «ENDDEFINE»
 
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
+#-[configurazione shibboleth]--------------------------------------------------
+shibboleth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
+«ENDDEFINE»
+
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
+«ERROR ""+this+ "non supportato"»
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ERROR ""+this+ "non supportato"»
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
@@ -656,12 +680,14 @@ import «getBaseJavaPackage(model)».util.*;
 public class «getIrideIdAdapterFilterClassName()» implements Filter{
 
 	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
+	
+	«EXPAND authMarkerConstDef FOR this»
+	
 	«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
 	«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
 	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
 	«ENDLET-»
 	«ENDLET-»
-	public static final String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
 	
 	/**  */
 	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");
@@ -670,7 +696,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 			FilterChain fchn) throws IOException, ServletException {
 		HttpServletRequest hreq = (HttpServletRequest)req;
 		if (hreq.getSession().getAttribute(IRIDE_ID_SESSIONATTR)==null){
-			String marker = (String)hreq.getSession().getAttribute(AUTH_ID_MARKER);
+			String marker = getToken(hreq);
 			if (marker!=null){
 				try {
 					Identita identita = new Identita(normalizeToken(marker));
@@ -702,6 +728,58 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		// NOP
 	}
 
+	«EXPAND getSecurityToken FOR this»
+	
+	«EXPAND normalizeToken FOR this»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR AutenticationMethod»
+«ERROR ""+this+ " non supportato"»
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR OPAUTHSSO»
+	public final static String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR ShibbolethSSO»
+	public final static String AUTH_ID_MARKER = "Shib-Iride-IdentitaDigitale";
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR AutenticationMethod»
+«ERROR ""+this+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR SSOBARTSSO»
+«ERROR ""+this+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR CustomAuthentication»
+«ERROR ""+this+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR OPAUTHSSO»
+	public String getToken(HttpServletRequest httpreq){	
+		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
+		return marker;
+	}
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR ShibbolethSSO»
+	public String getToken(HttpServletRequest httpreq){
+		String marker = (String)httpreq.getHeader(AUTH_ID_MARKER);
+		return marker;
+	}
+«ENDDEFINE»
+
+«DEFINE normalizeToken FOR AutenticationMethod»
+	private String normalizeToken(String token){
+		return token;
+	}
+«ENDDEFINE»
+
+«DEFINE normalizeToken FOR OPAUTHSSO»
 	private String normalizeToken(String token){
 		String tmp = null;
 		
@@ -714,10 +792,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 				
 		return tmp;
 	}
-}
-«ENDFILE»
 «ENDDEFINE»
-
 
 «REM»
 #################################################################

@@ -679,16 +679,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 		return "LOCAL_LOGOUT";
 	}
 
-
-	/**
-	 * Invalida gli attributi di autenticazione contenuti in sessione
-	 */
-	protected void invalidateLocalSession(){
-		«IF securityModel!=null && securityModel.autenticationMethod!=null»
-		session.remove(«getIrideIdAdapterFilterFQN()».AUTH_ID_MARKER);
-		session.remove(«getIrideIdAdapterFilterFQN()».IRIDE_ID_SESSIONATTR);
-		«ENDIF»
-	}
+	«IF securityModel!=null && securityModel.autenticationMethod!=null-»
+	«EXPAND invalidateLocalSession(this) FOR this.securityModel.autenticationMethod-»
+	«ENDIF-»
 	
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
@@ -702,6 +695,28 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE invalidateLocalSession(GUIModel model) FOR AutenticationMethod»
+«ERROR ""+this+ "non supportato"»
+«ENDDEFINE»
+
+«DEFINE invalidateLocalSession(GUIModel model) FOR OPAUTHSSO»
+	/**
+	 * Invalida gli attributi di autenticazione contenuti in sessione
+	 */
+	protected void invalidateLocalSession(){
+		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
+		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+	}
+«ENDDEFINE»
+
+«DEFINE invalidateLocalSession(GUIModel model) FOR ShibbolethSSO»
+	/**
+	 * Invalida gli attributi di autenticazione contenuti in sessione
+	 */
+	protected void invalidateLocalSession(){
+		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+	}
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================
