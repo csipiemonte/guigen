@@ -7,26 +7,26 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.ShibbolethAuthentication;
+import it.csi.mddtools.guigen.ShibbolethSSO;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Shibboleth Authentication</b></em>'.
+ * An implementation of the model object '<em><b>Shibboleth SSO</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class ShibbolethAuthenticationImpl extends AutenticationMethodImpl implements ShibbolethAuthentication {
+public class ShibbolethSSOImpl extends AutenticationMethodImpl implements ShibbolethSSO {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ShibbolethAuthenticationImpl() {
+	protected ShibbolethSSOImpl() {
 		super();
 	}
 
@@ -37,7 +37,7 @@ public class ShibbolethAuthenticationImpl extends AutenticationMethodImpl implem
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.SHIBBOLETH_AUTHENTICATION;
+		return GuigenPackage.Literals.SHIBBOLETH_SSO;
 	}
 
-} //ShibbolethAuthenticationImpl
+} //ShibbolethSSOImpl

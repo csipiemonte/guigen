@@ -492,8 +492,8 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createScreenStateCommandAdapter();
 			}
 			@Override
-			public Adapter caseShibbolethAuthentication(ShibbolethAuthentication object) {
-				return createShibbolethAuthenticationAdapter();
+			public Adapter caseShibbolethSSO(ShibbolethSSO object) {
+				return createShibbolethSSOAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -1986,16 +1986,16 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ShibbolethAuthentication <em>Shibboleth Authentication</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ShibbolethSSO <em>Shibboleth SSO</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.ShibbolethAuthentication
+	 * @see it.csi.mddtools.guigen.ShibbolethSSO
 	 * @generated
 	 */
-	public Adapter createShibbolethAuthenticationAdapter() {
+	public Adapter createShibbolethSSOAdapter() {
 		return null;
 	}
 

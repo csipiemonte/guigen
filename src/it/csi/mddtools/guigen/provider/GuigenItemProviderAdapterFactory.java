@@ -2238,26 +2238,26 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ShibbolethAuthentication} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ShibbolethSSO} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ShibbolethAuthenticationItemProvider shibbolethAuthenticationItemProvider;
+	protected ShibbolethSSOItemProvider shibbolethSSOItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ShibbolethAuthentication}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ShibbolethSSO}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createShibbolethAuthenticationAdapter() {
-		if (shibbolethAuthenticationItemProvider == null) {
-			shibbolethAuthenticationItemProvider = new ShibbolethAuthenticationItemProvider(this);
+	public Adapter createShibbolethSSOAdapter() {
+		if (shibbolethSSOItemProvider == null) {
+			shibbolethSSOItemProvider = new ShibbolethSSOItemProvider(this);
 		}
 
-		return shibbolethAuthenticationItemProvider;
+		return shibbolethSSOItemProvider;
 	}
 
 	/**
@@ -2453,7 +2453,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (screenStateItemProvider != null) screenStateItemProvider.dispose();
 		if (screenStatesItemProvider != null) screenStatesItemProvider.dispose();
 		if (screenStateCommandItemProvider != null) screenStateCommandItemProvider.dispose();
-		if (shibbolethAuthenticationItemProvider != null) shibbolethAuthenticationItemProvider.dispose();
+		if (shibbolethSSOItemProvider != null) shibbolethSSOItemProvider.dispose();
 	}
 
 }

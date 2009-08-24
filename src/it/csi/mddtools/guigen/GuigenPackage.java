@@ -5893,23 +5893,23 @@ public interface GuigenPackage extends EPackage {
 	int SCREEN_STATE_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl <em>Shibboleth Authentication</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ShibbolethSSOImpl <em>Shibboleth SSO</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethAuthentication()
+	 * @see it.csi.mddtools.guigen.impl.ShibbolethSSOImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethSSO()
 	 * @generated
 	 */
-	int SHIBBOLETH_AUTHENTICATION = 105;
+	int SHIBBOLETH_SSO = 105;
 
 	/**
-	 * The number of structural features of the '<em>Shibboleth Authentication</em>' class.
+	 * The number of structural features of the '<em>Shibboleth SSO</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHIBBOLETH_AUTHENTICATION_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
+	int SHIBBOLETH_SSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -8973,14 +8973,14 @@ public interface GuigenPackage extends EPackage {
 	EReference getScreenStateCommand_GoTo();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShibbolethAuthentication <em>Shibboleth Authentication</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ShibbolethSSO <em>Shibboleth SSO</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Shibboleth Authentication</em>'.
-	 * @see it.csi.mddtools.guigen.ShibbolethAuthentication
+	 * @return the meta object for class '<em>Shibboleth SSO</em>'.
+	 * @see it.csi.mddtools.guigen.ShibbolethSSO
 	 * @generated
 	 */
-	EClass getShibbolethAuthentication();
+	EClass getShibbolethSSO();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -11537,14 +11537,14 @@ public interface GuigenPackage extends EPackage {
 		EReference SCREEN_STATE_COMMAND__GO_TO = eINSTANCE.getScreenStateCommand_GoTo();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl <em>Shibboleth Authentication</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ShibbolethSSOImpl <em>Shibboleth SSO</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.ShibbolethAuthenticationImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethAuthentication()
+		 * @see it.csi.mddtools.guigen.impl.ShibbolethSSOImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getShibbolethSSO()
 		 * @generated
 		 */
-		EClass SHIBBOLETH_AUTHENTICATION = eINSTANCE.getShibbolethAuthentication();
+		EClass SHIBBOLETH_SSO = eINSTANCE.getShibbolethSSO();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

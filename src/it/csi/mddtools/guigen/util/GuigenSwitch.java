@@ -804,10 +804,10 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.SHIBBOLETH_AUTHENTICATION: {
-				ShibbolethAuthentication shibbolethAuthentication = (ShibbolethAuthentication)theEObject;
-				T result = caseShibbolethAuthentication(shibbolethAuthentication);
-				if (result == null) result = caseAutenticationMethod(shibbolethAuthentication);
+			case GuigenPackage.SHIBBOLETH_SSO: {
+				ShibbolethSSO shibbolethSSO = (ShibbolethSSO)theEObject;
+				T result = caseShibbolethSSO(shibbolethSSO);
+				if (result == null) result = caseAutenticationMethod(shibbolethSSO);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2391,17 +2391,17 @@ public class GuigenSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Shibboleth Authentication</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Shibboleth SSO</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Shibboleth Authentication</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Shibboleth SSO</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseShibbolethAuthentication(ShibbolethAuthentication object) {
+	public T caseShibbolethSSO(ShibbolethSSO object) {
 		return null;
 	}
 
