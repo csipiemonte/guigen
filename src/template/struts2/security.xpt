@@ -37,6 +37,20 @@
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
+	<!-- ############################################################### 
+         definizione filter per autentication con shibboleth 
+         ###############################################################
+    -->
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     con shibboleth il filter di autenticazione non esiste
+	     (sostituito dal modulo apache)
+	     ################################################################
+	-->
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
 «ENDDEFINE»
 
 
@@ -164,7 +178,7 @@ opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemon
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
 #-[configurazione shibboleth]--------------------------------------------------
-shibboleth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
+shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
