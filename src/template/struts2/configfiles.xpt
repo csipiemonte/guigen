@@ -1,6 +1,7 @@
 «IMPORT guigen»
 
 «IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::appResources»
 «IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
@@ -24,6 +25,7 @@
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«REM»Generazione dei files specifici per il CSI«ENDREM»
 	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
@@ -175,7 +177,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/applicationContext.xml</param-value>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 
 «IF this.securityModel.autenticationMethod!=null»
