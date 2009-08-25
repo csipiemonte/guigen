@@ -385,6 +385,9 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
+		«REM»«IF hasTabOrWizard(cp)»da visualizzare se ci sono dei TabSetPanel o dei WizardPanel o sempre? => creare funzione«ENDREM»
+		<input name="tasto_invio" type="submit" value="xxx" class="hide" />
+		«REM»«ENDIF»«ENDREM»
 	
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
@@ -448,12 +451,97 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-
+<div id="wizardInput">
+	<h3 class="alt">Sezioni</h3>
+	«FOREACH this.panels AS currTab ITERATOR i-»
+		
+		«REM»
+		Tab e Wizard RUPAR utilizzano tag <input type=button"  onclick="javascript:funzione();"> per implementare tab e step
+		La funzione va definita come segue (in teoria in un file js separato)
+		
+		function risRicerca()
+		{
+			document.forms[0].action="pagina o azione";
+			document.forms[0].submit();
+		} 
+		
+		«ENDREM»
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
+		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
+		</s:url>
+		<li>
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currTab)»'«tabExtraCondition»}">
+			<span class="attivo"><strong><span class="alt">sezione attiva:</span><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></strong></span>
+		</s:if>
+		<s:else>
+			«LET findParentContentPanel(this).name + this.name.toFirstUpper() + currTab.name.toFirstUpper() + "Activate" AS jsMethodName»
+			<script type="text/javascript">
+				function «jsMethodName»() {
+					document.forms[0].action = "<s:property value="%{«getMultiPanelName(this, currTab)»_URL}" />";
+					document.forms[0].submit();
+				}
+			</script>
+			<input type="button" name="«findParentContentPanel(this).name + this.name.toFirstUpper() + currTab.name.toFirstUpper()»" class="disattivo" value="<s:text name="«findParentContentPanel(this).name».«currTab.name».label" />" 
+				onmouseover="javascript:overOutHandler(this, 'disattivoHover');" 
+				onmouseout="javascript:overOutHandler(this, 'disattivo');" 
+				onclick="javascript:«jsMethodName»();" />
+			«ENDLET»
+		</s:else>
+		</li>
+		«ENDLET-»
+		
+	«ENDFOREACH-»
+</div>
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
+<div id="wizardInput">
+	<h3 class="alt">Sezioni</h3>
+	«FOREACH this.panels AS currStep ITERATOR i-»
 
+		«REM»
+		Tab e Wizard RUPAR utilizzano tag <input type=button"  onclick="javascript:funzione();"> per implementare tab e step
+		La funzione va definita come segue (in teoria in un file js separato)
+		
+		function risRicerca()
+		{
+			document.forms[0].action="pagina o azione";
+			document.forms[0].submit();
+		} 
+		
+		«ENDREM»
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
+		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
+		</s:url>
+		<li>
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«tabExtraCondition»}">
+			<span class="attivo"><strong><span class="alt">sezione attiva:</span>«i.counter1». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></strong></span>
+		</s:if>
+		<s:else>
+			«LET findParentContentPanel(this).name + this.name.toFirstUpper() + currStep.name.toFirstUpper() + "Activate" AS jsMethodName»
+			<script type="text/javascript">
+				function «jsMethodName»() {
+					document.forms[0].action = "<s:property value="%{«getMultiPanelName(this, currStep)»_URL}" />";
+					document.forms[0].submit();
+				}
+			</script>
+			<input type="button" name="«findParentContentPanel(this).name + this.name.toFirstUpper() + currStep.name.toFirstUpper()»" class="disattivo" 
+				value="«i.counter1». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" />" 
+				onmouseover="javascript:overOutHandler(this, 'disattivoHover');" 
+				onmouseout="javascript:overOutHandler(this, 'disattivo');" 
+				onclick="javascript:«jsMethodName»();" />
+			«ENDLET»
+		</s:else>
+		</li>
+		«ENDLET-»
+
+	«ENDFOREACH-»
+</div>
 «ENDDEFINE»
 
 
@@ -610,12 +698,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«REM»Al momento non si fa niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+«IF !isLast»<br/>«ENDIF»
 «ENDDEFINE»
 
 
@@ -720,6 +808,10 @@ Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
+
+
+
+
 «ENDDEFINE»
 
 
