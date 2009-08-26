@@ -7,7 +7,10 @@
 «ENDDEFINE»
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
-«ERROR "authentication method non supportato:" + this.metaType»»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
 «ENDDEFINE»
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSO»
@@ -33,7 +36,58 @@
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
-«ERROR "authentication method non supportato:" + this.metaType»»
+<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+	    <filter-name>CAS Filter</filter-name>
+    	<filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.loginError</param-name>
+      		<param-value>/ssobart/errore.jsp</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
+      		<param-value>http://@SSOBART_VALIDATE_SERVER@/ssobartverify/serviceValidate</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>logger</param-name>
+      		<param-value>@APP_PREFIX@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
+      		<param-value>@DEFAULT_APP_SERVER@</param-value>
+    	</init-param>
+     	<init-param>
+      		<param-name>urlServerParacadute</param-name>
+      		<param-value>@SSOBART_URL_PARACADUTE@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.codServizio</param-name>
+      		<param-value>@SSOBART_CODSERVIZIO@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>pepauth.defpd</param-name>
+      		<param-value>/WEB-INF/SSOBARTPepAuthPD.xml</param-value>
+    	</init-param>
+  </filter>
+
+	
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/HomePage.do</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
@@ -154,6 +208,33 @@
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- replace variabili di environment per SSOBART -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_VALIDATE_SERVER@"  
+		value="${ssobart.validate.server}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${ssobart.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_URL_PARACADUTE@"  
+		value="${ssobart.url.paracadute}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_CODSERVIZIO@"  
+		value="${ssobart.codservizio}"/>
+	<replace file="${build}/temp/conf/ejb/business/${webapp}/META-INF/SSOBARTPepAuthPD.xml" 
+		token="@SSOBART_PEPAUTH_URL@"  
+		value="${ssobart.pepauth.url}"/>
+				
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+		
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
@@ -182,7 +263,13 @@ shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
-«ERROR ""+this+ "non supportato"»
+#-[configurazione ssobart]--------------------------------------------------
+ssobart.default.appserver = localhost:8078
+ssobart.validate.server = <server>:<port>
+ssobart.url.paracadute = <url>
+ssobart.codservizio = «model.securityModel.securityAppID»
+ssobart.pepauth.url = t3://iridetest1wls1.csi.it:7111,iridetest1wls2.csi.it:7111
+ssobart.logout.url = https://<ssobartserver>/ssobart/logout
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
@@ -199,6 +286,12 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 «ENDDEFINE»
 
 «DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- ############################################################## -->
+    <!-- # SSOBART                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="ssobart-client" rev="2.1.0" />
+	<dependency org="csipiemonte" name="ssobart-client-pepauth" rev="1.1.0" />
+    
 «ENDDEFINE»
 
 «DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
@@ -239,9 +332,17 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 «EXPAND IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
 «EXPAND iridePDCacheClass(this) FOR this.securityModel»
 «EXPAND iride2PDFile FOR this»
+«EXPAND extraConfigFiles(this) FOR this.securityModel.autenticationMethod»
 «ENDIF»
 «EXPAND constraintJavaFiles FOR this»
 «EXPAND springSecurityHelperClasses FOR this»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR SSOBARTSSO»
+	«EXPAND pepauthPDFile FOR model»
 «ENDDEFINE»
 
 «DEFINE constraintJavaFiles FOR GUIModel»
@@ -757,6 +858,10 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 	public final static String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
 «ENDDEFINE»
 
+«DEFINE authMarkerConstDef FOR SSOBARTSSO»
+	public final static String AUTH_ID_MARKER = "edu.yale.its.tp.cas.client.filter.user";
+«ENDDEFINE»
+
 «DEFINE authMarkerConstDef FOR ShibbolethSSO»
 	public final static String AUTH_ID_MARKER = "Shib-Iride-IdentitaDigitale";
 «ENDDEFINE»
@@ -766,7 +871,10 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 «ENDDEFINE»
 
 «DEFINE getSecurityToken FOR SSOBARTSSO»
-«ERROR ""+this+" non supportato"»
+	public String getToken(HttpServletRequest httpreq){	
+		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
+		return marker;
+	}
 «ENDDEFINE»
 
 «DEFINE getSecurityToken FOR CustomAuthentication»
@@ -1341,6 +1449,77 @@ public class «getSpringSecurityHelperClassName()»{
 	«ENDLET»
 «ENDDEFINE»
 
+
+«DEFINE pepauthPDFile FOR GUIModel»
+«FILE getSpringPepauthPDConfig()»<porta-delegata name="«codComponente».pepauth">
+  <services>
+     <service name="SSOBARTPepAuth" public-interface-class="it.csi.ssobart.pepauth.interfacecsi.PepAuth">
+       <operations>
+
+         <operation name="getLivelloAuthAndIDProviderForApplInPortale" type="synch-call">
+          <param-list>
+             <param name="cod_applicazione" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.Auth"/>
+         </operation>
+
+         <operation name="findApplicationForPortal" type="synch-call">
+           <param-list>
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="java.lang.String[]"/>
+         </operation>
+
+         <operation name="findInformationForApplication" type="synch-call">
+           <param-list>
+             <param name="cod_appl" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.PepAuthAppl"/>
+         </operation>
+
+         <operation name="findInformationForPortal" type="synch-call">
+           <param-list>
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.Portale"/>
+         </operation>
+
+         <operation name="findInformationForApplicationsInPortale" type="synch-call">
+           <param-list>
+             <param name="cod_appl" type="java.lang.String" />
+             <param name="cod_portale" type="java.lang.String" />
+           </param-list>
+           <ret-val type="it.csi.ssobart.pepauth.dto.PepAuthAppl[]"/>
+         </operation>
+
+
+       </operations>
+     </service>
+  </services>
+
+  <config>
+    <url-pa>multi://www.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd
+        name="ssobarts.PepAuthPA"
+        class="it.csi.csi.porte.ejb.PortaDelegataEJB"
+        url-pa="ssobarts/SSOBARTPepAuthPA">
+        <properties>
+          <property name="java.naming.provider.url" value="@SSOBART_PEPAUTH_URL@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic" value="" />
+        </properties>
+     </pluggable-pd>
+
+    </pluggable-pd-list>
+    <queue-manager url=""/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
 
 «DEFINE iride2PDFile FOR GUIModel»
 «FILE getSpringIRIDE2PDConfig()»<porta-delegata name="PolicyEnforcerBase">

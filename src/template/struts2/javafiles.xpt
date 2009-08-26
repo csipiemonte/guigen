@@ -709,6 +709,16 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 	}
 «ENDDEFINE»
 
+«DEFINE invalidateLocalSession(GUIModel model) FOR SSOBARTSSO»
+	/**
+	 * Invalida gli attributi di autenticazione contenuti in sessione
+	 */
+	protected void invalidateLocalSession(){
+		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
+		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+	}
+«ENDDEFINE»
+
 «DEFINE invalidateLocalSession(GUIModel model) FOR ShibbolethSSO»
 	/**
 	 * Invalida gli attributi di autenticazione contenuti in sessione
