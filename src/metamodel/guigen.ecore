@@ -1250,6 +1250,8 @@
         <details key="documentation" value="[[TODO: add documentation here]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
+        eType="#//Role" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Actor">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1260,6 +1262,8 @@
         <details key="documentation" value="[[TODO: add documentation here]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
+        eType="#//Role"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UseCase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1473,4 +1477,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="goTo" eType="#//ScreenState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ShibbolethSSO" eSuperTypes="#//AutenticationMethod"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleBasedSecurityConstraint" eSuperTypes="#//UISecurityConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//Role"/>
+  </eClassifiers>
 </ecore:EPackage>

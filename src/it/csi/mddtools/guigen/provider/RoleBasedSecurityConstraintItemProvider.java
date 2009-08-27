@@ -7,11 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.ActorBasedSecurityConstraint;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.ScreenState;
-import it.csi.mddtools.guigen.ScreenStateCommand;
-import it.csi.mddtools.guigen.genutils.GenUtils;
+import it.csi.mddtools.guigen.RoleBasedSecurityConstraint;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,16 +25,15 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ScreenStateCommand} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ScreenStateCommandItemProvider
-	extends CommandItemProvider
+public class RoleBasedSecurityConstraintItemProvider
+	extends UISecurityConstraintItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -49,7 +46,7 @@ public class ScreenStateCommandItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ScreenStateCommandItemProvider(AdapterFactory adapterFactory) {
+	public RoleBasedSecurityConstraintItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,66 +61,42 @@ public class ScreenStateCommandItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGoToPropertyDescriptor(object);
+			addRolePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Go To feature.
+	 * This adds a property descriptor for the Role feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected void addGoToPropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add
-//			(createItemPropertyDescriptor
-//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_ScreenStateCommand_goTo_feature"),
-//				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenStateCommand_goTo_feature", "_UI_ScreenStateCommand_type"),
-//				 GuigenPackage.Literals.SCREEN_STATE_COMMAND__GO_TO,
-//				 true,
-//				 false,
-//				 true,
-//				 null,
-//				 null,
-//				 null));
-		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getString("_UI_ScreenStateCommand_goTo_feature"), getString(
-						"_UI_PropertyDescriptor_description",
-						"_UI_ScreenStateCommand_goTo_feature",
-						"_UI_ScreenStateCommand_type"),
-				GuigenPackage.eINSTANCE.getScreenStateCommand_GoTo(),
-				true) {
-			protected Collection getComboBoxObjects(Object object) {
-
-				ScreenStateCommand ssc = (ScreenStateCommand)object;
-				ContentPanel parent = GenUtils.findParentContentPanel(ssc);
-				if (parent!=null){
-					if (parent.getStates()!=null){
-						return parent.getStates().getStates();
-					}
-					else
-						return null;
-				}
-				else 
-					return null;
-			}
-		});
+	protected void addRolePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_RoleBasedSecurityConstraint_role_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RoleBasedSecurityConstraint_role_feature", "_UI_RoleBasedSecurityConstraint_type"),
+				 GuigenPackage.Literals.ROLE_BASED_SECURITY_CONSTRAINT__ROLE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
-	 * This returns ScreenStateCommand.gif.
+	 * This returns RoleBasedSecurityConstraint.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ScreenStateCommand"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RoleBasedSecurityConstraint"));
 	}
 
 	/**
@@ -134,9 +107,17 @@ public class ScreenStateCommandItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		ScreenStateCommand st = (ScreenStateCommand)object;
-		String label = ": state->"+(st.getGoTo()!=null?st.getGoTo().getName():"???");
-		return getString("_UI_ScreenStateCommand_type")+label;
+		RoleBasedSecurityConstraint secCtr = (RoleBasedSecurityConstraint)object;
+		String label = "";
+		if (!secCtr.isVisible()&&!secCtr.isEnabled())
+			label+="<unspecified constrained behavior>";
+		else if (secCtr.isVisible()&&secCtr.isEnabled())
+			label+="<incompatible constrained behavior: select only one>";
+		else
+			label += (secCtr.isVisible()?"visible if":"")+
+			""+(secCtr.isEnabled()?"enabled if":"")+
+			"current user is in role:"+(secCtr.getRole()!=null?""+secCtr.getRole().getCode()+"@"+secCtr.getRole().getDomainCode():"<undefined>");
+		return label;
 	}
 
 	/**
@@ -150,8 +131,8 @@ public class ScreenStateCommandItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ScreenStateCommand.class)) {
-			case GuigenPackage.SCREEN_STATE_COMMAND__GO_TO:
+		switch (notification.getFeatureID(RoleBasedSecurityConstraint.class)) {
+			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT__ROLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

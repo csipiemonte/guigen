@@ -240,6 +240,11 @@ public class MenuItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.MENU__SECURITY_CONSTRAINTS,
+				 GuigenFactory.eINSTANCE.createRoleBasedSecurityConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.MENU__EVENT_HANDLER,
 				 GuigenFactory.eINSTANCE.createEventHandler()));
 	}

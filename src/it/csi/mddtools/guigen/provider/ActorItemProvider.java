@@ -65,6 +65,7 @@ public class ActorItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCodePropertyDescriptor(object);
+			addRolesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,28 @@ public class ActorItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Roles feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRolesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Actor_roles_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Actor_roles_feature", "_UI_Actor_type"),
+				 GuigenPackage.Literals.ACTOR__ROLES,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

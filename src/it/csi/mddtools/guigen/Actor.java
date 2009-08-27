@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -21,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Actor#getCode <em>Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Actor#getRoles <em>Roles</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,5 +59,21 @@ public interface Actor extends EObject {
 	 * @generated
 	 */
 	void setCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Roles</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Role}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Roles</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Roles</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getActor_Roles()
+	 * @model
+	 * @generated
+	 */
+	EList<Role> getRoles();
 
 } // Actor

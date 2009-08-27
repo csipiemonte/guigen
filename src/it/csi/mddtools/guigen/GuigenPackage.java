@@ -4962,13 +4962,22 @@ public interface GuigenPackage extends EPackage {
 	int SECURITY_MODEL__SECURITY_APP_ID = 3;
 
 	/**
+	 * The feature id for the '<em><b>Roles</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__ROLES = 4;
+
+	/**
 	 * The number of structural features of the '<em>Security Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_MODEL_FEATURE_COUNT = 4;
+	int SECURITY_MODEL_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
@@ -4990,13 +4999,22 @@ public interface GuigenPackage extends EPackage {
 	int ACTOR__CODE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Roles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR__ROLES = 1;
+
+	/**
 	 * The number of structural features of the '<em>Actor</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTOR_FEATURE_COUNT = 1;
+	int ACTOR_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UseCaseImpl <em>Use Case</em>}' class.
@@ -5912,6 +5930,89 @@ public interface GuigenPackage extends EPackage {
 	int SHIBBOLETH_SSO_FEATURE_COUNT = AUTENTICATION_METHOD_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RoleImpl <em>Role</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RoleImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRole()
+	 * @generated
+	 */
+	int ROLE = 106;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE__CODE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Domain Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE__DOMAIN_CODE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Role</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RoleBasedSecurityConstraintImpl <em>Role Based Security Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RoleBasedSecurityConstraintImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleBasedSecurityConstraint()
+	 * @generated
+	 */
+	int ROLE_BASED_SECURITY_CONSTRAINT = 107;
+
+	/**
+	 * The feature id for the '<em><b>Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_BASED_SECURITY_CONSTRAINT__VISIBLE = UI_SECURITY_CONSTRAINT__VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_BASED_SECURITY_CONSTRAINT__ENABLED = UI_SECURITY_CONSTRAINT__ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_BASED_SECURITY_CONSTRAINT__ROLE = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Role Based Security Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_BASED_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5919,7 +6020,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 106;
+	int WIDGET_DATA_TYPE = 108;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -5929,7 +6030,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 107;
+	int UDLRC_SPEC_CONSTANTS = 109;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -5939,7 +6040,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 108;
+	int EVENT_TYPES = 110;
 
 
 	/**
@@ -5950,7 +6051,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 109;
+	int DATA_LIFETIME_TYPE = 111;
 
 
 	/**
@@ -5961,7 +6062,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 110;
+	int SIMPLE_TYPE_CODES = 112;
 
 
 	/**
@@ -5972,7 +6073,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 111;
+	int PORTAL_NAMES = 113;
 
 
 	/**
@@ -5983,7 +6084,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 112;
+	int TARGET_PLATFORM_CODES = 114;
 
 
 	/**
@@ -5994,7 +6095,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 113;
+	int MESSAGE_SEVERITY = 115;
 
 
 	/**
@@ -6005,7 +6106,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 114;
+	int COMMAND_STYLES = 116;
 
 
 	/**
@@ -8456,6 +8557,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getSecurityModel_SecurityAppID();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.SecurityModel#getRoles <em>Roles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Roles</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getRoles()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EReference getSecurityModel_Roles();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8475,6 +8587,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getActor_Code();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.Actor#getRoles <em>Roles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Roles</em>'.
+	 * @see it.csi.mddtools.guigen.Actor#getRoles()
+	 * @see #getActor()
+	 * @generated
+	 */
+	EReference getActor_Roles();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UseCase <em>Use Case</em>}'.
@@ -8981,6 +9104,59 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getShibbolethSSO();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Role <em>Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Role</em>'.
+	 * @see it.csi.mddtools.guigen.Role
+	 * @generated
+	 */
+	EClass getRole();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Role#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.guigen.Role#getCode()
+	 * @see #getRole()
+	 * @generated
+	 */
+	EAttribute getRole_Code();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Role#getDomainCode <em>Domain Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Domain Code</em>'.
+	 * @see it.csi.mddtools.guigen.Role#getDomainCode()
+	 * @see #getRole()
+	 * @generated
+	 */
+	EAttribute getRole_DomainCode();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint <em>Role Based Security Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Role Based Security Constraint</em>'.
+	 * @see it.csi.mddtools.guigen.RoleBasedSecurityConstraint
+	 * @generated
+	 */
+	EClass getRoleBasedSecurityConstraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint#getRole <em>Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Role</em>'.
+	 * @see it.csi.mddtools.guigen.RoleBasedSecurityConstraint#getRole()
+	 * @see #getRoleBasedSecurityConstraint()
+	 * @generated
+	 */
+	EReference getRoleBasedSecurityConstraint_Role();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -11101,6 +11277,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute SECURITY_MODEL__SECURITY_APP_ID = eINSTANCE.getSecurityModel_SecurityAppID();
 
 		/**
+		 * The meta object literal for the '<em><b>Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_MODEL__ROLES = eINSTANCE.getSecurityModel_Roles();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -11117,6 +11301,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ACTOR__CODE = eINSTANCE.getActor_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Roles</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTOR__ROLES = eINSTANCE.getActor_Roles();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UseCaseImpl <em>Use Case</em>}' class.
@@ -11545,6 +11737,50 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SHIBBOLETH_SSO = eINSTANCE.getShibbolethSSO();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RoleImpl <em>Role</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RoleImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRole()
+		 * @generated
+		 */
+		EClass ROLE = eINSTANCE.getRole();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROLE__CODE = eINSTANCE.getRole_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Domain Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROLE__DOMAIN_CODE = eINSTANCE.getRole_DomainCode();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RoleBasedSecurityConstraintImpl <em>Role Based Security Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RoleBasedSecurityConstraintImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleBasedSecurityConstraint()
+		 * @generated
+		 */
+		EClass ROLE_BASED_SECURITY_CONSTRAINT = eINSTANCE.getRoleBasedSecurityConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Role</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_BASED_SECURITY_CONSTRAINT__ROLE = eINSTANCE.getRoleBasedSecurityConstraint_Role();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

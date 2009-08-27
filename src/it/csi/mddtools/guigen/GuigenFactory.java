@@ -881,6 +881,24 @@ public interface GuigenFactory extends EFactory {
 	ShibbolethSSO createShibbolethSSO();
 
 	/**
+	 * Returns a new object of class '<em>Role</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Role</em>'.
+	 * @generated
+	 */
+	Role createRole();
+
+	/**
+	 * Returns a new object of class '<em>Role Based Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Role Based Security Constraint</em>'.
+	 * @generated
+	 */
+	RoleBasedSecurityConstraint createRoleBasedSecurityConstraint();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

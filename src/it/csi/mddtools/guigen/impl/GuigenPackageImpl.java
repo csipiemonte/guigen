@@ -81,6 +81,8 @@ import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.ResetButton;
+import it.csi.mddtools.guigen.Role;
+import it.csi.mddtools.guigen.RoleBasedSecurityConstraint;
 import it.csi.mddtools.guigen.ScreenState;
 import it.csi.mddtools.guigen.ScreenStateCommand;
 import it.csi.mddtools.guigen.ScreenStates;
@@ -879,6 +881,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass shibbolethSSOEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass roleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass roleBasedSecurityConstraintEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3079,6 +3095,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSecurityModel_Roles() {
+		return (EReference)securityModelEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getActor() {
 		return actorEClass;
 	}
@@ -3090,6 +3115,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getActor_Code() {
 		return (EAttribute)actorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActor_Roles() {
+		return (EReference)actorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3529,6 +3563,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRole() {
+		return roleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRole_Code() {
+		return (EAttribute)roleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRole_DomainCode() {
+		return (EAttribute)roleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRoleBasedSecurityConstraint() {
+		return roleBasedSecurityConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRoleBasedSecurityConstraint_Role() {
+		return (EReference)roleBasedSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3945,9 +4024,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(securityModelEClass, SECURITY_MODEL__ACTORS);
 		createEReference(securityModelEClass, SECURITY_MODEL__USE_CASES);
 		createEAttribute(securityModelEClass, SECURITY_MODEL__SECURITY_APP_ID);
+		createEReference(securityModelEClass, SECURITY_MODEL__ROLES);
 
 		actorEClass = createEClass(ACTOR);
 		createEAttribute(actorEClass, ACTOR__CODE);
+		createEReference(actorEClass, ACTOR__ROLES);
 
 		useCaseEClass = createEClass(USE_CASE);
 		createEReference(useCaseEClass, USE_CASE__PERMISSION);
@@ -4018,6 +4099,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(screenStateCommandEClass, SCREEN_STATE_COMMAND__GO_TO);
 
 		shibbolethSSOEClass = createEClass(SHIBBOLETH_SSO);
+
+		roleEClass = createEClass(ROLE);
+		createEAttribute(roleEClass, ROLE__CODE);
+		createEAttribute(roleEClass, ROLE__DOMAIN_CODE);
+
+		roleBasedSecurityConstraintEClass = createEClass(ROLE_BASED_SECURITY_CONSTRAINT);
+		createEReference(roleBasedSecurityConstraintEClass, ROLE_BASED_SECURITY_CONSTRAINT__ROLE);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -4129,6 +4217,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		widgetsPanelEClass.getESuperTypes().add(this.getPanel());
 		screenStateCommandEClass.getESuperTypes().add(this.getCommand());
 		shibbolethSSOEClass.getESuperTypes().add(this.getAutenticationMethod());
+		roleBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4443,9 +4532,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getSecurityModel_Actors(), this.getActor(), null, "actors", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityModel_UseCases(), this.getUseCase(), null, "useCases", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSecurityModel_SecurityAppID(), ecorePackage.getEString(), "securityAppID", null, 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityModel_Roles(), this.getRole(), null, "roles", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actorEClass, Actor.class, "Actor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getActor_Code(), ecorePackage.getEString(), "code", null, 0, 1, Actor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActor_Roles(), this.getRole(), null, "roles", null, 0, -1, Actor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(useCaseEClass, UseCase.class, "UseCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUseCase_Permission(), this.getActor(), null, "permission", null, 0, -1, UseCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4516,6 +4607,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getScreenStateCommand_GoTo(), this.getScreenState(), null, "goTo", null, 0, 1, ScreenStateCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(shibbolethSSOEClass, ShibbolethSSO.class, "ShibbolethSSO", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(roleEClass, Role.class, "Role", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRole_Code(), ecorePackage.getEString(), "code", null, 0, 1, Role.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRole_DomainCode(), ecorePackage.getEString(), "domainCode", null, 0, 1, Role.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(roleBasedSecurityConstraintEClass, RoleBasedSecurityConstraint.class, "RoleBasedSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRoleBasedSecurityConstraint_Role(), this.getRole(), null, "role", null, 0, 1, RoleBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

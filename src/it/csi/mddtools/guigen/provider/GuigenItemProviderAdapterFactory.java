@@ -2261,6 +2261,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Role} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RoleItemProvider roleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Role}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRoleAdapter() {
+		if (roleItemProvider == null) {
+			roleItemProvider = new RoleItemProvider(this);
+		}
+
+		return roleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RoleBasedSecurityConstraintItemProvider roleBasedSecurityConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RoleBasedSecurityConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRoleBasedSecurityConstraintAdapter() {
+		if (roleBasedSecurityConstraintItemProvider == null) {
+			roleBasedSecurityConstraintItemProvider = new RoleBasedSecurityConstraintItemProvider(this);
+		}
+
+		return roleBasedSecurityConstraintItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2454,6 +2500,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (screenStatesItemProvider != null) screenStatesItemProvider.dispose();
 		if (screenStateCommandItemProvider != null) screenStateCommandItemProvider.dispose();
 		if (shibbolethSSOItemProvider != null) shibbolethSSOItemProvider.dispose();
+		if (roleItemProvider != null) roleItemProvider.dispose();
+		if (roleBasedSecurityConstraintItemProvider != null) roleBasedSecurityConstraintItemProvider.dispose();
 	}
 
 }

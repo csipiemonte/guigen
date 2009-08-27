@@ -7,17 +7,16 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.ScreenState;
-import it.csi.mddtools.guigen.ScreenStateCommand;
-import it.csi.mddtools.guigen.genutils.GenUtils;
+import it.csi.mddtools.guigen.Role;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -26,17 +25,18 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ScreenStateCommand} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.Role} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ScreenStateCommandItemProvider
-	extends CommandItemProvider
+public class RoleItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -49,7 +49,7 @@ public class ScreenStateCommandItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ScreenStateCommandItemProvider(AdapterFactory adapterFactory) {
+	public RoleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,66 +64,65 @@ public class ScreenStateCommandItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGoToPropertyDescriptor(object);
+			addCodePropertyDescriptor(object);
+			addDomainCodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Go To feature.
+	 * This adds a property descriptor for the Code feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected void addGoToPropertyDescriptor(Object object) {
-//		itemPropertyDescriptors.add
-//			(createItemPropertyDescriptor
-//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-//				 getResourceLocator(),
-//				 getString("_UI_ScreenStateCommand_goTo_feature"),
-//				 getString("_UI_PropertyDescriptor_description", "_UI_ScreenStateCommand_goTo_feature", "_UI_ScreenStateCommand_type"),
-//				 GuigenPackage.Literals.SCREEN_STATE_COMMAND__GO_TO,
-//				 true,
-//				 false,
-//				 true,
-//				 null,
-//				 null,
-//				 null));
-		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getString("_UI_ScreenStateCommand_goTo_feature"), getString(
-						"_UI_PropertyDescriptor_description",
-						"_UI_ScreenStateCommand_goTo_feature",
-						"_UI_ScreenStateCommand_type"),
-				GuigenPackage.eINSTANCE.getScreenStateCommand_GoTo(),
-				true) {
-			protected Collection getComboBoxObjects(Object object) {
-
-				ScreenStateCommand ssc = (ScreenStateCommand)object;
-				ContentPanel parent = GenUtils.findParentContentPanel(ssc);
-				if (parent!=null){
-					if (parent.getStates()!=null){
-						return parent.getStates().getStates();
-					}
-					else
-						return null;
-				}
-				else 
-					return null;
-			}
-		});
+	protected void addCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Role_code_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Role_code_feature", "_UI_Role_type"),
+				 GuigenPackage.Literals.ROLE__CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
-	 * This returns ScreenStateCommand.gif.
+	 * This adds a property descriptor for the Domain Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Role_domainCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Role_domainCode_feature", "_UI_Role_type"),
+				 GuigenPackage.Literals.ROLE__DOMAIN_CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns Role.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ScreenStateCommand"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Role"));
 	}
 
 	/**
@@ -134,9 +133,11 @@ public class ScreenStateCommandItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		ScreenStateCommand st = (ScreenStateCommand)object;
-		String label = ": state->"+(st.getGoTo()!=null?st.getGoTo().getName():"???");
-		return getString("_UI_ScreenStateCommand_type")+label;
+		Role role = (Role)object;
+		String label = ""+role.getCode()+"@"+role.getDomainCode();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Role_type") :
+			getString("_UI_Role_type") + " " + label;
 	}
 
 	/**
@@ -150,8 +151,9 @@ public class ScreenStateCommandItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ScreenStateCommand.class)) {
-			case GuigenPackage.SCREEN_STATE_COMMAND__GO_TO:
+		switch (notification.getFeatureID(Role.class)) {
+			case GuigenPackage.ROLE__CODE:
+			case GuigenPackage.ROLE__DOMAIN_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -168,6 +170,17 @@ public class ScreenStateCommandItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

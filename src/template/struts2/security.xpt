@@ -501,6 +501,30 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 }
 «ENDFILE»
 
+«FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
+
+	private String roleCode;
+	private String domainCode;
+	
+	public RoleBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.roleCode=roleCode;
+		this.domainCode=domainCode;
+	}
+	
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForRole(session, roleCode, domainCode);
+	}
+
+}
+«ENDFILE»
+
 «FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
 
 import java.util.Map;
@@ -1063,6 +1087,27 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 «ENDLET»
 «ENDDEFINE»
 
+«DEFINE uiConstraintNew(GUIModel model) FOR RoleBasedSecurityConstraint»
+«LET this.eContainer AS parent»
+«REM»«IF parent.metaType.(Widget)»«ENDREM»
+«LET (Widget)parent AS parentWidget»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+ 			new RoleBasedUISecConstraint(
+ 				"«((ContentPanel)(findParentContentPanel(parentWidget))).name»",
+ 				"«parentWidget.name»",
+ 				UISecConstraint.«behavior»,
+ 				«defaultBehavior»,
+ 				"«this.role.code»",
+ 				"«this.role.domainCode»"
+ 			);
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«REM»«ENDIF»«ENDREM»
+«ENDLET»
+«ENDDEFINE»
+
 
 «DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanel»
 // ridefinizione dei metodi di verifica visibilita'/validazione
@@ -1223,6 +1268,23 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 «ENDDEFINE»
 
 
+«DEFINE uiConstraintNew4Menu(GUIModel model) FOR RoleBasedSecurityConstraint»
+«LET this.eContainer AS parent»
+«LET parent.metaType==Menu ? ((Menu)parent).name :((MenuItem)parent).name AS itemName»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+ 			new RoleBasedUISecConstraint(
+ 				"_menu",
+ 				"«itemName»",
+ 				UISecConstraint.«behavior»,
+ 				true,
+ 				"«this.role.code»",
+ 				"«this.role.domainCode»"
+ 			);
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
 «REM»#######«ENDREM»
 
 
@@ -1240,6 +1302,8 @@ import it.csi.csi.wrapper.UnrecoverableException;
 import it.csi.iride2.policy.entity.*;
 import it.csi.iride2.policy.exceptions.*;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
+import it.csi.iride2.iridefed.entity.Ruolo;
+import it.csi.iride2.iridefed.exceptions.BadRuoloException;
 import «getDTOBaseJavaPackage()».*;
 import org.apache.log4j.*;
 import «getBaseJavaPackage()».util.*;
@@ -1321,6 +1385,59 @@ public class «getSpringSecurityHelperClassName()»{
 	}
 	
 	public final static Application IRIDE2_APPLICATION = new Application("«this.securityModel.securityAppID»");;
+	
+	public boolean verifyCurrentUserForRole(Map session, String roleCode, String domainCode)
+			throws BEException {
+		Identita currentUser = getCurrentUser(session);
+		Ruolo rol = new Ruolo();
+
+		rol.setCodiceRuolo(roleCode);
+		rol.setCodiceDominio(domainCode);
+		try {
+			return getIridePEP().isPersonaInRuolo(
+					getCurrentUser(session), rol);
+		} catch (InternalException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException("Errore interno in verifyCurrentUserForRole:"
+					+ e, e);
+		} catch (IdentitaNonAutenticaException e) {
+			log
+					.error("[SecurityHelper::verifyCurrentUserForRole] identita' non autentica ["
+							+ currentUser + "]," + e);
+			throw new BEException(
+					"verifyCurrentUserForRole: identita' non autentica ["
+							+ currentUser + "]," + e, e);
+		} catch (BadRuoloException e) {
+			log.error("[SecurityHelper::verifyCurrentUserForRole] ruolo ["
+					+ rol + "] non valido" + e);
+			throw new BEException("verifyCurrentUserForRole: ruolo [" + rol
+					+ "] non valido" + e, e);
+		} catch (UnrecoverableException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore non recuperabile in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException(
+					"Errore non recuperabile in verifyCurrentUserForRole:" + e, e);
+		} catch (SystemException e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore di sistema in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException(
+					"Errore di sistema in verifyCurrentUserForRole:" + e, e);
+		} catch (Throwable e) {
+			log
+					.error(
+							"[SecurityHelper::verifyCurrentUserForRole] Errore interno in verifyCurrentUserForUC:"
+									+ e, e);
+			throw new BEException("Errore interno in verifyCurrentUserForRole:"
+					+ e, e);
+		}
+	}
 	
 	public boolean verifyCurrentUserForUC(Map session, String useCaseCode)
 		throws BEException

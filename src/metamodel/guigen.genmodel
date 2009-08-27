@@ -30,6 +30,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//DataLifetimeType">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//DataLifetimeType/USER_ACTION"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//DataLifetimeType/USER_SESSION"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//DataLifetimeType/SAME_PAGE"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//SimpleTypeCodes">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SimpleTypeCodes/INT"/>
@@ -42,10 +43,25 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SimpleTypeCodes/HOURS"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SimpleTypeCodes/BOOLEAN"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SimpleTypeCodes/BYTE"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//SimpleTypeCodes/TREE_NODE"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//PortalNames">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//PortalNames/SISTEMA_PIEMONTE"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//PortalNames/INTRANET_RUPARPIEMONTE"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//PortalNames/NEUTRAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//TargetPlatformCodes">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/WLS92"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//TargetPlatformCodes/JBoss43"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//MessageSeverity">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//MessageSeverity/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//MessageSeverity/WARN"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//MessageSeverity/ERROR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//CommandStyles">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandStyles/FUNCTIONAL"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandStyles/NAVIGATION"/>
     </genEnums>
     <genClasses ecoreClass="guigen.ecore#//ApplicationArea">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/menubar"/>
@@ -53,10 +69,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/statusbar"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/contentPanels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/staticLinks"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/onInitAction"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/onInitCommand"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/modules"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Menubar">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Menubar/topLevelMenu"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Menubar/remoteInfoBox"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Statusbar"/>
     <genClasses ecoreClass="guigen.ecore#//Titlebar"/>
@@ -65,14 +83,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ContentPanel/name"/>
       <genFeatures notify="false" createChild="false" propertyCategory="" propertySortChoices="true"
           ecoreFeature="ecore:EReference guigen.ecore#//ContentPanel/appData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ContentPanel/onRefreshCommand"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ContentPanel/dialogs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ContentPanel/states"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ContentPanel/defaultState"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//FormPanel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//FormPanel/subpanels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//FormPanel/widgets"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//TabSetPanel">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//TabSetPanel/tabs"/>
-    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//TabSetPanel"/>
     <genClasses image="false" ecoreClass="guigen.ecore#//Panel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Panel/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Panel/label"/>
@@ -84,12 +104,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Widget/layoutSpec"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Widget/eventHandlers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Widget/securityConstraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultVisible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultEnabled"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//CommandWidget"/>
     <genClasses ecoreClass="guigen.ecore#//DataWidget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//DataWidget/dataTypeModifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DataWidget/databinding"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference guigen.ecore#//DataWidget/dataType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//DataWidget/required"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Button">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Button/image"/>
@@ -109,6 +133,8 @@
     <genClasses ecoreClass="guigen.ecore#//Table">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Table/columnModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Table/pageSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Table/enableExport"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Table/customDecorator"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//CheckBox"/>
     <genClasses ecoreClass="guigen.ecore#//GUIModel">
@@ -121,6 +147,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/typedefs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/appDataDefs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GUIModel/portale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/securityModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIModel/targetPlatform"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//GUIStructure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//GUIStructure/appWindow"/>
@@ -129,10 +157,14 @@
     <genClasses ecoreClass="guigen.ecore#//RadioButtons">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//RadioButtons/radio"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//RadioButton"/>
+    <genClasses ecoreClass="guigen.ecore#//RadioButton">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RadioButton/value"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ResetButton"/>
     <genClasses ecoreClass="guigen.ecore#//ConfirmButton"/>
-    <genClasses image="false" ecoreClass="guigen.ecore#//PanelLayout"/>
+    <genClasses image="false" ecoreClass="guigen.ecore#//PanelLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//PanelLayout/columnSizes"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//HorizontalFlowPanelLayout"/>
     <genClasses ecoreClass="guigen.ecore#//VerticalFlowPanelLayout"/>
     <genClasses ecoreClass="guigen.ecore#//UDLRCPanelLayout"/>
@@ -148,62 +180,81 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Menu/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Menu/item"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Menu/submenu"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Menu/securityConstraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Menu/eventHandler"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//MenuItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MenuItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MenuItem/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MenuItem/eventHandler"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MenuItem/securityConstraints"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//DisabledComponentSet"/>
     <genClasses ecoreClass="guigen.ecore#//ColumnModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ColumnModel/columns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ColumnModel/valueSelector"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Column">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/selector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/sortable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/editable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/eventActive"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/editableFlagSelector"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Column/multiDataBinding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataKeySelector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataValueSelector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataPropertySelector"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="guigen.ecore#//Action"/>
-    <genClasses ecoreClass="guigen.ecore#//ActionEvent"/>
-    <genClasses ecoreClass="guigen.ecore#//ONOFFAction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ONOFFAction/enable"/>
+    <genClasses image="false" ecoreClass="guigen.ecore#//Command"/>
+    <genClasses ecoreClass="guigen.ecore#//CommandEvent"/>
+    <genClasses ecoreClass="guigen.ecore#//ONOFFCommand">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ONOFFCommand/enable"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//CustomAction"/>
-    <genClasses ecoreClass="guigen.ecore#//VisibilityAction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//VisibilityAction/show"/>
+    <genClasses ecoreClass="guigen.ecore#//CustomCommand"/>
+    <genClasses ecoreClass="guigen.ecore#//VisibilityCommand">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//VisibilityCommand/show"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//RefreshViewAction"/>
-    <genClasses ecoreClass="guigen.ecore#//JumpAction">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//JumpAction/jumpTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpAction/pushCurrentPage"/>
+    <genClasses ecoreClass="guigen.ecore#//RefreshViewCommand"/>
+    <genClasses ecoreClass="guigen.ecore#//JumpCommand">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//JumpCommand/jumpTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpCommand/pushCurrentPage"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//ExecAction">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecAction/results"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ExecAction/methodName"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecAction/postExecData"/>
+    <genClasses ecoreClass="guigen.ecore#//ExecCommand">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecCommand/results"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ExecCommand/methodName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ExecCommand/postExecData"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//EventHandler">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//EventHandler/action"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//EventHandler/command"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//EventHandler/eventType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//EventHandler/skipValidation"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//WidgetTargetAction"/>
-    <genClasses image="false" ecoreClass="guigen.ecore#//ActionOnWidgets">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActionOnWidgets/targetWidgets"/>
+    <genClasses image="false" ecoreClass="guigen.ecore#//CommandOnWidgets">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//CommandOnWidgets/targetWidgets"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//DialogPanel">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DialogPanel/dialogContent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DialogPanel/commands"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DialogPanel/msgBoxes"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//ShowDialogAction">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ShowDialogAction/dialog"/>
+    <genClasses ecoreClass="guigen.ecore#//ShowDialogCommand">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ShowDialogCommand/dialog"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//ActionResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ActionResult/resultCode"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ActionResult/action"/>
+    <genClasses ecoreClass="guigen.ecore#//CommandOutcome">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//CommandOutcome/resultCode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//CommandOutcome/command"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="guigen.ecore#//ActionOnPanels">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActionOnPanels/targetPanels"/>
+    <genClasses image="false" ecoreClass="guigen.ecore#//CommandOnPanels">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//CommandOnPanels/targetPanels"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//Header"/>
+    <genClasses ecoreClass="guigen.ecore#//Header">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/codCanale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/codApplicativo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/nomeCanale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/linkCanale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/nomeApplicativo"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Footer"/>
     <genClasses ecoreClass="guigen.ecore#//AppWindow">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/footer"/>
@@ -211,10 +262,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//AppWindow/appArea"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//StaticLinks"/>
-    <genClasses ecoreClass="guigen.ecore#//SequenceAction">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SequenceAction/actions"/>
+    <genClasses ecoreClass="guigen.ecore#//SequenceCommand">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SequenceCommand/commands"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//JumpBackAction"/>
+    <genClasses ecoreClass="guigen.ecore#//JumpBackCommand"/>
     <genClasses ecoreClass="guigen.ecore#//ApplicationData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ApplicationData/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ApplicationData/lifetimeExtent"/>
@@ -229,6 +280,7 @@
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Typedefs">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Typedefs/types"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Typedefs/namespaces"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//Type">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Type/name"/>
@@ -239,6 +291,7 @@
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ComplexType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ComplexType/fields"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComplexType/initFields"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//TypedArray">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//TypedArray/componentType"/>
@@ -246,9 +299,133 @@
     <genClasses ecoreClass="guigen.ecore#//Field">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Field/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//Field/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Field/required"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Field/dataTypeModifier"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//ApplicationDataDefs">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationDataDefs/appData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationDataDefs/groups"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//TreeView"/>
+    <genClasses ecoreClass="guigen.ecore#//PlainText">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//PlainText/staticText"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//MenuView"/>
+    <genClasses ecoreClass="guigen.ecore#//GridPanelLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GridPanelLayout/columns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GridPanelLayout/rows"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//GridWidgetLayoutSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GridWidgetLayoutSpec/row"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GridWidgetLayoutSpec/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//GridWidgetLayoutSpec/hspan"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//CommandPanel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//CommandPanel/cmdStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//CommandPanel/widgets"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//MenuPanel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MenuPanel/widgets"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//HiddenValue"/>
+    <genClasses ecoreClass="guigen.ecore#//UserDefinedWidget"/>
+    <genClasses ecoreClass="guigen.ecore#//MultiPanel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MultiPanel/panels"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ActivateMultiPanelItemCommand">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActivateMultiPanelItemCommand/multipanel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActivateMultiPanelItemCommand/activeItem"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="guigen.ecore#//AutenticationMethod"/>
+    <genClasses image="false" ecoreClass="guigen.ecore#//UISecurityConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//UISecurityConstraint/visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//UISecurityConstraint/enabled"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//UCBasedSecurityConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//UCBasedSecurityConstraint/useCase"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//SecurityModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SecurityModel/autenticationMethod"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SecurityModel/actors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SecurityModel/useCases"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//SecurityModel/securityAppID"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//SecurityModel/roles"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//Actor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Actor/code"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//Actor/roles"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//UseCase">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//UseCase/permission"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//UseCase/code"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ActorBasedSecurityConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ActorBasedSecurityConstraint/actor"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//CustomSecurityConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//CustomSecurityConstraint/methodNameSuffix"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//OPAUTHSSO">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//OPAUTHSSO/minAuthLevel"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//SSOBARTSSO"/>
+    <genClasses ecoreClass="guigen.ecore#//CustomAuthentication"/>
+    <genClasses ecoreClass="guigen.ecore#//StdMessagePanel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//StdMessagePanel/showGlobalMessages"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//StdMessagePanel/showFieldErrorDetails"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//StdMessagePanel/showFieldErrors"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//JumpExtCommand">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpExtCommand/staticUrl"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//JumpExtCommand/runtimeUrlProvider"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//JumpExtCommand/locationCode"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//TargetPlatform">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TargetPlatform/code"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//UserInfoPanel"/>
+    <genClasses ecoreClass="guigen.ecore#//UserDefinedPanel"/>
+    <genClasses ecoreClass="guigen.ecore#//WizardPanel"/>
+    <genClasses ecoreClass="guigen.ecore#//AppModule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//AppModule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//AppModule/contentPanels"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//TypeNamespace">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TypeNamespace/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//TypeNamespace/types"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//AppDataGroup">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//AppDataGroup/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//AppDataGroup/appData"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//MsgBoxPanel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MsgBoxPanel/messageSeverity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MsgBoxPanel/textMessages"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//NOPCommand"/>
+    <genClasses ecoreClass="guigen.ecore#//WidgetsPanel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//WidgetsPanel/widgets"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ScreenState">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ScreenState/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ScreenState/widgetsOn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ScreenState/widgetsVisible"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ScreenStates">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ScreenStates/states"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ScreenStateCommand">
+      <genFeatures createChild="false" propertyDescription="" propertySortChoices="true"
+          ecoreFeature="ecore:EReference guigen.ecore#//ScreenStateCommand/goTo"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//ShibbolethSSO"/>
+    <genClasses ecoreClass="guigen.ecore#//Role">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Role/code"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Role/domainCode"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//RoleBasedSecurityConstraint">
+      <genFeatures createChild="false" propertyDescription="" propertySortChoices="true"
+          ecoreFeature="ecore:EReference guigen.ecore#//RoleBasedSecurityConstraint/role"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

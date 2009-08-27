@@ -6,35 +6,31 @@
  */
 package it.csi.mddtools.guigen.impl;
 
-import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.GuigenPackage;
-
 import it.csi.mddtools.guigen.Role;
-import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Actor</b></em>'.
+ * An implementation of the model object '<em><b>Role</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.ActorImpl#getCode <em>Code</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ActorImpl#getRoles <em>Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.RoleImpl#getCode <em>Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.RoleImpl#getDomainCode <em>Domain Code</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ActorImpl extends EObjectImpl implements Actor {
+public class RoleImpl extends EObjectImpl implements Role {
 	/**
 	 * The default value of the '{@link #getCode() <em>Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -56,21 +52,31 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	protected String code = CODE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRoles() <em>Roles</em>}' reference list.
+	 * The default value of the '{@link #getDomainCode() <em>Domain Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRoles()
+	 * @see #getDomainCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Role> roles;
+	protected static final String DOMAIN_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainCode() <em>Domain Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainCode = DOMAIN_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ActorImpl() {
+	protected RoleImpl() {
 		super();
 	}
 
@@ -81,7 +87,7 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.ACTOR;
+		return GuigenPackage.Literals.ROLE;
 	}
 
 	/**
@@ -102,7 +108,7 @@ public class ActorImpl extends EObjectImpl implements Actor {
 		String oldCode = code;
 		code = newCode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTOR__CODE, oldCode, code));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ROLE__CODE, oldCode, code));
 	}
 
 	/**
@@ -110,11 +116,20 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Role> getRoles() {
-		if (roles == null) {
-			roles = new EObjectResolvingEList<Role>(Role.class, this, GuigenPackage.ACTOR__ROLES);
-		}
-		return roles;
+	public String getDomainCode() {
+		return domainCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainCode(String newDomainCode) {
+		String oldDomainCode = domainCode;
+		domainCode = newDomainCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ROLE__DOMAIN_CODE, oldDomainCode, domainCode));
 	}
 
 	/**
@@ -125,10 +140,10 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.ACTOR__CODE:
+			case GuigenPackage.ROLE__CODE:
 				return getCode();
-			case GuigenPackage.ACTOR__ROLES:
-				return getRoles();
+			case GuigenPackage.ROLE__DOMAIN_CODE:
+				return getDomainCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -138,16 +153,14 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.ACTOR__CODE:
+			case GuigenPackage.ROLE__CODE:
 				setCode((String)newValue);
 				return;
-			case GuigenPackage.ACTOR__ROLES:
-				getRoles().clear();
-				getRoles().addAll((Collection<? extends Role>)newValue);
+			case GuigenPackage.ROLE__DOMAIN_CODE:
+				setDomainCode((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,11 +174,11 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.ACTOR__CODE:
+			case GuigenPackage.ROLE__CODE:
 				setCode(CODE_EDEFAULT);
 				return;
-			case GuigenPackage.ACTOR__ROLES:
-				getRoles().clear();
+			case GuigenPackage.ROLE__DOMAIN_CODE:
+				setDomainCode(DOMAIN_CODE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -179,10 +192,10 @@ public class ActorImpl extends EObjectImpl implements Actor {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.ACTOR__CODE:
+			case GuigenPackage.ROLE__CODE:
 				return CODE_EDEFAULT == null ? code != null : !CODE_EDEFAULT.equals(code);
-			case GuigenPackage.ACTOR__ROLES:
-				return roles != null && !roles.isEmpty();
+			case GuigenPackage.ROLE__DOMAIN_CODE:
+				return DOMAIN_CODE_EDEFAULT == null ? domainCode != null : !DOMAIN_CODE_EDEFAULT.equals(domainCode);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -199,8 +212,10 @@ public class ActorImpl extends EObjectImpl implements Actor {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (code: ");
 		result.append(code);
+		result.append(", domainCode: ");
+		result.append(domainCode);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ActorImpl
+} //RoleImpl

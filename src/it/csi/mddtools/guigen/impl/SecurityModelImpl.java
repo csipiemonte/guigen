@@ -9,6 +9,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.AutenticationMethod;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.UseCase;
 
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getSecurityAppID <em>Security App ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getRoles <em>Roles</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +96,16 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * @ordered
 	 */
 	protected String securityAppID = SECURITY_APP_ID_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRoles() <em>Roles</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRoles()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Role> roles;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +219,18 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Role> getRoles() {
+		if (roles == null) {
+			roles = new EObjectContainmentEList<Role>(Role.class, this, GuigenPackage.SECURITY_MODEL__ROLES);
+		}
+		return roles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -216,6 +240,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return ((InternalEList<?>)getActors()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.SECURITY_MODEL__USE_CASES:
 				return ((InternalEList<?>)getUseCases()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.SECURITY_MODEL__ROLES:
+				return ((InternalEList<?>)getRoles()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -236,6 +262,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return getUseCases();
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
 				return getSecurityAppID();
+			case GuigenPackage.SECURITY_MODEL__ROLES:
+				return getRoles();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -263,6 +291,10 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
 				setSecurityAppID((String)newValue);
 				return;
+			case GuigenPackage.SECURITY_MODEL__ROLES:
+				getRoles().clear();
+				getRoles().addAll((Collection<? extends Role>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -287,6 +319,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
 				setSecurityAppID(SECURITY_APP_ID_EDEFAULT);
 				return;
+			case GuigenPackage.SECURITY_MODEL__ROLES:
+				getRoles().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -307,6 +342,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return useCases != null && !useCases.isEmpty();
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
 				return SECURITY_APP_ID_EDEFAULT == null ? securityAppID != null : !SECURITY_APP_ID_EDEFAULT.equals(securityAppID);
+			case GuigenPackage.SECURITY_MODEL__ROLES:
+				return roles != null && !roles.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

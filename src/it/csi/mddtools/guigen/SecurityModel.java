@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getRoles <em>Roles</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,5 +130,21 @@ public interface SecurityModel extends EObject {
 	 * @generated
 	 */
 	void setSecurityAppID(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Roles</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Role}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Roles</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Roles</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_Roles()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Role> getRoles();
 
 } // SecurityModel

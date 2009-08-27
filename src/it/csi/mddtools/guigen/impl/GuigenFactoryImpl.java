@@ -156,6 +156,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SCREEN_STATES: return createScreenStates();
 			case GuigenPackage.SCREEN_STATE_COMMAND: return createScreenStateCommand();
 			case GuigenPackage.SHIBBOLETH_SSO: return createShibbolethSSO();
+			case GuigenPackage.ROLE: return createRole();
+			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT: return createRoleBasedSecurityConstraint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1171,6 +1173,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ShibbolethSSO createShibbolethSSO() {
 		ShibbolethSSOImpl shibbolethSSO = new ShibbolethSSOImpl();
 		return shibbolethSSO;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Role createRole() {
+		RoleImpl role = new RoleImpl();
+		return role;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RoleBasedSecurityConstraint createRoleBasedSecurityConstraint() {
+		RoleBasedSecurityConstraintImpl roleBasedSecurityConstraint = new RoleBasedSecurityConstraintImpl();
+		return roleBasedSecurityConstraint;
 	}
 
 	/**

@@ -109,6 +109,7 @@ public class SecurityModelItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.SECURITY_MODEL__AUTENTICATION_METHOD);
 			childrenFeatures.add(GuigenPackage.Literals.SECURITY_MODEL__ACTORS);
 			childrenFeatures.add(GuigenPackage.Literals.SECURITY_MODEL__USE_CASES);
+			childrenFeatures.add(GuigenPackage.Literals.SECURITY_MODEL__ROLES);
 		}
 		return childrenFeatures;
 	}
@@ -169,6 +170,7 @@ public class SecurityModelItemProvider
 			case GuigenPackage.SECURITY_MODEL__AUTENTICATION_METHOD:
 			case GuigenPackage.SECURITY_MODEL__ACTORS:
 			case GuigenPackage.SECURITY_MODEL__USE_CASES:
+			case GuigenPackage.SECURITY_MODEL__ROLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -215,6 +217,11 @@ public class SecurityModelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.SECURITY_MODEL__USE_CASES,
 				 GuigenFactory.eINSTANCE.createUseCase()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SECURITY_MODEL__ROLES,
+				 GuigenFactory.eINSTANCE.createRole()));
 	}
 
 	/**

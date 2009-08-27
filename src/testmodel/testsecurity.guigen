@@ -62,6 +62,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check1"/>
+                  <securityConstraints xsi:type="guigen:RoleBasedSecurityConstraint" enabled="true" role="//@securityModel/@roles.0"/>
                 </widgets>
                 <widgets xsi:type="guigen:TextField" name="tfSecCustom2" label="sec. custom default disabled" dataType="//@typedefs/@types.7">
                   <securityConstraints xsi:type="guigen:CustomSecurityConstraint" enabled="true" methodNameSuffix="check2"/>
@@ -273,10 +274,11 @@
     <appData name="XXXXX" type="//@typedefs/@types.0"/>
   </appDataDefs>
   <securityModel securityAppID="PBANDI">
-    <autenticationMethod xsi:type="guigen:ShibbolethSSO"/>
-    <actors code="ADG-IST-MASTER"/>
+    <autenticationMethod xsi:type="guigen:SSOBARTSSO"/>
+    <actors code="ADG-IST-MASTER" roles="//@securityModel/@roles.0"/>
     <useCases permission="//@securityModel/@actors.0" code="TRSACC001"/>
     <useCases permission="//@securityModel/@actors.0" code="OPEREN023"/>
+    <roles code="ADMIN@PBANDI"/>
   </securityModel>
   <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>
