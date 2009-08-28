@@ -557,23 +557,6 @@ public class ShowDialogCommand implements ICommand {
 		«ENDIF»
 		«ENDLET»
 		
-		«REM»MenuItem è DEPRECATO
-		«LET getAllEventSourceMenuItems() AS eventSources»
-		«IF eventSources.size>0»
-		«FOREACH eventSources AS currEventSource»
-		// contiene i comandi del menuItem «((MenuItem)currEventSource).name» per ogni Ev.H.
-		HashMap<String, ICommand> cmds4«((MenuItem)currEventSource).name»ByEvh = 
-		  new HashMap<String, ICommand>();
-		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
-		«LET evhs AS currEvh»
-		cmds4«((MenuItem)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
-		«ENDLET»
-		«ENDLET»
-		cmdsByWidget.put("«((MenuItem)currEventSource).name»",cmds4«((MenuItem)currEventSource).name»ByEvh);	
-		«ENDFOREACH»
-		«ENDIF»
-		«ENDLET»
-		«ENDREM»
 		
 		«IF getAllEventSourceMenus().size>0»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
@@ -584,23 +567,6 @@ public class ShowDialogCommand implements ICommand {
 		«ENDIF»
 	}
 	
-	«REM»MenuItem è DEPRECATO
-	«LET getAllEventSourceMenuItems() AS eventSources»
-		«IF eventSources.size>0»
-		«FOREACH eventSources AS currEventSource»
-		«LET ((MenuItem)currEventSource).eventHandler AS evhs»
-		«LET evhs AS currEvh»
-		public ICommand initCommand«((MenuItem)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((MenuItem)currEvh.eContainer).name, model) FOR currEvh»
-		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((MenuItem)currEvh.eContainer).name»_1; 
-		return action;
-		}
-		«ENDLET»
-		«ENDLET»	
-		«ENDFOREACH»
-		«ENDIF»
-	«ENDLET»
-	«ENDREM»
 	
 	«LET (List[Menu])getAllEventSourceMenus() AS eventSources»
 		«IF eventSources.size>0»
@@ -638,7 +604,7 @@ public class ShowDialogCommand implements ICommand {
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR Command»
-// azione non supportata «this»
+«ERROR "Azione non supportata "+this»
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpCommand»
@@ -853,24 +819,6 @@ public class ShowDialogCommand implements ICommand {
 			«ENDIF»
 		«ENDFOREACH»
 		}
-		
-		«REM»
-		public ExecResults «this.methodName»(BaseAction strutsAction){
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("act_"+actionsVarName+"_"+actionNumber+"code")»
-			// inserire qui la logica applicativa da eseguire
-			
-			ExecResults results = new ExecResults();
-			// impostazione del result code
-			results.setResultCode("«this.results.first().resultCode»");
-			// impostazione degli app data risultanti
-			«FOREACH this.postExecData AS currAppData»
-			//// impostazione dell'application Data «currAppData.name» (scope: «currAppData.lifetimeExtent.toString()»)
-			results.setAppData("«getAppDataKey(currAppData)»", null);
-			«ENDFOREACH»
-			return results;
-		«ENDPROTECT»
-		}
-		«ENDREM»
 	};
 	// Exec Action end
 «ENDDEFINE»
@@ -940,7 +888,7 @@ public class ShowDialogCommand implements ICommand {
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR DataWidget»
-	// tipo di data widget non gestito: «this»
+	«ERROR "tipo di data widget non gestito:"+this»
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR PlainText»

@@ -229,7 +229,6 @@ Gestione dei pannelli
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
 «DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR Panel»
-<!-- Creazione del pannello di primo livello «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this»
 «ELSE-»
@@ -240,7 +239,6 @@ Gestione dei pannelli
 
 «REM»Crea un sottopannello«ENDREM»
 «DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
-<!-- Creazione del sottopannello «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == WidgetsPanel-»
@@ -381,7 +379,6 @@ Gestione dei pannelli
 <fmt:setBundle basename="«getStrutsActionPath(findParentContentPanel(this), model)»" />
 «ENDIF-»
 
-<!-- Creazione del multi panel «this» -->
 «IF this.metaType == FormPanel-»
 	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
 «ELSEIF this.metaType == UserDefinedPanel-»
@@ -641,7 +638,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un PlainText.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR PlainText»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 «IF this.databinding!=null-»
 <s:property value="«getOGNLForWidgetValue(this)»" escape="false" />
 «ELSE-»
@@ -652,7 +649,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getTextFieldStyleByLayout(model, this)»
@@ -662,14 +659,14 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR HiddenValue»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:hidden name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:textarea name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
@@ -680,7 +677,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) dei radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 «FOREACH this.radio AS currRadio»
 «EXPAND createWidgetMarkup(model, cp, this) FOR currRadio»
 «ENDFOREACH»
@@ -700,7 +697,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:checkbox name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getCheckboxPortalStyle(model)»
@@ -711,7 +708,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:select name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
           headerKey="" headerValue="" «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
           list="«getOGNLForWidgetMultiValue(this)»"
@@ -730,7 +727,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button): al momento è renderizzata come un submit.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»" 
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
@@ -739,7 +736,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»"
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
@@ -748,7 +745,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:reset name="«getWidgetName(this)»" id="«getWidgetName(this)»" key="«findParentContentPanel(this).name».«this.name».label" 
 	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
 «ENDDEFINE»
@@ -756,14 +753,14 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Image»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una tabella. Implementato tramite DisplayTag«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 «LET this.enableExport ? "true" : "false" AS exportEnabled»
 <s:set name="«cp.name»_«this.name»_clearStatus" value="isTableClearStatus('«cp.name»_«this.name»')" />
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
@@ -841,7 +838,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
-<!-- [GUIGEN] Crea il widget «this» -->
+<!-- widget «this.name» -->
 <s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getCalendarStyleByLayout(model, this)»
