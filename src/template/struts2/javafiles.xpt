@@ -736,7 +736,7 @@ STRUTS2 ACTIONS FILES
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)»;
+«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)»;
 
 import java.util.*;
 
@@ -750,6 +750,8 @@ import «getDTOBaseJavaPackage(model)».*;
 import «getSecurityJavaPackage(model)».*;
 
 import «getBaseJavaPackage(model)».business.*;
+
+import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
 
 /**
  * «getStrutsActionClassName(this)» Action Class.

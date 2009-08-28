@@ -28,7 +28,7 @@
 «REM»comment«ENDREM»
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
 «FILE getFullDTOClassFile(this,model)»
-package «getDTOBaseJavaPackage(model)»;
+package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
 «REM»STDMDD-159: visitor validator.«ENDREM»
 «IF isValidatorAnnotationRequired(this)-»
 import com.opensymphony.xwork2.validator.annotations.*;
@@ -127,13 +127,13 @@ public class «getSpringBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 	
-	private «getSpringCPBEClassName(currCP)» _«getSpringCPBEClassName(currCP)» = null;
+	private «getSpringCPBEFQN(currCP)» _«getSpringCPBEClassName(currCP)» = null;
 	
-	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEClassName(currCP)» bean){
+	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEFQN(currCP)» bean){
 		_«getSpringCPBEClassName(currCP)» = bean;
 	}
 	
-	public «getSpringCPBEClassName(currCP)» get«getSpringCPBEClassName(currCP)»(){
+	public «getSpringCPBEFQN(currCP)» get«getSpringCPBEClassName(currCP)»(){
 		return _«getSpringCPBEClassName(currCP)»;
 	}
 	«ENDFOREACH-»
@@ -168,7 +168,7 @@ public class «getSpringBEExcClassName()» extends Exception {
 «REM»bean spring associato alla logica del singolo pannello«ENDREM»
 «DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanel»
 «FILE getSpringCPBEJavaFile(model,this)»
-package «getBaseJavaPackage(model)».business;
+package «getBaseJavaPackage(model)».business«getAppModuleAsPkg(this,true,false)»;
 
 import java.util.*;
 
@@ -176,6 +176,7 @@ import «getDTOBaseJavaPackage(model)».*;
 
 import org.apache.log4j.*;
 import «getBaseJavaPackage(model)».util.*;
+import «getBaseJavaPackage(model)».business.*;
 
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
 
@@ -419,9 +420,10 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 «REM»dto con solo le property delle action (parametri per spring)«ENDREM»
 «DEFINE actionModelFile(GUIModel model) FOR ContentPanel»
 «FILE getFullModelDTOClassFile(this,false,false,model)»
-package «getDTOBaseJavaPackage(model)»;
+package «getDTOBaseJavaPackage(model)+getAppModuleAsPkg(this,true,false)»;
 
 import java.util.*;
+import «getDTOBaseJavaPackage(model)».*;
 
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della

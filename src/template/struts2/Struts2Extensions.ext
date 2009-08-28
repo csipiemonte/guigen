@@ -193,10 +193,11 @@ String getDTOClassName(ComplexType ct) :
 	ct.name.toFirstUpper();
 
 String getFQNDTOClassName(ComplexType ct, GUIModel model) :
-	getDTOBaseJavaPackage(model)+"."+getDTOClassName(ct);
+	getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(ct,false,true)+getDTOClassName(ct);
 	
 String getFullDTOClassFile(ComplexType ct, GUIModel model) :
-	getDTOBaseSrcDir(model)+"/"+getDTOClassName(ct)+".java";	
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(ct,false,true)+getDTOClassName(ct)+".java";	
+
 
 String getModelDTOClassName(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
     ( forMenu? "GlobalMenuModel":
@@ -204,10 +205,10 @@ String getModelDTOClassName(ContentPanel cp, boolean forMenu, boolean forHome, G
     );
 
 String getModelDTOFQN(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
-	getDTOBaseJavaPackage(model) + "." + getModelDTOClassName(cp, forMenu, forHome, model);
+	getDTOBaseJavaPackage(model) + "." +getAppModuleAsPkg(cp,false,true) + getModelDTOClassName(cp, forMenu, forHome, model);
 
 String getFullModelDTOClassFile(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
-	getDTOBaseSrcDir(model)+"/"+getModelDTOClassName(cp, forMenu, forHome, model)+".java";
+	getDTOBaseSrcDir(model)+"/"+getAppModuleAsFolder(cp,false, true)+getModelDTOClassName(cp, forMenu, forHome, model)+".java";
 	 
 /// MENU
 String getStrutsMenuClassName(GUIModel model) :
@@ -295,13 +296,13 @@ String getStrutsActionConfigName(ContentPanel panel) :
 	panel.name;
 
 String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
-	getPresentationJavaPackage(model) + "." + getStrutsActionClassName(panel);
+	getPresentationJavaPackage(model) +getAppModuleAsPkg(panel,false, true)+ "." + getStrutsActionClassName(panel);
 	
 String getStrutsActionPath(ContentPanel panel, GUIModel model) :
-	getPresentationJavaPath(model) + "/" + getStrutsActionClassName(panel);	
+	getPresentationJavaPath(model) + "/" +getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel);	
 	
 String getStrutsActionJavaFile(ContentPanel panel, GUIModel model, boolean omit_root) :
-	getPresentationJavaSrcDir(model, omit_root) + "/" + getStrutsActionClassName(panel) + ".java";
+	getPresentationJavaSrcDir(model, omit_root) + "/" + getAppModuleAsFolder(panel, false, true)+getStrutsActionClassName(panel) + ".java";
 	
 String getStrutsActionJspFile(ContentPanel panel, GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/" + getStrutsActionJspName(panel) + ".jsp";
@@ -347,10 +348,10 @@ String getSpringCPBEClassName(ContentPanel cp) :
 	"CPBE"+cp.name.toFirstUpper();
 
 String getSpringCPBEFQN(GUIModel model, ContentPanel cp) :
-	getBaseJavaPackage(model)+".business."+getSpringCPBEClassName(cp);
+	getBaseJavaPackage(model)+".business."+getAppModuleAsPkg(cp, false,true)+getSpringCPBEClassName(cp);
 
 String getSpringCPBEJavaFile(GUIModel model, ContentPanel cp) :
-	getBaseJavaSrcDir(model, true)+"/business/"+getSpringCPBEClassName(cp)+".java";
+	getBaseJavaSrcDir(model, true)+"/business/"+getAppModuleAsFolder(cp,false,true)+getSpringCPBEClassName(cp)+".java";
 
 String getSpringBEExcClassName() :
 	"BEException";
@@ -443,7 +444,7 @@ String toJavaType(Type type, GUIModel model) :
 	else if (type.metaType==SimpleType) then
 		toJavaSimpleType(type)
 	else if (type.metaType==ComplexType) then
-		getDTOBaseJavaPackage(model)+"."+type.name.toFirstUpper() 
+		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg((ComplexType)type,false,true)+type.name.toFirstUpper() 
 	else 
 		"java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">";
 
@@ -530,6 +531,23 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp) :
 		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
+
+//// altre utility
+String getAppModuleAsPkg(ContentPanel cp, boolean prependDot, boolean appendDot) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );
+		
+String getAppModuleAsFolder(ContentPanel cp, boolean prependSlash, boolean appendSlash) : 
+	let parent = cp.eContainer :
+		(parent.metaType==AppModule ? (prependSlash ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendSlash? "/": "") : "" );
+
+String getTypeNSAsPkg(ComplexType ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );		
+
+String getTypeNSAsFolder(ComplexType ct, boolean prependDot, boolean appendDot) : 
+	let parent = ct.eContainer :
+		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
