@@ -25,7 +25,13 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<div class="chiusura">
+	<fmt:message key="error.notfound.title" /><br />
+	<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
+</div>
+<div class="indietro">
+	<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -33,7 +39,13 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<div class="chiusura">
+	<fmt:message key="error.fatalerror.title" /><br/>
+	<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
+</div>
+<div class="indietro">
+	<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>	
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -41,7 +53,15 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
-
+<div class="chiusura">
+	<s:text name="error.applicationerror.title" /><br/>
+	<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
+	<s:property value="%{exception.message}"/>
+</div>
+<div class="indietro">
+	<s:url id="homePageUrl" action="HomePage" />
+	<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
+</div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
 
@@ -49,7 +69,16 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<div class="chiusura">
+	<fmt:message key="error.sessionexpired.title" /><br>
+	<fmt:message key="error.sessionexpired.warning" /><br/>
+	<fmt:message key="error.sessionexpired.timeout" /><br/>
+	<fmt:message key="error.sessionexpired.datanotsaved" /><br/>
+	<fmt:message key="error.sessionexpired.authentication" />
+</div>
+<div class="indietro">
+	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>	
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
