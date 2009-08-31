@@ -173,6 +173,7 @@ package «getBaseJavaPackage(model)».business«getAppModuleAsPkg(this,true,false)»
 import java.util.*;
 
 import «getDTOBaseJavaPackage(model)».*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 import org.apache.log4j.*;
 import «getBaseJavaPackage(model)».util.*;
@@ -424,6 +425,7 @@ package «getDTOBaseJavaPackage(model)+getAppModuleAsPkg(this,true,false)»;
 
 import java.util.*;
 import «getDTOBaseJavaPackage(model)».*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
@@ -456,6 +458,7 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 package «getDTOBaseJavaPackage(model)»;
 
 import java.util.*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
@@ -479,6 +482,7 @@ public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAw
 package «getDTOBaseJavaPackage(model)»;
 
 import java.util.*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
 
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
@@ -497,4 +501,10 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 
 }
 «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE importAllNamespaces(GUIModel model) FOR Typedefs-»
+«FOREACH namespaces.select(ns|ns.types.select(t|t.metaType==ComplexType).size >0) AS ns-»
+import «getBaseJavaPackage(model)».dto.«ns.name.toLowerCase()».*;
+«ENDFOREACH-»
 «ENDDEFINE»
