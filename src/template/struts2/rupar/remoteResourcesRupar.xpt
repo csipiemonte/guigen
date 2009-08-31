@@ -26,7 +26,17 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<h3><fmt:message key="error.notfound.title" /></h3>
+<div id="boxError">
+	<p>
+		<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
+	</p>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+	</span>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -34,7 +44,17 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<h3><fmt:message key="error.fatalerror.title" /></h3>
+<div id="boxError">
+	<p>
+		<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
+	</p>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
+	</span>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -42,7 +62,19 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
-
+<h3><s:text name="error.applicationerror.title" /></h3>
+<div id="boxError">
+	<p>
+		<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
+		<s:property value="%{exception.message}"/>
+	</p>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<s:url id="homePageUrl" action="HomePage" />
+		<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
+	</span>
+</div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
 
@@ -50,7 +82,27 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<h3><fmt:message key="error.sessionexpired.title" /></h3>
+<div id="boxError">
+	<p>
+		<fmt:message key="error.sessionexpired.warning" /><br/>
+		<fmt:message key="error.sessionexpired.timeout" /><br/>
+	</p>
+	<p class="msgError">
+		<fmt:message key="error.sessionexpired.datanotsaved" /><br/>
+		<fmt:message key="error.sessionexpired.authentication" />
+	</p>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+	</span>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<a href="http://www.ruparpiemonte.it/"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	</span>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -130,7 +182,7 @@ Definizioni generali: header, footer, ecc
 «ENDREM»
 
 	</head>
-	<body class="tema-«IF !isNullOrEmpty(codCanale)»«codCanale»«ELSE»generale«ENDIF»">
+	<body>
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
 
 			<!-- INTESTAZIONE -->
@@ -193,7 +245,7 @@ Definizioni generali: header, footer, ecc
 <!-- fine head (con remincl) -->
 
 	</head>
-	<body class="tema-«IF !isNullOrEmpty(codCanale)»«codCanale»«ELSE»generale«ENDIF»">
+	<body>
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
 
 			<!-- INTESTAZIONE -->
@@ -708,18 +760,17 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Table ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
-<customtag:column>
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
-«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
-</customtag:column>
-«ENDDEFINE»
 
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
