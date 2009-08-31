@@ -660,12 +660,32 @@ Gestione dei LAYOUT - PANNELLI
 ************** Dialog Panel **************
 «ENDREM»
 «DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel»
+«IF model.structure.appWindow.header != null-»
+<s:include value="../fragments/header.jsp" ></s:include>
+«ENDIF-»
 
+<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+
+	<!-- righe -->
+	<div id="righe">
+	
+		<!-- =============== COLONNA UNICA ============== -->
+		<div id="colonna">
 «ENDDEFINE»
 
 
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel»
+		</div>
+		<!-- ============ FINE COLONNA UNICA ============ -->
+	
+	</div>
+	<!-- fine righe -->
 
+</s:form>
+
+«IF model.structure.appWindow.footer != null-»
+<s:include value="../fragments/footer.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -673,12 +693,12 @@ Gestione dei LAYOUT - PANNELLI
 ************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
-
+<div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
 «ENDDEFINE»
 
 
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
-
+</div>
 «ENDDEFINE»
 
 

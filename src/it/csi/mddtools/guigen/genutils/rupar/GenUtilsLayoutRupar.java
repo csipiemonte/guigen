@@ -4,6 +4,8 @@ import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
+import it.csi.mddtools.guigen.MessageSeverity;
+import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
@@ -76,6 +78,27 @@ public class GenUtilsLayoutRupar {
 		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
 	}
 
+
+	/**
+	 * Restituisce lo stile di un MsgBoxPanel.
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param mbp
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
+		String res = "";
+		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
+			res = "id=\"boxAvviso\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
+			res = "id=\"boxAvviso\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
+			res = "id=\"boxError\"";
+		}
+		return res;
+	}
+	
 
 	/**
 	 * Restituisce la classe per un CheckBox

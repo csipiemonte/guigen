@@ -47,6 +47,10 @@ around template::struts2::Struts2Extensions::getColumnsLayout(FormPanel firstLev
 around template::struts2::Struts2Extensions::getButtonStyleByLayout(GUIModel model, Button b) :
 	getButtonStyleByLayoutRupar(model, b);
 
+// [DM] Restituisce lo stile di un MsgBoxPanel
+around template::struts2::Struts2Extensions::getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) :
+	getMsgBoxPanelStyleByPortalRupar(model, mbp);
+
 // [DM]  Restituisce la classe per un CheckBox
 // nota: deve rimanere in Java perché viene utilizzato anche da Java
 around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
