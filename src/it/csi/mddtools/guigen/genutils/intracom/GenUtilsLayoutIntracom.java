@@ -144,9 +144,13 @@ public class GenUtilsLayoutIntracom {
 	 */
 	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
 		String res = "";
-
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
+			res = "class=\"boxmsgok\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
+			res = "class=\"boxavviso\"";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
+			res = "class=\"boxmsgerror\"";
+		}
 		return res;
 	}
 
