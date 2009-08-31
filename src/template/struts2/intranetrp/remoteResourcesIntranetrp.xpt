@@ -566,10 +566,22 @@ Gestione dei LAYOUT - PANNELLI
 «IF model.structure.appWindow.header != null-»
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
+
+<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
+
 «ENDDEFINE»
+
+
 
 «REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+
+</s:form>
+
 «IF model.structure.appWindow.footer != null-»
 <s:include value="../fragments/footer.jsp" ></s:include>
 «ENDIF-»
