@@ -610,7 +610,9 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-<div class="azioniForm">
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "class=\"pulsantiForm\"" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "class=\"azioniForm\"" : "" ) ) AS ptype-»
+<div «ptype»>
+«ENDLET-»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
@@ -799,11 +801,19 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»--------------- Table ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
 <customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+<div class="dataTable">
 «ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo Table«ENDREM»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
+</div>
+</customtag:column>
+«ENDDEFINE»
+
+
 
 
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
@@ -912,7 +922,7 @@ paging.banner.first=<span class="dx">{0} <a href="{3}">succ >></a> <a href="{4}"
 paging.banner.last=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}"><< prec</a></span></div>
 paging.banner.onepage=<span class="dx">pagina {0}</span></div>
 
-paging.banner.page.selected=<span class="evidenzaLink">{0}</span>
+paging.banner.page.selected=<span class="evidenza">{0}</span>
 paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
 paging.banner.page.separator=<span class="bugFix">&nbsp;|&nbsp;</span>
 

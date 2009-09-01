@@ -1,6 +1,8 @@
 package it.csi.mddtools.guigen.genutils.rupar;
 
 import it.csi.mddtools.guigen.Button;
+import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
@@ -8,6 +10,8 @@ import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
+import it.csi.mddtools.guigen.UDLRCSpecConstants;
+import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 
 
@@ -61,7 +65,36 @@ public class GenUtilsLayoutRupar {
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
 		String css = "";
 
-		if ( b.getLabel() != null ) {
+		String btnStyleT = "";
+		if ( b.eContainer() instanceof CommandPanel ) {
+			CommandPanel container = (CommandPanel)b.eContainer();
+			if ( container.getCmdStyle() == CommandStyles.NAVIGATION ) {
+				if ( container.getLayout() instanceof UDLRCPanelLayout ) {
+					if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
+						btnStyleT = "inputBarra1";
+					} else {
+						btnStyleT = "inputPulsante";
+					}
+				}
+				else if ( container.getLayout() instanceof HorizontalFlowPanelLayout ) {
+					// devo capire se è l'ultimo o no
+					Button lastB = (Button)container.getWidgets().get(container.getWidgets().size()-1);
+					if ( lastB == b ) {
+						btnStyleT = "inputBarra1";
+					} else {
+						btnStyleT = "inputPulsante";
+					}
+				}
+			} 
+			else if ( container.getCmdStyle() == CommandStyles.FUNCTIONAL ) {
+				btnStyleT = "inputPulsante";
+			}
+		} else {
+			// di default per il caso di button non contenuto in un CommandPanel
+			btnStyleT = "inputPulsante";
+		}		
+		
+		/*if ( b.getLabel() != null ) {
 			int lblLen = b.getLabel().length();
 			
 			if ( lblLen > 0 && lblLen < 15 ) {
@@ -73,9 +106,9 @@ public class GenUtilsLayoutRupar {
 			} else if ( lblLen >= 32 ) {
 				css = " biggest";
 			}
-		}
+		}*/
 		
-		return "cssClass=\"inputPulsante" + css + "\" onmouseover=\"javascript:overOutHandler(this, 'inputPulsanteHover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, 'inputPulsante" + css + "');\"";
+		return "cssClass=\"" + btnStyleT + css + "\" onmouseover=\"javascript:overOutHandler(this, '" + btnStyleT + "Hover" + css + "');\" onmouseout=\"javascript:overOutHandler(this, '" + btnStyleT + css + "');\"";
 	}
 
 
