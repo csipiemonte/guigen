@@ -13,6 +13,7 @@
 	«EXPAND struts2MenuJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2LogoutJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND sessionListenerJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::actionImplJavaFiles::actionImplClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
 	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
@@ -25,6 +26,39 @@
 	«REM»«EXPAND viewFragmentResultJavaFile FOR this»«ENDREM»
 «ENDDEFINE»
 
+«DEFINE sessionListenerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBaseJavaSrcDir(skip_component_dir_creation) + "/util/SessionListener.java" »package «getBaseJavaPackage(this)».util;
+
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.extraimports")»
+«ENDPROTECT»
+
+public class SessionListener implements HttpSessionListener {
+
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.attributes")»
+	«ENDPROTECT»
+
+  public SessionListener() {
+ 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.cntr")»
+	«ENDPROTECT»
+  }
+
+  public void sessionCreated(HttpSessionEvent se) {
+    «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.created")»
+	«ENDPROTECT»
+  }
+
+  public void sessionDestroyed(HttpSessionEvent se) {
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.destroyed")»
+	«ENDPROTECT»
+  }
+}
+
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================
@@ -680,7 +714,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 	}
 
 	«IF securityModel!=null && securityModel.autenticationMethod!=null-»
-	«EXPAND invalidateLocalSession(this) FOR this.securityModel.autenticationMethod-»
+		«EXPAND invalidateLocalSession(this) FOR this.securityModel.autenticationMethod-»
+	«ELSE-»
+		«EXPAND invalidateLocalSessionNoAuth FOR this-»
 	«ENDIF-»
 	
 	/**
@@ -698,6 +734,13 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 «DEFINE invalidateLocalSession(GUIModel model) FOR AutenticationMethod»
 «ERROR ""+this+ "non supportato"»
 «ENDDEFINE»
+
+«DEFINE invalidateLocalSessionNoAuth FOR GUIModel»
+	protected void invalidateLocalSession(){
+		/// NOP
+	}
+«ENDDEFINE»
+
 
 «DEFINE invalidateLocalSession(GUIModel model) FOR OPAUTHSSO»
 	/**
