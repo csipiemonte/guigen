@@ -2475,6 +2475,9 @@ public class GenUtils {
 	 */
 	private static String[] splitSelector(String selector) {
 		String[] res = new String[2];
+		if (selector==null)
+			return null;
+		
 		if ( selector.indexOf(".") > 0 ) {
 			res[0] = selector.substring(0, selector.indexOf("."));
 			res[1] =  selector.substring(selector.indexOf(".")+1);

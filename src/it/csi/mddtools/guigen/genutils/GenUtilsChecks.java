@@ -220,6 +220,7 @@ public class GenUtilsChecks {
 	 * @author [DM]
 	 */
 	public static boolean widgetDataBindingCorrispondenceCheck(DataWidget w) {
+		try{
 		Type dbt = w.getDatabinding().getAppData().getType();
 		Field f = GenUtils.getSelectedField(null, dbt, w.getDatabinding().getPath());
 		if ( f != null ) {
@@ -232,6 +233,11 @@ public class GenUtilsChecks {
 			}
 		}
 		return false;
+		}
+		catch(RuntimeException re){
+			re.printStackTrace();
+			throw re;
+		}
 	}
 	
 }
