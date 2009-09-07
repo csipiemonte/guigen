@@ -519,6 +519,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDFOREACH-»
 «ENDDEFINE»
 
+«REM»Crea i Widgets contenuti in un CommandPanel (Button, ConfirmButton, ResetButton, HiddenValue)«ENDREM»
 «DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
 		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Button)currWidg»
@@ -675,7 +676,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) dei radio button.«ENDREM»
+«REM»Genera la componente di markup (HTML) di un grupppo di RadioButton (RadioButtons).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- widget «this.name» -->
 «FOREACH this.radio AS currRadio»

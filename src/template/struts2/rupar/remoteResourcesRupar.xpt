@@ -522,6 +522,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
 <div class="wizard2">
 	<h4 class="alt">Sezioni</h4>
+	<ul>
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
@@ -538,6 +539,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 		</li>
 		«ENDLET-»
 	«ENDFOREACH-»
+	</ul>
 </div>
 «ENDDEFINE»
 
@@ -545,6 +547,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
 <div class="wizard2">
 	<h4 class="alt">Sezioni</h4>
+	<ul>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
@@ -561,6 +564,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 		</li>
 		«ENDLET-»
 	«ENDFOREACH-»
+	</ul>
 </div>
 «ENDDEFINE»
 
