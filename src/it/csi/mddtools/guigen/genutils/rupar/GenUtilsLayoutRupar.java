@@ -68,21 +68,28 @@ public class GenUtilsLayoutRupar {
 		String btnStyleT = "";
 		if ( b.eContainer() instanceof CommandPanel ) {
 			CommandPanel container = (CommandPanel)b.eContainer();
-			if ( container.getCmdStyle() == CommandStyles.NAVIGATION ) {
-				if ( container.getLayout() instanceof UDLRCPanelLayout ) {
+			if ( container.getCmdStyle() == CommandStyles.NAVIGATION ) 
+			{
+				if ( container.getLayout() instanceof UDLRCPanelLayout ) 
+				{
 					if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
 						btnStyleT = "inputBarra1";
 					} else {
 						btnStyleT = "inputPulsante";
 					}
 				}
-				else if ( container.getLayout() instanceof HorizontalFlowPanelLayout ) {
-					// devo capire se è l'ultimo o no
-					Button lastB = (Button)container.getWidgets().get(container.getWidgets().size()-1);
-					if ( lastB == b ) {
-						btnStyleT = "inputBarra1";
+				else if ( container.getLayout() instanceof HorizontalFlowPanelLayout ) 
+				{
+					if ( container.getWidgets().size() == 1) {
+						btnStyleT = "inputBarraTot";
 					} else {
-						btnStyleT = "inputPulsante";
+						// devo capire se è l'ultimo o no
+						Button lastB = (Button)container.getWidgets().get(container.getWidgets().size()-1);
+						if ( lastB == b ) {
+							btnStyleT = "inputBarra1";
+						} else {
+							btnStyleT = "inputPulsante";
+						}
 					}
 				}
 			} 
