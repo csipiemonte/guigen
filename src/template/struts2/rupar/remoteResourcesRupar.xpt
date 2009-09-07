@@ -587,7 +587,10 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 <div id="Utente">
 	<span id="datiUtente">Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong></span>
 	<span class="bugFix">&nbsp;|&nbsp;</span>
-	<span id="chiudiSessione"><a href="#" title="chiudi sessione: questo link fa uscire dal servizio">chiudi sessione</a></span>
+	<span id="chiudiSessione">
+		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<s:a href="%{localLogoutUrl}" title="chiudi sessione: questo link fa uscire dal servizio">chiudi sessione</s:a>
+	</span>
 	<div class="both"></div>
 </div>
 «ENDLET-»
