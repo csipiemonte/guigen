@@ -10,6 +10,7 @@ import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomSecurityConstraint;
@@ -34,6 +35,7 @@ import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
+import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
@@ -59,6 +61,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
@@ -2493,8 +2496,176 @@ public class GenUtils {
 		return res;
 	}
 	                      
+	///////////////////////////////////////////////////
+	//// Utility per features ricche
 	
+	/**
+	 * @return l'elenco degli id (nel formato dei tag START/END fragment) dei pannelli che sono oggetto
+	 * di refresh mirato nei comandi associati all'event handler.
+	 * Se non vi sono RefreshViewCommand nella struttura di comandi il risultato e' null.
+	 */
+	public static String[] getRefreshTargetIds(EventHandler eh){
+		System.out.println("getRefreshTargetIds:EventHandler");
+		if (eh.getCommand()!=null){
+			return getRefreshTargetIds(eh.getCommand());
+		}
+		else return null;
+	}
 
+	//public static String[] getRefreshTargetIds(CommandWidget cw){
+	public static ArrayList<String> getRefreshTargetIds(Widget cw){
+		System.out.println("getRefreshTargetIds:CommandWidget");
+		String [] ris = getRefreshTargetIds(cw.getEventHandlers());
+		System.out.println("getRefreshTargetIds:CommandWidget->"+ris);
+		//return ris;
+		ArrayList<String> ris2 = new ArrayList<String>();
+		if (ris!=null){
+			for (int i = 0; i < ris.length; i++) {
+				String string = ris[i];
+				ris2.add(string);
+			}
+			return ris2;
+		}
+		else
+			return null;
+		
+	}
+	
+	public static String[] getRefreshTargetIds(EList<EventHandler> ehs){
+		System.out.println("getRefreshTargetIds:EventHandler[]");
+		Iterator<EventHandler> it = ehs.iterator();
+		ArrayList<String> ids = new ArrayList<String>();
+		while (it.hasNext()) {
+			EventHandler eventHandler = (EventHandler) it.next();
+			String [] parz = getRefreshTargetIds(eventHandler);
+			if (parz!=null){
+				for (int i = 0; i < parz.length; i++) {
+					String currId = parz[i];
+					ids.add(currId);
+				}
+			}
+		}
+		if (ids.size()>0){
+			String ris[] = new String[ids.size()];
+			Iterator<String> resIt = ids.iterator();
+			int i=0;
+			while (resIt.hasNext()) {
+				String currId = resIt.next();
+				ris[i++]=currId;
+			}
+			System.out.println("getRefreshTargetIds:EventHandler[]->"+ris);
+			return ris;
+		}
+		else{
+			System.out.println("getRefreshTargetIds:EventHandler[]->null");
+			return null;
+		}
+	}
+	
+	public static String[] getRefreshTargetIds(Command c){
+		System.out.println("getRefreshTargetIds:Command");
+		if (c instanceof SequenceCommand)
+			return getRefreshTargetIds((SequenceCommand)c);
+		else if (c instanceof ExecCommand)
+			return getRefreshTargetIds((ExecCommand)c);
+		else if (c instanceof RefreshViewCommand)
+			return getRefreshTargetIds((RefreshViewCommand)c);
+		else 
+			return null;
+	}
+	
+	public static String[] getRefreshTargetIds(RefreshViewCommand c){
+		System.out.println("getRefreshTargetIds:RefreshViewCommand");
+		ArrayList<String> ids = new ArrayList<String>();
+		Iterator<Panel> it = c.getTargetPanels().iterator();
+		while(it.hasNext()){
+			ids.add("p_"+it.next().getName());
+		}
+		if (ids.size()>0){
+			String [] ris = new String[ids.size()];
+			int i=0;
+			Iterator<String> resIt = ids.iterator();
+			while (resIt.hasNext()) {
+				String currId = resIt.next();
+				ris[i++]=currId;
+			}
+			System.out.println("getRefreshTargetIds:RefreshViewCommand->"+ris);
+			return ris;
+		}
+		else{
+			System.out.println("getRefreshTargetIds:RefreshViewCommand->null");
+			return null;
+		}
+	}
+	
+	public static String[] getRefreshTargetIds(ExecCommand c){
+		System.out.println("getRefreshTargetIds:ExecCommand");
+		Iterator<CommandOutcome> it = c.getResults().iterator();
+		ArrayList<String> ids = new ArrayList<String>();
+		while (it.hasNext()) {
+			CommandOutcome outcome = it.next();
+			String[] parz = getRefreshTargetIds(outcome);
+			System.out.println("parz="+parz);
+			if (parz!=null)
+				for (int i = 0; i<parz.length;i++) {
+					String currId = parz[i];
+					ids.add(currId);
+				}
+		}
+		if (ids.size()>0){
+			String [] ris = new String[ids.size()];
+			int i=0;
+			Iterator<String> resIt = ids.iterator();
+			while (resIt.hasNext()) {
+				String currId = resIt.next();
+				ris[i++]=currId;
+			}
+			System.out.println("getRefreshTargetIds:ExecCommand->"+ris);
+			return ris;
+		}
+		else{
+			System.out.println("getRefreshTargetIds:ExecCommand->null");
+			return null;
+		}
+	}
+	
+	public static String[] getRefreshTargetIds(CommandOutcome cout){
+		System.out.println("getRefreshTargetIds:CommandOutcome");
+		String [] ris = getRefreshTargetIds(cout.getCommand());
+		System.out.println("getRefreshTargetIds:CommandOutcome->"+ris);
+		return ris;
+	}
+	
+	public static String[] getRefreshTargetIds(SequenceCommand c){
+		System.out.println("getRefreshTargetIds:SequenceCommand");
+		Iterator<Command> it = c.getCommands().iterator();
+		ArrayList<String> ids = new ArrayList<String>();
+		while (it.hasNext()) {
+			Command currStep = it.next();
+			String[] parz = getRefreshTargetIds(currStep);
+			if (parz!=null)
+				for (int i=0;i<parz.length;i++) {
+					String currId = parz[i];
+					ids.add(currId);
+				}
+		}
+		if (ids.size()>0){
+			String [] ris = new String[ids.size()];
+			int i=0;
+			Iterator<String> resIt = ids.iterator();
+			while (resIt.hasNext()) {
+				String currId = resIt.next();
+				ris[i++]=currId;
+			}
+			System.out.println("getRefreshTargetIds:SequenceCommand->"+ris);
+			return ris;
+		}
+		else {
+			System.out.println("getRefreshTargetIds:SequenceCommand->null");
+			return null;
+		}
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS
 

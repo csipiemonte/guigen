@@ -16,7 +16,7 @@
             </eventHandler>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpTestsoftRepaint" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5">
+        <contentPanels name="cpTestsoftRepaint" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test Repaint">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -56,6 +56,16 @@
                     <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie"/>
                   </columnModel>
                 </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbComuni" label="comuni" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
+                  <databinding appData="//@appDataDefs/@appData.6"/>
+                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                </widgets>
+                <widgets xsi:type="guigen:ComboBox" name="cbComuni2" label="comuni" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                  <eventHandlers eventType="VALUE_CHANGED">
+                    <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.5" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
+                  </eventHandlers>
+                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -63,7 +73,7 @@
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="eseguiQualcosa">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.1"/>
+                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -243,7 +253,8 @@
     <appData name="numeroInt" type="//@typedefs/@types.8"/>
     <appData name="comuni" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.34"/>
     <appData name="attivo" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
-    <appData name="comuneCorrente" type="//@typedefs/@types.31"/>
+    <appData name="comuneCorrente" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.31"/>
+    <appData name="codComuniSelez" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.20"/>
   </appDataDefs>
   <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>

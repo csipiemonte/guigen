@@ -200,7 +200,7 @@ Definizioni generali: header, footer, ecc
 		<!--#include virtual="/include/templateBASE/head_js_generali.html" -->
 <!--/head -->
 «ENDREM»
-
+		<customtag:ajaxify-header />
 	</head>
 	<body>
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
@@ -886,11 +886,13 @@ Gestione del BUILD => file: buildfiles.xpt
 «DEFINE strutsThemeIvy FOR GUIModel»
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.0">
 	<artifact name="util-struts2-csitemplate-rupar-1.0.0" type="jar"/>
+	<artifact name="util-struts2-csitemplate-1.0.0" type="jar"/>
 </dependency>
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
-	<artifact name="custom-component-1.0.3" type="jar"/>
-	<artifact name="custom-component-attr-1.0.3" type="jar"/>
-	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.1.0">
+	<artifact name="custom-component-1.1.0" type="jar"/>
+	<artifact name="custom-component-attr-1.1.0" type="jar"/>
+	<artifact name="custom-component-rich-1.1.0" type="jar"/>
+	<!--<artifact name="util-struts2-csitemplate-1.1.0" type="jar"/>-->
 </dependency>
 «ENDDEFINE»
 
@@ -912,29 +914,28 @@ basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono element
 error.msg.invalid_page=pagina non valida
 
 export.banner=<div class="opzioni">{0}</div>
-export.banner.sepchar= &nbsp;
+export.banner.sepchar= 
 
 paging.banner.item_name=risultato
 paging.banner.items_name=risultati
 
-paging.banner.no_items_found=<div class="paginazione"><span class="sx">Nessun {0} trovato.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.one_item_found=<div class="paginazione"><span class="sx">Un {0} trovato.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.all_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati, tutti i {2} visualizzati.</span><span class="bugFix">&nbsp;|&nbsp;</span>
-paging.banner.some_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati ({5} pagine)</span><span class="bugFix">&nbsp;|&nbsp;</span>
+paging.banner.no_items_found=<div class="paginazione"><span class="sx">Nessun {0} trovato.</span><span class="bugFix"> | </span>
+paging.banner.one_item_found=<div class="paginazione"><span class="sx">Un {0} trovato.</span><span class="bugFix"> | </span>
+paging.banner.all_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati, tutti i {2} visualizzati.</span><span class="bugFix"> | </span>
+paging.banner.some_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati ({5} pagine)</span><span class="bugFix"> | </span>
 
-paging.banner.full=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}"><< prec</a> | <a href="{3}">succ >></a> <a href="{4}">ultima</a></span></div>
-paging.banner.first=<span class="dx">{0} <a href="{3}">succ >></a> <a href="{4}">ultima</a></span></div>
-paging.banner.last=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}"><< prec</a></span></div>
+paging.banner.full=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}">&lt;&lt; prec</a> | <a href="{3}">succ &gt;&gt;</a> <a href="{4}">ultima</a></span></div>
+paging.banner.first=<span class="dx">{0} <a href="{3}">succ &gt;&gt;</a> <a href="{4}">ultima</a></span></div>
+paging.banner.last=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}">&lt;&lt; prec</a></span></div>
 paging.banner.onepage=<span class="dx">pagina {0}</span></div>
 
-paging.banner.page.selected=<span class="evidenza">{0}</span>
+paging.banner.page.selected=<span class="evidenzaLink">{0}</span>
 paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
-paging.banner.page.separator=<span class="bugFix">&nbsp;|&nbsp;</span>
+paging.banner.page.separator=<span class="bugFix"> | </span>
 
 
 # unused
 save.excel.banner=<a href="{0}" rel="external">save ({1} bytes)</a>
-
 
 ############################################################################
 # CSS PERSONALIZZATI

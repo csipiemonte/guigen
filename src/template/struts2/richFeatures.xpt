@@ -1,0 +1,53 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::richFeatures»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
+
+«DEFINE ajaxifyControlHeader FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Button»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler»
+	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Button»
+	</customtag:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table»
+	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="table" 
+		pageId="«parentCP.name»">
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Table»
+	</customtag:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR ComboBox»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler»
+	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="combo" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler)».do"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»" >
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR ComboBox»
+	</customtag:ajaxify>
+«ENDDEFINE»
