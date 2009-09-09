@@ -63,6 +63,7 @@ public class TextFieldItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFieldLengthPropertyDescriptor(object);
+			addFieldMaxLengthPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,6 +82,28 @@ public class TextFieldItemProvider
 				 getString("_UI_TextField_fieldLength_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_TextField_fieldLength_feature", "_UI_TextField_type"),
 				 GuigenPackage.Literals.TEXT_FIELD__FIELD_LENGTH,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Field Max Length feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFieldMaxLengthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TextField_fieldMaxLength_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TextField_fieldMaxLength_feature", "_UI_TextField_type"),
+				 GuigenPackage.Literals.TEXT_FIELD__FIELD_MAX_LENGTH,
 				 true,
 				 false,
 				 false,
@@ -127,6 +150,7 @@ public class TextFieldItemProvider
 
 		switch (notification.getFeatureID(TextField.class)) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
+			case GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

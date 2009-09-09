@@ -1690,13 +1690,22 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_FIELD__FIELD_LENGTH = DATA_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Field Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__FIELD_MAX_LENGTH = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Text Field</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_FIELD_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int TEXT_FIELD_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6625,6 +6634,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTextField_FieldLength();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.TextField#getFieldMaxLength <em>Field Max Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Field Max Length</em>'.
+	 * @see it.csi.mddtools.guigen.TextField#getFieldMaxLength()
+	 * @see #getTextField()
+	 * @generated
+	 */
+	EAttribute getTextField_FieldMaxLength();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TextArea <em>Text Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9679,6 +9699,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TEXT_FIELD__FIELD_LENGTH = eINSTANCE.getTextField_FieldLength();
+
+		/**
+		 * The meta object literal for the '<em><b>Field Max Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TEXT_FIELD__FIELD_MAX_LENGTH = eINSTANCE.getTextField_FieldMaxLength();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TextAreaImpl <em>Text Area</em>}' class.

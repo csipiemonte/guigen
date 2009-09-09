@@ -20,6 +20,7 @@ package it.csi.mddtools.guigen;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TextField#getFieldLength <em>Field Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TextField#getFieldMaxLength <em>Field Max Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,5 +58,31 @@ public interface TextField extends DataWidget {
 	 * @generated
 	 */
 	void setFieldLength(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Field Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Field Max Length</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Field Max Length</em>' attribute.
+	 * @see #setFieldMaxLength(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTextField_FieldMaxLength()
+	 * @model
+	 * @generated
+	 */
+	int getFieldMaxLength();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.TextField#getFieldMaxLength <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field Max Length</em>' attribute.
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 */
+	void setFieldMaxLength(int value);
 
 } // TextField

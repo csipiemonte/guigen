@@ -1457,6 +1457,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTextField_FieldMaxLength() {
+		return (EAttribute)textFieldEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTextArea() {
 		return textAreaEClass;
 	}
@@ -3772,6 +3781,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		textFieldEClass = createEClass(TEXT_FIELD);
 		createEAttribute(textFieldEClass, TEXT_FIELD__FIELD_LENGTH);
+		createEAttribute(textFieldEClass, TEXT_FIELD__FIELD_MAX_LENGTH);
 
 		textAreaEClass = createEClass(TEXT_AREA);
 		createEAttribute(textAreaEClass, TEXT_AREA__ROWS);
@@ -4280,6 +4290,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(textFieldEClass, TextField.class, "TextField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTextField_FieldLength(), ecorePackage.getEInt(), "fieldLength", "15", 0, 1, TextField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTextField_FieldMaxLength(), ecorePackage.getEInt(), "fieldMaxLength", null, 0, 1, TextField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(textAreaEClass, TextArea.class, "TextArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTextArea_Rows(), ecorePackage.getEInt(), "rows", "10", 0, 1, TextArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

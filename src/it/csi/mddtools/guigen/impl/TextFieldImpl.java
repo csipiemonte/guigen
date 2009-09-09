@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TextFieldImpl#getFieldLength <em>Field Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TextFieldImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +49,26 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 	 * @ordered
 	 */
 	protected int fieldLength = FIELD_LENGTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFieldMaxLength() <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int FIELD_MAX_LENGTH_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getFieldMaxLength() <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected int fieldMaxLength = FIELD_MAX_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,11 +115,34 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getFieldMaxLength() {
+		return fieldMaxLength;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFieldMaxLength(int newFieldMaxLength) {
+		int oldFieldMaxLength = fieldMaxLength;
+		fieldMaxLength = newFieldMaxLength;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH, oldFieldMaxLength, fieldMaxLength));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
 				return getFieldLength();
+			case GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH:
+				return getFieldMaxLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -113,6 +157,9 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 		switch (featureID) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
 				setFieldLength((Integer)newValue);
+				return;
+			case GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH:
+				setFieldMaxLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -129,6 +176,9 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
 				setFieldLength(FIELD_LENGTH_EDEFAULT);
 				return;
+			case GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH:
+				setFieldMaxLength(FIELD_MAX_LENGTH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -143,6 +193,8 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 		switch (featureID) {
 			case GuigenPackage.TEXT_FIELD__FIELD_LENGTH:
 				return fieldLength != FIELD_LENGTH_EDEFAULT;
+			case GuigenPackage.TEXT_FIELD__FIELD_MAX_LENGTH:
+				return fieldMaxLength != FIELD_MAX_LENGTH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -159,6 +211,8 @@ public class TextFieldImpl extends DataWidgetImpl implements TextField {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (fieldLength: ");
 		result.append(fieldLength);
+		result.append(", fieldMaxLength: ");
+		result.append(fieldMaxLength);
 		result.append(')');
 		return result.toString();
 	}

@@ -654,6 +654,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
 <!-- widget «this.name» -->
 <s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
+	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getTextFieldStyleByLayout(model, this)»
 />
