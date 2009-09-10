@@ -393,6 +393,9 @@ context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
 context DataWidget if (this.databinding != null && this.metaType != Table) WARNING "Il tipo del widget non corrisponde con il tipo del databinding "+loc() : 
 	widgetDataBindingCorrispondenceCheck(this);
 
+context Table ERROR "Non è stato specificato il binding alla collection per la table "+name :
+	this.multiDataBinding != null;
+	
 // [DM] Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType
 context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType " + loc() :
 	this.types.select(t|t.metaType == SimpleType).size == 0; 
