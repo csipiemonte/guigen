@@ -227,7 +227,7 @@
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@SSOBART_CODSERVIZIO@"  
 		value="${ssobart.codservizio}"/>
-	<replace file="${build}/temp/conf/ejb/business/${webapp}/META-INF/SSOBARTPepAuthPD.xml" 
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/SSOBARTPepAuthPD.xml" 
 		token="@SSOBART_PEPAUTH_URL@"  
 		value="${ssobart.pepauth.url}"/>
 				
@@ -981,7 +981,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 		UISecConstraint «name»_ctr = new ComplexUISecConstraint(«name»_constraints);
 		allConstraints.put("«name»", «name»_ctr);
 «ELSE»
-		// constraint fittizio per «this»
+		// constraint fittizio per «this.name»
 		UISecConstraint «name»_default«behavior.toLowerCase().toFirstUpper()»_ctr =
 		«EXPAND uiDummyConstraintNew(model, behavior) FOR this-»
 		 
