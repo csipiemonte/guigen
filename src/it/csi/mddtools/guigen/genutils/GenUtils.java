@@ -2505,7 +2505,7 @@ public class GenUtils {
 	 * Se non vi sono RefreshViewCommand nella struttura di comandi il risultato e' null.
 	 */
 	public static String[] getRefreshTargetIds(EventHandler eh){
-		System.out.println("getRefreshTargetIds:EventHandler");
+		//System.out.println("getRefreshTargetIds:EventHandler");
 		if (eh.getCommand()!=null){
 			return getRefreshTargetIds(eh.getCommand());
 		}
@@ -2514,9 +2514,9 @@ public class GenUtils {
 
 	//public static String[] getRefreshTargetIds(CommandWidget cw){
 	public static ArrayList<String> getRefreshTargetIds(Widget cw){
-		System.out.println("getRefreshTargetIds:CommandWidget");
+		//System.out.println("getRefreshTargetIds:CommandWidget");
 		String [] ris = getRefreshTargetIds(cw.getEventHandlers());
-		System.out.println("getRefreshTargetIds:CommandWidget->"+ris);
+		//System.out.println("getRefreshTargetIds:CommandWidget->"+ris);
 		//return ris;
 		ArrayList<String> ris2 = new ArrayList<String>();
 		if (ris!=null){
@@ -2532,7 +2532,7 @@ public class GenUtils {
 	}
 	
 	public static String[] getRefreshTargetIds(EList<EventHandler> ehs){
-		System.out.println("getRefreshTargetIds:EventHandler[]");
+		//System.out.println("getRefreshTargetIds:EventHandler[]");
 		Iterator<EventHandler> it = ehs.iterator();
 		ArrayList<String> ids = new ArrayList<String>();
 		while (it.hasNext()) {
@@ -2553,17 +2553,17 @@ public class GenUtils {
 				String currId = resIt.next();
 				ris[i++]=currId;
 			}
-			System.out.println("getRefreshTargetIds:EventHandler[]->"+ris);
+			//System.out.println("getRefreshTargetIds:EventHandler[]->"+ris);
 			return ris;
 		}
 		else{
-			System.out.println("getRefreshTargetIds:EventHandler[]->null");
+			//System.out.println("getRefreshTargetIds:EventHandler[]->null");
 			return null;
 		}
 	}
 	
 	public static String[] getRefreshTargetIds(Command c){
-		System.out.println("getRefreshTargetIds:Command");
+		//System.out.println("getRefreshTargetIds:Command");
 		if (c instanceof SequenceCommand)
 			return getRefreshTargetIds((SequenceCommand)c);
 		else if (c instanceof ExecCommand)
@@ -2575,7 +2575,7 @@ public class GenUtils {
 	}
 	
 	public static String[] getRefreshTargetIds(RefreshViewCommand c){
-		System.out.println("getRefreshTargetIds:RefreshViewCommand");
+		//System.out.println("getRefreshTargetIds:RefreshViewCommand");
 		ArrayList<String> ids = new ArrayList<String>();
 		Iterator<Panel> it = c.getTargetPanels().iterator();
 		while(it.hasNext()){
@@ -2589,23 +2589,22 @@ public class GenUtils {
 				String currId = resIt.next();
 				ris[i++]=currId;
 			}
-			System.out.println("getRefreshTargetIds:RefreshViewCommand->"+ris);
+			//System.out.println("getRefreshTargetIds:RefreshViewCommand->"+ris);
 			return ris;
 		}
 		else{
-			System.out.println("getRefreshTargetIds:RefreshViewCommand->null");
+			//System.out.println("getRefreshTargetIds:RefreshViewCommand->null");
 			return null;
 		}
 	}
 	
 	public static String[] getRefreshTargetIds(ExecCommand c){
-		System.out.println("getRefreshTargetIds:ExecCommand");
+		//System.out.println("getRefreshTargetIds:ExecCommand");
 		Iterator<CommandOutcome> it = c.getResults().iterator();
 		ArrayList<String> ids = new ArrayList<String>();
 		while (it.hasNext()) {
 			CommandOutcome outcome = it.next();
 			String[] parz = getRefreshTargetIds(outcome);
-			System.out.println("parz="+parz);
 			if (parz!=null)
 				for (int i = 0; i<parz.length;i++) {
 					String currId = parz[i];
@@ -2620,24 +2619,24 @@ public class GenUtils {
 				String currId = resIt.next();
 				ris[i++]=currId;
 			}
-			System.out.println("getRefreshTargetIds:ExecCommand->"+ris);
+			//System.out.println("getRefreshTargetIds:ExecCommand->"+ris);
 			return ris;
 		}
 		else{
-			System.out.println("getRefreshTargetIds:ExecCommand->null");
+			//System.out.println("getRefreshTargetIds:ExecCommand->null");
 			return null;
 		}
 	}
 	
 	public static String[] getRefreshTargetIds(CommandOutcome cout){
-		System.out.println("getRefreshTargetIds:CommandOutcome");
+		//System.out.println("getRefreshTargetIds:CommandOutcome");
 		String [] ris = getRefreshTargetIds(cout.getCommand());
-		System.out.println("getRefreshTargetIds:CommandOutcome->"+ris);
+		//System.out.println("getRefreshTargetIds:CommandOutcome->"+ris);
 		return ris;
 	}
 	
 	public static String[] getRefreshTargetIds(SequenceCommand c){
-		System.out.println("getRefreshTargetIds:SequenceCommand");
+		//System.out.println("getRefreshTargetIds:SequenceCommand");
 		Iterator<Command> it = c.getCommands().iterator();
 		ArrayList<String> ids = new ArrayList<String>();
 		while (it.hasNext()) {
@@ -2657,11 +2656,11 @@ public class GenUtils {
 				String currId = resIt.next();
 				ris[i++]=currId;
 			}
-			System.out.println("getRefreshTargetIds:SequenceCommand->"+ris);
+			//System.out.println("getRefreshTargetIds:SequenceCommand->"+ris);
 			return ris;
 		}
 		else {
-			System.out.println("getRefreshTargetIds:SequenceCommand->null");
+			//System.out.println("getRefreshTargetIds:SequenceCommand->null");
 			return null;
 		}
 	}
