@@ -86,7 +86,7 @@ public class GenUtilsLayoutRupar {
 						// devo capire se è l'ultimo o no
 						Button lastB = (Button)container.getWidgets().get(container.getWidgets().size()-1);
 						if ( lastB == b ) {
-							btnStyleT = "inputBarra1";
+							btnStyleT = "inputBarra2";
 						} else {
 							btnStyleT = "inputPulsante";
 						}
