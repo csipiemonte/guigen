@@ -709,9 +709,7 @@ public class GenUtils {
 			Iterator<Menu> it_subm = m.getSubmenu().iterator();
 			while(it_subm.hasNext()){
 				Menu currSubm = it_subm.next();
-				List<ContentPanel> subJumps = getAllPossibleJumps(currSubm);
-				if (subJumps!=null)
-					result.addAll(subJumps);
+				result.addAll(getAllPossibleJumps(currSubm));
 			}
 		}
 		return result;
@@ -872,7 +870,7 @@ public class GenUtils {
 	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh) {
 		Command a = evh.getCommand();
 		if (a==null) {
-			return new ArrayList<ContentPanel>();
+			return null;
 		} else {
 			return getAllPossibleJumps(a);
 		}
@@ -891,7 +889,7 @@ public class GenUtils {
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleJumps((SequenceCommand)a);
 		else
-			return new ArrayList<ContentPanel>();
+			return null;
 	}
 
 	/**
@@ -1021,7 +1019,7 @@ public class GenUtils {
 		else if (p instanceof DialogPanel)
 			return getAllPossibleExtJumps((DialogPanel)p);
 		else
-			return new ArrayList<JumpExtCommand>();
+			return null;
 	}
 
 	/**
@@ -1155,7 +1153,7 @@ public class GenUtils {
 	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh) {
 		Command a = evh.getCommand();
 		if (a==null) {
-			return new ArrayList<JumpExtCommand>();
+			return null;
 		} else{
 			return getAllPossibleExtJumps(a);
 		}
@@ -1174,7 +1172,7 @@ public class GenUtils {
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleExtJumps((SequenceCommand)a);
 		else
-			return new ArrayList<JumpExtCommand>();
+			return null;
 	}
 
 	/**
