@@ -701,13 +701,17 @@ public class GenUtils {
 	public static List<ContentPanel> getAllPossibleJumps(Menu m) {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		EventHandler currEH = m.getEventHandler();
-		result = getAllPossibleJumps(currEH);
+		List<ContentPanel> ehResult = getAllPossibleJumps(currEH);
+		if (ehResult!=null)
+			result.addAll(ehResult);
 		// vai nei sottomenu
 		if (m.getSubmenu().size()>0){
 			Iterator<Menu> it_subm = m.getSubmenu().iterator();
 			while(it_subm.hasNext()){
 				Menu currSubm = it_subm.next();
-				result.addAll(getAllPossibleJumps(currSubm));
+				List<ContentPanel> subJumps = getAllPossibleJumps(currSubm);
+				if (subJumps!=null)
+					result.addAll(subJumps);
 			}
 		}
 		return result;
@@ -868,7 +872,7 @@ public class GenUtils {
 	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh) {
 		Command a = evh.getCommand();
 		if (a==null) {
-			return null;
+			return new ArrayList<ContentPanel>();
 		} else {
 			return getAllPossibleJumps(a);
 		}
@@ -887,7 +891,7 @@ public class GenUtils {
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleJumps((SequenceCommand)a);
 		else
-			return null;
+			return new ArrayList<ContentPanel>();
 	}
 
 	/**
@@ -986,7 +990,9 @@ public class GenUtils {
 	public static List<JumpExtCommand> getAllPossibleExtJumps(Menu m) {
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
 		EventHandler currEH = m.getEventHandler();
-		result = getAllPossibleExtJumps(currEH);
+		List<JumpExtCommand> ehResult = getAllPossibleExtJumps(currEH);
+		if (ehResult!=null)
+			result.addAll(ehResult);
 		// vai nei sottomenu
 		if (m.getSubmenu().size()>0){
 			Iterator<Menu> it_subm = m.getSubmenu().iterator();
@@ -1015,7 +1021,7 @@ public class GenUtils {
 		else if (p instanceof DialogPanel)
 			return getAllPossibleExtJumps((DialogPanel)p);
 		else
-			return null;
+			return new ArrayList<JumpExtCommand>();
 	}
 
 	/**
@@ -1149,7 +1155,7 @@ public class GenUtils {
 	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh) {
 		Command a = evh.getCommand();
 		if (a==null) {
-			return null;
+			return new ArrayList<JumpExtCommand>();
 		} else{
 			return getAllPossibleExtJumps(a);
 		}
@@ -1168,7 +1174,7 @@ public class GenUtils {
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleExtJumps((SequenceCommand)a);
 		else
-			return null;
+			return new ArrayList<JumpExtCommand>();
 	}
 
 	/**
