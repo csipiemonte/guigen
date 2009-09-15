@@ -109,24 +109,29 @@ package «getPresentationJavaPackage()»;
 
 /// ActivateMultiPanelItemCommand
 public class ActivateMultiPanelItemCommand implements ICommand {
+	String contentPanelName;
 	String containerName; 
 	String itemName;
 	
 	/**
+	 * @param contentPanelName il nome del content panel
 	 * @param containerName il nome del multi-panel contenitore
 	 * @param itemName il nome dell'item da attivare (se null => non mostrare
 	 *  nessun pannello
 	 */
-	public ActivateMultiPanelItemCommand(String containerName, String itemName) {
+	public ActivateMultiPanelItemCommand(String contentPanelName, String containerName, String itemName) {
+		this.contentPanelName = contentPanelName;
 		this.containerName = containerName;
 		this.itemName = itemName;
 	}
 	public String doCommand(BaseAction strutsAction) throws Exception{
 		if (itemName!=null){
-			strutsAction.getSession().put(containerName+"_selectedMultiPanel", containerName+"_"+itemName);
+			strutsAction.getSession().put(
+				contentPanelName+"_"+containerName+"_selectedMultiPanel", 
+				contentPanelName+"_"+contentPanelName+"_"+containerName+"_"+itemName);
 		}
 		else{
-			strutsAction.getSession().remove(containerName+"_selectedMultiPanel");
+			strutsAction.getSession().remove(contentPanelName+"_"+containerName+"_selectedMultiPanel");
 		}
 		return null;
 	}
@@ -654,7 +659,7 @@ public class ShowDialogCommand implements ICommand {
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ActivateMultiPanelItemCommand»
 	/// ActivateMultiPanelItem Command begin
 	ActivateMultiPanelItemCommand act_«actionsVarName»_«actionNumber» = 
-		new ActivateMultiPanelItemCommand("«this.multipanel.name»", "«this.activeItem.name»");
+		new ActivateMultiPanelItemCommand("«this.findParentContentPanel().name»", "«this.multipanel.name»", "«this.activeItem.name»");
 	/// ActivateMultiPanelItem Command end
 «ENDDEFINE»
 
