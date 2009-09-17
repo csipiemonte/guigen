@@ -68,6 +68,7 @@ public class TableItemProvider
 			addPageSizePropertyDescriptor(object);
 			addEnableExportPropertyDescriptor(object);
 			addCustomDecoratorPropertyDescriptor(object);
+			addSummaryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -134,6 +135,28 @@ public class TableItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Summary feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSummaryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Table_summary_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Table_summary_feature", "_UI_Table_type"),
+				 GuigenPackage.Literals.TABLE__SUMMARY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -209,6 +232,7 @@ public class TableItemProvider
 			case GuigenPackage.TABLE__PAGE_SIZE:
 			case GuigenPackage.TABLE__ENABLE_EXPORT:
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
+			case GuigenPackage.TABLE__SUMMARY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.TABLE__MULTI_DATA_BINDING:

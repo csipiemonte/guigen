@@ -2221,13 +2221,22 @@ public interface GuigenPackage extends EPackage {
 	int TABLE__CUSTOM_DECORATOR = DATA_WIDGET_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Summary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__SUMMARY = DATA_WIDGET_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
+	int TABLE_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5809,13 +5818,22 @@ public interface GuigenPackage extends EPackage {
 	int WIDGETS_PANEL__WIDGETS = PANEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Summary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGETS_PANEL__SUMMARY = PANEL_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Widgets Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIDGETS_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 1;
+	int WIDGETS_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.
@@ -6771,6 +6789,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTable_CustomDecorator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Table#getSummary <em>Summary</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Summary</em>'.
+	 * @see it.csi.mddtools.guigen.Table#getSummary()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_Summary();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CheckBox <em>Check Box</em>}'.
@@ -9031,6 +9060,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getWidgetsPanel_Widgets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WidgetsPanel#getSummary <em>Summary</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Summary</em>'.
+	 * @see it.csi.mddtools.guigen.WidgetsPanel#getSummary()
+	 * @see #getWidgetsPanel()
+	 * @generated
+	 */
+	EAttribute getWidgetsPanel_Summary();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ScreenState <em>Screen State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9811,6 +9851,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TABLE__CUSTOM_DECORATOR = eINSTANCE.getTable_CustomDecorator();
+
+		/**
+		 * The meta object literal for the '<em><b>Summary</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__SUMMARY = eINSTANCE.getTable_Summary();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CheckBoxImpl <em>Check Box</em>}' class.
@@ -11685,6 +11733,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WIDGETS_PANEL__WIDGETS = eINSTANCE.getWidgetsPanel_Widgets();
+
+		/**
+		 * The meta object literal for the '<em><b>Summary</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIDGETS_PANEL__SUMMARY = eINSTANCE.getWidgetsPanel_Summary();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.

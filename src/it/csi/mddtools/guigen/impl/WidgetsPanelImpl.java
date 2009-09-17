@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.WidgetsPanel;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getWidgets <em>Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getSummary <em>Summary</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +48,25 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 	 * @ordered
 	 */
 	protected EList<Widget> widgets;
+
+	/**
+	 * The default value of the '{@link #getSummary() <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSummary()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SUMMARY_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getSummary() <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSummary()
+	 * @generated
+	 * @ordered
+	 */
+	protected String summary = SUMMARY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,6 +104,27 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSummary() {
+		return summary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSummary(String newSummary) {
+		String oldSummary = summary;
+		summary = newSummary;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGETS_PANEL__SUMMARY, oldSummary, summary));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -101,6 +144,8 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 		switch (featureID) {
 			case GuigenPackage.WIDGETS_PANEL__WIDGETS:
 				return getWidgets();
+			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
+				return getSummary();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -118,6 +163,9 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 				getWidgets().clear();
 				getWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
+			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
+				setSummary((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -133,6 +181,9 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 			case GuigenPackage.WIDGETS_PANEL__WIDGETS:
 				getWidgets().clear();
 				return;
+			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
+				setSummary(SUMMARY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -147,8 +198,26 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 		switch (featureID) {
 			case GuigenPackage.WIDGETS_PANEL__WIDGETS:
 				return widgets != null && !widgets.isEmpty();
+			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
+				return SUMMARY_EDEFAULT == null ? summary != null : !SUMMARY_EDEFAULT.equals(summary);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (summary: ");
+		result.append(summary);
+		result.append(')');
+		return result.toString();
 	}
 
 } //WidgetsPanelImpl

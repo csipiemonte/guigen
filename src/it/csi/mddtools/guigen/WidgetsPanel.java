@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.WidgetsPanel#getWidgets <em>Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.WidgetsPanel#getSummary <em>Summary</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,5 +41,31 @@ public interface WidgetsPanel extends Panel {
 	 * @generated
 	 */
 	EList<Widget> getWidgets();
+
+	/**
+	 * Returns the value of the '<em><b>Summary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Summary</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Summary</em>' attribute.
+	 * @see #setSummary(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidgetsPanel_Summary()
+	 * @model
+	 * @generated
+	 */
+	String getSummary();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.WidgetsPanel#getSummary <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Summary</em>' attribute.
+	 * @see #getSummary()
+	 * @generated
+	 */
+	void setSummary(String value);
 
 } // WidgetsPanel

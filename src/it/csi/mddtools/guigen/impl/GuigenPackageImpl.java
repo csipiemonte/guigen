@@ -1574,6 +1574,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTable_Summary() {
+		return (EAttribute)tableEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCheckBox() {
 		return checkBoxEClass;
 	}
@@ -3491,6 +3500,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWidgetsPanel_Summary() {
+		return (EAttribute)widgetsPanelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getScreenState() {
 		return screenStateEClass;
 	}
@@ -3798,6 +3816,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(tableEClass, TABLE__PAGE_SIZE);
 		createEAttribute(tableEClass, TABLE__ENABLE_EXPORT);
 		createEAttribute(tableEClass, TABLE__CUSTOM_DECORATOR);
+		createEAttribute(tableEClass, TABLE__SUMMARY);
 
 		checkBoxEClass = createEClass(CHECK_BOX);
 
@@ -4096,6 +4115,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		widgetsPanelEClass = createEClass(WIDGETS_PANEL);
 		createEReference(widgetsPanelEClass, WIDGETS_PANEL__WIDGETS);
+		createEAttribute(widgetsPanelEClass, WIDGETS_PANEL__SUMMARY);
 
 		screenStateEClass = createEClass(SCREEN_STATE);
 		createEAttribute(screenStateEClass, SCREEN_STATE__NAME);
@@ -4307,6 +4327,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getTable_PageSize(), ecorePackage.getEInt(), "pageSize", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTable_EnableExport(), ecorePackage.getEBoolean(), "enableExport", "true", 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTable_CustomDecorator(), ecorePackage.getEBoolean(), "customDecorator", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTable_Summary(), ecorePackage.getEString(), "summary", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(checkBoxEClass, CheckBox.class, "CheckBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4605,6 +4626,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(widgetsPanelEClass, WidgetsPanel.class, "WidgetsPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWidgetsPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, WidgetsPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWidgetsPanel_Summary(), ecorePackage.getEString(), "summary", null, 0, 1, WidgetsPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(screenStateEClass, ScreenState.class, "ScreenState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getScreenState_Name(), ecorePackage.getEString(), "name", null, 0, 1, ScreenState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

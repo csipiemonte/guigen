@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getPageSize <em>Page Size</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isEnableExport <em>Enable Export</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#isCustomDecorator <em>Custom Decorator</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TableImpl#getSummary <em>Summary</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,6 +114,25 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * @ordered
 	 */
 	protected boolean customDecorator = CUSTOM_DECORATOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSummary() <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSummary()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SUMMARY_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getSummary() <em>Summary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSummary()
+	 * @generated
+	 * @ordered
+	 */
+	protected String summary = SUMMARY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -287,6 +307,27 @@ public class TableImpl extends DataWidgetImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSummary() {
+		return summary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSummary(String newSummary) {
+		String oldSummary = summary;
+		summary = newSummary;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TABLE__SUMMARY, oldSummary, summary));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -316,6 +357,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return isEnableExport();
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
 				return isCustomDecorator();
+			case GuigenPackage.TABLE__SUMMARY:
+				return getSummary();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -342,6 +385,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return;
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
 				setCustomDecorator((Boolean)newValue);
+				return;
+			case GuigenPackage.TABLE__SUMMARY:
+				setSummary((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -370,6 +416,9 @@ public class TableImpl extends DataWidgetImpl implements Table {
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
 				setCustomDecorator(CUSTOM_DECORATOR_EDEFAULT);
 				return;
+			case GuigenPackage.TABLE__SUMMARY:
+				setSummary(SUMMARY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -392,6 +441,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 				return enableExport != ENABLE_EXPORT_EDEFAULT;
 			case GuigenPackage.TABLE__CUSTOM_DECORATOR:
 				return customDecorator != CUSTOM_DECORATOR_EDEFAULT;
+			case GuigenPackage.TABLE__SUMMARY:
+				return SUMMARY_EDEFAULT == null ? summary != null : !SUMMARY_EDEFAULT.equals(summary);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -444,6 +495,8 @@ public class TableImpl extends DataWidgetImpl implements Table {
 		result.append(enableExport);
 		result.append(", customDecorator: ");
 		result.append(customDecorator);
+		result.append(", summary: ");
+		result.append(summary);
 		result.append(')');
 		return result.toString();
 	}

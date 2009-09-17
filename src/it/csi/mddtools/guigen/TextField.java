@@ -67,6 +67,9 @@ public interface TextField extends DataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Field Max Length</em>' attribute.
 	 * @see #setFieldMaxLength(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTextField_FieldMaxLength()
