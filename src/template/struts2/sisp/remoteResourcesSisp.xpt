@@ -883,6 +883,9 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
+	«IF !isNullOrEmpty(this.label)-»
+	<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
+	«ENDIF-»
 	<div class="conthTab">
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.lastIteration ? "<s:property value=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + " ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
@@ -898,6 +901,9 @@ Gestione dei PANNELLI
 
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
+«IF !isNullOrEmpty(this.label)-»
+<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
+«ENDIF-»
 <div class="contenutiTab">
 	<div id="wizard">
 		<h3 class="alt">Sezioni</h3>
@@ -1005,6 +1011,9 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+	«IF !isNullOrEmpty(this.label)-»
+	<h5><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h5>
+	«ENDIF-»
 	«IF !this.widgets.isEmpty -»
 	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalCode()»" «getPanelGridPercentCols(this)»>
 	«ENDIF-»
