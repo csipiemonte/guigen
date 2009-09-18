@@ -25,8 +25,8 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-»
 	«IF leftPanels != null && leftPanels.size > 0-»
 	<div class="formPanel floatLeft">
-	«FOREACH leftPanels AS currSubform-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+	«FOREACH leftPanels AS currSubformLeft-»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubformLeft»
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»
@@ -34,11 +34,11 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 
 
 	«REM»Genera i sottopannelli posizionati al CENTRO«ENDREM»
-	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS centerPanels-»
+	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-»
 	«IF centerPanels != null && centerPanels.size > 0-»
 	<div class="formPanel floatCenter">
-	«FOREACH centerPanels AS currSubform-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+	«FOREACH centerPanels AS currSubformCenter-»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubformCenter»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF-»	
@@ -49,8 +49,8 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-»
 	«IF rightPanels != null && rightPanels.size > 0-»
 	<div class="formPanel floatRight">
-	«FOREACH rightPanels AS currSubform-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+	«FOREACH rightPanels AS currSubformRight-»
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubformRight»
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»	
