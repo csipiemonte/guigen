@@ -2,7 +2,6 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.AppDataBinding;
@@ -44,8 +43,7 @@ public class GenUtilsChecks {
 	 * Controlla che tutti i widget di un CommandPanel siano dei CommandWidget o
 	 * al massimo un HiddenValue.
 	 * 
-	 * @param cp
-	 *            Il CommandPanel da controllare.
+	 * @param cp Il CommandPanel da controllare.
 	 * @return true se tutti i widget sono dei CommandWidget (o HiddenValue),
 	 *         false altrimenti.
 	 * @author [DM]
@@ -60,33 +58,31 @@ public class GenUtilsChecks {
 	}
 
 	/**
-	 * Un CommandPanel pu&ograve; avere solo due tipi di layout: [a]
-	 * HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed
-	 * RIGHT)
+	 * Un CommandPanel pu&ograve; avere solo due tipi di layout: 
+	 *    [a] HorizontalFlowPanelLayout, 
+	 *    [b] UDLRCPanelLayout ristretto (solo LEFT e RIGHT)
 	 * 
-	 * @param cp
-	 *            Il CommandPanel da controllare.
-	 * @return true se il layout &egrace; corretto, false altrimenti.
+	 * @param cp  Il CommandPanel da controllare.
+	 * @return  true se il layout &egrace; corretto, false altrimenti.
 	 * @author [DM]
 	 */
 	public static boolean commandPanelLayoutCheck(CommandPanel cp) {
 		boolean res = true;
 
-		if (cp.getLayout() instanceof VerticalFlowPanelLayout) {
+		if ( cp.getLayout() instanceof VerticalFlowPanelLayout || cp.getLayout() instanceof GridPanelLayout ) {
 			res = false;
-		} else if (cp.getLayout() instanceof UDLRCPanelLayout) {
-			for (Widget w : cp.getWidgets()) {
-				if (!(w.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec)) {
+		} else if ( cp.getLayout() instanceof UDLRCPanelLayout ) { 
+			for ( Widget w : cp.getWidgets() ) {
+				if ( !(w.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec) ) {
 					res = false;
-					break;
+					break;				
 				}
-
-				UDLRCWidgetLayoutSpec ls = (UDLRCWidgetLayoutSpec) w
-						.getLayoutSpec();
-				if (ls.getValue() != UDLRCSpecConstants.LEFT
-						&& ls.getValue() != UDLRCSpecConstants.RIGHT) {
+				
+				// center e' stato aggiunto per la nuova architettura (xhtml cross-portal)
+				UDLRCWidgetLayoutSpec ls = (UDLRCWidgetLayoutSpec)w.getLayoutSpec();
+				if ( ls.getValue() != UDLRCSpecConstants.LEFT && ls.getValue() != UDLRCSpecConstants.RIGHT ) {
 					res = false;
-					break;
+					break;				
 				}
 			}
 		}
@@ -130,8 +126,7 @@ public class GenUtilsChecks {
 
 			if (w instanceof DataWidget) {
 				if (((DataWidget) w).getDatabinding() != null) {
-					ApplicationData ad = ((DataWidget) w).getDatabinding()
-							.getAppData();
+					ApplicationData ad = ((DataWidget) w).getDatabinding().getAppData();
 					if (!cp.getAppData().contains(ad)) {
 						ris.add(ad);
 					}
@@ -140,8 +135,7 @@ public class GenUtilsChecks {
 
 			if (w instanceof MultiDataWidget) {
 				if (((MultiDataWidget) w).getMultiDataBinding() != null) {
-					ApplicationData ad = ((MultiDataWidget) w)
-							.getMultiDataBinding().getAppData();
+					ApplicationData ad = ((MultiDataWidget) w).getMultiDataBinding().getAppData();
 					if (!cp.getAppData().contains(ad)) {
 						ris.add(ad);
 					}
@@ -151,8 +145,7 @@ public class GenUtilsChecks {
 			// [DM] Verifico i DataBinding degli ExecCommand
 			if (w.getEventHandlers() != null && w.getEventHandlers().size() > 0) {
 				for (EventHandler eh : w.getEventHandlers()) {
-					for (ExecCommand ec : GenUtils
-							.getAllExecActionsForEventHandler(eh)) {
+					for (ExecCommand ec : GenUtils.getAllExecActionsForEventHandler(eh)) {
 						for (ApplicationData ad : ec.getPostExecData()) {
 							if (!cp.getAppData().contains(ad)) {
 								ris.add(ad);
@@ -179,13 +172,11 @@ public class GenUtilsChecks {
 		// per il momento ignoriamo l'HorizontalFlowPanelLayout
 		if (wp.getLayout() instanceof VerticalFlowPanelLayout
 				|| wp.getLayout() instanceof GridPanelLayout) {
-			StringTokenizer st = new StringTokenizer(wp.getLayout()
-					.getColumnSizes(), ",");
+			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
 			int cols = st.countTokens();
 
 			// verifico che il numero delle colonne sia quello atteso
-			int expectedCols = Integer.parseInt(GenUtilsLayout
-					.getGridPanelColumnsNumber(wp));
+			int expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
 			if (cols != expectedCols) {
 				return false;
 			}
@@ -221,10 +212,8 @@ public class GenUtilsChecks {
 	 */
 	public static boolean calendarDataBindingTypeCheck(Calendar c) {
 		Type t = c.getDatabinding().getAppData().getType();
-		if (c.getDatabinding().getPath() != null
-				&& c.getDatabinding().getPath().length() > 0) {
-			Field f = GenUtils.getSelectedField(null, t, c.getDatabinding()
-					.getPath());
+		if (c.getDatabinding().getPath() != null && c.getDatabinding().getPath().length() > 0) {
+			Field f = GenUtils.getSelectedField(null, t, c.getDatabinding().getPath());
 			if (f != null) {
 				if (f.getType() instanceof SimpleType) {
 					SimpleType ft = (SimpleType) f.getType();
@@ -236,8 +225,7 @@ public class GenUtilsChecks {
 			return false;
 		} else {
 			if (c.getDatabinding().getAppData().getType() instanceof SimpleType
-					&& ((SimpleType) (c.getDatabinding().getAppData().getType()))
-							.getCode() == SimpleTypeCodes.DATE)
+					&& ((SimpleType) (c.getDatabinding().getAppData().getType())).getCode() == SimpleTypeCodes.DATE)
 				return true;
 			else
 				return false;
@@ -247,8 +235,7 @@ public class GenUtilsChecks {
 	/**
 	 * Verifica la corrispondenza di tipo tra DataWidget e binding.
 	 * 
-	 * @param w
-	 *            Il DataWidget da verificare.
+	 * @param w Il DataWidget da verificare.
 	 * @return true se c'&grave; corrispondenza di tipo tra DataWidget e
 	 *         binding, false altrimenti.
 	 * @author [DM]
@@ -264,8 +251,7 @@ public class GenUtilsChecks {
 						db.getPath()!=null&&
 						db.getPath().length()>0)
 				{
-					Field f = GenUtils.getSelectedField(null, db.getAppData().getType(), db
-							.getPath());
+					Field f = GenUtils.getSelectedField(null, db.getAppData().getType(), db.getPath());
 					if (f!=null)
 						return typeEquals(f.getType(), wdt);
 					else

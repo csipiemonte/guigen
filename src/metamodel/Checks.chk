@@ -62,8 +62,9 @@ context FormPanel if this.eContainer.metaType == ContentPanel ERROR "Il FormPane
 
 // In tutti gli altri casi, anche se il layout è ininfluente(al momento viene ignorato, visto che il layout dei widgets 
 // passa come competenza al WidgetsPanel), imponiamo che sia obbligatorio e sia VerticalFlowPanelLayout
-context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo deve avere un layout di tipo VerticalFlowPanelLayout " + loc() :
-	this.layout != null && this.layout.metaType == VerticalFlowPanelLayout;
+// -> MODIFICATO: VARIA A SECONDA DELLA CARTUCCIA
+//context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo deve avere un layout di tipo VerticalFlowPanelLayout " + loc() :
+//	this.layout != null && this.layout.metaType == VerticalFlowPanelLayout;
 
 context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSEWC per tutti i sottopannelli "+loc() :
     (this.layout.metaType!=UDLRCPanelLayout) 
@@ -119,9 +120,9 @@ context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPane
 // 2
 context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget o HiddenValue " + loc() :
 	commandPanelCommandWidgetCheck(this);
-// 3
-context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
-	commandPanelLayoutCheck(this);
+// 3 -> MODIFICATO: VARIA A SECONDA DELLA CARTUCCIA
+//context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
+//	commandPanelLayoutCheck(this);
 // 4
 context CommandPanel ERROR "Un CommandPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
@@ -234,9 +235,6 @@ context Column if multidataPropertySelector !=null ERROR "configurare in alterna
 	multiDataBinding == null;
 
 	 	
-//context Column if editable && editableFlagSelector != null ERROR ""
-
-
 // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
 context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un Pannello con Vertical o Horizontal layout " + loc() :
  	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;
@@ -251,6 +249,7 @@ context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel
 
  context Calendar if (this.databinding != null) ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
 	calendarDataBindingTypeCheck(this);
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener

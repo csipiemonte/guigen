@@ -64,11 +64,19 @@
 		<modelSlot value="model" />
 	</component>
 
-	<!-- check model -->
+	<!-- check model (common checks) -->
 	<component class="oaw.check.CheckComponent">
 		<metaModel id="mm"
 			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
 		<checkFile value="metamodel::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+	
+	<!-- check model (cartridge [=layout] checks) -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="template::${target-platform}::${target-portal}::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
 

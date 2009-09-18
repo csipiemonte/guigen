@@ -1,5 +1,8 @@
 package it.csi.mddtools.guigen.genutils.newrupar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
@@ -21,6 +24,7 @@ import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
+import it.csi.mddtools.guigen.Widget;
 
 import it.csi.mddtools.guigen.genutils.GenUtils;
 import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
@@ -34,6 +38,34 @@ import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
  */
 public class GenUtilsLayoutNewrupar {
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// METODI SPECIFICI
+
+	/**
+	 * 
+	 * @param cp
+	 * @param quadrante
+	 * @return
+	 */
+	public static List<Button> getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) {
+		List<Button> res = new ArrayList<Button>();
+
+		for ( Widget w : cp.getWidgets() ) {
+			if ( w instanceof Button ) {
+				UDLRCWidgetLayoutSpec curLay = (UDLRCWidgetLayoutSpec)w.getLayoutSpec();
+				if ( curLay != null && curLay.getValue() == quadrante ) {
+					res.add((Button)w);
+				}
+			}
+		}
+
+		return res;
+	}
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// RIDEFINIZIONE DI METODI PER AOP	
 
 	/**
 	 * Ho un FormPanel di primo livello con layout UDLRC: quante colonne imposto sull'HTML?
@@ -50,7 +82,7 @@ public class GenUtilsLayoutNewrupar {
 	public static int getColumnsLayout(FormPanel firstLevPanel, GUIModel model) {
 		PanelLayout currPanLay = firstLevPanel.getLayout();
 		int columns = 1;
-		
+
 		if ( currPanLay instanceof VerticalFlowPanelLayout ) {
 			columns = 1;
 		} else if ( currPanLay instanceof UDLRCPanelLayout ) {
@@ -65,6 +97,7 @@ public class GenUtilsLayoutNewrupar {
 
 	/**
 	 * Restituisce lo stile del <div> per i Button
+	 * Entro qui solo se ho un layout UDLRC
 	 *  
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param b Il Button da gestire
@@ -73,8 +106,15 @@ public class GenUtilsLayoutNewrupar {
 	 */
 	public static String getButtonDivStyleByLayout(GUIModel model, Button b) {
 		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+
+		if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.LEFT ) {
+			res = "class=\"button left\"";
+		} else if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.CENTER ) {
+			// per introdurre il caso CENTER è stato necessario modificare i CHECK (prima non era permesso)
+			res = "class=\"button center\"";
+		} else if ( ((UDLRCWidgetLayoutSpec)b.getLayoutSpec()).getValue() ==  UDLRCSpecConstants.RIGHT ) {
+			res = "class=\"button right\"";
+		}
 
 		return res;
 	}
@@ -82,7 +122,6 @@ public class GenUtilsLayoutNewrupar {
 
 	/**
 	 * Restituisce lo stile per i Button.
-	 * Non mi piace molto questa implementazione (troppo empirica), ma...
 	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
 	 * @param b Il Button da gestire
@@ -90,11 +129,11 @@ public class GenUtilsLayoutNewrupar {
 	 * @author [DM]
 	 */
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
-		String btnStyleT = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
-		return btnStyleT;
+		String res = "";
+		// TODO: Implementare nel caso sia necessario trasferire anche sul pulsante il tipo di pannello
+		//       (ma NON deve essere necessario....) o serva dare uno stile al pulsante
+		//       (idem con patate...)
+		return res;
 	}
 
 
@@ -108,9 +147,21 @@ public class GenUtilsLayoutNewrupar {
 	 */
 	public static String getTextFieldStyleByLayout(GUIModel model, TextField t) {
 		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+
+		// stile per il formato (numerico o no)
+		String style = "";
+		Type tp = t.getDataType();
+		if ( tp instanceof SimpleType ) {
+			if ( GenUtils.isNumeric((SimpleType)tp) ) {
+				style = "numbers";
+			}
+		}
+
+		// compongo lo stile
+		if ( !GenUtils.isNullOrEmpty(style) ) {
+			res = "cssClass=\"" + style + "\"";
+		}
+
 		return res;
 	}
 
@@ -124,11 +175,15 @@ public class GenUtilsLayoutNewrupar {
 	 * @author [DM]
 	 */
 	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
-		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
-		return res;
+		String msgSeverity = "";
+		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
+			msgSeverity = " Info";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
+			msgSeverity = " Warning";
+		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
+			msgSeverity = " Error";
+		}
+		return msgSeverity;
 	}
 
 
@@ -143,8 +198,22 @@ public class GenUtilsLayoutNewrupar {
 	 */
 	public static String getColumnStyle(Column col, Table table, GUIModel model) {
 		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
+
+		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+		Field f = GenUtils.getSelectedField(null, t, col.getSelector());
+
+		if ( f != null ) {
+			String style = "";
+			if ( GenUtils.isNumeric((SimpleType)f.getType()) ) {
+				style = "numbers";
+			}
+			
+			// TODO: implementare altri stili se necessario
+			
+			if ( !GenUtils.isNullOrEmpty(style) ) {
+				res = "class=\"" + style + "\"";
+			}
+		}
 
 		return res;
 	}
@@ -161,9 +230,7 @@ public class GenUtilsLayoutNewrupar {
 	 */
 	public static String getCheckboxPortalStyle(GUIModel model) {
 		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+		res = "cssClass=\"checkbox\"";
 		return res;
 	}
 
@@ -180,9 +247,39 @@ public class GenUtilsLayoutNewrupar {
 	 */
 	public static String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) {
 		String res = "";
-		
-		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+
+		SimpleType t = null;
+		if ( w.getDatabinding() != null ) {
+			// recupero il tipo dal Databinding
+			Field f = GenUtils.getSelectedField(null, w.getDatabinding().getAppData().getType(), w.getDatabinding().getPath());
+			if ( f != null ) {
+				if ( f.getType() instanceof SimpleType ) {
+					t = (SimpleType)f.getType();
+				}
+			}
+		}
+		else {
+			// recupero il tipo direttamente dal widget
+			if ( w.getDataType() instanceof SimpleType ) {
+				t = (SimpleType)w.getDataType();
+			}
+		}
+
+		// Imposto lo stile
+		if ( t != null ) {
+			String style = "";
+			
+			if ( GenUtils.isNumeric(t) ) {
+				res = "numbers";
+			}
+			
+			// TODO: implementare altri stili se necessario
+			
+			if ( !GenUtils.isNullOrEmpty(style) ) {
+				res = "tdStyleClass=\"" + style + "\"";
+			}			
+		}
+
 		return res;
 	}
 
@@ -198,9 +295,10 @@ public class GenUtilsLayoutNewrupar {
 	 */	
 	public static String getColumnEditableTextfieldPortalStyle(GUIModel model) {
 		String res = "";
-		
+
 		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
-		
+		//res = "cssClass=\"inputDataMed\"";
+
 		return res;
 	}
 
@@ -219,7 +317,7 @@ public class GenUtilsLayoutNewrupar {
 
 		int left = GenUtilsLayout.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.LEFT).size();
 		int right = GenUtilsLayout.getSubPanelsByLayout(firstLevPanel, UDLRCSpecConstants.RIGHT).size();
-		
+
 		if ( right == 1 ) {
 			// layout 3 colonne
 			columns = 3;
@@ -229,7 +327,7 @@ public class GenUtilsLayoutNewrupar {
 		} else {
 			// layout 1 colonna
 		}
-		
+
 		return columns;
 	}
 

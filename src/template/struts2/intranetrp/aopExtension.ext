@@ -1,11 +1,12 @@
 import guigen;
 import ecore;
 extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
 extension template::struts2::intranetrp::Struts2ExtensionsIntranetrp;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il layout SistemaPiemonte ridefinite mediante AOP              //
+/// Estensioni specifiche per il layout Intranet Regione Piemonte ridefinite mediante AOP    //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 around template::GenericExtensions::getPortalName(GUIModel model) :
@@ -58,6 +59,7 @@ around template::struts2::Struts2Extensions::getTextFieldStyleByLayout(GUIModel 
 // [DM] Restituisce lo stile dei Calendar
 around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
 	"cssClass=\"calendario\"";
+	//"cssClass=\"%{!isWidgetDisabled('" + findParentContentPanel(c).name + "','" + c.name + "') ? 'calendario' : ''}\"";
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :

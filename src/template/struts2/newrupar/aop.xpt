@@ -1,14 +1,50 @@
 «IMPORT guigen»
 
+«IMPORT template::struts2::resourcefiles»
 «IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::newrupar::resourcefilesNewrupar»
 «IMPORT template::struts2::newrupar::remoteResourcesNewrupar»
 
 
 «REM»
+---------------------------------------------------------------------------------------------------------------------------
+ESCLUSIONI TEMPORANEE!!!!!
+RIMUOVERE DOPO LA SISTEMAZIONE DEL LAYOUT
+«ENDREM»
+
+«IMPORT template::struts2::richFeatures»
+
+«AROUND template::struts2::richFeatures::ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table»
+«ENDAROUND»
+
+«AROUND template::struts2::richFeatures::ajaxifyControlFooter FOR Table»
+«ENDAROUND»
+
+«REM»
+FINE ESCLUSIONI TEMPORANEE!!!!!
+---------------------------------------------------------------------------------------------------------------------------
+«ENDREM»
+
+
+
+
+«REM»
 **************************************************************************************************************************
-Ridefinizione mediante AOP dei DEFINE specifici per il layout SISTEMA PIEMONTE
+Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 **************************************************************************************************************************
 «ENDREM»
+
+«REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
+«AROUND template::struts2::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
+	«EXPAND template::struts2::newrupar::resourcefilesNewrupar::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR this»
+«ENDAROUND»
+
+
+«REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
+«AROUND template::struts2::resourcefiles::createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»
+	«EXPAND template::struts2::newrupar::resourcefilesNewrupar::createWidgets(model, cp) FOR this»
+«ENDAROUND»
+
 
 
 «REM»

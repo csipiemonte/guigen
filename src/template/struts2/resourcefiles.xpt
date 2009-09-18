@@ -283,16 +283,28 @@ Gestione dei pannelli
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
 	«REM»«EXPAND createWidgets(model, cp) FOR this»«ENDREM»
 
-	«REM»Espande i sottopannelli del FormPanel corrente«ENDREM»
-	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
-		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
-	«ENDFOREACH-»
+	«REM»Espande i sottopannelli del FormPanel corrente (nuova versione)«ENDREM»
+	«IF this.layout.metaType == UDLRCPanelLayout»
+		«EXPAND setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR this»
+	«ELSE»
+		«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
+			«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+		«ENDFOREACH-»	
+	«ENDIF»
 
 	«IF expandLayout-»
 		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
 	«ENDIF-»
 	«endFragment()»
 «ENDDEFINE»
+
+«REM»Genera un FormPanel con layout UDLRC«ENDREM»
+«DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
+	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
+		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
 
 
 «REM»
@@ -811,8 +823,9 @@ come target di refresh.
                keepStatus="true"
                clearStatus="${«cp.name»_«this.name»_clearStatus}"
                uid="row_«this.name»"
+               summary="«this.summary»" «REM»STDMDD-332«ENDREM»
                «IF customDecorator»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF»
-               «getTablePortalStyle(model, this)» >
+               «getTablePortalStyle(model, this)»>
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html" >
 		«IF this.databinding.appData.type.metaType == SimpleType -»
@@ -900,5 +913,7 @@ il codice necessario, e nella direttiva include inserita laddove il widget deve 
 NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tale widget.
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
+<div class="userDefinedWidget" id="«this.name»">
 <s:include value="«getJspUserDefinedWidgetConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
+</div>
 «ENDDEFINE»

@@ -9,7 +9,7 @@
 	     - rupar      : RuparPiemonte (versione 1) => PARZIALMENTE IMPLEMENTATA
 	     - intranetrp : Intranet Regione Piemonte  => PARZIALMENTE IMPLEMENTATO
 	     - intracom   : Intracom Torino            => PARZIALMENTE IMPLEMENTATO
-	     - newrupar   : RuparPiemonte (versione 2) => IN FASE DI DEFINIZINE E IMPLEMENTAZIONE
+	     - newrupar   : RuparPiemonte (versione 2) => DA DEFINIRE E IMPLEMENTARE
 	     - neutral    : layout neutrale di prova   => DA DEFINIRE E IMPLEMENTARE
 	-->
 	<!--<property name="target-portal" value="sisp" />-->
@@ -28,7 +28,7 @@
 	<!--<property name="modelfile" value="src/prova2.xmi" />-->
 	
 	<!-- utilizzare in modalita' plugin -->
-	<property name="model" value="guigen/src/testlayout/testAppData_${target-portal}.guigen" />
+	<property name="model" value="guigen/src/testlayout/gerica.guigen" />
 	
 	<!-- *****************************************************
 	     determina il tipo di applicazione da generare (e i 
@@ -50,7 +50,7 @@
 	<!-- valorizzare con il nome del progetto eclipse target dove verranno
 	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
 	     al componente SW -->
-	<property name="target-project-name" value="${target-platform}-testbinding-${target-portal}" />
+	<property name="target-project-name" value="gericaweb" />
 	
 	<!-- directory nella quale verra' posizionato il codice generato -->
 	<property name="src-gen" value="../../${target-project-name}" />
@@ -78,19 +78,11 @@
 		<modelSlot value="model" />
 	</component>
 
-	<!-- check model (common checks) -->
+	<!-- check model -->
 	<component class="oaw.check.CheckComponent">
 		<metaModel id="mm"
 			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
 		<checkFile value="metamodel::Checks" />
-		<emfAllChildrenSlot value="model" />
-	</component>
-	
-	<!-- check model (cartridge [=layout] checks) -->
-	<component class="oaw.check.CheckComponent">
-		<metaModel id="mm"
-			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
-		<checkFile value="template::${target-platform}::${target-portal}::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
 

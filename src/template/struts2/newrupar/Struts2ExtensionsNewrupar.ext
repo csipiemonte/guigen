@@ -21,12 +21,9 @@ String getMenuNoChildLinkCssNewrupar(Menu menu, int level) :
 String getMenuNoChildLabelNewrupar(Menu menu, int level) :
 	"<s:text name=\"" + menu.name + ".label\" />";
 
-//
+// attivazione del menu padre se uno dei sottomenu è cliccato
 String getMenuWithChildCssNewrupar(Menu menu, int level) :
-	// attivazione solo del menu
-	"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
-	// attivazione del menu padre se uno dei sottomenu è cliccato
-	//"<s:if test=\"isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
+	" class=\"<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'active ' : ''}\" />parent\"";
 
 //
 String getMenuWithChildLinkCssNewrupar(Menu menu, int level) :
@@ -36,6 +33,7 @@ String getMenuWithChildLinkCssNewrupar(Menu menu, int level) :
 String getMenuWithChildLabelNewrupar(Menu menu, int level) :
 	"<s:text name=\"" + menu.name + ".label\" />";
 
+
 // restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
 // di primo livello con UDLRCPanelLayout
 String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
@@ -43,6 +41,21 @@ String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
 	"Center"+
 	(rightPanel != null ? "East" : "");
 
+// restituisce la lista dei Buttons di un CommandPanel con UDLRC layout posizionati nel settore indicato
+List getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.newrupar.GenUtilsLayoutNewrupar.getButtonsByUDLRCPosition(it.csi.mddtools.guigen.CommandPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Java Extensions for checks specifici per RuparPiemonte 2.0                               //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+boolean commandPanelLayoutCheckNewrupar(CommandPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.newrupar.GenUtilsChecksNewrupar.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
+
+boolean formPanelLayoutCheckNewrupar(FormPanel fp) : JAVA
+	it.csi.mddtools.guigen.genutils.newrupar.GenUtilsChecksNewrupar.formPanelLayoutCheck(it.csi.mddtools.guigen.FormPanel);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

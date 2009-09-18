@@ -46,20 +46,18 @@ public class GenUtilsLayout {
 	// Metodi generici validi per tutti i layout.
 	
 	/**
-	 * Restituisce tutti i sottopannelli di un formPanel di primo livello che sono posizionati
+	 * Restituisce tutti i sottopannelli di un formPanel che sono posizionati
 	 * nella posizione specificata (per UDLRC layout)
 	 *  
-	 * @param firstLevPanel
-	 * @param layout
+	 * @param panel
+	 * @param quadrante
 	 * @return
 	 * @author [DM]
 	 */
-	public static List<Panel> getSubPanelsByLayout(FormPanel firstLevPanel, UDLRCSpecConstants quadrante) {
+	public static List<Panel> getSubPanelsByLayout(FormPanel panel, UDLRCSpecConstants quadrante) {
 		List<Panel> result = new ArrayList<Panel>();
 		
-		Iterator<Panel> itSp = firstLevPanel.getSubpanels().iterator();
-		while ( itSp.hasNext() ) {
-			Panel currPan = itSp.next();
+		for ( Panel currPan : panel.getSubpanels() ) {
 			UDLRCWidgetLayoutSpec curLay = (UDLRCWidgetLayoutSpec)currPan.getLayoutSpec();
 			if ( curLay != null && curLay.getValue() == quadrante ) {
 				result.add(currPan);
