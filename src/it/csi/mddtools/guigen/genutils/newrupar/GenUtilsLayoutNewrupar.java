@@ -6,11 +6,10 @@ import java.util.List;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
-import it.csi.mddtools.guigen.CommandStyles;
+import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
-import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
@@ -270,7 +269,7 @@ public class GenUtilsLayoutNewrupar {
 			String style = "";
 			
 			if ( GenUtils.isNumeric(t) ) {
-				res = "numbers";
+				style = "numbers";
 			}
 			
 			// TODO: implementare altri stili se necessario
@@ -299,6 +298,27 @@ public class GenUtilsLayoutNewrupar {
 		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
 		//res = "cssClass=\"inputDataMed\"";
 
+		return res;
+	}
+
+
+	/**
+	 * Restituisce l'attributo di obbligatoriet&agrave; del campo 
+	 * da settare nella custom Component widgetsPanelColumn
+	 * 
+	 * @param w
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getCustomtagRequiredField(Widget w) {
+		String res = "";
+
+		if ( w instanceof DataWidget ) {
+			if ( ((DataWidget)w).isRequired() ) {
+				res = "fieldRequired=\"true\"";
+			}
+		}
+		System.out.println("=====> WIDGET [" + w + "] - REQUIRED {" + res + "}");
 		return res;
 	}
 

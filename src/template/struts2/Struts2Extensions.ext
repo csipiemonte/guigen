@@ -769,6 +769,9 @@ String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
 String getColumnEditableField(Column currCol, Table table, GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
 
+// restituisce l'elenco degli id dei pannelli target di refresh. null se nessun RefreshViewCommand	
+List[String] getRefreshTargetIds(Widget cw) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getRefreshTargetIds(it.csi.mddtools.guigen.Widget);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -892,6 +895,11 @@ String getCheckboxPortalStyle(GUIModel model) : JAVA
 String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
-// restituisce l'elenco degli id dei pannelli target di refresh. null se nessun RefreshViewCommand	
-List[String] getRefreshTargetIds(Widget cw) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getRefreshTargetIds(it.csi.mddtools.guigen.Widget);
+// [DM] restituisce l'attributo di obbligatorietà del campo da settare nella custom Component widgetsPanelColumn
+String getCustomtagRequiredField(Widget w) : 
+	"";
+
+// ATTENZIONE!!! NOTA PER GLI SVILUPPATORI
+// Inserire possibilmente ogni nuovo metodo nella relativa sezione (Struts2, JavaBinding, Web 2.0, ecc...) e non al fondo del file
+// dove si trova la sezione dei metodi che devono essere sovrascritti tramite AOP, in modo da facilitare la comprensione di quali metodi
+// siano già stati sovrascritti e di quali debbano essere ancora implementati nei files aop di portale necessari

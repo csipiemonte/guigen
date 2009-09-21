@@ -147,85 +147,7 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head di APPLICATIVO (con remincl) -->
-«REM»RIMOSSO: PROVA CON REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Esempi layout</title>
-
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" media="screen" /> <!-- stile di base -->
-
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/jquery/jquery-1.3.2.min.js"></script> <!-- jQuery -->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/ui/1.7.2/jquery-ui-1.7.2.custom.min.js"></script> <!-- jQuery UI -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jqlib/themes/smoothness/jquery-ui-1.7.2.custom.css" /> <!-- jQuery UI smoothness theme -->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/plugins/jquery.layout/jquery.layout.min.js"></script> <!-- jquery.layout http://layout.jquery-dev.net/ -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jqlib/plugins/jquery.layout/css/ui.layout.css" /> <!-- jquery.layout CSS -->
-
-		<!--
-			potremmo caricare un js di libreria portale (in "/js/jqlib/portali/NOME PORTALE") in modo da gestire funzionalita' come:
-				- bgIframe
-				- caricamento css
-				- apertura finestre esterne
-				- over out handler
-				- etc
-			es. http://dev-webfarm.csi.it/jqlib/155/jqlib/jqlib/portali/sii/jqsii-1.3.2.js
-		-->
-
-
-		<script type="text/javascript">
-			jQuery(window).bind("load", function () {
-
-				var outerLayout = jQuery('body').layout({
-					north__paneSelector: "#banner",
-					west__paneSelector: "#sx",
-					east__paneSelector: "#dx",
-					center__paneSelector: "#applicationArea",
-					west__size: 40,
-					east__size: 40,
-					applyDefaultStyles: false,
-					resizable: false,
-					closable: false,
-					spacing_open: 0
-				});
-
-				var contentLayout = jQuery('div#applicationArea').layout({
-					north__paneSelector: "#header",
-					center__paneSelector: "#contentPanel",
-					south__paneSelector: "#footer",
-					applyDefaultStyles: true
-				});
-
-				var contentLayout = jQuery('div#contentPanel').layout({
-					north__paneSelector: "#northPanel",
-					center__paneSelector: "#westCenterEastWrapper",
-					south__paneSelector: "#southPanel",
-					applyDefaultStyles: true
-				});
-
-				var contentWrapper = jQuery('div#westCenterEastWrapper').layout({
-					west__paneSelector: "#westPanel",
-					center__paneSelector: "#centerPanel",
-					east__paneSelector: "#eastPanel",
-					east__size: 200,
-					west__size: 200,
-					applyDefaultStyles: true
-				});
-
-			});
-		</script>
-<!-- fine head di APPLICATIVO (con remincl) -->
+«REM»
 		<customtag:ajaxify-header />
 «ENDREM»
 
@@ -238,19 +160,6 @@ Definizioni generali: header, footer, ecc
 
 			<!-- banner di PORTALE (con remincl) (facoltativo) -->
 			<r:include url="/ris/include/banner.html" resourceProvider="sp" />
-			«REM»RIMOSSO: PROVA CON REMINCL
-			<div id="banner">
-				BANNER RUPAR
-			</div>
-
-			<!-- riempitivo sx (facoltativo) -->
-			<div id="sx">
-			</div>
-
-			<!-- riempitivo dx (facoltativo) -->
-			<div id="dx">
-			</div>
-			«ENDREM»
 			<!-- fine banner di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
@@ -258,11 +167,6 @@ Definizioni generali: header, footer, ecc
 
 				<!-- header di APPLICATIVO (con remincl) (facoltativo) -->
 				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»header.html" resourceProvider="sp" />
-				«REM»RIMOSSO: PROVA CON REMINCL
-				<div id="header">
-					HEADER
-				</div>
-				«ENDREM»
 				<!-- fine header di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
@@ -273,86 +177,6 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
-«REM»RIMOSSO: PROVA CON REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Esempi layout</title>
-
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" media="screen" /> <!-- stile di base -->
-
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/jquery/jquery-1.3.2.min.js"></script> <!-- jQuery -->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/ui/1.7.2/jquery-ui-1.7.2.custom.min.js"></script> <!-- jQuery UI -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jqlib/themes/smoothness/jquery-ui-1.7.2.custom.css" /> <!-- jQuery UI smoothness theme -->
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jqlib/plugins/jquery.layout/jquery.layout.min.js"></script> <!-- jquery.layout http://layout.jquery-dev.net/ -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/jqlib/plugins/jquery.layout/css/ui.layout.css" /> <!-- jquery.layout CSS -->
-
-		<!--
-			potremmo caricare un js di libreria portale (in "/js/jqlib/portali/NOME PORTALE") in modo da gestire funzionalita' come:
-				- bgIframe
-				- caricamento css
-				- apertura finestre esterne
-				- over out handler
-				- etc
-			es. http://dev-webfarm.csi.it/jqlib/155/jqlib/jqlib/portali/sii/jqsii-1.3.2.js
-		-->
-
-
-		<script type="text/javascript">
-			jQuery(window).bind("load", function () {
-
-				var outerLayout = jQuery('body').layout({
-					north__paneSelector: "#banner",
-					west__paneSelector: "#sx",
-					east__paneSelector: "#dx",
-					center__paneSelector: "#applicationArea",
-					west__size: 40,
-					east__size: 40,
-					applyDefaultStyles: false,
-					resizable: false,
-					closable: false,
-					spacing_open: 0
-				});
-
-				var contentLayout = jQuery('div#applicationArea').layout({
-					north__paneSelector: "#header",
-					center__paneSelector: "#contentPanel",
-					south__paneSelector: "#footer",
-					applyDefaultStyles: true
-				});
-
-				var contentLayout = jQuery('div#contentPanel').layout({
-					north__paneSelector: "#northPanel",
-					center__paneSelector: "#westCenterEastWrapper",
-					south__paneSelector: "#southPanel",
-					applyDefaultStyles: true
-				});
-
-				var contentWrapper = jQuery('div#westCenterEastWrapper').layout({
-					west__paneSelector: "#westPanel",
-					center__paneSelector: "#centerPanel",
-					east__paneSelector: "#eastPanel",
-					east__size: 200,
-					west__size: 200,
-					applyDefaultStyles: true
-				});
-
-			});
-		</script>
-<!-- fine head di APPLICATIVO (con remincl) -->
-«ENDREM»
 
 	</head>
 
@@ -363,19 +187,6 @@ Definizioni generali: header, footer, ecc
 
 			<!-- banner di PORTALE (con remincl) (facoltativo) -->
 			<r:include url="/ris/include/banner.html" resourceProvider="sp" />
-			«REM»RIMOSSO: PROVA CON REMINCL
-			<div id="banner">
-				BANNER RUPAR
-			</div>
-
-			<!-- riempitivo sx (facoltativo) -->
-			<div id="sx">
-			</div>
-
-			<!-- riempitivo dx (facoltativo) -->
-			<div id="dx">
-			</div>
-			«ENDREM»
 			<!-- fine banner di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
@@ -383,11 +194,6 @@ Definizioni generali: header, footer, ecc
 
 				<!-- header di APPLICATIVO (con remincl) (facoltativo) -->
 				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»header.html" resourceProvider="sp" />
-				«REM»RIMOSSO: PROVA CON REMINCL
-				<div id="header">
-					HEADER
-				</div>
-				«ENDREM»
 				<!-- fine header di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
@@ -518,24 +324,6 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 <!-- footer (con remincl) -->
 <r:include url="/ris/include/footer.html" resourceProvider="sp" />
-
-«REM»RIMOSSO: PROVA CON REMINICL
-<!-- footer (con remincl) -->
-
-				<!-- pie' di pagina (facoltativo) -->
-				<div id="footer">
-					PIE' DI PAGINA
-				</div>
-
-			</div>
-			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
-
-		</div>
-		<!-- FINE PAGE (OBBLIGATORIO) -->
-
-	</body>
-</html>
-«ENDREM»
 «ENDDEFINE»
 
 
@@ -892,7 +680,8 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:widgetsPanelColumn labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
+<customtag:widgetsPanelColumn labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" 
+	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
