@@ -20,9 +20,12 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 
 «REM»Genera un FormPanel con layout UDLRC«ENDREM»
 «DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
-	
+
+«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-»
+«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-»
+«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-»
+<div id="«getLeftCenterRightWrapperId(leftPanels, centerPanels, rightPanels).toFirstLower()»Wrapper">	
 	«REM»Genera i sottopannelli posizionati a SINISTRA«ENDREM»
-	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-»
 	«IF leftPanels != null && leftPanels.size > 0-»
 	<div class="formPanel floatLeft">
 	«FOREACH leftPanels AS currSubformLeft-»
@@ -30,11 +33,8 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»
-	«ENDLET-»	
-
-
+	
 	«REM»Genera i sottopannelli posizionati al CENTRO«ENDREM»
-	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-»
 	«IF centerPanels != null && centerPanels.size > 0-»
 	<div class="formPanel floatCenter">
 	«FOREACH centerPanels AS currSubformCenter-»
@@ -42,11 +42,8 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«ENDFOREACH-»
 	</div>
 	«ENDIF-»	
-	«ENDLET-»	
-
 
 	«REM»Genera i sottopannelli posizionati a DESTRA«ENDREM»
-	«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-»
 	«IF rightPanels != null && rightPanels.size > 0-»
 	<div class="formPanel floatRight">
 	«FOREACH rightPanels AS currSubformRight-»
@@ -54,8 +51,11 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»	
-	«ENDLET-»	
-	
+</div>
+«ENDLET-»
+«ENDLET-»	
+«ENDLET-»
+
 «ENDDEFINE»
 
 

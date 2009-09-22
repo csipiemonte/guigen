@@ -176,11 +176,11 @@ public class GenUtilsLayoutNewrupar {
 	public static String getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) {
 		String msgSeverity = "";
 		if ( mbp.getMessageSeverity() == MessageSeverity.INFO ) {
-			msgSeverity = " Info";
+			msgSeverity = " info";
 		} else if ( mbp.getMessageSeverity() == MessageSeverity.WARN ) {
-			msgSeverity = " Warning";
+			msgSeverity = " warning";
 		} else if ( mbp.getMessageSeverity() == MessageSeverity.ERROR ) {
-			msgSeverity = " Error";
+			msgSeverity = " error";
 		}
 		return msgSeverity;
 	}
@@ -318,7 +318,7 @@ public class GenUtilsLayoutNewrupar {
 				res = "fieldRequired=\"true\"";
 			}
 		}
-		System.out.println("=====> WIDGET [" + w + "] - REQUIRED {" + res + "}");
+
 		return res;
 	}
 

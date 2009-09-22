@@ -38,8 +38,15 @@ String getMenuWithChildLabelNewrupar(Menu menu, int level) :
 // di primo livello con UDLRCPanelLayout
 String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
 	(leftPanel != null ? "West" : "") +
-	"Center"+
+	"Center" +
 	(rightPanel != null ? "East" : "");
+
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getLeftCenterRightWrapperId(List leftPanels, List centerPanels, List rightPanels) :
+	( (leftPanels != null && leftPanels.size > 0) ? "left" : "" ) +
+	( (centerPanels != null && centerPanels.size > 0) ? "Center" : "" ) +
+	( (rightPanels != null && rightPanels.size > 0) ? "Right" : "");
 
 // restituisce la lista dei Buttons di un CommandPanel con UDLRC layout posizionati nel settore indicato
 List getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) : JAVA

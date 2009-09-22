@@ -166,6 +166,16 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
+		«REM»STDMDD-163: Radio button: implementazione evento di click
+		<script type="text/javascript">
+
+			function onRBClick(url) {
+		        document.forms[0].action = url;
+		        document.forms[0].submit();
+			}		
+		
+		</script>
+		«ENDREM»
 		<customtag:ajaxify-header />
 	</head>
 	<body>
@@ -258,6 +268,16 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
+		«REM»STDMDD-163: Radio button: implementazione evento di click
+		<script type="text/javascript">
+
+			function onRBClick(url) {
+		        document.forms[0].action = url;
+		        document.forms[0].submit();
+			}		
+		
+		</script>
+		«ENDREM»
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -644,6 +664,19 @@ Gestione dei LAYOUT - PANNELLI
 
 
 «REM»
+************** User Defined Panel **************
+«ENDREM»
+
+«REM»Genera la header di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
+«ENDDEFINE»
+
+«REM»Genera la footer di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
+«ENDDEFINE»
+
+
+«REM»
 ************** Dialog Panel **************
 «ENDREM»
 
@@ -678,12 +711,10 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
-
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
-
 «ENDDEFINE»
 
 

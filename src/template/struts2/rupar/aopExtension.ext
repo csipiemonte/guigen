@@ -1,6 +1,7 @@
 import guigen;
 import ecore;
 extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
 extension template::struts2::rupar::Struts2ExtensionsRupar;
 
 
@@ -55,3 +56,23 @@ around template::struts2::Struts2Extensions::getMsgBoxPanelStyleByPortal(GUIMode
 // nota: deve rimanere in Java perché viene utilizzato anche da Java
 around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
 	getCheckboxPortalStyleRupar(model);
+
+	
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript abilitato)
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb) :
+	""; // TODO: implementare
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
+	""; // TODO: implementare
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript abilitato)
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
+	""; // TODO: implementare
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
+	""; // TODO: implementare

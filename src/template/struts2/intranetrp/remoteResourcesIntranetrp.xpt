@@ -162,6 +162,16 @@ Definizioni generali: header, footer, ecc
 		</script>
 		<!--FINE personalizzazione JQUERY-->
 		<customtag:ajaxify-header />
+		«REM»STDMDD-163: Radio button: implementazione evento di click
+		<script type="text/javascript">
+
+			function onRBClick(url) {
+		        document.forms[0].action = url;
+		        document.forms[0].submit();
+			}		
+		
+		</script>
+		«ENDREM»
 	</head>
 	<body>
 
@@ -213,6 +223,16 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
+		«REM»STDMDD-163: Radio button: implementazione evento di click
+		<script type="text/javascript">
+
+			function onRBClick(url) {
+		        document.forms[0].action = url;
+		        document.forms[0].submit();
+			}		
+		
+		</script>
+		«ENDREM»
 	</head>
 	<body>
 
@@ -487,7 +507,6 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
-
 «ENDDEFINE»
 
 
@@ -555,6 +574,19 @@ Gestione dei LAYOUT - PANNELLI
 	«IF !this.widgets.isEmpty -»
 	</customtag:panelGrid>
 	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»
+************** User Defined Panel **************
+«ENDREM»
+
+«REM»Genera la header di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
+«ENDDEFINE»
+
+«REM»Genera la footer di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
 «ENDDEFINE»
 
 

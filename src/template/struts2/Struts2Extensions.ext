@@ -499,32 +499,6 @@ String getClickHandlerMethodName(Widget source) :
 		"execute" 
 	);
 
-// [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-String getComboBoxValueChangedHandlerJS(ComboBox cb) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" " + 
-		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" ";
-
-// [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
-String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
-			"\" /></noscript>";
-
-// [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
-String getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" "; 
-
-// [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
-String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
-			"\" /></noscript>";
-
 // [DM] restituisce l'azione relativa ad una colonna di una Table
 String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
 	if (currCol.eventActive) then
@@ -532,7 +506,9 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp) :
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
 
-//// altre utility
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// ALTRE UTILITY
+
 String getAppModuleAsPkg(ContentPanel cp, boolean prependDot, boolean appendDot) : 
 	let parent = cp.eContainer :
 		(parent.metaType==AppModule ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );
@@ -899,6 +875,39 @@ String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
 String getCustomtagRequiredField(Widget w) : 
 	"";
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+// [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
+String getComboBoxValueChangedHandlerJS(ComboBox cb) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" " + 
+		"onfocus=\"inFocus(this)\" " +
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" ";
+
+// [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
+String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
+String getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" "; 
+
+// [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
+String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			"\" /></noscript>";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///******************************************************************************************//
 // ATTENZIONE!!! NOTA PER GLI SVILUPPATORI
 // Inserire possibilmente ogni nuovo metodo nella relativa sezione (Struts2, JavaBinding, Web 2.0, ecc...) e non al fondo del file
 // dove si trova la sezione dei metodi che devono essere sovrascritti tramite AOP, in modo da facilitare la comprensione di quali metodi

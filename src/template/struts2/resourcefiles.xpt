@@ -459,9 +459,11 @@ Gestione dei pannelli
 «DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR UserDefinedPanel»
 «FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 «startFragment()»
+«EXPAND remoteResources::userDefinedPanelControlHeader(model) FOR this-»
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
 <!-- Inserire il codice del pannello -->
 «ENDPROTECT»
+«EXPAND remoteResources::userDefinedPanelControlFooter(model) FOR this-»
 «endFragment()»
 «ENDFILE»
 «ENDDEFINE»
@@ -472,9 +474,9 @@ Gestione dei pannelli
 Il DialogPanel sarà un pannello figlio di ContentPanel, posizionabile solo al primo livello.
 Può contenere solo BoxPanel (nuovo pannello da creare) e CommandPanel
 Il BoxPanel è un nuovo tipo di pannello (da creare), che può essere di tipo:
-  * INFO    (box con bordo verde)  -> messaggi generici
-  * WARNING (box con bordo nero)   -> messaggi di warning
-  * ERROR   (box con bordo rosso)  -> messaggi di errore
+  * INFO    -> messaggi generici
+  * WARNING -> messaggi di warning
+  * ERROR   -> messaggi di errore
 Ogni BoxPanel può contenere uno o più PlainText che possono avere o staticText o un databinding con un testo dinamico 
 (ad esempio messaggio proveniente dalla business logic).
 I CommandPanel saranno gestiti come gli altri CommandPanel (pulsanti con eventi).
@@ -913,7 +915,5 @@ il codice necessario, e nella direttiva include inserita laddove il widget deve 
 NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tale widget.
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
-<div class="userDefinedWidget" id="«this.name»">
 <s:include value="«getJspUserDefinedWidgetConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
-</div>
 «ENDDEFINE»

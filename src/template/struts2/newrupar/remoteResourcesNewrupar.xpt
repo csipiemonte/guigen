@@ -527,9 +527,9 @@ Gestione dei PANNELLI
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 <div class="userInfoPanel" id="«this.name»">
 	<div class="userData">
-		Utente: <s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /> 
-		Ente: <s:property value="«getAppDataKey(currentUserAD)».ente" />
-		Ruolo: <s:property value="«getAppDataKey(currentUserAD)».ruolo" />
+		<span class="user">Utente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></span></span>
+		<span class="organization">Ente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ente" /></span></span>
+		<span class="role">Ruolo: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></span></span>
 	</div>
 	<div class="userInfoActions">
 		<!-- uscita dal servizio e/o cambio ruolo -->
@@ -614,6 +614,21 @@ Gestione dei LAYOUT - PANNELLI
 	«ENDIF»
 </div>
 «ENDIF-»
+«ENDDEFINE»
+
+
+«REM»
+************** User Defined Panel **************
+«ENDREM»
+
+«REM»Genera la header di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
+<div class="userDefinedPanel" id="«this.name»">
+«ENDDEFINE»
+
+«REM»Genera la footer di un pannello di tipo UserDefinedPanel«ENDREM»
+«DEFINE userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
+</div>
 «ENDDEFINE»
 
 
@@ -708,12 +723,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«REM»Al momento non si fa niente«ENDREM»
+<p>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-«IF !isLast»<br/>«ENDIF»
+</p>
 «ENDDEFINE»
 
 
@@ -787,6 +802,13 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
 <customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+	<div class="userDefinedWidget" id="«this.name»">
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo UserDefinedWidget«ENDREM»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+	</div>
+</customtag:widgetsPanelColumn>
 «ENDDEFINE»
 
 
@@ -829,7 +851,6 @@ Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
-
 «ENDDEFINE»
 
 
@@ -865,7 +886,7 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 ############################################################################
 # MESSAGES
 
-basic.msg.empty_list=<div id="ncsdf">Non ci sono elementi da visualizzare.</div>
+basic.msg.empty_list=<div class="feedSearch">Non ci sono elementi da visualizzare.</div>
 basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono elementi da visualizzare.</td></tr>
 error.msg.invalid_page=pagina non valida
 
@@ -878,21 +899,21 @@ paging.banner.one_item_found=<div class="paging"><div class="leftPaging">Un {0} 
 paging.banner.all_items_found=<div class="paging"><div class="leftPaging">{0} {1} trovati, tutti i {2} visualizzati.</div>
 paging.banner.some_items_found=<div class="paging"><div class="leftPaging">{0} {1} trovati ({5} pagine)</div>
 
-paging.banner.full=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="bugFix"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span><span class="bugFix"> | </span><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="bugFix"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
-paging.banner.first=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="bugFix"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
-paging.banner.last=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="bugFix"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span></span></div></div>
+paging.banner.full=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span><span class="separator"> | </span><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.first=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.last=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span></span></div></div>
 paging.banner.onepage=<div class="rightPaging"><span class="pageNumbers">pagina {0}</span></div></div>
 
 paging.banner.page.selected=<span class="currentPage">{0}</span>
 paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
-paging.banner.page.separator=<span class="bugFix"> | </span>
+paging.banner.page.separator=<span class="separator"> | </span>
 
 
 #EXPORT
 export.banner=<div class="export">{0}</div>
-export.banner.sepchar=<span class="bugFix"> | </span>
+export.banner.sepchar=<span class="separator"> | </span>
 
-export.excel.label=<span class="export excel">scarica in Excel</span>
+export.excel.label=<span class="export xls">scarica in Excel</span>
 export.pdf.label=<span class="export pdf">scarica in PDF</span>
 export.csv.label=<span class="export csv">CSV</span>
 export.xml.label=<span class="export xml">XML</span>
