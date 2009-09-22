@@ -16,38 +16,50 @@
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Button»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler»
+	«REM»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="button" 
 		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler)».do" 
 		pageId="«parentCP.name»" 
 		formName="«parentCP.name»">
+	«ENDREM»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR Button»
+«REM»
 	</customtag:ajaxify>
+«ENDREM»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table»
+«REM»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table" 
 		pageId="«parentCP.name»">
+«ENDREM»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR Table»
+«REM»
 	</customtag:ajaxify>
+«ENDREM»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR ComboBox»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler»
+	«REM»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="combo" 
 		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler)».do"
 		pageId="«parentCP.name»"
 		formName="«parentCP.name»" >
+	«ENDREM»
 	«ENDLET»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR ComboBox»
+	«REM»
 	</customtag:ajaxify>
+	«ENDREM»
 «ENDDEFINE»
