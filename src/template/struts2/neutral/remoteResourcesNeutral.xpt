@@ -187,14 +187,17 @@ Definizioni generali: header, footer, ecc
 
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 
-		«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
 		<script type="text/javascript">
-
+			// event handler RadioButtons
 			function onRBClick(url) {
 		        document.forms[0].action = url;
 		        document.forms[0].submit();
-			}		
-		
+			}
+
+			// disabilitazione calendario
+			jQuery(document).ready(function(){
+				jQuery('.calendario:disabled').datepicker('disable');
+			});// chiusura function ready
 		</script>
 		
 		<customtag:ajaxify-header />
