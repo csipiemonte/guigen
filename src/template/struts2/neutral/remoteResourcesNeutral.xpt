@@ -1006,22 +1006,55 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** Dialog Panel **************
 «ENDREM»
-«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel»
+
+«REM»Genera la header di un pannello di tipo DialogPanel«ENDREM»
+«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
+«IF model.structure.appWindow.header != null-»
+<s:include value="../fragments/header.jsp" ></s:include>
+«ENDIF-»
+
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
+	<div id="sfondoColonna">
+
+		<!-- =============== COLONNA UNICA ============== -->
+		<div id="colonna">
+			<h2 class="alt">contenuti</h2>
+
+			<h3><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h3>
+			<div class="contenuti">
 «ENDDEFINE»
 
+«REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
+«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+			</div>
+		</div>
+		<!-- ============ FINE COLONNA UNICA ============ -->
 
-«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel»
+	</div>
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+
+</s:form>
+
+«IF model.structure.appWindow.footer != null-»
+<s:include value="../fragments/footer.jsp" ></s:include>
+«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»
 ************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
+
+«REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
+<div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
 «ENDDEFINE»
 
-
+«REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlFooter FOR MsgBoxPanel»
+</div>
 «ENDDEFINE»
 
 

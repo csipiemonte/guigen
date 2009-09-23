@@ -117,7 +117,7 @@ Definizioni generali: Pagine di ERRORE
 
 	<!-- righe -->
 	<div id="righe">
-	
+
 		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 «ENDDEFINE»
@@ -126,7 +126,7 @@ Definizioni generali: Pagine di ERRORE
 «DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
 		</div>
 		<!-- ============ FINE COLONNA UNICA ============ -->
-	
+
 	</div>
 	<!-- fine righe-->
 
@@ -148,7 +148,7 @@ Definizioni generali: Pagine di ERRORE
 
 	<!-- righe -->
 	<div id="righe">
-	
+
 		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 «ENDDEFINE»
@@ -157,7 +157,7 @@ Definizioni generali: Pagine di ERRORE
 «DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
 		</div>
 		<!-- ============ FINE COLONNA UNICA ============ -->
-	
+
 	</div>
 	<!-- fine righe-->
 
@@ -328,10 +328,10 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
-	
+
 	«IF model.structure.appWindow.appArea.staticLinks != null-»
 		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
-	«ENDIF-»	
+	«ENDIF-»
 	</ul>
 </div>
 «ENDDEFINE»
@@ -429,12 +429,12 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
-	
+
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
 		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
-		
+
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
 		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
@@ -469,7 +469,7 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
-	
+
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
@@ -485,7 +485,7 @@ Gestione dei PANNELLI
 		<!-- titolo pannello 1° livello -->
 		<h3><s:text name="«cp.name».«this.name».label" /></h3>
 		«ENDIF-»
-		
+
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
 		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
@@ -696,11 +696,11 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- righe -->
 	<div id="righe">
-	
+
 		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 «ENDDEFINE»
@@ -709,7 +709,7 @@ Gestione dei LAYOUT - PANNELLI
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel»
 		</div>
 		<!-- ============ FINE COLONNA UNICA ============ -->
-	
+
 	</div>
 	<!-- fine righe -->
 
@@ -959,7 +959,7 @@ paging.banner.page.separator=<span class="bugFix"> | </span>
 
 
 export.banner=<div class="opzioni">{0}</div>
-export.banner.sepchar= 
+export.banner.sepchar=
 
 export.csv.label=<span class="export csv">CSV</span>
 export.excel.label=<span class="xls">scarica in excel</span>

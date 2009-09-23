@@ -359,12 +359,12 @@ Gestione dei PANNELLI
 				<!-- titolo pannello PRIMO livello -->
 				<h3><s:text name="«cp.name».«this.name».label" /></h3>
 				«ENDIF-»
-	
+
 				«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
 				«FOREACH this.subpanels AS subpanel»
 					«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::CENTER) FOR subpanel»
 				«ENDFOREACH»
-				
+
 			</div>
 		</div>
 	</div>
@@ -413,7 +413,7 @@ Gestione dei PANNELLI
 				<!-- titolo pannello PRIMO livello -->
 				<h3><s:text name="«cp.name».«this.name».label" /></h3>
 				«ENDIF-»
-	
+
 				«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 					«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
 				«ENDLET-»
@@ -598,8 +598,8 @@ Gestione dei LAYOUT - PANNELLI
 «IF !this.widgets.isEmpty -»
 <div class="widgetsPanel" id="«this.name»">
 	«IF this.widgets.select(e|e.metaType == Table).size == 0»
-	<customtag:widgetsPanel id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable" 
-		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF» 
+	<customtag:widgetsPanel id="«this.name»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
+		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF»
 		«getPanelGridPercentCols(this)»>
 	«ENDIF»
 «ENDIF-»
@@ -609,7 +609,6 @@ Gestione dei LAYOUT - PANNELLI
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
 	«IF this.widgets.select(e|e.metaType == Table).size == 0»
-	«REM»</customtag:panelGrid>«ENDREM»
 	</customtag:widgetsPanel>
 	«ENDIF»
 </div>
@@ -642,20 +641,20 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
 		<div id="CenterWrapper" class="floatWrapper">
 			<div id="centerPanel">
-	
+
 				<div class="dialogPanel" id="«this.name»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
 				</div>
-	
+
 			</div>
 		</div>
 	</div>
@@ -695,7 +694,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:widgetsPanelColumn labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" 
+<customtag:widgetsPanelColumn labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 

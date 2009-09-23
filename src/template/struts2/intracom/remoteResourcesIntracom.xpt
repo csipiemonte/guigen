@@ -147,18 +147,18 @@ Definizioni generali: header, footer, ecc
 	<head>
 		<title><s:text name="header.applicativo.nome.label" /></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		
+
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/import.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/caricamento.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/sort.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/stampa.css"  media="print" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui-1.7.2.custom.css" type="text/css" media="screen" />
-		
+
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/visabs.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.3.2.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/pulsantiPadreFiglio.js"></script>
-		
+
 		<!--INIZIO personalizzazione JQUERY-->
 		<script type="text/javascript">
 			$(function() {
@@ -172,8 +172,8 @@ Definizioni generali: header, footer, ecc
 			function onRBClick(url) {
 		        document.forms[0].action = url;
 		        document.forms[0].submit();
-			}		
-		
+			}
+
 		</script>
 
 		<customtag:ajaxify-header />
@@ -184,13 +184,13 @@ Definizioni generali: header, footer, ecc
 			<a href="http://www.comune.torino.it" class="torino"  title="<s:text name="header.nome.citta.label" />"><span class="copri"><s:text name="header.nome.citta.label" /></span></a>
 			<h1><s:text name="header.applicativo.nome.label" /></h1>
 			«IF model.securityModel!=null-»
-			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»			
+			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 			<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
 			<span class="chiudis"><s:a href="%{ssoLogoutUrl}"><s:text name="header.ssologout.label" /></s:a></span>
 			<br class="cl" />
 			<span class="utente">
-				<s:text name="header.userinfo.user.label" /> <s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /> - 
-				<s:text name="header.userinfo.profile.label" /> <s:property value="«getAppDataKey(currentUserAD)».ruolo" /> - 
+				<s:text name="header.userinfo.user.label" /> <s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /> -
+				<s:text name="header.userinfo.profile.label" /> <s:property value="«getAppDataKey(currentUserAD)».ruolo" /> -
 				<s:text name="header.userinfo.office.label" /> <s:property value="«getAppDataKey(currentUserAD)».ufficio" />
 			</span>
 			«ENDLET-»
@@ -249,18 +249,18 @@ Definizioni generali: header, footer, ecc
 	<head>
 		<title><fmt:message key="header.applicativo.nome.label" /></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		
+
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/import.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/caricamento.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/sort.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/stampa.css"  media="print" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-ui-1.7.2.custom.css" type="text/css" media="screen" />
-		
+
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/visabs.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.3.2.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/pulsantiPadreFiglio.js"></script>
-		
+
 		<!--INIZIO personalizzazione JQUERY-->
 		<script type="text/javascript">
 			$(function() {
@@ -274,10 +274,10 @@ Definizioni generali: header, footer, ecc
 			function onRBClick(url) {
 		        document.forms[0].action = url;
 		        document.forms[0].submit();
-			}		
-		
+			}
+
 		</script>
-		
+
 	</head>
 	<body>
 		<!-- HEADER -->
@@ -285,12 +285,12 @@ Definizioni generali: header, footer, ecc
 			<a href="http://www.comune.torino.it" class="torino"  title="<fmt:message key="header.nome.citta.label" />"><span class="copri"><fmt:message key="header.nome.citta.label" /></span></a>
 			<h1><fmt:message key="header.applicativo.nome.label" /></h1>
 			«IF model.securityModel!=null-»
-			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»			
+			«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 			<span class="chiudis"><a href="Logout!ssoLogout.do"><fmt:message key="header.ssologout.label" /></a></span>
 			<br class="cl" />
 			<span class="utente">
-				<fmt:message key="header.userinfo.user.label" /> <%-- impossibile visualizzare l'utente --%> - 
-				<fmt:message key="header.userinfo.profile.label" /> <%-- impossibile visualizzare il ruolo --%> - 
+				<fmt:message key="header.userinfo.user.label" /> <%-- impossibile visualizzare l'utente --%> -
+				<fmt:message key="header.userinfo.profile.label" /> <%-- impossibile visualizzare il ruolo --%> -
 				<fmt:message key="header.userinfo.office.label" /> <%-- impossibile visualizzare l'ufficio --%>
 			</span>
 			«ENDLET-»
@@ -298,7 +298,7 @@ Definizioni generali: header, footer, ecc
 		</div>
 		<!-- FINE HEADER -->
 
-		
+
 		«REM»TODO: cos'è, cosa rappresenta, come si implementa?
 		<!-- BARRA DI LINK: statici o applicativi? -->
 		<div id="barrag3">
@@ -310,7 +310,7 @@ Definizioni generali: header, footer, ecc
 		</div>
 		<!-- FINE BARRA DI LINK -->
 		«ENDREM»
-		
+
 
 		<!-- MENU -->
 		«IF model.structure.appWindow.appArea.menubar != null-»
@@ -360,7 +360,7 @@ Definizioni generali: header, footer, ecc
 			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
 		«ENDIF»
 	«ENDFOREACH-»
-	«ENDLET-»	
+	«ENDLET-»
 	</ul>
 </div>
 «ENDDEFINE»
@@ -418,7 +418,7 @@ Definizioni generali: header, footer, ecc
 					<div class="indietro"><a href="javascript:history.go(-1)">indietro</a></div>
 					<!-- FINE INDIETRO -->
 					«ENDREM»
-				
+
 				</div>
 				<!-- FINE CORPO -->
 
@@ -470,7 +470,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 
 «REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»	
+«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
@@ -507,7 +507,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 
 «REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»	
+«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
@@ -567,7 +567,7 @@ Gestione dei PANNELLI
 		</s:if>
 		<s:else>
 			<li><s:a href="%{«getMultiPanelName(this, currStep)»_URL}">«i.counter1». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></li>
-		</s:else>		
+		</s:else>
 		«ENDLET»
 	«ENDFOREACH»
 </ul>
@@ -686,7 +686,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 
@@ -920,7 +920,7 @@ basic.msg.empty_list=<div id="ncsdf">Non ci sono elementi da visualizzare.</div>
 basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono elementi da visualizzare.</td></tr>
 error.msg.invalid_page=pagina non valida
 
- 
+
 paging.banner.item_name=risultato
 paging.banner.items_name=risultati
 

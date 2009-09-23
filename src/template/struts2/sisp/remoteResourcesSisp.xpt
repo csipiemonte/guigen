@@ -209,10 +209,10 @@ Definizioni generali: header, footer, ecc
 			function onRBClick(url) {
 		        document.forms[0].action = url;
 		        document.forms[0].submit();
-			}		
-		
+			}
+
 		</script>
-		
+
 		<customtag:ajaxify-header />
 	</head>
 	<body class="tema-«IF !isNullOrEmpty(codCanale)»«codCanale»«ELSE»generale«ENDIF»">
@@ -354,7 +354,7 @@ Definizioni generali: header, footer, ecc
 
 <!--/head -->
 «ENDREM»
-		
+
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 		<customtag:ajaxify-header />
 	</head>
@@ -506,7 +506,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
-	
+
 	«IF model.structure.appWindow.appArea.staticLinks != null-»
 		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
 	«ENDIF-»
@@ -550,17 +550,17 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSisp(this, level)»>
 					«getMenuWithChildLabelSisp(this, level)»
-				</s:a>				
+				</s:a>
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-				</ul>			
+				</ul>
 			</li>
 		</s:if>
 		<s:else>
 			<li«getMenuWithChildCssSisp(this, level)»>«getMenuWithChildLabelSisp(this, level)»
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-				</ul>			
+				</ul>
 			</li>
 		</s:else>
 		«ENDLET»
@@ -568,7 +568,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		<li«getMenuWithChildCssSisp(this, level)»>«getMenuWithChildLabelSisp(this, level)»
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-			</ul>		
+			</ul>
 		</li>
 	«ENDIF»
 	</s:if>
@@ -1050,15 +1050,15 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="sfondoColonna">
-	
+
 		<!-- =============== COLONNA UNICA ============== -->
 		<div id="colonna">
 			<h2 class="alt">contenuti</h2>
-			
+
 			<h3><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h3>
 			<div class="contenuti">
 «ENDDEFINE»
@@ -1320,7 +1320,7 @@ paging.banner.page.separator=<span class="bugFix"> | </span>
 
 
 export.banner=<div class="opzioni">{0}</div>
-export.banner.sepchar= 
+export.banner.sepchar=
 
 export.csv.label=<span class="export csv">CSV</span>
 export.excel.label=<span class="xls">scarica in excel</span>
