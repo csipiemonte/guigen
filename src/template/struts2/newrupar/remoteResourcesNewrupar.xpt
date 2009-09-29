@@ -78,6 +78,22 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
+«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
+«EXPAND getJspErrorPageHeaderStruts FOR this-»
+<h3><s:text name="message.confirmlogout.title" /></h3>
+<s:text name="message.confirmlogout.warning" />
+<br />
+<s:text name="message.confirmlogout.closemessage" />
+<br />
+<s:text name="message.confirmlogout.certmessage" />
+</div>
+«EXPAND getJspErrorPageFooterStruts FOR this-»
+«ENDFILE»
+«ENDDEFINE»
+
+
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
@@ -87,7 +103,7 @@ Definizioni generali: Pagine di ERRORE
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
-		<div id="CenterWrapper" class="floatWrapper">
+		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 				<div class="wrapper">
 «ENDDEFINE»
@@ -117,7 +133,7 @@ Definizioni generali: Pagine di ERRORE
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
-		<div id="CenterWrapper" class="floatWrapper">
+		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 				<div class="wrapper">
 «ENDDEFINE»
@@ -351,7 +367,7 @@ Gestione dei PANNELLI
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 <div id="contentPanel">
-	<div id="CenterWrapper" class="floatWrapper">
+	<div id="centerWrapper" class="floatWrapper">
 		<div id="centerPanel">
 			<div class="wrapper">
 
@@ -468,15 +484,18 @@ Gestione dei PANNELLI
 <div class="tabSetPanel" id="«this.name»">
 	<ul>
 	«FOREACH this.panels AS currTab ITERATOR i-»
-		«LET "<s:if test=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + "}\"> class=\"active\"</s:if>" AS tabStyle-»
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
 		</s:url>
-		<li«tabStyle»>
-			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
-		</li>
-		«ENDLET-»
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currTab)»'«stepExtraCondition»}">
+			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></span></li>
+		</s:if>
+		<s:else>
+			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a></li>
+		</s:else>
+		«ENDLET-»		
 	«ENDFOREACH-»
 	</ul>
 </div>
@@ -496,10 +515,10 @@ Gestione dei PANNELLI
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«stepExtraCondition»}">
-			<li class="active"><span class="activeItem"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span></li>
+			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span></li>
 		</s:if>
 		<s:else>
-			<li><s:a href="%{«getMultiPanelName(this, currStep)»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></li>
+			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currStep)»_URL}"><s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></li>
 		</s:else>
 		«ENDLET-»
 	«ENDFOREACH-»
@@ -567,7 +586,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR MenuPanel»
-<div class="menuPanel" id="«this.name»">
+<div class="menuPanel«getMenuPanelOrientation(this)»" id="«this.name»">
 «ENDDEFINE»
 
 
@@ -645,7 +664,7 @@ Gestione dei LAYOUT - PANNELLI
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
-		<div id="CenterWrapper" class="floatWrapper">
+		<div id="centerWrapper" class="floatWrapper">
 			<div id="centerPanel">
 
 				<div class="dialogPanel" id="«this.name»">
@@ -731,15 +750,16 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 
-
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+<div class="hidden">
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+</div>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
@@ -838,6 +858,22 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+
+
+«REM»
+************** Markup HTML dei Widgets specifici  **************
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupHeader FOR RadioButtons»
+<div id="«getWidgetLabelFor(this)»">
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupFooter FOR RadioButtons»
+</div>
 «ENDDEFINE»
 
 

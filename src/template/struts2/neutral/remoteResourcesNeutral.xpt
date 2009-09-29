@@ -86,6 +86,18 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
+«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
+«REM» TODO: implementare SE NECESSARIO
+«FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
+«EXPAND getJspErrorPageHeaderStruts FOR this-»
+<!-- CONTENUTI -->
+«EXPAND getJspErrorPageFooterStruts FOR this-»
+«ENDFILE»
+«ENDREM»
+«ENDDEFINE»
+
+
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
@@ -1207,6 +1219,20 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+
+
+«REM»
+************** Markup HTML dei Widgets specifici  **************
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupHeader FOR RadioButtons»
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupFooter FOR RadioButtons»
 «ENDDEFINE»
 
 

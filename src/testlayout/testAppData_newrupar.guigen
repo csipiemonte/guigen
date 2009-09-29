@@ -81,6 +81,11 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.4"/>
               </eventHandler>
             </submenu>
+            <submenu name="smnuScreenState" label="Screen State">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5"/>
+              </eventHandler>
+            </submenu>
           </topLevelMenu>
           <topLevelMenu name="mnuTestLayout" label="Test layout">
             <submenu name="smnuBaseLayout" label="Layout base">
@@ -98,6 +103,81 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.4/@contentPanels.2"/>
               </eventHandler>
             </submenu>
+          </topLevelMenu>
+          <topLevelMenu name="mnuLivello1" label="Livello 1">
+            <submenu name="smnuLivello21" label="Livello 2-1">
+              <submenu name="smnuLivello31" label="Livello 3-1">
+                <submenu name="smnuLivello41" label="Livello 4-1">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <submenu name="smnuLivello42" label="Livello4-2">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandler>
+              </submenu>
+              <submenu name="smnuLivello32" label="Livello 3-2">
+                <submenu name="smnuLivello43" label="Livello 4-3">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <submenu name="smnuLivello44" label="Livello 4-4">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandler>
+              </submenu>
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+            </submenu>
+            <submenu name="smnuLivello22" label="Livello 2-2">
+              <submenu name="smnuLivello33" label="Livello 3-3">
+                <submenu name="smnuLivello45" label="Livello 4-5">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <submenu name="smnuLivello46" label="Livello 4-6">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandler>
+              </submenu>
+              <submenu name="smnuLivello34" label="Livello 3-4">
+                <submenu name="smnuLivello47" label="Livello 4-7">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <submenu name="smnuLivello48" label="Livello 4-8">
+                  <eventHandler>
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                  </eventHandler>
+                </submenu>
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandler>
+              </submenu>
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+              </eventHandler>
+            </submenu>
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </eventHandler>
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
@@ -171,7 +251,7 @@
                             <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.2"/>
                           </results>
                           <results resultCode="FOUND_NONE">
-                            <command xsi:type="guigen:NOPCommand"/>
+                            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.1"/>
                           </results>
                         </command>
                       </eventHandlers>
@@ -285,18 +365,18 @@
                       </columnModel>
                     </widgets>
                   </subpanels>
-                  <subpanels xsi:type="guigen:CommandPanel" name="cpAzioni">
+                  <subpanels xsi:type="guigen:CommandPanel" name="cpAzioniMulti">
                     <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:ConfirmButton" name="bAumento" label="Concedi Aumento">
+                    <widgets xsi:type="guigen:ConfirmButton" name="bAumentoMulti" label="Concedi Aumento">
                       <eventHandlers>
-                        <command xsi:type="guigen:ExecCommand" methodName="concediAumento" postExecData="//@appDataDefs/@groups.0/@appData.0">
+                        <command xsi:type="guigen:ExecCommand" methodName="concediAumentoMulti" postExecData="//@appDataDefs/@groups.0/@appData.0">
                           <results resultCode="SUCCESS">
                             <command xsi:type="guigen:NOPCommand"/>
                           </results>
                         </command>
                       </eventHandlers>
                     </widgets>
-                    <widgets xsi:type="guigen:ConfirmButton" name="bNuovo" label="Aggiungi nuovo">
+                    <widgets xsi:type="guigen:ConfirmButton" name="bNuovoMulti" label="Aggiungi nuovo">
                       <eventHandlers>
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.3"/>
                       </eventHandlers>
@@ -314,6 +394,23 @@
                         <columns selector="dataNascita" label="Data nascita" sortable="true"/>
                         <columns selector="reddito" label="Reddito" sortable="true"/>
                       </columnModel>
+                    </widgets>
+                  </subpanels>
+                  <subpanels xsi:type="guigen:CommandPanel" name="cpAzioniSingle">
+                    <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="bAumentoSingle" label="Concedi Aumento">
+                      <eventHandlers>
+                        <command xsi:type="guigen:ExecCommand" methodName="concediAumentoSingle" postExecData="//@appDataDefs/@groups.0/@appData.3">
+                          <results resultCode="SUCCESS">
+                            <command xsi:type="guigen:NOPCommand"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="bNuovoSingle" label="Aggiungi nuovo">
+                      <eventHandlers>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.3"/>
+                      </eventHandlers>
                     </widgets>
                   </subpanels>
                 </subpanels>
@@ -408,7 +505,7 @@
                     </widgets>
                     <widgets xsi:type="guigen:ConfirmButton" name="bGotoRicerca" label="Altra ricerca">
                       <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
-                      <eventHandlers>
+                      <eventHandlers skipValidation="true">
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
                       </eventHandlers>
                     </widgets>
@@ -2064,6 +2161,68 @@
               </subpanels>
             </panels>
           </contentPanels>
+          <contentPanels name="cpTestEnableButton" appData="//@appDataDefs/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pButtonTest" label="Test Button">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="mpMenu">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:MenuView" name="mvView"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpUp">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+                <subpanels xsi:type="guigen:UserInfoPanel" name="uiPanel"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpCenter" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:FormPanel" name="fpButtonsPanel" label="PULSANTI SU CUI AGIRE">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:CommandPanel" name="cmdpFunctional">
+                    <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnFunctionalLeft" label="Prova SX">
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                      <eventHandlers>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                      </eventHandlers>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnFunctionalRight" label="Prova DX">
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                      <eventHandlers>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                      </eventHandlers>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpButtonsActions" label="AZIONI">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:CommandPanel" name="cmdpActions" cmdStyle="NAVIGATION">
+                    <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnDisattiva" label="DISATTIVA">
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                      <eventHandlers>
+                        <command xsi:type="guigen:ScreenStateCommand" goTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@states/@states.0"/>
+                      </eventHandlers>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="btnAttiva" label="ATTIVA">
+                      <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                      <eventHandlers>
+                        <command xsi:type="guigen:ScreenStateCommand" goTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@states/@states.0"/>
+                      </eventHandlers>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+            </panels>
+            <states>
+              <states name="disableButtons" widgetsOn="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0" widgetsVisible="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0"/>
+              <states name="enableButtons" widgetsOn="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1" widgetsVisible="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@modules.3/@contentPanels.5/@panels/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0"/>
+            </states>
+          </contentPanels>
         </modules>
         <modules name="layouttest">
           <contentPanels name="cpTestLayout" appData="//@appDataDefs/@appData.0">
@@ -2245,38 +2404,38 @@
                 </subpanels>
                 <subpanels xsi:type="guigen:FormPanel" name="fpLayoutLeftRight" label="Form panel con Layout LEFT e RIGHT">
                   <layout xsi:type="guigen:UDLRCPanelLayout"/>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="left1Widgets" label="LEFT WIDGETS PANEL">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="left1Widgets" label="LEFT widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
                     <widgets xsi:type="guigen:TextField" name="txtLeft1" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
                   </subpanels>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="right1Widgets" label="Indirizzo">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="right1Widgets" label="RIGHT widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
                     <widgets xsi:type="guigen:TextField" name="txtRight1" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
                   </subpanels>
                 </subpanels>
-                <subpanels xsi:type="guigen:FormPanel" name="fpLayoutLeftCenter" label="Form panel con Layout UDLRC">
+                <subpanels xsi:type="guigen:FormPanel" name="fpLayoutLeftCenter" label="Form panel con Layout LEFT e CENTER">
                   <layout xsi:type="guigen:UDLRCPanelLayout"/>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="left2Widgets" label="Dati anagrafici">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="left2Widgets" label="LEFT widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
                     <widgets xsi:type="guigen:TextField" name="txtLeft2" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
                   </subpanels>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="center2Widgets" label="Indirizzo">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="center2Widgets" label="CENTER widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
                     <widgets xsi:type="guigen:TextField" name="txtCenter2" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
                   </subpanels>
                 </subpanels>
-                <subpanels xsi:type="guigen:FormPanel" name="fpLayoutCenterRight" label="Form panel con Layout UDLRC">
+                <subpanels xsi:type="guigen:FormPanel" name="fpLayoutCenterRight" label="Form panel con Layout CENTER e RIGHT">
                   <layout xsi:type="guigen:UDLRCPanelLayout"/>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="center3Widgets" label="Dati anagrafici">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="center3Widgets" label="CENTER widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
                     <widgets xsi:type="guigen:TextField" name="txtCenter3" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>
                   </subpanels>
-                  <subpanels xsi:type="guigen:WidgetsPanel" name="right3Widgets" label="Indirizzo">
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="right3Widgets" label="RIGHT widgets">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
                     <widgets xsi:type="guigen:TextField" name="txtRight3" label="Nome" dataTypeModifier="" dataType="//@typedefs/@types.9"/>

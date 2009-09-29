@@ -41,6 +41,12 @@ Definizioni generali: Pagine di ERRORE
 «ENDAROUND»
 
 
+«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«AROUND template::struts2::remoteResources::getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
 
 «REM»
 ==========================================================================================================================
@@ -342,6 +348,22 @@ Gestione dei LAYOUT - WIDGETS
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
 «AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
 	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetClose(mp, isFirst, isLast) FOR this»
+«ENDAROUND»
+
+
+
+«REM»
+************** Markup HTML dei Widgets specifici  **************
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
+«AROUND template::struts2::remoteResources::widgetMarkupHeader FOR RadioButtons»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetMarkupHeader FOR this»
+«ENDAROUND»
+
+«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
+«AROUND template::struts2::remoteResources::widgetMarkupFooter FOR RadioButtons»
+	«EXPAND template::struts2::sisp::remoteResourcesSisp::widgetMarkupFooter FOR this»
 «ENDAROUND»
 
 

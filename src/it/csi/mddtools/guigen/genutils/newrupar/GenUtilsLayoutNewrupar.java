@@ -3,13 +3,17 @@ package it.csi.mddtools.guigen.genutils.newrupar;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
+import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
+import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
@@ -61,6 +65,60 @@ public class GenUtilsLayoutNewrupar {
 		return res;
 	}
 
+	
+	/**
+	 * 
+	 * @param mp
+	 * @return
+	 */
+	public static String getMenuPanelOrientation(MenuPanel mp) {
+		String res = "";
+
+		// il MenuPanel può essere contenuto solo in un FormPanel (da check)
+		FormPanel parent = (FormPanel)mp.eContainer();
+		
+		// a che livello di annidamento è inserito il MenuPanel?
+		int level = getMenuPanelLevel(parent);
+		
+		
+		if ( level == 1 ) {
+			// il menu è contenuto in un FormPanel di primo livello
+			if ( parent.getLayout() instanceof VerticalFlowPanelLayout ) {
+				res = " horizontal";
+			}
+		} 
+		else if ( level == 2 ) {
+			// il menu è contenuto in un FormPanel di secondo livello...
+			if ( parent.getLayoutSpec() != null && parent.getLayoutSpec() instanceof UDLRCWidgetLayoutSpec ) {
+				// con layout UDLRC: in quale quadrante è?
+				UDLRCSpecConstants quadrante = ((UDLRCWidgetLayoutSpec)parent.getLayoutSpec()).getValue();
+				if ( quadrante== UDLRCSpecConstants.LEFT || quadrante== UDLRCSpecConstants.RIGHT ) {
+					res = " vertical";
+				} else if ( quadrante== UDLRCSpecConstants.UP || quadrante== UDLRCSpecConstants.DOWN ) {
+					res = " horizontal";
+				}
+			}
+		}
+		else {
+			// e se è annidato più profondamente?
+		}
+		
+		return res;
+	}
+	
+	
+	
+	private static int getMenuPanelLevel(EObject obj) {
+		EObject parent = obj.eContainer();
+		if ( parent instanceof ContentPanel ) {
+			return 1;
+		} else {
+			return 1 + getMenuPanelLevel(parent);
+		}
+	}
+	
+	
+	
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////

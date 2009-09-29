@@ -11,7 +11,7 @@ extension template::GenericExtensions;
 
 //
 String getMenuNoChildCssNewrupar(Menu menu, int level) :
-	"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivo\"</s:if>";
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\" class=\"active\"</s:if>";
 
 //
 String getMenuNoChildLinkCssNewrupar(Menu menu, int level) :
@@ -23,7 +23,8 @@ String getMenuNoChildLabelNewrupar(Menu menu, int level) :
 
 // attivazione del menu padre se uno dei sottomenu è cliccato
 String getMenuWithChildCssNewrupar(Menu menu, int level) :
-	" class=\"<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'active ' : ''}\" />parent\"";
+	" class=\"parent<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? ' active' : ''}\" />\"" + 
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\"</s:if>";
 
 //
 String getMenuWithChildLinkCssNewrupar(Menu menu, int level) :
@@ -51,6 +52,10 @@ String getLeftCenterRightWrapperId(List leftPanels, List centerPanels, List righ
 // restituisce la lista dei Buttons di un CommandPanel con UDLRC layout posizionati nel settore indicato
 List getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) : JAVA
 	it.csi.mddtools.guigen.genutils.newrupar.GenUtilsLayoutNewrupar.getButtonsByUDLRCPosition(it.csi.mddtools.guigen.CommandPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+// restitisce l'orientamento di un MenuPanel (horizontal o vertical)
+String getMenuPanelOrientation(MenuPanel mp) : JAVA
+	it.csi.mddtools.guigen.genutils.newrupar.GenUtilsLayoutNewrupar.getMenuPanelOrientation(it.csi.mddtools.guigen.MenuPanel);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -107,6 +107,32 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
+«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
+«EXPAND getJspErrorPageHeaderStruts FOR this-»
+<h3><s:text name="message.confirmlogout.title" /></h3>
+<div id="boxError">
+	<p>
+		<s:text name="message.confirmlogout.warning" />
+		<br />
+		<s:text name="message.confirmlogout.closemessage" />
+	</p>
+	<p class="msgError">
+		<s:text name="message.confirmlogout.certmessage" />
+	</p>
+</div>
+<div class="pulsanti">
+	<span class="barraTot">
+		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<s:a href="%{localLogoutUrl}"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+	</span>
+</div>
+«EXPAND getJspErrorPageFooterStruts FOR this-»
+«ENDFILE»
+«ENDDEFINE»
+
+
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
@@ -599,9 +625,9 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 <div id="Utente">
 	<span id="datiUtente">Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong></span>
 	<span class="bugFix">&nbsp;|&nbsp;</span>
-	<span id="chiudiSessione">
-		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
-		<s:a href="%{localLogoutUrl}" title="chiudi sessione: questo link fa uscire dal servizio">chiudi sessione</s:a>
+	<span id="esciServizio">
+		<s:url id="confirmLogoutUrl" action="Logout" method="confirmLogout" />
+		<s:a href="%{confirmLogoutUrl}">chiudi sessione</s:a>
 	</span>
 	<div class="both"></div>
 </div>
@@ -881,6 +907,20 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«ENDDEFINE»
+
+
+
+«REM»
+************** Markup HTML dei Widgets specifici  **************
+«ENDREM»
+
+«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupHeader FOR RadioButtons»
+«ENDDEFINE»
+
+«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
+«DEFINE widgetMarkupFooter FOR RadioButtons»
 «ENDDEFINE»
 
 

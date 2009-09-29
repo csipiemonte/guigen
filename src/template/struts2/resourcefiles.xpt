@@ -102,6 +102,7 @@
 	«EXPAND getJspApplicationErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspSessionExpiredFile(skip_component_dir_creation) FOR this-»
+	«EXPAND getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -135,6 +136,12 @@
 «FILE getJspErrorPagesDir(this, true) + "/sessionExpired.jsp"-»
 «EXPAND remoteResources::getJspPageSessionExpiredFile FOR this-»
 «ENDFILE-»
+«ENDDEFINE»
+
+
+«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«EXPAND remoteResources::getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -599,6 +606,17 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 
+«REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo RadioButtons (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR RadioButtons»
+<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
+«EXPAND createWidgetMarkup(model, cp) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
+</s:if>
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
+«ENDDEFINE»
+
+
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo Button [Button, ConfirmButton, ResetButton] (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
 «DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
 <s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
@@ -696,10 +714,12 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di un grupppo di RadioButton (RadioButtons).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- widget «this.name» -->
+«EXPAND remoteResources::widgetMarkupHeader FOR this»
 «FOREACH this.radio AS currRadio»
 «EXPAND createWidgetMarkup(model, cp, this) FOR currRadio»
 «ENDFOREACH»
 «getRadioButtonsValueChangedHandlerNoScript(this, model)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
+«EXPAND remoteResources::widgetMarkupFooter FOR this»
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
@@ -831,9 +851,9 @@ come target di refresh.
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html" >
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
+			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getRadioPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
-			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getRadioPortalStyle(model)» />
+			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == ComplexType -»
 			«REM»COME FARE SE SIAMO IN QUESTO CASO?«ENDREM»
 			«ERROR "Databinding a ComplexType non ancora gestito sul widget Table " + loc()»
@@ -850,7 +870,6 @@ come target di refresh.
 		</display:column>
 		«ELSEIF currCol.editable && currCol.editableFlagSelector==null»
 		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
-				«REM»<s:textfield name="%{'«getOGNLForWidgetMultiValue(this)»[' + (#attr.row_«this.name»_rowNum - 1) + '].«currCol.selector»'}" «getColumnEditableTextfieldPortalStyle(model)» />«ENDREM»
 				«getColumnEditableField(currCol, this, model)»				
 		</display:column>
 		«ELSE-»

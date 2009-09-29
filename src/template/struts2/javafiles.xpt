@@ -391,13 +391,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	}
 
 	/**
-	 * @return true se un sottomenu del menu dato &egrave; attivo (ovvero &grave; stato cliccato)
+	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo (ovvero &grave; stato cliccato)
 	 */
 	public boolean isSubMenuActive(String menuName) {
 		List<String> subMenuList = submenuMap.get(menuName);
 		if ( subMenuList != null ) {
-			for (String subMenu : subMenuList) {
-				if (isMenuActive(subMenu)) {
+			for ( String subMenu : subMenuList ) {
+				if ( isMenuActive(subMenu) ) {
+					return true;
+				}
+				if ( isSubMenuActive(subMenu) ) {
 					return true;
 				}
 			}
@@ -685,6 +688,14 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 		return null;
 	}
     
+    
+	/**
+	 * Mostra la pagina di conferma del logout
+	 * @return SSO_LOGOUT.
+	 */    
+    public String confirmLogout() throws Exception {
+    	return "confirmLogout";
+    }
     
     
 	/**

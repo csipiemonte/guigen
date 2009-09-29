@@ -1055,7 +1055,7 @@ public class ShowDialogCommand implements ICommand {
 
 «REM»
 [DM] STDMDD-241: razionalizzazione del menu
-TODO: adesso ci fermiamo al secondo livello, ma questa parte è da ripensare
+Esteso a qualunque livello di annidamento
 «ENDREM»
 «DEFINE submenuMap FOR Menubar»
 «FOREACH this.topLevelMenu AS topLevelMenu»
@@ -1063,12 +1063,17 @@ TODO: adesso ci fermiamo al secondo livello, ma questa parte è da ripensare
 «ENDFOREACH»
 «ENDDEFINE»
 
+
 «DEFINE submenuList FOR Menu»
 «IF this.submenu.size > 0»
-List<String> «this.name»SubmenuList = new ArrayList<String>();
-«FOREACH this.submenu AS subMenu»
-«this.name»SubmenuList.add("«subMenu.name»");
-«ENDFOREACH»
-submenuMap.put("«this.name»", «this.name»SubmenuList);
-«ENDIF»
+	List<String> «this.name»SubmenuList = new ArrayList<String>();
+	«FOREACH this.submenu AS subMenu-»
+	«this.name»SubmenuList.add("«subMenu.name»");
+	«ENDFOREACH-»
+	submenuMap.put("«this.name»", «this.name»SubmenuList);
+
+	«FOREACH this.submenu AS subMenu-»
+		«EXPAND submenuList FOR subMenu»
+	«ENDFOREACH-»
+	«ENDIF»
 «ENDDEFINE»
