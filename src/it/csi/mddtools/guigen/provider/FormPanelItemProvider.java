@@ -313,6 +313,11 @@ public class FormPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createFileUpload()));
 	}
 
 }

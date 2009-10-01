@@ -251,6 +251,11 @@ public class MenuPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createFileUpload()));
 	}
 
 }

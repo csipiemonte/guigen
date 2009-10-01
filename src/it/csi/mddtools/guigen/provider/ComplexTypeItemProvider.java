@@ -10,6 +10,7 @@ package it.csi.mddtools.guigen.provider;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.TypeNamespace;
 
 import java.util.Collection;
 import java.util.List;
@@ -136,11 +137,16 @@ public class ComplexTypeItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ComplexType)object).getName();
+		ComplexType ct = (ComplexType)object;
+		String label= "";
+		if (ct.eContainer() instanceof TypeNamespace){
+			label+=((TypeNamespace)ct.eContainer()).getName()+"::";
+		}
+		label+= ((ComplexType)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ComplexType_type") :
 			getString("_UI_ComplexType_type") + " " + label;

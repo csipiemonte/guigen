@@ -899,6 +899,15 @@ public interface GuigenFactory extends EFactory {
 	RoleBasedSecurityConstraint createRoleBasedSecurityConstraint();
 
 	/**
+	 * Returns a new object of class '<em>File Upload</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>File Upload</em>'.
+	 * @generated
+	 */
+	FileUpload createFileUpload();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -8,6 +8,8 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.AppDataBinding;
+import it.csi.mddtools.guigen.AppDataGroup;
+import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.MultiDataWidget;
@@ -151,7 +153,12 @@ public class AppDataBindingItemProvider
 		else label+= "???";
 		//
 		if (binding.getAppData()!=null){
-			label+= "bound to " +binding.getAppData().getName();
+			label+= "bound to ";
+			ApplicationData ad = binding.getAppData(); 
+			if (ad.eContainer() instanceof AppDataGroup){
+				label+=((AppDataGroup)ad.eContainer()).getName()+"::";
+			}
+			label+=binding.getAppData().getName();
 			if (binding.getPath()!=null && binding.getPath().length()>0)
 				label+="."+binding.getPath();
 		}

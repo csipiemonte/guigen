@@ -158,6 +158,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SHIBBOLETH_SSO: return createShibbolethSSO();
 			case GuigenPackage.ROLE: return createRole();
 			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT: return createRoleBasedSecurityConstraint();
+			case GuigenPackage.FILE_UPLOAD: return createFileUpload();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1193,6 +1194,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public RoleBasedSecurityConstraint createRoleBasedSecurityConstraint() {
 		RoleBasedSecurityConstraintImpl roleBasedSecurityConstraint = new RoleBasedSecurityConstraintImpl();
 		return roleBasedSecurityConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FileUpload createFileUpload() {
+		FileUploadImpl fileUpload = new FileUploadImpl();
+		return fileUpload;
 	}
 
 	/**

@@ -5551,13 +5551,22 @@ public interface GuigenPackage extends EPackage {
 	int WIZARD_PANEL__PANELS = MULTI_PANEL__PANELS;
 
 	/**
+	 * The feature id for the '<em><b>Navigator Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__NAVIGATOR_ACTIVE = MULTI_PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Wizard Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 0;
+	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.
@@ -6040,6 +6049,88 @@ public interface GuigenPackage extends EPackage {
 	int ROLE_BASED_SECURITY_CONSTRAINT_FEATURE_COUNT = UI_SECURITY_CONSTRAINT_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FileUploadImpl <em>File Upload</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.FileUploadImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFileUpload()
+	 * @generated
+	 */
+	int FILE_UPLOAD = 108;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__NAME = WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__LABEL = WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__LAYOUT_SPEC = WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__EVENT_HANDLERS = WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__SECURITY_CONSTRAINTS = WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__DEFAULT_VISIBLE = WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The number of structural features of the '<em>File Upload</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6047,7 +6138,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 108;
+	int WIDGET_DATA_TYPE = 109;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -6057,7 +6148,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 109;
+	int UDLRC_SPEC_CONSTANTS = 110;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -6067,7 +6158,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 110;
+	int EVENT_TYPES = 111;
 
 
 	/**
@@ -6078,7 +6169,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 111;
+	int DATA_LIFETIME_TYPE = 112;
 
 
 	/**
@@ -6089,7 +6180,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 112;
+	int SIMPLE_TYPE_CODES = 113;
 
 
 	/**
@@ -6100,7 +6191,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 113;
+	int PORTAL_NAMES = 114;
 
 
 	/**
@@ -6111,7 +6202,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 114;
+	int TARGET_PLATFORM_CODES = 115;
 
 
 	/**
@@ -6122,7 +6213,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 115;
+	int MESSAGE_SEVERITY = 116;
 
 
 	/**
@@ -6133,7 +6224,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 116;
+	int COMMAND_STYLES = 117;
 
 
 	/**
@@ -8901,6 +8992,17 @@ public interface GuigenPackage extends EPackage {
 	EClass getWizardPanel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WizardPanel#isNavigatorActive <em>Navigator Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Navigator Active</em>'.
+	 * @see it.csi.mddtools.guigen.WizardPanel#isNavigatorActive()
+	 * @see #getWizardPanel()
+	 * @generated
+	 */
+	EAttribute getWizardPanel_NavigatorActive();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppModule <em>App Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9217,6 +9319,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRoleBasedSecurityConstraint_Role();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FileUpload <em>File Upload</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>File Upload</em>'.
+	 * @see it.csi.mddtools.guigen.FileUpload
+	 * @generated
+	 */
+	EClass getFileUpload();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -11603,6 +11715,14 @@ public interface GuigenPackage extends EPackage {
 		EClass WIZARD_PANEL = eINSTANCE.getWizardPanel();
 
 		/**
+		 * The meta object literal for the '<em><b>Navigator Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIZARD_PANEL__NAVIGATOR_ACTIVE = eINSTANCE.getWizardPanel_NavigatorActive();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -11865,6 +11985,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ROLE_BASED_SECURITY_CONSTRAINT__ROLE = eINSTANCE.getRoleBasedSecurityConstraint_Role();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FileUploadImpl <em>File Upload</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.FileUploadImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getFileUpload()
+		 * @generated
+		 */
+		EClass FILE_UPLOAD = eINSTANCE.getFileUpload();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

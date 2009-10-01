@@ -46,6 +46,7 @@ import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.Field;
+import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.Footer;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIBehaviors;
@@ -895,6 +896,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass roleBasedSecurityConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fileUploadEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3365,6 +3373,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWizardPanel_NavigatorActive() {
+		return (EAttribute)wizardPanelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAppModule() {
 		return appModuleEClass;
 	}
@@ -3628,6 +3645,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getRoleBasedSecurityConstraint_Role() {
 		return (EReference)roleBasedSecurityConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFileUpload() {
+		return fileUploadEClass;
 	}
 
 	/**
@@ -4094,6 +4120,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		userDefinedPanelEClass = createEClass(USER_DEFINED_PANEL);
 
 		wizardPanelEClass = createEClass(WIZARD_PANEL);
+		createEAttribute(wizardPanelEClass, WIZARD_PANEL__NAVIGATOR_ACTIVE);
 
 		appModuleEClass = createEClass(APP_MODULE);
 		createEAttribute(appModuleEClass, APP_MODULE__NAME);
@@ -4136,6 +4163,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		roleBasedSecurityConstraintEClass = createEClass(ROLE_BASED_SECURITY_CONSTRAINT);
 		createEReference(roleBasedSecurityConstraintEClass, ROLE_BASED_SECURITY_CONSTRAINT__ROLE);
+
+		fileUploadEClass = createEClass(FILE_UPLOAD);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -4248,6 +4277,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		screenStateCommandEClass.getESuperTypes().add(this.getCommand());
 		shibbolethSSOEClass.getESuperTypes().add(this.getAutenticationMethod());
 		roleBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
+		fileUploadEClass.getESuperTypes().add(this.getWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4605,6 +4635,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(userDefinedPanelEClass, UserDefinedPanel.class, "UserDefinedPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wizardPanelEClass, WizardPanel.class, "WizardPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWizardPanel_NavigatorActive(), ecorePackage.getEBoolean(), "navigatorActive", "true", 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(appModuleEClass, AppModule.class, "AppModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4647,6 +4678,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(roleBasedSecurityConstraintEClass, RoleBasedSecurityConstraint.class, "RoleBasedSecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRoleBasedSecurityConstraint_Role(), this.getRole(), null, "role", null, 0, 1, RoleBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(fileUploadEClass, FileUpload.class, "FileUpload", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

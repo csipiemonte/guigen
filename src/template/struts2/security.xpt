@@ -592,6 +592,7 @@ import it.csi.csi.pfh.FunctHandler;
 import it.csi.csi.util.Param;
 import it.csi.csi.wrapper.CSIException;
 import it.csi.iride2.policy.entity.*;
+import it.csi.iride2.iridefed.entity.Ruolo;
 
 public class «getIridePDCacheClassName()» implements FunctHandler{
 
@@ -641,15 +642,18 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 	class Iride2CallKey {
 		public String paramsKey;
 		
-		public Iride2CallKey(String methodName, Param [] params){
-			paramsKey+=methodName+":";
-			Identita id = (Identita)(params[0].getValue());
-			paramsKey+=id.getCodFiscale();
-			if (params[1].getType()==UseCase.class){
-				paramsKey+=",UC:"+((UseCase)(params[1].getValue())).getId();
+		public Iride2CallKey(String methodName, Param[] params) {
+			paramsKey += methodName + ":";
+			Identita id = (Identita) (params[0].getValue());
+			paramsKey += id.getCodFiscale();
+			if (params[1].getType() == UseCase.class) {
+				paramsKey += ",UC:"
+						+ ((UseCase) (params[1].getValue())).getId();
+			} else if (params[1].getType() == Actor.class) {
+				paramsKey += ",ACT:" + ((Actor) (params[1].getValue())).getId();
 			}
-			else if (params[1].getType()==Actor.class){
-				paramsKey+=",ACT:"+((Actor)(params[1].getValue())).getId();
+			else if (params[1].getType() == Ruolo.class) {
+				paramsKey += ",ROL:" + ((Ruolo) (params[1].getValue())).getCodiceDominio()+"-"+((Ruolo) (params[1].getValue())).getCodiceRuolo();
 			}
 		}
 

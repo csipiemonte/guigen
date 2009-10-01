@@ -2307,6 +2307,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.FileUpload} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FileUploadItemProvider fileUploadItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.FileUpload}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFileUploadAdapter() {
+		if (fileUploadItemProvider == null) {
+			fileUploadItemProvider = new FileUploadItemProvider(this);
+		}
+
+		return fileUploadItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2502,6 +2525,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (shibbolethSSOItemProvider != null) shibbolethSSOItemProvider.dispose();
 		if (roleItemProvider != null) roleItemProvider.dispose();
 		if (roleBasedSecurityConstraintItemProvider != null) roleBasedSecurityConstraintItemProvider.dispose();
+		if (fileUploadItemProvider != null) fileUploadItemProvider.dispose();
 	}
 
 }

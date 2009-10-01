@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.AppDataGroup;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.GuigenPackage;
@@ -158,7 +159,11 @@ public class ApplicationDataItemProvider
 	@Override
 	public String getText(Object object) {
 		ApplicationData ad = (ApplicationData)object;
-		String label = ad.getName();
+		String label = "";
+		if (ad.eContainer() instanceof AppDataGroup){
+			label+=((AppDataGroup)ad.eContainer()).getName()+"::";
+		}
+		label+=ad.getName();
 		if (ad.getType()!=null){
 			label+=(" : "+ad.getType().getName());
 		}

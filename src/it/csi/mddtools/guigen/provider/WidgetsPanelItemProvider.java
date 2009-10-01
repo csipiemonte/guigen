@@ -278,6 +278,11 @@ public class WidgetsPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createUserDefinedWidget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createFileUpload()));
 	}
 
 }

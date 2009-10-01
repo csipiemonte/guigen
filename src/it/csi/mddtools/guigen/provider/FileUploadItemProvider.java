@@ -7,8 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.WizardPanel;
+import it.csi.mddtools.guigen.FileUpload;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,24 +15,21 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.WizardPanel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.FileUpload} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WizardPanelItemProvider
-	extends MultiPanelItemProvider
+public class FileUploadItemProvider
+	extends WidgetItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -46,7 +42,7 @@ public class WizardPanelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WizardPanelItemProvider(AdapterFactory adapterFactory) {
+	public FileUploadItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,42 +57,19 @@ public class WizardPanelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNavigatorActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Navigator Active feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNavigatorActivePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_WizardPanel_navigatorActive_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_WizardPanel_navigatorActive_feature", "_UI_WizardPanel_type"),
-				 GuigenPackage.Literals.WIZARD_PANEL__NAVIGATOR_ACTIVE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns WizardPanel.gif.
+	 * This returns FileUpload.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/WizardPanel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FileUpload"));
 	}
 
 	/**
@@ -107,10 +80,10 @@ public class WizardPanelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WizardPanel)object).getName();
+		String label = ((FileUpload)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_WizardPanel_type") :
-			getString("_UI_WizardPanel_type") + " " + label;
+			getString("_UI_FileUpload_type") :
+			getString("_UI_FileUpload_type") + " " + label;
 	}
 
 	/**
@@ -123,12 +96,6 @@ public class WizardPanelItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(WizardPanel.class)) {
-			case GuigenPackage.WIZARD_PANEL__NAVIGATOR_ACTIVE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

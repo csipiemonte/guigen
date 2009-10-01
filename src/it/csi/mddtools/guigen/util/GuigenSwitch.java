@@ -824,6 +824,13 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.FILE_UPLOAD: {
+				FileUpload fileUpload = (FileUpload)theEObject;
+				T result = caseFileUpload(fileUpload);
+				if (result == null) result = caseWidget(fileUpload);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2445,6 +2452,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseRoleBasedSecurityConstraint(RoleBasedSecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>File Upload</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>File Upload</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFileUpload(FileUpload object) {
 		return null;
 	}
 
