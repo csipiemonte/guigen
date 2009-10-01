@@ -27,9 +27,14 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
 <!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.notfound.title" /></h3>
-<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
-<br/>
-<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+<div>
+	<fmt:message key="error.notfound.warning" />
+	<br/>
+	<fmt:message key="error.notfound.message" />
+</div>
+<div>
+	<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -39,9 +44,14 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
 <!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.fatalerror.title" /></h3>
-<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
-<br/>
-<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
+<div>
+	<fmt:message key="error.fatalerror.warning" />
+	<br />
+	<fmt:message key="error.fatalerror.message" />
+</div>
+<div>
+	<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -51,11 +61,15 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
 <!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><s:text name="error.applicationerror.title" /></h3>
-<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
-<s:property value="%{exception.message}"/>
-<br/>
-<s:url id="homePageUrl" action="HomePage" />
-<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
+<div>
+	<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" />
+	<br />
+	<s:property value="%{exception.message}"/>
+</div>
+<div>
+	<s:url id="homePageUrl" action="HomePage" />
+	<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
+</div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
 
@@ -65,15 +79,22 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
 <!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.sessionexpired.title" /></h3>
-<fmt:message key="error.sessionexpired.warning" /><br/>
-<fmt:message key="error.sessionexpired.timeout" /><br/>
-<br/>
-<fmt:message key="error.sessionexpired.datanotsaved" /><br/>
-<fmt:message key="error.sessionexpired.authentication" />
-<br/>
-<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a><!-- NOTA: questa URL è da parametrizzare in qualche modo -->
-<br/>
-<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+<div>
+	<fmt:message key="error.sessionexpired.warning" />
+	<br />
+	<fmt:message key="error.sessionexpired.timeout" />
+	<br />
+	<br />
+	<fmt:message key="error.sessionexpired.datanotsaved" />
+	<br />
+	<fmt:message key="error.sessionexpired.authentication" />
+</div>
+<div>
+	<!-- NOTA: questa URL è da parametrizzare in qualche modo -->
+	<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	<br />
+	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
@@ -83,11 +104,16 @@ Definizioni generali: Pagine di ERRORE
 «FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
 <h3><s:text name="message.confirmlogout.title" /></h3>
-<s:text name="message.confirmlogout.warning" />
-<br />
-<s:text name="message.confirmlogout.closemessage" />
-<br />
-<s:text name="message.confirmlogout.certmessage" />
+<div>
+	<s:text name="message.confirmlogout.warning" />
+	<br />
+	<s:text name="message.confirmlogout.closemessage" />
+	<br />
+	<s:text name="message.confirmlogout.certmessage" />
+</div>
+<div>
+	<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+	<s:a href="%{localLogoutUrl}"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDFILE»
@@ -226,7 +252,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
 <div id="mainMenu">
-	<h3></h3>
+	<h3>Menu di navigazione</h3>
 	<ul>
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
@@ -579,8 +605,8 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "Nav" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "Funz" : "" ) ) AS ptype-»
-<div class="commandPanel «ptype»" id="«this.name»">
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? " navigation" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? " functional" : "" ) ) AS ptype-»
+<div class="commandPanel«ptype»" id="«this.name»">
 «ENDLET-»
 «ENDDEFINE»
 
