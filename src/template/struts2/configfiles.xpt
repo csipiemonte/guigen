@@ -402,6 +402,11 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<constant name="struts.action.extension" value="do" />
 	<constant name="struts.i18n.reload" value="false" />
 	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie
+	<constant name="struts.multipart.maxSize" value="4524288" />
+	<constant name="struts.multipart.saveDir" value="/tmp" />
+	-->
 	
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
@@ -412,6 +417,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="checkbox" />
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="fileUpload"/>
 				<interceptor-ref name="params" />
 				<interceptor-ref name="conversionError"/>
 				<interceptor-ref name="prepare" />

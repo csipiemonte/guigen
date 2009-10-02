@@ -87,6 +87,11 @@
                 <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.4"/>
               </eventHandler>
             </submenu>
+            <submenu name="smnuUpload" label="Upload file">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.3/@contentPanels.5"/>
+              </eventHandler>
+            </submenu>
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
@@ -1824,6 +1829,53 @@
                     <widgets xsi:type="guigen:ConfirmButton" name="btnVert2" label="Button 2"/>
                     <widgets xsi:type="guigen:PlainText" name="ptxt2" dataType="//@typedefs/@types.9" staticText="Plain text 2"/>
                   </subpanels>
+                </subpanels>
+              </subpanels>
+            </panels>
+          </contentPanels>
+          <contentPanels name="cpTestUpload" appData="//@appDataDefs/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pTestUpload" label="Test FileUpload Interceptor">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="mpMenu">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:MenuView" name="mvView"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpUp">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+                <subpanels xsi:type="guigen:UserInfoPanel" name="uiPanel"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="uploadMessages" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+                <subpanels xsi:type="guigen:FormPanel" name="pDati" label="Campi Upload">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="datiWidgets">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:FileUpload" name="myUpload" label="FILE"/>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:CommandPanel" name="pButtons">
+                  <layout xsi:type="guigen:UDLRCPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="btnInvia" label="Invia">
+                    <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="testUpload">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="pRisultati" label="Uploaded File">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:UserDefinedPanel" name="udpRisultati"/>
                 </subpanels>
               </subpanels>
             </panels>

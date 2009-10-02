@@ -5,6 +5,7 @@ import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.Field;
+import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
@@ -183,6 +184,43 @@ public class GenUtilsLayoutSisp {
 		return res;
 	}
 
+	
+	/**
+	 * Restituisce lo stile per i FileUpload.
+	 * 
+	 * Viene ridefinito tramite AOP per i seguenti portali:
+	 * - SistemaPiemonte
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param f Il widget di tipo FileUpload da gestire
+	 * @return
+	 * @author [DM] STDMDD-294
+	 */
+	public static String getFileUploadStyleByLayout(GUIModel model, FileUpload f) {
+		String res = "";
+		
+		/*int len = f.getFieldLength();
+		if ( len > 0 ) {
+			// stile per la lunghezza
+			String lenCss = "";
+			if ( len <= 14 ) {
+				// "small" se Textfield.size in [1..14]
+				lenCss = "small";
+			} else if ( len >= 15 && len <= 29  ) {
+				// "med" se Textfield.size in [15..29]
+				lenCss = "med";
+			} else if ( len >= 30 ) {
+				// "maxi" se Textfield.size >= 30 
+				lenCss = "maxi";
+			}
+			
+			res = "cssClass=\"" + lenCss + "\"";
+		}*/
+		
+		res = "cssClass=\"med\"";
+		return res;
+	}
+	
 
 	/**
 	 * Restituisce lo stile di un MsgBoxPanel.

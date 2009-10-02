@@ -792,6 +792,7 @@ STRUTS2 ACTIONS FILES
 «DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)»;
 
+«IF hasFileUpload(this)»import java.io.File;«ENDIF»
 import java.util.*;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;

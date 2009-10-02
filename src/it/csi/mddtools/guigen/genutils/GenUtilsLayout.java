@@ -5,6 +5,7 @@ import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.Field;
+import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GridPanelLayout;
@@ -522,7 +523,7 @@ public class GenUtilsLayout {
 	 * - SistemaPiemonte
 	 * 
 	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
-	 * @param t Il widget di tipo TextFiled da gestire
+	 * @param t Il widget di tipo TextField da gestire
 	 * @return
 	 * @author [DM] STDMDD-188
 	 */
@@ -533,6 +534,24 @@ public class GenUtilsLayout {
 	}	
 	
 	
+	/**
+	 * Restituisce lo stile per i FileUpload.
+	 * 
+	 * Viene ridefinito tramite AOP per i seguenti portali:
+	 * - SistemaPiemonte
+	 * 
+	 * @param model La radice (GUIModel) del modello, necessaria a ricavare il tipo di portale.
+	 * @param f Il widget di tipo FileUpload da gestire
+	 * @return
+	 * @author [DM] STDMDD-294
+	 */
+	public static String getFileUploadStyleByLayout(GUIModel model, FileUpload f) {
+		String res = "";
+		// TODO: implementare diversamente (se necessario)
+		return res;
+	}
+	
+
 	/**
 	 * Restituisce lo stile di un MsgBoxPanel.
 	 * 

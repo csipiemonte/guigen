@@ -20,6 +20,7 @@ import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.Field;
+import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GuigenFactory;
@@ -2038,7 +2039,7 @@ public class GenUtils {
 						
 						
 					}
-					else if (currCol.getMultidataPropertySelector()!=null){
+					else if (currCol.getMultidataPropertySelector()!=null) {
 						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
@@ -2050,7 +2051,7 @@ public class GenUtils {
 					          
 					          "/>";
 					}
-					else{
+					else {
 						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
 					}
@@ -2060,8 +2061,25 @@ public class GenUtils {
 		
 		return res;
 	}
-	
-	
+
+
+	/**
+	 * 
+	 * @param cp
+	 * @return
+	 * @author [DM] STDMDD-294: gestione FileUpload
+	 */
+	public static boolean hasFileUpload(ContentPanel cp) {
+		List<Widget> widgetsList = findAllWidgetsInContentPanel(cp);
+		for (Widget widget : widgetsList) {
+			if ( widget instanceof FileUpload ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO

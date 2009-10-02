@@ -61,8 +61,12 @@ around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel m
 
 // [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
 //      Qui non inseriamo un'immagine, ma un marcatore che possa essere utilizzato per vari scopi
-String getCalendarImageByLayout(GUIModel model, Calendar c) :
+around template::struts2::Struts2Extensions::getCalendarImageByLayout(GUIModel model, Calendar c) :
 	"<div class=\"infoCalendar\"></div>";
+
+// [DM] Restituisce lo stile dei FileUpload
+around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
+	"";
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :

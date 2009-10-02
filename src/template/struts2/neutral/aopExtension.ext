@@ -42,8 +42,12 @@ around template::struts2::Struts2Extensions::getRadioPortalStyle(GUIModel model)
 
 
 // [DM] Restituisce lo stile dei Calendar
-String getCalendarStyleByLayout(GUIModel model, Calendar c) :
+around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
 	"cssClass=\"inputData calendario\"";
+
+// [DM] Restituisce lo stile dei FileUpload
+around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
+	"";
 
 // [DM]  Restituisce la classe per un CheckBox
 // nota: deve rimanere in Java perché viene utilizzato anche da Java

@@ -313,6 +313,8 @@ String getStrutsActionJspConfigName(ContentPanel panel) :
 String getStrutsActionPropertiesFile(ContentPanel panel, GUIModel model, boolean omit_root) :
 	getPresentationJavaSrcDir(model, omit_root) + "/" + getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel) + ".properties";
 
+String getFormEnctype(ContentPanel cp) : 
+	hasFileUpload(cp) ? " enctype=\"multipart/form-data\"" : "";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -531,6 +533,9 @@ String getTypeNSAsFolder(ComplexType ct, boolean prependDot, boolean appendDot) 
 
 String getWidgetName(Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget);
+
+boolean hasFileUpload(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasFileUpload(it.csi.mddtools.guigen.ContentPanel);
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);
@@ -848,6 +853,10 @@ String getCalendarStyleByLayout(GUIModel model, Calendar c) :
 // [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
 String getCalendarImageByLayout(GUIModel model, Calendar c) :
 	"";
+
+// [DM] Restituisce lo stile dei FileUpload
+String getFileUploadStyleByLayout(GUIModel model, FileUpload f) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getFileUploadStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.FileUpload);
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 String getComboBoxValueChangedHandlerStyle(GUIModel model) :

@@ -879,16 +879,22 @@ public class ShowDialogCommand implements ICommand {
 «ENDDEFINE»
 
 «REM»
-	inserisce tutte le proeprty associate ai vari DataWidget contenuti nel content panel
+	inserisce tutte le propeprty associate ai vari DataWidget contenuti nel content panel
 	a tutti i livelli
+	[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload 
 «ENDREM»
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation) FOR ContentPanel»
 «LET findAllWidgetsInContentPanel(this) AS allW»
-«LET (List[Widget])allW AS allWidgets»
-«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding == null) AS allDataWidgets»
-	«EXPAND widgetProperty(model, widgetValidation) FOREACH allDataWidgets»
-«ENDLET»
-«ENDLET»
+	«LET (List[Widget])allW AS allWidgets»
+		«REM»properties dei DataWidgets«ENDREM»
+		«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding == null) AS allDataWidgets»
+			«EXPAND widgetProperty(model, widgetValidation) FOREACH allDataWidgets»
+		«ENDLET»
+		«REM»STDMDD-294: properties per i FileUpload widgets«ENDREM»
+		«LET allWidgets.typeSelect(FileUpload) AS fileUploadWidgets»
+			«EXPAND widgetProperty(model, widgetValidation) FOREACH fileUploadWidgets»
+		«ENDLET»
+	«ENDLET»
 «ENDLET»
 «ENDDEFINE»
 
@@ -897,7 +903,7 @@ public class ShowDialogCommand implements ICommand {
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR PlainText»
-	«REM»Non facciamo ninte. Implementare in futuro se servisse«ENDREM»
+	«REM»Non facciamo niente. Implementare in futuro se servisse«ENDREM»
 «ENDDEFINE»
 
 «DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR HiddenValue»
@@ -967,6 +973,44 @@ public class ShowDialogCommand implements ICommand {
 		return _«name»;
 	}
 «ENDDEFINE»
+
+
+«REM»[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload «ENDREM»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR FileUpload»
+	«EXPAND property(getWidgetName(this), model, null) FOR this»
+«ENDDEFINE»
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
+	// FileUpload «name»
+	private File _«name»;               // The actual file
+	private String _«name»ContentType;  // The content type of the file 
+	private String _«name»FileName;     // The uploaded file name and path 
+
+	public void set«name.toFirstUpper()»(File value) {
+		_«name» = value;
+	}
+	
+	public File get«name.toFirstUpper()»() {
+		return _«name»;
+	}
+
+	public void set«name.toFirstUpper()»ContentType(String value) {
+		_«name»ContentType = value;
+	}
+	
+	public String get«name.toFirstUpper()»ContentType() {
+		return _«name»ContentType;
+	}
+
+	public void set«name.toFirstUpper()»FileName(String value) {
+		_«name»FileName = value;
+	}
+	
+	public String get«name.toFirstUpper()»FileName() {
+		return _«name»FileName;
+	}
+«ENDDEFINE»
+
 
 «DEFINE storedAppDataProperties(GUIModel model, boolean expandVisitorFieldValidator) FOR ContentPanel»
 «LET findAllActionScopedAppDataInContentPanel(this) AS allAD»

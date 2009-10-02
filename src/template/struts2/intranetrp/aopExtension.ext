@@ -59,7 +59,10 @@ around template::struts2::Struts2Extensions::getTextFieldStyleByLayout(GUIModel 
 // [DM] Restituisce lo stile dei Calendar
 around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
 	"cssClass=\"calendario\"";
-	//"cssClass=\"%{!isWidgetDisabled('" + findParentContentPanel(c).name + "','" + c.name + "') ? 'calendario' : ''}\"";
+
+// [DM] Restituisce lo stile dei FileUpload
+around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
+	"";
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :
