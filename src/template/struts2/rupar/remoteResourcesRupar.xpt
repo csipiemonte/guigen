@@ -587,23 +587,47 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	<h4 class="alt">Sezioni</h4>
 	<ul>
 	«FOREACH this.panels AS currStep ITERATOR i-»
-		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
 		<li>
-		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«tabExtraCondition»}">
-			<span class="attivo"><span class="alt">sezione attiva:</span>«i.counter1». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span>
+		«LET getWizardPanelStepCompleteIndex(this, i.counter1.toString()) AS stepNumber-»
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«stepExtraCondition»}">
+			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber) FOR currStep-»
 		</s:if>
 		<s:else>
-			<s:a href="%{«getMultiPanelName(this, currStep)»_URL}">«i.counter1». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a>
+			«IF this.navigatorActive-»
+				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber) FOR currStep-»
+			«ELSE-»
+				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber) FOR currStep-»
+			«ENDIF-»
 		</s:else>
 		</li>
+		«ENDLET-»
 		«ENDLET-»
 	«ENDFOREACH-»
 	</ul>
 </div>
+«ENDDEFINE»
+
+«DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber) FOR Panel-»
+	«LET this AS currStep-»
+	<span class="attivo"><span class="alt">sezione attiva:</span>«stepNumber». <s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" /></span>
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber) FOR Panel»
+	«LET this AS currStep-»
+	<s:a href="%{«getMultiPanelName(wizard, currStep)»_URL}">«stepNumber». <s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" /></s:a>
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber) FOR Panel»
+	«LET this AS currStep-»
+	«stepNumber». <s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" />
+	«ENDLET-»
 «ENDDEFINE»
 
 
