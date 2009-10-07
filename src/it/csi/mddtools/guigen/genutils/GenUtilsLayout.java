@@ -29,10 +29,19 @@ import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
+import it.csi.mddtools.guigen.WizardPanel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.mwe.emf.Reader;
 
 
 /**
@@ -651,6 +660,43 @@ public class GenUtilsLayout {
 		return res;
 	}
 
+	
+	/**
+	 * Restituisce l'indice completo di uno step di un wizard panel.
+	 * Viene chiamata ricorsivamente a partire dal WizardPanel interessato (prima chiamata)
+	 * e percorre l'alberatura del modello fino ad un ContenPanel.
+	 * A mano a mano che l'alberatura viene percorsa, viene composto l'indice,
+	 * premettendo all'indice gi&agrave; composto (passato come parametro)
+	 * 
+	 * @param currentPanel Il pannello in esame
+	 * @param index L'indice in fase di composizione
+	 * @return L'indice composto nella forma 1.2.3
+	 * @author [DM] STDMDD-336
+	 */
+	public static String getWizardPanelStepCompleteIndex(Panel currentPanel, String index) {
+		EObject parent = currentPanel.eContainer();
+		if ( parent instanceof ContentPanel ) {
+			// sono arrivato alla radice, ritorno quello che ho composto
+			return index;
+		} 
+		else if ( parent instanceof WizardPanel ) {
+			// ho un WizardPanel: devo aggiungere all'indice già composto quello dello step
+			String newIndex = "";
+			int i = 1;
+			for ( Panel p : ((WizardPanel) parent).getPanels() ) {
+				if ( p == currentPanel ) {
+					newIndex = Integer.toString(i) + "." + index;
+					break;
+				}
+				i++;
+			}
+			return getWizardPanelStepCompleteIndex((Panel)parent, newIndex);
+		} 
+		else {
+			return getWizardPanelStepCompleteIndex((Panel)parent, index);
+		}
+	}
+
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -667,7 +713,7 @@ public class GenUtilsLayout {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 	}
 	
 }
