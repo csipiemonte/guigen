@@ -5377,13 +5377,22 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM__CODE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Enable Rich UI Behavior</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR = 1;
+
+	/**
 	 * The number of structural features of the '<em>Target Platform</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_PLATFORM_FEATURE_COUNT = 1;
+	int TARGET_PLATFORM_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
@@ -8962,6 +8971,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_Code();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Rich UI Behavior</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior()
+	 * @see #getTargetPlatform()
+	 * @generated
+	 */
+	EAttribute getTargetPlatform_EnableRichUIBehavior();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11683,6 +11703,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TARGET_PLATFORM__CODE = eINSTANCE.getTargetPlatform_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Rich UI Behavior</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR = eINSTANCE.getTargetPlatform_EnableRichUIBehavior();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.

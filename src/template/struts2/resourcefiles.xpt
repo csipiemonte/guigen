@@ -714,12 +714,20 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di un grupppo di RadioButton (RadioButtons).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
 <!-- widget «this.name» -->
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«ENDIF-»
 «EXPAND remoteResources::widgetMarkupHeader FOR this»
-«FOREACH this.radio AS currRadio»
+«FOREACH this.radio AS currRadio-»
 «EXPAND createWidgetMarkup(model, cp, this) FOR currRadio»
-«ENDFOREACH»
+«ENDFOREACH-»
 «getRadioButtonsValueChangedHandlerNoScript(this, model)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
 «EXPAND remoteResources::widgetMarkupFooter FOR this»
+«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
@@ -748,7 +756,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
 <!-- widget «this.name» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
-«IF refreshIds !=null-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
 «ENDIF-»
 <s:select name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
@@ -765,7 +773,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
           «getComboBoxValueChangedHandlerJS(this)»
           />
 «getComboBoxValueChangedHandlerNoScript(this, model)»
-«IF refreshIds!=null-»
+«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET»
@@ -776,13 +784,13 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
 <!-- widget «this.name» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
-«IF refreshIds !=null-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
 «ENDIF-»
 <s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»" 
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
-«IF refreshIds !=null-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET-»
@@ -793,13 +801,13 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 <!-- widget «this.name» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
-«IF refreshIds !=null-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this -»
 «ENDIF-»
 <s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»"
 	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
-«IF refreshIds !=null-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
 «ENDLET-»
@@ -832,8 +840,9 @@ come target di refresh.
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS targetIds-»
+«IF model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlHeader((List[String])targetIds,cp) FOR this-»
-
+«ENDIF-»
 «LET this.enableExport ? "true" : "false" AS exportEnabled-»
 <s:set name="«cp.name»_«this.name»_clearStatus" value="isTableClearStatus('«cp.name»_«this.name»')" />
 <display:table name="«getOGNLForWidgetMultiValue(this)»"
@@ -880,7 +889,9 @@ come target di refresh.
 	«ENDFOREACH-»
 	«ENDLET-»
 </display:table>
+«IF model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF»
 
 «ENDLET-»
 «ENDLET-»
@@ -900,6 +911,10 @@ come target di refresh.
 «REM»Genera la componente di markup (HTML) di un TreeView.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TreeView»
 «REM»TODO: verificare se questo id va bene«ENDREM»
+«LET getRefreshTargetIds(this) AS refreshIds-»
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«ENDIF-»
 <div id="menuTree">
 	<customtag:tree
 		name="«getOGNLForWidgetMultiValue(this)»"
@@ -914,6 +929,10 @@ come target di refresh.
 		«ENDIF-»
 	</customtag:tree>
 </div>
+«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 

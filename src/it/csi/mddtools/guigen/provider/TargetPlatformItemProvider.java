@@ -66,6 +66,7 @@ public class TargetPlatformItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCodePropertyDescriptor(object);
+			addEnableRichUIBehaviorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -88,6 +89,28 @@ public class TargetPlatformItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Enable Rich UI Behavior feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEnableRichUIBehaviorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TargetPlatform_enableRichUIBehavior_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableRichUIBehavior_feature", "_UI_TargetPlatform_type"),
+				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -131,6 +154,7 @@ public class TargetPlatformItemProvider
 
 		switch (notification.getFeatureID(TargetPlatform.class)) {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

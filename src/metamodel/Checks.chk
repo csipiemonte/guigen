@@ -9,6 +9,11 @@ extension template::struts2::Struts2Extensions;
 // Check indipendenti dalla piattaforma target                                                                      //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+context TargetPlatform WARNING "L'interazione 'ricca' non è abilitata: se si desidera abilitarla impostare a true"+
+	"l'attributo 'enableRichUIBehavior' nell'oggetto TargetPlatform" :
+	enableRichUIBehavior == true;
+
+
 // validazioni generali (prodotto/componente etc..)
 context GUIModel ERROR "E' necessario specificare il codice prodotto (max 10 caratteri)" :
 	codProdotto!=null && codProdotto.length<=10;

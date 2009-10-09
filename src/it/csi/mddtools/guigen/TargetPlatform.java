@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getCode <em>Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,5 +61,31 @@ public interface TargetPlatform extends EObject {
 	 * @generated
 	 */
 	void setCode(TargetPlatformCodes value);
+
+	/**
+	 * Returns the value of the '<em><b>Enable Rich UI Behavior</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enable Rich UI Behavior</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enable Rich UI Behavior</em>' attribute.
+	 * @see #setEnableRichUIBehavior(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_EnableRichUIBehavior()
+	 * @model
+	 * @generated
+	 */
+	boolean isEnableRichUIBehavior();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enable Rich UI Behavior</em>' attribute.
+	 * @see #isEnableRichUIBehavior()
+	 * @generated
+	 */
+	void setEnableRichUIBehavior(boolean value);
 
 } // TargetPlatform

@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getCode <em>Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,6 +51,26 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * @ordered
 	 */
 	protected TargetPlatformCodes code = CODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnableRichUIBehavior() <em>Enable Rich UI Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableRichUIBehavior()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_RICH_UI_BEHAVIOR_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnableRichUIBehavior() <em>Enable Rich UI Behavior</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableRichUIBehavior()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableRichUIBehavior = ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -96,11 +117,34 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnableRichUIBehavior() {
+		return enableRichUIBehavior;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableRichUIBehavior(boolean newEnableRichUIBehavior) {
+		boolean oldEnableRichUIBehavior = enableRichUIBehavior;
+		enableRichUIBehavior = newEnableRichUIBehavior;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR, oldEnableRichUIBehavior, enableRichUIBehavior));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
 				return getCode();
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
+				return isEnableRichUIBehavior();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -115,6 +159,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 		switch (featureID) {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
 				setCode((TargetPlatformCodes)newValue);
+				return;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
+				setEnableRichUIBehavior((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -131,6 +178,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
 				setCode(CODE_EDEFAULT);
 				return;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
+				setEnableRichUIBehavior(ENABLE_RICH_UI_BEHAVIOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -145,6 +195,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 		switch (featureID) {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
 				return code != CODE_EDEFAULT;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
+				return enableRichUIBehavior != ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -161,6 +213,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (code: ");
 		result.append(code);
+		result.append(", enableRichUIBehavior: ");
+		result.append(enableRichUIBehavior);
 		result.append(')');
 		return result.toString();
 	}
