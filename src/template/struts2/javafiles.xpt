@@ -1072,7 +1072,7 @@ STRUTS2 CUSTOM DECORATORS CLASSES
 
 «DEFINE tableDecoratorJavaFile(GUIModel model) FOR Table»
 «IF customDecorator»
-«FILE getTableDecoratorJavaFile(model, this)»package «getPresentationJavaPackage(model)»;
+«FILE getTableDecoratorJavaFile(model, this)»package «getPresentationRootJavaPackage(model)+".decorator"+getAppModuleAsPkg(findParentContentPanel(this),true,false)»;
 
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.import")»
 /// inserire qui eventuali import aggiuntive

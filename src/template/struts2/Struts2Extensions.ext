@@ -13,6 +13,13 @@ String getPresentationJavaSrcDir(GUIModel model, boolean omit_root) :
 String getPresentationJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".action";
 
+String getPresentationRootJavaPackage(GUIModel model) :
+	getBaseJavaPackage(model) + ".presentation";
+	
+String getPresentationRootJavaSrcDir(GUIModel model, boolean omit_root) :
+	getBaseJavaSrcDir(model, omit_root) + "/presentation";
+	
+	
 String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/jsp";
 	
@@ -382,10 +389,10 @@ String getTableDecoratorClassName(Table tbl) :
 	findParentContentPanel(tbl).name.toFirstUpper()+tbl.name.toFirstUpper()+"CustomDecorator";
 	
 String getTableDecoratorFQN(GUIModel model, Table tbl) :
-	getPresentationJavaPackage(model)+"."+getTableDecoratorClassName(tbl);
+	getPresentationRootJavaPackage(model)+".decorator."+getAppModuleAsPkg(findParentContentPanel(tbl), false,true)+getTableDecoratorClassName(tbl);
 	
 String getTableDecoratorJavaFile(GUIModel model, Table tbl) :
-	getPresentationJavaSrcDir(model, true) + "/" + getTableDecoratorClassName(tbl) + ".java";
+	getPresentationRootJavaSrcDir(model, true) + "/decorator/" + getAppModuleAsFolder(findParentContentPanel(tbl),false,true)+ getTableDecoratorClassName(tbl) + ".java";
 
 String getColumnDecoratorJavaSrcDir(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/presentation/" + model.codComponente + "/decorator";
