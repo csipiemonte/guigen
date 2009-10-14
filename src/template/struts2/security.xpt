@@ -83,7 +83,7 @@
 	-->
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/HomePage.do</url-pattern>
 	</filter-mapping>
 	
 	«EXPAND irideIdFilterMap(model) FOR this»
@@ -148,7 +148,7 @@
 	-->
 	<filter-mapping>
 		<filter-name>OP Filter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/HomePage.do</url-pattern>
 	</filter-mapping>
 	
 	«EXPAND irideIdFilterMap(model) FOR this»
@@ -857,12 +857,33 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 					log.error("[IrideIdAdapterFilter::doFilter] "+e.toString(),e);
 				}
 			}
+			else {
+				// STDMDD-325: il marcatore deve sempre essere presente altrimenti e' una 
+				// condizione di errore (escluse le pagine home e di servizio)
+				if (mustCheckPage(hreq.getRequestURI())){
+					log.error("[IrideIdAdapterFilter::doFilter] Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+					throw new ServletException("Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+				}
+			}
 		}
 		
 		fchn.doFilter(req, resp);
 		
 	}
 
+	
+    private boolean mustCheckPage(String requestURI) {
+		if (requestURI.indexOf("HomePage.do") > -1
+				|| requestURI.indexOf("sessionExpired.do") > -1
+				|| requestURI.indexOf("fatalError") > -1
+				|| requestURI.indexOf("notFoundError") > -1
+				|| requestURI.indexOf("sessionExpired.jsp") > -1
+				|| requestURI.indexOf("Logout") > -1)
+			return false;
+		else
+			return true;
+	}
+	
 	public void destroy() {
 		// NOP
 	}
