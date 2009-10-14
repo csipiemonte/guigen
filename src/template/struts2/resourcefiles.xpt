@@ -748,7 +748,9 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
 	«getCheckboxPortalStyle(model)»
 	/>
-<s:hidden name="__checkbox_«getOGNLForWidgetValue(this)»" id="__checkbox_«getWidgetName(this)»" />
+<s:if test="!isWidgetDisabled('«cp.name»','«this.name»')" >
+	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this)»" id="__checkbox_«getWidgetName(this)»" />
+</s:if>
 «ENDDEFINE»
 
 
