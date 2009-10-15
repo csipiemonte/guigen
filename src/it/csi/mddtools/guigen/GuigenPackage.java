@@ -1240,13 +1240,22 @@ public interface GuigenPackage extends EPackage {
 	int TAB_SET_PANEL__PANELS = MULTI_PANEL__PANELS;
 
 	/**
+	 * The feature id for the '<em><b>Switcher</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SET_PANEL__SWITCHER = MULTI_PANEL_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Tab Set Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAB_SET_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 0;
+	int TAB_SET_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6140,6 +6149,88 @@ public interface GuigenPackage extends EPackage {
 	int FILE_UPLOAD_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TabSwitcherImpl <em>Tab Switcher</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TabSwitcherImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTabSwitcher()
+	 * @generated
+	 */
+	int TAB_SWITCHER = 109;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__NAME = COMMAND_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__LABEL = COMMAND_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__LAYOUT_SPEC = COMMAND_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__EVENT_HANDLERS = COMMAND_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__SECURITY_CONSTRAINTS = COMMAND_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__DEFAULT_VISIBLE = COMMAND_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The number of structural features of the '<em>Tab Switcher</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER_FEATURE_COUNT = COMMAND_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6147,7 +6238,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 109;
+	int WIDGET_DATA_TYPE = 110;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -6157,7 +6248,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 110;
+	int UDLRC_SPEC_CONSTANTS = 111;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -6167,7 +6258,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 111;
+	int EVENT_TYPES = 112;
 
 
 	/**
@@ -6178,7 +6269,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 112;
+	int DATA_LIFETIME_TYPE = 113;
 
 
 	/**
@@ -6189,7 +6280,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 113;
+	int SIMPLE_TYPE_CODES = 114;
 
 
 	/**
@@ -6200,7 +6291,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 114;
+	int PORTAL_NAMES = 115;
 
 
 	/**
@@ -6211,7 +6302,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 115;
+	int TARGET_PLATFORM_CODES = 116;
 
 
 	/**
@@ -6222,7 +6313,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 116;
+	int MESSAGE_SEVERITY = 117;
 
 
 	/**
@@ -6233,7 +6324,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 117;
+	int COMMAND_STYLES = 118;
 
 
 	/**
@@ -6503,6 +6594,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTabSetPanel();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.TabSetPanel#getSwitcher <em>Switcher</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Switcher</em>'.
+	 * @see it.csi.mddtools.guigen.TabSetPanel#getSwitcher()
+	 * @see #getTabSetPanel()
+	 * @generated
+	 */
+	EReference getTabSetPanel_Switcher();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Panel <em>Panel</em>}'.
@@ -9351,6 +9453,16 @@ public interface GuigenPackage extends EPackage {
 	EClass getFileUpload();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TabSwitcher <em>Tab Switcher</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tab Switcher</em>'.
+	 * @see it.csi.mddtools.guigen.TabSwitcher
+	 * @generated
+	 */
+	EClass getTabSwitcher();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9675,6 +9787,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TAB_SET_PANEL = eINSTANCE.getTabSetPanel();
+
+		/**
+		 * The meta object literal for the '<em><b>Switcher</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TAB_SET_PANEL__SWITCHER = eINSTANCE.getTabSetPanel_Switcher();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -12023,6 +12143,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FILE_UPLOAD = eINSTANCE.getFileUpload();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TabSwitcherImpl <em>Tab Switcher</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TabSwitcherImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTabSwitcher()
+		 * @generated
+		 */
+		EClass TAB_SWITCHER = eINSTANCE.getTabSwitcher();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

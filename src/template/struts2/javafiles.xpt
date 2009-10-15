@@ -838,6 +838,42 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		return SUCCESS;
 	}
 	
+	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
+	«IF allTabSwitchers.size>0-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi specifici per la gestione del click sui Tab
+	/// contenuto nel contentPanel
+	/// metodo: handle<id_completo_tab_item>_CLICKED
+	/// 
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«FOREACH allTabSwitchers AS currTabSwitcher-»
+	«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-»
+	
+	«FOREACH currTabSet.panels AS currTab-»
+	/**
+	 * Gestione dell'evento di click sul tab Switcher del tab-set «currTabSet.name» 
+	 */
+	public String «getTabItemHandlerMethodName(this,currTabSet, currTab)»() throws Exception {
+	 	// impostazione dei parametri di selezione tab
+	 	setSelectedTabKey("«this.name»_«currTabSet.name»_selectedMultiPanel");
+	 	setSelectedTabValue("«this.name»_«currTabSet.name»_«currTab.name»");
+	 	«IF currTabSet.switcher!=null && currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
+	 	// richiamo della logica associata al tab-switcher
+	 	String tempResult = «getHandlerMethodName(currTabSet.switcher, currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())»();
+	 	«ENDIF-»
+	 	// selezione del tab di destinazione
+	 	handleChangeTab();
+		return SUCCESS;
+	}
+	
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDFOREACH-»
+	
+	«ENDIF-»
+	«ENDLET-»
+	
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi specifici per la gestione del singolo tipo di evento sul singolo widget
 	/// contenuto nel contentPanel

@@ -514,6 +514,8 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp) :
 		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
+String getTabItemHandlerMethodName(ContentPanel cp, TabSetPanel tabSet, Panel tab) :
+	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// ALTRE UTILITY

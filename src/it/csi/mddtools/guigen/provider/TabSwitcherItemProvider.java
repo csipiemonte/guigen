@@ -7,10 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.GuigenFactory;
-import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.Panel;
-import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.TabSwitcher;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,24 +15,21 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TabSetPanel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TabSwitcher} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TabSetPanelItemProvider
-	extends MultiPanelItemProvider
+public class TabSwitcherItemProvider
+	extends CommandWidgetItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -48,7 +42,7 @@ public class TabSetPanelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TabSetPanelItemProvider(AdapterFactory adapterFactory) {
+	public TabSwitcherItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -68,58 +62,28 @@ public class TabSetPanelItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.TAB_SET_PANEL__SWITCHER);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns TabSetPanel.gif.
+	 * This returns TabSwitcher.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TabSetPanel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TabSwitcher"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		String label="["+((Panel)object).getName()+"]-"+((Panel)object).getLabel();
+		String label = ((TabSwitcher)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_TabSetPanel_type") :
-			getString("_UI_TabSetPanel_type") + " " + label;
+			getString("_UI_TabSwitcher_type") :
+			getString("_UI_TabSwitcher_type") + " " + label;
 	}
 
 	/**
@@ -132,12 +96,6 @@ public class TabSetPanelItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(TabSetPanel.class)) {
-			case GuigenPackage.TAB_SET_PANEL__SWITCHER:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -151,11 +109,6 @@ public class TabSetPanelItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.TAB_SET_PANEL__SWITCHER,
-				 GuigenFactory.eINSTANCE.createTabSwitcher()));
 	}
 
 }

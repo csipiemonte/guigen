@@ -908,6 +908,15 @@ public interface GuigenFactory extends EFactory {
 	FileUpload createFileUpload();
 
 	/**
+	 * Returns a new object of class '<em>Tab Switcher</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tab Switcher</em>'.
+	 * @generated
+	 */
+	TabSwitcher createTabSwitcher();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

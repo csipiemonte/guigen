@@ -288,6 +288,11 @@ public class CommandPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createFileUpload()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTabSwitcher()));
 	}
 
 }

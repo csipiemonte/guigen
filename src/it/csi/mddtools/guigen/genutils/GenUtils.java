@@ -433,10 +433,14 @@ public class GenUtils {
 	 * @return La lista dei widget del TabSetPanel (e di tutti i suoi sottopannelli).
 	 */
 	public static ArrayList<Widget> findAllWidgetsInPanel(TabSetPanel tsp) {
-		if (tsp.getPanels() == null) {
+		if (tsp.getPanels() == null && tsp.getSwitcher()==null) {
 			return null;
 		} else {
 			ArrayList<Widget> ris = new ArrayList<Widget>();
+			// aggiungo lo switcher se presente
+			if (tsp.getSwitcher()!=null)
+				ris.add(tsp.getSwitcher());
+			// aggiungo i widget dei tabs
 			if ( tsp.getPanels() != null ) {
 				for (Panel panel : tsp.getPanels()) {
 					ArrayList<Widget> tmp = findAllWidgetsInPanel(panel);

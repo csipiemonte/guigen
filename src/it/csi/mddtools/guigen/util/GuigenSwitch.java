@@ -831,6 +831,14 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.TAB_SWITCHER: {
+				TabSwitcher tabSwitcher = (TabSwitcher)theEObject;
+				T result = caseTabSwitcher(tabSwitcher);
+				if (result == null) result = caseCommandWidget(tabSwitcher);
+				if (result == null) result = caseWidget(tabSwitcher);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2467,6 +2475,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseFileUpload(FileUpload object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tab Switcher</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tab Switcher</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTabSwitcher(TabSwitcher object) {
 		return null;
 	}
 

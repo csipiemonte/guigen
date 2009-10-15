@@ -64,6 +64,7 @@ public interface TargetPlatform extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Enable Rich UI Behavior</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Enable Rich UI Behavior</em>' attribute isn't clear,
@@ -73,7 +74,7 @@ public interface TargetPlatform extends EObject {
 	 * @return the value of the '<em>Enable Rich UI Behavior</em>' attribute.
 	 * @see #setEnableRichUIBehavior(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_EnableRichUIBehavior()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isEnableRichUIBehavior();

@@ -318,6 +318,11 @@ public class FormPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createFileUpload()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTabSwitcher()));
 	}
 
 }

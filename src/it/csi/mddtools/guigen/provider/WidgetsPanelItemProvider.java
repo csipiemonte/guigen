@@ -283,6 +283,11 @@ public class WidgetsPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createFileUpload()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createTabSwitcher()));
 	}
 
 }

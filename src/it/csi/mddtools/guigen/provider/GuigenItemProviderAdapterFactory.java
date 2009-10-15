@@ -2330,6 +2330,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TabSwitcher} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TabSwitcherItemProvider tabSwitcherItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TabSwitcher}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTabSwitcherAdapter() {
+		if (tabSwitcherItemProvider == null) {
+			tabSwitcherItemProvider = new TabSwitcherItemProvider(this);
+		}
+
+		return tabSwitcherItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2526,6 +2549,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (roleItemProvider != null) roleItemProvider.dispose();
 		if (roleBasedSecurityConstraintItemProvider != null) roleBasedSecurityConstraintItemProvider.dispose();
 		if (fileUploadItemProvider != null) fileUploadItemProvider.dispose();
+		if (tabSwitcherItemProvider != null) tabSwitcherItemProvider.dispose();
 	}
 
 }

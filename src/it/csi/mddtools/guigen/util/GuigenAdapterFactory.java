@@ -508,6 +508,10 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createFileUploadAdapter();
 			}
 			@Override
+			public Adapter caseTabSwitcher(TabSwitcher object) {
+				return createTabSwitcherAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2050,6 +2054,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFileUploadAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TabSwitcher <em>Tab Switcher</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TabSwitcher
+	 * @generated
+	 */
+	public Adapter createTabSwitcherAdapter() {
 		return null;
 	}
 

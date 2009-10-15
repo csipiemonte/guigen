@@ -159,6 +159,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ROLE: return createRole();
 			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT: return createRoleBasedSecurityConstraint();
 			case GuigenPackage.FILE_UPLOAD: return createFileUpload();
+			case GuigenPackage.TAB_SWITCHER: return createTabSwitcher();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1204,6 +1205,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public FileUpload createFileUpload() {
 		FileUploadImpl fileUpload = new FileUploadImpl();
 		return fileUpload;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TabSwitcher createTabSwitcher() {
+		TabSwitcherImpl tabSwitcher = new TabSwitcherImpl();
+		return tabSwitcher;
 	}
 
 	/**

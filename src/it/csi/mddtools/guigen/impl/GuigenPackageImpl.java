@@ -97,6 +97,7 @@ import it.csi.mddtools.guigen.StaticLinks;
 import it.csi.mddtools.guigen.Statusbar;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.TabSwitcher;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
@@ -909,6 +910,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass tabSwitcherEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1251,6 +1259,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EClass getTabSetPanel() {
 		return tabSetPanelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTabSetPanel_Switcher() {
+		return (EReference)tabSetPanelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3670,6 +3687,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTabSwitcher() {
+		return tabSwitcherEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -3805,6 +3831,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(formPanelEClass, FORM_PANEL__WIDGETS);
 
 		tabSetPanelEClass = createEClass(TAB_SET_PANEL);
+		createEReference(tabSetPanelEClass, TAB_SET_PANEL__SWITCHER);
 
 		panelEClass = createEClass(PANEL);
 		createEAttribute(panelEClass, PANEL__NAME);
@@ -4176,6 +4203,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		fileUploadEClass = createEClass(FILE_UPLOAD);
 
+		tabSwitcherEClass = createEClass(TAB_SWITCHER);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -4288,6 +4317,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		shibbolethSSOEClass.getESuperTypes().add(this.getAutenticationMethod());
 		roleBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
 		fileUploadEClass.getESuperTypes().add(this.getWidget());
+		tabSwitcherEClass.getESuperTypes().add(this.getCommandWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4321,6 +4351,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getFormPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tabSetPanelEClass, TabSetPanel.class, "TabSetPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTabSetPanel_Switcher(), this.getTabSwitcher(), null, "switcher", null, 0, 1, TabSetPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(panelEClass, Panel.class, "Panel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4639,7 +4670,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTargetPlatform_EnableRichUIBehavior(), ecorePackage.getEBoolean(), "enableRichUIBehavior", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTargetPlatform_EnableRichUIBehavior(), ecorePackage.getEBoolean(), "enableRichUIBehavior", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4691,6 +4722,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getRoleBasedSecurityConstraint_Role(), this.getRole(), null, "role", null, 0, 1, RoleBasedSecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileUploadEClass, FileUpload.class, "FileUpload", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(tabSwitcherEClass, TabSwitcher.class, "TabSwitcher", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
