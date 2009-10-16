@@ -916,11 +916,17 @@ Gestione dei PANNELLI
           <s:text name="«findParentContentPanel(this).name».«currTab.name».label" />
         </s:if>
         <s:else>
+        	«IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(findParentContentPanel(this), this, currTab) FOR this.switcher»
+        	«ENDIF-»
           <s:submit name="«switcher.name»"
           	cssStyle="border: 0pt none ; background: transparent; font-weight: bold; cursor: pointer;"
             id="«switcher.name»"
             method="«getTabItemHandlerMethodName(findParentContentPanel(this),this,currTab)»"
             key="«findParentContentPanel(this).name».«currTab.name».label" />
+        	«IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this.switcher»
+        	«ENDIF-»
         </s:else>
 		«ELSE-»
 		<s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>

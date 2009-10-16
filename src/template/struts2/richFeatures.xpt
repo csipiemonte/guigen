@@ -28,6 +28,22 @@
 	</customtag:ajaxify>
 «ENDDEFINE»
 
+«DEFINE ajaxifyControlHeader(ContentPanel parentCP, TabSetPanel tabSet, Panel tab) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<customtag:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR TabSwitcher»
+	</customtag:ajaxify>
+«ENDDEFINE»
+
+
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table" 

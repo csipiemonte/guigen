@@ -195,7 +195,7 @@
             <states name="state2" widgetsOn="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.3/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.3/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@widgets.1" widgetsVisible="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.3/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.3/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.3/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.2/@widgets.1"/>
           </states>
         </contentPanels>
-        <contentPanels name="cpTestTabs" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpTestTabs" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test tabs">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Outer label">
@@ -209,14 +209,18 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@types.7">
+                        <databinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                      </widgets>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab2" label="Tab 2">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@types.7">
+                        <databinding appData="//@appDataDefs/@groups.0/@appData.1"/>
+                      </widgets>
                     </subpanels>
                   </panels>
                   <switcher name="tswTab1">
@@ -376,6 +380,10 @@
     <appData name="provaData" type="//@typedefs/@types.3"/>
     <appData name="codComuneSelTabella" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
     <appData name="sampleTreeData" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <groups name="testTabs">
+      <appData name="valTf1a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+      <appData name="valTf2a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+    </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA">
     <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
