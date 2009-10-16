@@ -54,6 +54,7 @@ import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
+import it.csi.mddtools.guigen.WizardPanel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -2083,8 +2084,80 @@ public class GenUtils {
 		return false;
 	}
 
+	//// TABS
+	
+	public static ArrayList<TabSetPanel> getAllTabSets(ContentPanel p){
+//		System.out.println("getAllTabsets "+p);
+		if (p.getPanels()!=null)
+			return getAllTabSets(p.getPanels());
+		else
+			return new ArrayList<TabSetPanel>();
+	}
+	
+	public static ArrayList<TabSetPanel> getAllTabSets(Panel p){
+//		System.out.println("getAllTabsets "+p);
+		ArrayList<TabSetPanel> ris = new ArrayList<TabSetPanel>();
+		if (p instanceof FormPanel){
+			ris.addAll(getAllTabSets((FormPanel)p));
+		}
+		else if(p instanceof TabSetPanel){
+			ris.addAll(getAllTabSets((TabSetPanel)p));
+		}
+		else if(p instanceof WizardPanel){
+			ris.addAll(getAllTabSets((WizardPanel)p));
+		}
+		else if (p instanceof MultiPanel){
+			ris.addAll(getAllTabSets((MultiPanel)p));
+		}
+		// gli altri casi non aggiungono tabset
+		return ris;
+	}
 
-
+	public static ArrayList<TabSetPanel> getAllTabSets(FormPanel p){
+//		System.out.println("getAllTabsets "+p);
+		ArrayList<TabSetPanel> ris = new ArrayList<TabSetPanel>();
+		Iterator<Panel> p_it = p.getSubpanels().iterator();
+		while (p_it.hasNext()) {
+			Panel panel = (Panel) p_it.next();
+			ris.addAll(getAllTabSets(panel));
+		}
+		return ris;
+	}
+	
+	public static ArrayList<TabSetPanel> getAllTabSets(TabSetPanel p){
+//		System.out.println("getAllTabsets "+p);
+		ArrayList<TabSetPanel> ris = new ArrayList<TabSetPanel>();
+		Iterator<Panel> p_it = p.getPanels().iterator();
+		while (p_it.hasNext()) {
+			Panel panel = (Panel) p_it.next();
+			ris.addAll(getAllTabSets(panel));
+		}
+		ris.add(p);
+		return ris;
+	}
+	
+	public static ArrayList<TabSetPanel> getAllTabSets(WizardPanel p){
+//		System.out.println("getAllTabsets "+p);
+		ArrayList<TabSetPanel> ris = new ArrayList<TabSetPanel>();
+		Iterator<Panel> p_it = p.getPanels().iterator();
+		while (p_it.hasNext()) {
+			Panel panel = (Panel) p_it.next();
+			ris.addAll(getAllTabSets(panel));
+		}
+		return ris;
+	}
+	
+	public static ArrayList<TabSetPanel> getAllTabSets(MultiPanel p){
+//		System.out.println("getAllTabsets "+p);
+		ArrayList<TabSetPanel> ris = new ArrayList<TabSetPanel>();
+		Iterator<Panel> p_it = p.getPanels().iterator();
+		while (p_it.hasNext()) {
+			Panel panel = (Panel) p_it.next();
+			ris.addAll(getAllTabSets(panel));
+		}
+		return ris;
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO
 

@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="astu" codComponente="astubo" versioneProdotto="1.0.0" versioneComponente="1.0.0" portale="INTRANET_RUPARPIEMONTE">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="ppp" codApplicativo="PaperlessPA" nomeCanale="astu" linkCanale="www.sistemapiemonte.it" nomeApplicativo="astu"/>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnHome" label="Home">
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
+        <contentPanels name="cpRicerca" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="fpLeft">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:UserInfoPanel" name="cpUserInfo"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpCenter1" label="Ricerca">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="fpGeneraliRicerca">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:StdMessagePanel" name="mpRicerca" showGlobalMessages="true"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpGeneraliRicerca">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:ComboBox" name="cbAnnoScolastico" label="Anno scolastico" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="idAnnoScolastico" valueSelector="descrizione">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="idAnnoScolastico"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="codiceISTAT" valueSelector="descrizione">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="comune"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.1" path=""/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpTabRicerca">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:TabSetPanel" name="tspRicerca" label="">
+                    <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                    <panels xsi:type="guigen:FormPanel" name="fpStudenteRichiedente" label="Studente/Richiedente">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="wpStudenteRichiedente1">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <widgets xsi:type="guigen:PlainText" name="txtStudenteRichiedente" dataType="//@typedefs/@types.7" staticText="Per effettuare la ricerca inserisci il codice fiscale o il nominativo del richiedente o dello studente"/>
+                      </subpanels>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="wpStudenteRichiedente2">
+                        <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="3"/>
+                        <widgets xsi:type="guigen:ComboBox" name="cbTipoRicerca" label="Ricerca per:" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                          <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="tipoRicercaNominativo"/>
+                          <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.2"/>
+                        </widgets>
+                        <widgets xsi:type="guigen:TextField" name="txtCodiceFiscale" label="Codice fiscale" dataType="//@typedefs/@types.7">
+                          <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="codiceFiscale"/>
+                        </widgets>
+                        <widgets xsi:type="guigen:TextField" name="txtCognome" label="Cognome" dataType="//@typedefs/@types.7">
+                          <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="cognome"/>
+                        </widgets>
+                        <widgets xsi:type="guigen:TextField" name="txtNome" label="Nome" dataType="//@typedefs/@types.7">
+                          <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="nome"/>
+                        </widgets>
+                      </subpanels>
+                    </panels>
+                    <panels xsi:type="guigen:FormPanel" name="fpDatiDomanda" label="Dati domanda">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="wpDatiDomanda1">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <widgets xsi:type="guigen:ComboBox" name="cbBando" label="Bando" dataType="//@typedefs/@types.7" keySelector="idBando" valueSelector="descrizione">
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="idBando"/>
+                          <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.3"/>
+                        </widgets>
+                      </subpanels>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="wpDatiDomanda2">
+                        <layout xsi:type="guigen:GridPanelLayout" columns="1" rows="1"/>
+                        <widgets xsi:type="guigen:PlainText" name="txtDatiDomanda" dataType="//@typedefs/@types.7" staticText="Compilare uno solo dei criteri seguenti:">
+                          <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                        </widgets>
+                      </subpanels>
+                      <subpanels xsi:type="guigen:WidgetsPanel" name="wpDatiDomanda3">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <widgets xsi:type="guigen:TextField" name="txfCodiceDomanda" label="Codice domanda" dataType="//@typedefs/@types.7">
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="codiceDomanda"/>
+                        </widgets>
+                        <widgets xsi:type="guigen:ComboBox" name="cbStatoDomanda" label="Stato domanda" dataType="//@typedefs/@types.7" keySelector="codStatoDomanda" valueSelector="descrizione">
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="statoDomanda"/>
+                          <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
+                        </widgets>
+                        <widgets xsi:type="guigen:ComboBox" name="cbAnomalia" label="Anomalia" dataType="//@typedefs/@types.7" keySelector="codAnomalia" valueSelector="descrizione">
+                          <databinding appData="//@appDataDefs/@groups.0/@appData.7" path="anomalia"/>
+                          <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                        </widgets>
+                      </subpanels>
+                    </panels>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniRicerca">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaRicerca">
+                      <results resultCode="TO_NOMINATIVI">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                      </results>
+                      <results resultCode="TO_DOMANDE">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbIndietro" label="Indietro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:NOPCommand"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaCombo">
+            <results resultCode="OK">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpElencoNominativi" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14 //@appDataDefs/@groups.0/@appData.10">
+          <panels xsi:type="guigen:FormPanel" name="fpLeft">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:UserInfoPanel" name="cpUserInfo"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpRisultatiRicerca" label="Risultati della ricerca">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="mpElencoNominativi" showGlobalMessages="true"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoNominativi">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblNominativi" label="" dataType="//@typedefs/@types.7" pageSize="20" enableExport="false">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.10" path=""/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.8"/>
+                    <columnModel valueSelector="codiceFiscale">
+                      <columns selector="codiceFiscale" label="Codice fiscale"/>
+                      <columns selector="cognome" label="Cognome"/>
+                      <columns selector="nome" label="Nome"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniSeleziona">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbSeleziona" label="Seleziona">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaSelezione">
+                      <results resultCode="TO_DOMANDE">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbIndietro" label="Indietro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="tornaIndietro">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaNominativi">
+            <results resultCode="OK">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpElencoDomande" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.0/@appData.11 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="fpLeft">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:UserInfoPanel" name="cpUserInfo"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpRisultatiRicerca" label="Risultati della ricerca">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="mpElencoDomande" showGlobalMessages="true"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoDomande">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblDomande" label="" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.11" path=""/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.9"/>
+                    <columnModel valueSelector="idDomanda">
+                      <columns selector="codiceDomanda" label="Codice domanda"/>
+                      <columns selector="bando" label="Bando"/>
+                      <columns selector="comune" label="Comune"/>
+                      <columns selector="annoScolastico" label="Anno scolastico"/>
+                      <columns selector="cognomeRichiedente" label="Cognome richiedente"/>
+                      <columns selector="nomeRichiedente" label="Nome richiedente"/>
+                      <columns selector="cognomeStudente" label="Cognome studente"/>
+                      <columns selector="nomeStudente" label="Nome studente"/>
+                      <columns selector="statoDomanda" label="Stato domanda"/>
+                      <columns selector="dataAcquisizione" label="Data acquisizione/ultimo aggiornamento"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniSeleziona">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbVisualizza" label="Visualizza">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaVisualizza">
+                      <results resultCode="TO_DETTAGLIO">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbModifica" label="Modifica">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaModifica">
+                      <results resultCode="TO_DETTAGLIO">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbIndietro" label="Indietro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="tornaIndietro">
+                      <results resultCode="TO_NOMINATIVI">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.1"/>
+                      </results>
+                      <results resultCode="TO_RICERCA">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaDomande">
+            <results resultCode="OK">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpDettaglioDomanda" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@groups.1/@appData.3 //@appDataDefs/@groups.1/@appData.2 //@appDataDefs/@groups.1/@appData.4 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.1/@appData.5 //@appDataDefs/@groups.1/@appData.6 //@appDataDefs/@groups.1/@appData.7 //@appDataDefs/@groups.1/@appData.8 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14" defaultState="//@structure/@appWindow/@appArea/@contentPanels.3/@states/@states.0">
+          <panels xsi:type="guigen:FormPanel" name="fpLeft">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:UserInfoPanel" name="cpUserInfo"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="mpDettaglioDomanda" showGlobalMessages="true"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpRiepilogo" label="Riepilogo dati">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="fpRiepilogo1">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpRiepilogo1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:ComboBox" name="cbAnnoScolastico" label="Anno scolastico" dataTypeModifier="" dataType="//@typedefs/@types.7" required="true" keySelector="idAnnoScolastico" valueSelector="descrizione">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="idAnnoScolastico"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="codiceISTAT" valueSelector="descrizione">
+                      <eventHandlers eventType="VALUE_CHANGED">
+                        <command xsi:type="guigen:ExecCommand" methodName="impostaModificato">
+                          <results resultCode="OK">
+                            <command xsi:type="guigen:NOPCommand"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codiceISTAT"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.1" path=""/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ComboBox" name="cbBando" label="Bando" dataType="//@typedefs/@types.7" keySelector="idBando" valueSelector="descrizione">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="idBando"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.3"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfCodiceDomanda" label="Codice domanda" dataType="//@typedefs/@types.7">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codDomanda"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfDataAcquisizione" label="Data acquisizione/ultimo aggiornamento" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="inizioValidita"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpRiepilogo2" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpRiepilogo">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                    <widgets xsi:type="guigen:ComboBox" name="cbStatoDomanda" label="Stato domanda" defaultEnabled="false" dataType="//@typedefs/@types.7" keySelector="codStatoDomanda" valueSelector="descrizione">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codStatoDomanda"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:ConfirmButton" name="cbAnnullaRitira" label="Annulla/Ritira">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                      <eventHandlers>
+                        <command xsi:type="guigen:SequenceCommand">
+                          <commands xsi:type="guigen:ExecCommand" methodName="annullaDomanda">
+                            <results resultCode="OK">
+                              <command xsi:type="guigen:NOPCommand"/>
+                            </results>
+                          </commands>
+                          <commands xsi:type="guigen:ScreenStateCommand" goTo="//@structure/@appWindow/@appArea/@contentPanels.3/@states/@states.2"/>
+                        </command>
+                      </eventHandlers>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextArea" name="taMotivazioni" label="Motivazioni" defaultVisible="false" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="4"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.6"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpDatiDomanda" label="Dati domanda">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:FormPanel" name="fpDatiRichiedente" label="Richiedente">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpDatiRichiedente" label="">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="4"/>
+                    <widgets xsi:type="guigen:TextField" name="txfCognomeRichiedente" label="Cognome" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.cognome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfNomeRichiedente" label="Nome" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.nome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfCFRichiedente" label="Codice fiscale" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.codiceFiscale"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfIndirizzoRichiedente" label="Indirizzo" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.indirizzo"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfCAPRichiedente" label="CAP" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.cap"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfComuneRichiedente" label="Comune" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.comune"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfProvinciaRichiedente" label="Provincia" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="2"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="richiedente.provincia"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpDatiStudente" label="Studente">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpDatiStudente" label="">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="3"/>
+                    <widgets xsi:type="guigen:TextField" name="txfCognomeStudente" label="Cognome" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="studente.cognome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfNomeStudente" label="Nome" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="studente.nome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfCFStudente" label="Codice fiscale" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="studente.codiceFiscale"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfIndirizzoStudente" label="Indirizzo" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="studente.indirizzo"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+                <subpanels xsi:type="guigen:FormPanel" name="fpImporti" label="Importi">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="wpAltriDati" label="">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:TextField" name="txfISEE" label="ISEE" dataTypeModifier="" dataType="//@typedefs/@types.5">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="isee"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfSpesa" label="Spesa" dataType="//@typedefs/@types.5">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="spesa"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:TextField" name="txfContributo" label="Contributo" dataType="//@typedefs/@types.5">
+                      <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="contributo"/>
+                    </widgets>
+                  </subpanels>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpAnomalie" label="Anomalie">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpAnomalie">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblAnomalie" label="" dataType="//@typedefs/@types.7" enableExport="false">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.2"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.1/@appData.3" path=""/>
+                    <columnModel valueSelector="codiceAnomalia">
+                      <columns selector="codiceAnomalia" label="Codice anomalia"/>
+                      <columns selector="descrizione" label="Descrizione"/>
+                      <columns selector="note" label="Note"/>
+                      <columns selector="motivazione" label="Motivazione"/>
+                      <columns selector="statoAnomalia" label="Stato anomalia" multidataValueSelector=""/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:CommandPanel" name="cpAnomalie" label="">
+                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="cbModificaAnomalia" label="Modifica">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="avviaModificaAnomalia">
+                        <results resultCode="Ok">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                        </results>
+                        <results resultCode="Ko">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="cbAggiungiAnomalia" label="Aggiungi">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="avviaAggiungiAnomalia">
+                        <results resultCode="Ok">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                        </results>
+                        <results resultCode="Ko">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpNote" label="Note">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpNote">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextArea" name="taNote" label="Note" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="note"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextArea" name="taStoricoVariazioni" label="Storico variazioni" defaultEnabled="false" dataType="//@typedefs/@types.7"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniModifica">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="checkPerConferma">
+                      <results resultCode="ASK_CONFIRM">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                      </results>
+                      <results resultCode="EXEC_JUMP">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      </results>
+                      <results resultCode="KO">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaAnnulla">
+                      <results resultCode="Ok">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbIndietro" label="Indietro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="checkPerIndietro">
+                      <results resultCode="ASK_CONFIRM">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                      </results>
+                      <results resultCode="EXEC_JUMP">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaDomanda">
+            <results resultCode="TO_VISUALIZZAZIONE">
+              <command xsi:type="guigen:ScreenStateCommand" goTo="//@structure/@appWindow/@appArea/@contentPanels.3/@states/@states.0"/>
+            </results>
+            <results resultCode="TO_MODIFICA">
+              <command xsi:type="guigen:ScreenStateCommand" goTo="//@structure/@appWindow/@appArea/@contentPanels.3/@states/@states.1"/>
+            </results>
+          </onRefreshCommand>
+          <states>
+            <states name="visualizzazione" widgetsOn="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2" widgetsVisible="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2"/>
+            <states name="modifica" widgetsOn="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2" widgetsVisible="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2"/>
+            <states name="annullamento" widgetsOn="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2" widgetsVisible="//@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.2/@subpanels.2/@subpanels.0/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.3/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.4/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.3/@panels/@subpanels.1/@subpanels.5/@widgets.2"/>
+          </states>
+        </contentPanels>
+        <contentPanels name="cpDettaglioAnomalia" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.2 //@appDataDefs/@groups.1/@appData.4 //@appDataDefs/@groups.1/@appData.7 //@appDataDefs/@groups.1/@appData.8 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="fpLeft">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:UserInfoPanel" name="cpUserInfo"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="fpRiepilogo" label="Riepilogo dati">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpRiepilogo">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbAnnoScolastico" label="Anno scolastico" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7" required="true" keySelector="idAnnoScolastico" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="idAnnoScolastico"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" defaultEnabled="false" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="codiceISTAT" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codiceISTAT"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.1" path=""/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbBando" label="Bando" defaultEnabled="false" dataType="//@typedefs/@types.7" keySelector="idBando" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="idBando"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="txfCodiceDomanda" label="Codice domanda" defaultEnabled="false" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.0" path="codDomanda"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpAnomalie" label="Gestione anomalia">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpAnomalie">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbCodiceAnomalia" label="Codice anomalia" dataTypeModifier="" dataType="//@typedefs/@types.7" required="true" keySelector="codAnomalia" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.4" path="codAnomalia"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbStatoAnomalia" label="Stato anomalia" dataTypeModifier="" dataType="//@typedefs/@types.7" keySelector="codStatoAnomalia" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.4" path="codStatoAnomalia"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.6"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextArea" name="taNote" label="Note" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.4" path="note"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextArea" name="taMotivazione" label="Motivazione" dataType="//@typedefs/@types.7">
+                    <databinding appData="//@appDataDefs/@groups.1/@appData.4" path="motivazione"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniModifica">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaConferma">
+                      <results resultCode="Ok">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
+                      <results resultCode="Ko">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbAnnulla" label="Annulla">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="avviaAnnulla">
+                      <results resultCode="Ok">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                      <results resultCode="Ko">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="cbIndietro" label="Indietro">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="tornaIndietro">
+                      <results resultCode="Ok">
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                      </results>
+                      <results resultCode="Ko">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpDlgConfermaIndietro" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.11 //@appDataDefs/@groups.1/@appData.3 //@appDataDefs/@groups.1/@appData.5 //@appDataDefs/@groups.1/@appData.6 //@appDataDefs/@groups.1/@appData.7 //@appDataDefs/@groups.1/@appData.8 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="fpConfermaIndietro">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpMessaggio">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="mbConfermaIndietro" label="">
+                <textMessages name="ptConfermaIndietro" dataType="//@typedefs/@types.7" staticText="Attenzione: i dati inseriti non saranno memorizzati. Si desidera procedere comunque?"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="cpBottoni">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbSi" label="Si">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="pulisciSessione">
+                    <results resultCode="EXEC_JUMP">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbNo" label="No">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpDlgConfermaSalva" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.11 //@appDataDefs/@groups.1/@appData.3 //@appDataDefs/@groups.1/@appData.5 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.1/@appData.6 //@appDataDefs/@groups.1/@appData.7 //@appDataDefs/@groups.1/@appData.8 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.14">
+          <panels xsi:type="guigen:FormPanel" name="fpConfermaSalva">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="fpMessaggio">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="mpConfermaSalva" showGlobalMessages="true"/>
+              <subpanels xsi:type="guigen:MsgBoxPanel" name="mbConfermaIndietro" label="">
+                <textMessages name="ptConfermaSalva" dataType="//@typedefs/@types.7" staticText="Attenzione: i dati inseriti saranno memorizzati. Si desidera procedere?"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="cpBottoni">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbSi" label="Si">
+                <eventHandlers>
+                  <command xsi:type="guigen:ExecCommand" methodName="salva">
+                    <results resultCode="EXEC_JUMP">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
+                    </results>
+                    <results resultCode="KO">
+                      <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@widgets.0"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbNo" label="No">
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.3"/>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="TreeNode" code="TREE_NODE" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of TreeNode" componentType="//@typedefs/@types.13"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+    </types>
+    <namespaces name="TipiComplessi">
+      <types xsi:type="guigen:ComplexType" name="AnnoScolastico">
+        <fields name="idAnnoScolastico" type="//@typedefs/@types.6"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Anomalia">
+        <fields name="codAnomalia" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="flagDeterminaEsito" type="//@typedefs/@types.7"/>
+        <fields name="flagTipologia" type="//@typedefs/@types.7"/>
+        <fields name="flagServizio" type="//@typedefs/@types.7"/>
+        <fields name="flagOrigine" type="//@typedefs/@types.7"/>
+        <fields name="flagApplicabilita" type="//@typedefs/@types.7" dataTypeModifier=""/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Bando">
+        <fields name="idBando" type="//@typedefs/@types.6"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="inizioValidita" type="//@typedefs/@types.3"/>
+        <fields name="fineValidita" type="//@typedefs/@types.3"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Comune">
+        <fields name="codiceISTAT" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="codiceBelfiore" type="//@typedefs/@types.7"/>
+        <fields name="indirizziMail" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="StatoAnomalia">
+        <fields name="codStatoAnomalia" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="StatoDomanda">
+        <fields name="codStatoDomanda" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Utente">
+        <fields name="idUtente" type="//@typedefs/@types.0"/>
+        <fields name="cognome" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="TipoRicerca">
+        <fields name="id" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="DatiRicerca">
+        <fields name="tipoRicerca" type="//@typedefs/@types.0"/>
+        <fields name="tipoRicercaNominativo" type="//@typedefs/@types.7"/>
+        <fields name="idAnnoScolastico" type="//@typedefs/@types.7"/>
+        <fields name="comune" type="//@typedefs/@types.7"/>
+        <fields name="codiceFiscale" type="//@typedefs/@types.7"/>
+        <fields name="cognome" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="idBando" type="//@typedefs/@types.7"/>
+        <fields name="codiceDomanda" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="statoDomanda" type="//@typedefs/@types.7"/>
+        <fields name="anomalia" type="//@typedefs/@types.7"/>
+        <fields name="codiceFiscaleSel" type="//@typedefs/@types.7"/>
+        <fields name="idDomandaSel" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="DomandaRow">
+        <fields name="idDomanda" type="//@typedefs/@types.6"/>
+        <fields name="codiceDomanda" type="//@typedefs/@types.7" dataTypeModifier=""/>
+        <fields name="bando" type="//@typedefs/@types.7"/>
+        <fields name="comune" type="//@typedefs/@types.7"/>
+        <fields name="annoScolastico" type="//@typedefs/@types.7"/>
+        <fields name="cognomeRichiedente" type="//@typedefs/@types.7"/>
+        <fields name="nomeRichiedente" type="//@typedefs/@types.7"/>
+        <fields name="cognomeStudente" type="//@typedefs/@types.7"/>
+        <fields name="nomeStudente" type="//@typedefs/@types.7"/>
+        <fields name="statoDomanda" type="//@typedefs/@types.7"/>
+        <fields name="dataAcquisizione" type="//@typedefs/@types.3"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="AnomaliaDomandaRow">
+        <fields name="codiceAnomalia" type="//@typedefs/@types.7"/>
+        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="note" type="//@typedefs/@types.7"/>
+        <fields name="motivazione" type="//@typedefs/@types.7"/>
+        <fields name="statoAnomalia" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Domanda">
+        <fields name="idDomanda" type="//@typedefs/@types.6"/>
+        <fields name="codDomanda" type="//@typedefs/@types.7"/>
+        <fields name="idAnnoScolastico" type="//@typedefs/@types.6"/>
+        <fields name="codiceISTAT" type="//@typedefs/@types.7"/>
+        <fields name="idBando" type="//@typedefs/@types.6"/>
+        <fields name="richiedente" type="//@typedefs/@namespaces.0/@types.13"/>
+        <fields name="studente" type="//@typedefs/@namespaces.0/@types.13"/>
+        <fields name="codStatoDomanda" type="//@typedefs/@types.7"/>
+        <fields name="inizioValidita" type="//@typedefs/@types.3"/>
+        <fields name="fineValidita" type="//@typedefs/@types.3"/>
+        <fields name="origine" type="//@typedefs/@types.7"/>
+        <fields name="utente" type="//@typedefs/@namespaces.0/@types.6"/>
+        <fields name="note" type="//@typedefs/@types.7"/>
+        <fields name="isee" type="//@typedefs/@types.5"/>
+        <fields name="spesa" type="//@typedefs/@types.5"/>
+        <fields name="contributo" type="//@typedefs/@types.5"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="AnomaliaDomanda">
+        <fields name="idDomanda" type="//@typedefs/@types.6"/>
+        <fields name="codAnomalia" type="//@typedefs/@types.7"/>
+        <fields name="codStatoAnomalia" type="//@typedefs/@types.7"/>
+        <fields name="note" type="//@typedefs/@types.7"/>
+        <fields name="motivazione" type="//@typedefs/@types.7"/>
+        <fields name="origine" type="//@typedefs/@types.7"/>
+        <fields name="idUtente" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Persona">
+        <fields name="cognome" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="codiceFiscale" type="//@typedefs/@types.7"/>
+        <fields name="indirizzo" type="//@typedefs/@types.7"/>
+        <fields name="cap" type="//@typedefs/@types.7"/>
+        <fields name="comune" type="//@typedefs/@types.7"/>
+        <fields name="provincia" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Variazione">
+        <fields name="idVariazione" type="//@typedefs/@types.0"/>
+        <fields name="idDomandaOrig" type="//@typedefs/@types.0"/>
+        <fields name="idDomandaMod" type="//@typedefs/@types.0"/>
+        <fields name="colonnaMod" type="//@typedefs/@types.7"/>
+        <fields name="valoreOrig" type="//@typedefs/@types.7"/>
+        <fields name="valoreMod" type="//@typedefs/@types.7"/>
+        <fields name="utente" type="//@typedefs/@namespaces.0/@types.6"/>
+        <fields name="data" type="//@typedefs/@types.3"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="File">
+        <fields name="idFile" type="//@typedefs/@types.0"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="dataElaborazione" type="//@typedefs/@types.3"/>
+        <fields name="comune" type="//@typedefs/@namespaces.0/@types.3"/>
+        <fields name="recordTotali" type="//@typedefs/@types.0"/>
+        <fields name="recordAnomali" type="//@typedefs/@types.0"/>
+        <fields name="esito" type="//@typedefs/@types.7"/>
+      </types>
+    </namespaces>
+    <namespaces name="TipiArray">
+      <types xsi:type="guigen:TypedArray" name="AnnoScolastico[]" componentType="//@typedefs/@namespaces.0/@types.0"/>
+      <types xsi:type="guigen:TypedArray" name="Comune[]" componentType="//@typedefs/@namespaces.0/@types.3"/>
+      <types xsi:type="guigen:TypedArray" name="TipoRicerca[]" componentType="//@typedefs/@namespaces.0/@types.7"/>
+      <types xsi:type="guigen:TypedArray" name="Bando[]" componentType="//@typedefs/@namespaces.0/@types.2"/>
+      <types xsi:type="guigen:TypedArray" name="StatoDomanda[]" componentType="//@typedefs/@namespaces.0/@types.5"/>
+      <types xsi:type="guigen:TypedArray" name="Anomalia[]" componentType="//@typedefs/@namespaces.0/@types.1"/>
+      <types xsi:type="guigen:TypedArray" name="StatoAnomalia[]" componentType="//@typedefs/@namespaces.0/@types.4"/>
+      <types xsi:type="guigen:TypedArray" name="DomandaRow[]" componentType="//@typedefs/@namespaces.0/@types.9"/>
+      <types xsi:type="guigen:TypedArray" name="AnomaliaDomandaRow[]" componentType="//@typedefs/@namespaces.0/@types.10"/>
+      <types xsi:type="guigen:TypedArray" name="AnomaliaDomanda[]" componentType="//@typedefs/@namespaces.0/@types.12"/>
+      <types xsi:type="guigen:TypedArray" name="Variazione[]" componentType="//@typedefs/@namespaces.0/@types.14"/>
+      <types xsi:type="guigen:TypedArray" name="File[]" componentType="//@typedefs/@namespaces.0/@types.15"/>
+      <types xsi:type="guigen:TypedArray" name="Persona[]" componentType="//@typedefs/@namespaces.0/@types.13"/>
+    </namespaces>
+  </typedefs>
+  <appDataDefs>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
+    <groups name="Ricerca">
+      <appData name="AnniScolastici" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.0"/>
+      <appData name="Comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.1"/>
+      <appData name="TipiRicerca" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.2"/>
+      <appData name="Bandi" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.3"/>
+      <appData name="StatiDomanda" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.4"/>
+      <appData name="Anomalie" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.5"/>
+      <appData name="StatiAnomalie" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.6"/>
+      <appData name="DatiRicerca" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.8"/>
+      <appData name="Nominativi" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.12"/>
+      <appData name="Domande" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.7"/>
+      <appData name="CFNominativoSelezionato" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+      <appData name="IdDomandaSelezionata" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+      <appData name="modalita" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.8"/>
+      <appData name="reloadCombos" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+      <appData name="reloadNominativi" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+      <appData name="reloadDomande" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+      <appData name="reloadDomanda" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+    </groups>
+    <groups name="Modifica">
+      <appData name="DomandaSel" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.11"/>
+      <appData name="DomandaBk" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.11"/>
+      <appData name="IdAnomaliaSelezionata" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+      <appData name="AnomalieDomanda" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.8"/>
+      <appData name="AnomaliaSel" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.12"/>
+      <appData name="flagModificato" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
+      <appData name="motivazioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+      <appData name="AnomalieDomandaAdd" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.9"/>
+      <appData name="AnomalieDomandaMod" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.9"/>
+    </groups>
+  </appDataDefs>
+  <securityModel securityAppID="opauth">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+  </securityModel>
+  <targetPlatform code="JBoss43"/>
+</guigen:GUIModel>

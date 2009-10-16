@@ -198,6 +198,76 @@
         </contentPanels>
         <staticLinks/>
         <onInitCommand xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+        <modules name="module1">
+          <contentPanels name="cpTestModule1" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1">
+            <panels xsi:type="guigen:FormPanel" name="pMain">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:MenuView" name="menu"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="tfSecCustom1" label="sec. custom default enabled" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:TextField" name="tfSecCustom2" label="sec. custom default disabled" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:TextField" name="tfSecUC1" label="Abilitato a UC TRSACC001" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:TextField" name="tfSecUC2" label="Abilitato a UC OPEREN023" dataType="//@typedefs/@types.7"/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbColori" label="Colore" dataType="//@typedefs/@types.7" keySelector="cod" valueSelector="name">
+                    <eventHandlers eventType="VALUE_CHANGED">
+                      <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                    </eventHandlers>
+                    <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbMultipla" label="Colori" dataType="//@typedefs/@types.20" keySelector="cod" valueSelector="name">
+                    <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfCodFiscCurentUser" label="CF currentUser" dataType="//@typedefs/@types.7" fieldLength="16">
+                    <databinding appData="//@appDataDefs/@appData.1" path="codFisc"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfValidato" label="testo tra 2 e 10 caratteri" dataTypeModifier="size:2,10" dataType="//@typedefs/@types.7" required="true"/>
+                  <widgets xsi:type="guigen:HiddenValue" name="hiddenValue" dataType="//@typedefs/@types.7"/>
+                </subpanels>
+                <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
+                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bDisableAll" label="Forza disabilitazione">
+                    <eventHandlers skipValidation="true">
+                      <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.1"/>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bEnableAll" label="Forza abilitazione">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.1" enable="true"/>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bEventoStrano" label="Evento non clicked...">
+                    <eventHandlers>
+                      <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@panels/@subpanels.1/@subpanels.0/@widgets.4"/>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:HiddenValue" name="hidden" dataType="//@typedefs/@types.0"/>
+                </subpanels>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="pErrori" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pUp">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+                <subpanels xsi:type="guigen:UserInfoPanel" name="pUserInfo"/>
+              </subpanels>
+            </panels>
+            <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="initColori" postExecData="//@appDataDefs/@appData.0">
+              <results resultCode="OK">
+                <command xsi:type="guigen:NOPCommand"/>
+              </results>
+            </onRefreshCommand>
+          </contentPanels>
+        </modules>
       </appArea>
     </appWindow>
   </structure>
@@ -228,31 +298,8 @@
     <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
     <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
-    <types xsi:type="guigen:ComplexType" name="Persona" initFields="true">
-      <fields name="nome" type="//@typedefs/@types.7"/>
-      <fields name="cognome" type="//@typedefs/@types.7"/>
-      <fields name="eta" type="//@typedefs/@types.0"/>
-      <fields name="sesso" type="//@typedefs/@types.7"/>
-      <fields name="codFisc" type="//@typedefs/@types.7"/>
-      <fields name="residenza" type="//@typedefs/@types.28"/>
-      <fields name="progetti" type="//@typedefs/@types.30"/>
-    </types>
-    <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@types.26"/>
-    <types xsi:type="guigen:ComplexType" name="Indirizzo">
-      <fields name="comune" type="//@typedefs/@types.7"/>
-      <fields name="via" type="//@typedefs/@types.7"/>
-      <fields name="numCiv" type="//@typedefs/@types.0"/>
-    </types>
-    <types xsi:type="guigen:ComplexType" name="Progetto">
-      <fields name="codice" type="//@typedefs/@types.7"/>
-      <fields name="nome" type="//@typedefs/@types.7"/>
-    </types>
-    <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@types.29"/>
-    <types xsi:type="guigen:ComplexType" name="Comune">
-      <fields name="nome" type="//@typedefs/@types.7"/>
-      <fields name="codIstat" type="//@typedefs/@types.7"/>
-    </types>
-    <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.31"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@namespaces.0/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@namespaces.0/@types.6"/>
     <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
     <types xsi:type="guigen:ComplexType" name="UserInfo">
       <fields name="nome" type="//@typedefs/@types.7"/>
@@ -262,19 +309,44 @@
       <fields name="ruolo" type="//@typedefs/@types.7"/>
       <fields name="idIride" type="//@typedefs/@types.7"/>
     </types>
-    <types xsi:type="guigen:ComplexType" name="Colore">
-      <fields name="cod" type="//@typedefs/@types.7"/>
-      <fields name="name" type="//@typedefs/@types.7"/>
-    </types>
-    <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.35"/>
+    <namespaces name="tns1">
+      <types xsi:type="guigen:ComplexType" name="Colore">
+        <fields name="cod" type="//@typedefs/@types.7"/>
+        <fields name="name" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@namespaces.0/@types.0"/>
+      <types xsi:type="guigen:ComplexType" name="Persona" initFields="true">
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="cognome" type="//@typedefs/@types.7"/>
+        <fields name="eta" type="//@typedefs/@types.0"/>
+        <fields name="sesso" type="//@typedefs/@types.7"/>
+        <fields name="codFisc" type="//@typedefs/@types.7"/>
+        <fields name="residenza" type="//@typedefs/@namespaces.0/@types.4"/>
+        <fields name="progetti" type="//@typedefs/@types.26"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Array of Persona" componentType="//@typedefs/@namespaces.0/@types.2"/>
+      <types xsi:type="guigen:ComplexType" name="Indirizzo">
+        <fields name="comune" type="//@typedefs/@types.7"/>
+        <fields name="via" type="//@typedefs/@types.7"/>
+        <fields name="numCiv" type="//@typedefs/@types.0"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Progetto">
+        <fields name="codice" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="Comune">
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="codIstat" type="//@typedefs/@types.7"/>
+      </types>
+    </namespaces>
   </typedefs>
   <appDataDefs>
-    <appData name="listaColori" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.36"/>
-    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="listaColori" lifetimeExtent="SAME_PAGE" type="//@typedefs/@namespaces.0/@types.1"/>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
     <appData name="XXXXX" type="//@typedefs/@types.0"/>
   </appDataDefs>
   <securityModel securityAppID="PBANDI">
-    <autenticationMethod xsi:type="guigen:SSOBARTSSO"/>
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
     <actors code="ADG-IST-MASTER" roles="//@securityModel/@roles.0"/>
     <useCases permission="//@securityModel/@actors.0" code="TRSACC001"/>
     <useCases permission="//@securityModel/@actors.0" code="OPEREN023"/>

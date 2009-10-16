@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="pbandi" codComponente="pbandiweberog" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="finanziamenti" linkCanale="http://www.sistemapiemonte.it/finanziamenti" nomeApplicativo="piattaforma bandi"/>
+      <appArea>
+        <menubar>
+          <topLevelMenu name="mnuBeneficiari" label="profilo/beneficiario">
+            <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="isUtenteBeneficiario"/>
+          </topLevelMenu>
+          <topLevelMenu name="mnuHome" label="home del servizio">
+            <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="isMenuHomeServizioVisible"/>
+          </topLevelMenu>
+          <topLevelMenu name="mnuGuida" label="guida al servizio">
+            <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="isMenuGuidaAlServizioVisible"/>
+            <eventHandler>
+              <command xsi:type="guigen:JumpExtCommand" staticUrl="http://dev-www.sistemapiemonte.it/ris/finanziamenti/bandi/guida.pdf" locationCode="guidaAlServizioLocation"/>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuManualeIstruttore" label="manuale istruttore">
+            <securityConstraints xsi:type="guigen:CustomSecurityConstraint" visible="true" methodNameSuffix="isMenuManualeIstruttoreVisible"/>
+            <eventHandler>
+              <command xsi:type="guigen:JumpExtCommand" staticUrl="http://dev-www.sistemapiemonte.it/ris/finanziamenti/bandi/guida.pdf" locationCode="guidaAlServizioLocation"/>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
+        <titlebar/>
+        <statusbar/>
+        <contentPanels name="erogazione" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.7 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4">
+          <panels xsi:type="guigen:FormPanel" name="pErogazione" label="erogazione">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:MenuPanel" name="pMenuLEFT">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pRiepilogoSpesaProgetto" label="">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="widgPanelRiepilogoSpesaProgetto">
+                  <layout xsi:type="guigen:GridPanelLayout" columnSizes="" columns="3" rows="4"/>
+                  <widgets xsi:type="guigen:PlainText" name="labelTipoOperazione" label="Tipo operazione" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelCostoTotaleInvestimento" label="Costo totale dell'investimento" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelImportoAmmesso" label="Importo ammesso contributo" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelTotaleSpesaDichiarata" label="Totale della spesa sostenuta e dichiarata" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelAvanzamentoSpesaSostEDichiarata" label="Avanzamento della spesa sostenuta e dichiarata" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelTotaleSpesaValidata" label="Totale della spesa validata" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelAvanzamentoSpesaValidata" label="Avanzamento della spesa validata" dataTypeModifier="" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pElencoFideiussioni" label="Fideiussione bancaria del progetto">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="widgPanelFideiussioni">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tableElencoFideiussioni" dataType="//@typedefs/@types.31">
+                    <databinding appData="//@appDataDefs/@appData.5"/>
+                    <columnModel valueSelector="numero">
+                      <columns selector="numero" label="Numero"/>
+                      <columns selector="dataDecorrenza" label="Data"/>
+                      <columns selector="importo" label="Importo" multidataValueSelector=""/>
+                      <columns selector="dataScadenza" label="Data scadenza"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pElencoErogazioni" label="Riepilogo delle quote erogate del progetto">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="widgPanelErogazioni">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tableElencoErogazioni" dataType="//@typedefs/@types.33">
+                    <databinding appData="//@appDataDefs/@appData.6"/>
+                    <columnModel valueSelector="descCausaleErogazione">
+                      <columns selector="descCausaleErogazione" label="Causale erogazione" multidataKeySelector=""/>
+                      <columns selector="dataContabile" label="Data contabile" multidataKeySelector=""/>
+                      <columns selector="importoErogazione" label="Importo" multidataKeySelector="" multidataValueSelector=""/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pElencoRichiestaErogazioni" label="Riepilogo delle richieste di erogazione del progetto">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout" columnSizes=""/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="widgPanelRichiestaErogazioni">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tableElencoRichiesteErogazioni" dataTypeModifier="" dataType="//@typedefs/@types.36">
+                    <databinding appData="//@appDataDefs/@appData.7"/>
+                    <columnModel valueSelector="descCausaleErogazione">
+                      <columns selector="descCausaleErogazione" label="Causale erogazione" multidataKeySelector=""/>
+                      <columns selector="dataContabile" label="Data contabile" multidataKeySelector=""/>
+                      <columns selector="importoErogazione" label="Importo" multidataKeySelector="" multidataValueSelector="" multidataPropertySelector=""/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pInserisciErogazione" label="Erogazione della quota di contributo">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:StdMessagePanel" name="msgPanelInserisciErogazione" label="" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="widgPanelInserisciErogazione">
+                  <layout xsi:type="guigen:GridPanelLayout" columnSizes="" columns="2" rows="7"/>
+                  <widgets xsi:type="guigen:ComboBox" name="comboCausaleErogazione" label="Causale erogazione" dataType="//@typedefs/@types.7" keySelector="codice" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="2"/>
+                    <databinding appData="//@appDataDefs/@appData.2" path=""/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="txtPercentualeErogazione" label="Percentuale di erogazione" dataType="//@typedefs/@types.4">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="txtImportoErogazione" label="Importo dell'erogazione" dataType="//@typedefs/@types.4">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelImportoDaErogCalcolato" label="Importo da erogare calcolato" dataType="//@typedefs/@types.4">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="labelImportoResiduoSpett" label="Importo residuo spettante" dataType="//@typedefs/@types.4">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="comboModalitaAgevolazione" label="Modalità di agevolazione" dataType="//@typedefs/@types.7" keySelector="codice" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="comboModalitaErogazione" label="Modalità erogazione" dataType="//@typedefs/@types.7" keySelector="codice" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="2" hspan="1"/>
+                    <databinding appData="//@appDataDefs/@appData.4"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="dtDataContabileErogaz" label="Data contabile dell'erogazione" dataTypeModifier="" dataType="//@typedefs/@types.3">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="txtNumeroRiferimentoErogaz" label="Numero riferimento erogazione" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="comboCodiciDirezione" label="Codice della direzione" dataType="//@typedefs/@types.7" keySelector="codice" valueSelector="descrizione">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1" hspan="1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="txtNote" label="Note" dataType="//@typedefs/@types.7">
+                    <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="7" column="1"/>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:CommandPanel" name="cmdPanel" cmdStyle="NAVIGATION">
+                  <widgets xsi:type="guigen:ConfirmButton" name="btIndietro" label="indietro"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="btSalva" label="salva" image=""/>
+                </subpanels>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="initApp">
+          <results resultCode="OK">
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </results>
+        </onInitCommand>
+      </appArea>
+    </appWindow>
+  </structure>
+  <beahviors/>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idUtente" type="//@typedefs/@types.12"/>
+      <fields name="codiceRuolo" type="//@typedefs/@types.7"/>
+      <fields name="idSoggetto" type="//@typedefs/@types.12"/>
+      <fields name="idSoggettoIncaricante" type="//@typedefs/@types.12" dataTypeModifier=""/>
+      <fields name="ruoli" type="//@typedefs/@types.35" dataTypeModifier=""/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Ruolo">
+      <fields name="id" type="//@typedefs/@types.7"/>
+      <fields name="descrizione" type="//@typedefs/@types.7"/>
+      <fields name="descrizioneBreve" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="DatiGenerali">
+      <fields name="progetto" type="//@typedefs/@types.7"/>
+      <fields name="bando" type="//@typedefs/@types.7"/>
+      <fields name="descrizioneBreve" type="//@typedefs/@types.7"/>
+      <fields name="codiceDichiarazione" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="CodiceDescrizione">
+      <fields name="codice" type="//@typedefs/@types.7"/>
+      <fields name="descrizione" type="//@typedefs/@types.7"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="array of CodiceDescrizione" componentType="//@typedefs/@types.29"/>
+    <types xsi:type="guigen:ComplexType" name="Fideiussione">
+      <fields name="numero" type="//@typedefs/@types.7"/>
+      <fields name="dataDecorrenza" type="//@typedefs/@types.3"/>
+      <fields name="dataScadenza" type="//@typedefs/@types.3"/>
+      <fields name="importo" type="//@typedefs/@types.10"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="array of Fideiussione" componentType="//@typedefs/@types.31"/>
+    <types xsi:type="guigen:ComplexType" name="Erogazione">
+      <fields name="descCausaleErogazione" type="//@typedefs/@types.7"/>
+      <fields name="numero" type="//@typedefs/@types.7"/>
+      <fields name="dataContabile" type="//@typedefs/@types.3" dataTypeModifier=""/>
+      <fields name="importoErogazione" type="//@typedefs/@types.10"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="array of Erogazione" componentType="//@typedefs/@types.33"/>
+    <types xsi:type="guigen:TypedArray" name="array of Ruolo" componentType="//@typedefs/@types.27"/>
+    <types xsi:type="guigen:ComplexType" name="RichiestaErogazione">
+      <fields name="descCausaleErogazione" type="//@typedefs/@types.7"/>
+      <fields name="dataRichiesta" type="//@typedefs/@types.3"/>
+      <fields name="numero" type="//@typedefs/@types.7"/>
+      <fields name="importoRichiesto" type="//@typedefs/@types.10"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="array of RichiestaErogazione" componentType="//@typedefs/@types.36"/>
+  </typedefs>
+  <appDataDefs>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.26"/>
+    <appData name="datiGenerali" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.28"/>
+    <appData name="caricaComboCausaliErogazione" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.30"/>
+    <appData name="caricaComboModalitaAgevolazione" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.30"/>
+    <appData name="caricaComboModalitaErogazione" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.30"/>
+    <appData name="getFideiussioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.32"/>
+    <appData name="getErogazioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="getRichiesteErogazioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.37"/>
+  </appDataDefs>
+  <securityModel securityAppID="PBANDI">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO" minAuthLevel="3"/>
+  </securityModel>
+  <targetPlatform/>
+</guigen:GUIModel>
