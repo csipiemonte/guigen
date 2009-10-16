@@ -1041,9 +1041,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     
     @SkipValidation
     public String handleChangeTab() throws Exception {
-    	session.put(selectedTabKey, selectedTabValue);
-    	return SUCCESS;
-    }
+		if (this.hasActionErrors() || this.hasFieldErrors() || this.hasErrors())
+			return INPUT;
+		else{
+			session.put(selectedTabKey, selectedTabValue);
+			return SUCCESS;
+		}
+	}
 
 }
 «ENDFILE»
