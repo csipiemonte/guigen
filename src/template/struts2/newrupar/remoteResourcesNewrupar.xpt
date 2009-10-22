@@ -188,10 +188,9 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
-<!-- fine head di APPLICATIVO (con remincl) -->
-«REM»
-		<customtag:ajaxify-header />
-«ENDREM»
+<!-- fine HEAD di APPLICATIVO (con remincl) -->
+
+		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:ajaxify-header />«ENDIF-»
 
 	</head>
 
@@ -200,16 +199,16 @@ Definizioni generali: header, footer, ecc
 		<!-- PAGE (OBBLIGATORIO) -->
 		<div id="page">
 
-			<!-- banner di PORTALE (con remincl) (facoltativo) -->
-			<r:include url="/ris/include/banner.html" resourceProvider="sp" />
-			<!-- fine banner di PORTALE (con remincl) (facoltativo) -->
+			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
+			<r:include url="/ris/include/portal_header.html" resourceProvider="sp" />
+			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
 			<div id="applicationArea">
 
-				<!-- header di APPLICATIVO (con remincl) (facoltativo) -->
-				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»header.html" resourceProvider="sp" />
-				<!-- fine header di APPLICATIVO (con remincl) (facoltativo) -->
+				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
+				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
+				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
 «ENDDEFINE»
@@ -227,15 +226,15 @@ Definizioni generali: header, footer, ecc
 		<!-- PAGE (OBBLIGATORIO) -->
 		<div id="page">
 
-			<!-- banner di PORTALE (con remincl) (facoltativo) -->
-			<r:include url="/ris/include/banner.html" resourceProvider="sp" />
-			<!-- fine banner di PORTALE (con remincl) (facoltativo) -->
+			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
+			<r:include url="/ris/include/portal_header.html" resourceProvider="sp" />
+			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
 			<div id="applicationArea">
 
 				<!-- header di APPLICATIVO (con remincl) (facoltativo) -->
-				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»header.html" resourceProvider="sp" />
+				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
 				<!-- fine header di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
@@ -245,7 +244,16 @@ Definizioni generali: header, footer, ecc
 «REM»Genera la componente di markup (HTML) dei LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-
+«LET model.structure.appWindow.header.codCanale AS codCanale»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+<!-- STATIC LINK -->
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<c:catch var="ex">
+	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»static_links.html" resourceProvider="sp" />
+</c:catch>
+«ENDLET»
+«ENDLET»
 «ENDDEFINE»
 
 
@@ -365,7 +373,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 <!-- footer (con remincl) -->
-<r:include url="/ris/include/footer.html" resourceProvider="sp" />
+<r:include url="/ris/include/portal_footer.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
@@ -763,7 +771,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:widgetsPanelColumn labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
@@ -979,15 +987,15 @@ error.msg.invalid_page=pagina non valida
 paging.banner.item_name=risultato
 paging.banner.items_name=risultati
 
-paging.banner.no_items_found=<div class="paging"><div class="leftPaging">Nessun {0} trovato.</div>
-paging.banner.one_item_found=<div class="paging"><div class="leftPaging">Un {0} trovato.</div>
-paging.banner.all_items_found=<div class="paging"><div class="leftPaging">{0} {1} trovati, tutti i {2} visualizzati.</div>
-paging.banner.some_items_found=<div class="paging"><div class="leftPaging">{0} {1} trovati ({5} pagine)</div>
+paging.banner.no_items_found=<div class="paging"><div class="pagingLeft">Nessun {0} trovato.</div>
+paging.banner.one_item_found=<div class="paging"><div class="pagingLeft">Un {0} trovato.</div>
+paging.banner.all_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati, tutti i {2} visualizzati.</div>
+paging.banner.some_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati ({5} pagine)</div>
 
-paging.banner.full=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span><span class="separator"> | </span><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
-paging.banner.first=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
-paging.banner.last=<div class="rightPaging"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span></span></div></div>
-paging.banner.onepage=<div class="rightPaging"><span class="pageNumbers">pagina {0}</span></div></div>
+paging.banner.full=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span><span class="separator"> | </span><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.first=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.last=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span></span></div></div>
+paging.banner.onepage=<div class="pagingRight"><span class="pageNumbers">pagina {0}</span></div></div>
 
 paging.banner.page.selected=<span class="currentPage">{0}</span>
 paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
@@ -998,11 +1006,11 @@ paging.banner.page.separator=<span class="separator"> | </span>
 export.banner=<div class="export">{0}</div>
 export.banner.sepchar=<span class="separator"> | </span>
 
-export.excel.label=<span class="export xls">scarica in Excel</span>
-export.pdf.label=<span class="export pdf">scarica in PDF</span>
-export.csv.label=<span class="export csv">CSV</span>
-export.xml.label=<span class="export xml">XML</span>
-export.rtf.label=<span class="export rtf">RTF</span>
+export.excel.label=<span class="xls">scarica in Excel</span>
+export.pdf.label=<span class="pdf">scarica in PDF</span>
+export.csv.label=<span class="csv">CSV</span>
+export.xml.label=<span class="xml">XML</span>
+export.rtf.label=<span class="rtf">RTF</span>
 
 
 ############################################################################

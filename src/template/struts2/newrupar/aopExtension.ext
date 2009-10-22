@@ -99,6 +99,10 @@ around template::struts2::Struts2Extensions::getColumnEditableTextfieldPortalSty
 around template::struts2::Struts2Extensions::getCustomtagRequiredField(Widget w) : 
 	getCustomtagRequiredFieldNewrupar(w);
 
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
+	getCustomtagHeaderColspanNewrupar(wp, w);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS

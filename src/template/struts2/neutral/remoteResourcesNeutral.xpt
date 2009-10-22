@@ -8,10 +8,10 @@
 
 «REM»
 **************************************************************************************************************************
-Markup HTML per layout NEUTRAL.
-TODO: ancora da definire. Per il memento copia molto da SistemaPiemonte
+Markup HTML per RuparPiemonte (versione 2)
 Riferimenti:
-	- ???
+	-
+	-
 **************************************************************************************************************************
 «ENDREM»
 
@@ -25,16 +25,15 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
 «DEFINE getJspPageNotFoundError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.notfound.title" /></h3>
-<div class="contenuti">
-	<div class="messaggioKo">
-		<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
-	</div>
-	<div class="pulsNav">
-		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" cssClass="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
-		</div>
-	</div>
+<div>
+	<fmt:message key="error.notfound.warning" />
+	<br/>
+	<fmt:message key="error.notfound.message" />
+</div>
+<div>
+	<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -43,16 +42,15 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
 «DEFINE getJspFatalError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.fatalerror.title" /></h3>
-<div class="contenuti">
-	<div class="messaggioKo">
-		<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
-	</div>
-	<div class="pulsNav">
-		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" cssClass="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
-		</div>
-	</div>
+<div>
+	<fmt:message key="error.fatalerror.warning" />
+	<br />
+	<fmt:message key="error.fatalerror.message" />
+</div>
+<div>
+	<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -61,18 +59,16 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationError FOR GUIModel-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
+<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><s:text name="error.applicationerror.title" /></h3>
-<div class="contenuti">
-	<div class="messaggioKo">
-		<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
-		<s:property value="%{exception.message}"/>
-	</div>
-	<div class="pulsNav">
-		<div class="pulsNavDx">
-			<s:url id="homePageUrl" action="HomePage" />
-			<s:a href="%{homePageUrl}" title="%{getText('error.applicationerror.btnmsg')" cssClass="nav95"><s:text name="error.applicationerror.btnmsg" /></s:a>
-		</div>
-	</div>
+<div>
+	<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" />
+	<br />
+	<s:property value="%{exception.message}"/>
+</div>
+<div>
+	<s:url id="homePageUrl" action="HomePage" />
+	<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
@@ -81,44 +77,68 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-
+<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
+<h3><fmt:message key="error.sessionexpired.title" /></h3>
+<div>
+	<fmt:message key="error.sessionexpired.warning" />
+	<br />
+	<fmt:message key="error.sessionexpired.timeout" />
+	<br />
+	<br />
+	<fmt:message key="error.sessionexpired.datanotsaved" />
+	<br />
+	<fmt:message key="error.sessionexpired.authentication" />
+</div>
+<div>
+	<!-- NOTA: questa URL è da parametrizzare in qualche modo -->
+	<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	<br />
+	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+</div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
 
 «REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
 «DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» TODO: implementare SE NECESSARIO
 «FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
-<!-- CONTENUTI -->
+<h3><s:text name="message.confirmlogout.title" /></h3>
+<div>
+	<s:text name="message.confirmlogout.warning" />
+	<br />
+	<s:text name="message.confirmlogout.closemessage" />
+	<br />
+	<s:text name="message.confirmlogout.certmessage" />
+</div>
+<div>
+	<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+	<s:a href="%{localLogoutUrl}"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+</div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDFILE»
-«ENDREM»
 «ENDDEFINE»
 
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»
-<%@ taglib uri="/struts-tags" prefix="s" %>
+«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
 	«IF this.structure.appWindow.header != null-»
 	<s:include value="../fragments/header.jsp" ></s:include>
 	«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="sfondoColonna">
-
-		<!-- =============== COLONNA UNICA ============== -->
-		<div id="colonna">
-			<h2 class="alt">contenuti</h2>
+	<div id="contentPanel">
+		<div id="centerWrapper" class="floatWrapper">
+			<div id="centerPanel">
+				<div class="wrapper">
 «ENDDEFINE»
 
 «REM»Parte finale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
+				</div>
+			</div>
 		</div>
-		<!-- ============ FINE COLONNA UNICA ============ -->
-
 	</div>
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
@@ -129,8 +149,7 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="globalMessages" />
 
@@ -139,18 +158,17 @@ Definizioni generali: Pagine di ERRORE
 	«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="sfondoColonna">
-
-		<!-- =============== COLONNA UNICA ============== -->
-		<div id="colonna">
-			<h2 class="alt">contenuti</h2>
+	<div id="contentPanel">
+		<div id="centerWrapper" class="floatWrapper">
+			<div id="centerPanel">
+				<div class="wrapper">
 «ENDDEFINE»
 
 «REM»Parte finale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
+				</div>
+			</div>
 		</div>
-		<!-- ============ FINE COLONNA UNICA ============ -->
-
 	</div>
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
@@ -168,324 +186,157 @@ Definizioni generali: header, footer, ecc
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
-<!-- fine head (con remincl) -->
-«REM»RIMOSSO: implementata REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (senza remincl: TMP)-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
-		<meta name="author" content="CSI-Piemonte" />
-		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
-		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title><s:text name="header.applicativo.nome.label" /></title>
 
-		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
-		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
 
-		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
+		<![endif]-->
 
-<!--/head -->
-«ENDREM»
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
+		<![endif]-->
 
-		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
+		<!-- jQuery -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/jquery/jquery-1.3.2.min.js"></script>
 
-		<script type="text/javascript">
-			// event handler RadioButtons
-			function onRBClick(url) {
-		        document.forms[0].action = url;
-		        document.forms[0].submit();
-			}
+		<!-- jQuery UI -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/ui/1.7.2/jquery-ui-1.7.2.custom.min.js"></script>
+		<!-- jQuery UI smoothness theme -->
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/js/jqlib/themes/smoothness/jquery-ui-1.7.2.custom.css" />
 
-			// disabilitazione calendario
-			jQuery(document).ready(function(){
-				jQuery('.calendario:disabled').datepicker('disable');
-			});// chiusura function ready
-		</script>
-		
+		<!-- jQuery Corners -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/plugins/jquery-corners-0.3/jquery.corners.min.js"></script>
+
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
+
+
+		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
+		«ENDPROTECT»
+
 		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:ajaxify-header />«ENDIF-»
 	</head>
-	<body class="tema-«IF !isNullOrEmpty(codCanale)»«codCanale»«ELSE»generale«ENDIF»">
 
-		<!-- PAGINA (ATTENZIONE: verra' chiusa nella footer (remincl) -->
-		<div id="pagina" class="colonnaUnica">
+	<body>
 
-			<!-- TESTATA -->
-			<div id="intestazione">
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
 
-				<!-- header (con remincl) -->
-				<r:include url="/ris/include/headerNeutral.html" resourceProvider="sp" />
-				<!-- fine header (con remincl) -->
-
-				«REM»RIMOSSO: implementata REMINCL
-				<!--header (senza remincl: TMP)-->
-				<p id="avviso" class="navigazionePagina">
-					<a href="#contPath" id="A-inizio"
-						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
-						l&#8217;intestazione</a><span class="alt">|</span>
-				</p>
-				<div id="logo">
-					<h1 class="alt">
-						<a href="http://www.sistemapiemonte.it/"
-							title="Home page SistemaPiemonte">Sistema Piemonte</a>
-					</h1>
-				</div>
-				<div id="scritta">
-					<span class="alt"> - <a
-						href="http://www.sistemapiemonte.it/"
-						title="Home page SistemaPiemonte">l'amministrazione pubblica
-							al tuo servizio</a> </span>
-				</div>
-				<hr />
-				<p class="navigazionePagina">
-					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
-						ai contenuti</a> |
-					<a href="#sfondo" title="vai al menu della sezione">vai al menu
-						della sezione</a>
-				</p>
-				<hr />
-				<div id="sisp">
-				</div>
-
-				<div id="menuDiServizio">
-					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
-					<ul class="menuTendinaOrizz" id="menu-1">
-						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
-						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
-						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
-						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
-						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
-						<!-- <li><a href="#">profilo personale</a></li> -->
-					</ul>
-				</div>
-
-				<noscript>
-					<div id="avvisoJavascript">
-						<p>
-							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
-							<br />
-							Per poter usufruire in maniera completa dei servizi presenti in
-							SistemaPiemonte, &eacute; necessario utilizzare un browser che
-							supporti le funzioni Javascript.
-						</p>
-					</div>
-				</noscript>
-				<hr />
-				<!--/header (senza remincl: TMP)-->
-				«ENDREM»
-
-				«IF model.securityModel!=null-»
-				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
-				<div id="contUtenza">
-					<div id="Utenza">
-						<s:property value="header.userinfo.head.label" />
-						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
-						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
-						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:property value="header.ssologout.label" /></s:a></span>
-					</div>
-				</div>
-				«ENDLET-»
-				«ENDIF-»
-				<!-- filo d'arianna canale -->
-				<div id="contPath">
-					<div id="path">
-						<s:property value="header.filoarianna.head.label" />
-						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
-						<a href="http://www.sistemapiemonte.it/«this.linkCanale»/index.shtml"><s:property value="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
-						<span class="selezione"><s:property value="header.applicativo.nome.label" /></span>
-					</div>
-				</div>
-				<hr />
-				<!-- fine filo arianna canale -->
-
-				<div id="contTitoloEmenu">
-					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden"><s:property value="header.nomeservizio.label" /></span>
-						</a>
-					</div>
-				</div>
+			<!-- HEADER di PORTALE (facoltativo) -->
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.struts")»
+			<div id="portalHeader">
+				<!-- Inserire il codice della header di portale (se esiste) -->
+				<h1>HEADER DI PORTALE [h1]</h1>
 			</div>
-			<!-- FINE TESTATA -->
+			«ENDPROTECT»
+			<!-- fine HEADER di PORTALE (facoltativo) -->
 
-			<hr />
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
 
-			<!-- CONTENITORE + CORPO -->
-			<div id="contenitore">
-				<div id="corpo">
+				<!-- HEADER di APPLICATIVO (facoltativo) -->
+				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.struts")»
+				<div id="applicationHeader">
+					<!-- Inserire il codice della header applicativa (se esiste) -->
+				</div>
+				«ENDPROTECT»
+				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
+
+<!-- FINE HEADER -->
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
-<!-- fine head (con remincl) -->
-«REM»RIMOSSO: implementata REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (senza remincl: TMP)-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
-		<meta name="author" content="CSI-Piemonte" />
-		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
-		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title><fmt:message key="header.applicativo.nome.label" /></title>
 
-		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
-		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
 
-		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
+		<![endif]-->
 
-<!--/head -->
-«ENDREM»
-		
-		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
+		<![endif]-->
 
+		<!-- jQuery -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/jquery/jquery-1.3.2.min.js"></script>
+
+		<!-- jQuery UI -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/ui/1.7.2/jquery-ui-1.7.2.custom.min.js"></script>
+		<!-- jQuery UI smoothness theme -->
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/js/jqlib/themes/smoothness/jquery-ui-1.7.2.custom.css" />
+
+		<!-- jQuery Corners -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/plugins/jquery-corners-0.3/jquery.corners.min.js"></script>
+
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
+
+
+		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
+		«ENDPROTECT»
+
+		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:ajaxify-header />«ENDIF-»
 	</head>
-	<body class="tema-«IF !isNullOrEmpty(codCanale)»«codCanale»«ELSE»generale«ENDIF»">
 
-		<!-- PAGINA (ATTENZIONE: verra' chiusa nella footer (remincl) -->
-		<div id="pagina" class="colonnaUnica">
+	<body>
 
-			<!-- TESTATA -->
-			<div id="intestazione">
+		<!-- PAGE (OBBLIGATORIO) -->
+		<div id="page">
 
-				<!-- header (con remincl) -->
-				<r:include url="/ris/include/headerNeutral.html" resourceProvider="sp" />
-				<!-- fine header (con remincl) -->
-
-				«REM»RIMOSSO: implementata REMINCL
-				<!--header (senza remincl: TMP)-->
-				<p id="avviso" class="navigazionePagina">
-					<a href="#contPath" id="A-inizio"
-						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
-						l&#8217;intestazione</a><span class="alt">|</span>
-				</p>
-				<div id="logo">
-					<h1 class="alt">
-						<a href="http://www.sistemapiemonte.it/"
-							title="Home page SistemaPiemonte">Sistema Piemonte</a>
-					</h1>
-				</div>
-				<div id="scritta">
-					<span class="alt"> - <a
-						href="http://www.sistemapiemonte.it/"
-						title="Home page SistemaPiemonte">l'amministrazione pubblica
-							al tuo servizio</a> </span>
-				</div>
-				<hr />
-				<p class="navigazionePagina">
-					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
-						ai contenuti</a> |
-					<a href="#sfondo" title="vai al menu della sezione">vai al menu
-						della sezione</a>
-				</p>
-				<hr />
-				<div id="sisp">
-				</div>
-
-				<div id="menuDiServizio">
-					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
-					<ul class="menuTendinaOrizz" id="menu-1">
-						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
-						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
-						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
-						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
-						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
-						<!-- <li><a href="#">profilo personale</a></li> -->
-					</ul>
-				</div>
-
-				<noscript>
-					<div id="avvisoJavascript">
-						<p>
-							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
-							<br />
-							Per poter usufruire in maniera completa dei servizi presenti in
-							SistemaPiemonte, &eacute; necessario utilizzare un browser che
-							supporti le funzioni Javascript.
-						</p>
-					</div>
-				</noscript>
-				<hr />
-				<!--/header (senza remincl: TMP)-->
-				«ENDREM»
-
-				«IF model.securityModel!=null-»
-				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
-				<div id="contUtenza">
-					<div id="Utenza">
-						<fmt:message key="header.userinfo.head.label" />
-						<strong><%-- impossibile visualizzare l'utente --%></strong>&nbsp;
-						<span class="logout"><a href="Logout!ssoLogout.do" title="esci: questo link fa uscire dal servizio"><fmt:message key="header.ssologout.label" /></a></span>
-					</div>
-				</div>
-				«ENDLET-»
-				«ENDIF-»
-				<!-- filo d'arianna canale -->
-				<div id="contPath">
-					<div id="path">
-						<fmt:message key="header.filoarianna.head.label" />
-						<a href="http://www.sistemapiemonte.it/index.shtml">sistema piemonte</a><span class="connessionePath">,&nbsp;</span>
-						<a href="«this.linkCanale»"><fmt:message key="header.canale.nome.label" /></a><span class="connessionePath">,&nbsp;</span>
-						<span class="selezione"><fmt:message key="header.applicativo.nome.label" /></span>
-					</div>
-				</div>
-				<hr />
-				<!-- fine filo arianna canale -->
-
-				<div id="contTitoloEmenu">
-					<div id="titoloEmenu" class="nomeServizio">
-						<a href="#"><span class="txtHidden"><fmt:message key="header.nomeservizio.label" /></span>
-						</a>
-					</div>
-				</div>
+			<!-- HEADER di PORTALE (facoltativo) -->
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.struts")»
+			<div id="portalHeader">
+				<!-- Inserire il codice della header di portale (se esiste) -->
+				<h1>HEADER DI PORTALE [h1]</h1>
 			</div>
-			<!-- FINE TESTATA -->
+			«ENDPROTECT»
+			<!-- fine HEADER di PORTALE (facoltativo) -->
 
-			<hr />
+			<!-- APPICATION AREA (OBBLIGATORIO) -->
+			<div id="applicationArea">
 
-			<!-- CONTENITORE + CORPO -->
-			<div id="contenitore">
-				<div id="corpo">
+				<!-- HEADER di APPLICATIVO (facoltativo) -->
+				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.struts")»
+				<div id="applicationHeader">
+					<!-- Inserire il codice della header applicativa (se esiste) -->
+				</div>
+				«ENDPROTECT»
+				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
+
+<!-- FINE HEADER -->
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) dei LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("menu.staticLinks")»
+<!-- Link statici -->
+«ENDPROTECT»
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) della MENUBAR.
-TODO: come faccio a sapere qual'è il menu attivo?
-NOTE IMPLEMENTATIVE: E' stato utilizzato il pattern menu (http://dev-www.sistemapiemonte.it/sandbox/templates/repository/pattern/menu.shtml).
-Questo pattern prevede due possibilità:
-- menu "cavalieri" con struttura già espansa (non richiede JavaScript): quattro livelli
-- menu "dropDown" con struttura espandibile (richiede JavaScript): due livelli?
-Si è scelta l'opzione "cavalieri" in quanto non richiede nè JavaScript nè indicatori sequenziali per le voci di menu.
-Dal momento che i CSS gestiscono fino a quattro livelli, è necessario porre un check in fase di generazione del codice
-(o di definizione del modello) in modo che non si possa andare più in profondità del quarto livello,
-e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
-«ENDREM»
+«REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-<div id="menuDiNavigazioneSisp2">
-	<ul class="menuCavalieri">
+<div id="mainMenu">
+	<h3>Menu di navigazione</h3>
+	<ul>
 	«LET 1 AS level -»
 	«FOREACH this.topLevelMenu AS tlmenu -»
 		«IF tlmenu.submenu.size > 0»
@@ -495,6 +346,10 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«ENDIF»
 	«ENDFOREACH-»
 	«ENDLET-»
+
+	«IF model.structure.appWindow.appArea.staticLinks != null-»
+		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
+	«ENDIF-»
 	</ul>
 </div>
 «ENDDEFINE»
@@ -505,20 +360,20 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 <s:if test="isMenuVisible('«this.name»')">
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
-	<s:if test="isMenuEnabled('«this.name»')" >
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
+	<s:if test="isMenuEnabled('«this.name»')">
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 		<li«getMenuNoChildCssNeutral(this, level)»>
-			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssNeutral(this, level)»>
+			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 				«getMenuNoChildLabelNeutral(this, level)»
 			</s:a>
 		</li>
 	</s:if>
 	<s:else>
-		<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+		<li>«getMenuNoChildLabelNeutral(this, level)»</li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+	<li>«getMenuNoChildLabelNeutral(this, level)»</li>
 «ENDIF»
 </s:if>
 «ENDDEFINE»
@@ -532,20 +387,20 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuWithChildCssNeutral(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssNeutral(this, level)»>
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					«getMenuWithChildLabelNeutral(this, level)»
-				</s:a>				
+				</s:a>
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-				</ul>			
+				</ul>
 			</li>
 		</s:if>
 		<s:else>
 			<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-				</ul>			
+				</ul>
 			</li>
 		</s:else>
 		«ENDLET»
@@ -553,27 +408,27 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
-			</ul>		
+			</ul>
 		</li>
 	«ENDIF»
 	</s:if>
 	<s:else>
 	«IF this.eventHandler.eventType == EventTypes::CLICKED-»
 		«LET this.eventHandler.command AS currAction-»
-		<s:if test="isMenuEnabled('«this.name»')" >
+		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuNoChildCssNeutral(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" />
-				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssNeutral(this, level)»>
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					«getMenuNoChildLabelNeutral(this, level)»
 				</s:a>
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+			<li>«getMenuNoChildLabelNeutral(this, level)»</li>
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuNoChildCssNeutral(this, level)»>«getMenuNoChildLabelNeutral(this, level)»</li>
+		<li>«getMenuNoChildLabelNeutral(this, level)»</li>
 	«ENDIF»
 	</s:else>
 </s:if>
@@ -592,34 +447,21 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-					<hr />
+<!-- FOOTER -->
 
-				</div>
 			</div>
-			<!-- CONTENITORE + CORPO -->
+			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
 
-<!-- footer (con remincl) -->
-<r:include url="/ris/include/footerNeutral.html" resourceProvider="sp" />
-
-«REM»RIMOSSO: implementata REMINICL
-<!--footer (senza remincl: TMP)-->
-			<!--piedipagina-->
-			<div id="piedipagina">
-				<p id="noteSito" title="per informazioni: info@sistemapiemonte.it">
-					<a href="mailto:info@sistemapiemonte.it"><span class="alt">per informazioni: info@sistemapiemonte.it</span></a>
-				</p>
-				<p class="navigazionePagina">
-					[ <a href="#intestazione">Torna all'inizio della pagina</a> ]
-				</p>
+			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("footer.portalFooter")»
+			<div id="portalFooter">
+				<!-- Inserire il codice del FOOTER di PORTALE (se esiste) -->
 			</div>
-			<!--/piedipagina-->
+			«ENDPROTECT»
 
 		</div>
-		<!--/pagina-->
-
+		<!-- FINE PAGE (OBBLIGATORIO) -->
 	</body>
 </html>
-«ENDREM»
 «ENDDEFINE»
 
 
@@ -633,38 +475,37 @@ Gestione dei PANNELLI
 
 «REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Pnels«ENDREM»
 «DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-
-«IF this.layout.metaType == VerticalFlowPanelLayout-»
-	«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-	«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-	«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale " + getPortalName()»
-«ENDIF-»
-
+	«IF this.layout.metaType == VerticalFlowPanelLayout-»
+		«EXPAND setupVFL(model, skip_component_dir_creation, cp) FOR this»
+	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
+		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp) FOR this»
+	«ELSE-»
+		«ERROR "Layout " + this.layout.metaType + " non gestito al primo livello per portale " + getPortalName()»
+	«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
 «DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="sfondoColonna">
+<div id="contentPanel">
+	<div id="centerWrapper" class="floatWrapper">
+		<div id="centerPanel">
+			<div class="wrapper">
 
-	<!-- =============== COLONNA UNICA ============== -->
-	<div id="colonna">
-		<h2 class="alt">contenuti</h2>
+				«IF !isNullOrEmpty(this.label) -»
+				<!-- titolo pannello PRIMO livello -->
+				<h3><s:text name="«cp.name».«this.name».label" /></h3>
+				«ENDIF-»
 
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello 1° livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
-		«ENDIF-»
+				«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
+				«FOREACH this.subpanels AS subpanel»
+					«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, UDLRCSpecConstants::CENTER) FOR subpanel»
+				«ENDFOREACH»
 
-		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR this»
-
+			</div>
+		</div>
 	</div>
-	<!-- ============ FINE COLONNA UNICA ============ -->
-
 </div>
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
@@ -672,196 +513,85 @@ Gestione dei PANNELLI
 
 «REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
 «DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-«LET getColumnsLayout(this, model) AS numeroColonne-»
-«IF numeroColonne == 1 -»
-	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF numeroColonne == 2 -»
-	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp) FOR this»
-«ELSEIF numeroColonne == 3 -»
-	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp) FOR this»
-«ELSE-»
-	«ERROR "Portale " + getPortalName() + ". Numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
-
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
-«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="sfondoColonna">
+<div id="contentPanel">
 
-	<!-- =============== COLONNA UNICA ============== -->
-	<div id="colonna">
-		<h2 class="alt">contenuti</h2>
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
+	«IF upPanel != null -»
+	<!-- ================ UDLRC Layout UP PANEL ================ -->
+	<div id="northPanel">
+		<div class="wrapper">
 		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
+		</div>
+	</div>
+	<!-- ================ FINE UDLRC Layout UP PANEL ================ -->
+	«ENDIF-»
+	«ENDLET-»
+
+
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
+	<!-- ================ UDLRC Layout WEST-CENTER-EAST WRAPPER ================ -->
+	<div id="«getWestCenterEastWrapperId(leftPanel, rightPanel).toFirstLower()»Wrapper" class="floatWrapper">
+		«IF leftPanel != null -»
+		<!-- ***** UDLRC Layout LEFT PANEL ***** -->
+		<div id="westPanel">
+			<div class="wrapper">
+			«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
+			</div>
+		</div>
+		<!-- ***** FINE UDLRC Layout LEFT PANEL ***** -->
 		«ENDIF-»
-		«ENDLET-»
 
 
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
+		<!-- ***** UDLRC Layout CENTER PANEL ***** -->
+		<div id="centerPanel">
+			<div class="wrapper">
+				«IF !isNullOrEmpty(this.label) -»
+				<!-- titolo pannello PRIMO livello -->
+				<h3><s:text name="«cp.name».«this.name».label" /></h3>
+				«ENDIF-»
 
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello 1° livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
+				«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
+					«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER) FOR centerPanel»
+				«ENDLET-»
+			</div>
+		</div>
+		<!-- ***** FINE UDLRC Layout CENTER PANEL ***** -->
+
+
+		«IF rightPanel != null -»
+		<!-- ***** UDLRC Layout RIGHT PANEL ***** -->
+		<div id="eastPanel">
+			<div class="wrapper">
+			«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
+			</div>
+		</div>
+		<!-- ***** FINE UDLRC Layout RIGHT PANEL ***** -->
 		«ENDIF-»
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
-
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
 
 	</div>
-	<!-- ============ FINE COLONNA UNICA ============ -->
+	<!-- ================ FINE UDLRC Layout WEST-CENTER-EAST WRAPPER ================ -->
+	«ENDLET-»
+	«ENDLET-»
+
+
+	«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
+	«IF downPanel != null -»
+	<!-- ================ UDLRC Layout DOWN PANEL ================ -->
+	<div id="southPanel">
+		<div class="wrapper">
+		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
+		</div>
+	</div>
+	<!-- ================ FINE UDLRC Layout DOWN PANEL ================ -->
+	«ENDIF-»
+	«ENDLET-»
 
 </div>
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
 
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
-«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="sfondo">
-	<h2 class="alt">menu della sezione</h2>
-
-	<!-- ================ COLONNA SX ================ -->
-	<div id="colonnaSinistra">
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-		«ENDLET-»
-	</div>
-	<!-- ============== FINE COLONNA SX ============== -->
-
-	<hr />
-
-	<!-- ================ COLONNA DX ================ -->
-	<div id="colonnaDestra">
-		<h2 class="alt">contenuti</h2>
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
-
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello primo livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
-		«ENDIF-»
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
-
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-	</div>
-	<!-- ============== FINE COLONNA DX ============== -->
-
-</div>
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
-
-
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
-«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-<!-- ####################### PANNELLO CONTENUTI ###################### -->
-<div id="sfondo" class="treColonne">
-	<h2 class="alt">menu della sezione</h2>
-
-	<!-- ================ COLONNA SX ================ -->
-	<div id="colonnaSinistra">
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanel-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::LEFT) FOR leftPanel»
-		«ENDLET-»
-	</div>
-	<!-- ============== FINE COLONNA SX ============== -->
-
-	<hr />
-
-	<!-- ================= COLONNA CENTRALE ================ -->
-	<div id="colonnaCentrale">
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
-		«IF upPanel != null -»
-		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP) FOR upPanel»
-		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-
-		<!-- ***** UDLRC Layout: CENTER PANEL ***** -->
-
-		«IF !isNullOrEmpty(this.label) -»
-		<!-- titolo pannello primo livello -->
-		<h3><s:text name="«cp.name».«this.name».label" /></h3>
-		«ENDIF-»
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
-		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER) FOR centerPanel»
-		«ENDLET-»
-		«ENDLET-»
-		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
-
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
-		«IF downPanel != null -»
-		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN) FOR downPanel»
-		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
-		«ENDIF-»
-		«ENDLET-»
-
-	</div>
-	<!-- ============== FINE COLONNA CENTRALE ============== -->
-
-
-	<!-- =========== COLONNA EXTRA (DESTRA) ========== -->
-	<div id="colonnaExtra">
-		<h2 class="alt">informazioni</h2>
-
-		«LET getSubPanelByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanel-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::RIGHT) FOR rightPanel»
-		«ENDLET-»
-	</div>
-	<!-- ======== FINE COLONNA EXTRA (DESTRA) ======== -->
-
-</div>
-<!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
 
 
 «REM»
@@ -870,17 +600,27 @@ Gestione dei PANNELLI
 
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-	<div class="conthTab">
+«IF !isNullOrEmpty(this.label)-»
+<h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
+«ENDIF-»
+<div class="tabSetPanel" id="«this.name»">
+	<ul>
 	«FOREACH this.panels AS currTab ITERATOR i-»
-		«LET i.lastIteration ? "<s:property value=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + " ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
+		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
 		</s:url>
-		<div class="«tabStyle»"><s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a></div>
+		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currTab)»'«stepExtraCondition»}">
+			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></span></li>
+		</s:if>
+		<s:else>
+			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a></li>
+		</s:else>
 		«ENDLET-»
 	«ENDFOREACH-»
-	</div>
+	</ul>
+</div>
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
@@ -888,17 +628,15 @@ Gestione dei PANNELLI
 «IF !isNullOrEmpty(this.label)-»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
-<div class="contenutiTab">
-	<div id="wizard"><!-- navigatorActive:«navigatorActive» -->
-		<h3 class="alt">Sezioni</h3>
+<div class="wizardPanel" id="«this.name»">
+	<ol>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep)»'}" />
 		</s:url>
-		<li>
-		«LET getWizardPanelStepCompleteIndex(this, i.counter1.toString()) AS stepNumber-»
+		«LET i.counter1.toString() AS stepNumber-»
 		<s:if test="%{#session.«getSelectedMultiPanelName(this)»_selectedMultiPanel == '«getMultiPanelName(this, currStep)»'«stepExtraCondition»}">
 			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber) FOR currStep-»
 		</s:if>
@@ -910,28 +648,27 @@ Gestione dei PANNELLI
 			«ENDIF-»
 		</s:else>
 		«ENDLET-»
-		</li>
 		«ENDLET-»
 	«ENDFOREACH-»
-	</div>
+	</ol>
 </div>
 «ENDDEFINE»
 
 «DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber) FOR Panel-»
 	«LET this AS currStep-»
-	<span class="evidenza">«stepNumber». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span>
+	<li class="item-«stepNumber» active"><span class="activeItem"><s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" /></span></li>
 	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber) FOR Panel»
 	«LET this AS currStep-»
-	<span><s:a href="%{«getMultiPanelName(wizard, currStep)»_URL}">«stepNumber». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></s:a></span>
+	<li class="item-«stepNumber»"><s:a href="%{«getMultiPanelName(wizard, currStep)»_URL}"><s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" /></s:a></li>
 	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber) FOR Panel»
 	«LET this AS currStep-»
-	<span> «stepNumber». <s:text name="«findParentContentPanel(this).name».«currStep.name».label" /></span>
+	<li class="item-«stepNumber»"><s:text name="«findParentContentPanel(wizard).name».«currStep.name».label" /></li>
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -941,7 +678,9 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-<customtag:panelGrid id="«this.name»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="«getPortalCode()»" />
+<div class="stdMessagePanel" id="«this.name»">
+	<customtag:stdMessagePanel id="«this.name»" errorMessage="«showFieldErrors»" errorDetails="«showFieldErrorDetails»" actionMessage="«showGlobalMessages»" isStandalone="true" />
+</div>
 «ENDDEFINE»
 
 
@@ -951,14 +690,16 @@ Gestione dei PANNELLI
 
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
-<div id="contUtente">
-	<div id="Utente">
-		<span id="datiUtente">
-			Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong><br/>
-			Ruolo: <strong><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></strong>
-		</span>
+<div class="userInfoPanel" id="«this.name»">
+	<div class="userData">
+		<span class="user">Utente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></span></span>
+		<span class="organization">Ente: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ente" /></span></span>
+		<span class="role">Ruolo: <span class="value"><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></span></span>
+	</div>
+	<div class="userInfoActions">
+		<!-- uscita dal servizio e/o cambio ruolo -->
 		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
-		<span class="logoutApplicativo"><s:a href="%{localLogoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a></span>
+		<s:a href="%{localLogoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a>
 	</div>
 </div>
 «ENDLET-»
@@ -975,23 +716,23 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
-«IF !isNullOrEmpty(this.label)&& !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
+«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
 <h4><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h4>
 «ENDIF-»
-<div class="contenuti">
+<div class="formPanel«IF this.layout.metaType == UDLRCPanelLayout» floatWrapper«ENDIF»" id="«this.name»">
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR CommandPanel»
-«LET (this.layout.metaType == UDLRCPanelLayout ? "class=\"pulsNav\"" : (this.layout.metaType == HorizontalFlowPanelLayout ? "class=\"pulsFunz\"" : "" ) ) AS ptype-»
-<div «ptype»>
+«LET (this.cmdStyle == CommandStyles::NAVIGATION ? " navigation" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? " functional" : "" ) ) AS ptype-»
+<div class="commandPanel«ptype»" id="«this.name»">
 «ENDLET-»
 «ENDDEFINE»
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR MenuPanel»
-«REM»Non faccio niente (per il momento)«ENDREM»
+<div class="menuPanel«getMenuPanelOrientation(this)»" id="«this.name»">
 «ENDDEFINE»
 
 
@@ -1009,7 +750,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la footer di un sottopannello di tipo MenuPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR MenuPanel»
-«REM»Non faccio niente (per il momento)«ENDREM»
+</div>
 «ENDDEFINE»
 
 
@@ -1019,16 +760,24 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«this.name»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalCode()»" «getPanelGridPercentCols(this)»>
-	«ENDIF-»
+«IF !this.widgets.isEmpty -»
+<div class="widgetsPanel" id="«this.name»">
+	«IF this.widgets.select(e|e.metaType == Table).size == 0»
+	<customtag:widgetsPanel id="«this.name»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
+		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF» isStandalone="true"
+		«getPanelGridPercentCols(this)»>
+	«ENDIF»
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	</customtag:panelGrid>
-	«ENDIF-»
+«IF !this.widgets.isEmpty -»
+	«IF this.widgets.select(e|e.metaType == Table).size == 0»
+	</customtag:widgetsPanel>
+	«ENDIF»
+</div>
+«ENDIF-»
 «ENDDEFINE»
 
 
@@ -1038,10 +787,12 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un pannello di tipo UserDefinedPanel«ENDREM»
 «DEFINE userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
+<div class="userDefinedPanel" id="«this.name»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo UserDefinedPanel«ENDREM»
 «DEFINE userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
+</div>
 «ENDDEFINE»
 
 
@@ -1058,22 +809,19 @@ Gestione dei LAYOUT - PANNELLI
 <s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
-	<div id="sfondoColonna">
+	<div id="contentPanel">
+		<div id="centerWrapper" class="floatWrapper">
+			<div id="centerPanel">
 
-		<!-- =============== COLONNA UNICA ============== -->
-		<div id="colonna">
-			<h2 class="alt">contenuti</h2>
-
-			<h3><s:text name="«findParentContentPanel(this).name».«this.name».label" /></h3>
-			<div class="contenuti">
+				<div class="dialogPanel" id="«this.name»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
 «DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+				</div>
+
 			</div>
 		</div>
-		<!-- ============ FINE COLONNA UNICA ============ -->
-
 	</div>
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
@@ -1091,7 +839,7 @@ Gestione dei LAYOUT - PANNELLI
 
 «REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
 «DEFINE msgBoxPanelControlHeader FOR MsgBoxPanel»
-<div «getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»>
+<div class="msgBoxPanel«getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»" id="«this.name»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
@@ -1111,19 +859,20 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-<customtag:column labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF»
+	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
 «DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-</customtag:column>
+</customtag:widgetsPanelColumn>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
 «DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
 «IF needHandleCustomtagCloseHspan(wp, this) -»
 <s:else>
-	<customtag:column textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
+	<customtag:widgetsPanelColumn textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
 </s:else>
 «ENDIF-»
 «ENDDEFINE»
@@ -1133,17 +882,17 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)wp.eRootContainer, this)»>
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)wp.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+<p>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
 «DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-
+</p>
 «ENDDEFINE»
 
 
@@ -1151,10 +900,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+<div class="hidden">
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+</div>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
@@ -1179,18 +930,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF cmdp.layout.metaType == UDLRCPanelLayout-»
-«LET (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::LEFT ? "class=\"pulsNavSx\"" : (((UDLRCWidgetLayoutSpec)this.layoutSpec).value == UDLRCSpecConstants::RIGHT ? "class=\"pulsNavDx\"" : "" ) ) AS side-»
-<div «side»>
-«ENDLET-»
-«ENDIF-»
+«REM»Non faccio niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
 «DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-«IF cmdp.layout.metaType == UDLRCPanelLayout-»
-</div>
-«ENDIF-»
+«REM»Non faccio niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
@@ -1199,23 +944,36 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Button»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+<customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
 «REM»--------------- Table ---------------«ENDREM»
 
-«REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
+«REM»Genera la header di un widget di tipo Table (ATTENZIONE: non ci devono essere tabelle annidate, quindi niente CustomTag)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+<div class="tableWidget">
 «ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo Table (ATTENZIONE: non ci devono essere tabelle annidate, quindi niente CustomTag)«ENDREM»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Table»
+</div>
+«ENDDEFINE»
+
 
 
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+<customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
+	<div class="userDefinedWidget" id="«this.name»">
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo UserDefinedWidget«ENDREM»
+«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR UserDefinedWidget»
+	</div>
+</customtag:widgetsPanelColumn>
 «ENDDEFINE»
 
 
@@ -1256,10 +1014,12 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
 «DEFINE widgetMarkupHeader FOR RadioButtons»
+<div id="«getWidgetLabelFor(this)»">
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
 «DEFINE widgetMarkupFooter FOR RadioButtons»
+</div>
 «ENDDEFINE»
 
 
@@ -1272,12 +1032,7 @@ Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
-header.userinfo.head.label=utente:
-header.filoarianna.head.label=sei in:
-header.canale.nome.label=«this.structure.appWindow.header.nomeCanale»
 header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
-header.ssologout.label=esci
-header.nomeservizio.label=home nome servizio
 «ENDDEFINE»
 
 
@@ -1295,8 +1050,8 @@ Gestione del BUILD => file: buildfiles.xpt
 	<artifact name="custom-component-attr-1.2.0" type="jar"/>
 	<artifact name="custom-component-rich-1.2.0" type="jar"/>
 </dependency>
-<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
-	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.1.0">
+	<artifact name="util-struts2-csitemplate-1.1.0" type="jar"/>
 </dependency>
 «ENDDEFINE»
 
@@ -1313,46 +1068,50 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 ############################################################################
 # MESSAGES
 
-basic.msg.empty_list=<div id="ncsdf">Non ci sono elementi da visualizzare.</div>
+basic.msg.empty_list=<div class="feedSearch">Non ci sono elementi da visualizzare.</div>
 basic.msg.empty_list_row=<tr class="empty"><td colspan="{0}">Non ci sono elementi da visualizzare.</td></tr>
 error.msg.invalid_page=pagina non valida
 
-
+# PAGING
 paging.banner.item_name=risultato
 paging.banner.items_name=risultati
 
-paging.banner.no_items_found=<div class="paginazione"><span class="sx">Nessun {0} trovato.</span><span class="bugFix"> | </span>
-paging.banner.one_item_found=<div class="paginazione"><span class="sx">Un {0} trovato.</span><span class="bugFix"> | </span>
-paging.banner.all_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati, tutti i {2} visualizzati.</span><span class="bugFix"> | </span>
-paging.banner.some_items_found=<div class="paginazione"><span class="sx">{0} {1} trovati ({5} pagine)</span><span class="bugFix"> | </span>
+paging.banner.no_items_found=<div class="paging"><div class="pagingLeft">Nessun {0} trovato.</div>
+paging.banner.one_item_found=<div class="paging"><div class="pagingLeft">Un {0} trovato.</div>
+paging.banner.all_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati, tutti i {2} visualizzati.</div>
+paging.banner.some_items_found=<div class="paging"><div class="pagingLeft">{0} {1} trovati ({5} pagine)</div>
 
-paging.banner.full=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}">&lt;&lt; prec</a> | <a href="{3}">succ &gt;&gt;</a> <a href="{4}">ultima</a></span></div>
-paging.banner.first=<span class="dx">{0} <a href="{3}">succ &gt;&gt;</a> <a href="{4}">ultima</a></span></div>
-paging.banner.last=<span class="dx">{0} <a href="{1}">prima</a> <a href="{2}">&lt;&lt; prec</a></span></div>
-paging.banner.onepage=<span class="dx">pagina {0}</span></div>
+paging.banner.full=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span><span class="separator"> | </span><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.first=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="nextPage"><a href="{3}"><abbr title="successivo">succ</abbr></a></span><span class="separator"> | </span><span class="lastPage"><a href="{4}">ultima</a></span></span></div></div>
+paging.banner.last=<div class="pagingRight"><span class="pageNumbers">{0}</span><span class="pageNavigation"><span class="firstPage"><a href="{1}">prima</a></span><span class="separator"> | </span><span class="previousPage"><a href="{2}"><abbr title="precedente">prec</abbr></a></span></span></div></div>
+paging.banner.onepage=<div class="pagingRight"><span class="pageNumbers">pagina {0}</span></div></div>
 
-paging.banner.page.selected=<span class="evidenzaLink">{0}</span>
+paging.banner.page.selected=<span class="currentPage">{0}</span>
 paging.banner.page.link=<a href="{1}" title="Vai a pagina {0}">{0}</a>
-paging.banner.page.separator=<span class="bugFix"> | </span>
+paging.banner.page.separator=<span class="separator"> | </span>
 
 
-export.banner=<div class="opzioni">{0}</div>
-export.banner.sepchar=
+#EXPORT
+export.banner=<div class="export">{0}</div>
+export.banner.sepchar=<span class="separator"> | </span>
 
-export.csv.label=<span class="export csv">CSV</span>
-export.excel.label=<span class="xls">scarica in excel</span>
-export.pdf.label=<span class="pdf">scarica in pdf</span>
-export.rtf.label=<span class="export rtf" title="Esporta solo la pagina corrente in formato rtf">RTF</span>
+export.excel.label=<span class="xls">scarica in Excel</span>
+export.pdf.label=<span class="pdf">scarica in PDF</span>
+export.csv.label=<span class="csv">CSV</span>
+export.xml.label=<span class="xml">XML</span>
+export.rtf.label=<span class="rtf">RTF</span>
 
 
 ############################################################################
 # CSS PERSONALIZZATI
 
-#css.tr.even=normalRow
-#css.tr.odd=alternateRow
-#css.th.sorted=siord
-#css.th.ascending=su
-#css.th.descending=giu
-#css.table
-#css.th.sortable=dis
+css.table=
+
+css.th.sortable=sortable
+css.th.sorted=sorted
+css.th.ascending=asc
+css.th.descending=desc
+
+css.tr.even=even
+css.tr.odd=odd
 «ENDDEFINE»

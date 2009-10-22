@@ -4,70 +4,121 @@ extension template::GenericExtensions;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout Neutral                          //
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0                //
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+// ATTENZIONE: verificare bene su TUTTI I LIVELLI (adesso funziona solo con 2 LIVELLI)
 
 //
 String getMenuNoChildCssNeutral(Menu menu, int level) :
-	if (level == 1) then
-		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>"
-	else if (level == 2) then
-		"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"attivoL\"</s:if>"
-	else
-		"";
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\" class=\"active\"</s:if>";
 
 //
 String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
-	if (level == 1) then
-		""
-	else if (level == 2) then
-		""
-	else
-		"";
+	"";
 
 //
 String getMenuNoChildLabelNeutral(Menu menu, int level) :
-	if (level == 1) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else if (level == 2) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else
-		"<s:text name=\"" + menu.name + ".label\" />";
+	"<s:text name=\"" + menu.name + ".label\" />";
 
-//
+// attivazione del menu padre se uno dei sottomenu è cliccato
 String getMenuWithChildCssNeutral(Menu menu, int level) :
-	if (level == 1) then
-		" class=\"sottomenu<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? 'On' : ''}\" />\""
-	else if (level == 2) then
-		""
-	else
-		"";
+	" class=\"parent<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? ' active' : ''}\" />\"" + 
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\"</s:if>";
 
 //
 String getMenuWithChildLinkCssNeutral(Menu menu, int level) :
-	if (level == 1) then
-		" class=\"attivosottomenu\""
-	else if (level == 2) then
-		""
-	else
-		"";
+	"";
 
 //
 String getMenuWithChildLabelNeutral(Menu menu, int level) :
-	if (level == 1) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else if (level == 2) then
-		"<s:text name=\"" + menu.name + ".label\" />"
-	else
-		"<s:text name=\"" + menu.name + ".label\" />";
+	"<s:text name=\"" + menu.name + ".label\" />";
 
+
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getWestCenterEastWrapperId(Panel leftPanel, Panel rightPanel) :
+	(leftPanel != null ? "West" : "") +
+	"Center" +
+	(rightPanel != null ? "East" : "");
+
+// restituisce l'identificatore del wrapper dei pannelli West-Center-East di un FormPanel
+// di primo livello con UDLRCPanelLayout
+String getLeftCenterRightWrapperId(List leftPanels, List centerPanels, List rightPanels) :
+	( (leftPanels != null && leftPanels.size > 0) ? "left" : "" ) +
+	( (centerPanels != null && centerPanels.size > 0) ? "Center" : "" ) +
+	( (rightPanels != null && rightPanels.size > 0) ? "Right" : "");
+
+// restituisce la lista dei Buttons di un CommandPanel con UDLRC layout posizionati nel settore indicato
+List getButtonsByUDLRCPosition(CommandPanel cp, UDLRCSpecConstants quadrante) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonsByUDLRCPosition(it.csi.mddtools.guigen.CommandPanel, it.csi.mddtools.guigen.UDLRCSpecConstants);
+
+// restitisce l'orientamento di un MenuPanel (horizontal o vertical)
+String getMenuPanelOrientation(MenuPanel mp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getMenuPanelOrientation(it.csi.mddtools.guigen.MenuPanel);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout Neutral usate in AOP             //
+/// Java Extensions for checks specifici per RuparPiemonte 2.0                               //
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+boolean commandPanelLayoutCheckNeutral(CommandPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsChecksNeutral.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
+
+boolean formPanelLayoutCheckNeutral(FormPanel fp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsChecksNeutral.formPanelLayoutCheck(it.csi.mddtools.guigen.FormPanel);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0 usate in AOP   //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutNeutral(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayoutNeutral(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayoutNeutral(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayoutNeutral(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalNeutral(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]
+String getColumnStyleNeutral(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
 
 // [DM]  Restituisce la classe per un CheckBox
 // nota: deve rimanere in Java perché viene utilizzato anche da Java
-String getCheckboxPortalStyle(GUIModel model) : JAVA
+String getCheckboxPortalStyleNeutral(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
+//      Utilizzato per allineare a destra i dati numerici.
+String getCustomComponentColumnStyleByPortalNeutral(GUIModel model, PlainText w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyleNeutral(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] restituisce l'attributo di obbligatorietà del campo da settare nella custom Component widgetsPanelColumn
+String getCustomtagRequiredFieldNeutral(Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagRequiredField(it.csi.mddtools.guigen.Widget);
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+String getCustomtagHeaderColspanNeutral(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
+
+	

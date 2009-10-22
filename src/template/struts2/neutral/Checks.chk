@@ -16,24 +16,32 @@ extension template::struts2::neutral::Struts2ExtensionsNeutral;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
-// In tutti gli altri casi, anche se il layout è ininfluente(al momento viene ignorato, visto che il layout dei widgets 
-// passa come competenza al WidgetsPanel), imponiamo che sia obbligatorio e sia VerticalFlowPanelLayout
-context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo deve avere un layout di tipo VerticalFlowPanelLayout " + loc() :
-	this.layout != null && this.layout.metaType == VerticalFlowPanelLayout;
+// Il layout di un FormPanel di 2° livello non è più ininfluente
+context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo può avere un layout di tipo: [a] VerticalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
+	this.layout != null && formPanelLayoutCheckNeutral(this);
 
 // [DM] check su CommandPanel
-// 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
-// 3
-context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
-	commandPanelLayoutCheck(this);
+// 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (LEFT, CENTER, RIGHT)
+context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
+	commandPanelLayoutCheckNeutral(this);
+
+
 
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///*****************************************************************************************************************//
-/// Check SPECIFICI della cartuccia Neutral                                                                         //
+/// Check SPECIFICI della cartuccia Neutral                                                               //
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazione su pannelli
+
+// [DM] check su WidgetsPanel
+context WidgetsPanel if this.widgets.select(w|w.metaType==Table).size > 0 ERROR "Un WidgetsPanel che contiene uno o più Table non può contenere altri tipi di widgets " + loc() :
+	 this.widgets.select(w|w.metaType!=Table).size == 0;
 
 context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
 	false;
