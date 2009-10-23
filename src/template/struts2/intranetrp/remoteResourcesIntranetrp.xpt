@@ -174,7 +174,7 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
-		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:ajaxify-header />«ENDIF-»
+		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:extjs-header />«ENDIF-»
 		«REM»STDMDD-163: Radio button: implementazione evento di click
 		<script type="text/javascript">
 
@@ -469,20 +469,41 @@ Gestione dei PANNELLI
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
 <div class="boxsup">
+	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET "%{#session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this)+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
 		<s:url id="«getMultiPanelName(this, currTab)»_URL" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab)»'}" />
 		</s:url>
+		«IF switchHnd != null-»
+		<s:if test="«tabSelectedCondition»">
+			<s:a href="javascript:" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
+		</s:if>
+		<s:else>
+			«IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(findParentContentPanel(this), this, currTab) FOR this.switcher»
+        	«ENDIF-»
+			<s:submit name="«switcher.name»"
+          	cssClass="tabnosel"
+            id="«switcher.name»"
+            method="«getTabItemHandlerMethodName(findParentContentPanel(this),this,currTab)»"
+            key="«findParentContentPanel(this).name».«currTab.name».label" />
+            «IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this.switcher»
+        	«ENDIF-»
+		</s:else>
+		«ELSE»
 		<s:if test="«tabSelectedCondition»">
 			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}" cssClass="boxsel"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
 		</s:if>
 		<s:else>
 			<s:a href="%{«getMultiPanelName(this, currTab)»_URL}"><s:text name="«findParentContentPanel(this).name».«currTab.name».label" /></s:a>
 		</s:else>
+		«ENDIF»
 		«ENDLET»
 	«ENDFOREACH-»
+	«ENDLET-»
 </div>
 «ENDDEFINE»
 
