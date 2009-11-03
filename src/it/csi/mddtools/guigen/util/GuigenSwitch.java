@@ -839,6 +839,101 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.PANEL_DEF: {
+				PanelDef panelDef = (PanelDef)theEObject;
+				T result = casePanelDef(panelDef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.PDEF_PARAM: {
+				PDefParam pDefParam = (PDefParam)theEObject;
+				T result = casePDefParam(pDefParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.APP_DATA_MAPPING_PARAM: {
+				AppDataMappingParam appDataMappingParam = (AppDataMappingParam)theEObject;
+				T result = caseAppDataMappingParam(appDataMappingParam);
+				if (result == null) result = casePDefParam(appDataMappingParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.TYPE_DEF_MAPPING_PARAM: {
+				TypeDefMappingParam typeDefMappingParam = (TypeDefMappingParam)theEObject;
+				T result = caseTypeDefMappingParam(typeDefMappingParam);
+				if (result == null) result = casePDefParam(typeDefMappingParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.USE_CASE_MAPPING_PARAM: {
+				UseCaseMappingParam useCaseMappingParam = (UseCaseMappingParam)theEObject;
+				T result = caseUseCaseMappingParam(useCaseMappingParam);
+				if (result == null) result = casePDefParam(useCaseMappingParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ROLE_MAPPING_PARAM: {
+				RoleMappingParam roleMappingParam = (RoleMappingParam)theEObject;
+				T result = caseRoleMappingParam(roleMappingParam);
+				if (result == null) result = casePDefParam(roleMappingParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ACTOR_MAPPING_PARAM: {
+				ActorMappingParam actorMappingParam = (ActorMappingParam)theEObject;
+				T result = caseActorMappingParam(actorMappingParam);
+				if (result == null) result = casePDefParam(actorMappingParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.PANEL_DEF_USE: {
+				PanelDefUse panelDefUse = (PanelDefUse)theEObject;
+				T result = casePanelDefUse(panelDefUse);
+				if (result == null) result = casePanel(panelDefUse);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.PDEF_PARAM_VAL: {
+				PDefParamVal pDefParamVal = (PDefParamVal)theEObject;
+				T result = casePDefParamVal(pDefParamVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.APP_DATA_MAPPING_PDEF_VAL: {
+				AppDataMappingPDefVal appDataMappingPDefVal = (AppDataMappingPDefVal)theEObject;
+				T result = caseAppDataMappingPDefVal(appDataMappingPDefVal);
+				if (result == null) result = casePDefParamVal(appDataMappingPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.TYPE_DEF_MAPPING_PDEF_VAL: {
+				TypeDefMappingPDefVal typeDefMappingPDefVal = (TypeDefMappingPDefVal)theEObject;
+				T result = caseTypeDefMappingPDefVal(typeDefMappingPDefVal);
+				if (result == null) result = casePDefParamVal(typeDefMappingPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.UC_MAPPING_PDEF_VAL: {
+				UCMappingPDefVal ucMappingPDefVal = (UCMappingPDefVal)theEObject;
+				T result = caseUCMappingPDefVal(ucMappingPDefVal);
+				if (result == null) result = casePDefParamVal(ucMappingPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ROLE_MAPPING_PDEF_VAL: {
+				RoleMappingPDefVal roleMappingPDefVal = (RoleMappingPDefVal)theEObject;
+				T result = caseRoleMappingPDefVal(roleMappingPDefVal);
+				if (result == null) result = casePDefParamVal(roleMappingPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.ACTOR_MAPPING_PDEF_VAL: {
+				ActorMappingPDefVal actorMappingPDefVal = (ActorMappingPDefVal)theEObject;
+				T result = caseActorMappingPDefVal(actorMappingPDefVal);
+				if (result == null) result = casePDefParamVal(actorMappingPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2490,6 +2585,216 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseTabSwitcher(TabSwitcher object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Panel Def</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Panel Def</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePanelDef(PanelDef object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>PDef Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>PDef Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePDefParam(PDefParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>App Data Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>App Data Mapping Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAppDataMappingParam(AppDataMappingParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Def Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Def Mapping Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeDefMappingParam(TypeDefMappingParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Use Case Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Use Case Mapping Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUseCaseMappingParam(UseCaseMappingParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Role Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Role Mapping Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRoleMappingParam(RoleMappingParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Actor Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Actor Mapping Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActorMappingParam(ActorMappingParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Panel Def Use</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Panel Def Use</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePanelDefUse(PanelDefUse object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>PDef Param Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>PDef Param Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePDefParamVal(PDefParamVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>App Data Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>App Data Mapping PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAppDataMappingPDefVal(AppDataMappingPDefVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Def Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Def Mapping PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeDefMappingPDefVal(TypeDefMappingPDefVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>UC Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>UC Mapping PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUCMappingPDefVal(UCMappingPDefVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Role Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Role Mapping PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRoleMappingPDefVal(RoleMappingPDefVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Actor Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Actor Mapping PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActorMappingPDefVal(ActorMappingPDefVal object) {
 		return null;
 	}
 

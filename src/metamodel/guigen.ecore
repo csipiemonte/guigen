@@ -1499,4 +1499,64 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileUpload" eSuperTypes="#//Widget"/>
   <eClassifiers xsi:type="ecore:EClass" name="TabSwitcher" eSuperTypes="#//CommandWidget"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PanelDef">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="panel" eType="#//Panel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//PDefParam" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="appDataDefs" eType="#//ApplicationDataDefs"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefs" eType="#//Typedefs"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" eType="#//Role"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actors" eType="#//Actor"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="useCases" eType="#//UseCase"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="onRefreshCommand" eType="#//Command"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PDefParam" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AppDataMappingParam" eSuperTypes="#//PDefParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defAppData" eType="#//ApplicationData"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeDefMappingParam" eSuperTypes="#//PDefParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defTypeDef" eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UseCaseMappingParam" eSuperTypes="#//PDefParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defUseCase" eType="#//UseCase"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleMappingParam" eSuperTypes="#//PDefParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defRole" eType="#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActorMappingParam" eSuperTypes="#//PDefParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defActor" eType="#//Actor"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PanelDefUse" eSuperTypes="#//Panel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="panelDef" eType="#//PanelDef"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="paramValues" upperBound="-1"
+        eType="#//PDefParamVal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PDefParamVal" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//PDefParam"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AppDataMappingPDefVal" eSuperTypes="#//PDefParamVal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualAppData" eType="#//ApplicationData"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeDefMappingPDefVal" eSuperTypes="#//PDefParamVal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualTypeDef" eType="#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UCMappingPDefVal" eSuperTypes="#//PDefParamVal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualUseCase" eType="#//UseCase"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleMappingPDefVal" eSuperTypes="#//PDefParamVal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualRole" eType="#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActorMappingPDefVal" eSuperTypes="#//PDefParamVal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actualActor" eType="#//Actor"/>
+  </eClassifiers>
 </ecore:EPackage>

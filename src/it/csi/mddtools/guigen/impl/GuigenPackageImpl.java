@@ -10,8 +10,12 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
 import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.ActorBasedSecurityConstraint;
+import it.csi.mddtools.guigen.ActorMappingPDefVal;
+import it.csi.mddtools.guigen.ActorMappingParam;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppDataGroup;
+import it.csi.mddtools.guigen.AppDataMappingPDefVal;
+import it.csi.mddtools.guigen.AppDataMappingParam;
 import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.AppWindow;
 import it.csi.mddtools.guigen.ApplicationArea;
@@ -74,7 +78,11 @@ import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.NOPCommand;
 import it.csi.mddtools.guigen.ONOFFCommand;
+import it.csi.mddtools.guigen.PDefParam;
+import it.csi.mddtools.guigen.PDefParamVal;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.PortalNames;
@@ -84,6 +92,8 @@ import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.RoleBasedSecurityConstraint;
+import it.csi.mddtools.guigen.RoleMappingPDefVal;
+import it.csi.mddtools.guigen.RoleMappingParam;
 import it.csi.mddtools.guigen.ScreenState;
 import it.csi.mddtools.guigen.ScreenStateCommand;
 import it.csi.mddtools.guigen.ScreenStates;
@@ -106,15 +116,19 @@ import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypeDefMappingPDefVal;
+import it.csi.mddtools.guigen.TypeDefMappingParam;
 import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UCBasedSecurityConstraint;
+import it.csi.mddtools.guigen.UCMappingPDefVal;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UseCase;
+import it.csi.mddtools.guigen.UseCaseMappingParam;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.UserInfoPanel;
@@ -911,6 +925,104 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass tabSwitcherEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass panelDefEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pDefParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass appDataMappingParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeDefMappingParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass useCaseMappingParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass roleMappingParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass actorMappingParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass panelDefUseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pDefParamValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass appDataMappingPDefValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeDefMappingPDefValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ucMappingPDefValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass roleMappingPDefValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass actorMappingPDefValEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3696,6 +3808,339 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPanelDef() {
+		return panelDefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPanelDef_Name() {
+		return (EAttribute)panelDefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_Panel() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_Params() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_AppDataDefs() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_TypeDefs() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_Roles() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_Actors() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_UseCases() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_OnRefreshCommand() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPDefParam() {
+		return pDefParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPDefParam_Name() {
+		return (EAttribute)pDefParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAppDataMappingParam() {
+		return appDataMappingParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppDataMappingParam_DefAppData() {
+		return (EReference)appDataMappingParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeDefMappingParam() {
+		return typeDefMappingParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeDefMappingParam_DefTypeDef() {
+		return (EReference)typeDefMappingParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUseCaseMappingParam() {
+		return useCaseMappingParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUseCaseMappingParam_DefUseCase() {
+		return (EReference)useCaseMappingParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRoleMappingParam() {
+		return roleMappingParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRoleMappingParam_DefRole() {
+		return (EReference)roleMappingParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActorMappingParam() {
+		return actorMappingParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActorMappingParam_DefActor() {
+		return (EReference)actorMappingParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPanelDefUse() {
+		return panelDefUseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDefUse_PanelDef() {
+		return (EReference)panelDefUseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDefUse_ParamValues() {
+		return (EReference)panelDefUseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPDefParamVal() {
+		return pDefParamValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPDefParamVal_Param() {
+		return (EReference)pDefParamValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAppDataMappingPDefVal() {
+		return appDataMappingPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppDataMappingPDefVal_ActualAppData() {
+		return (EReference)appDataMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeDefMappingPDefVal() {
+		return typeDefMappingPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeDefMappingPDefVal_ActualTypeDef() {
+		return (EReference)typeDefMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getUCMappingPDefVal() {
+		return ucMappingPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUCMappingPDefVal_ActualUseCase() {
+		return (EReference)ucMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRoleMappingPDefVal() {
+		return roleMappingPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRoleMappingPDefVal_ActualRole() {
+		return (EReference)roleMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActorMappingPDefVal() {
+		return actorMappingPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActorMappingPDefVal_ActualActor() {
+		return (EReference)actorMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4205,6 +4650,57 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		tabSwitcherEClass = createEClass(TAB_SWITCHER);
 
+		panelDefEClass = createEClass(PANEL_DEF);
+		createEAttribute(panelDefEClass, PANEL_DEF__NAME);
+		createEReference(panelDefEClass, PANEL_DEF__PANEL);
+		createEReference(panelDefEClass, PANEL_DEF__PARAMS);
+		createEReference(panelDefEClass, PANEL_DEF__APP_DATA_DEFS);
+		createEReference(panelDefEClass, PANEL_DEF__TYPE_DEFS);
+		createEReference(panelDefEClass, PANEL_DEF__ROLES);
+		createEReference(panelDefEClass, PANEL_DEF__ACTORS);
+		createEReference(panelDefEClass, PANEL_DEF__USE_CASES);
+		createEReference(panelDefEClass, PANEL_DEF__ON_REFRESH_COMMAND);
+
+		pDefParamEClass = createEClass(PDEF_PARAM);
+		createEAttribute(pDefParamEClass, PDEF_PARAM__NAME);
+
+		appDataMappingParamEClass = createEClass(APP_DATA_MAPPING_PARAM);
+		createEReference(appDataMappingParamEClass, APP_DATA_MAPPING_PARAM__DEF_APP_DATA);
+
+		typeDefMappingParamEClass = createEClass(TYPE_DEF_MAPPING_PARAM);
+		createEReference(typeDefMappingParamEClass, TYPE_DEF_MAPPING_PARAM__DEF_TYPE_DEF);
+
+		useCaseMappingParamEClass = createEClass(USE_CASE_MAPPING_PARAM);
+		createEReference(useCaseMappingParamEClass, USE_CASE_MAPPING_PARAM__DEF_USE_CASE);
+
+		roleMappingParamEClass = createEClass(ROLE_MAPPING_PARAM);
+		createEReference(roleMappingParamEClass, ROLE_MAPPING_PARAM__DEF_ROLE);
+
+		actorMappingParamEClass = createEClass(ACTOR_MAPPING_PARAM);
+		createEReference(actorMappingParamEClass, ACTOR_MAPPING_PARAM__DEF_ACTOR);
+
+		panelDefUseEClass = createEClass(PANEL_DEF_USE);
+		createEReference(panelDefUseEClass, PANEL_DEF_USE__PANEL_DEF);
+		createEReference(panelDefUseEClass, PANEL_DEF_USE__PARAM_VALUES);
+
+		pDefParamValEClass = createEClass(PDEF_PARAM_VAL);
+		createEReference(pDefParamValEClass, PDEF_PARAM_VAL__PARAM);
+
+		appDataMappingPDefValEClass = createEClass(APP_DATA_MAPPING_PDEF_VAL);
+		createEReference(appDataMappingPDefValEClass, APP_DATA_MAPPING_PDEF_VAL__ACTUAL_APP_DATA);
+
+		typeDefMappingPDefValEClass = createEClass(TYPE_DEF_MAPPING_PDEF_VAL);
+		createEReference(typeDefMappingPDefValEClass, TYPE_DEF_MAPPING_PDEF_VAL__ACTUAL_TYPE_DEF);
+
+		ucMappingPDefValEClass = createEClass(UC_MAPPING_PDEF_VAL);
+		createEReference(ucMappingPDefValEClass, UC_MAPPING_PDEF_VAL__ACTUAL_USE_CASE);
+
+		roleMappingPDefValEClass = createEClass(ROLE_MAPPING_PDEF_VAL);
+		createEReference(roleMappingPDefValEClass, ROLE_MAPPING_PDEF_VAL__ACTUAL_ROLE);
+
+		actorMappingPDefValEClass = createEClass(ACTOR_MAPPING_PDEF_VAL);
+		createEReference(actorMappingPDefValEClass, ACTOR_MAPPING_PDEF_VAL__ACTUAL_ACTOR);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -4318,6 +4814,17 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		roleBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
 		fileUploadEClass.getESuperTypes().add(this.getWidget());
 		tabSwitcherEClass.getESuperTypes().add(this.getCommandWidget());
+		appDataMappingParamEClass.getESuperTypes().add(this.getPDefParam());
+		typeDefMappingParamEClass.getESuperTypes().add(this.getPDefParam());
+		useCaseMappingParamEClass.getESuperTypes().add(this.getPDefParam());
+		roleMappingParamEClass.getESuperTypes().add(this.getPDefParam());
+		actorMappingParamEClass.getESuperTypes().add(this.getPDefParam());
+		panelDefUseEClass.getESuperTypes().add(this.getPanel());
+		appDataMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		typeDefMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		ucMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		roleMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		actorMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4724,6 +5231,57 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(fileUploadEClass, FileUpload.class, "FileUpload", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(tabSwitcherEClass, TabSwitcher.class, "TabSwitcher", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(panelDefEClass, PanelDef.class, "PanelDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPanelDef_Name(), ecorePackage.getEString(), "name", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_Panel(), this.getPanel(), null, "panel", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_Params(), this.getPDefParam(), null, "params", null, 0, -1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_AppDataDefs(), this.getApplicationDataDefs(), null, "appDataDefs", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_TypeDefs(), this.getTypedefs(), null, "typeDefs", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_Roles(), this.getRole(), null, "roles", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_Actors(), this.getActor(), null, "actors", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_UseCases(), this.getUseCase(), null, "useCases", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_OnRefreshCommand(), this.getCommand(), null, "onRefreshCommand", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pDefParamEClass, PDefParam.class, "PDefParam", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPDefParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, PDefParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(appDataMappingParamEClass, AppDataMappingParam.class, "AppDataMappingParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAppDataMappingParam_DefAppData(), this.getApplicationData(), null, "defAppData", null, 0, 1, AppDataMappingParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeDefMappingParamEClass, TypeDefMappingParam.class, "TypeDefMappingParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeDefMappingParam_DefTypeDef(), this.getType(), null, "defTypeDef", null, 0, 1, TypeDefMappingParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(useCaseMappingParamEClass, UseCaseMappingParam.class, "UseCaseMappingParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUseCaseMappingParam_DefUseCase(), this.getUseCase(), null, "defUseCase", null, 0, 1, UseCaseMappingParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(roleMappingParamEClass, RoleMappingParam.class, "RoleMappingParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRoleMappingParam_DefRole(), this.getRole(), null, "defRole", null, 0, 1, RoleMappingParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(actorMappingParamEClass, ActorMappingParam.class, "ActorMappingParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActorMappingParam_DefActor(), this.getActor(), null, "defActor", null, 0, 1, ActorMappingParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(panelDefUseEClass, PanelDefUse.class, "PanelDefUse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPanelDefUse_PanelDef(), this.getPanelDef(), null, "panelDef", null, 0, 1, PanelDefUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDefUse_ParamValues(), this.getPDefParamVal(), null, "paramValues", null, 0, -1, PanelDefUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pDefParamValEClass, PDefParamVal.class, "PDefParamVal", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPDefParamVal_Param(), this.getPDefParam(), null, "param", null, 0, 1, PDefParamVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(appDataMappingPDefValEClass, AppDataMappingPDefVal.class, "AppDataMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAppDataMappingPDefVal_ActualAppData(), this.getApplicationData(), null, "actualAppData", null, 0, 1, AppDataMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeDefMappingPDefValEClass, TypeDefMappingPDefVal.class, "TypeDefMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeDefMappingPDefVal_ActualTypeDef(), this.getType(), null, "actualTypeDef", null, 0, 1, TypeDefMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(ucMappingPDefValEClass, UCMappingPDefVal.class, "UCMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUCMappingPDefVal_ActualUseCase(), this.getUseCase(), null, "actualUseCase", null, 0, 1, UCMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(roleMappingPDefValEClass, RoleMappingPDefVal.class, "RoleMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRoleMappingPDefVal_ActualRole(), this.getRole(), null, "actualRole", null, 0, 1, RoleMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(actorMappingPDefValEClass, ActorMappingPDefVal.class, "ActorMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActorMappingPDefVal_ActualActor(), this.getActor(), null, "actualActor", null, 0, 1, ActorMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

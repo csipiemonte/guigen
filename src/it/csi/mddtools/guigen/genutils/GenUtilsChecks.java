@@ -110,6 +110,8 @@ public class GenUtilsChecks {
 
 	/**
 	 * Verifica se esistono dei DataBinding (semplici o multi) non risolvibili.
+	 * Vengono presi in considerazione: (1) tutti i binding associati a widget inseriti direttamente
+	 * nel ContentPanel; (2) i binding derivanti da istanziazione di PanelDef.
 	 * 
 	 * @param cp
 	 *            Il ContentPanel da verificare.

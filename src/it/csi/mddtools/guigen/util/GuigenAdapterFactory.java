@@ -512,6 +512,62 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createTabSwitcherAdapter();
 			}
 			@Override
+			public Adapter casePanelDef(PanelDef object) {
+				return createPanelDefAdapter();
+			}
+			@Override
+			public Adapter casePDefParam(PDefParam object) {
+				return createPDefParamAdapter();
+			}
+			@Override
+			public Adapter caseAppDataMappingParam(AppDataMappingParam object) {
+				return createAppDataMappingParamAdapter();
+			}
+			@Override
+			public Adapter caseTypeDefMappingParam(TypeDefMappingParam object) {
+				return createTypeDefMappingParamAdapter();
+			}
+			@Override
+			public Adapter caseUseCaseMappingParam(UseCaseMappingParam object) {
+				return createUseCaseMappingParamAdapter();
+			}
+			@Override
+			public Adapter caseRoleMappingParam(RoleMappingParam object) {
+				return createRoleMappingParamAdapter();
+			}
+			@Override
+			public Adapter caseActorMappingParam(ActorMappingParam object) {
+				return createActorMappingParamAdapter();
+			}
+			@Override
+			public Adapter casePanelDefUse(PanelDefUse object) {
+				return createPanelDefUseAdapter();
+			}
+			@Override
+			public Adapter casePDefParamVal(PDefParamVal object) {
+				return createPDefParamValAdapter();
+			}
+			@Override
+			public Adapter caseAppDataMappingPDefVal(AppDataMappingPDefVal object) {
+				return createAppDataMappingPDefValAdapter();
+			}
+			@Override
+			public Adapter caseTypeDefMappingPDefVal(TypeDefMappingPDefVal object) {
+				return createTypeDefMappingPDefValAdapter();
+			}
+			@Override
+			public Adapter caseUCMappingPDefVal(UCMappingPDefVal object) {
+				return createUCMappingPDefValAdapter();
+			}
+			@Override
+			public Adapter caseRoleMappingPDefVal(RoleMappingPDefVal object) {
+				return createRoleMappingPDefValAdapter();
+			}
+			@Override
+			public Adapter caseActorMappingPDefVal(ActorMappingPDefVal object) {
+				return createActorMappingPDefValAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2068,6 +2124,202 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTabSwitcherAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PanelDef <em>Panel Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PanelDef
+	 * @generated
+	 */
+	public Adapter createPanelDefAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PDefParam <em>PDef Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PDefParam
+	 * @generated
+	 */
+	public Adapter createPDefParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AppDataMappingParam <em>App Data Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AppDataMappingParam
+	 * @generated
+	 */
+	public Adapter createAppDataMappingParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TypeDefMappingParam <em>Type Def Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingParam
+	 * @generated
+	 */
+	public Adapter createTypeDefMappingParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UseCaseMappingParam <em>Use Case Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UseCaseMappingParam
+	 * @generated
+	 */
+	public Adapter createUseCaseMappingParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RoleMappingParam <em>Role Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.RoleMappingParam
+	 * @generated
+	 */
+	public Adapter createRoleMappingParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActorMappingParam <em>Actor Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ActorMappingParam
+	 * @generated
+	 */
+	public Adapter createActorMappingParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PanelDefUse <em>Panel Def Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PanelDefUse
+	 * @generated
+	 */
+	public Adapter createPanelDefUseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PDefParamVal <em>PDef Param Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PDefParamVal
+	 * @generated
+	 */
+	public Adapter createPDefParamValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.AppDataMappingPDefVal <em>App Data Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.AppDataMappingPDefVal
+	 * @generated
+	 */
+	public Adapter createAppDataMappingPDefValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TypeDefMappingPDefVal <em>Type Def Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingPDefVal
+	 * @generated
+	 */
+	public Adapter createTypeDefMappingPDefValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.UCMappingPDefVal <em>UC Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.UCMappingPDefVal
+	 * @generated
+	 */
+	public Adapter createUCMappingPDefValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RoleMappingPDefVal <em>Role Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.RoleMappingPDefVal
+	 * @generated
+	 */
+	public Adapter createRoleMappingPDefValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActorMappingPDefVal <em>Actor Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ActorMappingPDefVal
+	 * @generated
+	 */
+	public Adapter createActorMappingPDefValAdapter() {
 		return null;
 	}
 

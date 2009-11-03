@@ -210,6 +210,11 @@ public class MultiPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
 				 GuigenFactory.eINSTANCE.createWidgetsPanel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createPanelDefUse()));
 	}
 
 }

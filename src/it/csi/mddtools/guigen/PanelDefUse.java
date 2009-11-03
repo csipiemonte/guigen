@@ -1,0 +1,71 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.csi.mddtools.guigen;
+
+import org.eclipse.emf.common.util.EList;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Panel Def Use</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getPanelDef <em>Panel Def</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getParamValues <em>Param Values</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse()
+ * @model
+ * @generated
+ */
+public interface PanelDefUse extends Panel {
+	/**
+	 * Returns the value of the '<em><b>Panel Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Panel Def</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Panel Def</em>' reference.
+	 * @see #setPanelDef(PanelDef)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse_PanelDef()
+	 * @model
+	 * @generated
+	 */
+	PanelDef getPanelDef();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDefUse#getPanelDef <em>Panel Def</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Panel Def</em>' reference.
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	void setPanelDef(PanelDef value);
+
+	/**
+	 * Returns the value of the '<em><b>Param Values</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.PDefParamVal}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Param Values</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Param Values</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse_ParamValues()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<PDefParamVal> getParamValues();
+
+} // PanelDefUse

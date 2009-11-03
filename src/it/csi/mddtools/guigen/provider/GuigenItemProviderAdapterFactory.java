@@ -2353,6 +2353,282 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PanelDef} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PanelDefItemProvider panelDefItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PanelDef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPanelDefAdapter() {
+		if (panelDefItemProvider == null) {
+			panelDefItemProvider = new PanelDefItemProvider(this);
+		}
+
+		return panelDefItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AppDataMappingParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AppDataMappingParamItemProvider appDataMappingParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AppDataMappingParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAppDataMappingParamAdapter() {
+		if (appDataMappingParamItemProvider == null) {
+			appDataMappingParamItemProvider = new AppDataMappingParamItemProvider(this);
+		}
+
+		return appDataMappingParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypeDefMappingParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeDefMappingParamItemProvider typeDefMappingParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TypeDefMappingParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeDefMappingParamAdapter() {
+		if (typeDefMappingParamItemProvider == null) {
+			typeDefMappingParamItemProvider = new TypeDefMappingParamItemProvider(this);
+		}
+
+		return typeDefMappingParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UseCaseMappingParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UseCaseMappingParamItemProvider useCaseMappingParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UseCaseMappingParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUseCaseMappingParamAdapter() {
+		if (useCaseMappingParamItemProvider == null) {
+			useCaseMappingParamItemProvider = new UseCaseMappingParamItemProvider(this);
+		}
+
+		return useCaseMappingParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RoleMappingParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RoleMappingParamItemProvider roleMappingParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RoleMappingParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRoleMappingParamAdapter() {
+		if (roleMappingParamItemProvider == null) {
+			roleMappingParamItemProvider = new RoleMappingParamItemProvider(this);
+		}
+
+		return roleMappingParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActorMappingParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActorMappingParamItemProvider actorMappingParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActorMappingParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActorMappingParamAdapter() {
+		if (actorMappingParamItemProvider == null) {
+			actorMappingParamItemProvider = new ActorMappingParamItemProvider(this);
+		}
+
+		return actorMappingParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PanelDefUse} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PanelDefUseItemProvider panelDefUseItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PanelDefUse}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPanelDefUseAdapter() {
+		if (panelDefUseItemProvider == null) {
+			panelDefUseItemProvider = new PanelDefUseItemProvider(this);
+		}
+
+		return panelDefUseItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.AppDataMappingPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AppDataMappingPDefValItemProvider appDataMappingPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.AppDataMappingPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAppDataMappingPDefValAdapter() {
+		if (appDataMappingPDefValItemProvider == null) {
+			appDataMappingPDefValItemProvider = new AppDataMappingPDefValItemProvider(this);
+		}
+
+		return appDataMappingPDefValItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypeDefMappingPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeDefMappingPDefValItemProvider typeDefMappingPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TypeDefMappingPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeDefMappingPDefValAdapter() {
+		if (typeDefMappingPDefValItemProvider == null) {
+			typeDefMappingPDefValItemProvider = new TypeDefMappingPDefValItemProvider(this);
+		}
+
+		return typeDefMappingPDefValItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.UCMappingPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UCMappingPDefValItemProvider ucMappingPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.UCMappingPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUCMappingPDefValAdapter() {
+		if (ucMappingPDefValItemProvider == null) {
+			ucMappingPDefValItemProvider = new UCMappingPDefValItemProvider(this);
+		}
+
+		return ucMappingPDefValItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RoleMappingPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RoleMappingPDefValItemProvider roleMappingPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RoleMappingPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRoleMappingPDefValAdapter() {
+		if (roleMappingPDefValItemProvider == null) {
+			roleMappingPDefValItemProvider = new RoleMappingPDefValItemProvider(this);
+		}
+
+		return roleMappingPDefValItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActorMappingPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActorMappingPDefValItemProvider actorMappingPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActorMappingPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActorMappingPDefValAdapter() {
+		if (actorMappingPDefValItemProvider == null) {
+			actorMappingPDefValItemProvider = new ActorMappingPDefValItemProvider(this);
+		}
+
+		return actorMappingPDefValItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2550,6 +2826,18 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (roleBasedSecurityConstraintItemProvider != null) roleBasedSecurityConstraintItemProvider.dispose();
 		if (fileUploadItemProvider != null) fileUploadItemProvider.dispose();
 		if (tabSwitcherItemProvider != null) tabSwitcherItemProvider.dispose();
+		if (panelDefItemProvider != null) panelDefItemProvider.dispose();
+		if (appDataMappingParamItemProvider != null) appDataMappingParamItemProvider.dispose();
+		if (typeDefMappingParamItemProvider != null) typeDefMappingParamItemProvider.dispose();
+		if (useCaseMappingParamItemProvider != null) useCaseMappingParamItemProvider.dispose();
+		if (roleMappingParamItemProvider != null) roleMappingParamItemProvider.dispose();
+		if (actorMappingParamItemProvider != null) actorMappingParamItemProvider.dispose();
+		if (panelDefUseItemProvider != null) panelDefUseItemProvider.dispose();
+		if (appDataMappingPDefValItemProvider != null) appDataMappingPDefValItemProvider.dispose();
+		if (typeDefMappingPDefValItemProvider != null) typeDefMappingPDefValItemProvider.dispose();
+		if (ucMappingPDefValItemProvider != null) ucMappingPDefValItemProvider.dispose();
+		if (roleMappingPDefValItemProvider != null) roleMappingPDefValItemProvider.dispose();
+		if (actorMappingPDefValItemProvider != null) actorMappingPDefValItemProvider.dispose();
 	}
 
 }

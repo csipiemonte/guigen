@@ -917,6 +917,114 @@ public interface GuigenFactory extends EFactory {
 	TabSwitcher createTabSwitcher();
 
 	/**
+	 * Returns a new object of class '<em>Panel Def</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Panel Def</em>'.
+	 * @generated
+	 */
+	PanelDef createPanelDef();
+
+	/**
+	 * Returns a new object of class '<em>App Data Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>App Data Mapping Param</em>'.
+	 * @generated
+	 */
+	AppDataMappingParam createAppDataMappingParam();
+
+	/**
+	 * Returns a new object of class '<em>Type Def Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Def Mapping Param</em>'.
+	 * @generated
+	 */
+	TypeDefMappingParam createTypeDefMappingParam();
+
+	/**
+	 * Returns a new object of class '<em>Use Case Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Use Case Mapping Param</em>'.
+	 * @generated
+	 */
+	UseCaseMappingParam createUseCaseMappingParam();
+
+	/**
+	 * Returns a new object of class '<em>Role Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Role Mapping Param</em>'.
+	 * @generated
+	 */
+	RoleMappingParam createRoleMappingParam();
+
+	/**
+	 * Returns a new object of class '<em>Actor Mapping Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Actor Mapping Param</em>'.
+	 * @generated
+	 */
+	ActorMappingParam createActorMappingParam();
+
+	/**
+	 * Returns a new object of class '<em>Panel Def Use</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Panel Def Use</em>'.
+	 * @generated
+	 */
+	PanelDefUse createPanelDefUse();
+
+	/**
+	 * Returns a new object of class '<em>App Data Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>App Data Mapping PDef Val</em>'.
+	 * @generated
+	 */
+	AppDataMappingPDefVal createAppDataMappingPDefVal();
+
+	/**
+	 * Returns a new object of class '<em>Type Def Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Def Mapping PDef Val</em>'.
+	 * @generated
+	 */
+	TypeDefMappingPDefVal createTypeDefMappingPDefVal();
+
+	/**
+	 * Returns a new object of class '<em>UC Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>UC Mapping PDef Val</em>'.
+	 * @generated
+	 */
+	UCMappingPDefVal createUCMappingPDefVal();
+
+	/**
+	 * Returns a new object of class '<em>Role Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Role Mapping PDef Val</em>'.
+	 * @generated
+	 */
+	RoleMappingPDefVal createRoleMappingPDefVal();
+
+	/**
+	 * Returns a new object of class '<em>Actor Mapping PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Actor Mapping PDef Val</em>'.
+	 * @generated
+	 */
+	ActorMappingPDefVal createActorMappingPDefVal();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

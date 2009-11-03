@@ -160,6 +160,18 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ROLE_BASED_SECURITY_CONSTRAINT: return createRoleBasedSecurityConstraint();
 			case GuigenPackage.FILE_UPLOAD: return createFileUpload();
 			case GuigenPackage.TAB_SWITCHER: return createTabSwitcher();
+			case GuigenPackage.PANEL_DEF: return createPanelDef();
+			case GuigenPackage.APP_DATA_MAPPING_PARAM: return createAppDataMappingParam();
+			case GuigenPackage.TYPE_DEF_MAPPING_PARAM: return createTypeDefMappingParam();
+			case GuigenPackage.USE_CASE_MAPPING_PARAM: return createUseCaseMappingParam();
+			case GuigenPackage.ROLE_MAPPING_PARAM: return createRoleMappingParam();
+			case GuigenPackage.ACTOR_MAPPING_PARAM: return createActorMappingParam();
+			case GuigenPackage.PANEL_DEF_USE: return createPanelDefUse();
+			case GuigenPackage.APP_DATA_MAPPING_PDEF_VAL: return createAppDataMappingPDefVal();
+			case GuigenPackage.TYPE_DEF_MAPPING_PDEF_VAL: return createTypeDefMappingPDefVal();
+			case GuigenPackage.UC_MAPPING_PDEF_VAL: return createUCMappingPDefVal();
+			case GuigenPackage.ROLE_MAPPING_PDEF_VAL: return createRoleMappingPDefVal();
+			case GuigenPackage.ACTOR_MAPPING_PDEF_VAL: return createActorMappingPDefVal();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1215,6 +1227,126 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public TabSwitcher createTabSwitcher() {
 		TabSwitcherImpl tabSwitcher = new TabSwitcherImpl();
 		return tabSwitcher;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDef createPanelDef() {
+		PanelDefImpl panelDef = new PanelDefImpl();
+		return panelDef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppDataMappingParam createAppDataMappingParam() {
+		AppDataMappingParamImpl appDataMappingParam = new AppDataMappingParamImpl();
+		return appDataMappingParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeDefMappingParam createTypeDefMappingParam() {
+		TypeDefMappingParamImpl typeDefMappingParam = new TypeDefMappingParamImpl();
+		return typeDefMappingParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UseCaseMappingParam createUseCaseMappingParam() {
+		UseCaseMappingParamImpl useCaseMappingParam = new UseCaseMappingParamImpl();
+		return useCaseMappingParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RoleMappingParam createRoleMappingParam() {
+		RoleMappingParamImpl roleMappingParam = new RoleMappingParamImpl();
+		return roleMappingParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActorMappingParam createActorMappingParam() {
+		ActorMappingParamImpl actorMappingParam = new ActorMappingParamImpl();
+		return actorMappingParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDefUse createPanelDefUse() {
+		PanelDefUseImpl panelDefUse = new PanelDefUseImpl();
+		return panelDefUse;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppDataMappingPDefVal createAppDataMappingPDefVal() {
+		AppDataMappingPDefValImpl appDataMappingPDefVal = new AppDataMappingPDefValImpl();
+		return appDataMappingPDefVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeDefMappingPDefVal createTypeDefMappingPDefVal() {
+		TypeDefMappingPDefValImpl typeDefMappingPDefVal = new TypeDefMappingPDefValImpl();
+		return typeDefMappingPDefVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UCMappingPDefVal createUCMappingPDefVal() {
+		UCMappingPDefValImpl ucMappingPDefVal = new UCMappingPDefValImpl();
+		return ucMappingPDefVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RoleMappingPDefVal createRoleMappingPDefVal() {
+		RoleMappingPDefValImpl roleMappingPDefVal = new RoleMappingPDefValImpl();
+		return roleMappingPDefVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActorMappingPDefVal createActorMappingPDefVal() {
+		ActorMappingPDefValImpl actorMappingPDefVal = new ActorMappingPDefValImpl();
+		return actorMappingPDefVal;
 	}
 
 	/**

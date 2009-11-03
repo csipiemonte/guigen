@@ -55,8 +55,11 @@ context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'in
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello " + loc():
 	this.name != null && this.name != "";
 
-context Panel ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel "+loc() :
+context Panel if findParentContentPanel(this)!=null ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel "+loc() :
     findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
+
+context Panel if findParentPanelDef(this)!=null ERROR "il nome di un pannello deve essere univoco all'interno di un PanelDef "+loc() :
+    findParentPanelDef(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
 
 // Con l'introduzione del WidgetsLayout, ha senso che un FormPanel abbia un layout solo se è di primo livello, 
 // ovvero se è figlio diretto di un ContentPanel. In tal caso può essere solo:
@@ -216,9 +219,14 @@ context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc(
 context Widget ERROR "E'necessario impostare l'attributo 'name' del widget "+loc() :
 	this.name != null && this.name != "";
 
-context Widget ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco " + loc() :
+context Widget if findParentContentPanel()!=null ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco " + loc() :
      this.metaType==RadioButton ||
      findAllWidgetsInContentPanel(findParentContentPanel(this)).select(w|((Widget)w).name==this.name).size == 1;
+
+context Widget if findParentPanelDef()!=null ERROR "il name dei widgets in un panel def (eccettuati singoli radiobutton) deve essere univoco " + loc() :
+     this.metaType==RadioButton ||
+     findParentPanelDef().eAllContents.typeSelect(Widget).select(p|p.name==this.name).size==1;
+
      
 context Table ERROR "Non è stato impostato lo schema delle colonne"+loc() :
 	this.columnModel!=null;
@@ -408,6 +416,49 @@ context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o 
 	this.types.select(t|t.metaType == SimpleType).size == 0; 
 
 
+//////////////////////////////////////////////////////////////////////////////
+//// constraints su PanelDef
+//////////////////////////////////////////////////////////////////////////////
+context AppDataMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un AppDataMappingParam:"+loc() :
+	this.param.metaType == AppDataMappingParam;
+
+context TypeDefMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un TypeDefMappingParam:"+loc() :
+	this.param.metaType == TypeDefMappingParam;
+
+context ActorMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un ActorMappingParam:"+loc() :
+	this.param.metaType == ActorMappingParam;
+
+context RoleMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un RoleMappingParam:"+loc() :
+	this.param.metaType == RoleMappingParam;
+	
+context UCMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un UseCaseMappingParam:"+loc() :
+	this.param.metaType == UseCaseMappingParam;
+
+context PDefParamVal ERROR "occorre specificare il parametro valorizzato:"+loc() :
+	this.param != null;
+	
+context AppDataMappingPDefVal ERROR "occorre specificare l'application data target:"+loc() :
+	actualAppData!=null;
+	
+context TypeDefMappingPDefVal ERROR "occorre specificare il tipo target:"+loc() :
+	actualTypeDef!=null;
+	
+context ActorMappingPDefVal ERROR "occorre specificare l' 'Actor' target:"+loc() :
+	actualActor!=null;			
+	
+context RoleMappingPDefVal ERROR "occorre specificare il 'Role' target:"+loc() :
+	actualRole!=null;
+	
+context UCMappingPDefVal ERROR "occorre specificare lo 'UseCase' target:"+loc() :
+	actualUseCase!=null;
+
+context PanelDefUse if this.panelDef!=null && this.panelDef.params.size>0 ERROR 
+	"occorre valorizzare tutti i "+this.panelDef.params.size+" parametri del PanelDef:"+loc() :
+	this.paramValues.size == this.panelDef.params.size;	
+
+context PanelDef ERROR "Non è possibile utilizzare un PanelDefUse all'interno di un PanelDef:"+loc() :
+	this.eAllContents.typeSelect(PanelDefUse).size==0;
+		
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su commands
 //////////////////////////////////////////////////////////////////////////////	

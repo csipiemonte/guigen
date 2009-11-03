@@ -6231,6 +6231,605 @@ public interface GuigenPackage extends EPackage {
 	int TAB_SWITCHER_FEATURE_COUNT = COMMAND_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelDefImpl <em>Panel Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PanelDefImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDef()
+	 * @generated
+	 */
+	int PANEL_DEF = 110;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Panel</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__PANEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__PARAMS = 2;
+
+	/**
+	 * The feature id for the '<em><b>App Data Defs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__APP_DATA_DEFS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Type Defs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__TYPE_DEFS = 4;
+
+	/**
+	 * The feature id for the '<em><b>Roles</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__ROLES = 5;
+
+	/**
+	 * The feature id for the '<em><b>Actors</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__ACTORS = 6;
+
+	/**
+	 * The feature id for the '<em><b>Use Cases</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__USE_CASES = 7;
+
+	/**
+	 * The feature id for the '<em><b>On Refresh Command</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__ON_REFRESH_COMMAND = 8;
+
+	/**
+	 * The number of structural features of the '<em>Panel Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_FEATURE_COUNT = 9;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PDefParamImpl <em>PDef Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PDefParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParam()
+	 * @generated
+	 */
+	int PDEF_PARAM = 111;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_PARAM__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>PDef Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_PARAM_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppDataMappingParamImpl <em>App Data Mapping Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AppDataMappingParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingParam()
+	 * @generated
+	 */
+	int APP_DATA_MAPPING_PARAM = 112;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Def App Data</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PARAM__DEF_APP_DATA = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>App Data Mapping Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeDefMappingParamImpl <em>Type Def Mapping Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TypeDefMappingParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingParam()
+	 * @generated
+	 */
+	int TYPE_DEF_MAPPING_PARAM = 113;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Def Type Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PARAM__DEF_TYPE_DEF = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Def Mapping Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UseCaseMappingParamImpl <em>Use Case Mapping Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UseCaseMappingParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUseCaseMappingParam()
+	 * @generated
+	 */
+	int USE_CASE_MAPPING_PARAM = 114;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE_MAPPING_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Def Use Case</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE_MAPPING_PARAM__DEF_USE_CASE = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Use Case Mapping Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_CASE_MAPPING_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RoleMappingParamImpl <em>Role Mapping Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RoleMappingParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingParam()
+	 * @generated
+	 */
+	int ROLE_MAPPING_PARAM = 115;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Def Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PARAM__DEF_ROLE = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Role Mapping Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorMappingParamImpl <em>Actor Mapping Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActorMappingParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingParam()
+	 * @generated
+	 */
+	int ACTOR_MAPPING_PARAM = 116;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Def Actor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PARAM__DEF_ACTOR = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Actor Mapping Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl <em>Panel Def Use</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PanelDefUseImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefUse()
+	 * @generated
+	 */
+	int PANEL_DEF_USE = 117;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__NAME = PANEL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__LAYOUT = PANEL__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Panel Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__PANEL_DEF = PANEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Param Values</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__PARAM_VALUES = PANEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Panel Def Use</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PDefParamValImpl <em>PDef Param Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PDefParamValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParamVal()
+	 * @generated
+	 */
+	int PDEF_PARAM_VAL = 118;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_PARAM_VAL__PARAM = 0;
+
+	/**
+	 * The number of structural features of the '<em>PDef Param Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_PARAM_VAL_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppDataMappingPDefValImpl <em>App Data Mapping PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.AppDataMappingPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingPDefVal()
+	 * @generated
+	 */
+	int APP_DATA_MAPPING_PDEF_VAL = 119;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Actual App Data</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PDEF_VAL__ACTUAL_APP_DATA = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>App Data Mapping PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_DATA_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeDefMappingPDefValImpl <em>Type Def Mapping PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TypeDefMappingPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingPDefVal()
+	 * @generated
+	 */
+	int TYPE_DEF_MAPPING_PDEF_VAL = 120;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Actual Type Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PDEF_VAL__ACTUAL_TYPE_DEF = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Def Mapping PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_DEF_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UCMappingPDefValImpl <em>UC Mapping PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.UCMappingPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUCMappingPDefVal()
+	 * @generated
+	 */
+	int UC_MAPPING_PDEF_VAL = 121;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_MAPPING_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Actual Use Case</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_MAPPING_PDEF_VAL__ACTUAL_USE_CASE = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>UC Mapping PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UC_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RoleMappingPDefValImpl <em>Role Mapping PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RoleMappingPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingPDefVal()
+	 * @generated
+	 */
+	int ROLE_MAPPING_PDEF_VAL = 122;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Actual Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PDEF_VAL__ACTUAL_ROLE = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Role Mapping PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROLE_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorMappingPDefValImpl <em>Actor Mapping PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActorMappingPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingPDefVal()
+	 * @generated
+	 */
+	int ACTOR_MAPPING_PDEF_VAL = 123;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Actual Actor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PDEF_VAL__ACTUAL_ACTOR = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Actor Mapping PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTOR_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6238,7 +6837,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 110;
+	int WIDGET_DATA_TYPE = 124;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -6248,7 +6847,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 111;
+	int UDLRC_SPEC_CONSTANTS = 125;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -6258,7 +6857,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 112;
+	int EVENT_TYPES = 126;
 
 
 	/**
@@ -6269,7 +6868,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 113;
+	int DATA_LIFETIME_TYPE = 127;
 
 
 	/**
@@ -6280,7 +6879,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 114;
+	int SIMPLE_TYPE_CODES = 128;
 
 
 	/**
@@ -6291,7 +6890,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 115;
+	int PORTAL_NAMES = 129;
 
 
 	/**
@@ -6302,7 +6901,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 116;
+	int TARGET_PLATFORM_CODES = 130;
 
 
 	/**
@@ -6313,7 +6912,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 117;
+	int MESSAGE_SEVERITY = 131;
 
 
 	/**
@@ -6324,7 +6923,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 118;
+	int COMMAND_STYLES = 132;
 
 
 	/**
@@ -9463,6 +10062,399 @@ public interface GuigenPackage extends EPackage {
 	EClass getTabSwitcher();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PanelDef <em>Panel Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Panel Def</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef
+	 * @generated
+	 */
+	EClass getPanelDef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PanelDef#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getName()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EAttribute getPanelDef_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getPanel <em>Panel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Panel</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getPanel()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_Panel();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDef#getParams <em>Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Params</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getParams()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_Params();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getAppDataDefs <em>App Data Defs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>App Data Defs</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getAppDataDefs()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_AppDataDefs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getTypeDefs <em>Type Defs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Defs</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getTypeDefs()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_TypeDefs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getRoles <em>Roles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Roles</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getRoles()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_Roles();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getActors <em>Actors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Actors</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getActors()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_Actors();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getUseCases <em>Use Cases</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Use Cases</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getUseCases()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_UseCases();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getOnRefreshCommand <em>On Refresh Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>On Refresh Command</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getOnRefreshCommand()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_OnRefreshCommand();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefParam <em>PDef Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PDef Param</em>'.
+	 * @see it.csi.mddtools.guigen.PDefParam
+	 * @generated
+	 */
+	EClass getPDefParam();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PDefParam#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.PDefParam#getName()
+	 * @see #getPDefParam()
+	 * @generated
+	 */
+	EAttribute getPDefParam_Name();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppDataMappingParam <em>App Data Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>App Data Mapping Param</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataMappingParam
+	 * @generated
+	 */
+	EClass getAppDataMappingParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppDataMappingParam#getDefAppData <em>Def App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def App Data</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataMappingParam#getDefAppData()
+	 * @see #getAppDataMappingParam()
+	 * @generated
+	 */
+	EReference getAppDataMappingParam_DefAppData();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeDefMappingParam <em>Type Def Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Def Mapping Param</em>'.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingParam
+	 * @generated
+	 */
+	EClass getTypeDefMappingParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TypeDefMappingParam#getDefTypeDef <em>Def Type Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def Type Def</em>'.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingParam#getDefTypeDef()
+	 * @see #getTypeDefMappingParam()
+	 * @generated
+	 */
+	EReference getTypeDefMappingParam_DefTypeDef();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UseCaseMappingParam <em>Use Case Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Use Case Mapping Param</em>'.
+	 * @see it.csi.mddtools.guigen.UseCaseMappingParam
+	 * @generated
+	 */
+	EClass getUseCaseMappingParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.UseCaseMappingParam#getDefUseCase <em>Def Use Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def Use Case</em>'.
+	 * @see it.csi.mddtools.guigen.UseCaseMappingParam#getDefUseCase()
+	 * @see #getUseCaseMappingParam()
+	 * @generated
+	 */
+	EReference getUseCaseMappingParam_DefUseCase();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RoleMappingParam <em>Role Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Role Mapping Param</em>'.
+	 * @see it.csi.mddtools.guigen.RoleMappingParam
+	 * @generated
+	 */
+	EClass getRoleMappingParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.RoleMappingParam#getDefRole <em>Def Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def Role</em>'.
+	 * @see it.csi.mddtools.guigen.RoleMappingParam#getDefRole()
+	 * @see #getRoleMappingParam()
+	 * @generated
+	 */
+	EReference getRoleMappingParam_DefRole();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActorMappingParam <em>Actor Mapping Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Actor Mapping Param</em>'.
+	 * @see it.csi.mddtools.guigen.ActorMappingParam
+	 * @generated
+	 */
+	EClass getActorMappingParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ActorMappingParam#getDefActor <em>Def Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def Actor</em>'.
+	 * @see it.csi.mddtools.guigen.ActorMappingParam#getDefActor()
+	 * @see #getActorMappingParam()
+	 * @generated
+	 */
+	EReference getActorMappingParam_DefActor();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PanelDefUse <em>Panel Def Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Panel Def Use</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefUse
+	 * @generated
+	 */
+	EClass getPanelDefUse();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PanelDefUse#getPanelDef <em>Panel Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Panel Def</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefUse#getPanelDef()
+	 * @see #getPanelDefUse()
+	 * @generated
+	 */
+	EReference getPanelDefUse_PanelDef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDefUse#getParamValues <em>Param Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Param Values</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefUse#getParamValues()
+	 * @see #getPanelDefUse()
+	 * @generated
+	 */
+	EReference getPanelDefUse_ParamValues();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefParamVal <em>PDef Param Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PDef Param Val</em>'.
+	 * @see it.csi.mddtools.guigen.PDefParamVal
+	 * @generated
+	 */
+	EClass getPDefParamVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PDefParamVal#getParam <em>Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Param</em>'.
+	 * @see it.csi.mddtools.guigen.PDefParamVal#getParam()
+	 * @see #getPDefParamVal()
+	 * @generated
+	 */
+	EReference getPDefParamVal_Param();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppDataMappingPDefVal <em>App Data Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>App Data Mapping PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataMappingPDefVal
+	 * @generated
+	 */
+	EClass getAppDataMappingPDefVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppDataMappingPDefVal#getActualAppData <em>Actual App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual App Data</em>'.
+	 * @see it.csi.mddtools.guigen.AppDataMappingPDefVal#getActualAppData()
+	 * @see #getAppDataMappingPDefVal()
+	 * @generated
+	 */
+	EReference getAppDataMappingPDefVal_ActualAppData();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeDefMappingPDefVal <em>Type Def Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Def Mapping PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingPDefVal
+	 * @generated
+	 */
+	EClass getTypeDefMappingPDefVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TypeDefMappingPDefVal#getActualTypeDef <em>Actual Type Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual Type Def</em>'.
+	 * @see it.csi.mddtools.guigen.TypeDefMappingPDefVal#getActualTypeDef()
+	 * @see #getTypeDefMappingPDefVal()
+	 * @generated
+	 */
+	EReference getTypeDefMappingPDefVal_ActualTypeDef();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UCMappingPDefVal <em>UC Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>UC Mapping PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.UCMappingPDefVal
+	 * @generated
+	 */
+	EClass getUCMappingPDefVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.UCMappingPDefVal#getActualUseCase <em>Actual Use Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual Use Case</em>'.
+	 * @see it.csi.mddtools.guigen.UCMappingPDefVal#getActualUseCase()
+	 * @see #getUCMappingPDefVal()
+	 * @generated
+	 */
+	EReference getUCMappingPDefVal_ActualUseCase();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RoleMappingPDefVal <em>Role Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Role Mapping PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.RoleMappingPDefVal
+	 * @generated
+	 */
+	EClass getRoleMappingPDefVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.RoleMappingPDefVal#getActualRole <em>Actual Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual Role</em>'.
+	 * @see it.csi.mddtools.guigen.RoleMappingPDefVal#getActualRole()
+	 * @see #getRoleMappingPDefVal()
+	 * @generated
+	 */
+	EReference getRoleMappingPDefVal_ActualRole();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActorMappingPDefVal <em>Actor Mapping PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Actor Mapping PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.ActorMappingPDefVal
+	 * @generated
+	 */
+	EClass getActorMappingPDefVal();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ActorMappingPDefVal#getActualActor <em>Actual Actor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Actual Actor</em>'.
+	 * @see it.csi.mddtools.guigen.ActorMappingPDefVal#getActualActor()
+	 * @see #getActorMappingPDefVal()
+	 * @generated
+	 */
+	EReference getActorMappingPDefVal_ActualActor();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12153,6 +13145,330 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TAB_SWITCHER = eINSTANCE.getTabSwitcher();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelDefImpl <em>Panel Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PanelDefImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDef()
+		 * @generated
+		 */
+		EClass PANEL_DEF = eINSTANCE.getPanelDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PANEL_DEF__NAME = eINSTANCE.getPanelDef_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Panel</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__PANEL = eINSTANCE.getPanelDef_Panel();
+
+		/**
+		 * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__PARAMS = eINSTANCE.getPanelDef_Params();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data Defs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__APP_DATA_DEFS = eINSTANCE.getPanelDef_AppDataDefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Defs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__TYPE_DEFS = eINSTANCE.getPanelDef_TypeDefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Roles</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__ROLES = eINSTANCE.getPanelDef_Roles();
+
+		/**
+		 * The meta object literal for the '<em><b>Actors</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__ACTORS = eINSTANCE.getPanelDef_Actors();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Cases</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__USE_CASES = eINSTANCE.getPanelDef_UseCases();
+
+		/**
+		 * The meta object literal for the '<em><b>On Refresh Command</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__ON_REFRESH_COMMAND = eINSTANCE.getPanelDef_OnRefreshCommand();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefParamImpl <em>PDef Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PDefParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParam()
+		 * @generated
+		 */
+		EClass PDEF_PARAM = eINSTANCE.getPDefParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PDEF_PARAM__NAME = eINSTANCE.getPDefParam_Name();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppDataMappingParamImpl <em>App Data Mapping Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AppDataMappingParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingParam()
+		 * @generated
+		 */
+		EClass APP_DATA_MAPPING_PARAM = eINSTANCE.getAppDataMappingParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Def App Data</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APP_DATA_MAPPING_PARAM__DEF_APP_DATA = eINSTANCE.getAppDataMappingParam_DefAppData();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeDefMappingParamImpl <em>Type Def Mapping Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TypeDefMappingParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingParam()
+		 * @generated
+		 */
+		EClass TYPE_DEF_MAPPING_PARAM = eINSTANCE.getTypeDefMappingParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Def Type Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_DEF_MAPPING_PARAM__DEF_TYPE_DEF = eINSTANCE.getTypeDefMappingParam_DefTypeDef();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UseCaseMappingParamImpl <em>Use Case Mapping Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UseCaseMappingParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUseCaseMappingParam()
+		 * @generated
+		 */
+		EClass USE_CASE_MAPPING_PARAM = eINSTANCE.getUseCaseMappingParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Def Use Case</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USE_CASE_MAPPING_PARAM__DEF_USE_CASE = eINSTANCE.getUseCaseMappingParam_DefUseCase();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RoleMappingParamImpl <em>Role Mapping Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RoleMappingParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingParam()
+		 * @generated
+		 */
+		EClass ROLE_MAPPING_PARAM = eINSTANCE.getRoleMappingParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Def Role</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_MAPPING_PARAM__DEF_ROLE = eINSTANCE.getRoleMappingParam_DefRole();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorMappingParamImpl <em>Actor Mapping Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActorMappingParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingParam()
+		 * @generated
+		 */
+		EClass ACTOR_MAPPING_PARAM = eINSTANCE.getActorMappingParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Def Actor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTOR_MAPPING_PARAM__DEF_ACTOR = eINSTANCE.getActorMappingParam_DefActor();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl <em>Panel Def Use</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PanelDefUseImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefUse()
+		 * @generated
+		 */
+		EClass PANEL_DEF_USE = eINSTANCE.getPanelDefUse();
+
+		/**
+		 * The meta object literal for the '<em><b>Panel Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF_USE__PANEL_DEF = eINSTANCE.getPanelDefUse_PanelDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Values</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF_USE__PARAM_VALUES = eINSTANCE.getPanelDefUse_ParamValues();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefParamValImpl <em>PDef Param Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PDefParamValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefParamVal()
+		 * @generated
+		 */
+		EClass PDEF_PARAM_VAL = eINSTANCE.getPDefParamVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Param</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PDEF_PARAM_VAL__PARAM = eINSTANCE.getPDefParamVal_Param();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppDataMappingPDefValImpl <em>App Data Mapping PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.AppDataMappingPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getAppDataMappingPDefVal()
+		 * @generated
+		 */
+		EClass APP_DATA_MAPPING_PDEF_VAL = eINSTANCE.getAppDataMappingPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Actual App Data</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APP_DATA_MAPPING_PDEF_VAL__ACTUAL_APP_DATA = eINSTANCE.getAppDataMappingPDefVal_ActualAppData();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeDefMappingPDefValImpl <em>Type Def Mapping PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TypeDefMappingPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTypeDefMappingPDefVal()
+		 * @generated
+		 */
+		EClass TYPE_DEF_MAPPING_PDEF_VAL = eINSTANCE.getTypeDefMappingPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Actual Type Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_DEF_MAPPING_PDEF_VAL__ACTUAL_TYPE_DEF = eINSTANCE.getTypeDefMappingPDefVal_ActualTypeDef();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UCMappingPDefValImpl <em>UC Mapping PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.UCMappingPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUCMappingPDefVal()
+		 * @generated
+		 */
+		EClass UC_MAPPING_PDEF_VAL = eINSTANCE.getUCMappingPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Actual Use Case</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference UC_MAPPING_PDEF_VAL__ACTUAL_USE_CASE = eINSTANCE.getUCMappingPDefVal_ActualUseCase();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RoleMappingPDefValImpl <em>Role Mapping PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RoleMappingPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRoleMappingPDefVal()
+		 * @generated
+		 */
+		EClass ROLE_MAPPING_PDEF_VAL = eINSTANCE.getRoleMappingPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Actual Role</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROLE_MAPPING_PDEF_VAL__ACTUAL_ROLE = eINSTANCE.getRoleMappingPDefVal_ActualRole();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorMappingPDefValImpl <em>Actor Mapping PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActorMappingPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActorMappingPDefVal()
+		 * @generated
+		 */
+		EClass ACTOR_MAPPING_PDEF_VAL = eINSTANCE.getActorMappingPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Actual Actor</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTOR_MAPPING_PDEF_VAL__ACTUAL_ACTOR = eINSTANCE.getActorMappingPDefVal_ActualActor();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

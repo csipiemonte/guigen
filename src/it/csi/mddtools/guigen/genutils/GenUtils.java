@@ -34,6 +34,8 @@ import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
@@ -241,19 +243,101 @@ public class GenUtils {
 		EObject parent = p.eContainer();
 		if (parent instanceof ContentPanel) {
 			return (ContentPanel)parent;
-		} else {
+		}
+		else if (parent instanceof PanelDef) {
+			return null; // il pannello è contenuto in un panel def
+		}
+		else {
 			return findParentContentPanel((Panel)parent);
 		}
 	}
 
 
 	//////////////////////////////////////////////////////////////////////////////////
+	// find parent PanelDef
+	/**
+	 * Risale la gerarchia dei pannelli fino ad arrivare al PanelDef che contiene
+	 * (direttamente o indirettamente) il Command in questione. Vale per comandi
+	 * inseriti in frammenti riusabili
+	 * 
+	 * @param a Il Command di cui si vuole conoscere il PanelDef.
+	 * @return Il PanelDef che contiene il Command.
+	 */
+	public static PanelDef findParentPanelDef (Command a) {
+		EObject containerOfAction = a.eContainer();
+		//String name= containerOfAction.eClass().getName();
+		if (containerOfAction instanceof EventHandler) {
+			EObject widget = containerOfAction.eContainer();
+			EObject panel = widget.eContainer();
+			if(panel instanceof RadioButtons) {
+				panel = panel.eContainer();
+			} else if(widget instanceof Menu) {
+				return null; // .. in realtà non è un pannello
+			}
+			return findParentPanelDef((Panel)panel);
+		}
+		else if (containerOfAction instanceof CommandOutcome) {
+			ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
+			return findParentPanelDef(execAct);
+		}
+		else if (containerOfAction instanceof SequenceCommand) {
+			// sequence action
+			return findParentPanelDef(((SequenceCommand)containerOfAction));
+		}
+		else if (containerOfAction instanceof PanelDef) {
+			return (PanelDef)containerOfAction;
+		}
+		else {
+			return null; // in tutti i casi in cui l'azione non ha un panel def "sopra"
+		}
+
+	}
+
+	/**
+	 * Risale la gerarchia dei pannelli fino ad arrivare al PanelDef che contiene
+	 * (direttamente o indirettamente) il widget in questione. Vale nel caso in cui
+	 * il widget sia contenuto in un frammento riusabile
+	 * 
+	 * @param w Il Widget di cui si vuole conoscere il PanelDef.
+	 * @return Il PanelDef che contiene il Widget.
+	 */
+	public static PanelDef findParentPanelDef(Widget w) {
+		EObject parent = w.eContainer();
+		if(w instanceof RadioButton) {
+			parent = parent.eContainer(); //old parent:RadioButtons
+		}
+		return findParentPanelDef((Panel)parent);
+	}
+
+	/**
+	 * Risale la gerarchia dei pannelli fino ad arrivare al PanelDef che contiene
+	 * (direttamente o indirettamente) il pannello in questione.
+	 * vale per pannelli contenuti in frammenti riusabili. 
+	 * 
+	 * @param p Il Panel di cui si vuole conoscere il PanelDef.
+	 * @return Il PanelDef che contiene il Panel.
+	 */
+	public static PanelDef findParentPanelDef(Panel p){
+		EObject parent = p.eContainer();
+		if (parent instanceof PanelDef) {
+			return (PanelDef)parent;
+		}
+		if (parent instanceof ContentPanel) {
+			return null;
+		}
+		else {
+			return findParentPanelDef((Panel)parent);
+		}
+	}	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////
 	// find all widgets in panels
 
 	/**
 	 * Compila una lista dei Widget appartenenti ad uno dei sottopannelli del ContentPanel in oggetto.
 	 * Se il ContentPanel &egrave; nullo restituisco la lista completa dei widget dell'applicazione.
-	 * 
+	 * Non sono contemplati i widget appartenenti a PanelDef utilizzati nel ContentPanel
 	 * @param cp Il ContentPanel che si vuole esaminare.
 	 * @return La lista dei Widget del ContentPanel.
 	 */
@@ -322,6 +406,8 @@ public class GenUtils {
 			return new ArrayList<Widget>(); // [DM] come lo gestiamo? non posso sapere a priori se ha qualcosa, ritorno un ArrayList vuoto
 		else if (p instanceof MsgBoxPanel)
 			return findAllWidgetsInPanel((MsgBoxPanel)p);
+		else if (p instanceof PanelDefUse)
+			return findAllWidgetsInPanel((PanelDefUse)p);
 		else
 			throw new IllegalArgumentException("Tipo pannello non gestito");
 	}
@@ -474,7 +560,17 @@ public class GenUtils {
 		}
 	}
 
-
+	/**
+	 * Compila una lista dei widget contenuti in un PanelDefUse.
+	 * 
+	 * @param p Il PanelDefUse da esaminare.
+	 * @return Una lista vuota in quanto i widget del PanelDefAssociato non rientrano
+	 * nei risultati.  
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(PanelDefUse p) {
+		ArrayList<Widget> result = new ArrayList<Widget>();
+		return result;
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 
