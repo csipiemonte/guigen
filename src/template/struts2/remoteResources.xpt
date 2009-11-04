@@ -105,7 +105,7 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
+«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix) FOR FormPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [setupFirstLevelFormPanel] " + loc()»
 «ENDDEFINE»
 
@@ -115,12 +115,12 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»TabsetPanel«ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [setupTabSetPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»WizardPanel«ENDREM»
-«DEFINE setupWizardPanel(GUIModel model) FOR WizardPanel»
+«DEFINE setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [setupWizardPanel] " + loc()»
 «ENDDEFINE»
 
@@ -128,7 +128,7 @@ Gestione dei PANNELLI
 «REM»
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
-«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [setupStdMessagePanel] " + loc()»
 «ENDDEFINE»
 
@@ -136,7 +136,7 @@ Gestione dei PANNELLI
 «REM»
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
-«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [setupUserInfoPanel] " + loc()»
 «ENDDEFINE»
 
@@ -149,12 +149,12 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> FormPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»comment«ENDREM»
-«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> FormPanel] " + loc()»
 «ENDDEFINE»
 
@@ -164,34 +164,34 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> WidgetsPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
-«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> WidgetsPanel] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> CommandPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> CommandPanel] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlHeader -> MenuPanel] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la Footer di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [subPanelControlFooter -> MenuPanel] " + loc()»
 «ENDDEFINE»
 
@@ -199,12 +199,12 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** User Defined Panel **************
 «ENDREM»
-«DEFINE userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
+«DEFINE userDefinedPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [userDefinedPanelControlHeader] " + loc()»
 «ENDDEFINE»
 
 
-«DEFINE userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
+«DEFINE userDefinedPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [userDefinedPanelControlFooter] " + loc()»
 «ENDDEFINE»
 
@@ -212,12 +212,12 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** Dialog Panel **************
 «ENDREM»
-«DEFINE dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
+«DEFINE dialogPanelControlHeader(GUIModel model, ContentPanel cp) FOR DialogPanel-»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [dialogPanelControlHeader] " + loc()»
 «ENDDEFINE»
 
 
-«DEFINE dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
+«DEFINE dialogPanelControlFooter(GUIModel model, ContentPanel cp) FOR DialogPanel-»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [dialogPanelControlFooter] " + loc()»
 «ENDDEFINE»
 
@@ -225,12 +225,12 @@ Gestione dei LAYOUT - PANNELLI
 «REM»
 ************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
-«DEFINE msgBoxPanelControlHeader(GUIModel model) FOR MsgBoxPanel»
+«DEFINE msgBoxPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [msgBoxPanelControlHeader] " + loc()»
 «ENDDEFINE»
 
 
-«DEFINE msgBoxPanelControlFooter(GUIModel model) FOR MsgBoxPanel»
+«DEFINE msgBoxPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [msgBoxPanelControlFooter] " + loc()»
 «ENDDEFINE»
 
@@ -245,19 +245,19 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> Widget] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> Widget] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
+«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> Widget] " + loc()»
 «ENDDEFINE»
 
@@ -265,17 +265,17 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- PlainText ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> PlainText] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> PlainText] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
+«DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> PlainText] " + loc()»
 «ENDDEFINE»
 
@@ -283,19 +283,19 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> Button] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> Button] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
+«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> Button] " + loc()»
 «ENDDEFINE»
 
@@ -303,19 +303,19 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
+«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> HiddenValue] " + loc()»
 «ENDDEFINE»
 
@@ -324,19 +324,19 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> MenuView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata widgetControlFooter -> [widgetControlFooter -> MenuView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> MenuView] " + loc()»
 «ENDDEFINE»
 
@@ -344,19 +344,19 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlHeader -> TreeView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetControlFooter -> TreeView] " + loc()»
 «ENDDEFINE»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetClose -> TreeView] " + loc()»
 «ENDDEFINE»
 
@@ -367,12 +367,12 @@ Gestione dei LAYOUT - WIDGETS
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupHeader FOR RadioButtons»
+«DEFINE widgetMarkupHeader(ContentPanel cp, String contextPrefix) FOR RadioButtons»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetMarkupHeader -> RadioButtons] " + loc()»
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupFooter FOR RadioButtons»
+«DEFINE widgetMarkupFooter(ContentPanel cp, String contextPrefix) FOR RadioButtons»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [widgetMarkupFooter -> RadioButtons] " + loc()»
 «ENDDEFINE»
 

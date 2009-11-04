@@ -1943,7 +1943,7 @@ public class GenUtils {
 	 * @param w
 	 * @return
 	 */
-	public static String getOGNLForWidgetValue(DataWidget w){
+	public static String getOGNLForWidgetValue(DataWidget w, String contextPrefix){
 		if (w.getDatabinding()!=null){
 			AppDataBinding binding = w.getDatabinding();
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
@@ -1958,7 +1958,7 @@ public class GenUtils {
 			}
 		}
 		else {
-			return getWidgetName(w);
+			return getWidgetName(w, contextPrefix);
 		}
 	}
 
@@ -1968,7 +1968,7 @@ public class GenUtils {
 	 * @param w
 	 * @return
 	 */
-	public static String getOGNLForWidgetMultiValue(MultiDataWidget w){
+	public static String getOGNLForWidgetMultiValue(MultiDataWidget w, String contextPrefix){
 		if (w.getMultiDataBinding()!=null){
 			AppDataBinding binding = w.getMultiDataBinding();
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
@@ -1983,7 +1983,7 @@ public class GenUtils {
 			}
 		}
 		else {
-			return getWidgetName(w);
+			return getWidgetName(w, contextPrefix);
 		}
 	}
 
@@ -2018,11 +2018,16 @@ public class GenUtils {
 	 * bisogna effettuare una chiamata a questo metodo.
 	 *
 	 * @param w Il widget
+	 * @param contextPrefix (opzionale) il prefisso che serve a rendere univoco il nome.
+	 * Serve per gestire il caso di widget contenuto in un PanelDef e indirettamente referenziato
+	 * da un PanelDefUse (STDMDD-360)
 	 * @return  Il nome del widget
-	 * @author [DM]
+	 * @author [DM][AM]
 	 */
-	public static String getWidgetName(Widget w) {
-		return "widg_" + w.getName();
+	public static String getWidgetName(Widget w, String contextPrefix) {
+		if (contextPrefix==null)
+			contextPrefix="";
+		return "widg_" + contextPrefix+"_"+w.getName();
 	}
 
 
@@ -2083,11 +2088,11 @@ public class GenUtils {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getWidgetLabelFor(Widget w) {
+	public static String getWidgetLabelFor(Widget w, String contextPrefix) {
 		if ( w instanceof DataWidget ) {
-			return getOGNLForWidgetValue((DataWidget)w);
+			return getOGNLForWidgetValue((DataWidget)w, contextPrefix);
 		}
-		return getWidgetName(w);
+		return getWidgetName(w, contextPrefix);
 	}
 
 
@@ -2099,7 +2104,7 @@ public class GenUtils {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getColumnEditableField(Column currCol, Table table, GUIModel model) {
+	public static String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix) {
 		String res = "";
 		
 		// ricavo il tipo (sicuramente ComplexType) del MultiDataBinding
@@ -2115,20 +2120,20 @@ public class GenUtils {
 				// al momento gestiamo in maniera diversa solo i boolean
 				// TODO: se necessario implementare altri comparatori
 				if ( isBoolean(ft) ) {
-					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
-					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table)+"_"+currCol.getSelector()+
+					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
+					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table, contextPrefix)+"_"+currCol.getSelector()+
 						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
-					String ckId = "%{'"+getWidgetName(table)+"_"+currCol.getSelector()+
+					String ckId = "%{'"+getWidgetName(table, contextPrefix)+"_"+currCol.getSelector()+
 					"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
-					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
+					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
 					res+="\n";
 					res+="<s:hidden name=\""+nameResetter+"\" " +
 							"id=\""+ckIdResetter+"\" />";
 				} else {
 					if (currCol.getMultiDataBinding()!=null){
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
 					          " list=\""+getOGNLForColumnMultiValue(currCol)+"\" "+
@@ -2141,11 +2146,11 @@ public class GenUtils {
 						
 					}
 					else if (currCol.getMultidataPropertySelector()!=null) {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
-					          " list= \""+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
+					          " list= \""+getOGNLForWidgetMultiValue(table,contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
 					          disabled +
 					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
 					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
@@ -2153,8 +2158,8 @@ public class GenUtils {
 					          "/>";
 					}
 					else {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
 					}
 				}
 			}

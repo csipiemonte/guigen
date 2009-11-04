@@ -1,0 +1,65 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE tabSwitcherClickForTabHandler(TabSetPanel currTabSet, ContentPanel cp, String contextPrefix) FOR Panel»
+«LET this AS currTab»
+	/**
+	 * Gestione dell'evento di click sul tab Switcher del tab-set «currTabSet.name» 
+	 */
+	public String «getTabItemHandlerMethodName(cp ,currTabSet, currTab, contextPrefix)»() throws Exception {
+	
+	 	// impostazione dei parametri di selezione tab
+	 	setSelectedTabKey("«cp.name»_«getFullID(currTabSet, contextPrefix)»_selectedMultiPanel");
+	 	setSelectedTabValue("«cp.name»_«getFullID(currTabSet, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
+	 	«IF currTabSet.switcher!=null && currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
+	 	// richiamo della logica associata al tab-switcher
+	 	String tempResult = «getHandlerMethodName(currTabSet.switcher, currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»();
+	 	«ENDIF-»
+	 	// selezione del tab di destinazione
+	 	handleChangeTab();
+		return SUCCESS;
+	}
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+«LET this AS currEventHandler»
+	/**
+	 * Gestione dell'evento CLICKED sul widget [«currEventWidget.name»]
+	 */
+	«IF currEventHandler.skipValidation-»
+	@SkipValidation
+	«ENDIF-»
+	public String «getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»()
+		throws Exception
+	{
+		ICommand action = initCommand("«(currEventWidget).name»","«currEventHandler.eventType»");
+		if (log.isDebugEnabled()){
+				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model before");
+				dumpModel(false);
+		}
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
+				dumpModel(false);
+				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning result [" + result + "]");
+			}
+			return result;
+		} else {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
+				dumpModel(false);
+				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning default result [SUCCESS]");
+			}
+			return SUCCESS;
+		}
+	}
+«ENDLET»
+«ENDDEFINE»

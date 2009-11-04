@@ -905,81 +905,106 @@ public class ShowDialogCommand implements ICommand {
 	inserisce tutte le propeprty associate ai vari DataWidget contenuti nel content panel
 	a tutti i livelli
 	[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload 
+	[AM] STDMDD-360: aggiunta gestione dei widget indiretti (PanelDefUse)
 «ENDREM»
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation) FOR ContentPanel»
 «LET findAllWidgetsInContentPanel(this) AS allW»
 	«LET (List[Widget])allW AS allWidgets»
 		«REM»properties dei DataWidgets«ENDREM»
 		«LET allWidgets.typeSelect(DataWidget).select(w|w.databinding == null) AS allDataWidgets»
-			«EXPAND widgetProperty(model, widgetValidation) FOREACH allDataWidgets»
+			«EXPAND widgetProperty(model, widgetValidation, "") FOREACH allDataWidgets»
 		«ENDLET»
 		«REM»STDMDD-294: properties per i FileUpload widgets«ENDREM»
 		«LET allWidgets.typeSelect(FileUpload) AS fileUploadWidgets»
-			«EXPAND widgetProperty(model, widgetValidation) FOREACH fileUploadWidgets»
+			«EXPAND widgetProperty(model, widgetValidation, "") FOREACH fileUploadWidgets»
 		«ENDLET»
 	«ENDLET»
 «ENDLET»
+
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR DataWidget»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, String contextPrefix) FOR FormPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, contextPrefix) FOREACH this.subpanels»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, String contextPrefix) FOR MultiPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, contextPrefix) FOREACH this.panels»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND widgetProperty(model, widgetValidation, contextPrefix) FOREACH this.widgets»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, String contextPrefix) FOR PanelDefUse»
+	«EXPAND widgetsProperties(model, widgetValidation, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel»
+«ENDDEFINE»
+
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR Widget»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR DataWidget»
 	«ERROR "tipo di data widget non gestito:"+this»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR PlainText»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR PlainText»
 	«REM»Non facciamo niente. Implementare in futuro se servisse«ENDREM»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR HiddenValue»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR HiddenValue»
 	// HiddenValue «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR TextField»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR TextField»
 	// TextField «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR TextArea»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR TextArea»
 	// TextArea «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR Table»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR Table»
 	// Table «name»
-	«EXPAND property(getWidgetName(this), model, "") FOR this.dataType»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, "") FOR this.dataType»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR RadioButtons»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR RadioButtons»
 	// RadioButtons «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR CheckBox»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR CheckBox»
 	// CheckBox «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR ComboBox»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR ComboBox»
 	// ComboBox «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation) FOR Calendar»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, String contextPrefix) FOR Calendar»
 	// Calendar «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this), model, widgetValidation) FOR this.dataType»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? getWidgetValidation(this, contextPrefix) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
 	«ENDLET»
 «ENDDEFINE»
 
@@ -999,11 +1024,14 @@ public class ShowDialogCommand implements ICommand {
 
 
 «REM»[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload «ENDREM»
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation) FOR FileUpload»
-	«EXPAND property(getWidgetName(this), model, null) FOR this»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, String contextPrefix) FOR FileUpload»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, null, contextPrefix) FOR this»
 «ENDDEFINE»
 
-«DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
+«DEFINE property(String name, GUIModel model, String widgetValidation, String contextPrefix) FOR FileUpload»
+	«IF contextPrefix!=null && contextPrefix.length==0»
+	«ERROR "il file upload all'interno di un PanelDef non supportato"»
+	«ENDIF»
 	// FileUpload «name»
 	private File _«name»;               // The actual file
 	private String _«name»ContentType;  // The content type of the file 

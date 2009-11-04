@@ -436,15 +436,40 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi statici per il reset delle tabelle
 	//////////////////////////////////////////////////////////////////////////////
-    «FOREACH (List[Table])findAllTablesInContentPanel(this) AS currTable»
-    public static void resetClearStatus_«getWidgetName(currTable)»(java.util.Map session) {
-    	session.put("«this.name»_«currTable.name»_clearStatus", new Boolean(true));
-    }
+	
+	«EXPAND resetTableMethods("") FOR this.panels»
+	  
+«ENDDEFINE»
+
+«REM»implementazione di default per i casi non da gestire«ENDREM»
+«DEFINE resetTableMethods(String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR FormPanel»
+	«EXPAND resetTableMethods(contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR MultiPanel»
+	«EXPAND resetTableMethods(contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR PanelDefUse»
+	«EXPAND resetTableMethods(getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR WidgetsPanel»
+	«FOREACH this.widgets.typeSelect(Table) AS currTable»
+    	«EXPAND resetTableMethod(contextPrefix) FOR currTable-»
     «ENDFOREACH»
-    
 «ENDDEFINE»
 
 
+
+«DEFINE resetTableMethod(String contextPrefix) FOR Table»
+	public static void resetClearStatus_«getWidgetName(this, contextPrefix)»(java.util.Map session) {
+    	session.put("«this.name»_«getFullID(this, contextPrefix)»_clearStatus", new Boolean(true));
+    }
+«ENDDEFINE»
 
 «REM»dto con solo le property delle action (parametri per spring)«ENDREM»
 «DEFINE actionModelFile(GUIModel model) FOR ContentPanel»

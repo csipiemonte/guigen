@@ -136,27 +136,27 @@ String getJspWizardPanelsConfig() :
 	"/" + getPresentationMarkupConfig() + "/wizardpanels";
 
 // JSP MultiPanels fragments
-String getJspMultiPanelFullName(GUIModel model, boolean omit_root, MultiPanel mp, Panel p) :
+String getJspMultiPanelFullName(GUIModel model, boolean omit_root, MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
 	if ( mp.metaType == MultiPanel ) then
-		getJspMultiPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p) + ".jsp"
+		getJspMultiPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
 	else if ( mp.metaType == TabSetPanel ) then
-		getJspTabsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p) + ".jsp"
+		getJspTabsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
 	else if ( mp.metaType == WizardPanel ) then
-		getJspWizardPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p) + ".jsp";
+		getJspWizardPanelsMarkupDir(model, omit_root) + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp";
 
-String getMultiPanelJspInclude(MultiPanel mp, Panel p) :
+String getMultiPanelJspInclude(MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
 	if ( mp.metaType == MultiPanel ) then
-		getJspMultiPanelsConfig() + "/" + getMultiPanelName(mp, p) + ".jsp"
+		getJspMultiPanelsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
 	else if ( mp.metaType == TabSetPanel ) then
-		getJspTabsConfig() + "/" + getMultiPanelName(mp, p) + ".jsp"
+		getJspTabsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp"
 	else if ( mp.metaType == WizardPanel ) then
-		getJspWizardPanelsConfig() + "/" + getMultiPanelName(mp, p) + ".jsp";
+		getJspWizardPanelsConfig() + "/" + getMultiPanelName(mp, p, parentCP, contextPrefix) + ".jsp";
 
-String getMultiPanelName(MultiPanel mp, Panel p) :
-	findParentContentPanel(mp).name+ "_" + mp.name + "_" + p.name;
+String getMultiPanelName(MultiPanel mp, Panel p, ContentPanel parentCP, String contextPrefix) :
+	parentCP.name+ "_" + getFullID(mp,contextPrefix) + "_" + getFullID(p,contextPrefix);
 
-String getSelectedMultiPanelName(MultiPanel mp) :
-	findParentContentPanel(mp).name+ "_" + mp.name;
+String getSelectedMultiPanelName(MultiPanel mp, ContentPanel parentCP, String contextPrefix) :
+	parentCP.name+ "_" + getFullID(mp,contextPrefix);
 
 // JSP for UserDefinedPanels
 String getJspUserDefinedPanelMarkupDir(GUIModel model, boolean omit_root) :
@@ -498,23 +498,23 @@ String defaultSimpleInitVal(Type type) :
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
 
-String getHandlerMethodName(Widget source, EventHandler evh) :
-	"handle"+source.name.toFirstUpper()+"_"+evh.eventType.toString();
+String getHandlerMethodName(Widget source, EventHandler evh, String contextPrefix) :
+	"handle"+getFullID(source, contextPrefix).toFirstUpper()+"_"+evh.eventType.toString();
 
-String getClickHandlerMethodName(Widget source) :
+String getClickHandlerMethodName(Widget source, String contextPrefix) :
 	( source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1 ? 
-		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())
+		getHandlerMethodName(source, source.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)
 		:
 		"execute" 
 	);
 
 // [DM] restituisce l'azione relativa ad una colonna di una Table
-String getColumnAction(Column currCol, Table table, ContentPanel cp) : 
+String getColumnAction(Column currCol, Table table, ContentPanel cp, String contextPrefix) : 
 	if (currCol.eventActive) then
-		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) + 
+		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
-String getTabItemHandlerMethodName(ContentPanel cp, TabSetPanel tabSet, Panel tab) :
+String getTabItemHandlerMethodName(ContentPanel cp, TabSetPanel tabSet, Panel tab, String contextPrefix) :
 	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -537,11 +537,21 @@ String getTypeNSAsFolder(ComplexType ct, boolean prependDot, boolean appendDot) 
 		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
 
 
+String getChainedContext(String oldContext, String newContext) :
+	oldContext==null || oldContext.length==0 ? newContext : oldContext+"_"+newContext;
+
+// serve in quei casi in cui si usava w.name senza necessità di avere il prefisso "widg_"
+String getFullID(Widget w, String contextPrefix) :
+	contextPrefix == null || contextPrefix.length==0 ? w.name : contextPrefix+w.name;
+
+String getFullID(Panel p, String contextPrefix) :
+	contextPrefix == null || contextPrefix.length==0 ? p.name : contextPrefix+p.name;
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
-String getWidgetName(Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget);
+String getWidgetName(Widget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget, java.lang.String);
 
 boolean hasFileUpload(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.hasFileUpload(it.csi.mddtools.guigen.ContentPanel);
@@ -600,11 +610,11 @@ List findAllActionScopedAppDataInMenubar(Menubar mb) : JAVA
 List findAllActionScopedAppData(Command a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.findAllActionScopedAppData(it.csi.mddtools.guigen.Command);
 
-String getOGNLForWidgetValue(DataWidget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetValue(it.csi.mddtools.guigen.DataWidget);
+String getOGNLForWidgetValue(DataWidget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetValue(it.csi.mddtools.guigen.DataWidget, java.lang.String);
 
-String getOGNLForWidgetMultiValue(MultiDataWidget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetMultiValue(it.csi.mddtools.guigen.MultiDataWidget);
+String getOGNLForWidgetMultiValue(MultiDataWidget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getOGNLForWidgetMultiValue(it.csi.mddtools.guigen.MultiDataWidget, java.lang.String);
 
 // chiave dell'app data quando salvato in sessione
 String getAppDataKey(ApplicationData ad) : JAVA
@@ -667,12 +677,12 @@ String getCustomtagCloseColspan(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomtagCloseColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
 // [DM]
-String getWidgetLabelFor(Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget);
+String getWidgetLabelFor(Widget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget, java.lang.String);
 
 // [DM] Restituisce le annotazioni per la validazione del campo
-String getWidgetValidation(DataWidget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget);
+String getWidgetValidation(DataWidget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget, java.lang.String);
 
 // [DM] Restituisce la lista dei custom validators definiti dal generatore
 List getGuigenCustomValidators() : JAVA
@@ -752,8 +762,8 @@ String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
 
 // [DM] Restituisce il campo per l'editabilità di una colonna della tabella
-String getColumnEditableField(Column currCol, Table table, GUIModel model) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String);
 
 // restituisce l'elenco degli id dei pannelli target di refresh. null se nessun RefreshViewCommand	
 List[String] getRefreshTargetIds(Widget cw) : JAVA
@@ -902,29 +912,29 @@ String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
 /// EVENT HANDLERS
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-String getComboBoxValueChangedHandlerJS(ComboBox cb) :
+String getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
-String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model) :
+String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
 			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
-String getRadioButtonsValueChangedHandlerJS(RadioButtons rb) :
+String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + ".do')\" "; 
+		"onclick=\"onRBClick('" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" "; 
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
-String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model) :
+String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first()) + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
 			"\" /></noscript>";
 
 

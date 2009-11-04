@@ -14,11 +14,11 @@
 	«ERROR "widget "+this+" non ajaxificabile"»
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Button-»
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Button-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="button" 
-		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler)».do" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler, contextPrefix)».do" 
 		pageId="«parentCP.name»" 
 		formName="«parentCP.name»">
 	«ENDLET-»
@@ -28,12 +28,12 @@
 	</customtag:ajaxify>
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(ContentPanel parentCP, TabSetPanel tabSet, Panel tab) FOR TabSwitcher-»
+«DEFINE ajaxifyControlHeader(ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
 
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
 	<customtag:ajaxify id="«getFragmentId(tabSet)»" 
 		widgetType="button" 
-		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab)».do" 
+		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
 		pageId="«parentCP.name»" 
 		formName="«parentCP.name»">
 	«ENDLET-»
@@ -44,7 +44,7 @@
 «ENDDEFINE»
 
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table-»
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table" 
 		pageId="«parentCP.name»">
@@ -54,11 +54,11 @@
 	</customtag:ajaxify>
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR ComboBox-»
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="combo" 
-		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler)».do"
+		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
 		pageId="«parentCP.name»"
 		formName="«parentCP.name»" >
 	«ENDLET-»
@@ -68,11 +68,11 @@
 	</customtag:ajaxify>
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR RadioButtons-»
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="radio" 
-		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler)».do"
+		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
 		pageId="«parentCP.name»"
 		formName="«parentCP.name»" >
 	«ENDLET-»
@@ -82,7 +82,7 @@
 	</customtag:ajaxify>
 «ENDDEFINE»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR TreeView-»
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
 	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="tree" 
 		pageId="«parentCP.name»">

@@ -230,16 +230,16 @@ Gestione dei pannelli
 «pageIdMarker()»
 <s:form id="«this.name»" action="«getStrutsActionConfigName(this)»" method="post"«getFormEnctype(this)»>
 	«LET this.panels AS currP-»
-		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this) FOR currP»
+		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this, "") FOR currP»
 	«ENDLET-»
 </s:form>
 «ENDDEFINE»
 
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR Panel»
+«DEFINE setupFirstLevelPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix) FOR Panel»
 «IF this.metaType == FormPanel-»
-	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR (FormPanel)this»
+	«EXPAND remoteResources::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp, contextPrefix) FOR (FormPanel)this»
 «ELSE-»
 	«ERROR "Il pannello di tipo " + this.metaType + " non è ammesso al primo livello - " + loc()»
 «ENDIF-»
@@ -247,29 +247,29 @@ Gestione dei pannelli
 
 
 «REM»Crea un sottopannello«ENDREM»
-«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
+«DEFINE createAndAddSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR Panel»
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (FormPanel)this-»
 «ELSEIF this.metaType == WidgetsPanel-»
-	«EXPAND setupWidgetsPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WidgetsPanel)this-»
+	«EXPAND setupWidgetsPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (WidgetsPanel)this-»
 «ELSEIF this.metaType == MenuPanel-»
-	«EXPAND setupMenuPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MenuPanel)this-»
+	«EXPAND setupMenuPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (MenuPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
-	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
-	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
+	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (TabSetPanel)this-»
 «ELSEIF this.metaType == WizardPanel-»
-	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
+	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (WizardPanel)this-»
 «ELSEIF this.metaType == StdMessagePanel-»
-	«EXPAND setupStdMessagePanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (StdMessagePanel)this-»
+	«EXPAND setupStdMessagePanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (StdMessagePanel)this-»
 «ELSEIF this.metaType == UserInfoPanel-»
-	«EXPAND setupUserInfoPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserInfoPanel)this-»
+	«EXPAND setupUserInfoPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (UserInfoPanel)this-»
 «ELSEIF this.metaType == UserDefinedPanel-»
-	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
+	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (UserDefinedPanel)this-»
 «ELSEIF this.metaType == MsgBoxPanel-»
-	«EXPAND setupMsgBoxPanel(model, cp) FOR (MsgBoxPanel)this-»
+	«EXPAND setupMsgBoxPanel(model, cp, contextPrefix) FOR (MsgBoxPanel)this-»
 «ELSE-»
 	«ERROR "ERRORE tipo di pannello " + this.metaType + " non gestito! " + loc()»
 «ENDIF-»
@@ -281,10 +281,10 @@ Gestione dei pannelli
 «ENDREM»
 
 «REM»Genera un FormPanel«ENDREM»
-«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE setupFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR FormPanel»
 	«startFragment()»
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
+		«EXPAND remoteResources::subPanelControlHeader(model, quadrante, cp, contextPrefix) FOR this-»
 	«ENDIF-»
 
 	«REM»Espande i widget del FormPanel corrente«ENDREM»
@@ -292,23 +292,23 @@ Gestione dei pannelli
 
 	«REM»Espande i sottopannelli del FormPanel corrente (nuova versione)«ENDREM»
 	«IF this.layout.metaType == UDLRCPanelLayout»
-		«EXPAND setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR this»
+		«EXPAND setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR this»
 	«ELSE»
 		«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
-			«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+			«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubform»
 		«ENDFOREACH-»	
 	«ENDIF»
 
 	«IF expandLayout-»
-		«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+		«EXPAND remoteResources::subPanelControlFooter(model, quadrante, cp, contextPrefix) FOR this-»
 	«ENDIF-»
 	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un FormPanel con layout UDLRC«ENDREM»
-«DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
+«DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR FormPanel»
 	«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
-		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante) FOR currSubform»
+		«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubform»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
@@ -317,29 +317,29 @@ Gestione dei pannelli
 «REM»
 ************** WidgetsPanel e altri pannelli con widgets (CommandPanel, MenuPanel) **************
 «ENDREM»
-«DEFINE setupWidgetsPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
+«DEFINE setupWidgetsPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR WidgetsPanel»
 	«startFragment()»
-	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
-	«EXPAND createWidgets(model, cp) FOR this»
-	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«EXPAND remoteResources::subPanelControlHeader(model, quadrante, cp, contextPrefix) FOR this-»
+	«EXPAND createWidgets(model, cp, contextPrefix) FOR this»
+	«EXPAND remoteResources::subPanelControlFooter(model, quadrante, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un CommandPanel«ENDREM»
-«DEFINE setupCommandPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR CommandPanel»
+«DEFINE setupCommandPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR CommandPanel»
 	«startFragment()»
-	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
-	«EXPAND createWidgets(model, cp) FOR this-»
-	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«EXPAND remoteResources::subPanelControlHeader(model, quadrante, cp, contextPrefix) FOR this-»
+	«EXPAND createWidgets(model, cp, contextPrefix) FOR this-»
+	«EXPAND remoteResources::subPanelControlFooter(model, quadrante, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un MenuPanel«ENDREM»
-«DEFINE setupMenuPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MenuPanel»
+«DEFINE setupMenuPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR MenuPanel»
 	«startFragment()»
-	«EXPAND remoteResources::subPanelControlHeader(model, quadrante) FOR this-»
-	«EXPAND createWidgets(model, cp) FOR this-»
-	«EXPAND remoteResources::subPanelControlFooter(model, quadrante) FOR this-»
+	«EXPAND remoteResources::subPanelControlHeader(model, quadrante, cp, contextPrefix) FOR this-»
+	«EXPAND createWidgets(model, cp, contextPrefix) FOR this-»
+	«EXPAND remoteResources::subPanelControlFooter(model, quadrante, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 
@@ -349,40 +349,40 @@ Gestione dei pannelli
 «ENDREM»
 
 «REM»Genera un MultiPanel«ENDREM»
-«DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR MultiPanel»
+«DEFINE setupMultiPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR MultiPanel»
 	«REM»Crea le direttive di include per i files dei sottopannelli e crea i files dei sottopannelli«ENDREM»
 	«startFragment()»
 	«FOREACH this.panels AS currSubPan ITERATOR i -»
-		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currSubPan-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currSubPan-»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante, contextPrefix) FOR currSubPan-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration, contextPrefix) FOR currSubPan-»
 	«ENDFOREACH-»
 	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un TabsetPanel«ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR TabSetPanel»
+«DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR TabSetPanel»
 	«REM»Definizione del pannello«ENDREM»
 	«startFragment()»
-	«EXPAND remoteResources::setupTabSetPanel(model) FOR this-»
+	«EXPAND remoteResources::setupTabSetPanel(model, cp, contextPrefix) FOR this-»
 
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currTab ITERATOR i -»
-		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currTab-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currTab-»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante, contextPrefix) FOR currTab-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration, contextPrefix) FOR currTab-»
 	«ENDFOREACH-»
 	«endFragment()»
 «ENDDEFINE»
 
 «REM»Genera un WizardPanel«ENDREM»
-«DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR WizardPanel»
+«DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR WizardPanel»
 	«REM»Definizione del pannello«ENDREM»
 	«startFragment()»
-	«EXPAND remoteResources::setupWizardPanel(model) FOR this-»
+	«EXPAND remoteResources::setupWizardPanel(model, cp, contextPrefix) FOR this-»
 	
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currStep ITERATOR i -»
-		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante) FOR currStep-»
-		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration) FOR currStep-»
+		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante, contextPrefix) FOR currStep-»
+		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration, contextPrefix) FOR currStep-»
 	«ENDFOREACH-»
 	«endFragment()»	
 «ENDDEFINE»
@@ -390,28 +390,28 @@ Gestione dei pannelli
 
 
 «REM»Crea i sottopannelli di un MultiPanel (e dei sottotipi: TabsetPanel)«ENDREM»
-«DEFINE createAndAddMultiPanelSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, MultiPanel multiPanel, boolean expandLayout, UDLRCSpecConstants quadrante) FOR Panel»
-«FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this)»<%@ taglib uri="/struts-tags" prefix="s" %>
+«DEFINE createAndAddMultiPanelSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, MultiPanel multiPanel, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR Panel»
+«FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this, cp, contextPrefix)»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
 «IF hasTable(this) -»
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
-<fmt:setBundle basename="«getStrutsActionPath(findParentContentPanel(this), model)»" />
+<fmt:setBundle basename="«getStrutsActionPath(cp, model)»" />
 «ENDIF-»
 
 «IF this.metaType == FormPanel-»
-	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (FormPanel)this-»
+	«EXPAND setupFormPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (FormPanel)this-»
 «ELSEIF this.metaType == UserDefinedPanel-»
-	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (UserDefinedPanel)this-»
+	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (UserDefinedPanel)this-»
 «ELSEIF this.metaType == CommandPanel-»
-	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (CommandPanel)this-»
+	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (CommandPanel)this-»
 «ELSEIF this.metaType == MultiPanel-»
-	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (MultiPanel)this-»
+	«EXPAND setupMultiPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (MultiPanel)this-»
 «ELSEIF this.metaType == TabSetPanel-»
-	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (TabSetPanel)this-»
+	«EXPAND setupTabSetPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (TabSetPanel)this-»
 «ELSEIF this.metaType == WizardPanel-»
-	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR (WizardPanel)this-»
+	«EXPAND setupWizardPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (WizardPanel)this-»
 «ELSE-»
 	«ERROR "ERRORE. MultiPanel: tipo di sottopannello " + this + " non gestito"»
 «ENDIF-»
@@ -421,9 +421,9 @@ Gestione dei pannelli
 
 «REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
 (o di un sottotipo: TabsetPanel)«ENDREM»
-«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst) FOR Panel»
-<s:if test="#session.«getSelectedMultiPanelName(multiPanel)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this)»'«IF isFirst» || #session.«getSelectedMultiPanelName(multiPanel)»_selectedMultiPanel == null«ENDIF»">
-	<s:include value="«getMultiPanelJspInclude(multiPanel, this)»" ></s:include>
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst, String contextPrefix) FOR Panel»
+<s:if test="#session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this, cp, contextPrefix)»'«IF isFirst» || #session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == null«ENDIF»">
+	<s:include value="«getMultiPanelJspInclude(multiPanel, this, cp, contextPrefix)»" ></s:include>
 </s:if>
 «ENDDEFINE»
 
@@ -432,9 +432,9 @@ Gestione dei pannelli
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
 
-«DEFINE setupStdMessagePanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR StdMessagePanel»
+«DEFINE setupStdMessagePanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR StdMessagePanel»
 	«startFragment()»
-	«EXPAND remoteResources::setupStdMessagePanel(model, cp) FOR this-»
+	«EXPAND remoteResources::setupStdMessagePanel(model, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 
@@ -443,9 +443,9 @@ Gestione dei pannelli
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 
-«DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserInfoPanel»
+«DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR UserInfoPanel»
 	«startFragment()»
-	«EXPAND remoteResources::setupUserInfoPanel(model, cp) FOR this-»
+	«EXPAND remoteResources::setupUserInfoPanel(model, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 
@@ -454,23 +454,23 @@ Gestione dei pannelli
 ************** UserDefinedPanel (Pannello definito dall'utente) **************
 «ENDREM»
 
-«DEFINE setupUserDefinedPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR UserDefinedPanel»
-	«EXPAND userDefinedPanelInclude(model, cp) FOR this»
-	«EXPAND userDefinedPanelFile(model, skip_component_dir_creation, cp) FOR this»
+«DEFINE setupUserDefinedPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR UserDefinedPanel»
+	«EXPAND userDefinedPanelInclude(model, cp, contextPrefix) FOR this»
+	«EXPAND userDefinedPanelFile(model, skip_component_dir_creation, cp, contextPrefix) FOR this»
 «ENDDEFINE»
 
-«DEFINE userDefinedPanelInclude(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
-<s:include value="«getJspUserDefinedPanelConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
+«DEFINE userDefinedPanelInclude(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel»
+<s:include value="«getJspUserDefinedPanelConfig()+"/"+cp.name+"_"+getFullID(this,contextPrefix)+".jsp"»"></s:include>
 «ENDDEFINE»
 
-«DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR UserDefinedPanel»
-«FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+this.name+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel»
+«FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+getFullID(this,contextPrefix)+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 «startFragment()»
-«EXPAND remoteResources::userDefinedPanelControlHeader(model) FOR this-»
-«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+this.name)»
+«EXPAND remoteResources::userDefinedPanelControlHeader(model, cp, contextPrefix) FOR this-»
+«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+getFullID(this,contextPrefix))»
 <!-- Inserire il codice del pannello -->
 «ENDPROTECT»
-«EXPAND remoteResources::userDefinedPanelControlFooter(model) FOR this-»
+«EXPAND remoteResources::userDefinedPanelControlFooter(model, cp, contextPrefix) FOR this-»
 «endFragment()»
 «ENDFILE»
 «ENDDEFINE»
@@ -493,15 +493,15 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 «ENDREM»
 «DEFINE setupDialogPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR DialogPanel-»
 «FILE getJspDialogPanelFullName(model, skip_component_dir_creation, this)-»<%@ taglib uri="/struts-tags" prefix="s" %>
-«EXPAND remoteResources::dialogPanelControlHeader(model) FOR this-»
+	«EXPAND remoteResources::dialogPanelControlHeader(model, cp) FOR this-»
 
-«FOREACH this.msgBoxes AS currentMsgBox-»
-	«EXPAND setupMsgBoxPanel(model, cp, this) FOR currentMsgBox-»
-«ENDFOREACH-»
+	«FOREACH this.msgBoxes AS currentMsgBox-»
+		«EXPAND setupMsgBoxPanel(model, cp, this, null) FOR currentMsgBox-»
+	«ENDFOREACH-»
 
-«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, true, null) FOR this.commands-»
+	«EXPAND setupCommandPanel(model, skip_component_dir_creation, cp, true, null, null) FOR this.commands-»
 
-«EXPAND remoteResources::dialogPanelControlFooter(model) FOR this-»
+	«EXPAND remoteResources::dialogPanelControlFooter(model, cp) FOR this-»
 «ENDFILE-»
 «ENDDEFINE»
 
@@ -511,18 +511,18 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 «ENDREM»
 
 «REM»Crea un MsgBoxPanel contenuto in un DialogPanel«ENDREM»
-«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, DialogPanel dp) FOR MsgBoxPanel»
+«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, DialogPanel dp, String contextPrefix) FOR MsgBoxPanel»
 «startFragment()»
-«EXPAND remoteResources::msgBoxPanelControlHeader(model) FOR this-»
-«EXPAND createWidgets(model, cp) FOR this»
-«EXPAND remoteResources::msgBoxPanelControlFooter(model) FOR this-»
+«EXPAND remoteResources::msgBoxPanelControlHeader(model, cp, contextPrefix) FOR this-»
+«EXPAND createWidgets(model, cp, contextPrefix) FOR this»
+«EXPAND remoteResources::msgBoxPanelControlFooter(model, cp, contextPrefix) FOR this-»
 «endFragment()»
 «ENDDEFINE»
 
 «REM»Crea un MsgBoxPanel contenuto in un FormPanel (STDMDD-245)«ENDREM»
-«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+«DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
 «startFragment()»
-«EXPAND createWidgets(model, cp) FOR this»
+«EXPAND createWidgets(model, cp, contextPrefix) FOR this»
 «endFragment()»
 «ENDDEFINE»
 
@@ -536,26 +536,26 @@ Gestione dei Widget
 
 «REM»Crea i Widgets contenuti in un WidgetsPanel.
 Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine corretto«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR WidgetsPanel»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «FOREACH (List[Widget])getWidgetsByOrder(this) AS currWidg ITERATOR wi-»
-	«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR currWidg»
+	«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
 «ENDFOREACH-»
 «ENDDEFINE»
 
 «REM»Crea i Widgets contenuti in un CommandPanel (Button, ConfirmButton, ResetButton, HiddenValue)«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
-		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (Button)currWidg»
+		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (Button)currWidg»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
 «REM»Crea i Widgets contenuti in un MenuPanel (MenuView o TreeView)«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR MenuPanel»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
 		«IF currWidg.metaType == MenuView»
-			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (MenuView)currWidg»
+			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (MenuView)currWidg»
 		«ELSEIF currWidg.metaType == TreeView»
-			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (TreeView)currWidg»
+			«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (TreeView)currWidg»
 		«ELSE»
 			«ERROR "Tipo di widget non definito per un MenuPanel: " + loc()»
 		«ENDIF»
@@ -563,9 +563,9 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 «REM»Crea i Widgets contenuti in un MsgBoxPanel (PlainText)«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
 	«FOREACH this.textMessages AS currTxt ITERATOR wi-»
-		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration) FOR (PlainText)currTxt»
+		«EXPAND createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (PlainText)currTxt»
 	«ENDFOREACH»
 «ENDDEFINE»
 
@@ -575,88 +575,88 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDREM»
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget generico (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR Widget»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo PlainText (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR PlainText»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo PlainText (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, mbp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, mbp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR PlainText»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mbp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mbp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo RadioButtons (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR RadioButtons»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, WidgetsPanel wp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR RadioButtons»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, wp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo Button [Button, ConfirmButton, ResetButton] (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, cmdp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, cmdp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR Button»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, cmdp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo Button [Button, ConfirmButton, ResetButton] (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, cmdp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, cmdp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, CommandPanel cmdp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR HiddenValue»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, cmdp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, cmdp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo MenuView (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR MenuView»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 «REM»Genera la componente COMPLETA di markup (HTML) di un widget di tipo TreeView (HEADER, WIDGET, FOOTER, CLOSE)«ENDREM»
-«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-<s:if test="isWidgetVisible('«cp.name»','«this.name»')" >
-«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast) FOR this-»
-«EXPAND createWidgetMarkup(model, cp) FOR this-»
-«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast) FOR this-»
+«DEFINE createAndAddWidgetMarkup(GUIModel model, ContentPanel cp, MenuPanel mp, Boolean isFirst, Boolean isLast, String contextPrefix) FOR TreeView»
+<s:if test="isWidgetVisible('«cp.name»','«getFullID(this, contextPrefix)»')" >
+«EXPAND remoteResources::widgetControlHeader(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
+«EXPAND createWidgetMarkup(model, cp, contextPrefix) FOR this-»
+«EXPAND remoteResources::widgetControlFooter(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
 </s:if>
-«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast) FOR this-»
+«EXPAND remoteResources::widgetClose(model, mp, isFirst, isLast, cp, contextPrefix) FOR this-»
 «ENDDEFINE»
 
 
@@ -666,45 +666,45 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) di un widget generico (non dovrebbe mai essere chiamato, se succede da un errore)«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Widget»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget»
 «ERROR "Widget " + this + " non gestito"»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un PlainText.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR PlainText»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR PlainText»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «IF this.databinding!=null-»
-<s:property value="«getOGNLForWidgetValue(this)»" escape="false" />
+<s:property value="«getOGNLForWidgetValue(this, contextPrefix)»" escape="false" />
 «ELSE-»
-«IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«this.name».statictext.label" />«ENDIF»
+«IF !isNullOrEmpty(this.staticText)»<s:text name="«cp.name».«getFullID(this, contextPrefix)».statictext.label" />«ENDIF»
 «ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextField»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR TextField»
 <!-- widget «this.name» -->
-<s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
+<s:textfield name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
 	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getTextFieldStyleByLayout(model, this)»
 />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR HiddenValue»
-<!-- widget «this.name» -->
-<s:hidden name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»" />
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<s:hidden name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TextArea»
-<!-- widget «this.name» -->
-<s:textarea name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR TextArea»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<s:textarea name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
 	></s:textarea>
@@ -712,18 +712,18 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 
 «REM»Genera la componente di markup (HTML) di un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR RadioButtons»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp,contextPrefix) FOR this-»
 «ENDIF-»
-«EXPAND remoteResources::widgetMarkupHeader FOR this»
+«EXPAND remoteResources::widgetMarkupHeader(cp, contextPrefix) FOR this»
 «FOREACH this.radio AS currRadio-»
-«EXPAND createWidgetMarkup(model, cp, this) FOR currRadio»
+«EXPAND createWidgetMarkup(model, cp, this, contextPrefix) FOR currRadio»
 «ENDFOREACH-»
-«getRadioButtonsValueChangedHandlerNoScript(this, model)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
-«EXPAND remoteResources::widgetMarkupFooter FOR this»
+«getRadioButtonsValueChangedHandlerNoScript(this, model, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
+«EXPAND remoteResources::widgetMarkupFooter(cp, contextPrefix) FOR this»
 «IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
@@ -731,40 +731,40 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent) FOR RadioButton»
-<s:radio id="«getWidgetName(this)»" name="«getOGNLForWidgetValue(parent)»"
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix) FOR RadioButton»
+<s:radio id="«getWidgetName(this, contextPrefix)»" name="«getOGNLForWidgetValue(parent, contextPrefix)»"
 	list="#{«getFixedRadioButtonList(this)»}"
-	disabled="isWidgetDisabled('«cp.name»','«parent.name»')"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(parent, contextPrefix)»')"
 	«getRadioPortalStyle(model)»
-	«getRadioButtonsValueChangedHandlerJS(parent)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
-	/> <label for="«getWidgetName(this)»«this.value»"><s:text name="«cp.name».«parent.name».«this.name».label" /></label>
+	«getRadioButtonsValueChangedHandlerJS(parent, cp, contextPrefix)»«REM»STDMDD-163: Radio button: implementazione evento di click«ENDREM»
+	/> <label for="«getWidgetName(this, contextPrefix)»«this.value»"><s:text name="«cp.name».«getFullID(parent, contextPrefix)».«getFullID(this, contextPrefix)».label" /></label>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR CheckBox»
-<!-- widget «this.name» -->
-<s:checkbox name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR CheckBox»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<s:checkbox name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getCheckboxPortalStyle(model)»
 	/>
-<s:if test="!isWidgetDisabled('«cp.name»','«this.name»')" >
-	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this)»" id="__checkbox_«getWidgetName(this)»" />
+<s:if test="!isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" >
+	<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
 </s:if>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ComboBox»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR ComboBox»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
-<s:select name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
+<s:select name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
           headerKey="" headerValue="" «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
-          list="«getOGNLForWidgetMultiValue(this)»"
-          disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+          list="«getOGNLForWidgetMultiValue(this, contextPrefix)»"
+          disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
           «IF (databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray)-»
           multiple="true" 
@@ -772,9 +772,9 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
           «ENDIF-»
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
           «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
-          «getComboBoxValueChangedHandlerJS(this)»
+          «getComboBoxValueChangedHandlerJS(this, cp, contextPrefix)»
           />
-«getComboBoxValueChangedHandlerNoScript(this, model)»
+«getComboBoxValueChangedHandlerNoScript(this, model, cp, contextPrefix)»
 «IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
@@ -783,15 +783,15 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante (Button): al momento è renderizzata come un submit.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Button»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR Button»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
-<s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»" 
-	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
+<s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»" 
+	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)» 
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
@@ -800,15 +800,15 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di submit del form.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ConfirmButton»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR ConfirmButton»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this -»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this -»
 «ENDIF-»
-<s:submit name="«getWidgetName(this)»" id="«getWidgetName(this)»" method="«getClickHandlerMethodName(this)»"
-	key="«findParentContentPanel(this).name».«this.name».label" «getButtonStyleByLayout(model, this)» 
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
+<s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
+	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)» 
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
@@ -817,16 +817,16 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR ResetButton»
-<!-- widget «this.name» -->
-<s:reset name="«getWidgetName(this)»" id="«getWidgetName(this)»" key="«findParentContentPanel(this).name».«this.name».label" 
-	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«this.name»')" />
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR ResetButton»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<s:reset name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" key="«cp.name».«getFullID(this, contextPrefix)».label" 
+	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di una immagine. TODO: implementare«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Image»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR Image»
+<!-- widget «getFullID(this, contextPrefix)» -->
 <img src="«this.image»" alt="«this.label»"/>
 «ENDDEFINE»
 
@@ -837,34 +837,34 @@ Il comportamento ricco è inserito sempre, anche nel caso in cui non ci siano ref
 esplicite, nel qual caso viene implicitamente impostato il pannello contenenete la tabella
 come target di refresh.
 «ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Table»
-<!-- widget «this.name» -->
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR Table»
+<!-- widget «getFullID(this, contextPrefix)» -->
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS targetIds-»
 «IF model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader((List[String])targetIds,cp) FOR this-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader((List[String])targetIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
 «LET this.enableExport ? "true" : "false" AS exportEnabled-»
-<s:set name="«cp.name»_«this.name»_clearStatus" value="isTableClearStatus('«cp.name»_«this.name»')" />
-<display:table name="«getOGNLForWidgetMultiValue(this)»"
+<s:set name="«cp.name»_«getFullID(this, contextPrefix)»_clearStatus" value="isTableClearStatus('«cp.name»_«getFullID(this, contextPrefix)»')" />
+<display:table name="«getOGNLForWidgetMultiValue(this, contextPrefix)»"
                excludedParams="*"
                export="«enableExport»"
-               id="«getWidgetName(this)»"
+               id="«getWidgetName(this, contextPrefix)»"
                pagesize="«this.pageSize»"
                requestURI="«getStrutsActionConfigName(cp)».do"
                keepStatus="true"
-               clearStatus="${«cp.name»_«this.name»_clearStatus}"
-               uid="row_«this.name»"
+               clearStatus="${«cp.name»_«getFullID(this, contextPrefix)»_clearStatus}"
+               uid="row_«getFullID(this, contextPrefix)»"
                summary="«this.summary»" «REM»STDMDD-332«ENDREM»
                «IF customDecorator»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF»
                «getTablePortalStyle(model, this)»>
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html" >
 		«IF this.databinding.appData.type.metaType == SimpleType -»
-			<s:radio list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getRadioPortalStyle(model)» />
+			<s:radio list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getRadioPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == TypedArray -»
-			<s:checkboxlist list="%{#attr.row_«this.name».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this)»" id="%{'«this.name»-editcell-'+ (#attr.row_«this.name»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
+			<s:checkboxlist list="%{#attr.row_«getFullID(this, contextPrefix)».«columnModel.valueSelector»}" name="«getOGNLForWidgetValue(this, contextPrefix)»" id="%{'«getFullID(this, contextPrefix)»-editcell-'+ (#attr.row_«getFullID(this, contextPrefix)»_rowNum - 1)}" «getCheckboxPortalStyle(model)» />
 		«ELSEIF this.databinding.appData.type.metaType == ComplexType -»
 			«REM»COME FARE SE SIAMO IN QUESTO CASO?«ENDREM»
 			«ERROR "Databinding a ComplexType non ancora gestito sul widget Table " + loc()»
@@ -874,17 +874,17 @@ come target di refresh.
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH tabColMod.columns AS currCol-»
 		«IF currCol.editable && currCol.editableFlagSelector!=null -»		
-		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 				sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 		>
-				«getColumnEditableField(currCol, this, model)»
+				«getColumnEditableField(currCol, this, model, contextPrefix)»
 		</display:column>
 		«ELSEIF currCol.editable && currCol.editableFlagSelector==null»
-		<display:column titleKey="«cp.name».«this.name».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
-				«getColumnEditableField(currCol, this, model)»				
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
+				«getColumnEditableField(currCol, this, model, contextPrefix)»				
 		</display:column>
 		«ELSE-»
-		<display:column property="«currCol.selector»" titleKey="«cp.name».«this.name».«currCol.selector».label" «getColumnAction(currCol, this, cp)»
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)» />
 		«ENDIF-»
@@ -903,7 +903,7 @@ come target di refresh.
 
 
 «REM»Genera la componente di markup (HTML) di un MenuView (segnaposto per il menu).«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR MenuView»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuView»
 «IF model.structure.appWindow.appArea.menubar != null-»
 	<s:include value="fragments/menu.jsp"></s:include>
 «ENDIF-»
@@ -911,20 +911,20 @@ come target di refresh.
 
 
 «REM»Genera la componente di markup (HTML) di un TreeView.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR TreeView»
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR TreeView»
 «REM»TODO: verificare se questo id va bene«ENDREM»
 «LET getRefreshTargetIds(this) AS refreshIds-»
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
-«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp) FOR this-»
+«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
 	<customtag:tree
-		name="«getOGNLForWidgetMultiValue(this)»"
+		name="«getOGNLForWidgetMultiValue(this, contextPrefix)»"
 		cssUlClass="tree" 
         cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen" 
         cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot" 
 		linkOnTree="true" id="«name»"
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
-		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())».do" showChildNumber="false">
+		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do" showChildNumber="false">
 		«ELSE-»
 		requestURI="«getStrutsActionConfigName(cp)».do" showChildNumber="false">
 		«ENDIF-»
@@ -937,10 +937,10 @@ come target di refresh.
 
 
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR Calendar»
-<!-- widget «this.name» -->
-<s:textfield name="«getOGNLForWidgetValue(this)»" id="«getWidgetName(this)»"
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR Calendar»
+<!-- widget «getFullID(this, contextPrefix)» -->
+<s:textfield name="«getOGNLForWidgetValue(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getCalendarStyleByLayout(model, this)»
 /> «getCalendarImageByLayout(model, this)»
 «ENDDEFINE»
@@ -952,15 +952,15 @@ La componente UserDefinedWidget consiste in una jsp separata dove lo sviluppator
 il codice necessario, e nella direttiva include inserita laddove il widget deve essere posizionato.
 NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tale widget.
 «ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
-<s:include value="«getJspUserDefinedWidgetConfig()+"/"+cp.name+"_"+this.name+".jsp"»"></s:include>
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedWidget»
+<s:include value="«getJspUserDefinedWidgetConfig()+"/"+cp.name+"_"+getFullID(this, contextPrefix)+".jsp"»"></s:include>
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) di uno FileUpload (widget per l'upload di un file).«ENDREM»
-«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp) FOR FileUpload»
-<s:file name="«getWidgetName(this)»" id="«getWidgetName(this)»"
-	disabled="isWidgetDisabled('«cp.name»','«this.name»')"
+«DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix) FOR FileUpload»
+<s:file name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
+	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getFileUploadStyleByLayout(model, this)»
 />
 «ENDDEFINE»

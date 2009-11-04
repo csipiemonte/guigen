@@ -3,6 +3,7 @@
 «IMPORT template::struts2::actionImplJavaFiles»
 «IMPORT template::struts2::security»
 «IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -850,23 +851,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«FOREACH allTabSwitchers AS currTabSwitcher-»
 	«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-»
 	
+	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
 	«FOREACH currTabSet.panels AS currTab-»
-	/**
-	 * Gestione dell'evento di click sul tab Switcher del tab-set «currTabSet.name» 
-	 */
-	public String «getTabItemHandlerMethodName(this,currTabSet, currTab)»() throws Exception {
-	 	// impostazione dei parametri di selezione tab
-	 	setSelectedTabKey("«this.name»_«currTabSet.name»_selectedMultiPanel");
-	 	setSelectedTabValue("«this.name»_«currTabSet.name»_«currTab.name»");
-	 	«IF currTabSet.switcher!=null && currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
-	 	// richiamo della logica associata al tab-switcher
-	 	String tempResult = «getHandlerMethodName(currTabSet.switcher, currTabSet.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first())»();
-	 	«ENDIF-»
-	 	// selezione del tab di destinazione
-	 	handleChangeTab();
-		return SUCCESS;
-	}
-	
+		«EXPAND template::struts2::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
 	«ENDFOREACH-»
 	«ENDLET-»
 	«ENDFOREACH-»
@@ -882,38 +869,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	//////////////////////////////////////////////////////////////////////////////////
 	«FOREACH allEventSources AS currEventSource»
 	«LET (Widget)currEventSource AS currEventWidget»
+	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
 	«FOREACH currEventWidget.eventHandlers AS currEventHandler»
-	/**
-	 * Gestione dell'evento CLICKED sul widget [«currEventWidget.name»]
-	 */
-	«IF currEventHandler.skipValidation-»
-	@SkipValidation
-	«ENDIF-»
-	public String «getHandlerMethodName(currEventWidget, currEventHandler)»()
-		throws Exception
-	{
-		ICommand action = initCommand("«(currEventWidget).name»","«currEventHandler.eventType»");
-		if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(this)»::«getHandlerMethodName(currEventWidget, currEventHandler)»] dump model before");
-				dumpModel(false);
-		}
-		String result = action.doCommand(this);
-		if (result != null) {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(this)»::«getHandlerMethodName(currEventWidget, currEventHandler)»] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsActionClassName(this)»::«getHandlerMethodName(currEventWidget, currEventHandler)»] returning result [" + result + "]");
-			}
-			return result;
-		} else {
-			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsActionClassName(this)»::«getHandlerMethodName(currEventWidget, currEventHandler)»] dump model after");
-				dumpModel(false);
-				log.debug("[«getStrutsActionClassName(this)»::«getHandlerMethodName(currEventWidget, currEventHandler)»] returning default result [SUCCESS]");
-			}
-			return SUCCESS;
-		}
-	}
+		«EXPAND template::struts2::eventHandlers::handlerMethod(currEventWidget, this, "") FOR currEventHandler»
 	«ENDFOREACH»
 	«ENDLET»
 	«ENDFOREACH»

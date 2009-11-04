@@ -35,14 +35,14 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 «ENDREM»
 
 «REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«AROUND template::struts2::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante) FOR FormPanel»
-	«EXPAND template::struts2::neutral::resourcefilesNeutral::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante) FOR this»
+«AROUND template::struts2::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR FormPanel»
+	«EXPAND template::struts2::neutral::resourcefilesNeutral::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«AROUND template::struts2::resourcefiles::createWidgets(GUIModel model, ContentPanel cp) FOR CommandPanel»
-	«EXPAND template::struts2::neutral::resourcefilesNeutral::createWidgets(model, cp) FOR this»
+«AROUND template::struts2::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND template::struts2::neutral::resourcefilesNeutral::createWidgets(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -132,8 +132,8 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»Genera il setup del pannello di primo livello (unico)«ENDREM»
-«AROUND template::struts2::remoteResources::setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR FormPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp) FOR this»
+«AROUND template::struts2::remoteResources::setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupFirstLevelFormPanel(model, skip_component_dir_creation, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -142,29 +142,29 @@ Gestione dei PANNELLI
 «ENDREM»
 
 «REM»TabsetPanel«ENDREM»
-«AROUND template::struts2::remoteResources::setupTabSetPanel(GUIModel model) FOR TabSetPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupTabSetPanel(model) FOR this»
+«AROUND template::struts2::remoteResources::setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupTabSetPanel(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»WizardPanel«ENDREM»
-«AROUND template::struts2::remoteResources::setupWizardPanel(GUIModel model) FOR WizardPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupWizardPanel(model) FOR this»
+«AROUND template::struts2::remoteResources::setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupWizardPanel(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»
 ************** StdMessagePanel (Pannello per errori) **************
 «ENDREM»
-«AROUND template::struts2::remoteResources::setupStdMessagePanel(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupStdMessagePanel(model, cp) FOR this»
+«AROUND template::struts2::remoteResources::setupStdMessagePanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupStdMessagePanel(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
-«AROUND template::struts2::remoteResources::setupUserInfoPanel(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupUserInfoPanel(model, cp) FOR this»
+«AROUND template::struts2::remoteResources::setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::setupUserInfoPanel(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -176,13 +176,13 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»comment«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»comment«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR FormPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -191,74 +191,73 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR WidgetsPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR CommandPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlHeader(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlHeader(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
 «ENDAROUND»
 
 «REM»Genera la Footer di un sottopannello di tipo MenuPanel«ENDREM»
-«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante) FOR MenuPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante) FOR this»
+«AROUND template::struts2::remoteResources::subPanelControlFooter(GUIModel model, UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::subPanelControlFooter(quadrante, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»
 ************** User Defined Panel **************
 «ENDREM»
-«AROUND template::struts2::remoteResources::userDefinedPanelControlHeader(GUIModel model) FOR UserDefinedPanel-»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::userDefinedPanelControlHeader(model) FOR this-»
+«AROUND template::struts2::remoteResources::userDefinedPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::userDefinedPanelControlHeader(model, cp, contextPrefix) FOR this-»
 «ENDAROUND»
 
 
-«AROUND template::struts2::remoteResources::userDefinedPanelControlFooter(GUIModel model) FOR UserDefinedPanel-»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::userDefinedPanelControlFooter(model) FOR this-»
+«AROUND template::struts2::remoteResources::userDefinedPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::userDefinedPanelControlFooter(model, cp, contextPrefix) FOR this-»
 «ENDAROUND»
 
 
 «REM»
 ************** Dialog Panel **************
 «ENDREM»
-«AROUND template::struts2::remoteResources::dialogPanelControlHeader(GUIModel model) FOR DialogPanel-»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::dialogPanelControlHeader(model) FOR this-»
+«AROUND template::struts2::remoteResources::dialogPanelControlHeader(GUIModel model, ContentPanel cp) FOR DialogPanel-»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::dialogPanelControlHeader(model, cp) FOR this-»
 «ENDAROUND»
 
 
-«AROUND template::struts2::remoteResources::dialogPanelControlFooter(GUIModel model) FOR DialogPanel-»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::dialogPanelControlFooter(model) FOR this-»
+«AROUND template::struts2::remoteResources::dialogPanelControlFooter(GUIModel model, ContentPanel cp) FOR DialogPanel-»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::dialogPanelControlFooter(model, cp) FOR this-»
 «ENDAROUND»
 
 
 «REM»
 ************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
 «ENDREM»
-«AROUND template::struts2::remoteResources::msgBoxPanelControlHeader(GUIModel model) FOR MsgBoxPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::msgBoxPanelControlHeader FOR this»
+«AROUND template::struts2::remoteResources::msgBoxPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::msgBoxPanelControlHeader(cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
-«AROUND template::struts2::remoteResources::msgBoxPanelControlFooter(GUIModel model) FOR MsgBoxPanel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::msgBoxPanelControlFooter FOR this»
+«AROUND template::struts2::remoteResources::msgBoxPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::msgBoxPanelControlFooter(cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -272,118 +271,118 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(wp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR Widget»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(wp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»--------------- PlainText ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast) FOR PlainText»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(wp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mbp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mbp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast) FOR PlainText»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mbp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mbp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR Button»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la footer di un widget di tipo HiddenValue«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue«ENDREM»
-«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast) FOR HiddenValue»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(cmdp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR MenuView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»--------------- Button (Button, ConfirmButton, ResetButton) ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlHeader(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la footer di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetControlFooter(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button«ENDREM»
-«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast) FOR TreeView»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(mp, isFirst, isLast) FOR this»
+«AROUND template::struts2::remoteResources::widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetClose(mp, isFirst, isLast, cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 
@@ -393,13 +392,13 @@ Gestione dei LAYOUT - WIDGETS
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
-«AROUND template::struts2::remoteResources::widgetMarkupHeader FOR RadioButtons»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetMarkupHeader FOR this»
+«AROUND template::struts2::remoteResources::widgetMarkupHeader(ContentPanel cp, String contextPrefix) FOR RadioButtons»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetMarkupHeader(cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 «REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
-«AROUND template::struts2::remoteResources::widgetMarkupFooter FOR RadioButtons»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetMarkupFooter FOR this»
+«AROUND template::struts2::remoteResources::widgetMarkupFooter(ContentPanel cp, String contextPrefix) FOR RadioButtons»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetMarkupFooter(cp, contextPrefix) FOR this»
 «ENDAROUND»
 
 

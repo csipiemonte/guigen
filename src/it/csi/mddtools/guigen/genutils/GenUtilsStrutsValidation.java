@@ -133,7 +133,7 @@ public class GenUtilsStrutsValidation {
 	 * @param w Il DataWidget da validare.
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidation(DataWidget w) {
+	public static String getWidgetValidation(DataWidget w, String contextPrefix) {
 		String res = "";
 		
 		ContentPanel cp = GenUtils.findParentContentPanel(w);
@@ -141,21 +141,21 @@ public class GenUtilsStrutsValidation {
 		if ( w.getDataType() instanceof SimpleType ) {
 			// tipo semplice
 			if ( w instanceof TextField ) {
-				res += getWidgetValidationAnnotation((TextField)w, cp);
+				res += getWidgetValidationAnnotation((TextField)w, cp, contextPrefix);
 			} else if ( w instanceof TextArea ) {
-				res += getWidgetValidationAnnotation((TextArea)w, cp);
+				res += getWidgetValidationAnnotation((TextArea)w, cp, contextPrefix);
 			} else if ( w instanceof RadioButtons ) {
-				res += getWidgetValidationAnnotation((RadioButtons)w, cp);
+				res += getWidgetValidationAnnotation((RadioButtons)w, cp, contextPrefix);
 			} else if ( w instanceof CheckBox ) {
-				res += getWidgetValidationAnnotation((CheckBox)w, cp);
+				res += getWidgetValidationAnnotation((CheckBox)w, cp, contextPrefix);
 			} else if ( w instanceof ComboBox ) {
-				res += getWidgetValidationAnnotation((ComboBox)w, cp);
+				res += getWidgetValidationAnnotation((ComboBox)w, cp, contextPrefix);
 			} else if ( w instanceof Calendar ) {
-				res += getWidgetValidationAnnotation((Calendar)w, cp);
+				res += getWidgetValidationAnnotation((Calendar)w, cp, contextPrefix);
 			}
 		}
 		else if ( w.getDataType() instanceof TypedArray ) {
-			res += getWidgetValidationAnnotationTypedArray(w, cp);
+			res += getWidgetValidationAnnotationTypedArray(w, cp, contextPrefix);
 		}
 
 		return res;
@@ -169,7 +169,7 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotation(TextField w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(TextField w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		SimpleType t = (SimpleType)w.getDataType();
 		boolean expandFieldName = true;
@@ -179,15 +179,15 @@ public class GenUtilsStrutsValidation {
 			String keyName = cp.getName() + "." + w.getName();
 			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
-				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			} else {
-				res += getRequiredValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			}
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -201,18 +201,18 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotation(TextArea w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(TextArea w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		boolean expandFieldName = true;
 
 		// required validation (si suppone che la TextArea sia una stringa)
 		if ( w.isRequired() ) {
-			res += getRequiredStringValidator(GenUtils.getWidgetName(w), cp.getName() + "." + w.getName(), expandFieldName);
+			res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), cp.getName() + "." + w.getName(), expandFieldName);
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -226,7 +226,7 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotation(RadioButtons w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(RadioButtons w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		SimpleType t = (SimpleType)w.getDataType();
 		boolean expandFieldName = true;
@@ -236,15 +236,15 @@ public class GenUtilsStrutsValidation {
 			String keyName = cp.getName() + "." + w.getName();
 			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
-				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			} else {
-				res += getRequiredValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			}
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -258,7 +258,7 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotation(CheckBox w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(CheckBox w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		SimpleType t = (SimpleType)w.getDataType();
 		boolean expandFieldName = true;
@@ -268,15 +268,15 @@ public class GenUtilsStrutsValidation {
 			String keyName = cp.getName() + "." + w.getName();
 			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
-				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			} else {
-				res += getRequiredValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			}
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -290,7 +290,7 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotation(ComboBox w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(ComboBox w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		SimpleType t = (SimpleType)w.getDataType();
 		boolean expandFieldName = true;
@@ -300,15 +300,15 @@ public class GenUtilsStrutsValidation {
 			String keyName = cp.getName() + "." + w.getName();
 			if ( GenUtils.isString(t) || GenUtils.isDateOrHour(t) ) {
 				// i tipi DATA sono gestiti dal generatore come STRINGHE
-				res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			} else {
-				res += getRequiredValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+				res += getRequiredValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 			}
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -322,7 +322,7 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return   Le annotazioni di validazione da inserire nella Action di Struts.
 	 */	
-	public static String getWidgetValidationAnnotation(Calendar w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotation(Calendar w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		boolean expandFieldName = true;
 
@@ -330,12 +330,12 @@ public class GenUtilsStrutsValidation {
 		if ( w.isRequired() ) {
 			String keyName = cp.getName() + "." + w.getName();
 			// i tipi DATA sono gestiti dal generatore come STRINGHE, e Calendar può essere solamente di tipo data
-			res += getRequiredStringValidator(GenUtils.getWidgetName(w), keyName, expandFieldName);
+			res += getRequiredStringValidator(GenUtils.getWidgetName(w, contextPrefix), keyName, expandFieldName);
 		}
 
 		// validation by rules
 		if ( !GenUtils.isNullOrEmpty(w.getDataTypeModifier()) ) {
-			res += applyValidationRule(w, cp, expandFieldName);
+			res += applyValidationRule(w, cp, expandFieldName, contextPrefix);
 		}
 
 		return res;
@@ -350,9 +350,9 @@ public class GenUtilsStrutsValidation {
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyValidationRule(DataWidget w, ContentPanel cp, boolean expandFieldName) {
+	public static String applyValidationRule(DataWidget w, ContentPanel cp, boolean expandFieldName, String contextPrefix) {
 		SimpleType type = (SimpleType)w.getDataType();
-		String fieldName = GenUtils.getWidgetName(w);
+		String fieldName = GenUtils.getWidgetName(w, contextPrefix);
 		String keyName = cp.getName() + "." + w.getName();
 		
 		return applyValidationRule(w.getDataTypeModifier(), type, fieldName, keyName, expandFieldName);
@@ -366,13 +366,13 @@ public class GenUtilsStrutsValidation {
 	 * @param cp Il ContentPanel che contiene il DataWidget da validare.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidationAnnotationTypedArray(DataWidget w, ContentPanel cp) {
+	public static String getWidgetValidationAnnotationTypedArray(DataWidget w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		boolean expandFieldName = true;
 		
 		// required validation
 		if ( w.isRequired() ) {
-			res += getRequiredValidator(GenUtils.getWidgetName(w), cp.getName() + "." + w.getName(), expandFieldName);
+			res += getRequiredValidator(GenUtils.getWidgetName(w, contextPrefix), cp.getName() + "." + w.getName(), expandFieldName);
 		}
 		
 		return res;

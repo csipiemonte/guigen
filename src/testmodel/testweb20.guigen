@@ -31,7 +31,7 @@
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
-              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets0">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:TextField" name="tfFloat" label="Campo di test float" defaultEnabled="false" dataType="//@typedefs/@types.11" fieldMaxLength="5">
                   <databinding appData="//@appDataDefs/@appData.1"/>
@@ -42,11 +42,17 @@
                 <widgets xsi:type="guigen:CheckBox" name="ckSi" label="Attivo?" dataType="//@typedefs/@types.9" required="true">
                   <databinding appData="//@appDataDefs/@appData.4"/>
                 </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:Table" name="tblComuni" label="" dataType="//@typedefs/@types.7" pageSize="3" customDecorator="true">
                   <eventHandlers skipValidation="true">
                     <command xsi:type="guigen:ExecCommand" methodName="onTableClick">
                       <results resultCode="REFRESH">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.3" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1"/>
+                        <command xsi:type="guigen:SequenceCommand">
+                          <commands xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@panels.0"/>
+                          <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
+                        </command>
                       </results>
                       <results resultCode="JUMP">
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
@@ -67,13 +73,37 @@
                     <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie"/>
                   </columnModel>
                 </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:MultiPanel" name="pMultiDettaglio">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <panels xsi:type="guigen:FormPanel" name="pDettaglio">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiDettaglio" label="Dettagli">
+                    <layout xsi:type="guigen:GridPanelLayout" columns="2" rows="2"/>
+                    <widgets xsi:type="guigen:PlainText" name="txtCodIstatDtl" label="codice Istat" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1"/>
+                      <databinding appData="//@appDataDefs/@appData.5" path="codIstat"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:PlainText" name="txtDenomDtl" label="denominazione" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="2"/>
+                      <databinding appData="//@appDataDefs/@appData.5" path="nome"/>
+                    </widgets>
+                    <widgets xsi:type="guigen:PlainText" name="txtCenniStoriciDtl" label="Cenni storici" dataType="//@typedefs/@types.7">
+                      <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="2"/>
+                      <databinding appData="//@appDataDefs/@appData.5" path="cenniStorici"/>
+                    </widgets>
+                  </subpanels>
+                </panels>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ComboBox" name="cbComuni" label="comuni" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
                   <databinding appData="//@appDataDefs/@appData.6"/>
                   <multiDataBinding appData="//@appDataDefs/@appData.3"/>
                 </widgets>
                 <widgets xsi:type="guigen:ComboBox" name="cbComuni2" label="comuni" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
                   <eventHandlers eventType="VALUE_CHANGED">
-                    <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.5" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
+                    <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
                   </eventHandlers>
                   <multiDataBinding appData="//@appDataDefs/@appData.3"/>
                 </widgets>
@@ -81,7 +111,7 @@
                   <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
                     <command xsi:type="guigen:ExecCommand" methodName="onRBClick">
                       <results resultCode="REFRESH">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.6" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1"/>
+                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.2" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
                       </results>
                       <results resultCode="JUMP">
                         <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
@@ -95,7 +125,7 @@
                   <eventHandlers skipValidation="true">
                     <command xsi:type="guigen:ExecCommand" methodName="onTreeClick">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.7" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1"/>
+                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.3" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -274,12 +304,6 @@
                 <widgets xsi:type="guigen:Calendar" name="calProva" label="Prova" dataType="//@typedefs/@types.3">
                   <databinding appData="//@appDataDefs/@appData.7"/>
                 </widgets>
-                <widgets xsi:type="guigen:Table" name="tblDecorata" label="Table decorata" dataType="//@typedefs/@types.7" customDecorator="true">
-                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
-                  <columnModel>
-                    <columns selector="codIstat" label="prova"/>
-                  </columnModel>
-                </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="bCmd" label="">
                 <widgets xsi:type="guigen:ConfirmButton" name="bUno" label="B UNO"/>
@@ -347,6 +371,7 @@
       <fields name="codViaPrincipale" type="//@typedefs/@types.7"/>
       <fields name="vie" type="//@typedefs/@types.33"/>
       <fields name="codVieAccesso" type="//@typedefs/@types.20"/>
+      <fields name="cenniStorici" type="//@typedefs/@types.7"/>
     </types>
     <types xsi:type="guigen:ComplexType" name="Via">
       <fields name="cod" type="//@typedefs/@types.7"/>
@@ -385,8 +410,6 @@
       <appData name="valTf2a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
     </groups>
   </appDataDefs>
-  <securityModel securityAppID="AAAA">
-    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
-  </securityModel>
+  <securityModel securityAppID="AAAA"/>
   <targetPlatform code="JBoss43" enableRichUIBehavior="true"/>
 </guigen:GUIModel>
