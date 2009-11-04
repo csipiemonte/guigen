@@ -63,3 +63,382 @@
 	}
 «ENDLET»
 «ENDDEFINE»
+
+
+«REM»STRUTTRA «ENDREM»
+
+«REM»richiamata dal template di definizione della classe Action per un dato 
+     content panel
+«ENDREM»
+«DEFINE actionStructureInit(GUIModel model) FOR ContentPanel»
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public ICommand initCommand(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
+		
+		«LET getAllEventSourceWidgets() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		// contiene i comandi del widget «((Widget)currEventSource).name» per ogni Ev.H.
+		HashMap<String, ICommand> cmds4«((Widget)currEventSource).name»ByEvh = 
+		  new HashMap<String, ICommand>();
+		«LET ((Widget)currEventSource).eventHandlers AS evhs»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«FOREACH evhs AS currEvh»
+		cmds4«((Widget)currEventSource).name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		«ENDFOREACH»
+		«ENDLET»
+		cmdsByWidget.put("«((Widget)currEventSource).name»",cmds4«((Widget)currEventSource).name»ByEvh);	
+		«ENDFOREACH»
+		return cmdsByWidget.get(sourceWidget).get(eventType);
+		«ELSE»
+		return new ICommand(){
+			public String doCommand(BaseAction strutsAction)throws Exception{
+			   return null;
+			}
+		};
+		«ENDIF»
+		«ENDLET»
+	}
+	
+	«LET getAllEventSourceWidgets() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		«LET ((Widget)currEventSource).eventHandlers AS evhs»
+		«FOREACH evhs AS currEvh»
+		public ICommand initCommand«((Widget)currEventSource).name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+((Widget)currEvh.eContainer).name, model) FOR currEvh»
+		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«((Widget)currEvh.eContainer).name»_1; 
+		return action;
+		}
+		«ENDFOREACH»
+		«ENDLET»	
+		«ENDFOREACH»
+		«ENDIF»
+	«ENDLET»
+	
+«ENDDEFINE»
+
+
+«DEFINE actionStructureInit1(GUIModel model) FOR Command»
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public ICommand initCommand() {
+		«EXPAND addActionCode("onInit",1, model) FOR this»
+		ICommand action = act_onInit_1; 
+		return action;
+	}
+	
+
+	
+«ENDDEFINE»
+
+«DEFINE actionStructureInit2(GUIModel model) FOR Command»
+    /**
+     * inizializza la struttura dei command da eseguire
+     */
+	public ICommand initOnRefreshCommand() {
+		«EXPAND addActionCode("onRefresh",1, model) FOR this»
+		ICommand action = act_onRefresh_1; 
+		return action;
+	}
+	
+
+	
+«ENDDEFINE»
+
+
+«DEFINE actionStructureInit(GUIModel model) FOR Menubar»
+    /**
+     * inizializza la struttura dei command da eseguire per ciascun event handler 
+     * di ciascun widget
+     */
+	public ICommand initCommand(String sourceWidget, String eventType) {
+		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
+		
+		«LET (List[Menu])getAllEventSourceMenus() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		// contiene i comandi del menu «currEventSource.name» per ogni Ev.H.
+		HashMap<String, ICommand> cmds4«currEventSource.name»ByEvh = 
+		  new HashMap<String, ICommand>();
+		«LET currEventSource.eventHandler AS evhs»
+		«REM»TODO prendere non solo il primo !!!«ENDREM»
+		«LET evhs AS currEvh»
+		cmds4«currEventSource.name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
+		«ENDLET»
+		«ENDLET»
+		cmdsByWidget.put("«currEventSource.name»",cmds4«currEventSource.name»ByEvh);	
+		«ENDFOREACH»
+		«ENDIF»
+		«ENDLET»
+		
+		
+		«IF getAllEventSourceMenus().size>0»
+		return cmdsByWidget.get(sourceWidget).get(eventType);
+		«ELSE»
+		return new ICommand(){
+			public String doCommand(BaseAction strutsAction){return null;}
+		};
+		«ENDIF»
+	}
+	
+	
+	«LET (List[Menu])getAllEventSourceMenus() AS eventSources»
+		«IF eventSources.size>0»
+		«FOREACH eventSources AS currEventSource»
+		«LET currEventSource.eventHandler AS evhs»
+		«LET evhs AS currEvh»
+		public ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model) FOR currEvh»
+		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
+		return action;
+		}
+		«ENDLET»
+		«ENDLET»	
+		«ENDFOREACH»
+		«ENDIF»
+	«ENDLET»
+	
+«ENDDEFINE»
+
+
+«DEFINE addActionsCode(String actionsVarName, GUIModel model) FOR EventHandler»
+    «LET this.command AS currAction»
+    «LET 1 AS actionNumber»
+    	«EXPAND addActionCode(actionsVarName,actionNumber, model) FOR currAction»
+    «ENDLET»
+    «ENDLET»
+    
+	ICommand [] «actionsVarName» = new ICommand[]{
+	«LET this.command AS currAct»
+		«LET 1 AS actionNumber»
+		act_«actionsVarName»_«actionNumber»
+		«ENDLET»
+	«ENDLET»
+	};
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR Command»
+«ERROR "Azione non supportata "+this»
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpCommand»
+	/// Jump Command begin
+	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage»"«findParentContentPanel(this).name»",true«ELSE»null,false«ENDIF»);
+	/// Jump Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR RefreshViewCommand»
+	/// Refresh Command begin
+	String [] act_«actionsVarName»_«actionNumber»_panels = new String[]{
+		«FOREACH targetPanels AS tp SEPARATOR ","-»
+		"«tp.name»"
+		«ENDFOREACH-»
+	};
+	String [] act_«actionsVarName»_«actionNumber»_widgets = new String[]{
+		«FOREACH targetWidgets AS tw SEPARATOR ","-»
+		"«tw.name»"
+		«ENDFOREACH-»
+	};
+	«LET findParentContentPanel() AS cp-»
+	«IF cp!=null»
+	RefreshViewCommand act_«actionsVarName»_«actionNumber» = new RefreshViewCommand(
+	"«cp.name»", act_«actionsVarName»_«actionNumber»_panels, act_«actionsVarName»_«actionNumber»_widgets
+	);
+	«ELSE-»
+	«ERROR "refresh view può essere collegata solo a un widget in un content panel"-»
+	«ENDIF»
+	«ENDLET-»
+	
+	/// Refresh Command end
+«ENDDEFINE»
+
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR NOPCommand»
+	/// NOP Command begin
+	NOPCommand act_«actionsVarName»_«actionNumber» = new NOPCommand();
+	/// NOP Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpExtCommand»
+	/// Jump Ext Command begin
+	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»");
+	/// Jump Ext Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ActivateMultiPanelItemCommand»
+	/// ActivateMultiPanelItem Command begin
+	ActivateMultiPanelItemCommand act_«actionsVarName»_«actionNumber» = 
+		new ActivateMultiPanelItemCommand("«this.findParentContentPanel().name»", "«this.multipanel.name»", "«this.activeItem.name»");
+	/// ActivateMultiPanelItem Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ShowDialogCommand»
+	// ShowDialog Command begin
+	ShowDialogCommand act_«actionsVarName»_«actionNumber» = new ShowDialogCommand("«this.dialog.name»");
+	// ShowDialog Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR JumpBackCommand»
+	//JumpBack Command begin
+	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand();
+	// JumpBack Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR SequenceCommand»
+	// SequenceCommand begin
+    «FOREACH commands AS currAct»
+    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct), model) FOR currAct»
+    «ENDFOREACH»
+    
+    ICommand [] act_«actionsVarName»_«actionNumber»_steps = new ICommand[]{
+    «FOREACH commands AS currAct»
+    act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	SequenceCommand act_«actionsVarName»_«actionNumber» = new SequenceCommand(act_«actionsVarName»_«actionNumber»_steps);
+	// SequenceCommand end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ONOFFCommand»
+	«LET findParentContentPanel().name AS containerName»
+	// ONOFF Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+    
+	OnOffCommand act_«actionsVarName»_«actionNumber» = new OnOffCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+	//ONOFF Command end
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ScreenStateCommand»
+	«LET findParentContentPanel() AS parentCP-»
+	«LET parentCP.name AS containerName-»
+	// Screen State Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_on = new String[]{
+    «FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«currWidgOn.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_off = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«((Widget)currWidgOff).name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_show = new String[]{
+    «FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«currWidgVisible.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] act_«actionsVarName»_«actionNumber»_hide = new String[]{
+    «FOREACH parentCP.findAllWidgetsInContentPanel().select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«((Widget)currWidgHidden).name»"
+    «ENDFOREACH-»
+    };
+    
+	ScreenStateCommand act_«actionsVarName»_«actionNumber» = new ScreenStateCommand(
+	    «LET goTo!=null ? goTo.name : "??" AS stateName-»
+		"«containerName»","«stateName»", 
+		act_«actionsVarName»_«actionNumber»_on,
+		act_«actionsVarName»_«actionNumber»_off,
+		act_«actionsVarName»_«actionNumber»_show,
+		act_«actionsVarName»_«actionNumber»_hide);
+		«ENDLET-»
+	//Screen State Command end
+	«ENDLET-»
+	«ENDLET-»
+«ENDDEFINE»
+
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR VisibilityCommand»
+	«LET findParentContentPanel().name AS containerName»
+	// VisibilityCommand begin
+	//prepara i nomi dei componenti target da mostrare/nascondere
+    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    «FOREACH this.targetWidgets AS currWidg»
+    "«currWidg.name»"«IF currWidg!=targetWidgets.last()»,«ENDIF»
+    «ENDFOREACH»
+    };
+	VisibilityCommand act_«actionsVarName»_«actionNumber» = new VisibilityCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+	// Visibility Command end
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model) FOR ExecCommand»
+	// ExecCommand begin
+    String [] resultNames4«methodName»=new String []{
+      «FOREACH this.results AS currRes»
+      "«currRes.resultCode»"«IF currRes!=results.last()»,«ENDIF»
+      «ENDFOREACH»
+    };
+    
+    ICommand [] actionsForResults4«methodName» = new ICommand[«this.results.size»];
+    «FOREACH results AS currRes»
+    «EXPAND addActionCode(actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action",results.indexOf(currRes),model) FOR currRes.command»
+    actionsForResults4«methodName»[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action_"+results.indexOf(currRes)»;
+    «ENDFOREACH»
+    
+    
+	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«methodName», actionsForResults4«methodName»){
+		public ExecResults doLogic(Object theModel) throws Exception{
+		
+			«LET findParentContentPanel(this) AS parentCP»
+			«IF parentCP != null»
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
+			«ELSEIF isInMenuBranch(this)»
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, true, false, model)»)theModel);
+			«ELSE»
+			return getSpringBackEnd().«this.methodName»((«getModelDTOFQN(null, false, true, model)»)theModel);
+			«ENDIF»
+			«ENDLET»
+		
+		}
+		
+		public void storeAppData(ExecResults res, BaseAction strutsAction){
+			// cast della action al tipo specifico per poter utilizzare direttamente
+			// le property
+			«LET findParentContentPanel(this) AS parentCP»
+			«IF parentCP != null»
+			«getStrutsActionClassName(findParentContentPanel(this))» specificAction = 
+			  («getStrutsActionClassName(findParentContentPanel(this))») strutsAction;
+			«ELSEIF this.eContainer.metaType == ApplicationArea»
+			«getStrutsHomeClassName(model)» specificAction = 
+			  («getStrutsHomeClassName(model)») strutsAction;
+			«ELSE»
+			«getStrutsMenuClassName(model)» specificAction = 
+			  («getStrutsMenuClassName(model)») strutsAction;
+			«ENDIF»
+			«ENDLET»
+			
+			  
+		«FOREACH this.postExecData AS currAppData»
+			// store del dato «currAppData.name»
+			//«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
+			//	(«toJavaType(currAppData.type,model)»)res.get«getAppDataPropertyName(currAppData).toFirstUpper()»();
+			// il dato «currAppData.name» e' salvato in un attributo della action corrente
+			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
+			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
+			// il dato «currAppData.name» e' salvato in sessione
+			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
+			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::SAME_PAGE»
+			// il dato «currAppData.name» e' salvato temporaneamente in sessione
+			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
+			«ENDIF»
+		«ENDFOREACH»
+		}
+	};
+	// Exec Action end
+«ENDDEFINE»

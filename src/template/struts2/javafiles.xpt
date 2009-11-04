@@ -553,7 +553,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
 	}
 	
-    «EXPAND actionImplJavaFiles::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    «EXPAND eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
     
     
    	/**
@@ -658,7 +658,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 	«IF onInitAction != null»
-    «EXPAND actionImplJavaFiles::actionStructureInit1(this) FOR onInitAction»
+    «EXPAND eventHandlers::actionStructureInit1(this) FOR onInitAction»
     «ENDIF»
 	«ENDLET»
 }
@@ -921,7 +921,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
-    «EXPAND actionImplJavaFiles::actionStructureInit2(model) FOR onRefreshAction»
+    «EXPAND eventHandlers::actionStructureInit2(model) FOR onRefreshAction»
     «ENDIF»
 	«ENDLET»
 	
@@ -969,7 +969,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 }
 
 	«REM»Espande la struttura della InitAction«ENDREM»
-    «EXPAND actionImplJavaFiles::actionStructureInit(model) FOR this»
+    «EXPAND eventHandlers::actionStructureInit(model) FOR this»
     
     @SkipValidation
     public String handleChangeTab() throws Exception {
