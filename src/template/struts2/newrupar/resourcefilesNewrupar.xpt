@@ -29,7 +29,7 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«IF leftPanels != null && leftPanels.size > 0-»
 	<div class="formPanel floatLeft">
 	«FOREACH leftPanels AS currSubformLeft-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformLeft»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformLeft»
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»
@@ -38,7 +38,7 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«IF centerPanels != null && centerPanels.size > 0-»
 	<div class="formPanel floatCenter">
 	«FOREACH centerPanels AS currSubformCenter-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformCenter»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformCenter»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF-»	
@@ -47,7 +47,7 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 	«IF rightPanels != null && rightPanels.size > 0-»
 	<div class="formPanel floatRight">
 	«FOREACH rightPanels AS currSubformRight-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformRight»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix) FOR currSubformRight»
 	«ENDFOREACH-»	
 	</div>
 	«ENDIF-»	
@@ -80,7 +80,7 @@ Gestione dei Widget
 «REM»Crea i Widgets contenuti in un CommandPanel con HorizontalFlowPanelLayout.«ENDREM»
 «DEFINE createWidgetsForHorizontalLayout(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
 	«FOREACH this.widgets AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (Button)currWidg»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (Button)currWidg»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
@@ -93,7 +93,7 @@ Gestione dei Widget
 	«IF leftButtons != null && leftButtons.size > 0»
 	<div class="button left">
 	«FOREACH leftButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF»
@@ -104,7 +104,7 @@ Gestione dei Widget
 	«IF centerButtons != null && centerButtons.size > 0»
 	<div class="button center">
 	«FOREACH centerButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF»
@@ -115,7 +115,7 @@ Gestione dei Widget
 	«IF rightButtons != null && rightButtons.size > 0»
 	<div class="button right">
 	«FOREACH rightButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR currWidg»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF»
@@ -126,7 +126,7 @@ Gestione dei Widget
 	«IF otherWidgets != null && otherWidgets.size > 0»
 	<div class="hidden">
 	«FOREACH otherWidgets AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (Button)currWidg»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix) FOR (Button)currWidg»
 	«ENDFOREACH-»
 	</div>
 	«ENDIF»

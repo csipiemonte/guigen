@@ -546,7 +546,12 @@ String getFullID(Widget w, String contextPrefix) :
 
 String getFullID(Panel p, String contextPrefix) :
 	contextPrefix == null || contextPrefix.length==0 ? p.name : contextPrefix+p.name;
-	
+
+String getFullExecCmdMethodName(String methodName, String contextPrefix) :
+	contextPrefix!=null && contextPrefix.length>0 ? 
+	contextPrefix+methodName.toFirstUpper() :
+	methodName;
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
@@ -574,6 +579,9 @@ List getAllPossibleExtJumps(Menu m) : JAVA
 List getAllPossibleExtJumps(Command a) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleExtJumps(it.csi.mddtools.guigen.Command);
 
+JumpExtCommand getAdjustedJumpExtCommand(JumpExtCommand jec) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getAdjustedJumpExtCommand(it.csi.mddtools.guigen.JumpExtCommand);
+	
 List getAllPossibleShowDialogs(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleShowDialogs(it.csi.mddtools.guigen.ContentPanel);
 

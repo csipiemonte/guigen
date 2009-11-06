@@ -410,7 +410,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 
 «REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
+«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
@@ -442,7 +442,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 
 «REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
+«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
 «ENDDEFINE»
@@ -482,7 +482,7 @@ Gestione dei PANNELLI
 		</s:if>
 		<s:else>
 			«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher»
         	«ENDIF-»
 			<s:submit name="«switcher.name»"
           	cssClass="tabnosel"
@@ -490,7 +490,7 @@ Gestione dei PANNELLI
             method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
             key="«cp.name».«getFullID(currTab, contextPrefix)».label" />
             «IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::richFeatures::ajaxifyControlFooter FOR this.switcher»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher»
         	«ENDIF-»
 		</s:else>
 		«ELSE»

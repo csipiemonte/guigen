@@ -462,7 +462,7 @@ Gestione dei PANNELLI
 		«ENDIF-»
 
 		«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix) FOR this»
 
 	</div>
 	<!-- ============ FINE COLONNA UNICA ============ -->
@@ -499,7 +499,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
 		<!-- ***** UDLRC Layout: UP PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP, contextPrefix) FOR upPanel»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::UP, contextPrefix) FOR upPanel»
 		<!-- ***** FINE UDLRC Layout: UP PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»
@@ -514,7 +514,7 @@ Gestione dei PANNELLI
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanel-»
 		«LET centerPanel.metaType == TabSetPanel ? true : false AS expLay-»
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER, contextPrefix) FOR centerPanel»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, expLay, UDLRCSpecConstants::CENTER, contextPrefix) FOR centerPanel»
 		«ENDLET-»
 		«ENDLET-»
 		<!-- ***** FINE UDLRC Layout: CENTER PANEL ***** -->
@@ -523,7 +523,7 @@ Gestione dei PANNELLI
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::DOWN) AS downPanel-»
 		«IF downPanel != null -»
 		<!-- ***** UDLRC Layout: DOWN PANEL ***** -->
-		«EXPAND template::struts2::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN, contextPrefix) FOR downPanel»
+		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::DOWN, contextPrefix) FOR downPanel»
 		<!-- ***** FINE UDLRC Layout: DOWN PANEL ***** -->
 		«ENDIF-»
 		«ENDLET-»

@@ -1284,21 +1284,32 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(JumpExtCommand a) {
 		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
-		if ( a.getRuntimeUrlProvider() != null ) {
-			String s = "${";
-			s+=getAppDataKey(a.getRuntimeUrlProvider());
-			s+="}";
-			JumpExtCommand currJD = GuigenFactory.eINSTANCE.createJumpExtCommand();
-			currJD.setLocationCode(a.getLocationCode());
-			currJD.setStaticUrl(s);
-			ris.add(currJD);
-		}
-		else {
-			ris.add(a);
-		}
+		ris.add(getAdjustedJumpExtCommand(a));
 		return ris;
 	}
 
+	/**
+	 * Restituisce una nuova istanza di JumpExtCommand nella quale lo static url 
+	 * viene sovrascritto con il codice di accesso al runtime url provider, se 
+	 * presente 
+	 * @param jec
+	 * @return
+	 */
+	public static JumpExtCommand getAdjustedJumpExtCommand(JumpExtCommand jec){
+		if ( jec.getRuntimeUrlProvider() != null ) {
+			String s = "${";
+			s+=getAppDataKey(jec.getRuntimeUrlProvider());
+			s+="}";
+			JumpExtCommand currJD = GuigenFactory.eINSTANCE.createJumpExtCommand();
+			currJD.setLocationCode(jec.getLocationCode());
+			currJD.setStaticUrl(s);
+			return currJD;
+		}
+		else {
+			return jec;
+		}
+	}
+	
 	/**
 	 *
 	 * @param a

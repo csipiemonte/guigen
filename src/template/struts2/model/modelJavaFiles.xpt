@@ -491,17 +491,17 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND actionImplJavaFiles::storedAppDataProperties(model, false) FOR this»
+	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model, false) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////
-	«EXPAND actionImplJavaFiles::widgetsProperties(model, false) FOR this»
+	«EXPAND template::struts2::actionImplJavaFiles::widgetsProperties(model, false) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// ulteriori campi comuni 
 	////////////////////////////////////////////////////////////////////
-	«EXPAND actionImplJavaFiles::commonProperties FOR this»
+	«EXPAND template::struts2::actionImplJavaFiles::commonProperties FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -524,7 +524,7 @@ public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAw
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this»
+	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model) FOR this»
 	
 
 }
@@ -549,7 +549,7 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 	/// application data
 	////////////////////////////////////////////////////////////////////
 	«IF onInitCommand!=null»
-	«EXPAND actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitCommand»
+	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitCommand»
 	«ENDIF»
 	
 

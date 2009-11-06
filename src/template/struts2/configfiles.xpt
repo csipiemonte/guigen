@@ -576,19 +576,15 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<result name="input">«getStrutsActionJspConfigName(this)»</result>
 	<result name="success">«getStrutsActionJspConfigName(this)»</result>
 	
+	«REM»STDMDD-360: nel PanelDef non ci possono essere JumpCommand«ENDREM»
 	«LET (List[ContentPanel])getAllPossibleJumps(this) AS allJumps-»
 	«FOREACH allJumps AS currJump-»
 	<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
 	«ENDFOREACH-»
 	«ENDLET-»
 	
-	«LET (List[JumpExtCommand])getAllPossibleExtJumps(this) AS allExtJumps-»
-	«FOREACH allExtJumps AS currExtJump-»
-	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
-		<param name="location">«currExtJump.staticUrl»</param>
-	</result>
-	«ENDFOREACH-»
-	«ENDLET-»
+	«REM»STDMDD-360: nel PanelDef ci possono essere JumpExtCommand«ENDREM»
+	«EXPAND jumpExtResults(model) FOR this-»
 	
 	«REM»
 	«LET (List[RefreshViewCommand])getAllPossibleRefreshView(this) AS allRefresh-»
@@ -607,6 +603,96 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	«ENDLET-»	
 </action>
 «ENDDEFINE»
+
+
+«REM»STDMDD-360: aggiunmta ricorsione per gestire i JumpExtCMD anche su PanelDef. Serve ad es. per 
+cose tipo la "todo list"«ENDREM»
+«DEFINE jumpExtResults(GUIModel model) FOR ContentPanel-»
+	«EXPAND jumpExtResults(model, this, "") FOR this.panels-»
+	«EXPAND jumpExtResults(model, this, "") FOREACH this.dialogs-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH subpanels-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+	«IF switcher!=null-»
+		«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.switcher-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
+	«REM»«IF switcher!=null-»
+		«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.switcher-»
+	«ENDIF-»«ENDREM»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR commands-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR command-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
+	«LET getAdjustedJumpExtCommand(this) AS currExtJump-»
+	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
+		<param name="location">«currExtJump.staticUrl»</param>
+	</result>
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.results-»
+«ENDDEFINE»
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandOutcome-»
+	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.command-»
+«ENDDEFINE»
+
+
+«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
+		«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH commands-»
+«ENDDEFINE»
+
+
+
+
 
 
 «REM»Genera il file di Struts per la registrazione dei validatori custom«ENDREM»
@@ -777,6 +863,6 @@ export.rtf.filename=Export.rtf
 save.excel.filename=export.xls
 
 «REM»Proprietà della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)«ENDREM»
-«EXPAND remoteResources::displayTagConfigurationFile FOR this-»
+«EXPAND template::struts2::view::remoteResources::displayTagConfigurationFile FOR this-»
 «ENDFILE»
 «ENDDEFINE»

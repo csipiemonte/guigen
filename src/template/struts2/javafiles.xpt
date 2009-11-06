@@ -15,9 +15,9 @@
 	«EXPAND struts2HomeJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND struts2LogoutJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND sessionListenerJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::actionCommands::actionImplClasses FOR this»
-	«EXPAND template::struts2::modelJavaFiles::modelClasses FOR this»
-	«EXPAND template::struts2::modelJavaFiles::springBEClasses FOR this»
+	«EXPAND template::struts2::controller::actionCommands::actionImplClasses FOR this»
+	«EXPAND template::struts2::model::modelJavaFiles::modelClasses FOR this»
+	«EXPAND template::struts2::model::modelJavaFiles::springBEClasses FOR this»
 	«EXPAND strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND strutsCustomDecoratorsJavaFiles(skip_component_dir_creation) FOR this»
 	«EXPAND security::securityJavaFiles(skip_component_dir_creation) FOR this»
@@ -553,7 +553,7 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
 	}
 	
-    «EXPAND eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
     
     
    	/**
@@ -658,7 +658,7 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 
 	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
 	«IF onInitAction != null»
-    «EXPAND eventHandlers::actionStructureInit1(this) FOR onInitAction»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit1(this) FOR onInitAction»
     «ENDIF»
 	«ENDLET»
 }
@@ -853,7 +853,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
 	«FOREACH currTabSet.panels AS currTab-»
-		«EXPAND template::struts2::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
+		«EXPAND template::struts2::controller::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
 	«ENDFOREACH-»
 	«ENDLET-»
 	«ENDFOREACH-»
@@ -871,7 +871,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«LET (Widget)currEventSource AS currEventWidget»
 	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
 	«FOREACH currEventWidget.eventHandlers AS currEventHandler»
-		«EXPAND template::struts2::eventHandlers::handlerMethod(currEventWidget, this, "") FOR currEventHandler»
+		«EXPAND template::struts2::controller::eventHandlers::handlerMethod(currEventWidget, this, "") FOR currEventHandler»
 	«ENDFOREACH»
 	«ENDLET»
 	«ENDFOREACH»
@@ -921,7 +921,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	«LET this.onRefreshCommand AS onRefreshAction»
 	«IF onRefreshAction != null»
-    «EXPAND eventHandlers::actionStructureInit2(model) FOR onRefreshAction»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR onRefreshAction»
     «ENDIF»
 	«ENDLET»
 	
@@ -969,7 +969,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 }
 
 	«REM»Espande la struttura della InitAction«ENDREM»
-    «EXPAND eventHandlers::actionStructureInit(model) FOR this»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
     
     @SkipValidation
     public String handleChangeTab() throws Exception {
