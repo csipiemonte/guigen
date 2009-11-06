@@ -181,7 +181,7 @@
 	</context-param>
 
 «IF this.securityModel.autenticationMethod!=null»
-	«EXPAND security::securityRelatedContextParams(this) FOR this.securityModel.autenticationMethod»
+	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR this.securityModel.autenticationMethod»
 «ENDIF»
 
 	<listener>
@@ -212,7 +212,7 @@
 	</filter-mapping>
 	
 «IF this.securityModel.autenticationMethod!=null»
-	«EXPAND security::authenticationFilterDefAndMapping(this) FOR this.securityModel.autenticationMethod»
+	«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR this.securityModel.autenticationMethod»
 «ENDIF»
 	<filter-mapping>
 		<filter-name>ResponseOverrideFilter</filter-name>

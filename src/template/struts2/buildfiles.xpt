@@ -239,8 +239,8 @@ ANT FILES
     <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@"  value="${remincl.resource.provider}"/>
 	«IF this.securityModel.autenticationMethod!=null-»
-		«EXPAND security::envConfigForAuthentication(this) FOR this.securityModel.autenticationMethod-»
-		«EXPAND security::envConfigForAuthorization(this) FOR this.securityModel-»
+		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR this.securityModel-»
 	«ENDIF-»
 
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
@@ -610,8 +610,8 @@ nome.ambiente=<ambiente>
 remincl.resource.provider=«getReminclResourceProvider(this)»
 
 «IF this.securityModel.autenticationMethod!=null-»
-«EXPAND security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»
-«EXPAND security::templatePropsForAuthorization(this) FOR this.securityModel-»
+«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR this.securityModel-»
 «ENDIF-»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
@@ -685,11 +685,11 @@ IVY FILES (gestione delle dipendenze)
 		«EXPAND strutsThemeIvy FOR this»
 
 		«IF this.securityModel.autenticationMethod!=null-»
-		«EXPAND security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
 		«ENDIF-»
 
 		«IF this.securityModel!=null-»
-		«EXPAND security::ivyDependenciesForAuthorization(this) FOR this.securityModel-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR this.securityModel-»
 		«ENDIF-»
 
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
