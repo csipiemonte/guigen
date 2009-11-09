@@ -3,6 +3,188 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 
+«DEFINE springBEClasses FOR GUIModel-»
+«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this)-»
+
+«FILE getSpringBEJavaFile()»
+package «getBaseJavaPackage()».business;
+
+import java.util.*;
+
+import «getDTOBaseJavaPackage()».*;
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEImports")»
+
+«ENDPROTECT»
+
+public class «getSpringBEClassName()»{
+
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	
+    //////////////////////////////////////////////////////////////////////////////
+	/// Costanti identificative degli Application Data
+	//////////////////////////////////////////////////////////////////////////////
+    «FOREACH (List[ApplicationData])getAllApplicationData(this) AS currAD»
+    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    «ENDFOREACH» 
+   
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi associati alla U.I.
+	/// - i metodi relativi a menu e azioni di inizializzazione sono direttamente 
+	///   implementati in questa classe
+	/// - i metodi relativi ai singoli content panel sono delegati nei rispettivi
+	///   bean
+	//////////////////////////////////////////////////////////////////////////////
+	«EXPAND template::struts2::model::businessLogic::springBEMethodsDelegation FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property relative ai bean spring associati agli specifici content panel
+	//////////////////////////////////////////////////////////////////////////////
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+	
+	private «getSpringCPBEFQN(currCP)» _«getSpringCPBEClassName(currCP)» = null;
+	
+	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEFQN(currCP)» bean){
+		_«getSpringCPBEClassName(currCP)» = bean;
+	}
+	
+	public «getSpringCPBEFQN(currCP)» get«getSpringCPBEClassName(currCP)»(){
+		return _«getSpringCPBEClassName(currCP)»;
+	}
+	«ENDFOREACH-»
+	
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+
+«FILE getSpringBEExcJavaFile()»package «getBaseJavaPackage()».business;
+
+/**
+ * Eccezione rilanciata dallo strato spring nel caso in cui la condizione di 
+ * errore non sia gestita attraverso un outcome_code e corrispondenti messaggi.
+ * Serve per gestire situazioni non recuperabili o impreviste
+ */
+public class «getSpringBEExcClassName()» extends Exception {
+	public «getSpringBEExcClassName()»(String msg, Throwable nested) {
+		super(msg, nested);
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»bean spring associato alla logica del singolo pannello«ENDREM»
+«DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanel»
+«FILE getSpringCPBEJavaFile(model,this)»
+package «getBaseJavaPackage(model)».business«getAppModuleAsPkg(this,true,false)»;
+
+import java.util.*;
+
+import «getDTOBaseJavaPackage(model)».*;
+«EXPAND template::struts2::model::modelJavaFiles::importAllNamespaces(model) FOR model.typedefs»
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage(model)».util.*;
+import «getBaseJavaPackage(model)».business.*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
+
+«ENDPROTECT»
+
+public class «getSpringCPBEClassName()»{
+
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
+	
+    //////////////////////////////////////////////////////////////////////////////
+	/// Costanti identificative degli Application Data
+	//////////////////////////////////////////////////////////////////////////////
+    «FOREACH this.appData AS currAD»
+    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
+    «ENDFOREACH» 
+   
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi associati alla U.I.
+	//////////////////////////////////////////////////////////////////////////////
+	
+	// nome del content panel associato al bean
+	public final static String CPNAME = "«name»"; 
+	
+	«EXPAND template::struts2::model::tabSetUtils::tabSetUtils(model) FOR this-»
+	
+	«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR this»
+	
+	«REM»[DM] gestione del reset delle tabelle«ENDREM»
+	«IF hasTable(this)»
+	«EXPAND resetTableMethods FOR this»
+	«ENDIF»
+	
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"SpringBEProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»[DM] metodi statici per il reset delle tabelle (non bello... ma così è...)«ENDREM»
+«DEFINE resetTableMethods FOR ContentPanel»
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi statici per il reset delle tabelle
+	//////////////////////////////////////////////////////////////////////////////
+	
+	«EXPAND resetTableMethods("") FOR this.panels»
+	  
+«ENDDEFINE»
+
+«REM»implementazione di default per i casi non da gestire«ENDREM»
+«DEFINE resetTableMethods(String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR FormPanel»
+	«EXPAND resetTableMethods(contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR MultiPanel»
+	«EXPAND resetTableMethods(contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR PanelDefUse»
+	«EXPAND resetTableMethods(getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE resetTableMethods(String contextPrefix) FOR WidgetsPanel»
+	«FOREACH this.widgets.typeSelect(Table) AS currTable»
+    	«EXPAND resetTableMethod(contextPrefix) FOR currTable-»
+    «ENDFOREACH»
+«ENDDEFINE»
+
+
+
+«DEFINE resetTableMethod(String contextPrefix) FOR Table»
+	public static void resetClearStatus_«getWidgetName(this, contextPrefix)»(java.util.Map session) {
+    	session.put("«this.name»_«getFullID(this, contextPrefix)»_clearStatus", new Boolean(true));
+    }
+«ENDDEFINE»
+
+
 «REM»inserisce i metodi della classe BEFacade«ENDREM»
 «DEFINE springBEMethodsDelegation FOR GUIModel-»
 	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
