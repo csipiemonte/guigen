@@ -1,0 +1,55 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM DECORATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+«DEFINE strutsCustomDecoratorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+
+	«REM»Validatori custom definiti dal generatore«ENDREM»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP»
+		«LET findAllWidgetsInContentPanel(currCP).typeSelect(Table) AS allTables»
+			«EXPAND tableDecoratorJavaFile(this) FOREACH allTables»
+		«ENDLET»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE tableDecoratorJavaFile(GUIModel model) FOR Table»
+«IF customDecorator»
+«FILE getTableDecoratorJavaFile(model, this)»package «getPresentationRootJavaPackage(model)+".decorator"+getAppModuleAsPkg(findParentContentPanel(this),true,false)»;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.import")»
+/// inserire qui eventuali import aggiuntive
+«ENDPROTECT»
+
+import org.displaytag.decorator.TableDecorator;
+
+public class «getTableDecoratorClassName(this)» extends TableDecorator {
+
+	
+	public «getTableDecoratorClassName(this)»() {
+		super();
+		
+	}
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTableDecoratorClassName(this)+"Decorator.body")»
+    /// Questo spazio e' destinato alla definizione del Decorator.
+    /// La documentazione sull'utilizzo dei decoratori della display tag e' disponibile all'url:
+    /// http://displaytag.sourceforge.net/1.2  
+«ENDPROTECT»
+
+}
+
+«ENDFILE»
+«ENDIF»
+«ENDDEFINE»
+
+
+
+

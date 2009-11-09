@@ -1,0 +1,149 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera una Action Struts2 per mappare il menu.«ENDREM»
+«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import com.opensymphony.xwork2.validator.annotations.*;
+
+import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
+
+/**
+ * «getStrutsMenuClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+@Validation()
+public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
+	
+	
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(null, true, false, this)».class;
+	}
+	 
+	/**
+	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
+	 */
+	@SkipValidation
+	public String execute() throws Exception {
+		return SUCCESS;
+	}
+
+	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
+		«IF tlmenu.eventHandler!=null»
+	/**
+	 * 
+	 * @return SUCCESS result.
+	 */
+	public String goTo«tlmenu.name.toFirstUpper()»() throws Exception{
+	    
+		// gestione degli eventi di tipo CLICKED
+		ICommand action = initCommand("«tlmenu.name»","CLICKED");
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning result [" + result + "]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return result;
+		} else {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+			}
+			setActiveMenu("«tlmenu.name»");
+			return SUCCESS;
+		}
+	}		
+		«ENDIF»
+		
+		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu»
+		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED»
+		«LET currMenu.eventHandler.command AS currAction»
+	/**
+	 * 
+	 * @return SUCCESS result.
+	 */
+	public String goTo«currMenu.name.toFirstUpper()»() throws Exception{
+	    
+		// gestione degli eventi di tipo CLICKED
+		ICommand action = initCommand("«currMenu.name»","CLICKED");
+		String result = action.doCommand(this);
+		if (result != null) {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning result [" + result + "]");
+			}
+			setActiveMenu("«currMenu.name»");
+			return result;
+		} else {
+			if (log.isDebugEnabled()){
+				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+			}
+			setActiveMenu("«currMenu.name»");
+			return SUCCESS;
+		}
+	}
+
+		«ENDLET»
+		«ENDIF»
+		«ENDFOREACH»		
+		
+		
+	«ENDFOREACH»
+
+    public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
+    
+	public void setActiveMenu(String menuName){
+		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
+	}
+	
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    
+    
+   	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsMenuClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+    
+    /**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(){
+	 	// non sapendo quale content panel si sta abbandonando vengono rimossi tutti
+	 	// gli appdata a scope PAGE
+	 	«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAD»
+	 	getSession().remove("«getAppDataKey(currAD)»");
+	 	«ENDFOREACH»
+	 }
+}
+«ENDFILE»
+«ENDDEFINE»

@@ -203,7 +203,7 @@ public class «getSpringCPBEClassName()»{
 	// nome del content panel associato al bean
 	public final static String CPNAME = "«name»"; 
 	
-	«EXPAND tabSetUtils(model) FOR this-»
+	«EXPAND template::struts2::model::tabSetUtils::tabSetUtils(model) FOR this-»
 	
 	«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR this»
 	
@@ -222,28 +222,6 @@ public class «getSpringCPBEClassName()»{
 }
 
 «ENDFILE»
-«ENDDEFINE»
-
-«DEFINE tabSetUtils(GUIModel model) FOR ContentPanel-»
-«LET getAllTabSets() AS allTabSets-»
-«FOREACH allTabSets AS currTabSet-»
-	public final static String TABSET_«currTabSet.name.toUpperCase()» = "«currTabSet.name»";
-	«FOREACH currTabSet.panels AS currTab-»
-	public final static String TAB_«currTabSet.name.toUpperCase()»_«currTab.name.toUpperCase()» = 
-		CPNAME+"_"+TABSET_«currTabSet.name.toUpperCase()»+"_"+"«currTab.name»";
-	«ENDFOREACH-»
-	
-«ENDFOREACH-»
-
-	/** 
-	 * Restituisce il tab correntemente visibile in un determinato tab set
-	 */
-    private String getCurrentTab(Map session, String tabSetName){
-		String value = (String)session.get(CPNAME+"_"+tabSetName+"_selectedMultiPanel");
-		return value;
-	}
-	
-«ENDLET-»
 «ENDDEFINE»
 
 

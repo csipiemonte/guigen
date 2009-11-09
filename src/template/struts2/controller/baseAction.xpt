@@ -1,0 +1,417 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»
+Genera una Base Action Struts2 che contiene gli elementi comuni all'applicazione.
+Tutte le altre Action dell'applicazione dovranno ereditare da questa
+in modo da ottenere le parti comuni, e dovranno implementare in proprio
+le funzionalità specifiche della pagina.
+«ENDREM»
+«DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+
+import org.apache.log4j.Logger;
+import com.opensymphony.xwork2.Preparable;
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+import «getBaseJavaPackage(this)».util.*;
+import «getDTOBaseJavaPackage(this)».*;
+import «getBaseJavaPackage()».business.*;
+
+import «getSecurityJavaPackage(this)».*;
+
+/**
+ * Base Action che contiene gli elementi comuni all'applicazione.
+ * Tutte le altre Action dell'applicazione dovranno ereditare da questa
+ * in modo da ottenere le parti comuni, e dovranno implementare in proprio
+ * le funzionalit&agrave; specifiche della pagina.
+ * <p/>
+ * La classe eredita da {@link com.opensymphony.xwork2.ActionSupport} i
+ * metodi di utilit&agrave; necessari ad eseguire le principali operazioni
+ * (ad esempio conversione, validazione, ecc...) ed implementa l'interfaccia
+ * {@link org.apache.struts2.interceptor.SessionAware}, che permette
+ * alla Action di accedere alla sessione. 
+ * 
+ * @author GuiGen
+ */
+public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware, Preparable {
+
+	/**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
+
+	/** Riferimento alla sessione corrente */
+	protected Map session;
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public Map getSession() {
+		return this.session;
+	}
+
+	
+	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
+	protected Map<String, UISecConstraint> allMenuOnOffConstraints = null;
+	
+	
+	
+	public void prepare() throws Exception{
+	
+		«IF this.securityModel!=null»
+	    // caricamento struttura di constraints
+	    if (allMenuVisibilityConstraints==null)
+	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
+	    if (allMenuOnOffConstraints==null)
+	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
+	
+		«ENDIF»
+	}
+	
+    ////////////////////////////////////////////////////////////////////////
+    //// costruzione/lettura strato model da passare allo strato di logica
+    ////////////////////////////////////////////////////////////////////////
+    public abstract Class modelClass();
+    
+	private java.lang.reflect.Method findReadMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getReadMethod();
+		}
+		return null;
+	}
+
+	private java.lang.reflect.Method findWriteMethod(String name, Class cl)
+			throws IntrospectionException {
+		name=(name.startsWith("get")||name.startsWith("set") ? name.substring(3)
+			:
+			name.startsWith("is")? name.substring(2) : name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getWriteMethod();
+		}
+		return null;
+	}
+
+	public Object toModel() {
+		try {
+			Object modelObj = modelClass().newInstance();
+			// imposto prima di tutto la session per evitare errori nei setter
+			// degli oggetti a scope Session
+			((BaseSessionAwareDTO)modelObj).setSession(this.getSession());
+			BeanInfo targetBI = java.beans.Introspector
+					.getBeanInfo(modelClass());
+			PropertyDescriptor[] targetPds = targetBI.getPropertyDescriptors();
+			for (int i = 0; i < targetPds.length; i++) {
+				PropertyDescriptor currTargetPD = targetPds[i];
+				java.lang.reflect.Method srcReadMethod = findReadMethod(currTargetPD.getReadMethod().getName(),this.getClass());
+				if (srcReadMethod != null) {
+					Object srcVal = srcReadMethod.invoke(this, new Object[]{});
+					java.lang.reflect.Method currWriteMethod = currTargetPD.getWriteMethod();
+					if (currWriteMethod!=null){
+						currTargetPD.getWriteMethod().invoke(modelObj,
+								new Object[]{srcVal});
+					}
+				}
+			}
+			return modelObj;
+		} catch (Exception e) {
+			log.error("[«getStrutsBaseActionClassName(this)»::toModel] Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e, e);
+			throw new IllegalArgumentException(
+					"Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+
+		}
+	}
+    
+    public void fromModel(Object modelObj) {
+		try {
+			BeanInfo srcBI = java.beans.Introspector.getBeanInfo(modelClass());
+			PropertyDescriptor[] srcPds = srcBI.getPropertyDescriptors();
+			for (int i = 0; i < srcPds.length; i++) {
+				PropertyDescriptor currSrcPD = srcPds[i];
+				java.lang.reflect.Method srcReadMethod = currSrcPD
+						.getReadMethod();
+				if (srcReadMethod != null) {
+					Object srcVal = srcReadMethod.invoke(modelObj,
+							new Object[]{});
+					java.lang.reflect.Method targetWriteMethod = findWriteMethod(
+							currSrcPD.getReadMethod().getName(), this
+									.getClass());
+					if (targetWriteMethod!=null){
+						targetWriteMethod.invoke(this, new Object[]{srcVal});
+					}
+				}
+			}
+		} catch (Exception e) {
+			log.error("[«getStrutsBaseActionClassName(this)»::fromModel] Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e, e);
+			throw new IllegalArgumentException(
+					"Errore interno nella costruzione del modello, classe:"
+							+ modelClass() + ": " + e);
+
+		}
+	}
+    
+    
+	///////////////////////////////////
+	/**
+	 * Metodi per visibilita'/abilitazione dei Widget
+	 */
+	
+	/**
+	 * @return true se il widget deve essere reso visibile
+	 */
+	public boolean isWidgetVisible(String cpName, String widgShortName){
+		Map cpData = (Map)session.get(cpName);
+		if (cpData!=null){
+			Boolean visibleFlag=(Boolean)cpData.get(widgShortName+"_visible");
+			if (visibleFlag!=null){
+				return visibleFlag.booleanValue();
+			}
+			else
+				return true;
+		}
+		else
+			return true;
+		
+	}
+	
+	/**
+	 * @return true se il widget deve essere disabilitato
+	 */
+	public boolean isWidgetDisabled(String cpName, String widgShortName){
+		Map cpData = (Map)session.get(cpName);
+		if (cpData!=null){
+			Boolean enabledFlag=(Boolean)cpData.get(widgShortName+"_enabled");
+			if (enabledFlag!=null){
+				return !enabledFlag.booleanValue();
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+		
+	}
+
+
+	///////////////////////////////////
+	/**
+	 * Metodi per visibilita'/abilitazione del menu
+	 */
+
+	«IF structure.appWindow.appArea.menubar != null»
+	static Map<String, List<String>> submenuMap = new HashMap<String, List<String>>();
+	static {
+		«EXPAND submenuMap FOR structure.appWindow.appArea.menubar»
+	}
+	«ENDIF»
+
+	/**
+	 * @return true se il menu deve essere reso visibile
+	 */
+	public boolean isMenuVisible(String menuName) {
+	«IF securityModel!=null-»
+		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null){
+			try{
+				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false");
+				return false;
+			}
+		}
+		else
+			status = true;
+		return status;
+	«ELSE-»
+		return true;
+	«ENDIF-»
+	}
+
+	/**
+	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
+	 */
+	public boolean isAtLeastOneSubMenuVisible(String menuName) {
+	«IF securityModel != null»
+		List<String> subMenuList = submenuMap.get(menuName);
+		if ( subMenuList != null ) {
+			for (String subMenu : subMenuList) {
+				if (isMenuVisible(subMenu)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	«ELSE»
+		return true;
+	«ENDIF»
+	}
+
+	/**
+	 * @return true se il menu deve essere reso abilitato
+	 */
+	public boolean isMenuEnabled(String menuName) {
+	«IF securityModel!=null-»
+		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
+		boolean status;
+		if (ctr!=null){
+			try{
+				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false");
+				return false;
+			}
+		}
+		else
+			status = true;
+		return status;
+	«ELSE»
+		return true;
+	«ENDIF»
+	}
+	
+	/**
+	 * @return true se il menu deve essere reso attivo (ovvero &grave; stato cliccato)
+	 */
+	public boolean isMenuActive(String menuName) {
+		String menu = "menu_items_" + menuName;
+		return menu.equals((String)session.get("active_menu"));
+	}
+
+	/**
+	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo (ovvero &grave; stato cliccato)
+	 */
+	public boolean isSubMenuActive(String menuName) {
+		List<String> subMenuList = submenuMap.get(menuName);
+		if ( subMenuList != null ) {
+			for ( String subMenu : subMenuList ) {
+				if ( isMenuActive(subMenu) ) {
+					return true;
+				}
+				if ( isSubMenuActive(subMenu) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	/**
+     * Gestione del reset della paginazione/sorting delle tabelle (Displaytag)
+     * @param tableName nome della tabella
+     * @return true se bisogna resettare paginazione/sorting, false altrimenti
+     */
+    public boolean isTableClearStatus(String tableName) {
+    	String sessionValue = tableName + "_clearStatus";
+    	Boolean clearStatus = (Boolean)session.get(sessionValue);
+    	if ( clearStatus == null ) {
+    		clearStatus = true;
+    	}
+    	if ( clearStatus ) {
+    		// la proprieta' e' "usa e getta"
+    		session.put(sessionValue, new Boolean(false));
+    	}
+    	return clearStatus;
+    }
+	
+
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. Deve essere implementato in tutte le sottoclassi associate
+	 *  ad un content panel.
+	 */
+	 public abstract void clearPageScopedAppData();
+	 
+	«EXPAND springBEProperties FOR this»
+	
+	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»
+	«EXPAND security::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
+	«ENDIF»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE springBEProperties FOR GUIModel»
+	private «getSpringBEFQN()» _backEnd = null;
+	
+	public void setSpringBackEnd(«getSpringBEFQN()» be){
+		_backEnd = be;
+	}
+	
+	public «getSpringBEFQN()» getSpringBackEnd(){
+		return _backEnd;
+	}
+	
+	
+	private «getSpringSecurityHelperFQN()» _securityHelper = null;
+	
+	public void setSpringSecurityHelper(«getSpringSecurityHelperFQN()» sh){
+		_securityHelper = sh;
+	}
+	
+	public «getSpringSecurityHelperFQN()» getSpringSecurityHelper(){
+		return _securityHelper;
+	}
+	
+«ENDDEFINE»
+
+
+«REM»
+[DM] STDMDD-241: razionalizzazione del menu
+Esteso a qualunque livello di annidamento
+«ENDREM»
+«DEFINE submenuMap FOR Menubar»
+«FOREACH this.topLevelMenu AS topLevelMenu»
+«EXPAND submenuList FOR topLevelMenu»
+«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE submenuList FOR Menu»
+«IF this.submenu.size > 0»
+	List<String> «this.name»SubmenuList = new ArrayList<String>();
+	«FOREACH this.submenu AS subMenu-»
+	«this.name»SubmenuList.add("«subMenu.name»");
+	«ENDFOREACH-»
+	submenuMap.put("«this.name»", «this.name»SubmenuList);
+
+	«FOREACH this.submenu AS subMenu-»
+		«EXPAND submenuList FOR subMenu»
+	«ENDFOREACH-»
+	«ENDIF»
+«ENDDEFINE»

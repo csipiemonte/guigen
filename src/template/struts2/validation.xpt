@@ -14,3 +14,120 @@
 «FILE getPresentationJavaSrcDir(model, true)+"/"+getStrutsActionClassName()+"-validations.xml"»
 «ENDFILE»
 «ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM VALIDATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Crea le classi dei validatori custom di Struts 2 definiti«ENDREM»
+«DEFINE strutsCustomValidatorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+
+	«REM»Validatori custom definiti dal generatore«ENDREM»
+	«EXPAND strutsCsiDateValidatorJavaFile(skip_component_dir_creation) FOR this»
+	
+	«REM»Validatori custom modellati dall'utente«ENDREM»
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator»
+		«EXPAND strutsCustomValidatorJavaFile(currValidator, skip_component_dir_creation) FOR this»
+	«ENDFOREACH»
+
+«ENDDEFINE»
+
+
+«REM»Crea la struttura di un validatore custom di Struts 2 come definito dall'utente. 
+Spettera' all'utente inserire nelle regioni protette il codice del validatore«ENDREM»
+«DEFINE strutsCustomValidatorJavaFile(String validatorName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".import")»
+/* Inserire qui gli altri import necessari al validatore */
+«ENDPROTECT»
+
+/**
+ * «validatorName.toUpperCase()» Custom Validation Class.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toUpperCase()» extends FieldValidatorSupport {
+
+	@Override
+	public void validate (Object object) throws ValidationException {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".validate")»
+		/* Inserire qui il codice che implementa la logica del validatore */
+		
+		// nome del campo
+		String fieldName = getFieldName();
+
+		// valore del campo, come generico Object da castare nel tipo desiderato/atteso
+		Object value = this.getFieldValue(fieldName, object);
+
+		«ENDPROTECT»
+	}
+	
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".other")»
+	/* Inserire qui proprieta' e metodi del validatore */
+	«ENDPROTECT»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Crea un validatore custom di Struts 2 per la gestione delle date«ENDREM»
+«DEFINE strutsCsiDateValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«LET ((List[String])getGuigenCustomValidators()).get(0) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import java.text.SimpleDateFormat;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+/**
+ * Controlla che la data sia nel formato atteso.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
+
+	/** Formato atteso della data (obbligatorio) */
+	private String format;
+
+
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+
+	public void validate(Object object) throws ValidationException {
+		// nome del campo
+		String fieldName = getFieldName();
+
+		// valore del campo
+		String value = (String) this.getFieldValue(fieldName, object);
+
+		if ( format == null || format.trim().length() == 0 ) {
+			throw new ValidationException("Nessun formato specificato");
+		} else {
+			if ( value != null && value.trim().length() > 0 ) {
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				try {
+					sdf.parse(value);
+				} catch (Exception e) {
+					addFieldError(fieldName, object);
+				}
+			}
+		}
+	}
+
+}
+«ENDFILE»
+«ENDLET»
+«ENDDEFINE»
