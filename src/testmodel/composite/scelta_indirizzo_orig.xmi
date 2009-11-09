@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ASCII"?>
+<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" name="sceltaIndirizzo">
+  <panel xsi:type="guigen:FormPanel" name="pIndirizzo" label="Indirizzo">
+    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+    <subpanels xsi:type="guigen:WidgetsPanel" name="pSceltaInd">
+      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+      <widgets xsi:type="guigen:ComboBox" name="cbRegione" label="Regione" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <databinding appData="//@appDataDefs/@appData.3" path="codRegione"/>
+        <multiDataBinding appData="//@appDataDefs/@appData.0"/>
+      </widgets>
+      <widgets xsi:type="guigen:ComboBox" name="cbProvincia" label="Provincia" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <databinding appData="//@appDataDefs/@appData.3" path="codProvincia"/>
+        <multiDataBinding appData="//@appDataDefs/@appData.1"/>
+      </widgets>
+      <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <databinding appData="//@appDataDefs/@appData.3" path="codComune"/>
+        <multiDataBinding appData="//@appDataDefs/@appData.2"/>
+      </widgets>
+    </subpanels>
+  </panel>
+  <params xsi:type="guigen:AppDataMappingParam" name="elencoRegioni" defAppData="//@appDataDefs/@appData.0"/>
+  <params xsi:type="guigen:AppDataMappingParam" name="elencoProvince" defAppData="//@appDataDefs/@appData.1"/>
+  <params xsi:type="guigen:AppDataMappingParam" name="elencoComuni" defAppData="//@appDataDefs/@appData.2"/>
+  <params xsi:type="guigen:AppDataMappingParam" name="indirizzo" defAppData="//@appDataDefs/@appData.3"/>
+  <appDataDefs>
+    <appData name="_regioni" lifetimeExtent="USER_SESSION" type="//@typeDefs/@types.1"/>
+    <appData name="_province" lifetimeExtent="USER_SESSION" type="//@typeDefs/@types.3"/>
+    <appData name="_comuni" lifetimeExtent="USER_SESSION" type="//@typeDefs/@types.6"/>
+    <appData name="_indirizzo" lifetimeExtent="USER_SESSION" type="//@typeDefs/@types.4"/>
+  </appDataDefs>
+  <typeDefs>
+    <types xsi:type="guigen:ComplexType" name="_Regione">
+      <fields name="cod" type="//@typeDefs/@types.14"/>
+      <fields name="nome" type="//@typeDefs/@types.14"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="_Regione []" componentType="//@typeDefs/@types.0"/>
+    <types xsi:type="guigen:ComplexType" name="_Provincia">
+      <fields name="cod" type="//@typeDefs/@types.14"/>
+      <fields name="nome" type="//@typeDefs/@types.14"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="_Provincia []" componentType="//@typeDefs/@types.2"/>
+    <types xsi:type="guigen:ComplexType" name="_Indirizzo">
+      <fields name="codRegione" type="//@typeDefs/@types.14"/>
+      <fields name="codProvincia" type="//@typeDefs/@types.14"/>
+      <fields name="codComune" type="//@typeDefs/@types.14"/>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="_Comune">
+      <fields name="cod" type="//@typeDefs/@types.14"/>
+      <fields name="nome" type="//@typeDefs/@types.14"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="_Comune []" componentType="//@typeDefs/@types.5"/>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typeDefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typeDefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typeDefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typeDefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typeDefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typeDefs/@types.12"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typeDefs/@types.13"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typeDefs/@types.14"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typeDefs/@types.15"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typeDefs/@types.16"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typeDefs/@types.17"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typeDefs/@types.18"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typeDefs/@types.19"/>
+  </typeDefs>
+</guigen:PanelDef>

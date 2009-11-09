@@ -1,0 +1,151 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions »
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+	inserisce tutte le propeprty associate ai vari DataWidget contenuti nel content panel
+	a tutti i livelli
+	[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload 
+	[AM] STDMDD-360: aggiunta gestione dei widget indiretti (PanelDefUse)
+«ENDREM»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation) FOR ContentPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, this, "") FOR this.panels»
+	«EXPAND widgetsProperties(model, widgetValidation, this, "") FOREACH this.dialogs»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.subpanels»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.panels»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH this.widgets»
+«ENDDEFINE»
+
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel»
+«ENDDEFINE»
+
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Widget»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR DataWidget»
+	«ERROR "tipo di data widget non gestito:"+this»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PlainText»
+	«REM»Non facciamo niente. Implementare in futuro se servisse«ENDREM»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+	// HiddenValue «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation» 
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextField»
+	// TextField «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextArea»
+	// TextArea «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Table»
+	// Table «name»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, "") FOR this.dataType»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR RadioButtons»
+	// RadioButtons «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR CheckBox»
+	// CheckBox «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR ComboBox»
+	// ComboBox «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Calendar»
+	// Calendar «name»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, (String)widgetValidation) FOR this.dataType»
+	«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR Type»
+	private «toJavaType(this, model)» _«name»;
+	
+	«widgetValidation»
+	public void set«name.toFirstUpper()»(«toJavaType(this, model)» value){
+		_«name» = value;
+	}
+	
+	public «toJavaType(this, model)» get«name.toFirstUpper()»(){
+		return _«name»;
+	}
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-294: aggiunta delle properties per i widget di tipo FileUpload «ENDREM»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FileUpload»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, null) FOR this»
+«ENDDEFINE»
+
+«DEFINE property(String name, GUIModel model, String widgetValidation) FOR FileUpload»
+	// FileUpload «name»
+	private File _«name»;               // The actual file
+	private String _«name»ContentType;  // The content type of the file 
+	private String _«name»FileName;     // The uploaded file name and path 
+
+	public void set«name.toFirstUpper()»(File value) {
+		_«name» = value;
+	}
+	
+	public File get«name.toFirstUpper()»() {
+		return _«name»;
+	}
+
+	public void set«name.toFirstUpper()»ContentType(String value) {
+		_«name»ContentType = value;
+	}
+	
+	public String get«name.toFirstUpper()»ContentType() {
+		return _«name»ContentType;
+	}
+
+	public void set«name.toFirstUpper()»FileName(String value) {
+		_«name»FileName = value;
+	}
+	
+	public String get«name.toFirstUpper()»FileName() {
+		return _«name»FileName;
+	}
+«ENDDEFINE»

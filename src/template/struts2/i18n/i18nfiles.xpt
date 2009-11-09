@@ -110,32 +110,7 @@ message.confirmlogout.btnmsglogout=Conferma e torna all&#39;introduzione del ser
 #######################################################################
 
 «LET this.structure.appWindow.appArea.contentPanels.first() AS cp-»
-###
-# Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
-###
-«FOREACH getContentPanelLabels(cp) AS cpLabel-»
-«cpLabel»
-«ENDFOREACH-»
-
-«IF cp.dialogs.size > 0»
-###
-# Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
-###
-«FOREACH getDialogPanelLabels(cp) AS dpLabel-»
-«dpLabel»
-«ENDFOREACH-»
-«ENDIF»
-
-###
-# Label dei widget, nella forma
-#   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
-#   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
-#   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
-###
-«FOREACH getWidgetsLabels(cp) AS wLabel-»
-«wLabel»
-«ENDFOREACH-»
-
+«EXPAND template::struts2::i18n::labels::panelLabelDefs(this) FOR cp»
 
 «PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsHomeClassName(this)+"Properties")»
 ###
@@ -156,31 +131,7 @@ message.confirmlogout.btnmsglogout=Conferma e torna all&#39;introduzione del ser
 # Properties file per il ContentPanel «this.name»
 #######################################################################
 
-###
-# Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
-###
-«FOREACH getContentPanelLabels(this) AS cpLabel-»
-«cpLabel»
-«ENDFOREACH-»
-
-«IF this.dialogs.size > 0»
-###
-# Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
-###
-«FOREACH getDialogPanelLabels(this) AS dpLabel-»
-«dpLabel»
-«ENDFOREACH-»
-«ENDIF»
-
-###
-# Label dei widget, nella forma
-#   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
-#   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
-#   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
-###
-«FOREACH getWidgetsLabels(this) AS wLabel-»
-«wLabel»
-«ENDFOREACH-»
+«EXPAND template::struts2::i18n::labels::panelLabelDefs(model) FOR this»
 
 «REM»STDMDD-159: visitor validator.«ENDREM»
 ###

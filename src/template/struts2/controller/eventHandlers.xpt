@@ -28,7 +28,63 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE handlerMethod(Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+
+«DEFINE handlerMethod(GUIModel model) FOR ContentPanel-»
+	«EXPAND handlerMethod(model, this, "") FOR this.panels-»
+	«EXPAND handlerMethod(model, this, "") FOREACH this.dialogs-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»	
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.panels-»
+	«IF switcher != null-»
+		«EXPAND handlerMethod(model, switcher, cp, contextPrefix) FOREACH this.switcher.eventHandlers-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.panels-»
+	«REM»«IF switcher != null-»
+		«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.switcher.eventHandlers-»
+	«ENDIF-»«ENDREM»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel»
+	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND handlerMethod(model, cp, getChainedContext(contextPrefix, name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel»
+		«EXPAND handlerMethod(model, cp, contextPrefix) FOR this.commands-»
+«ENDDEFINE»
+
+«DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget»
+		«EXPAND handlerMethod(model, this, cp, contextPrefix) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+
+«DEFINE handlerMethod(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
 «LET this AS currEventHandler»
 	/**
 	 * Gestione dell'evento CLICKED sul widget [«getFullID(currEventWidget, contextPrefix)»]

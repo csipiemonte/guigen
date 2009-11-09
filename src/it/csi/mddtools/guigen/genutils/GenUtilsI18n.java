@@ -63,21 +63,21 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	public static List<String> getContentPanelLabels(ContentPanel cp) {
-		List<String> res = new ArrayList<String>();
-
-		// pannello di primo livello
-		Panel p = cp.getPanels();
-		String lbl = getPanelLabel(p, cp);
-		if ( lbl != null ) {
-			res.add(lbl);
-		}
-
-		// sottopannelli di secondo livello (e oltre)
-		res.addAll(getSubPanelsLabels(p, cp));
-
-		return res;
-	}
+//	public static List<String> getContentPanelLabels(ContentPanel cp) {
+//		List<String> res = new ArrayList<String>();
+//
+//		// pannello di primo livello
+//		Panel p = cp.getPanels();
+//		String lbl = getPanelLabel(p, cp);
+//		if ( lbl != null ) {
+//			res.add(lbl);
+//		}
+//
+//		// sottopannelli di secondo livello (e oltre)
+//		res.addAll(getSubPanelsLabels(p, cp));
+//
+//		return res;
+//	}
 
 
 	/**
@@ -85,51 +85,86 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	public static List<String> getWidgetsLabels(ContentPanel cp) {
+//	public static List<String> getWidgetsLabels(ContentPanel cp) {
+//		List<String> res = new ArrayList<String>();
+//		String lbl = null;
+//
+//		ArrayList<Widget> widgets = GenUtils.findAllWidgetsInContentPanel(cp);
+//
+//		for ( Widget widget : widgets ) {
+//			if ( widget instanceof Table ) {
+//				// aggiungo le label delle colonne della tabella
+//				res.addAll(getTableColumnsLabels((Table)widget, cp));
+//			}
+//			else if ( widget instanceof RadioButtons ) {
+//				res.addAll(getRadioButtonsLabels((RadioButtons)widget, cp));
+//			}
+//			else if ( widget instanceof PlainText ) {
+//				res.addAll(getPlainTextLabels((PlainText)widget, cp));
+//			}
+//			else if ( widgetHasLabel(widget) ) {
+//				lbl = getWidgetLabel(widget, cp);
+//				if ( lbl != null ) {
+//					res.add(lbl);
+//				}
+//
+//				// label delle eventuali validazioni
+//				if ( widget instanceof DataWidget) {
+//					res.addAll(getDataWidgetValidationLabels((DataWidget)widget, cp));
+//				}
+//			}
+//		}
+//
+//		return res;
+//	}
+
+
+	/**
+	 *
+	 * @param widget 
+	 * @param cp
+	 * @param contextPrefix
+	 * @return una o più label, a second a di quelle necessarie per il widget
+	 */
+	public static List<String> getWidgetLabels(Widget widget, ContentPanel cp,
+			String contextPrefix) {
 		List<String> res = new ArrayList<String>();
 		String lbl = null;
+		if (widget instanceof Table) {
+			// aggiungo le label delle colonne della tabella
+			res.addAll(getTableColumnsLabels((Table) widget, cp, contextPrefix));
+		} else if (widget instanceof RadioButtons) {
+			res.addAll(getRadioButtonsLabels((RadioButtons) widget, cp, contextPrefix));
+		} else if (widget instanceof PlainText) {
+			res.addAll(getPlainTextLabels((PlainText) widget, cp, contextPrefix));
+		} else if (widgetHasLabel(widget)) {
+			lbl = getWidgetLabel(widget, cp, contextPrefix);
+			if (lbl != null) {
+				res.add(lbl);
+			}
 
-		ArrayList<Widget> widgets = GenUtils.findAllWidgetsInContentPanel(cp);
-
-		for ( Widget widget : widgets ) {
-			if ( widget instanceof Table ) {
-				// aggiungo le label delle colonne della tabella
-				res.addAll(getTableColumnsLabels((Table)widget, cp));
-			}
-			else if ( widget instanceof RadioButtons ) {
-				res.addAll(getRadioButtonsLabels((RadioButtons)widget, cp));
-			}
-			else if ( widget instanceof PlainText ) {
-				res.addAll(getPlainTextLabels((PlainText)widget, cp));
-			}
-			else if ( widgetHasLabel(widget) ) {
-				lbl = getWidgetLabel(widget, cp);
-				if ( lbl != null ) {
-					res.add(lbl);
-				}
-
-				// label delle eventuali validazioni
-				if ( widget instanceof DataWidget) {
-					res.addAll(getDataWidgetValidationLabels((DataWidget)widget, cp));
-				}
-			}
+			
 		}
 
+		// label delle eventuali validazioni
+		if (widget instanceof DataWidget) {
+			res.addAll(getDataWidgetValidationLabels((DataWidget) widget,
+					cp));
+		}
+		
 		return res;
 	}
-
 
 	/**
 	 *
 	 * @param w
 	 * @return
 	 */
-	public static String getText(Widget w) {
+	public static String getText(Widget w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
-			ContentPanel cp = GenUtils.findParentContentPanel(w);
 			if ( cp != null ) {
-				res = "%{getText('" + cp.getName() + "." + w.getName() + ".label')}";
+				res = "%{getText('" + cp.getName() + "." + GenUtils.getFullID(w, contextPrefix) + ".label')}";
 			}
 		}
 		return res;
@@ -250,62 +285,62 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	private static List<String> getSubPanelsLabels(Panel p, ContentPanel cp) {
-		List<String> res = new ArrayList<String>();
-		String lbl = null;
-
-		if ( p instanceof FormPanel ) {
-			List<Panel> fpl = ((FormPanel)p).getSubpanels();
-			for ( Panel panel : fpl ) {
-				lbl = getPanelLabel(panel, cp);
-				if ( lbl != null) {
-					res.add(lbl);
-				}
-				res.addAll(getSubPanelsLabels(panel, cp));
-			}
-
-		}
-		else if ( p instanceof TabSetPanel ) {
-			List<Panel> tpl = ((TabSetPanel)p).getPanels();
-			for ( Panel tab : tpl ) {
-				lbl = getPanelLabel(tab, cp);
-				if ( lbl != null) {
-					res.add(lbl);
-				}
-				res.addAll(getSubPanelsLabels(tab, cp));
-			}
-		}
-		else if ( p instanceof WizardPanel ) {
-			List<Panel> wpl = ((WizardPanel)p).getPanels();
-			int c = 1;
-			for ( Panel step : wpl ) {
-				lbl = getPanelLabel(step, cp, c);
-				if ( lbl != null) {
-					res.add(lbl);
-				}
-				res.addAll(getSubPanelsLabels(step, cp));
-				c++;
-			}
-		}
-		else if ( p instanceof MultiPanel ) {
-			List<Panel> mpl = ((MultiPanel)p).getPanels();
-			for (Panel panel : mpl) {
-				lbl = getPanelLabel(panel, cp);
-				if ( lbl != null) {
-					res.add(lbl);
-				}
-				res.addAll(getSubPanelsLabels(panel, cp));
-			}
-		}
-		else {
-			lbl = getPanelLabel(p, cp);
-			if ( lbl != null) {
-				res.add(lbl);
-			}
-		}
-
-		return res;
-	}
+//	private static List<String> getSubPanelsLabels(Panel p, ContentPanel cp) {
+//		List<String> res = new ArrayList<String>();
+//		String lbl = null;
+//
+//		if ( p instanceof FormPanel ) {
+//			List<Panel> fpl = ((FormPanel)p).getSubpanels();
+//			for ( Panel panel : fpl ) {
+//				lbl = getPanelLabel(panel, cp);
+//				if ( lbl != null) {
+//					res.add(lbl);
+//				}
+//				res.addAll(getSubPanelsLabels(panel, cp));
+//			}
+//
+//		}
+//		else if ( p instanceof TabSetPanel ) {
+//			List<Panel> tpl = ((TabSetPanel)p).getPanels();
+//			for ( Panel tab : tpl ) {
+//				lbl = getPanelLabel(tab, cp);
+//				if ( lbl != null) {
+//					res.add(lbl);
+//				}
+//				res.addAll(getSubPanelsLabels(tab, cp));
+//			}
+//		}
+//		else if ( p instanceof WizardPanel ) {
+//			List<Panel> wpl = ((WizardPanel)p).getPanels();
+//			int c = 1;
+//			for ( Panel step : wpl ) {
+//				lbl = getPanelLabel(step, cp, c);
+//				if ( lbl != null) {
+//					res.add(lbl);
+//				}
+//				res.addAll(getSubPanelsLabels(step, cp));
+//				c++;
+//			}
+//		}
+//		else if ( p instanceof MultiPanel ) {
+//			List<Panel> mpl = ((MultiPanel)p).getPanels();
+//			for (Panel panel : mpl) {
+//				lbl = getPanelLabel(panel, cp);
+//				if ( lbl != null) {
+//					res.add(lbl);
+//				}
+//				res.addAll(getSubPanelsLabels(panel, cp));
+//			}
+//		}
+//		else {
+//			lbl = getPanelLabel(p, cp);
+//			if ( lbl != null) {
+//				res.add(lbl);
+//			}
+//		}
+//
+//		return res;
+//	}
 
 
 	/**
@@ -331,15 +366,15 @@ public class GenUtilsI18n {
 	 * @param c
 	 * @return
 	 */
-	private static String getPanelLabel(Panel p, ContentPanel cp, int c) {
-		String res = null;
-		String lab = p.getLabel();
-		if ( !GenUtils.isNullOrEmpty(lab) ) {
-			//lab = Integer.toString(c) + ". " + lab; rimosso il numero e spostato sui sinoli layout
-			res = cp.getName() + "." + p.getName() + ".label=" + lab;
-		}
-		return res;
-	}
+//	private static String getPanelLabel(Panel p, ContentPanel cp, int c) {
+//		String res = null;
+//		String lab = p.getLabel();
+//		if ( !GenUtils.isNullOrEmpty(lab) ) {
+//			//lab = Integer.toString(c) + ". " + lab; rimosso il numero e spostato sui sinoli layout
+//			res = cp.getName() + "." + p.getName() + ".label=" + lab;
+//		}
+//		return res;
+//	}
 
 
 	/**
@@ -364,12 +399,12 @@ public class GenUtilsI18n {
 	 * @param t
 	 * @return
 	 */
-	private static List<String> getTableColumnsLabels(Table t, ContentPanel cp) {
+	private static List<String> getTableColumnsLabels(Table t, ContentPanel cp, String contextPrefix) {
 		List<String> res = new ArrayList<String>();
 
 		for ( Column col : t.getColumnModel().getColumns() ) {
 			if ( !GenUtils.isNullOrEmpty(col.getLabel()) ) {
-				res.add(cp.getName() + "." + t.getName() + "." + col.getSelector() + ".label=" + col.getLabel().trim());
+				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".label=" + col.getLabel().trim());
 			}
 		}
 
@@ -383,12 +418,12 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	private static List<String> getRadioButtonsLabels(RadioButtons rb, ContentPanel cp) {
+	private static List<String> getRadioButtonsLabels(RadioButtons rb, ContentPanel cp, String contextPrefix) {
 		List<String> res = new ArrayList<String>();
 		String lbl = null;
 
 		// label del gruppo
-		lbl = getWidgetLabel(rb, cp);
+		lbl = getWidgetLabel(rb, cp, contextPrefix);
 		if ( lbl != null ) {
 			res.add(lbl);
 		}
@@ -396,7 +431,7 @@ public class GenUtilsI18n {
 		// label dei singoli radio
 		for ( RadioButton radio : rb.getRadio() ) {
 			if ( !GenUtils.isNullOrEmpty(radio.getLabel()) ) {
-				res.add(cp.getName() + "." + rb.getName() + "." + radio.getName() + ".label=" + radio.getLabel().trim());
+				res.add(cp.getName() + "." + GenUtils.getFullID(rb, contextPrefix) + "." + radio.getName() + ".label=" + radio.getLabel().trim());
 			}
 		}
 
@@ -413,13 +448,13 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	private static List<String> getPlainTextLabels(PlainText t, ContentPanel cp) {
+	private static List<String> getPlainTextLabels(PlainText t, ContentPanel cp, String contextPrefix) {
 		List<String> res = new ArrayList<String>();
 		String lbl = null;
 
 		// label del gruppo
 		if ( !(t.eContainer() instanceof MsgBoxPanel) ) {
-			lbl = getWidgetLabel(t, cp);
+			lbl = getWidgetLabel(t, cp, contextPrefix);
 			if ( lbl != null ) {
 				res.add(lbl);
 			}
@@ -427,7 +462,7 @@ public class GenUtilsI18n {
 
 		// static text
 		if ( !GenUtils.isNullOrEmpty(t.getStaticText()) ) {
-			res.add(cp.getName() + "." + t.getName() + ".statictext.label=" + t.getStaticText().trim());
+			res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + ".statictext.label=" + t.getStaticText().trim());
 		}
 
 		return res;
@@ -440,10 +475,10 @@ public class GenUtilsI18n {
 	 * @param cp
 	 * @return
 	 */
-	private static String getWidgetLabel(Widget w, ContentPanel cp) {
+	private static String getWidgetLabel(Widget w, ContentPanel cp, String contextPrefix) {
 		String res = null;
 		if ( !GenUtils.isNullOrEmpty(w.getLabel()) ) {
-			res = cp.getName() + "." + w.getName() + ".label=" + w.getLabel().trim();
+			res = cp.getName() + "." + GenUtils.getFullID(w, contextPrefix) + ".label=" + w.getLabel().trim();
 		}
 		return res;
 	}

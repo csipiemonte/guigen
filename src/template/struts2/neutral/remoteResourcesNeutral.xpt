@@ -896,7 +896,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this, contextPrefix)»"«ENDIF»
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix)»"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
@@ -919,7 +919,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this)»" labelFor="«getWidgetLabelFor(this, contextPrefix)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)cp.eRootContainer, this)»>
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)cp.eRootContainer, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»

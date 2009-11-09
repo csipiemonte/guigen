@@ -1,0 +1,129 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE panelLabelDefs(GUIModel model) FOR ContentPanel-»
+###
+# Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
+#
+# Label associate ai widget, nella forma
+#   - WIDGET GENERICO : <contentpanel_name>.<widget_name>.label=<label>
+#   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
+#   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
+###
+	«EXPAND panelLabelDefs(model, this, "") FOR this.panels-»
+	
+	«IF dialogs.size > 0-»
+###
+# Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
+# e rispettivi widget
+###
+		«EXPAND panelLabelDefs(model, this, "") FOREACH this.dialogs-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»implementazione generica per i pannelli che non hanno specificita'«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+«REM»in un form panel le label sono: la label del pannello + le label dei sottopannelli«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.subpanels»
+«ENDDEFINE»
+
+«REM»in un widgets panel le label sono: la label del pannello + le label dei vari widget«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«REM»le label di un command panel sono: la label del pannello (ch ein relatà non è utilizzata) +
+	 le label dei vari button
+«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«REM»Nessuna label«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel-»
+«ENDDEFINE»
+
+«REM»le label di un multi panel sono la label del pannello (inutilizzata) e le label dei sottopannelli
+«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»	
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels»
+«ENDDEFINE»
+
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels»
+«ENDDEFINE»
+
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels»
+«ENDDEFINE»
+
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND panelLabelDefs(model, cp, getChainedContext(contextPrefix, name)) FOR this.panelDef.panel»
+«ENDDEFINE»
+
+
+«REM»nessuna label«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel-»
+«ENDDEFINE»
+
+«REM»le label del msgbox panel sono: la label del pannello (inutilizzata) + le label
+     dei plain text
+«ENDREM»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.textMessages-»
+«ENDDEFINE»
+
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets»
+«ENDDEFINE»
+
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
+	«IF !isNullOrEmpty(label)-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+	«ENDIF-»
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOR this.commands»
+	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.msgBoxes»
+«ENDDEFINE»
+
+«DEFINE widgetLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«FOREACH getWidgetLabels(this, cp, contextPrefix) AS currLbl-»
+«currLbl»
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+
+

@@ -133,10 +133,9 @@ public class GenUtilsStrutsValidation {
 	 * @param w Il DataWidget da validare.
 	 * @return  Le annotazioni di validazione da inserire nella Action di Struts.
 	 */
-	public static String getWidgetValidation(DataWidget w, String contextPrefix) {
+	public static String getWidgetValidation(DataWidget w, ContentPanel cp, String contextPrefix) {
 		String res = "";
 		
-		ContentPanel cp = GenUtils.findParentContentPanel(w);
 		
 		if ( w.getDataType() instanceof SimpleType ) {
 			// tipo semplice

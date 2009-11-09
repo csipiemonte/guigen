@@ -541,11 +541,12 @@ String getChainedContext(String oldContext, String newContext) :
 	oldContext==null || oldContext.length==0 ? newContext : oldContext+"_"+newContext;
 
 // serve in quei casi in cui si usava w.name senza necessità di avere il prefisso "widg_"
-String getFullID(Widget w, String contextPrefix) :
-	contextPrefix == null || contextPrefix.length==0 ? w.name : contextPrefix+w.name;
+//String getFullID(Widget w, String contextPrefix) :
+//	contextPrefix == null || contextPrefix.length==0 ? w.name : contextPrefix+w.name;
 
-String getFullID(Panel p, String contextPrefix) :
-	contextPrefix == null || contextPrefix.length==0 ? p.name : contextPrefix+p.name;
+//String getFullID(Panel p, String contextPrefix) :
+//	contextPrefix == null || contextPrefix.length==0 ? p.name : contextPrefix+p.name;
+
 
 String getFullExecCmdMethodName(String methodName, String contextPrefix) :
 	contextPrefix!=null && contextPrefix.length>0 ? 
@@ -557,6 +558,13 @@ String getFullExecCmdMethodName(String methodName, String contextPrefix) :
 
 String getWidgetName(Widget w, String contextPrefix) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetName(it.csi.mddtools.guigen.Widget, java.lang.String);
+
+String getFullID(Widget w, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Widget, java.lang.String);
+
+String getFullID(Panel p, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getFullID(it.csi.mddtools.guigen.Panel, java.lang.String);
+
 
 boolean hasFileUpload(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.hasFileUpload(it.csi.mddtools.guigen.ContentPanel);
@@ -689,8 +697,8 @@ String getWidgetLabelFor(Widget w, String contextPrefix) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getWidgetLabelFor(it.csi.mddtools.guigen.Widget, java.lang.String);
 
 // [DM] Restituisce le annotazioni per la validazione del campo
-String getWidgetValidation(DataWidget w, String contextPrefix) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget, java.lang.String);
+String getWidgetValidation(DataWidget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getWidgetValidation(it.csi.mddtools.guigen.DataWidget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
 
 // [DM] Restituisce la lista dei custom validators definiti dal generatore
 List getGuigenCustomValidators() : JAVA
@@ -717,12 +725,16 @@ List getMenuBarLabels(Menubar mb) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getMenuBarLabels(it.csi.mddtools.guigen.Menubar);
 
 // [DM] Restituisce la lista delle label dei pannelli di un ContentPanel
-List getContentPanelLabels(ContentPanel cp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
+//List getContentPanelLabels(ContentPanel cp) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getContentPanelLabels(it.csi.mddtools.guigen.ContentPanel);
 
 // [DM] Restituisce la lista delle label dei widgets di un ContentPanel
-List getWidgetsLabels(ContentPanel cp) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
+//List getWidgetsLabels(ContentPanel cp) : JAVA
+//	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetsLabels(it.csi.mddtools.guigen.ContentPanel);
+
+List[String] getWidgetLabels(Widget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getWidgetLabels(it.csi.mddtools.guigen.Widget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
+
 
 // [DM] Restituisce la lista delle label dei widgets di un ContentPanel
 List getApplicationDataLabels(ContentPanel cp) : JAVA
@@ -741,8 +753,8 @@ boolean hasTree(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.hasTree(it.csi.mddtools.guigen.ContentPanel);
 
 // [DM]
-String getText(Widget w) : JAVA
-	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getText(it.csi.mddtools.guigen.Widget);
+String getText(Widget w, ContentPanel cp, String contextPrefix) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsI18n.getText(it.csi.mddtools.guigen.Widget, it.csi.mddtools.guigen.ContentPanel, java.lang.String);
 
 // [DM] restituisce la lista delle label per i Visitor Validators sui Typedefs
 List getVisitorValidatorLabels(List complexTypesList) : JAVA

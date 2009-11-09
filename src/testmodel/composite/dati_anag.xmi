@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="ASCII"?>
-<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" name="sceltaIndirizzo">
+<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" name="datiAnag">
   <panel xsi:type="guigen:FormPanel" name="pIndirizzo" label="Indirizzo">
     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-    <subpanels xsi:type="guigen:WidgetsPanel" name="pSceltaInd">
+    <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiAnag" label="Dati anagrafici">
       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-      <widgets xsi:type="guigen:ComboBox" name="cbRegione" label="Regione" dataType="//@typeDefs/@types.7" keySelector="cod" valueSelector="nome"/>
-      <widgets xsi:type="guigen:ComboBox" name="cbProvincia" label="Provincia" dataType="//@typeDefs/@types.7" keySelector="cod" valueSelector="nome"/>
-      <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" dataType="//@typeDefs/@types.7" keySelector="cod" valueSelector="nome"/>
+      <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" dataType="//@typeDefs/@types.7"/>
+      <widgets xsi:type="guigen:TextField" name="tfCogome" label="Cogome" dataType="//@typeDefs/@types.7" required="true"/>
+      <widgets xsi:type="guigen:PlainText" name="txtNotaDatiAnag" label="Nota:" dataType="//@typeDefs/@types.7" staticText="I dati anagrafici devono essere reali"/>
+    </subpanels>
+    <subpanels xsi:type="guigen:CommandPanel" name="pCmdDatiAnag">
+      <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+      <widgets xsi:type="guigen:ConfirmButton" name="bVerifica" label="Verifica">
+        <eventHandlers>
+          <command xsi:type="guigen:ExecCommand" methodName="verificaDatiAnag">
+            <results resultCode="OK">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </command>
+        </eventHandlers>
+      </widgets>
     </subpanels>
   </panel>
   <appDataDefs/>

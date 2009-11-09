@@ -120,7 +120,7 @@ public class «getSpringBEClassName()»{
 	/// - i metodi relativi ai singoli content panel sono delegati nei rispettivi
 	///   bean
 	//////////////////////////////////////////////////////////////////////////////
-	«EXPAND springBEMethods FOR this»
+	«EXPAND template::struts2::model::businessLogic::springBEMethodsDelegation FOR this»
 	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property relative ai bean spring associati agli specifici content panel
@@ -205,7 +205,7 @@ public class «getSpringCPBEClassName()»{
 	
 	«EXPAND tabSetUtils(model) FOR this-»
 	
-	«EXPAND springBEMethods(model) FOR this»
+	«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR this»
 	
 	«REM»[DM] gestione del reset delle tabelle«ENDREM»
 	«IF hasTable(this)»
@@ -246,123 +246,6 @@ public class «getSpringCPBEClassName()»{
 «ENDLET-»
 «ENDDEFINE»
 
-«REM»metodi per il singolo CPBE«ENDREM»
-«DEFINE springBEMethods(GUIModel model) FOR ContentPanel»
-	«IF this.onRefreshCommand!=null»
-		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
-			«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF»
-	«FOREACH getAllEventSourceWidgets(this) AS currESW-»
-		«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
-			«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
-				«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
-			«ENDFOREACH-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-«ENDDEFINE»
-
-«REM»inserisce un metodo per ogni ExecAction contenuta nel modello«ENDREM»
-«DEFINE springBEMethods FOR GUIModel-»
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
-		«IF currCP.onRefreshCommand!=null»
-			«FOREACH getAllExecActionsRecursive(currCP.onRefreshCommand) AS currAct-»
-				«EXPAND springBEMethodDelegation(this,currCP) FOR (ExecCommand)currAct-»
-			«ENDFOREACH-»
-		«ENDIF»
-		«FOREACH getAllEventSourceWidgets(currCP) AS currESW-»
-			«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
-				«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
-					«EXPAND springBEMethodDelegation(this,currCP) FOR (ExecCommand)currAct-»
-				«ENDFOREACH-»
-			«ENDFOREACH-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-	«REM»MenuItem è DEPRECATO
-	«FOREACH getAllEventSourceMenuItems(this.structure.appWindow.appArea.menubar) AS currESM-»
-		«FOREACH getAllExecActionsForEventHandler(((MenuItem)currESM).eventHandler) AS currAct-»
-			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-	«ENDREM»
-	«FOREACH (List[Menu])getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
-		«FOREACH getAllExecActionsForEventHandler(currESM.eventHandler) AS currAct-»
-			«EXPAND springBEMethod(this,"Menu") FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
-	«IF onInitAct != null-»
-		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»
-			«EXPAND springBEMethod(this,"Home") FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
-
-
-«DEFINE springBEMethod(GUIModel model, String contextID) FOR ExecCommand»
-	////////////////////////////////////////////////////////////////////////////////////
-	
-	«LET findParentContentPanel() AS parentCP-»		
-	public ExecResults «this.methodName» (
-	«IF parentCP != null»
-		«getModelDTOFQN(parentCP, false, false, model)» theModel
-	«ELSEIF isInMenuBranch(this)»
-		«getModelDTOFQN(null, true, false, model)» theModel
-	«ELSE»
-		«getModelDTOFQN(null, false, true, model)» theModel
-	«ENDIF»
-			
-	)
-	throws BEException
-	{
-	    /// definizione costanti di outcome
-	    «FOREACH this.results AS currRes-»
-		final String «this.methodName.toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
-		«ENDFOREACH-»
-	    ///
-		try{
-			ExecResults result = new ExecResults();
-			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+this.methodName+"_code")»
-			// inserire qui la logica applicativa da eseguire:
-			
-			// impostazione del result code
-			result.setResultCode("«this.results.first().resultCode»");
-			// modifica degli attributi del model (che verranno propagati allo strato
-			// di presentation). si puo' agire anche direttamente sull'attributo "session".
-		
-			result.setModel(theModel);
-			return result;
-		«ENDPROTECT»
-		}
-		catch(Throwable e){
-		  log.error("[«getSpringBEClassName()»::«this.methodName»] Errore occorso nell'esecuzione del metodo:"+e,e);
-		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
-		}
-	}
-	
-	«ENDLET-»
-«ENDDEFINE»
-
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp) FOR ExecCommand»
-	////////////////////////////////////////////////////////////////////////////////////
-			
-	public ExecResults «this.methodName» (
-	«IF cp != null»
-		«getModelDTOFQN(cp, false, false, model)» theModel
-	«ELSEIF isInMenuBranch(this)»
-		«getModelDTOFQN(null, true, false, model)» theModel
-	«ELSE»
-		«getModelDTOFQN(null, false, true, model)» theModel
-	«ENDIF»
-			
-	)
-	throws BEException
-	{
-	    return get«getSpringCPBEClassName(cp)»().«this.methodName»(theModel);
-	}
-	
-«ENDDEFINE»
 
 
 «DEFINE baseActionModelfile(GUIModel model) FOR GUIModel»
@@ -491,17 +374,17 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model, false) FOR this»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, false) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// campi per widget semplici
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::actionImplJavaFiles::widgetsProperties(model, false) FOR this»
+	«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, false) FOR this»
 	
 	////////////////////////////////////////////////////////////////////
 	/// ulteriori campi comuni 
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::actionImplJavaFiles::commonProperties FOR this»
+	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -524,7 +407,7 @@ public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAw
 	////////////////////////////////////////////////////////////////////
 	/// application data
 	////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model) FOR this»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model) FOR this»
 	
 
 }
@@ -549,7 +432,7 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 	/// application data
 	////////////////////////////////////////////////////////////////////
 	«IF onInitCommand!=null»
-	«EXPAND template::struts2::actionImplJavaFiles::storedAppDataProperties(model) FOR this.onInitCommand»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model) FOR this.onInitCommand»
 	«ENDIF»
 	
 

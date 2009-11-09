@@ -31,35 +31,28 @@
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
-              <subpanels xsi:type="guigen:PanelDefUse" name="pSceltaIndirizzoNasc" label="Indirizzo nascita">
-                <panelDef href="scelta_indirizzo.xmi#/"/>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.1">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.0"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.2">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.1"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.3">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.2"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.4">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.3"/>
-                </paramValues>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagTitolare" label="Dati anagrafici titolare">
+                <panelDef href="dati_anag.xmi#/"/>
               </subpanels>
-              <subpanels xsi:type="guigen:PanelDefUse" name="pSceltaIndirizzoRes" label="Indirizzo residenza">
-                <panelDef href="scelta_indirizzo.xmi#/"/>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.5">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.0"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.6">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.1"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.7">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.2"/>
-                </paramValues>
-                <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.8">
-                  <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.3"/>
-                </paramValues>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagRappLegale" label="Dati anagrafici rappr. legale">
+                <panelDef href="dati_anag.xmi#/"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="Widget non inclusi">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfNumero" label="Numero" dataType="//@typedefs/@types.7" required="true"/>
+                <widgets xsi:type="guigen:PlainText" name="txtNota1" label="Nota 1:" dataType="//@typedefs/@types.7" staticText="questa è una nota staticamente inserita nel pannello"/>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmd" cmdStyle="NAVIGATION">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bSalva" label="Salva">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="salva">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
               </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -133,33 +126,19 @@
       <fields name="cod" type="//@typedefs/@types.7"/>
       <fields name="nome" type="//@typedefs/@types.7"/>
     </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Regione" componentType="//@typedefs/@types.32"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Provincia" componentType="//@typedefs/@types.33"/>
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.31"/>
-    <appData name="regioniRes" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.29"/>
-    </appData>
-    <appData name="provinceRes" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.31"/>
-    </appData>
-    <appData name="comuniRes" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.1"/>
-    </appData>
-    <appData name="indirizzoRes" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.32"/>
-    </appData>
-    <appData name="regioniNasc" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.29"/>
-    </appData>
-    <appData name="provinceNasc" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.31"/>
-    </appData>
-    <appData name="comuniNasc" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.1"/>
-    </appData>
-    <appData name="indirizzoNasc" lifetimeExtent="USER_SESSION">
-      <type xsi:type="guigen:TypedArray" href="scelta_indirizzo.xmi#//@typeDefs/@types.32"/>
-    </appData>
+    <appData name="regioniRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="provinceRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="comuniRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
+    <appData name="indirizzoRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <appData name="regioniNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="provinceNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="comuniNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
+    <appData name="indirizzoNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
   <targetPlatform code="JBoss43"/>

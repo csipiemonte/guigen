@@ -1,0 +1,236 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»inserisce i metodi della classe BEFacade«ENDREM»
+«DEFINE springBEMethodsDelegation FOR GUIModel-»
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+		«REM»handlers dei widget«ENDREM»
+		«EXPAND springBEMethodDelegation(this) FOR currCP-»
+	«ENDFOREACH-»
+	«FOREACH (List[Menu])getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
+		«FOREACH getAllExecActionsForEventHandler(currESM.eventHandler) AS currAct-»
+			«EXPAND springBEMethod(this,"Menu", null, "") FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
+	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
+	«IF onInitAct != null-»
+		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»
+			«EXPAND springBEMethod(this,"Home", null, "") FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDIF-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model) FOR ContentPanel-»
+	«REM»handler dei widget«ENDREM»
+	«EXPAND springBEMethodDelegation(model, this, "") FOR this.panels»
+	«REM»handler dei dialogs«ENDREM»
+	«EXPAND springBEMethodDelegation(model, this, "") FOREACH this.dialogs»
+	«REM»handlers dei refresh command«ENDREM»
+	«IF this.onRefreshCommand!=null»
+		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
+			«EXPAND springBEMethodDelegation(model,this, "") FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH subpanels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOR commands-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
+	«IF switcher!=null-»
+		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-»
+	«ENDIF-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND springBEMethodDelegation(model,cp, getChainedContext(contextPrefix,name)) FOR panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH eventHandlers-»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+	«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExec»
+		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH allExec-»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand»
+	////////////////////////////////////////////////////////////////////////////////////
+			
+	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
+	«IF cp != null»
+		«getModelDTOFQN(cp, false, false, model)» theModel
+	«ELSEIF isInMenuBranch(this)»
+		«getModelDTOFQN(null, true, false, model)» theModel
+	«ELSE»
+		«getModelDTOFQN(null, false, true, model)» theModel
+	«ENDIF»
+			
+	)
+	throws BEException
+	{
+	    return get«getSpringCPBEClassName(cp)»().«getFullExecCmdMethodName(this.methodName, contextPrefix)»(theModel);
+	}
+	
+«ENDDEFINE»
+
+
+«REM»#############################«ENDREM»
+
+«DEFINE springBEMethods(GUIModel model) FOR ContentPanel-»
+	«REM»handler dei widget«ENDREM»
+	«EXPAND springBEMethod(model, "", this, "") FOR this.panels»
+	«REM»handler dei dialogs«ENDREM»
+	«EXPAND springBEMethod(model, "", this, "") FOREACH this.dialogs»
+	«REM»handlers dei refresh command«ENDREM»
+	«IF this.onRefreshCommand!=null»
+		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
+			«EXPAND springBEMethod(model,"",this, "") FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND springBEMethod(model, contextID, cp, contextPrefix) FOREACH subpanels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOR commands-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
+	«IF switcher!=null-»
+		«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH switcher.eventHandlers-»
+	«ENDIF-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND springBEMethod(model,contextID, cp, getChainedContext(contextPrefix, name)) FOR panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH eventHandlers-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+	«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExec»
+		«EXPAND springBEMethod(model, contextID, cp, contextPrefix) FOREACH allExec-»
+	«ENDLET»
+«ENDDEFINE»
+
+
+
+
+«REM» 
+«DEFINE springBEMethods(GUIModel model) FOR ContentPanel»
+	«IF this.onRefreshCommand!=null»
+		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
+			«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
+		«ENDFOREACH-»
+	«ENDIF»
+	«FOREACH getAllEventSourceWidgets(this) AS currESW-»
+		«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
+			«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
+				«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
+			«ENDFOREACH-»
+		«ENDFOREACH-»
+	«ENDFOREACH-»
+«ENDDEFNE»
+«ENDREM»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand»
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	«LET cp AS parentCP-»		
+	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
+	«IF parentCP != null»
+		«getModelDTOFQN(parentCP, false, false, model)» theModel
+	«ELSEIF isInMenuBranch(this)»
+		«getModelDTOFQN(null, true, false, model)» theModel
+	«ELSE»
+		«getModelDTOFQN(null, false, true, model)» theModel
+	«ENDIF»
+			
+	)
+	throws BEException
+	{
+	    /// definizione costanti di outcome
+	    «FOREACH this.results AS currRes-»
+		final String «getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
+		«ENDFOREACH-»
+	    ///
+		try{
+			ExecResults result = new ExecResults();
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+getFullExecCmdMethodName(this.methodName, contextPrefix)+"_code")»
+			// inserire qui la logica applicativa da eseguire:
+			
+			// impostazione del result code
+			result.setResultCode("«this.results.first().resultCode»");
+			// modifica degli attributi del model (che verranno propagati allo strato
+			// di presentation). si puo' agire anche direttamente sull'attributo "session".
+		
+			result.setModel(theModel);
+			return result;
+		«ENDPROTECT»
+		}
+		catch(Throwable e){
+		  log.error("[«getSpringBEClassName()»::«getFullExecCmdMethodName(this.methodName, contextPrefix)»] Errore occorso nell'esecuzione del metodo:"+e,e);
+		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
+		}
+	}
+	
+	«ENDLET-»
+«ENDDEFINE»
+

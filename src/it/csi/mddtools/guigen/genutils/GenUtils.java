@@ -2038,10 +2038,20 @@ public class GenUtils {
 	public static String getWidgetName(Widget w, String contextPrefix) {
 		if (contextPrefix==null)
 			contextPrefix="";
-		return "widg_" + contextPrefix+"_"+w.getName();
+		return "widg_" + contextPrefix+w.getName();
 	}
 
 
+	public static String getFullID(Widget w, String contextPrefix){
+		return contextPrefix == null || contextPrefix.length()==0 ? w.getName() : contextPrefix+w.getName();
+	}
+
+	
+	public static String getFullID(Panel p, String contextPrefix){
+		return contextPrefix == null || contextPrefix.length()==0 ? p.getName() : contextPrefix+p.getName();
+	}
+
+	
 	/**
 	 *
 	 * @param binding
