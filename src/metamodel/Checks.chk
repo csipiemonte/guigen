@@ -264,8 +264,8 @@ context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel
 	calendarDataBindingTypeCheck(this);
 
 
-  context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSetPanel:" +loc() :
-  	this.eContainer.metaType == TabSetPanel;
+  context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSetPanel o a un WizardPanel:" +loc() :
+  	this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel;
   	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener

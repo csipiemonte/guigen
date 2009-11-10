@@ -514,7 +514,7 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp, String cont
 		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
 			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
-String getTabItemHandlerMethodName(ContentPanel cp, TabSetPanel tabSet, Panel tab, String contextPrefix) :
+String getTabItemHandlerMethodName(ContentPanel cp, MultiPanel tabSet, Panel tab, String contextPrefix) :
 	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -552,6 +552,9 @@ String getFullExecCmdMethodName(String methodName, String contextPrefix) :
 	contextPrefix!=null && contextPrefix.length>0 ? 
 	contextPrefix+methodName.toFirstUpper() :
 	methodName;
+
+int getStepNumber(Panel step, WizardPanel wiz) :
+	wiz.panels.indexOf(step)+1;
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING

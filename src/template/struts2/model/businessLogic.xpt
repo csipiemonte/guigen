@@ -250,6 +250,9 @@ public class «getSpringCPBEClassName()»{
 «ENDDEFINE»
 
 «DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«IF switcher!=null-»
+		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-»
+	«ENDIF-»
 	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
 «ENDDEFINE»
 
@@ -292,13 +295,13 @@ public class «getSpringCPBEClassName()»{
 
 «DEFINE springBEMethods(GUIModel model) FOR ContentPanel-»
 	«REM»handler dei widget«ENDREM»
-	«EXPAND springBEMethod(model, "", this, "") FOR this.panels»
+	«EXPAND springBEMethod(model, "CP"+this.name, this, "") FOR this.panels»
 	«REM»handler dei dialogs«ENDREM»
-	«EXPAND springBEMethod(model, "", this, "") FOREACH this.dialogs»
+	«EXPAND springBEMethod(model, "CP"+this.name, this, "") FOREACH this.dialogs»
 	«REM»handlers dei refresh command«ENDREM»
 	«IF this.onRefreshCommand!=null»
 		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
-			«EXPAND springBEMethod(model,"",this, "") FOR (ExecCommand)currAct-»
+			«EXPAND springBEMethod(model,"CP"+this.name,this, "") FOR (ExecCommand)currAct-»
 		«ENDFOREACH-»
 	«ENDIF»
 «ENDDEFINE»
@@ -335,6 +338,9 @@ public class «getSpringCPBEClassName()»{
 «ENDDEFINE»
 
 «DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
+	«IF switcher!=null-»
+		«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH switcher.eventHandlers-»
+	«ENDIF-»
 	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH panels-»
 «ENDDEFINE»
 

@@ -39,6 +39,18 @@
 	«ENDLET-»
 «ENDDEFINE»
 
+«DEFINE ajaxifyControlHeader(ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<customtag:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET-»
+«ENDDEFINE»
+
+
 «DEFINE ajaxifyControlFooter FOR TabSwitcher»
 	</customtag:ajaxify>
 «ENDDEFINE»

@@ -394,6 +394,8 @@ public class GenUtils {
 			return findAllWidgetsInPanel((MenuPanel)p);
 		else if (p instanceof TabSetPanel)
 			return findAllWidgetsInPanel((TabSetPanel)p);
+		else if (p instanceof WizardPanel)
+			return findAllWidgetsInPanel((WizardPanel)p);
 		else if (p instanceof MultiPanel)
 			return findAllWidgetsInPanel((MultiPanel)p);
 		else if (p instanceof DialogPanel)
@@ -538,6 +540,32 @@ public class GenUtils {
 		}
 	}
 
+	/**
+	 * Compila una lista di tutti i widget appartenenti ai tab 
+	 * del TabSetPanel in oggetto (e dei loro sottopannelli).
+	 * 
+	 * @param tsp Il TabSetPanel da esaminare.
+	 * @return La lista dei widget del TabSetPanel (e di tutti i suoi sottopannelli).
+	 */
+	public static ArrayList<Widget> findAllWidgetsInPanel(WizardPanel tsp) {
+		if (tsp.getPanels() == null && tsp.getSwitcher()==null) {
+			return null;
+		} else {
+			ArrayList<Widget> ris = new ArrayList<Widget>();
+			// aggiungo lo switcher se presente
+			if (tsp.getSwitcher()!=null)
+				ris.add(tsp.getSwitcher());
+			// aggiungo i widget dei tabs
+			if ( tsp.getPanels() != null ) {
+				for (Panel panel : tsp.getPanels()) {
+					ArrayList<Widget> tmp = findAllWidgetsInPanel(panel);
+					ris.addAll(tmp);					
+				}
+			}
+			return ris;
+		}
+	}
+	
 	/**
 	 * Compila una lista di tutti i widget appartenenti ad uno dei sottopannelli del
 	 * MultiPanel in oggetto(e di tutti i suoi sottopannelli).

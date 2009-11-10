@@ -28,6 +28,28 @@
 «ENDLET»
 «ENDDEFINE»
 
+«DEFINE tabSwitcherClickForTabHandler(WizardPanel currWizard, ContentPanel cp, String contextPrefix) FOR Panel»
+«LET this AS currTab»
+	/**
+	 * Gestione dell'evento di click sul tab Switcher del tab-set «getFullID(currWizard, contextPrefix)» 
+	 */
+	public String «getTabItemHandlerMethodName(cp ,currWizard, currTab, contextPrefix)»() throws Exception {
+	
+	 	// impostazione dei parametri di selezione tab
+	 	setSelectedTabKey("«cp.name»_«getFullID(currWizard, contextPrefix)»_selectedMultiPanel");
+	 	setSelectedTabValue("«cp.name»_«getFullID(currWizard, contextPrefix)»_«getFullID(currTab, contextPrefix)»");
+	 	«IF currWizard.switcher!=null && currWizard.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0 -»
+	 	// richiamo della logica associata al tab-switcher
+	 	String tempResult = «getHandlerMethodName(currWizard.switcher, currWizard.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»();
+	 	«ENDIF-»
+	 	// selezione del tab di destinazione
+	 	handleChangeTab();
+		return SUCCESS;
+	}
+«ENDLET»
+«ENDDEFINE»
+
+
 
 «DEFINE handlerMethod(GUIModel model) FOR ContentPanel-»
 	«EXPAND handlerMethod(model, this, "") FOR this.panels-»
@@ -62,9 +84,9 @@
 
 «DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
 	«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.panels-»
-	«REM»«IF switcher != null-»
-		«EXPAND handlerMethod(model, cp, contextPrefix) FOREACH this.switcher.eventHandlers-»
-	«ENDIF-»«ENDREM»
+	«IF switcher != null-»
+		«EXPAND handlerMethod(model, switcher, cp, contextPrefix) FOREACH this.switcher.eventHandlers-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE handlerMethod(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel»
@@ -480,7 +502,8 @@ quelli esterni!!! «ENDREM»
 	###########################
 «ENDREM»
 «DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget»
-«LET this AS currEventSource»
+«IF eventHandlers.size>0-»
+	«LET this AS currEventSource-»
 		// contiene i comandi del widget «getFullID(currEventSource, contextPrefix)» per ogni Ev.H.
 		HashMap<String, ICommand> cmds4«getFullID(currEventSource, contextPrefix)»ByEvh = 
 		  new HashMap<String, ICommand>();
@@ -491,7 +514,8 @@ quelli esterni!!! «ENDREM»
 					«ENDFOREACH»
 				«ENDLET»
 		cmdsByWidget.put("«getFullID(currEventSource, contextPrefix)»",cmds4«getFullID(currEventSource, contextPrefix)»ByEvh);
-«ENDLET»
+	«ENDLET-»
+«ENDIF-»
 «ENDDEFINE»
 
 «REM»di default non fa niente. sovrascritto nei tipi di panel che 
@@ -529,9 +553,9 @@ quelli esterni!!! «ENDREM»
 
 «DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
 	«EXPAND commandMapForEventSource(model, cp, contextPrefix) FOREACH this.panels-»
-	«REM»«IF this.switcher!=null-»
+	«IF this.switcher!=null-»
 		«EXPAND commandMapForEventSource(model, cp, contextPrefix) FOR this.switcher-»
-	«ENDIF-»«ENDREM»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
@@ -591,9 +615,9 @@ quelli esterni!!! «ENDREM»
 
 «DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
 	«EXPAND commandMapForEventSource(model, cp, contextPrefix) FOREACH this.panels-»
-	«REM»«IF this.switcher!=null-»
+	«IF this.switcher!=null-»
 		«EXPAND initCommandForEventHandler(model, cp, contextPrefix) FOR this.switcher-»
-	«ENDIF-»«ENDREM»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
