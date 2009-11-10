@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getPanelDef <em>Panel Def</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getParamValues <em>Param Values</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PanelDefUse#getConfig <em>Config</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,19 +53,29 @@ public interface PanelDefUse extends Panel {
 	void setPanelDef(PanelDef value);
 
 	/**
-	 * Returns the value of the '<em><b>Param Values</b></em>' containment reference list.
-	 * The list contents are of type {@link it.csi.mddtools.guigen.PDefParamVal}.
+	 * Returns the value of the '<em><b>Config</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Param Values</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Config</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Param Values</em>' containment reference list.
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse_ParamValues()
+	 * @return the value of the '<em>Config</em>' containment reference.
+	 * @see #setConfig(PDefUseConfig)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse_Config()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<PDefParamVal> getParamValues();
+	PDefUseConfig getConfig();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDefUse#getConfig <em>Config</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Config</em>' containment reference.
+	 * @see #getConfig()
+	 * @generated
+	 */
+	void setConfig(PDefUseConfig value);
 
 } // PanelDefUse

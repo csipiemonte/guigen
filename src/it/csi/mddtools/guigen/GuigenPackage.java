@@ -6599,13 +6599,13 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF_USE__PANEL_DEF = PANEL_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Param Values</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Config</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PANEL_DEF_USE__PARAM_VALUES = PANEL_FEATURE_COUNT + 1;
+	int PANEL_DEF_USE__CONFIG = PANEL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Panel Def Use</em>' class.
@@ -6830,6 +6830,34 @@ public interface GuigenPackage extends EPackage {
 	int ACTOR_MAPPING_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PDefUseConfigImpl <em>PDef Use Config</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PDefUseConfigImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefUseConfig()
+	 * @generated
+	 */
+	int PDEF_USE_CONFIG = 124;
+
+	/**
+	 * The feature id for the '<em><b>Param Values</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_USE_CONFIG__PARAM_VALUES = 0;
+
+	/**
+	 * The number of structural features of the '<em>PDef Use Config</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_USE_CONFIG_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6837,7 +6865,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 124;
+	int WIDGET_DATA_TYPE = 125;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -6847,7 +6875,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 125;
+	int UDLRC_SPEC_CONSTANTS = 126;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -6857,7 +6885,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 126;
+	int EVENT_TYPES = 127;
 
 
 	/**
@@ -6868,7 +6896,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 127;
+	int DATA_LIFETIME_TYPE = 128;
 
 
 	/**
@@ -6879,7 +6907,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 128;
+	int SIMPLE_TYPE_CODES = 129;
 
 
 	/**
@@ -6890,7 +6918,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 129;
+	int PORTAL_NAMES = 130;
 
 
 	/**
@@ -6901,7 +6929,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 130;
+	int TARGET_PLATFORM_CODES = 131;
 
 
 	/**
@@ -6912,7 +6940,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 131;
+	int MESSAGE_SEVERITY = 132;
 
 
 	/**
@@ -6923,7 +6951,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 132;
+	int COMMAND_STYLES = 133;
 
 
 	/**
@@ -10318,15 +10346,15 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDefUse_PanelDef();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDefUse#getParamValues <em>Param Values</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDefUse#getConfig <em>Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Param Values</em>'.
-	 * @see it.csi.mddtools.guigen.PanelDefUse#getParamValues()
+	 * @return the meta object for the containment reference '<em>Config</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefUse#getConfig()
 	 * @see #getPanelDefUse()
 	 * @generated
 	 */
-	EReference getPanelDefUse_ParamValues();
+	EReference getPanelDefUse_Config();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefParamVal <em>PDef Param Val</em>}'.
@@ -10453,6 +10481,27 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getActorMappingPDefVal_ActualActor();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefUseConfig <em>PDef Use Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PDef Use Config</em>'.
+	 * @see it.csi.mddtools.guigen.PDefUseConfig
+	 * @generated
+	 */
+	EClass getPDefUseConfig();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PDefUseConfig#getParamValues <em>Param Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Param Values</em>'.
+	 * @see it.csi.mddtools.guigen.PDefUseConfig#getParamValues()
+	 * @see #getPDefUseConfig()
+	 * @generated
+	 */
+	EReference getPDefUseConfig_ParamValues();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -13355,12 +13404,12 @@ public interface GuigenPackage extends EPackage {
 		EReference PANEL_DEF_USE__PANEL_DEF = eINSTANCE.getPanelDefUse_PanelDef();
 
 		/**
-		 * The meta object literal for the '<em><b>Param Values</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Config</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PANEL_DEF_USE__PARAM_VALUES = eINSTANCE.getPanelDefUse_ParamValues();
+		EReference PANEL_DEF_USE__CONFIG = eINSTANCE.getPanelDefUse_Config();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefParamValImpl <em>PDef Param Val</em>}' class.
@@ -13469,6 +13518,24 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTOR_MAPPING_PDEF_VAL__ACTUAL_ACTOR = eINSTANCE.getActorMappingPDefVal_ActualActor();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefUseConfigImpl <em>PDef Use Config</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PDefUseConfigImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefUseConfig()
+		 * @generated
+		 */
+		EClass PDEF_USE_CONFIG = eINSTANCE.getPDefUseConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Param Values</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PDEF_USE_CONFIG__PARAM_VALUES = eINSTANCE.getPDefUseConfig_ParamValues();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

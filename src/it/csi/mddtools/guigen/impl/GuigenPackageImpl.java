@@ -80,6 +80,7 @@ import it.csi.mddtools.guigen.NOPCommand;
 import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.PDefParam;
 import it.csi.mddtools.guigen.PDefParamVal;
+import it.csi.mddtools.guigen.PDefUseConfig;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.PanelDefUse;
@@ -1023,6 +1024,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass actorMappingPDefValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pDefUseConfigEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4024,7 +4032,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPanelDefUse_ParamValues() {
+	public EReference getPanelDefUse_Config() {
 		return (EReference)panelDefUseEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -4134,6 +4142,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getActorMappingPDefVal_ActualActor() {
 		return (EReference)actorMappingPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPDefUseConfig() {
+		return pDefUseConfigEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPDefUseConfig_ParamValues() {
+		return (EReference)pDefUseConfigEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4681,7 +4707,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		panelDefUseEClass = createEClass(PANEL_DEF_USE);
 		createEReference(panelDefUseEClass, PANEL_DEF_USE__PANEL_DEF);
-		createEReference(panelDefUseEClass, PANEL_DEF_USE__PARAM_VALUES);
+		createEReference(panelDefUseEClass, PANEL_DEF_USE__CONFIG);
 
 		pDefParamValEClass = createEClass(PDEF_PARAM_VAL);
 		createEReference(pDefParamValEClass, PDEF_PARAM_VAL__PARAM);
@@ -4700,6 +4726,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		actorMappingPDefValEClass = createEClass(ACTOR_MAPPING_PDEF_VAL);
 		createEReference(actorMappingPDefValEClass, ACTOR_MAPPING_PDEF_VAL__ACTUAL_ACTOR);
+
+		pDefUseConfigEClass = createEClass(PDEF_USE_CONFIG);
+		createEReference(pDefUseConfigEClass, PDEF_USE_CONFIG__PARAM_VALUES);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -5263,7 +5292,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(panelDefUseEClass, PanelDefUse.class, "PanelDefUse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPanelDefUse_PanelDef(), this.getPanelDef(), null, "panelDef", null, 0, 1, PanelDefUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPanelDefUse_ParamValues(), this.getPDefParamVal(), null, "paramValues", null, 0, -1, PanelDefUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDefUse_Config(), this.getPDefUseConfig(), null, "config", null, 0, 1, PanelDefUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pDefParamValEClass, PDefParamVal.class, "PDefParamVal", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPDefParamVal_Param(), this.getPDefParam(), null, "param", null, 0, 1, PDefParamVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5282,6 +5311,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(actorMappingPDefValEClass, ActorMappingPDefVal.class, "ActorMappingPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActorMappingPDefVal_ActualActor(), this.getActor(), null, "actualActor", null, 0, 1, ActorMappingPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pDefUseConfigEClass, PDefUseConfig.class, "PDefUseConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPDefUseConfig_ParamValues(), this.getPDefParamVal(), null, "paramValues", null, 0, -1, PDefUseConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

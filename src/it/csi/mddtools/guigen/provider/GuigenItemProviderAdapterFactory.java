@@ -2629,6 +2629,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PDefUseConfig} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PDefUseConfigItemProvider pDefUseConfigItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PDefUseConfig}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPDefUseConfigAdapter() {
+		if (pDefUseConfigItemProvider == null) {
+			pDefUseConfigItemProvider = new PDefUseConfigItemProvider(this);
+		}
+
+		return pDefUseConfigItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2838,6 +2861,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (ucMappingPDefValItemProvider != null) ucMappingPDefValItemProvider.dispose();
 		if (roleMappingPDefValItemProvider != null) roleMappingPDefValItemProvider.dispose();
 		if (actorMappingPDefValItemProvider != null) actorMappingPDefValItemProvider.dispose();
+		if (pDefUseConfigItemProvider != null) pDefUseConfigItemProvider.dispose();
 	}
 
 }

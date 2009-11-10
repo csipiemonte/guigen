@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PDefUseConfig;
 import it.csi.mddtools.guigen.PDefParamVal;
 import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.PanelDefUse;
@@ -34,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl#getPanelDef <em>Panel Def</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl#getParamValues <em>Param Values</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefUseImpl#getConfig <em>Config</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,14 +53,14 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 	protected PanelDef panelDef;
 
 	/**
-	 * The cached value of the '{@link #getParamValues() <em>Param Values</em>}' containment reference list.
+	 * The cached value of the '{@link #getConfig() <em>Config</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParamValues()
+	 * @see #getConfig()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PDefParamVal> paramValues;
+	protected PDefUseConfig config;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,11 +124,42 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PDefParamVal> getParamValues() {
-		if (paramValues == null) {
-			paramValues = new EObjectContainmentEList<PDefParamVal>(PDefParamVal.class, this, GuigenPackage.PANEL_DEF_USE__PARAM_VALUES);
+	public PDefUseConfig getConfig() {
+		return config;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetConfig(PDefUseConfig newConfig, NotificationChain msgs) {
+		PDefUseConfig oldConfig = config;
+		config = newConfig;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF_USE__CONFIG, oldConfig, newConfig);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return paramValues;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConfig(PDefUseConfig newConfig) {
+		if (newConfig != config) {
+			NotificationChain msgs = null;
+			if (config != null)
+				msgs = ((InternalEObject)config).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF_USE__CONFIG, null, msgs);
+			if (newConfig != null)
+				msgs = ((InternalEObject)newConfig).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF_USE__CONFIG, null, msgs);
+			msgs = basicSetConfig(newConfig, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF_USE__CONFIG, newConfig, newConfig));
 	}
 
 	/**
@@ -138,8 +170,8 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.PANEL_DEF_USE__PARAM_VALUES:
-				return ((InternalEList<?>)getParamValues()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+				return basicSetConfig(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -155,8 +187,8 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 			case GuigenPackage.PANEL_DEF_USE__PANEL_DEF:
 				if (resolve) return getPanelDef();
 				return basicGetPanelDef();
-			case GuigenPackage.PANEL_DEF_USE__PARAM_VALUES:
-				return getParamValues();
+			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+				return getConfig();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -173,9 +205,8 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 			case GuigenPackage.PANEL_DEF_USE__PANEL_DEF:
 				setPanelDef((PanelDef)newValue);
 				return;
-			case GuigenPackage.PANEL_DEF_USE__PARAM_VALUES:
-				getParamValues().clear();
-				getParamValues().addAll((Collection<? extends PDefParamVal>)newValue);
+			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+				setConfig((PDefUseConfig)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,8 +223,8 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 			case GuigenPackage.PANEL_DEF_USE__PANEL_DEF:
 				setPanelDef((PanelDef)null);
 				return;
-			case GuigenPackage.PANEL_DEF_USE__PARAM_VALUES:
-				getParamValues().clear();
+			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+				setConfig((PDefUseConfig)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -209,8 +240,8 @@ public class PanelDefUseImpl extends PanelImpl implements PanelDefUse {
 		switch (featureID) {
 			case GuigenPackage.PANEL_DEF_USE__PANEL_DEF:
 				return panelDef != null;
-			case GuigenPackage.PANEL_DEF_USE__PARAM_VALUES:
-				return paramValues != null && !paramValues.isEmpty();
+			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+				return config != null;
 		}
 		return super.eIsSet(featureID);
 	}

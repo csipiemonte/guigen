@@ -934,6 +934,12 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.PDEF_USE_CONFIG: {
+				PDefUseConfig pDefUseConfig = (PDefUseConfig)theEObject;
+				T result = casePDefUseConfig(pDefUseConfig);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2795,6 +2801,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseActorMappingPDefVal(ActorMappingPDefVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>PDef Use Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>PDef Use Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePDefUseConfig(PDefUseConfig object) {
 		return null;
 	}
 

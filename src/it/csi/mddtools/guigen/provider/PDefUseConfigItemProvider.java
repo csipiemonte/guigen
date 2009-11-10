@@ -9,38 +9,35 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.PDefParam;
-import it.csi.mddtools.guigen.PDefParamVal;
 import it.csi.mddtools.guigen.PDefUseConfig;
-import it.csi.mddtools.guigen.PanelDefUse;
-import it.csi.mddtools.guigen.genutils.EditUtils;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PanelDefUse} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PDefUseConfig} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PanelDefUseItemProvider
-	extends PanelItemProvider
+public class PDefUseConfigItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -53,7 +50,7 @@ public class PanelDefUseItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PanelDefUseItemProvider(AdapterFactory adapterFactory) {
+	public PDefUseConfigItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -68,31 +65,8 @@ public class PanelDefUseItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addPanelDefPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Panel Def feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPanelDefPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PanelDefUse_panelDef_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PanelDefUse_panelDef_feature", "_UI_PanelDefUse_type"),
-				 GuigenPackage.Literals.PANEL_DEF_USE__PANEL_DEF,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -107,7 +81,7 @@ public class PanelDefUseItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF_USE__CONFIG);
+			childrenFeatures.add(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES);
 		}
 		return childrenFeatures;
 	}
@@ -126,44 +100,25 @@ public class PanelDefUseItemProvider
 	}
 
 	/**
-	 * This returns PanelDefUse.gif.
+	 * This returns PDefUseConfig.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PanelDefUse"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PDefUseConfig"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		PanelDefUse pdu = (PanelDefUse)object;
-		PDefUseConfig pduc = pdu.getConfig();
-		String params = "(";
-		if (pduc != null) {
-			Iterator<PDefParamVal> pvals = pduc.getParamValues().iterator();
-			while (pvals.hasNext()) {
-				PDefParamVal curr = pvals.next();
-
-				params += EditUtils.formatPDefParamVal(curr);
-				if (!curr.equals(pduc.getParamValues().get(
-						pduc.getParamValues().size() - 1))) {
-					params += ",";
-				}
-			}
-		}
-		params+=")";
-		String label = ((PanelDefUse)object).getName()+"="+
-		(pdu.getPanelDef()!=null ? pdu.getPanelDef().getName() : "<unspecified panel def>");
-		return 
-			getString("_UI_PanelDefUse_type") + " " + label+params;
+		return getString("_UI_PDefUseConfig_type");
 	}
 
 	/**
@@ -177,8 +132,8 @@ public class PanelDefUseItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(PanelDefUse.class)) {
-			case GuigenPackage.PANEL_DEF_USE__CONFIG:
+		switch (notification.getFeatureID(PDefUseConfig.class)) {
+			case GuigenPackage.PDEF_USE_CONFIG__PARAM_VALUES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -198,8 +153,39 @@ public class PanelDefUseItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.PANEL_DEF_USE__CONFIG,
-				 GuigenFactory.eINSTANCE.createPDefUseConfig()));
+				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
+				 GuigenFactory.eINSTANCE.createAppDataMappingPDefVal()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
+				 GuigenFactory.eINSTANCE.createTypeDefMappingPDefVal()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
+				 GuigenFactory.eINSTANCE.createUCMappingPDefVal()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
+				 GuigenFactory.eINSTANCE.createRoleMappingPDefVal()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
+				 GuigenFactory.eINSTANCE.createActorMappingPDefVal()));
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

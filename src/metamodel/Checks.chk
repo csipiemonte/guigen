@@ -454,7 +454,7 @@ context UCMappingPDefVal ERROR "occorre specificare lo 'UseCase' target:"+loc() 
 
 context PanelDefUse if this.panelDef!=null && this.panelDef.params.size>0 ERROR 
 	"occorre valorizzare tutti i "+this.panelDef.params.size+" parametri del PanelDef:"+loc() :
-	this.paramValues.size == this.panelDef.params.size;	
+	this.config != null && this.config.paramValues.size == this.panelDef.params.size;	
 
 context PanelDef ERROR "Non è possibile utilizzare un PanelDefUse all'interno di un PanelDef:"+loc() :
 	this.eAllContents.typeSelect(PanelDefUse).size==0;

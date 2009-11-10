@@ -1538,8 +1538,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PanelDefUse" eSuperTypes="#//Panel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="panelDef" eType="#//PanelDef"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="paramValues" upperBound="-1"
-        eType="#//PDefParamVal" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="config" eType="#//PDefUseConfig"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PDefParamVal" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//PDefParam"/>
@@ -1558,5 +1558,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActorMappingPDefVal" eSuperTypes="#//PDefParamVal">
     <eStructuralFeatures xsi:type="ecore:EReference" name="actualActor" eType="#//Actor"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PDefUseConfig">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="paramValues" upperBound="-1"
+        eType="#//PDefParamVal" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>
