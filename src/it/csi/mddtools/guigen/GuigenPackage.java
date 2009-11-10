@@ -5578,13 +5578,22 @@ public interface GuigenPackage extends EPackage {
 	int WIZARD_PANEL__NAVIGATOR_ACTIVE = MULTI_PANEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Switcher</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__SWITCHER = MULTI_PANEL_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Wizard Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 1;
+	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.
@@ -9752,6 +9761,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getWizardPanel_NavigatorActive();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.WizardPanel#getSwitcher <em>Switcher</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Switcher</em>'.
+	 * @see it.csi.mddtools.guigen.WizardPanel#getSwitcher()
+	 * @see #getWizardPanel()
+	 * @generated
+	 */
+	EReference getWizardPanel_Switcher();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppModule <em>App Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12910,6 +12930,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute WIZARD_PANEL__NAVIGATOR_ACTIVE = eINSTANCE.getWizardPanel_NavigatorActive();
+
+		/**
+		 * The meta object literal for the '<em><b>Switcher</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WIZARD_PANEL__SWITCHER = eINSTANCE.getWizardPanel_Switcher();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.

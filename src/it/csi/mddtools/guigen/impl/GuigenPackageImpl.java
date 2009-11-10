@@ -3528,6 +3528,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWizardPanel_Switcher() {
+		return (EReference)wizardPanelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAppModule() {
 		return appModuleEClass;
 	}
@@ -4629,6 +4638,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		wizardPanelEClass = createEClass(WIZARD_PANEL);
 		createEAttribute(wizardPanelEClass, WIZARD_PANEL__NAVIGATOR_ACTIVE);
+		createEReference(wizardPanelEClass, WIZARD_PANEL__SWITCHER);
 
 		appModuleEClass = createEClass(APP_MODULE);
 		createEAttribute(appModuleEClass, APP_MODULE__NAME);
@@ -5214,6 +5224,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(wizardPanelEClass, WizardPanel.class, "WizardPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWizardPanel_NavigatorActive(), ecorePackage.getEBoolean(), "navigatorActive", "true", 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWizardPanel_Switcher(), this.getTabSwitcher(), null, "switcher", null, 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(appModuleEClass, AppModule.class, "AppModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
