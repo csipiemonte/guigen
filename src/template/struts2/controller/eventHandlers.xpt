@@ -175,24 +175,24 @@
 «ENDDEFINE»
 
 
-«DEFINE actionStructureInit1(GUIModel model) FOR Command»
+«DEFINE actionStructureInit1(GUIModel model) FOR Command-»
     /**
      * inizializza la struttura dei command da eseguire allo startup della sessione 
      */
 	public ICommand initCommand() {
-		«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this»
+		«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this-»
 		ICommand action = act_onInit_1; 
 		return action;
 	}
 		
 «ENDDEFINE»
 
-«DEFINE actionStructureInit2(GUIModel model, ContentPanel cp) FOR Command»
+«DEFINE actionStructureInit2(GUIModel model, ContentPanel cp) FOR Command-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	public ICommand initOnRefreshCommand() {
-		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this»
+		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
 		ICommand action = act_onRefresh_1; 
 		return action;
 	}
@@ -202,7 +202,7 @@
 «ENDDEFINE»
 
 
-«DEFINE actionStructureInit(GUIModel model) FOR Menubar»
+«DEFINE actionStructureInit(GUIModel model) FOR Menubar-»
     /**
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
@@ -210,74 +210,74 @@
 	public ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
-		«LET (List[Menu])getAllEventSourceMenus() AS eventSources»
-		«IF eventSources.size>0»
-		«FOREACH eventSources AS currEventSource»
+		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
+		«IF eventSources.size>0-»
+		«FOREACH eventSources AS currEventSource-»
 		// contiene i comandi del menu «currEventSource.name» per ogni Ev.H.
 		HashMap<String, ICommand> cmds4«currEventSource.name»ByEvh = 
 		  new HashMap<String, ICommand>();
-		«LET currEventSource.eventHandler AS evhs»
+		«LET currEventSource.eventHandler AS evhs-»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
 		«LET evhs AS currEvh»
 		cmds4«currEventSource.name»ByEvh.put("«currEvh.eventType.toString()»",initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
-		«ENDLET»
-		«ENDLET»
+		«ENDLET-»
+		«ENDLET-»
 		cmdsByWidget.put("«currEventSource.name»",cmds4«currEventSource.name»ByEvh);	
-		«ENDFOREACH»
-		«ENDIF»
-		«ENDLET»
+		«ENDFOREACH-»
+		«ENDIF-»
+		«ENDLET-»
 		
 		
-		«IF getAllEventSourceMenus().size>0»
+		«IF getAllEventSourceMenus().size>0-»
 		return cmdsByWidget.get(sourceWidget).get(eventType);
-		«ELSE»
+		«ELSE-»
 		return new ICommand(){
 			public String doCommand(BaseAction strutsAction){return null;}
 		};
-		«ENDIF»
+		«ENDIF-»
 	}
 	
 	
-	«LET (List[Menu])getAllEventSourceMenus() AS eventSources»
-		«IF eventSources.size>0»
-		«FOREACH eventSources AS currEventSource»
-		«LET currEventSource.eventHandler AS evhs»
-		«LET evhs AS currEvh»
+	«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
+		«IF eventSources.size>0-»
+		«FOREACH eventSources AS currEventSource-»
+		«LET currEventSource.eventHandler AS evhs-»
+		«LET evhs AS currEvh-»
 		public ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model, (ContentPanel)null, "") FOR currEvh»
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model, (ContentPanel)null, "") FOR currEvh-»
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
 		return action;
 		}
-		«ENDLET»
-		«ENDLET»	
-		«ENDFOREACH»
-		«ENDIF»
-	«ENDLET»
+		«ENDLET-»
+		«ENDLET-»	
+		«ENDFOREACH-»
+		«ENDIF-»
+	«ENDLET-»
 	
 «ENDDEFINE»
 
 
-«DEFINE addActionsCode(String actionsVarName, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler»
-    «LET this.command AS currAction»
-    «LET 1 AS actionNumber»
-    	«EXPAND addActionCode(actionsVarName,actionNumber, model, cp, contextPrefix) FOR currAction»
-    «ENDLET»
-    «ENDLET»
+«DEFINE addActionsCode(String actionsVarName, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
+    «LET this.command AS currAction-»
+    «LET 1 AS actionNumber-»
+    	«EXPAND addActionCode(actionsVarName,actionNumber, model, cp, contextPrefix) FOR currAction-»
+    «ENDLET-»
+    «ENDLET-»
     
 	ICommand [] «actionsVarName» = new ICommand[]{
-	«LET this.command AS currAct»
-		«LET 1 AS actionNumber»
+	«LET this.command AS currAct-»
+		«LET 1 AS actionNumber-»
 		act_«actionsVarName»_«actionNumber»
-		«ENDLET»
-	«ENDLET»
+		«ENDLET-»
+	«ENDLET-»
 	};
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR Command»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-»
 «ERROR "Azione non supportata "+this»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpCommand-»
 	/// Jump Command begin
 	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»"«cp.name»",true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
@@ -285,7 +285,7 @@
 
 «REM»[AM] Un refresh view attaccato ad un widget dentro un PanelDef può puntare SOLO a pannelli interni al paneldef. 
 questa è una limitazione da valutare ed eventualmente suggerire di mettere delle refresh più ampie a livello di onRefreshCommand ?«ENDREM»
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand-»
 	/// Refresh Command begin
 	String [] act_«actionsVarName»_«actionNumber»_panels = new String[]{
 		«FOREACH targetPanels AS tp SEPARATOR ","-»
@@ -297,59 +297,59 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere delle
 		"«getFullID(tw, contextPrefix)»"
 		«ENDFOREACH-»
 	};
-	«IF cp!=null»
+	«IF cp!=null-»
 	RefreshViewCommand act_«actionsVarName»_«actionNumber» = new RefreshViewCommand(
 	"«cp.name»", act_«actionsVarName»_«actionNumber»_panels, act_«actionsVarName»_«actionNumber»_widgets
 	);
 	«ELSE-»
 	«ERROR "refresh view può essere collegata solo a un widget in un content panel"-»
-	«ENDIF»
+	«ENDIF-»
 	
 	/// Refresh Command end
 «ENDDEFINE»
 
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR NOPCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR NOPCommand-»
 	/// NOP Command begin
 	NOPCommand act_«actionsVarName»_«actionNumber» = new NOPCommand();
 	/// NOP Command end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
 	/// Jump Ext Command begin
 	JumpExtCommand act_«actionsVarName»_«actionNumber» = new JumpExtCommand("«this.locationCode»");
 	/// Jump Ext Command end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ActivateMultiPanelItemCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ActivateMultiPanelItemCommand-»
 	/// ActivateMultiPanelItem Command begin
 	ActivateMultiPanelItemCommand act_«actionsVarName»_«actionNumber» = 
 		new ActivateMultiPanelItemCommand("«cp.name»", "«getFullID(this.multipanel, contextPrefix)»", "«getFullID(this.activeItem,contextPrefix)»");
 	/// ActivateMultiPanelItem Command end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ShowDialogCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ShowDialogCommand-»
 	// ShowDialog Command begin
 	ShowDialogCommand act_«actionsVarName»_«actionNumber» = new ShowDialogCommand("«this.dialog.name»");
 	// ShowDialog Command end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpBackCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpBackCommand-»
 	//JumpBack Command begin
 	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand();
 	// JumpBack Command end
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
 	// SequenceCommand begin
-    «FOREACH commands AS currAct»
-    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct), model, cp, contextPrefix) FOR currAct»
-    «ENDFOREACH»
+    «FOREACH commands AS currAct-»
+    «EXPAND addActionCode(actionsVarName+"step",commands.indexOf(currAct), model, cp, contextPrefix) FOR currAct-»
+    «ENDFOREACH-»
     
     ICommand [] act_«actionsVarName»_«actionNumber»_steps = new ICommand[]{
-    «FOREACH commands AS currAct»
-    act_«actionsVarName+"step_"+commands.indexOf(currAct)»«IF currAct!=commands.last()»,«ENDIF»
-    «ENDFOREACH»
+    «FOREACH commands AS currAct SEPARATOR ","-»
+    act_«actionsVarName+"step_"+commands.indexOf(currAct)»
+    «ENDFOREACH-»
     };
 	SequenceCommand act_«actionsVarName»_«actionNumber» = new SequenceCommand(act_«actionsVarName»_«actionNumber»_steps);
 	// SequenceCommand end
@@ -357,22 +357,22 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere delle
 
 «REM»TODO: visibility, on-off e screen state: limitazione con panel def: da dentro controllo i widget interni, da fuori solo
 quelli esterni!!! «ENDREM»
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ONOFFCommand»
-	«LET cp!= null ? cp.name : "no-content-panel" AS containerName»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ONOFFCommand-»
+	«LET cp!= null ? cp.name : "no-content-panel" AS containerName-»
 	// ONOFF Command begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
-    «FOREACH this.targetWidgets AS currWidg SEPARATOR ","»
+    «FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
     "«getFullID(currWidg,contextPrefix)»"
-    «ENDFOREACH»
+    «ENDFOREACH-»
     };
     
 	OnOffCommand act_«actionsVarName»_«actionNumber» = new OnOffCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
 	//ONOFF Command end
-	«ENDLET»
+	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ScreenStateCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ScreenStateCommand-»
 	«LET cp AS parentCP-»
 	«LET parentCP.name AS containerName-»
 	// Screen State Command begin
@@ -415,81 +415,81 @@ quelli esterni!!! «ENDREM»
 «ENDDEFINE»
 
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR VisibilityCommand»
-	«LET cp.name AS containerName»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR VisibilityCommand-»
+	«LET cp.name AS containerName-»
 	// VisibilityCommand begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
     String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
-    «FOREACH this.targetWidgets AS currWidg SEPARATOR ","»
+    «FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
     "«getFullID(currWidg,contextPrefix)»"
-    «ENDFOREACH»
+    «ENDFOREACH-»
     };
 	VisibilityCommand act_«actionsVarName»_«actionNumber» = new VisibilityCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
 	// Visibility Command end
-	«ENDLET»
+	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand»
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
 	// ExecCommand begin
     String [] resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)»=new String []{
-      «FOREACH this.results AS currRes SEPARATOR ","»
+      «FOREACH this.results AS currRes SEPARATOR ","-»
       "«currRes.resultCode»"
-      «ENDFOREACH»
+      «ENDFOREACH-»
     };
     
     ICommand [] actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)» = new ICommand[«this.results.size»];
-    «FOREACH results AS currRes»
-    «EXPAND addActionCode(actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action",results.indexOf(currRes),model, cp, contextPrefix) FOR currRes.command»
+    «FOREACH results AS currRes-»
+    «EXPAND addActionCode(actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action",results.indexOf(currRes),model, cp, contextPrefix) FOR currRes.command-»
     actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»[«results.indexOf(currRes)»] = «"act_"+actionsVarName+"_res"+currRes.resultCode.toLowerCase()+"Action_"+results.indexOf(currRes)»;
-    «ENDFOREACH»
+    «ENDFOREACH-»
     
     
 	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)», actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»){
 		public ExecResults doLogic(Object theModel) throws Exception{
 		
-			«LET cp AS parentCP»
-			«IF parentCP != null»
+			«LET cp AS parentCP-»
+			«IF parentCP != null-»
 			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
-			«ELSEIF isInMenuBranch(this)»
+			«ELSEIF isInMenuBranch(this)-»
 			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
-			«ELSE»
+			«ELSE-»
 			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
-			«ENDIF»
-			«ENDLET»
+			«ENDIF-»
+			«ENDLET-»
 		
 		}
 		
 		public void storeAppData(ExecResults res, BaseAction strutsAction){
 			// cast della action al tipo specifico per poter utilizzare direttamente
 			// le property
-			«LET cp AS parentCP»
-			«IF parentCP != null»
+			«LET cp AS parentCP-»
+			«IF parentCP != null-»
 			«getStrutsActionClassName(cp)» specificAction = 
 			  («getStrutsActionClassName(cp)») strutsAction;
-			«ELSEIF this.eContainer.metaType == ApplicationArea»
+			«ELSEIF this.eContainer.metaType == ApplicationArea-»
 			«getStrutsHomeClassName(model)» specificAction = 
 			  («getStrutsHomeClassName(model)») strutsAction;
-			«ELSE»
+			«ELSE-»
 			«getStrutsMenuClassName(model)» specificAction = 
 			  («getStrutsMenuClassName(model)») strutsAction;
-			«ENDIF»
-			«ENDLET»
+			«ENDIF-»
+			«ENDLET-»
 			
 			  
-		«FOREACH this.postExecData AS currAppData»
+		«FOREACH this.postExecData AS currAppData-»
 			// store del dato «currAppData.name»
 			//«toJavaType(currAppData.type,model)» _«getAppDataPropertyName(currAppData)» = 
 			//	(«toJavaType(currAppData.type,model)»)res.get«getAppDataPropertyName(currAppData).toFirstUpper()»();
 			// il dato «currAppData.name» e' salvato in un attributo della action corrente
 			//specificAction.set«getAppDataPropertyName(currAppData).toFirstUpper()»(_«getAppDataPropertyName(currAppData)»);
-			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION»
+			«IF currAppData.lifetimeExtent==DataLifetimeType::USER_SESSION-»
 			// il dato «currAppData.name» e' salvato in sessione
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
-			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::SAME_PAGE»
+			«ELSEIF currAppData.lifetimeExtent==DataLifetimeType::SAME_PAGE-»
 			// il dato «currAppData.name» e' salvato temporaneamente in sessione
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
-			«ENDIF»
-		«ENDFOREACH»
+			«ENDIF-»
+		«ENDFOREACH-»
 		}
 	};
 	// Exec Action end
@@ -501,18 +501,18 @@ quelli esterni!!! «ENDREM»
 	CREAZIONE Mappe dei comandi
 	###########################
 «ENDREM»
-«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget»
+«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
 «IF eventHandlers.size>0-»
 	«LET this AS currEventSource-»
 		// contiene i comandi del widget «getFullID(currEventSource, contextPrefix)» per ogni Ev.H.
 		HashMap<String, ICommand> cmds4«getFullID(currEventSource, contextPrefix)»ByEvh = 
 		  new HashMap<String, ICommand>();
-				«LET (currEventSource).eventHandlers AS evhs»
+				«LET (currEventSource).eventHandlers AS evhs-»
 		«REM»TODO prendere non solo il primo !!!«ENDREM»
-					«FOREACH evhs AS currEvh»
+					«FOREACH evhs AS currEvh-»
 		cmds4«getFullID(currEventSource, contextPrefix)»ByEvh.put("«currEvh.eventType.toString()»",initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»());
-					«ENDFOREACH»
-				«ENDLET»
+					«ENDFOREACH-»
+				«ENDLET-»
 		cmdsByWidget.put("«getFullID(currEventSource, contextPrefix)»",cmds4«getFullID(currEventSource, contextPrefix)»ByEvh);
 	«ENDLET-»
 «ENDIF-»
@@ -562,7 +562,7 @@ quelli esterni!!! «ENDREM»
 	«EXPAND commandMapForEventSource(model, cp, contextPrefix) FOR this.commands-»
 «ENDDEFINE»
 
-«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+«DEFINE commandMapForEventSource(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
 	«EXPAND commandMapForEventSource(model, cp, getChainedContext(contextPrefix, this.name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
@@ -576,11 +576,11 @@ quelli esterni!!! «ENDREM»
 «DEFINE initCommandForEventHandler(Widget currEventSource, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
 «LET this AS currEvh»
 	public ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
-		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh»
+		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh-»
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1; 
 		return action;
 	}
-«ENDLET»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
@@ -614,7 +614,7 @@ quelli esterni!!! «ENDREM»
 «ENDDEFINE»
 
 «DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
-	«EXPAND commandMapForEventSource(model, cp, contextPrefix) FOREACH this.panels-»
+	«EXPAND initCommandForEventHandler(model, cp, contextPrefix) FOREACH this.panels-»
 	«IF this.switcher!=null-»
 		«EXPAND initCommandForEventHandler(model, cp, contextPrefix) FOR this.switcher-»
 	«ENDIF-»
@@ -624,7 +624,7 @@ quelli esterni!!! «ENDREM»
 	«EXPAND initCommandForEventHandler(model, cp, contextPrefix) FOR this.commands-»
 «ENDDEFINE»
 
-«DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+«DEFINE initCommandForEventHandler(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
 	«EXPAND initCommandForEventHandler(model, cp, getChainedContext(contextPrefix, this.name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
