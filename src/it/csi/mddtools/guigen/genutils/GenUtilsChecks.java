@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.AppDataBinding;
+import it.csi.mddtools.guigen.AppDataMappingPDefVal;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CommandPanel;
@@ -15,13 +16,19 @@ import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.Field;
+import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GridPanelLayout;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.MultiDataWidget;
+import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.PDefParamVal;
+import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
+import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypedArray;
@@ -119,6 +126,13 @@ public class GenUtilsChecks {
 	 */
 	public static ArrayList<ApplicationData> findUnresolvedAppDataBinding(
 			ContentPanel cp) {
+		// [AM] gli appdata referenziati sono:
+		// - quelli collegati ad un databinding ad un widget
+		// - quelli collegati ad un collection databinding ad un widget
+		// - quelli referenziati in un parametro di PanelDFefUse
+		// per semplicita' la gestione degli AppData derivanti da PanelDef 
+		// è trattata a parte mantenendo la logica presistente per gli altri casi
+		
 		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
 		ArrayList<Widget> cpWidgets = GenUtils.findAllWidgetsInContentPanel(cp);
 		Iterator<Widget> it_w = cpWidgets.iterator();
@@ -158,10 +172,73 @@ public class GenUtilsChecks {
 			}
 
 		}
-
+		// PanelDefUse
+		ris.addAll(_findUnresolvedAppDataForPanelDef(cp));
 		return ris;
 	}
 
+	/**
+	 * restituisce solo gli appdata non risolti relativi ai PanelDefUse (pezza temporanea per
+	 * evitare di stravolgere la logica di findUnresolvedAppDataBinding.
+	 */
+	public static ArrayList<ApplicationData> _findUnresolvedAppDataForPanelDef(ContentPanel cp){
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>(); 
+		ris.addAll(_findUnresolvedAppDataForPanelDef(cp.getPanels(), cp));
+		return ris;
+	}
+	
+	public static ArrayList<ApplicationData> _findUnresolvedAppDataForPanelDef(Panel p, ContentPanel cp){
+		if (p instanceof FormPanel){
+			return _findUnresolvedAppDataForPanelDef((FormPanel)p, cp);
+		}
+		else if (p instanceof MultiPanel){
+			return _findUnresolvedAppDataForPanelDef((MultiPanel)p, cp);
+		}
+		else if (p instanceof PanelDefUse){
+			return _findUnresolvedAppDataForPanelDef((PanelDefUse)p, cp);
+		}
+		else
+			return new ArrayList<ApplicationData>(); // empty
+	}
+	
+	public static ArrayList<ApplicationData> _findUnresolvedAppDataForPanelDef(FormPanel p, ContentPanel cp){
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+		Iterator<Panel> it_subp = p.getSubpanels().iterator();
+		while (it_subp.hasNext()) {
+			Panel panel = it_subp.next();
+			ris.addAll(_findUnresolvedAppDataForPanelDef(panel, cp));
+		}
+		return ris;
+	}
+	
+	public static ArrayList<ApplicationData> _findUnresolvedAppDataForPanelDef(MultiPanel p, ContentPanel cp){
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+		Iterator<Panel> it_subp = p.getPanels().iterator();
+		while (it_subp.hasNext()) {
+			Panel panel = it_subp.next();
+			ris.addAll(_findUnresolvedAppDataForPanelDef(panel, cp));
+		}
+		return ris;
+	}
+	
+	public static ArrayList<ApplicationData> _findUnresolvedAppDataForPanelDef(PanelDefUse pdu, ContentPanel cp){
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+		if (pdu.getConfig()!=null){
+			Iterator<PDefParamVal> pdpv_it = pdu.getConfig().getParamValues().iterator();
+			while (pdpv_it.hasNext()) {
+				PDefParamVal pDefParamVal = pdpv_it.next();
+				if (pDefParamVal instanceof AppDataMappingPDefVal){
+					if (((AppDataMappingPDefVal) pDefParamVal).getActualAppData()!=null){
+						if(!cp.getAppData().contains(((AppDataMappingPDefVal) pDefParamVal).getActualAppData())){
+							ris.add(((AppDataMappingPDefVal) pDefParamVal).getActualAppData());
+						}
+					}
+				}
+			}
+		}
+		return ris;
+	}
+	
 	/**
 	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
 	 * corretto.
