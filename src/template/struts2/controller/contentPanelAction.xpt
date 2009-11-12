@@ -63,6 +63,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		return SUCCESS;
 	}
 	
+	«REM»per ora non gestisce ancora tab inclusi«ENDREM»
 	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
 	«IF allTabSwitchers.size>0-»
 	//////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +146,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«ENDLET»
 	
 	
-	«EXPAND security::getPageUIConstraintDef(model) FOR this»
+	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
 	
 	/**  */

@@ -1,0 +1,135 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE springSecurityHelperClasses FOR GUIModel-»
+«FILE getSpringSecurityHelperJavaFile()»
+package «getBaseJavaPackage()».business;
+
+import java.util.*;
+import java.io.*;
+import it.csi.csi.porte.InfoPortaDelegata;
+import it.csi.csi.porte.proxy.PDProxy;
+import it.csi.csi.util.xml.PDConfigReader;
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.iride2.policy.entity.*;
+import it.csi.iride2.policy.exceptions.*;
+import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
+import it.csi.iride2.iridefed.entity.Ruolo;
+import it.csi.iride2.iridefed.exceptions.BadRuoloException;
+import «getDTOBaseJavaPackage()».*;
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
+
+«ENDPROTECT»
+
+public class «getSpringSecurityHelperClassName()»{
+
+    /**  */
+	protected static Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");   
+
+    //////////////////////////////////////////////////////////////////////////////
+	/// Metodi di supporto alla sicurezza.
+	//////////////////////////////////////////////////////////////////////////////
+	«EXPAND springSecurityHelperMethods FOR this»
+	
+	//////////////////////////////////////////////////////////////////////////////
+	/// Property aggiuntive del bean
+	//////////////////////////////////////////////////////////////////////////////
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperProperties")»
+	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
+«ENDPROTECT»
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE springSecurityHelperMethods FOR GUIModel»
+	«EXPAND template::struts2::security::irideIntegration::irideHelperMethods FOR this»
+	«EXPAND customConstraintsMethods FOR this»
+«ENDDEFINE»
+
+
+«DEFINE customConstraintsMethods FOR GUIModel»
+	///////////////////////////////////////////////////////////////////////////////
+	//// Metodi per la sicurezza custom
+	///////////////////////////////////////////////////////////////////////////////
+	
+	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS cp-»
+		«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
+			«EXPAND customConstraints(this) FOR cp-»
+		«ENDLET-»
+		
+	«ENDFOREACH-»
+	«LET getAllCustomSecConstraints4Menus(this.structure.appWindow.appArea.menubar) AS customCtr4Menu-»
+			«FOREACH customCtr4Menu AS currMenuCustomCtr-»
+		
+	public boolean customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()» (Map session)
+		throws BEException
+	{
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+(((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix))-»
+		/// inserire qui il codice del controllo custom
+		try{
+			return true;
+		}
+		catch(Throwable ex){
+			log.error("[SecurityHelper::customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»", ex);
+		}
+			«ENDPROTECT»
+	}		
+			«ENDFOREACH-»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model) FOR ContentPanel-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
+	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND customConstraints(model, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+	«LET (List[CustomSecurityConstraint])(this.securityConstraints.select(sc|sc.metaType==CustomSecurityConstraint)) AS allCustomSC-»
+		«EXPAND customConstraint(model, cp, contextPrefix) FOREACH allCustomSC-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE customConstraint(GUIModel model, ContentPanel cp, String contextPrefix) FOR CustomSecurityConstraint-»
+	public boolean customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()» (Map session)
+		throws BEException
+	{
+			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+contextPrefix+this.methodNameSuffix)-»
+		/// inserire qui il codice del controllo custom
+		try{
+			return true;
+		}
+		catch(Throwable ex){
+			log.error("[SecurityHelper::customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»", ex);
+		}
+			«ENDPROTECT»
+	}
+«ENDDEFINE»

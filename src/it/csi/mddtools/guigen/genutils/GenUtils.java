@@ -1867,6 +1867,12 @@ public class GenUtils {
 	public static List<ApplicationData> findAllActionScopedAppData(Menu m){
 		List<ApplicationData> result = new ArrayList<ApplicationData>();
 		
+		if (m.getEventHandler()!=null){
+			List<ApplicationData> parz = findAllActionScopedAppData(m.getEventHandler());
+			if (parz!=null) {
+				result.addAll(parz);
+			}
+		}
 		// submenu
 		Iterator<Menu> it_sm = m.getSubmenu().iterator();
 		while(it_sm.hasNext()){
@@ -1876,7 +1882,7 @@ public class GenUtils {
 				result.addAll(parz);
 			}
 		}
-
+		
 		return result;
 	}
 
