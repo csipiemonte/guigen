@@ -324,7 +324,7 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere delle
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ActivateMultiPanelItemCommand-»
 	/// ActivateMultiPanelItem Command begin
 	ActivateMultiPanelItemCommand act_«actionsVarName»_«actionNumber» = 
-		new ActivateMultiPanelItemCommand("«cp.name»", "«getFullID(this.multipanel, contextPrefix)»", "«getFullID(this.activeItem,contextPrefix)»");
+		new ActivateMultiPanelItemCommand("«cp.name»", "«getFullID(this.multipanel, contextPrefix)»", «IF activeItem!=null-»"«getFullID(this.activeItem, contextPrefix)»"«ELSE-»null«ENDIF-»);
 	/// ActivateMultiPanelItem Command end
 «ENDDEFINE»
 
