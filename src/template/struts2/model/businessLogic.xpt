@@ -230,6 +230,10 @@ public class «getSpringCPBEClassName()»{
 	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
 «ENDDEFINE»
 
+«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
 «DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
 	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
 «ENDDEFINE»
@@ -315,6 +319,10 @@ public class «getSpringCPBEClassName()»{
 «ENDDEFINE»
 
 «DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
 	«EXPAND springBEMethod(model,contextID, cp, contextPrefix) FOREACH widgets-»
 «ENDDEFINE»
 

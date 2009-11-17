@@ -29,6 +29,10 @@
 	«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH this.widgets»
 «ENDDEFINE»
 
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MenuPanel»
+	«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH this.widgets»
+«ENDDEFINE»
+
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
 	«EXPAND widgetsProperties(model, widgetValidation, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel»
 «ENDDEFINE»
