@@ -478,7 +478,7 @@ Gestione dei PANNELLI
 		</s:url>
 		«IF switchHnd != null-»
 		<s:if test="«tabSelectedCondition»">
-			<s:submit cssClass="boxsel" key="«cp.name».«getFullID(currTab, contextPrefix)».label" onclick="return false;"/>
+			<s:submit id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»" cssClass="boxsel" key="«cp.name».«getFullID(currTab, contextPrefix)».label" onclick="return false;"/>
 		</s:if>
 		<s:else>
 			«IF model.targetPlatform.enableRichUIBehavior-»
@@ -486,7 +486,7 @@ Gestione dei PANNELLI
         	«ENDIF-»
 			<s:submit name="«switcher.name»"
           	cssClass="tabnosel"
-            id="«switcher.name»"
+            id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
             method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
             key="«cp.name».«getFullID(currTab, contextPrefix)».label" />
             «IF model.targetPlatform.enableRichUIBehavior-»

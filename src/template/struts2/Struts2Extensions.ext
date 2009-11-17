@@ -158,6 +158,10 @@ String getMultiPanelName(MultiPanel mp, Panel p, ContentPanel parentCP, String c
 String getSelectedMultiPanelName(MultiPanel mp, ContentPanel parentCP, String contextPrefix) :
 	parentCP.name+ "_" + getFullID(mp,contextPrefix);
 
+// serve per l'attributo "id" dei submit nell'implementazione a input di tab e wizard
+String getTabSwitcherSubmitID(Widget switcher, Panel tab, String contextPrefix) :
+	getFullID(switcher, contextPrefix)+"_"+tab.name;
+	
 // JSP for UserDefinedPanels
 String getJspUserDefinedPanelMarkupDir(GUIModel model, boolean omit_root) :
 	getPresentationMarkupDir(model, omit_root) + "/userpanels";
