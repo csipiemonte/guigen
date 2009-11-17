@@ -225,41 +225,6 @@ Definizioni generali: header, footer, ecc
 		<!-- extjs sempre presente perche' utilizzato anche per il calendar -->
 		<customtag:extjs-header />
 		
-		<script type="text/javascript">
-		
-		/// arricchisce i textfield con classe "calendar" con il date picker extjs.
-		function calendarEnrichment(){
-			var dh = Ext.DomHelper;
-			var els=Ext.get(Ext.query("input.calendar"));
-			els.each(function(el){
-				var span = dh.insertBefore(el, {tag:"span"})
-				var d = new Ext.form.DateField({el: el.dom});
-				d.render(span);
-			})
-		}
-		
-		//Ext.onReady( function() {
-		//	calendarEnrichment();
-		//});
-		
-		
-		// Start a simple clock task that updates a div once per second
-		var alreadyEnriched = false;
-		
-		var redoEnrichment = function(){
-			if (!alreadyEnriched){
-    			calendarEnrichment();
-    			alreadyEnriched=true;
-    	//		Ext.TaskMgr.stop(enrichmentTask);
-    		}
-		} 
-		var enrichmentTask = {
-    		run: redoEnrichment,
-    		interval: 1000 //1 second
-		}
-		Ext.TaskMgr.start(enrichmentTask);
-		
-		</script>
 	</head>
 
 	<body>
