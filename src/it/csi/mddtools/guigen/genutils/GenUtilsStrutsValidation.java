@@ -1321,7 +1321,7 @@ public class GenUtilsStrutsValidation {
 	 * @return La label da inserire nel file di properties relativo alla Action di Struts.
 	 */
 	private static String getDateValidatorLabel(String format, String fieldLabel) {
-		return "Campo " + fieldLabel + " : formato " + format + " non valido";
+		return "Campo " + fieldLabel + " : formato " + format + " non rispettato";
 	}
 
 
