@@ -423,8 +423,23 @@ Gestione dei pannelli
 
 
 «REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
-(o di un sottotipo: TabsetPanel)«ENDREM»
+(o di un sottotipo: TabsetPanel).
+NOTA: la semantica del valore nullo in sessione è differente tra MultiPanel e gli altri due:
+nel multi panel null->nessun pannello visualizzato 
+«ENDREM»
 «DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst, String contextPrefix) FOR Panel»
+<s:if test="#session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this, cp, contextPrefix)»'«IF isFirst»«ENDIF»">
+	<s:include value="«getMultiPanelJspInclude(multiPanel, this, cp, contextPrefix)»" ></s:include>
+</s:if>
+«ENDDEFINE»
+
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, TabSetPanel multiPanel, boolean isFirst, String contextPrefix) FOR Panel»
+<s:if test="#session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this, cp, contextPrefix)»'«IF isFirst» || #session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == null«ENDIF»">
+	<s:include value="«getMultiPanelJspInclude(multiPanel, this, cp, contextPrefix)»" ></s:include>
+</s:if>
+«ENDDEFINE»
+
+«DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, WizardPanel multiPanel, boolean isFirst, String contextPrefix) FOR Panel»
 <s:if test="#session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this, cp, contextPrefix)»'«IF isFirst» || #session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == null«ENDIF»">
 	<s:include value="«getMultiPanelJspInclude(multiPanel, this, cp, contextPrefix)»" ></s:include>
 </s:if>
