@@ -8,7 +8,7 @@
         <menubar>
           <topLevelMenu name="mnuPippo" label="pippo">
             <eventHandler>
-              <command xsi:type="guigen:ExecCommand" methodName="fdfdf">
+              <command xsi:type="guigen:ExecCommand" methodName="fdfdf" postExecData="//@appDataDefs/@appData.4">
                 <results resultCode="OIK">
                   <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
                 </results>
@@ -16,7 +16,7 @@
             </eventHandler>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpTestComposite" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.2 //@appDataDefs/@appData.1 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6 //@appDataDefs/@appData.7 //@appDataDefs/@appData.8">
+        <contentPanels name="cpTestComposite" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.2 //@appDataDefs/@appData.1 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6 //@appDataDefs/@appData.7 //@appDataDefs/@appData.8 //@appDataDefs/@appData.10 //@appDataDefs/@appData.9">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test Composizione">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -33,14 +33,24 @@
               <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
               <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagTitolare" label="Dati anagrafici titolare">
                 <panelDef href="dati_anag.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.9">
+                    <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
+                  </paramValues>
+                </config>
               </subpanels>
               <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagRappLegale" label="Dati anagrafici rappr. legale">
                 <panelDef href="dati_anag.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.10">
+                    <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
+                  </paramValues>
+                </config>
               </subpanels>
               <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="Widget non inclusi">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="tfNumero" label="Numero" dataType="//@typedefs/@types.7" required="true"/>
-                <widgets xsi:type="guigen:PlainText" name="txtNota1" label="Nota 1:" dataType="//@typedefs/@types.7" staticText="questa è una nota staticamente inserita nel pannello"/>
+                <widgets xsi:type="guigen:TextField" name="tfNumero" label="Numero" dataType="//@typedefs/@types.8"/>
+                <widgets xsi:type="guigen:PlainText" name="txtNota1" label="Nota 1:" dataType="//@typedefs/@types.7" required="true" staticText="questa è una nota staticamente inserita nel pannello"/>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd" cmdStyle="NAVIGATION">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
@@ -60,12 +70,25 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
             </subpanels>
           </panels>
+          <onRefreshCommand xsi:type="guigen:SequenceCommand">
+            <commands xsi:type="guigen:ExecCommand" methodName="onRefresh1">
+              <results resultCode="R1_1">
+                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
+              </results>
+              <results resultCode="R1_2">
+                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
+              </results>
+            </commands>
+            <commands xsi:type="guigen:ExecCommand" methodName="onRefresh2">
+              <results resultCode="R2_1">
+                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
+              </results>
+              <results resultCode="R2_2">
+                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
+              </results>
+            </commands>
+          </onRefreshCommand>
         </contentPanels>
-        <onInitCommand xsi:type="guigen:ExecCommand" methodName="initCP">
-          <results resultCode="OK">
-            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-          </results>
-        </onInitCommand>
       </appArea>
     </appWindow>
   </structure>
@@ -128,6 +151,12 @@
     </types>
     <types xsi:type="guigen:TypedArray" name="Array of Regione" componentType="//@typedefs/@types.32"/>
     <types xsi:type="guigen:TypedArray" name="Array of Provincia" componentType="//@typedefs/@types.33"/>
+    <namespaces name="anag">
+      <types xsi:type="guigen:ComplexType" name="DatiAnag">
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="cognome" type="//@typedefs/@types.7" required="true"/>
+      </types>
+    </namespaces>
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.31"/>
@@ -139,6 +168,8 @@
     <appData name="provinceNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
     <appData name="comuniNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
     <appData name="indirizzoNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <appData name="dtAnagTitolare" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
+    <appData name="dtAnagRappLegale" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
   <targetPlatform code="JBoss43"/>

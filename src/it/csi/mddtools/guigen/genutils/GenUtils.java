@@ -2,6 +2,8 @@ package it.csi.mddtools.guigen.genutils;
 
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppDataGroup;
+import it.csi.mddtools.guigen.AppDataMappingPDefVal;
+import it.csi.mddtools.guigen.AppDataMappingParam;
 import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
@@ -33,6 +35,8 @@ import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.PDefParamVal;
+import it.csi.mddtools.guigen.PDefUseConfig;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.PanelDefUse;
@@ -1988,9 +1992,11 @@ public class GenUtils {
 	 * @param w
 	 * @return
 	 */
-	public static String getOGNLForWidgetValue(DataWidget w, String contextPrefix){
+	public static String getOGNLForWidgetValue(DataWidget w, String contextPrefix, PDefUseConfig pduConf){
 		if (w.getDatabinding()!=null){
 			AppDataBinding binding = w.getDatabinding();
+			//  [AM] sostituzione eventuale  del mapping per PanelDefUse
+			binding = getResolvedAppDatabinding(binding, pduConf);
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
 				return ""+getFullBindingPath(binding)+"";
 			}
@@ -2007,15 +2013,84 @@ public class GenUtils {
 		}
 	}
 
+	/**
+	 * Risolve una eventuale sovrascrittura dell'appdata binding se predente un PDefUseParam.
+	 * @param original il binding originale (direttamente colegato al widget, che nel caso di
+	 * pannelli inclusi punta ad un appdata fittizio)
+	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
+	 * PanelDef che definisce il pannello che contiene widget... 
+	 * @return il binding definito dalla configurazione se il widget è un widget appartenente ad 
+	 * un panel def, il binding originario se il widget è un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 */
+	public static AppDataBinding getResolvedAppDatabinding(AppDataBinding original, PDefUseConfig pduConf){
+		//
+//		System.out.println("getResolvedAppDatabinding");
+//		if (original != null){
+//			System.out.println("original:"+original.getAppData().getName()+"."+original.getPath());
+//		}
+		///
+		if (pduConf == null)
+			return original;
+		else {
+			AppDataMappingPDefVal mapping = findAppDataMappingInConfig(original.getAppData(), pduConf);
+			if (mapping==null){
+				///
+//				System.out.println("rewrite del binding non trovata");
+				///
+				return original;
+			}
+			else{
+				ApplicationData actualAD = mapping.getActualAppData();
+				///
+//				System.out.println("actualAD="+actualAD.getName());
+				///
+				AppDataBinding newADB  = GuigenFactory.eINSTANCE.createAppDataBinding();
+				newADB.setPath(original.getPath());
+				newADB.setAppData(actualAD);
+				return newADB;
+			}
+		}
+	}
 
+	public static AppDataMappingPDefVal findAppDataMappingInConfig(ApplicationData appData, PDefUseConfig pduConf){
+		///
+//		System.out.println("findAppDataMappingInConfig:"+appData.getName()+","+pduConf.getParamValues().size());
+		///
+		if (pduConf != null){
+			Iterator<PDefParamVal> it_pduc = pduConf.getParamValues().iterator();
+			while (it_pduc.hasNext()) {
+				PDefParamVal currParamVal = it_pduc.next();
+				///
+//				System.out.println("currParamVal:"+currParamVal);
+				///
+				if (currParamVal.getParam()!=null && currParamVal.getParam() instanceof AppDataMappingParam){
+					AppDataMappingParam currParam = (AppDataMappingParam)(currParamVal.getParam());
+					///
+//					System.out.println("currParamVal: originalAppData="+currParam.getDefAppData().getName());
+//					System.out.println("currParamVal: actual="+((AppDataMappingPDefVal)currParamVal).getActualAppData().getName());
+					///
+
+					if (currParam.getDefAppData().equals(appData))
+						return (AppDataMappingPDefVal)currParamVal;
+				}
+			}
+			// se non trovo niente
+			return null;
+		}
+		return null;
+	}
+	
 	/**
 	 *
 	 * @param w
 	 * @return
 	 */
-	public static String getOGNLForWidgetMultiValue(MultiDataWidget w, String contextPrefix){
+	public static String getOGNLForWidgetMultiValue(MultiDataWidget w, String contextPrefix, PDefUseConfig pduConf){
 		if (w.getMultiDataBinding()!=null){
 			AppDataBinding binding = w.getMultiDataBinding();
+			// [AM] risoluzione eventuale del mapping
+			binding = getResolvedAppDatabinding(binding, pduConf);
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
 				return ""+getFullBindingPath(binding)+"";
 			}
@@ -2038,9 +2113,11 @@ public class GenUtils {
 	 * @param w
 	 * @return
 	 */
-	public static String getOGNLForColumnMultiValue(Column c){
+	public static String getOGNLForColumnMultiValue(Column c, PDefUseConfig pduConf){
 		if (c.getMultiDataBinding()!=null){
 			AppDataBinding binding = c.getMultiDataBinding();
+			// [AM] risoluzione eventuale del mapping
+			binding = getResolvedAppDatabinding(binding, pduConf);
 			if (binding.getAppData().getLifetimeExtent().equals(DataLifetimeType.USER_ACTION)){
 				return ""+getFullBindingPath(binding)+"";
 			}
@@ -2143,9 +2220,9 @@ public class GenUtils {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getWidgetLabelFor(Widget w, String contextPrefix) {
+	public static String getWidgetLabelFor(Widget w, String contextPrefix, PDefUseConfig pduConf) {
 		if ( w instanceof DataWidget ) {
-			return getOGNLForWidgetValue((DataWidget)w, contextPrefix);
+			return getOGNLForWidgetValue((DataWidget)w, contextPrefix, pduConf);
 		}
 		return getWidgetName(w, contextPrefix);
 	}
@@ -2159,7 +2236,7 @@ public class GenUtils {
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix) {
+	public static String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf) {
 		String res = "";
 		
 		// ricavo il tipo (sicuramente ComplexType) del MultiDataBinding
@@ -2175,23 +2252,23 @@ public class GenUtils {
 				// al momento gestiamo in maniera diversa solo i boolean
 				// TODO: se necessario implementare altri comparatori
 				if ( isBoolean(ft) ) {
-					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
-					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table, contextPrefix)+"_"+currCol.getSelector()+
+					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
+					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table, contextPrefix, pduConf)+"_"+currCol.getSelector()+
 						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String ckId = "%{'"+getWidgetName(table, contextPrefix)+"_"+currCol.getSelector()+
 					"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
-					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
+					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
 					res+="\n";
 					res+="<s:hidden name=\""+nameResetter+"\" " +
 							"id=\""+ckIdResetter+"\" />";
 				} else {
 					if (currCol.getMultiDataBinding()!=null){
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
-					          " list=\""+getOGNLForColumnMultiValue(currCol)+"\" "+
+					          " list=\""+getOGNLForColumnMultiValue(currCol, pduConf)+"\" "+
 					          disabled +
 					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
 					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
@@ -2201,11 +2278,11 @@ public class GenUtils {
 						
 					}
 					else if (currCol.getMultidataPropertySelector()!=null) {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
-					          " list= \""+getOGNLForWidgetMultiValue(table,contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
+					          " list= \""+getOGNLForWidgetMultiValue(table,contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
 					          disabled +
 					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
 					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
@@ -2213,8 +2290,8 @@ public class GenUtils {
 					          "/>";
 					}
 					else {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
 					}
 				}
 			}
