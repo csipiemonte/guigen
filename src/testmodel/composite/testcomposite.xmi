@@ -47,6 +47,23 @@
                   </paramValues>
                 </config>
               </subpanels>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pIndRappLegale" label="Indirizzo rappr. legale">
+                <panelDef href="scelta_indirizzo.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.1">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.0"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.2">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.1"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.3">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.2"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.4">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.3"/>
+                  </paramValues>
+                </config>
+              </subpanels>
               <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="Widget non inclusi">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:TextField" name="tfNumero" label="Numero" dataType="//@typedefs/@types.8"/>
@@ -71,20 +88,9 @@
             </subpanels>
           </panels>
           <onRefreshCommand xsi:type="guigen:SequenceCommand">
-            <commands xsi:type="guigen:ExecCommand" methodName="onRefresh1">
-              <results resultCode="R1_1">
-                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
-              </results>
-              <results resultCode="R1_2">
-                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
-              </results>
-            </commands>
-            <commands xsi:type="guigen:ExecCommand" methodName="onRefresh2">
-              <results resultCode="R2_1">
-                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
-              </results>
-              <results resultCode="R2_2">
-                <command xsi:type="guigen:VisibilityCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@widgets.0" show="true"/>
+            <commands xsi:type="guigen:ExecCommand" methodName="gestisciIndirizzoRappLeg" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.2 //@appDataDefs/@appData.1">
+              <results resultCode="OK">
+                <command xsi:type="guigen:NOPCommand"/>
               </results>
             </commands>
           </onRefreshCommand>
@@ -160,14 +166,14 @@
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.31"/>
-    <appData name="regioniRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
-    <appData name="provinceRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
-    <appData name="comuniRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
-    <appData name="indirizzoRes" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
-    <appData name="regioniNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
-    <appData name="provinceNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
-    <appData name="comuniNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
-    <appData name="indirizzoNasc" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <appData name="regioniRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="provinceRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="comuniRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
+    <appData name="indirizzoRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <appData name="regioniTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
+    <appData name="provinceTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="comuniTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.29"/>
+    <appData name="indirizzoTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
     <appData name="dtAnagTitolare" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
     <appData name="dtAnagRappLegale" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
   </appDataDefs>
