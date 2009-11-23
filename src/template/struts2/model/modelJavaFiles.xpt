@@ -81,6 +81,19 @@ public class «getDTOClassName(this)» implements java.io.Serializable {
 	}
 «ENDDEFINE»
 
+«DEFINE activationParamProperty(GUIModel model) FOR ActivationParam»
+
+	/// Activation Param [«name»]
+	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	
+	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
+		_«this.name» = val;
+	}
+	
+	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
+		return _«this.name»;
+	}
+«ENDDEFINE»
 
 «REM»comment«ENDREM»
 
@@ -234,6 +247,9 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model) FOR this.onInitCommand»
 	«ENDIF»
 	
+	«IF model.activationModel!=null-»
+    «EXPAND activationParamProperty(model) FOREACH model.activationModel.activationParams-»
+    «ENDIF-»
 
 }
 «ENDFILE»
