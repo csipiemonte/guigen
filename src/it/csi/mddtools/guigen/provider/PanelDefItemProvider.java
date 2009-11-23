@@ -70,7 +70,6 @@ public class PanelDefItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addAppDataDefsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -98,28 +97,6 @@ public class PanelDefItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the App Data Defs feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAppDataDefsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PanelDef_appDataDefs_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PanelDef_appDataDefs_feature", "_UI_PanelDef_type"),
-				 GuigenPackage.Literals.PANEL_DEF__APP_DATA_DEFS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -133,6 +110,7 @@ public class PanelDefItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__PANEL);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__PARAMS);
+			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__APP_DATA_DEFS);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__TYPE_DEFS);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__ROLES);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__ACTORS);
@@ -210,6 +188,7 @@ public class PanelDefItemProvider
 				return;
 			case GuigenPackage.PANEL_DEF__PANEL:
 			case GuigenPackage.PANEL_DEF__PARAMS:
+			case GuigenPackage.PANEL_DEF__APP_DATA_DEFS:
 			case GuigenPackage.PANEL_DEF__TYPE_DEFS:
 			case GuigenPackage.PANEL_DEF__ROLES:
 			case GuigenPackage.PANEL_DEF__ACTORS:
@@ -321,6 +300,11 @@ public class PanelDefItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__PARAMS,
 				 GuigenFactory.eINSTANCE.createActorMappingParam()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__APP_DATA_DEFS,
+				 GuigenFactory.eINSTANCE.createApplicationDataDefs()));
 
 		newChildDescriptors.add
 			(createChildParameter
