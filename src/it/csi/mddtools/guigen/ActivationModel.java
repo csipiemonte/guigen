@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,29 +27,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ActivationModel extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Activation Params</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Activation Params</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.ActivationParam}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Activation Params</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Activation Params</em>' containment reference.
-	 * @see #setActivationParams(ActivationParam)
+	 * @return the value of the '<em>Activation Params</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getActivationModel_ActivationParams()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ActivationParam getActivationParams();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.ActivationModel#getActivationParams <em>Activation Params</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Activation Params</em>' containment reference.
-	 * @see #getActivationParams()
-	 * @generated
-	 */
-	void setActivationParams(ActivationParam value);
+	EList<ActivationParam> getActivationParams();
 
 } // ActivationModel

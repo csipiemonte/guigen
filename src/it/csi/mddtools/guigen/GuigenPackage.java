@@ -6886,7 +6886,7 @@ public interface GuigenPackage extends EPackage {
 	int ACTIVATION_MODEL = 125;
 
 	/**
-	 * The feature id for the '<em><b>Activation Params</b></em>' containment reference.
+	 * The feature id for the '<em><b>Activation Params</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10619,10 +10619,10 @@ public interface GuigenPackage extends EPackage {
 	EClass getActivationModel();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ActivationModel#getActivationParams <em>Activation Params</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.ActivationModel#getActivationParams <em>Activation Params</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Activation Params</em>'.
+	 * @return the meta object for the containment reference list '<em>Activation Params</em>'.
 	 * @see it.csi.mddtools.guigen.ActivationModel#getActivationParams()
 	 * @see #getActivationModel()
 	 * @generated
@@ -13722,7 +13722,7 @@ public interface GuigenPackage extends EPackage {
 		EClass ACTIVATION_MODEL = eINSTANCE.getActivationModel();
 
 		/**
-		 * The meta object literal for the '<em><b>Activation Params</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Activation Params</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

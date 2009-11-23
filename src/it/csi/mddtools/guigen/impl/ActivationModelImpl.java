@@ -10,14 +10,18 @@ import it.csi.mddtools.guigen.ActivationModel;
 import it.csi.mddtools.guigen.ActivationParam;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,14 +38,14 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class ActivationModelImpl extends EObjectImpl implements ActivationModel {
 	/**
-	 * The cached value of the '{@link #getActivationParams() <em>Activation Params</em>}' containment reference.
+	 * The cached value of the '{@link #getActivationParams() <em>Activation Params</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getActivationParams()
 	 * @generated
 	 * @ordered
 	 */
-	protected ActivationParam activationParams;
+	protected EList<ActivationParam> activationParams;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,42 +71,11 @@ public class ActivationModelImpl extends EObjectImpl implements ActivationModel 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ActivationParam getActivationParams() {
+	public EList<ActivationParam> getActivationParams() {
+		if (activationParams == null) {
+			activationParams = new EObjectContainmentEList<ActivationParam>(ActivationParam.class, this, GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS);
+		}
 		return activationParams;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetActivationParams(ActivationParam newActivationParams, NotificationChain msgs) {
-		ActivationParam oldActivationParams = activationParams;
-		activationParams = newActivationParams;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS, oldActivationParams, newActivationParams);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setActivationParams(ActivationParam newActivationParams) {
-		if (newActivationParams != activationParams) {
-			NotificationChain msgs = null;
-			if (activationParams != null)
-				msgs = ((InternalEObject)activationParams).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS, null, msgs);
-			if (newActivationParams != null)
-				msgs = ((InternalEObject)newActivationParams).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS, null, msgs);
-			msgs = basicSetActivationParams(newActivationParams, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS, newActivationParams, newActivationParams));
 	}
 
 	/**
@@ -114,7 +87,7 @@ public class ActivationModelImpl extends EObjectImpl implements ActivationModel 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS:
-				return basicSetActivationParams(null, msgs);
+				return ((InternalEList<?>)getActivationParams()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -138,11 +111,13 @@ public class ActivationModelImpl extends EObjectImpl implements ActivationModel 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS:
-				setActivationParams((ActivationParam)newValue);
+				getActivationParams().clear();
+				getActivationParams().addAll((Collection<? extends ActivationParam>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -157,7 +132,7 @@ public class ActivationModelImpl extends EObjectImpl implements ActivationModel 
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS:
-				setActivationParams((ActivationParam)null);
+				getActivationParams().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -172,7 +147,7 @@ public class ActivationModelImpl extends EObjectImpl implements ActivationModel 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GuigenPackage.ACTIVATION_MODEL__ACTIVATION_PARAMS:
-				return activationParams != null;
+				return activationParams != null && !activationParams.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
