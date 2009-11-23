@@ -2652,6 +2652,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActivationModel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActivationModelItemProvider activationModelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActivationModel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActivationModelAdapter() {
+		if (activationModelItemProvider == null) {
+			activationModelItemProvider = new ActivationModelItemProvider(this);
+		}
+
+		return activationModelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ActivationParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActivationParamItemProvider activationParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ActivationParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createActivationParamAdapter() {
+		if (activationParamItemProvider == null) {
+			activationParamItemProvider = new ActivationParamItemProvider(this);
+		}
+
+		return activationParamItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2862,6 +2908,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (roleMappingPDefValItemProvider != null) roleMappingPDefValItemProvider.dispose();
 		if (actorMappingPDefValItemProvider != null) actorMappingPDefValItemProvider.dispose();
 		if (pDefUseConfigItemProvider != null) pDefUseConfigItemProvider.dispose();
+		if (activationModelItemProvider != null) activationModelItemProvider.dispose();
+		if (activationParamItemProvider != null) activationParamItemProvider.dispose();
 	}
 
 }

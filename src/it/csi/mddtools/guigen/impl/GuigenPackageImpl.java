@@ -8,6 +8,8 @@ package it.csi.mddtools.guigen.impl;
 
 
 import it.csi.mddtools.guigen.ActivateMultiPanelItemCommand;
+import it.csi.mddtools.guigen.ActivationModel;
+import it.csi.mddtools.guigen.ActivationParam;
 import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.ActorBasedSecurityConstraint;
 import it.csi.mddtools.guigen.ActorMappingPDefVal;
@@ -1037,6 +1039,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass activationModelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass activationParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1838,6 +1854,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getGUIModel_TargetPlatform() {
 		return (EReference)guiModelEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGUIModel_ActivationModel() {
+		return (EReference)guiModelEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -4176,6 +4201,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getActivationModel() {
+		return activationModelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActivationModel_ActivationParams() {
+		return (EReference)activationModelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getActivationParam() {
+		return activationParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getActivationParam_Name() {
+		return (EAttribute)activationParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getActivationParam_Type() {
+		return (EReference)activationParamEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4374,6 +4444,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(guiModelEClass, GUI_MODEL__PORTALE);
 		createEReference(guiModelEClass, GUI_MODEL__SECURITY_MODEL);
 		createEReference(guiModelEClass, GUI_MODEL__TARGET_PLATFORM);
+		createEReference(guiModelEClass, GUI_MODEL__ACTIVATION_MODEL);
 
 		guiStructureEClass = createEClass(GUI_STRUCTURE);
 		createEReference(guiStructureEClass, GUI_STRUCTURE__APP_WINDOW);
@@ -4740,6 +4811,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		pDefUseConfigEClass = createEClass(PDEF_USE_CONFIG);
 		createEReference(pDefUseConfigEClass, PDEF_USE_CONFIG__PARAM_VALUES);
 
+		activationModelEClass = createEClass(ACTIVATION_MODEL);
+		createEReference(activationModelEClass, ACTIVATION_MODEL__ACTIVATION_PARAMS);
+
+		activationParamEClass = createEClass(ACTIVATION_PARAM);
+		createEAttribute(activationParamEClass, ACTIVATION_PARAM__NAME);
+		createEReference(activationParamEClass, ACTIVATION_PARAM__TYPE);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -4960,6 +5038,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getGUIModel_Portale(), this.getPortalNames(), "portale", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_SecurityModel(), this.getSecurityModel(), null, "securityModel", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGUIModel_TargetPlatform(), this.getTargetPlatform(), null, "targetPlatform", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGUIModel_ActivationModel(), this.getActivationModel(), null, "activationModel", null, 0, 1, GUIModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guiStructureEClass, GUIStructure.class, "GUIStructure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGUIStructure_AppWindow(), this.getAppWindow(), null, "appWindow", null, 0, 1, GUIStructure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5325,6 +5404,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(pDefUseConfigEClass, PDefUseConfig.class, "PDefUseConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPDefUseConfig_ParamValues(), this.getPDefParamVal(), null, "paramValues", null, 0, -1, PDefUseConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(activationModelEClass, ActivationModel.class, "ActivationModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActivationModel_ActivationParams(), this.getActivationParam(), null, "activationParams", null, 0, 1, ActivationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(activationParamEClass, ActivationParam.class, "ActivationParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getActivationParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, ActivationParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActivationParam_Type(), this.getSimpleType(), null, "type", null, 0, 1, ActivationParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

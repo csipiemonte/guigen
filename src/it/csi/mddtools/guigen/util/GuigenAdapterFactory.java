@@ -572,6 +572,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createPDefUseConfigAdapter();
 			}
 			@Override
+			public Adapter caseActivationModel(ActivationModel object) {
+				return createActivationModelAdapter();
+			}
+			@Override
+			public Adapter caseActivationParam(ActivationParam object) {
+				return createActivationParamAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2338,6 +2346,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPDefUseConfigAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActivationModel <em>Activation Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ActivationModel
+	 * @generated
+	 */
+	public Adapter createActivationModelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ActivationParam <em>Activation Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ActivationParam
+	 * @generated
+	 */
+	public Adapter createActivationParamAdapter() {
 		return null;
 	}
 

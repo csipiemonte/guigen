@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -360,5 +361,31 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setTargetPlatform(TargetPlatform value);
+
+	/**
+	 * Returns the value of the '<em><b>Activation Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Activation Model</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Activation Model</em>' containment reference.
+	 * @see #setActivationModel(ActivationModel)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_ActivationModel()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ActivationModel getActivationModel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getActivationModel <em>Activation Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Activation Model</em>' containment reference.
+	 * @see #getActivationModel()
+	 * @generated
+	 */
+	void setActivationModel(ActivationModel value);
 
 } // GUIModel

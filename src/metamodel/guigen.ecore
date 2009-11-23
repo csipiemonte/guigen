@@ -407,6 +407,8 @@
         <details key="documentation" value="[[TODO: add documentation here]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activationModel" eType="#//ActivationModel"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1564,5 +1566,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="PDefUseConfig">
     <eStructuralFeatures xsi:type="ecore:EReference" name="paramValues" upperBound="-1"
         eType="#//PDefParamVal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivationModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activationParams" eType="#//ActivationParam"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivationParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//SimpleType"/>
   </eClassifiers>
 </ecore:EPackage>

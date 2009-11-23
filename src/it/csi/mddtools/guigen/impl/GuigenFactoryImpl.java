@@ -173,6 +173,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ROLE_MAPPING_PDEF_VAL: return createRoleMappingPDefVal();
 			case GuigenPackage.ACTOR_MAPPING_PDEF_VAL: return createActorMappingPDefVal();
 			case GuigenPackage.PDEF_USE_CONFIG: return createPDefUseConfig();
+			case GuigenPackage.ACTIVATION_MODEL: return createActivationModel();
+			case GuigenPackage.ACTIVATION_PARAM: return createActivationParam();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1358,6 +1360,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public PDefUseConfig createPDefUseConfig() {
 		PDefUseConfigImpl pDefUseConfig = new PDefUseConfigImpl();
 		return pDefUseConfig;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivationModel createActivationModel() {
+		ActivationModelImpl activationModel = new ActivationModelImpl();
+		return activationModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivationParam createActivationParam() {
+		ActivationParamImpl activationParam = new ActivationParamImpl();
+		return activationParam;
 	}
 
 	/**

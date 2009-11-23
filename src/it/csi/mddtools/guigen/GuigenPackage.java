@@ -2455,13 +2455,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__TARGET_PLATFORM = 10;
 
 	/**
+	 * The feature id for the '<em><b>Activation Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__ACTIVATION_MODEL = 11;
+
+	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 11;
+	int GUI_MODEL_FEATURE_COUNT = 12;
 
 	/**
 	 * The feature id for the '<em><b>App Window</b></em>' containment reference.
@@ -6867,6 +6876,71 @@ public interface GuigenPackage extends EPackage {
 	int PDEF_USE_CONFIG_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActivationModelImpl <em>Activation Model</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActivationModelImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationModel()
+	 * @generated
+	 */
+	int ACTIVATION_MODEL = 125;
+
+	/**
+	 * The feature id for the '<em><b>Activation Params</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATION_MODEL__ACTIVATION_PARAMS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Activation Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATION_MODEL_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActivationParamImpl <em>Activation Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ActivationParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationParam()
+	 * @generated
+	 */
+	int ACTIVATION_PARAM = 126;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATION_PARAM__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATION_PARAM__TYPE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Activation Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATION_PARAM_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6874,7 +6948,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 125;
+	int WIDGET_DATA_TYPE = 127;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -6884,7 +6958,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 126;
+	int UDLRC_SPEC_CONSTANTS = 128;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -6894,7 +6968,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 127;
+	int EVENT_TYPES = 129;
 
 
 	/**
@@ -6905,7 +6979,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 128;
+	int DATA_LIFETIME_TYPE = 130;
 
 
 	/**
@@ -6916,7 +6990,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 129;
+	int SIMPLE_TYPE_CODES = 131;
 
 
 	/**
@@ -6927,7 +7001,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 130;
+	int PORTAL_NAMES = 132;
 
 
 	/**
@@ -6938,7 +7012,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 131;
+	int TARGET_PLATFORM_CODES = 133;
 
 
 	/**
@@ -6949,7 +7023,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 132;
+	int MESSAGE_SEVERITY = 134;
 
 
 	/**
@@ -6960,7 +7034,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 133;
+	int COMMAND_STYLES = 135;
 
 
 	/**
@@ -7779,6 +7853,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGUIModel_TargetPlatform();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getActivationModel <em>Activation Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Activation Model</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getActivationModel()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_ActivationModel();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.GUIStructure <em>GUI Structure</em>}'.
@@ -10524,6 +10609,59 @@ public interface GuigenPackage extends EPackage {
 	EReference getPDefUseConfig_ParamValues();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActivationModel <em>Activation Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Activation Model</em>'.
+	 * @see it.csi.mddtools.guigen.ActivationModel
+	 * @generated
+	 */
+	EClass getActivationModel();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ActivationModel#getActivationParams <em>Activation Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Activation Params</em>'.
+	 * @see it.csi.mddtools.guigen.ActivationModel#getActivationParams()
+	 * @see #getActivationModel()
+	 * @generated
+	 */
+	EReference getActivationModel_ActivationParams();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ActivationParam <em>Activation Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Activation Param</em>'.
+	 * @see it.csi.mddtools.guigen.ActivationParam
+	 * @generated
+	 */
+	EClass getActivationParam();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ActivationParam#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.ActivationParam#getName()
+	 * @see #getActivationParam()
+	 * @generated
+	 */
+	EAttribute getActivationParam_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ActivationParam#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.ActivationParam#getType()
+	 * @see #getActivationParam()
+	 * @generated
+	 */
+	EReference getActivationParam_Type();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11280,6 +11418,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__TARGET_PLATFORM = eINSTANCE.getGUIModel_TargetPlatform();
+
+		/**
+		 * The meta object literal for the '<em><b>Activation Model</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__ACTIVATION_MODEL = eINSTANCE.getGUIModel_ActivationModel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.GUIStructureImpl <em>GUI Structure</em>}' class.
@@ -13564,6 +13710,50 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PDEF_USE_CONFIG__PARAM_VALUES = eINSTANCE.getPDefUseConfig_ParamValues();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActivationModelImpl <em>Activation Model</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActivationModelImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationModel()
+		 * @generated
+		 */
+		EClass ACTIVATION_MODEL = eINSTANCE.getActivationModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Activation Params</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVATION_MODEL__ACTIVATION_PARAMS = eINSTANCE.getActivationModel_ActivationParams();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActivationParamImpl <em>Activation Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ActivationParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getActivationParam()
+		 * @generated
+		 */
+		EClass ACTIVATION_PARAM = eINSTANCE.getActivationParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVATION_PARAM__NAME = eINSTANCE.getActivationParam_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVATION_PARAM__TYPE = eINSTANCE.getActivationParam_Type();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

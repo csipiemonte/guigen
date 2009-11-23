@@ -556,3 +556,16 @@ context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito
 context ContentPanel ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
 	((GUIModel)this.eRootContainer).securityModel==null ||
 	appData.select(ab|ab.name=="currentUser").size==1;
+
+	
+///// ActivationModel
+
+context ActivationParam ERROR "E'necessario specificare il nome del paramtero di attivazione:"+loc() :
+	!isNullOrEmpty(name);
+
+context ActivationParam ERROR "E'necessario specificare il tipo del parametro di attivazione:"+loc() :
+	type != null;
+	
+/// check per evitare che i parametri vadano in conflitto con app data o property implicite dei widget
+context ActivationParam if (!isNullOrEmpty(name))ERROR "Un paramtero di attivazione non puo avere un nome che inizia con 'AppData/appData' o 'widg_/Widg_':"+loc() :
+	!name.toLowerCase().startsWith("appdata") && !name.toLowerCase().startsWith("widg_");

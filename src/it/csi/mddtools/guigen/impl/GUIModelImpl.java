@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.ActivationModel;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.GUIBehaviors;
 import it.csi.mddtools.guigen.GUIModel;
@@ -43,6 +44,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getSecurityModel <em>Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -208,6 +210,16 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected TargetPlatform targetPlatform;
+
+	/**
+	 * The cached value of the '{@link #getActivationModel() <em>Activation Model</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActivationModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected ActivationModel activationModel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -596,6 +608,49 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ActivationModel getActivationModel() {
+		return activationModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetActivationModel(ActivationModel newActivationModel, NotificationChain msgs) {
+		ActivationModel oldActivationModel = activationModel;
+		activationModel = newActivationModel;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__ACTIVATION_MODEL, oldActivationModel, newActivationModel);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActivationModel(ActivationModel newActivationModel) {
+		if (newActivationModel != activationModel) {
+			NotificationChain msgs = null;
+			if (activationModel != null)
+				msgs = ((InternalEObject)activationModel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__ACTIVATION_MODEL, null, msgs);
+			if (newActivationModel != null)
+				msgs = ((InternalEObject)newActivationModel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.GUI_MODEL__ACTIVATION_MODEL, null, msgs);
+			msgs = basicSetActivationModel(newActivationModel, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__ACTIVATION_MODEL, newActivationModel, newActivationModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -611,6 +666,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return basicSetSecurityModel(null, msgs);
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return basicSetTargetPlatform(null, msgs);
+			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
+				return basicSetActivationModel(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -645,6 +702,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getSecurityModel();
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return getTargetPlatform();
+			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
+				return getActivationModel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -689,6 +748,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
+				setActivationModel((ActivationModel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -735,6 +797,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)null);
 				return;
+			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
+				setActivationModel((ActivationModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -769,6 +834,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return securityModel != null;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return targetPlatform != null;
+			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
+				return activationModel != null;
 		}
 		return super.eIsSet(featureID);
 	}

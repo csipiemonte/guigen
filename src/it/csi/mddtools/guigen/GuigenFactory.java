@@ -1034,6 +1034,24 @@ public interface GuigenFactory extends EFactory {
 	PDefUseConfig createPDefUseConfig();
 
 	/**
+	 * Returns a new object of class '<em>Activation Model</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Activation Model</em>'.
+	 * @generated
+	 */
+	ActivationModel createActivationModel();
+
+	/**
+	 * Returns a new object of class '<em>Activation Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Activation Param</em>'.
+	 * @generated
+	 */
+	ActivationParam createActivationParam();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
