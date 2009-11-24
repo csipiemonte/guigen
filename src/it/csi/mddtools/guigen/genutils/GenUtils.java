@@ -1,5 +1,8 @@
 package it.csi.mddtools.guigen.genutils;
 
+import it.csi.mddtools.guigen.Actor;
+import it.csi.mddtools.guigen.ActorMappingPDefVal;
+import it.csi.mddtools.guigen.ActorMappingParam;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppDataGroup;
 import it.csi.mddtools.guigen.AppDataMappingPDefVal;
@@ -43,6 +46,9 @@ import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
+import it.csi.mddtools.guigen.Role;
+import it.csi.mddtools.guigen.RoleMappingPDefVal;
+import it.csi.mddtools.guigen.RoleMappingParam;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.ShowDialogCommand;
 import it.csi.mddtools.guigen.SimpleType;
@@ -55,7 +61,10 @@ import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
+import it.csi.mddtools.guigen.UCMappingPDefVal;
 import it.csi.mddtools.guigen.UISecurityConstraint;
+import it.csi.mddtools.guigen.UseCase;
+import it.csi.mddtools.guigen.UseCaseMappingParam;
 import it.csi.mddtools.guigen.UserDefinedPanel;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
@@ -2081,6 +2090,7 @@ public class GenUtils {
 		return null;
 	}
 	
+	
 	/**
 	 *
 	 * @param w
@@ -2197,6 +2207,205 @@ public class GenUtils {
 		return "appData"+ad.getName();
 	}
 
+	//////////////////////////////////////
+	
+	/**
+	 * Risolve una eventuale sovrascrittura dell'actor se predente un PDefUseParam.
+	 * @param original l'actor originale 
+	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
+	 * PanelDef che definisce il pannello che contiene widget... 
+	 * @return l'actor definito dalla configurazione se il widget è un widget appartenente ad 
+	 * un panel def, l'acotr originario se il widget è un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 */
+	public static Actor getResolvedActor(Actor original, PDefUseConfig pduConf){
+		//
+//		System.out.println("getResolvedactor");
+//		if (original != null){
+//			System.out.println("original:"+original.getAppData().getName()+"."+original.getPath());
+//		}
+		///
+		if (pduConf == null)
+			return original;
+		else {
+			ActorMappingPDefVal mapping = findActorMappingInConfig(original, pduConf);
+			if (mapping==null){
+				///
+//				System.out.println("rewrite del binding non trovata");
+				///
+				return original;
+			}
+			else{
+				Actor actualAct = mapping.getActualActor();
+				///
+//				System.out.println("actualAD="+actualAD.getName());
+				///
+				return actualAct;
+			}
+		}
+	}
+
+	public static ActorMappingPDefVal findActorMappingInConfig(Actor actor, PDefUseConfig pduConf){
+		///
+//		System.out.println("findAppDataMappingInConfig:"+appData.getName()+","+pduConf.getParamValues().size());
+		///
+		if (pduConf != null){
+			Iterator<PDefParamVal> it_pduc = pduConf.getParamValues().iterator();
+			while (it_pduc.hasNext()) {
+				PDefParamVal currParamVal = it_pduc.next();
+				///
+//				System.out.println("currParamVal:"+currParamVal);
+				///
+				if (currParamVal.getParam()!=null && currParamVal.getParam() instanceof ActorMappingParam){
+					ActorMappingParam currParam = (ActorMappingParam)(currParamVal.getParam());
+					///
+//					System.out.println("currParamVal: originalAppData="+currParam.getDefAppData().getName());
+//					System.out.println("currParamVal: actual="+((AppDataMappingPDefVal)currParamVal).getActualAppData().getName());
+					///
+
+					if (currParam.getDefActor().equals(actor))
+						return (ActorMappingPDefVal)currParamVal;
+				}
+			}
+			// se non trovo niente
+			return null;
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Risolve una eventuale sovrascrittura dell'use case se predente un PDefUseParam.
+	 * @param original l'use case originale 
+	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
+	 * PanelDef che definisce il pannello che contiene widget... 
+	 * @return l'use case definito dalla configurazione se il widget è un widget appartenente ad 
+	 * un panel def, l'use case originario se il widget è un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 */
+	public static UseCase getResolvedUseCase(UseCase original, PDefUseConfig pduConf){
+		//
+//		System.out.println("getResolvedactor");
+//		if (original != null){
+//			System.out.println("original:"+original.getAppData().getName()+"."+original.getPath());
+//		}
+		///
+		if (pduConf == null)
+			return original;
+		else {
+			UCMappingPDefVal mapping = findUCMappingInConfig(original, pduConf);
+			if (mapping==null){
+				///
+//				System.out.println("rewrite del binding non trovata");
+				///
+				return original;
+			}
+			else{
+				UseCase actualUC = mapping.getActualUseCase();
+				///
+//				System.out.println("actualAD="+actualAD.getName());
+				///
+				return actualUC;
+			}
+		}
+	}
+
+	public static UCMappingPDefVal findUCMappingInConfig(UseCase uc, PDefUseConfig pduConf){
+		///
+//		System.out.println("findAppDataMappingInConfig:"+appData.getName()+","+pduConf.getParamValues().size());
+		///
+		if (pduConf != null){
+			Iterator<PDefParamVal> it_pduc = pduConf.getParamValues().iterator();
+			while (it_pduc.hasNext()) {
+				PDefParamVal currParamVal = it_pduc.next();
+				///
+//				System.out.println("currParamVal:"+currParamVal);
+				///
+				if (currParamVal.getParam()!=null && currParamVal.getParam() instanceof UseCaseMappingParam){
+					UseCaseMappingParam currParam = (UseCaseMappingParam)(currParamVal.getParam());
+					///
+//					System.out.println("currParamVal: originalAppData="+currParam.getDefAppData().getName());
+//					System.out.println("currParamVal: actual="+((AppDataMappingPDefVal)currParamVal).getActualAppData().getName());
+					///
+
+					if (currParam.getDefUseCase().equals(uc))
+						return (UCMappingPDefVal)currParamVal;
+				}
+			}
+			// se non trovo niente
+			return null;
+		}
+		return null;
+	}
+
+	
+	/**
+	 * Risolve una eventuale sovrascrittura dell'role se predente un PDefUseParam.
+	 * @param original il role originale 
+	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
+	 * PanelDef che definisce il pannello che contiene widget... 
+	 * @return il role case definito dalla configurazione se il widget è un widget appartenente ad 
+	 * un panel def, il role originario se il widget è un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 */
+	public static Role getResolvedRole(Role original, PDefUseConfig pduConf){
+		//
+//		System.out.println("getResolvedactor");
+//		if (original != null){
+//			System.out.println("original:"+original.getAppData().getName()+"."+original.getPath());
+//		}
+		///
+		if (pduConf == null)
+			return original;
+		else {
+			RoleMappingPDefVal mapping = findRoleMappingInConfig(original, pduConf);
+			if (mapping==null){
+				///
+//				System.out.println("rewrite del binding non trovata");
+				///
+				return original;
+			}
+			else{
+				Role actualRole = mapping.getActualRole();
+				///
+//				System.out.println("actualAD="+actualAD.getName());
+				///
+				return actualRole;
+			}
+		}
+	}
+
+	public static RoleMappingPDefVal findRoleMappingInConfig(Role role, PDefUseConfig pduConf){
+		///
+//		System.out.println("findAppDataMappingInConfig:"+appData.getName()+","+pduConf.getParamValues().size());
+		///
+		if (pduConf != null){
+			Iterator<PDefParamVal> it_pduc = pduConf.getParamValues().iterator();
+			while (it_pduc.hasNext()) {
+				PDefParamVal currParamVal = it_pduc.next();
+				///
+//				System.out.println("currParamVal:"+currParamVal);
+				///
+				if (currParamVal.getParam()!=null && currParamVal.getParam() instanceof RoleMappingParam){
+					RoleMappingParam currParam = (RoleMappingParam)(currParamVal.getParam());
+					///
+//					System.out.println("currParamVal: originalAppData="+currParam.getDefAppData().getName());
+//					System.out.println("currParamVal: actual="+((AppDataMappingPDefVal)currParamVal).getActualAppData().getName());
+					///
+
+					if (currParam.getDefRole().equals(role))
+						return (RoleMappingPDefVal)currParamVal;
+				}
+			}
+			// se non trovo niente
+			return null;
+		}
+		return null;
+	}
+
+	
+	//////////////////////////////////////
+	
 
 	/**
 	 *

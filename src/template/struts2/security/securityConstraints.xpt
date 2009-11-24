@@ -10,54 +10,54 @@
 «DEFINE getPageUIConstraintDef(GUIModel model) FOR ContentPanel»
 	protected Map<String, UISecConstraint> getPageVisibilityUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND getPageUIConstraintDef(model, "VISIB", this, "") FOR panels-»
+		«EXPAND getPageUIConstraintDef(model, "VISIB", this, "", (PDefUseConfig)null) FOR panels-»
 		return allConstraints;
 	}
 	
 	protected Map<String, UISecConstraint> getPageONOFFUIConstraints(){
 		Map<String, UISecConstraint> allConstraints = new HashMap<String, UISecConstraint>();
-		«EXPAND getPageUIConstraintDef(model, "ONOFF", this, "") FOR panels-»
+		«EXPAND getPageUIConstraintDef(model, "ONOFF", this, "", (PDefUseConfig)null) FOR panels-»
 		return allConstraints;
 	}
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR Panel-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Panel-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix) FOREACH subpanels-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel-»
+	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH subpanels-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix) FOREACH widgets-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR WidgetsPanel-»
+	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix) FOREACH widgets-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuPanel-»
+	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
-	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix) FOREACH widgets-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel-»
+	«EXPAND uiConstraint(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH widgets-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix) FOREACH panels-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MultiPanel-»
+	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, contextPrefix, pduConf) FOREACH panels-»
 «ENDDEFINE»
 
-«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
-	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, getChainedContext(contextPrefix, name)) FOR panelDef.panel-»
+«DEFINE getPageUIConstraintDef(GUIModel model, String constrainedBehavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PanelDefUse-»
+	«EXPAND getPageUIConstraintDef(model, constrainedBehavior, cp, getChainedContext(contextPrefix, name), this.config) FOR panelDef.panel-»
 «ENDDEFINE»
 
 
 «REM»#################«ENDREM»
 
 
-«DEFINE uiConstraint(GUIModel model, String behavior, ContentPanel cp, String contextPrefix) FOR Widget-»
+«DEFINE uiConstraint(GUIModel model, String behavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget-»
 «IF securityConstraints.size>0-»
 		// constraints per «this»
 «FOREACH this.securityConstraints AS currConstraint-»
 		UISecConstraint «getFullID(this, contextPrefix)»_«securityConstraints.indexOf(currConstraint)»_ctr =
-		«EXPAND uiConstraintNew(model, cp, contextPrefix) FOR currConstraint-» 
+		«EXPAND uiConstraintNew(model, cp, contextPrefix, pduConf) FOR currConstraint-» 
 «ENDFOREACH-»
 		UISecConstraint [] «getFullID(this, contextPrefix)»_constraints = new UISecConstraint[]{
 		«LET (behavior=="VISIB" ? securityConstraints.select(c|c.visible): securityConstraints.select(c|c.enabled)) AS selectedConstraints-»
@@ -81,7 +81,7 @@
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix) FOR UISecurityConstraint»
+«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UISecurityConstraint»
  			null; /// ERRORE: constraint non gestito «this»
 «ENDDEFINE»
 
@@ -110,7 +110,7 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix) FOR CustomSecurityConstraint»
+«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CustomSecurityConstraint»
 «LET this.eContainer AS parent»
 «REM»«IF parent.metaType.(Widget)»«ENDREM»
 «LET (Widget)parent AS parentWidget»
@@ -135,7 +135,7 @@
 «ENDDEFINE»
 
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix) FOR UCBasedSecurityConstraint»
+«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UCBasedSecurityConstraint»
 «LET this.eContainer AS parent»
 «REM»«IF parent.metaType.(Widget)»«ENDREM»
 «LET (Widget)parent AS parentWidget»
@@ -146,7 +146,7 @@
  				"«getFullID(parentWidget, contextPrefix)»",
  				UISecConstraint.«behavior»,
  				«defaultBehavior»,
- 				"«this.useCase.code»"
+ 				"«getResolvedUseCase(this.useCase, pduConf).code»"
  			);
 «ENDLET»
 «ENDLET»
@@ -155,27 +155,27 @@
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix) FOR ActorBasedSecurityConstraint»
+«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ActorBasedSecurityConstraint»
 «LET this.eContainer AS parent»
 «REM»«IF parent.metaType.(Widget)»«ENDREM»
-«LET (Widget)parent AS parentWidget»
-«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
-«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+«LET (Widget)parent AS parentWidget-»
+«LET this.enabled ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior-»
+«LET this.enabled ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior-»
  			new ActorBasedUISecConstraint(
  				"«cp.name»",
  				"«getFullID(parentWidget, contextPrefix)»",
  				UISecConstraint.«behavior»,
  				«defaultBehavior»,
- 				"«this.actor.code»"
+ 				"«getResolvedActor(this.actor,pduConf).code»"
  			);
-«ENDLET»
-«ENDLET»
-«ENDLET»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
 «REM»«ENDIF»«ENDREM»
 «ENDLET»
 «ENDDEFINE»
 
-«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix) FOR RoleBasedSecurityConstraint»
+«DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RoleBasedSecurityConstraint»
 «LET this.eContainer AS parent»
 «REM»«IF parent.metaType.(Widget)»«ENDREM»
 «LET (Widget)parent AS parentWidget»
@@ -186,8 +186,8 @@
  				"«getFullID(parentWidget, contextPrefix)»",
  				UISecConstraint.«behavior»,
  				«defaultBehavior»,
- 				"«this.role.code»",
- 				"«this.role.domainCode»"
+ 				"«getResolvedRole(this.role, pduConf).code»",
+ 				"«getResolvedRole(this.role, pduConf).domainCode»"
  			);
 «ENDLET»
 «ENDLET»
