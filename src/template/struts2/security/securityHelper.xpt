@@ -59,10 +59,7 @@ public class «getSpringSecurityHelperClassName()»{
 	///////////////////////////////////////////////////////////////////////////////
 	
 	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS cp-»
-		«LET (List[Widget])findAllWidgetsInContentPanel(cp) AS cpWidgets-»
 			«EXPAND customConstraints(this) FOR cp-»
-		«ENDLET-»
-		
 	«ENDFOREACH-»
 	«LET getAllCustomSecConstraints4Menus(this.structure.appWindow.appArea.menubar) AS customCtr4Menu-»
 			«FOREACH customCtr4Menu AS currMenuCustomCtr-»
@@ -86,6 +83,7 @@ public class «getSpringSecurityHelperClassName()»{
 «ENDDEFINE»
 
 «DEFINE customConstraints(GUIModel model) FOR ContentPanel-»
+	«EXPAND customConstraints(model, this, "") FOR this.panels-»
 «ENDDEFINE»
 
 «DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
