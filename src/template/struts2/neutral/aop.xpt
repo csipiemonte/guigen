@@ -1,6 +1,6 @@
 «IMPORT guigen»
 
-«IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::view::resourcefiles»
 «IMPORT template::struts2::view::remoteResources»
 «IMPORT template::struts2::neutral::resourcefilesNeutral»
 «IMPORT template::struts2::neutral::remoteResourcesNeutral»
@@ -12,12 +12,12 @@ ESCLUSIONI TEMPORANEE!!!!!
 RIMUOVERE DOPO LA SISTEMAZIONE DEL LAYOUT
 
 
-«IMPORT template::struts2::richFeatures»
+«IMPORT template::struts2::view::richFeatures»
 
-«AROUND template::struts2::richFeatures::ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table»
+«AROUND template::struts2::view::richFeatures::ajaxifyControlHeader(List[String] ids, ContentPanel parentCP) FOR Table»
 «ENDAROUND»
 
-«AROUND template::struts2::richFeatures::ajaxifyControlFooter FOR Table»
+«AROUND template::struts2::view::richFeatures::ajaxifyControlFooter FOR Table»
 «ENDAROUND»
 
 
@@ -34,14 +34,14 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsi
 **************************************************************************************************************************
 «ENDREM»
 
-«REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«AROUND template::struts2::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+«REM»Genera un FormPanel con Layout UDLRC.«ENDREM»
+«AROUND template::struts2::view::resourcefiles::setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
 	«EXPAND template::struts2::neutral::resourcefilesNeutral::setupFormPanelUDLRC(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
 
 
 «REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«AROUND template::struts2::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
+«AROUND template::struts2::view::resourcefiles::createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
 	«EXPAND template::struts2::neutral::resourcefilesNeutral::createWidgets(model, cp, contextPrefix, pduConf) FOR this»
 «ENDAROUND»
 
