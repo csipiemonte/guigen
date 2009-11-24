@@ -37,6 +37,15 @@
                   <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.9">
                     <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
                   </paramValues>
+                  <paramValues xsi:type="guigen:UCMappingPDefVal" actualUseCase="//@securityModel/@useCases.0">
+                    <param xsi:type="guigen:UseCaseMappingParam" href="dati_anag.xmi#//@params.1"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:RoleMappingPDefVal" actualRole="//@securityModel/@roles.0">
+                    <param xsi:type="guigen:RoleMappingParam" href="dati_anag.xmi#//@params.2"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:ActorMappingPDefVal" actualActor="//@securityModel/@actors.0">
+                    <param xsi:type="guigen:ActorMappingParam" href="dati_anag.xmi#//@params.3"/>
+                  </paramValues>
                 </config>
               </subpanels>
               <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagRappLegale" label="Dati anagrafici rappr. legale">
@@ -44,6 +53,15 @@
                 <config>
                   <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.10">
                     <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:UCMappingPDefVal" actualUseCase="//@securityModel/@useCases.0">
+                    <param xsi:type="guigen:UseCaseMappingParam" href="dati_anag.xmi#//@params.1"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:RoleMappingPDefVal" actualRole="//@securityModel/@roles.0">
+                    <param xsi:type="guigen:RoleMappingParam" href="dati_anag.xmi#//@params.2"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:ActorMappingPDefVal" actualActor="//@securityModel/@actors.0">
+                    <param xsi:type="guigen:ActorMappingParam" href="dati_anag.xmi#//@params.3"/>
                   </paramValues>
                 </config>
               </subpanels>
@@ -182,7 +200,12 @@
     <appData name="dtAnagTitolare" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
     <appData name="dtAnagRappLegale" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
   </appDataDefs>
-  <securityModel securityAppID="AAAA"/>
+  <securityModel securityAppID="BANDI">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+    <actors code="MyActor"/>
+    <useCases code="MyUC"/>
+    <roles code="MyRole" domainCode="MyDomain"/>
+  </securityModel>
   <targetPlatform code="JBoss43"/>
   <activationModel>
     <activationParams name="param1" type="//@typedefs/@types.7"/>

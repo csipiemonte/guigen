@@ -156,82 +156,52 @@ public interface PanelDef extends EObject {
 	void setTypeDefs(Typedefs value);
 
 	/**
-	 * Returns the value of the '<em><b>Roles</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Roles</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Role}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Roles</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Roles</em>' containment reference.
-	 * @see #setRoles(Role)
+	 * @return the value of the '<em>Roles</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Roles()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Role getRoles();
+	EList<Role> getRoles();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDef#getRoles <em>Roles</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Roles</em>' containment reference.
-	 * @see #getRoles()
-	 * @generated
-	 */
-	void setRoles(Role value);
-
-	/**
-	 * Returns the value of the '<em><b>Actors</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Actors</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Actor}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Actors</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actors</em>' containment reference.
-	 * @see #setActors(Actor)
+	 * @return the value of the '<em>Actors</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Actors()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Actor getActors();
+	EList<Actor> getActors();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDef#getActors <em>Actors</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Actors</em>' containment reference.
-	 * @see #getActors()
-	 * @generated
-	 */
-	void setActors(Actor value);
-
-	/**
-	 * Returns the value of the '<em><b>Use Cases</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Use Cases</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.UseCase}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Use Cases</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Cases</em>' containment reference.
-	 * @see #setUseCases(UseCase)
+	 * @return the value of the '<em>Use Cases</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_UseCases()
 	 * @model containment="true"
 	 * @generated
 	 */
-	UseCase getUseCases();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDef#getUseCases <em>Use Cases</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Use Cases</em>' containment reference.
-	 * @see #getUseCases()
-	 * @generated
-	 */
-	void setUseCases(UseCase value);
+	EList<UseCase> getUseCases();
 
 	/**
 	 * Returns the value of the '<em><b>On Refresh Command</b></em>' containment reference.

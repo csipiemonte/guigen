@@ -116,34 +116,34 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	protected Typedefs typeDefs;
 
 	/**
-	 * The cached value of the '{@link #getRoles() <em>Roles</em>}' containment reference.
+	 * The cached value of the '{@link #getRoles() <em>Roles</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRoles()
 	 * @generated
 	 * @ordered
 	 */
-	protected Role roles;
+	protected EList<Role> roles;
 
 	/**
-	 * The cached value of the '{@link #getActors() <em>Actors</em>}' containment reference.
+	 * The cached value of the '{@link #getActors() <em>Actors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getActors()
 	 * @generated
 	 * @ordered
 	 */
-	protected Actor actors;
+	protected EList<Actor> actors;
 
 	/**
-	 * The cached value of the '{@link #getUseCases() <em>Use Cases</em>}' containment reference.
+	 * The cached value of the '{@link #getUseCases() <em>Use Cases</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getUseCases()
 	 * @generated
 	 * @ordered
 	 */
-	protected UseCase useCases;
+	protected EList<UseCase> useCases;
 
 	/**
 	 * The cached value of the '{@link #getOnRefreshCommand() <em>On Refresh Command</em>}' containment reference.
@@ -341,7 +341,10 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Role getRoles() {
+	public EList<Role> getRoles() {
+		if (roles == null) {
+			roles = new EObjectContainmentEList<Role>(Role.class, this, GuigenPackage.PANEL_DEF__ROLES);
+		}
 		return roles;
 	}
 
@@ -350,41 +353,10 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRoles(Role newRoles, NotificationChain msgs) {
-		Role oldRoles = roles;
-		roles = newRoles;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__ROLES, oldRoles, newRoles);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Actor> getActors() {
+		if (actors == null) {
+			actors = new EObjectContainmentEList<Actor>(Actor.class, this, GuigenPackage.PANEL_DEF__ACTORS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRoles(Role newRoles) {
-		if (newRoles != roles) {
-			NotificationChain msgs = null;
-			if (roles != null)
-				msgs = ((InternalEObject)roles).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__ROLES, null, msgs);
-			if (newRoles != null)
-				msgs = ((InternalEObject)newRoles).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__ROLES, null, msgs);
-			msgs = basicSetRoles(newRoles, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__ROLES, newRoles, newRoles));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Actor getActors() {
 		return actors;
 	}
 
@@ -393,76 +365,11 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetActors(Actor newActors, NotificationChain msgs) {
-		Actor oldActors = actors;
-		actors = newActors;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__ACTORS, oldActors, newActors);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<UseCase> getUseCases() {
+		if (useCases == null) {
+			useCases = new EObjectContainmentEList<UseCase>(UseCase.class, this, GuigenPackage.PANEL_DEF__USE_CASES);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setActors(Actor newActors) {
-		if (newActors != actors) {
-			NotificationChain msgs = null;
-			if (actors != null)
-				msgs = ((InternalEObject)actors).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__ACTORS, null, msgs);
-			if (newActors != null)
-				msgs = ((InternalEObject)newActors).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__ACTORS, null, msgs);
-			msgs = basicSetActors(newActors, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__ACTORS, newActors, newActors));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UseCase getUseCases() {
 		return useCases;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetUseCases(UseCase newUseCases, NotificationChain msgs) {
-		UseCase oldUseCases = useCases;
-		useCases = newUseCases;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__USE_CASES, oldUseCases, newUseCases);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUseCases(UseCase newUseCases) {
-		if (newUseCases != useCases) {
-			NotificationChain msgs = null;
-			if (useCases != null)
-				msgs = ((InternalEObject)useCases).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__USE_CASES, null, msgs);
-			if (newUseCases != null)
-				msgs = ((InternalEObject)newUseCases).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__USE_CASES, null, msgs);
-			msgs = basicSetUseCases(newUseCases, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__USE_CASES, newUseCases, newUseCases));
 	}
 
 	/**
@@ -525,11 +432,11 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 			case GuigenPackage.PANEL_DEF__TYPE_DEFS:
 				return basicSetTypeDefs(null, msgs);
 			case GuigenPackage.PANEL_DEF__ROLES:
-				return basicSetRoles(null, msgs);
+				return ((InternalEList<?>)getRoles()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.PANEL_DEF__ACTORS:
-				return basicSetActors(null, msgs);
+				return ((InternalEList<?>)getActors()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.PANEL_DEF__USE_CASES:
-				return basicSetUseCases(null, msgs);
+				return ((InternalEList<?>)getUseCases()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				return basicSetOnRefreshCommand(null, msgs);
 		}
@@ -592,13 +499,16 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 				setTypeDefs((Typedefs)newValue);
 				return;
 			case GuigenPackage.PANEL_DEF__ROLES:
-				setRoles((Role)newValue);
+				getRoles().clear();
+				getRoles().addAll((Collection<? extends Role>)newValue);
 				return;
 			case GuigenPackage.PANEL_DEF__ACTORS:
-				setActors((Actor)newValue);
+				getActors().clear();
+				getActors().addAll((Collection<? extends Actor>)newValue);
 				return;
 			case GuigenPackage.PANEL_DEF__USE_CASES:
-				setUseCases((UseCase)newValue);
+				getUseCases().clear();
+				getUseCases().addAll((Collection<? extends UseCase>)newValue);
 				return;
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)newValue);
@@ -631,13 +541,13 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 				setTypeDefs((Typedefs)null);
 				return;
 			case GuigenPackage.PANEL_DEF__ROLES:
-				setRoles((Role)null);
+				getRoles().clear();
 				return;
 			case GuigenPackage.PANEL_DEF__ACTORS:
-				setActors((Actor)null);
+				getActors().clear();
 				return;
 			case GuigenPackage.PANEL_DEF__USE_CASES:
-				setUseCases((UseCase)null);
+				getUseCases().clear();
 				return;
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)null);
@@ -665,11 +575,11 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 			case GuigenPackage.PANEL_DEF__TYPE_DEFS:
 				return typeDefs != null;
 			case GuigenPackage.PANEL_DEF__ROLES:
-				return roles != null;
+				return roles != null && !roles.isEmpty();
 			case GuigenPackage.PANEL_DEF__ACTORS:
-				return actors != null;
+				return actors != null && !actors.isEmpty();
 			case GuigenPackage.PANEL_DEF__USE_CASES:
-				return useCases != null;
+				return useCases != null && !useCases.isEmpty();
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				return onRefreshCommand != null;
 		}

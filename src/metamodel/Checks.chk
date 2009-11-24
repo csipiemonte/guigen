@@ -512,7 +512,7 @@ context CustomAuthentication ERROR "Il meccanismo di autenticazione custom non è
 context CustomSecurityConstraint ERROR "E' necessario specificare il nome del metodo: "+loc() :
 	!isNullOrEmpty(this.methodNameSuffix);
 
-context UISecurityConstraint ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
+context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel) ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
 "se non è specificato un metodo di AUTENTICAZIONE "+loc() :
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;
 	

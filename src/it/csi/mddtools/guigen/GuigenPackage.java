@@ -6304,7 +6304,7 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF__TYPE_DEFS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Roles</b></em>' containment reference.
+	 * The feature id for the '<em><b>Roles</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6313,7 +6313,7 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF__ROLES = 5;
 
 	/**
-	 * The feature id for the '<em><b>Actors</b></em>' containment reference.
+	 * The feature id for the '<em><b>Actors</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6322,7 +6322,7 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF__ACTORS = 6;
 
 	/**
-	 * The feature id for the '<em><b>Use Cases</b></em>' containment reference.
+	 * The feature id for the '<em><b>Use Cases</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10260,10 +10260,10 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDef_TypeDefs();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getRoles <em>Roles</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDef#getRoles <em>Roles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Roles</em>'.
+	 * @return the meta object for the containment reference list '<em>Roles</em>'.
 	 * @see it.csi.mddtools.guigen.PanelDef#getRoles()
 	 * @see #getPanelDef()
 	 * @generated
@@ -10271,10 +10271,10 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDef_Roles();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getActors <em>Actors</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDef#getActors <em>Actors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Actors</em>'.
+	 * @return the meta object for the containment reference list '<em>Actors</em>'.
 	 * @see it.csi.mddtools.guigen.PanelDef#getActors()
 	 * @see #getPanelDef()
 	 * @generated
@@ -10282,10 +10282,10 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDef_Actors();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getUseCases <em>Use Cases</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDef#getUseCases <em>Use Cases</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Use Cases</em>'.
+	 * @return the meta object for the containment reference list '<em>Use Cases</em>'.
 	 * @see it.csi.mddtools.guigen.PanelDef#getUseCases()
 	 * @see #getPanelDef()
 	 * @generated
@@ -13420,7 +13420,7 @@ public interface GuigenPackage extends EPackage {
 		EReference PANEL_DEF__TYPE_DEFS = eINSTANCE.getPanelDef_TypeDefs();
 
 		/**
-		 * The meta object literal for the '<em><b>Roles</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Roles</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -13428,7 +13428,7 @@ public interface GuigenPackage extends EPackage {
 		EReference PANEL_DEF__ROLES = eINSTANCE.getPanelDef_Roles();
 
 		/**
-		 * The meta object literal for the '<em><b>Actors</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Actors</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -13436,7 +13436,7 @@ public interface GuigenPackage extends EPackage {
 		EReference PANEL_DEF__ACTORS = eINSTANCE.getPanelDef_Actors();
 
 		/**
-		 * The meta object literal for the '<em><b>Use Cases</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Use Cases</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
