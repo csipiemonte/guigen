@@ -8,8 +8,13 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PDefParam;
+import it.csi.mddtools.guigen.ScreenState;
 
 import it.csi.mddtools.guigen.PDefParamVal;
+import it.csi.mddtools.guigen.genutils.EditUtils;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,6 +30,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -72,22 +78,38 @@ public class PDefParamValItemProvider
 	 * This adds a property descriptor for the Param feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addParamPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PDefParamVal_param_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PDefParamVal_param_feature", "_UI_PDefParamVal_type"),
-				 GuigenPackage.Literals.PDEF_PARAM_VAL__PARAM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_PDefParamVal_param_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_PDefParamVal_param_feature", "_UI_PDefParamVal_type"),
+//				 GuigenPackage.Literals.PDEF_PARAM_VAL__PARAM,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_PDefParamVal_param_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_PDefParamVal_param_feature",
+						"_UI_PDefParamVal_type"),
+				GuigenPackage.eINSTANCE.getPDefParamVal_Param(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ArrayList<PDefParam> params = EditUtils.findPDefCompatibleParams((PDefParamVal)object);
+				return params;
+			}
+		});
 	}
 
 	/**
