@@ -464,7 +464,11 @@ context PanelDefUse if this.panelDef!=null && this.panelDef.params.size>0 ERROR
 
 context PanelDef ERROR "Non è possibile utilizzare un PanelDefUse all'interno di un PanelDef:"+loc() :
 	this.eAllContents.typeSelect(PanelDefUse).size==0;
-		
+
+// [AM] rimuovere il check quando sarà implementata la funzione
+context PanelDef ERROR "onRefreshCommand su PanelDef: feature non implementata:"+loc() :
+	this.onRefreshCommand == null;
+
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su commands
 //////////////////////////////////////////////////////////////////////////////	
