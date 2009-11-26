@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getStaticLinks <em>Static Links</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getModules <em>Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getExtModules <em>Ext Modules</em>}</li>
  * </ul>
  * </p>
  *
@@ -219,5 +220,20 @@ public interface ApplicationArea extends EObject {
 	 * @generated
 	 */
 	EList<AppModule> getModules();
+
+	/**
+	 * Returns the value of the '<em><b>Ext Modules</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.AppModule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[TODO: add documentation here]]
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Ext Modules</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_ExtModules()
+	 * @model
+	 * @generated
+	 */
+	EList<AppModule> getExtModules();
 
 } // ApplicationArea

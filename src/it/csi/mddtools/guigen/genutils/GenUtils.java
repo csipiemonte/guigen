@@ -158,6 +158,9 @@ public class GenUtils {
 			res.addAll(module.getContentPanels());
 		}
 
+		for (AppModule module : appArea.getExtModules()) {
+			res.addAll(module.getContentPanels());
+		}
 		return res;
 	}
 
@@ -358,7 +361,9 @@ public class GenUtils {
 		ArrayList<Widget> res = new ArrayList<Widget>();
 		if ( cp != null ) {
 			// recupero i pannelli
-			res.addAll(findAllWidgetsInPanel(cp.getPanels()));
+			if (cp.getPanels()!=null){
+				res.addAll(findAllWidgetsInPanel(cp.getPanels()));
+			}
 			// recupero i DialogPanel
 			if ( cp.getDialogs().size() > 0 ) {
 				res.addAll(findAllWidgetsInDialogPanels(cp.getDialogs()));
@@ -424,7 +429,7 @@ public class GenUtils {
 		else if (p instanceof PanelDefUse)
 			return findAllWidgetsInPanel((PanelDefUse)p);
 		else
-			throw new IllegalArgumentException("Tipo pannello non gestito");
+			throw new IllegalArgumentException("Tipo pannello non gestito:"+p);
 	}
 
 	/**

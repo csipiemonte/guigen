@@ -49,9 +49,15 @@ context Header ERROR "E'necessario impostare il link (di produzione) del canale 
 context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel " + loc() :
 	this.contentPanels!=null && this.contentPanels.size>0;
 
+context ContentPanel ERROR "occorre specificare il nome del contentPanel:"+loc() :
+	name!=null;
+
 context ContentPanel if eRootContainer.metaType == GUIModel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione " + loc() :
 	isContentPanelUnique(this); 
 
+context ContentPanel ERROR "E'necessario definire il pannello principale nel content panel:"+loc() :
+	panels!=null;
+	
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello " + loc():
 	this.name != null && this.name != "";
 
@@ -346,7 +352,7 @@ context Column ERROR "una colonna di una Table può essere dichiarata 'eventActiv
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// constraints su binding
-context ContentPanel ERROR "Il content panel "+name+" non referenzia tutti gli Application Data "+
+context ContentPanel if (panels!=null) ERROR "Il content panel "+name+" non referenzia tutti gli Application Data "+
 	"referenziati dai widget in esso contenuti. AppData mancanti: "+findUnresolvedAppDataBinding() :
 	findUnresolvedAppDataBinding().size == 0; 
 	
@@ -557,10 +563,19 @@ context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito
 context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
 	((List[ApplicationData])getAllApplicationData((GUIModel)this.eRootContainer)).findByName("currentUser") != null;
 
-context ContentPanel ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
+
+// check di referenziazione dell'Appdata currentUser dai pannelli interni al GUIModel
+context ContentPanel if (eRootContainer.metaType==GUIModel) ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
 	((GUIModel)this.eRootContainer).securityModel==null ||
 	appData.select(ab|ab.name=="currentUser").size==1;
 
+// check di referenziazione dell'appdata current user dai pannelli inclusi (usa feature avanzate di extend!)
+context ApplicationArea if (extModules.size>0 && ((GUIModel)eRootContainer).securityModel!=null) ERROR 
+"Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\""+
+"- pannelli ch enon referenziano:"+extModules.contentPanels.select(cp|cp.appData.select(ab|ab.name=="currentUser").size==0).name :
+	extModules.contentPanels.appData.select(ab|ab.name=="currentUser").size==extModules.contentPanels.size;
+	
+	
 	
 ///// ActivationModel
 

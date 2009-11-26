@@ -137,13 +137,22 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_AREA__MODULES = 6;
 
 	/**
+	 * The feature id for the '<em><b>Ext Modules</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_AREA__EXT_MODULES = 7;
+
+	/**
 	 * The number of structural features of the '<em>Application Area</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_AREA_FEATURE_COUNT = 7;
+	int APPLICATION_AREA_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
@@ -5651,22 +5660,13 @@ public interface GuigenPackage extends EPackage {
 	int APP_MODULE__CONTENT_PANELS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Ext Content Panels</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int APP_MODULE__EXT_CONTENT_PANELS = 2;
-
-	/**
 	 * The number of structural features of the '<em>App Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_MODULE_FEATURE_COUNT = 3;
+	int APP_MODULE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.
@@ -7150,6 +7150,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getApplicationArea_Modules();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ApplicationArea#getExtModules <em>Ext Modules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ext Modules</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationArea#getExtModules()
+	 * @see #getApplicationArea()
+	 * @generated
+	 */
+	EReference getApplicationArea_ExtModules();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Menubar <em>Menubar</em>}'.
@@ -9938,17 +9949,6 @@ public interface GuigenPackage extends EPackage {
 	EReference getAppModule_ContentPanels();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.AppModule#getExtContentPanels <em>Ext Content Panels</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Ext Content Panels</em>'.
-	 * @see it.csi.mddtools.guigen.AppModule#getExtContentPanels()
-	 * @see #getAppModule()
-	 * @generated
-	 */
-	EReference getAppModule_ExtContentPanels();
-
-	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeNamespace <em>Type Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10898,6 +10898,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION_AREA__MODULES = eINSTANCE.getApplicationArea_Modules();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext Modules</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_AREA__EXT_MODULES = eINSTANCE.getApplicationArea_ExtModules();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
@@ -13186,14 +13194,6 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APP_MODULE__CONTENT_PANELS = eINSTANCE.getAppModule_ContentPanels();
-
-		/**
-		 * The meta object literal for the '<em><b>Ext Content Panels</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference APP_MODULE__EXT_CONTENT_PANELS = eINSTANCE.getAppModule_ExtContentPanels();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.

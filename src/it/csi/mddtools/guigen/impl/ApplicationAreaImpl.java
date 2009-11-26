@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -46,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getStaticLinks <em>Static Links</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getOnInitCommand <em>On Init Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getModules <em>Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getExtModules <em>Ext Modules</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +123,16 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * @ordered
 	 */
 	protected EList<AppModule> modules;
+
+	/**
+	 * The cached value of the '{@link #getExtModules() <em>Ext Modules</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtModules()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AppModule> extModules;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -385,6 +397,18 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<AppModule> getExtModules() {
+		if (extModules == null) {
+			extModules = new EObjectResolvingEList<AppModule>(AppModule.class, this, GuigenPackage.APPLICATION_AREA__EXT_MODULES);
+		}
+		return extModules;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -428,6 +452,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return getOnInitCommand();
 			case GuigenPackage.APPLICATION_AREA__MODULES:
 				return getModules();
+			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
+				return getExtModules();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -464,6 +490,10 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				getModules().clear();
 				getModules().addAll((Collection<? extends AppModule>)newValue);
 				return;
+			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
+				getExtModules().clear();
+				getExtModules().addAll((Collection<? extends AppModule>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -497,6 +527,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 			case GuigenPackage.APPLICATION_AREA__MODULES:
 				getModules().clear();
 				return;
+			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
+				getExtModules().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -523,6 +556,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return onInitCommand != null;
 			case GuigenPackage.APPLICATION_AREA__MODULES:
 				return modules != null && !modules.isEmpty();
+			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
+				return extModules != null && !extModules.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

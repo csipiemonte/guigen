@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getContentPanels <em>Content Panels</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.AppModule#getExtContentPanels <em>Ext Content Panels</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,21 +79,5 @@ public interface AppModule extends EObject {
 	 * @generated
 	 */
 	EList<ContentPanel> getContentPanels();
-
-	/**
-	 * Returns the value of the '<em><b>Ext Content Panels</b></em>' reference list.
-	 * The list contents are of type {@link it.csi.mddtools.guigen.ContentPanel}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Ext Content Panels</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ext Content Panels</em>' reference list.
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppModule_ExtContentPanels()
-	 * @model
-	 * @generated
-	 */
-	EList<ContentPanel> getExtContentPanels();
 
 } // AppModule
