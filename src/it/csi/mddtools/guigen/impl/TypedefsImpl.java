@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getTypes <em>Types</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getNamespaces <em>Namespaces</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TypedefsImpl#getExtNamespaces <em>Ext Namespaces</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +61,16 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 	 * @ordered
 	 */
 	protected EList<TypeNamespace> namespaces;
+
+	/**
+	 * The cached value of the '{@link #getExtNamespaces() <em>Ext Namespaces</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtNamespaces()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TypeNamespace> extNamespaces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,6 +120,18 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<TypeNamespace> getExtNamespaces() {
+		if (extNamespaces == null) {
+			extNamespaces = new EObjectResolvingEList<TypeNamespace>(TypeNamespace.class, this, GuigenPackage.TYPEDEFS__EXT_NAMESPACES);
+		}
+		return extNamespaces;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -131,6 +155,8 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 				return getTypes();
 			case GuigenPackage.TYPEDEFS__NAMESPACES:
 				return getNamespaces();
+			case GuigenPackage.TYPEDEFS__EXT_NAMESPACES:
+				return getExtNamespaces();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -152,6 +178,10 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 				getNamespaces().clear();
 				getNamespaces().addAll((Collection<? extends TypeNamespace>)newValue);
 				return;
+			case GuigenPackage.TYPEDEFS__EXT_NAMESPACES:
+				getExtNamespaces().clear();
+				getExtNamespaces().addAll((Collection<? extends TypeNamespace>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -170,6 +200,9 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 			case GuigenPackage.TYPEDEFS__NAMESPACES:
 				getNamespaces().clear();
 				return;
+			case GuigenPackage.TYPEDEFS__EXT_NAMESPACES:
+				getExtNamespaces().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -186,6 +219,8 @@ public class TypedefsImpl extends EObjectImpl implements Typedefs {
 				return types != null && !types.isEmpty();
 			case GuigenPackage.TYPEDEFS__NAMESPACES:
 				return namespaces != null && !namespaces.isEmpty();
+			case GuigenPackage.TYPEDEFS__EXT_NAMESPACES:
+				return extNamespaces != null && !extNamespaces.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

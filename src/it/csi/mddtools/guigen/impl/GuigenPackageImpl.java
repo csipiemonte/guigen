@@ -2815,6 +2815,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTypedefs_ExtNamespaces() {
+		return (EReference)typedefsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getType() {
 		return typeEClass;
 	}
@@ -2970,6 +2979,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getApplicationDataDefs_Groups() {
 		return (EReference)applicationDataDefsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplicationDataDefs_ExtGroups() {
+		return (EReference)applicationDataDefsEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3582,6 +3600,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getAppModule_ContentPanels() {
 		return (EReference)appModuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAppModule_ExtContentPanels() {
+		return (EReference)appModuleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4593,6 +4620,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		typedefsEClass = createEClass(TYPEDEFS);
 		createEReference(typedefsEClass, TYPEDEFS__TYPES);
 		createEReference(typedefsEClass, TYPEDEFS__NAMESPACES);
+		createEReference(typedefsEClass, TYPEDEFS__EXT_NAMESPACES);
 
 		typeEClass = createEClass(TYPE);
 		createEAttribute(typeEClass, TYPE__NAME);
@@ -4617,6 +4645,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		applicationDataDefsEClass = createEClass(APPLICATION_DATA_DEFS);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__APP_DATA);
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__GROUPS);
+		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__EXT_GROUPS);
 
 		treeViewEClass = createEClass(TREE_VIEW);
 
@@ -4714,6 +4743,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		appModuleEClass = createEClass(APP_MODULE);
 		createEAttribute(appModuleEClass, APP_MODULE__NAME);
 		createEReference(appModuleEClass, APP_MODULE__CONTENT_PANELS);
+		createEReference(appModuleEClass, APP_MODULE__EXT_CONTENT_PANELS);
 
 		typeNamespaceEClass = createEClass(TYPE_NAMESPACE);
 		createEAttribute(typeNamespaceEClass, TYPE_NAMESPACE__NAME);
@@ -5187,6 +5217,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(typedefsEClass, Typedefs.class, "Typedefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedefs_Types(), this.getType(), null, "types", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypedefs_Namespaces(), this.getTypeNamespace(), null, "namespaces", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypedefs_ExtNamespaces(), this.getTypeNamespace(), null, "extNamespaces", null, 0, -1, Typedefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5211,6 +5242,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(applicationDataDefsEClass, ApplicationDataDefs.class, "ApplicationDataDefs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getApplicationDataDefs_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationDataDefs_Groups(), this.getAppDataGroup(), null, "groups", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationDataDefs_ExtGroups(), this.getAppDataGroup(), null, "extGroups", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(treeViewEClass, TreeView.class, "TreeView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -5308,6 +5340,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(appModuleEClass, AppModule.class, "AppModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppModule_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAppModule_ExtContentPanels(), this.getContentPanel(), null, "extContentPanels", null, 0, -1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeNamespaceEClass, TypeNamespace.class, "TypeNamespace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeNamespace_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypeNamespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

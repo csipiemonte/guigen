@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl#getGroups <em>Groups</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationDataDefsImpl#getExtGroups <em>Ext Groups</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +61,16 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	 * @ordered
 	 */
 	protected EList<AppDataGroup> groups;
+
+	/**
+	 * The cached value of the '{@link #getExtGroups() <em>Ext Groups</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AppDataGroup> extGroups;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,6 +120,18 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<AppDataGroup> getExtGroups() {
+		if (extGroups == null) {
+			extGroups = new EObjectResolvingEList<AppDataGroup>(AppDataGroup.class, this, GuigenPackage.APPLICATION_DATA_DEFS__EXT_GROUPS);
+		}
+		return extGroups;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -131,6 +155,8 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 				return getAppData();
 			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
 				return getGroups();
+			case GuigenPackage.APPLICATION_DATA_DEFS__EXT_GROUPS:
+				return getExtGroups();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -152,6 +178,10 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 				getGroups().clear();
 				getGroups().addAll((Collection<? extends AppDataGroup>)newValue);
 				return;
+			case GuigenPackage.APPLICATION_DATA_DEFS__EXT_GROUPS:
+				getExtGroups().clear();
+				getExtGroups().addAll((Collection<? extends AppDataGroup>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -170,6 +200,9 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
 				getGroups().clear();
 				return;
+			case GuigenPackage.APPLICATION_DATA_DEFS__EXT_GROUPS:
+				getExtGroups().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -186,6 +219,8 @@ public class ApplicationDataDefsImpl extends EObjectImpl implements ApplicationD
 				return appData != null && !appData.isEmpty();
 			case GuigenPackage.APPLICATION_DATA_DEFS__GROUPS:
 				return groups != null && !groups.isEmpty();
+			case GuigenPackage.APPLICATION_DATA_DEFS__EXT_GROUPS:
+				return extGroups != null && !extGroups.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

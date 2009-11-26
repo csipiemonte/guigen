@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getContentPanels <em>Content Panels</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getExtContentPanels <em>Ext Content Panels</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +72,16 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * @ordered
 	 */
 	protected EList<ContentPanel> contentPanels;
+
+	/**
+	 * The cached value of the '{@link #getExtContentPanels() <em>Ext Content Panels</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtContentPanels()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ContentPanel> extContentPanels;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -128,6 +140,18 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ContentPanel> getExtContentPanels() {
+		if (extContentPanels == null) {
+			extContentPanels = new EObjectResolvingEList<ContentPanel>(ContentPanel.class, this, GuigenPackage.APP_MODULE__EXT_CONTENT_PANELS);
+		}
+		return extContentPanels;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -149,6 +173,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				return getName();
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				return getContentPanels();
+			case GuigenPackage.APP_MODULE__EXT_CONTENT_PANELS:
+				return getExtContentPanels();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -169,6 +195,10 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				getContentPanels().clear();
 				getContentPanels().addAll((Collection<? extends ContentPanel>)newValue);
 				return;
+			case GuigenPackage.APP_MODULE__EXT_CONTENT_PANELS:
+				getExtContentPanels().clear();
+				getExtContentPanels().addAll((Collection<? extends ContentPanel>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -187,6 +217,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				getContentPanels().clear();
 				return;
+			case GuigenPackage.APP_MODULE__EXT_CONTENT_PANELS:
+				getExtContentPanels().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -203,6 +236,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				return contentPanels != null && !contentPanels.isEmpty();
+			case GuigenPackage.APP_MODULE__EXT_CONTENT_PANELS:
+				return extContentPanels != null && !extContentPanels.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

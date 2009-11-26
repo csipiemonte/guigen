@@ -3940,13 +3940,22 @@ public interface GuigenPackage extends EPackage {
 	int TYPEDEFS__NAMESPACES = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ext Namespaces</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPEDEFS__EXT_NAMESPACES = 2;
+
+	/**
 	 * The number of structural features of the '<em>Typedefs</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPEDEFS_FEATURE_COUNT = 2;
+	int TYPEDEFS_FEATURE_COUNT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4129,13 +4138,22 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_DATA_DEFS__GROUPS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ext Groups</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_DATA_DEFS__EXT_GROUPS = 2;
+
+	/**
 	 * The number of structural features of the '<em>Application Data Defs</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_DATA_DEFS_FEATURE_COUNT = 2;
+	int APPLICATION_DATA_DEFS_FEATURE_COUNT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5633,13 +5651,22 @@ public interface GuigenPackage extends EPackage {
 	int APP_MODULE__CONTENT_PANELS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ext Content Panels</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_MODULE__EXT_CONTENT_PANELS = 2;
+
+	/**
 	 * The number of structural features of the '<em>App Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_MODULE_FEATURE_COUNT = 2;
+	int APP_MODULE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.
@@ -8978,6 +9005,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getTypedefs_Namespaces();
 
 	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.Typedefs#getExtNamespaces <em>Ext Namespaces</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ext Namespaces</em>'.
+	 * @see it.csi.mddtools.guigen.Typedefs#getExtNamespaces()
+	 * @see #getTypedefs()
+	 * @generated
+	 */
+	EReference getTypedefs_ExtNamespaces();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Type <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9168,6 +9206,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getApplicationDataDefs_Groups();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ApplicationDataDefs#getExtGroups <em>Ext Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ext Groups</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationDataDefs#getExtGroups()
+	 * @see #getApplicationDataDefs()
+	 * @generated
+	 */
+	EReference getApplicationDataDefs_ExtGroups();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TreeView <em>Tree View</em>}'.
@@ -9887,6 +9936,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAppModule_ContentPanels();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.AppModule#getExtContentPanels <em>Ext Content Panels</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ext Content Panels</em>'.
+	 * @see it.csi.mddtools.guigen.AppModule#getExtContentPanels()
+	 * @see #getAppModule()
+	 * @generated
+	 */
+	EReference getAppModule_ExtContentPanels();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeNamespace <em>Type Namespace</em>}'.
@@ -12354,6 +12414,14 @@ public interface GuigenPackage extends EPackage {
 		EReference TYPEDEFS__NAMESPACES = eINSTANCE.getTypedefs_Namespaces();
 
 		/**
+		 * The meta object literal for the '<em><b>Ext Namespaces</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPEDEFS__EXT_NAMESPACES = eINSTANCE.getTypedefs_ExtNamespaces();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeImpl <em>Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -12508,6 +12576,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION_DATA_DEFS__GROUPS = eINSTANCE.getApplicationDataDefs_Groups();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext Groups</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_DATA_DEFS__EXT_GROUPS = eINSTANCE.getApplicationDataDefs_ExtGroups();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TreeViewImpl <em>Tree View</em>}' class.
@@ -13110,6 +13186,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APP_MODULE__CONTENT_PANELS = eINSTANCE.getAppModule_ContentPanels();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext Content Panels</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APP_MODULE__EXT_CONTENT_PANELS = eINSTANCE.getAppModule_ExtContentPanels();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.

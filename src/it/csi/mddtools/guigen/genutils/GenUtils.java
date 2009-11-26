@@ -1798,6 +1798,10 @@ public class GenUtils {
 			res.addAll(group.getAppData());
 		}
 
+		for (AppDataGroup extgroup : appDataDefs.getExtGroups()) {
+			res.addAll(extgroup.getAppData());
+		}
+		
 		return res;
 	}
 
@@ -2754,6 +2758,9 @@ public class GenUtils {
 			res.addAll(ns.getTypes());
 		}
 
+		for (TypeNamespace extns : typedef.getExtNamespaces()) {
+			res.addAll(extns.getTypes());
+		}
 		return res;
 	}
 

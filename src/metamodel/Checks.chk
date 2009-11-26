@@ -49,7 +49,7 @@ context Header ERROR "E'necessario impostare il link (di produzione) del canale 
 context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel " + loc() :
 	this.contentPanels!=null && this.contentPanels.size>0;
 
-context ContentPanel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione " + loc() :
+context ContentPanel if eRootContainer.metaType == GUIModel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione " + loc() :
 	isContentPanelUnique(this); 
 
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello " + loc():

@@ -59,7 +59,9 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 					Identita identita = new Identita(normalizeToken(marker));
 					log.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
 					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
-					«getDTOBaseJavaPackage(model)».UserInfo userInfo = new «getDTOBaseJavaPackage(model)».UserInfo();
+					«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-»
+					«toJavaType(userInfoType, model)» userInfo = new «toJavaType(userInfoType, model)»();
+					«ENDLET-»
 					userInfo.setNome(identita.getNome());
 					userInfo.setCognome(identita.getCognome());
 					userInfo.setEnte("--");

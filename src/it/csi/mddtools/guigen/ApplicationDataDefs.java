@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationDataDefs#getAppData <em>App Data</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationDataDefs#getGroups <em>Groups</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationDataDefs#getExtGroups <em>Ext Groups</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,5 +70,21 @@ public interface ApplicationDataDefs extends EObject {
 	 * @generated
 	 */
 	EList<AppDataGroup> getGroups();
+
+	/**
+	 * Returns the value of the '<em><b>Ext Groups</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.AppDataGroup}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext Groups</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ext Groups</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_ExtGroups()
+	 * @model
+	 * @generated
+	 */
+	EList<AppDataGroup> getExtGroups();
 
 } // ApplicationDataDefs

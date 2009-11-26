@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getTypes <em>Types</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Typedefs#getNamespaces <em>Namespaces</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Typedefs#getExtNamespaces <em>Ext Namespaces</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,5 +70,21 @@ public interface Typedefs extends EObject {
 	 * @generated
 	 */
 	EList<TypeNamespace> getNamespaces();
+
+	/**
+	 * Returns the value of the '<em><b>Ext Namespaces</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.TypeNamespace}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext Namespaces</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ext Namespaces</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_ExtNamespaces()
+	 * @model
+	 * @generated
+	 */
+	EList<TypeNamespace> getExtNamespaces();
 
 } // Typedefs
