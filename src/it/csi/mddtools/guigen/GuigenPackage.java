@@ -2455,13 +2455,22 @@ public interface GuigenPackage extends EPackage {
 	int GUI_MODEL__SECURITY_MODEL = 9;
 
 	/**
+	 * The feature id for the '<em><b>Ext Security Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GUI_MODEL__EXT_SECURITY_MODEL = 10;
+
+	/**
 	 * The feature id for the '<em><b>Target Platform</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL__TARGET_PLATFORM = 10;
+	int GUI_MODEL__TARGET_PLATFORM = 11;
 
 	/**
 	 * The feature id for the '<em><b>Activation Model</b></em>' containment reference.
@@ -2470,7 +2479,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL__ACTIVATION_MODEL = 11;
+	int GUI_MODEL__ACTIVATION_MODEL = 12;
 
 	/**
 	 * The number of structural features of the '<em>GUI Model</em>' class.
@@ -2479,7 +2488,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GUI_MODEL_FEATURE_COUNT = 12;
+	int GUI_MODEL_FEATURE_COUNT = 13;
 
 	/**
 	 * The feature id for the '<em><b>App Window</b></em>' containment reference.
@@ -5660,13 +5669,22 @@ public interface GuigenPackage extends EPackage {
 	int APP_MODULE__CONTENT_PANELS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ext Security Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_MODULE__EXT_SECURITY_MODEL = 2;
+
+	/**
 	 * The number of structural features of the '<em>App Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_MODULE_FEATURE_COUNT = 2;
+	int APP_MODULE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.
@@ -7882,6 +7900,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getGUIModel_SecurityModel();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.GUIModel#getExtSecurityModel <em>Ext Security Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Ext Security Model</em>'.
+	 * @see it.csi.mddtools.guigen.GUIModel#getExtSecurityModel()
+	 * @see #getGUIModel()
+	 * @generated
+	 */
+	EReference getGUIModel_ExtSecurityModel();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9949,6 +9978,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getAppModule_ContentPanels();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.AppModule#getExtSecurityModel <em>Ext Security Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Ext Security Model</em>'.
+	 * @see it.csi.mddtools.guigen.AppModule#getExtSecurityModel()
+	 * @see #getAppModule()
+	 * @generated
+	 */
+	EReference getAppModule_ExtSecurityModel();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeNamespace <em>Type Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11478,6 +11518,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GUI_MODEL__SECURITY_MODEL = eINSTANCE.getGUIModel_SecurityModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext Security Model</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GUI_MODEL__EXT_SECURITY_MODEL = eINSTANCE.getGUIModel_ExtSecurityModel();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Platform</b></em>' containment reference feature.
@@ -13194,6 +13242,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APP_MODULE__CONTENT_PANELS = eINSTANCE.getAppModule_ContentPanels();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext Security Model</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APP_MODULE__EXT_SECURITY_MODEL = eINSTANCE.getAppModule_ExtSecurityModel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.

@@ -72,6 +72,7 @@ public class GUIModelItemProvider
 			addVersioneProdottoPropertyDescriptor(object);
 			addVersioneComponentePropertyDescriptor(object);
 			addPortalePropertyDescriptor(object);
+			addExtSecurityModelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -182,6 +183,28 @@ public class GUIModelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Ext Security Model feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExtSecurityModelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GUIModel_extSecurityModel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GUIModel_extSecurityModel_feature", "_UI_GUIModel_type"),
+				 GuigenPackage.Literals.GUI_MODEL__EXT_SECURITY_MODEL,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

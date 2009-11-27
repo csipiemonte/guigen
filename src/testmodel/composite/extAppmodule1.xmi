@@ -13,6 +13,9 @@
         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets" label="widgets">
           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
           <widgets xsi:type="guigen:TextField" name="tfProva" label="prova">
+            <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true">
+              <useCase href="testSecurityModel.xmi#//@useCases.1"/>
+            </securityConstraints>
             <databinding>
               <appData href="extAppData1.xmi#//@appData.0"/>
             </databinding>
@@ -28,4 +31,5 @@
     <appData href="default_appdata.xmi#//@appData.0"/>
     <appData href="extAppData1.xmi#//@appData.0"/>
   </contentPanels>
+  <extSecurityModel href="testSecurityModel.xmi#/"/>
 </guigen:AppModule>

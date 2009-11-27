@@ -30,6 +30,14 @@ context GUIModel ERROR "E' necessario specificare la versione del componente nel
 context GUIModel ERROR "E' necessario scegliere la Target Platform" :
 	targetPlatform!=null;
 
+// [AM] warning per incoraggiare l'uso della modularizzazione
+context GUIModel WARNING "Per una migliore gestione del progetto di consiglia di definire il SecurityModel in un modello separato, "+
+	"includerlo come risorsa e referenziarlo in 'extSecurityModel': "+loc() :
+	securityModel==null;
+
+context GUIModel ERROR "E' possibile specificare solo una dei due elementi 'securityModel' (deprecato) e 'extSecurityModel' (consigliato):"+loc() :
+	securityModel==null || extSecurityModel==null;	
+
 context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' nell'oggetto Header "+
 					 "(servono per referenziare le risorse remote)" :
 	codCanale != null && codCanale != "" && codApplicativo != null && codApplicativo != "";
@@ -41,6 +49,9 @@ context Header ERROR "E' necessario impostare i nomi descrittivi del 'canale' e 
 context Header ERROR "E'necessario impostare il link (di produzione) del canale nell'oggetto Header (viene inserito nel filo d'arianna)" :
 	linkCanale != null && linkCanale.length>0;
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazione su AppModule context AppModule
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -535,7 +546,14 @@ context CustomSecurityConstraint ERROR "E' necessario specificare il nome del me
 
 context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel) ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
 "se non è specificato un metodo di AUTENTICAZIONE "+loc() :
-	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null;
+	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null ||
+	((GUIModel)this.eRootContainer).extSecurityModel.autenticationMethod != null;
+
+context UISecurityConstraint if (this.eRootContainer.metaType==AppModule) ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
+"se non è specificato un metodo di AUTENTICAZIONE "+loc() :
+	((AppModule)this.eRootContainer).extSecurityModel.autenticationMethod != null;
+
+
 	
 context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor "+loc() :
 	code!=null;

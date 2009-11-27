@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getContentPanels <em>Content Panels</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.AppModule#getExtSecurityModel <em>Ext Security Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,5 +80,31 @@ public interface AppModule extends EObject {
 	 * @generated
 	 */
 	EList<ContentPanel> getContentPanels();
+
+	/**
+	 * Returns the value of the '<em><b>Ext Security Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext Security Model</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ext Security Model</em>' reference.
+	 * @see #setExtSecurityModel(SecurityModel)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppModule_ExtSecurityModel()
+	 * @model
+	 * @generated
+	 */
+	SecurityModel getExtSecurityModel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.AppModule#getExtSecurityModel <em>Ext Security Model</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ext Security Model</em>' reference.
+	 * @see #getExtSecurityModel()
+	 * @generated
+	 */
+	void setExtSecurityModel(SecurityModel value);
 
 } // AppModule

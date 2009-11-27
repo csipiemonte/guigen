@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getAppDataDefs <em>App Data Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getSecurityModel <em>Security Model</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getExtSecurityModel <em>Ext Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GUIModelImpl#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
@@ -200,6 +201,16 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * @ordered
 	 */
 	protected SecurityModel securityModel;
+
+	/**
+	 * The cached value of the '{@link #getExtSecurityModel() <em>Ext Security Model</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtSecurityModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected SecurityModel extSecurityModel;
 
 	/**
 	 * The cached value of the '{@link #getTargetPlatform() <em>Target Platform</em>}' containment reference.
@@ -565,6 +576,44 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SecurityModel getExtSecurityModel() {
+		if (extSecurityModel != null && extSecurityModel.eIsProxy()) {
+			InternalEObject oldExtSecurityModel = (InternalEObject)extSecurityModel;
+			extSecurityModel = (SecurityModel)eResolveProxy(oldExtSecurityModel);
+			if (extSecurityModel != oldExtSecurityModel) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL, oldExtSecurityModel, extSecurityModel));
+			}
+		}
+		return extSecurityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SecurityModel basicGetExtSecurityModel() {
+		return extSecurityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtSecurityModel(SecurityModel newExtSecurityModel) {
+		SecurityModel oldExtSecurityModel = extSecurityModel;
+		extSecurityModel = newExtSecurityModel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL, oldExtSecurityModel, extSecurityModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TargetPlatform getTargetPlatform() {
 		return targetPlatform;
 	}
@@ -700,6 +749,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return getPortale();
 			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
 				return getSecurityModel();
+			case GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL:
+				if (resolve) return getExtSecurityModel();
+				return basicGetExtSecurityModel();
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return getTargetPlatform();
 			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:
@@ -745,6 +797,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return;
 			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
 				setSecurityModel((SecurityModel)newValue);
+				return;
+			case GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL:
+				setExtSecurityModel((SecurityModel)newValue);
 				return;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)newValue);
@@ -794,6 +849,9 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
 				setSecurityModel((SecurityModel)null);
 				return;
+			case GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL:
+				setExtSecurityModel((SecurityModel)null);
+				return;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)null);
 				return;
@@ -832,6 +890,8 @@ public class GUIModelImpl extends EObjectImpl implements GUIModel {
 				return portale != PORTALE_EDEFAULT;
 			case GuigenPackage.GUI_MODEL__SECURITY_MODEL:
 				return securityModel != null;
+			case GuigenPackage.GUI_MODEL__EXT_SECURITY_MODEL:
+				return extSecurityModel != null;
 			case GuigenPackage.GUI_MODEL__TARGET_PLATFORM:
 				return targetPlatform != null;
 			case GuigenPackage.GUI_MODEL__ACTIVATION_MODEL:

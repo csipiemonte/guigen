@@ -10,6 +10,7 @@ import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.SecurityModel;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getContentPanels <em>Content Panels</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getExtSecurityModel <em>Ext Security Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +73,16 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * @ordered
 	 */
 	protected EList<ContentPanel> contentPanels;
+
+	/**
+	 * The cached value of the '{@link #getExtSecurityModel() <em>Ext Security Model</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtSecurityModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected SecurityModel extSecurityModel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,6 +141,44 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SecurityModel getExtSecurityModel() {
+		if (extSecurityModel != null && extSecurityModel.eIsProxy()) {
+			InternalEObject oldExtSecurityModel = (InternalEObject)extSecurityModel;
+			extSecurityModel = (SecurityModel)eResolveProxy(oldExtSecurityModel);
+			if (extSecurityModel != oldExtSecurityModel) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL, oldExtSecurityModel, extSecurityModel));
+			}
+		}
+		return extSecurityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SecurityModel basicGetExtSecurityModel() {
+		return extSecurityModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtSecurityModel(SecurityModel newExtSecurityModel) {
+		SecurityModel oldExtSecurityModel = extSecurityModel;
+		extSecurityModel = newExtSecurityModel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL, oldExtSecurityModel, extSecurityModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -150,6 +200,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				return getName();
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				return getContentPanels();
+			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
+				if (resolve) return getExtSecurityModel();
+				return basicGetExtSecurityModel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,6 +223,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				getContentPanels().clear();
 				getContentPanels().addAll((Collection<? extends ContentPanel>)newValue);
 				return;
+			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
+				setExtSecurityModel((SecurityModel)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -188,6 +244,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				getContentPanels().clear();
 				return;
+			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
+				setExtSecurityModel((SecurityModel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -204,6 +263,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:
 				return contentPanels != null && !contentPanels.isEmpty();
+			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
+				return extSecurityModel != null;
 		}
 		return super.eIsSet(featureID);
 	}

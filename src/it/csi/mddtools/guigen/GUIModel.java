@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getAppDataDefs <em>App Data Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getPortale <em>Portale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getSecurityModel <em>Security Model</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GUIModel#getExtSecurityModel <em>Ext Security Model</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GUIModel#getActivationModel <em>Activation Model</em>}</li>
  * </ul>
@@ -332,6 +333,32 @@ public interface GUIModel extends EObject {
 	 * @generated
 	 */
 	void setSecurityModel(SecurityModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Ext Security Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext Security Model</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ext Security Model</em>' reference.
+	 * @see #setExtSecurityModel(SecurityModel)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_ExtSecurityModel()
+	 * @model
+	 * @generated
+	 */
+	SecurityModel getExtSecurityModel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GUIModel#getExtSecurityModel <em>Ext Security Model</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ext Security Model</em>' reference.
+	 * @see #getExtSecurityModel()
+	 * @generated
+	 */
+	void setExtSecurityModel(SecurityModel value);
 
 	/**
 	 * Returns the value of the '<em><b>Target Platform</b></em>' containment reference.
