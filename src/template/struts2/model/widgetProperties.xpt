@@ -14,60 +14,64 @@
 	«EXPAND widgetsProperties(model, widgetValidation, this, "") FOREACH this.dialogs»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Panel-»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FormPanel»
-	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.subpanels»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR FormPanel-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.subpanels-»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MultiPanel»
-	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.panels»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
-	«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH this.widgets»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
+	«LET widgets.typeSelect(DataWidget) AS dataWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
+	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MenuPanel»
-	«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH this.widgets»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
+	«LET widgets.typeSelect(DataWidget) AS dataWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
+	«ENDLET»
 «ENDDEFINE»
 
-«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
-	«EXPAND widgetsProperties(model, widgetValidation, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel»
+«DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND widgetsProperties(model, widgetValidation, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Widget»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Widget-»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR DataWidget»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR DataWidget-»
 	«ERROR "tipo di data widget non gestito:"+this»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PlainText»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR PlainText-»
 	«REM»Non facciamo niente. Implementare in futuro se servisse«ENDREM»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR HiddenValue-»
 	// HiddenValue «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation» 
-	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
-	«ENDLET»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-» 
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextField»
+«DEFINE widgetProperty (GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextField-»
 	// TextField «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
-	«ENDLET»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextArea»
+«DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR TextArea-»
 	// TextArea «name»
-	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation»
-	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType»
-	«ENDLET»
+	«LET (widgetValidation && (this.required || !isNullOrEmpty(this.dataTypeModifier)) ? ((String)getWidgetValidation(this, cp, contextPrefix)) : "")  AS widgetValidation-»
+	«EXPAND property(getWidgetName(this, contextPrefix), model, widgetValidation) FOR this.dataType-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE widgetProperty(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR Table»
