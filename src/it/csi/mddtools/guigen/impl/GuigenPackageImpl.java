@@ -1258,6 +1258,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getApplicationArea_HomePage() {
+		return (EReference)applicationAreaEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMenubar() {
 		return menubarEClass;
 	}
@@ -4404,6 +4413,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(applicationAreaEClass, APPLICATION_AREA__ON_INIT_COMMAND);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__MODULES);
 		createEReference(applicationAreaEClass, APPLICATION_AREA__EXT_MODULES);
+		createEReference(applicationAreaEClass, APPLICATION_AREA__HOME_PAGE);
 
 		menubarEClass = createEClass(MENUBAR);
 		createEReference(menubarEClass, MENUBAR__TOP_LEVEL_MENU);
@@ -5003,6 +5013,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getApplicationArea_OnInitCommand(), this.getCommand(), null, "onInitCommand", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_Modules(), this.getAppModule(), null, "modules", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplicationArea_ExtModules(), this.getAppModule(), null, "extModules", null, 0, -1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getApplicationArea_HomePage(), this.getContentPanel(), null, "homePage", null, 0, 1, ApplicationArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menubarEClass, Menubar.class, "Menubar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenubar_TopLevelMenu(), this.getMenu(), null, "topLevelMenu", null, 0, -1, Menubar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

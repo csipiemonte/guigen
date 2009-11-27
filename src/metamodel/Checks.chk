@@ -57,8 +57,8 @@ context Header ERROR "E'necessario impostare il link (di produzione) del canale 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
-context ApplicationArea ERROR "Deve essere definito almeno un ContentPanel " + loc() :
-	this.contentPanels!=null && this.contentPanels.size>0;
+context ApplicationArea ERROR "Deve essere definito il content panel di homePage: " + loc() :
+	this.homePage!=null;
 
 context ApplicationArea WARNING "Per una migliore gesitone del progetto si consiglia di modellare gli AppModule in modelli separati, includere il modello e "+
 	"referenziarlo nell'ApplicationArea, invece che definire AppModule direttamente nell'ApplicationArea."+
@@ -66,9 +66,8 @@ context ApplicationArea WARNING "Per una migliore gesitone del progetto si consi
 	modules.size==0;
 
 context ApplicationArea WARNING "Per una migliore gesitone del progetto si consiglia di suddividere il modello in AppModule mantenuti in modelli separati, includere i modelli e "+
-	"referenziarlo nell'ApplicationArea, invece che definire ContentPanel direttamente nell'ApplicationArea."+
-	"E'necessario invece mantenere un solo ContentPanel nel modello: la home page":
-	contentPanels.size<=1;
+	"referenziarlo nell'ApplicationArea, invece che definire ContentPanel direttamente nell'ApplicationArea.":
+	contentPanels.size==0;
 
 	
 context ContentPanel ERROR "occorre specificare il nome del contentPanel:"+loc() :

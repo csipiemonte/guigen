@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getOnInitCommand <em>On Init Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getModules <em>Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getExtModules <em>Ext Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ApplicationAreaImpl#getHomePage <em>Home Page</em>}</li>
  * </ul>
  * </p>
  *
@@ -133,6 +134,16 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * @ordered
 	 */
 	protected EList<AppModule> extModules;
+
+	/**
+	 * The cached value of the '{@link #getHomePage() <em>Home Page</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHomePage()
+	 * @generated
+	 * @ordered
+	 */
+	protected ContentPanel homePage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -409,6 +420,44 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ContentPanel getHomePage() {
+		if (homePage != null && homePage.eIsProxy()) {
+			InternalEObject oldHomePage = (InternalEObject)homePage;
+			homePage = (ContentPanel)eResolveProxy(oldHomePage);
+			if (homePage != oldHomePage) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.APPLICATION_AREA__HOME_PAGE, oldHomePage, homePage));
+			}
+		}
+		return homePage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContentPanel basicGetHomePage() {
+		return homePage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHomePage(ContentPanel newHomePage) {
+		ContentPanel oldHomePage = homePage;
+		homePage = newHomePage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APPLICATION_AREA__HOME_PAGE, oldHomePage, homePage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -454,6 +503,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return getModules();
 			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
 				return getExtModules();
+			case GuigenPackage.APPLICATION_AREA__HOME_PAGE:
+				if (resolve) return getHomePage();
+				return basicGetHomePage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -494,6 +546,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				getExtModules().clear();
 				getExtModules().addAll((Collection<? extends AppModule>)newValue);
 				return;
+			case GuigenPackage.APPLICATION_AREA__HOME_PAGE:
+				setHomePage((ContentPanel)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -530,6 +585,9 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
 				getExtModules().clear();
 				return;
+			case GuigenPackage.APPLICATION_AREA__HOME_PAGE:
+				setHomePage((ContentPanel)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -558,6 +616,8 @@ public class ApplicationAreaImpl extends EObjectImpl implements ApplicationArea 
 				return modules != null && !modules.isEmpty();
 			case GuigenPackage.APPLICATION_AREA__EXT_MODULES:
 				return extModules != null && !extModules.isEmpty();
+			case GuigenPackage.APPLICATION_AREA__HOME_PAGE:
+				return homePage != null;
 		}
 		return super.eIsSet(featureID);
 	}

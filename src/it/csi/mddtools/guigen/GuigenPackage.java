@@ -146,13 +146,22 @@ public interface GuigenPackage extends EPackage {
 	int APPLICATION_AREA__EXT_MODULES = 7;
 
 	/**
+	 * The feature id for the '<em><b>Home Page</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_AREA__HOME_PAGE = 8;
+
+	/**
 	 * The number of structural features of the '<em>Application Area</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_AREA_FEATURE_COUNT = 8;
+	int APPLICATION_AREA_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.
@@ -7181,6 +7190,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getApplicationArea_ExtModules();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ApplicationArea#getHomePage <em>Home Page</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Home Page</em>'.
+	 * @see it.csi.mddtools.guigen.ApplicationArea#getHomePage()
+	 * @see #getApplicationArea()
+	 * @generated
+	 */
+	EReference getApplicationArea_HomePage();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Menubar <em>Menubar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10946,6 +10966,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION_AREA__EXT_MODULES = eINSTANCE.getApplicationArea_ExtModules();
+
+		/**
+		 * The meta object literal for the '<em><b>Home Page</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_AREA__HOME_PAGE = eINSTANCE.getApplicationArea_HomePage();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MenubarImpl <em>Menubar</em>}' class.

@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getOnInitCommand <em>On Init Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getModules <em>Modules</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getExtModules <em>Ext Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ApplicationArea#getHomePage <em>Home Page</em>}</li>
  * </ul>
  * </p>
  *
@@ -235,5 +236,31 @@ public interface ApplicationArea extends EObject {
 	 * @generated
 	 */
 	EList<AppModule> getExtModules();
+
+	/**
+	 * Returns the value of the '<em><b>Home Page</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Home Page</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Home Page</em>' reference.
+	 * @see #setHomePage(ContentPanel)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_HomePage()
+	 * @model
+	 * @generated
+	 */
+	ContentPanel getHomePage();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ApplicationArea#getHomePage <em>Home Page</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Home Page</em>' reference.
+	 * @see #getHomePage()
+	 * @generated
+	 */
+	void setHomePage(ContentPanel value);
 
 } // ApplicationArea
