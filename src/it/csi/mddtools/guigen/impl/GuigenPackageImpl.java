@@ -1708,6 +1708,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComboBox_OmitHeaderValue() {
+		return (EAttribute)comboBoxEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTable() {
 		return tableEClass;
 	}
@@ -4478,6 +4487,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		comboBoxEClass = createEClass(COMBO_BOX);
 		createEAttribute(comboBoxEClass, COMBO_BOX__KEY_SELECTOR);
 		createEAttribute(comboBoxEClass, COMBO_BOX__VALUE_SELECTOR);
+		createEAttribute(comboBoxEClass, COMBO_BOX__OMIT_HEADER_VALUE);
 
 		tableEClass = createEClass(TABLE);
 		createEReference(tableEClass, TABLE__COLUMN_MODEL);
@@ -5078,6 +5088,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(comboBoxEClass, ComboBox.class, "ComboBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComboBox_KeySelector(), ecorePackage.getEString(), "keySelector", null, 0, 1, ComboBox.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComboBox_ValueSelector(), ecorePackage.getEString(), "valueSelector", null, 0, 1, ComboBox.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComboBox_OmitHeaderValue(), ecorePackage.getEBoolean(), "omitHeaderValue", "false", 0, 1, ComboBox.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tableEClass, Table.class, "Table", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTable_ColumnModel(), this.getColumnModel(), null, "columnModel", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

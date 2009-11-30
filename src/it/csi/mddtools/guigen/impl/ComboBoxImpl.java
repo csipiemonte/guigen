@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getKeySelector <em>Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getValueSelector <em>Value Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#isOmitHeaderValue <em>Omit Header Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +80,26 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * @ordered
 	 */
 	protected String valueSelector = VALUE_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOmitHeaderValue() <em>Omit Header Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOmitHeaderValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OMIT_HEADER_VALUE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOmitHeaderValue() <em>Omit Header Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOmitHeaderValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean omitHeaderValue = OMIT_HEADER_VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -189,6 +210,27 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isOmitHeaderValue() {
+		return omitHeaderValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOmitHeaderValue(boolean newOmitHeaderValue) {
+		boolean oldOmitHeaderValue = omitHeaderValue;
+		omitHeaderValue = newOmitHeaderValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE, oldOmitHeaderValue, omitHeaderValue));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -212,6 +254,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return getKeySelector();
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 				return getValueSelector();
+			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
+				return isOmitHeaderValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -232,6 +276,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return;
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 				setValueSelector((String)newValue);
+				return;
+			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
+				setOmitHeaderValue((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -254,6 +301,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 				setValueSelector(VALUE_SELECTOR_EDEFAULT);
 				return;
+			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
+				setOmitHeaderValue(OMIT_HEADER_VALUE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -272,6 +322,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return KEY_SELECTOR_EDEFAULT == null ? keySelector != null : !KEY_SELECTOR_EDEFAULT.equals(keySelector);
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 				return VALUE_SELECTOR_EDEFAULT == null ? valueSelector != null : !VALUE_SELECTOR_EDEFAULT.equals(valueSelector);
+			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
+				return omitHeaderValue != OMIT_HEADER_VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -322,6 +374,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		result.append(keySelector);
 		result.append(", valueSelector: ");
 		result.append(valueSelector);
+		result.append(", omitHeaderValue: ");
+		result.append(omitHeaderValue);
 		result.append(')');
 		return result.toString();
 	}

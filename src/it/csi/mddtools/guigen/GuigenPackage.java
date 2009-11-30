@@ -2095,13 +2095,22 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__VALUE_SELECTOR = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Omit Header Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__OMIT_HEADER_VALUE = DATA_WIDGET_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
+	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7725,6 +7734,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getComboBox_ValueSelector();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue <em>Omit Header Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Omit Header Value</em>'.
+	 * @see it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue()
+	 * @see #getComboBox()
+	 * @generated
+	 */
+	EAttribute getComboBox_OmitHeaderValue();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Table <em>Table</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11396,6 +11416,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMBO_BOX__VALUE_SELECTOR = eINSTANCE.getComboBox_ValueSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Omit Header Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMBO_BOX__OMIT_HEADER_VALUE = eINSTANCE.getComboBox_OmitHeaderValue();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.

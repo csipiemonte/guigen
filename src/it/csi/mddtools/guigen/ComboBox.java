@@ -21,6 +21,7 @@ package it.csi.mddtools.guigen;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getKeySelector <em>Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getValueSelector <em>Value Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue <em>Omit Header Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -87,4 +88,31 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * @generated
 	 */
 	void setValueSelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Omit Header Value</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Omit Header Value</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Omit Header Value</em>' attribute.
+	 * @see #setOmitHeaderValue(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_OmitHeaderValue()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isOmitHeaderValue();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue <em>Omit Header Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Omit Header Value</em>' attribute.
+	 * @see #isOmitHeaderValue()
+	 * @generated
+	 */
+	void setOmitHeaderValue(boolean value);
 } // ComboBox

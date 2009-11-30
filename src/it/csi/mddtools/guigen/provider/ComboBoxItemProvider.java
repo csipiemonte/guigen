@@ -66,6 +66,7 @@ public class ComboBoxItemProvider
 
 			addKeySelectorPropertyDescriptor(object);
 			addValueSelectorPropertyDescriptor(object);
+			addOmitHeaderValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +111,28 @@ public class ComboBoxItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Omit Header Value feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOmitHeaderValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComboBox_omitHeaderValue_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComboBox_omitHeaderValue_feature", "_UI_ComboBox_type"),
+				 GuigenPackage.Literals.COMBO_BOX__OMIT_HEADER_VALUE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -183,6 +206,7 @@ public class ComboBoxItemProvider
 		switch (notification.getFeatureID(ComboBox.class)) {
 			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
+			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:

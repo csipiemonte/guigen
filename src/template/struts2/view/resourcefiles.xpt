@@ -793,7 +793,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
 <s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
-          headerKey="" headerValue="" «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
+          «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
           list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
           disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
           «IF (databinding!=null && isBoundToArray(this.databinding)) ||
