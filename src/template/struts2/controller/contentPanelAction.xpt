@@ -60,6 +60,12 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 */
 	@SkipValidation
 	public String execute() throws Exception {
+		// esegue eventuali comandi di clear appdata
+		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		if (clearCmd != null){
+			clearCmd.doCommand(this);
+			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		}
 		return SUCCESS;
 	}
 	
@@ -178,14 +184,22 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
 	}
 	
+	static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
 	 *  SAME_PAGE. 
 	 */
 	 public void clearPageScopedAppData(){
+	 	
+	 	ICommand clearCmd = new ICommand(){
+	 		public String doCommand(BaseAction strutsAction) throws Exception {
 	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
-	 	getSession().remove("«getAppDataKey(currAd)»");
+	 			getSession().remove("«getAppDataKey(currAd)»");
 	 	«ENDFOREACH-»
+	 			return null;
+	 		}
+	 	};
+	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
 	 }
 
 	«REM»Espande la struttura della InitAction«ENDREM»
