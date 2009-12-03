@@ -128,9 +128,7 @@ public class «getSpringCPBEClassName()»{
 	«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR this»
 	
 	«REM»[DM] gestione del reset delle tabelle«ENDREM»
-	«IF hasTable(this)»
 	«EXPAND resetTableMethods FOR this»
-	«ENDIF»
 	
 	
 	//////////////////////////////////////////////////////////////////////////////
@@ -150,37 +148,37 @@ public class «getSpringCPBEClassName()»{
 	/// Metodi statici per il reset delle tabelle
 	//////////////////////////////////////////////////////////////////////////////
 	
-	«EXPAND resetTableMethods("") FOR this.panels»
+	«EXPAND resetTableMethods(this,"") FOR this.panels»
 	  
 «ENDDEFINE»
 
 «REM»implementazione di default per i casi non da gestire«ENDREM»
-«DEFINE resetTableMethods(String contextPrefix) FOR Panel»
+«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR Panel»
 «ENDDEFINE»
 
-«DEFINE resetTableMethods(String contextPrefix) FOR FormPanel»
-	«EXPAND resetTableMethods(contextPrefix) FOREACH this.subpanels-»
+«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.subpanels-»
 «ENDDEFINE»
 
-«DEFINE resetTableMethods(String contextPrefix) FOR MultiPanel»
-	«EXPAND resetTableMethods(contextPrefix) FOREACH this.panels-»
+«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
-«DEFINE resetTableMethods(String contextPrefix) FOR PanelDefUse»
-	«EXPAND resetTableMethods(getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
+«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND resetTableMethods(cp, getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
-«DEFINE resetTableMethods(String contextPrefix) FOR WidgetsPanel»
+«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 	«FOREACH this.widgets.typeSelect(Table) AS currTable»
-    	«EXPAND resetTableMethod(contextPrefix) FOR currTable-»
+    	«EXPAND resetTableMethod(cp, contextPrefix) FOR currTable-»
     «ENDFOREACH»
 «ENDDEFINE»
 
 
 
-«DEFINE resetTableMethod(String contextPrefix) FOR Table»
+«DEFINE resetTableMethod(ContentPanel cp, String contextPrefix) FOR Table»
 	public static void resetClearStatus_«getWidgetName(this, contextPrefix)»(java.util.Map session) {
-    	session.put("«this.name»_«getFullID(this, contextPrefix)»_clearStatus", new Boolean(true));
+    	session.put("«cp.name»_«getFullID(this, contextPrefix)»_clearStatus", new Boolean(true));
     }
 «ENDDEFINE»
 
