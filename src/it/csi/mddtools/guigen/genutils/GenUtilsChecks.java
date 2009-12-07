@@ -362,4 +362,26 @@ public class GenUtilsChecks {
 		} else
 			return false; // tipo di tipi non corrispondenti
 	}
+	
+	/**
+	 * Controlla solo superficialmente i complexTypes (corrispondenza per tipo di tipo e per nome/codice)
+	 * @param t1
+	 * @param t2
+	 * @return
+	 */
+	public static boolean typeWeakEquals(Type t1, Type t2) {
+		assert t1 != null && t2 != null;
+		if (t1 instanceof SimpleType && t2 instanceof SimpleType) {
+			return ((SimpleType) t1).getCode() == ((SimpleType) t2).getCode()&&
+			((SimpleType) t1).isNillable() == ((SimpleType) t2).isNillable();
+		} else if (t1 instanceof ComplexType && t2 instanceof ComplexType) {
+			return t1.getName().equals(t2.getName()); // weak
+		} else if (t1 instanceof TypedArray && t2 instanceof TypedArray) {
+			Type et1 = ((TypedArray) t1).getComponentType();
+			Type et2 = ((TypedArray) t2).getComponentType();
+			return typeWeakEquals(et1, et2);
+		} else
+			return false; // tipo di tipi non corrispondenti
+	}
+	
 }
