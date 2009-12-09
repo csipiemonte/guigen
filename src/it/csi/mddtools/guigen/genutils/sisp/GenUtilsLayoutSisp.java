@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
+import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.SimpleType;
@@ -254,14 +255,18 @@ public class GenUtilsLayoutSisp {
 	 */
 	public static String getColumnStyle(Column col, Table table, GUIModel model) {
 		String res = "";
-		
-		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
+		assert table.getMultiDataBinding() != null;
+		assert table.getMultiDataBinding().getAppData() != null;
+		assert table.getMultiDataBinding().getAppData().getType() instanceof TypedArray;
+		Type t = ((TypedArray)(table.getMultiDataBinding().getAppData().getType())).getComponentType();
 		Field f = GenUtils.getSelectedField(null, t, col.getSelector());
 		
 		if ( f != null) {
-			if ( GenUtils.isNumeric((SimpleType)f.getType()) ) {
+			if ( f.getType() instanceof SimpleType && GenUtils.isNumeric((SimpleType)f.getType()) ) {
 				res = "class=\"numeri\"";
 			}
+			// TODO: trasformare in un check
+			assert !col.isEditable() || f.getType() instanceof SimpleType;
 		}
 
 		return res;

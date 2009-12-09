@@ -770,12 +770,12 @@ Gestione dei LAYOUT - PANNELLI
 «ENDREM»
 
 «REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
-«DEFINE msgBoxPanelControlHeader(ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
-<div class="msgBoxPanel«getMsgBoxPanelStyleByPortal((GUIModel)this.eRootContainer, this)»" id="«getFullID(this, contextPrefix)»">
+«DEFINE msgBoxPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
+<div class="msgBoxPanel«getMsgBoxPanelStyleByPortal(model, this)»" id="«getFullID(this, contextPrefix)»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
-«DEFINE msgBoxPanelControlFooter(ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
+«DEFINE msgBoxPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
 </div>
 «ENDDEFINE»
 
@@ -790,18 +790,18 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Widget ---------------«ENDREM»
 
 «REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
 <customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 </customtag:widgetsPanelColumn>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
 «IF needHandleCustomtagCloseHspan(wp, this) -»
 <s:else>
 	<customtag:widgetsPanelColumn textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
@@ -813,17 +813,17 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- PlainText ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal((GUIModel)cp.eRootContainer, this)»>
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal(model, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlHeader(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
+«DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
 <p>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlFooter(MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
+«DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
 </p>
 «ENDDEFINE»
 
@@ -831,51 +831,51 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- HiddenValue ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
 <div class="hidden">
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 </div>
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 «ENDDEFINE»
 
 
 «REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
+«DEFINE widgetControlHeader(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+«DEFINE widgetControlFooter(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
+«DEFINE widgetClose(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
 «ENDDEFINE»
 
 
 «REM»--------------- Button ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
+«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
 «REM»Non faccio niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
+«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 «REM»Non faccio niente«ENDREM»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
+«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
 <customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
@@ -883,12 +883,12 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- Table ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo Table (ATTENZIONE: non ci devono essere tabelle annidate, quindi niente CustomTag)«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Table»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Table»
 <div class="tableWidget">
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo Table (ATTENZIONE: non ci devono essere tabelle annidate, quindi niente CustomTag)«ENDREM»
-«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Table»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Table»
 </div>
 «ENDDEFINE»
 
@@ -897,13 +897,13 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- UserDefinedWidget ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UserDefinedWidget»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UserDefinedWidget»
 <customtag:widgetsPanelColumn «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 	<div class="userDefinedWidget" id="«getFullID(this, contextPrefix)»">
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo UserDefinedWidget«ENDREM»
-«DEFINE widgetControlFooter(WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR UserDefinedWidget»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR UserDefinedWidget»
 	</div>
 </customtag:widgetsPanelColumn>
 «ENDDEFINE»
@@ -912,30 +912,30 @@ Gestione dei LAYOUT - WIDGETS
 «REM»--------------- MenuView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuView»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
 «ENDDEFINE»
 
 
 «REM»--------------- TreeView ---------------«ENDREM»
 
 «REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TreeView»
+«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
+«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 «ENDDEFINE»
 
 «REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
+«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
 «ENDDEFINE»
 
 
@@ -945,12 +945,12 @@ Gestione dei LAYOUT - WIDGETS
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupHeader(ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RadioButtons»
+«DEFINE widgetMarkupHeader(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR RadioButtons»
 <div id="«getWidgetLabelFor(this, contextPrefix, pduConf)»">
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupFooter (ContentPanel cp, String contextPrefix)FOR RadioButtons»
+«DEFINE widgetMarkupFooter (GUIModel model, ContentPanel cp, String contextPrefix)FOR RadioButtons»
 </div>
 «ENDDEFINE»
 

@@ -18,6 +18,7 @@ import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
+import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.ResetButton;
@@ -260,16 +261,20 @@ public class GenUtilsLayoutNeutral {
 	 */
 	public static String getColumnStyle(Column col, Table table, GUIModel model) {
 		String res = "";
-
+		assert table.getMultiDataBinding() != null;
+		assert table.getMultiDataBinding().getAppData() != null;
+		assert table.getMultiDataBinding().getAppData().getType() instanceof TypedArray;
 		Type t = ((TypedArray)table.getMultiDataBinding().getAppData().getType()).getComponentType();
 		Field f = GenUtils.getSelectedField(null, t, col.getSelector());
 
 		if ( f != null ) {
 			String style = "";
-			if ( GenUtils.isNumeric((SimpleType)f.getType()) ) {
+			if (f.getType()instanceof SimpleType && GenUtils.isNumeric((SimpleType)f.getType()) ) {
 				style = "numbers";
 			}
 			
+			// TODO: trasformare in un check
+			assert !col.isEditable() || f.getType() instanceof SimpleType;
 			// TODO: implementare altri stili se necessario
 			
 			if ( !GenUtils.isNullOrEmpty(style) ) {
