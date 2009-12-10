@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Valori ammissibili per l' <b>UDLRCWidgetLayoutSpecifier</b>.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getUDLRCSpecConstants()
  * @model

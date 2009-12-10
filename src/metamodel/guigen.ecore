@@ -481,7 +481,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Specifica di posizionamento di widget in un layout UDLRC (Up/Down/Left/Right/Center).&#xD;&#xA;I valori ammissibili sono contenuti nella Enumeration &lt;b>UDLRCSpecConstants&lt;/b>."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WidgetLayoutSpecifier" abstract="true">
@@ -501,7 +501,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UDLRCSpecConstants">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Valori ammissibili per l' &lt;b>UDLRCWidgetLayoutSpecifier&lt;/b>."/>
     </eAnnotations>
     <eLiterals name="UP"/>
     <eLiterals name="DOWN" value="1"/>
@@ -1132,36 +1132,41 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GridPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Layout a griglia.&#xD;&#xA;I widget vengono inseriti in una griglia delle dimensioni specificate da &lt;b>columns&lt;/b> e &lt;b>rows&lt;/b>.&#xD;&#xA;Ogni cella contiene un widget e la corrispondente label, se specificata.&#xD;&#xA;Per specificare la posizione nella griglia di un widget occorre utilizzare il &lt;b>GridWidgetLayoutSpec&lt;/b> &#xD;&#xA;per ogni widget contenuto nel pannello che ha questo layout."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Dimensione orizzontale della griglia"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rows" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Dimensione verticale della griglia."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GridWidgetLayoutSpec" eSuperTypes="#//WidgetLayoutSpecifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Specifica di posizionamento di widget in un layout a griglia"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="row" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Riga in cui deve essere posizionato il Widget (prima riga = 1)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Colonna in cui deve essere posizionato il Widget (prima colonna = 1)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hspan" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Numero di colonne di occupazione del widget. &#xD;&#xA;Se non specificato si assume l'occupazione di una colonna.&#xD;&#xA;Il widget occuper&amp;agrave; le colonne da &lt;b>column&lt;/b> a &lt;b>column+hspan&lt;/b> comprese."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vspan" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Numero di righe di occupazione del widget. &#xD;&#xA;Se non specificato si assume l'occupazione di una riga.&#xD;&#xA;Il widget occuper&amp;agrave; le righe da &lt;b>row&lt;/b> a &lt;b>row+vspan&lt;/b> comprese."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

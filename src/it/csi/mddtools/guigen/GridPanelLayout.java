@@ -13,7 +13,11 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Layout a griglia.
+ * I widget vengono inseriti in una griglia delle dimensioni specificate da <b>columns</b> e <b>rows</b>.
+ * Ogni cella contiene un widget e la corrispondente label, se specificata.
+ * Per specificare la posizione nella griglia di un widget occorre utilizzare il <b>GridWidgetLayoutSpec</b> 
+ * per ogni widget contenuto nel pannello che ha questo layout.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +42,7 @@ public interface GridPanelLayout extends PanelLayout {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Dimensione orizzontale della griglia
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Columns</em>' attribute.
 	 * @see #setColumns(int)
@@ -67,7 +71,7 @@ public interface GridPanelLayout extends PanelLayout {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Dimensione verticale della griglia.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rows</em>' attribute.
 	 * @see #setRows(int)

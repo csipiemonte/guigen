@@ -64,6 +64,7 @@ public class GridWidgetLayoutSpecItemProvider
 			addRowPropertyDescriptor(object);
 			addColumnPropertyDescriptor(object);
 			addHspanPropertyDescriptor(object);
+			addVspanPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -135,6 +136,28 @@ public class GridWidgetLayoutSpecItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Vspan feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVspanPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GridWidgetLayoutSpec_vspan_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GridWidgetLayoutSpec_vspan_feature", "_UI_GridWidgetLayoutSpec_type"),
+				 GuigenPackage.Literals.GRID_WIDGET_LAYOUT_SPEC__VSPAN,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GridWidgetLayoutSpec.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -155,7 +178,7 @@ public class GridWidgetLayoutSpecItemProvider
 	public String getText(Object object) {
 		GridWidgetLayoutSpec gridWidgetLayoutSpec = (GridWidgetLayoutSpec)object;
 		String label = "";
-		label+= "[r:"+gridWidgetLayoutSpec.getRow()+", c:"+gridWidgetLayoutSpec.getColumn()+"] span: "+gridWidgetLayoutSpec.getHspan();
+		label+= "[r:"+gridWidgetLayoutSpec.getRow()+", c:"+gridWidgetLayoutSpec.getColumn()+"] hspan: "+gridWidgetLayoutSpec.getHspan()+ ", vspan:"+gridWidgetLayoutSpec.getVspan();
 		return getString("_UI_GridWidgetLayoutSpec_type") + " " + label;
 	}
 
@@ -174,6 +197,7 @@ public class GridWidgetLayoutSpecItemProvider
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__ROW:
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__COLUMN:
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

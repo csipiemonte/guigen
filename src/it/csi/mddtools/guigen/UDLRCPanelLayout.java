@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Specifica di posizionamento di widget in un layout UDLRC (Up/Down/Left/Right/Center).
+ * I valori ammissibili sono contenuti nella Enumeration <b>UDLRCSpecConstants</b>.
  * <!-- end-model-doc -->
  *
  *

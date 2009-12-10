@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Specifica di posizionamento di widget in un layout a griglia
  * <!-- end-model-doc -->
  *
  * <p>
@@ -22,6 +22,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getRow <em>Row</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getColumn <em>Column</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getHspan <em>Hspan</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getVspan <em>Vspan</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,7 +40,7 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Riga in cui deve essere posizionato il Widget (prima riga = 1)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Row</em>' attribute.
 	 * @see #setRow(int)
@@ -68,7 +69,7 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Colonna in cui deve essere posizionato il Widget (prima colonna = 1)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Column</em>' attribute.
 	 * @see #setColumn(int)
@@ -97,7 +98,9 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Numero di colonne di occupazione del widget. 
+	 * Se non specificato si assume l'occupazione di una colonna.
+	 * Il widget occuper&agrave; le colonne da <b>column</b> a <b>column+hspan</b> comprese.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Hspan</em>' attribute.
 	 * @see #setHspan(int)
@@ -116,5 +119,32 @@ public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * @generated
 	 */
 	void setHspan(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Vspan</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Numero di righe di occupazione del widget. 
+	 * Se non specificato si assume l'occupazione di una riga.
+	 * Il widget occuper&agrave; le righe da <b>row</b> a <b>row+vspan</b> comprese.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Vspan</em>' attribute.
+	 * @see #setVspan(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec_Vspan()
+	 * @model
+	 * @generated
+	 */
+	int getVspan();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getVspan <em>Vspan</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Vspan</em>' attribute.
+	 * @see #getVspan()
+	 * @generated
+	 */
+	void setVspan(int value);
 
 } // GridWidgetLayoutSpec

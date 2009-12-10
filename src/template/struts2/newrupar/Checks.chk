@@ -25,6 +25,8 @@ context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPane
 context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
 	commandPanelLayoutCheckNewrupar(this);
 
+context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato in questa cartuccia" :
+	this.vspan == null || this.vspan==0 || this.vspan == 1;
 
 
 

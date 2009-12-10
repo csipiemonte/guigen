@@ -4561,13 +4561,22 @@ public interface GuigenPackage extends EPackage {
 	int GRID_WIDGET_LAYOUT_SPEC__HSPAN = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Vspan</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_WIDGET_LAYOUT_SPEC__VSPAN = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Grid Widget Layout Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 3;
+	int GRID_WIDGET_LAYOUT_SPEC_FEATURE_COUNT = WIDGET_LAYOUT_SPECIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9415,6 +9424,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getGridWidgetLayoutSpec_Hspan();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.GridWidgetLayoutSpec#getVspan <em>Vspan</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vspan</em>'.
+	 * @see it.csi.mddtools.guigen.GridWidgetLayoutSpec#getVspan()
+	 * @see #getGridWidgetLayoutSpec()
+	 * @generated
+	 */
+	EAttribute getGridWidgetLayoutSpec_Vspan();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandPanel <em>Command Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12794,6 +12814,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GRID_WIDGET_LAYOUT_SPEC__HSPAN = eINSTANCE.getGridWidgetLayoutSpec_Hspan();
+
+		/**
+		 * The meta object literal for the '<em><b>Vspan</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRID_WIDGET_LAYOUT_SPEC__VSPAN = eINSTANCE.getGridWidgetLayoutSpec_Vspan();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandPanelImpl <em>Command Panel</em>}' class.

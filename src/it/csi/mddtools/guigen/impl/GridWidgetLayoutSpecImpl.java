@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getRow <em>Row</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getColumn <em>Column</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getHspan <em>Hspan</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.GridWidgetLayoutSpecImpl#getVspan <em>Vspan</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +91,26 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 	 * @ordered
 	 */
 	protected int hspan = HSPAN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getVspan() <em>Vspan</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVspan()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int VSPAN_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getVspan() <em>Vspan</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVspan()
+	 * @generated
+	 * @ordered
+	 */
+	protected int vspan = VSPAN_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -178,6 +199,27 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getVspan() {
+		return vspan;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVspan(int newVspan) {
+		int oldVspan = vspan;
+		vspan = newVspan;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN, oldVspan, vspan));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -187,6 +229,8 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 				return getColumn();
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
 				return getHspan();
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN:
+				return getVspan();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -207,6 +251,9 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 				return;
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
 				setHspan((Integer)newValue);
+				return;
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN:
+				setVspan((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -229,6 +276,9 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
 				setHspan(HSPAN_EDEFAULT);
 				return;
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN:
+				setVspan(VSPAN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -247,6 +297,8 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 				return column != COLUMN_EDEFAULT;
 			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__HSPAN:
 				return hspan != HSPAN_EDEFAULT;
+			case GuigenPackage.GRID_WIDGET_LAYOUT_SPEC__VSPAN:
+				return vspan != VSPAN_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -267,6 +319,8 @@ public class GridWidgetLayoutSpecImpl extends WidgetLayoutSpecifierImpl implemen
 		result.append(column);
 		result.append(", hspan: ");
 		result.append(hspan);
+		result.append(", vspan: ");
+		result.append(vspan);
 		result.append(')');
 		return result.toString();
 	}
