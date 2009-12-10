@@ -23,13 +23,16 @@ le funzionalità specifiche della pagina.
 «FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
 
 import java.util.*;
+import java.lang.reflect.Method;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 
 import org.apache.log4j.Logger;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -356,6 +359,31 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 *  ad un content panel.
 	 */
 	 public abstract void clearPageScopedAppData();
+	 
+	 «REM»STDMDD-407«ENDREM»
+	 /**
+	  * Ripulisce gli eventuali errori di conversione se il metodo richiamato
+	  * dichiarava @skipValidation 
+	  */
+	 public void clearConversionErrorsIfSkipValidation() {
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+		Method m;
+		try {
+			boolean skipValidation = true;
+			m = this.getClass().getDeclaredMethod(methodName, new Class[]{});
+			if (m != null) {
+				skipValidation = m.isAnnotationPresent(SkipValidation.class);
+			}
+			if (skipValidation) {
+				clearErrorsAndMessages();
+			}
+		} catch (SecurityException e) {
+			//
+		} catch (NoSuchMethodException e) {
+			//
+		}
+	}
 	 
 	«EXPAND springBEProperties FOR this»
 	

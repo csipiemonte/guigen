@@ -124,6 +124,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	public void prepare() throws Exception{
 	    super.prepare();
 	    
+	    // cancellazione eventuale degli errori di conversione non desiderati
+	    clearConversionErrorsIfSkipValidation();
+	     
 	    // caricamento struttura di constraints
 	    if (allVisibilityConstraints==null)
 	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
