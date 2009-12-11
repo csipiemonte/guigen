@@ -15,7 +15,9 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Il <b>Content Panel</b> rappresenta la singola schermata
+ * dell'applicativo. Pu&ograve; contenere pannelli strutturati con differenti
+ * tipi di layout.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -45,7 +47,7 @@ public interface ContentPanel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il pannello principale inserito nel content Panel.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Panels</em>' containment reference.
 	 * @see #setPanels(Panel)
@@ -74,7 +76,9 @@ public interface ContentPanel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Nome identificativo del content panel. Deve essee univoco all'interno dell'
+	 * applicazione.
+	 * Deve essere un identificatore valido nello stile Java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -104,7 +108,9 @@ public interface ContentPanel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Elenco degli <b>ApplicationData</b> utilizzabili per i binding di dati. 
+	 * Deprecato: definire gli <b>ApplicationData</b> in uno o pi&ugrave; 
+	 * <b>AppDataGroup</b>, mantenuti in file separati.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_AppData()
@@ -122,7 +128,12 @@ public interface ContentPanel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Comando che viene eseguito ad ogni refresh della pagina, sia che sia 
+	 * conseguente all'invocazione di un event handler, sia che si tratti di un
+	 * puro refresh o della visualizzazione iniziale.
+	 * Nel caso sia conseguente all'invocazione di un <b>EventHandler</b>
+	 * questo comando viene eseguito <b>prima</b> del comando associato.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>On Refresh Command</em>' containment reference.
 	 * @see #setOnRefreshCommand(Command)
@@ -151,6 +162,10 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Elenco dei <b>Dialog</b> di feedback associati al content panel.
+	 * Devono essere attivati mediante il comando <b>ShowDialogCommand</b>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Dialogs</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_Dialogs()
 	 * @model containment="true"
@@ -166,6 +181,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stati di attivazione del ContentPanel
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>States</em>' containment reference.
 	 * @see #setStates(ScreenStates)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_States()
@@ -192,6 +210,9 @@ public interface ContentPanel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Stato di attivazione del ContentPanel di default.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Default State</em>' reference.
 	 * @see #setDefaultState(ScreenState)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_DefaultState()

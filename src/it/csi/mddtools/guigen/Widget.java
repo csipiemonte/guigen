@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta dalla quale discendono tutti i vari tipi di widget.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -46,7 +46,9 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice identificativo del widget. Deve essere univoco all'interno del 
+	 * <b>ContentPanel</b> che lo contiene e deve essere un identificativo
+	 * valido java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -75,7 +77,7 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Etichetta associata al widget.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
@@ -104,7 +106,9 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Specifica di posizionamento del widget all'interno del pannello che lo contiene.
+	 * Il tipo dell'oggetto associato deve essere coerente con il tipo di layout del
+	 * pannello contenitore.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Layout Spec</em>' containment reference.
 	 * @see #setLayoutSpec(WidgetLayoutSpecifier)
@@ -134,7 +138,8 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Gestori degli eventi associati al widget. Le tipologie di evento gestite sono
+	 * dipendenti dal particolare tipo di widget.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handlers</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_EventHandlers()
@@ -153,7 +158,22 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * E' possibile specificare uno o pi&ugrave; security constraints sul widget, che
+	 * permettono di rendere condizionata la visualizzazione o la abilitazione del
+	 * widget a fronte delle condizioni descritte nel constraint.
+	 * I constraint sono additivi (nel senso booleano) per ciascun <i>constrained behavior</i>
+	 * (comportamento condizionato = {visibilit&agrave; / abilitazione}): se almeno un
+	 * constraint &egrave; verificato il comportamento condizionato sar&agrave; abilitato
+	 * (visibilit&agrave; / editabilit&agrave;).
+	 * Se nessun constraint sar&agrave; verificato, la visualizzazioen/abilitazione sarà condizionata solo allo stato
+	 * di default / comandato, ovvero al valore delle proprietà <b>defaultVisible</b> o 
+	 * <b>defaultEnabled</b> se non è stato in precedenza utilizzato nessun
+	 * comando di tipo <b>ONOFFCommand</b> o <b>VisibilityCommand</b>; se 
+	 * tali comandi sono stati utilizzati allora "vince" l'impostazione derivante da
+	 * questi comandi.
+	 * Se, infine, un constraint &egrave; verificato, comunque un eventuale
+	 * disabilitazione/invisibilit&agrave; comandata (tramite <b>ONOFFCommand</b>
+	 *  o <b>VisibilityCommand</b>) vince.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_SecurityConstraints()
@@ -172,7 +192,7 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * stato di visibilit&agrave; di default del widget
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Default Visible</em>' attribute.
 	 * @see #setDefaultVisible(boolean)
@@ -202,7 +222,7 @@ public interface Widget extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * stato di abilitazione di default del widget
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Default Enabled</em>' attribute.
 	 * @see #setDefaultEnabled(boolean)

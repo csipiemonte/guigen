@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta dalla quale discendono tutti i pannelli
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +41,8 @@ public interface Panel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice identificativo del pannello. Deve essere univoco all'interno del
+	 * <b>ContentPanel</b> e deve essere un identificatore valido java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -70,7 +71,8 @@ public interface Panel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Etichetta descrittiva del pannello. Il rendering e l'utilizzo di questo elemento
+	 * dipende dal particolare sottotipo di pannello e dalla cartuccia di layout/portale.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
@@ -99,7 +101,13 @@ public interface Panel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il layout con cui devono essere organizzati visivamente gli elementi interni
+	 * al pannello, che possono essere, a seconda del sottotipo di pannello,
+	 * dei sottopannelli o dei widget.
+	 * L'impostazioen della disposizione effettiva degli elementi interni, fissato un particolare layout,
+	 * deve essere completata tramite un LayoutSpecifier (su ciascun elemento interno)
+	 * coerente con il tipo di layout scelto (es. Se il layout è un GridLayout, negli elementi interni 
+	 * occorre specificare un GrigWidgetLayoutSpec).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Layout</em>' containment reference.
 	 * @see #setLayout(PanelLayout)
@@ -128,7 +136,8 @@ public interface Panel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Specificatore del posizionamento di questo pannello all'intenro del layout
+	 * del pannello contenitore.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Layout Spec</em>' containment reference.
 	 * @see #setLayoutSpec(WidgetLayoutSpecifier)

@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pulsante utilizzabile per l'esecuzione di azioni (salvataggio, ricerca, .....).
+ * E' possibile associare un evneto di tipo CLICKED a questo widget.
  * <!-- end-model-doc -->
  *
  *

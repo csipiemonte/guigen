@@ -13,7 +13,13 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * MultiDataWidget che permette la selezione di uno o più valori all'interno di 
+ * un elenco di possibili opzioni.
+ * Se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
+ * Simple la combo sar&agrave; a selezione singola; se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
+ * TypedArray (con component type Simple) la combo sar&agrave; a selezione multipla.
+ * Alla combo &egrave; possibile associare un event handler relativo all'evento
+ * VALUE_CHANGED, che viene scatenato nel momento un cui viene modificata la selezione.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +46,9 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * nome del campo che deve essere considerato come "key". Il campo deve
+	 * corrispondere ad un field del complex type di cui è costituito l'array
+	 * collegato alla combo (tramite multi-data-binding).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Key Selector</em>' attribute.
 	 * @see #setKeySelector(String)
@@ -69,7 +77,9 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * nome del campo che deve essere utilizzato come descrizione visualizzata. Il campo deve
+	 * corrispondere ad un field del complex type di cui è costituito l'array
+	 * collegato alla combo (tramite multi-data-binding).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value Selector</em>' attribute.
 	 * @see #setValueSelector(String)
@@ -98,6 +108,9 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a true non viene inserita la entry relativa allo stato di selezione nulla.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Omit Header Value</em>' attribute.
 	 * @see #setOmitHeaderValue(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_OmitHeaderValue()

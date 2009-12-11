@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Campo di immissione testo multilinea.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,8 @@ public interface TextArea extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Dimensione in righe dell'area di input. Se nell'input si supera il numero
+	 * di righe specificate appare una scrollbar verticale.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rows</em>' attribute.
 	 * @see #setRows(int)
@@ -69,7 +70,8 @@ public interface TextArea extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Dimensione in colonne dell'area di input. Se nell'input si supera il numero
+	 * di colonne specificate appare una scrollbar orizzontale.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Columns</em>' attribute.
 	 * @see #setColumns(int)

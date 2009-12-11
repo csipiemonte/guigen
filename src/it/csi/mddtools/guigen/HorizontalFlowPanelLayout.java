@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.
+ * Non è necessario nessun specificatore per i singoli elementi
  * <!-- end-model-doc -->
  *
  *

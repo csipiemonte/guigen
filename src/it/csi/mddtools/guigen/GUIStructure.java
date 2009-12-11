@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Struttura della user interface
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +38,7 @@ public interface GUIStructure extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * porzione di schermata dipendente dall'applicazione
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Window</em>' containment reference.
 	 * @see #setAppWindow(AppWindow)

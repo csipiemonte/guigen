@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Contiene le classi con cui è possibile modellare l'applicazione.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenFactory
  * @model kind="package"

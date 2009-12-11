@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Widget a selezione alternativa tra un insieme statico di valori.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface RadioButtons extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Insieme dei radiobutton che determina l'insieme dei valori possibili
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Radio</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getRadioButtons_Radio()

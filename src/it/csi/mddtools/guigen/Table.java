@@ -13,7 +13,37 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Tabella di visualizzazione dati. Permette di visualizzare in formato tabellare
+ * una collezione di record.
+ * Mette a disposizione alcune funzioni avanzate:
+ * <ol>
+ * <li>paginazione
+ *   <ul>
+ *   <li>opzionale</li>
+ *   <li>con possibilit&agrave; di impostare la dimensione della "pagina"</li>
+ *   <li>resettabile da business logic</li>
+ *   </ul>
+ * </li>  
+ * <li>export dei dati
+ *   <ul>
+ *   <li>opzionale</li>
+ *   <li>in formato PDF, XLS, RTF</li>
+ *   </ul>
+ * </li>
+ * <li>Con selezione della riga (&egrave; è il valore associato al DataWidget Table, utilizzabile nella business logic
+ *   <ul>
+ *   <li>opzionale (abilitata solo se è impostato un databinding/valuebinding)</li>
+ *   <li>singola o multipla (a seconda del tipo del databinding/valuebinding)</li>
+ *   </ul>
+ * </li>
+ * <li>Con possibilit&agrave; di editing delle celle
+ *   <ul>
+ *   <li>con widget di editing differenziato a seconda del tipo del dato della cella (TextField se Stringa/numerico, checkbox se boolean</li>
+ *   <li>con possibilit&agrave; di scegliere a runtime se una singola cella deve essere editabile o meno</li>
+ *   <li>con possibilit&agrave; di prendere il valore della cella da una collection (tramite combobox); la collection può essere unica per tutta la colonna o variabile per la singola riga</li>
+ *   </ul>
+ * </li>
+ * </ol>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +71,7 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il modello delle colonne che la tabella dovr&agrave; visualizzare.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Column Model</em>' containment reference.
 	 * @see #setColumnModel(ColumnModel)
@@ -70,7 +100,9 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Numero di record max visualizzati in una pagina. 
+	 * Un valore di "0" significa che la paginazione &egrave; disabilitata: in 
+	 * questo caso vengono visualizzati tutti i record.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Page Size</em>' attribute.
 	 * @see #setPageSize(int)
@@ -100,7 +132,7 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true abilita l'export della tabella.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable Export</em>' attribute.
 	 * @see #setEnableExport(boolean)
@@ -129,7 +161,8 @@ public interface Table extends DataWidget, MultiDataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true abilita la definizione di un CustomDecorator, 
+	 * per impostazioni grafiche particolari.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Custom Decorator</em>' attribute.
 	 * @see #setCustomDecorator(boolean)

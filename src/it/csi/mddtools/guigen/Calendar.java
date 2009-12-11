@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Campo di immissione per date, con strumento per la selezione della data
+ * (date picker).
  * <!-- end-model-doc -->
  *
  *

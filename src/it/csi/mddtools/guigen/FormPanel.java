@@ -14,7 +14,9 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello destinato a contenere sottopannelli. Serve principlamente per definire
+ * la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)
+ * sono disponibili pe rtutte le cartucce di layout/portale.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +42,13 @@ public interface FormPanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Un <B>FormPanel</b> contiene uno o più sottopannelli organizzati in 
+	 * vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del
+	 * <b>FormPanel</b> dipende da:
+	 * <ul>
+	 * <li>il tipo di layout associato al pannello</li>
+	 * <li>lo specificatore associato a ciascun sottopannello</li>
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Subpanels</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getFormPanel_Subpanels()
@@ -59,7 +67,9 @@ public interface FormPanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * OBSOLETO: NON UTILIZZARE: utilizzare un <b>WidgetsPanel</b> o un
+	 * <b>CommandPanel</b> interni al <b>FormPanel</b> ed inserire lì i
+	 * widget.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Widgets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getFormPanel_Widgets()

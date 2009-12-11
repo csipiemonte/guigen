@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Vidget a due valori: on/off. Il tipo associato deve essere un Boolean
  * <!-- end-model-doc -->
  *
  *

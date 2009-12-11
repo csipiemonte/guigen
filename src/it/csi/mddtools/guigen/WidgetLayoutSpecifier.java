@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Superclasse di tutte le classi di specificazione del posizionamento degli elementi in un pannello
  * <!-- end-model-doc -->
  *
  *

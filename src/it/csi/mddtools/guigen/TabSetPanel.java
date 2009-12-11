@@ -14,7 +14,18 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Tipo specifico di <b>MultiPanel</b> corredato di componente di controllo
+ * a "tab": per passare da un tab all'altro è sufficiente selezionare la "linguetta" 
+ * corrispondente.
+ * Come per tutti i <b>MultiPanel</b> il programmatore avrà nel model le informazioni
+ * riguardanti:
+ * <ul>
+ * <li>il tab correntemente visualizzato</li>
+ * <li>il tab "target" (quello sulla cui 2linguetta" si è cliccato; questa informazione 
+ * &egrave; disponibile solo all'interno di un <b>EventHandler</b> associato
+ *  al widget fittizio <b>TabSwitcher</b>)</li>.
+ * </ul>
+ * Il primo tab è quello visualizzato di default.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,6 +49,12 @@ public interface TabSetPanel extends MultiPanel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il <b>TabSwitcher</b> &egrave; un widget fittizio che, se inserito, permette
+	 * di effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento di
+	 * selezione (click) delle "linguette".
+	 * 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Switcher</em>' containment reference.
 	 * @see #setSwitcher(TabSwitcher)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTabSetPanel_Switcher()

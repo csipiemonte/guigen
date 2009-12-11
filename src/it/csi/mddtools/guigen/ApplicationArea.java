@@ -16,7 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Rappresenta l'area di user interface specifica dell'applicazione, 
+ * innestata nella struttura comune solitamente definita dagli standard
+ * del sito di esposizione.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -48,7 +50,14 @@ public interface ApplicationArea extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Struttura del menu dell'applicazione.
+	 * Il menu deve essere definito in questo punto, mentre la visualizzazione effettiva 
+	 * dipende dalla particolare cartuccia di layout.
+	 * In alcuni layout potrebbe esserci un unico modo di visualizzare il menu e la visualizzazione potrebbe essere di default
+	 * (es. in alto sotto al banner dell'applicativo).
+	 * In altri layout il menu deve essere inserito esplicitamente tramite un particolare
+	 * widget denominato MenuView che viene espanso con la struttura del menu
+	 * definita in questo elemento.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Menubar</em>' containment reference.
 	 * @see #setMenubar(Menubar)
@@ -136,7 +145,9 @@ public interface ApplicationArea extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Contiene i ContentPanel che costituiscono le schermate dell'applicazione.
+	 * Deprecato (dalla v.1.3): definire le schermate in uno o più AppModule, 
+	 * preferibilmente mantenuti su file separati.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Content Panels</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_ContentPanels()
@@ -183,7 +194,7 @@ public interface ApplicationArea extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Comandi che vengono eseguiti all'inizializzazione dell'applicazione
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>On Init Command</em>' containment reference.
 	 * @see #setOnInitCommand(Command)
@@ -213,7 +224,9 @@ public interface ApplicationArea extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Moduli applicativi (insiemi di ContentPanel). 
+	 * Deprecato: utilizzare <b>extModules</b> e mantenere gli <b>AppModule</b>
+	 * su file separati.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Modules</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_Modules()
@@ -228,7 +241,9 @@ public interface ApplicationArea extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Moduli applicativi (insiemi di ContentPanel). 
+	 * Gli <b>AppModule</b> devono essere mantenuti su file separati.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ext Modules</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_ExtModules()
@@ -245,6 +260,9 @@ public interface ApplicationArea extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il content panel che deve essere considerato la Home Page dell'applicativo.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Home Page</em>' reference.
 	 * @see #setHomePage(ContentPanel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea_HomePage()

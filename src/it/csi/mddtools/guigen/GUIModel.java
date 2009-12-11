@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Modello di un'applicazione
  * <!-- end-model-doc -->
  *
  * <p>
@@ -50,7 +50,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Struttura della user interface
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Structure</em>' containment reference.
 	 * @see #setStructure(GUIStructure)
@@ -108,7 +108,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice prodotto (caratteri minuscoli)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Prodotto</em>' attribute.
 	 * @see #setCodProdotto(String)
@@ -137,7 +137,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice componente (caratteri minuscoli)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Componente</em>' attribute.
 	 * @see #setCodComponente(String)
@@ -166,7 +166,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * versione del prodotto
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Prodotto</em>' attribute.
 	 * @see #setVersioneProdotto(String)
@@ -195,7 +195,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * versione del componente
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Componente</em>' attribute.
 	 * @see #setVersioneComponente(String)
@@ -224,7 +224,8 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Tipi utilizzati nell'applicazione.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Typedefs</em>' containment reference.
 	 * @see #setTypedefs(Typedefs)
@@ -253,7 +254,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Definizione degli application data utilizzati nell'applicazione
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data Defs</em>' containment reference.
 	 * @see #setAppDataDefs(ApplicationDataDefs)
@@ -283,7 +284,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * OBSOLETE. Il poretale/cartuccia di layout èeve essere impostata nel workflow di generazione.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Portale</em>' attribute.
 	 * @see it.csi.mddtools.guigen.PortalNames
@@ -314,7 +315,9 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Modello di sicurezza dell'applicazione.
+	 * DEPRECATO: utilizzare un securitymodel definito esternamente e referenziato
+	 * nella property extSecurityModel
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Model</em>' containment reference.
 	 * @see #setSecurityModel(SecurityModel)
@@ -342,6 +345,10 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Modello di sicurezza dell'applicazione.
+	 * Deve essere definito esternamente in un modello apposito.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ext Security Model</em>' reference.
 	 * @see #setExtSecurityModel(SecurityModel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_ExtSecurityModel()
@@ -369,7 +376,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Serve per generare un pacchetto deployabile su un application server piuttosto che per un altro.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target Platform</em>' containment reference.
 	 * @see #setTargetPlatform(TargetPlatform)
@@ -397,6 +404,9 @@ public interface GUIModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Configurazione delle (eventuali) specifiche di attivazione dell'applicazione.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Model</em>' containment reference.
 	 * @see #setActivationModel(ActivationModel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getGUIModel_ActivationModel()

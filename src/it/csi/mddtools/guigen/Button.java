@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Superclasse di tutti i pulsanti.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,7 @@ public interface Button extends CommandWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * PER FUTURE ESPANSIONI
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Image</em>' attribute.
 	 * @see #setImage(String)

@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pulsante con funzione di reset della form.
+ * Non è possibile associare alcun event handler a questo pulsante.
  * <!-- end-model-doc -->
  *
  *

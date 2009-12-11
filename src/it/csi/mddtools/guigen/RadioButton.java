@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Singolo elemento di un <b>RadioButtons</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -34,7 +34,8 @@ public interface RadioButton extends Widget {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Valore associato al radiobutton.
+	 * Il testo descrittivo visualizzato deve essere impostato nella property "label"
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)

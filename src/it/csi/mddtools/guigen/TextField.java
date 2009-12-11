@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * DataWidget per l'immissione di testo.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface TextField extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Dimensione in caratteri dell area visibile del campo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Field Length</em>' attribute.
 	 * @see #setFieldLength(int)
@@ -68,7 +68,7 @@ public interface TextField extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Numero massimo di caratteri digitabili
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Field Max Length</em>' attribute.
 	 * @see #setFieldMaxLength(int)

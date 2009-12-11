@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta di widget con funzione di comando (es pulsanti)
  * <!-- end-model-doc -->
  *
  *

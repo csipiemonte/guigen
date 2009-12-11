@@ -13,7 +13,9 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta dalla quale discendono tutte le classi che rappresentano
+ * widget associabili a dati (<b>ApplicationData</b>). Un <b>DataWidget</b>
+ * ha un concetto di <i>valore</i> del widget che rappresenta l'input inserito.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +42,10 @@ public interface DataWidget extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Tipo del valore atteso. Deve essere un <b>SimpleType</b> e deve corrispondenre con il tipo del
+	 * binding eventualmente associato.
+	 * Se non viene associato nessun binding, esiste comunque un binding implicito
+	 * a scope USER_ACTION (sconsigliato).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Type</em>' reference.
 	 * @see #setDataType(Type)
@@ -70,7 +75,10 @@ public interface DataWidget extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Configurazione di validazione che indica che il valore associato al widget è obbligatorio. 
+	 * Utilizzato solo nel caso di binding ad un application data non strutturato.
+	 * Nel caso di binding con un field di un application data di tipo strutturato, 
+	 * l'eventuale constraint di obbligatoriet&agrave; deve essere impostato nel <b>ComplexType</b>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Required</em>' attribute.
 	 * @see #setRequired(boolean)
@@ -128,7 +136,8 @@ public interface DataWidget extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il binding verso l' <b>ApplicationData</b> nel quale deve essere inserito
+	 * il valore immesso dall'utente tramite il widget.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Databinding</em>' containment reference.
 	 * @see #setDatabinding(AppDataBinding)

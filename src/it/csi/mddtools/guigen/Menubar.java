@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Contiene la struttura del menu. 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -42,7 +42,7 @@ public interface Menubar extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Contiene il primo livello di voci di menu.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Top Level Menu</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenubar_TopLevelMenu()
