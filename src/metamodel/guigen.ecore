@@ -4,16 +4,16 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="guigen"
     nsURI="http://www.csi.it/mddtools" nsPrefix="guigen">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-    <details key="documentation" value="[[TODO: add documentation here]]"/>
+    <details key="documentation" value="Contiene le classi con cui è possibile modellare l'applicazione."/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationArea">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Rappresenta l'area di user interface specifica dell'applicazione, &#xD;&#xA;innestata nella struttura comune solitamente definita dagli standard&#xD;&#xA;del sito di esposizione."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="menubar" eType="#//Menubar"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Struttura del menu dell'applicazione.&#xD;&#xA;Il menu deve essere definito in questo punto, mentre la visualizzazione effettiva &#xD;&#xA;dipende dalla particolare cartuccia di layout.&#xD;&#xA;In alcuni layout potrebbe esserci un unico modo di visualizzare il menu e la visualizzazione potrebbe essere di default&#xD;&#xA;(es. in alto sotto al banner dell'applicativo).&#xD;&#xA;In altri layout il menu deve essere inserito esplicitamente tramite un particolare&#xD;&#xA;widget denominato MenuView che viene espanso con la struttura del menu&#xD;&#xA;definita in questo elemento."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="titlebar" eType="#//Titlebar"
@@ -31,7 +31,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentPanels" upperBound="-1"
         eType="#//ContentPanel" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Contiene i ContentPanel che costituiscono le schermate dell'applicazione.&#xD;&#xA;Deprecato (dalla v.1.3): definire le schermate in uno o più AppModule, &#xD;&#xA;preferibilmente mantenuti su file separati."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="staticLinks" eType="#//StaticLinks"
@@ -43,31 +43,35 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="onInitCommand" eType="#//Command"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Comandi che vengono eseguiti all'inizializzazione dell'applicazione"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
         eType="#//AppModule" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Moduli applicativi (insiemi di ContentPanel). &#xD;&#xA;Deprecato: utilizzare &lt;b>extModules&lt;/b> e mantenere gli &lt;b>AppModule&lt;/b>&#xD;&#xA;su file separati."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extModules" upperBound="-1"
         eType="#//AppModule">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Moduli applicativi (insiemi di ContentPanel). &#xD;&#xA;Gli &lt;b>AppModule&lt;/b> devono essere mantenuti su file separati.&#xD;&#xA;"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="homePage" eType="#//ContentPanel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="homePage" eType="#//ContentPanel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il content panel che deve essere considerato la Home Page dell'applicativo."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Menubar">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Contiene la struttura del menu. "/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelMenu" upperBound="-1"
         eType="#//Menu" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Contiene il primo livello di voci di menu."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="remoteInfoBox" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -84,141 +88,157 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContentPanel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Il &lt;b>Content Panel&lt;/b> rappresenta la singola schermata&#xD;&#xA;dell'applicativo. Pu&amp;ograve; contenere pannelli strutturati con differenti&#xD;&#xA;tipi di layout."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="panels" eType="#//Panel"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Il pannello principale inserito nel content Panel."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Nome identificativo del content panel. Deve essee univoco all'interno dell'&#xD;&#xA;applicazione.&#xD;&#xA;Deve essere un identificatore valido nello stile Java."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
         eType="#//ApplicationData">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Elenco degli &lt;b>ApplicationData&lt;/b> utilizzabili per i binding di dati. &#xD;&#xA;Deprecato: definire gli &lt;b>ApplicationData&lt;/b> in uno o pi&amp;ugrave; &#xD;&#xA;&lt;b>AppDataGroup&lt;/b>, mantenuti in file separati."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="onRefreshCommand" eType="#//Command"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Comando che viene eseguito ad ogni refresh della pagina, sia che sia &#xD;&#xA;conseguente all'invocazione di un event handler, sia che si tratti di un&#xD;&#xA;puro refresh o della visualizzazione iniziale.&#xD;&#xA;Nel caso sia conseguente all'invocazione di un &lt;b>EventHandler&lt;/b>&#xD;&#xA;questo comando viene eseguito &lt;b>prima&lt;/b> del comando associato.&#xD;&#xA;"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dialogs" upperBound="-1"
-        eType="#//DialogPanel" containment="true"/>
+        eType="#//DialogPanel" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco dei &lt;b>Dialog&lt;/b> di feedback associati al content panel.&#xD;&#xA;Devono essere attivati mediante il comando &lt;b>ShowDialogCommand&lt;/b>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" eType="#//ScreenStates"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultState" eType="#//ScreenState"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Stati di attivazione del ContentPanel"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultState" eType="#//ScreenState">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Stato di attivazione del ContentPanel di default."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Pannello destinato a contenere sottopannelli. Serve principlamente per definire&#xD;&#xA;la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)&#xD;&#xA;sono disponibili pe rtutte le cartucce di layout/portale."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
         eType="#//Panel" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Un &lt;B>FormPanel&lt;/b> contiene uno o più sottopannelli organizzati in &#xD;&#xA;vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del&#xD;&#xA;&lt;b>FormPanel&lt;/b> dipende da:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tipo di layout associato al pannello&lt;/li>&#xD;&#xA;&lt;li>lo specificatore associato a ciascun sottopannello&lt;/li>&#xD;&#xA;&lt;/ul>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="OBSOLETO: NON UTILIZZARE: utilizzare un &lt;b>WidgetsPanel&lt;/b> o un&#xD;&#xA;&lt;b>CommandPanel&lt;/b> interni al &lt;b>FormPanel&lt;/b> ed inserire lì i&#xD;&#xA;widget."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//MultiPanel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Tipo specifico di &lt;b>MultiPanel&lt;/b> corredato di componente di controllo&#xD;&#xA;a &quot;tab&quot;: per passare da un tab all'altro è sufficiente selezionare la &quot;linguetta&quot; &#xD;&#xA;corrispondente.&#xD;&#xA;Come per tutti i &lt;b>MultiPanel&lt;/b> il programmatore avrà nel model le informazioni&#xD;&#xA;riguardanti:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tab correntemente visualizzato&lt;/li>&#xD;&#xA;&lt;li>il tab &quot;target&quot; (quello sulla cui 2linguetta&quot; si è cliccato; questa informazione &#xD;&#xA;&amp;egrave; disponibile solo all'interno di un &lt;b>EventHandler&lt;/b> associato&#xD;&#xA; al widget fittizio &lt;b>TabSwitcher&lt;/b>)&lt;/li>.&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il primo tab è quello visualizzato di default."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="switcher" eType="#//TabSwitcher"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il &lt;b>TabSwitcher&lt;/b> &amp;egrave; un widget fittizio che, se inserito, permette&#xD;&#xA;di effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento di&#xD;&#xA;selezione (click) delle &quot;linguette&quot;.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Panel" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Classe astratta dalla quale discendono tutti i pannelli"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Codice identificativo del pannello. Deve essere univoco all'interno del&#xD;&#xA;&lt;b>ContentPanel&lt;/b> e deve essere un identificatore valido java."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Etichetta descrittiva del pannello. Il rendering e l'utilizzo di questo elemento&#xD;&#xA;dipende dal particolare sottotipo di pannello e dalla cartuccia di layout/portale."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//PanelLayout"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Il layout con cui devono essere organizzati visivamente gli elementi interni&#xD;&#xA;al pannello, che possono essere, a seconda del sottotipo di pannello,&#xD;&#xA;dei sottopannelli o dei widget.&#xD;&#xA;L'impostazioen della disposizione effettiva degli elementi interni, fissato un particolare layout,&#xD;&#xA;deve essere completata tramite un LayoutSpecifier (su ciascun elemento interno)&#xD;&#xA;coerente con il tipo di layout scelto (es. Se il layout è un GridLayout, negli elementi interni &#xD;&#xA;occorre specificare un GrigWidgetLayoutSpec)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="layoutSpec" eType="#//WidgetLayoutSpecifier"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Specificatore del posizionamento di questo pannello all'intenro del layout&#xD;&#xA;del pannello contenitore."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Widget" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Classe astratta dalla quale discendono tutti i vari tipi di widget."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Codice identificativo del widget. Deve essere univoco all'interno del &#xD;&#xA;&lt;b>ContentPanel&lt;/b> che lo contiene e deve essere un identificativo&#xD;&#xA;valido java."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Etichetta associata al widget."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="layoutSpec" eType="#//WidgetLayoutSpecifier"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Specifica di posizionamento del widget all'interno del pannello che lo contiene.&#xD;&#xA;Il tipo dell'oggetto associato deve essere coerente con il tipo di layout del&#xD;&#xA;pannello contenitore."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="eventHandlers" upperBound="-1"
         eType="#//EventHandler" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Gestori degli eventi associati al widget. Le tipologie di evento gestite sono&#xD;&#xA;dipendenti dal particolare tipo di widget."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securityConstraints" upperBound="-1"
         eType="#//UISecurityConstraint" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="E' possibile specificare uno o pi&amp;ugrave; security constraints sul widget, che&#xD;&#xA;permettono di rendere condizionata la visualizzazione o la abilitazione del&#xD;&#xA;widget a fronte delle condizioni descritte nel constraint.&#xD;&#xA;I constraint sono additivi (nel senso booleano) per ciascun &lt;i>constrained behavior&lt;/i>&#xD;&#xA;(comportamento condizionato = {visibilit&amp;agrave; / abilitazione}): se almeno un&#xD;&#xA;constraint &amp;egrave; verificato il comportamento condizionato sar&amp;agrave; abilitato&#xD;&#xA;(visibilit&amp;agrave; / editabilit&amp;agrave;).&#xD;&#xA;Se nessun constraint sar&amp;agrave; verificato, la visualizzazioen/abilitazione sarà condizionata solo allo stato&#xD;&#xA;di default / comandato, ovvero al valore delle proprietà &lt;b>defaultVisible&lt;/b> o &#xD;&#xA;&lt;b>defaultEnabled&lt;/b> se non è stato in precedenza utilizzato nessun&#xD;&#xA;comando di tipo &lt;b>ONOFFCommand&lt;/b> o &lt;b>VisibilityCommand&lt;/b>; se &#xD;&#xA;tali comandi sono stati utilizzati allora &quot;vince&quot; l'impostazione derivante da&#xD;&#xA;questi comandi.&#xD;&#xA;Se, infine, un constraint &amp;egrave; verificato, comunque un eventuale&#xD;&#xA;disabilitazione/invisibilit&amp;agrave; comandata (tramite &lt;b>ONOFFCommand&lt;/b>&#xD;&#xA; o &lt;b>VisibilityCommand&lt;/b>) vince."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="stato di visibilit&amp;agrave; di default del widget"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="stato di abilitazione di default del widget"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommandWidget" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Classe astratta di widget con funzione di comando (es pulsanti)"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataWidget" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Classe astratta dalla quale discendono tutte le classi che rappresentano&#xD;&#xA;widget associabili a dati (&lt;b>ApplicationData&lt;/b>). Un &lt;b>DataWidget&lt;/b>&#xD;&#xA;ha un concetto di &lt;i>valore&lt;/i> del widget che rappresenta l'input inserito."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataTypeModifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -228,61 +248,61 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="databinding" eType="#//AppDataBinding"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Il binding verso l' &lt;b>ApplicationData&lt;/b> nel quale deve essere inserito&#xD;&#xA;il valore immesso dall'utente tramite il widget."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" eType="#//Type">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Tipo del valore atteso. Deve essere un &lt;b>SimpleType&lt;/b> e deve corrispondenre con il tipo del&#xD;&#xA;binding eventualmente associato.&#xD;&#xA;Se non viene associato nessun binding, esiste comunque un binding implicito&#xD;&#xA;a scope USER_ACTION (sconsigliato)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Configurazione di validazione che indica che il valore associato al widget è obbligatorio. &#xD;&#xA;Utilizzato solo nel caso di binding ad un application data non strutturato.&#xD;&#xA;Nel caso di binding con un field di un application data di tipo strutturato, &#xD;&#xA;l'eventuale constraint di obbligatoriet&amp;agrave; deve essere impostato nel &lt;b>ComplexType&lt;/b>."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Button" eSuperTypes="#//CommandWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Superclasse di tutti i pulsanti."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="PER FUTURE ESPANSIONI"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextField" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="DataWidget per l'immissione di testo."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="15">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Dimensione in caratteri dell area visibile del campo."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldMaxLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Numero massimo di caratteri digitabili"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextArea" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Campo di immissione testo multilinea."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rows" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="10">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Dimensione in righe dell'area di input. Se nell'input si supera il numero&#xD;&#xA;di righe specificate appare una scrollbar verticale."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="30">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Dimensione in colonne dell'area di input. Se nell'input si supera il numero&#xD;&#xA;di colonne specificate appare una scrollbar orizzontale."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -298,67 +318,71 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Calendar" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Campo di immissione per date, con strumento per la selezione della data&#xD;&#xA;(date picker)."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComboBox" eSuperTypes="#//DataWidget #//MultiDataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="MultiDataWidget che permette la selezione di uno o più valori all'interno di &#xD;&#xA;un elenco di possibili opzioni.&#xD;&#xA;Se il value-binding &amp;egrave; impostato su un &lt;b>ApplicationData&lt;/b> di tipo&#xD;&#xA;Simple la combo sar&amp;agrave; a selezione singola; se il value-binding &amp;egrave; impostato su un &lt;b>ApplicationData&lt;/b> di tipo&#xD;&#xA;TypedArray (con component type Simple) la combo sar&amp;agrave; a selezione multipla.&#xD;&#xA;Alla combo &amp;egrave; possibile associare un event handler relativo all'evento&#xD;&#xA;VALUE_CHANGED, che viene scatenato nel momento un cui viene modificata la selezione."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySelector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="nome del campo che deve essere considerato come &quot;key&quot;. Il campo deve&#xD;&#xA;corrispondere ad un field del complex type di cui è costituito l'array&#xD;&#xA;collegato alla combo (tramite multi-data-binding)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueSelector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="nome del campo che deve essere utilizzato come descrizione visualizzata. Il campo deve&#xD;&#xA;corrispondere ad un field del complex type di cui è costituito l'array&#xD;&#xA;collegato alla combo (tramite multi-data-binding)."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="omitHeaderValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Se impostato a true non viene inserita la entry relativa allo stato di selezione nulla."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//DataWidget #//MultiDataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Tabella di visualizzazione dati. Permette di visualizzare in formato tabellare&#xD;&#xA;una collezione di record.&#xD;&#xA;Mette a disposizione alcune funzioni avanzate:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>paginazione&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>opzionale&lt;/li>&#xD;&#xA;  &lt;li>con possibilit&amp;agrave; di impostare la dimensione della &quot;pagina&quot;&lt;/li>&#xD;&#xA;  &lt;li>resettabile da business logic&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>  &#xD;&#xA;&lt;li>export dei dati&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>opzionale&lt;/li>&#xD;&#xA;  &lt;li>in formato PDF, XLS, RTF&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>Con selezione della riga (&amp;egrave; è il valore associato al DataWidget Table, utilizzabile nella business logic&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>opzionale (abilitata solo se è impostato un databinding/valuebinding)&lt;/li>&#xD;&#xA;  &lt;li>singola o multipla (a seconda del tipo del databinding/valuebinding)&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>Con possibilit&amp;agrave; di editing delle celle&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>con widget di editing differenziato a seconda del tipo del dato della cella (TextField se Stringa/numerico, checkbox se boolean&lt;/li>&#xD;&#xA;  &lt;li>con possibilit&amp;agrave; di scegliere a runtime se una singola cella deve essere editabile o meno&lt;/li>&#xD;&#xA;  &lt;li>con possibilit&amp;agrave; di prendere il valore della cella da una collection (tramite combobox); la collection può essere unica per tutta la colonna o variabile per la singola riga&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ol>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnModel" eType="#//ColumnModel"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Il modello delle colonne che la tabella dovr&amp;agrave; visualizzare."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Numero di record max visualizzati in una pagina. &#xD;&#xA;Un valore di &quot;0&quot; significa che la paginazione &amp;egrave; disabilitata: in &#xD;&#xA;questo caso vengono visualizzati tutti i record."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enableExport" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Se impostato a true abilita l'export della tabella."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="customDecorator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Se impostato a true abilita la definizione di un CustomDecorator, &#xD;&#xA;per impostazioni grafiche particolari."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="summary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CheckBox" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Vidget a due valori: on/off. Il tipo associato deve essere un Boolean"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIModel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Modello di un'applicazione"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="structure" eType="#//GUIStructure"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Struttura della user interface"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="beahviors" eType="#//GUIBehaviors"
@@ -369,114 +393,126 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="codice prodotto (caratteri minuscoli)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="codice componente (caratteri minuscoli)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="versione del prodotto"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="versione del componente"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typedefs" eType="#//Typedefs"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Tipi utilizzati nell'applicazione.&#xD;&#xA;"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appDataDefs" eType="#//ApplicationDataDefs"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Definizione degli application data utilizzati nell'applicazione"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="portale" eType="#//PortalNames">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="OBSOLETE. Il poretale/cartuccia di layout èeve essere impostata nel workflow di generazione."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securityModel" eType="#//SecurityModel"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Modello di sicurezza dell'applicazione.&#xD;&#xA;DEPRECATO: utilizzare un securitymodel definito esternamente e referenziato&#xD;&#xA;nella property extSecurityModel"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extSecurityModel" eType="#//SecurityModel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extSecurityModel" eType="#//SecurityModel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Modello di sicurezza dell'applicazione.&#xD;&#xA;Deve essere definito esternamente in un modello apposito."/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetPlatform" eType="#//TargetPlatform"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Serve per generare un pacchetto deployabile su un application server piuttosto che per un altro."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activationModel" eType="#//ActivationModel"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Configurazione delle (eventuali) specifiche di attivazione dell'applicazione."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIStructure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Struttura della user interface"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appWindow" eType="#//AppWindow"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="porzione di schermata dipendente dall'applicazione"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIBehaviors"/>
   <eClassifiers xsi:type="ecore:EClass" name="RadioButtons" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Widget a selezione alternativa tra un insieme statico di valori."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="radio" upperBound="-1"
         eType="#//RadioButton" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Insieme dei radiobutton che determina l'insieme dei valori possibili"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Singolo elemento di un &lt;b>RadioButtons&lt;/b>."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[TODO: add documentation here]]"/>
+        <details key="documentation" value="Valore associato al radiobutton.&#xD;&#xA;Il testo descrittivo visualizzato deve essere impostato nella property &quot;label&quot;"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResetButton" eSuperTypes="#//Button">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Pulsante con funzione di reset della form.&#xD;&#xA;Non è possibile associare alcun event handler a questo pulsante."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConfirmButton" eSuperTypes="#//Button">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Pulsante utilizzabile per l'esecuzione di azioni (salvataggio, ricerca, .....).&#xD;&#xA;E' possibile associare un evneto di tipo CLICKED a questo widget."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PanelLayout" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="superclasse di tutte le classi che definiscono un particolare layout"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSizes" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSizes" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="impostazione percentuale della dimensione delle colonne. Varia a seconda del &#xD;&#xA;particolare tipo di layout. &#xD;&#xA;Per ogni colonna logica (destinata a contenere un widget composto da label+controllo)&#xD;&#xA;è necessario impostare due valori separati da virgola: i valori in posizione&#xD;&#xA;dispari (1,3,...) determinano la percentuale da assegnare alla label, mentre&#xD;&#xA;i valori in posizione pari (2,4,...) determinano la percentuale da assegnare&#xD;&#xA;al controllo vero e proprio.&#xD;&#xA;Es: per un GridLayout di 2 colonne una possibile impostazione &amp;egrave;:&#xD;&#xA;&quot;20,30,25,25&quot;, che equivale ad una occupazone delle due colonne logiche &#xD;&#xA;del 50% dello spazio e, all'intenro della prima colonna logica il 20% dello spazio sarà assegnato &#xD;&#xA;alla label mentre il restante 30% sarà assegnato al controllo.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HorizontalFlowPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.&#xD;&#xA;Non è necessario nessun specificatore per i singoli elementi"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerticalFlowPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Gli elementi sono posizionati l'uno sotto l'altro, dall'alto in basso.&#xD;&#xA;Non è necessario nessun specificatore per i singoli elementi.&#xD;&#xA;E'possibile impostare la percentuale delle colonne associate alla label&#xD;&#xA;ed al controllo della singola colonna implicitamente definita da questo tipo di &#xD;&#xA;layout."/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCPanelLayout" eSuperTypes="#//PanelLayout">
@@ -486,7 +522,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WidgetLayoutSpecifier" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[TODO: add documentation here]]"/>
+      <details key="documentation" value="Superclasse di tutte le classi di specificazione del posizionamento degli elementi in un pannello"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCWidgetLayoutSpec" eSuperTypes="#//WidgetLayoutSpecifier">
