@@ -13,6 +13,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Widgets Panel</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Pannello destinato a contenere Widget.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,11 @@ public interface WidgetsPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Elenco dei widget contenuti. I Widget sono organizzati secondo il layout
+	 * associato al pannello e secondo gli eventuali specificatori associati a 
+	 * ciascun widget.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Widgets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidgetsPanel_Widgets()
 	 * @model containment="true"

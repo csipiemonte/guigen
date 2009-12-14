@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Raggruppamento logico di application data. da mantenere in modello separato.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,6 +40,9 @@ public interface AppDataGroup extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * codice identificativo del gruppo. Ha valenza esclusivamente menmonica.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppDataGroup_Name()
@@ -68,7 +71,7 @@ public interface AppDataGroup extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * elenco degli application data compresi nel gruppo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppDataGroup_AppData()

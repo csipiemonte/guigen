@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Voce di menu
  * <!-- end-model-doc -->
  *
  * <p>
@@ -45,7 +45,8 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice simbolico della voce di menu. Deve essere univoco all'interno della
+	 * struttura di menu e deve essere un identificativo valido secondo Java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -74,7 +75,7 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il menu viene visualizzato con questa etichetta.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
@@ -104,7 +105,7 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * OBSOLETO: non utilizzare. Utilizzare l'elemento <i>submenu</i>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Item()
@@ -123,7 +124,7 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Elenco dei sottomenu di questo menu.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Submenu</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_Submenu()
@@ -142,7 +143,7 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * elenco dei secirity constraints associati a questa voce di menu.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security Constraints</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenu_SecurityConstraints()
@@ -160,7 +161,8 @@ public interface Menu extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il menu supporta un handler per l'evento CLICKED. Se non viene specificato
+	 * nessun event handler il menu sarà completamente inattivo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handler</em>' containment reference.
 	 * @see #setEventHandler(EventHandler)

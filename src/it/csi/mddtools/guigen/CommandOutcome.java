@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Possibile esito di un <b>ExecCommand</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,8 @@ public interface CommandOutcome extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice identificativo dell'esito. Deve essere univoco all'interno del content panel
+	 * e deve essere un identificativo valido secondo java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result Code</em>' attribute.
 	 * @see #setResultCode(String)
@@ -68,7 +69,8 @@ public interface CommandOutcome extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il comando che viene eseguito nel caso in cui questo <b>CommandOutcome</b>
+	 * sia quello prescelto nella logica dell'<b>ExecCommand</b>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Command</em>' containment reference.
 	 * @see #setCommand(Command)

@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette la visualizzazione di testo, fisso o proveniente da application data, senza possibilità di editing.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +38,9 @@ public interface PlainText extends DataWidget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato il widget visualizzer&agrave; il testo html specificato a fianco alla label.
+	 * In caso contrario, e se sar&agrave; specificato un data binding, il
+	 * valore visualizzato sar&agrave; preso dall'application data referenziato.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Text</em>' attribute.
 	 * @see #setStaticText(String)

@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Security constraint a logica custom
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +38,7 @@ public interface CustomSecurityConstraint extends UISecurityConstraint {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * suffisso del nome del metodo nel quale dovr&agrave; essere codificata la logica del constraint.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Method Name Suffix</em>' attribute.
 	 * @see #setMethodNameSuffix(String)

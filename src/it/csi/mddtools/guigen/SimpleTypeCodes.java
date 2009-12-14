@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Codici dei tipi base
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleTypeCodes()
  * @model
@@ -287,6 +287,9 @@ public enum SimpleTypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta il tipo degli elementi di una struttura a tree
+	 * <!-- end-model-doc -->
 	 * @see #TREE_NODE
 	 * @model
 	 * @generated

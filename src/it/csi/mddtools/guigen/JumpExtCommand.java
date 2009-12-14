@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di far passare il flusso di esecuzione ad una pagina esterna all'applicativo.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface JumpExtCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se specificato l'effetto del comando sarà la redirezione del flusso applicativo all'url specificato.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Url</em>' attribute.
 	 * @see #setStaticUrl(String)
@@ -68,7 +68,7 @@ public interface JumpExtCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se specificato il flusso applicativo verr&agrave; rediretto all'url fornito dinamicamente (a runtime) dall'application data specificato.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Runtime Url Provider</em>' reference.
 	 * @see #setRuntimeUrlProvider(ApplicationData)
@@ -97,7 +97,7 @@ public interface JumpExtCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice identificativo della locazione. A solo scopo menmonico. deve essere univoco all'interno del <b>ContentPanel</b>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Location Code</em>' attribute.
 	 * @see #setLocationCode(String)

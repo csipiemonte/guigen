@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Array tipato. Il nome impostato &egrave; solo mnemonico.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,7 @@ public interface TypedArray extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Tipo degli elementi di cui sar&agrave; costituito l'array.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Component Type</em>' reference.
 	 * @see #setComponentType(Type)

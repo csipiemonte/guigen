@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Tipo base (semplice).
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface SimpleType extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice che serve per discriminare il tipo base specifico.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see it.csi.mddtools.guigen.SimpleTypeCodes
@@ -70,7 +70,7 @@ public interface SimpleType extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true, il tipo ammette il vlaore <i>null</i> nel suo dominio.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nillable</em>' attribute.
 	 * @see #setNillable(boolean)

@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Collegamento con un application data o con una parte di esso.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface AppDataBinding extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * L'application data collegato
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' reference.
 	 * @see #setAppData(ApplicationData)
@@ -68,7 +68,17 @@ public interface AppDataBinding extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se specificato fain modo che il binding non sia sul valore dell'application data, ma
+	 * su uno specifico field del record.
+	 * Ad esempio se un application data "titolare" ha come tipo un <b>ComplexType</b>
+	 * di nome <i>Persona</i>, con un campo <i>nome</i>, &egrave; possibile
+	 * associare un textfield a tale campo impostando nell'<b>AppDataBinding</b>:
+	 * <ul>
+	 * <li>l'elemento <i>appData</i> in modo che punti all'application data "titolare"</li>
+	 * <li>l'elemento <i>path</i> in modo che valga "nome"</li>
+	 * </ul>
+	 * E'ovviamente possibile utilizzare <i>path</i> pi&ugrave; complessi
+	 * (es. "persona.indirizzo.numCivico").
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)

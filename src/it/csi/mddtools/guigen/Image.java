@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Utilizzato per la visualizzazione di immagini statiche all'interno della struttura UI.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,10 @@ public interface Image extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il percorso dell'immagine. Il valore può variare a seconda della cartuccia di
+	 * generazione. Nel caso della cartuccia <i>struts2</i> il valore è inserito as-is
+	 * nel tag <i>img</i>.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Image</em>' attribute.
 	 * @see #setImage(String)

@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Security constraint basato sull'impersonificazione dell'utente corrente di un particolare Actor
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,7 @@ public interface ActorBasedSecurityConstraint extends UISecurityConstraint {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * L'Actor di riferimento
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actor</em>' reference.
 	 * @see #setActor(Actor)

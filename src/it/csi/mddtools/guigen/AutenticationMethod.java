@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Superclasse di tutti i possibili meccanismi di autenticazione.
  * <!-- end-model-doc -->
  *
  *

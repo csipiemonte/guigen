@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Modulo dell'applicativo. Da mantenere in un file separato.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -42,7 +42,8 @@ public interface AppModule extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice identificativo del modulo. Deve essere univoco all'interno 
+	 * dell'applicazione e deve essere un identificativo valido di package java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -72,7 +73,7 @@ public interface AppModule extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Elenco delle schermate che costituiscono il modulo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Content Panels</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppModule_ContentPanels()
@@ -89,6 +90,9 @@ public interface AppModule extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * riferimento al modello di sicurezza.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ext Security Model</em>' reference.
 	 * @see #setExtSecurityModel(SecurityModel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppModule_ExtSecurityModel()

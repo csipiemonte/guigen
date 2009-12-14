@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Insieme dei tipi definiti nell'applicazione
  * <!-- end-model-doc -->
  *
  * <p>
@@ -43,7 +43,8 @@ public interface Typedefs extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * DEPRECATO: utilizzare tipi definiti in <b>TypeNamespace</b> esterni
+	 * e referenziati in <i>extNamespaces</i>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_Types()
@@ -62,7 +63,7 @@ public interface Typedefs extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * DEPRECATO: utilizzare <i>extNamespaces</i>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Namespaces</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_Namespaces()
@@ -80,6 +81,9 @@ public interface Typedefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Riferimento ai <b>TypeNamespace</b> utilizzati nell'applicazione.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ext Namespaces</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs_ExtNamespaces()
 	 * @model

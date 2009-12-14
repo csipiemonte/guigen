@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Screen State Command</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Permette di far passare un <b>ContnetPanel</b> nello stato specificato
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface ScreenStateCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Lo stato in cui si desidera far passare il <b>ContentPanel</b>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Go To</em>' reference.
 	 * @see #setGoTo(ScreenState)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getScreenStateCommand_GoTo()

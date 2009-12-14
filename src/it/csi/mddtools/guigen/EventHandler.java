@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Gestore di un evento di User Interaction.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +40,8 @@ public interface EventHandler extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * A fronte dell'evento specificato in <i>eventType</i> sar&agrave; eseguito
+	 * il comando specificato in questo elemento.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Command</em>' containment reference.
 	 * @see #setCommand(Command)
@@ -70,7 +71,7 @@ public interface EventHandler extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Specifica il tipo di evento per cui &egrave; definito questo event handler.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Type</em>' attribute.
 	 * @see it.csi.mddtools.guigen.EventTypes
@@ -101,7 +102,10 @@ public interface EventHandler extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true non saranno eseguite le logiche automatiche di conversione/validazione
+	 * a fronte dell'occorrenza dell'evento specificato.
+	 * Serve per gestire casi in cui la non conformit&agrave; dei dati immessi non
+	 * &egrave; importante, anzi deve essere ignorata (es. il tasto "indietro" o "annulla").
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Skip Validation</em>' attribute.
 	 * @see #setSkipValidation(boolean)

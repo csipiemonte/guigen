@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di inserire un frammento di codice definito manualmente.
+ * Nella cartuccia di generazioen "struts2" questo corrisponde ad un frammento JSP.
  * <!-- end-model-doc -->
  *
  *

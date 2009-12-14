@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di abilitare/disabilitare i widget specificati. Lo stato di abilitazione
+ * rimane persistente in sessione.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +38,8 @@ public interface ONOFFCommand extends Command, CommandOnWidgets {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true il comando ha effetto di abilitare i widget; 
+	 * se impostato a false ha l'effetto di disabilitazione.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable</em>' attribute.
 	 * @see #setEnable(boolean)

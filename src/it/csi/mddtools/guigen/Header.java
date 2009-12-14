@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Header dell'applicazione. comune a tutti i <b>ContentPanel</b>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -43,7 +43,7 @@ public interface Header extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice del canale all'interno del portale.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Canale</em>' attribute.
 	 * @see #setCodCanale(String)
@@ -72,7 +72,7 @@ public interface Header extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice dell'applicativo come codificato nel portale
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Applicativo</em>' attribute.
 	 * @see #setCodApplicativo(String)
@@ -101,7 +101,7 @@ public interface Header extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * nome descrittivo del canale tematico.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nome Canale</em>' attribute.
 	 * @see #setNomeCanale(String)
@@ -130,7 +130,7 @@ public interface Header extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Link della home page del canale tematico
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Link Canale</em>' attribute.
 	 * @see #setLinkCanale(String)
@@ -159,7 +159,7 @@ public interface Header extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Nome descrittivo dell'applicativo
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nome Applicativo</em>' attribute.
 	 * @see #setNomeApplicativo(String)

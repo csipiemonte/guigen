@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Actor IRIDE2
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +40,7 @@ public interface Actor extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice identificativo (come censito in IRIDE2)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see #setCode(String)
@@ -69,6 +69,9 @@ public interface Actor extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Ruoli impersonificati dall'actor.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Roles</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getActor_Roles()
 	 * @model

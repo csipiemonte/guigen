@@ -13,7 +13,13 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello di visualizzazione di messaggi.
+ * Permette di visualizzare:
+ * <ul>
+ * <li>informativi</li>
+ * <li>di errore associati ai singoli campi</li>
+ * <li>di errore globali</li>
+ * </ul>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +45,7 @@ public interface StdMessagePanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Impostare a true se si desidera visualizzare i messaggi di errore globali
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Global Messages</em>' attribute.
 	 * @see #setShowGlobalMessages(boolean)
@@ -68,7 +74,7 @@ public interface StdMessagePanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Impostare a true se si desidera visualizzare i messaggi di errore relativi ai vari field.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Field Error Details</em>' attribute.
 	 * @see #setShowFieldErrorDetails(boolean)
@@ -97,7 +103,7 @@ public interface StdMessagePanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Impostare a true se si desidera visualizzare i messaggi di errore
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show Field Errors</em>' attribute.
 	 * @see #setShowFieldErrors(boolean)

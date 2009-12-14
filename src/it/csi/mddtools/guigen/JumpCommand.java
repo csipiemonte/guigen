@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di passare alla visualizzazione di un <b>ContentPanel</b>
+ * differente.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +39,7 @@ public interface JumpCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il <b>ContentPanel</b> a cui saltare.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Jump To</em>' reference.
 	 * @see #setJumpTo(ContentPanel)
@@ -67,7 +68,8 @@ public interface JumpCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Salva in uno stack la pagina corrente prima di effettuare il salto.
+	 * Da utilizzarsi in congiunzione con <b>JumpBackCommand</b>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Push Current Page</em>' attribute.
 	 * @see #setPushCurrentPage(boolean)

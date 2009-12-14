@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di visualizzare la struttura di menu definita nella <b>MenuBar</b>.
+ * Deve essere inserito in un <b>MenuPanel</b>.
  * <!-- end-model-doc -->
  *
  *

@@ -14,6 +14,11 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Activation Model</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Modello di attivazione dell'applicazione.
+ * Opzionale
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +40,11 @@ public interface ActivationModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * elenco dei parametri di attivazione dell'applicazione. Il valore effettivo dei parametri
+	 * &egrave; disponibile nella logica di business associata all' <i>onInitCommand</i>
+	 * dell'applicazione.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Params</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getActivationModel_ActivationParams()
 	 * @model containment="true"

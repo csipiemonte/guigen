@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Meccanismo di autenticazione basato su Single Sign On di Oracle Portal
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,12 @@ public interface OPAUTHSSO extends AutenticationMethod {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * livello minimo di autenticazione: 
+	 * <ul>
+	 * <li>1=username/password</li>
+	 * <li>2=username/password/pin</li>
+	 * <li>3=certificato digitale</li>
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Min Auth Level</em>' attribute.
 	 * @see #setMinAuthLevel(int)

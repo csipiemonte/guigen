@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Security constraint basato sull'abilitazione dell'utente corrente ad un particolare UseCase
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,7 @@ public interface UCBasedSecurityConstraint extends UISecurityConstraint {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Lo UseCase di riferimento
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Case</em>' reference.
 	 * @see #setUseCase(UseCase)

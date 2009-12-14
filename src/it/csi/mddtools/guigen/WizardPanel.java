@@ -13,7 +13,12 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Particolare tipo di <b>MultiPanel</b> che prevede una sezione di
+ * navigazione in alto che rappresenta la sequenza degli step del wizard.
+ * Il naviogatore pu&ograve; essere attivo o passivo. Nel caso in cui il navigatore
+ * sia passivo per passare d auno step all'altro &egrave; necessario utilizzare
+ * il comando <b>ActivateMultiPanelItem</b> agganciato ad un evento collegato ad 
+ * un pulsante interno al pannello che descrive ciascuno step.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,6 +44,10 @@ public interface WizardPanel extends MultiPanel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a true la sezione di navigazione sar&agrave; cliccabile, 
+	 * permettendo cos&igrave; il salto libero da uno step all'altro.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Navigator Active</em>' attribute.
 	 * @see #setNavigatorActive(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWizardPanel_NavigatorActive()
@@ -65,6 +74,10 @@ public interface WizardPanel extends MultiPanel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Widget fittizio che permette di associare un event handler all'evento di
+	 * CLICK sullo step (utilizzabile solo in modalit&agrave; attiva).
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Switcher</em>' containment reference.
 	 * @see #setSwitcher(TabSwitcher)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getWizardPanel_Switcher()

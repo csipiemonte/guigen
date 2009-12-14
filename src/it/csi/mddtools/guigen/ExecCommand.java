@@ -14,7 +14,29 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di eseguire logica custom all'intenro di una catena di comandi.
+ * Al metodo specificato in <i>methodName</i> sar&agave; passata una struttura
+ * dati contenente:
+ * <ul>
+ * <li>i riferimenti agli <b>ApplicationData</b> referenziati
+ * dal <b>ContentPanel</b> che contiene il comando.</li>
+ * <li>un riferimento alla sessione applicativa</li>
+ * <li> alcune informazioni ausiliarie diepndenti dalla struttura del 
+ *     <b>ContentPanel</b> (es. Id del nodo selezionato in un tree, 
+ *     informazioni circa il tab su cui si è cliccato, informazioni sulla cella selezionata
+ * in una tabella) </li>
+ * </ul>
+ * Nel metodo il programmatore potr&agrave; eseguire qualsiasi tipo di logica ed in 
+ * particolare:
+ * <ul>
+ * <li> modificare lo stato degli application data o della sessione.</li>
+ * <li> inserire nel contesto applicativo messaggi informativi o di errore</li>
+ * <li> determinare la prosecuzione del flusso, selezionando uno tra i 
+ * <i>results</i> disponibili.</li>
+ * </ul>
+ * Al termine dell'esecuzione del metodo il flusso proseguir&agrave; con il comando
+ * inserito nel <b>CommandOutcome</b> specificato al termine della logica.
+ * 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +63,7 @@ public interface ExecCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * L'elenco delle possibili prosecuzioni a fronte dell'esecuzione del comando.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Results</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_Results()
@@ -59,7 +81,11 @@ public interface ExecCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Nome del metodo nel quale sarà contenuta la logica effettiva.
+	 * L'implementazione dipende dalla particolare cartuccia di generazione.
+	 * Nel caso della cartuccia "struts2" verr&agrave; generato un metodo nello
+	 * strato spring, contenente una regione protetta nel quale il programamtore
+	 * dovr&agrave; inserire la logica effettiva.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Method Name</em>' attribute.
 	 * @see #setMethodName(String)
@@ -89,7 +115,7 @@ public interface ExecCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Occorre dichiarare preventivamente gli application data che saranno modificati nella logica applicativa.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Post Exec Data</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_PostExecData()

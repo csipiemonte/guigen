@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di visualizzare uno degli item di un <b>MultiPanel</b> 
+ * (o di una delle sue sottoclassi <b>TabSetPanel</b> o <b>WizardPanel</b>).
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +40,7 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il multipanel del quale si desidera cambiare l'item visualizzato.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multipanel</em>' reference.
 	 * @see #setMultipanel(MultiPanel)
@@ -68,7 +69,8 @@ public interface ActivateMultiPanelItemCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * L'item da visualizzare. Se impostato a "null" non verr&agrave; visualizzato nessun pannello
+	 * (vale solo per il <b>MultiPanel</b>).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Active Item</em>' reference.
 	 * @see #isSetActiveItem()

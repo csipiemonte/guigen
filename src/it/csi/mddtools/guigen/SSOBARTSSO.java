@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Meccanismo di autenticazione basato su Sistema di Single Sign On SSOBART
  * <!-- end-model-doc -->
  *
  *

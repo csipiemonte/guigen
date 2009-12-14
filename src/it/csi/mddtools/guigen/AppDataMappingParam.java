@@ -12,6 +12,11 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>App Data Mapping Param</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Definizione di parametro di <b>PanelDef</b> che permette di rimpiazzare 
+ * l'application data fittizio con quello reale nel <b>PanelDefUse</b>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

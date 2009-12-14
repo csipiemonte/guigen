@@ -35,6 +35,10 @@ public interface MsgBoxPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Tipologia del messaggio (utilizzato solo se il pannello &egrave; contenuto in un
+	 * <b>DialogPanel</b>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Severity</em>' attribute.
 	 * @see it.csi.mddtools.guigen.MessageSeverity
 	 * @see #setMessageSeverity(MessageSeverity)
@@ -64,6 +68,9 @@ public interface MsgBoxPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * contengono il testo vero e proprio
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Text Messages</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMsgBoxPanel_TextMessages()
 	 * @model containment="true"

@@ -14,7 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Finestra applicativa comprendente le parti comuni a tutte le schermate e la
+ * parte variabile.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +41,7 @@ public interface AppWindow extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Header del portale. Comune a tutte le schermate.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Header</em>' containment reference.
 	 * @see #setHeader(Header)
@@ -69,7 +70,7 @@ public interface AppWindow extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Footer del portale. Comune a tutte le schermate.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Footer</em>' containment reference.
 	 * @see #setFooter(Footer)
@@ -98,7 +99,7 @@ public interface AppWindow extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Porzione di finestra dipendente dall'applicazione
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Area</em>' containment reference.
 	 * @see #setAppArea(ApplicationArea)

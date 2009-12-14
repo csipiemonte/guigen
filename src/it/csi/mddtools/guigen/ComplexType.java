@@ -14,7 +14,9 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Struttura dati definita da utente. 
+ * Nel caso di questa sottoclasse di <b>Type</b> l'attributo <i>name</i>
+ * deve essere un identificativo valido per java.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +42,7 @@ public interface ComplexType extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Insieme dei campi di cui &egrave; costituita la struttura dati.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Fields</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType_Fields()
@@ -59,7 +61,11 @@ public interface ComplexType extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true, i field di tipo complex sono inizializzati
+	 * (con struttura vuota al momento dell'istaziazione di oggetti di questo tipo).
+	 * Es. Se un tipo "Persona" contiene un field "residenza" di tipo "Indirizzo" e <i>initFields</i>
+	 *  &egrave; impostato a true, allora il field "residenza" viene impostato con
+	 * un'oggetto di tipo "Indirizzo".
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Init Fields</em>' attribute.
 	 * @see #setInitFields(boolean)

@@ -14,7 +14,8 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di eseguire in sequenza i comandi specificati. I codice di ritorno 
+ * del comando &egrave; il codice dell'ultimo dei comandi.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +40,7 @@ public interface SequenceCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Gli elementi della sequenza di comandi.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Commands</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSequenceCommand_Commands()

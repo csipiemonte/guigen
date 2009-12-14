@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>Role Based Security Constraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Security constraint basato sull'appartenenza dell'utente corrente ad un particolare Role
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface RoleBasedSecurityConstraint extends UISecurityConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il role di riferimento
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Role</em>' reference.
 	 * @see #setRole(Role)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getRoleBasedSecurityConstraint_Role()

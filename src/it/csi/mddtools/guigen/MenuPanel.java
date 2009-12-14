@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello destinato a contenere una <b>MenuView</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,6 +41,14 @@ public interface MenuPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * I widget inseribili in questo tipo di pannello sono solo:
+	 * <ul>
+	 * <li>TreeView</li>
+	 * <li>MenuView</li>
+	 * <li>UserDefinedWidget</li>
+	 * </ul>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Widgets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMenuPanel_Widgets()
 	 * @model containment="true"

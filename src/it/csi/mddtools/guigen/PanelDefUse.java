@@ -13,6 +13,11 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Panel Def Use</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Serve per utilizzare in una applicazione reale un <b>PanelDef</b>.
+ * 
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -60,6 +65,9 @@ public interface PanelDefUse extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Configurazione del componente
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Config</em>' containment reference.
 	 * @see #setConfig(PDefUseConfig)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDefUse_Config()

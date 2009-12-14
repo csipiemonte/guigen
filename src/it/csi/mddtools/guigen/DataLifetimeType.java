@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Possibili modi di persistenza dell'application data.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getDataLifetimeType()
  * @model
@@ -62,7 +62,7 @@ public enum DataLifetimeType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il valore &egrave; disponibile solo fino al termine dell'azione utente corrente.
 	 * <!-- end-model-doc -->
 	 * @see #USER_ACTION
 	 * @model
@@ -80,7 +80,7 @@ public enum DataLifetimeType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il valore &egrave; disponibile per tutta la durata della sessioen utente, a meno che non venga esplicitamente rimosso.
 	 * <!-- end-model-doc -->
 	 * @see #USER_SESSION
 	 * @model
@@ -94,7 +94,7 @@ public enum DataLifetimeType implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il valore &egrave; disponibile finch&egrave; il flusso non passa a dun content panel differente, tramite un <b>JumpCommand</b>.
 	 * <!-- end-model-doc -->
 	 * @see #SAME_PAGE
 	 * @model

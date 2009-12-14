@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di mostrare/nascondere i widget specificati. Lo stato di visibilit&agrave;
+ * rimane persistente in sessione.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +38,8 @@ public interface VisibilityCommand extends Command, CommandOnWidgets {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true il comando ha effetto di rendere visibile i widget; 
+	 * se impostato a false ha l'effetto di renderli invisibili.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Show</em>' attribute.
 	 * @see #setShow(boolean)

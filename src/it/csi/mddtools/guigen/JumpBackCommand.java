@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette di ritornare alla schemata precedente. Da utilizzarsi in congiunzione con 
+ * <b>JumpCommand</b> e <i>pushCurrentPage</i>.
  * <!-- end-model-doc -->
  *
  *

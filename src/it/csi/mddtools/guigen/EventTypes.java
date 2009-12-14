@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * tipologie di eventi a cui &egrave; possibile associare un event handler.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getEventTypes()
  * @model
@@ -74,7 +74,12 @@ public enum EventTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Evento di click su un controllo. Esempi:
+	 * <ul>
+	 * <li>la pressione di un <b>ConfirmButton</b></li>
+	 * <li>il click su una voce di <b>Menu</b></li>
+	 * <li>il click su una cella in una <b>Table</b></li>
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @see #CLICKED
 	 * @model
@@ -92,7 +97,11 @@ public enum EventTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Evento che modifica il vlaore di un controllo. Esempi:
+	 * <ul>
+	 * <li>la selezione di una voce d una <b>ComboBox</b></li>
+	 * <li>il click su un <b>RadioButton</b></li>
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @see #VALUE_CHANGED
 	 * @model
@@ -110,7 +119,8 @@ public enum EventTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Rappresenta l'acquisizione del focus d aparte di un controllo.
+	 * PER FUTURE EVOLUZIONI.
 	 * <!-- end-model-doc -->
 	 * @see #FOCUS_GAINED
 	 * @model
@@ -128,7 +138,8 @@ public enum EventTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Rappresenta la perdita del focus d aparte di un controllo.
+	 * PER FUTURE EVOLUZIONI.
 	 * <!-- end-model-doc -->
 	 * @see #FOCUS_LOST
 	 * @model

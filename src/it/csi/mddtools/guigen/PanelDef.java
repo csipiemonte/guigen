@@ -15,6 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Panel Def</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Definizione di pannello riusabile. Deve essere definita in un modello esterno
+ * e referenziata tramite l'oggetto <b>PanelDefUse</b>.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -43,6 +48,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * codice menmonico identificativo della definizione
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Name()
@@ -69,6 +77,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Contiene la struttura del pannello.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Panel</em>' containment reference.
 	 * @see #setPanel(Panel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Panel()
@@ -96,6 +107,11 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Dichiarazione dei parametri di configurazione del frammento.
+	 * Per ogni parametro definito qui, nel <b>PanelDefUse</b> occorre specificare
+	 * una valorizzazione del parametro.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Params</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Params()
 	 * @model containment="true"
@@ -111,6 +127,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione di application data fittizi che servono per impostare i binding dei dati.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data Defs</em>' containment reference.
 	 * @see #setAppDataDefs(ApplicationDataDefs)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_AppDataDefs()
@@ -137,6 +156,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione di tipi fittizi utilizzati negli application data fittizi.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type Defs</em>' containment reference.
 	 * @see #setTypeDefs(Typedefs)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_TypeDefs()
@@ -164,6 +186,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione di ruoli fittizi che servono per impostare i security constraints.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Roles</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Roles()
 	 * @model containment="true"
@@ -180,6 +205,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione di attori fittizi che servono per impostare i security constraints.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actors</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_Actors()
 	 * @model containment="true"
@@ -196,6 +224,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione di use case fittizi che servono per impostare i security constraints.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Cases</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_UseCases()
 	 * @model containment="true"
@@ -211,6 +242,9 @@ public interface PanelDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * PER FUTURI SVILUPPI
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>On Refresh Command</em>' containment reference.
 	 * @see #setOnRefreshCommand(Command)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_OnRefreshCommand()

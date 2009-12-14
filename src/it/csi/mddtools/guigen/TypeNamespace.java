@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Namespace (package) di tipi.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +41,7 @@ public interface TypeNamespace extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice identificativo del namespace: deve essere univoco all'interno dell'applicazione e deve essere un identificatore di package java valido.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -71,7 +71,7 @@ public interface TypeNamespace extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * tipi contenuti nel package
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTypeNamespace_Types()

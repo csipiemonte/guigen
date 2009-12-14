@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pagina utilizzabile per messaggi di feedback/conferme etc.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,6 +40,9 @@ public interface DialogPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * I pulsanti associati al dialog.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Commands</em>' containment reference.
 	 * @see #setCommands(CommandPanel)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDialogPanel_Commands()
@@ -67,6 +70,10 @@ public interface DialogPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * I messaggi di feedback da visualizzare devono essere inseriti in uno o più
+	 * <b>MessageBoxPanel</b>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Msg Boxes</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getDialogPanel_MsgBoxes()
 	 * @model containment="true"

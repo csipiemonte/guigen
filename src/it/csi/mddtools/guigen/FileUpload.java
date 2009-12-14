@@ -12,6 +12,10 @@ package it.csi.mddtools.guigen;
  * A representation of the model object '<em><b>File Upload</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Widget per la selezione e l'upload di un file
+ * <!-- end-model-doc -->
+ *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getFileUpload()
  * @model

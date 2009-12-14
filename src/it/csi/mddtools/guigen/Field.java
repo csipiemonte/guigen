@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Il campo di un <b>ComplexType</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +41,7 @@ public interface Field extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * nome del campo. deve essere un identificativo valido per Java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -70,7 +70,7 @@ public interface Field extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * tipo del campo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
@@ -99,7 +99,7 @@ public interface Field extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a true il campo sarà considerato obbligatorio.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Required</em>' attribute.
 	 * @see #setRequired(boolean)
@@ -128,7 +128,11 @@ public interface Field extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Tutti i controlli modellabili mediante l'attributo dataTypeModifier del widget devono avere formato
+	 * [validatore]:[regole].
+	 * 
+	 * Per i dettagli circa i possibili vlaidatori utilizzabili si rimanda al seguente
+	 * <a href="http://jiradsp.csi.it:8081/secure/attachment/17012/modellazione_validatori_v2.doc">documento.</a>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Type Modifier</em>' attribute.
 	 * @see #setDataTypeModifier(String)

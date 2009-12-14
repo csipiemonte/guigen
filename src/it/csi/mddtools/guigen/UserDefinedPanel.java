@@ -13,7 +13,9 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Permette la definizione di un pannello in modalit&agrave; custom.
+ * L'implementazione di questo pannello dipende dalla cartuccia di generazione.
+ * Nel caso "struts2", ad esempio, questo pannello di concretizza in un frammento JSP incluso.
  * <!-- end-model-doc -->
  *
  *

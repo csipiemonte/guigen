@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Rappresenta l'astrazione di una variabile applicativa.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +40,8 @@ public interface ApplicationData extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * nome simbolico. Deve essere univoco all'interno dell'applicazione e deve 
+	 * essere un codice valido secondo java.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -70,7 +71,7 @@ public interface ApplicationData extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * specifica la persistenza del valore impostato nell'application data.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lifetime Extent</em>' attribute.
 	 * @see it.csi.mddtools.guigen.DataLifetimeType
@@ -101,7 +102,7 @@ public interface ApplicationData extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il tipo del valore contenuto nell'application data
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)

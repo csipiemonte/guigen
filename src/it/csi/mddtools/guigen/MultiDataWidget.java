@@ -14,7 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta dalla quale discendono tutte le classi che rappresentano
+ * widget associabili a collezioni. Un <b>MultiDataWidget</b>
+ * ha un concetto di <i>collezione</i> del widget che rappresenta l'insieme 
+ * finito di possibili valori selezionabili.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +41,10 @@ public interface MultiDataWidget extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il binding all'<b>ApplicationData</b> nel quale sono contenuti gli elementi dell'insieme
+	 * di possibili valori. Il tipo dell'oggetto puntato deve essere un <b>TypedArray</b> e 
+	 * il <i>componentType</i> di questo <b>TypedArray</b> deve essere un <b>ComplexType</b>, poich&egrave;
+	 *  &egrave; necessario poter specificare il valore selezionato e la label descrittiva di tale valore (perci&ograve; servono almeno due field).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multi Data Binding</em>' containment reference.
 	 * @see #setMultiDataBinding(AppDataBinding)

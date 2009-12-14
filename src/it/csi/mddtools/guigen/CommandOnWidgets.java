@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Classe astratta da cui discendono i comandi che agiscono su un elenco di widget
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +39,7 @@ public interface CommandOnWidgets extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * I widget su cui opera il comando.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target Widgets</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOnWidgets_TargetWidgets()

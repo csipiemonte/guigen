@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Attiva un <b>DialogPanel</b>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -37,7 +37,7 @@ public interface ShowDialogCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Il dialog da attivare.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Dialog</em>' reference.
 	 * @see #setDialog(DialogPanel)

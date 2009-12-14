@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Role</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Ruolo come definito in IRIDE2
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,9 @@ public interface Role extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * codice identificativo (come censito in IRIDE2)
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see #setCode(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getRole_Code()
@@ -60,6 +67,9 @@ public interface Role extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * codice del dominio di validit&agrave; del ruolo (come censito in IRIDE2)
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Domain Code</em>' attribute.
 	 * @see #setDomainCode(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getRole_DomainCode()

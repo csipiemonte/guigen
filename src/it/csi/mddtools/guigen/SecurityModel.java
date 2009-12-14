@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Caratteristiche di sicurezza dell'applicazione
  * <!-- end-model-doc -->
  *
  * <p>
@@ -44,7 +44,7 @@ public interface SecurityModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Specifica la modalit&agrave; di autenticazione prevista per l'applicazione
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Autentication Method</em>' containment reference.
 	 * @see #setAutenticationMethod(AutenticationMethod)
@@ -74,7 +74,7 @@ public interface SecurityModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Elenco degli <b>Actor</b> dell'applicazione (secondo la terminologia di IRIDE2)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Actors</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_Actors()
@@ -93,7 +93,7 @@ public interface SecurityModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Elenco degli <b>UseCase</b> dell'applicazione (secondo la terminologia di IRIDE2)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Cases</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_UseCases()
@@ -111,7 +111,7 @@ public interface SecurityModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Codice identificativo dell'applicazione, come censito in IRIDE2
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Security App ID</em>' attribute.
 	 * @see #setSecurityAppID(String)
@@ -140,6 +140,9 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Elenco dei <b>Role</b> dell'applicazione (secondo la terminologia di IRIDE2)
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Roles</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_Roles()
 	 * @model containment="true"

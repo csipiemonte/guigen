@@ -36,6 +36,9 @@ public interface PDefUseConfig extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Insieme delle valorizzazioni di tutti i parametri previsti dal <b>PanelDef</b>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Param Values</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getPDefUseConfig_ParamValues()
 	 * @model containment="true"

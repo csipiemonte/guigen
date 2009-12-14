@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Modello della singola colonna di una <b>Table</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -47,7 +47,8 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Seleziona il field del record di cui è costituita la collezione associata alla
+	 * tabella.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Selector</em>' attribute.
 	 * @see #setSelector(String)
@@ -76,7 +77,7 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Etichetta della testata della colonna
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
@@ -105,7 +106,7 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostata a <i>true</i> la colonna è ordinabile cliccando sulla testata.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Sortable</em>' attribute.
 	 * @see #setSortable(boolean)
@@ -134,7 +135,17 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Se impostato a <i>true</i> la colonna &egrave; editabile. Il widget
+	 * utilizzato per l'editing della colonna dipende dal tipo del field associato
+	 * alla colonna (tramite la property <i>selector</i>):
+	 * <ul>
+	 * <li><b>CheckBox</b> in caso di tipo boolean</li>
+	 * <li><b>TextField</b> in tutti gli altri casi (stringhe, numerici, date)</li>
+	 * </ul>
+	 * Inoltre, se sono impostate le property <i>multiDataBinding</i> o 
+	 * <i>multiDataPropertySelector</i>, che comportano la possibilit&agrave;
+	 * di scegliere il valore da una lista di valori, sar&agrave; utilizzata una
+	 * <b>ComboBox</b>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Editable</em>' attribute.
 	 * @see #setEditable(boolean)
@@ -163,7 +174,9 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Indica che la colonna è cliccabile. Il click permette di scatenare l'evento CLICKED
+	 * sulla tabella. deve essere utilizzato in congiunzione con un event handler
+	 * nella <b>Table</b>, altrimenti non ha nessun effetto.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Active</em>' attribute.
 	 * @see #setEventActive(boolean)
@@ -191,6 +204,12 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di stabilire a runtime se una cella della colonna (che deve essere
+	 * dichiarata editabile) sarà effettivamente editabile.
+	 * Rappresenta il selettore di un field del record di cui &egrave; costituita
+	 * la collezione collegata alla tabella: questo field deve essere di tipo boolean.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Editable Flag Selector</em>' attribute.
 	 * @see #setEditableFlagSelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_EditableFlagSelector()
@@ -217,6 +236,17 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di associare ad una colonna editabile la possibilit&agrave;
+	 * di scegliere il valore della cella a partire da una collezione di coppie
+	 * chiave/valore. 
+	 * Per specificare quale campo del record di cui è costituita questa collezione ausiliaria
+	 * utilizzare come chiave e come descrizione, occorre impostare le property
+	 * <i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
+	 * La collezione è la stessa per tutte le righe. 
+	 * Nel caso sia necessario differenziare l'insieme di valori a seconda della riga,
+	 * utilizzare <i>multidataPropertySelector</i>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multi Data Binding</em>' containment reference.
 	 * @see #setMultiDataBinding(AppDataBinding)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultiDataBinding()
@@ -243,6 +273,10 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Utilizzato in congiunzione con <i>multiDataBinding</i> o <i>multidataPropertySelector</i>.
+	 * Seleziona il field da utilizzare come chiave-valore della combo.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multidata Key Selector</em>' attribute.
 	 * @see #setMultidataKeySelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataKeySelector()
@@ -269,6 +303,10 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Utilizzato in congiunzione con <i>multiDataBinding</i> o <i>multidataPropertySelector</i>.
+	 * Seleziona il field da utilizzare come label descrittiva nella combo.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multidata Value Selector</em>' attribute.
 	 * @see #setMultidataValueSelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataValueSelector()
@@ -295,6 +333,17 @@ public interface Column extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di associare ad una colonna editabile la possibilit&agrave;
+	 * di scegliere il valore della cella a partire da una collezione di coppie
+	 * chiave/valore. 
+	 * Per specificare quale campo del record di cui &egrave; costituita questa collezione ausiliaria
+	 * utilizzare come chiave e come descrizione, occorre impostare le property
+	 * <i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
+	 * L'insieme dei valori è differenziato riga per riga .
+	 * Nel caso sia sufficiente uno stesso insieme di valori per tutte le righe utilizzare
+	 * <i>multiDataBinding</i>
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Multidata Property Selector</em>' attribute.
 	 * @see #setMultidataPropertySelector(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_MultidataPropertySelector()

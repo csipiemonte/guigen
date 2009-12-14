@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Placeholder per link statici (es. contatti, help, manuali).
  * <!-- end-model-doc -->
  *
  *

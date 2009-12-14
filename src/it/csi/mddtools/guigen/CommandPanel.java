@@ -16,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello destinato a contenere esclusivamente widget di comando (es. pulsanti).
+ * 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -42,6 +43,10 @@ public interface CommandPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di differenziare stilisticamente (ove previsto dai pattern di portale)
+	 * tra pulsanti ad uso "funzionale" e pulsanti ad uso "navigazione".
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cmd Style</em>' attribute.
 	 * @see it.csi.mddtools.guigen.CommandStyles
 	 * @see #setCmdStyle(CommandStyles)
@@ -71,6 +76,9 @@ public interface CommandPanel extends Panel {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Ristretto a commandWidgets.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Widgets</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandPanel_Widgets()
 	 * @model containment="true"

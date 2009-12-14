@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Insieme delle definizioni di application data utilizzati nell'applicativo
  * <!-- end-model-doc -->
  *
  * <p>
@@ -43,7 +43,8 @@ public interface ApplicationDataDefs extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * DEPRECATO: utilizzare application data definiti all'interno di <b>AppDataGroup</b>
+	 * mantenuti esternamente e referenziati in <i>extGroups</i>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>App Data</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_AppData()
@@ -62,7 +63,7 @@ public interface ApplicationDataDefs extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * DEPRECATO: utilizzare <i>extGroups</i>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Groups</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_Groups()
@@ -80,6 +81,9 @@ public interface ApplicationDataDefs extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * referenzia gli <b>AppDataGroup</b> definiti esternamente e utilizzati nell'applicazione.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ext Groups</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationDataDefs_ExtGroups()
 	 * @model

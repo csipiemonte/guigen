@@ -14,7 +14,11 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello a visualizzazione alternativa. Permette di visualizzare uno solo 
+ * dei pannelli definiti nella collezione <i>panels</i>.
+ * Per visualizzare uno specifico pannello occorre utilizzare il comando
+ * <b>ActivateMultipanelItem</b>.
+ * Lo statoiniziale di questo pannello &egrave; la non visualizzazione di nessun pannello.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -39,7 +43,7 @@ public interface MultiPanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * I pannelli visualizzabili in alternativa
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Panels</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getMultiPanel_Panels()

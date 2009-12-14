@@ -13,7 +13,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * No OPeration command. Serve da tappo per chiudere delle catene in cui occorra rimanere nella stessa schermata.
  * <!-- end-model-doc -->
  *
  *

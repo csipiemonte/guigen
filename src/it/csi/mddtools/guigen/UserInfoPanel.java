@@ -13,7 +13,9 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Pannello per la visualizzazione delle informazioni identificative dell'utente loggato.
+ * Un <b>ContentPanel</b> che contiene uno <b>UserInfoPanel</b> deve referenziare 
+ * l'application data <i>common::currentUser</i>.
  * <!-- end-model-doc -->
  *
  *

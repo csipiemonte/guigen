@@ -13,7 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * Specificatore di posizionamento di un elemento all'interno di un contenitore
+ * dotato di layout <b>UDLRC</b>.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -38,7 +39,8 @@ public interface UDLRCWidgetLayoutSpec extends WidgetLayoutSpecifier {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * Indica in quale dei 5 quadranti (UP/DOWN/LEFT/RIGHT/CENTER) deve
+	 * essere posizionato l'elemento
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see it.csi.mddtools.guigen.UDLRCSpecConstants

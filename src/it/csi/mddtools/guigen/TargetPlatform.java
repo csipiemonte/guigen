@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[TODO: add documentation here]]
+ * specifica della target platform per cui deve essere generato il pacchetto, pi&ugrave; altre caratteristiche tecniche.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +40,7 @@ public interface TargetPlatform extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[TODO: add documentation here]]
+	 * codice della piattaforma target
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see it.csi.mddtools.guigen.TargetPlatformCodes
@@ -71,6 +71,9 @@ public interface TargetPlatform extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a true sono abilitati i comportamenti "ricchi" di User Interaction.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable Rich UI Behavior</em>' attribute.
 	 * @see #setEnableRichUIBehavior(boolean)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_EnableRichUIBehavior()
