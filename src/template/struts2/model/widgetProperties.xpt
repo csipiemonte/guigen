@@ -25,9 +25,13 @@
 	«EXPAND widgetsProperties(model, widgetValidation, cp, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
+«REM»FileUpload non è un datawidget=>occorre trattarlo a parte«ENDREM»
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
 	«LET widgets.typeSelect(DataWidget) AS dataWidgets-»
 		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
+	«ENDLET-»
+	«LET widgets.typeSelect(FileUpload) AS uplWidgets-»
+		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH uplWidgets-»
 	«ENDLET-»
 «ENDDEFINE»
 
