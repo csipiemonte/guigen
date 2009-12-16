@@ -27,7 +27,7 @@
 
 «REM»FileUpload non è un datawidget=>occorre trattarlo a parte«ENDREM»
 «DEFINE widgetsProperties(GUIModel model, boolean widgetValidation, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«LET widgets.typeSelect(DataWidget) AS dataWidgets-»
+	«LET widgets.typeSelect(DataWidget).select(dw|dw.databinding==null) AS dataWidgets-»
 		«EXPAND widgetProperty(model, widgetValidation, cp, contextPrefix) FOREACH dataWidgets-»
 	«ENDLET-»
 	«LET widgets.typeSelect(FileUpload) AS uplWidgets-»
