@@ -1052,6 +1052,24 @@ public interface GuigenFactory extends EFactory {
 	ActivationParam createActivationParam();
 
 	/**
+	 * Returns a new object of class '<em>Begin Edit Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Begin Edit Command</em>'.
+	 * @generated
+	 */
+	BeginEditCommand createBeginEditCommand();
+
+	/**
+	 * Returns a new object of class '<em>End Edit Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>End Edit Command</em>'.
+	 * @generated
+	 */
+	EndEditCommand createEndEditCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

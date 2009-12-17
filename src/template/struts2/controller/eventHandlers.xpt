@@ -500,6 +500,28 @@ quelli esterni!!! «ENDREM»
 «ENDDEFINE»
 
 
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR BeginEditCommand-»
+	/// Begin Edit Command begin
+	String act_«actionsVarName»_«actionNumber»_dataEdited [] = new String[]{
+	«FOREACH dataEdited AS ad SEPARATOR ","-»
+		"«getAppDataKey(ad)»"		
+	«ENDFOREACH-»
+	};
+	BeginEditCommand act_«actionsVarName»_«actionNumber» = new BeginEditCommand(act_«actionsVarName»_«actionNumber»_dataEdited);
+	/// Begin Edit Command end
+«ENDDEFINE»
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR EndEditCommand-»
+	/// End Edit Command begin
+	String act_«actionsVarName»_«actionNumber»_dataEdited [] = new String[]{
+	«FOREACH dataEdited AS ad SEPARATOR ","-»
+		"«getAppDataKey(ad)»"		
+	«ENDFOREACH-»
+	};
+	EndEditCommand act_«actionsVarName»_«actionNumber» = new EndEditCommand(act_«actionsVarName»_«actionNumber»_dataEdited, «undo ? "true": "false"»);
+	/// End Edit Command end
+«ENDDEFINE»
+
 «REM»
 	###########################
 	CREAZIONE Mappe dei comandi

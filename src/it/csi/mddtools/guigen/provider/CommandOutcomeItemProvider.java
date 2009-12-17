@@ -246,6 +246,16 @@ public class CommandOutcomeItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
 				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
+				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
+				 GuigenFactory.eINSTANCE.createEndEditCommand()));
 	}
 
 	/**

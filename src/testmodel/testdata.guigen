@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testdata" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="ambiente" codApplicativo="sicee" nomeCanale="test" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="testweb 20"/>
+      <appArea homePage="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0">
+        <menubar>
+          <topLevelMenu name="pRicerca" label="Ricerca">
+            <eventHandler>
+              <command xsi:type="guigen:ExecCommand" methodName="ricerca" postExecData="//@appDataDefs/@groups.0/@appData.0">
+                <results resultCode="OK">
+                  <command xsi:type="guigen:SequenceCommand">
+                    <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0"/>
+                    <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                  </command>
+                </results>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
+        <modules name="gestione">
+          <contentPanels name="cpElenco" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pMain" label="ricerca">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+                <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:MenuView" name="mnuMenu"/>
+                </subpanels>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Ricerca">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pRisultati" label="Risultati ricerca">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblProgetti" dataType="//@typedefs/@types.7">
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
+                    <columnModel valueSelector="codice">
+                      <columns selector="codice" label="codice"/>
+                      <columns selector="nome" label="nome" editable="true"/>
+                      <columns selector="budget" label="budget" editable="true"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
+                  <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="annulla">
+                    <eventHandlers skipValidation="true">
+                      <command xsi:type="guigen:SequenceCommand">
+                        <commands xsi:type="guigen:EndEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0" undo="true"/>
+                        <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0"/>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                  <widgets xsi:type="guigen:ConfirmButton" name="bSalva" label="salva">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="salva" postExecData="//@appDataDefs/@groups.0/@appData.0">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </widgets>
+                </subpanels>
+              </subpanels>
+            </panels>
+          </contentPanels>
+        </modules>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:SimpleType" name="Integer"/>
+    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
+    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
+    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
+    <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+    <types xsi:type="guigen:ComplexType" name="UserInfo">
+      <fields name="nome" type="//@typedefs/@types.7"/>
+      <fields name="cognome" type="//@typedefs/@types.7"/>
+      <fields name="codFisc" type="//@typedefs/@types.7"/>
+      <fields name="ente" type="//@typedefs/@types.7"/>
+      <fields name="ruolo" type="//@typedefs/@types.7"/>
+      <fields name="idIride" type="//@typedefs/@types.7"/>
+    </types>
+    <namespaces name="progetti">
+      <types xsi:type="guigen:ComplexType" name="Progetto">
+        <fields name="codice" type="//@typedefs/@types.7"/>
+        <fields name="nome" type="//@typedefs/@types.7"/>
+        <fields name="budget" type="//@typedefs/@types.10"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@namespaces.0/@types.0"/>
+    </namespaces>
+  </typedefs>
+  <appDataDefs>
+    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
+    <groups name="progetti">
+      <appData name="progetti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+    </groups>
+  </appDataDefs>
+  <targetPlatform code="JBoss43"/>
+</guigen:GUIModel>

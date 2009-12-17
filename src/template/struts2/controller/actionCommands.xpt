@@ -449,4 +449,108 @@ public class ShowDialogCommand implements ICommand {
 };
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/BeginEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+/// BEGIN_EDIT_ACTION
+public class BeginEditCommand implements ICommand {
+	String [] targetAppDataNames;
+	public BeginEditCommand(String [] targetAppDataNames) {
+		this.targetAppDataNames = targetAppDataNames;
+	}
+	
+	/**
+	 * Salva un backup (deep copy) degli appdata specificati
+	 */
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				storeBackup(currADName, strutsAction);
+			}
+		}
+		return null;
+	}
+	
+	public static void storeBackup(String adName, BaseAction strutsAction)throws Exception{
+		Object currADVal = strutsAction.getSession().get(adName);
+		Object currADValClone = deepClone(currADVal);
+		if (currADVal != null){
+			strutsAction.getSession().put(adName+"_bckp", currADValClone);
+		}
+	}
+	
+	public static Object deepClone(Object orig) throws Exception{	
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(orig);
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			Object clone = ois.readObject();
+			return clone;
+	}
+};
+
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+/// END_EDIT_ACTION
+public class EndEditCommand implements ICommand {
+	String [] targetAppDataNames;
+	boolean undo;
+	
+	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
+		this.targetAppDataNames = targetAppDataNames;
+		this.undo=undo;
+	}
+	
+	/**
+	 * Elimina i backup (deep copy) degli appdata specificati, ripristinando il
+	 * valore se undo==true; 
+	 */
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				endEditForAppdata(currADName, undo, strutsAction);
+			}
+		}
+		return null;
+	}
+	
+	public static void endEditForAppdata(String adName, boolean undo, BaseAction strutsAction)throws Exception{
+		Object currADVal = strutsAction.getSession().get(adName);
+		if (undo){
+			// undo del dato
+			Object currADValBkp = strutsAction.getSession().get(adName+"_bckp");
+			if (currADValBkp != null){
+				strutsAction.getSession().put(adName, currADValBkp);
+			}
+		}
+		// rimuove il backup 
+		strutsAction.getSession().remove(adName+"_bckp");
+	}
+	
+};
+
+
+«ENDFILE»
+
+
 «ENDDEFINE»
+
+

@@ -175,6 +175,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.PDEF_USE_CONFIG: return createPDefUseConfig();
 			case GuigenPackage.ACTIVATION_MODEL: return createActivationModel();
 			case GuigenPackage.ACTIVATION_PARAM: return createActivationParam();
+			case GuigenPackage.BEGIN_EDIT_COMMAND: return createBeginEditCommand();
+			case GuigenPackage.END_EDIT_COMMAND: return createEndEditCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1380,6 +1382,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ActivationParam createActivationParam() {
 		ActivationParamImpl activationParam = new ActivationParamImpl();
 		return activationParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BeginEditCommand createBeginEditCommand() {
+		BeginEditCommandImpl beginEditCommand = new BeginEditCommandImpl();
+		return beginEditCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EndEditCommand createEndEditCommand() {
+		EndEditCommandImpl endEditCommand = new EndEditCommandImpl();
+		return endEditCommand;
 	}
 
 	/**

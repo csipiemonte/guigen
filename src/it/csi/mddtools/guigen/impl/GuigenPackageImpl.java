@@ -24,6 +24,7 @@ import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.AutenticationMethod;
+import it.csi.mddtools.guigen.BeginEditCommand;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
@@ -48,6 +49,7 @@ import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.DisabledComponentSet;
+import it.csi.mddtools.guigen.EndEditCommand;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecCommand;
@@ -1047,6 +1049,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass activationParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass beginEditCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass endEditCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4318,6 +4334,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getBeginEditCommand() {
+		return beginEditCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBeginEditCommand_DataEdited() {
+		return (EReference)beginEditCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEndEditCommand() {
+		return endEditCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEndEditCommand_DataEdited() {
+		return (EReference)endEditCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEndEditCommand_Undo() {
+		return (EAttribute)endEditCommandEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4898,6 +4959,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(activationParamEClass, ACTIVATION_PARAM__NAME);
 		createEReference(activationParamEClass, ACTIVATION_PARAM__TYPE);
 
+		beginEditCommandEClass = createEClass(BEGIN_EDIT_COMMAND);
+		createEReference(beginEditCommandEClass, BEGIN_EDIT_COMMAND__DATA_EDITED);
+
+		endEditCommandEClass = createEClass(END_EDIT_COMMAND);
+		createEReference(endEditCommandEClass, END_EDIT_COMMAND__DATA_EDITED);
+		createEAttribute(endEditCommandEClass, END_EDIT_COMMAND__UNDO);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5022,6 +5090,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		ucMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		roleMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		actorMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		beginEditCommandEClass.getESuperTypes().add(this.getCommand());
+		endEditCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5499,6 +5569,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(activationParamEClass, ActivationParam.class, "ActivationParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getActivationParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, ActivationParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivationParam_Type(), this.getSimpleType(), null, "type", null, 0, 1, ActivationParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(beginEditCommandEClass, BeginEditCommand.class, "BeginEditCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBeginEditCommand_DataEdited(), this.getApplicationData(), null, "dataEdited", null, 0, -1, BeginEditCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(endEditCommandEClass, EndEditCommand.class, "EndEditCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEndEditCommand_DataEdited(), this.getApplicationData(), null, "dataEdited", null, 0, -1, EndEditCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEndEditCommand_Undo(), ecorePackage.getEBoolean(), "undo", null, 0, 1, EndEditCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

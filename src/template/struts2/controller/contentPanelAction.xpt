@@ -198,6 +198,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 		public String doCommand(BaseAction strutsAction) throws Exception {
 	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
 	 			getSession().remove("«getAppDataKey(currAd)»");
+	 			getSession().remove("«getAppDataKey(currAd)»_bckp"); // eventuale backup
 	 	«ENDFOREACH-»
 	 			return null;
 	 		}

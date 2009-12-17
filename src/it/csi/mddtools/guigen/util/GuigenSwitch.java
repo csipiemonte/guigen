@@ -952,6 +952,20 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.BEGIN_EDIT_COMMAND: {
+				BeginEditCommand beginEditCommand = (BeginEditCommand)theEObject;
+				T result = caseBeginEditCommand(beginEditCommand);
+				if (result == null) result = caseCommand(beginEditCommand);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.END_EDIT_COMMAND: {
+				EndEditCommand endEditCommand = (EndEditCommand)theEObject;
+				T result = caseEndEditCommand(endEditCommand);
+				if (result == null) result = caseCommand(endEditCommand);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2858,6 +2872,36 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseActivationParam(ActivationParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Begin Edit Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Begin Edit Command</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBeginEditCommand(BeginEditCommand object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>End Edit Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>End Edit Command</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEndEditCommand(EndEditCommand object) {
 		return null;
 	}
 

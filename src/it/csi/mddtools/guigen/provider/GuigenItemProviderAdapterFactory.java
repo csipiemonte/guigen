@@ -2698,6 +2698,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.BeginEditCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BeginEditCommandItemProvider beginEditCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.BeginEditCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBeginEditCommandAdapter() {
+		if (beginEditCommandItemProvider == null) {
+			beginEditCommandItemProvider = new BeginEditCommandItemProvider(this);
+		}
+
+		return beginEditCommandItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.EndEditCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EndEditCommandItemProvider endEditCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.EndEditCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEndEditCommandAdapter() {
+		if (endEditCommandItemProvider == null) {
+			endEditCommandItemProvider = new EndEditCommandItemProvider(this);
+		}
+
+		return endEditCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2910,6 +2956,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (pDefUseConfigItemProvider != null) pDefUseConfigItemProvider.dispose();
 		if (activationModelItemProvider != null) activationModelItemProvider.dispose();
 		if (activationParamItemProvider != null) activationParamItemProvider.dispose();
+		if (beginEditCommandItemProvider != null) beginEditCommandItemProvider.dispose();
+		if (endEditCommandItemProvider != null) endEditCommandItemProvider.dispose();
 	}
 
 }

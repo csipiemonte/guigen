@@ -212,6 +212,16 @@ public class SequenceCommandItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
 				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
+				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
+				 GuigenFactory.eINSTANCE.createEndEditCommand()));
 	}
 
 }

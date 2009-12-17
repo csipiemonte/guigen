@@ -272,6 +272,16 @@ public class EventHandlerItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
 				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.EVENT_HANDLER__COMMAND,
+				 GuigenFactory.eINSTANCE.createEndEditCommand()));
 	}
 
 	/**

@@ -367,6 +367,16 @@ public class ContentPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createEndEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS,
 				 GuigenFactory.eINSTANCE.createDialogPanel()));
 

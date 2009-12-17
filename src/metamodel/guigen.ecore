@@ -1844,4 +1844,31 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//SimpleType"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BeginEditCommand" eSuperTypes="#//Command">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Dichiara l'inizio di una sessione di editing, effettuando un backup in memoria&#xD;&#xA;degli &lt;b>ApplicationData&lt;/b> specificati.&#xD;&#xA;La copia di backup sar&amp;agrave; realizzata per valore e potr&amp;agrave; essere utilizzata&#xD;&#xA;per ripristinare il valore originario (funzione di &lt;i>undo&lt;/i> richiamata&#xD;&#xA;utilizzando &lt;b>EndEditCommand&lt;/b>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataEdited" upperBound="-1"
+        eType="#//ApplicationData">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco dei dati oggetto dell'editing."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndEditCommand" eSuperTypes="#//Command">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Permette di terminare una sessione di editing su un certo insieme di &lt;b>ApplicationData&lt;/b>,&#xD;&#xA;con la possibilità di effettuare un &lt;i>undo&lt;/i> sui dati specificati.&#xD;&#xA;Utilizzato in congiunzione con &lt;b>BeginEditCommand&lt;/b>. &#xD;&#xA;Nota: data la struttura dei due comandi di inizio e fine della sessione di&#xD;&#xA;editing &amp;egrave; possibile effettuare l'&lt;i>undo&lt;/i> di una parte degli&#xD;&#xA;application data specificati nel comando di inizio editing (specificando&#xD;&#xA;nel &lt;b>EndEditCommand&lt;/b> solo una parte degli application data&#xD;&#xA;precedentemente specificati nel &lt;b>BeginEditCommand&lt;/b>.&#xD;&#xA;Si consiglia, in questi casi, di terminare correttamente la sessione di &#xD;&#xA;editing per &lt;b>tutti&lt;/b> gli application data per evitar eche rimangano &#xD;&#xA;in memoria dati di backup obsoleti.&#xD;&#xA;Per far ci&amp;ograve; &amp;egrave; sufficiente utilizzare due volte il comando&#xD;&#xA;&lt;b>EndEditCommand&lt;/b>: la prima volta con &lt;i>undo&lt;/i> impostato a&#xD;&#xA;true (e specificando solo i dati di cui si vuole effettuare l'undo) e&#xD;&#xA;una seconda volta con &lt;i>undo&lt;/i> impostato a false, specificando &#xD;&#xA;i restanti dati.&#xD;&#xA;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataEdited" upperBound="-1"
+        eType="#//ApplicationData">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco dei dati oggetto dell'editing."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="undo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Se impostato a true viene ripristinato il valore originario di tutti gli&#xD;&#xA;&lt;b>ApplicationData&lt;/b> indicati."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
 </ecore:EPackage>

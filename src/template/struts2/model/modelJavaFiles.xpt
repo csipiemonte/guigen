@@ -259,4 +259,7 @@ public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAw
 «FOREACH namespaces.select(ns|ns.types.select(t|t.metaType==ComplexType).size >0) AS ns-»
 import «getBaseJavaPackage(model)».dto.«ns.name.toLowerCase()».*;
 «ENDFOREACH-»
+«FOREACH extNamespaces.select(ns|ns.types.select(t|t.metaType==ComplexType).size >0) AS ns-»
+import «getBaseJavaPackage(model)».dto.«ns.name.toLowerCase()».*;
+«ENDFOREACH-»
 «ENDDEFINE»

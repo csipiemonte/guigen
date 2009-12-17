@@ -7013,6 +7013,71 @@ public interface GuigenPackage extends EPackage {
 	int ACTIVATION_PARAM_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.BeginEditCommandImpl <em>Begin Edit Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.BeginEditCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBeginEditCommand()
+	 * @generated
+	 */
+	int BEGIN_EDIT_COMMAND = 127;
+
+	/**
+	 * The feature id for the '<em><b>Data Edited</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEGIN_EDIT_COMMAND__DATA_EDITED = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Begin Edit Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEGIN_EDIT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EndEditCommandImpl <em>End Edit Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.EndEditCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEndEditCommand()
+	 * @generated
+	 */
+	int END_EDIT_COMMAND = 128;
+
+	/**
+	 * The feature id for the '<em><b>Data Edited</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_EDIT_COMMAND__DATA_EDITED = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Undo</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_EDIT_COMMAND__UNDO = COMMAND_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>End Edit Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_EDIT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7020,7 +7085,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 127;
+	int WIDGET_DATA_TYPE = 129;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -7030,7 +7095,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 128;
+	int UDLRC_SPEC_CONSTANTS = 130;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -7040,7 +7105,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 129;
+	int EVENT_TYPES = 131;
 
 
 	/**
@@ -7051,7 +7116,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 130;
+	int DATA_LIFETIME_TYPE = 132;
 
 
 	/**
@@ -7062,7 +7127,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 131;
+	int SIMPLE_TYPE_CODES = 133;
 
 
 	/**
@@ -7073,7 +7138,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 132;
+	int PORTAL_NAMES = 134;
 
 
 	/**
@@ -7084,7 +7149,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 133;
+	int TARGET_PLATFORM_CODES = 135;
 
 
 	/**
@@ -7095,7 +7160,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 134;
+	int MESSAGE_SEVERITY = 136;
 
 
 	/**
@@ -7106,7 +7171,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 135;
+	int COMMAND_STYLES = 137;
 
 
 	/**
@@ -10822,6 +10887,59 @@ public interface GuigenPackage extends EPackage {
 	EReference getActivationParam_Type();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.BeginEditCommand <em>Begin Edit Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Begin Edit Command</em>'.
+	 * @see it.csi.mddtools.guigen.BeginEditCommand
+	 * @generated
+	 */
+	EClass getBeginEditCommand();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.BeginEditCommand#getDataEdited <em>Data Edited</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Data Edited</em>'.
+	 * @see it.csi.mddtools.guigen.BeginEditCommand#getDataEdited()
+	 * @see #getBeginEditCommand()
+	 * @generated
+	 */
+	EReference getBeginEditCommand_DataEdited();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EndEditCommand <em>End Edit Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>End Edit Command</em>'.
+	 * @see it.csi.mddtools.guigen.EndEditCommand
+	 * @generated
+	 */
+	EClass getEndEditCommand();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.EndEditCommand#getDataEdited <em>Data Edited</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Data Edited</em>'.
+	 * @see it.csi.mddtools.guigen.EndEditCommand#getDataEdited()
+	 * @see #getEndEditCommand()
+	 * @generated
+	 */
+	EReference getEndEditCommand_DataEdited();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.EndEditCommand#isUndo <em>Undo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Undo</em>'.
+	 * @see it.csi.mddtools.guigen.EndEditCommand#isUndo()
+	 * @see #getEndEditCommand()
+	 * @generated
+	 */
+	EAttribute getEndEditCommand_Undo();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13978,6 +14096,50 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTIVATION_PARAM__TYPE = eINSTANCE.getActivationParam_Type();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.BeginEditCommandImpl <em>Begin Edit Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.BeginEditCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBeginEditCommand()
+		 * @generated
+		 */
+		EClass BEGIN_EDIT_COMMAND = eINSTANCE.getBeginEditCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Edited</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEGIN_EDIT_COMMAND__DATA_EDITED = eINSTANCE.getBeginEditCommand_DataEdited();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EndEditCommandImpl <em>End Edit Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.EndEditCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEndEditCommand()
+		 * @generated
+		 */
+		EClass END_EDIT_COMMAND = eINSTANCE.getEndEditCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Edited</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference END_EDIT_COMMAND__DATA_EDITED = eINSTANCE.getEndEditCommand_DataEdited();
+
+		/**
+		 * The meta object literal for the '<em><b>Undo</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute END_EDIT_COMMAND__UNDO = eINSTANCE.getEndEditCommand_Undo();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
