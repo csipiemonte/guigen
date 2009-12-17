@@ -189,7 +189,10 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine HEAD di APPLICATIVO (con remincl) -->
-
+		
+		
+		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+		
 		<!-- extjs sempre presente perche' utilizzato anche per il calendar -->
 		<customtag:extjs-header />
 		
