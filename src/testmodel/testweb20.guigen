@@ -524,10 +524,12 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <onInitCommand xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9">
-          <results resultCode="OK">
-            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-          </results>
+        <onInitCommand xsi:type="guigen:SequenceCommand">
+          <commands xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9">
+            <results resultCode="OK">
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </results>
+          </commands>
         </onInitCommand>
         <modules name="provamodulo">
           <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.3 //@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.7">

@@ -466,12 +466,16 @@ quelli esterni!!! «ENDREM»
 			«IF parentCP != null-»
 			«getStrutsActionClassName(cp)» specificAction = 
 			  («getStrutsActionClassName(cp)») strutsAction;
-			«ELSEIF this.eContainer.metaType == ApplicationArea-»
+			«ELSEIF getCmdChainContainer(this).metaType == ApplicationArea-»
 			«getStrutsHomeClassName(model)» specificAction = 
 			  («getStrutsHomeClassName(model)») strutsAction;
-			«ELSE-»
+			«ELSEIF getCmdChainContainer(this).metaType == Menu-»
 			«getStrutsMenuClassName(model)» specificAction = 
 			  («getStrutsMenuClassName(model)») strutsAction;
+			«ELSEIF getCmdChainContainer(this).metaType == PanelDef-»
+				«ERROR "Comando su PanelDef non ancora gestito"»
+			«ELSE»	
+				«ERROR "Parent di cmd chain non gestito:"+getCmdChainContainer(this)»
 			«ENDIF-»
 			«ENDLET-»
 			
