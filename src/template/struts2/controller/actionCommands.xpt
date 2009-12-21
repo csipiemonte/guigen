@@ -550,7 +550,179 @@ public class EndEditCommand implements ICommand {
 
 «ENDFILE»
 
+«FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// CHECK_EDIT_STATUS_ACTION
+public class ChkEditStatusCommand implements ICommand {
+	ICommand _doIfChanged;
+	ICommand _doIfNotChanged;
+	String _checkAggr;
+	String [] _checkedData;
+	
+	public ChkEditStatusCommand(
+			String [] checkedData, 
+			String checkAggregation, 
+			ICommand doIfChanged,
+			ICommand doIfNotChanged) {
+		_checkedData=checkedData;
+		_checkAggr=checkAggregation;
+		_doIfChanged=doIfChanged;
+		_doIfNotChanged=doIfNotChanged;
+	}
+
+	/**
+	 * La sequence action esegue in sequenza tutte le azioni atomiche
+	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
+	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 */
+	public String doCommand(BaseAction strutsAction) throws Exception {
+		boolean changed = checkAppdata4Changes(_checkedData, _checkAggr, strutsAction);
+		if (changed)
+			return _doIfChanged.doCommand(strutsAction);
+		else
+			return _doIfNotChanged.doCommand(strutsAction);
+	}
+
+	/**
+	 * Verifica variazioni sugli appdata con la politica di aggregazione specificata
+	 * @param checkedData
+	 * @param checkAggr
+	 * @param strutsAction
+	 * @return
+	 */
+	private boolean checkAppdata4Changes(String[] checkedData, String checkAggr, BaseAction strutsAction) {
+		if (checkedData==null || checkedData.length==0)
+			return false;
+		// else
+		boolean ris = checkAggr.equals("OR") ? false : (checkAggr.equals("AND") ? true : false);
+		for (int i = 0; i < checkedData.length; i++) {
+			String currADName = checkedData[i];
+			boolean currChanged = checkAppdata4Changes(currADName, strutsAction);
+			if (currChanged && checkAggr.equals("OR"))
+				return true; // al primo esco con true
+			else if (!currChanged && checkAggr.equals("AND"))
+				return false; // al primo falso esco con falso
+			else if (checkAggr.equals("XOR")){
+				if (currChanged && ris)
+					return false; // secondo match: rompe lo xor
+			}
+		}
+		return ris;
+	}
+
+	/**
+	 * verifica se il singolo appdata e' variato
+	 * @param currADName
+	 * @param strutsAction
+	 * @return
+	 */
+	private boolean checkAppdata4Changes(String currADName,
+			BaseAction strutsAction) {
+		Object adVal = strutsAction.getSession().get(currADName);
+		Object adBkp = strutsAction.getSession().get(currADName+"_bckp");
+		if (adBkp != null){
+			«getDTOBaseJavaPackage()».DTOUtils dtoUtils = «getDTOBaseJavaPackage()».DTOUtils.getInstance();
+			return !(dtoUtils.deepEquals(adVal, adBkp));
+		}
+		else
+			return false;
+	}
+	
+	
+};
+
+«ENDFILE»
+
+«EXPAND dtoUtilsFile FOR this»
 
 «ENDDEFINE»
 
+«REM»sarebbe da spostare in "model"«ENDREM»
+«DEFINE dtoUtilsFile FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/DTOUtils.java"»package «getDTOBaseJavaPackage()»;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+public class DTOUtils {
+
+	private static DTOUtils _instance;
+	
+	static{
+		_instance = new DTOUtils();
+	}
+	
+	public static DTOUtils getInstance(){
+		return _instance;
+	}
+	public boolean deepEquals(Object o1, Object o2){
+		if ((o1==null || o2==null) && (o1!=null || o2!=null))
+			return false;
+		// else
+		if (!(o1.getClass().equals(o2.getClass())))
+			return false;
+		// else: stesso tipo e nessuno dei due nullo
+		if (o1.getClass().isArray()){
+			return deepEqualsArray(o1, o2);
+		}
+		else if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Float ||
+				o1 instanceof Double || o1 instanceof String || o1 instanceof Byte)
+			return o1.equals(o2);
+		else {
+			// oggetti complessi
+			return deepEqualsBean(o1, o2);
+		}
+	}
+	private boolean deepEqualsBean(Object o1, Object o2) {
+		BeanInfo bi;
+		try {
+			bi = Introspector.getBeanInfo(o1.getClass());
+		} catch (IntrospectionException e) {
+			throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+		}
+		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPD = pds[i];
+			Method getter = currPD.getReadMethod();
+			if (getter != null){
+				try {
+					Object v1 = getter.invoke(o1, new Object[]{});
+					Object v2 = getter.invoke(o1, new Object[]{});
+					if (!deepEquals(v1, v2))
+						return false; // basta uno diverso => false
+				} 
+				catch (IllegalAccessException e) {
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+				catch (InvocationTargetException e) {
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+			}
+		}
+		return true;
+	}
+	private boolean deepEqualsArray(Object o1, Object o2) {
+		List l1 = (List)o1;
+		List l2 = (List)o2;
+		if (l1.size() != l2.size())
+			return false;
+		else{
+			for (int i = 0; i < l1.size(); i++) {
+				Object curr1 = l1.get(i);
+				Object curr2 = l2.get(i);
+				if (!deepEquals(curr1, curr2))
+					return false; // al primo diverso mi fermo
+			}
+			return true;
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
 

@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
+import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
@@ -217,8 +218,17 @@ public class GenUtils {
 			return findParentContentPanel((Panel)panel);
 		}
 		else if (containerOfAction instanceof CommandOutcome) {
-			ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
-			return findParentContentPanel(execAct);
+			if (containerOfAction.eContainer() instanceof ExecCommand){
+				ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
+				return findParentContentPanel(execAct);	
+			}
+			else if (containerOfAction.eContainer() instanceof ChkEditStatusCommand){
+				ChkEditStatusCommand chkAct = (ChkEditStatusCommand)containerOfAction.eContainer();
+				return findParentContentPanel(chkAct);	
+			}
+			else
+				throw new IllegalArgumentException("findParentContentPanel(Command): container non gestito "+containerOfAction.eContainer());
+			
 		}
 		else if (containerOfAction instanceof SequenceCommand) {
 			// sequence action
@@ -293,8 +303,16 @@ public class GenUtils {
 			return findParentPanelDef((Panel)panel);
 		}
 		else if (containerOfAction instanceof CommandOutcome) {
-			ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
-			return findParentPanelDef(execAct);
+			if (containerOfAction.eContainer() instanceof ExecCommand){
+				ExecCommand execAct = (ExecCommand)containerOfAction.eContainer();
+				return findParentPanelDef(execAct);
+			}
+			else if (containerOfAction.eContainer() instanceof ChkEditStatusCommand){
+				ChkEditStatusCommand chkAct = (ChkEditStatusCommand)containerOfAction.eContainer();
+				return findParentPanelDef(chkAct);
+			} 
+			else
+				throw new IllegalArgumentException("findParenPanelDef(CommandOutcome): container non gestito "+containerOfAction.eContainer());
 		}
 		else if (containerOfAction instanceof SequenceCommand) {
 			// sequence action
@@ -688,6 +706,8 @@ public class GenUtils {
 			return getAllExecActionsRecursive((ExecCommand) a);
 		else if (a instanceof SequenceCommand)
 			return getAllExecActionsRecursive((SequenceCommand)a);
+		else if (a instanceof ChkEditStatusCommand)
+			return getAllExecActionsRecursive((ChkEditStatusCommand)a);
 		else
 			return new ArrayList<ExecCommand>();
 	}
@@ -709,6 +729,27 @@ public class GenUtils {
 		return ris;
 	}
 
+	/**
+	 *
+	 * @param ea
+	 * @return
+	 */
+	public static List<ExecCommand> getAllExecActionsRecursive(ChkEditStatusCommand ea){
+		List<ExecCommand> ris = new ArrayList<ExecCommand>();
+		// cerca nei rami di outcome...
+		if (ea.getDoIfChanged()!=null && ea.getDoIfChanged().getCommand()!=null){
+			List<ExecCommand> parz1 = getAllExecActionsRecursive(ea.getDoIfChanged().getCommand());
+			if (parz1 !=null)
+				ris.addAll(parz1);
+		}
+		if (ea.getDoIfNotChanged()!=null && ea.getDoIfNotChanged().getCommand()!=null){
+			List<ExecCommand> parz2 = getAllExecActionsRecursive(ea.getDoIfNotChanged().getCommand());
+			if (parz2 !=null)
+				ris.addAll(parz2);
+		}
+		return ris;
+	}
+	
 	/**
 	 *
 	 * @param sa
@@ -1034,6 +1075,8 @@ public class GenUtils {
 			return getAllPossibleJumps((JumpCommand)a);
 		else if (a instanceof ExecCommand)
 			return getAllPossibleJumps((ExecCommand)a);
+		else if (a instanceof ChkEditStatusCommand)
+			return getAllPossibleJumps((ChkEditStatusCommand)a);
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleJumps((SequenceCommand)a);
 		else
@@ -1088,6 +1131,24 @@ public class GenUtils {
 		return ris;
 	}
 
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<ContentPanel> getAllPossibleJumps(ChkEditStatusCommand a) {
+		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
+		List<ContentPanel> parz1 = getAllPossibleJumps(a.getDoIfChanged());
+		List<ContentPanel> parz2 = getAllPossibleJumps(a.getDoIfNotChanged());
+		if (parz1!=null)
+			resultSet.addAll(parz1);
+		if (parz2!=null)
+			resultSet.addAll(parz2);
+		List<ContentPanel> ris = new ArrayList<ContentPanel>();
+		ris.addAll(resultSet);
+		return ris;
+	}
 
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -1317,6 +1378,8 @@ public class GenUtils {
 			return getAllPossibleExtJumps((JumpExtCommand)a);
 		else if (a instanceof ExecCommand)
 			return getAllPossibleExtJumps((ExecCommand)a);
+		else if (a instanceof ChkEditStatusCommand)
+			return getAllPossibleExtJumps((ChkEditStatusCommand)a);
 		else if (a instanceof SequenceCommand)
 			return getAllPossibleExtJumps((SequenceCommand)a);
 		else
@@ -1389,6 +1452,24 @@ public class GenUtils {
 				resultSet.addAll(currSubJumps);
 			}
 		}
+		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
+		ris.addAll(resultSet);
+		return ris;
+	}
+
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<JumpExtCommand> getAllPossibleExtJumps(ChkEditStatusCommand a) {
+		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
+		List<JumpExtCommand> parz1 = getAllPossibleExtJumps(a.getDoIfChanged());
+		List<JumpExtCommand> parz2 = getAllPossibleExtJumps(a.getDoIfNotChanged());
+		if (parz1!=null)
+			resultSet.addAll(parz1);
+		if (parz2!=null)
+			resultSet.addAll(parz2);
 		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
 		ris.addAll(resultSet);
 		return ris;
@@ -1590,6 +1671,9 @@ public class GenUtils {
 			return getAllPossibleShowDialogs((ShowDialogCommand)a);
 		} else if ( a instanceof ExecCommand ) {
 			return getAllPossibleShowDialogs((ExecCommand)a);
+		}
+		  else if ( a instanceof ChkEditStatusCommand ) {
+				return getAllPossibleShowDialogs((ChkEditStatusCommand)a);
 		} else if ( a instanceof SequenceCommand ) {
 			return getAllPossibleShowDialogs((SequenceCommand)a);
 		} else {
@@ -1647,6 +1731,27 @@ public class GenUtils {
 		return ris;
 	}	
 	
+	
+	/**
+	 *
+	 * @param a
+	 * @return
+	 */
+	public static List<DialogPanel> getAllPossibleShowDialogs(ChkEditStatusCommand a) {
+		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
+		List<DialogPanel> parz1 = getAllPossibleShowDialogs(a.getDoIfChanged());
+		List<DialogPanel> parz2 = getAllPossibleShowDialogs(a.getDoIfNotChanged());
+		if ( parz1 != null ) {
+			resultSet.addAll(parz1);
+		}
+		if ( parz2 != null ) {
+			resultSet.addAll(parz2);
+		}
+		
+		List<DialogPanel> ris = new ArrayList<DialogPanel>();
+		ris.addAll(resultSet);
+		return ris;
+	}
 
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -1859,6 +1964,8 @@ public class GenUtils {
 			return findAllActionScopedAppData((SequenceCommand)a);
 		else if (a instanceof ExecCommand)
 			return findAllActionScopedAppData((ExecCommand)a);
+		else if (a instanceof ChkEditStatusCommand)
+			return findAllActionScopedAppData((ChkEditStatusCommand)a);
 		else
 			return null;
 	}
@@ -1929,6 +2036,21 @@ public class GenUtils {
 		return ris;
 	}
 
+	/**
+	 * restituisce gli app data diretti e quelli di eventuali exec action interne ai vari rami di result
+	 * @param a
+	 * @return
+	 */
+	public static ArrayList<ApplicationData> findAllActionScopedAppData(ChkEditStatusCommand a){
+		ArrayList<ApplicationData> ris = new ArrayList<ApplicationData>();
+		ArrayList<ApplicationData> r1 = findAllActionScopedAppData(a.getDoIfChanged());
+		ArrayList<ApplicationData> r2 = findAllActionScopedAppData(a.getDoIfNotChanged());
+		if (r1 != null)
+			ris.addAll(r1);
+		if(r2 != null)
+			ris.addAll(r2);
+		return ris;
+	}
 
 	/**
 	 *
@@ -3121,6 +3243,8 @@ public class GenUtils {
 			return getRefreshTargetIds((SequenceCommand)c);
 		else if (c instanceof ExecCommand)
 			return getRefreshTargetIds((ExecCommand)c);
+		else if (c instanceof ChkEditStatusCommand)
+			return getRefreshTargetIds((ChkEditStatusCommand)c);
 		else if (c instanceof RefreshViewCommand)
 			return getRefreshTargetIds((RefreshViewCommand)c);
 		else 
@@ -3179,6 +3303,31 @@ public class GenUtils {
 			//System.out.println("getRefreshTargetIds:ExecCommand->null");
 			return null;
 		}
+	}
+	
+	public static String[] getRefreshTargetIds(ChkEditStatusCommand c){
+		//System.out.println("getRefreshTargetIds:ChekEditStatusCommand");
+		String [] ris = null;
+		String parzIf [] = getRefreshTargetIds(c.getDoIfChanged());
+		String parzIfNot [] = getRefreshTargetIds(c.getDoIfNotChanged());
+		int risLength = (parzIf!=null ? parzIf.length : 0) + (parzIfNot!=null ? parzIfNot.length : 0);
+		if (risLength>0){
+			ris = new String[risLength];
+			int iris=0;
+			// 1
+			for (int i = 0; i < parzIf.length; i++) {
+				String s = parzIf[i];
+				ris[iris++]=s;
+			}
+			// 2
+			for (int i = 0; i < parzIfNot.length; i++) {
+				String s = parzIfNot[i];
+				ris[iris++]=s;
+			}
+		}
+		//System.out.println("getRefreshTargetIds:ExecCommand->"+ris);
+		return ris;
+		
 	}
 	
 	public static String[] getRefreshTargetIds(CommandOutcome cout){

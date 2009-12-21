@@ -522,6 +522,27 @@ quelli esterni!!! «ENDREM»
 	/// End Edit Command end
 «ENDDEFINE»
 
+
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ChkEditStatusCommand-»
+	/// Chk Edit Status Command begin
+	String act_«actionsVarName»_«actionNumber»_dataChecked [] = new String[]{
+	«FOREACH dataChecked AS ad SEPARATOR ","-»
+		"«getAppDataKey(ad)»"		
+	«ENDFOREACH-»
+	};
+
+	«EXPAND addActionCode(actionsVarName+"_res"+doIfChanged.resultCode.toLowerCase()+"Action",1,model, cp, contextPrefix) FOR doIfChanged.command-»
+	«EXPAND addActionCode(actionsVarName+"_res"+doIfNotChanged.resultCode.toLowerCase()+"Action",1,model, cp, contextPrefix) FOR doIfNotChanged.command-»	
+	ChkEditStatusCommand act_«actionsVarName»_«actionNumber» = 
+		new ChkEditStatusCommand(
+			act_«actionsVarName»_«actionNumber»_dataChecked,
+		    "«checkAggregation»",
+		    «"act_"+actionsVarName+"_res"+doIfChanged.resultCode.toLowerCase()+"Action_"+1»,
+		    «"act_"+actionsVarName+"_res"+doIfNotChanged.resultCode.toLowerCase()+"Action_"+1»
+		);
+	/// Chk Edit Status Command end
+«ENDDEFINE»
+
 «REM»
 	###########################
 	CREAZIONE Mappe dei comandi
