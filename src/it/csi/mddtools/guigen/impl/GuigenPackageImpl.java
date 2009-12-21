@@ -28,6 +28,7 @@ import it.csi.mddtools.guigen.BeginEditCommand;
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
+import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
@@ -71,6 +72,7 @@ import it.csi.mddtools.guigen.Image;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
+import it.csi.mddtools.guigen.LogicAggregationTypes;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -1069,6 +1071,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass chkEditStatusCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1126,6 +1135,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum commandStylesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum logicAggregationTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -4379,6 +4395,51 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getChkEditStatusCommand() {
+		return chkEditStatusCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChkEditStatusCommand_DataChecked() {
+		return (EReference)chkEditStatusCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getChkEditStatusCommand_CheckAggregation() {
+		return (EAttribute)chkEditStatusCommandEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChkEditStatusCommand_DoIfChanged() {
+		return (EReference)chkEditStatusCommandEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChkEditStatusCommand_DoIfNotChanged() {
+		return (EReference)chkEditStatusCommandEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4453,6 +4514,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getCommandStyles() {
 		return commandStylesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getLogicAggregationTypes() {
+		return logicAggregationTypesEEnum;
 	}
 
 	/**
@@ -4966,6 +5036,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(endEditCommandEClass, END_EDIT_COMMAND__DATA_EDITED);
 		createEAttribute(endEditCommandEClass, END_EDIT_COMMAND__UNDO);
 
+		chkEditStatusCommandEClass = createEClass(CHK_EDIT_STATUS_COMMAND);
+		createEReference(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__DATA_CHECKED);
+		createEAttribute(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION);
+		createEReference(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED);
+		createEReference(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -4976,6 +5052,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
 		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
 		commandStylesEEnum = createEEnum(COMMAND_STYLES);
+		logicAggregationTypesEEnum = createEEnum(LOGIC_AGGREGATION_TYPES);
 	}
 
 	/**
@@ -5092,6 +5169,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		actorMappingPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		beginEditCommandEClass.getESuperTypes().add(this.getCommand());
 		endEditCommandEClass.getESuperTypes().add(this.getCommand());
+		chkEditStatusCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5577,6 +5655,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getEndEditCommand_DataEdited(), this.getApplicationData(), null, "dataEdited", null, 0, -1, EndEditCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEndEditCommand_Undo(), ecorePackage.getEBoolean(), "undo", null, 0, 1, EndEditCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(chkEditStatusCommandEClass, ChkEditStatusCommand.class, "ChkEditStatusCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getChkEditStatusCommand_DataChecked(), this.getApplicationData(), null, "dataChecked", null, 0, -1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getChkEditStatusCommand_CheckAggregation(), this.getLogicAggregationTypes(), "checkAggregation", "OR", 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChkEditStatusCommand_DoIfChanged(), this.getCommandOutcome(), null, "doIfChanged", null, 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChkEditStatusCommand_DoIfNotChanged(), this.getCommandOutcome(), null, "doIfNotChanged", null, 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -5633,6 +5717,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEEnum(commandStylesEEnum, CommandStyles.class, "CommandStyles");
 		addEEnumLiteral(commandStylesEEnum, CommandStyles.FUNCTIONAL);
 		addEEnumLiteral(commandStylesEEnum, CommandStyles.NAVIGATION);
+
+		initEEnum(logicAggregationTypesEEnum, LogicAggregationTypes.class, "LogicAggregationTypes");
+		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.OR);
+		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.AND);
+		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.XOR);
 
 		// Create resource
 		createResource(eNS_URI);

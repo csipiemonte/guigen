@@ -177,6 +177,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.ACTIVATION_PARAM: return createActivationParam();
 			case GuigenPackage.BEGIN_EDIT_COMMAND: return createBeginEditCommand();
 			case GuigenPackage.END_EDIT_COMMAND: return createEndEditCommand();
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND: return createChkEditStatusCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -208,6 +209,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createMessageSeverityFromString(eDataType, initialValue);
 			case GuigenPackage.COMMAND_STYLES:
 				return createCommandStylesFromString(eDataType, initialValue);
+			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
+				return createLogicAggregationTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -239,6 +242,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertMessageSeverityToString(eDataType, instanceValue);
 			case GuigenPackage.COMMAND_STYLES:
 				return convertCommandStylesToString(eDataType, instanceValue);
+			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
+				return convertLogicAggregationTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1409,6 +1414,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ChkEditStatusCommand createChkEditStatusCommand() {
+		ChkEditStatusCommandImpl chkEditStatusCommand = new ChkEditStatusCommandImpl();
+		return chkEditStatusCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -1581,6 +1596,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCommandStylesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LogicAggregationTypes createLogicAggregationTypesFromString(EDataType eDataType, String initialValue) {
+		LogicAggregationTypes result = LogicAggregationTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLogicAggregationTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

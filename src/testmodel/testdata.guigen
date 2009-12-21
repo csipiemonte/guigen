@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testdata" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="test" codComponente="testdata" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
@@ -50,8 +50,14 @@
                   <widgets xsi:type="guigen:ConfirmButton" name="bAnnulla" label="annulla">
                     <eventHandlers skipValidation="true">
                       <command xsi:type="guigen:SequenceCommand">
-                        <commands xsi:type="guigen:EndEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0" undo="true"/>
-                        <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0"/>
+                        <commands xsi:type="guigen:ChkEditStatusCommand" dataChecked="//@appDataDefs/@groups.0/@appData.0" checkAggregation="AND">
+                          <doIfChanged resultCode="1">
+                            <command xsi:type="guigen:ShowDialogCommand" dialog="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0/@dialogs.0"/>
+                          </doIfChanged>
+                          <doIfNotChanged resultCode="2">
+                            <command xsi:type="guigen:NOPCommand"/>
+                          </doIfNotChanged>
+                        </commands>
                       </command>
                     </eventHandlers>
                   </widgets>
@@ -67,6 +73,30 @@
                 </subpanels>
               </subpanels>
             </panels>
+            <dialogs name="dlgConfirmUndo" label="Conferma annullamento">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <commands name="pCmdConfirm" label="">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout" columnSizes=""/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bConfermaConferma" label="Conferma">
+                  <eventHandlers>
+                    <command xsi:type="guigen:SequenceCommand">
+                      <commands xsi:type="guigen:EndEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0" undo="true"/>
+                      <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.0"/>
+                      <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bAnnullaConferma" label="Annulla">
+                  <eventHandlers skipValidation="true">
+                    <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                  </eventHandlers>
+                </widgets>
+              </commands>
+              <msgBoxes name="pConferma">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <textMessages name="txtConfirm" dataType="//@typedefs/@types.7" staticText="Sono presenti modifiche non salvate: confermi l'annullamento delle modifiche?"/>
+              </msgBoxes>
+            </dialogs>
           </contentPanels>
         </modules>
       </appArea>

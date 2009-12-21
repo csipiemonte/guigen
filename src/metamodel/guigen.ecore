@@ -1871,4 +1871,38 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChkEditStatusCommand" eSuperTypes="#//Command">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Permette di verificare se, all'interno di una sessione di editing, vi sono state&#xD;&#xA;delle variazioni al valore di uno o pi&amp;ugrave; &lt;b>ApplicationData&lt;/b>.&#xD;&#xA;Affinch&amp;egrave; il check sia veritiero è necessario che gli &lt;b>ApplicationData&lt;/b>&#xD;&#xA;oggetto di verifica siano un sottoinsieme dell'insieme di &lt;b>ApplicationData&lt;/b>&#xD;&#xA;indicati nel comando &lt;b>BeginEditCommand&lt;/b> che ha originato&#xD;&#xA;la sessione di editing (altrimenti non sar&amp;agrave; disponibile il valore originario&#xD;&#xA;con il quale effettuare il check di modifica).&#xD;&#xA;A fronte dell'esito del check sarà possibile proseguire l'esecuzione con uno &#xD;&#xA;tra due comandi (referenziati nei due elementi di tipo &lt;b>CommandOutcome&lt;/b>).&#xD;&#xA;Mediante l'attributo &lt;i>checkAggregation&lt;/i>E'possibile specificare la logica di aggregazione del check relativamente&#xD;&#xA;ai vari &lt;b>ApplicationData&lt;/b> referenziati:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>OR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di almeno uno dei dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>AND: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di tutti i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>XOR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di uno soltanto tra i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataChecked" upperBound="-1"
+        eType="#//ApplicationData">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco dei dati oggetto della verifica. Devono essere un sottoinsieme &#xD;&#xA;dei dati referenziati nel corrispondente &lt;b>BeginEditCommand&lt;/b>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkAggregation" eType="#//LogicAggregationTypes"
+        defaultValueLiteral="OR">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tipo di aggregazione dei check sui dati. Possibilit&amp;agrave;:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>OR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di almeno uno dei dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>AND: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di tutti i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>XOR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di uno soltanto tra i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="doIfChanged" eType="#//CommandOutcome"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifica il branch di elaborazione da eseguire nel caso che i check&#xD;&#xA;specificati indichino che ci sono state delle modifiche."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="doIfNotChanged" eType="#//CommandOutcome"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifica il branch di elaborazione da eseguire nel caso che i check&#xD;&#xA;specificati indichino che &lt;i>non&lt;/i> ci sono state delle modifiche."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LogicAggregationTypes">
+    <eLiterals name="OR" value="1" literal="OR"/>
+    <eLiterals name="AND" value="2" literal="AND"/>
+    <eLiterals name="XOR" value="3" literal="XOR"/>
+  </eClassifiers>
 </ecore:EPackage>

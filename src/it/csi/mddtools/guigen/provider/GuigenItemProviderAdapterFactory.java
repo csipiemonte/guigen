@@ -2744,6 +2744,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ChkEditStatusCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ChkEditStatusCommandItemProvider chkEditStatusCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ChkEditStatusCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createChkEditStatusCommandAdapter() {
+		if (chkEditStatusCommandItemProvider == null) {
+			chkEditStatusCommandItemProvider = new ChkEditStatusCommandItemProvider(this);
+		}
+
+		return chkEditStatusCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2958,6 +2981,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (activationParamItemProvider != null) activationParamItemProvider.dispose();
 		if (beginEditCommandItemProvider != null) beginEditCommandItemProvider.dispose();
 		if (endEditCommandItemProvider != null) endEditCommandItemProvider.dispose();
+		if (chkEditStatusCommandItemProvider != null) chkEditStatusCommandItemProvider.dispose();
 	}
 
 }

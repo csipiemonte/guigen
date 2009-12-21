@@ -966,6 +966,13 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND: {
+				ChkEditStatusCommand chkEditStatusCommand = (ChkEditStatusCommand)theEObject;
+				T result = caseChkEditStatusCommand(chkEditStatusCommand);
+				if (result == null) result = caseCommand(chkEditStatusCommand);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2902,6 +2909,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseEndEditCommand(EndEditCommand object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Chk Edit Status Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Chk Edit Status Command</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseChkEditStatusCommand(ChkEditStatusCommand object) {
 		return null;
 	}
 

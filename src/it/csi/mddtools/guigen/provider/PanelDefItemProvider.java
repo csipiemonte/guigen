@@ -400,6 +400,11 @@ public class PanelDefItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createEndEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
 	}
 
 	/**

@@ -1070,6 +1070,15 @@ public interface GuigenFactory extends EFactory {
 	EndEditCommand createEndEditCommand();
 
 	/**
+	 * Returns a new object of class '<em>Chk Edit Status Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Chk Edit Status Command</em>'.
+	 * @generated
+	 */
+	ChkEditStatusCommand createChkEditStatusCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

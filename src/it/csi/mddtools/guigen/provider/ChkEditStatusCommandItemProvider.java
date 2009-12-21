@@ -8,9 +8,10 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
-import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.LogicAggregationTypes;
+import it.csi.mddtools.guigen.genutils.EditUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +19,6 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -31,17 +29,16 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.CommandOutcome} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ChkEditStatusCommand} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class CommandOutcomeItemProvider
-	extends ItemProviderAdapter
+public class ChkEditStatusCommandItemProvider
+	extends CommandItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -54,7 +51,7 @@ public class CommandOutcomeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CommandOutcomeItemProvider(AdapterFactory adapterFactory) {
+	public ChkEditStatusCommandItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -69,25 +66,48 @@ public class CommandOutcomeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResultCodePropertyDescriptor(object);
+			addDataCheckedPropertyDescriptor(object);
+			addCheckAggregationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Result Code feature.
+	 * This adds a property descriptor for the Data Checked feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResultCodePropertyDescriptor(Object object) {
+	protected void addDataCheckedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CommandOutcome_resultCode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CommandOutcome_resultCode_feature", "_UI_CommandOutcome_type"),
-				 GuigenPackage.Literals.COMMAND_OUTCOME__RESULT_CODE,
+				 getString("_UI_ChkEditStatusCommand_dataChecked_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChkEditStatusCommand_dataChecked_feature", "_UI_ChkEditStatusCommand_type"),
+				 GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DATA_CHECKED,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Check Aggregation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCheckAggregationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ChkEditStatusCommand_checkAggregation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChkEditStatusCommand_checkAggregation_feature", "_UI_ChkEditStatusCommand_type"),
+				 GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION,
 				 true,
 				 false,
 				 false,
@@ -108,7 +128,8 @@ public class CommandOutcomeItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND);
+			childrenFeatures.add(GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED);
+			childrenFeatures.add(GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED);
 		}
 		return childrenFeatures;
 	}
@@ -127,14 +148,14 @@ public class CommandOutcomeItemProvider
 	}
 
 	/**
-	 * This returns CommandOutcome.gif.
+	 * This returns ChkEditStatusCommand.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CommandOutcome"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ChkEditStatusCommand"));
 	}
 
 	/**
@@ -145,21 +166,24 @@ public class CommandOutcomeItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		
-		EObject parent = ((EObject)object).eContainer();
-		String label = "";
-		label += ((CommandOutcome)object).getResultCode();
-		if (parent instanceof ChkEditStatusCommand){
-			EStructuralFeature container = ((EObject)object).eContainingFeature();
-			if (container.getName().equals("doIfChanged"))
-				label += ": do if changed";
-			else
-				label += ": do if not changed";
+		ChkEditStatusCommand cmd = (ChkEditStatusCommand)object;
+		String label = "check changes for ";
+		if (cmd.getCheckAggregation().equals(LogicAggregationTypes.OR))
+			label+=" one of ";
+		else if (cmd.getCheckAggregation().equals(LogicAggregationTypes.AND))
+			label+=" all ";
+		else if (cmd.getCheckAggregation().equals(LogicAggregationTypes.XOR))
+			label+=" only one of ";
+		label+="{";
+		if (cmd.getDataChecked().size()>0){
+			for(int i=0; i<cmd.getDataChecked().size();i++){
+				label+=EditUtils.formatAppDataFQN(cmd.getDataChecked().get(i));
+				if (i<cmd.getDataChecked().size()-1)
+					label+=",";
+			}
 		}
-		
-		return label == null || label.length() == 0 ?
-			getString("_UI_CommandOutcome_type") :
-			getString("_UI_CommandOutcome_type") + " " + label;
+		label+="}";
+		return getString("_UI_ChkEditStatusCommand_type") + ": " + label;
 	}
 
 	/**
@@ -173,11 +197,13 @@ public class CommandOutcomeItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CommandOutcome.class)) {
-			case GuigenPackage.COMMAND_OUTCOME__RESULT_CODE:
+		switch (notification.getFeatureID(ChkEditStatusCommand.class)) {
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND__DATA_CHECKED:
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GuigenPackage.COMMAND_OUTCOME__COMMAND:
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED:
+			case GuigenPackage.CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -197,94 +223,36 @@ public class CommandOutcomeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createONOFFCommand()));
+				(GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED,
+				 GuigenFactory.eINSTANCE.createCommandOutcome()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createCustomCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createExecCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createSequenceCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createNOPCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createEndEditCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
-				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
+				(GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED,
+				 GuigenFactory.eINSTANCE.createCommandOutcome()));
 	}
 
 	/**
-	 * Return the resource locator for this item provider's resources.
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED ||
+			childFeature == GuigenPackage.Literals.CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

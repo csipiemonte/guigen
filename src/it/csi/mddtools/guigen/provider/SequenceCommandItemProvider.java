@@ -222,6 +222,11 @@ public class SequenceCommandItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
 				 GuigenFactory.eINSTANCE.createEndEditCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
+				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
 	}
 
 }

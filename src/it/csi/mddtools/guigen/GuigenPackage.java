@@ -7078,6 +7078,61 @@ public interface GuigenPackage extends EPackage {
 	int END_EDIT_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl <em>Chk Edit Status Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getChkEditStatusCommand()
+	 * @generated
+	 */
+	int CHK_EDIT_STATUS_COMMAND = 129;
+
+	/**
+	 * The feature id for the '<em><b>Data Checked</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHK_EDIT_STATUS_COMMAND__DATA_CHECKED = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Check Aggregation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION = COMMAND_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Do If Changed</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED = COMMAND_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Do If Not Changed</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED = COMMAND_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Chk Edit Status Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHK_EDIT_STATUS_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 4;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7085,7 +7140,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 129;
+	int WIDGET_DATA_TYPE = 130;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -7095,7 +7150,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 130;
+	int UDLRC_SPEC_CONSTANTS = 131;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -7105,7 +7160,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 131;
+	int EVENT_TYPES = 132;
 
 
 	/**
@@ -7116,7 +7171,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 132;
+	int DATA_LIFETIME_TYPE = 133;
 
 
 	/**
@@ -7127,7 +7182,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 133;
+	int SIMPLE_TYPE_CODES = 134;
 
 
 	/**
@@ -7138,7 +7193,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 134;
+	int PORTAL_NAMES = 135;
 
 
 	/**
@@ -7149,7 +7204,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 135;
+	int TARGET_PLATFORM_CODES = 136;
 
 
 	/**
@@ -7160,7 +7215,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 136;
+	int MESSAGE_SEVERITY = 137;
 
 
 	/**
@@ -7171,7 +7226,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 137;
+	int COMMAND_STYLES = 138;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.LogicAggregationTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
+	 * @generated
+	 */
+	int LOGIC_AGGREGATION_TYPES = 139;
 
 
 	/**
@@ -10940,6 +11006,60 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getEndEditCommand_Undo();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ChkEditStatusCommand <em>Chk Edit Status Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Chk Edit Status Command</em>'.
+	 * @see it.csi.mddtools.guigen.ChkEditStatusCommand
+	 * @generated
+	 */
+	EClass getChkEditStatusCommand();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDataChecked <em>Data Checked</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Data Checked</em>'.
+	 * @see it.csi.mddtools.guigen.ChkEditStatusCommand#getDataChecked()
+	 * @see #getChkEditStatusCommand()
+	 * @generated
+	 */
+	EReference getChkEditStatusCommand_DataChecked();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getCheckAggregation <em>Check Aggregation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Check Aggregation</em>'.
+	 * @see it.csi.mddtools.guigen.ChkEditStatusCommand#getCheckAggregation()
+	 * @see #getChkEditStatusCommand()
+	 * @generated
+	 */
+	EAttribute getChkEditStatusCommand_CheckAggregation();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfChanged <em>Do If Changed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Do If Changed</em>'.
+	 * @see it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfChanged()
+	 * @see #getChkEditStatusCommand()
+	 * @generated
+	 */
+	EReference getChkEditStatusCommand_DoIfChanged();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfNotChanged <em>Do If Not Changed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Do If Not Changed</em>'.
+	 * @see it.csi.mddtools.guigen.ChkEditStatusCommand#getDoIfNotChanged()
+	 * @see #getChkEditStatusCommand()
+	 * @generated
+	 */
+	EReference getChkEditStatusCommand_DoIfNotChanged();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11028,6 +11148,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getCommandStyles();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Logic Aggregation Types</em>'.
+	 * @see it.csi.mddtools.guigen.LogicAggregationTypes
+	 * @generated
+	 */
+	EEnum getLogicAggregationTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -14142,6 +14272,48 @@ public interface GuigenPackage extends EPackage {
 		EAttribute END_EDIT_COMMAND__UNDO = eINSTANCE.getEndEditCommand_Undo();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl <em>Chk Edit Status Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ChkEditStatusCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getChkEditStatusCommand()
+		 * @generated
+		 */
+		EClass CHK_EDIT_STATUS_COMMAND = eINSTANCE.getChkEditStatusCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Checked</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHK_EDIT_STATUS_COMMAND__DATA_CHECKED = eINSTANCE.getChkEditStatusCommand_DataChecked();
+
+		/**
+		 * The meta object literal for the '<em><b>Check Aggregation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION = eINSTANCE.getChkEditStatusCommand_CheckAggregation();
+
+		/**
+		 * The meta object literal for the '<em><b>Do If Changed</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED = eINSTANCE.getChkEditStatusCommand_DoIfChanged();
+
+		/**
+		 * The meta object literal for the '<em><b>Do If Not Changed</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED = eINSTANCE.getChkEditStatusCommand_DoIfNotChanged();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -14230,6 +14402,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum COMMAND_STYLES = eINSTANCE.getCommandStyles();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.LogicAggregationTypes <em>Logic Aggregation Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.LogicAggregationTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
+		 * @generated
+		 */
+		EEnum LOGIC_AGGREGATION_TYPES = eINSTANCE.getLogicAggregationTypes();
 
 	}
 

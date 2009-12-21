@@ -312,6 +312,11 @@ public class ApplicationAreaItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.APPLICATION_AREA__ON_INIT_COMMAND,
+				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.APPLICATION_AREA__MODULES,
 				 GuigenFactory.eINSTANCE.createAppModule()));
 	}
