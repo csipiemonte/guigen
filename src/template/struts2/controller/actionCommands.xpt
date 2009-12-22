@@ -671,8 +671,10 @@ public class DTOUtils {
 		if (o1.getClass().isArray()){
 			return deepEqualsArray(o1, o2);
 		}
-		else if (o1 instanceof Integer || o1 instanceof Long || o1 instanceof Float ||
-				o1 instanceof Double || o1 instanceof String || o1 instanceof Byte)
+		else if (o1 instanceof Integer || o1 instanceof Long
+				|| o1 instanceof Float || o1 instanceof Double
+				|| o1 instanceof String || o1 instanceof Byte 
+				|| o1 instanceof Boolean)
 			return o1.equals(o2);
 		else {
 			// oggetti complessi
@@ -690,10 +692,11 @@ public class DTOUtils {
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor currPD = pds[i];
 			Method getter = currPD.getReadMethod();
-			if (getter != null){
+			Method setter = currPD.getWriteMethod();
+			if (getter != null && setter != null){
 				try {
 					Object v1 = getter.invoke(o1, new Object[]{});
-					Object v2 = getter.invoke(o1, new Object[]{});
+					Object v2 = getter.invoke(o2, new Object[]{});
 					if (!deepEquals(v1, v2))
 						return false; // basta uno diverso => false
 				} 
