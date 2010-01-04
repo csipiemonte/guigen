@@ -37,6 +37,11 @@ import com.opensymphony.xwork2.validator.annotations.*;
 «ENDIF-»
 public class «getDTOClassName(this)» implements java.io.Serializable {
 «EXPAND property(model) FOREACH this.fields»
+	
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
 
 	public «getDTOClassName(this)»() {
 	«IF this.initFields-»
@@ -182,6 +187,11 @@ import «getDTOBaseJavaPackage(model)».*;
  */
 public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionAwareDTO {
 
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	
 	////////////////////////////////////////////////////////////////////
 	/// application data
@@ -215,6 +225,11 @@ import java.util.*;
  */
 public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAwareDTO {
 
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 		
 	////////////////////////////////////////////////////////////////////
 	/// application data
@@ -239,6 +254,11 @@ import java.util.*;
  */
 public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAwareDTO {
 
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	
 	////////////////////////////////////////////////////////////////////
 	/// application data

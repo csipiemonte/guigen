@@ -27,6 +27,10 @@ package «getPresentationJavaPackage()»;
 
 /// NO OPERATION
 public class NOPCommand implements ICommand {
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
 	
 	public NOPCommand() {
 		
@@ -42,6 +46,12 @@ package «getPresentationJavaPackage()»;
 
 /// JUMP_ACTION
 public class JumpCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
 	String name;
 	String _currentPageName = null;
 	boolean _pushCurrent;
@@ -68,6 +78,12 @@ package «getPresentationJavaPackage()»;
 
 /// REFRESHVIEW_ACTION
 public class RefreshViewCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String _currentPanelName = null;
 	String [] _targetPanels=null;
 	String [] _targetWidgets=null;
@@ -92,6 +108,12 @@ package «getPresentationJavaPackage()»;
 
 /// JUMP_ACTION
 public class JumpExtCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
 	String locationCode;
 	public JumpExtCommand(String locationCode) {
 		this.locationCode = locationCode;
@@ -109,6 +131,12 @@ package «getPresentationJavaPackage()»;
 
 /// ActivateMultiPanelItemCommand
 public class ActivateMultiPanelItemCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String contentPanelName;
 	String containerName; 
 	String itemName;
@@ -146,6 +174,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class ScreenStateCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String _containerName = null;
 	String _stateName = null;
 	String[] _widgetsOn = null;
@@ -193,6 +227,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class OnOffCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String _containerName = null;
 	String[] _targets = null;
 	boolean _show = true;
@@ -227,6 +267,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class VisibilityCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String _containerName = null;
 	String[] _targets = null;
 	boolean _show = true;
@@ -263,6 +309,12 @@ import «getDTOBaseJavaPackage()».*;
 
 ////ExecCommand
 public abstract class ExecCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String _esiti[] = null;
 	ICommand _azioni[] = null;
 	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
@@ -409,6 +461,12 @@ package «getPresentationJavaPackage()»;
 
 /// SEQUENCE_ACTION
 public class SequenceCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	ICommand[] _actions;
 	public SequenceCommand(ICommand[] actions) {
 		_actions = actions;
@@ -439,6 +497,12 @@ package «getPresentationJavaPackage()»;
 
 /// SHOW_DIALOG_ACTION
 public class ShowDialogCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String name;
 	public ShowDialogCommand(String panelName) {
 		name = panelName;
@@ -460,6 +524,12 @@ import java.io.ObjectOutputStream;
 
 /// BEGIN_EDIT_ACTION
 public class BeginEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String [] targetAppDataNames;
 	public BeginEditCommand(String [] targetAppDataNames) {
 		this.targetAppDataNames = targetAppDataNames;
@@ -510,6 +580,12 @@ import java.io.ObjectOutputStream;
 
 /// END_EDIT_ACTION
 public class EndEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	String [] targetAppDataNames;
 	boolean undo;
 	
@@ -555,6 +631,12 @@ package «getPresentationJavaPackage()»;
 
 /// CHECK_EDIT_STATUS_ACTION
 public class ChkEditStatusCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
 	ICommand _doIfChanged;
 	ICommand _doIfNotChanged;
 	String _checkAggr;
