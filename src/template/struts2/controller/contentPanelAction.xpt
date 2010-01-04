@@ -20,6 +20,9 @@ STRUTS2 ACTIONS FILES
 «IF hasFileUpload(this)»import java.io.File;«ENDIF»
 import java.util.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.beans.IntrospectionException;
+
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.Preparable;
@@ -177,8 +180,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 				}
 			}
 		}
-		catch(Exception e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump"+e+", ignoro");
+		catch (IllegalAccessException e) {
+			log.error("[CpTestMultipanelAction::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (InvocationTargetException e) {
+			log.error("[CpTestMultipanelAction::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (IntrospectionException e) {
+			log.error("[CpTestMultipanelAction::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
 		}
 		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [b] stato dei widget");
 		Object cpWidgetStatus = session.get("«this.name»");
