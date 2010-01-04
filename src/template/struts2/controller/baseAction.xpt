@@ -365,7 +365,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	  * Ripulisce gli eventuali errori di conversione se il metodo richiamato
 	  * dichiarava @skipValidation 
 	  */
-	 public void clearConversionErrorsIfSkipValidation() {
+	 protected void clearConversionErrorsIfSkipValidation() {
 		ActionContext ctx = ActionContext.getContext();
 		String methodName = ctx.getActionInvocation().getProxy().getMethod();
 		Method m;
@@ -380,9 +380,11 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 				clearErrorsAndMessages();
 			}
 		} catch (SecurityException e) {
-			//
+			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+					+ ", ignoro");
 		} catch (NoSuchMethodException e) {
-			//
+			log.error("[BaseAction::clearConversionErrorsIfSkipValidation] Errore interno: " + e
+					+ ", ignoro");
 		}
 	}
 	
