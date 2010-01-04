@@ -77,7 +77,7 @@ public class «getSpringBEClassName()»{
  * Serve per gestire situazioni non recuperabili o impreviste
  */
 public class «getSpringBEExcClassName()» extends Exception {
-	public «getSpringBEExcClassName()»(String msg, Throwable nested) {
+	public «getSpringBEExcClassName()»(String msg, Exception nested) {
 		super(msg, nested);
 	}
 }
@@ -419,7 +419,7 @@ public class «getSpringCPBEClassName()»{
 			return result;
 		«ENDPROTECT»
 		}
-		catch(Throwable e){
+		catch(Exception e){
 		  log.error("[«getSpringBEClassName()»::«getFullExecCmdMethodName(this.methodName, contextPrefix)»] Errore occorso nell'esecuzione del metodo:"+e,e);
 		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
 		}
