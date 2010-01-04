@@ -181,8 +181,7 @@
      */
 	private ICommand initCommand() {
 		«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this-»
-		ICommand action = act_onInit_1; 
-		return action;
+		return act_onInit_1; 
 	}
 		
 «ENDDEFINE»
@@ -193,8 +192,7 @@
      */
 	private ICommand initOnRefreshCommand() {
 		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
-		ICommand action = act_onRefresh_1; 
-		return action;
+		return act_onRefresh_1; 
 	}
 	
 
@@ -245,8 +243,7 @@
 		«LET evhs AS currEvh-»
 		private ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model, (ContentPanel)null, "") FOR currEvh-»
-		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
-		return action;
+			return act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
 		}
 		«ENDLET-»
 		«ENDLET-»	
@@ -263,14 +260,6 @@
     	«EXPAND addActionCode(actionsVarName,actionNumber, model, cp, contextPrefix) FOR currAction-»
     «ENDLET-»
     «ENDLET-»
-    
-	ICommand [] «actionsVarName» = new ICommand[]{
-	«LET this.command AS currAct-»
-		«LET 1 AS actionNumber-»
-		act_«actionsVarName»_«actionNumber»
-		«ENDLET-»
-	«ENDLET-»
-	};
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-»
@@ -460,6 +449,7 @@ quelli esterni!!! «ENDREM»
 		}
 		
 		public void storeAppData(ExecResults res, BaseAction strutsAction){
+	«IF this.postExecData.size>0-»
 			// cast della action al tipo specifico per poter utilizzare direttamente
 			// le property
 			«LET cp AS parentCP-»
@@ -494,6 +484,9 @@ quelli esterni!!! «ENDREM»
 			strutsAction.getSession().put("«getAppDataKey(currAppData)»",specificAction.get«getAppDataPropertyName(currAppData).toFirstUpper()»());
 			«ENDIF-»
 		«ENDFOREACH-»
+	«ELSE-»
+		// nothing to store...
+	«ENDIF-»
 		}
 	};
 	// Exec Action end
@@ -624,8 +617,7 @@ quelli esterni!!! «ENDREM»
 «LET this AS currEvh»
 	private ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh-»
-		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1; 
-		return action;
+		return act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1; 
 	}
 «ENDLET-»
 «ENDDEFINE»
