@@ -579,6 +579,37 @@ public class ComplexUISecConstraint implements UISecConstraint {
 
 }
 «ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/DummyUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class DummyUISecConstraint extends AbstractUISecConstraint {
+
+	private boolean _fixedValue;
+	
+	public static DummyUISecConstraint ALWAYS_VISIBLE_UI_CONSTRAINT = 
+		new DummyUISecConstraint("not_used", "not_used", UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, true, true);
+	
+	public static DummyUISecConstraint ALWAYS_ON_UI_CONSTRAINT = 
+		new DummyUISecConstraint("not_used", "not_used", UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, true, true);
+	
+	private DummyUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, boolean fixedValue) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		_fixedValue = fixedValue;
+	}
+
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)
+			throws BEException {
+		return _fixedValue;
+	}
+
+}
+«ENDFILE»
+
 «ENDDEFINE»
 
 
