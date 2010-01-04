@@ -153,7 +153,7 @@
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	public ICommand initCommand(String sourceWidget, String eventType) {
+	private ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 	«EXPAND commandMapForEventSource(model, this, "") FOR this.panels-»
@@ -179,7 +179,7 @@
     /**
      * inizializza la struttura dei command da eseguire allo startup della sessione 
      */
-	public ICommand initCommand() {
+	private ICommand initCommand() {
 		«EXPAND addActionCode("onInit",1, model, (ContentPanel)null, "") FOR this-»
 		ICommand action = act_onInit_1; 
 		return action;
@@ -191,7 +191,7 @@
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
-	public ICommand initOnRefreshCommand() {
+	private ICommand initOnRefreshCommand() {
 		«EXPAND addActionCode("onRefresh",1, model, cp , "") FOR this-»
 		ICommand action = act_onRefresh_1; 
 		return action;
@@ -207,7 +207,7 @@
      * inizializza la struttura dei command da eseguire per ciascun event handler 
      * di ciascun widget
      */
-	public ICommand initCommand(String sourceWidget, String eventType) {
+	private ICommand initCommand(String sourceWidget, String eventType) {
 		HashMap<String, HashMap<String, ICommand>> cmdsByWidget = new HashMap<String, HashMap<String, ICommand>>();
 		
 		«LET (List[Menu])getAllEventSourceMenus() AS eventSources-»
@@ -243,7 +243,7 @@
 		«FOREACH eventSources AS currEventSource-»
 		«LET currEventSource.eventHandler AS evhs-»
 		«LET evhs AS currEvh-»
-		public ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+		private ICommand initCommand«currEventSource.name.toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+currEventSource.name, model, (ContentPanel)null, "") FOR currEvh-»
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«currEventSource.name»_1; 
 		return action;
@@ -622,7 +622,7 @@ quelli esterni!!! «ENDREM»
 
 «DEFINE initCommandForEventHandler(Widget currEventSource, GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
 «LET this AS currEvh»
-	public ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
+	private ICommand initCommand«getFullID(currEventSource, contextPrefix).toFirstUpper()»_«currEvh.eventType.toString().toFirstUpper()»(){
 		«EXPAND addActionsCode("actions_"+currEvh.eventType.toString().toLowerCase()+"_"+getFullID(currEventSource, contextPrefix), model, cp, contextPrefix) FOR currEvh-»
 		ICommand action = act_actions_«currEvh.eventType.toString().toLowerCase()»_«getFullID(currEventSource, contextPrefix)»_1; 
 		return action;
