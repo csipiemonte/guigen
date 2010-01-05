@@ -203,7 +203,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 *  SAME_PAGE. 
 	 */
 	 public void clearPageScopedAppData(){
-	 	
+	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
 	 	ICommand clearCmd = new ICommand(){
 	 		public String doCommand(BaseAction strutsAction) throws Exception {
 	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
@@ -214,6 +214,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 		}
 	 	};
 	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 	«ELSE-»
+	 	// nothing to clear...
+	 	«ENDIF-»
 	 }
 
 	«REM»Espande la struttura della InitAction«ENDREM»
