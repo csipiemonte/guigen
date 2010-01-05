@@ -365,9 +365,9 @@ import «getBaseJavaPackage()+".business.*;"»
 public abstract class AbstractUISecConstraint implements UISecConstraint{
 
 protected int constrainedBehavior = UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR;
-protected boolean defaultState;
-protected String nomeContainer;
-protected String nomeWidget;
+protected final boolean defaultState;
+protected final String nomeContainer;
+protected final String nomeWidget;
 
 public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
 	if (nomeContainer==null||nomeWidget==null)
@@ -406,7 +406,7 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 		else{
 			Boolean currentState = getCurrentState(session);
 			if (currentState == null)
-				currentState = new Boolean(defaultState);
+				currentState = Boolean.valueOf(defaultState);
 			if (currentState.booleanValue() == false)
 				return false;
 			else
@@ -485,7 +485,7 @@ import «getBaseJavaPackage()+".business.*;"»
 
 public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 
-	private String actorCode;
+	private final String actorCode;
 	
 	public ActorBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String actorCode) {
@@ -507,8 +507,8 @@ import «getBaseJavaPackage()+".business.*;"»
 
 public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 
-	private String roleCode;
-	private String domainCode;
+	private final String roleCode;
+	private final String domainCode;
 	
 	public RoleBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
@@ -532,7 +532,7 @@ import «getBaseJavaPackage()+".business.*;"»
 
 public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 
-	private String useCaseCode;
+	private final String useCaseCode;
 	
 	public UCBasedUISecConstraint(String nomeContainer, String nomeWidget,
 			int constrainedBehavior, boolean defaultState, String useCaseCode) {
@@ -587,12 +587,12 @@ import «getBaseJavaPackage()+".business.*;"»
 
 public class DummyUISecConstraint extends AbstractUISecConstraint {
 
-	private boolean _fixedValue;
+	private final boolean _fixedValue;
 	
-	public static DummyUISecConstraint ALWAYS_VISIBLE_UI_CONSTRAINT = 
+	public static final DummyUISecConstraint ALWAYS_VISIBLE_UI_CONSTRAINT = 
 		new DummyUISecConstraint("not_used", "not_used", UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, true, true);
 	
-	public static DummyUISecConstraint ALWAYS_ON_UI_CONSTRAINT = 
+	public static final DummyUISecConstraint ALWAYS_ON_UI_CONSTRAINT = 
 		new DummyUISecConstraint("not_used", "not_used", UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, true, true);
 	
 	private DummyUISecConstraint(String nomeContainer, String nomeWidget,

@@ -12,7 +12,7 @@
 	/**
 	 * Gestione dell'evento di click sul tab Switcher del tab-set «getFullID(currTabSet, contextPrefix)» 
 	 */
-	public String «getTabItemHandlerMethodName(cp ,currTabSet, currTab, contextPrefix)»() throws Exception {
+	public String «getTabItemHandlerMethodName(cp ,currTabSet, currTab, contextPrefix)»() throws CommandExecutionException {
 	
 	 	// impostazione dei parametri di selezione tab
 	 	setSelectedTabKey("«cp.name»_«getFullID(currTabSet, contextPrefix)»_selectedMultiPanel");
@@ -33,7 +33,7 @@
 	/**
 	 * Gestione dell'evento di click sul tab Switcher del tab-set «getFullID(currWizard, contextPrefix)» 
 	 */
-	public String «getTabItemHandlerMethodName(cp ,currWizard, currTab, contextPrefix)»() throws Exception {
+	public String «getTabItemHandlerMethodName(cp ,currWizard, currTab, contextPrefix)»() throws CommandExecutionException {
 	
 	 	// impostazione dei parametri di selezione tab
 	 	setSelectedTabKey("«cp.name»_«getFullID(currWizard, contextPrefix)»_selectedMultiPanel");
@@ -115,7 +115,7 @@
 	@SkipValidation
 	«ENDIF-»
 	public String «getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»()
-		throws Exception
+		throws CommandExecutionException
 	{
 		ICommand action = initCommand("«getFullID(currEventWidget, contextPrefix)»","«currEventHandler.eventType»");
 		if (log.isDebugEnabled()){
@@ -164,7 +164,7 @@
 			return ris;
 		else
 			return new ICommand(){ // NOP..
-				public String doCommand(BaseAction strutsAction)throws Exception{
+				public String doCommand(BaseAction strutsAction)throws CommandExecutionException{
 			   		return null;
 				}
 			};
@@ -434,17 +434,22 @@ quelli esterni!!! «ENDREM»
     
     
 	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)», actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»){
-		public ExecResults doLogic(Object theModel) throws Exception{
-		
+		public ExecResults doLogic(Object theModel) throws CommandExecutionException{
+			try{
 			«LET cp AS parentCP-»
 			«IF parentCP != null-»
-			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
+				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
 			«ELSEIF isInMenuBranch(this)-»
-			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
+				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
 			«ELSE-»
-			return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
+				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
 			«ENDIF-»
 			«ENDLET-»
+			}
+			catch(BEException e){
+				throw new CommandExecutionException("errore non gestito nell'esecuzione del metodo [«getFullExecCmdMethodName(methodName, contextPrefix)»]:"+
+				e.getMessage(), e);
+			}
 		
 		}
 		

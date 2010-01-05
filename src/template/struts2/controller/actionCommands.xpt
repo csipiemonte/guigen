@@ -18,9 +18,30 @@ public interface ICommand extends java.io.Serializable {
 	 * @return il codice del RESULT struts conseguente all'azione (se l'azione comporta)
 	 * una decisione sul result, null altrimenti
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception;
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException;
 };
 «ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/CommandExecutionException.java"»
+package «getPresentationJavaPackage()»;
+
+/**
+ * Eccezione rilanciat ain caso di errori durante l'esecuzione della
+ * catena di comandi.
+ *
+ * @author CSI Piemonte
+ */
+public class CommandExecutionException extends Exception{
+	public CommandExecutionException(String msg, Throwable nested){
+		super(msg, nested);
+	}
+	
+	public CommandExecutionException(String msg){
+		super(msg);
+	}
+};
+«ENDFILE»
+
 
 «FILE getPresentationJavaSrcDir(true)+"/NOPCommand.java"»
 package «getPresentationJavaPackage()»;
@@ -35,7 +56,7 @@ public class NOPCommand implements ICommand {
 	public NOPCommand() {
 		
 	}
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		return null;
 	}
 };
@@ -61,7 +82,7 @@ public class JumpCommand implements ICommand {
 		_pushCurrent = pushCurrent;
 		_currentPageName = currentPageName;
 	}
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_pushCurrent) {
 			//TODO capire se e come impleemntare lo stack delle action
 			//_pageStack.add(_currentPageName);
@@ -96,7 +117,7 @@ public class RefreshViewCommand implements ICommand {
 	}
 	
 	
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		return null;
 	}
 };
@@ -118,7 +139,7 @@ public class JumpExtCommand implements ICommand {
 	public JumpExtCommand(String locationCode) {
 		this.locationCode = locationCode;
 	}
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData();
 		return "GO_TO_"+locationCode;
@@ -152,7 +173,7 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 		this.containerName = containerName;
 		this.itemName = itemName;
 	}
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (itemName!=null){
 			strutsAction.getSession().put(
 				contentPanelName+"_"+containerName+"_selectedMultiPanel", 
@@ -203,7 +224,7 @@ public class ScreenStateCommand implements ICommand {
 		_widgetsHidden = widgetsHidden;
 	}
 
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
 		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
 		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
@@ -243,7 +264,7 @@ public class OnOffCommand implements ICommand {
 		_show = show;
 	}
 
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
 				(Map<String, Boolean>) strutsAction.session.get(_containerName);		
@@ -252,7 +273,7 @@ public class OnOffCommand implements ICommand {
 				strutsAction.session.put(_containerName, cpWidgetsStatus);
 			}
 			for (int i = 0; i < _targets.length; i++) {
-				cpWidgetsStatus.put(_targets[i]+"_enabled", new Boolean(_show));
+				cpWidgetsStatus.put(_targets[i]+"_enabled", Boolean.valueOf(_show));
 			}
 		}
 		return null;
@@ -283,7 +304,7 @@ public class VisibilityCommand implements ICommand {
 		_show = show;
 	}
 
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_targets != null) {
 			Map<String, Boolean> cpWidgetsStatus = 
 				(Map<String, Boolean>) strutsAction.session.get(_containerName);			
@@ -292,7 +313,7 @@ public class VisibilityCommand implements ICommand {
 				strutsAction.session.put(_containerName, cpWidgetsStatus);
 			}
 			for (int i = 0; i < _targets.length; i++) {
-				cpWidgetsStatus.put(_targets[i]+"_visible", new Boolean(_show));
+				cpWidgetsStatus.put(_targets[i]+"_visible", Boolean.valueOf(_show));
 			}
 		}
 		return null;
@@ -331,7 +352,7 @@ public abstract class ExecCommand implements ICommand {
 	/**
 	 * Esecuzione della logica di business.
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// action --> model
 		Object theModel = strutsAction.toModel();
 		// esecuzione azione
@@ -397,7 +418,7 @@ public abstract class ExecCommand implements ICommand {
 	
 	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
 	// corretto
-	public abstract ExecResults doLogic(Object theModel) throws Exception;
+	public abstract ExecResults doLogic(Object theModel) throws CommandExecutionException;
 }
 «ENDFILE»
 
@@ -477,7 +498,7 @@ public class SequenceCommand implements ICommand {
 	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception{
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		String result=null;
 		if (_actions != null) {
 			for (int i = 0; i < _actions.length; i++) {
@@ -507,7 +528,7 @@ public class ShowDialogCommand implements ICommand {
 	public ShowDialogCommand(String panelName) {
 		name = panelName;
 	}
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		return "SHOW_"+name;
 	}
 };
@@ -538,32 +559,46 @@ public class BeginEditCommand implements ICommand {
 	/**
 	 * Salva un backup (deep copy) degli appdata specificati
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		if (targetAppDataNames != null){
 			for (int i = 0; i < targetAppDataNames.length; i++) {
 				String currADName = targetAppDataNames[i];
-				storeBackup(currADName, strutsAction);
+				try{
+					storeBackup(currADName, strutsAction);
+				}
+				catch(CloneNotSupportedException cnse){
+					throw new CommandExecutionException(
+						"Errore nella creazioene del backup dell'appdata ["+currADName+"]:"+cnse.getMessage(),cnse);
+				}
 			}
 		}
 		return null;
 	}
 	
-	public static void storeBackup(String adName, BaseAction strutsAction)throws Exception{
+	public static void storeBackup(String adName, BaseAction strutsAction) throws CloneNotSupportedException
+	{
 		Object currADVal = strutsAction.getSession().get(adName);
 		Object currADValClone = deepClone(currADVal);
-		if (currADVal != null){
-			strutsAction.getSession().put(adName+"_bckp", currADValClone);
+		if (currADVal != null) {
+			strutsAction.getSession().put(adName + "_bckp", currADValClone);
 		}
 	}
 	
-	public static Object deepClone(Object orig) throws Exception{	
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
+	public static Object deepClone(Object orig) throws CloneNotSupportedException{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(baos);
 			oos.writeObject(orig);
 			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			Object clone = ois.readObject();
 			return clone;
+		} catch (IOException e) {
+			throw new CloneNotSupportedException();
+		} catch (ClassNotFoundException e) {
+			throw new CloneNotSupportedException();
+		}
 	}
 };
 
@@ -572,11 +607,6 @@ public class BeginEditCommand implements ICommand {
 «FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
 package «getPresentationJavaPackage()»;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /// END_EDIT_ACTION
 public class EndEditCommand implements ICommand {
@@ -598,7 +628,7 @@ public class EndEditCommand implements ICommand {
 	 * Elimina i backup (deep copy) degli appdata specificati, ripristinando il
 	 * valore se undo==true; 
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		if (targetAppDataNames != null){
 			for (int i = 0; i < targetAppDataNames.length; i++) {
 				String currADName = targetAppDataNames[i];
@@ -608,16 +638,18 @@ public class EndEditCommand implements ICommand {
 		return null;
 	}
 	
-	public static void endEditForAppdata(String adName, boolean undo, BaseAction strutsAction)throws Exception{
-		if (undo){
+	public static void endEditForAppdata(String adName, boolean undo,
+			BaseAction strutsAction) {
+		if (undo) {
 			// undo del dato
-			Object currADValBkp = strutsAction.getSession().get(adName+"_bckp");
-			if (currADValBkp != null){
+			Object currADValBkp = strutsAction.getSession().get(
+					adName + "_bckp");
+			if (currADValBkp != null) {
 				strutsAction.getSession().put(adName, currADValBkp);
 			}
 		}
 		// rimuove il backup 
-		strutsAction.getSession().remove(adName+"_bckp");
+		strutsAction.getSession().remove(adName + "_bckp");
 	}
 	
 };
@@ -657,7 +689,7 @@ public class ChkEditStatusCommand implements ICommand {
 	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
 	 * dagli step (per determinare al termine quale debba essere la pagina successiva
 	 */
-	public String doCommand(BaseAction strutsAction) throws Exception {
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 		boolean changed = checkAppdata4Changes(_checkedData, _checkAggr, strutsAction);
 		if (changed)
 			return _doIfChanged.doCommand(strutsAction);
@@ -676,15 +708,15 @@ public class ChkEditStatusCommand implements ICommand {
 		if (checkedData==null || checkedData.length==0)
 			return false;
 		// else
-		boolean ris = checkAggr.equals("OR") ? false : (checkAggr.equals("AND") ? true : false);
+		boolean ris = "OR".equals(checkAggr) ? false : ("AND".equals(checkAggr) ? true : false);
 		for (int i = 0; i < checkedData.length; i++) {
 			String currADName = checkedData[i];
 			boolean currChanged = checkAppdata4Changes(currADName, strutsAction);
-			if (currChanged && checkAggr.equals("OR"))
+			if (currChanged && "OR".equals(checkAggr))
 				return true; // al primo esco con true
-			else if (!currChanged && checkAggr.equals("AND"))
+			else if (!currChanged && "AND".equals(checkAggr))
 				return false; // al primo falso esco con falso
-			else if (checkAggr.equals("XOR")){
+			else if ("XOR".equals(checkAggr)){
 				if (currChanged && ris)
 					return false; // secondo match: rompe lo xor
 			}
@@ -745,11 +777,10 @@ public class DTOUtils {
 	public boolean deepEquals(Object o1, Object o2){
 		if ((o1==null || o2==null) && (o1!=null || o2!=null))
 			return false;
-		// else
-		if (!(o1.getClass().equals(o2.getClass())))
+		else if (!(o1.getClass().equals(o2.getClass())))
 			return false;
 		// else: stesso tipo e nessuno dei due nullo
-		if (o1.getClass().isArray()){
+		else if (o1.getClass().isArray()){
 			return deepEqualsArray(o1, o2);
 		}
 		else if (o1 instanceof Integer || o1 instanceof Long

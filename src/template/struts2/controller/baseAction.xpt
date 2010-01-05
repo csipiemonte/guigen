@@ -77,7 +77,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	
 	
 	
-	public void prepare() throws Exception{
+	public void prepare() throws CommandExecutionException{
 	
 		«IF this.securityModel!=null»
 	    // caricamento struttura di constraints
@@ -347,7 +347,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     	}
     	if ( clearStatus ) {
     		// la proprieta' e' "usa e getta"
-    		session.put(sessionValue, new Boolean(false));
+    		session.put(sessionValue, Boolean.valueOf(false));
     	}
     	return clearStatus;
     }

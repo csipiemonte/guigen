@@ -62,7 +62,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 * @return SUCCESS.
 	 */
 	@SkipValidation
-	public String execute() throws Exception {
+	public String execute() throws CommandExecutionException {
 		// esegue eventuali comandi di clear appdata
 		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
 		if (clearCmd != null){
@@ -124,7 +124,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	/**
 	 * Metodo di preparazione della schermata/action
 	 */
-	public void prepare() throws Exception{
+	public void prepare() throws CommandExecutionException{
 	    super.prepare();
 	    
 	    // cancellazione eventuale degli errori di conversione non desiderati
@@ -205,7 +205,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 public void clearPageScopedAppData(){
 	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
 	 	ICommand clearCmd = new ICommand(){
-	 		public String doCommand(BaseAction strutsAction) throws Exception {
+	 		public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
 	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
 	 			getSession().remove("«getAppDataKey(currAd)»");
 	 			getSession().remove("«getAppDataKey(currAd)»_bckp"); // eventuale backup
@@ -223,7 +223,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
     
     @SkipValidation
-    public String handleChangeTab() throws Exception {
+    public String handleChangeTab() {
 		if (this.hasActionErrors() || this.hasFieldErrors() || this.hasErrors())
 			return INPUT;
 		else{
