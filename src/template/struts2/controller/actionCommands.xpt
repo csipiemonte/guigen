@@ -780,7 +780,7 @@ public class DTOUtils {
 		else if (!(o1.getClass().equals(o2.getClass())))
 			return false;
 		// else: stesso tipo e nessuno dei due nullo
-		else if (o1.getClass().isArray()){
+		else if (List.class.isAssignableFrom(o1.getClass())) {
 			return deepEqualsArray(o1, o2);
 		}
 		else if (o1 instanceof Integer || o1 instanceof Long
