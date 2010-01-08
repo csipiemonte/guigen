@@ -9,6 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.genutils.EditUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -63,6 +64,9 @@ public class SimpleTypeItemProvider
 
 			addCodePropertyDescriptor(object);
 			addNillablePropertyDescriptor(object);
+			addUserDefinedPropertyDescriptor(object);
+			addDataTypeModifiersPropertyDescriptor(object);
+			addEditHintMsgPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +116,72 @@ public class SimpleTypeItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the User Defined feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUserDefinedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SimpleType_userDefined_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleType_userDefined_feature", "_UI_SimpleType_type"),
+				 GuigenPackage.Literals.SIMPLE_TYPE__USER_DEFINED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Type Modifiers feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataTypeModifiersPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SimpleType_dataTypeModifiers_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleType_dataTypeModifiers_feature", "_UI_SimpleType_type"),
+				 GuigenPackage.Literals.SIMPLE_TYPE__DATA_TYPE_MODIFIERS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Hint Msg feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditHintMsgPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SimpleType_editHintMsg_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleType_editHintMsg_feature", "_UI_SimpleType_type"),
+				 GuigenPackage.Literals.SIMPLE_TYPE__EDIT_HINT_MSG,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns SimpleType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -126,11 +196,11 @@ public class SimpleTypeItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SimpleType)object).getName();
+		String label = EditUtils.formatType((SimpleType)object);
 		return label == null || label.length() == 0 ?
 			getString("_UI_SimpleType_type") :
 			getString("_UI_SimpleType_type") + " " + label;
@@ -150,6 +220,9 @@ public class SimpleTypeItemProvider
 		switch (notification.getFeatureID(SimpleType.class)) {
 			case GuigenPackage.SIMPLE_TYPE__CODE:
 			case GuigenPackage.SIMPLE_TYPE__NILLABLE:
+			case GuigenPackage.SIMPLE_TYPE__USER_DEFINED:
+			case GuigenPackage.SIMPLE_TYPE__DATA_TYPE_MODIFIERS:
+			case GuigenPackage.SIMPLE_TYPE__EDIT_HINT_MSG:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

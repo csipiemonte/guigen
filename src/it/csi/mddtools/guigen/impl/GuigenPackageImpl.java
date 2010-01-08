@@ -2961,6 +2961,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSimpleType_UserDefined() {
+		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSimpleType_DataTypeModifiers() {
+		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSimpleType_EditHintMsg() {
+		return (EAttribute)simpleTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getComplexType() {
 		return complexTypeEClass;
 	}
@@ -4931,6 +4958,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		simpleTypeEClass = createEClass(SIMPLE_TYPE);
 		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__CODE);
 		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__NILLABLE);
+		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__USER_DEFINED);
+		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__DATA_TYPE_MODIFIERS);
+		createEAttribute(simpleTypeEClass, SIMPLE_TYPE__EDIT_HINT_MSG);
 
 		complexTypeEClass = createEClass(COMPLEX_TYPE);
 		createEReference(complexTypeEClass, COMPLEX_TYPE__FIELDS);
@@ -5565,6 +5595,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(simpleTypeEClass, SimpleType.class, "SimpleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSimpleType_Code(), this.getSimpleTypeCodes(), "code", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSimpleType_Nillable(), ecorePackage.getEBoolean(), "nillable", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleType_UserDefined(), ecorePackage.getEBoolean(), "userDefined", "false", 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleType_DataTypeModifiers(), ecorePackage.getEString(), "dataTypeModifiers", null, 0, -1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSimpleType_EditHintMsg(), ecorePackage.getEString(), "editHintMsg", null, 0, 1, SimpleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(complexTypeEClass, ComplexType.class, "ComplexType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComplexType_Fields(), this.getField(), null, "fields", null, 0, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

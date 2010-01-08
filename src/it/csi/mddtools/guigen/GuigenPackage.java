@@ -4039,13 +4039,40 @@ public interface GuigenPackage extends EPackage {
 	int SIMPLE_TYPE__NILLABLE = TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>User Defined</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__USER_DEFINED = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifiers</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__DATA_TYPE_MODIFIERS = TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Edit Hint Msg</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_TYPE__EDIT_HINT_MSG = TYPE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Simple Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+	int SIMPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9418,6 +9445,39 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getSimpleType_Nillable();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SimpleType#isUserDefined <em>User Defined</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User Defined</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType#isUserDefined()
+	 * @see #getSimpleType()
+	 * @generated
+	 */
+	EAttribute getSimpleType_UserDefined();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link it.csi.mddtools.guigen.SimpleType#getDataTypeModifiers <em>Data Type Modifiers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Data Type Modifiers</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType#getDataTypeModifiers()
+	 * @see #getSimpleType()
+	 * @generated
+	 */
+	EAttribute getSimpleType_DataTypeModifiers();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SimpleType#getEditHintMsg <em>Edit Hint Msg</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Edit Hint Msg</em>'.
+	 * @see it.csi.mddtools.guigen.SimpleType#getEditHintMsg()
+	 * @see #getSimpleType()
+	 * @generated
+	 */
+	EAttribute getSimpleType_EditHintMsg();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ComplexType <em>Complex Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13091,6 +13151,30 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SIMPLE_TYPE__NILLABLE = eINSTANCE.getSimpleType_Nillable();
+
+		/**
+		 * The meta object literal for the '<em><b>User Defined</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIMPLE_TYPE__USER_DEFINED = eINSTANCE.getSimpleType_UserDefined();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Type Modifiers</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIMPLE_TYPE__DATA_TYPE_MODIFIERS = eINSTANCE.getSimpleType_DataTypeModifiers();
+
+		/**
+		 * The meta object literal for the '<em><b>Edit Hint Msg</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIMPLE_TYPE__EDIT_HINT_MSG = eINSTANCE.getSimpleType_EditHintMsg();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl <em>Complex Type</em>}' class.

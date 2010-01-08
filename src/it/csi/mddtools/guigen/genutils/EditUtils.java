@@ -109,7 +109,13 @@ public static String formatType(Type t){
 }
 
 public static String formatType(SimpleType t){
-	return t.getCode().getLiteral();
+	String label = ""+t.getName();
+	if (t.isUserDefined()){
+		// user defined SimpleType
+		label+= "{base:"+t.getCode().getLiteral()+"}";
+	}
+	return label;
+	
 }
 
 public static String formatType(ComplexType t){
