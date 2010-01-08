@@ -32,6 +32,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PanelDef#getOnRefreshCommand <em>On Refresh Command</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PanelDef#getStates <em>States</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PanelDef#getDefaultState <em>Default State</em>}</li>
  * </ul>
  * </p>
  *
@@ -262,5 +264,57 @@ public interface PanelDef extends EObject {
 	 * @generated
 	 */
 	void setOnRefreshCommand(Command value);
+
+	/**
+	 * Returns the value of the '<em><b>States</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>States</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>States</em>' containment reference.
+	 * @see #setStates(PanelDefStates)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_States()
+	 * @model containment="true"
+	 * @generated
+	 */
+	PanelDefStates getStates();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDef#getStates <em>States</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>States</em>' containment reference.
+	 * @see #getStates()
+	 * @generated
+	 */
+	void setStates(PanelDefStates value);
+
+	/**
+	 * Returns the value of the '<em><b>Default State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default State</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default State</em>' reference.
+	 * @see #setDefaultState(PanelDefState)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanelDef_DefaultState()
+	 * @model
+	 * @generated
+	 */
+	PanelDefState getDefaultState();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PanelDef#getDefaultState <em>Default State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default State</em>' reference.
+	 * @see #getDefaultState()
+	 * @generated
+	 */
+	void setDefaultState(PanelDefState value);
 
 } // PanelDef

@@ -9,13 +9,15 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.SequenceCommand;
+import it.csi.mddtools.guigen.PanelDefStates;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -25,16 +27,17 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.SequenceCommand} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PanelDefStates} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SequenceCommandItemProvider
-	extends CommandItemProvider
+public class PanelDefStatesItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -47,7 +50,7 @@ public class SequenceCommandItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SequenceCommandItemProvider(AdapterFactory adapterFactory) {
+	public PanelDefStatesItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -78,7 +81,7 @@ public class SequenceCommandItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS);
+			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF_STATES__STATES);
 		}
 		return childrenFeatures;
 	}
@@ -97,14 +100,14 @@ public class SequenceCommandItemProvider
 	}
 
 	/**
-	 * This returns SequenceCommand.gif.
+	 * This returns PanelDefStates.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SequenceCommand"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PanelDefStates"));
 	}
 
 	/**
@@ -115,7 +118,7 @@ public class SequenceCommandItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_SequenceCommand_type");
+		return getString("_UI_PanelDefStates_type");
 	}
 
 	/**
@@ -129,8 +132,8 @@ public class SequenceCommandItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SequenceCommand.class)) {
-			case GuigenPackage.SEQUENCE_COMMAND__COMMANDS:
+		switch (notification.getFeatureID(PanelDefStates.class)) {
+			case GuigenPackage.PANEL_DEF_STATES__STATES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -150,88 +153,19 @@ public class SequenceCommandItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createONOFFCommand()));
+				(GuigenPackage.Literals.PANEL_DEF_STATES__STATES,
+				 GuigenFactory.eINSTANCE.createPanelDefState()));
+	}
 
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createCustomCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createVisibilityCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createRefreshViewCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createJumpCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createExecCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createShowDialogCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createSequenceCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createJumpBackCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createActivateMultiPanelItemCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createJumpExtCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createNOPCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createScreenStateCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createBeginEditCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createEndEditCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.SEQUENCE_COMMAND__COMMANDS,
-				 GuigenFactory.eINSTANCE.createPDefStateCommand()));
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

@@ -274,6 +274,11 @@ public class CommandOutcomeItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
 				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
+				 GuigenFactory.eINSTANCE.createPDefStateCommand()));
 	}
 
 	/**

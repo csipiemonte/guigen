@@ -1766,6 +1766,9 @@
         <details key="documentation" value="PER FUTURI SVILUPPI"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" eType="#//PanelDefStates"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultState" eType="#//PanelDefState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PDefParam" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1904,5 +1907,49 @@
     <eLiterals name="OR" value="1" literal="OR"/>
     <eLiterals name="AND" value="2" literal="AND"/>
     <eLiterals name="XOR" value="3" literal="XOR"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PanelDefState">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Stato di visibili&amp;agrave; / abilitazione dei widget contenuti in un &#xD;&#xA;&lt;b>PanelDef&lt;/b>. Per passare da uno stato all'altro &amp;egrave; &#xD;&#xA;necessario utilizzare il comando &lt;b>PDefStateCommand&lt;/b>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="codice identificativo dello stato. Deve essere univoco nel &lt;b>PanelDef&lt;/b>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="widgetsOn" upperBound="-1"
+        eType="#//Widget">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="elenco dei widget che devono essere resi editabili se il &lt;b>PanelDef&lt;/b>&#xD;&#xA;&amp;egrave; in questo stato."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="widgetsVisible" upperBound="-1"
+        eType="#//Widget">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="elenco dei widget che devono essere resi visibili se il &lt;b>PanelDef&lt;/b>&#xD;&#xA;&amp;egrave; in questo stato."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PDefStateCommand" eSuperTypes="#//Command">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Permette di far passare un &lt;b>PanelDef&lt;/b> nello stato specificato. &#xD;&#xA;Pu&amp;ograve; essere utilizzato in due modi:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>all'interno del &lt;b>PanelDef&lt;/b>, in una catena di comandi referenziata&#xD;&#xA;       da un &lt;b>EventHandler&lt;/b>: in questo caso l'effetto del comando&#xD;&#xA;       &amp;egrave; applicato ai widget dell'istanza di &lt;b>PanelDef&lt;/b> sulla quale&#xD;&#xA;       &amp;egrave; indirizzato l'evento&lt;/li>.&#xD;&#xA;&lt;li>all'interno di un &lt;b>ContentPanel&lt;/b> che referenzia un &lt;b>PanelDef&lt;/b>&#xD;&#xA;tramite &lt;b>PanelDefUse&lt;/b>: in questo caso il comando &amp;egrave; inserito&#xD;&#xA;all'interno di una catena di comandi referenziata da un &lt;b>EventHandler&lt;/b>&#xD;&#xA;associato ad un &lt;b>Widget&lt;/b> definito nel &lt;b>ContentPanel&lt;/b>. Ovviamente&#xD;&#xA;&amp;egrave; necessario indicare, in questo caso, il &lt;b>PanelDefUse&lt;/b> al quale&#xD;&#xA;deve essere inviato il comando (che nel caso precedente &amp;egrave; implicito)&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ol>"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="goTo" eType="#//PanelDefState">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Lo stato in cui si desidera far passare il &lt;b>PanelDef&lt;/b>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pDefUse" eType="#//PanelDefUse">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il &lt;b>PanelDefUse&lt;/b> a cui deve essere indirizzato il comando. Deve essere utilizzato solo&#xD;&#xA;nel caso di utilizzo del comando esterno al &lt;b>PanelDef&lt;/b>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PanelDefStates">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="elenco delgi stati disponibili per un determinato &lt;b>PanelDef&lt;/b>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//PanelDefState" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

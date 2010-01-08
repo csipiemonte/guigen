@@ -14,6 +14,8 @@ import it.csi.mddtools.guigen.PDefParam;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDef;
 
+import it.csi.mddtools.guigen.PanelDefState;
+import it.csi.mddtools.guigen.PanelDefStates;
 import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UseCase;
@@ -49,6 +51,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getActors <em>Actors</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getOnRefreshCommand <em>On Refresh Command</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getStates <em>States</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PanelDefImpl#getDefaultState <em>Default State</em>}</li>
  * </ul>
  * </p>
  *
@@ -154,6 +158,26 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	 * @ordered
 	 */
 	protected Command onRefreshCommand;
+
+	/**
+	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStates()
+	 * @generated
+	 * @ordered
+	 */
+	protected PanelDefStates states;
+
+	/**
+	 * The cached value of the '{@link #getDefaultState() <em>Default State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultState()
+	 * @generated
+	 * @ordered
+	 */
+	protected PanelDefState defaultState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -420,6 +444,87 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PanelDefStates getStates() {
+		return states;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStates(PanelDefStates newStates, NotificationChain msgs) {
+		PanelDefStates oldStates = states;
+		states = newStates;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__STATES, oldStates, newStates);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStates(PanelDefStates newStates) {
+		if (newStates != states) {
+			NotificationChain msgs = null;
+			if (states != null)
+				msgs = ((InternalEObject)states).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__STATES, null, msgs);
+			if (newStates != null)
+				msgs = ((InternalEObject)newStates).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.PANEL_DEF__STATES, null, msgs);
+			msgs = basicSetStates(newStates, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__STATES, newStates, newStates));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDefState getDefaultState() {
+		if (defaultState != null && defaultState.eIsProxy()) {
+			InternalEObject oldDefaultState = (InternalEObject)defaultState;
+			defaultState = (PanelDefState)eResolveProxy(oldDefaultState);
+			if (defaultState != oldDefaultState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.PANEL_DEF__DEFAULT_STATE, oldDefaultState, defaultState));
+			}
+		}
+		return defaultState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDefState basicGetDefaultState() {
+		return defaultState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultState(PanelDefState newDefaultState) {
+		PanelDefState oldDefaultState = defaultState;
+		defaultState = newDefaultState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PANEL_DEF__DEFAULT_STATE, oldDefaultState, defaultState));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -439,6 +544,8 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 				return ((InternalEList<?>)getUseCases()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				return basicSetOnRefreshCommand(null, msgs);
+			case GuigenPackage.PANEL_DEF__STATES:
+				return basicSetStates(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -469,6 +576,11 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 				return getUseCases();
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				return getOnRefreshCommand();
+			case GuigenPackage.PANEL_DEF__STATES:
+				return getStates();
+			case GuigenPackage.PANEL_DEF__DEFAULT_STATE:
+				if (resolve) return getDefaultState();
+				return basicGetDefaultState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -513,6 +625,12 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)newValue);
 				return;
+			case GuigenPackage.PANEL_DEF__STATES:
+				setStates((PanelDefStates)newValue);
+				return;
+			case GuigenPackage.PANEL_DEF__DEFAULT_STATE:
+				setDefaultState((PanelDefState)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -552,6 +670,12 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				setOnRefreshCommand((Command)null);
 				return;
+			case GuigenPackage.PANEL_DEF__STATES:
+				setStates((PanelDefStates)null);
+				return;
+			case GuigenPackage.PANEL_DEF__DEFAULT_STATE:
+				setDefaultState((PanelDefState)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -582,6 +706,10 @@ public class PanelDefImpl extends EObjectImpl implements PanelDef {
 				return useCases != null && !useCases.isEmpty();
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
 				return onRefreshCommand != null;
+			case GuigenPackage.PANEL_DEF__STATES:
+				return states != null;
+			case GuigenPackage.PANEL_DEF__DEFAULT_STATE:
+				return defaultState != null;
 		}
 		return super.eIsSet(featureID);
 	}

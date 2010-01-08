@@ -2731,6 +2731,43 @@ public class GenUtils {
 		return ris;
 	}
 	
+	
+	////////////////////////////////////////////////////////////////////////
+	///// Lista dei panel def use referenziati in un contentPanel
+	public static List<PanelDefUse> getAllPanelDefUses(ContentPanel cp) {
+		List<PanelDefUse> ris = new ArrayList<PanelDefUse>();
+		ris = getAllPanelDefUses(cp.getPanels());
+		return ris;
+	}
+	
+	private static List<PanelDefUse> getAllPanelDefUses(Panel p) {
+		List<PanelDefUse> ris = new ArrayList<PanelDefUse>();
+		if (p instanceof FormPanel){
+			FormPanel fp = (FormPanel)p;
+			Iterator<Panel> it_subp = fp.getSubpanels().iterator();
+			Panel currP = null;
+			while(it_subp.hasNext()){
+				currP = it_subp.next();
+				ris.addAll(getAllPanelDefUses(currP));
+			}
+		}
+		else if (p instanceof MultiPanel){
+			MultiPanel mp = (MultiPanel)p;
+			Iterator<Panel> it_items = mp.getPanels().iterator();
+			Panel currP = null;
+			while(it_items.hasNext()){
+				currP = it_items.next();
+				ris.addAll(getAllPanelDefUses(currP));
+			}
+		}
+		else if (p instanceof PanelDefUse){
+			ris.add((PanelDefUse)p);
+		}
+		
+		return ris;
+	}
+
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// GESTIONE DEI TIPI DI DATO
 
@@ -3402,5 +3439,8 @@ public class GenUtils {
 			e.printStackTrace();
 		}*/	
 	}
+
+
+	
 
 }

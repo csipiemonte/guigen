@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" codProdotto="test" codComponente="testcomposite" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="test" codComponente="testcomposite" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
@@ -83,14 +83,18 @@
                       </results>
                     </command>
                   </eventHandlers>
-                  <securityConstraints xsi:type="guigen:UCBasedSecurityConstraint" enabled="true">
-                    <useCase href="testSecurityModel.xmi#//@useCases.1"/>
-                  </securityConstraints>
                 </widgets>
-                <widgets xsi:type="guigen:ConfirmButton" name="bJump" label="salta!">
+                <widgets xsi:type="guigen:Button" name="bReadOnly" label="read only">
                   <eventHandlers>
-                    <command xsi:type="guigen:JumpCommand">
-                      <jumpTo href="extAppmodule1.xmi#//@contentPanels.0"/>
+                    <command xsi:type="guigen:PDefStateCommand" pDefUse="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1">
+                      <goTo href="dati_anag.xmi#//@states/@states.1"/>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:Button" name="bWritable" label="writable">
+                  <eventHandlers>
+                    <command xsi:type="guigen:PDefStateCommand" pDefUse="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1">
+                      <goTo href="dati_anag.xmi#//@states/@states.0"/>
                     </command>
                   </eventHandlers>
                 </widgets>
@@ -127,7 +131,6 @@
           </results>
         </onInitCommand>
         <extModules href="extAppmodule1.xmi#/"/>
-        <homePage href="extAppmodule1.xmi#//@contentPanels.0"/>
       </appArea>
     </appWindow>
   </structure>
@@ -204,7 +207,9 @@
     <extGroups href="default_appdata.xmi#/"/>
     <extGroups href="extAppData1.xmi#/"/>
   </appDataDefs>
-  <extSecurityModel href="testSecurityModel.xmi#/"/>
+  <securityModel securityAppID="BANDI">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+  </securityModel>
   <targetPlatform code="JBoss43"/>
   <activationModel>
     <activationParams name="param1">

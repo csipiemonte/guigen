@@ -6412,13 +6412,31 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF__ON_REFRESH_COMMAND = 8;
 
 	/**
+	 * The feature id for the '<em><b>States</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__STATES = 9;
+
+	/**
+	 * The feature id for the '<em><b>Default State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF__DEFAULT_STATE = 10;
+
+	/**
 	 * The number of structural features of the '<em>Panel Def</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PANEL_DEF_FEATURE_COUNT = 9;
+	int PANEL_DEF_FEATURE_COUNT = 11;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PDefParamImpl <em>PDef Param</em>}' class.
@@ -7133,6 +7151,117 @@ public interface GuigenPackage extends EPackage {
 	int CHK_EDIT_STATUS_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 4;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelDefStateImpl <em>Panel Def State</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PanelDefStateImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefState()
+	 * @generated
+	 */
+	int PANEL_DEF_STATE = 130;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Widgets On</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATE__WIDGETS_ON = 1;
+
+	/**
+	 * The feature id for the '<em><b>Widgets Visible</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATE__WIDGETS_VISIBLE = 2;
+
+	/**
+	 * The number of structural features of the '<em>Panel Def State</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PDefStateCommandImpl <em>PDef State Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PDefStateCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefStateCommand()
+	 * @generated
+	 */
+	int PDEF_STATE_COMMAND = 131;
+
+	/**
+	 * The feature id for the '<em><b>Go To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_STATE_COMMAND__GO_TO = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>PDef Use</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_STATE_COMMAND__PDEF_USE = COMMAND_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>PDef State Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDEF_STATE_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelDefStatesImpl <em>Panel Def States</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PanelDefStatesImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefStates()
+	 * @generated
+	 */
+	int PANEL_DEF_STATES = 132;
+
+	/**
+	 * The feature id for the '<em><b>States</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATES__STATES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Panel Def States</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_STATES_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7140,7 +7269,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 130;
+	int WIDGET_DATA_TYPE = 133;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -7150,7 +7279,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 131;
+	int UDLRC_SPEC_CONSTANTS = 134;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -7160,7 +7289,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 132;
+	int EVENT_TYPES = 135;
 
 
 	/**
@@ -7171,7 +7300,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 133;
+	int DATA_LIFETIME_TYPE = 136;
 
 
 	/**
@@ -7182,7 +7311,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 134;
+	int SIMPLE_TYPE_CODES = 137;
 
 
 	/**
@@ -7193,7 +7322,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 135;
+	int PORTAL_NAMES = 138;
 
 
 	/**
@@ -7204,7 +7333,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 136;
+	int TARGET_PLATFORM_CODES = 139;
 
 
 	/**
@@ -7215,7 +7344,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 137;
+	int MESSAGE_SEVERITY = 140;
 
 
 	/**
@@ -7226,7 +7355,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 138;
+	int COMMAND_STYLES = 141;
 
 
 	/**
@@ -7237,7 +7366,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 139;
+	int LOGIC_AGGREGATION_TYPES = 142;
 
 
 	/**
@@ -10595,6 +10724,28 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDef_OnRefreshCommand();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.PanelDef#getStates <em>States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>States</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getStates()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_States();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PanelDef#getDefaultState <em>Default State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Default State</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDef#getDefaultState()
+	 * @see #getPanelDef()
+	 * @generated
+	 */
+	EReference getPanelDef_DefaultState();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefParam <em>PDef Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11058,6 +11209,102 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getChkEditStatusCommand_DoIfNotChanged();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PanelDefState <em>Panel Def State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Panel Def State</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefState
+	 * @generated
+	 */
+	EClass getPanelDefState();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PanelDefState#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefState#getName()
+	 * @see #getPanelDefState()
+	 * @generated
+	 */
+	EAttribute getPanelDefState_Name();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.PanelDefState#getWidgetsOn <em>Widgets On</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Widgets On</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefState#getWidgetsOn()
+	 * @see #getPanelDefState()
+	 * @generated
+	 */
+	EReference getPanelDefState_WidgetsOn();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.PanelDefState#getWidgetsVisible <em>Widgets Visible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Widgets Visible</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefState#getWidgetsVisible()
+	 * @see #getPanelDefState()
+	 * @generated
+	 */
+	EReference getPanelDefState_WidgetsVisible();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PDefStateCommand <em>PDef State Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PDef State Command</em>'.
+	 * @see it.csi.mddtools.guigen.PDefStateCommand
+	 * @generated
+	 */
+	EClass getPDefStateCommand();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PDefStateCommand#getGoTo <em>Go To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Go To</em>'.
+	 * @see it.csi.mddtools.guigen.PDefStateCommand#getGoTo()
+	 * @see #getPDefStateCommand()
+	 * @generated
+	 */
+	EReference getPDefStateCommand_GoTo();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PDefStateCommand#getPDefUse <em>PDef Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>PDef Use</em>'.
+	 * @see it.csi.mddtools.guigen.PDefStateCommand#getPDefUse()
+	 * @see #getPDefStateCommand()
+	 * @generated
+	 */
+	EReference getPDefStateCommand_PDefUse();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PanelDefStates <em>Panel Def States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Panel Def States</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefStates
+	 * @generated
+	 */
+	EClass getPanelDefStates();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PanelDefStates#getStates <em>States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>States</em>'.
+	 * @see it.csi.mddtools.guigen.PanelDefStates#getStates()
+	 * @see #getPanelDefStates()
+	 * @generated
+	 */
+	EReference getPanelDefStates_States();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -13924,6 +14171,22 @@ public interface GuigenPackage extends EPackage {
 		EReference PANEL_DEF__ON_REFRESH_COMMAND = eINSTANCE.getPanelDef_OnRefreshCommand();
 
 		/**
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__STATES = eINSTANCE.getPanelDef_States();
+
+		/**
+		 * The meta object literal for the '<em><b>Default State</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF__DEFAULT_STATE = eINSTANCE.getPanelDef_DefaultState();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefParamImpl <em>PDef Param</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -14312,6 +14575,84 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED = eINSTANCE.getChkEditStatusCommand_DoIfNotChanged();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelDefStateImpl <em>Panel Def State</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PanelDefStateImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefState()
+		 * @generated
+		 */
+		EClass PANEL_DEF_STATE = eINSTANCE.getPanelDefState();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PANEL_DEF_STATE__NAME = eINSTANCE.getPanelDefState_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Widgets On</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF_STATE__WIDGETS_ON = eINSTANCE.getPanelDefState_WidgetsOn();
+
+		/**
+		 * The meta object literal for the '<em><b>Widgets Visible</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF_STATE__WIDGETS_VISIBLE = eINSTANCE.getPanelDefState_WidgetsVisible();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PDefStateCommandImpl <em>PDef State Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PDefStateCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPDefStateCommand()
+		 * @generated
+		 */
+		EClass PDEF_STATE_COMMAND = eINSTANCE.getPDefStateCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Go To</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PDEF_STATE_COMMAND__GO_TO = eINSTANCE.getPDefStateCommand_GoTo();
+
+		/**
+		 * The meta object literal for the '<em><b>PDef Use</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PDEF_STATE_COMMAND__PDEF_USE = eINSTANCE.getPDefStateCommand_PDefUse();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PanelDefStatesImpl <em>Panel Def States</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PanelDefStatesImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPanelDefStates()
+		 * @generated
+		 */
+		EClass PANEL_DEF_STATES = eINSTANCE.getPanelDefStates();
+
+		/**
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PANEL_DEF_STATES__STATES = eINSTANCE.getPanelDefStates_States();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

@@ -1079,6 +1079,33 @@ public interface GuigenFactory extends EFactory {
 	ChkEditStatusCommand createChkEditStatusCommand();
 
 	/**
+	 * Returns a new object of class '<em>Panel Def State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Panel Def State</em>'.
+	 * @generated
+	 */
+	PanelDefState createPanelDefState();
+
+	/**
+	 * Returns a new object of class '<em>PDef State Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PDef State Command</em>'.
+	 * @generated
+	 */
+	PDefStateCommand createPDefStateCommand();
+
+	/**
+	 * Returns a new object of class '<em>Panel Def States</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Panel Def States</em>'.
+	 * @generated
+	 */
+	PanelDefStates createPanelDefStates();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

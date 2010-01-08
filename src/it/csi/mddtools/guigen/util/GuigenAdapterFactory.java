@@ -592,6 +592,18 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createChkEditStatusCommandAdapter();
 			}
 			@Override
+			public Adapter casePanelDefState(PanelDefState object) {
+				return createPanelDefStateAdapter();
+			}
+			@Override
+			public Adapter casePDefStateCommand(PDefStateCommand object) {
+				return createPDefStateCommandAdapter();
+			}
+			@Override
+			public Adapter casePanelDefStates(PanelDefStates object) {
+				return createPanelDefStatesAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2428,6 +2440,48 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createChkEditStatusCommandAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PanelDefState <em>Panel Def State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PanelDefState
+	 * @generated
+	 */
+	public Adapter createPanelDefStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PDefStateCommand <em>PDef State Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PDefStateCommand
+	 * @generated
+	 */
+	public Adapter createPDefStateCommandAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PanelDefStates <em>Panel Def States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PanelDefStates
+	 * @generated
+	 */
+	public Adapter createPanelDefStatesAdapter() {
 		return null;
 	}
 

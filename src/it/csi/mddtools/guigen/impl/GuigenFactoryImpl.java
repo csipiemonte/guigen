@@ -178,6 +178,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.BEGIN_EDIT_COMMAND: return createBeginEditCommand();
 			case GuigenPackage.END_EDIT_COMMAND: return createEndEditCommand();
 			case GuigenPackage.CHK_EDIT_STATUS_COMMAND: return createChkEditStatusCommand();
+			case GuigenPackage.PANEL_DEF_STATE: return createPanelDefState();
+			case GuigenPackage.PDEF_STATE_COMMAND: return createPDefStateCommand();
+			case GuigenPackage.PANEL_DEF_STATES: return createPanelDefStates();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1417,6 +1420,36 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ChkEditStatusCommand createChkEditStatusCommand() {
 		ChkEditStatusCommandImpl chkEditStatusCommand = new ChkEditStatusCommandImpl();
 		return chkEditStatusCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDefState createPanelDefState() {
+		PanelDefStateImpl panelDefState = new PanelDefStateImpl();
+		return panelDefState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PDefStateCommand createPDefStateCommand() {
+		PDefStateCommandImpl pDefStateCommand = new PDefStateCommandImpl();
+		return pDefStateCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PanelDefStates createPanelDefStates() {
+		PanelDefStatesImpl panelDefStates = new PanelDefStatesImpl();
+		return panelDefStates;
 	}
 
 	/**

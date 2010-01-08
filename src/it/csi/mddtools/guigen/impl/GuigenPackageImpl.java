@@ -86,9 +86,12 @@ import it.csi.mddtools.guigen.NOPCommand;
 import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.PDefParam;
 import it.csi.mddtools.guigen.PDefParamVal;
+import it.csi.mddtools.guigen.PDefStateCommand;
 import it.csi.mddtools.guigen.PDefUseConfig;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.PanelDefState;
+import it.csi.mddtools.guigen.PanelDefStates;
 import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
@@ -1072,6 +1075,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass chkEditStatusCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass panelDefStateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pDefStateCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass panelDefStatesEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4044,6 +4068,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPanelDef_States() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDef_DefaultState() {
+		return (EReference)panelDefEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPDefParam() {
 		return pDefParamEClass;
 	}
@@ -4433,6 +4475,87 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EReference getChkEditStatusCommand_DoIfNotChanged() {
 		return (EReference)chkEditStatusCommandEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPanelDefState() {
+		return panelDefStateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPanelDefState_Name() {
+		return (EAttribute)panelDefStateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDefState_WidgetsOn() {
+		return (EReference)panelDefStateEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDefState_WidgetsVisible() {
+		return (EReference)panelDefStateEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPDefStateCommand() {
+		return pDefStateCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPDefStateCommand_GoTo() {
+		return (EReference)pDefStateCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPDefStateCommand_PDefUse() {
+		return (EReference)pDefStateCommandEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPanelDefStates() {
+		return panelDefStatesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPanelDefStates_States() {
+		return (EReference)panelDefStatesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4978,6 +5101,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(panelDefEClass, PANEL_DEF__ACTORS);
 		createEReference(panelDefEClass, PANEL_DEF__USE_CASES);
 		createEReference(panelDefEClass, PANEL_DEF__ON_REFRESH_COMMAND);
+		createEReference(panelDefEClass, PANEL_DEF__STATES);
+		createEReference(panelDefEClass, PANEL_DEF__DEFAULT_STATE);
 
 		pDefParamEClass = createEClass(PDEF_PARAM);
 		createEAttribute(pDefParamEClass, PDEF_PARAM__NAME);
@@ -5041,6 +5166,18 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__CHECK_AGGREGATION);
 		createEReference(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__DO_IF_CHANGED);
 		createEReference(chkEditStatusCommandEClass, CHK_EDIT_STATUS_COMMAND__DO_IF_NOT_CHANGED);
+
+		panelDefStateEClass = createEClass(PANEL_DEF_STATE);
+		createEAttribute(panelDefStateEClass, PANEL_DEF_STATE__NAME);
+		createEReference(panelDefStateEClass, PANEL_DEF_STATE__WIDGETS_ON);
+		createEReference(panelDefStateEClass, PANEL_DEF_STATE__WIDGETS_VISIBLE);
+
+		pDefStateCommandEClass = createEClass(PDEF_STATE_COMMAND);
+		createEReference(pDefStateCommandEClass, PDEF_STATE_COMMAND__GO_TO);
+		createEReference(pDefStateCommandEClass, PDEF_STATE_COMMAND__PDEF_USE);
+
+		panelDefStatesEClass = createEClass(PANEL_DEF_STATES);
+		createEReference(panelDefStatesEClass, PANEL_DEF_STATES__STATES);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -5170,6 +5307,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		beginEditCommandEClass.getESuperTypes().add(this.getCommand());
 		endEditCommandEClass.getESuperTypes().add(this.getCommand());
 		chkEditStatusCommandEClass.getESuperTypes().add(this.getCommand());
+		pDefStateCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5597,6 +5735,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getPanelDef_Actors(), this.getActor(), null, "actors", null, 0, -1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPanelDef_UseCases(), this.getUseCase(), null, "useCases", null, 0, -1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPanelDef_OnRefreshCommand(), this.getCommand(), null, "onRefreshCommand", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_States(), this.getPanelDefStates(), null, "states", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDef_DefaultState(), this.getPanelDefState(), null, "defaultState", null, 0, 1, PanelDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pDefParamEClass, PDefParam.class, "PDefParam", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPDefParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, PDefParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5660,6 +5800,18 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getChkEditStatusCommand_CheckAggregation(), this.getLogicAggregationTypes(), "checkAggregation", "OR", 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getChkEditStatusCommand_DoIfChanged(), this.getCommandOutcome(), null, "doIfChanged", null, 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getChkEditStatusCommand_DoIfNotChanged(), this.getCommandOutcome(), null, "doIfNotChanged", null, 0, 1, ChkEditStatusCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(panelDefStateEClass, PanelDefState.class, "PanelDefState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPanelDefState_Name(), ecorePackage.getEString(), "name", null, 0, 1, PanelDefState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDefState_WidgetsOn(), this.getWidget(), null, "widgetsOn", null, 0, -1, PanelDefState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPanelDefState_WidgetsVisible(), this.getWidget(), null, "widgetsVisible", null, 0, -1, PanelDefState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pDefStateCommandEClass, PDefStateCommand.class, "PDefStateCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPDefStateCommand_GoTo(), this.getPanelDefState(), null, "goTo", null, 0, 1, PDefStateCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPDefStateCommand_PDefUse(), this.getPanelDefUse(), null, "pDefUse", null, 0, 1, PDefStateCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(panelDefStatesEClass, PanelDefStates.class, "PanelDefStates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPanelDefStates_States(), this.getPanelDefState(), null, "states", null, 0, -1, PanelDefStates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

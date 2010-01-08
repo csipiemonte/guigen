@@ -2767,6 +2767,75 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PanelDefState} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PanelDefStateItemProvider panelDefStateItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PanelDefState}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPanelDefStateAdapter() {
+		if (panelDefStateItemProvider == null) {
+			panelDefStateItemProvider = new PanelDefStateItemProvider(this);
+		}
+
+		return panelDefStateItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PDefStateCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PDefStateCommandItemProvider pDefStateCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PDefStateCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPDefStateCommandAdapter() {
+		if (pDefStateCommandItemProvider == null) {
+			pDefStateCommandItemProvider = new PDefStateCommandItemProvider(this);
+		}
+
+		return pDefStateCommandItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PanelDefStates} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PanelDefStatesItemProvider panelDefStatesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PanelDefStates}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPanelDefStatesAdapter() {
+		if (panelDefStatesItemProvider == null) {
+			panelDefStatesItemProvider = new PanelDefStatesItemProvider(this);
+		}
+
+		return panelDefStatesItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2982,6 +3051,9 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (beginEditCommandItemProvider != null) beginEditCommandItemProvider.dispose();
 		if (endEditCommandItemProvider != null) endEditCommandItemProvider.dispose();
 		if (chkEditStatusCommandItemProvider != null) chkEditStatusCommandItemProvider.dispose();
+		if (panelDefStateItemProvider != null) panelDefStateItemProvider.dispose();
+		if (pDefStateCommandItemProvider != null) pDefStateCommandItemProvider.dispose();
+		if (panelDefStatesItemProvider != null) panelDefStatesItemProvider.dispose();
 	}
 
 }

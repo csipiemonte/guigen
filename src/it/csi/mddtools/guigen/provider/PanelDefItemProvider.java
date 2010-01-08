@@ -70,6 +70,7 @@ public class PanelDefItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addDefaultStatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -97,6 +98,28 @@ public class PanelDefItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Default State feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultStatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PanelDef_defaultState_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PanelDef_defaultState_feature", "_UI_PanelDef_type"),
+				 GuigenPackage.Literals.PANEL_DEF__DEFAULT_STATE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -116,6 +139,7 @@ public class PanelDefItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__ACTORS);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__USE_CASES);
 			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND);
+			childrenFeatures.add(GuigenPackage.Literals.PANEL_DEF__STATES);
 		}
 		return childrenFeatures;
 	}
@@ -194,6 +218,7 @@ public class PanelDefItemProvider
 			case GuigenPackage.PANEL_DEF__ACTORS:
 			case GuigenPackage.PANEL_DEF__USE_CASES:
 			case GuigenPackage.PANEL_DEF__ON_REFRESH_COMMAND:
+			case GuigenPackage.PANEL_DEF__STATES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -405,6 +430,16 @@ public class PanelDefItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createChkEditStatusCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createPDefStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__STATES,
+				 GuigenFactory.eINSTANCE.createPanelDefStates()));
 	}
 
 	/**
