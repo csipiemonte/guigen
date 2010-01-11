@@ -65,19 +65,20 @@ public class «getUDTClassName(this)» implements java.io.Serializable {
 		super();
 	}
 
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(name)»
+	«LET toJavaSimpleType(this) AS javaType-»
+	private «javaType» _value;
 	
-	private java.lang.String _value;
-	
-	
-	public java.lang.String getValue(){
+	public «javaType» getValue(){
 		return _value;
 	}
 	
-	public void setValue(java.lang.String s){
+	public void setValue(«javaType» s){
 		_value = s;
 	}
 	
+	«ENDLET-»
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTFQN(this, model)+"extra_methods")»
+	// inserire qui eventuali metodi aggiuntivi 
 	«ENDPROTECT»
 
 }

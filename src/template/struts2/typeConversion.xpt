@@ -85,7 +85,8 @@ import com.opensymphony.xwork2.util.TypeConversionException;
 public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 
 	/**
-	 * 
+	 * Trasforma una rappresentazione a stringa di un oggetto di tipo
+	 * «getUDTClassName(this)».
 	 * @param  context
 	 * @param  values
 	 * @param  toClass
@@ -107,7 +108,7 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	}
 
 	/**
-	 * 
+	 * Trasforma una istanza di «getUDTClassName(this)» nella rappresentazione a stringa.
 	 * @param
 	 * @param
 	 * @return
@@ -115,8 +116,9 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	 */
 	@Override
 	public String convertToString(Map context, Object o) {
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")-»
 		«getUDTClassName(this)» val = («getUDTClassName(this)»)o;
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")-»
+		
 		return val==null? "" : (val.getValue()!=null? val.getValue() : "");
 	«ENDPROTECT»
 	}
