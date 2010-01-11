@@ -20,7 +20,7 @@
           </topLevelMenu>
         </menubar>
         <modules name="gestione">
-          <contentPanels name="cpElenco" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0">
+          <contentPanels name="cpElenco" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.1">
             <panels xsi:type="guigen:FormPanel" name="pMain" label="ricerca">
               <layout xsi:type="guigen:UDLRCPanelLayout"/>
               <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -69,6 +69,12 @@
                         </results>
                       </command>
                     </eventHandlers>
+                  </widgets>
+                </subpanels>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pInfo" label="Info">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="tfPIVA" label="Partita IVA" dataType="//@typedefs/@namespaces.1/@types.0" fieldMaxLength="15">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.1"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -146,11 +152,15 @@
       </types>
       <types xsi:type="guigen:TypedArray" name="Array of Progetto" componentType="//@typedefs/@namespaces.0/@types.0"/>
     </namespaces>
+    <namespaces name="mysimpletypes">
+      <types xsi:type="guigen:SimpleType" name="PartitaIVA" code="STRING" nillable="true" userDefined="true"/>
+    </namespaces>
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
     <groups name="progetti">
       <appData name="progetti" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+      <appData name="piva" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.0"/>
     </groups>
   </appDataDefs>
   <targetPlatform code="JBoss43"/>

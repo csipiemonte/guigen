@@ -449,7 +449,7 @@ context Table ERROR "Non è stato specificato il binding alla collection per la t
 	
 // [DM] Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType
 context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType " + loc() :
-	this.types.select(t|t.metaType == SimpleType).size == 0; 
+	this.types.select(t|t.metaType == SimpleType && !((SimpleType)t).userDefined).size == 0; 
 
 
 //////////////////////////////////////////////////////////////////////////////

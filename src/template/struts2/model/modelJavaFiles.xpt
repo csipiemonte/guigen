@@ -6,8 +6,13 @@
 «REM»tipi complessi«ENDREM»
 «LET this.typedefs AS typedefs»
 «IF typedefs != null»
-«LET ((List[Type])getAllTypes(this)).typeSelect(ComplexType) AS complexType»
+«LET (List[Type])getAllTypes(this) AS allTypes»
+«LET (allTypes).typeSelect(ComplexType) AS complexType»
 «EXPAND modelClass(this) FOREACH complexType»
+«ENDLET»
+«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes»
+«EXPAND udtClass(this) FOREACH udtTypes»
+«ENDLET»
 «ENDLET»
 «ENDIF»
 «ENDLET»
@@ -22,6 +27,61 @@
 «IF this.structure.appWindow.appArea.onInitCommand!=null»
 	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea»
 «ENDIF»
+«ENDDEFINE»
+
+
+
+
+«DEFINE udtClass(GUIModel model) FOR SimpleType»
+«FILE getFullUDTClassFile(this,model)»
+package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
+
+/**
+ * Implementazione dello user defined type [«name»].
+ * <ul>
+ * <li>tipo scalare base: «code.toString()»</li>
+ * <li>modificatori:
+ *   <ul>
+ «FOREACH dataTypeModifiers AS dtm-»
+ *     <li>«dtm»</li>
+ «ENDFOREACH-»
+ *	 </ul>
+ * </li>
+ * </ul>
+ * @author CSI Piemonte
+ * @generated
+ */
+public class «getUDTClassName(this)» implements java.io.Serializable {
+	
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Costruttore vuoto del DTO.
+	 */
+	public «getUDTClassName(this)»() {
+		super();
+	}
+
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(name)»
+	
+	private java.lang.String _value;
+	
+	
+	public java.lang.String getValue(){
+		return _value;
+	}
+	
+	public void setValue(java.lang.String s){
+		_value = s;
+	}
+	
+	«ENDPROTECT»
+
+}
+«ENDFILE»
 «ENDDEFINE»
 
 

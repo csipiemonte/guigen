@@ -25,6 +25,20 @@ java.lang.Integer=«getTypeConverterJavaPackage(this)».CsiNumericConverter
 java.lang.Long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
 java.lang.Float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
 java.lang.Double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+
+########################################################################
+### UDT converters
+########################################################################
+
+«LET (List[Type])getAllTypes(this) AS allTypes-»
+«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
+«FOREACH udtTypes AS currUDT-»
+«getUDTFQN(currUDT, this)»=«getTypeConverterJavaPackage(this)».«getUDTClassName(currUDT)»Converter
+
+«ENDFOREACH-»
+«ENDLET-»
+«ENDLET-»
+
 «ENDFILE»
 «ENDDEFINE»
 
@@ -39,8 +53,78 @@ STRUTS2 CUSTOM TYPE CONVERTER CLASSES
 «REM»Genera le classi dei convertitori«ENDREM»
 «DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR this»
+	«EXPAND udtConverters FOR this»
 «ENDDEFINE»
 
+«DEFINE udtConverters FOR GUIModel»
+«LET (List[Type])getAllTypes(this) AS allTypes-»
+	«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
+		«EXPAND udtConverterClassFile(this) FOREACH udtTypes»
+	«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«DEFINE udtConverterClassFile(GUIModel model) FOR SimpleType»
+«FILE getTypeConverterJavaSrcDir(model, true) + "/" + getUDTClassName(this) + "Converter.java"»package «getTypeConverterJavaPackage(model)»;
+
+import java.util.Map;
+
+import «getUDTFQN(this, model)»;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.util.TypeConversionException;
+
+/**
+ * Custom Type Converter per lo user defined type [«name»].
+ * 
+ * @author [GUIGEN]
+ * @generated
+ */
+public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
+
+	/**
+	 * 
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")-»
+		if (values!=null && values.length>0){
+			String s = values[0].trim();
+			«getUDTClassName(this)» val = new «getUDTClassName(this)»();
+			val.setValue(s);
+			return val;
+		}
+		else
+			return null;
+	«ENDPROTECT-»
+	}
+
+	/**
+	 * 
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")-»
+		«getUDTClassName(this)» val = («getUDTClassName(this)»)o;
+		return val==null? "" : (val.getValue()!=null? val.getValue() : "");
+	«ENDPROTECT»
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»Genera la classe per il convertitore numerico«ENDREM»
 «DEFINE numericConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»

@@ -220,7 +220,19 @@ String getModelDTOFQN(ContentPanel cp, boolean forMenu, boolean forHome, GUIMode
 
 String getFullModelDTOClassFile(ContentPanel cp, boolean forMenu, boolean forHome, GUIModel model) :
 	getDTOBaseSrcDir(model)+"/"+getAppModuleAsFolder(cp,false, true)+getModelDTOClassName(cp, forMenu, forHome, model)+".java";
-	 
+
+String getUDTClassName(SimpleType t) : 
+	if (t.userDefined)then 
+		"UDT"+t.name 
+	else
+		"<<errore getUDT ClassName: "+t.name+" non è userDefined!>>";
+
+String getUDTFQN(SimpleType t, GUIModel model) :
+		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(t,false,true)+getUDTClassName(t);
+		
+String getFullUDTClassFile(SimpleType t, GUIModel model) :
+	getDTOBaseSrcDir(model)+"/"+getTypeNSAsFolder(t,false,true)+getUDTClassName(t)+".java";
+
 /// MENU
 String getStrutsMenuClassName(GUIModel model) :
 	"MenuAction";
@@ -451,11 +463,16 @@ String toJavaSimpleType(Type type) :
 	else 
   		"???";
 
+String toJavaSimpleUDType(SimpleType t, GUIModel model) :
+	getUDTFQN(t, model);
+
 String toJavaType(Type type, GUIModel model) :
 	if (type==null) then
 		"void"
-	else if (type.metaType==SimpleType) then
+	else if (type.metaType==SimpleType && !((SimpleType)type).userDefined) then
 		toJavaSimpleType(type)
+	else if (type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+		toJavaSimpleUDType((SimpleType)type, model)		
 	else if (type.metaType==ComplexType) then
 		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg((ComplexType)type,false,true)+type.name.toFirstUpper() 
 	else 
@@ -464,8 +481,10 @@ String toJavaType(Type type, GUIModel model) :
 String defaultInitVal(Type type, GUIModel model) :
 	if(type==null) then
 	  "null"
-	else if(type.metaType==SimpleType) then
+	else if(type.metaType==SimpleType && !((SimpleType)type).userDefined) then
 	  defaultSimpleInitVal(type)
+	else if(type.metaType==SimpleType && ((SimpleType)type).userDefined) then
+	  "null"
 	else if(type.metaType==TypedArray) then
 	  "new java.util.ArrayList<"+toJavaType(((TypedArray)type).componentType, model)+">()"
 	else
@@ -532,11 +551,11 @@ String getAppModuleAsFolder(ContentPanel cp, boolean prependSlash, boolean appen
 	let parent = cp.eContainer :
 		(parent.metaType==AppModule ? (prependSlash ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendSlash? "/": "") : "" );
 
-String getTypeNSAsPkg(ComplexType ct, boolean prependDot, boolean appendDot) : 
+String getTypeNSAsPkg(Type ct, boolean prependDot, boolean appendDot) : 
 	let parent = ct.eContainer :
 		(parent.metaType==TypeNamespace ? (prependDot ? "." :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "." :"") : "" );		
 
-String getTypeNSAsFolder(ComplexType ct, boolean prependDot, boolean appendDot) : 
+String getTypeNSAsFolder(Type ct, boolean prependDot, boolean appendDot) : 
 	let parent = ct.eContainer :
 		(parent.metaType==TypeNamespace ? (prependDot ? "/" :"")+((AppModule)parent).name.toLowerCase()+(appendDot ? "/" :"") : "" );		
 
