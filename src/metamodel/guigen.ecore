@@ -1074,7 +1074,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//SimpleTypeCodes">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="codice che serve per discriminare il tipo base specifico."/>
+        <details key="documentation" value="Codice che serve per discriminare il tipo base (scalare) specifico.&#xD;&#xA;Se &amp;egrave; impostato &lt;i>userDefined&lt;/i> a false allora il tipo&#xD;&#xA;corrisponde ad un tipo base del linguaggio host (es int, java.lang.Double).&#xD;&#xA;Se invece &lt;i>userDefined&lt;/i> &amp;egrave; impostato a true, viene generato&#xD;&#xA;un nuovo tipo di dato astratto basato sul tipo scalare corrispondente e &#xD;&#xA;nel quale &amp;egrave; possibile specificare meglio il dominio di valori ammessi e&#xD;&#xA;alcune caratteristiche di formattazione.&#xD;&#xA;"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nillable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -1085,12 +1085,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="userDefined" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Se impostato a true, il tipo ammette il vlaore &lt;i>null&lt;/i> nel suo dominio."/>
+        <details key="documentation" value="Se impostato a true viene generata una classe che rappresenta il tipo di dato&#xD;&#xA;e everr&amp;agrave; utilizzata questa classe al posto del tipo scalare corrispondente,&#xD;&#xA;che sar&amp;agrave; utilizzato come contenitore del dato internamente alla classe."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataTypeModifiers" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHintMsg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Utilizzato solo se &lt;i>userDefined&lt;/i> = true.&#xD;&#xA;Permette di specificare il tipo di dato, in termini di restrizioni sul dominio&#xD;&#xA;di valori ammessi, opzioni di formattazione etc.&#xD;&#xA;&#xD;&#xA;[[TODO: documentare sintassi ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHintMsg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Utilizzato solo se &lt;i>userDefined&lt;/i> == true.&#xD;&#xA;Permette di specificare il messaggio che deve essere utilizzato per descrivere&#xD;&#xA;il range di valori ammessi. Può essere utilizzato, a seconda delle cartucce di &#xD;&#xA;generazione, come tooltip oppure come messaggio di errore in caso di &#xD;&#xA;immissione di un valore scorretto."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComplexType" eSuperTypes="#//Type">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

@@ -44,7 +44,14 @@ public interface SimpleType extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * codice che serve per discriminare il tipo base specifico.
+	 * Codice che serve per discriminare il tipo base (scalare) specifico.
+	 * Se &egrave; impostato <i>userDefined</i> a false allora il tipo
+	 * corrisponde ad un tipo base del linguaggio host (es int, java.lang.Double).
+	 * Se invece <i>userDefined</i> &egrave; impostato a true, viene generato
+	 * un nuovo tipo di dato astratto basato sul tipo scalare corrispondente e 
+	 * nel quale &egrave; possibile specificare meglio il dominio di valori ammessi e
+	 * alcune caratteristiche di formattazione.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see it.csi.mddtools.guigen.SimpleTypeCodes
@@ -101,7 +108,9 @@ public interface SimpleType extends Type {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Se impostato a true, il tipo ammette il vlaore <i>null</i> nel suo dominio.
+	 * Se impostato a true viene generata una classe che rappresenta il tipo di dato
+	 * e everr&agrave; utilizzata questa classe al posto del tipo scalare corrispondente,
+	 * che sar&agrave; utilizzato come contenitore del dato internamente alla classe.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>User Defined</em>' attribute.
 	 * @see #setUserDefined(boolean)
@@ -130,6 +139,13 @@ public interface SimpleType extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Utilizzato solo se <i>userDefined</i> = true.
+	 * Permette di specificare il tipo di dato, in termini di restrizioni sul dominio
+	 * di valori ammessi, opzioni di formattazione etc.
+	 * 
+	 * [[TODO: documentare sintassi ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Data Type Modifiers</em>' attribute list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleType_DataTypeModifiers()
 	 * @model
@@ -145,6 +161,13 @@ public interface SimpleType extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Utilizzato solo se <i>userDefined</i> == true.
+	 * Permette di specificare il messaggio che deve essere utilizzato per descrivere
+	 * il range di valori ammessi. Può essere utilizzato, a seconda delle cartucce di 
+	 * generazione, come tooltip oppure come messaggio di errore in caso di 
+	 * immissione di un valore scorretto.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Edit Hint Msg</em>' attribute.
 	 * @see #setEditHintMsg(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleType_EditHintMsg()
