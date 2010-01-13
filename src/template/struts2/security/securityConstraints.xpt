@@ -86,15 +86,23 @@
 «ENDDEFINE»
 
 «DEFINE uiDummyConstraintNew(GUIModel model, String pBehavior, ContentPanel cp, String contextPrefix) FOR Widget-»
-«LET this AS parent-»
-«LET (Widget)parent AS parentWidget-»
-«LET pBehavior!="VISIB" ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior-»
-«LET pBehavior!="VISIB" ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior-»
-			DummyUISecConstraint.«pBehavior=="VISIB" ? "ALWAYS_VISIBLE_UI_CONSTRAINT" : "ALWAYS_ON_UI_CONSTRAINT"»;
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
+«LET this AS parent»
+«REM»«IF parent.metaType.(Widget)»«ENDREM»
+«LET (Widget)parent AS parentWidget»
+«LET pBehavior!="VISIB" ? "ONOFF_CONSTRAINED_BEHAVIOR" : "VISIB_CONSTRAINED_BEHAVIOR" AS behavior»
+«LET pBehavior!="VISIB" ? (parentWidget.defaultEnabled) : (parentWidget.defaultVisible) AS defaultBehavior»
+ 			new DummyUISecConstraint(
+ 				"«cp.name»",
+ 				"«getFullID(parentWidget, contextPrefix)»",
+ 				UISecConstraint.«behavior»,
+ 				«defaultBehavior»,
+ 				true
+ 			);
+«ENDLET»
+«ENDLET»
+«ENDLET»
+«REM»«ENDIF»«ENDREM»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CustomSecurityConstraint»
