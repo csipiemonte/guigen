@@ -36,6 +36,7 @@
 «FILE getFullUDTClassFile(this,model)»
 package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
 
+
 /**
  * Implementazione dello user defined type [«name»].
  * <ul>
@@ -51,7 +52,7 @@ package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
  * @author CSI Piemonte
  * @generated
  */
-public class «getUDTClassName(this)» implements java.io.Serializable {
+public class «getUDTClassName(this)» implements java.io.Serializable, Comparable {
 	
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
 	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
@@ -65,6 +66,15 @@ public class «getUDTClassName(this)» implements java.io.Serializable {
 		super();
 	}
 
+	/**
+	 * Costruttore per valore del DTO.
+	 */
+	public «getUDTClassName(this)»(«toJavaSimpleType(this)» v) {
+		super();
+		_value = v;
+	}
+
+
 	«LET toJavaSimpleType(this) AS javaType-»
 	private «javaType» _value;
 	
@@ -75,6 +85,70 @@ public class «getUDTClassName(this)» implements java.io.Serializable {
 	public void setValue(«javaType» s){
 		_value = s;
 	}
+	
+
+	/**
+	 * implementazione del confronto di uguaglianza tra due istanze
+	 * di «getUDTClassName()». 
+	 */
+	public boolean equals(Object other) {
+		// un oggetto nullo e' distinto da tutti gli altri
+		if (other == null)
+			return false;
+		// un oggetto di tipo differente non puo' essere uguale
+		if (!(other instanceof «getUDTClassName()»))
+			return false;
+		«getUDTClassName()» otherSpecific = («getUDTClassName()»)other;
+		// un valore nullo non e' uguale ad un valore non nullo
+		if ((_value == null && otherSpecific.getValue() != null) ||
+			(_value != null && otherSpecific.getValue() == null))
+			return false;
+		// valori entrambi non nulli: posso confrontare
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"equalslogic")»
+		// TODO inserire qui la logica specifica di confronto
+		return _value.equals(otherSpecific.getValue());
+		«ENDPROTECT»
+	}
+
+	/**
+	 * implementazione della comparazione quantitativa tra due istanze
+	 * di «getUDTClassName()». 
+	 */
+	public int compareTo(Object other) {
+		// un oggetto nullo e' distinto da tutti gli altri e per convenzione li precede
+		if (other == null)
+			return +1;
+		// un oggetto di tipo differente non puo' essere confrontato
+		if (!(other instanceof «getUDTClassName()»))
+			throw new IllegalArgumentException("impossibile confrontare un «getUDTClassName()» con "+other.getClass());
+		«getUDTClassName()» otherSpecific = («getUDTClassName()»)other;
+		// un valore nullo precede un valore non nullo
+		if (_value == null && otherSpecific.getValue() != null)
+			return -1;
+		if (_value != null && otherSpecific.getValue() == null)
+			return +1;
+		// due valori nulli sono uguali
+		if (_value == null && otherSpecific.getValue() == null)
+			return 0;
+		// valori entrambi non nulli: posso confrontare
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"compareTologic")»
+		// TODO inserire qui la logica specifica di confronto
+		return _value.compareTo(otherSpecific.getValue());
+		«ENDPROTECT»
+	}
+
+	public int hashCode() {
+		return _value==null? 0 : _value.hashCode();
+	}
+
+	public String toString() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"toString")»
+		// TODO inserire qui la logica specifica di rappresentazione a stringa
+		return "" + _value;
+		«ENDPROTECT»
+		
+	}
+
 	
 	«ENDLET-»
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTFQN(this, model)+"extra_methods")»
