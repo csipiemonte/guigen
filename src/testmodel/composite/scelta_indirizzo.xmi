@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="ASCII"?>
-<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" name="sceltaIndirizzo">
+<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" name="sceltaIndirizzo">
   <panel xsi:type="guigen:FormPanel" name="pIndirizzo" label="Indirizzo">
     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
     <subpanels xsi:type="guigen:WidgetsPanel" name="pSceltaInd">
       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
       <widgets xsi:type="guigen:ComboBox" name="cbRegione" label="Regione" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
+          <command xsi:type="guigen:NOPCommand"/>
+        </eventHandlers>
         <databinding appData="//@appDataDefs/@appData.3" path="codRegione"/>
         <multiDataBinding appData="//@appDataDefs/@appData.0"/>
       </widgets>
       <widgets xsi:type="guigen:ComboBox" name="cbProvincia" label="Provincia" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
+          <command xsi:type="guigen:NOPCommand"/>
+        </eventHandlers>
         <databinding appData="//@appDataDefs/@appData.3" path="codProvincia"/>
         <multiDataBinding appData="//@appDataDefs/@appData.1"/>
       </widgets>
       <widgets xsi:type="guigen:ComboBox" name="cbComune" label="Comune" dataType="//@typeDefs/@types.14" keySelector="cod" valueSelector="nome">
+        <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
+          <command xsi:type="guigen:NOPCommand"/>
+        </eventHandlers>
         <databinding appData="//@appDataDefs/@appData.3" path="codComune"/>
         <multiDataBinding appData="//@appDataDefs/@appData.2"/>
       </widgets>

@@ -973,9 +973,9 @@ String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
 // [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 String getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(findParentContentPanel(cb)) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :

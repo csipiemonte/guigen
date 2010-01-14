@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" name="datiAnag">
+<guigen:PanelDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../../metamodel/guigen.ecore" name="datiAnag">
   <panel xsi:type="guigen:FormPanel" name="pDtAnag" label="Dati anagrafici">
     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
     <subpanels xsi:type="guigen:WidgetsPanel" name="pDatiAnag" label="Dati anagrafici">
@@ -11,6 +11,13 @@
         <databinding appData="//@appDataDefs/@appData.0" path="cognome"/>
       </widgets>
       <widgets xsi:type="guigen:PlainText" name="txtNotaDatiAnag" label="Nota:" dataType="//@typeDefs/@types.7" staticText="I dati anagrafici devono essere reali"/>
+      <widgets xsi:type="guigen:RadioButtons" name="rbsConfermaDati" label="dati confermati" dataType="//@typeDefs/@types.7">
+        <eventHandlers eventType="VALUE_CHANGED">
+          <command xsi:type="guigen:NOPCommand"/>
+        </eventHandlers>
+        <radio name="rbSi" label="si" value="si"/>
+        <radio name="rbNo" label="no" value="no"/>
+      </widgets>
     </subpanels>
     <subpanels xsi:type="guigen:CommandPanel" name="pCmdDatiAnag">
       <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
