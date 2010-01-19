@@ -412,29 +412,30 @@ nel panel def (use)
 	«LET cp AS parentCP-»
 	«LET parentCP.name AS containerName-»
 	«LET (this.pDefUse != null ? this.pDefUse.panelDef.panel : (findParentPanelDef().panel)) AS pDefRootPanel-»
+	«LET this.pDefUse != null ? this.pDefUse.name : contextPrefix AS actualContextPrefix-»
 	// PDef State Command begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] act_«actionsVarName»_«actionNumber»_on = new String[]{
     «FOREACH this.goTo.widgetsOn AS currWidgOn SEPARATOR ","-»
-    "«getFullID(currWidgOn, contextPrefix)»"
+    "«getFullID(currWidgOn, actualContextPrefix)»"
     «ENDFOREACH-»
     };
     
     String[] act_«actionsVarName»_«actionNumber»_off = new String[]{
     «FOREACH findAllWidgetsInPanel(pDefRootPanel).select(w| !this.goTo.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
-    "«getFullID((Widget)currWidgOff,contextPrefix)»"
+    "«getFullID((Widget)currWidgOff, actualContextPrefix)»"
     «ENDFOREACH-»
     };
     
     String[] act_«actionsVarName»_«actionNumber»_show = new String[]{
     «FOREACH this.goTo.widgetsVisible AS currWidgVisible SEPARATOR ","-»
-    "«getFullID(currWidgVisible, contextPrefix)»"
+    "«getFullID(currWidgVisible, actualContextPrefix)»"
     «ENDFOREACH-»
     };
     
     String[] act_«actionsVarName»_«actionNumber»_hide = new String[]{
     «FOREACH findAllWidgetsInPanel(pDefRootPanel).select(w| !this.goTo.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
-    "«getFullID((Widget)currWidgHidden, contextPrefix)»"
+    "«getFullID((Widget)currWidgHidden, actualContextPrefix)»"
     «ENDFOREACH-»
     };
     
@@ -447,6 +448,7 @@ nel panel def (use)
 		act_«actionsVarName»_«actionNumber»_hide);
 		«ENDLET-»
 	//PDef State Command end
+	«ENDLET-»
 	«ENDLET-»
 	«ENDLET-»
 	«ENDLET-»
