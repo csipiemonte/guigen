@@ -174,8 +174,25 @@ boolean isNullOrEmpty(String s) : JAVA
 //	fld==null ? db.appData.type.metaType==TypedArray : fld.metaType==TypedArray;
 
 ////////////////////////////////////////////////////////////
+/// Lettura properties di generazione					 /// 
+////////////////////////////////////////////////////////////
+String getGenerateAppModulesProperty() :
+	""+getProperty("generate-appmodules"); 
+
+boolean mustGenerateContentPanel(ContentPanel cp) :
+    let list = getGenerateAppModulesProperty() :
+    
+	if cp.eContainer.metaType==AppModule then
+		list.contains(((AppModule)(cp.eContainer)).name)
+	else
+		true
+	;
+
+////////////////////////////////////////////////////////////
 /// Estensioni java                                       //
 ////////////////////////////////////////////////////////////
+String getProperty(String name) : JAVA
+  org.openarchitectureware.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
 
 List getAllContentPanels(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllContentPanels(it.csi.mddtools.guigen.GUIModel);

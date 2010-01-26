@@ -4,7 +4,7 @@
 
 
 «DEFINE springBEClasses FOR GUIModel-»
-«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this)-»
+«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this).select(x|mustGenerateContentPanel((ContentPanel)x))-»
 
 «FILE getSpringBEJavaFile()»
 package «getBaseJavaPackage()».business;
