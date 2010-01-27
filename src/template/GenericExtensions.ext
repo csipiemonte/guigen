@@ -177,13 +177,16 @@ boolean isNullOrEmpty(String s) : JAVA
 /// Lettura properties di generazione					 /// 
 ////////////////////////////////////////////////////////////
 String getGenerateAppModulesProperty() :
-	""+getProperty("generate-appmodules"); 
+	if getProperty("generate-appmodules") != null then
+		""+getProperty("generate-appmodules")
+	else
+		""; 
 
 boolean mustGenerateContentPanel(ContentPanel cp) :
     let list = getGenerateAppModulesProperty() :
     
 	if cp.eContainer.metaType==AppModule then
-		list.contains(((AppModule)(cp.eContainer)).name)
+		list==null || list=="" || list.contains(((AppModule)(cp.eContainer)).name)
 	else
 		true
 	;
