@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#isInitFields <em>Init Fields</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getExtends <em>Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,16 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 	 * @ordered
 	 */
 	protected boolean initFields = INIT_FIELDS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtends()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComplexType extends_;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,6 +136,44 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ComplexType getExtends() {
+		if (extends_ != null && extends_.eIsProxy()) {
+			InternalEObject oldExtends = (InternalEObject)extends_;
+			extends_ = (ComplexType)eResolveProxy(oldExtends);
+			if (extends_ != oldExtends) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.COMPLEX_TYPE__EXTENDS, oldExtends, extends_));
+			}
+		}
+		return extends_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexType basicGetExtends() {
+		return extends_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtends(ComplexType newExtends) {
+		ComplexType oldExtends = extends_;
+		extends_ = newExtends;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMPLEX_TYPE__EXTENDS, oldExtends, extends_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -146,6 +195,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 				return getFields();
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
 				return isInitFields();
+			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
+				if (resolve) return getExtends();
+				return basicGetExtends();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,6 +218,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
 				setInitFields((Boolean)newValue);
 				return;
+			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
+				setExtends((ComplexType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -184,6 +239,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
 				setInitFields(INIT_FIELDS_EDEFAULT);
 				return;
+			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
+				setExtends((ComplexType)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -200,6 +258,8 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 				return fields != null && !fields.isEmpty();
 			case GuigenPackage.COMPLEX_TYPE__INIT_FIELDS:
 				return initFields != INIT_FIELDS_EDEFAULT;
+			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
+				return extends_ != null;
 		}
 		return super.eIsSet(featureID);
 	}

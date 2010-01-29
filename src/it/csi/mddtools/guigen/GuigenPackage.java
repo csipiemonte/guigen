@@ -4102,13 +4102,22 @@ public interface GuigenPackage extends EPackage {
 	int COMPLEX_TYPE__INIT_FIELDS = TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Extends</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__EXTENDS = TYPE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Complex Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPLEX_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+	int COMPLEX_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9711,6 +9720,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getComplexType_InitFields();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ComplexType#getExtends <em>Extends</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Extends</em>'.
+	 * @see it.csi.mddtools.guigen.ComplexType#getExtends()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EReference getComplexType_Extends();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypedArray <em>Typed Array</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13476,6 +13496,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMPLEX_TYPE__INIT_FIELDS = eINSTANCE.getComplexType_InitFields();
+
+		/**
+		 * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE__EXTENDS = eINSTANCE.getComplexType_Extends();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypedArrayImpl <em>Typed Array</em>}' class.

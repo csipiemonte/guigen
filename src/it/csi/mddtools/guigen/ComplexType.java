@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#isInitFields <em>Init Fields</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComplexType#getExtends <em>Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,5 +85,31 @@ public interface ComplexType extends Type {
 	 * @generated
 	 */
 	void setInitFields(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Extends</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Extends</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extends</em>' reference.
+	 * @see #setExtends(ComplexType)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType_Extends()
+	 * @model
+	 * @generated
+	 */
+	ComplexType getExtends();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ComplexType#getExtends <em>Extends</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Extends</em>' reference.
+	 * @see #getExtends()
+	 * @generated
+	 */
+	void setExtends(ComplexType value);
 
 } // ComplexType

@@ -66,6 +66,7 @@ public class ComplexTypeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addInitFieldsPropertyDescriptor(object);
+			addExtendsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -88,6 +89,28 @@ public class ComplexTypeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Extends feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExtendsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComplexType_extends_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComplexType_extends_feature", "_UI_ComplexType_type"),
+				 GuigenPackage.Literals.COMPLEX_TYPE__EXTENDS,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
