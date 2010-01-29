@@ -52,28 +52,18 @@ public interface TableCustomizationPDefVal extends PDefParamVal {
 	EList<ExtraColumn> getExtraCols();
 
 	/**
-	 * Returns the value of the '<em><b>Hidden Cols</b></em>' reference.
+	 * Returns the value of the '<em><b>Hidden Cols</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Column}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Elenco delle colonne della <b>Table</b> base che devono essere nascoste.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Hidden Cols</em>' reference.
-	 * @see #setHiddenCols(Column)
+	 * @return the value of the '<em>Hidden Cols</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTableCustomizationPDefVal_HiddenCols()
 	 * @model
 	 * @generated
 	 */
-	Column getHiddenCols();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols <em>Hidden Cols</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Hidden Cols</em>' reference.
-	 * @see #getHiddenCols()
-	 * @generated
-	 */
-	void setHiddenCols(Column value);
+	EList<Column> getHiddenCols();
 
 } // TableCustomizationPDefVal

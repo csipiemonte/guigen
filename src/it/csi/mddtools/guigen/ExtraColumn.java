@@ -38,7 +38,7 @@ public interface ExtraColumn extends Column {
 	 * <ul>
 	 * <li>se l'attributo non &egrave; impostato la colonna verr&agrave; aggiunta
 	 *        in prima posizione</li>
-	 * <li>se lìattributo &egrave; valorizzato la colonna verr&agrave; inserita dopo
+	 * <li>se l'attributo &egrave; valorizzato la colonna verr&agrave; inserita dopo
 	 * la colonna indicata</li>
 	 * </ul>
 	 * <!-- end-model-doc -->

@@ -5954,7 +5954,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(tableCustomizationPDefValEClass, TableCustomizationPDefVal.class, "TableCustomizationPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTableCustomizationPDefVal_ExtraCols(), this.getExtraColumn(), null, "extraCols", null, 0, -1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTableCustomizationPDefVal_HiddenCols(), this.getColumn(), null, "hiddenCols", null, 0, 1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTableCustomizationPDefVal_HiddenCols(), this.getColumn(), null, "hiddenCols", null, 0, -1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

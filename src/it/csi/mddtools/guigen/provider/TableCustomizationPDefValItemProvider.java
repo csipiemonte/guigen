@@ -7,11 +7,20 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TableCustomizationPDefVal;
+import it.csi.mddtools.guigen.TableCustomizationParam;
+import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.genutils.EditUtils;
+import it.csi.mddtools.guigen.genutils.GenUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -26,6 +35,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -72,22 +82,46 @@ public class TableCustomizationPDefValItemProvider
 	 * This adds a property descriptor for the Hidden Cols feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addHiddenColsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TableCustomizationPDefVal_hiddenCols_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TableCustomizationPDefVal_hiddenCols_feature", "_UI_TableCustomizationPDefVal_type"),
-				 GuigenPackage.Literals.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_TableCustomizationPDefVal_hiddenCols_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_TableCustomizationPDefVal_hiddenCols_feature", "_UI_TableCustomizationPDefVal_type"),
+//				 GuigenPackage.Literals.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_TableCustomizationPDefVal_hiddenCols_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_TableCustomizationPDefVal_hiddenCols_feature",
+						"_UI_TableCustomizationPDefVal_type"),
+				GuigenPackage.eINSTANCE.getTableCustomizationPDefVal_HiddenCols(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ArrayList<Column> result = new ArrayList<Column>();
+				TableCustomizationPDefVal pdv = (TableCustomizationPDefVal)object;
+				TableCustomizationParam param = (TableCustomizationParam)pdv.getParam();
+				if (param != null){
+					Table baseTable = param.getBaseTable();
+					if (baseTable != null && baseTable.getColumnModel()!=null){
+						result.addAll(baseTable.getColumnModel().getColumns());
+					}
+				}
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -135,11 +169,14 @@ public class TableCustomizationPDefValItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_TableCustomizationPDefVal_type");
+		TableCustomizationPDefVal pval = (TableCustomizationPDefVal)object;
+		String label = "";
+		label += EditUtils.formatPDefParamVal(pval);
+		return getString("_UI_TableCustomizationPDefVal_type")+ " "+ label;
 	}
 
 	/**

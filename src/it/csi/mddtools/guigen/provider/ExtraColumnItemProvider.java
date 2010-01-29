@@ -7,10 +7,21 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ExtraColumn;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PDefUseConfig;
+import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.PanelDefUse;
+import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TableCustomizationPDefVal;
+import it.csi.mddtools.guigen.TableCustomizationParam;
+import it.csi.mddtools.guigen.Widget;
+import it.csi.mddtools.guigen.genutils.GenUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -23,6 +34,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -69,22 +81,47 @@ public class ExtraColumnItemProvider
 	 * This adds a property descriptor for the Insert After feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addInsertAfterPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtraColumn_insertAfter_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtraColumn_insertAfter_feature", "_UI_ExtraColumn_type"),
-				 GuigenPackage.Literals.EXTRA_COLUMN__INSERT_AFTER,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ExtraColumn_insertAfter_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ExtraColumn_insertAfter_feature", "_UI_ExtraColumn_type"),
+//				 GuigenPackage.Literals.EXTRA_COLUMN__INSERT_AFTER,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ExtraColumn_insertAfter_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ExtraColumn_insertAfter_feature",
+						"_UI_ExtraColumn_type"),
+				GuigenPackage.eINSTANCE.getExtraColumn_InsertAfter(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ArrayList<Column> result = new ArrayList<Column>();
+				ExtraColumn ecol = (ExtraColumn)object;
+				TableCustomizationPDefVal pdv = (TableCustomizationPDefVal)ecol.eContainer();
+				TableCustomizationParam param = (TableCustomizationParam)(pdv.getParam());
+				if (param != null){
+					Table baseTable = param.getBaseTable();
+					if (baseTable != null && baseTable.getColumnModel()!=null){
+						result.addAll(baseTable.getColumnModel().getColumns());
+					}
+				}
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -102,14 +139,15 @@ public class ExtraColumnItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ExtraColumn)object).getSelector();
-		return label == null || label.length() == 0 ?
-			getString("_UI_ExtraColumn_type") :
-			getString("_UI_ExtraColumn_type") + " " + label;
+		ExtraColumn ecol = ((ExtraColumn)object); 
+		String label = "";
+		label += ""+ecol.getLabel() +
+			"("+(ecol.getInsertAfter()==null? "before all" :"after "+(ecol.getInsertAfter().getLabel()) )+")";
+		return getString("_UI_ExtraColumn_type") + " " + label;
 	}
 
 	/**

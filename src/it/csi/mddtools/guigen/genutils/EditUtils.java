@@ -22,8 +22,12 @@ import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.RoleMappingPDefVal;
 import it.csi.mddtools.guigen.RoleMappingParam;
 import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TableCustomizationPDefVal;
+import it.csi.mddtools.guigen.TableCustomizationParam;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeDefMappingPDefVal;
+import it.csi.mddtools.guigen.TypeDefMappingParam;
 import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.UCMappingPDefVal;
@@ -48,6 +52,8 @@ public static String formatPDefParamVal(PDefParamVal pdv){
 		return formatPDefParamVal((RoleMappingPDefVal)pdv);
 	else if (pdv instanceof UCMappingPDefVal)
 		return formatPDefParamVal((UCMappingPDefVal)pdv);
+	else if (pdv instanceof TableCustomizationPDefVal)
+		return formatPDefParamVal((TableCustomizationPDefVal)pdv);
 	else return "<unknown PDDefParamVal class>";
 }
 	
@@ -81,9 +87,28 @@ public static String formatPDefParamVal(ActorMappingPDefVal pdv){
 
 public static String formatPDefParamVal(TypeDefMappingPDefVal pdv){
 	Type actTD = pdv.getActualTypeDef();
-	AppDataMappingParam param = (AppDataMappingParam)pdv.getParam();
+	TypeDefMappingParam param = (TypeDefMappingParam)pdv.getParam();
 	return  (param != null? param.getName() : "???") + "->"+
 			(actTD != null? formatType(actTD) : "???");
+}
+
+public static String formatPDefParamVal(TableCustomizationPDefVal pdv){
+	 
+	TableCustomizationParam param = (TableCustomizationParam)pdv.getParam();
+	if (param != null){
+	Table table = param.getBaseTable();
+	String s = "";
+	s += (param != null? param.getName() : "???") + "->"+
+	(table!=null ? table.getName() : "???");
+	s+= "(";
+	s+= "+"+pdv.getExtraCols().size()+" new columns, ";
+	s += "-"+pdv.getHiddenCols().size()+" removed columns";
+	s+= ")";
+	return s;
+	}
+	else{
+		return"???";
+	}
 }
 
 //////////////////////////////////////////////////////////////
@@ -164,7 +189,8 @@ public static ArrayList<PDefParam> findPDefCompatibleParams(PDefParamVal pdpv) {
 					(pdpv instanceof AppDataMappingPDefVal && currParam instanceof AppDataMappingParam)||
 					(pdpv instanceof ActorMappingPDefVal && currParam instanceof ActorMappingParam)||
 					(pdpv instanceof RoleMappingPDefVal && currParam instanceof RoleMappingParam)||
-					(pdpv instanceof UCMappingPDefVal && currParam instanceof UseCaseMappingParam)
+					(pdpv instanceof UCMappingPDefVal && currParam instanceof UseCaseMappingParam)||
+					(pdpv instanceof TableCustomizationPDefVal && currParam instanceof TableCustomizationParam)
 				)
 				ris.add(currParam);
 		}

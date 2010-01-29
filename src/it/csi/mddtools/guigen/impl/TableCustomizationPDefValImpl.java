@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -52,14 +53,14 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 	protected EList<ExtraColumn> extraCols;
 
 	/**
-	 * The cached value of the '{@link #getHiddenCols() <em>Hidden Cols</em>}' reference.
+	 * The cached value of the '{@link #getHiddenCols() <em>Hidden Cols</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getHiddenCols()
 	 * @generated
 	 * @ordered
 	 */
-	protected Column hiddenCols;
+	protected EList<Column> hiddenCols;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,37 +98,11 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Column getHiddenCols() {
-		if (hiddenCols != null && hiddenCols.eIsProxy()) {
-			InternalEObject oldHiddenCols = (InternalEObject)hiddenCols;
-			hiddenCols = (Column)eResolveProxy(oldHiddenCols);
-			if (hiddenCols != oldHiddenCols) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS, oldHiddenCols, hiddenCols));
-			}
+	public EList<Column> getHiddenCols() {
+		if (hiddenCols == null) {
+			hiddenCols = new EObjectResolvingEList<Column>(Column.class, this, GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS);
 		}
 		return hiddenCols;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Column basicGetHiddenCols() {
-		return hiddenCols;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setHiddenCols(Column newHiddenCols) {
-		Column oldHiddenCols = hiddenCols;
-		hiddenCols = newHiddenCols;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS, oldHiddenCols, hiddenCols));
 	}
 
 	/**
@@ -155,8 +130,7 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS:
 				return getExtraCols();
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS:
-				if (resolve) return getHiddenCols();
-				return basicGetHiddenCols();
+				return getHiddenCols();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,7 +149,8 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 				getExtraCols().addAll((Collection<? extends ExtraColumn>)newValue);
 				return;
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS:
-				setHiddenCols((Column)newValue);
+				getHiddenCols().clear();
+				getHiddenCols().addAll((Collection<? extends Column>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -193,7 +168,7 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 				getExtraCols().clear();
 				return;
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS:
-				setHiddenCols((Column)null);
+				getHiddenCols().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -210,7 +185,7 @@ public class TableCustomizationPDefValImpl extends PDefParamValImpl implements T
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS:
 				return extraCols != null && !extraCols.isEmpty();
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS:
-				return hiddenCols != null;
+				return hiddenCols != null && !hiddenCols.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

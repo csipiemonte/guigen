@@ -7472,7 +7472,7 @@ public interface GuigenPackage extends EPackage {
 	int TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Hidden Cols</b></em>' reference.
+	 * The feature id for the '<em><b>Hidden Cols</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11631,10 +11631,10 @@ public interface GuigenPackage extends EPackage {
 	EReference getTableCustomizationPDefVal_ExtraCols();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols <em>Hidden Cols</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols <em>Hidden Cols</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Hidden Cols</em>'.
+	 * @return the meta object for the reference list '<em>Hidden Cols</em>'.
 	 * @see it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols()
 	 * @see #getTableCustomizationPDefVal()
 	 * @generated
@@ -15068,7 +15068,7 @@ public interface GuigenPackage extends EPackage {
 		EReference TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS = eINSTANCE.getTableCustomizationPDefVal_ExtraCols();
 
 		/**
-		 * The meta object literal for the '<em><b>Hidden Cols</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Hidden Cols</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
