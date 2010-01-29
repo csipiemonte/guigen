@@ -451,6 +451,8 @@ context Table ERROR "Non è stato specificato il binding alla collection per la t
 context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType " + loc() :
 	this.types.select(t|t.metaType == SimpleType && !((SimpleType)t).userDefined).size == 0; 
 
+context TypeNamespace ERROR "E'necessario valorizzare il nome del type namespace:"+loc() :
+	!isNullOrEmpty(this.name); 
 
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su PanelDef

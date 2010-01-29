@@ -7,8 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.ColumnModel;
-import it.csi.mddtools.guigen.GuigenFactory;
+import it.csi.mddtools.guigen.ExtraColumn;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
@@ -17,10 +16,6 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -28,18 +23,16 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ColumnModel} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ExtraColumn} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ColumnModelItemProvider
-	extends ItemProviderAdapter
+public class ExtraColumnItemProvider
+	extends ColumnItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -52,7 +45,7 @@ public class ColumnModelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ColumnModelItemProvider(AdapterFactory adapterFactory) {
+	public ExtraColumnItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -67,72 +60,42 @@ public class ColumnModelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addValueSelectorPropertyDescriptor(object);
+			addInsertAfterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Value Selector feature.
+	 * This adds a property descriptor for the Insert After feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addValueSelectorPropertyDescriptor(Object object) {
+	protected void addInsertAfterPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ColumnModel_valueSelector_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ColumnModel_valueSelector_feature", "_UI_ColumnModel_type"),
-				 GuigenPackage.Literals.COLUMN_MODEL__VALUE_SELECTOR,
+				 getString("_UI_ExtraColumn_insertAfter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtraColumn_insertAfter_feature", "_UI_ExtraColumn_type"),
+				 GuigenPackage.Literals.EXTRA_COLUMN__INSERT_AFTER,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.COLUMN_MODEL__COLUMNS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns ColumnModel.gif.
+	 * This returns ExtraColumn.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ColumnModel"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ExtraColumn"));
 	}
 
 	/**
@@ -143,10 +106,10 @@ public class ColumnModelItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ColumnModel)object).getValueSelector();
+		String label = ((ExtraColumn)object).getSelector();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ColumnModel_type") :
-			getString("_UI_ColumnModel_type") + " " + label;
+			getString("_UI_ExtraColumn_type") :
+			getString("_UI_ExtraColumn_type") + " " + label;
 	}
 
 	/**
@@ -160,12 +123,9 @@ public class ColumnModelItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ColumnModel.class)) {
-			case GuigenPackage.COLUMN_MODEL__VALUE_SELECTOR:
+		switch (notification.getFeatureID(ExtraColumn.class)) {
+			case GuigenPackage.EXTRA_COLUMN__INSERT_AFTER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.COLUMN_MODEL__COLUMNS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -181,27 +141,6 @@ public class ColumnModelItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COLUMN_MODEL__COLUMNS,
-				 GuigenFactory.eINSTANCE.createColumn()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.COLUMN_MODEL__COLUMNS,
-				 GuigenFactory.eINSTANCE.createExtraColumn()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

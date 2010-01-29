@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.PDefUseConfig;
+import it.csi.mddtools.guigen.TableCustomizationPDefVal;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,27 +17,25 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PDefUseConfig} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TableCustomizationPDefVal} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PDefUseConfigItemProvider
-	extends ItemProviderAdapter
+public class TableCustomizationPDefValItemProvider
+	extends PDefParamValItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -50,7 +48,7 @@ public class PDefUseConfigItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PDefUseConfigItemProvider(AdapterFactory adapterFactory) {
+	public TableCustomizationPDefValItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,8 +63,31 @@ public class PDefUseConfigItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addHiddenColsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Hidden Cols feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addHiddenColsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TableCustomizationPDefVal_hiddenCols_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TableCustomizationPDefVal_hiddenCols_feature", "_UI_TableCustomizationPDefVal_type"),
+				 GuigenPackage.Literals.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -81,7 +102,7 @@ public class PDefUseConfigItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES);
+			childrenFeatures.add(GuigenPackage.Literals.TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS);
 		}
 		return childrenFeatures;
 	}
@@ -100,14 +121,14 @@ public class PDefUseConfigItemProvider
 	}
 
 	/**
-	 * This returns PDefUseConfig.gif.
+	 * This returns TableCustomizationPDefVal.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PDefUseConfig"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TableCustomizationPDefVal"));
 	}
 
 	/**
@@ -118,7 +139,7 @@ public class PDefUseConfigItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_PDefUseConfig_type");
+		return getString("_UI_TableCustomizationPDefVal_type");
 	}
 
 	/**
@@ -132,8 +153,11 @@ public class PDefUseConfigItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(PDefUseConfig.class)) {
-			case GuigenPackage.PDEF_USE_CONFIG__PARAM_VALUES:
+		switch (notification.getFeatureID(TableCustomizationPDefVal.class)) {
+			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -153,44 +177,8 @@ public class PDefUseConfigItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createAppDataMappingPDefVal()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createTypeDefMappingPDefVal()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createUCMappingPDefVal()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createRoleMappingPDefVal()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createActorMappingPDefVal()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.PDEF_USE_CONFIG__PARAM_VALUES,
-				 GuigenFactory.eINSTANCE.createTableCustomizationPDefVal()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GuigenEditPlugin.INSTANCE;
+				(GuigenPackage.Literals.TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS,
+				 GuigenFactory.eINSTANCE.createExtraColumn()));
 	}
 
 }

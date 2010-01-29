@@ -7289,6 +7289,207 @@ public interface GuigenPackage extends EPackage {
 	int PANEL_DEF_STATES_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TableCustomizationParamImpl <em>Table Customization Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TableCustomizationParamImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationParam()
+	 * @generated
+	 */
+	int TABLE_CUSTOMIZATION_PARAM = 133;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PARAM__NAME = PDEF_PARAM__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Base Table</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PARAM__BASE_TABLE = PDEF_PARAM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Table Customization Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PARAM_FEATURE_COUNT = PDEF_PARAM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ExtraColumnImpl <em>Extra Column</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ExtraColumnImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExtraColumn()
+	 * @generated
+	 */
+	int EXTRA_COLUMN = 134;
+
+	/**
+	 * The feature id for the '<em><b>Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__SELECTOR = COLUMN__SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__LABEL = COLUMN__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Sortable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__SORTABLE = COLUMN__SORTABLE;
+
+	/**
+	 * The feature id for the '<em><b>Editable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__EDITABLE = COLUMN__EDITABLE;
+
+	/**
+	 * The feature id for the '<em><b>Event Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__EVENT_ACTIVE = COLUMN__EVENT_ACTIVE;
+
+	/**
+	 * The feature id for the '<em><b>Editable Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__EDITABLE_FLAG_SELECTOR = COLUMN__EDITABLE_FLAG_SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__MULTI_DATA_BINDING = COLUMN__MULTI_DATA_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Key Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__MULTIDATA_KEY_SELECTOR = COLUMN__MULTIDATA_KEY_SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Value Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__MULTIDATA_VALUE_SELECTOR = COLUMN__MULTIDATA_VALUE_SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Multidata Property Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__MULTIDATA_PROPERTY_SELECTOR = COLUMN__MULTIDATA_PROPERTY_SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Insert After</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__INSERT_AFTER = COLUMN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Extra Column</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN_FEATURE_COUNT = COLUMN_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl <em>Table Customization PDef Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationPDefVal()
+	 * @generated
+	 */
+	int TABLE_CUSTOMIZATION_PDEF_VAL = 135;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PDEF_VAL__PARAM = PDEF_PARAM_VAL__PARAM;
+
+	/**
+	 * The feature id for the '<em><b>Extra Cols</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS = PDEF_PARAM_VAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Hidden Cols</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS = PDEF_PARAM_VAL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Table Customization PDef Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE_CUSTOMIZATION_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7296,7 +7497,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 133;
+	int WIDGET_DATA_TYPE = 136;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -7306,7 +7507,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 134;
+	int UDLRC_SPEC_CONSTANTS = 137;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -7316,7 +7517,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 135;
+	int EVENT_TYPES = 138;
 
 
 	/**
@@ -7327,7 +7528,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 136;
+	int DATA_LIFETIME_TYPE = 139;
 
 
 	/**
@@ -7338,7 +7539,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 137;
+	int SIMPLE_TYPE_CODES = 140;
 
 
 	/**
@@ -7349,7 +7550,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 138;
+	int PORTAL_NAMES = 141;
 
 
 	/**
@@ -7360,7 +7561,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 139;
+	int TARGET_PLATFORM_CODES = 142;
 
 
 	/**
@@ -7371,7 +7572,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 140;
+	int MESSAGE_SEVERITY = 143;
 
 
 	/**
@@ -7382,7 +7583,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 141;
+	int COMMAND_STYLES = 144;
 
 
 	/**
@@ -7393,7 +7594,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 142;
+	int LOGIC_AGGREGATION_TYPES = 145;
 
 
 	/**
@@ -11367,6 +11568,80 @@ public interface GuigenPackage extends EPackage {
 	EReference getPanelDefStates_States();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TableCustomizationParam <em>Table Customization Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Table Customization Param</em>'.
+	 * @see it.csi.mddtools.guigen.TableCustomizationParam
+	 * @generated
+	 */
+	EClass getTableCustomizationParam();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TableCustomizationParam#getBaseTable <em>Base Table</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Base Table</em>'.
+	 * @see it.csi.mddtools.guigen.TableCustomizationParam#getBaseTable()
+	 * @see #getTableCustomizationParam()
+	 * @generated
+	 */
+	EReference getTableCustomizationParam_BaseTable();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ExtraColumn <em>Extra Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Extra Column</em>'.
+	 * @see it.csi.mddtools.guigen.ExtraColumn
+	 * @generated
+	 */
+	EClass getExtraColumn();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ExtraColumn#getInsertAfter <em>Insert After</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Insert After</em>'.
+	 * @see it.csi.mddtools.guigen.ExtraColumn#getInsertAfter()
+	 * @see #getExtraColumn()
+	 * @generated
+	 */
+	EReference getExtraColumn_InsertAfter();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal <em>Table Customization PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Table Customization PDef Val</em>'.
+	 * @see it.csi.mddtools.guigen.TableCustomizationPDefVal
+	 * @generated
+	 */
+	EClass getTableCustomizationPDefVal();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal#getExtraCols <em>Extra Cols</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Extra Cols</em>'.
+	 * @see it.csi.mddtools.guigen.TableCustomizationPDefVal#getExtraCols()
+	 * @see #getTableCustomizationPDefVal()
+	 * @generated
+	 */
+	EReference getTableCustomizationPDefVal_ExtraCols();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols <em>Hidden Cols</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Hidden Cols</em>'.
+	 * @see it.csi.mddtools.guigen.TableCustomizationPDefVal#getHiddenCols()
+	 * @see #getTableCustomizationPDefVal()
+	 * @generated
+	 */
+	EReference getTableCustomizationPDefVal_HiddenCols();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14737,6 +15012,68 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PANEL_DEF_STATES__STATES = eINSTANCE.getPanelDefStates_States();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableCustomizationParamImpl <em>Table Customization Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TableCustomizationParamImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationParam()
+		 * @generated
+		 */
+		EClass TABLE_CUSTOMIZATION_PARAM = eINSTANCE.getTableCustomizationParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Base Table</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE_CUSTOMIZATION_PARAM__BASE_TABLE = eINSTANCE.getTableCustomizationParam_BaseTable();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ExtraColumnImpl <em>Extra Column</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ExtraColumnImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getExtraColumn()
+		 * @generated
+		 */
+		EClass EXTRA_COLUMN = eINSTANCE.getExtraColumn();
+
+		/**
+		 * The meta object literal for the '<em><b>Insert After</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTRA_COLUMN__INSERT_AFTER = eINSTANCE.getExtraColumn_InsertAfter();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl <em>Table Customization PDef Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.TableCustomizationPDefValImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTableCustomizationPDefVal()
+		 * @generated
+		 */
+		EClass TABLE_CUSTOMIZATION_PDEF_VAL = eINSTANCE.getTableCustomizationPDefVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Extra Cols</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS = eINSTANCE.getTableCustomizationPDefVal_ExtraCols();
+
+		/**
+		 * The meta object literal for the '<em><b>Hidden Cols</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS = eINSTANCE.getTableCustomizationPDefVal_HiddenCols();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

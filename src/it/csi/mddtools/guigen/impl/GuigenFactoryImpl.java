@@ -181,6 +181,9 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.PANEL_DEF_STATE: return createPanelDefState();
 			case GuigenPackage.PDEF_STATE_COMMAND: return createPDefStateCommand();
 			case GuigenPackage.PANEL_DEF_STATES: return createPanelDefStates();
+			case GuigenPackage.TABLE_CUSTOMIZATION_PARAM: return createTableCustomizationParam();
+			case GuigenPackage.EXTRA_COLUMN: return createExtraColumn();
+			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL: return createTableCustomizationPDefVal();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1450,6 +1453,36 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public PanelDefStates createPanelDefStates() {
 		PanelDefStatesImpl panelDefStates = new PanelDefStatesImpl();
 		return panelDefStates;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TableCustomizationParam createTableCustomizationParam() {
+		TableCustomizationParamImpl tableCustomizationParam = new TableCustomizationParamImpl();
+		return tableCustomizationParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExtraColumn createExtraColumn() {
+		ExtraColumnImpl extraColumn = new ExtraColumnImpl();
+		return extraColumn;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TableCustomizationPDefVal createTableCustomizationPDefVal() {
+		TableCustomizationPDefValImpl tableCustomizationPDefVal = new TableCustomizationPDefValImpl();
+		return tableCustomizationPDefVal;
 	}
 
 	/**

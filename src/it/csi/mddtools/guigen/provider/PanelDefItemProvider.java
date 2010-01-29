@@ -328,6 +328,11 @@ public class PanelDefItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__PARAMS,
+				 GuigenFactory.eINSTANCE.createTableCustomizationParam()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__APP_DATA_DEFS,
 				 GuigenFactory.eINSTANCE.createApplicationDataDefs()));
 

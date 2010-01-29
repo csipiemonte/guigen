@@ -54,6 +54,7 @@ import it.csi.mddtools.guigen.EndEditCommand;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecCommand;
+import it.csi.mddtools.guigen.ExtraColumn;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.Footer;
@@ -119,6 +120,8 @@ import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.TabSwitcher;
 import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TableCustomizationPDefVal;
+import it.csi.mddtools.guigen.TableCustomizationParam;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
 import it.csi.mddtools.guigen.TextArea;
@@ -1096,6 +1099,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass panelDefStatesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tableCustomizationParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass extraColumnEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tableCustomizationPDefValEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4590,6 +4614,69 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTableCustomizationParam() {
+		return tableCustomizationParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTableCustomizationParam_BaseTable() {
+		return (EReference)tableCustomizationParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExtraColumn() {
+		return extraColumnEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtraColumn_InsertAfter() {
+		return (EReference)extraColumnEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTableCustomizationPDefVal() {
+		return tableCustomizationPDefValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTableCustomizationPDefVal_ExtraCols() {
+		return (EReference)tableCustomizationPDefValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTableCustomizationPDefVal_HiddenCols() {
+		return (EReference)tableCustomizationPDefValEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -5209,6 +5296,16 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		panelDefStatesEClass = createEClass(PANEL_DEF_STATES);
 		createEReference(panelDefStatesEClass, PANEL_DEF_STATES__STATES);
 
+		tableCustomizationParamEClass = createEClass(TABLE_CUSTOMIZATION_PARAM);
+		createEReference(tableCustomizationParamEClass, TABLE_CUSTOMIZATION_PARAM__BASE_TABLE);
+
+		extraColumnEClass = createEClass(EXTRA_COLUMN);
+		createEReference(extraColumnEClass, EXTRA_COLUMN__INSERT_AFTER);
+
+		tableCustomizationPDefValEClass = createEClass(TABLE_CUSTOMIZATION_PDEF_VAL);
+		createEReference(tableCustomizationPDefValEClass, TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS);
+		createEReference(tableCustomizationPDefValEClass, TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5338,6 +5435,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		endEditCommandEClass.getESuperTypes().add(this.getCommand());
 		chkEditStatusCommandEClass.getESuperTypes().add(this.getCommand());
 		pDefStateCommandEClass.getESuperTypes().add(this.getCommand());
+		tableCustomizationParamEClass.getESuperTypes().add(this.getPDefParam());
+		extraColumnEClass.getESuperTypes().add(this.getColumn());
+		tableCustomizationPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5845,6 +5945,16 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(panelDefStatesEClass, PanelDefStates.class, "PanelDefStates", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPanelDefStates_States(), this.getPanelDefState(), null, "states", null, 0, -1, PanelDefStates.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tableCustomizationParamEClass, TableCustomizationParam.class, "TableCustomizationParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTableCustomizationParam_BaseTable(), this.getTable(), null, "baseTable", null, 0, 1, TableCustomizationParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(extraColumnEClass, ExtraColumn.class, "ExtraColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtraColumn_InsertAfter(), this.getColumn(), null, "insertAfter", null, 0, 1, ExtraColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tableCustomizationPDefValEClass, TableCustomizationPDefVal.class, "TableCustomizationPDefVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTableCustomizationPDefVal_ExtraCols(), this.getExtraColumn(), null, "extraCols", null, 0, -1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTableCustomizationPDefVal_HiddenCols(), this.getColumn(), null, "hiddenCols", null, 0, 1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

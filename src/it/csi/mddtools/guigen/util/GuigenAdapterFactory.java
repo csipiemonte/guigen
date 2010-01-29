@@ -604,6 +604,18 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createPanelDefStatesAdapter();
 			}
 			@Override
+			public Adapter caseTableCustomizationParam(TableCustomizationParam object) {
+				return createTableCustomizationParamAdapter();
+			}
+			@Override
+			public Adapter caseExtraColumn(ExtraColumn object) {
+				return createExtraColumnAdapter();
+			}
+			@Override
+			public Adapter caseTableCustomizationPDefVal(TableCustomizationPDefVal object) {
+				return createTableCustomizationPDefValAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2482,6 +2494,48 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPanelDefStatesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TableCustomizationParam <em>Table Customization Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TableCustomizationParam
+	 * @generated
+	 */
+	public Adapter createTableCustomizationParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ExtraColumn <em>Extra Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ExtraColumn
+	 * @generated
+	 */
+	public Adapter createExtraColumnAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TableCustomizationPDefVal <em>Table Customization PDef Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TableCustomizationPDefVal
+	 * @generated
+	 */
+	public Adapter createTableCustomizationPDefValAdapter() {
 		return null;
 	}
 

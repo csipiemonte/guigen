@@ -1106,6 +1106,33 @@ public interface GuigenFactory extends EFactory {
 	PanelDefStates createPanelDefStates();
 
 	/**
+	 * Returns a new object of class '<em>Table Customization Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Table Customization Param</em>'.
+	 * @generated
+	 */
+	TableCustomizationParam createTableCustomizationParam();
+
+	/**
+	 * Returns a new object of class '<em>Extra Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Extra Column</em>'.
+	 * @generated
+	 */
+	ExtraColumn createExtraColumn();
+
+	/**
+	 * Returns a new object of class '<em>Table Customization PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Table Customization PDef Val</em>'.
+	 * @generated
+	 */
+	TableCustomizationPDefVal createTableCustomizationPDefVal();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

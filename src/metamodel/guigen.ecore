@@ -1969,4 +1969,40 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//PanelDefState" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableCustomizationParam" eSuperTypes="#//PDefParam">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Definizione di parametro di &lt;b>PanelDef&lt;/b> che permette di personalizzare&#xD;&#xA;una &lt;b>Table&lt;/b> contenuta nel &lt;b>PanelDef&lt;/b>.&#xD;&#xA;La personalizzazione consiste nella possibilit&amp;agrave; di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>aggiungere colonne extra in una posizione ben definita rispetto alle colonne&#xD;&#xA;      preessitenti nella tabella base&lt;/li>&#xD;&#xA;&lt;li>nascondere una parte delle colonne presenti nella tabella base&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseTable" eType="#//Table">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="La &lt;b>Table&lt;/b> su cui &amp;egrave; possibile effettuare la personalizzazione."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtraColumn" eSuperTypes="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Tipo specifico di &lt;b>Column&lt;b> utilizzabile per aggiungere colonne ad una&#xD;&#xA;&lt;b>Table&lt;/b> presente in un &lt;b>PanelDef&lt;/b>"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="insertAfter" eType="#//Column">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indica in che posizione deve essere aggiunta la nuova colonna:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>se l'attributo non &amp;egrave; impostato la colonna verr&amp;agrave; aggiunta&#xD;&#xA;       in prima posizione&lt;/li>&#xD;&#xA;&lt;li>se lìattributo &amp;egrave; valorizzato la colonna verr&amp;agrave; inserita dopo&#xD;&#xA;la colonna indicata&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TableCustomizationPDefVal" eSuperTypes="#//PDefParamVal">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Valorizzazione di parametro di &lt;b>PanelDef&lt;/b> che permette di personalizzare&#xD;&#xA;una &lt;b>Table&lt;/b> per la quale &amp;egrave; stata prevista la personalizzabilit&amp;agrave;&#xD;&#xA;(tramite un &lt;b>TableCustomizationPDefVal&lt;/b>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extraCols" upperBound="-1"
+        eType="#//ExtraColumn" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="L'elenco delle colonne da aggiungere alle colonne preesistenti nella tabella&#xD;&#xA;base. Le colonne saranno aggiunte secondo quanto specificato nell'&#xD;&#xA;attributo &lt;i>insertAfter&lt;/i> dell'oggetto &lt;b>ExtraColumn&lt;/b> corrispondente.&#xD;&#xA;Se due &lt;b>ExtraColumn&lt;/b> presentano lo stesso valore di tale attributo, esse&#xD;&#xA;saranno inserite nell'ordine in cui sono presenti in questo elenco."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hiddenCols" eType="#//Column">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco delle colonne della &lt;b>Table&lt;/b> base che devono essere nascoste."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
 </ecore:EPackage>

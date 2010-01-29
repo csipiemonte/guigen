@@ -2836,6 +2836,75 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TableCustomizationParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TableCustomizationParamItemProvider tableCustomizationParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TableCustomizationParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTableCustomizationParamAdapter() {
+		if (tableCustomizationParamItemProvider == null) {
+			tableCustomizationParamItemProvider = new TableCustomizationParamItemProvider(this);
+		}
+
+		return tableCustomizationParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ExtraColumn} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExtraColumnItemProvider extraColumnItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ExtraColumn}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExtraColumnAdapter() {
+		if (extraColumnItemProvider == null) {
+			extraColumnItemProvider = new ExtraColumnItemProvider(this);
+		}
+
+		return extraColumnItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TableCustomizationPDefVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TableCustomizationPDefValItemProvider tableCustomizationPDefValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TableCustomizationPDefVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTableCustomizationPDefValAdapter() {
+		if (tableCustomizationPDefValItemProvider == null) {
+			tableCustomizationPDefValItemProvider = new TableCustomizationPDefValItemProvider(this);
+		}
+
+		return tableCustomizationPDefValItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3054,6 +3123,9 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (panelDefStateItemProvider != null) panelDefStateItemProvider.dispose();
 		if (pDefStateCommandItemProvider != null) pDefStateCommandItemProvider.dispose();
 		if (panelDefStatesItemProvider != null) panelDefStatesItemProvider.dispose();
+		if (tableCustomizationParamItemProvider != null) tableCustomizationParamItemProvider.dispose();
+		if (extraColumnItemProvider != null) extraColumnItemProvider.dispose();
+		if (tableCustomizationPDefValItemProvider != null) tableCustomizationPDefValItemProvider.dispose();
 	}
 
 }

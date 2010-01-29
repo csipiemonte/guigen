@@ -992,6 +992,27 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.TABLE_CUSTOMIZATION_PARAM: {
+				TableCustomizationParam tableCustomizationParam = (TableCustomizationParam)theEObject;
+				T result = caseTableCustomizationParam(tableCustomizationParam);
+				if (result == null) result = casePDefParam(tableCustomizationParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.EXTRA_COLUMN: {
+				ExtraColumn extraColumn = (ExtraColumn)theEObject;
+				T result = caseExtraColumn(extraColumn);
+				if (result == null) result = caseColumn(extraColumn);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL: {
+				TableCustomizationPDefVal tableCustomizationPDefVal = (TableCustomizationPDefVal)theEObject;
+				T result = caseTableCustomizationPDefVal(tableCustomizationPDefVal);
+				if (result == null) result = casePDefParamVal(tableCustomizationPDefVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2988,6 +3009,51 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T casePanelDefStates(PanelDefStates object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Table Customization Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Table Customization Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTableCustomizationParam(TableCustomizationParam object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Extra Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Extra Column</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExtraColumn(ExtraColumn object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Table Customization PDef Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Table Customization PDef Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTableCustomizationPDefVal(TableCustomizationPDefVal object) {
 		return null;
 	}
 
