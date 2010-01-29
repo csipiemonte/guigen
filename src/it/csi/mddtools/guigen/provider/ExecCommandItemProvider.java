@@ -68,6 +68,9 @@ public class ExecCommandItemProvider
 
 			addMethodNamePropertyDescriptor(object);
 			addPostExecDataPropertyDescriptor(object);
+			addTemplateCartridgeIDPropertyDescriptor(object);
+			addTemplateFragmentIDPropertyDescriptor(object);
+			addExtraModelsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -90,7 +93,7 @@ public class ExecCommandItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_basicPropertyCategory"),
 				 null));
 	}
 
@@ -112,7 +115,73 @@ public class ExecCommandItemProvider
 				 false,
 				 true,
 				 null,
+				 getString("_UI_basicPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Template Cartridge ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTemplateCartridgeIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExecCommand_templateCartridgeID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_templateCartridgeID_feature", "_UI_ExecCommand_type"),
+				 GuigenPackage.Literals.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID,
+				 true,
+				 false,
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_advancedPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Template Fragment ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTemplateFragmentIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExecCommand_templateFragmentID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_templateFragmentID_feature", "_UI_ExecCommand_type"),
+				 GuigenPackage.Literals.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID,
+				 true,
+				 false,
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_advancedPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Extra Models feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExtraModelsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExecCommand_extraModels_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_extraModels_feature", "_UI_ExecCommand_type"),
+				 GuigenPackage.Literals.EXEC_COMMAND__EXTRA_MODELS,
+				 true,
+				 false,
+				 true,
 				 null,
+				 getString("_UI_advancedPropertyCategory"),
 				 null));
 	}
 

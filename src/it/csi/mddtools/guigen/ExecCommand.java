@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,6 +46,9 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getMethodName <em>Method Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getPostExecData <em>Post Exec Data</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getExtraModels <em>Extra Models</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,5 +127,73 @@ public interface ExecCommand extends Command {
 	 * @generated
 	 */
 	EList<ApplicationData> getPostExecData();
+
+	/**
+	 * Returns the value of the '<em><b>Template Cartridge ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Template Cartridge ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Template Cartridge ID</em>' attribute.
+	 * @see #setTemplateCartridgeID(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateCartridgeID()
+	 * @model
+	 * @generated
+	 */
+	String getTemplateCartridgeID();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Template Cartridge ID</em>' attribute.
+	 * @see #getTemplateCartridgeID()
+	 * @generated
+	 */
+	void setTemplateCartridgeID(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Template Fragment ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Template Fragment ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Template Fragment ID</em>' attribute.
+	 * @see #setTemplateFragmentID(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateFragmentID()
+	 * @model
+	 * @generated
+	 */
+	String getTemplateFragmentID();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Template Fragment ID</em>' attribute.
+	 * @see #getTemplateFragmentID()
+	 * @generated
+	 */
+	void setTemplateFragmentID(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Extra Models</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Extra Models</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extra Models</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_ExtraModels()
+	 * @model
+	 * @generated
+	 */
+	EList<EObject> getExtraModels();
 
 } // ExecCommand

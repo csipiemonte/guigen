@@ -2535,6 +2535,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getExecCommand_TemplateCartridgeID() {
+		return (EAttribute)execCommandEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExecCommand_TemplateFragmentID() {
+		return (EAttribute)execCommandEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExecCommand_ExtraModels() {
+		return (EReference)execCommandEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEventHandler() {
 		return eventHandlerEClass;
 	}
@@ -4985,6 +5012,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(execCommandEClass, EXEC_COMMAND__RESULTS);
 		createEAttribute(execCommandEClass, EXEC_COMMAND__METHOD_NAME);
 		createEReference(execCommandEClass, EXEC_COMMAND__POST_EXEC_DATA);
+		createEAttribute(execCommandEClass, EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID);
+		createEAttribute(execCommandEClass, EXEC_COMMAND__TEMPLATE_FRAGMENT_ID);
+		createEReference(execCommandEClass, EXEC_COMMAND__EXTRA_MODELS);
 
 		eventHandlerEClass = createEClass(EVENT_HANDLER);
 		createEReference(eventHandlerEClass, EVENT_HANDLER__COMMAND);
@@ -5636,6 +5666,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getExecCommand_Results(), this.getCommandOutcome(), null, "results", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExecCommand_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExecCommand_PostExecData(), this.getApplicationData(), null, "postExecData", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExecCommand_TemplateCartridgeID(), ecorePackage.getEString(), "templateCartridgeID", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExecCommand_TemplateFragmentID(), ecorePackage.getEString(), "templateFragmentID", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExecCommand_ExtraModels(), ecorePackage.getEObject(), null, "extraModels", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventHandlerEClass, EventHandler.class, "EventHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEventHandler_Command(), this.getCommand(), null, "command", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

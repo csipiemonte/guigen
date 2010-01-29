@@ -3481,13 +3481,40 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_COMMAND__POST_EXEC_DATA = COMMAND_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Template Cartridge ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID = COMMAND_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Template Fragment ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_COMMAND__TEMPLATE_FRAGMENT_ID = COMMAND_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Extra Models</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXEC_COMMAND__EXTRA_MODELS = COMMAND_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Exec Command</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
+	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Command</b></em>' containment reference.
@@ -9124,6 +9151,39 @@ public interface GuigenPackage extends EPackage {
 	EReference getExecCommand_PostExecData();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template Cartridge ID</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID()
+	 * @see #getExecCommand()
+	 * @generated
+	 */
+	EAttribute getExecCommand_TemplateCartridgeID();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template Fragment ID</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID()
+	 * @see #getExecCommand()
+	 * @generated
+	 */
+	EAttribute getExecCommand_TemplateFragmentID();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ExecCommand#getExtraModels <em>Extra Models</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Extra Models</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand#getExtraModels()
+	 * @see #getExecCommand()
+	 * @generated
+	 */
+	EReference getExecCommand_ExtraModels();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EventHandler <em>Event Handler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13008,6 +13068,30 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXEC_COMMAND__POST_EXEC_DATA = eINSTANCE.getExecCommand_PostExecData();
+
+		/**
+		 * The meta object literal for the '<em><b>Template Cartridge ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID = eINSTANCE.getExecCommand_TemplateCartridgeID();
+
+		/**
+		 * The meta object literal for the '<em><b>Template Fragment ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXEC_COMMAND__TEMPLATE_FRAGMENT_ID = eINSTANCE.getExecCommand_TemplateFragmentID();
+
+		/**
+		 * The meta object literal for the '<em><b>Extra Models</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXEC_COMMAND__EXTRA_MODELS = eINSTANCE.getExecCommand_ExtraModels();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EventHandlerImpl <em>Event Handler</em>}' class.
