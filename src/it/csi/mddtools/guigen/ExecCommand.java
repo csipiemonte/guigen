@@ -136,6 +136,45 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Id della cartuccia di template da utilizzare per la generazione 100% del codice associato
+	 * all' <b>ExecCommand</b>.
+	 * Se non si specifica nessun ID (opzione di default) viene generato un metodo con
+	 * regione protetta nel quale deve essere scritta manualmente la logica di business.
+	 * Attualmente il meccanismo di registrazione di nuove cartucce di template prevedono
+	 * un naming statico e predeterminato.
+	 * I valori attualmente utilizzabili sono:
+	 * <ul>
+	 * <li>ID per cartucce di estensione di piattaforma
+	 *   <ul>
+	 *   <li>EXTPLATF1</li>
+	 *   <li>EXTPLATF2</li>
+	 *   <li>EXTPLATF3</li>
+	 *   <li>EXTPLATF4</li>
+	 *   <li>EXTPLATF5</li>
+	 *   <li>EXTPLATF6</li>
+	 *   <li>EXTPLATF7</li>
+	 *   <li>EXTPLATF8</li>
+	 *   <li>EXTPLATF9</li>
+	 *   <li>EXTPLATF10</li>
+	 *   </ul>
+	 * </li>
+	 * <li>ID per cartucce di estensione di progetto
+	 *   <ul>
+	 *   <li>EXTCUST1</li>
+	 *   <li>EXTCUST2</li>
+	 *   <li>EXTCUST3</li>
+	 *   </ul>
+	 * </li>
+	 * </ul>
+	 * 
+	 * L'assegnazione degli ID ai vari progetti di estensione orientati alla facilitazione dell'utilizzo
+	 * di piattaforme sono assegnati da DP-ISP.
+	 * Gli ID di estensione specifica del progetto sono liberamente utilizzabili.
+	 * 
+	 * <b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
+	 * da utilizzarsi con cautela.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Template Cartridge ID</em>' attribute.
 	 * @see #setTemplateCartridgeID(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateCartridgeID()
@@ -162,6 +201,14 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Id del template da utilizzare per la generazione 100% del codice associato
+	 * all' <b>ExecCommand</b>. L'id &egrave; specifico della cartuccia indicata nell'attributo
+	 * <i>templateCartridgeID</i>.
+	 * 
+	 * <b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
+	 * da utilizzarsi con cautela.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Template Fragment ID</em>' attribute.
 	 * @see #setTemplateFragmentID(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateFragmentID()
@@ -189,6 +236,14 @@ public interface ExecCommand extends Command {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Eventuali modelli (porzioni di modello) aggiuntivi utilizzabili dalle varie cartucce
+	 * di generazione 100% (es. modello del mapping RDB, ... modello di una
+	 * interfaccia di servizio, ...)
+	 * 
+	 * <b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
+	 * da utilizzarsi con cautela.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Extra Models</em>' reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_ExtraModels()
 	 * @model
