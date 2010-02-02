@@ -2905,6 +2905,98 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomCartridge} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomCartridgeItemProvider customCartridgeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomCartridge}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomCartridgeAdapter() {
+		if (customCartridgeItemProvider == null) {
+			customCartridgeItemProvider = new CustomCartridgeItemProvider(this);
+		}
+
+		return customCartridgeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CustomTemplate} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomTemplateItemProvider customTemplateItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CustomTemplate}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomTemplateAdapter() {
+		if (customTemplateItemProvider == null) {
+			customTemplateItemProvider = new CustomTemplateItemProvider(this);
+		}
+
+		return customTemplateItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ModelSlotDef} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModelSlotDefItemProvider modelSlotDefItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ModelSlotDef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModelSlotDefAdapter() {
+		if (modelSlotDefItemProvider == null) {
+			modelSlotDefItemProvider = new ModelSlotDefItemProvider(this);
+		}
+
+		return modelSlotDefItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ModelSlot} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModelSlotItemProvider modelSlotItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ModelSlot}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModelSlotAdapter() {
+		if (modelSlotItemProvider == null) {
+			modelSlotItemProvider = new ModelSlotItemProvider(this);
+		}
+
+		return modelSlotItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3126,6 +3218,10 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (tableCustomizationParamItemProvider != null) tableCustomizationParamItemProvider.dispose();
 		if (extraColumnItemProvider != null) extraColumnItemProvider.dispose();
 		if (tableCustomizationPDefValItemProvider != null) tableCustomizationPDefValItemProvider.dispose();
+		if (customCartridgeItemProvider != null) customCartridgeItemProvider.dispose();
+		if (customTemplateItemProvider != null) customTemplateItemProvider.dispose();
+		if (modelSlotDefItemProvider != null) modelSlotDefItemProvider.dispose();
+		if (modelSlotItemProvider != null) modelSlotItemProvider.dispose();
 	}
 
 }

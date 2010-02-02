@@ -3481,22 +3481,13 @@ public interface GuigenPackage extends EPackage {
 	int EXEC_COMMAND__POST_EXEC_DATA = COMMAND_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Template Cartridge ID</b></em>' attribute.
+	 * The feature id for the '<em><b>Custom Template</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID = COMMAND_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Template Fragment ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXEC_COMMAND__TEMPLATE_FRAGMENT_ID = COMMAND_FEATURE_COUNT + 4;
+	int EXEC_COMMAND__CUSTOM_TEMPLATE = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Extra Models</b></em>' reference list.
@@ -3505,7 +3496,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_COMMAND__EXTRA_MODELS = COMMAND_FEATURE_COUNT + 5;
+	int EXEC_COMMAND__EXTRA_MODELS = COMMAND_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Exec Command</em>' class.
@@ -3514,7 +3505,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 6;
+	int EXEC_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Command</b></em>' containment reference.
@@ -7526,6 +7517,172 @@ public interface GuigenPackage extends EPackage {
 	int TABLE_CUSTOMIZATION_PDEF_VAL_FEATURE_COUNT = PDEF_PARAM_VAL_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomCartridgeImpl <em>Custom Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CustomCartridgeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridge()
+	 * @generated
+	 */
+	int CUSTOM_CARTRIDGE = 136;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CARTRIDGE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Crt ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CARTRIDGE__CRT_ID = 1;
+
+	/**
+	 * The feature id for the '<em><b>Templates</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CARTRIDGE__TEMPLATES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Custom Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CARTRIDGE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CustomTemplateImpl <em>Custom Template</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CustomTemplateImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomTemplate()
+	 * @generated
+	 */
+	int CUSTOM_TEMPLATE = 137;
+
+	/**
+	 * The feature id for the '<em><b>Tpl ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE__TPL_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Model Slots</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE__MODEL_SLOTS = 2;
+
+	/**
+	 * The number of structural features of the '<em>Custom Template</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ModelSlotDefImpl <em>Model Slot Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ModelSlotDefImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlotDef()
+	 * @generated
+	 */
+	int MODEL_SLOT_DEF = 138;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT_DEF__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Model Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT_DEF__MODEL_CLASS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Model Slot Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT_DEF_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ModelSlotImpl <em>Model Slot</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ModelSlotImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlot()
+	 * @generated
+	 */
+	int MODEL_SLOT = 139;
+
+	/**
+	 * The feature id for the '<em><b>Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT__DEF = 0;
+
+	/**
+	 * The feature id for the '<em><b>Val</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT__VAL = 1;
+
+	/**
+	 * The number of structural features of the '<em>Model Slot</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_SLOT_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7533,7 +7690,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 136;
+	int WIDGET_DATA_TYPE = 140;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -7543,7 +7700,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 137;
+	int UDLRC_SPEC_CONSTANTS = 141;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -7553,7 +7710,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 138;
+	int EVENT_TYPES = 142;
 
 
 	/**
@@ -7564,7 +7721,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 139;
+	int DATA_LIFETIME_TYPE = 143;
 
 
 	/**
@@ -7575,7 +7732,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 140;
+	int SIMPLE_TYPE_CODES = 144;
 
 
 	/**
@@ -7586,7 +7743,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 141;
+	int PORTAL_NAMES = 145;
 
 
 	/**
@@ -7597,7 +7754,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 142;
+	int TARGET_PLATFORM_CODES = 146;
 
 
 	/**
@@ -7608,7 +7765,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 143;
+	int MESSAGE_SEVERITY = 147;
 
 
 	/**
@@ -7619,7 +7776,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 144;
+	int COMMAND_STYLES = 148;
 
 
 	/**
@@ -7630,7 +7787,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 145;
+	int LOGIC_AGGREGATION_TYPES = 149;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.CustomCartridgeID <em>Custom Cartridge ID</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.CustomCartridgeID
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
+	 * @generated
+	 */
+	int CUSTOM_CARTRIDGE_ID = 150;
 
 
 	/**
@@ -9151,26 +9319,15 @@ public interface GuigenPackage extends EPackage {
 	EReference getExecCommand_PostExecData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ExecCommand#getCustomTemplate <em>Custom Template</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Template Cartridge ID</em>'.
-	 * @see it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID()
+	 * @return the meta object for the reference '<em>Custom Template</em>'.
+	 * @see it.csi.mddtools.guigen.ExecCommand#getCustomTemplate()
 	 * @see #getExecCommand()
 	 * @generated
 	 */
-	EAttribute getExecCommand_TemplateCartridgeID();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Template Fragment ID</em>'.
-	 * @see it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID()
-	 * @see #getExecCommand()
-	 * @generated
-	 */
-	EAttribute getExecCommand_TemplateFragmentID();
+	EReference getExecCommand_CustomTemplate();
 
 	/**
 	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ExecCommand#getExtraModels <em>Extra Models</em>}'.
@@ -11722,6 +11879,156 @@ public interface GuigenPackage extends EPackage {
 	EReference getTableCustomizationPDefVal_HiddenCols();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomCartridge <em>Custom Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Cartridge</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCartridge
+	 * @generated
+	 */
+	EClass getCustomCartridge();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CustomCartridge#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCartridge#getName()
+	 * @see #getCustomCartridge()
+	 * @generated
+	 */
+	EAttribute getCustomCartridge_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CustomCartridge#getCrtID <em>Crt ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Crt ID</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCartridge#getCrtID()
+	 * @see #getCustomCartridge()
+	 * @generated
+	 */
+	EAttribute getCustomCartridge_CrtID();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.CustomCartridge#getTemplates <em>Templates</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Templates</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCartridge#getTemplates()
+	 * @see #getCustomCartridge()
+	 * @generated
+	 */
+	EReference getCustomCartridge_Templates();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CustomTemplate <em>Custom Template</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Template</em>'.
+	 * @see it.csi.mddtools.guigen.CustomTemplate
+	 * @generated
+	 */
+	EClass getCustomTemplate();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CustomTemplate#getTplID <em>Tpl ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tpl ID</em>'.
+	 * @see it.csi.mddtools.guigen.CustomTemplate#getTplID()
+	 * @see #getCustomTemplate()
+	 * @generated
+	 */
+	EAttribute getCustomTemplate_TplID();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CustomTemplate#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.CustomTemplate#getName()
+	 * @see #getCustomTemplate()
+	 * @generated
+	 */
+	EAttribute getCustomTemplate_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.CustomTemplate#getModelSlots <em>Model Slots</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Model Slots</em>'.
+	 * @see it.csi.mddtools.guigen.CustomTemplate#getModelSlots()
+	 * @see #getCustomTemplate()
+	 * @generated
+	 */
+	EReference getCustomTemplate_ModelSlots();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ModelSlotDef <em>Model Slot Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model Slot Def</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlotDef
+	 * @generated
+	 */
+	EClass getModelSlotDef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ModelSlotDef#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlotDef#getName()
+	 * @see #getModelSlotDef()
+	 * @generated
+	 */
+	EAttribute getModelSlotDef_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ModelSlotDef#getModelClass <em>Model Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Model Class</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlotDef#getModelClass()
+	 * @see #getModelSlotDef()
+	 * @generated
+	 */
+	EAttribute getModelSlotDef_ModelClass();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ModelSlot <em>Model Slot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model Slot</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlot
+	 * @generated
+	 */
+	EClass getModelSlot();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ModelSlot#getDef <em>Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlot#getDef()
+	 * @see #getModelSlot()
+	 * @generated
+	 */
+	EReference getModelSlot_Def();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.ModelSlot#getVal <em>Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Val</em>'.
+	 * @see it.csi.mddtools.guigen.ModelSlot#getVal()
+	 * @see #getModelSlot()
+	 * @generated
+	 */
+	EReference getModelSlot_Val();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11820,6 +12127,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getLogicAggregationTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.CustomCartridgeID <em>Custom Cartridge ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Custom Cartridge ID</em>'.
+	 * @see it.csi.mddtools.guigen.CustomCartridgeID
+	 * @generated
+	 */
+	EEnum getCustomCartridgeID();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -13070,20 +13387,12 @@ public interface GuigenPackage extends EPackage {
 		EReference EXEC_COMMAND__POST_EXEC_DATA = eINSTANCE.getExecCommand_PostExecData();
 
 		/**
-		 * The meta object literal for the '<em><b>Template Cartridge ID</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Custom Template</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID = eINSTANCE.getExecCommand_TemplateCartridgeID();
-
-		/**
-		 * The meta object literal for the '<em><b>Template Fragment ID</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EXEC_COMMAND__TEMPLATE_FRAGMENT_ID = eINSTANCE.getExecCommand_TemplateFragmentID();
+		EReference EXEC_COMMAND__CUSTOM_TEMPLATE = eINSTANCE.getExecCommand_CustomTemplate();
 
 		/**
 		 * The meta object literal for the '<em><b>Extra Models</b></em>' reference list feature.
@@ -15188,6 +15497,126 @@ public interface GuigenPackage extends EPackage {
 		EReference TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS = eINSTANCE.getTableCustomizationPDefVal_HiddenCols();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomCartridgeImpl <em>Custom Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CustomCartridgeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridge()
+		 * @generated
+		 */
+		EClass CUSTOM_CARTRIDGE = eINSTANCE.getCustomCartridge();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_CARTRIDGE__NAME = eINSTANCE.getCustomCartridge_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Crt ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_CARTRIDGE__CRT_ID = eINSTANCE.getCustomCartridge_CrtID();
+
+		/**
+		 * The meta object literal for the '<em><b>Templates</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CUSTOM_CARTRIDGE__TEMPLATES = eINSTANCE.getCustomCartridge_Templates();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CustomTemplateImpl <em>Custom Template</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CustomTemplateImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomTemplate()
+		 * @generated
+		 */
+		EClass CUSTOM_TEMPLATE = eINSTANCE.getCustomTemplate();
+
+		/**
+		 * The meta object literal for the '<em><b>Tpl ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_TEMPLATE__TPL_ID = eINSTANCE.getCustomTemplate_TplID();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_TEMPLATE__NAME = eINSTANCE.getCustomTemplate_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Model Slots</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CUSTOM_TEMPLATE__MODEL_SLOTS = eINSTANCE.getCustomTemplate_ModelSlots();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ModelSlotDefImpl <em>Model Slot Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ModelSlotDefImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlotDef()
+		 * @generated
+		 */
+		EClass MODEL_SLOT_DEF = eINSTANCE.getModelSlotDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_SLOT_DEF__NAME = eINSTANCE.getModelSlotDef_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Model Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_SLOT_DEF__MODEL_CLASS = eINSTANCE.getModelSlotDef_ModelClass();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ModelSlotImpl <em>Model Slot</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ModelSlotImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getModelSlot()
+		 * @generated
+		 */
+		EClass MODEL_SLOT = eINSTANCE.getModelSlot();
+
+		/**
+		 * The meta object literal for the '<em><b>Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_SLOT__DEF = eINSTANCE.getModelSlot_Def();
+
+		/**
+		 * The meta object literal for the '<em><b>Val</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_SLOT__VAL = eINSTANCE.getModelSlot_Val();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -15286,6 +15715,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum LOGIC_AGGREGATION_TYPES = eINSTANCE.getLogicAggregationTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.CustomCartridgeID <em>Custom Cartridge ID</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.CustomCartridgeID
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
+		 * @generated
+		 */
+		EEnum CUSTOM_CARTRIDGE_ID = eINSTANCE.getCustomCartridgeID();
 
 	}
 

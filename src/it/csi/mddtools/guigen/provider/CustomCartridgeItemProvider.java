@@ -7,17 +7,17 @@
 package it.csi.mddtools.guigen.provider;
 
 
-import it.csi.mddtools.guigen.CommandOutcome;
-import it.csi.mddtools.guigen.ExecCommand;
+import it.csi.mddtools.guigen.CustomCartridge;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -29,16 +29,17 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.ExecCommand} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.CustomCartridge} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ExecCommandItemProvider
-	extends CommandItemProvider
+public class CustomCartridgeItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -51,7 +52,7 @@ public class ExecCommandItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExecCommandItemProvider(AdapterFactory adapterFactory) {
+	public CustomCartridgeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,99 +67,53 @@ public class ExecCommandItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMethodNamePropertyDescriptor(object);
-			addPostExecDataPropertyDescriptor(object);
-			addCustomTemplatePropertyDescriptor(object);
-			addExtraModelsPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addCrtIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Method Name feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addMethodNamePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ExecCommand_methodName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_methodName_feature", "_UI_ExecCommand_type"),
-				 GuigenPackage.Literals.EXEC_COMMAND__METHOD_NAME,
+				 getString("_UI_CustomCartridge_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CustomCartridge_name_feature", "_UI_CustomCartridge_type"),
+				 GuigenPackage.Literals.CUSTOM_CARTRIDGE__NAME,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_basicPropertyCategory"),
+				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Post Exec Data feature.
+	 * This adds a property descriptor for the Crt ID feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPostExecDataPropertyDescriptor(Object object) {
+	protected void addCrtIDPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ExecCommand_postExecData_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_postExecData_feature", "_UI_ExecCommand_type"),
-				 GuigenPackage.Literals.EXEC_COMMAND__POST_EXEC_DATA,
+				 getString("_UI_CustomCartridge_crtID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CustomCartridge_crtID_feature", "_UI_CustomCartridge_type"),
+				 GuigenPackage.Literals.CUSTOM_CARTRIDGE__CRT_ID,
 				 true,
 				 false,
-				 true,
-				 null,
-				 getString("_UI_basicPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Custom Template feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCustomTemplatePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExecCommand_customTemplate_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_customTemplate_feature", "_UI_ExecCommand_type"),
-				 GuigenPackage.Literals.EXEC_COMMAND__CUSTOM_TEMPLATE,
-				 true,
 				 false,
-				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
-				 getString("_UI_advancedPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Extra Models feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addExtraModelsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExecCommand_extraModels_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExecCommand_extraModels_feature", "_UI_ExecCommand_type"),
-				 GuigenPackage.Literals.EXEC_COMMAND__EXTRA_MODELS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 getString("_UI_advancedPropertyCategory"),
 				 null));
 	}
 
@@ -174,7 +129,7 @@ public class ExecCommandItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.EXEC_COMMAND__RESULTS);
+			childrenFeatures.add(GuigenPackage.Literals.CUSTOM_CARTRIDGE__TEMPLATES);
 		}
 		return childrenFeatures;
 	}
@@ -193,37 +148,28 @@ public class ExecCommandItemProvider
 	}
 
 	/**
-	 * This returns ExecCommand.gif.
+	 * This returns CustomCartridge.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ExecCommand"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomCartridge"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		ExecCommand ea = (ExecCommand)object;
-		String label="execute "+ea.getMethodName()+"()->{";
-		if (ea.getResults()!=null && ea.getResults().size()>0){
-			Iterator<CommandOutcome> it = ea.getResults().iterator();
-			while(it.hasNext())
-				label+=it.next().getResultCode()+"|";
-			label = label.substring(0,label.length()-1); // tolgo l'ultimo "|"
-		}
-		else
-			label+="-- nessun risultato specificato ---";
-		 
-		label+="}";
-		return getString("_UI_ExecCommand_type")+": "+label;
+		String label = ((CustomCartridge)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_CustomCartridge_type") :
+			getString("_UI_CustomCartridge_type") + " " + label;
 	}
 
 	/**
@@ -231,16 +177,18 @@ public class ExecCommandItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ExecCommand.class)) {
-			case GuigenPackage.EXEC_COMMAND__METHOD_NAME:
+		switch (notification.getFeatureID(CustomCartridge.class)) {
+			case GuigenPackage.CUSTOM_CARTRIDGE__NAME:
+			case GuigenPackage.CUSTOM_CARTRIDGE__CRT_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			case GuigenPackage.EXEC_COMMAND__RESULTS:
+				return;
+			case GuigenPackage.CUSTOM_CARTRIDGE__TEMPLATES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -260,8 +208,19 @@ public class ExecCommandItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.EXEC_COMMAND__RESULTS,
-				 GuigenFactory.eINSTANCE.createCommandOutcome()));
+				(GuigenPackage.Literals.CUSTOM_CARTRIDGE__TEMPLATES,
+				 GuigenFactory.eINSTANCE.createCustomTemplate()));
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

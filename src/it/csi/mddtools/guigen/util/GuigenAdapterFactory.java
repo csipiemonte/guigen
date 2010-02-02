@@ -616,6 +616,22 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createTableCustomizationPDefValAdapter();
 			}
 			@Override
+			public Adapter caseCustomCartridge(CustomCartridge object) {
+				return createCustomCartridgeAdapter();
+			}
+			@Override
+			public Adapter caseCustomTemplate(CustomTemplate object) {
+				return createCustomTemplateAdapter();
+			}
+			@Override
+			public Adapter caseModelSlotDef(ModelSlotDef object) {
+				return createModelSlotDefAdapter();
+			}
+			@Override
+			public Adapter caseModelSlot(ModelSlot object) {
+				return createModelSlotAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2536,6 +2552,62 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTableCustomizationPDefValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomCartridge <em>Custom Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CustomCartridge
+	 * @generated
+	 */
+	public Adapter createCustomCartridgeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CustomTemplate <em>Custom Template</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CustomTemplate
+	 * @generated
+	 */
+	public Adapter createCustomTemplateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ModelSlotDef <em>Model Slot Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ModelSlotDef
+	 * @generated
+	 */
+	public Adapter createModelSlotDefAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ModelSlot <em>Model Slot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ModelSlot
+	 * @generated
+	 */
+	public Adapter createModelSlotAdapter() {
 		return null;
 	}
 

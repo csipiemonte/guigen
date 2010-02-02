@@ -1133,6 +1133,42 @@ public interface GuigenFactory extends EFactory {
 	TableCustomizationPDefVal createTableCustomizationPDefVal();
 
 	/**
+	 * Returns a new object of class '<em>Custom Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Cartridge</em>'.
+	 * @generated
+	 */
+	CustomCartridge createCustomCartridge();
+
+	/**
+	 * Returns a new object of class '<em>Custom Template</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Template</em>'.
+	 * @generated
+	 */
+	CustomTemplate createCustomTemplate();
+
+	/**
+	 * Returns a new object of class '<em>Model Slot Def</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model Slot Def</em>'.
+	 * @generated
+	 */
+	ModelSlotDef createModelSlotDef();
+
+	/**
+	 * Returns a new object of class '<em>Model Slot</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model Slot</em>'.
+	 * @generated
+	 */
+	ModelSlot createModelSlot();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

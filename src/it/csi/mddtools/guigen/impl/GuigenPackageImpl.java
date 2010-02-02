@@ -44,8 +44,11 @@ import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomAuthentication;
+import it.csi.mddtools.guigen.CustomCartridge;
+import it.csi.mddtools.guigen.CustomCartridgeID;
 import it.csi.mddtools.guigen.CustomCommand;
 import it.csi.mddtools.guigen.CustomSecurityConstraint;
+import it.csi.mddtools.guigen.CustomTemplate;
 import it.csi.mddtools.guigen.DataLifetimeType;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
@@ -80,6 +83,8 @@ import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MessageSeverity;
+import it.csi.mddtools.guigen.ModelSlot;
+import it.csi.mddtools.guigen.ModelSlotDef;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import it.csi.mddtools.guigen.MultiPanel;
@@ -1126,6 +1131,34 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass customCartridgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customTemplateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modelSlotDefEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modelSlotEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1190,6 +1223,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum logicAggregationTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum customCartridgeIDEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2535,17 +2575,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExecCommand_TemplateCartridgeID() {
-		return (EAttribute)execCommandEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getExecCommand_TemplateFragmentID() {
-		return (EAttribute)execCommandEClass.getEStructuralFeatures().get(4);
+	public EReference getExecCommand_CustomTemplate() {
+		return (EReference)execCommandEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2554,7 +2585,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	public EReference getExecCommand_ExtraModels() {
-		return (EReference)execCommandEClass.getEStructuralFeatures().get(5);
+		return (EReference)execCommandEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4713,6 +4744,132 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCustomCartridge() {
+		return customCartridgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomCartridge_Name() {
+		return (EAttribute)customCartridgeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomCartridge_CrtID() {
+		return (EAttribute)customCartridgeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCustomCartridge_Templates() {
+		return (EReference)customCartridgeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomTemplate() {
+		return customTemplateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomTemplate_TplID() {
+		return (EAttribute)customTemplateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomTemplate_Name() {
+		return (EAttribute)customTemplateEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCustomTemplate_ModelSlots() {
+		return (EReference)customTemplateEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getModelSlotDef() {
+		return modelSlotDefEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModelSlotDef_Name() {
+		return (EAttribute)modelSlotDefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModelSlotDef_ModelClass() {
+		return (EAttribute)modelSlotDefEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getModelSlot() {
+		return modelSlotEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModelSlot_Def() {
+		return (EReference)modelSlotEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModelSlot_Val() {
+		return (EReference)modelSlotEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -4796,6 +4953,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getLogicAggregationTypes() {
 		return logicAggregationTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getCustomCartridgeID() {
+		return customCartridgeIDEEnum;
 	}
 
 	/**
@@ -5012,8 +5178,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(execCommandEClass, EXEC_COMMAND__RESULTS);
 		createEAttribute(execCommandEClass, EXEC_COMMAND__METHOD_NAME);
 		createEReference(execCommandEClass, EXEC_COMMAND__POST_EXEC_DATA);
-		createEAttribute(execCommandEClass, EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID);
-		createEAttribute(execCommandEClass, EXEC_COMMAND__TEMPLATE_FRAGMENT_ID);
+		createEReference(execCommandEClass, EXEC_COMMAND__CUSTOM_TEMPLATE);
 		createEReference(execCommandEClass, EXEC_COMMAND__EXTRA_MODELS);
 
 		eventHandlerEClass = createEClass(EVENT_HANDLER);
@@ -5346,6 +5511,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(tableCustomizationPDefValEClass, TABLE_CUSTOMIZATION_PDEF_VAL__EXTRA_COLS);
 		createEReference(tableCustomizationPDefValEClass, TABLE_CUSTOMIZATION_PDEF_VAL__HIDDEN_COLS);
 
+		customCartridgeEClass = createEClass(CUSTOM_CARTRIDGE);
+		createEAttribute(customCartridgeEClass, CUSTOM_CARTRIDGE__NAME);
+		createEAttribute(customCartridgeEClass, CUSTOM_CARTRIDGE__CRT_ID);
+		createEReference(customCartridgeEClass, CUSTOM_CARTRIDGE__TEMPLATES);
+
+		customTemplateEClass = createEClass(CUSTOM_TEMPLATE);
+		createEAttribute(customTemplateEClass, CUSTOM_TEMPLATE__TPL_ID);
+		createEAttribute(customTemplateEClass, CUSTOM_TEMPLATE__NAME);
+		createEReference(customTemplateEClass, CUSTOM_TEMPLATE__MODEL_SLOTS);
+
+		modelSlotDefEClass = createEClass(MODEL_SLOT_DEF);
+		createEAttribute(modelSlotDefEClass, MODEL_SLOT_DEF__NAME);
+		createEAttribute(modelSlotDefEClass, MODEL_SLOT_DEF__MODEL_CLASS);
+
+		modelSlotEClass = createEClass(MODEL_SLOT);
+		createEReference(modelSlotEClass, MODEL_SLOT__DEF);
+		createEReference(modelSlotEClass, MODEL_SLOT__VAL);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5357,6 +5540,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
 		commandStylesEEnum = createEEnum(COMMAND_STYLES);
 		logicAggregationTypesEEnum = createEEnum(LOGIC_AGGREGATION_TYPES);
+		customCartridgeIDEEnum = createEEnum(CUSTOM_CARTRIDGE_ID);
 	}
 
 	/**
@@ -5666,8 +5850,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getExecCommand_Results(), this.getCommandOutcome(), null, "results", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExecCommand_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExecCommand_PostExecData(), this.getApplicationData(), null, "postExecData", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExecCommand_TemplateCartridgeID(), ecorePackage.getEString(), "templateCartridgeID", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExecCommand_TemplateFragmentID(), ecorePackage.getEString(), "templateFragmentID", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExecCommand_CustomTemplate(), this.getCustomTemplate(), null, "customTemplate", null, 0, 1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExecCommand_ExtraModels(), ecorePackage.getEObject(), null, "extraModels", null, 0, -1, ExecCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventHandlerEClass, EventHandler.class, "EventHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6000,6 +6183,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getTableCustomizationPDefVal_ExtraCols(), this.getExtraColumn(), null, "extraCols", null, 0, -1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTableCustomizationPDefVal_HiddenCols(), this.getColumn(), null, "hiddenCols", null, 0, -1, TableCustomizationPDefVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(customCartridgeEClass, CustomCartridge.class, "CustomCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomCartridge_Name(), ecorePackage.getEString(), "name", null, 0, 1, CustomCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomCartridge_CrtID(), this.getCustomCartridgeID(), "crtID", null, 0, 1, CustomCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCustomCartridge_Templates(), this.getCustomTemplate(), null, "templates", null, 0, -1, CustomCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customTemplateEClass, CustomTemplate.class, "CustomTemplate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomTemplate_TplID(), ecorePackage.getEString(), "tplID", null, 0, 1, CustomTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomTemplate_Name(), ecorePackage.getEString(), "name", null, 0, 1, CustomTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCustomTemplate_ModelSlots(), this.getModelSlotDef(), null, "modelSlots", null, 0, -1, CustomTemplate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modelSlotDefEClass, ModelSlotDef.class, "ModelSlotDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getModelSlotDef_Name(), ecorePackage.getEString(), "name", null, 0, 1, ModelSlotDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModelSlotDef_ModelClass(), ecorePackage.getEString(), "modelClass", null, 0, 1, ModelSlotDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modelSlotEClass, ModelSlot.class, "ModelSlot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModelSlot_Def(), this.getModelSlotDef(), null, "def", null, 0, 1, ModelSlot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelSlot_Val(), ecorePackage.getEObject(), null, "val", null, 0, 1, ModelSlot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -6061,6 +6262,21 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.OR);
 		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.AND);
 		addEEnumLiteral(logicAggregationTypesEEnum, LogicAggregationTypes.XOR);
+
+		initEEnum(customCartridgeIDEEnum, CustomCartridgeID.class, "CustomCartridgeID");
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.PLATF_1);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.PLATF_2);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.PLATF_3);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.PLATF_4);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.PLATF_5);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.CUSTOM_1);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.CUSTOM_2);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.CUSTOM_3);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_1);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_2);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_3);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_4);
+		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_5);
 
 		// Create resource
 		createResource(eNS_URI);

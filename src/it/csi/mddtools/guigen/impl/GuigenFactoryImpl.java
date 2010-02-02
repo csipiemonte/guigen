@@ -184,6 +184,10 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TABLE_CUSTOMIZATION_PARAM: return createTableCustomizationParam();
 			case GuigenPackage.EXTRA_COLUMN: return createExtraColumn();
 			case GuigenPackage.TABLE_CUSTOMIZATION_PDEF_VAL: return createTableCustomizationPDefVal();
+			case GuigenPackage.CUSTOM_CARTRIDGE: return createCustomCartridge();
+			case GuigenPackage.CUSTOM_TEMPLATE: return createCustomTemplate();
+			case GuigenPackage.MODEL_SLOT_DEF: return createModelSlotDef();
+			case GuigenPackage.MODEL_SLOT: return createModelSlot();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -217,6 +221,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createCommandStylesFromString(eDataType, initialValue);
 			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
 				return createLogicAggregationTypesFromString(eDataType, initialValue);
+			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
+				return createCustomCartridgeIDFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -250,6 +256,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertCommandStylesToString(eDataType, instanceValue);
 			case GuigenPackage.LOGIC_AGGREGATION_TYPES:
 				return convertLogicAggregationTypesToString(eDataType, instanceValue);
+			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
+				return convertCustomCartridgeIDToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1490,6 +1498,46 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CustomCartridge createCustomCartridge() {
+		CustomCartridgeImpl customCartridge = new CustomCartridgeImpl();
+		return customCartridge;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomTemplate createCustomTemplate() {
+		CustomTemplateImpl customTemplate = new CustomTemplateImpl();
+		return customTemplate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModelSlotDef createModelSlotDef() {
+		ModelSlotDefImpl modelSlotDef = new ModelSlotDefImpl();
+		return modelSlotDef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModelSlot createModelSlot() {
+		ModelSlotImpl modelSlot = new ModelSlotImpl();
+		return modelSlot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -1682,6 +1730,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertLogicAggregationTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomCartridgeID createCustomCartridgeIDFromString(EDataType eDataType, String initialValue) {
+		CustomCartridgeID result = CustomCartridgeID.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCustomCartridgeIDToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.CommandOutcome;
+import it.csi.mddtools.guigen.CustomTemplate;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.GuigenPackage;
 
@@ -38,8 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getMethodName <em>Method Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getPostExecData <em>Post Exec Data</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getTemplateCartridgeID <em>Template Cartridge ID</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getTemplateFragmentID <em>Template Fragment ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getCustomTemplate <em>Custom Template</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ExecCommandImpl#getExtraModels <em>Extra Models</em>}</li>
  * </ul>
  * </p>
@@ -88,44 +88,14 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	protected EList<ApplicationData> postExecData;
 
 	/**
-	 * The default value of the '{@link #getTemplateCartridgeID() <em>Template Cartridge ID</em>}' attribute.
+	 * The cached value of the '{@link #getCustomTemplate() <em>Custom Template</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTemplateCartridgeID()
+	 * @see #getCustomTemplate()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TEMPLATE_CARTRIDGE_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTemplateCartridgeID() <em>Template Cartridge ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTemplateCartridgeID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String templateCartridgeID = TEMPLATE_CARTRIDGE_ID_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getTemplateFragmentID() <em>Template Fragment ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTemplateFragmentID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TEMPLATE_FRAGMENT_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTemplateFragmentID() <em>Template Fragment ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTemplateFragmentID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String templateFragmentID = TEMPLATE_FRAGMENT_ID_EDEFAULT;
+	protected CustomTemplate customTemplate;
 
 	/**
 	 * The cached value of the '{@link #getExtraModels() <em>Extra Models</em>}' reference list.
@@ -206,8 +176,16 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTemplateCartridgeID() {
-		return templateCartridgeID;
+	public CustomTemplate getCustomTemplate() {
+		if (customTemplate != null && customTemplate.eIsProxy()) {
+			InternalEObject oldCustomTemplate = (InternalEObject)customTemplate;
+			customTemplate = (CustomTemplate)eResolveProxy(oldCustomTemplate);
+			if (customTemplate != oldCustomTemplate) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE, oldCustomTemplate, customTemplate));
+			}
+		}
+		return customTemplate;
 	}
 
 	/**
@@ -215,32 +193,20 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTemplateCartridgeID(String newTemplateCartridgeID) {
-		String oldTemplateCartridgeID = templateCartridgeID;
-		templateCartridgeID = newTemplateCartridgeID;
+	public CustomTemplate basicGetCustomTemplate() {
+		return customTemplate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCustomTemplate(CustomTemplate newCustomTemplate) {
+		CustomTemplate oldCustomTemplate = customTemplate;
+		customTemplate = newCustomTemplate;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID, oldTemplateCartridgeID, templateCartridgeID));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getTemplateFragmentID() {
-		return templateFragmentID;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTemplateFragmentID(String newTemplateFragmentID) {
-		String oldTemplateFragmentID = templateFragmentID;
-		templateFragmentID = newTemplateFragmentID;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID, oldTemplateFragmentID, templateFragmentID));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE, oldCustomTemplate, customTemplate));
 	}
 
 	/**
@@ -283,10 +249,9 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				return getMethodName();
 			case GuigenPackage.EXEC_COMMAND__POST_EXEC_DATA:
 				return getPostExecData();
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID:
-				return getTemplateCartridgeID();
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID:
-				return getTemplateFragmentID();
+			case GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE:
+				if (resolve) return getCustomTemplate();
+				return basicGetCustomTemplate();
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				return getExtraModels();
 		}
@@ -313,11 +278,8 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				getPostExecData().clear();
 				getPostExecData().addAll((Collection<? extends ApplicationData>)newValue);
 				return;
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID:
-				setTemplateCartridgeID((String)newValue);
-				return;
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID:
-				setTemplateFragmentID((String)newValue);
+			case GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE:
+				setCustomTemplate((CustomTemplate)newValue);
 				return;
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				getExtraModels().clear();
@@ -344,11 +306,8 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 			case GuigenPackage.EXEC_COMMAND__POST_EXEC_DATA:
 				getPostExecData().clear();
 				return;
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID:
-				setTemplateCartridgeID(TEMPLATE_CARTRIDGE_ID_EDEFAULT);
-				return;
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID:
-				setTemplateFragmentID(TEMPLATE_FRAGMENT_ID_EDEFAULT);
+			case GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE:
+				setCustomTemplate((CustomTemplate)null);
 				return;
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				getExtraModels().clear();
@@ -371,10 +330,8 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 				return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
 			case GuigenPackage.EXEC_COMMAND__POST_EXEC_DATA:
 				return postExecData != null && !postExecData.isEmpty();
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_CARTRIDGE_ID:
-				return TEMPLATE_CARTRIDGE_ID_EDEFAULT == null ? templateCartridgeID != null : !TEMPLATE_CARTRIDGE_ID_EDEFAULT.equals(templateCartridgeID);
-			case GuigenPackage.EXEC_COMMAND__TEMPLATE_FRAGMENT_ID:
-				return TEMPLATE_FRAGMENT_ID_EDEFAULT == null ? templateFragmentID != null : !TEMPLATE_FRAGMENT_ID_EDEFAULT.equals(templateFragmentID);
+			case GuigenPackage.EXEC_COMMAND__CUSTOM_TEMPLATE:
+				return customTemplate != null;
 			case GuigenPackage.EXEC_COMMAND__EXTRA_MODELS:
 				return extraModels != null && !extraModels.isEmpty();
 		}
@@ -393,10 +350,6 @@ public class ExecCommandImpl extends CommandImpl implements ExecCommand {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (methodName: ");
 		result.append(methodName);
-		result.append(", templateCartridgeID: ");
-		result.append(templateCartridgeID);
-		result.append(", templateFragmentID: ");
-		result.append(templateFragmentID);
 		result.append(')');
 		return result.toString();
 	}

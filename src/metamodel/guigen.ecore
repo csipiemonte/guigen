@@ -772,16 +772,7 @@
         <details key="documentation" value="Occorre dichiarare preventivamente gli application data che saranno modificati nella logica applicativa."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="templateCartridgeID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Id della cartuccia di template da utilizzare per la generazione 100% del codice associato&#xD;&#xA;all' &lt;b>ExecCommand&lt;/b>.&#xD;&#xA;Se non si specifica nessun ID (opzione di default) viene generato un metodo con&#xD;&#xA;regione protetta nel quale deve essere scritta manualmente la logica di business.&#xD;&#xA;Attualmente il meccanismo di registrazione di nuove cartucce di template prevedono&#xD;&#xA;un naming statico e predeterminato.&#xD;&#xA;I valori attualmente utilizzabili sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>ID per cartucce di estensione di piattaforma&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>EXTPLATF1&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF2&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF3&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF4&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF5&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF6&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF7&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF8&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF9&lt;/li>&#xD;&#xA;  &lt;li>EXTPLATF10&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>ID per cartucce di estensione di progetto&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>EXTCUST1&lt;/li>&#xD;&#xA;  &lt;li>EXTCUST2&lt;/li>&#xD;&#xA;  &lt;li>EXTCUST3&lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&#xD;&#xA;L'assegnazione degli ID ai vari progetti di estensione orientati alla facilitazione dell'utilizzo&#xD;&#xA;di piattaforme sono assegnati da DP-ISP.&#xD;&#xA;Gli ID di estensione specifica del progetto sono liberamente utilizzabili.&#xD;&#xA;&#xD;&#xA;&lt;b>Attenzione&lt;/b>: Questa opzione &amp;egrave; da considerarsi una possibilit&amp;agrave; &lt;b>avanzata&lt;/b> &#xD;&#xA;da utilizzarsi con cautela."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="templateFragmentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Id del template da utilizzare per la generazione 100% del codice associato&#xD;&#xA;all' &lt;b>ExecCommand&lt;/b>. L'id &amp;egrave; specifico della cartuccia indicata nell'attributo&#xD;&#xA;&lt;i>templateCartridgeID&lt;/i>.&#xD;&#xA;&#xD;&#xA;&lt;b>Attenzione&lt;/b>: Questa opzione &amp;egrave; da considerarsi una possibilit&amp;agrave; &lt;b>avanzata&lt;/b> &#xD;&#xA;da utilizzarsi con cautela."/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customTemplate" eType="#//CustomTemplate"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extraModels" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2022,5 +2013,40 @@
         <details key="documentation" value="Elenco delle colonne della &lt;b>Table&lt;/b> base che devono essere nascoste."/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomCartridge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="crtID" eType="#//CustomCartridgeID"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="templates" upperBound="-1"
+        eType="#//CustomTemplate" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CustomCartridgeID">
+    <eLiterals name="PLATF_1" value="101"/>
+    <eLiterals name="PLATF_2" value="102"/>
+    <eLiterals name="PLATF_3" value="103"/>
+    <eLiterals name="PLATF_4" value="104"/>
+    <eLiterals name="PLATF_5" value="105"/>
+    <eLiterals name="CUSTOM_1" value="201"/>
+    <eLiterals name="CUSTOM_2" value="202"/>
+    <eLiterals name="CUSTOM_3" value="203"/>
+    <eLiterals name="TECH_1" value="301"/>
+    <eLiterals name="TECH_2" value="302"/>
+    <eLiterals name="TECH_3" value="303"/>
+    <eLiterals name="TECH_4" value="304"/>
+    <eLiterals name="TECH_5" value="305"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomTemplate">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tplID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelSlots" upperBound="-1"
+        eType="#//ModelSlotDef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelSlotDef">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelSlot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="def" eType="#//ModelSlotDef"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
 </ecore:EPackage>

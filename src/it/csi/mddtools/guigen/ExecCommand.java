@@ -46,8 +46,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getResults <em>Results</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getMethodName <em>Method Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getPostExecData <em>Post Exec Data</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getCustomTemplate <em>Custom Template</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ExecCommand#getExtraModels <em>Extra Models</em>}</li>
  * </ul>
  * </p>
@@ -129,103 +128,30 @@ public interface ExecCommand extends Command {
 	EList<ApplicationData> getPostExecData();
 
 	/**
-	 * Returns the value of the '<em><b>Template Cartridge ID</b></em>' attribute.
+	 * Returns the value of the '<em><b>Custom Template</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Template Cartridge ID</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Custom Template</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Id della cartuccia di template da utilizzare per la generazione 100% del codice associato
-	 * all' <b>ExecCommand</b>.
-	 * Se non si specifica nessun ID (opzione di default) viene generato un metodo con
-	 * regione protetta nel quale deve essere scritta manualmente la logica di business.
-	 * Attualmente il meccanismo di registrazione di nuove cartucce di template prevedono
-	 * un naming statico e predeterminato.
-	 * I valori attualmente utilizzabili sono:
-	 * <ul>
-	 * <li>ID per cartucce di estensione di piattaforma
-	 *   <ul>
-	 *   <li>EXTPLATF1</li>
-	 *   <li>EXTPLATF2</li>
-	 *   <li>EXTPLATF3</li>
-	 *   <li>EXTPLATF4</li>
-	 *   <li>EXTPLATF5</li>
-	 *   <li>EXTPLATF6</li>
-	 *   <li>EXTPLATF7</li>
-	 *   <li>EXTPLATF8</li>
-	 *   <li>EXTPLATF9</li>
-	 *   <li>EXTPLATF10</li>
-	 *   </ul>
-	 * </li>
-	 * <li>ID per cartucce di estensione di progetto
-	 *   <ul>
-	 *   <li>EXTCUST1</li>
-	 *   <li>EXTCUST2</li>
-	 *   <li>EXTCUST3</li>
-	 *   </ul>
-	 * </li>
-	 * </ul>
-	 * 
-	 * L'assegnazione degli ID ai vari progetti di estensione orientati alla facilitazione dell'utilizzo
-	 * di piattaforme sono assegnati da DP-ISP.
-	 * Gli ID di estensione specifica del progetto sono liberamente utilizzabili.
-	 * 
-	 * <b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
-	 * da utilizzarsi con cautela.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Template Cartridge ID</em>' attribute.
-	 * @see #setTemplateCartridgeID(String)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateCartridgeID()
+	 * @return the value of the '<em>Custom Template</em>' reference.
+	 * @see #setCustomTemplate(CustomTemplate)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_CustomTemplate()
 	 * @model
 	 * @generated
 	 */
-	String getTemplateCartridgeID();
+	CustomTemplate getCustomTemplate();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateCartridgeID <em>Template Cartridge ID</em>}' attribute.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecCommand#getCustomTemplate <em>Custom Template</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Template Cartridge ID</em>' attribute.
-	 * @see #getTemplateCartridgeID()
+	 * @param value the new value of the '<em>Custom Template</em>' reference.
+	 * @see #getCustomTemplate()
 	 * @generated
 	 */
-	void setTemplateCartridgeID(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Template Fragment ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Template Fragment ID</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Id del template da utilizzare per la generazione 100% del codice associato
-	 * all' <b>ExecCommand</b>. L'id &egrave; specifico della cartuccia indicata nell'attributo
-	 * <i>templateCartridgeID</i>.
-	 * 
-	 * <b>Attenzione</b>: Questa opzione &egrave; da considerarsi una possibilit&agrave; <b>avanzata</b> 
-	 * da utilizzarsi con cautela.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Template Fragment ID</em>' attribute.
-	 * @see #setTemplateFragmentID(String)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getExecCommand_TemplateFragmentID()
-	 * @model
-	 * @generated
-	 */
-	String getTemplateFragmentID();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.ExecCommand#getTemplateFragmentID <em>Template Fragment ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Template Fragment ID</em>' attribute.
-	 * @see #getTemplateFragmentID()
-	 * @generated
-	 */
-	void setTemplateFragmentID(String value);
+	void setCustomTemplate(CustomTemplate value);
 
 	/**
 	 * Returns the value of the '<em><b>Extra Models</b></em>' reference list.
