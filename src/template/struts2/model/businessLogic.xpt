@@ -406,6 +406,58 @@ public class «getSpringCPBEClassName()»{
 		«ENDFOREACH-»
 	    ///
 		try{
+			«EXPAND springBEMethodCoreDispatcher(model, contextID, cp, contextPrefix) FOR this-»
+		}
+		catch(Exception e){
+		  log.error("[«getSpringBEClassName()»::«getFullExecCmdMethodName(this.methodName, contextPrefix)»] Errore occorso nell'esecuzione del metodo:"+e,e);
+		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
+		}
+	}
+	
+	«ENDLET-»
+«ENDDEFINE»
+
+«REM»implementazione effettiva sovrascrivibile«ENDREM»
+«DEFINE springBEMethodCoreDispatcher(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand»
+	«IF this.customTemplate==null-»
+		«EXPAND springBEMethodCore_CRT_default(model, contextID, cp, contextPrefix) FOR this-»
+	«ELSE-»
+		«LET (CustomCartridge)(customTemplate.eContainer) AS crt-»
+		«IF crt.crtID==CustomCartridgeID::PLATF_1-»
+			«EXPAND springBEMethodCore_CRT_PLATF1(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_2-»
+			«EXPAND springBEMethodCore_CRT_PLATF2(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_3-»
+			«EXPAND springBEMethodCore_CRT_PLATF3(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_4-»
+			«EXPAND springBEMethodCore_CRT_PLATF4(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_5-»
+			«EXPAND springBEMethodCore_CRT_PLATF5(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::TECH_1-»
+			«EXPAND springBEMethodCore_CRT_TECH1(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::TECH_2-»
+			«EXPAND springBEMethodCore_CRT_TECH2(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::TECH_3-»
+			«EXPAND springBEMethodCore_CRT_TECH3(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::TECH_4-»
+			«EXPAND springBEMethodCore_CRT_TECH4(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::TECH_5-»
+			«EXPAND springBEMethodCore_CRT_TECH5(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_1-»
+			«EXPAND springBEMethodCore_CRT_CUSTOM1(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_2-»
+			«EXPAND springBEMethodCore_CRT_CUSTOM2(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_3-»
+			«EXPAND springBEMethodCore_CRT_CUSTOM3(model, contextID, cp, contextPrefix) FOR this-»
+		«ELSE-»
+			«ERROR "cartuccia "+crt.crtID+" non supportata"-»			
+		«ENDIF-»
+		«ENDLET-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»implementazione di default«ENDREM»
+«DEFINE springBEMethodCore_CRT_default(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
 			ExecResults result = new ExecResults();
 			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+getFullExecCmdMethodName(this.methodName, contextPrefix)+"_code")»
 			// inserire qui la logica applicativa da eseguire:
@@ -417,14 +469,59 @@ public class «getSpringCPBEClassName()»{
 		
 			result.setModel(theModel);
 			return result;
-		«ENDPROTECT»
-		}
-		catch(Exception e){
-		  log.error("[«getSpringBEClassName()»::«getFullExecCmdMethodName(this.methodName, contextPrefix)»] Errore occorso nell'esecuzione del metodo:"+e,e);
-		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
-		}
-	}
-	
-	«ENDLET-»
+			«ENDPROTECT»
 «ENDDEFINE»
 
+«DEFINE springBEMethodCore_CRT_PLATF1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom PLATF1 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_PLATF2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom PLATF2 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_PLATF3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom PLATF3 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_PLATF4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom PLATF4 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_PLATF5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom PLATF5 non configurata"»
+«ENDDEFINE»
+
+
+«DEFINE springBEMethodCore_CRT_TECH1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom TECH1 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_TECH2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom TECH2 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_TECH3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom TECH3 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_TECH4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom TECH4 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_TECH5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom TECH5 non configurata"»
+«ENDDEFINE»
+
+
+«DEFINE springBEMethodCore_CRT_CUSTOM1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom CUSTOM1 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_CUSTOM2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom CUSTOM2 non configurata"»
+«ENDDEFINE»
+
+«DEFINE springBEMethodCore_CRT_CUSTOM3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
+	«ERROR "Errore AOP: cartuccia di template custom CUSTOM3 non configurata"»
+«ENDDEFINE»

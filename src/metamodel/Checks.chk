@@ -621,3 +621,21 @@ context ActivationParam ERROR "E'necessario specificare il tipo del parametro di
 /// check per evitare che i parametri vadano in conflitto con app data o property implicite dei widget
 context ActivationParam if (!isNullOrEmpty(name))ERROR "Un paramtero di attivazione non puo avere un nome che inizia con 'AppData/appData' o 'widg_/Widg_':"+loc() :
 	!name.toLowerCase().startsWith("appdata") && !name.toLowerCase().startsWith("widg_");
+	
+///// Custom cartridges
+context CustomCartridge WARNING "La cartuccia non definisce nessun template" :
+	templates.size>0;
+
+context CustomCartridge ERROR "E'necessario specificare il nome della cartuccia:" + loc() :
+	!isNullOrEmpty(name);
+
+context CustomCartridge ERROR "E' necessario specificare l'ID della cartuccia:" + loc() :
+	crtID != null;
+
+context CustomTemplate ERROR "E'necessario impostare l'ID del template:"+loc() :
+	!isNullOrEmpty(tplID); 
+
+context CustomTemplate ERROR "E'necessario impostare il nome del template:"+loc() :
+	!isNullOrEmpty(name);
+
+	
