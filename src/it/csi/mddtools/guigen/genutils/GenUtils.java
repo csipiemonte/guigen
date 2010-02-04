@@ -3174,7 +3174,7 @@ public class GenUtils {
 	 */
 	private static Field getFieldByName(ComplexType ct, String fn) {
 		if ( ct != null ) {
-			for ( Field f : ct.getFields() ) {
+			for ( Field f : ct.getAllFields() ) {
 				if ( fn.equals(f.getName()) ) {
 					return f;
 				}

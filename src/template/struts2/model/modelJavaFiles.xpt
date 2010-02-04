@@ -170,7 +170,7 @@ import com.opensymphony.xwork2.validator.annotations.*;
 
 @Validation
 «ENDIF-»
-public class «getDTOClassName(this)» implements java.io.Serializable {
+public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaType(model)» «ENDIF»implements java.io.Serializable {
 «EXPAND property(model) FOREACH this.fields»
 	
 	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile

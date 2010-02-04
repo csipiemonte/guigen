@@ -384,4 +384,26 @@ public class GenUtilsChecks {
 			return false; // tipo di tipi non corrispondenti
 	}
 	
+	
+	public static boolean hasCircularHierarchy(ComplexType ct){
+		if (ct == null)
+			return false;
+		else{
+			return hasCircularHierarchy(ct, new ArrayList<ComplexType>());
+		}
+	}
+
+	private static boolean hasCircularHierarchy(ComplexType ct,
+			ArrayList<ComplexType> alreadyVisited) {
+		if (alreadyVisited.contains(ct)){
+			return true;
+		}
+		else if(ct.getExtends()==null){
+			return false;
+		}
+		else{
+			alreadyVisited.add(ct);
+			return hasCircularHierarchy(ct.getExtends(), alreadyVisited);
+		}
+	}
 }

@@ -447,13 +447,18 @@ context DataWidget if (this.databinding != null && this.metaType != Table) WARNI
 context Table ERROR "Non è stato specificato il binding alla collection per la table "+name :
 	this.multiDataBinding != null;
 	
-// [DM] Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType
-context TypeNamespace ERROR "Un TypeNamespace puo' contenere solo ComplexType o TypedArray, non SimpleType " + loc() :
-	this.types.select(t|t.metaType == SimpleType && !((SimpleType)t).userDefined).size == 0; 
-
 context TypeNamespace ERROR "E'necessario valorizzare il nome del type namespace:"+loc() :
 	!isNullOrEmpty(this.name); 
 
+context Type ERROR "E'necessario valorizzare il nome di un tipo:"+loc() :
+	!isNullOrEmpty(this.name);
+
+context TypedArray ERROR "E'necessario valorizzare il tipo degli elementi contenuti in un TypedArray:"+loc() :
+	componentType != null;
+
+context ComplexType ERROR "Il ComplexType \""+name+"\" ha una gerarchia con dipendenza circolare:"+loc() :
+	!hasCircularHierarchy(this);
+	
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su PanelDef
 //////////////////////////////////////////////////////////////////////////////

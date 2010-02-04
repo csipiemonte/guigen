@@ -112,4 +112,12 @@ public interface ComplexType extends Type {
 	 */
 	void setExtends(ComplexType value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<Field> getAllFields();
+
 } // ComplexType

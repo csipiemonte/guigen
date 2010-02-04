@@ -10,11 +10,16 @@ import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -169,6 +174,42 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMPLEX_TYPE__EXTENDS, oldExtends, extends_));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * Restituisce l'elenco completo dei field definiti in questo complex type e nei super-tipi
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<Field> getAllFields() {
+		EList<Field> allFlds = getAllFieldsInternal(this, new ArrayList<ComplexType>());
+		return allFlds;
+	}
+
+	/**
+	 * 
+	 * @param type
+	 * @param alreadyVisited
+	 * @return
+	 * @generated NOT
+	 */
+	private EList<Field> getAllFieldsInternal(ComplexType type, ArrayList<ComplexType> alreadyVisited){
+		EList<Field> ris = new BasicEList<Field>();
+		if (alreadyVisited.contains(type)){
+			// LOOP detected!!!
+			return ris;
+		}
+		else{
+			// field diretti
+			ris.addAll(getFields());
+			// field indiretti
+			if (type.getExtends()!=null){
+				alreadyVisited.add(type);
+				ris.addAll(getAllFieldsInternal(type.getExtends(), alreadyVisited));
+			}
+			return ris;
+		}
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
