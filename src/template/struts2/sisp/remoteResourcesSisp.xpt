@@ -950,6 +950,7 @@ Gestione dei PANNELLI
 <div class="contenutiTab">
 	<div id="wizard"><!-- navigatorActive:«navigatorActive» -->
 		<h3 class="alt">Sezioni</h3>
+	<ul>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
@@ -972,6 +973,7 @@ Gestione dei PANNELLI
 		</li>
 		«ENDLET-»
 	«ENDFOREACH-»
+	</ul>
 	</div>
 </div>
 «ENDLET»
