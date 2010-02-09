@@ -27,7 +27,7 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 	commandPanelLayoutCheck(this);
 
 context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato in questa cartuccia" :
-	this.vspan == null || this.vspan==0 || this.vspan == 1;
+	this.vspan == null || this.vspan == 0 || this.vspan == 1;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +35,10 @@ context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato i
 /// Check SPECIFICI della cartuccia RuparPiemonte                                                                   //
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// STDMDD-453: estensione dell'implementazione del menu
+context Menu if this.submenu.size > 0 ERROR "Layout RUPAR: Un menu padre non può avere eventi associati: "+loc() : 
+	this.eventHandler == null;
 
 context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
 	false;

@@ -230,7 +230,7 @@ Definizioni generali: header, footer, ecc
 
 		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:extjs-header />«ENDIF-»
 	</head>
-	<body>
+	<body onclick="chiudiTutto();" onkeypress="getKeyChiudiTutto();">
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
 
 			<!-- INTESTAZIONE -->
@@ -293,7 +293,7 @@ Definizioni generali: header, footer, ecc
 <!-- fine head (con remincl) -->
 
 	</head>
-	<body>
+	<body onclick="chiudiTutto();" onkeypress="getKeyChiudiTutto();">
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
 
 			<!-- INTESTAZIONE -->
@@ -379,18 +379,29 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 		</li>
 	</s:if>
 	<s:else>
-		<li«getMenuNoChildCssRupar(this, level)»>«getMenuNoChildLabelRupar(this, level)»</li>
+		<li«getMenuNoChildCssRupar(this, level)»><a href="#">«getMenuNoChildLabelRupar(this, level)»</a></li>
 	</s:else>
 	«ENDLET»
 «ELSE»
-	<li«getMenuNoChildCssRupar(this, level)»>«getMenuNoChildLabelRupar(this, level)»</li>
+	<li«getMenuNoChildCssRupar(this, level)»><a href="#">«getMenuNoChildLabelRupar(this, level)»</a></li>
 «ENDIF»
 </s:if>
 «ENDDEFINE»
 
 «REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
 «DEFINE expandMenuWithChild(int level) FOR Menu»
-	«ERROR "RUPAR: menu di secondo livello non ancora implementato"»
+<s:if test="isMenuVisible('«this.name»')">
+	<s:if test="isAtLeastOneSubMenuVisible('«this.name»')">
+		<li«getMenuWithChildCssRupar(this, level)»><a onblur="getKeyMenu(this); return false" onclick="menu(this); return false" href="#" title="«getMenuNoChildLabelRupar(this, level)»">«getMenuWithChildLabelRupar(this, level)»</a>
+			<ul title="«getMenuWithChildLabelRupar(this, level)»">
+				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+			</ul>
+		</li>
+	</s:if>
+	<s:else>
+		<li«getMenuNoChildCssRupar(this, level)»><a href="#">«getMenuNoChildLabelRupar(this, level)»</a></li>
+	</s:else>
+</s:if>
 «ENDDEFINE»
 
 «REM»Genera un sottoMenu«ENDREM»
