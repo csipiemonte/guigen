@@ -29,14 +29,27 @@
 Panel.label
 Se il pannello è uno step di wizard con TabSwitcher occorre pre-pendere il numero dello step,
 altrimenti non si riesce a visualizzarlo nel pulsante. In questo caso lo pre-pendo per ogni step 
+STDMDD-444 REGIONE PROTETTA SU SINGOLA LABEL
 «ENDREM»
 «DEFINE mainLabelDef(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
 	«IF !isNullOrEmpty(label)-»
-		«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
+		«IF !isNullOrEmpty(contextPrefix)-»
+			«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
 «cp.name».«getFullID(this, contextPrefix)».label=«""+getStepNumber(this, (WizardPanel)(this.eContainer))+". "+label»
-		«ELSE»
+«ENDPROTECT»
+			«ELSE-»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
 «cp.name».«getFullID(this, contextPrefix)».label=«label»
-		«ENDIF»
+«ENDPROTECT»
+			«ENDIF-»
+		«ELSE-»
+			«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
+«cp.name».«getFullID(this, contextPrefix)».label=«""+getStepNumber(this, (WizardPanel)(this.eContainer))+". "+label»
+			«ELSE-»
+«cp.name».«getFullID(this, contextPrefix)».label=«label»
+			«ENDIF-»		
+		«ENDIF-»		
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -85,6 +98,13 @@ altrimenti non si riesce a visualizzarlo nel pulsante. In questo caso lo pre-pen
 	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
+«REM»
+(STDMDD-444) REGIONE PROTETTA GLOBALE
+contextPrefix cambia a seconda del panelDef dove mi trovo quindi è univoco
+devo prendere questo -> getChainedContext(contextPrefix, name) <- è univoco
+PROBLEMA: se cambio il contenuto del paneldef la rigenerazione NON prende le modifiche
+POSSIBILE SOLUZIONE: 1 regione protetta per CIASCUNA LABEL
+«ENDREM»
 «DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
 	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
 	«EXPAND panelLabelDefs(model, cp, getChainedContext(contextPrefix, name)) FOR this.panelDef.panel-»
@@ -114,11 +134,17 @@ altrimenti non si riesce a visualizzarlo nel pulsante. In questo caso lo pre-pen
 	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.msgBoxes-»
 «ENDDEFINE»
 
+
+«REM»(STDMDD-444) se metto qui la regione protetta posso riconoscere se sono in un panelDef vedendo
+se contextPrefix è valorizzato (oppure chiedendo al Widget stesso se il parentPanelDef è nullo o no)«ENDREM»
 «DEFINE widgetLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
 	«FOREACH getWidgetLabels(this, cp, contextPrefix) AS currLbl-»
+		«IF !isNullOrEmpty(contextPrefix)-»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
 «currLbl»
+«ENDPROTECT»
+		«ELSE-»
+«currLbl»
+		«ENDIF-»
 	«ENDFOREACH-»
 «ENDDEFINE»
-
-
-
