@@ -579,6 +579,7 @@ String getFullExecCmdMethodName(String methodName, String contextPrefix) :
 int getStepNumber(Panel step, WizardPanel wiz) :
 	wiz.panels.indexOf(step)+1;
 		
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
 
@@ -843,6 +844,14 @@ List[String] getRefreshTargetIds(Widget cw) : JAVA
 // [DM]
 String getWizardPanelStepCompleteIndex(Panel currentPanel, String index) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getWizardPanelStepCompleteIndex(it.csi.mddtools.guigen.Panel, java.lang.String);
+
+//[DM] STDMDD-444:
+String extractLabelKey(String label) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.extractLabelKey(java.lang.String);
+
+// [DM] STDMDD-446: PanelDef: customizzabilità delle Table contenute nel PanelDef 
+List[Column] getCustomizedColumnsList(Table table, PDefUseConfig pduConf) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getCustomizedColumnsList(it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.PDefUseConfig);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

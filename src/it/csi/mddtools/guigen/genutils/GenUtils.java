@@ -13,6 +13,7 @@ import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
+import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.CommandPanel;
@@ -25,6 +26,7 @@ import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.ExecCommand;
+import it.csi.mddtools.guigen.ExtraColumn;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FileUpload;
 import it.csi.mddtools.guigen.FormPanel;
@@ -57,6 +59,8 @@ import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StdMessagePanel;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
+import it.csi.mddtools.guigen.TableCustomizationPDefVal;
+import it.csi.mddtools.guigen.TableCustomizationParam;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeNamespace;
@@ -74,9 +78,11 @@ import it.csi.mddtools.guigen.WizardPanel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.eclipse.emf.common.util.EList;
@@ -2153,17 +2159,18 @@ public class GenUtils {
 		}
 	}
 
+
 	/**
 	 * Risolve una eventuale sovrascrittura dell'appdata binding se predente un PDefUseParam.
 	 * @param original il binding originale (direttamente colegato al widget, che nel caso di
 	 * pannelli inclusi punta ad un appdata fittizio)
 	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
 	 * PanelDef che definisce il pannello che contiene widget... 
-	 * @return il binding definito dalla configurazione se il widget è un widget appartenente ad 
+	 * @return il binding definito dalla configurazione se il widget &egrave; un widget appartenente ad 
 	 * un panel def, il binding originario se il widget è un widget direttamente incluso in un 
-	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 * ContentPanel (nel qual caso pduConf è nullo) 
 	 */
-	public static AppDataBinding getResolvedAppDatabinding(AppDataBinding original, PDefUseConfig pduConf){
+	public static AppDataBinding getResolvedAppDatabinding(AppDataBinding original, PDefUseConfig pduConf) {
 		//
 //		System.out.println("getResolvedAppDatabinding");
 //		if (original != null){
@@ -2657,6 +2664,145 @@ public class GenUtils {
 		return false;
 	}
 
+	
+	/**
+	 * Risolve una eventuale customizzazione di una tabella se predente un PDefUseParam.
+	 * 
+	 * @param table la tabella originale
+	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
+	 *                PanelDef che definisce il pannello che contiene la tabella... 
+	 * @return la nuova lista delle colonne customizzata secondo quanto definito dalla configurazione se la Table 
+	 *         appartiene ad un PanelDef, la lista originaria delle colonne del ColumnModel se la tabella &egrave; direttamente 
+	 *         inclusa in un ContentPanel (nel qual caso pduConf è nullo) 
+	 * @author [DM] STDMDD-446
+	 */
+	public static List<Column> getCustomizedColumnsList(Table table, PDefUseConfig pduConf) {
+		// Lista delle colonne originali
+		ArrayList<Column> res = new ArrayList<Column>(table.getColumnModel().getColumns());
+		
+		// cerco se esiste una customizzazione per questa tabella
+		TableCustomizationPDefVal cust = findTableCustomizationParamInConfig(table, pduConf);
+			
+		// Se c'è una customizzazione per questa tabella calcolo la nuova lista delle colonne
+		if (cust != null) 
+		{
+			// creo due mappe di lavoro: 
+			// - una LOGICA che rappresenta la posizione originale delle colonne nel ColumnModel della Table
+			// - una FISICA che rappresenta la posizione attuale ricoperta dalle colonne del ColumnModel in seguito
+			//     all'aggiunta di nuove colonne
+			// La prima mappa non verrà mai variata 
+			Map<Column, Integer> workmapLogical = new HashMap<Column, Integer>();
+			Map<Column, Integer> workmapPhysical = new HashMap<Column, Integer>();
+			int i = 0;
+			for (Column column : table.getColumnModel().getColumns()) {				
+				workmapLogical.put(column, i);   // posizione originale (logica) della colonna
+				workmapPhysical.put(column, i);  // posizione attuale (fisica) della colonna
+				i++;
+			}
+			
+			// extra columns
+			if (cust.getExtraCols().size() > 0) 
+			{
+				for (ExtraColumn extraColumn : cust.getExtraCols()) 
+				{
+					int originalLogicalPos = 0;
+					int newLogicalPos = 0;
+					int originalPhisicalPos = 0;
+					int newPhisicalPos = 0;
+					if (extraColumn.getInsertAfter() != null) 
+					{
+						// colonna da inserire in una posizione specificata
+						originalLogicalPos = workmapLogical.get(extraColumn.getInsertAfter()); // posizione logica della colonna dopo la quale					
+						                                                                       // andrà inserita la nuova colonna
+						
+						// devo tradurre la posizione logica in posizione fisica 
+						// (eventuali colonne già aggiunte dopo questa colonna in iterazioni precedenti)
+						// quindi cerco la colonna che occupa la posizione logica che dovrebbe essere occupata
+						// dalla nuova tabella
+						newLogicalPos = originalLogicalPos + 1;
+					} 
+					else
+					{
+						// colonna da inserire all'inizio, prima di tutte le colonne						
+						newLogicalPos = 0;
+					}
+					
+					// devo tradurre la posizione logica in posizione fisica (eventuali colonne aggiunte)
+					// quindi cerco la colonna che occupa la posizione logica che dovrebbe essere occupata 							
+					Column cc = null;
+					Integer p1 = null;
+					for (Column c1 : workmapLogical.keySet()) {
+						p1 = workmapLogical.get(c1);
+						if (p1.equals(newLogicalPos) ) {
+							cc = c1;
+							break;
+						}
+					}
+					
+					
+					// recupero la posizione fisica della colonna : sarà la posizione fisica della nuova colonna
+					if (cc != null) {
+						// colonna trovata 
+						originalPhisicalPos = workmapPhysical.get(cc);
+					} else {
+						// se non trovo l'elemento successivo allora sto aggiungendo DOPO l'ultimo elemento
+						// quindi in ultima posizione
+						originalPhisicalPos = res.size();
+					}
+					
+					
+					// inserisco la colonna nella nuova posizione nella lista finale
+					// (le altre slittano indietro automaticamente)
+					res.add(originalPhisicalPos, extraColumn);
+					
+					// devo modificare le posizioni fisiche di tutte le colonne 
+					// successive a questa nuova, ovvero che hanno una posizione logica
+					// uguale o maggiore di questa
+					for (Column c2 : workmapPhysical.keySet()) {
+						if (workmapPhysical.get(c2) >= originalPhisicalPos) {
+							// aumento di 1 la posizione fisica delle colonne
+							newPhisicalPos = workmapPhysical.get(c2) + 1;
+							workmapPhysical.put(c2, newPhisicalPos);
+						}
+					}	
+				}
+			}
+
+			
+			// hidden columns: rimuove le colenne dichiarate hidden
+			if ( cust.getHiddenCols().size() > 0) {
+				for (Column hiddenColumn : cust.getHiddenCols()) {
+					res.remove(hiddenColumn);
+				}
+
+			}
+		}
+
+		return res;
+	}
+	
+	
+	public static TableCustomizationPDefVal findTableCustomizationParamInConfig(Table table, PDefUseConfig pduConf) {
+		TableCustomizationPDefVal res = null;
+		if (pduConf != null) {
+			for (PDefParamVal currParamVal : pduConf.getParamValues()) {
+				if (currParamVal.getParam() != null && currParamVal.getParam() instanceof TableCustomizationParam) {
+					TableCustomizationParam currParam = (TableCustomizationParam)(currParamVal.getParam());
+					if (currParam.getBaseTable().equals(table)) {
+						res = (TableCustomizationPDefVal)currParamVal;
+					}
+				}
+			}
+		}
+		return res;
+	}
+	
+	
+	public static String extractLabelKey(String label) {
+		return label.substring(0, label.indexOf('='));
+	}
+	
+	
 	//// TABS
 	
 	public static ArrayList<TabSetPanel> getAllTabSets(ContentPanel p){

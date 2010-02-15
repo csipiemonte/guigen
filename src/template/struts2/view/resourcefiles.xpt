@@ -903,7 +903,7 @@ come target di refresh.
 		</display:column>
 	«ENDIF-»
 	«LET this.columnModel AS tabColMod-»
-	«FOREACH tabColMod.columns AS currCol-»
+	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
 		«IF currCol.editable && currCol.editableFlagSelector!=null -»		
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 				sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
