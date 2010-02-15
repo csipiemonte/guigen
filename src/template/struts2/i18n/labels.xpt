@@ -140,7 +140,7 @@ se contextPrefix è valorizzato (oppure chiedendo al Widget stesso se il parentPa
 «DEFINE widgetLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
 	«FOREACH getWidgetLabels(this, cp, contextPrefix) AS currLbl-»
 		«IF !isNullOrEmpty(contextPrefix)-»
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(extractLabelKey(currLbl))»
 «currLbl»
 «ENDPROTECT»
 		«ELSE-»
