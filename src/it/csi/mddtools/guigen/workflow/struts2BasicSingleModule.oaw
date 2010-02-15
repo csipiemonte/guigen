@@ -11,18 +11,10 @@
 	     determina il tipo di applicazione da generare (e i 
 	     template da utilizzare).
 	     Puo' valere:
-	     -swingpreview: preview swing senza binding dati
-	     -wicket: applicazione completa basata su wicket
 	     -struts2
 	-->
 	<property name="target-platform" value="struts2"/>
 	
-	<!-- se true i generatori wicket non includeranno la directory relativa
-	     al componente nel path di destinazione (serve per la generazione 
-	     in un altro progetto eclipse "fratello". In questo caso la variabile 
-	     "target-project-name" deve essere valorizzata con il nome del progetto
-	     target -->
-	<property name="skip-component-dir-creation" value="true" />
 	
 	<!-- valorizzare con il nome del progetto eclipse target dove verranno
 	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
@@ -32,6 +24,9 @@
 	<property name="src-gen" value="../${targetProjectName}" />
 	
 	<property name="extra-xpt" value="template::struts2::dummyAOP" />
+	
+	<!-- valore di default se non specificato -->
+	<property name="propertiesFile" value="it/csi/mddtools/guigen/workflow/emptyProperties.properties" />
 	
 	<!-- set up EMF for standalone execution -->
 		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
@@ -86,7 +81,7 @@
 		<metaModel id="mm"
 			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
 		<expand
-			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+			value="template::${target-platform}::Main::main(true) FOR model" />
 		<!-- AOP definition for extensions -->
 		<extensionAdvice value="template::${target-platform}::${portal}::aopExtension"/>
 		<!--  protected regions configurator --> 

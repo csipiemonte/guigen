@@ -6,44 +6,29 @@
          al tipo di operativita' (plugin/standalone)
     -->
 	
-	<!-- utilizzare in modalita' standalone -->
-	<!--<property name="modelfile" value="src/prova2.xmi" />-->
-	<!--<property name="modelfile" value="src/piol.guigen" />-->
-	<!--<property name="modelfile" value="src/wicketModel1.xmi" />-->
-	
-	<!-- utilizzare in modalita' plugin -->
-	<!--<property name="model" value="guigen/src/testmodel/testsecurity.guigen" />-->
-	<!--<property name="model" value="guigen/src/piol.guigen" />-->
 	
 	<!-- *****************************************************
 	     determina il tipo di applicazione da generare (e i 
 	     template da utilizzare).
 	     Puo' valere:
-	     -swingpreview: preview swing senza binding dati
-	     -wicket: applicazione completa basata su wicket
 	     -struts2
 	-->
 	<property name="target-platform" value="struts2"/>
 	
-	<!-- se true i generatori wicket non includeranno la directory relativa
-	     al componente nel path di destinazione (serve per la generazione 
-	     in un altro progetto eclipse "fratello". In questo caso la variabile 
-	     "target-project-name" deve essere valorizzata con il nome del progetto
-	     target -->
-	<property name="skip-component-dir-creation" value="true" />
 	
 	<!-- valorizzare con il nome del progetto eclipse target dove verranno
 	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
 	     al componente SW -->
-	<!--<property name="target-project-name" value="testsecurity" />-->
 	
 	<property name="src-gen" value="../${targetProjectName}" />
 	
 	<property name="extra-xpt" value="template::struts2::dummyAOP" />
 	
+	<!-- valore di default se non specificato -->
+	<property name="propertiesFile" value="it/csi/mddtools/guigen/workflow/emptyProperties.properties" />
+	
 	<!-- set up EMF for standalone execution -->
 		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
-		<!--<platformUri value="d:/javatools/eclipses/europa-oAW-43/eclipse"/>-->
 		<platformUri value=".." />
 		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
 		
@@ -54,6 +39,12 @@
 		<directory value="${src-gen}/build" />
 	</component>
 
+	<!-- lettura del file di properties che conterra' le direttive di 
+	     generazione mirata -->
+	<component class="oaw.util.stdlib.PropertiesReader">
+  		<propertiesFile value="${propertiesFile}"/>
+	</component>
+	
 	<!-- load model and store it in slot 'model' -->
 	<component class="org.eclipse.mwe.emf.Reader">
 		<!-- usare se modalita' a plugin -->
@@ -86,7 +77,7 @@
 	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
 		<metaModel idRef="mm"/>
 		<expand
-			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+			value="template::${target-platform}::Main::main(true) FOR model" />
 		<!-- AOP definition for extensions -->
 		<extensionAdvice value="template::${target-platform}::${portal}::aopExtension"/>
 		<!--  protected regions configurator --> 
