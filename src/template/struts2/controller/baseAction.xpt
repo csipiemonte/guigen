@@ -375,7 +375,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 			if (m != null) {
 				skipValidation = m.isAnnotationPresent(SkipValidation.class);
 			}
-			if (skipValidation && !m.equalsIgnoreCase("execute")) {
+			if (skipValidation && !m.getName().equalsIgnoreCase("execute")) {
 				removeFailedParamsFromRequest(ctx);
 				clearErrorsAndMessages();
 			}
