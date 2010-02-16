@@ -236,6 +236,23 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		}
 	}
 	
+	
+	/**
+	 * estrae il prefisso dal cod ruolo in formato <idruolo>@<coddominio>
+	 * @param codRuolo
+	 */
+	private String getPrefixFromCodRuolo(String codRuolo){
+		return codRuolo.substring(0,codRuolo.indexOf("@"));
+	}
+	
+	/**
+	 * estrae il codice dominio dal cod ruolo in formato <idruolo>@<coddominio>
+	 * @param codRuolo
+	 */
+	private String getDomainFromCodRuolo(String codRuolo){
+		return codRuolo.substring(codRuolo.indexOf("@")+1);
+	}
+	
 	public boolean verifyCurrentUserForUC(Map session, String useCaseCode)
 		throws BEException
 	{
@@ -255,9 +272,9 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 				Ruolo[] ruoliForPersonaInUseCase = getIridePEP()
 						.findRuoliForPersonaInUseCase(currentUser, uc);
 
-				// potrebbe essere necessario farlo passare da variabile
-				String codDominioRuolo = null; 
-				String codRuoloRuolo = null;
+				
+				String codDominioRuolo = getPrefixFromCodRuolo(currentUserInfo.getCodRuolo()); 
+				String codRuoloRuolo = getDomainFromCodRuolo(currentUserInfo.getCodRuolo());
 				boolean authorized = false;
 				Ruolo currentRole = new Ruolo(codRuoloRuolo, codDominioRuolo);
 				for (Ruolo ruolo : ruoliForPersonaInUseCase) {
