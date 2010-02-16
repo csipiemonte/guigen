@@ -41,9 +41,10 @@ context GUIModel WARNING "Per una migliore gestione del progetto di consiglia di
 context GUIModel ERROR "E' possibile specificare solo una dei due elementi 'securityModel' (deprecato) e 'extSecurityModel' (consigliato):"+loc() :
 	securityModel==null || extSecurityModel==null;	
 
-context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' nell'oggetto Header "+
-					 "(servono per referenziare le risorse remote)" :
-	codCanale != null && codCanale != "" && codApplicativo != null && codApplicativo != "";
+// [DM] -> I CHECK SULLA HEADER VARIANO A SECONDA DELLA CARTUCCIA
+//context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' nell'oggetto Header "+
+//					 "(servono per referenziare le risorse remote)" :
+//	codCanale != null && codCanale != "" && codApplicativo != null && codApplicativo != "";
 
 context Header ERROR "E' necessario impostare i nomi descrittivi del 'canale' e dell' 'applicativo' nell'oggetto Header "+
 					 "(servono per il filo d'arianna)" :
