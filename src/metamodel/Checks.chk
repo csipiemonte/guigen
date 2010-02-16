@@ -205,7 +205,7 @@ context MsgBoxPanel ERROR "Un MsgBoxPanel deve contenere almeno un PlainText " +
 
 // [DM] check su WidgetsPanel
 context WidgetsPanel ERROR "Un WidgetsPanel deve essere contenuto in un FormPanel " + loc() :
-	this.eContainer.metaType == FormPanel;
+	this.eContainer.metaType == FormPanel || this.eContainer.metaType == PanelDef;
 
 context WidgetsPanel ERROR "E' necessario impostare il layout su ogni WidgetsPanel " + loc() :
 	this.layout != null;

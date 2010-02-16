@@ -5,7 +5,7 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 
-«DEFINE panelLabelDefs(GUIModel model) FOR ContentPanel-»
+«DEFINE panelLabelDefs(GUIModel model, boolean isHomePage) FOR ContentPanel-»
 ###
 # Label dei pannelli (<contentpanel_name>.<panel_name>.label=<label>)
 #
@@ -14,14 +14,14 @@
 #   - COLONNA TABELLA : <contentpanel_name>.<table_name>.<column_selector>.label=<label>
 #   - VALIDATORE      : <contentpanel_name>.<widget_name>.<validatore>.label=<label>
 ###
-	«EXPAND panelLabelDefs(model, this, "") FOR this.panels-»
+	«EXPAND panelLabelDefs(model, this, isHomePage, "") FOR this.panels-»
 	
 	«IF dialogs.size > 0-»
 ###
 # Label dei DialogPanels (<contentpanel_name>.<panel_name>.label=<label>)
 # e rispettivi widget
 ###
-		«EXPAND panelLabelDefs(model, this, "") FOREACH this.dialogs-»
+		«EXPAND panelLabelDefs(model, this, isHomePage, "") FOREACH this.dialogs-»
 	«ENDIF-»
 «ENDDEFINE»
 
@@ -31,18 +31,20 @@ Se il pannello è uno step di wizard con TabSwitcher occorre pre-pendere il numer
 altrimenti non si riesce a visualizzarlo nel pulsante. In questo caso lo pre-pendo per ogni step 
 STDMDD-444 REGIONE PROTETTA SU SINGOLA LABEL
 «ENDREM»
-«DEFINE mainLabelDef(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE mainLabelDef(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR Panel»
 	«IF !isNullOrEmpty(label)-»
 		«IF !isNullOrEmpty(contextPrefix)-»
-			«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
+			«LET contextPrefix+"-"+cp.name+"-"+name+(isHomePage ? "-Home" : "") AS regionUid»
+				«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(regionUid)»
 «cp.name».«getFullID(this, contextPrefix)».label=«""+getStepNumber(this, (WizardPanel)(this.eContainer))+". "+label»
 «ENDPROTECT»
-			«ELSE-»
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(contextPrefix+"-"+cp.name+"-"+name)»
+				«ELSE-»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(regionUid)»
 «cp.name».«getFullID(this, contextPrefix)».label=«label»
 «ENDPROTECT»
-			«ENDIF-»
+				«ENDIF-»
+			«ENDLET»
 		«ELSE-»
 			«IF eContainer.metaType==WizardPanel && ((WizardPanel)eContainer).switcher!=null-»
 «cp.name».«getFullID(this, contextPrefix)».label=«""+getStepNumber(this, (WizardPanel)(this.eContainer))+". "+label»
@@ -54,48 +56,48 @@ STDMDD-444 REGIONE PROTETTA SU SINGOLA LABEL
 «ENDDEFINE»
 
 «REM»implementazione generica per i pannelli che non hanno specificita'«ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR Panel-»
 «ENDDEFINE»
 
 «REM»in un form panel le label sono: la label del pannello + le label dei sottopannelli«ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.subpanels»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR FormPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.subpanels»
 «ENDDEFINE»
 
 «REM»in un widgets panel le label sono: la label del pannello + le label dei vari widget«ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR WidgetsPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND widgetLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.widgets-»
 «ENDDEFINE»
 
 «REM»le label di un command panel sono: la label del pannello (ch ein relatà non è utilizzata) +
 	 le label dei vari button
 «ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR CommandPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND widgetLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.widgets-»
 «ENDDEFINE»
 
 «REM»Nessuna label«ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR UserInfoPanel-»
 «ENDDEFINE»
 
 «REM»le label di un multi panel sono la label del pannello (inutilizzata) e le label dei sottopannelli
 «ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»	
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR MultiPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»	
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR TabSetPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.panels-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR WizardPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.panels-»
 «ENDDEFINE»
 
 «REM»
@@ -105,44 +107,46 @@ devo prendere questo -> getChainedContext(contextPrefix, name) <- è univoco
 PROBLEMA: se cambio il contenuto del paneldef la rigenerazione NON prende le modifiche
 POSSIBILE SOLUZIONE: 1 regione protetta per CIASCUNA LABEL
 «ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND panelLabelDefs(model, cp, getChainedContext(contextPrefix, name)) FOR this.panelDef.panel-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR PanelDefUse-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, getChainedContext(contextPrefix, name)) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
 
 «REM»nessuna label«ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR StdMessagePanel-»
 «ENDDEFINE»
 
 «REM»le label del msgbox panel sono: la label del pannello (inutilizzata) + le label
      dei plain text
 «ENDREM»
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.textMessages-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR MsgBoxPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND widgetLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.textMessages-»
 «ENDDEFINE»
 
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND widgetLabelDefs(model, cp, contextPrefix) FOREACH this.widgets-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR MenuPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND widgetLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.widgets-»
 «ENDDEFINE»
 
-«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
-	«EXPAND mainLabelDef(model, cp, contextPrefix) FOR this-»
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOR this.commands-»
-	«EXPAND panelLabelDefs(model, cp, contextPrefix) FOREACH this.msgBoxes-»
+«DEFINE panelLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR DialogPanel-»
+	«EXPAND mainLabelDef(model, cp, isHomePage, contextPrefix) FOR this-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOR this.commands-»
+	«EXPAND panelLabelDefs(model, cp, isHomePage, contextPrefix) FOREACH this.msgBoxes-»
 «ENDDEFINE»
 
 
 «REM»(STDMDD-444) se metto qui la regione protetta posso riconoscere se sono in un panelDef vedendo
 se contextPrefix è valorizzato (oppure chiedendo al Widget stesso se il parentPanelDef è nullo o no)«ENDREM»
-«DEFINE widgetLabelDefs(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
+«DEFINE widgetLabelDefs(GUIModel model, ContentPanel cp, boolean isHomePage, String contextPrefix) FOR Widget-»
 	«FOREACH getWidgetLabels(this, cp, contextPrefix) AS currLbl-»
 		«IF !isNullOrEmpty(contextPrefix)-»
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(extractLabelKey(currLbl))»
+			«LET extractLabelKey(currLbl)+(isHomePage ? ".home" : "") AS regionUid»
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(regionUid)»
 «currLbl»
 «ENDPROTECT»
+			«ENDLET»
 		«ELSE-»
 «currLbl»
 		«ENDIF-»
