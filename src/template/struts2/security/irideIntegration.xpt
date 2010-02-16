@@ -120,6 +120,9 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 «ENDDEFINE»
 
 «DEFINE irideHelperMethods FOR GUIModel»
+«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
+«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+	
 	///////////////////////////////////////////////////////////////////////////////
 	//// Metodi per la sicurezza basata su IRIDE2
 	///////////////////////////////////////////////////////////////////////////////
@@ -162,6 +165,19 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		}
 		else{
 			return id;
+		}
+	}
+	
+	protected «toJavaType(currentUserAD.type, this)» getCurrentUserInfo(Map session)
+		throws BEException
+	{
+		«toJavaType(currentUserAD.type, this)» userInfo = («toJavaType(currentUserAD.type, this)»)session.get("«getAppDataKey(currentUserAD)»");
+		if (userInfo == null){
+			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
+			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
+		}
+		else{
+			return userInfo;
 		}
 	}
 	
@@ -229,7 +245,31 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		uc.setAppId(IRIDE2_APPLICATION);
 		uc.setId(useCaseCode);
 		try {
-			return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
+			«toJavaType(currentUserAD.type, this)» currentUserInfo = getCurrentUserInfo(session);
+			if (currentUserInfo==null || currentUserInfo.getCodRuolo()==null || currentUserInfo.getCodRuolo().length()==0){
+				// verifica dell'abilitazione allo UC senza tener conto del ruolo corrente
+				return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
+			}
+			else {
+				// verifica dell'abilitazione allo UC tenendo conto del ruolo corrente
+				Ruolo[] ruoliForPersonaInUseCase = getIridePEP()
+						.findRuoliForPersonaInUseCase(currentUser, uc);
+
+				// potrebbe essere necessario farlo passare da variabile
+				String codDominioRuolo = null; 
+				String codRuoloRuolo = null;
+				boolean authorized = false;
+				Ruolo currentRole = new Ruolo(codRuoloRuolo, codDominioRuolo);
+				for (Ruolo ruolo : ruoliForPersonaInUseCase) {
+					if (ruolo != null
+							&& currentRole.getMnemonico().equals(
+									ruolo.getMnemonico())) {
+						authorized = true;
+						break;
+					}
+				}
+				return authorized;
+			}
 		} catch (InternalException e) {
 			log.error("[SecurityHelper::verifyCurrentUserForUC] Errore interno in verifyCurrentUserForUC:"+e,e);
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
@@ -296,6 +336,8 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
 
 
