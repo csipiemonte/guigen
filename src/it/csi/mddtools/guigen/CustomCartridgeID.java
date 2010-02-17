@@ -17,6 +17,31 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Custom Cartridge ID</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * Elenco dei codici che possono essere utilizzati per classificare le cartucce.
+ * <ul>
+ * <li>
+ * I valori <b>PLATF_1</b> ... <b>PLATF_5</b> sono riservati alle estensioni
+ * abilitanti all'utilizzo di una <i>piattaforma</i> (es. BPM-FLUX, ...). Queste estensioni
+ * sono realizzate da chi gestisce la piattaorma in congiunzione con il gruppo di 
+ * competenza MDD.
+ * </li>
+ * <li>
+ * I valori <b>TECH_1</b> ... <b>TECH_5</b> sono riservati alle estensioni
+ * specifiche di una determinata problematica <i>tecnologica</i> (es. accesso al DB, accesso a servizi,, ...)
+ * Queste estensioni sono realizzate da chi gestisce gli standard di sviluppo in congiunzione con il gruppo di 
+ * competenza MDD.
+ * </li>
+ * <li>
+ * I valori <b>CUSTOM_1</b> ... <b>CUSTOM_3</b> sono riservati alle estensioni
+ * specifiche di un determinato progetto <i>tecnologica</i>.
+ * Queste estensioni p'ossono essere realizzate dal gruppo di progetto con il supporto
+ * del gruppo di competenza MDD, ma sono da considerarsi feature <b>AVANZATE</b>,
+ * da utilizzare quando realmente necessario.
+ * </li>
+ * 
+ * </ul>
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getCustomCartridgeID()
  * @model
  * @generated

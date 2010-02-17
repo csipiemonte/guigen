@@ -15,6 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Custom Cartridge</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Cartuccia custom da utilizzare per la <i>full-code generation</i> in un 
+ * <b>ExecCommand</b>.
+ * La definizione di una <b>CustomCartridge</b> &egrave; considerata una 
+ * feature avanzata.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +44,9 @@ public interface CustomCartridge extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Nome mnemonico della cartuccia.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCustomCartridge_Name()
@@ -64,6 +74,9 @@ public interface CustomCartridge extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * id della cartuccia
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Crt ID</em>' attribute.
 	 * @see it.csi.mddtools.guigen.CustomCartridgeID
 	 * @see #setCrtID(CustomCartridgeID)
@@ -93,6 +106,9 @@ public interface CustomCartridge extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Template messi a disposizione dalla cartuccia.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Templates</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCustomCartridge_Templates()
 	 * @model containment="true"

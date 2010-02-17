@@ -13,6 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Model Slot Def</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Definizione di uno slot destinato a contenere un modello ausiliario utilizzabile
+ * da un custom template.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +39,9 @@ public interface ModelSlotDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * nome mnemonico dello slot
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getModelSlotDef_Name()
@@ -60,6 +68,10 @@ public interface ModelSlotDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * full qualified name della classe Java corrispondente alla classe EMF degli 
+	 * elementi associabili allo slot.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Model Class</em>' attribute.
 	 * @see #setModelClass(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getModelSlotDef_ModelClass()

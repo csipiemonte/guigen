@@ -15,6 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Custom Template</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Un template custom da utilizzarsi per la generazione <i>full</i> 
+ * del codice a fronte di un <b>ExecCommand</b>. 
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +42,12 @@ public interface CustomTemplate extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * ID mnemonico del template. Il valore di questo attributo sar&agrave; a 
+	 * disposizione del codiuce che implementa il template <i>XPand</i>, e 
+	 * dovrà essere utilizzato per instradare la logica di generazione verso il 
+	 * template corretto.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Tpl ID</em>' attribute.
 	 * @see #setTplID(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCustomTemplate_TplID()
@@ -63,6 +74,10 @@ public interface CustomTemplate extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * nome del template
+	 * 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCustomTemplate_Name()
@@ -90,6 +105,10 @@ public interface CustomTemplate extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Dichiarazione degli <i>slot</i> (opzionali) destinati a contenere eventuali 
+	 * modelli ausiliarii.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Model Slots</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getCustomTemplate_ModelSlots()
 	 * @model containment="true"

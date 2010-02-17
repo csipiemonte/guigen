@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Model Slot</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Valorizzazione di uno slot con un modello utilizzabile dal custom template
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +38,10 @@ public interface ModelSlot extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Definizione del model slot di cui questo <b>ModelSlot</b> rappresenta la
+	 * valorizzazione.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Def</em>' reference.
 	 * @see #setDef(ModelSlotDef)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getModelSlot_Def()
@@ -60,6 +68,11 @@ public interface ModelSlot extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Valore dello slot. Il tipo dell'elemento associato deve corrispondere con
+	 * quanto dichiarato nell'attributo <i>modelClass</i> dell'oggetto 
+	 * <b>ModelSlotDef</b> corrispondente.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Val</em>' reference.
 	 * @see #setVal(EObject)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getModelSlot_Val()

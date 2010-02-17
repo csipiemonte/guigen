@@ -13,8 +13,8 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Tipo specifico di <b>Column<b> utilizzabile per aggiungere colonne ad una
- * <b>Table</b> presente in un <b>PanelDef</b>
+ * Tipo specifico di <b>Column<b> utilizzabile in un <b>TableCustomizationParam</b> 
+ * per aggiungere colonne ad una <b>Table</b> presente in un <b>PanelDef</b>
  * <!-- end-model-doc -->
  *
  * <p>
