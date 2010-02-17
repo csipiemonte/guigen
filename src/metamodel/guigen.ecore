@@ -1990,7 +1990,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExtraColumn" eSuperTypes="#//Column">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Tipo specifico di &lt;b>Column&lt;b> utilizzabile per aggiungere colonne ad una&#xD;&#xA;&lt;b>Table&lt;/b> presente in un &lt;b>PanelDef&lt;/b>"/>
+      <details key="documentation" value="Tipo specifico di &lt;b>Column&lt;b> utilizzabile in un &lt;b>TableCustomizationParam&lt;/b> &#xD;&#xA;per aggiungere colonne ad una &lt;b>Table&lt;/b> presente in un &lt;b>PanelDef&lt;/b>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="insertAfter" eType="#//Column">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2016,12 +2016,30 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomCartridge">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="crtID" eType="#//CustomCartridgeID"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Cartuccia custom da utilizzare per la &lt;i>full-code generation&lt;/i> in un &#xD;&#xA;&lt;b>ExecCommand&lt;/b>.&#xD;&#xA;La definizione di una &lt;b>CustomCartridge&lt;/b> &amp;egrave; considerata una &#xD;&#xA;feature avanzata."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Nome mnemonico della cartuccia."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="crtID" eType="#//CustomCartridgeID">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="id della cartuccia"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="templates" upperBound="-1"
-        eType="#//CustomTemplate" containment="true"/>
+        eType="#//CustomTemplate" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Template messi a disposizione dalla cartuccia."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CustomCartridgeID">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Elenco dei codici che possono essere utilizzati per classificare le cartucce.&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>&#xD;&#xA;I valori &lt;b>PLATF_1&lt;/b> ... &lt;b>PLATF_5&lt;/b> sono riservati alle estensioni&#xD;&#xA;abilitanti all'utilizzo di una &lt;i>piattaforma&lt;/i> (es. BPM-FLUX, ...). Queste estensioni&#xD;&#xA;sono realizzate da chi gestisce la piattaorma in congiunzione con il gruppo di &#xD;&#xA;competenza MDD.&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>&#xD;&#xA;I valori &lt;b>TECH_1&lt;/b> ... &lt;b>TECH_5&lt;/b> sono riservati alle estensioni&#xD;&#xA;specifiche di una determinata problematica &lt;i>tecnologica&lt;/i> (es. accesso al DB, accesso a servizi,, ...)&#xD;&#xA;Queste estensioni sono realizzate da chi gestisce gli standard di sviluppo in congiunzione con il gruppo di &#xD;&#xA;competenza MDD.&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>&#xD;&#xA;I valori &lt;b>CUSTOM_1&lt;/b> ... &lt;b>CUSTOM_3&lt;/b> sono riservati alle estensioni&#xD;&#xA;specifiche di un determinato progetto &lt;i>tecnologica&lt;/i>.&#xD;&#xA;Queste estensioni p'ossono essere realizzate dal gruppo di progetto con il supporto&#xD;&#xA;del gruppo di competenza MDD, ma sono da considerarsi feature &lt;b>AVANZATE&lt;/b>,&#xD;&#xA;da utilizzare quando realmente necessario.&#xD;&#xA;&lt;/li>&#xD;&#xA;&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
     <eLiterals name="PLATF_1" value="101"/>
     <eLiterals name="PLATF_2" value="102"/>
     <eLiterals name="PLATF_3" value="103"/>
@@ -2037,17 +2055,54 @@
     <eLiterals name="TECH_5" value="305"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomTemplate">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tplID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Un template custom da utilizzarsi per la generazione &lt;i>full&lt;/i> &#xD;&#xA;del codice a fronte di un &lt;b>ExecCommand&lt;/b>. "/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tplID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="ID mnemonico del template. Il valore di questo attributo sar&amp;agrave; a &#xD;&#xA;disposizione del codiuce che implementa il template &lt;i>XPand&lt;/i>, e &#xD;&#xA;dovrà essere utilizzato per instradare la logica di generazione verso il &#xD;&#xA;template corretto."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="nome del template&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelSlots" upperBound="-1"
-        eType="#//ModelSlotDef" containment="true"/>
+        eType="#//ModelSlotDef" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Dichiarazione degli &lt;i>slot&lt;/i> (opzionali) destinati a contenere eventuali &#xD;&#xA;modelli ausiliarii."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelSlotDef">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Definizione di uno slot destinato a contenere un modello ausiliario utilizzabile&#xD;&#xA;da un custom template."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="nome mnemonico dello slot"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="full qualified name della classe Java corrispondente alla classe EMF degli &#xD;&#xA;elementi associabili allo slot."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelSlot">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="def" eType="#//ModelSlotDef"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Valorizzazione di uno slot con un modello utilizzabile dal custom template"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="def" eType="#//ModelSlotDef">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Definizione del model slot di cui questo &lt;b>ModelSlot&lt;/b> rappresenta la&#xD;&#xA;valorizzazione."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Valore dello slot. Il tipo dell'elemento associato deve corrispondere con&#xD;&#xA;quanto dichiarato nell'attributo &lt;i>modelClass&lt;/i> dell'oggetto &#xD;&#xA;&lt;b>ModelSlotDef&lt;/b> corrispondente."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>
