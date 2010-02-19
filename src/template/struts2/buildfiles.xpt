@@ -265,7 +265,8 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all, 
-                   commons-jar, business-ejb-jar, integration-jar,
+                   commons-jar, business-ejb-jar, integration-jar, 
+                   «IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -293,6 +294,18 @@ ANT FILES
       </manifest>
     </ear>
   </target>
+
+	«IF this.targetPlatform.enableRichUIBehavior-»
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # _unzip_js                                                 # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
+	<unzip src="${extjs-zipfile}" dest="${srcweb}" />
+  	<unzip src="${csi-extjs-zipfile}" dest="${srcweb}" />
+  </target>
+	«ENDIF-»
 
   <!-- -->
   <!-- ############################################################# -->
@@ -507,6 +520,12 @@ ANT FILES
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
+«IF targetPlatform.enableRichUIBehavior-»
+# - [Files delle risorse statiche per rich UI] -------------------------------
+  extjs-zipfile = ${lib}/ext-3.1.0-all.zip
+  csi-extjs-zipfile = ${lib}/ext-1.0.0-csi.zip
+«ENDIF-»
+
 # - [ear-libs-filter] --------------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
 # essere inclusi all'interno dell'EAR prodotto.
@@ -687,6 +706,11 @@ IVY FILES (gestione delle dipendenze)
 		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
 		«EXPAND strutsThemeIvy FOR this»
 
+		«IF targetPlatform.enableRichUIBehavior-»
+		<!-- librerie js per rich u.i -->
+		<dependency org="csipiemonte" name="extjscsi" rev="1.0.0"/>
+		«ENDIF-»
+		
 		«IF this.securityModel.autenticationMethod!=null-»
 		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
 		«ENDIF-»
@@ -722,6 +746,17 @@ IVY FILES (gestione delle dipendenze)
 
 			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
 			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+			
+			«IF targetPlatform.enableRichUIBehavior-»
+			<!-- Aggiunta per extjs e reperimento risorse statiche -->
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/ivy-[module].xml" />
+			«ENDIF-»
 		</url>
 	</resolvers>
 </ivysettings>
