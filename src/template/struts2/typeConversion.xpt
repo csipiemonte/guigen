@@ -95,16 +95,27 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	 */
 	@Override
 	public Object convertFromString(Map context, String[] values, Class toClass) {
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")-»
-		if (values!=null && values.length>0){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")»
+		// TODO: implementare il metodo e rimuovere l'eccezione UnsupportedOperationException
+		/*if (values!=null && values.length>0){
 			String s = values[0].trim();
 			«getUDTClassName(this)» val = new «getUDTClassName(this)»();
-			val.setValue(s);
+			try {
+				// HINT: convertire in maniera opportuna la stringa s in un tipo compatibile con quello su cui è basato
+				//       il SimpleType User Defined, e settarla nell'oggetto val creato
+				? t = ?;
+				val.setValue(t);
+				// HINT: end
+			} catch (Exception e) {
+				throw new TypeConversionException("Valore " + s + " non ammesso per il tipo «getUDTClassName(this)»");
+			}
 			return val;
 		}
-		else
+		else {
 			return null;
-	«ENDPROTECT-»
+		}*/
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertFromString() non implementato");
+		«ENDPROTECT»
 	}
 
 	/**
@@ -117,10 +128,11 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	@Override
 	public String convertToString(Map context, Object o) {
 		«getUDTClassName(this)» val = («getUDTClassName(this)»)o;
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")-»
-		
-		return val==null? "" : (val.getValue()!=null? val.getValue() : "");
-	«ENDPROTECT»
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")»
+		// TODO: implementare la logica di conversione a stringa e rimuovere l'eccezione UnsupportedOperationException
+		//return val==null ? "" : (val.getValue()!=null ? val.getValue() : "");
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertToString() non implementato");
+		«ENDPROTECT»
 	}
 
 }

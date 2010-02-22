@@ -1,8 +1,9 @@
 package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
 
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.Calendar;
@@ -76,6 +77,20 @@ public class GenUtilsStrutsValidation {
 	
 	public static final String VISITOR_VALIDATION_LABEL = ".visitorvalidator.label";
 	
+	
+	/*
+	 * 
+	 */
+	public static final Map<String, String> simpleTypeUdValidators = new HashMap<String, String>();
+	static {
+		simpleTypeUdValidators.put("csiUdStringRangeValidator",  "StringLengthFieldValidator");	 // 0	
+		simpleTypeUdValidators.put("csiUdStringRegexpValidator", "RegexFieldValidator");         // 1
+		simpleTypeUdValidators.put("csiUdNumericIntValidator",   "IntRangeFieldValidator");      // 2
+		simpleTypeUdValidators.put("csiUdNumericDecValidator",   "DoubleRangeFieldValidator");   // 3
+		simpleTypeUdValidators.put("csiUdDateValidator",         "CsiDateValidator");            // 4
+	}
+
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//JAVA METHODS FOR STRUTS 2 VALIDATION
@@ -92,11 +107,25 @@ public class GenUtilsStrutsValidation {
 
 		// aggiungere alla lista i Custom Validators che Guigen genererà di default
 		// nel commento l'indice con cui si potrà accedere al validatore
-		res.add("csiDateValidator"); // 0
-
+		res.add("csiDateValidator");             // 0
+		
 		return res;
 	}
 
+	
+	/**
+	 * Restituisce la lista di tutti i Validatori per User Defined Simple Types definiti dal generatore.
+	 *
+	 * @return La lista di tutti i Validatori per User Defined Simple Types del generatore.
+	 */
+	public static List<String> getGuigenUserDefinedTypesValidators() {
+		return new ArrayList<String>(simpleTypeUdValidators.keySet());
+	}	
+	
+	public static String getGuigenUserDefinedTypeValidatorClassImpl(String validatorName) {
+		return simpleTypeUdValidators.get(validatorName);
+	}
+	
 
 	/**
 	 * Restituisce la lista di tutti i custom validators definiti
@@ -588,19 +617,19 @@ public class GenUtilsStrutsValidation {
 		String[] validationRule = getValidationRule(dataTypeModifier);
 		if ( !GenUtils.isNullOrEmpty(validationRule[0]) ) {
 			if ( GenUtils.isString(type) ) {
-				res += applyStringValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyStringValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( GenUtils.isInteger(type) ) {
 				// tipo numerico intero (INT o LONG)
-				res += applyNumericIntValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyNumericIntValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( GenUtils.isDecimal(type) ) {
 				// tipo numerico decimale (DOUBLE o FLOAT)
-				res += applyNumericDecValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyNumericDecValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( type.getCode() == SimpleTypeCodes.DATE ) {
-				res += applyDateValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyDateValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( type.getCode() == SimpleTypeCodes.DATETIME ) {
-				res += applyDateTimeValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyDateTimeValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( GenUtils.isHour(type) ) {
-				res += applyHourValidationRule(validationRule, fieldName, keyName, expandFieldName);
+				res += applyHourValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else {
 				// sugli altri tipi è comunque definibile un validatore custom
 				res += applyCustomValidationRule(validationRule, fieldName, keyName, expandFieldName);
@@ -618,81 +647,29 @@ public class GenUtilsStrutsValidation {
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param keyName    Il nome da utilizzare nella chiave.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyStringValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+	public static String applyStringValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
 		String res = "";
 
 		if ( validationRule[0].equals(STRING_SIZE_VALIDATOR) ) {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				String[] range = getRange(validationRule[1]);
 				if ( !GenUtils.isNullOrEmpty(range[0]) || !GenUtils.isNullOrEmpty(range[1]) ) {
-					res += "@StringLengthFieldValidator(type = ValidatorType.FIELD, ";
-					if ( expandFieldName ) {
-						res += "fieldName = \"" + fieldName + "\", ";
+					if (userDefined) {
+						res += getStringSizeUdValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					} else {
+						res += getStringSizeValidationAnnotation(range, fieldName, keyName, expandFieldName);
 					}
-					// minimo e massimo
-					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
-						res += "minLength = \"" + range[0] + "\", ";
-					}
-					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
-						res += "maxLength = \"" + range[1] + "\", ";
-					}
-					// message è obbligatorio: va settato a Stringa vuota se si usa key
-					res += " message = \"\", ";
-					// chiave per i18n
-					res += getValidationKey(keyName);
-					res += ")";
 				}
 			}
 		} else if ( validationRule[0].equals(STRING_REGEXP_VALIDATOR) ) {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
-				res += "@RegexFieldValidator(type = ValidatorType.FIELD, " +
-						(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") + 
-						"expression = \"" + validationRule[1] + "\", " +
-						"message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
-						getValidationKey(keyName) + 
-						")";
-			}
-		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
-			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
-		}
-
-		return res;
-	}
-
-
-	/**
-	 *
-	 * @param validationRule Le regole di validazione splittate in <i>validatore</i> (<code>validationRule[0]</code>)
-	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
-	 * @param fieldName  Il nome del campo da utilizzare.
-	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
-	 * @return L'annotazione da inserire nella Action di Struts.
-	 */
-	public static String applyNumericIntValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
-		String res = "";
-
-		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
-			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
-				String[] range = getRange(validationRule[1]);
-				if ( range[0] != null || range[1] != null ) {
-					res += "@IntRangeFieldValidator(type = ValidatorType.FIELD, ";
-					if (expandFieldName ) {
-						res += "fieldName = \"" + fieldName + "\", ";
-					}
-					// minimo e massimo
-					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
-						res += "min = \"" + range[0] + "\", ";
-					}
-					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
-						res += "max = \"" + range[1] + "\", ";
-					}
-					// message è obbligatorio: va settato a Stringa vuota se si usa key
-					res += " message = \"\", ";
-					// chiave per i18n
-					res += getValidationKey(keyName);
-					res += ")";
+				if (userDefined) {
+					res += getStringRegexpUdValidationAnnotation(validationRule, fieldName, keyName, expandFieldName);
+				} else {
+					res += getStringRegexpValidationAnnotation(validationRule, fieldName, keyName, expandFieldName);
 				}
 			}
 		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
@@ -709,31 +686,21 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyNumericDecValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+	public static String applyNumericIntValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
 		String res = "";
 
 		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				String[] range = getRange(validationRule[1]);
 				if ( range[0] != null || range[1] != null ) {
-					res += "@DoubleRangeFieldValidator(type = ValidatorType.FIELD, ";
-					if ( expandFieldName ) {
-						res += "fieldName = \"" + fieldName + "\", ";
+					if (userDefined) {
+						res += getNumericIntRangeUdValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					} else {
+						res += getNumericIntRangeValidationAnnotation(range, fieldName, keyName, expandFieldName);
 					}
-					// minimo e massimo
-					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
-						res += "minInclusive = \"" + range[0] + "\", ";
-					}
-					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
-						res += "maxInclusive = \"" + range[1] + "\", ";
-					}
-					// message è obbligatorio: va settato a Stringa vuota se si usa key
-					res += " message = \"\", ";
-					// chiave per i18n
-					res += getValidationKey(keyName);
-					res += ")";
 				}
 			}
 		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
@@ -750,9 +717,41 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyDateValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+	public static String applyNumericDecValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
+		String res = "";
+
+		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
+				String[] range = getRange(validationRule[1]);
+				if ( range[0] != null || range[1] != null ) {
+					if (userDefined) {
+						res += getNumericDecRangeUdValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					} else {
+						res += getNumericDecRangeValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					}
+				}
+			}
+		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
+			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
+		}
+
+		return res;
+	}
+
+
+	/**
+	 *
+	 * @param validationRule Le regole di validazione splittate in <i>validatore</i> (<code>validationRule[0]</code>)
+	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
+	 * @param fieldName  Il nome del campo da utilizzare.
+	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @return L'annotazione da inserire nella Action di Struts.
+	 */
+	public static String applyDateValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_FORMAT_VALIDATOR) ) {
@@ -760,7 +759,13 @@ public class GenUtilsStrutsValidation {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
-			res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			
+			if (userDefined) {
+				res += getDateUdValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			} else {
+				res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			}
+			
 		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
 		}
@@ -775,9 +780,10 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyDateTimeValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+	public static String applyDateTimeValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
@@ -789,7 +795,13 @@ public class GenUtilsStrutsValidation {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
-			res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			
+			if (userDefined) {
+				res += getDateUdValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			} else {
+				res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			}
+			
 		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
 		}
@@ -804,9 +816,10 @@ public class GenUtilsStrutsValidation {
 	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
 	 * @param fieldName  Il nome del campo da utilizzare.
 	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
 	 * @return L'annotazione da inserire nella Action di Struts.
 	 */
-	public static String applyHourValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+	public static String applyHourValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
 		String res = "";
 
 		if ( validationRule[0].equals(DATE_SHORT_VALIDATOR) ) {
@@ -818,7 +831,13 @@ public class GenUtilsStrutsValidation {
 			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
 				format = validationRule[1];
 			}
-			res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			
+			if (userDefined) {
+				res += getDateUdValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			} else {
+				res += getDateValidatorAnnotation(format, fieldName, keyName, expandFieldName);
+			}
+			
 		} else if ( validationRule[0].equals(CUSTOM_VALIDATOR) ) {
 			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
 		}
@@ -1184,6 +1203,97 @@ public class GenUtilsStrutsValidation {
 	}
 
 
+	/* 
+	 * STANDARD VALIDATOR ANNOTATION 
+	 */
+	
+	
+	private static String getStringSizeValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+
+		res += "@StringLengthFieldValidator(type = ValidatorType.FIELD, ";
+		if ( expandFieldName ) {
+			res += "fieldName = \"" + fieldName + "\", ";
+		}
+		// minimo e massimo
+		if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+			res += "minLength = \"" + range[0] + "\", ";
+		}
+		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+			res += "maxLength = \"" + range[1] + "\", ";
+		}
+		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		res += " message = \"\", ";
+		// chiave per i18n
+		res += getValidationKey(keyName);
+		res += ")";
+
+		return res;
+	}
+
+
+	private static String getStringRegexpValidationAnnotation(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+		
+		res += "@RegexFieldValidator(type = ValidatorType.FIELD, " +
+				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") + 
+				"expression = \"" + validationRule[1] + "\", " +
+				"message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				getValidationKey(keyName) + 
+				")";
+		
+		return res;		
+	}	
+
+
+	private static String getNumericIntRangeValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+		
+		res += "@IntRangeFieldValidator(type = ValidatorType.FIELD, ";
+		if (expandFieldName ) {
+			res += "fieldName = \"" + fieldName + "\", ";
+		}
+		// minimo e massimo
+		if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+			res += "min = \"" + range[0] + "\", ";
+		}
+		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+			res += "max = \"" + range[1] + "\", ";
+		}
+		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		res += " message = \"\", ";
+		// chiave per i18n
+		res += getValidationKey(keyName);
+		res += ")";
+		
+		return res;		
+	}
+
+
+	private static String getNumericDecRangeValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+		
+		res += "@DoubleRangeFieldValidator(type = ValidatorType.FIELD, ";
+		if ( expandFieldName ) {
+			res += "fieldName = \"" + fieldName + "\", ";
+		}
+		// minimo e massimo
+		if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+			res += "minInclusive = \"" + range[0] + "\", ";
+		}
+		if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+			res += "maxInclusive = \"" + range[1] + "\", ";
+		}
+		// message è obbligatorio: va settato a Stringa vuota se si usa key
+		res += " message = \"\", ";
+		// chiave per i18n
+		res += getValidationKey(keyName);
+		res += ")";
+		
+		return res;		
+	}	
+	
+	
 	/**
 	 *
 	 * @param format     Il formato data da valiadre.
@@ -1232,7 +1342,6 @@ public class GenUtilsStrutsValidation {
 				")";
 	}
 
-	
 	/*
 	 * TODO: al momento non utilizzato -> implementare
 	 * @param parameters
@@ -1291,6 +1400,111 @@ public class GenUtilsStrutsValidation {
 
 		return tokList;
 	}*/
+
+
+
+	/* 
+	 * USER DEFINED VALIDATOR ANNOTATION 
+	 */	
+	
+	
+	private static String getStringSizeUdValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+
+		res += "@CustomValidator(" +
+					"type = \"csiUdStringRangeValidator\", " +
+					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					getValidationKey(keyName) + ", " + 
+					"parameters = { " ;
+						// minimo e massimo
+						if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+							res += "@ValidationParameter( name = \"minLength\", value = \"" + range[0] + "\" ), ";
+						}
+						if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+							res += "@ValidationParameter( name = \"maxLength\", value = \"" + range[1] + "\" ) ";
+						}					
+					res += "} ";
+		res += ")";
+
+		return res;		
+	}
+
+
+	private static String getStringRegexpUdValidationAnnotation(String[] validationRule, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+		
+		res += "@CustomValidator(" +
+					"type = \"csiUdStringRegexpValidator\", " +
+					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					getValidationKey(keyName) + ", " + 
+					"parameters = { @ValidationParameter( name = \"expression\", value = \"" + validationRule[1] + "\" ) } " +
+			   ")";
+		
+		return res;		
+	}	
+
+
+	private static String getNumericIntRangeUdValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+
+		res += "@CustomValidator(" +
+				"type = \"csiUdNumericIntValidator\", " +
+				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				getValidationKey(keyName) + ", " + 
+				"parameters = { " ;
+					// minimo e massimo
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+						res += "@ValidationParameter( name = \"min\", value = \"" + range[0] + "\" ), ";
+					}
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+						res += "@ValidationParameter( name = \"max\", value = \"" + range[1] + "\" ) ";
+					}					
+				res += "} ";
+		res += ")";
+		
+		
+		return res;	
+	}	
+
+
+	private static String getNumericDecRangeUdValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+
+		res += "@CustomValidator(" +
+				"type = \"csiUdNumericDecValidator\", " +
+				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				getValidationKey(keyName) + ", " + 
+				"parameters = { " ;
+					// minimo e massimo
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+						res += "@ValidationParameter( name = \"minInclusive\", value = \"" + range[0] + "\" ), ";
+					}
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+						res += "@ValidationParameter( name = \"maxInclusive\", value = \"" + range[1] + "\" ) ";
+					}					
+				res += "} ";
+		res += ")";
+		
+		return res;		
+	}	
+	
+	
+	private static String getDateUdValidatorAnnotation(String format, String fieldName, String keyName, boolean expandFieldName) {
+		String res = "";
+		res += "@CustomValidator(" +
+					"type = \"csiUdDateValidator\", " +
+					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					getValidationKey(keyName) + ", " + 
+					"parameters = { @ValidationParameter( name = \"format\", value = \"" + format + "\" ) } " +
+			   ")";		
+		return res;
+	}
+
 
 
 	/**

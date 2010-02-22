@@ -459,7 +459,39 @@ context TypedArray ERROR "E'necessario valorizzare il tipo degli elementi conten
 
 context ComplexType ERROR "Il ComplexType \""+name+"\" ha una gerarchia con dipendenza circolare:"+loc() :
 	!hasCircularHierarchy(this);
-	
+
+//[DM] 
+context SimpleType if (this.userDefined) ERROR "Un SimpleType User Defined con codice INT, FLOAT, LONG, DOUBLE, BOOLEAN, BYTE deve essere nillable: "+loc() :
+	if (
+		(this.code == SimpleTypeCodes::INT) ||
+		(this.code == SimpleTypeCodes::FLOAT) ||
+		(this.code == SimpleTypeCodes::LONG) ||
+		(this.code == SimpleTypeCodes::DOUBLE) ||
+		(this.code == SimpleTypeCodes::BOOLEAN) ||
+		(this.code == SimpleTypeCodes::BYTE)
+	) 
+	then
+		this.nillable
+	else
+		true;	
+		
+		
+		
+	 
+
+context SimpleType if (this.userDefined) ERROR "Un SimpleType User Defined con codice STRING, DATE, DATETIME, HOURS, TREE_NODE non deve essere nillable: "+loc() :
+	if (
+		(code == SimpleTypeCodes::STRING) ||
+		(code == SimpleTypeCodes::DATE) ||
+		(code == SimpleTypeCodes::DATETIME) ||
+		(code == SimpleTypeCodes::HOURS) ||
+		(code == SimpleTypeCodes::TREE_NODE)
+	)
+	then
+		!this.nillable
+	else
+		true;
+
 //////////////////////////////////////////////////////////////////////////////
 //// constraints su PanelDef
 //////////////////////////////////////////////////////////////////////////////

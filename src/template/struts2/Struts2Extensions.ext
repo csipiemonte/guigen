@@ -457,7 +457,7 @@ String toJavaSimpleType(Type type) :
   	else if (code == guigen::SimpleTypeCodes::HOURS) then
   		(nillable ? "java.lang.String" : "java.lang.String")
 	else if (code == guigen::SimpleTypeCodes::BYTE) then
-  		(nillable ? "byte" : "byte")
+  		(nillable ? "java.lang.Byte" : "byte")
   	else if (code == guigen::SimpleTypeCodes::TREE_NODE) then
   		"it.csi.custom.component.tree.base.TreeNode"
 	else 
@@ -516,6 +516,21 @@ String defaultSimpleInitVal(Type type) :
 	else 
   		"???";
 
+
+SimpleType getWrappedTypeFromSimpleType(SimpleType s) :
+	let tw = new SimpleType :
+	tw.setCode(s.code) ->
+	tw.setNillable(true) ->
+	tw;
+
+boolean typeHandleNullValue(SimpleType type) :
+	let code = ((SimpleType)type).code :
+	let nillable = ((SimpleType)type).nillable :
+	nillable || (code == guigen::SimpleTypeCodes::STRING)   ||
+  				(code == guigen::SimpleTypeCodes::DATE)     ||
+  				(code == guigen::SimpleTypeCodes::DATETIME) ||
+  				(code == guigen::SimpleTypeCodes::HOURS)    ||
+  				(code == guigen::SimpleTypeCodes::TREE_NODE);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -755,6 +770,13 @@ String getWidgetValidation(DataWidget w, ContentPanel cp, String contextPrefix) 
 // [DM] Restituisce la lista dei custom validators definiti dal generatore
 List getGuigenCustomValidators() : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenCustomValidators();
+
+// [DM] Restituisce la lista di tutti i Validatori per User Defined Simple Types definiti dal generatore.
+List getGuigenUserDefinedTypesValidators() : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenUserDefinedTypesValidators();
+
+String getGuigenUserDefinedTypeValidatorClassImpl(String validatorName) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtilsStrutsValidation.getGuigenUserDefinedTypeValidatorClassImpl(java.lang.String);
 
 // [DM] Restituisce la lista dei custom validators modellati dall'utente nei widget
 List getUserCustomValidatorsName() : JAVA

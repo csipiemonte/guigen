@@ -692,14 +692,20 @@ cose tipo la "todo list"«ENDREM»
 <validators>
 
 	<!-- Custom validators Definiti in GuiGen -->
-	«FOREACH (List[String])getGuigenCustomValidators() AS currValidator»
+	«FOREACH (List[String])getGuigenCustomValidators() AS currValidator-»
 	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
-	«ENDFOREACH»
+	«ENDFOREACH-»
+
+	<!-- Validators per Simple Types User Defined -->
+	«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator-»
+	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
+	«ENDFOREACH-»
+	
 
 	<!-- Custom validators modellati dall'utente nei widget -->
-	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator-»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
 	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
-	«ENDFOREACH»
+	«ENDFOREACH-»
 
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")»
 	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->

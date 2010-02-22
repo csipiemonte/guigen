@@ -105,8 +105,9 @@ public class «getUDTClassName(this)» implements java.io.Serializable, Comparable
 			return false;
 		// valori entrambi non nulli: posso confrontare
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"equalslogic")»
-		// TODO inserire qui la logica specifica di confronto
-		return _value.equals(otherSpecific.getValue());
+			// TODO inserire qui la logica specifica di confronto e rimuovere l'eccezione UnsupportedOperationException
+			//return _value.equals(otherSpecific.getValue());
+			throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».equals() non implementato");
 		«ENDPROTECT»
 	}
 
@@ -132,8 +133,9 @@ public class «getUDTClassName(this)» implements java.io.Serializable, Comparable
 			return 0;
 		// valori entrambi non nulli: posso confrontare
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"compareTologic")»
-		// TODO inserire qui la logica specifica di confronto
-		return _value.compareTo(otherSpecific.getValue());
+			// TODO: inserire qui la logica specifica di confronto e rimuovere l'eccezione UnsupportedOperationException
+			//return _value.compareTo(otherSpecific.getValue());		
+			throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».compareTo() non implementato");
 		«ENDPROTECT»
 	}
 
@@ -143,8 +145,9 @@ public class «getUDTClassName(this)» implements java.io.Serializable, Comparable
 
 	public String toString() {
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"toString")»
-		// TODO inserire qui la logica specifica di rappresentazione a stringa
-		return "" + _value;
+		// TODO: inserire qui la logica specifica di rappresentazione a stringa
+		//return "" + _value;
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».toString() non implementato");
 		«ENDPROTECT»
 		
 	}
