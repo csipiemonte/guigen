@@ -546,6 +546,12 @@ String getClickHandlerMethodName(Widget source, String contextPrefix) :
 		"execute" 
 	);
 
+/////////////////////////////////////////////////////////////////////////////////////
+/// DATA PROVIDER
+String getDataProviderMethodName(Widget source, String providedDataTipology, String contextPrefix) :
+	"provide"+getFullID(source, contextPrefix).toFirstUpper()+"_"+providedDataTipology;
+
+
 // [DM] restituisce l'azione relativa ad una colonna di una Table
 String getColumnAction(Column currCol, Table table, ContentPanel cp, String contextPrefix) : 
 	if (currCol.eventActive) then
