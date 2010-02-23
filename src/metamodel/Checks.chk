@@ -628,11 +628,11 @@ context UISecurityConstraint ERROR "Non è possibile specificare un UI security c
 	);
 
 /// verifica se sono presenti il tipo UserInfo e l'app data currentUser
-context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
-	((List[Type])getAllTypes((GUIModel)this.eRootContainer)).findByName("UserInfo") != null;	
+context GUIModel if (securityModel != null || extSecurityModel != null) ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
+	((List[Type])getAllTypes(this)).findByName("UserInfo") != null;	
 	
-context SecurityModel ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
-	((List[ApplicationData])getAllApplicationData((GUIModel)this.eRootContainer)).findByName("currentUser") != null;
+context GUIModel if (securityModel != null || extSecurityModel != null) ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
+	((List[ApplicationData])getAllApplicationData(this)).findByName("currentUser") != null;
 
 
 // check di referenziazione dell'Appdata currentUser dai pannelli interni al GUIModel
