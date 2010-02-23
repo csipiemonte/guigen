@@ -104,7 +104,12 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	
 	«EXPAND template::struts2::controller::eventHandlers::handlerMethod(model) FOR this-»
-
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-»
+	«ENDIF-»
+	
+	
 	«ENDLET»
 	
 	/**

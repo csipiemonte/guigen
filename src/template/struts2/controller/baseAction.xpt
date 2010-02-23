@@ -395,6 +395,10 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 
 	«EXPAND springBEProperties FOR this»
 	
+	«IF targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-»
+	«ENDIF-»
+	
 	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»
 	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
 	«ENDIF»

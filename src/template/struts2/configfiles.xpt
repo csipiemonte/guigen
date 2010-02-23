@@ -428,9 +428,18 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		
 		<default-interceptor-ref name="jsp-stack"/>
 		
-		<!-- gestione globale delle eccezioni -->
+		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
 		<global-results>
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+			«IF targetPlatform.enableRichUIBehavior-»
+			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
+			<result name="provideData" type="stream">
+  				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+			«ENDIF-»
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>

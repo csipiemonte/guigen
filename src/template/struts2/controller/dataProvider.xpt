@@ -1,0 +1,88 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»deve essere chiamato solo se richBehavior == true«ENDREM»
+«DEFINE dataProviderMethods(GUIModel model) FOR ContentPanel-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi di data providing sui widget dotati di multi data binding
+	/// contenuti nel contentPanel
+	/// metodo: provide<nomeWidget>_<tipologia dati>
+	/// es: provideCbComuni_DATASET
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«EXPAND dataProviderMethods(model, this, "", null) FOR this.panels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
+	«EXPAND dataProviderMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
+«IF MultiDataWidget.isAssignableFrom(this.metaType)-»
+	«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOR (MultiDataWidget)this-»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
+«IF this.multiDataBinding==null-»
+	«ERROR "dataProviderMethod non generabile per widget senza collection-binding"-»
+«ELSE-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * al multi-data-binding relativo al widget «getFullID(this, contextPrefix)».
+	 * @return sempre il result "provideData"
+	 */
+	public String «getDataProviderMethodName(this, "DATASET", contextPrefix)» () throws CommandExecutionException {
+	«LET multiDataBinding.appData.type AS appdataType-»
+	
+		// reperisce il dato da serializzare
+		com.opensymphony.xwork2.ActionContext ctx = 
+			com.opensymphony.xwork2.ActionContext.getContext();
+		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	«ENDLET-»
+	}
+«ENDIF-»
+«ENDDEFINE»
