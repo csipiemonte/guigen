@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.ONOFFCommand;
+import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.genutils.GenUtils;
 
@@ -91,9 +92,18 @@ public class ONOFFCommandItemProvider
 			protected Collection getComboBoxObjects(Object object) {
 
 				ContentPanel containerOfAction = GenUtils.findParentContentPanel((Command)object);
-				ArrayList<Widget> result = GenUtils.findAllWidgetsInContentPanel(containerOfAction);
-
-				return result;
+				if (containerOfAction != null){
+					ArrayList<Widget> result = GenUtils.findAllWidgetsInContentPanel(containerOfAction);
+					return result;
+				}
+				else {
+					PanelDef parentPDef = GenUtils.findParentPanelDef((Command)object);
+					if (parentPDef != null){
+						ArrayList<Widget> result = GenUtils.findAllWidgetsInPanel(parentPDef.getPanel());
+						return result;
+					}
+					else throw new IllegalArgumentException("impossibile trovare parent panel def o parent content panel del comando");
+				}
 			}
 		});
 	}
