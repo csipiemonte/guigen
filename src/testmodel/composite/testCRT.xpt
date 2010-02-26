@@ -2,13 +2,13 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
-«AROUND template::struts2::model::businessLogic::springBEMethodCore_CRT_TECH1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
-   		//[[template tech_1.«customTemplate.tplID»]]
+«AROUND template::struts2::model::businessLogic::springBEMethodCore_CRT_TECH1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+   		//[[template tech_1.«customTemplate.tplID»]]   		
    		// salvataggio di:
    		«FOREACH this.postExecData AS ped»
    		// - «ped.name»::«toJavaType(ped.type, model)»
    		«ENDFOREACH»
-   «EXPAND template::struts2::model::businessLogic::springBEMethodCore_CRT_default(model, contextID, cp, contextPrefix) FOR this»
+   «EXPAND template::struts2::model::businessLogic::springBEMethodCore_CRT_default(model, contextID, cp, contextPrefix, pduc) FOR this»
 «ENDAROUND»
 
 
