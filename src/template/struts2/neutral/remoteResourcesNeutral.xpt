@@ -222,9 +222,8 @@ Definizioni generali: header, footer, ecc
 		
 		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
 		«ENDPROTECT»
-
-		<!-- extjs sempre presente perche' utilizzato anche per il calendar -->
-		<customtag:extjs-header />
+		
+		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
 		
 	</head>
 
@@ -275,17 +274,6 @@ Definizioni generali: header, footer, ecc
 		<!--[if IE 7]>
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
 		<![endif]-->
-
-		<!-- jQuery -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/jquery/jquery-1.3.2.min.js"></script>
-
-		<!-- jQuery UI -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/ui/1.7.2/jquery-ui-1.7.2.custom.min.js"></script>
-		<!-- jQuery UI smoothness theme -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/js/jqlib/themes/smoothness/jquery-ui-1.7.2.custom.css" />
-
-		<!-- jQuery Corners -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jqlib/plugins/jquery-corners-0.3/jquery.corners.min.js"></script>
 
 		<!-- funzioni e definizioni javascript -->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
@@ -1048,10 +1036,8 @@ Gestione del BUILD => file: buildfiles.xpt
 
 «REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="1.2.0">
-	<artifact name="custom-component-1.2.0" type="jar"/>
-	<artifact name="custom-component-attr-1.2.0" type="jar"/>
-	<artifact name="custom-component-rich-1.2.0" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.0.0">
+	<artifact name="custom-component-2.0.0" type="jar"/>
 </dependency>
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.1.0">
 	<artifact name="util-struts2-csitemplate-1.1.0" type="jar"/>

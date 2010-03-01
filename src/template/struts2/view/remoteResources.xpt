@@ -419,3 +419,29 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 «DEFINE displayTagConfigurationFile FOR GUIModel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [strutsThemeIvy] " + loc()»
 «ENDDEFINE»
+
+
+«REM»inclusioni di JS/CSS comuni a tutte le pagine. Da aggiungere a quelle dello skin che
+	 NON sono presenti in questo template
+«ENDREM»
+«DEFINE commonRisInclude FOR GUIModel-»
+	«IF targetPlatform.enableRichUIBehavior-»
+	
+	<!-- ** ris. CSS per U.I ricche ** -->
+	<!-- css per widget extjs -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/ext-all/resources/css/ext-all.css" type="text/css" media="screen"/>
+	<!-- css per funzioni di ajaxify -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/ext-csi/ajaxify-tag/css/ajaxify.css" type="text/css" media="screen"/>
+	
+	<!-- ** funz. JS per U.I ricche **-->
+	<!-- librerie extjs -->
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ext-all/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ext-all/ext-all.js"></script>
+	<!-- customizzazione extjs per csi -->
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ext-csi/util/Format.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ext-csi/locale/ext-lang-it.js"></script>
+	<!-- funzioni per ajaxify -->
+	<script type="text/javascript" src="<%=request.getContextPath()%>/ext-csi/ajaxify-tag/ajaxifyTag.js"></script>
+	
+	«ENDIF-»
+«ENDDEFINE»

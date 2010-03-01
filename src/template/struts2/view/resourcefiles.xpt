@@ -65,6 +65,7 @@
 «FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF»
 «EXPAND remoteResources::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ENDFILE»
 
@@ -151,6 +152,7 @@
 «FILE getStrutsActionJspFile(this, model, skip_component_dir_creation)-»<%@taglib uri="/struts-tags" prefix="s" %>
 <%@taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF»
 «IF hasTable(this) -»
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
@@ -395,6 +397,7 @@ Gestione dei pannelli
 «FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this, cp, contextPrefix)»<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
+«IF model.targetPlatform.enableRichUIBehavior»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF»
 «IF hasTable(this) -»
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 

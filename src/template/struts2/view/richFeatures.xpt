@@ -16,7 +16,7 @@
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Button-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="button" 
 		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler, contextPrefix)».do" 
 		pageId="«parentCP.name»" 
@@ -25,13 +25,13 @@
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR Button»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
 
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<customtag:ajaxify id="«getFragmentId(tabSet)»" 
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
 		widgetType="button" 
 		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
 		pageId="«parentCP.name»" 
@@ -42,7 +42,7 @@
 «DEFINE ajaxifyControlHeader(ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
 
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<customtag:ajaxify id="«getFragmentId(tabSet)»" 
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
 		widgetType="button" 
 		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
 		pageId="«parentCP.name»" 
@@ -52,23 +52,23 @@
 
 
 «DEFINE ajaxifyControlFooter FOR TabSwitcher»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
-	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table" 
 		pageId="«parentCP.name»">
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR Table»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
-	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="combo" 
 		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
 		pageId="«parentCP.name»"
@@ -77,12 +77,12 @@
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR ComboBox-»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
-	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="radio" 
 		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
 		pageId="«parentCP.name»"
@@ -91,17 +91,17 @@
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR RadioButtons-»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
-	<customtag:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="tree" 
 		pageId="«parentCP.name»">
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR TreeView»
-	</customtag:ajaxify>
+	</csiuicore:ajaxify>
 «ENDDEFINE»
 
 «DEFINE dataProviderStreamProperty FOR GUIModel»

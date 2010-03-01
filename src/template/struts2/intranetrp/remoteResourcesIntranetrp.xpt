@@ -166,6 +166,8 @@ Definizioni generali: header, footer, ecc
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/pulsantiPadreFiglio.js"></script>
 
+		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+
 		<!--INIZIO personalizzazione JQUERY-->
 		<script type="text/javascript">
 			$(function() {
@@ -176,7 +178,7 @@ Definizioni generali: header, footer, ecc
 		<!--FINE personalizzazione JQUERY-->
 		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
 		
-		«IF model.targetPlatform.enableRichUIBehavior-»<customtag:extjs-header />«ENDIF-»
+		«IF model.targetPlatform.enableRichUIBehavior-»<csiuicore:header />«ENDIF-»
 		«REM»STDMDD-163: Radio button: implementazione evento di click
 		<script type="text/javascript">
 
@@ -879,10 +881,8 @@ Gestione del BUILD => file: buildfiles.xpt
 
 «REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="1.2.0">
-	<artifact name="custom-component-1.2.0" type="jar"/>
-	<artifact name="custom-component-attr-1.2.0" type="jar"/>
-	<artifact name="custom-component-rich-1.2.0" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.0.0">
+	<artifact name="custom-component-2.0.0" type="jar"/>
 </dependency>
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
 	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
