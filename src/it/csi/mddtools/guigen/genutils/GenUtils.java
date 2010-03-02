@@ -2579,11 +2579,14 @@ public class GenUtils {
 	 * Restituisce il campo per l'editabilità di una colonna della tabella
 	 * @param currCol
 	 * @param table
-	 * @param cp
+	 * @param model
+	 * @param contextPrefix
+	 * @param pduConf
+	 * @param theme Tema di Struts2 da utilizzare per evidenziare cella errata (STDMDD-409)
 	 * @return
 	 * @author [DM]
 	 */
-	public static String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf) {
+	public static String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) {
 		String res = "";
 		
 		// ricavo il tipo (sicuramente ComplexType) del MultiDataBinding
@@ -2604,14 +2607,15 @@ public class GenUtils {
 						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String ckId = "%{'"+getWidgetName(table, contextPrefix)+"_"+currCol.getSelector()+
 					"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
-					String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" />";
+					String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" "+
+					      (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
+					      "/>";
 					res+="\n";
-					res+="<s:hidden name=\""+nameResetter+"\" " +
-							"id=\""+ckIdResetter+"\" />";
+					res+="<s:hidden name=\""+nameResetter+"\" id=\""+ckIdResetter+"\" />";
 				} else {
 					if (currCol.getMultiDataBinding()!=null){
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
@@ -2619,13 +2623,11 @@ public class GenUtils {
 					          disabled +
 					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
 					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
-					          
+					          (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
 					          "/>";
-						
-						
 					}
 					else if (currCol.getMultidataPropertySelector()!=null) {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
 								
 					          " headerKey=\"\" headerValue=\"\" "+
@@ -2633,12 +2635,14 @@ public class GenUtils {
 					          disabled +
 					          " listKey=\""+currCol.getMultidataKeySelector()+"\""+
 					          " listValue=\""+currCol.getMultidataValueSelector()+"\""+
-					          
+					          (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
 					          "/>";
 					}
 					else {
-						String disabled = currCol.getEditableFlagSelector()!=null ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
-						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+" />";
+						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
+						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+
+						(!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
+						" />";
 					}
 				}
 			}

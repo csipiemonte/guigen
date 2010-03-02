@@ -911,11 +911,11 @@ come target di refresh.
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 				sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
 		>
-				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf)»
+				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
 		«ELSEIF currCol.editable && currCol.editableFlagSelector==null»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
-				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf)»				
+				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»				
 		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»

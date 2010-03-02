@@ -103,6 +103,10 @@ around template::struts2::Struts2Extensions::getCustomtagRequiredField(Widget w)
 around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
 	getCustomtagHeaderColspanNeutral(wp, w);
 
+// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+around template::struts2::Struts2Extensions::getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
+	getColumnEditableFieldNeutral(currCol, table, model, contextPrefix, pduConf, "csi-tableinput-loc");
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
