@@ -2612,7 +2612,9 @@ public class GenUtils {
 					      (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
 					      "/>";
 					res+="\n";
-					res+="<s:hidden name=\""+nameResetter+"\" id=\""+ckIdResetter+"\" />";
+					res+= !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? "<s:if test=\"%{"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\">" : "";
+					res+= "<s:hidden name=\""+nameResetter+"\" id=\""+ckIdResetter+"\" />";
+					res+= !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? "</s:if>" : "";
 				} else {
 					if (currCol.getMultiDataBinding()!=null){
 						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
