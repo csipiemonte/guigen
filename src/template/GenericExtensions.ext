@@ -6,6 +6,14 @@ import ecore;
 /// Estensioni java indipendenti dalla piattaforma target //
 ////////////////////////////////////////////////////////////
 
+String getBlankPadding(int n) :
+let blanks = 
+"                                                                              "+
+"                                                                              "+
+"                                                                              "+
+"                                                                              " :                                                                                                                                                
+blanks.subString(0,n);
+
 /// standard generici J2EE Csi piemonte
 String getProjectRootDir(GUIModel model, boolean omit_root) :
 	omit_root ? "" : model.codComponente;
@@ -191,6 +199,9 @@ boolean mustGenerateContentPanel(ContentPanel cp) :
 		true
 	;
 
+Panel getParentPanel(Widget w) :
+	(Panel)(w.eContainer);
+	
 ////////////////////////////////////////////////////////////
 /// Estensioni java                                       //
 ////////////////////////////////////////////////////////////
