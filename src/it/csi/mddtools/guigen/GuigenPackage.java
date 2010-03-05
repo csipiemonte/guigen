@@ -367,13 +367,22 @@ public interface GuigenPackage extends EPackage {
 	int PANEL__LAYOUT_SPEC = 3;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL__SCROLLABLE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PANEL_FEATURE_COUNT = 4;
+	int PANEL_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.
@@ -420,6 +429,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int FORM_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORM_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Subpanels</b></em>' containment reference list.
@@ -1195,6 +1213,15 @@ public interface GuigenPackage extends EPackage {
 	int MULTI_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The feature id for the '<em><b>Panels</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1247,6 +1274,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TAB_SET_PANEL__LAYOUT_SPEC = MULTI_PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SET_PANEL__SCROLLABLE = MULTI_PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Panels</b></em>' containment reference list.
@@ -3607,6 +3643,15 @@ public interface GuigenPackage extends EPackage {
 	int DIALOG_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIALOG_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The feature id for the '<em><b>Commands</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4669,6 +4714,15 @@ public interface GuigenPackage extends EPackage {
 	int COMMAND_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The feature id for the '<em><b>Cmd Style</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4730,6 +4784,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int MENU_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -5411,6 +5474,15 @@ public interface GuigenPackage extends EPackage {
 	int STD_MESSAGE_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_MESSAGE_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The feature id for the '<em><b>Show Global Messages</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5576,6 +5648,15 @@ public interface GuigenPackage extends EPackage {
 	int USER_INFO_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_INFO_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The number of structural features of the '<em>User Info Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5631,6 +5712,15 @@ public interface GuigenPackage extends EPackage {
 	int USER_DEFINED_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The number of structural features of the '<em>User Defined Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5684,6 +5774,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int WIZARD_PANEL__LAYOUT_SPEC = MULTI_PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__SCROLLABLE = MULTI_PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Panels</b></em>' containment reference list.
@@ -5888,6 +5987,15 @@ public interface GuigenPackage extends EPackage {
 	int MSG_BOX_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
+
+	/**
 	 * The feature id for the '<em><b>Message Severity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5978,6 +6086,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int WIDGETS_PANEL__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGETS_PANEL__SCROLLABLE = PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Widgets</b></em>' containment reference list.
@@ -6750,6 +6867,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int PANEL_DEF_USE__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PANEL_DEF_USE__SCROLLABLE = PANEL__SCROLLABLE;
 
 	/**
 	 * The feature id for the '<em><b>Panel Def</b></em>' reference.
@@ -8155,6 +8281,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPanel_LayoutSpec();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Panel#isScrollable <em>Scrollable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Scrollable</em>'.
+	 * @see it.csi.mddtools.guigen.Panel#isScrollable()
+	 * @see #getPanel()
+	 * @generated
+	 */
+	EAttribute getPanel_Scrollable();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Widget <em>Widget</em>}'.
@@ -12439,6 +12576,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PANEL__LAYOUT_SPEC = eINSTANCE.getPanel_LayoutSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Scrollable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PANEL__SCROLLABLE = eINSTANCE.getPanel_Scrollable();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.WidgetImpl <em>Widget</em>}' class.

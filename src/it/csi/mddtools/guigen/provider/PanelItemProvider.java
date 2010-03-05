@@ -70,6 +70,7 @@ public class PanelItemProvider
 
 			addNamePropertyDescriptor(object);
 			addLabelPropertyDescriptor(object);
+			addScrollablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,6 +115,28 @@ public class PanelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Scrollable feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addScrollablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Panel_scrollable_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Panel_scrollable_feature", "_UI_Panel_type"),
+				 GuigenPackage.Literals.PANEL__SCROLLABLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -177,6 +200,7 @@ public class PanelItemProvider
 		switch (notification.getFeatureID(Panel.class)) {
 			case GuigenPackage.PANEL__NAME:
 			case GuigenPackage.PANEL__LABEL:
+			case GuigenPackage.PANEL__SCROLLABLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.PANEL__LAYOUT:

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Panel#getLabel <em>Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Panel#getLayout <em>Layout</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Panel#getLayoutSpec <em>Layout Spec</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Panel#isScrollable <em>Scrollable</em>}</li>
  * </ul>
  * </p>
  *
@@ -156,5 +157,31 @@ public interface Panel extends EObject {
 	 * @generated
 	 */
 	void setLayoutSpec(WidgetLayoutSpecifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Scrollable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Determina la presenza di una cornice scrollabile attorno al pannello.
+	 * Default = <i>false</i>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Scrollable</em>' attribute.
+	 * @see #setScrollable(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPanel_Scrollable()
+	 * @model
+	 * @generated
+	 */
+	boolean isScrollable();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Panel#isScrollable <em>Scrollable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Scrollable</em>' attribute.
+	 * @see #isScrollable()
+	 * @generated
+	 */
+	void setScrollable(boolean value);
 
 } // Panel
