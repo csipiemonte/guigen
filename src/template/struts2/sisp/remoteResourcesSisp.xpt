@@ -950,14 +950,14 @@ Gestione dei PANNELLI
 <div class="contenutiTab">
 	<div id="wizard"><!-- navigatorActive:«navigatorActive» -->
 		<h3 class="alt">Sezioni</h3>
-	<ul>
+	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
-		<li>
+		«IF switchHnd == null»<li>«ENDIF»
 		«LET getWizardPanelStepCompleteIndex(this, i.counter1.toString()) AS stepNumber-»
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currStep, cp, contextPrefix)»'«stepExtraCondition»}">
 			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber, cp, contextPrefix) FOR currStep-»
@@ -970,10 +970,10 @@ Gestione dei PANNELLI
 			«ENDIF-»
 		</s:else>
 		«ENDLET-»
-		</li>
+		«IF switchHnd == null»</li>«ELSE»<span class="tabspace">&nbsp;|&nbsp;</span>«ENDIF»
 		«ENDLET-»
 	«ENDFOREACH-»
-	</ul>
+	«IF switchHnd == null»</ul>«ENDIF»
 	</div>
 </div>
 «ENDLET»
@@ -995,12 +995,11 @@ Gestione dei PANNELLI
 		«IF model.targetPlatform.enableRichUIBehavior-»
         	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher»
         «ENDIF-»
-    <s:submit name="«getFullID(switcher, contextPrefix)»"
+    	<s:submit name="«getFullID(switcher, contextPrefix)»"
     	   	«REM»cssStyle="border: 0pt none ; background: transparent; font-weight: bold; cursor: pointer;"«ENDREM»
             id="«getTabSwitcherSubmitID(switcher, currStep, contextPrefix)»"
             method="«getTabItemHandlerMethodName(cp,(WizardPanel)this.eContainer,this, contextPrefix)»"
             key="«cp.name».«getFullID(this, contextPrefix)».label" />
-        
         «IF model.targetPlatform.enableRichUIBehavior-»
         	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher»
         «ENDIF-»
