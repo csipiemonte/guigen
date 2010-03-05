@@ -142,15 +142,15 @@ around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerN
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Estensioni abilitanti al Web 2.0 (ridefinite solo qui)
 
-//around template::struts2::Struts2Extensions::getFragmentId(Panel p) :
-//	"";
+around template::struts2::Struts2Extensions::getFragmentId(Panel p) :
+	"p_"+p.name;
 
-//around template::struts2::Struts2Extensions::startFragment(Panel p) :
-//	"";
+around template::struts2::Struts2Extensions::startFragment(Panel p) :
+	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
 
-//around template::struts2::Struts2Extensions::endFragment(Panel p) :
-//	"";
+around template::struts2::Struts2Extensions::endFragment(Panel p) :
+	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
 
-//around template::struts2::Struts2Extensions::pageIdMarker(ContentPanel cp) :
-//	"";
+around template::struts2::Struts2Extensions::pageIdMarker(ContentPanel cp) :
+	"<!-- pageId:"+cp.name+" -->";
 

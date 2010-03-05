@@ -930,7 +930,7 @@ String getFragmentId(Panel p) :
 	"p_"+p.name;
 
 String startFragment(Panel p) :
-	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
+	"<div id=\""+getFragmentId(p)+"\"" + (p.scrollable ? " class=\"scroll\"" : "") + "><!-- startFragment:"+getFragmentId(p)+" -->";
 
 String endFragment(Panel p) :
 	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
