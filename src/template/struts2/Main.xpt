@@ -4,6 +4,7 @@
 «IMPORT template::struts2::configfiles»
 «IMPORT template::struts2::javafiles»
 «IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::view::enrichments»
 «IMPORT template::struts2::i18nfiles»
 «EXTENSION template::GenericExtensions»
 
@@ -24,6 +25,9 @@
 	«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanels»
 		«EXPAND contentPanelFiles(this, skip_component_dir_creation) FOREACH contentPanels»
 	«ENDLET»
+	«IF targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::struts2::view::enrichments::staticResourcesXML FOR this»
+	«ENDIF»
 	«REM»Crea la configurazione XML delle Action«ENDREM»
 	«EXPAND template::struts2::configfiles::strutsApplicationConfigFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»

@@ -28,7 +28,7 @@ function initCustomEnrichments4«name.toFirstUpper()»(){
 	 * var customEnr_n = function(){
 	 *	// codice da eseguire all'applicazione dell'arricchimento
 	 * };
-	 * String customEnr_fragmentID = [id del pannello a cui deve essere associato l'arricchimento];
+	 * String customEnr_fragmentID = p_[id del pannello a cui deve essere associato l'arricchimento];
 	 * uiEnricherMgr.registerEnrichment(contentPanelName, customEnr_fragmentID, customEnr_n);
 	*/	
 «ENDPROTECT»
@@ -41,36 +41,46 @@ function initUIStruct«name.toFirstUpper()»(){
 	uiEnricherMgr.setPageStructure(contentPanelName, structure);
 }
 
-initStdEnrichments4«name.toFirstUpper()»();
-initCustomEnrichments4«name.toFirstUpper()»();
-initUIStruct«name.toFirstUpper()»();
+Ext.onReady( function() { 
+	initStdEnrichments4«name.toFirstUpper()»();
+	initCustomEnrichments4«name.toFirstUpper()»();
+	initUIStruct«name.toFirstUpper()»();
+	uiEnricherMgr.setReady(); 
+	uiEnricherMgr.applyAll("«name»"); 
+}); 
+
+
 
 «ENDFILE-»
 «ENDDEFINE»
 
 «REM»struttura UI«ENDREM»
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR Panel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«getBlankPadding(lpad+2)»]
+«getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR FormPanel-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: [
-«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.subpanels-»
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.subpanels SEPARATOR ","-»
 «getBlankPadding(lpad+2)»]
 «getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR MultiPanel-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: [
-«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.panels-»
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.panels SEPARATOR ","-»
 «getBlankPadding(lpad+2)»]
 «getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR PanelDefUse-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: [
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
 «EXPAND uiStruct(cp, getChainedContext(contextPrefix, name), this.config, lpad+2) FOR this.panelDef.panel-»
 «getBlankPadding(lpad+2)»]
 «getBlankPadding(lpad+0)»}
@@ -78,19 +88,19 @@ initUIStruct«name.toFirstUpper()»();
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR WidgetsPanel-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: []
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
 «getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR CommandPanel-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: []
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
 «getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
 «DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR MenuPanel-»
 «getBlankPadding(lpad+0)»{
-«getBlankPadding(lpad+2)»name: "«name»", panels: []
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
 «getBlankPadding(lpad+0)»}
 «ENDDEFINE»
 
@@ -130,6 +140,41 @@ initUIStruct«name.toFirstUpper()»();
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Calendar-»
 	/// arricchimento per «this.metaType.name» [«name»]: aggiunta datepicker
-	var addDateTo«name.toFirstUpper()» = function(){uiNRichLib.addDatePickerNRich("«getFullID(this, contextPrefix)»", «required ? "true" : "false"»)};
-	uiEnricherMgr.registerEnrichment(contentPanelName, "«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
+	var addDateTo«name.toFirstUpper()» = function(){uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»)};
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
+«ENDDEFINE»
+
+«REM»file di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXML FOR GUIModel-»
+«FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<files>
+	<!-- risorse caricate in ogni pagina -->
+	<file page="all">
+		<resource type="text/css">
+			<position value="ext-all/resources/css/ext-all.css" />
+			<position value="ext-csi/ajaxify-tag/css/ajaxify.css" />
+		</resource>
+		<resource type="text/javascript">
+			<position value="ext-all/adapter/ext/ext-base.js" />
+			<position value="ext-all/ext-all.js" />
+			<position value="ext-csi/util/Format.js" />
+			<position value="ext-csi/locale/ext-lang-it.js" />
+			<position value="ext-csi/enricher/enricher.js" />
+			<position value="ext-csi/ajaxify-tag/ajaxifyTag.js" />
+		</resource>
+	</file>	
+	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
+	«EXPAND staticResourcesXML(this) FOREACH allCP-»
+	«ENDLET-»
+</files>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
+	<!-- risorse specifiche del ContentPanel [«name»] -->
+	<file page="«name»">
+		<resource type="text/javascript">
+			<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
+		</resource>
+	</file>
 «ENDDEFINE»

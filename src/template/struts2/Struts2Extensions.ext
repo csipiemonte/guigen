@@ -77,8 +77,11 @@ String getStrutsTypeConvertersPropertiesFile(GUIModel model, boolean omit_root) 
 String getJavascriptSrcDir(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/js";
 
+String getEnrichmentFileWebRootRelative(ContentPanel cp,GUIModel model) :
+	"enrichments/"+cp.name+".js";
+	
 String getEnrichmentFile(ContentPanel cp,GUIModel model, boolean omit_root) :
-	getJavascriptSrcDir(model, omit_root) + "/enrichments/"+cp.name+".js";
+	getJavascriptSrcDir(model, omit_root) + "/"+getEnrichmentFileWebRootRelative(cp, model);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione di Spring
