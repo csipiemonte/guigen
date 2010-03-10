@@ -213,6 +213,8 @@ Definizioni generali: header, footer, ecc
 <!--/head -->
 «ENDREM»
 
+	«REM»se rich=enabled => il calendar è extjs e le funzioni padre-figlio sono in ext-csi/ajaxify«ENDREM»
+	«IF !(model.targetPlatform.enableRichUIBehavior)-»
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 
 		<script type="text/javascript">
@@ -227,7 +229,7 @@ Definizioni generali: header, footer, ecc
 				jQuery('.calendario:disabled').datepicker('disable');
 			});// chiusura function ready
 		</script>
-
+	«ENDIF-»
 		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
 		
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
