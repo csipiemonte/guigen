@@ -51,9 +51,7 @@
 
 «REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
 «DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
-«IF this.multiDataBinding==null-»
-	«ERROR "dataProviderMethod non generabile per widget senza collection-binding"-»
-«ELSE-»
+«IF this.multiDataBinding!=null-»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
 	 * al multi-data-binding relativo al widget «getFullID(this, contextPrefix)».

@@ -572,6 +572,12 @@ String getColumnAction(Column currCol, Table table, ContentPanel cp, String cont
 String getTabItemHandlerMethodName(ContentPanel cp, MultiPanel tabSet, Panel tab, String contextPrefix) :
 	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
 
+boolean proceedToJSon(EventHandler evh, Widget w) :
+	isSuggestedTextField(evh, w);
+	
+boolean isSuggestedTextField(EventHandler evh, Widget w) :
+	w.metaType == TextField && evh.eventType == EventTypes::KEY_PRESSED;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// ALTRE UTILITY
 

@@ -1744,13 +1744,22 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_FIELD__REQUIRED = DATA_WIDGET__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_FIELD__FIELD_LENGTH = DATA_WIDGET_FEATURE_COUNT + 0;
+	int TEXT_FIELD__FIELD_LENGTH = DATA_WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Field Max Length</b></em>' attribute.
@@ -1759,7 +1768,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_FIELD__FIELD_MAX_LENGTH = DATA_WIDGET_FEATURE_COUNT + 1;
+	int TEXT_FIELD__FIELD_MAX_LENGTH = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Text Field</em>' class.
@@ -1768,7 +1777,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXT_FIELD_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
+	int TEXT_FIELD_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.

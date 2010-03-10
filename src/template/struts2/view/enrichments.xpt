@@ -144,6 +144,55 @@ Ext.onReady( function() {
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
 «ENDDEFINE»
 
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextField-»
+«IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
+«LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
+	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
+	var addSuggestionsTo«name.toFirstUpper()» = function(){
+		/*
+	     * store dei suggerimenti
+	     */
+	    var store = new Ext.data.JsonStore({
+		    //url: 'cpSuggestion!handleTfSuggestedText_KEY_PRESSED.do',
+		    url: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
+		    fields: [
+		              { name : "descrizione", convert: function(v, rec){return rec;}, type : "string"}
+		     ],
+		    listeners:{
+				exception: Ext.util.Format.messaggiErrore //***gestisco le eccezioni server side
+			}
+		});
+	    
+	    
+		/*
+		 * Impostazione suggestion sul textfield preesistente
+		 */
+		var el = Ext.get('«getWidgetName(this, contextPrefix)»');
+		
+		var mustDisable = el.getAttribute("disabled")=="disabled" || el.getAttribute("disabled")==true ;	
+	    
+	    var suggest = new Ext.form.ComboBox({
+	        store: store, 
+	        displayField: 'descrizione',
+	        queryParam: '«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
+	        typeAhead: true,
+	        forceSelection: true, 
+	        loadMask: true,
+	        mode: 'remote', 
+	        triggerAction: 'all',
+	        hideTrigger: true,
+	        selectOnFocus:true,
+	        applyTo: '«getWidgetName(this, contextPrefix)»',
+	        loadingText : 'Attendere...',
+	        disabled : mustDisable,
+	        allowBlank : «required ? "false" : "true"»
+	    });
+	  };
+	  uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
+«ENDLET-»
+«ENDIF-»
+«ENDDEFINE»
+
 «REM»file di configurazione del caricamento risorse per tag csiui:header«ENDREM»
 «DEFINE staticResourcesXML FOR GUIModel-»
 «FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>

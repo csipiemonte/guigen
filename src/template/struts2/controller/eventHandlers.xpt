@@ -106,10 +106,15 @@
 «ENDDEFINE»
 
 
+«REM»
+	gestisce eventi di due tipi:
+	1) eventi con comandi senza restrizioni e esito in refresh parziale/totale
+	2) eventi con comandi ristretti all'ExecCommand ed esito JSON
+«ENDREM»
 «DEFINE handlerMethod(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
 «LET this AS currEventHandler»
 	/**
-	 * Gestione dell'evento CLICKED sul widget [«getFullID(currEventWidget, contextPrefix)»]
+	 * Gestione dell'evento «currEventHandler.eventType.toString()» sul widget [«getFullID(currEventWidget, contextPrefix)»]
 	 */
 	«IF currEventHandler.skipValidation-»
 	@SkipValidation
@@ -129,14 +134,26 @@
 				dumpModel(false);
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning result [" + result + "]");
 			}
+			«IF proceedToJSon(currEventHandler, currEventWidget)-»
+			// procedi con la serializzazione JSON del risultato
+			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			«ELSE-»
 			return result;
+			«ENDIF-»
+			
 		} else {
 			if (log.isDebugEnabled()){
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
 				dumpModel(false);
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning default result [SUCCESS]");
 			}
+			«IF proceedToJSon(currEventHandler, currEventWidget)-»
+			// procedi con la serializzazione JSON del risultato
+			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			«ELSE-»
 			return SUCCESS;
+			«ENDIF-»
+			
 		}
 	}
 «ENDLET»

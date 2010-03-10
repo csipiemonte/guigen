@@ -63,7 +63,15 @@ public enum EventTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FOCUS_LOST(3, "FOCUS_LOST", "FOCUS_LOST");
+	FOCUS_LOST(3, "FOCUS_LOST", "FOCUS_LOST"), /**
+	 * The '<em><b>KEY PRESSED</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #KEY_PRESSED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	KEY_PRESSED(4, "KEY_PRESSED", "KEY_PRESSED");
 
 	/**
 	 * The '<em><b>CLICKED</b></em>' literal value.
@@ -149,6 +157,21 @@ public enum EventTypes implements Enumerator {
 	public static final int FOCUS_LOST_VALUE = 3;
 
 	/**
+	 * The '<em><b>KEY PRESSED</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>KEY PRESSED</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #KEY_PRESSED
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int KEY_PRESSED_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>Event Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,6 +183,7 @@ public enum EventTypes implements Enumerator {
 			VALUE_CHANGED,
 			FOCUS_GAINED,
 			FOCUS_LOST,
+			KEY_PRESSED,
 		};
 
 	/**
@@ -214,6 +238,7 @@ public enum EventTypes implements Enumerator {
 			case VALUE_CHANGED_VALUE: return VALUE_CHANGED;
 			case FOCUS_GAINED_VALUE: return FOCUS_GAINED;
 			case FOCUS_LOST_VALUE: return FOCUS_LOST;
+			case KEY_PRESSED_VALUE: return KEY_PRESSED;
 		}
 		return null;
 	}

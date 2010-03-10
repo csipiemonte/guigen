@@ -4,15 +4,21 @@
     <appWindow>
       <footer/>
       <header codCanale="ambiente" codApplicativo="sicee" nomeCanale="test" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="testweb 20"/>
-      <appArea homePage="//@structure/@appWindow/@appArea/@contentPanels.0">
+      <appArea homePage="//@structure/@appWindow/@appArea/@contentPanels.5">
         <menubar>
-          <topLevelMenu name="mnuPippo" label="pippo">
+          <topLevelMenu name="mnuSuggestion" label="suggestion">
             <eventHandler>
-              <command xsi:type="guigen:ExecCommand" methodName="fdfdf">
-                <results resultCode="OIK">
-                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
-                </results>
-              </command>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuSoftRepaint" label="soft repaint">
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+            </eventHandler>
+          </topLevelMenu>
+          <topLevelMenu name="mnuTabs" label="tabs">
+            <eventHandler>
+              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
             </eventHandler>
           </topLevelMenu>
         </menubar>
@@ -525,6 +531,43 @@
             </subpanels>
           </panels>
         </contentPanels>
+        <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Funzionalità di suggestion">
+            <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+            <subpanels xsi:type="guigen:WidgetsPanel" name="pSuggestedWidgets">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:TextField" name="tfSuggestedText" label="Testo suggerito" dataType="//@typedefs/@types.7" required="true">
+                <eventHandlers eventType="KEY_PRESSED" skipValidation="true">
+                  <command xsi:type="guigen:ExecCommand" methodName="getTextSuggestion">
+                    <results>
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+                <multiDataBinding appData="//@appDataDefs/@groups.1/@appData.0"/>
+              </widgets>
+            </subpanels>
+            <subpanels xsi:type="guigen:CommandPanel" name="pComandi">
+              <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="bAbilitaTutto" label="Abilita tutto">
+                <eventHandlers skipValidation="true">
+                  <command xsi:type="guigen:SequenceCommand">
+                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0" enable="true"/>
+                    <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0"/>
+                  </command>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="bDisabilitaTutto" label="Disabilita tutto">
+                <eventHandlers skipValidation="true">
+                  <command xsi:type="guigen:SequenceCommand">
+                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0"/>
+                    <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0"/>
+                  </command>
+                </eventHandlers>
+              </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
         <onInitCommand xsi:type="guigen:SequenceCommand">
           <commands xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9">
             <results resultCode="OK">
@@ -648,6 +691,9 @@
     <groups name="testTabs">
       <appData name="valTf1a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
       <appData name="valTf2a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
+    </groups>
+    <groups name="suggestion">
+      <appData name="simpleTextSuggestions" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>

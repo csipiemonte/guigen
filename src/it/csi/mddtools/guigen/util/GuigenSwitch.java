@@ -170,6 +170,7 @@ public class GuigenSwitch<T> {
 				TextField textField = (TextField)theEObject;
 				T result = caseTextField(textField);
 				if (result == null) result = caseDataWidget(textField);
+				if (result == null) result = caseMultiDataWidget(textField);
 				if (result == null) result = caseWidget(textField);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

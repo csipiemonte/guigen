@@ -5587,6 +5587,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		dataWidgetEClass.getESuperTypes().add(this.getWidget());
 		buttonEClass.getESuperTypes().add(this.getCommandWidget());
 		textFieldEClass.getESuperTypes().add(this.getDataWidget());
+		textFieldEClass.getESuperTypes().add(this.getMultiDataWidget());
 		textAreaEClass.getESuperTypes().add(this.getDataWidget());
 		calendarEClass.getESuperTypes().add(this.getDataWidget());
 		comboBoxEClass.getESuperTypes().add(this.getDataWidget());
@@ -6234,6 +6235,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(eventTypesEEnum, EventTypes.VALUE_CHANGED);
 		addEEnumLiteral(eventTypesEEnum, EventTypes.FOCUS_GAINED);
 		addEEnumLiteral(eventTypesEEnum, EventTypes.FOCUS_LOST);
+		addEEnumLiteral(eventTypesEEnum, EventTypes.KEY_PRESSED);
 
 		initEEnum(dataLifetimeTypeEEnum, DataLifetimeType.class, "DataLifetimeType");
 		addEEnumLiteral(dataLifetimeTypeEEnum, DataLifetimeType.USER_ACTION);

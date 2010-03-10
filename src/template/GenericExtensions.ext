@@ -201,6 +201,24 @@ boolean mustGenerateContentPanel(ContentPanel cp) :
 
 Panel getParentPanel(Widget w) :
 	(Panel)(w.eContainer);
+
+
+boolean isSimpleExecChain(Command cmd) :
+	(cmd==null || cmd.metaType != ExecCommand ? 
+		false 
+		:
+		(((ExecCommand)cmd).results.size != 1 ? 
+			false 
+			:
+			(
+			((ExecCommand)cmd).results.first().command.metaType == NOPCommand ?
+				true
+				:
+				false
+			)
+		
+		)
+	);	
 	
 ////////////////////////////////////////////////////////////
 /// Estensioni java                                       //

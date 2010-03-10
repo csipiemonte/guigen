@@ -312,6 +312,11 @@ context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED "+
 
 context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento "+loc() :
 	this.command!=null;
+
+// nel caso del KEY_PRESSED su TextField => suggestion il comando associato deve essere di tipo simpleExec
+context EventHandler if (eContainer.metaType == TextField && eventType == EventTypes::KEY_PRESSED) 
+	ERROR "Ad un KEY_PRESSED di un TextField deve essere associato solo un ExecCommand ad esito univoco (unico Outcome con esecuzione di NOPCommand):"+loc() :
+	isSimpleExecChain(this.command);
 	
 context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command "+loc() :
 	this.jumpTo != null;
@@ -403,6 +408,10 @@ context TreeView ERROR "La fonte dati di un TreeView può solo essere un applicat
 //context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type+", "+loc() :
 //	this.multiDataBinding.appData.type.metaType==TypedArray && 
 //	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
+
+context TextField if multiDataBinding != null ERROR "Il collection-binding associato ad un TextField deve essere di tipo Array[SimpleType] (suggestion solo testuale)" :
+	multiDataBinding.appData.type.metaType == TypedArray &&
+	((TypedArray)(multiDataBinding.appData.type)).componentType.metaType == SimpleType;
 	
 context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
 	this.dataType != null;
@@ -445,6 +454,18 @@ context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
 context DataWidget if (this.databinding != null && this.metaType != Table) WARNING "Il tipo del widget non corrisponde con il tipo del databinding "+loc() : 
 	widgetDataBindingCorrispondenceCheck(this);
 
+// il TextField necessita del binding solo se ha un KEY_PRESSED attivo => suggestion
+context MultiDataWidget if (metaType != TextField) ERROR "E' necessario impostare il collection-binding "+loc() :
+	multiDataBinding != null;
+
+context TextField if (this.eventHandlers.select(eh|eh.eventType == EventTypes::KEY_PRESSED).size > 0) 
+	ERROR "Un TextField con un handler di evento KEY_PRESSED deve avere un collection-binding:"+loc() :
+	this.multiDataBinding != null;
+
+context TextField if(this.multiDataBinding != null) ERROR "Il collection-binding di un TextField deve essere impostato "+
+	"solo in presenza di un handler di evento KEY_PRESSED (per realizzare la funzione di suggestion):"+loc() :
+ 	this.eventHandlers.select(eh|eh.eventType == EventTypes::KEY_PRESSED).size > 0;
+	
 context Table ERROR "Non è stato specificato il binding alla collection per la table "+name :
 	this.multiDataBinding != null;
 	

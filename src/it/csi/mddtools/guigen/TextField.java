@@ -28,7 +28,7 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface TextField extends DataWidget {
+public interface TextField extends DataWidget, MultiDataWidget {
 	/**
 	 * Returns the value of the '<em><b>Field Length</b></em>' attribute.
 	 * The default value is <code>"15"</code>.
