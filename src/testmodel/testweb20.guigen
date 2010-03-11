@@ -531,7 +531,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0">
+        <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Funzionalità di suggestion">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:WidgetsPanel" name="pSuggestedWidgets">
@@ -544,6 +544,7 @@
                     </results>
                   </command>
                 </eventHandlers>
+                <databinding appData="//@appDataDefs/@groups.1/@appData.1"/>
                 <multiDataBinding appData="//@appDataDefs/@groups.1/@appData.0"/>
               </widgets>
             </subpanels>
@@ -569,7 +570,7 @@
           </panels>
         </contentPanels>
         <onInitCommand xsi:type="guigen:SequenceCommand">
-          <commands xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9">
+          <commands xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9 //@appDataDefs/@groups.1/@appData.1">
             <results resultCode="OK">
               <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
             </results>
@@ -694,6 +695,7 @@
     </groups>
     <groups name="suggestion">
       <appData name="simpleTextSuggestions" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
+      <appData name="suggestedText" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
