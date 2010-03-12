@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataKeySelector <em>Multidata Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getTooltip <em>Tooltip</em>}</li>
  * </ul>
  * </p>
  *
@@ -231,6 +232,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String multidataPropertySelector = MULTIDATA_PROPERTY_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTooltip() <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTooltip()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TOOLTIP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTooltip() <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTooltip()
+	 * @generated
+	 * @ordered
+	 */
+	protected String tooltip = TOOLTIP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -488,6 +509,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTooltip() {
+		return tooltip;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTooltip(String newTooltip) {
+		String oldTooltip = tooltip;
+		tooltip = newTooltip;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__TOOLTIP, oldTooltip, tooltip));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -525,6 +567,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getMultidataValueSelector();
 			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
 				return getMultidataPropertySelector();
+			case GuigenPackage.COLUMN__TOOLTIP:
+				return getTooltip();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -566,6 +610,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
 				setMultidataPropertySelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__TOOLTIP:
+				setTooltip((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -609,6 +656,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
 				setMultidataPropertySelector(MULTIDATA_PROPERTY_SELECTOR_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__TOOLTIP:
+				setTooltip(TOOLTIP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -641,6 +691,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return MULTIDATA_VALUE_SELECTOR_EDEFAULT == null ? multidataValueSelector != null : !MULTIDATA_VALUE_SELECTOR_EDEFAULT.equals(multidataValueSelector);
 			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
 				return MULTIDATA_PROPERTY_SELECTOR_EDEFAULT == null ? multidataPropertySelector != null : !MULTIDATA_PROPERTY_SELECTOR_EDEFAULT.equals(multidataPropertySelector);
+			case GuigenPackage.COLUMN__TOOLTIP:
+				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -673,6 +725,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(multidataValueSelector);
 		result.append(", multidataPropertySelector: ");
 		result.append(multidataPropertySelector);
+		result.append(", tooltip: ");
+		result.append(tooltip);
 		result.append(')');
 		return result.toString();
 	}

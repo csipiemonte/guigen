@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getSecurityConstraints <em>Security Constraints</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultVisible <em>Default Visible</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultEnabled <em>Default Enabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getTooltip <em>Tooltip</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,6 +158,26 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * @ordered
 	 */
 	protected boolean defaultEnabled = DEFAULT_ENABLED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTooltip() <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTooltip()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TOOLTIP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTooltip() <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTooltip()
+	 * @generated
+	 * @ordered
+	 */
+	protected String tooltip = TOOLTIP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -333,6 +354,27 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTooltip() {
+		return tooltip;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTooltip(String newTooltip) {
+		String oldTooltip = tooltip;
+		tooltip = newTooltip;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGET__TOOLTIP, oldTooltip, tooltip));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -368,6 +410,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return isDefaultVisible();
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
 				return isDefaultEnabled();
+			case GuigenPackage.WIDGET__TOOLTIP:
+				return getTooltip();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -404,6 +448,9 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
 				setDefaultEnabled((Boolean)newValue);
 				return;
+			case GuigenPackage.WIDGET__TOOLTIP:
+				setTooltip((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -437,6 +484,9 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
 				setDefaultEnabled(DEFAULT_ENABLED_EDEFAULT);
 				return;
+			case GuigenPackage.WIDGET__TOOLTIP:
+				setTooltip(TOOLTIP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -463,6 +513,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return defaultVisible != DEFAULT_VISIBLE_EDEFAULT;
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
 				return defaultEnabled != DEFAULT_ENABLED_EDEFAULT;
+			case GuigenPackage.WIDGET__TOOLTIP:
+				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -485,6 +537,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 		result.append(defaultVisible);
 		result.append(", defaultEnabled: ");
 		result.append(defaultEnabled);
+		result.append(", tooltip: ");
+		result.append(tooltip);
 		result.append(')');
 		return result.toString();
 	}

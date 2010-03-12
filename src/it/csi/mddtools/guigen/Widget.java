@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Widget#getSecurityConstraints <em>Security Constraints</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#isDefaultVisible <em>Default Visible</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#isDefaultEnabled <em>Default Enabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Widget#getTooltip <em>Tooltip</em>}</li>
  * </ul>
  * </p>
  *
@@ -241,5 +242,30 @@ public interface Widget extends EObject {
 	 * @generated
 	 */
 	void setDefaultEnabled(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * tooltip associato alla etichetta del widget
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Tooltip</em>' attribute.
+	 * @see #setTooltip(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_Tooltip()
+	 * @model
+	 * @generated
+	 */
+	String getTooltip();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Widget#getTooltip <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tooltip</em>' attribute.
+	 * @see #getTooltip()
+	 * @generated
+	 */
+	void setTooltip(String value);
 
 } // Widget

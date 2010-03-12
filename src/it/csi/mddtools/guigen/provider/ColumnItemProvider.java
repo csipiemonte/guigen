@@ -75,6 +75,7 @@ public class ColumnItemProvider
 			addMultidataKeySelectorPropertyDescriptor(object);
 			addMultidataValueSelectorPropertyDescriptor(object);
 			addMultidataPropertySelectorPropertyDescriptor(object);
+			addTooltipPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -278,6 +279,28 @@ public class ColumnItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Tooltip feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTooltipPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Column_tooltip_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Column_tooltip_feature", "_UI_Column_type"),
+				 GuigenPackage.Literals.COLUMN__TOOLTIP,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -353,6 +376,7 @@ public class ColumnItemProvider
 			case GuigenPackage.COLUMN__MULTIDATA_KEY_SELECTOR:
 			case GuigenPackage.COLUMN__MULTIDATA_VALUE_SELECTOR:
 			case GuigenPackage.COLUMN__MULTIDATA_PROPERTY_SELECTOR:
+			case GuigenPackage.COLUMN__TOOLTIP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COLUMN__MULTI_DATA_BINDING:

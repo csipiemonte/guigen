@@ -1675,6 +1675,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWidget_Tooltip() {
+		return (EAttribute)widgetEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCommandWidget() {
 		return commandWidgetEClass;
 	}
@@ -2442,6 +2451,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getColumn_MultidataPropertySelector() {
 		return (EAttribute)columnEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_Tooltip() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -5051,6 +5069,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(widgetEClass, WIDGET__SECURITY_CONSTRAINTS);
 		createEAttribute(widgetEClass, WIDGET__DEFAULT_VISIBLE);
 		createEAttribute(widgetEClass, WIDGET__DEFAULT_ENABLED);
+		createEAttribute(widgetEClass, WIDGET__TOOLTIP);
 
 		commandWidgetEClass = createEClass(COMMAND_WIDGET);
 
@@ -5165,6 +5184,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(columnEClass, COLUMN__MULTIDATA_KEY_SELECTOR);
 		createEAttribute(columnEClass, COLUMN__MULTIDATA_VALUE_SELECTOR);
 		createEAttribute(columnEClass, COLUMN__MULTIDATA_PROPERTY_SELECTOR);
+		createEAttribute(columnEClass, COLUMN__TOOLTIP);
 
 		commandEClass = createEClass(COMMAND);
 
@@ -5725,6 +5745,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getWidget_SecurityConstraints(), this.getUISecurityConstraint(), null, "securityConstraints", null, 0, -1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWidget_DefaultVisible(), ecorePackage.getEBoolean(), "defaultVisible", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWidget_DefaultEnabled(), ecorePackage.getEBoolean(), "defaultEnabled", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWidget_Tooltip(), ecorePackage.getEString(), "tooltip", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandWidgetEClass, CommandWidget.class, "CommandWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -5839,6 +5860,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getColumn_MultidataKeySelector(), ecorePackage.getEString(), "multidataKeySelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_MultidataValueSelector(), ecorePackage.getEString(), "multidataValueSelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_MultidataPropertySelector(), ecorePackage.getEString(), "multidataPropertySelector", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Tooltip(), ecorePackage.getEString(), "tooltip", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandEClass, Command.class, "Command", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

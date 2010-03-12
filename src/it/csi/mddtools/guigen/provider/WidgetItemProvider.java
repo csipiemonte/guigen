@@ -71,6 +71,7 @@ public class WidgetItemProvider
 			addLabelPropertyDescriptor(object);
 			addDefaultVisiblePropertyDescriptor(object);
 			addDefaultEnabledPropertyDescriptor(object);
+			addTooltipPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -164,6 +165,28 @@ public class WidgetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Tooltip feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTooltipPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Widget_tooltip_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Widget_tooltip_feature", "_UI_Widget_type"),
+				 GuigenPackage.Literals.WIDGET__TOOLTIP,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -225,6 +248,7 @@ public class WidgetItemProvider
 			case GuigenPackage.WIDGET__LABEL:
 			case GuigenPackage.WIDGET__DEFAULT_VISIBLE:
 			case GuigenPackage.WIDGET__DEFAULT_ENABLED:
+			case GuigenPackage.WIDGET__TOOLTIP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.WIDGET__LAYOUT_SPEC:

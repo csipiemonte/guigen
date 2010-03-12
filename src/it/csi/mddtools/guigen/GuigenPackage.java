@@ -1375,13 +1375,22 @@ public interface GuigenPackage extends EPackage {
 	int WIDGET__DEFAULT_ENABLED = 6;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGET__TOOLTIP = 7;
+
+	/**
 	 * The number of structural features of the '<em>Widget</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIDGET_FEATURE_COUNT = 7;
+	int WIDGET_FEATURE_COUNT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1445,6 +1454,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMMAND_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_WIDGET__TOOLTIP = WIDGET__TOOLTIP;
 
 	/**
 	 * The number of structural features of the '<em>Command Widget</em>' class.
@@ -1517,6 +1535,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_WIDGET__TOOLTIP = WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1627,6 +1654,15 @@ public interface GuigenPackage extends EPackage {
 	int BUTTON__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUTTON__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1706,6 +1742,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXT_FIELD__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_FIELD__TOOLTIP = DATA_WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -1843,6 +1888,15 @@ public interface GuigenPackage extends EPackage {
 	int TEXT_AREA__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_AREA__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1969,6 +2023,15 @@ public interface GuigenPackage extends EPackage {
 	int CALENDAR__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALENDAR__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2075,6 +2138,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMBO_BOX__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__TOOLTIP = DATA_WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -2219,6 +2291,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TABLE__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__TOOLTIP = DATA_WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -2381,6 +2462,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHECK_BOX__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_BOX__TOOLTIP = DATA_WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
@@ -2644,6 +2734,15 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTONS__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTONS__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2761,6 +2860,15 @@ public interface GuigenPackage extends EPackage {
 	int RADIO_BUTTON__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RADIO_BUTTON__TOOLTIP = WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2842,6 +2950,15 @@ public interface GuigenPackage extends EPackage {
 	int RESET_BUTTON__DEFAULT_ENABLED = BUTTON__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_BUTTON__TOOLTIP = BUTTON__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2921,6 +3038,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONFIRM_BUTTON__DEFAULT_ENABLED = BUTTON__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIRM_BUTTON__TOOLTIP = BUTTON__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -3101,6 +3227,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMAGE__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMAGE__TOOLTIP = WIDGET__TOOLTIP;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -3355,13 +3490,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__MULTIDATA_PROPERTY_SELECTOR = 9;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__TOOLTIP = 10;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 10;
+	int COLUMN_FEATURE_COUNT = 11;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -4012,6 +4156,15 @@ public interface GuigenPackage extends EPackage {
 	int MULTI_DATA_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_DATA_WIDGET__TOOLTIP = WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4363,6 +4516,15 @@ public interface GuigenPackage extends EPackage {
 	int TREE_VIEW__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4480,6 +4642,15 @@ public interface GuigenPackage extends EPackage {
 	int PLAIN_TEXT__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_TEXT__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4595,6 +4766,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int MENU_VIEW__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
 
 	/**
 	 * The number of structural features of the '<em>Menu View</em>' class.
@@ -4885,6 +5065,15 @@ public interface GuigenPackage extends EPackage {
 	int HIDDEN_VALUE__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HIDDEN_VALUE__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4991,6 +5180,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int USER_DEFINED_WIDGET__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_WIDGET__TOOLTIP = WIDGET__TOOLTIP;
 
 	/**
 	 * The number of structural features of the '<em>User Defined Widget</em>' class.
@@ -6410,6 +6608,15 @@ public interface GuigenPackage extends EPackage {
 	int FILE_UPLOAD__DEFAULT_ENABLED = WIDGET__DEFAULT_ENABLED;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_UPLOAD__TOOLTIP = WIDGET__TOOLTIP;
+
+	/**
 	 * The number of structural features of the '<em>File Upload</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6490,6 +6697,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TAB_SWITCHER__DEFAULT_ENABLED = COMMAND_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
 
 	/**
 	 * The number of structural features of the '<em>Tab Switcher</em>' class.
@@ -7588,6 +7804,15 @@ public interface GuigenPackage extends EPackage {
 	int EXTRA_COLUMN__MULTIDATA_PROPERTY_SELECTOR = COLUMN__MULTIDATA_PROPERTY_SELECTOR;
 
 	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__TOOLTIP = COLUMN__TOOLTIP;
+
+	/**
 	 * The feature id for the '<em><b>Insert After</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8388,6 +8613,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getWidget_DefaultEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Widget#getTooltip <em>Tooltip</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tooltip</em>'.
+	 * @see it.csi.mddtools.guigen.Widget#getTooltip()
+	 * @see #getWidget()
+	 * @generated
+	 */
+	EAttribute getWidget_Tooltip();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CommandWidget <em>Command Widget</em>}'.
@@ -9306,6 +9542,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_MultidataPropertySelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tooltip</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getTooltip()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Tooltip();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -12661,6 +12908,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute WIDGET__DEFAULT_ENABLED = eINSTANCE.getWidget_DefaultEnabled();
 
 		/**
+		 * The meta object literal for the '<em><b>Tooltip</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIDGET__TOOLTIP = eINSTANCE.getWidget_Tooltip();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandWidgetImpl <em>Command Widget</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -13403,6 +13658,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__MULTIDATA_PROPERTY_SELECTOR = eINSTANCE.getColumn_MultidataPropertySelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Tooltip</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__TOOLTIP = eINSTANCE.getColumn_Tooltip();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

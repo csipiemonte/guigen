@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataKeySelector <em>Multidata Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}</li>
  * </ul>
  * </p>
  *
@@ -361,5 +362,30 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setMultidataPropertySelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * tooltip associato all'header della colonna
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Tooltip</em>' attribute.
+	 * @see #setTooltip(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_Tooltip()
+	 * @model
+	 * @generated
+	 */
+	String getTooltip();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tooltip</em>' attribute.
+	 * @see #getTooltip()
+	 * @generated
+	 */
+	void setTooltip(String value);
 
 } // Column
