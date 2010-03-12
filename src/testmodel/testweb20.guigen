@@ -531,7 +531,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.1">
+        <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@appData.3">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Funzionalità di suggestion">
             <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
             <subpanels xsi:type="guigen:WidgetsPanel" name="pSuggestedWidgets">
@@ -547,13 +547,23 @@
                 <databinding appData="//@appDataDefs/@groups.1/@appData.1"/>
                 <multiDataBinding appData="//@appDataDefs/@groups.1/@appData.0"/>
               </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbSmartComuni" label="Comuni con autonarrowing" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                <eventHandlers eventType="VALUE_CHANGED">
+                  <command xsi:type="guigen:ExecCommand" methodName="onSelectCbSmartComuni">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0"/>
+                    </results>
+                  </command>
+                </eventHandlers>
+                <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+              </widgets>
             </subpanels>
             <subpanels xsi:type="guigen:CommandPanel" name="pComandi">
               <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
               <widgets xsi:type="guigen:ConfirmButton" name="bAbilitaTutto" label="Abilita tutto">
                 <eventHandlers skipValidation="true">
                   <command xsi:type="guigen:SequenceCommand">
-                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0" enable="true"/>
+                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.1" enable="true"/>
                     <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0"/>
                   </command>
                 </eventHandlers>
@@ -561,7 +571,7 @@
               <widgets xsi:type="guigen:ConfirmButton" name="bDisabilitaTutto" label="Disabilita tutto">
                 <eventHandlers skipValidation="true">
                   <command xsi:type="guigen:SequenceCommand">
-                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0"/>
+                    <commands xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0/@widgets.1"/>
                     <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.1/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.5/@panels/@subpanels.0"/>
                   </command>
                 </eventHandlers>
@@ -682,7 +692,7 @@
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
     <appData name="numeroFloat" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.11"/>
     <appData name="numeroInt" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.8"/>
-    <appData name="comuni" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.34"/>
+    <appData name="comuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.34"/>
     <appData name="attivo" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.9"/>
     <appData name="comuneCorrente" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.31"/>
     <appData name="codComuniSelez" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.20"/>
