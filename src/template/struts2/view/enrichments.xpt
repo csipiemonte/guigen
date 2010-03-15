@@ -144,6 +144,23 @@ Ext.onReady( function() {
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
 «ENDDEFINE»
 
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
+	/// arricchimento per «this.metaType.name» [«name»]: tooltip header di colonna
+	var «name»Tips = [
+	«IF this.databinding!=null-»'',«ENDIF»
+	«FOREACH columnModel.columns AS currCol SEPARATOR ","-»
+		'«currCol.tooltip != null ? currCol.tooltip : ""»'
+	«ENDFOREACH-»
+	];
+	«LET "row_"+getFullID(this, contextPrefix) AS tableHtmlID-»«REM»id strano per table!«ENDREM»
+	var addTooltipTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.addTableHeadTooltipNRich(
+			'«tableHtmlID»',«name»Tips
+			)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addTooltipTo«name.toFirstUpper()»);
+	«ENDLET-»
+«ENDDEFINE»
+
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextField-»
 «IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
 «LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
