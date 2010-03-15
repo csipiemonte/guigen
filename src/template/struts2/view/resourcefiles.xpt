@@ -925,10 +925,11 @@ come target di refresh.
 	«ENDFOREACH-»
 	«ENDLET-»
 </display:table>
-«REM»STDMDD-416«ENDREM»
+«REM»STDMDD-416- temporaneamente disabilitato per problemi sul databinding
 «IF this.databinding != null && this.databinding.appData.type.metaType == TypedArray -»
 <s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
 «ENDIF»
+«ENDREM»
 «IF model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF»
