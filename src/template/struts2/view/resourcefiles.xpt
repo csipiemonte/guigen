@@ -925,14 +925,14 @@ come target di refresh.
 	«ENDFOREACH-»
 	«ENDLET-»
 </display:table>
-«REM»STDMDD-416- temporaneamente disabilitato per problemi sul databinding
+«REM»STDMDD-416 - creato un Custom Interceptor per la gestione (TableSelectionInterceptor)«ENDREM»
 «IF this.databinding != null && this.databinding.appData.type.metaType == TypedArray -»
-<s:hidden name="__checkbox_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__checkbox_«getWidgetName(this, contextPrefix)»" />
-«ENDIF»
-«ENDREM»
+<s:hidden name="__tableselectionempty_«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="__tableselectionempty_«getWidgetName(this, contextPrefix)»" />
+«ENDIF-»
+
 «IF model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
-«ENDIF»
+«ENDIF-»
 
 «ENDLET-»
 «ENDLET-»
