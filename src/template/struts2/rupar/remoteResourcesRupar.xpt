@@ -808,7 +808,8 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
-<customtag:column labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
+<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»"«ENDIF»
+	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
 «ENDDEFINE»
 
 «REM»Genera la footer di un widget generico«ENDREM»

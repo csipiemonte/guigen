@@ -61,7 +61,11 @@ around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel mod
 around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
 	"";
 
-	
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
+	getCustomtagHeaderColspanRupar(wp, w);
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
 

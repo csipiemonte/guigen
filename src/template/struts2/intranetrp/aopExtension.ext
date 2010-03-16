@@ -91,6 +91,10 @@ around template::struts2::Struts2Extensions::getCustomComponentColumnStyleByPort
 around template::struts2::Struts2Extensions::getColumnEditableTextfieldPortalStyle(GUIModel model) :
 	getColumnEditableTextfieldPortalStyleIntranetrp(model);
 
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
+	getCustomtagHeaderColspanIntranetrp(wp, w);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS

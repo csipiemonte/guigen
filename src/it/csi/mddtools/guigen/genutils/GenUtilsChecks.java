@@ -2,15 +2,18 @@ package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.AppDataMappingPDefVal;
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
+import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.EventHandler;
@@ -26,15 +29,19 @@ import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.PDefParamVal;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDefUse;
+import it.csi.mddtools.guigen.PlainText;
+import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TabSetPanel;
+import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
@@ -238,7 +245,8 @@ public class GenUtilsChecks {
 		}
 		return ris;
 	}
-	
+
+
 	/**
 	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
 	 * corretto.
@@ -249,19 +257,22 @@ public class GenUtilsChecks {
 	 */
 	public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
 		// per il momento ignoriamo l'HorizontalFlowPanelLayout
-		if (wp.getLayout() instanceof VerticalFlowPanelLayout
-				|| wp.getLayout() instanceof GridPanelLayout) {
+		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
 			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
 			int cols = st.countTokens();
 
 			// verifico che il numero delle colonne sia quello atteso
-			int expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
+			int expectedCols = 0;
+			if (wp.getLayout() instanceof VerticalFlowPanelLayout) {
+				expectedCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
+			} else if (wp.getLayout() instanceof GridPanelLayout) {
+				expectedCols = getGridPanelRealColumnNumber(wp);
+			}
 			if (cols != expectedCols) {
 				return false;
 			}
-
-			// verifico che ciascuna colonna sia fatta in formato numerico
-			// intero
+			
+			// verifico che ciascuna colonna sia fatta in formato numerico intero
 			int colsSum = 0;
 			while (st.hasMoreTokens()) {
 				try {
@@ -280,6 +291,67 @@ public class GenUtilsChecks {
 		// tutto bene, ritorno true
 		return true;
 	}
+
+	/**
+	 * Determina il numero massimo di colonne FISICHE che verranno generate per il
+	 * WidgetsPanel dato.
+	 * 
+	 * @param p
+	 * @return
+	 * @author [DM]
+	 */
+	public static int getGridPanelRealColumnNumber(WidgetsPanel p) {
+		int columns = 0;
+
+		int rows = ((GridPanelLayout)p.getLayout()).getRows();
+		for (int i = 0; i < rows; i++) {
+			int currRow = i+1;
+			List<Widget> widgets = GenUtilsLayout.getWidgetsByRow(p, currRow);
+			int currRowCols = 0;
+			for (Widget w : widgets) {
+				int cols = getWidgetRealColumnNumber(p, w);
+				currRowCols += cols;
+			}
+			if (currRowCols > columns) {
+				columns = currRowCols;
+			}
+		}
+		return columns;
+	}
+
+
+	/**
+	 * Calcola il numero di colenne FISICHE che verranno realmente generate
+	 * per il Widget dato.
+	 * 
+	 * @param wp
+	 * @param w
+	 * @return
+	 * @author [DM]
+	 */
+	public static int getWidgetRealColumnNumber(WidgetsPanel wp, Widget w) {
+		// di default un widget genera 2 colonne (LABEL + WIDGET)
+		int cols = 2; 
+
+		// ... ma ci sono delle eccezioni ...
+		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+			// Table, UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi generano 1 colonna fisica
+			cols = 1;
+		} else if ( w instanceof PlainText ) {
+			// un PlainText con label nulla genera 1 sola colonna fisica
+			if ( w.getLabel() == null ) {
+				cols = 1; 
+			}
+		} else {
+			// gli altri Widget con label nulla generano anch'essi 1 sola colonna fisica
+			if ( w.getLabel() == null ) {
+				cols = 1; 
+			}			
+		}
+
+		return cols;
+	}
+
 
 	/**
 	 * Verifica che il DataBinding di un Calendar (se esiste) sia di tipo Date.
@@ -406,4 +478,5 @@ public class GenUtilsChecks {
 			return hasCircularHierarchy(ct.getExtends(), alreadyVisited);
 		}
 	}
+
 }

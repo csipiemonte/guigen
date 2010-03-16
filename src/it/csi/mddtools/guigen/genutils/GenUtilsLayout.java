@@ -225,6 +225,29 @@ public class GenUtilsLayout {
 		return res;
 	}
 
+	
+	/**
+	 * Restituisce i Widget che, in un WidgetsPanel con GridLayout, 
+	 * si trovano nella colonna specificata.
+	 * 
+	 * @param p
+	 * @param row
+	 * @return
+	 * @author [DM]
+	 */
+	public static List<Widget> getWidgetsByRow(WidgetsPanel p, int row) {
+		List<Widget> res = new ArrayList<Widget>();
+		
+		for (Widget w : p.getWidgets()) {
+			int r = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getRow();
+			if ( r == row ) {
+				res.add(w);
+			}
+		}
+		
+		return res;
+	}
+	
 
 	/**
 	 * Restituisce la posizione (first, last oppure niente) del widget da impostare sulla componente <code>&lt;customtag:column&gt;</code>.
@@ -330,6 +353,7 @@ public class GenUtilsLayout {
 	 */
 	public static String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) {
 		String res = "";
+		
 		int colspan = 1;
 
 		if ( needHandleCustomtagHeaderHspan(wp, w) ) {
@@ -360,6 +384,7 @@ public class GenUtilsLayout {
 	 */
 	public static String getCustomtagHeaderColspan(WidgetsPanel wp, PlainText w) {
 		String res = "";
+		
 		int colspan = 1;
 
 		if ( needHandleCustomtagHeaderHspan(wp, w) ) {
@@ -369,13 +394,16 @@ public class GenUtilsLayout {
 		
 		if ( w.getLabel() == null ) {
 			colspan = colspan + 1; 
-		}		
+		}
 		
 		if ( colspan > 1 ) {
 			res = "colSpan=\"" + colspan + "\"";
 		}
 		return res;
 	}	
+	
+	
+
 	
 
 	/**
@@ -702,7 +730,7 @@ public class GenUtilsLayout {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS 
 	
-
+	
 
 
 

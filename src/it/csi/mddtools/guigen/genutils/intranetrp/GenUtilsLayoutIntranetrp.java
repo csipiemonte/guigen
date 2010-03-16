@@ -4,14 +4,17 @@ import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandStyles;
+import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
+import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
+import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
@@ -20,7 +23,9 @@ import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UDLRCWidgetLayoutSpec;
+import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
+import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 
 import it.csi.mddtools.guigen.genutils.GenUtils;
@@ -218,6 +223,38 @@ public class GenUtilsLayoutIntranetrp {
 		
 		// TODO: IMPLEMENTARE SE NECESSARIO O ELIMINARE
 		
+		return res;
+	}
+
+
+	/**
+	 * Imposta l'attributo <code>colSpan</code> della Customtag component (nel caso sia necessario).
+	 * 
+	 * @param wp Il WidgetsPanel che contiene il Widget da posizionare.
+	 * @param w  Il Widget da posizionare.
+	 * @return L'attributo <code>colSpan</code> correttamente settato (nel caso sia necessario).
+	 * @author [DM]
+	 */
+	public static String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) {
+		String res = "";
+		int colspan = 1;
+
+		if ( GenUtilsLayout.needHandleCustomtagHeaderHspan(wp, w) ) {
+			int hspan = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getHspan();
+			colspan = ((hspan * 2) - 1);
+		}
+		
+		// Table e UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+			colspan = colspan + 1;
+		} else if ( w.getLabel() == null ) {
+			// Per gli altri widgets, se l'attributo "label" è null non mette la colonna della label
+			colspan = colspan + 1;
+		}
+		
+		if ( colspan > 1 ) {
+			res = "colSpan=\"" + colspan + "\"";
+		}
 		return res;
 	}
 
