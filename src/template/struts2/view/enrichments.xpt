@@ -122,6 +122,7 @@ Ext.onReady( function() {
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND toolTipEnrichments(model, cp, contextPrefix, pduc) FOR this-»
 	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
 «ENDDEFINE»
 
@@ -147,10 +148,9 @@ Ext.onReady( function() {
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
 	/// arricchimento per «this.metaType.name» [«name»]: tooltip header di colonna
 	var «name»Tips = [
-	«IF this.databinding!=null-»'',«ENDIF»
-	«FOREACH columnModel.columns AS currCol SEPARATOR ","-»
-		'«currCol.tooltip != null ? currCol.tooltip : ""»'
-	«ENDFOREACH-»
+	«IF this.databinding!=null-»
+		'',«ENDIF-»«FOREACH columnModel.columns AS currCol SEPARATOR ","»
+		'«currCol.tooltip != null ? currCol.tooltip : ""»'«ENDFOREACH-»
 	];
 	«LET "row_"+getFullID(this, contextPrefix) AS tableHtmlID-»«REM»id strano per table!«ENDREM»
 	var addTooltipTo«name.toFirstUpper()» =  
@@ -188,6 +188,18 @@ Ext.onReady( function() {
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE toolTipEnrichments(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+«IF widgets.select(w|!isNullOrEmpty(w.tooltip)).size>0-»
+	/// arricchimento per «this.metaType.name» [«getFullID(this, contextPrefix)»]: aggiunta tooltip su label
+	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|!isNullOrEmpty(w.tooltip)) AS currWidg SEPARATOR ","»
+		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:'«currWidg.tooltip»'}«ENDFOREACH-»
+	];
+	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = function(){uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips)};
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getFullID(this,contextPrefix)»", addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()»);
+«ENDIF-»
+«ENDDEFINE»
+
+
 «REM»file di configurazione del caricamento risorse per tag csiui:header«ENDREM»
 «DEFINE staticResourcesXML FOR GUIModel-»
 «FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>
@@ -213,6 +225,7 @@ Ext.onReady( function() {
 </files>
 «ENDFILE»
 «ENDDEFINE»
+
 
 «DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
 	<!-- risorse specifiche del ContentPanel [«name»] -->
