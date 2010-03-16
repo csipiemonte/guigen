@@ -904,6 +904,10 @@ come target di refresh.
 			«ERROR "Databinding a ComplexType non ancora gestito sul widget Table " + loc()»
 		«ENDIF-»
 		</display:column>
+		«IF enableExport-»«REM»STDMDD-479«ENDREM»
+		<display:column headerClass="nosort" media="excel pdf">
+		</display:column>
+		«ENDIF-»
 	«ENDIF-»
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
