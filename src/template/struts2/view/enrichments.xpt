@@ -153,11 +153,11 @@ Ext.onReady( function() {
 		'«currCol.tooltip != null ? currCol.tooltip : ""»'«ENDFOREACH-»
 	];
 	«LET "row_"+getFullID(this, contextPrefix) AS tableHtmlID-»«REM»id strano per table!«ENDREM»
-	var addTooltipTo«name.toFirstUpper()» =  
-		function(){uiNRichLib.addTableHeadTooltipNRich(
+	var enhanceGrid«name.toFirstUpper()» =  
+		function(){uiNRichLib.dynaDisplayTableNRich(
 			'«tableHtmlID»',«name»Tips
 			)}; 
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addTooltipTo«name.toFirstUpper()»);
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", enhanceGrid«name.toFirstUpper()»);
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -216,6 +216,7 @@ Ext.onReady( function() {
 			<position value="ext-csi/util/Format.js" />
 			<position value="ext-csi/locale/ext-lang-it.js" />
 			<position value="ext-csi/enricher/enricher.js" />
+			<position value="ext-csi/table-grid/TableGrid.js" />
 			<position value="ext-csi/ajaxify-tag/ajaxifyTag.js" />
 		</resource>
 	</file>	
