@@ -79,7 +79,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	
 	public void prepare() throws CommandExecutionException{
 	
-		«IF this.securityModel!=null»
+		«IF getActualSecurityModel(this)!=null»
 	    // caricamento struttura di constraints
 	    if (allMenuVisibilityConstraints==null)
 	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
@@ -244,7 +244,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * @return true se il menu deve essere reso visibile
 	 */
 	public boolean isMenuVisible(String menuName) {
-	«IF securityModel!=null-»
+	«IF getActualSecurityModel(this)!=null-»
 		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
@@ -268,7 +268,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
 	 */
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
-	«IF securityModel != null»
+	«IF getActualSecurityModel(this) != null»
 		List<String> subMenuList = submenuMap.get(menuName);
 		if ( subMenuList != null ) {
 			for (String subMenu : subMenuList) {
@@ -287,7 +287,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * @return true se il menu deve essere reso abilitato
 	 */
 	public boolean isMenuEnabled(String menuName) {
-	«IF securityModel!=null-»
+	«IF getActualSecurityModel(this)!=null-»
 		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
@@ -399,7 +399,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-»
 	«ENDIF-»
 	
-	«IF securityModel!=null && structure.appWindow.appArea.menubar!=null»
+	«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=null»
 	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
 	«ENDIF»
 }

@@ -73,8 +73,8 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 		return "LOCAL_LOGOUT";
 	}
 
-	«IF securityModel!=null && securityModel.autenticationMethod!=null-»
-		«EXPAND invalidateLocalSession(this) FOR this.securityModel.autenticationMethod-»
+	«IF getActualSecurityModel(this)!=null && getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND invalidateLocalSession(this) FOR getActualSecurityModel(this).autenticationMethod-»
 	«ELSE-»
 		«EXPAND invalidateLocalSessionNoAuth FOR this-»
 	«ENDIF-»

@@ -267,7 +267,7 @@ shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
 ssobart.default.appserver = localhost:8078
 ssobart.validate.server = <server>:<port>
 ssobart.url.paracadute = <url>
-ssobart.codservizio = «model.securityModel.securityAppID»
+ssobart.codservizio = «getActualSecurityModel(model).securityAppID»
 ssobart.pepauth.url = t3://iridetest1wls1.csi.it:7111,iridetest1wls2.csi.it:7111
 ssobart.logout.url = https://<ssobartserver>/ssobart/logout
 «ENDDEFINE»
@@ -328,11 +328,11 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 
 «DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
 «EXPAND ApplSessGuardFilter FOR this»
-«IF this.securityModel.autenticationMethod!=null»
-«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR this.securityModel.autenticationMethod»
-«EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR this.securityModel»
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
+«EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
 «EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR this»
-«EXPAND extraConfigFiles(this) FOR this.securityModel.autenticationMethod»
+«EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
 «ENDIF»
 «EXPAND constraintJavaFiles FOR this»
 «EXPAND template::struts2::security::securityHelper::springSecurityHelperClasses FOR this»

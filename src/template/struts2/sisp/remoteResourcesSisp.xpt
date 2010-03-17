@@ -303,7 +303,7 @@ Definizioni generali: header, footer, ecc
 				<!--/header (senza remincl: TMP)-->
 				«ENDREM»
 
-				«IF model.securityModel!=null-»
+				«IF getActualSecurityModel(model)!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
@@ -446,7 +446,7 @@ Definizioni generali: header, footer, ecc
 				<!--/header (senza remincl: TMP)-->
 				«ENDREM»
 
-				«IF model.securityModel!=null-»
+				«IF getActualSecurityModel(model)!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">

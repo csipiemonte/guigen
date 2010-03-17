@@ -219,7 +219,13 @@ boolean isSimpleExecChain(Command cmd) :
 		
 		)
 	);	
-	
+
+SecurityModel getActualSecurityModel(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		model.extSecurityModel
+	else
+		model.securityModel;
+			
 ////////////////////////////////////////////////////////////
 /// Estensioni java                                       //
 ////////////////////////////////////////////////////////////

@@ -238,9 +238,9 @@ ANT FILES
           description="Predispone le configurazioni dipendenti dall'ambiente." >
     <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@"  value="${remincl.resource.provider}"/>
-	«IF this.securityModel.autenticationMethod!=null-»
-		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR this.securityModel.autenticationMethod-»
-		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR this.securityModel-»
+	«IF getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
 	«ENDIF-»
 
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
@@ -302,8 +302,8 @@ ANT FILES
   <!-- ############################################################# -->
   <!-- -->
   <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
-	<unzip src="${extjs-zipfile}" dest="${srcweb}" />
-  	<unzip src="${csi-extjs-zipfile}" dest="${srcweb}" />
+	<!--<unzip src="${extjs-zipfile}" dest="${srcweb}" />
+  	<unzip src="${csi-extjs-zipfile}" dest="${srcweb}" />-->
   </target>
 	«ENDIF-»
 
@@ -554,7 +554,7 @@ ANT FILES
                     csi-rmi-1.4.5.jar                      \
                     csi-ejb*-1.4.5.jar                     \
                     iridev2*.jar                           \
-                    «IF securityModel!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    «IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
                     weblogic-client*.jar                   \
                     «ENDIF-»
                     custom-component-attr-1.0.3.jar
@@ -629,9 +629,9 @@ nome.ambiente=<ambiente>
 
 remincl.resource.provider=«getReminclResourceProvider(this)»
 
-«IF this.securityModel.autenticationMethod!=null-»
-«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR this.securityModel.autenticationMethod-»
-«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR this.securityModel-»
+«IF getActualSecurityModel(this).autenticationMethod!=null-»
+«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR getActualSecurityModel(this)-»
 «ENDIF-»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
@@ -713,12 +713,12 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="csipiemonte" name="csiui" rev="1.0.0" />
 		«ENDIF-»
 		
-		«IF this.securityModel.autenticationMethod!=null-»
-		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR this.securityModel.autenticationMethod-»
+		«IF getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
 		«ENDIF-»
 
-		«IF this.securityModel!=null-»
-		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR this.securityModel-»
+		«IF getActualSecurityModel(this)!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-»
 		«ENDIF-»
 
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />

@@ -180,8 +180,8 @@
 		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 
-«IF this.securityModel.autenticationMethod!=null»
-	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR this.securityModel.autenticationMethod»
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethod»
 «ENDIF»
 
 	<listener>
@@ -211,8 +211,8 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-«IF this.securityModel.autenticationMethod!=null»
-	«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR this.securityModel.autenticationMethod»
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+	«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR getActualSecurityModel(this).autenticationMethod»
 «ENDIF»
 	<filter-mapping>
 		<filter-name>ResponseOverrideFilter</filter-name>
