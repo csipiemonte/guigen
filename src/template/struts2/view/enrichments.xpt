@@ -170,9 +170,18 @@ Ext.onReady( function() {
 			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
-			 «required ? "false" : "true"»)}; 
+			 «required ? "true" : "false"»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
+«ELSE-»
+	/// arricchimento di base per «this.metaType.name» [«name»]
+	var addBasicEnrichmentTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.basicTextFieldNRich(
+			'«getWidgetName(this, contextPrefix)»',
+			 «required ? "true" : "false"», 
+			 '«toJavaType(this.dataType,model)»', 
+			 null)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addBasicEnrichmentTo«name.toFirstUpper()»);
 «ENDIF-»
 «ENDDEFINE»
 
