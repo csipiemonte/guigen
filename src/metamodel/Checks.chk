@@ -478,6 +478,12 @@ context Type ERROR "E'necessario valorizzare il nome di un tipo:"+loc() :
 context TypedArray ERROR "E'necessario valorizzare il tipo degli elementi contenuti in un TypedArray:"+loc() :
 	componentType != null;
 
+context TypedArray if (componentType.metaType == TypedArray) ERROR "Il typed Array \""+name+"\" ha se stesso come component type: definizione ricorsiva proibita."+loc() :
+	componentType != this;
+	
+context TypedArray if (componentType.metaType == TypedArray) WARNING "Il typed Array \""+name+"\" ha un altro TypedArray come component type: il funzionamento non è garantito (caso non previsto)."+loc() :
+	false; // sempre errore	
+
 context ComplexType ERROR "Il ComplexType \""+name+"\" ha una gerarchia con dipendenza circolare:"+loc() :
 	!hasCircularHierarchy(this);
 
