@@ -468,6 +468,7 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
+		«IF hasTabsetOrWizard(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
@@ -508,6 +509,7 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
+		«IF hasTabsetOrWizard(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
@@ -573,24 +575,40 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «DEFINE setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
 <div class="wizard2">
 	<h4 class="alt">Sezioni</h4>
-	<ul>
+	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
+	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
-		<li>
+		«IF switchHnd == null»<li>«ENDIF»
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currTab, cp, contextPrefix)»'«tabExtraCondition»}">
 			<span class="attivo"><span class="alt">sezione attiva:</span><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span>
 		</s:if>
 		<s:else>
+		«IF switchHnd != null-»
+			«IF model.targetPlatform.enableRichUIBehavior-»
+				«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher-»
+			«ENDIF-»
+			<s:submit name="«getFullID(switcher, contextPrefix)»"
+			          id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
+			          method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
+			          key="«cp.name».«getFullID(currTab, contextPrefix)».label" 
+			          «getTabSwitcherStyleByLayoutRupar()» />
+			«IF model.targetPlatform.enableRichUIBehavior-»
+				«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher-»
+			«ENDIF-»
+		«ELSE-»
 			<s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a>
+		«ENDIF-»
 		</s:else>
-		</li>
+		«IF switchHnd == null»</li>«ELSE»«IF !i.lastIteration»&nbsp;|&nbsp;«ENDIF»«ENDIF»
 		«ENDLET-»
 	«ENDFOREACH-»
-	</ul>
+	«IF switchHnd == null»</ul>«ENDIF»	
+	«ENDLET-»
 </div>
 «ENDDEFINE»
 
@@ -598,30 +616,32 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 «DEFINE setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
 <div class="wizard2">
 	<h4 class="alt">Sezioni</h4>
-	<ul>
+	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) : null AS switchHnd-»
+	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
-		<li>
+		«IF switchHnd == null»<li>«ENDIF»
 		«LET getWizardPanelStepCompleteIndex(this, i.counter1.toString()) AS stepNumber-»
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currStep, cp, contextPrefix)»'«stepExtraCondition»}">
 			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber, cp, contextPrefix) FOR currStep-»
 		</s:if>
 		<s:else>
 			«IF this.navigatorActive-»
-				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
+				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, switcher, switchHnd, cp, contextPrefix) FOR currStep-»
 			«ELSE-»
 				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
 			«ENDIF-»
 		</s:else>
-		</li>
+		«IF switchHnd == null»</li>«ELSE»«IF !i.lastIteration»&nbsp;|&nbsp;«ENDIF»«ENDIF»
 		«ENDLET-»
 		«ENDLET-»
 	«ENDFOREACH-»
-	</ul>
+	«IF switchHnd == null»</ul>«ENDIF»
+	«ENDLET-»
 </div>
 «ENDDEFINE»
 
@@ -631,9 +651,23 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, TabSwitcher switcher, EventHandler switchEvent, ContentPanel cp, String contextPrefix) FOR Panel»
 	«LET this AS currStep-»
-	<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«stepNumber». <s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
+	«IF switchEvent != null-»
+		«IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
+        «ENDIF-»
+    	<s:submit name="«getFullID(switcher, contextPrefix)»"
+		          id="«getTabSwitcherSubmitID(switcher, currStep, contextPrefix)»"
+		          method="«getTabItemHandlerMethodName(cp,(WizardPanel)this.eContainer,this, contextPrefix)»"
+		          label="«stepNumber». «this.label»"
+		          «getTabSwitcherStyleByLayoutRupar()» />
+        «IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher-»
+        «ENDIF-»	
+	«ELSE-»
+		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«stepNumber». <s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
+	«ENDIF-»	
 	«ENDLET-»
 «ENDDEFINE»
 

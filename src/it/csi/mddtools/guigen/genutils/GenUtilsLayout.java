@@ -18,6 +18,7 @@ import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.SimpleType;
+import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Type;
@@ -455,16 +456,12 @@ public class GenUtilsLayout {
 	 * @author [DM]
 	 */
 	public static boolean hasTable(Panel p) {
-		boolean res = false;
-		
 		for ( Widget w : GenUtils.findAllWidgetsInPanel(p) ) {
 			if ( w instanceof Table ) {
-				res = true;
-				break;
+				return true;
 			}
 		}
-		
-		return res;
+		return false;
 	}	
 
 
@@ -478,6 +475,22 @@ public class GenUtilsLayout {
 		return GenUtils.findAllTreeInContentPanel(cp).size() > 0;
 	}
 
+
+	/**
+	 * Verifica se un ContentPanel contiene o meno dei MultiPanel di tipo
+	 * TabsetPanel o WizardPanel.
+	 * @param cp Il ContentPanel da verificare
+	 * @return  true se il ContentPanel contiene almeno un TabsetPanel o un WizardPanel, false altrimenti.
+	 * @author [DM]
+	 */
+	public static boolean hasTabsetOrWizard(ContentPanel cp) {
+		for(Panel p : GenUtils.findAllPanels(cp)) {
+			if ( p instanceof TabSetPanel || p instanceof WizardPanel) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
