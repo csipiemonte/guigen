@@ -542,6 +542,7 @@ Gestione dei PANNELLI
 «ENDIF-»
 <div class="tabSetPanel" id="«getFullID(this, contextPrefix)»">
 	<ul>
+	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
@@ -550,12 +551,30 @@ Gestione dei PANNELLI
 		</s:url>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currTab, cp, contextPrefix)»'«stepExtraCondition»}">
 			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></li>
-		</s:if>
+		</s:if>		
+		«IF switchHnd != null-»
+		<s:else>
+			<li class="item-«i.counter1»">
+				«IF model.targetPlatform.enableRichUIBehavior-»
+					«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher-»
+				«ENDIF-»
+				<s:submit name="«getFullID(switcher, contextPrefix)»"
+				          id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
+				          method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
+				          key="«cp.name».«getFullID(currTab, contextPrefix)».label" />
+				«IF model.targetPlatform.enableRichUIBehavior-»
+					«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher-»
+				«ENDIF-»
+			</li>
+		</s:else>		
+		«ELSE-»	
 		<s:else>
 			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
 		</s:else>
+		«ENDIF-»
 		«ENDLET-»		
 	«ENDFOREACH-»
+	«ENDLET-»
 	</ul>
 </div>
 «ENDDEFINE»
@@ -565,6 +584,7 @@ Gestione dei PANNELLI
 «IF !isNullOrEmpty(this.label)-»
 <h4><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
 «ENDIF-»
+«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) : null AS switchHnd-»
 <div class="wizardPanel" id="«getFullID(this, contextPrefix)»">
 	<ol>
 	«FOREACH this.panels AS currStep ITERATOR i-»
@@ -579,7 +599,7 @@ Gestione dei PANNELLI
 		</s:if>
 		<s:else>
 			«IF this.navigatorActive-»
-				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
+				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, switcher, switchHnd, cp, contextPrefix) FOR currStep-»
 			«ELSE-»
 				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
 			«ENDIF-»
@@ -589,6 +609,7 @@ Gestione dei PANNELLI
 	«ENDFOREACH-»
 	</ol>
 </div>
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
@@ -597,10 +618,25 @@ Gestione dei PANNELLI
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, TabSwitcher switcher, EventHandler switchEvent, ContentPanel cp, String contextPrefix) FOR Panel»
+	<li class="item-«stepNumber»">
 	«LET this AS currStep-»
-	<li class="item-«stepNumber»"><s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a></li>
+	«IF switchEvent != null-»
+		«IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
+        «ENDIF-»
+    	<s:submit name="«getFullID(switcher, contextPrefix)»"
+		          id="«getTabSwitcherSubmitID(switcher, currStep, contextPrefix)»"
+		          method="«getTabItemHandlerMethodName(cp,(WizardPanel)this.eContainer,this, contextPrefix)»"
+		          key="«cp.name».«getFullID(this, contextPrefix)».label" />
+        «IF model.targetPlatform.enableRichUIBehavior-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher-»
+        «ENDIF-»	
+	«ELSE-»
+		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
+	«ENDIF-»
 	«ENDLET-»
+	</li>
 «ENDDEFINE»
 
 «DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
