@@ -611,7 +611,7 @@ Gestione dei PANNELLI
 				«ENDIF-»
 			</li>
 		</s:else>		
-		«ELSE-»		
+		«ELSE-»
 		<s:else>
 			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
 		</s:else>
@@ -743,7 +743,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
 «LET (this.cmdStyle == CommandStyles::NAVIGATION ? " navigation" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? " functional" : "" ) ) AS ptype-»
-<div class="commandPanel«ptype»" id="«this.name»">
+<div class="commandPanel«ptype»" id="«getFullID(this, contextPrefix)»">
 «ENDLET-»
 «ENDDEFINE»
 

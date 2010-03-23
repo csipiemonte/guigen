@@ -1,6 +1,6 @@
 «IMPORT guigen»
 
-«IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::view::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::newrupar::Struts2ExtensionsNewrupar»
@@ -551,7 +551,7 @@ Gestione dei PANNELLI
 		</s:url>
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currTab, cp, contextPrefix)»'«stepExtraCondition»}">
 			<li class="item-«i.counter1» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></span></li>
-		</s:if>		
+		</s:if>
 		«IF switchHnd != null-»
 		<s:else>
 			<li class="item-«i.counter1»">
@@ -567,12 +567,12 @@ Gestione dei PANNELLI
 				«ENDIF-»
 			</li>
 		</s:else>		
-		«ELSE-»	
+		«ELSE-»
 		<s:else>
 			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
 		</s:else>
 		«ENDIF-»
-		«ENDLET-»		
+		«ENDLET-»
 	«ENDFOREACH-»
 	«ENDLET-»
 	</ul>
@@ -779,7 +779,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
@@ -991,7 +991,7 @@ Gestione dei LAYOUT - WIDGETS
 «ENDDEFINE»
 
 «REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupFooter (GUIModel model, ContentPanel cp, String contextPrefix)FOR RadioButtons»
+«DEFINE widgetMarkupFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
 </div>
 «ENDDEFINE»
 

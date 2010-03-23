@@ -24,16 +24,16 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 «LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-»
 «LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-»
 «LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-»
-<div class="«getLeftCenterRightWrapperId(leftPanels, centerPanels, rightPanels).toFirstLower()»Wrapper">	
+<div class="«getLeftCenterRightWrapperId(leftPanels, centerPanels, rightPanels).toFirstLower()»Wrapper">
 	«REM»Genera i sottopannelli posizionati a SINISTRA«ENDREM»
 	«IF leftPanels != null && leftPanels.size > 0-»
 	<div class="formPanel floatLeft">
 	«FOREACH leftPanels AS currSubformLeft-»
 		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformLeft»
-	«ENDFOREACH-»	
+	«ENDFOREACH-»
 	</div>
 	«ENDIF-»
-	
+
 	«REM»Genera i sottopannelli posizionati al CENTRO«ENDREM»
 	«IF centerPanels != null && centerPanels.size > 0-»
 	<div class="formPanel floatCenter">
@@ -41,19 +41,19 @@ Ridefinizione mediante AOP dei DEFINE specifici per il layout RUPAR PIEMONTE 2
 		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformCenter»
 	«ENDFOREACH-»
 	</div>
-	«ENDIF-»	
+	«ENDIF-»
 
 	«REM»Genera i sottopannelli posizionati a DESTRA«ENDREM»
 	«IF rightPanels != null && rightPanels.size > 0-»
 	<div class="formPanel floatRight">
 	«FOREACH rightPanels AS currSubformRight-»
 		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformRight»
-	«ENDFOREACH-»	
+	«ENDFOREACH-»
 	</div>
-	«ENDIF-»	
+	«ENDIF-»
 </div>
 «ENDLET-»
-«ENDLET-»	
+«ENDLET-»
 «ENDLET-»
 
 «ENDDEFINE»
@@ -120,7 +120,7 @@ Gestione dei Widget
 	</div>
 	«ENDIF»
 	«ENDLET»
-	
+
 	«REM»Altri Widgets (dovrebbero essere solo HiddenValue secondo check)«ENDREM»
 	«LET this.widgets.select(e|e.metaType == HiddenValue) AS otherWidgets»
 	«IF otherWidgets != null && otherWidgets.size > 0»

@@ -272,11 +272,12 @@ public class GenUtilsLayoutNeutral {
 			if (f.getType()instanceof SimpleType && GenUtils.isNumeric((SimpleType)f.getType()) ) {
 				style = "numbers";
 			}
-			
+
 			// TODO: trasformare in un check
 			assert !col.isEditable() || f.getType() instanceof SimpleType;
+
 			// TODO: implementare altri stili se necessario
-			
+
 			if ( !GenUtils.isNullOrEmpty(style) ) {
 				res = "class=\"" + style + "\"";
 			}

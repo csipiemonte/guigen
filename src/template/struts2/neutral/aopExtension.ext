@@ -119,7 +119,7 @@ around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(Co
 		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, String contextPrefix) :
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
