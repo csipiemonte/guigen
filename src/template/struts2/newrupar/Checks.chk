@@ -3,7 +3,7 @@ import guigen;
 extension org::openarchitectureware::util::stdlib::naming;
 extension template::GenericExtensions;
 extension template::struts2::Struts2Extensions;
-extension template::struts2::newrupar::Struts2ExtensionsNewrupar;
+extension template::struts2::neutral::Struts2ExtensionsNeutral;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,12 +26,12 @@ context Header WARNING "Il codice 'canale' nell'oggetto Header è opzionale: veri
 
 // Il layout di un FormPanel di 2° livello non è più ininfluente
 context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo può avere un layout di tipo: [a] VerticalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
-	this.layout != null && formPanelLayoutCheckNewrupar(this);
+	this.layout != null && formPanelLayoutCheckNeutral(this);
 
 // [DM] check su CommandPanel
 // 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (LEFT, CENTER, RIGHT)
 context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (LEFT, CENTER, RIGHT) " + loc() :
-	commandPanelLayoutCheckNewrupar(this);
+	commandPanelLayoutCheckNeutral(this);
 
 context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato in questa cartuccia" :
 	this.vspan == null || this.vspan==0 || this.vspan == 1;

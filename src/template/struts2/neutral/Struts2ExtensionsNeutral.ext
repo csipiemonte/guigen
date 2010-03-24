@@ -1,13 +1,100 @@
 import guigen;
 import ecore;
 extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0                //
+/// Estensioni specifiche per il framework Struts2 e layout NEUTRALE                         //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-// ATTENZIONE: verificare bene su TUTTI I LIVELLI (adesso funziona solo con 2 LIVELLI)
+
+String getReminclResourceProviderNeutral(GUIModel model) :
+	"";
+
+//
+String getStrutsThemeByPortalNeutral(GUIModel model) :
+	"csi"; // definirne uno se serve
+
+//
+String getTablePortalStyleNeutral(GUIModel model, Table t) :
+	"class=\"dataTable\"";
+
+//
+String getRadioPortalStyleNeutral(GUIModel model) :
+	"cssClass=\"radio\"";
+
+// [DM] Restituisce lo stile dei Calendar
+String getCalendarStyleByLayoutNeutral(GUIModel model, Calendar c) :
+	"cssClass=\"calendar\"";
+
+// [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
+//      Qui non inseriamo un'immagine, ma un marcatore che possa essere utilizzato per vari scopi
+String getCalendarImageByLayoutNeutral(GUIModel model, Calendar c) :
+	"<div class=\"infoCalendar\"></div>";
+
+// [DM] Restituisce lo stile dei FileUpload
+String getFileUploadStyleByLayoutNeutral(GUIModel model, FileUpload f) :
+	"";
+
+// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
+String getComboBoxValueChangedHandlerStyleNeutral(GUIModel model) :
+	"";
+
+// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+String getColumnEditableFieldNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
+	let thm = isRemote() ? "csi-tableinput-rem" : "csi-tableinput-loc" :
+	getColumnEditableFieldWrapperNeutral(currCol, table, model, contextPrefix, pduConf, thm);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+// [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
+String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
+		"onfocus=\"inFocus(this)\" " +
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
+String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
+String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+			"\" /></noscript>";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni abilitanti al Web 2.0 (ridefinite solo qui)
+
+String getFragmentIdNeutral(Panel p) :
+	"p_"+p.name;
+
+String startFragmentNeutral(Panel p) :
+	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
+
+String endFragmentNeutral(Panel p) :
+	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
+
+String pageIdMarkerNeutral(ContentPanel cp) :
+	"<!-- pageId:"+cp.name+" -->";
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 //
 String getMenuNoChildCssNeutral(Menu menu, int level) :
@@ -59,7 +146,7 @@ String getMenuPanelOrientation(MenuPanel mp) : JAVA
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Java Extensions for checks specifici per RuparPiemonte 2.0                               //
+/// Java Extensions for checks specifici per Layout NEUTRAL (XHTML UNIVERSALE)               //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
@@ -71,7 +158,7 @@ boolean formPanelLayoutCheckNeutral(FormPanel fp) : JAVA
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte 2.0 usate in AOP   //
+/// Binding a metodi JAVA per layout NEUTRAL (XHTML UNIVERSALE) usate in AOP   //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] restituisce il numero di colonne del layout
@@ -122,5 +209,5 @@ String getCustomtagHeaderColspanNeutral(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
 // [DM] Restituisce il campo per l'editabilità di una colonna della tabella
-String getColumnEditableFieldNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
+String getColumnEditableFieldWrapperNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);

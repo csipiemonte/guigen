@@ -6,21 +6,18 @@ extension template::struts2::neutral::Struts2ExtensionsNeutral;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Estensioni specifiche per il layout SistemaPiemonte ridefinite mediante AOP              //
+/// Estensioni specifiche per il layout NEUTRALE (XHTML universale ridefinite mediante AOP   //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 around template::GenericExtensions::getPortalName() :
 	"Neutral";
-
-around template::GenericExtensions::getPortalCode() :
-	"neutral";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Build files 
 
 around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel model) :
-	"";
+	getReminclResourceProviderNeutral(model);
 
 
 
@@ -29,15 +26,15 @@ around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel
 
 //
 around template::struts2::Struts2Extensions::getStrutsThemeByPortal(GUIModel model) :
-	"csi"; // definirne uno se serve
+	getStrutsThemeByPortalNeutral(model);
 
 //
 around template::struts2::Struts2Extensions::getTablePortalStyle(GUIModel model, Table t) :
-	"class=\"dataTable\"";
+	getTablePortalStyleNeutral(model, t);
 
 //
 around template::struts2::Struts2Extensions::getRadioPortalStyle(GUIModel model) :
-	"cssClass=\"radio\"";
+	getRadioPortalStyleNeutral(model);
 
 // [DM] restituisce il numero di colonne del layout
 around template::struts2::Struts2Extensions::getColumnsLayout(FormPanel firstLevPanel, GUIModel model) :
@@ -57,20 +54,20 @@ around template::struts2::Struts2Extensions::getTextFieldStyleByLayout(GUIModel 
 
 // [DM] Restituisce lo stile dei Calendar
 around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
-	"cssClass=\"calendar\"";
+	getCalendarStyleByLayoutNeutral(model, c);
 
 // [DM] Restituisce (ove necessaria) l'immagine per l'apertura dei Calendar
 //      Qui non inseriamo un'immagine, ma un marcatore che possa essere utilizzato per vari scopi
 around template::struts2::Struts2Extensions::getCalendarImageByLayout(GUIModel model, Calendar c) :
-	"<div class=\"infoCalendar\"></div>";
+	getCalendarImageByLayoutNeutral(model, c);
 
 // [DM] Restituisce lo stile dei FileUpload
 around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
-	"";
+	getFileUploadStyleByLayoutNeutral(model, f);
 
 // [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :
-	"";
+	getComboBoxValueChangedHandlerStyleNeutral(model);
 
 // [DM] Restituisce lo stile di un MsgBoxPanel
 around template::struts2::Struts2Extensions::getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) :
@@ -105,7 +102,7 @@ around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPa
 
 // [DM] Restituisce il campo per l'editabilità di una colonna della tabella
 around template::struts2::Struts2Extensions::getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
-	getColumnEditableFieldNeutral(currCol, table, model, contextPrefix, pduConf, "csi-tableinput-loc");
+	getColumnEditableFieldNeutral(currCol, table, model, contextPrefix, pduConf, theme);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,29 +110,19 @@ around template::struts2::Struts2Extensions::getColumnEditableField(Column currC
 
 // [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
-		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+	getComboBoxValueChangedHandlerJSNeutral(cb, cp, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+	getComboBoxValueChangedHandlerNoScriptNeutral(cb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+	getRadioButtonsValueChangedHandlerJSNeutral(rb, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+	getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, contextPrefix);
 
 
 
@@ -143,14 +130,14 @@ around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerN
 /// Estensioni abilitanti al Web 2.0 (ridefinite solo qui)
 
 around template::struts2::Struts2Extensions::getFragmentId(Panel p) :
-	"p_"+p.name;
+	getFragmentIdNeutral(p);
 
 around template::struts2::Struts2Extensions::startFragment(Panel p) :
-	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
+	startFragmentNeutral(p);
 
 around template::struts2::Struts2Extensions::endFragment(Panel p) :
-	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
+	endFragmentNeutral(p);
 
 around template::struts2::Struts2Extensions::pageIdMarker(ContentPanel cp) :
-	"<!-- pageId:"+cp.name+" -->";
+	pageIdMarkerNeutral(cp);
 

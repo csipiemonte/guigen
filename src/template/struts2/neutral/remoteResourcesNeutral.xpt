@@ -8,7 +8,7 @@
 
 «REM»
 **************************************************************************************************************************
-Markup HTML per RuparPiemonte (versione 2)
+Markup HTML per Layout NEUTRAL (XHTML UNIVERSALE)
 Riferimenti:
 	-
 	-
@@ -186,130 +186,33 @@ Definizioni generali: header, footer, ecc
 «ENDREM»
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title><s:text name="header.applicativo.nome.label" /></title>
-
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
-
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-
-		
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-
-		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
-		
-		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
-		«ENDPROTECT»
-		
-		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
-		
-	</head>
-
-	<body>
-
-		<!-- PAGE (OBBLIGATORIO) -->
-		<div id="page">
-
-			<!-- HEADER di PORTALE (facoltativo) -->
-			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.struts")»
-			<div id="portalHeader">
-				<!-- Inserire il codice della header di portale (se esiste) -->
-				<h1>HEADER DI PORTALE [h1]</h1>
-			</div>
-			«ENDPROTECT»
-			<!-- fine HEADER di PORTALE (facoltativo) -->
-
-			<!-- APPICATION AREA (OBBLIGATORIO) -->
-			<div id="applicationArea">
-
-				<!-- HEADER di APPLICATIVO (facoltativo) -->
-				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.struts")»
-				<div id="applicationHeader">
-					<!-- Inserire il codice della header applicativa (se esiste) -->
-				</div>
-				«ENDPROTECT»
-				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
-
-<!-- FINE HEADER -->
+«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+	«IF isRemote()-»
+		«EXPAND template::struts2::neutral::staticResourcesRemote::getHeaderMarkup(model, skip_component_dir_creation) FOR this-»
+	«ELSE-»
+		«EXPAND template::struts2::neutral::staticResourcesLocal::getHeaderMarkup(model, skip_component_dir_creation) FOR this-»
+	«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title><fmt:message key="header.applicativo.nome.label" /></title>
-
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
-
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-
-
-		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
-		«ENDPROTECT»
-		
-		
-	</head>
-
-	<body>
-
-		<!-- PAGE (OBBLIGATORIO) -->
-		<div id="page">
-
-			<!-- HEADER di PORTALE (facoltativo) -->
-			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.portalHeader.noStruts")»
-			<div id="portalHeader">
-				<!-- Inserire il codice della header di portale (se esiste) -->
-				<h1>HEADER DI PORTALE [h1]</h1>
-			</div>
-			«ENDPROTECT»
-			<!-- fine HEADER di PORTALE (facoltativo) -->
-
-			<!-- APPICATION AREA (OBBLIGATORIO) -->
-			<div id="applicationArea">
-
-				<!-- HEADER di APPLICATIVO (facoltativo) -->
-				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.applicationHeader.noStruts")»
-				<div id="applicationHeader">
-					<!-- Inserire il codice della header applicativa (se esiste) -->
-				</div>
-				«ENDPROTECT»
-				<!-- fine HEADER di APPLICATIVO (facoltativo) -->
-
-<!-- FINE HEADER -->
+«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+	«IF isRemote()-»
+		«EXPAND template::struts2::neutral::staticResourcesRemote::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this-»
+	«ELSE-»
+		«EXPAND template::struts2::neutral::staticResourcesLocal::getHeaderMarkupNoStruts(model, skip_component_dir_creation) FOR this-»
+	«ENDIF-»
 «ENDDEFINE»
 
 
 «REM»Genera la componente di markup (HTML) dei LINK STATICI.
 TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("menu.staticLinks")»
-<!-- Link statici -->
-«ENDPROTECT»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks -»
+	«IF isRemote()-»
+		«EXPAND template::struts2::neutral::staticResourcesRemote::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+	«ELSE-»
+		«EXPAND template::struts2::neutral::staticResourcesLocal::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -428,21 +331,11 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-<!-- FOOTER -->
-
-			</div>
-			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
-
-			«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("footer.portalFooter")»
-			<div id="portalFooter">
-				<!-- Inserire il codice del FOOTER di PORTALE (se esiste) -->
-			</div>
-			«ENDPROTECT»
-
-		</div>
-		<!-- FINE PAGE (OBBLIGATORIO) -->
-	</body>
-</html>
+	«IF isRemote()-»
+		«EXPAND template::struts2::neutral::staticResourcesRemote::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+	«ELSE-»
+		«EXPAND template::struts2::neutral::staticResourcesLocal::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -696,7 +589,7 @@ Gestione dei PANNELLI
 
 «DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel»
 <div class="stdMessagePanel" id="«getFullID(this, contextPrefix)»">
-	<customtag:stdMessagePanel id="«getFullID(this, contextPrefix)»" errorMessage="«showFieldErrors»" errorDetails="«showFieldErrorDetails»" actionMessage="«showGlobalMessages»" isStandalone="true" />
+	<customtag:stdMessagePanel id="«getFullID(this, contextPrefix)»" errorMessage="«showFieldErrors»" errorDetails="«showFieldErrorDetails»" actionMessage="«showGlobalMessages»" «IF !isRemote()»isStandalone="true" «ENDIF»/>
 </div>
 «ENDDEFINE»
 
@@ -781,7 +674,7 @@ Gestione dei LAYOUT - PANNELLI
 <div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
 	«IF this.widgets.select(e|e.metaType == Table).size == 0»
 	<customtag:widgetsPanel id="«getFullID(this, contextPrefix)»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
-		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF» isStandalone="true"
+		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF»«IF !isRemote()» isStandalone="true"«ENDIF»
 		«getPanelGridPercentCols(this)»>
 	«ENDIF»
 «ENDIF-»
@@ -1049,7 +942,9 @@ Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
+«IF !isRemote()-»
 header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
+«ENDIF-»
 «ENDDEFINE»
 
 

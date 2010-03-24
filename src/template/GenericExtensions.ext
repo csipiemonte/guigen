@@ -129,6 +129,8 @@ String getWebModuleManifestFile(GUIModel model, boolean omit_root) :
 	getWebModuleMetaInfDir(model, omit_root) + "/MANIFEST.MF";
 
 
+
+
 /// javafiles
 
 String getJavaSrcDir(GUIModel model, boolean omit_root) :
@@ -166,6 +168,11 @@ String getApplicationName(GUIModel model) :
 		model.structure.appWindow.header.nomeApplicativo
 	else
 		"";
+
+// [DM] il reperimento delle risorsestatiche: true = remoto, false = locale (default = false)
+boolean isRemote() :
+	!isNullOrEmpty(getProperty("guigen.remoteresources")) ? (getProperty("guigen.remoteresources") == "true" ? true : false ) : false;
+
 
 
 ////////////////////////////////////////////////////////////

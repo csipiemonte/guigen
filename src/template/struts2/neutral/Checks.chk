@@ -12,6 +12,14 @@ extension template::struts2::neutral::Struts2ExtensionsNeutral;
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+context Header if isRemote() ERROR "E' necessario impostare il codice 'applicativo' nell'oggetto Header "+
+					 "(serve per referenziare le risorse remote)" :
+	codApplicativo != null && codApplicativo != "";
+
+context Header if isRemote() WARNING "Il codice 'canale' nell'oggetto Header è opzionale: verificare se sia necessario impostarlo "+
+					 "per referenziare le risorse remote" :
+	codCanale != null && codCanale != "";
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
