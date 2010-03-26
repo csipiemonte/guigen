@@ -204,31 +204,9 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/include/«codApplicativo»/head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
-«REM»RIMOSSO: implementata REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<meta name="author" content="CSI-Piemonte" />
-		<title>Intranet RuparPiemonte - Nome servizio</title>
-
-		<link href="/css_rupar/generali/NN4.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="/css_rupar/generali/print.css" rel="stylesheet" type="text/css" media="print" />
-		<link href="/css_rupar/generali/templateBASE/indiceTemplate.css" type="text/css" rel="stylesheet" media="screen" id="skin" />
-
-		<script type="text/javascript" src="/js_rupar/menu.js"></script>
-		<script type="text/javascript" src="/js_rupar/newWinPop.js"></script>
-		<script type="text/javascript" src="/js_rupar/overOutHandler.js"></script>
-
-		<!--QUI SOTTO INCLUSIONE ELENCO DI TUTTI I JS DISPONIBILI
-		INSERIRE SOLO QUELLI CHE SERVONO PER UN NUOVO SERVIZIO DIRETTAMENTE SULL'HEAD DEL SERVIZIO-->
-		<!--#include virtual="/include/templateBASE/head_js_generali.html" -->
-<!--/head -->
-«ENDREM»
 		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
-
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+		«EXPAND template::struts2::rupar::jsResourcesRupar::jsFunctions(skip_component_dir_creation) FOR model-»
 	</head>
 	<body onclick="chiudiTutto();" onkeypress="getKeyChiudiTutto();">
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
@@ -239,30 +217,6 @@ Definizioni generali: header, footer, ecc
 				<!-- testalino (con remincl) -->
 				<r:include url="/include/headerRuparNoCav.html" resourceProvider="sp" />
 				<!-- fine testalino (con remincl) -->
-
-				«REM»RIMOSSO: implementata REMINCL
-				<!-- testalino (senza remincl) -->
-				<noscript>
-					<div id="avvisoJavascript"><p><strong>ATTENZIONE! Il browser in uso non supporta le applicazioni Javascript.</strong><br />
-						Per usufruire in maniera completa di alcuni servizi presenti in Intranet RuparPiemonte,<br />
-				 		potrebbe essere necessario l'utilizzo dei <a href="javascript.shtml" title="informazioni su come abilitare le funzioni javascript su i pi&ugrave; diffusi browser">Javascript</a>.</p>
-					</div>
-					<hr />
-				</noscript>
-
-				<div id="bannerRuparNoCav">
-					<p id="avviso" class="navigazionePagina"><a href="#navigazione" title="Salta i menu e vai direttamente ai contenuti">Salta l&#8217;intestazione</a></p>
-					<hr />
-					<h1><a id="A-inizio"><span class="alt">intranet.ruparpiemonte.it</span></a></h1>
-				</div>
-
-				<hr />
-
-				<div id="menuNN4" class="navigazionePagina">
-					<a href="#corpo">Vai ai contenuti</a> | <a href="#navigazione">Vai al men&ugrave; della sezione</a>
-				</div>
-				<!-- fine testalino (senza remincl) -->
-				«ENDREM»
 
 				<hr />
 
@@ -291,7 +245,7 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/include/«codApplicativo»/head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
-
+		«EXPAND template::struts2::rupar::jsResourcesRupar::jsFunctionsHead FOR model-»
 	</head>
 	<body onclick="chiudiTutto();" onkeypress="getKeyChiudiTutto();">
 		<div id="pagina" class="colonnaUnica">«REM»ATTENZIONE!!! questo è PARTE di un layout ad una colonna: in futuro bisognerà intervenire«ENDREM»
@@ -421,21 +375,7 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 
 			<hr />
 
-			<r:include url="/include/footerRupar.html" resourceProvider="sp" />
-
-«REM»RIMOSSO: implementata REMINICL
-			<!--PIE DI PAGINA-->
-			<div id="piedipagina">
-				<p id="noteSito" title="RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE"><span class="alt">RUPAR PIEMONTE LA RETE UNITARIA DELLA PUBBLICA AMMINISTRAZIONE DEL PIEMONTE</span></p>
-				<p class="navigazionePagina"><a href="#A-inizio">Torna all'inizio della pagina</a></p>
-			</div>
-			<!--FINE PIE DI PAGINA-->
-
-		</div>
-		<!--/pagina-->
-	</body>
-</html>
-«ENDREM»
+<r:include url="/include/footerRupar.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
