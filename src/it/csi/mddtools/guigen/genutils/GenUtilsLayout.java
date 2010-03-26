@@ -362,8 +362,8 @@ public class GenUtilsLayout {
 			colspan = ((hspan * 2) - 1);
 		}
 		
-		// Table e UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
-		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+		// Table e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
 			colspan = colspan + 1;
 		}
 		
@@ -473,23 +473,6 @@ public class GenUtilsLayout {
 	 */	
 	public static boolean hasTree(ContentPanel cp) {
 		return GenUtils.findAllTreeInContentPanel(cp).size() > 0;
-	}
-
-
-	/**
-	 * Verifica se un ContentPanel contiene o meno dei MultiPanel di tipo
-	 * TabsetPanel o WizardPanel.
-	 * @param cp Il ContentPanel da verificare
-	 * @return  true se il ContentPanel contiene almeno un TabsetPanel o un WizardPanel, false altrimenti.
-	 * @author [DM]
-	 */
-	public static boolean hasTabsetOrWizard(ContentPanel cp) {
-		for(Panel p : GenUtils.findAllPanels(cp)) {
-			if ( p instanceof TabSetPanel || p instanceof WizardPanel) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 

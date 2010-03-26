@@ -126,8 +126,7 @@ public class GenUtilsI18n {
 	 * @param contextPrefix
 	 * @return una o più label, a second a di quelle necessarie per il widget
 	 */
-	public static List<String> getWidgetLabels(Widget widget, ContentPanel cp,
-			String contextPrefix) {
+	public static List<String> getWidgetLabels(Widget widget, ContentPanel cp, String contextPrefix) {
 		List<String> res = new ArrayList<String>();
 		String lbl = null;
 		if (widget instanceof Table) {
@@ -142,14 +141,11 @@ public class GenUtilsI18n {
 			if (lbl != null) {
 				res.add(lbl);
 			}
-
-			
 		}
 
 		// label delle eventuali validazioni
 		if (widget instanceof DataWidget) {
-			res.addAll(getDataWidgetValidationLabels((DataWidget) widget,
-					cp));
+			res.addAll(getDataWidgetValidationLabels((DataWidget) widget, cp));
 		}
 		
 		return res;
@@ -383,14 +379,10 @@ public class GenUtilsI18n {
 	 * @return
 	 */
 	private static boolean widgetHasLabel(Widget w) {
-		boolean res = true;
-
-		if ( w instanceof HiddenValue || w instanceof Table || w instanceof MenuView ||
-				w instanceof TreeView || w instanceof UserDefinedWidget ) {
-			res = false;
+		if ( w instanceof HiddenValue || w instanceof Table || w instanceof MenuView || w instanceof TreeView ) {
+			return false;
 		}
-
-		return res;
+		return true;
 	}
 
 

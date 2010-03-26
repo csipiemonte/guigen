@@ -1,17 +1,27 @@
 package it.csi.mddtools.guigen.genutils.rupar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.CommandStyles;
 import it.csi.mddtools.guigen.ConfirmButton;
+import it.csi.mddtools.guigen.ContentPanel;
+import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GridWidgetLayoutSpec;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
 import it.csi.mddtools.guigen.MessageSeverity;
 import it.csi.mddtools.guigen.MsgBoxPanel;
+import it.csi.mddtools.guigen.MultiPanel;
+import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelDef;
+import it.csi.mddtools.guigen.PanelDefUse;
 import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.ResetButton;
+import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.Table;
 import it.csi.mddtools.guigen.UDLRCPanelLayout;
 import it.csi.mddtools.guigen.UDLRCSpecConstants;
@@ -20,6 +30,8 @@ import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
+import it.csi.mddtools.guigen.WizardPanel;
+import it.csi.mddtools.guigen.genutils.GenUtils;
 import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
 
 
@@ -181,8 +193,8 @@ public class GenUtilsLayoutRupar {
 			colspan = ((hspan * 2) - 1);
 		}
 		
-		// Table e UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
-		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+		// Table e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
 			colspan = colspan + 1;
 		} else if ( w.getLabel() == null ) {
 			// Per gli altri widgets, se l'attributo "label" è null non mette la colonna della label
@@ -195,6 +207,107 @@ public class GenUtilsLayoutRupar {
 		return res;
 	}
 
+	
+
+	//////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Verifica se un ContentPanel contiene o meno dei MultiPanel di tipo
+	 * TabsetPanel o WizardPanel.
+	 * @param cp Il ContentPanel da verificare
+	 * @return  true se il ContentPanel contiene almeno un TabsetPanel o un WizardPanel, false altrimenti.
+	 * @author [DM]
+	 */
+	public static boolean hasTabsetOrWizard(ContentPanel cp) {
+		for(Panel p : findAllPanels(cp)) {
+			if ( p instanceof TabSetPanel || p instanceof WizardPanel) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
+	private static List<Panel> findAllPanels(ContentPanel cp) {
+		List<Panel> res = new ArrayList<Panel>();
+		res.addAll(findAllPanels(cp.getPanels()));
+		return res;
+	}
+	
+	
+	private static List<Panel> findAllPanels(Panel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		
+		// aggiungo il pannello stesso alla lista di pannelli
+		res.add(p);
+		
+		// cerco ricorsivamente i sotto pannelli per quei tipi di pannello
+		// che li ammettono
+		if (p instanceof FormPanel) {
+			res.addAll(findAllPanels((FormPanel)p));
+		} else if (p instanceof MultiPanel) {
+			res.addAll(findAllPanels((MultiPanel)p));
+		} else if (p instanceof TabSetPanel) {
+			res.addAll(findAllPanels((TabSetPanel)p));
+		} else if (p instanceof WizardPanel) {
+			res.addAll(findAllPanels((WizardPanel)p));
+		} else if (p instanceof DialogPanel) {
+			res.addAll(findAllPanels((DialogPanel)p));
+		} else if (p instanceof PanelDefUse) {
+			res.addAll(findAllPanels((PanelDefUse)p));
+		}
+		// tutti gli altri tipi di Panel non hanno sottopannelli,
+		
+		return res;
+
+	}
+	
+	private static List<Panel> findAllPanels(FormPanel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		for(Panel sp : p.getSubpanels()) {
+			res.addAll(findAllPanels(sp));
+		}
+		return res;
+	}
+
+	private static List<Panel> findAllPanels(MultiPanel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		for(Panel sp : p.getPanels()) {
+			res.addAll(findAllPanels(sp));
+		}	
+		return res;
+	}
+
+	private static List<Panel> findAllPanels(TabSetPanel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		for(Panel sp : p.getPanels()) {
+			res.addAll(findAllPanels(sp));
+		}	
+		return res;
+	}
+
+	private static List<Panel> findAllPanels(WizardPanel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		for(Panel sp : p.getPanels()) {
+			res.addAll(findAllPanels(sp));
+		}	
+		return res;
+	}
+
+	private static List<Panel> findAllPanels(DialogPanel p) {
+		List<Panel> res = new ArrayList<Panel>();
+		for(Panel sp : p.getMsgBoxes()) {
+			res.addAll(findAllPanels(sp));
+		}	
+		return res;
+	}
+	
+	private static List<Panel> findAllPanels(PanelDefUse p) {
+		List<Panel> res = new ArrayList<Panel>();
+		PanelDef pd = p.getPanelDef();
+		res.addAll(findAllPanels(pd.getPanel()));
+		return res;
+	}	
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////

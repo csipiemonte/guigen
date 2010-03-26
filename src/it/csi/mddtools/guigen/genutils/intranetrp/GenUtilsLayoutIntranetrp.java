@@ -244,8 +244,8 @@ public class GenUtilsLayoutIntranetrp {
 			colspan = ((hspan * 2) - 1);
 		}
 		
-		// Table e UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
-		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+		// Table e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi devo aggiungere 1 al colspan
+		if ( w instanceof Table || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
 			colspan = colspan + 1;
 		} else if ( w.getLabel() == null ) {
 			// Per gli altri widgets, se l'attributo "label" è null non mette la colonna della label

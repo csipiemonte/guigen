@@ -408,7 +408,7 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
-		«IF hasTabsetOrWizard(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
+		«IF hasTabsetOrWizardRupar(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
 
 		«IF !isNullOrEmpty(this.label) -»
 		<!-- titolo pannello 1° livello -->
@@ -449,7 +449,7 @@ Gestione dei PANNELLI
 
 	<!-- =============== COLONNA UNICA ============== -->
 	<div id="colonna">
-		«IF hasTabsetOrWizard(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
+		«IF hasTabsetOrWizardRupar(cp)»<input name="tasto_invio" type="submit" value="xxxx" class="hide" />«ENDIF»«REM»STDMDD-367: TabSwitcher«ENDREM»
 
 		«LET getSubPanelByLayout(this, UDLRCSpecConstants::UP) AS upPanel-»
 		«IF upPanel != null -»
@@ -879,15 +879,6 @@ Gestione dei LAYOUT - WIDGETS
 «DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Table»
 </div>
 </customtag:column>
-«ENDDEFINE»
-
-
-
-«REM»--------------- UserDefinedWidget ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo UserDefinedWidget (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UserDefinedWidget»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
 «ENDDEFINE»
 
 
