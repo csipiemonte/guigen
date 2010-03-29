@@ -5,6 +5,8 @@
 «IMPORT template::struts2::neutral::resourcefilesNeutral»
 «IMPORT template::struts2::neutral::remoteResourcesNeutral»
 
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::GenericExtensions»
 
 «REM»
 **************************************************************************************************************************
@@ -379,6 +381,162 @@ Gestione dei LAYOUT - WIDGETS
 «AROUND template::struts2::view::remoteResources::widgetMarkupFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
 	«EXPAND template::struts2::neutral::remoteResourcesNeutral::widgetMarkupFooter(model, cp, contextPrefix) FOR this»
 «ENDAROUND»
+
+
+«REM»
+*************** gestione arricchimenti disponibili solo per cartuccia universale *************
+«ENDREM»
+«REM»
+«AROUND template::struts2::view::enrichments::enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«IF eContainer.metaType==ContentPanel-»
+		«EXPAND firstLevelLayoutEnrichmentDef(model, cp, contextPrefix, pduc) FOR this»
+	«ENDIF-»
+	«targetDef.proceed()»
+«ENDAROUND»
+«ENDREM»
+
+«DEFINE firstLevelLayoutEnrichmentDef (GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND firstLevelLayoutEnrichmentDef(model, cp, layout, contextPrefix, pduc) FOR this-»
+«ENDDEFINE»
+
+«DEFINE firstLevelLayoutEnrichmentDef (GUIModel model, ContentPanel cp, PanelLayout layout, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+«ENDDEFINE»
+
+
+«DEFINE firstLevelLayoutEnrichmentDef (GUIModel model, ContentPanel cp, VerticalFlowPanelLayout layout, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	var mainNorthItem = {
+        region: 'north',
+        contentEl: 'portalHeader',
+        split: false,
+        collapsible: false
+    };
+    
+	var mainCenterItem =   {
+           region: 'center', // a center region is ALWAYS required for border layout
+           xtype: 'container',
+           layout: 'fit',
+           items: [{
+                contentEl: 'centerPanel',
+                title: '«!isNullOrEmpty(label) ? label : ""»',
+                autoScroll: true
+           }]
+    };
+    
+    var viewport = new Ext.Viewport({
+	    layout: 'fit',
+	    items: {
+	        xtype: 'container',
+	        el: '«cp.name»',
+	        layout: 'border',
+	        items: [
+  	        	mainNorthItem,
+	        	mainCenterItem
+	        ]
+	    }
+	});
+	
+«ENDDEFINE»
+
+«DEFINE firstLevelLayoutEnrichmentDef (GUIModel model, ContentPanel cp, HorizontalFlowPanelLayout layout, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+«ENDDEFINE»
+
+
+«DEFINE firstLevelLayoutEnrichmentDef (GUIModel model, ContentPanel cp, UDLRCPanelLayout layout, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«LET getSubPanelByLayout(this,UDLRCSpecConstants::UP) AS upPanel-»
+	«LET getSubPanelByLayout(this,UDLRCSpecConstants::LEFT) AS leftPanel-»
+	«LET getSubPanelByLayout(this,UDLRCSpecConstants::CENTER) AS centerPanel-»
+	«LET getSubPanelByLayout(this,UDLRCSpecConstants::RIGHT) AS rightPanel-»
+	«LET getSubPanelByLayout(this,UDLRCSpecConstants::DOWN) AS downPanel-»
+	
+	«IF upPanel==null-»
+	var mainNorthItem = {
+        region: 'north',
+        contentEl: 'portalHeader',
+        split: false,
+        collapsible: false
+    };
+    «ELSE»
+    var mainNorthItem = {
+        region: 'north',
+        title: '«!isNullOrEmpty(upPanel.label) ? upPanel.label : ""»',
+        split: true,
+        collapsible: false,
+        
+           xtype: 'container',
+           layout: 'fit',
+           items: [
+           {
+        		contentEl: 'portalHeader',
+        		split: true,
+        		collapsible: false
+           },
+           {
+                contentEl: 'northPanel',
+                
+                autoScroll: true
+           }]
+    };
+	«ENDIF-»
+	
+	
+	«IF leftPanel != null-»
+	var mainLeftItem =   {
+           region: 'west',
+           contentEl: 'westPanel',
+           title: '«!isNullOrEmpty(leftPanel.label) ? leftPanel.label: ""»',
+           split: true,
+           collapsible: true
+    };
+	«ENDIF-»
+	«IF rightPanel != null-»
+	var mainRightItem =   {
+           region: 'east',
+           contentEl: 'eastPanel',
+           title: '«!isNullOrEmpty(rightPanel.label) ? rightPanel.label: ""»',
+           split: true,
+           collapsible: true
+    };
+	«ENDIF-»
+	«IF centerPanel!=null-»
+	var mainCenterItem =   {
+           region: 'center', // a center region is ALWAYS required for border layout
+           xtype: 'container',
+           layout: 'fit',
+           items: [{
+                contentEl: 'centerPanel',
+                title: '«!isNullOrEmpty(centerPanel.label) ? centerPanel.label : ""»',
+                autoScroll: true
+           }]
+    };
+	«ENDIF-»
+	
+	var viewport = new Ext.Viewport({
+	    layout: 'fit',
+	    items: {
+	        xtype: 'container',
+	        el: '«cp.name»',
+	        layout: 'border',
+	        items: [
+  	        	mainNorthItem,
+		«IF leftPanel!=null-»
+				mainLeftItem,«ENDIF-»
+	    «IF rightPanel!=null-»
+	    		mainRightItem,«ENDIF-»
+	        	mainCenterItem
+	        ]
+	    }
+	});
+	
+	«REM»mancano nord e sud reali«ENDREM»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDLET-»
+	«ENDLET-»
+	
+«ENDDEFINE»
+
+
 
 
 
