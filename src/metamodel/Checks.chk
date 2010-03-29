@@ -264,13 +264,21 @@ context Widget if findParentPanelDef()!=null ERROR "il name dei widgets in un pa
 context Table ERROR "Non è stato impostato lo schema delle colonne"+loc() :
 	this.columnModel!=null;
 
+context Table if (columnModel.columns.select(c|c.editable).size>0) ERROR "E' necessario impostare il 'valueSelector' "+
+	"se la tabella ha almeno una colonna editabile; serve per passare alla business logic l'id della riga su cui si clicca:"+loc() :
+	!isNullOrEmpty(columnModel.valueSelector);
+
+context Table if (databinding != null) ERROR "E' necessario impostare il 'valueSelector' se la tabella ha un value binding (ovvero se ammette la selezione);"+
+	" serve per reperire l'id delle righe selezionate:"+loc() :
+	!isNullOrEmpty(columnModel.valueSelector);
+	
 // [AM] perr ora questa feature è sospesa
 context Table ERROR "Una table inclusa in un PanelDef non può avere un custom decorator:"+loc() :
 	findParentPanelDef()==null || this.customDecorator == false;
 
 context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna " + loc() :
 	columns != null && columns.size>0;
- 
+	
 // [DM] una colonna non può essere contemporaneamente editabile e cliccabile
 context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile " + loc() :
 !(this.editable && this.eventActive);
