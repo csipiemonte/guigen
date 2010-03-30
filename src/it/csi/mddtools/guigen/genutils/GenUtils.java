@@ -2809,6 +2809,44 @@ public class GenUtils {
 	}
 	
 	
+	//// Elenco pannelli in un ContnetPanel per restrizione choice list
+	public static ArrayList<Panel> getAllChildPanels(ContentPanel cp){
+		if (cp.getPanels()!=null)
+			return getAllChildPanels(cp.getPanels());
+		else
+			return new ArrayList<Panel>();
+	}
+	
+	//// Elenco pannelli in un PanelDef (non PDefUse!!) per restrizione choice list
+	public static ArrayList<Panel> getAllChildPanels(PanelDef pdef){
+		if (pdef.getPanel()!=null)
+			return getAllChildPanels(pdef.getPanel());
+		else
+			return new ArrayList<Panel>();
+	}
+	
+	public static ArrayList<Panel> getAllChildPanels(Panel p){
+		ArrayList<Panel> ris = new ArrayList<Panel>();
+		ris.add(p);
+		if (p instanceof FormPanel){
+			Iterator<Panel> it_p = ((FormPanel)p).getSubpanels().iterator();
+			while (it_p.hasNext()) {
+				Panel currSubp = (Panel) it_p.next();
+				ris.addAll(getAllChildPanels(currSubp)); // mai nullo!
+			}
+		}
+		else if (p instanceof MultiPanel){
+			Iterator<Panel> it_p = ((MultiPanel)p).getPanels().iterator();
+			while (it_p.hasNext()) {
+				Panel currSubp = (Panel) it_p.next();
+				ris.addAll(getAllChildPanels(currSubp)); // mai nullo!
+			}
+		}
+		// negli altri casi non ci sono sottopannelli e nel PDefUse non scendo
+		return ris;
+	}
+	
+	
 	//// TABS
 	
 	public static ArrayList<TabSetPanel> getAllTabSets(ContentPanel p){
