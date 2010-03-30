@@ -13,7 +13,9 @@ import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.ExecCommand;
 import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.MultiPanel;
 import it.csi.mddtools.guigen.Panel;
+import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.genutils.GenUtils;
 
@@ -83,22 +85,52 @@ public class ActivateMultiPanelItemCommandItemProvider
 	 * This adds a property descriptor for the Multipanel feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addMultipanelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ActivateMultiPanelItemCommand_multipanel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ActivateMultiPanelItemCommand_multipanel_feature", "_UI_ActivateMultiPanelItemCommand_type"),
-				 GuigenPackage.Literals.ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ActivateMultiPanelItemCommand_multipanel_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ActivateMultiPanelItemCommand_multipanel_feature",
+						"_UI_ActivateMultiPanelItemCommand_type"),
+				GuigenPackage.eINSTANCE.getActivateMultiPanelItemCommand_Multipanel(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				ContentPanel containerOfAction = GenUtils.findParentContentPanel((Command)object);
+				if (containerOfAction != null){
+					ArrayList<Panel> result = GenUtils.getAllChildPanels(containerOfAction);
+					// filtra i soli MultiPanel
+					ArrayList<Panel> result2 = new ArrayList<Panel>();
+					Iterator<Panel> it_p = result.iterator();
+					while (it_p.hasNext()) {
+						Panel currCandidate = (Panel) it_p.next();
+						if (currCandidate instanceof MultiPanel)
+							result2.add(currCandidate);
+					}
+					return result2;
+				}
+				else {
+					PanelDef parentPDef = GenUtils.findParentPanelDef((Command)object);
+					if (parentPDef != null){
+						ArrayList<Panel> result = GenUtils.getAllChildPanels(parentPDef);
+						// filtra i soli MultiPanel
+						ArrayList<Panel> result2 = new ArrayList<Panel>();
+						Iterator<Panel> it_p = result.iterator();
+						while (it_p.hasNext()) {
+							Panel currCandidate = (Panel) it_p.next();
+							if (currCandidate instanceof MultiPanel)
+								result2.add(currCandidate);
+						}
+						return result2;
+					}
+					else throw new IllegalArgumentException("impossibile trovare parent panel def o parent content panel del comando");
+				}
+			}
+		});
+		
 	}
 
 	/**
