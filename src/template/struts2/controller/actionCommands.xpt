@@ -169,6 +169,10 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 	 *  nessun pannello
 	 */
 	public ActivateMultiPanelItemCommand(String contentPanelName, String containerName, String itemName) {
+		assert contentPanelName!=null && contentPanelName.length()>0;
+		assert containerName!=null && containerName.length()>0;
+		// item name puo essere nullo => deselect
+		
 		this.contentPanelName = contentPanelName;
 		this.containerName = containerName;
 		this.itemName = itemName;
