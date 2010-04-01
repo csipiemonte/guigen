@@ -788,11 +788,16 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) di una ComboBox.«ENDREM»
+«REM»
+Genera la componente di markup (HTML) di una ComboBox.
+In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) viene sempre inserito l'ajaxificatore 	
+«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ComboBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
-«LET getRefreshTargetIds(this) AS refreshIds-»
-«IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
+«LET getRefreshTargetIds(this) AS targetIdsTemp-»
+«LET (Panel)(this.eContainer) AS parentPanel-»
+«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
 <s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
@@ -809,10 +814,12 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
           «getComboBoxValueChangedHandlerJS(this, cp, contextPrefix)»
           />
 «getComboBoxValueChangedHandlerNoScript(this, model, cp, contextPrefix)»
-«IF refreshIds!=null && model.targetPlatform.enableRichUIBehavior-»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
 «ENDIF-»
-«ENDLET»
+«ENDLET-»
+«ENDLET-»
+«ENDLET-»
 «ENDDEFINE»
 
 
