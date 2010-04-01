@@ -568,7 +568,7 @@
                 <databinding appData="//@appDataDefs/@groups.1/@appData.1"/>
                 <multiDataBinding appData="//@appDataDefs/@groups.1/@appData.0"/>
               </widgets>
-              <widgets xsi:type="guigen:ComboBox" name="cbSmartComuni" label="Comuni con autonarrowing" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+              <widgets xsi:type="guigen:ComboBox" name="cbSmartComuni" label="Comuni con autonarrowing e refresh parziale" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
                 <eventHandlers eventType="VALUE_CHANGED">
                   <command xsi:type="guigen:ExecCommand" methodName="onSelectCbSmartComuni">
                     <results resultCode="ok">
@@ -579,6 +579,16 @@
                 <multiDataBinding appData="//@appDataDefs/@appData.3"/>
               </widgets>
               <widgets xsi:type="guigen:ComboBox" name="cbSmartComuniNoEvent" label="Comuni con autonarrowing (senza value changed)" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+              </widgets>
+              <widgets xsi:type="guigen:ComboBox" name="cbSmartComuniNoPartialRefresh" label="Comuni con autonarrowing (no refresh parziale)" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                <eventHandlers eventType="VALUE_CHANGED">
+                  <command xsi:type="guigen:ExecCommand" methodName="onSelectCbSmartComuniNoRefresh">
+                    <results resultCode="ok">
+                      <command xsi:type="guigen:NOPCommand"/>
+                    </results>
+                  </command>
+                </eventHandlers>
                 <multiDataBinding appData="//@appDataDefs/@appData.3"/>
               </widgets>
             </subpanels>
