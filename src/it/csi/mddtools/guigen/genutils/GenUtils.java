@@ -3215,8 +3215,11 @@ public class GenUtils {
 			// Scelta del formatter sulla base del tipo ritornato (deve essere un SimpleType) 
 			if ( f.getType() instanceof SimpleType ) {
 				SimpleType ft = (SimpleType) f.getType();
-				if ( isNumeric(ft) ) {
+				if ( isDecimal(ft) ) {
 					res = "format=\"{0,number,#,##0.00}\"";
+				}
+				else if ( isInteger(ft) ) {
+					res = "format=\"{0,number,#,##0}\"";
 				}
 				// al momento gestiamo solo formatter per campi NUMERICI (INTERI [INT, LONG] o DECIMALI [DOUBLE, FLOAT]).
 				// TODO: se necessario implementare altri comparatori				
