@@ -638,6 +638,29 @@
             </panels>
           </contentPanels>
         </modules>
+        <modules name="testcolformat">
+          <contentPanels name="cpTestcolformat" appData="//@appDataDefs/@groups.2/@appData.0 //@appDataDefs/@appData.0">
+            <panels xsi:type="guigen:FormPanel" name="pMain">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pTable">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:Table" name="tblTestcolformat" dataType="//@typedefs/@types.0">
+                  <multiDataBinding appData="//@appDataDefs/@groups.2/@appData.0"/>
+                  <columnModel>
+                    <columns selector="f1.fldInt" label="int"/>
+                    <columns selector="f1.fldWInt" label="wrapped int"/>
+                    <columns selector="f1.fldDbl" label="double"/>
+                  </columnModel>
+                </widgets>
+              </subpanels>
+            </panels>
+            <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="initTestcolformat">
+              <results resultCode="ok">
+                <command xsi:type="guigen:NOPCommand"/>
+              </results>
+            </onRefreshCommand>
+          </contentPanels>
+        </modules>
       </appArea>
     </appWindow>
   </structure>
@@ -721,6 +744,17 @@
       <fields name="name" type="//@typedefs/@types.7"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.37"/>
+    <namespaces name="testcolformat">
+      <types xsi:type="guigen:ComplexType" name="CT1">
+        <fields name="f1" type="//@typedefs/@namespaces.0/@types.1"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="CT2">
+        <fields name="fldInt" type="//@typedefs/@types.0"/>
+        <fields name="fldWInt" type="//@typedefs/@types.8"/>
+        <fields name="fldDbl" type="//@typedefs/@types.4"/>
+      </types>
+      <types xsi:type="guigen:TypedArray" name="CT1 []" componentType="//@typedefs/@namespaces.0/@types.0"/>
+    </namespaces>
   </typedefs>
   <appDataDefs>
     <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.36"/>
@@ -740,6 +774,9 @@
     <groups name="suggestion">
       <appData name="simpleTextSuggestions" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
       <appData name="suggestedText" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
+    </groups>
+    <groups name="testcolformat">
+      <appData name="testcolformat" type="//@typedefs/@namespaces.0/@types.2"/>
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
