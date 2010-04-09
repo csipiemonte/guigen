@@ -13,11 +13,9 @@ import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
-import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandOutcome;
 import it.csi.mddtools.guigen.CommandPanel;
-import it.csi.mddtools.guigen.CommandWidget;
 import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.CustomSecurityConstraint;
@@ -79,7 +77,6 @@ import it.csi.mddtools.guigen.WizardPanel;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -857,8 +854,9 @@ public class GenUtils {
 	 * un content panel prefissato.
 	 * @param cp
 	 * @return
+	 * @throws Exception 
 	 */
-	public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp){
+	public static List<ContentPanel> getAllPossibleJumps(ContentPanel cp) throws Exception{
 		List<ContentPanel> res = new ArrayList<ContentPanel>();
 
 		// jumps for panels
@@ -897,12 +895,13 @@ public class GenUtils {
 		List<ContentPanel> result = new ArrayList<ContentPanel>();
 		EventHandler currEH = m.getEventHandler();
 		List<ContentPanel> ehResult = getAllPossibleJumps(currEH);
-		if (ehResult!=null)
+		if (ehResult != null) {
 			result.addAll(ehResult);
+		}
 		// vai nei sottomenu
-		if (m.getSubmenu().size()>0){
+		if (m.getSubmenu().size() > 0) {
 			Iterator<Menu> it_subm = m.getSubmenu().iterator();
-			while(it_subm.hasNext()){
+			while (it_subm.hasNext()) {
 				Menu currSubm = it_subm.next();
 				result.addAll(getAllPossibleJumps(currSubm));
 			}
@@ -936,22 +935,18 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(FormPanel p) {
-		// scende in tutti i sotto pannelli
-		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
+		// scende in tutti i sotto pannelli	
+		GenUtilsCollection<ContentPanel> recursiveDestinations = new GenUtilsCollection<ContentPanel>();
 		List<Panel> subpanels = p.getSubpanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while(panels_it.hasNext()){
-				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
-				if (currSubJumps!=null) {
+		if (subpanels != null) {
+			for (Panel panel : subpanels) {
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(panel);
+				if (currSubJumps != null) {
 					recursiveDestinations.addAll(currSubJumps);
 				}
 			}
 		}
-
-		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -960,7 +955,7 @@ public class GenUtils {
 	 * @return
 	 */	
 	public static List<ContentPanel> getAllPossibleJumps(WidgetsPanel p) {
-		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
+		GenUtilsCollection<ContentPanel> recursiveDestinations = new GenUtilsCollection<ContentPanel>();
 		if ( p.getWidgets() != null ) {
 			for (Widget w : p.getWidgets()) {
 				List<ContentPanel> currSubJumps = getAllPossibleJumps(w);
@@ -969,10 +964,7 @@ public class GenUtils {
 				}
 			}
 		}
-		
-		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 	
 	/**
@@ -982,21 +974,16 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(CommandPanel p) {
 		// guarda i widget a primo livello
-		HashSet<ContentPanel> firstLevelDestinations = new HashSet<ContentPanel>();
-		List<Widget> widgets = p.getWidgets();
-		if (widgets!=null){
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while(widgets_it.hasNext()){
-				List<ContentPanel> currSubJumps = getAllPossibleJumps(widgets_it.next());
-				if (currSubJumps!=null) {
+		GenUtilsCollection<ContentPanel> firstLevelDestinations = new GenUtilsCollection<ContentPanel>();
+		if (p.getWidgets() != null) {
+			for (Widget w : p.getWidgets()) {
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(w);
+				if (currSubJumps != null) {
 					firstLevelDestinations.addAll(currSubJumps);
-				}
+				}				
 			}
 		}
-
-		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(firstLevelDestinations);
-		return result;
+		return firstLevelDestinations.values();
 	}	
 	
 	/**
@@ -1006,7 +993,7 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p) {
 		// Un dialog panel può contenere jump solo nel command panel
-		if (p.getCommands()!=null) {
+		if (p.getCommands() != null) {
 			return getAllPossibleJumps(p.getCommands());
 		} else {
 			return new ArrayList<ContentPanel>();
@@ -1020,20 +1007,16 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(MultiPanel p) {
 		// scende in tutti i sotto pannelli
-		HashSet<ContentPanel> recursiveDestinations = new HashSet<ContentPanel>();
-		List<Panel> subpanels = p.getPanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while(panels_it.hasNext()){
-				List<ContentPanel> currSubJumps = getAllPossibleJumps(panels_it.next());
-				if (currSubJumps!=null) {
+		GenUtilsCollection<ContentPanel> recursiveDestinations = new GenUtilsCollection<ContentPanel>();
+		if (p.getPanels() != null) {
+			for (Panel panel : p.getPanels()) {
+				List<ContentPanel> currSubJumps = getAllPossibleJumps(panel);
+				if (currSubJumps != null) {
 					recursiveDestinations.addAll(currSubJumps);
-				}
+				}				
 			}
 		}
-		List<ContentPanel> result= new ArrayList<ContentPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -1042,19 +1025,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(Widget w) {
-		List<EventHandler> eventHandlers = w.getEventHandlers();
-		Iterator<EventHandler> evh_it = eventHandlers.iterator();
-
-		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
-		while(evh_it.hasNext()){
-			List<ContentPanel> currSubJumps = getAllPossibleJumps(evh_it.next());
-			if (currSubJumps!=null) {
+		GenUtilsCollection<ContentPanel> resultSet = new GenUtilsCollection<ContentPanel>();
+		for (EventHandler evh : w.getEventHandlers()) {
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(evh);
+			if (currSubJumps != null) {
 				resultSet.addAll(currSubJumps);
 			}
 		}
-		List<ContentPanel> result = new ArrayList<ContentPanel>();
-		result.addAll(resultSet);
-		return result;
+		return resultSet.values();
 	}
 
 	/**
@@ -1064,7 +1042,7 @@ public class GenUtils {
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(EventHandler evh) {
 		Command a = evh.getCommand();
-		if (a==null) {
+		if (a == null) {
 			return null;
 		} else {
 			return getAllPossibleJumps(a);
@@ -1125,16 +1103,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(ExecCommand a) {
-		Iterator<CommandOutcome> res_it = a.getResults().iterator();
-		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
-		while(res_it.hasNext()){
-			List<ContentPanel> currSubJumps = getAllPossibleJumps(res_it.next());
-			if (currSubJumps!=null)
+		GenUtilsCollection<ContentPanel> resultSet = new GenUtilsCollection<ContentPanel>();
+		for (CommandOutcome res : a.getResults()) {
+			List<ContentPanel> currSubJumps = getAllPossibleJumps(res);
+			if (currSubJumps != null) {
 				resultSet.addAll(currSubJumps);
+			}
 		}
-		List<ContentPanel> ris = new ArrayList<ContentPanel>();
-		ris.addAll(resultSet);
-		return ris;
+		return resultSet.values();
 	}
 
 
@@ -1144,16 +1120,19 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(ChkEditStatusCommand a) {
-		HashSet<ContentPanel> resultSet = new HashSet<ContentPanel>();
+		GenUtilsCollection<ContentPanel> resultSet = new GenUtilsCollection<ContentPanel>();
+		
 		List<ContentPanel> parz1 = getAllPossibleJumps(a.getDoIfChanged());
-		List<ContentPanel> parz2 = getAllPossibleJumps(a.getDoIfNotChanged());
-		if (parz1!=null)
-			resultSet.addAll(parz1);
-		if (parz2!=null)
-			resultSet.addAll(parz2);
-		List<ContentPanel> ris = new ArrayList<ContentPanel>();
-		ris.addAll(resultSet);
-		return ris;
+		if (parz1 != null) {
+			resultSet.addAll(parz1);		
+		}
+		
+		List<ContentPanel> parz2 = getAllPossibleJumps(a.getDoIfNotChanged());		
+		if (parz2 != null) {
+			resultSet.addAll(parz2);		
+		}
+
+		return resultSet.values();
 	}
 
 
@@ -1204,12 +1183,13 @@ public class GenUtils {
 		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
 		EventHandler currEH = m.getEventHandler();
 		List<JumpExtCommand> ehResult = getAllPossibleExtJumps(currEH);
-		if (ehResult!=null)
+		if (ehResult != null) {
 			result.addAll(ehResult);
+		}
 		// vai nei sottomenu
-		if (m.getSubmenu().size()>0){
+		if (m.getSubmenu().size() > 0) {
 			Iterator<Menu> it_subm = m.getSubmenu().iterator();
-			while(it_subm.hasNext()){
+			while(it_subm.hasNext()) {
 				Menu currSubm = it_subm.next();
 				result.addAll(getAllPossibleExtJumps(currSubm));
 			}
@@ -1244,21 +1224,16 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(FormPanel p) {
 		// scende in tutti i sotto pannelli
-		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
-		List<Panel> subpanels = p.getSubpanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while(panels_it.hasNext()){
-				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panels_it.next());
-				if ( currSubJumps != null ) {
+		GenUtilsCollection<JumpExtCommand> recursiveDestinations = new GenUtilsCollection<JumpExtCommand>();
+		if (p.getSubpanels() != null) {
+			for (Panel panel : p.getSubpanels()) {
+				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panel);
+				if (currSubJumps != null) {
 					recursiveDestinations.addAll(currSubJumps);
-				}
+				}				
 			}
 		}
-
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -1267,19 +1242,16 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(WidgetsPanel p) {	
-		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
+		GenUtilsCollection<JumpExtCommand> recursiveDestinations = new GenUtilsCollection<JumpExtCommand>();
 		if ( p.getWidgets() != null ) {
 			for (Widget w : p.getWidgets()) {
 				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(w);
-				if ( currSubJumps != null ) {
+				if (currSubJumps != null) {
 					recursiveDestinations.addAll(currSubJumps);
 				}
 			}
 		}
-		
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		result.addAll(recursiveDestinations);
-		return result;	
+		return recursiveDestinations.values();	
 	}
 	
 	/**
@@ -1289,20 +1261,16 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(CommandPanel p) {
 		// guarda i widget a primo livello
-		HashSet<JumpExtCommand> firstLevelDestinations = new HashSet<JumpExtCommand>();
-		List<Widget> widgets = p.getWidgets();
-		if (widgets!=null){
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while(widgets_it.hasNext()){
-				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(widgets_it.next());
-				if (currSubJumps!=null)
+		GenUtilsCollection<JumpExtCommand> firstLevelDestinations = new GenUtilsCollection<JumpExtCommand>();
+		if (p.getWidgets() != null) {
+			for (Widget widget : p.getWidgets()) {
+				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(widget);
+				if (currSubJumps != null) {
 					firstLevelDestinations.addAll(currSubJumps);
+				}
 			}
 		}
-
-		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
-		result.addAll(firstLevelDestinations);
-		return result;
+		return firstLevelDestinations.values();
 	}	
 	
 	/**
@@ -1312,10 +1280,11 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(DialogPanel p) {
 		// Un dialog panel può contenere jump solo nel command panel
-		if (p.getCommands()!=null)
+		if (p.getCommands() != null) {
 			return getAllPossibleExtJumps(p.getCommands());
-		else
+		} else {
 			return new ArrayList<JumpExtCommand>();
+		}
 	}
 
 	/**
@@ -1325,19 +1294,16 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(MultiPanel p) {
 		// scende in tutti i sotto pannelli
-		HashSet<JumpExtCommand> recursiveDestinations = new HashSet<JumpExtCommand>();
-		List<Panel> subpanels = p.getPanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while(panels_it.hasNext()){
-				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panels_it.next());
-				if (currSubJumps!=null)
+		GenUtilsCollection<JumpExtCommand> recursiveDestinations = new GenUtilsCollection<JumpExtCommand>();
+		if (p.getPanels() != null) {
+			for (Panel panel : p.getPanels()) {
+				List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(panel);
+				if (currSubJumps != null) {
 					recursiveDestinations.addAll(currSubJumps);
+				}
 			}
 		}
-		List<JumpExtCommand> result= new ArrayList<JumpExtCommand>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -1346,18 +1312,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(Widget w) {
-		List<EventHandler> eventHandlers = w.getEventHandlers();
-		Iterator<EventHandler> evh_it = eventHandlers.iterator();
-
-		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
-		while(evh_it.hasNext()){
-			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(evh_it.next());
-			if (currSubJumps!=null)
+		GenUtilsCollection<JumpExtCommand> resultSet = new GenUtilsCollection<JumpExtCommand>();
+		for (EventHandler evh : w.getEventHandlers()) {
+			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(evh);
+			if (currSubJumps != null) {
 				resultSet.addAll(currSubJumps);
+			}
 		}
-		List<JumpExtCommand> result = new ArrayList<JumpExtCommand>();
-		result.addAll(resultSet);
-		return result;
+		return resultSet.values();
 	}
 
 	/**
@@ -1367,7 +1329,7 @@ public class GenUtils {
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(EventHandler evh) {
 		Command a = evh.getCommand();
-		if (a==null) {
+		if (a == null) {
 			return null;
 		} else{
 			return getAllPossibleExtJumps(a);
@@ -1411,10 +1373,10 @@ public class GenUtils {
 	 * @return
 	 */
 	public static JumpExtCommand getAdjustedJumpExtCommand(JumpExtCommand jec){
-		if ( jec.getRuntimeUrlProvider() != null ) {
+		if (jec.getRuntimeUrlProvider() != null) {
 			String s = "${";
-			s+=getAppDataKey(jec.getRuntimeUrlProvider());
-			s+="}";
+			s += getAppDataKey(jec.getRuntimeUrlProvider());
+			s += "}";
 			JumpExtCommand currJD = GuigenFactory.eINSTANCE.createJumpExtCommand();
 			currJD.setLocationCode(jec.getLocationCode());
 			currJD.setStaticUrl(s);
@@ -1450,17 +1412,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(ExecCommand a) {
-		Iterator<CommandOutcome> res_it = a.getResults().iterator();
-		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
-		while(res_it.hasNext()) {
-			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(res_it.next());
-			if ( currSubJumps != null ) {
+		GenUtilsCollection<JumpExtCommand> resultSet = new GenUtilsCollection<JumpExtCommand>();
+		for (CommandOutcome res : a.getResults()) {
+			List<JumpExtCommand> currSubJumps = getAllPossibleExtJumps(res);
+			if (currSubJumps != null) {
 				resultSet.addAll(currSubJumps);
-			}
-		}
-		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
-		ris.addAll(resultSet);
-		return ris;
+			}			
+		}	
+		return resultSet.values();
 	}
 
 	/**
@@ -1469,16 +1428,19 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(ChkEditStatusCommand a) {
-		HashSet<JumpExtCommand> resultSet = new HashSet<JumpExtCommand>();
+		GenUtilsCollection<JumpExtCommand> resultSet = new GenUtilsCollection<JumpExtCommand>();
+		
 		List<JumpExtCommand> parz1 = getAllPossibleExtJumps(a.getDoIfChanged());
+		if (parz1 != null) {
+			resultSet.addAll(parz1);		
+		}
+		
 		List<JumpExtCommand> parz2 = getAllPossibleExtJumps(a.getDoIfNotChanged());
-		if (parz1!=null)
-			resultSet.addAll(parz1);
-		if (parz2!=null)
+		if (parz2 != null) {
 			resultSet.addAll(parz2);
-		List<JumpExtCommand> ris = new ArrayList<JumpExtCommand>();
-		ris.addAll(resultSet);
-		return ris;
+		}
+		
+		return resultSet.values();
 	}
 
 	
@@ -1534,21 +1496,16 @@ public class GenUtils {
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(FormPanel p) {
 		// scende in tutti i sotto pannelli
-		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
-		List<Panel> subpanels = p.getSubpanels();
-		if (subpanels!=null){
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while ( panels_it.hasNext() ) {
-				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panels_it.next());
-				if ( currSubShowDialogs != null ) {
+		GenUtilsCollection<DialogPanel> recursiveDestinations = new GenUtilsCollection<DialogPanel>();
+		if (p.getSubpanels() != null) {
+			for (Panel panel : p.getSubpanels()) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panel);
+				if (currSubShowDialogs != null) {
 					recursiveDestinations.addAll(currSubShowDialogs);
 				}
 			}
 		}
-		
-		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -1557,19 +1514,16 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(WidgetsPanel p) {
-		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
+		GenUtilsCollection<DialogPanel> recursiveDestinations = new GenUtilsCollection<DialogPanel>();
 		if ( p.getWidgets() != null ) {
 			for (Widget w : p.getWidgets()) {
 				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(w);
-				if ( currSubShowDialogs != null ) {
+				if (currSubShowDialogs != null) {
 					recursiveDestinations.addAll(currSubShowDialogs);
 				}
 			}
 		}
-		
-		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 	
 	/**
@@ -1578,21 +1532,16 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(CommandPanel p) {
-		HashSet<DialogPanel> firstLevelDestinations = new HashSet<DialogPanel>();
-		List<Widget> widgets = p.getWidgets();
-		if ( widgets != null ) {
-			Iterator<Widget> widgets_it = widgets.iterator();
-			while ( widgets_it.hasNext() ) {
-				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(widgets_it.next());
-				if ( currSubShowDialogs != null ) {
+		GenUtilsCollection<DialogPanel> firstLevelDestinations = new GenUtilsCollection<DialogPanel>();
+		if (p.getWidgets() != null) {
+			for (Widget widget : p.getWidgets()) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(widget);
+				if (currSubShowDialogs != null) {
 					firstLevelDestinations.addAll(currSubShowDialogs);
 				}
 			}
 		}
-
-		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(firstLevelDestinations);
-		return result;
+		return firstLevelDestinations.values();
 	}
 
 	/**
@@ -1616,20 +1565,16 @@ public class GenUtils {
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(MultiPanel p) {
 		// scende in tutti i sotto pannelli
-		HashSet<DialogPanel> recursiveDestinations = new HashSet<DialogPanel>();
-		List<Panel> subpanels = p.getPanels();
-		if ( subpanels != null ) {
-			Iterator<Panel> panels_it = subpanels.iterator();
-			while ( panels_it.hasNext() ) {
-				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panels_it.next());
-				if  ( currSubShowDialogs != null ) {
+		GenUtilsCollection<DialogPanel> recursiveDestinations = new GenUtilsCollection<DialogPanel>();
+		if (p.getPanels() != null) {
+			for (Panel panel : p.getPanels()) {
+				List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(panel);
+				if (currSubShowDialogs != null) {
 					recursiveDestinations.addAll(currSubShowDialogs);
 				}
 			}
 		}
-		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(recursiveDestinations);
-		return result;
+		return recursiveDestinations.values();
 	}
 
 	/**
@@ -1638,19 +1583,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(Widget w) {
-		List<EventHandler> eventHandlers = w.getEventHandlers();
-		Iterator<EventHandler> evh_it = eventHandlers.iterator();
-
-		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
-		while ( evh_it.hasNext() ) {
-			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(evh_it.next());
-			if ( currSubShowDialogs != null ) {
+		GenUtilsCollection<DialogPanel> resultSet = new GenUtilsCollection<DialogPanel>();
+		for (EventHandler evh : w.getEventHandlers()) {
+			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(evh);
+			if (currSubShowDialogs != null) {
 				resultSet.addAll(currSubShowDialogs);
 			}
 		}
-		List<DialogPanel> result = new ArrayList<DialogPanel>();
-		result.addAll(resultSet);
-		return result;
+		return resultSet.values();
 	}
 
 	/**
@@ -1723,18 +1663,14 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(ExecCommand a) {
-		Iterator<CommandOutcome> res_it = a.getResults().iterator();
-		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
-		while ( res_it.hasNext() ) {
-			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(res_it.next());
-			if ( currSubShowDialogs != null ) {
+		GenUtilsCollection<DialogPanel> resultSet = new GenUtilsCollection<DialogPanel>();
+		for (CommandOutcome res : a.getResults()) {
+			List<DialogPanel> currSubShowDialogs = getAllPossibleShowDialogs(res);
+			if (currSubShowDialogs != null) {
 				resultSet.addAll(currSubShowDialogs);
 			}
 		}
-		
-		List<DialogPanel> ris = new ArrayList<DialogPanel>();
-		ris.addAll(resultSet);
-		return ris;
+		return resultSet.values();
 	}	
 	
 	
@@ -1744,19 +1680,19 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(ChkEditStatusCommand a) {
-		HashSet<DialogPanel> resultSet = new HashSet<DialogPanel>();
+		GenUtilsCollection<DialogPanel> resultSet = new GenUtilsCollection<DialogPanel>();
+		
 		List<DialogPanel> parz1 = getAllPossibleShowDialogs(a.getDoIfChanged());
-		List<DialogPanel> parz2 = getAllPossibleShowDialogs(a.getDoIfNotChanged());
-		if ( parz1 != null ) {
+		if (parz1 != null) {
 			resultSet.addAll(parz1);
 		}
-		if ( parz2 != null ) {
+		
+		List<DialogPanel> parz2 = getAllPossibleShowDialogs(a.getDoIfNotChanged());
+		if (parz2 != null) {
 			resultSet.addAll(parz2);
 		}
 		
-		List<DialogPanel> ris = new ArrayList<DialogPanel>();
-		ris.addAll(resultSet);
-		return ris;
+		return resultSet.values();
 	}
 
 

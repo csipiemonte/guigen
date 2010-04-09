@@ -227,8 +227,21 @@ context WidgetsPanel ERROR "Il WidgetsPanel ha il layout 'Grid': e' necessario i
     	)
     );
 
-context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto, il numero di colonne non corrisponde al numero atteso, la somma delle colonne non è 100 " + loc() :
-	columnSizesWidgetsPanelCheck(this);
+
+//context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto, il numero di colonne non corrisponde al numero atteso, la somma delle colonne non è 100 " + loc() :
+//	columnSizesWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto: deve contenere solo numeri interi separati da virgola: " + loc() :
+	columnSizesFormatWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto: la somma delle colonne non è 100: " + loc() :
+	columnSizesSumWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) WARNING "L'attributo columnSizes non è formalmente corretto: il numero di colonne fisiche generate (" +
+		realColumnsNumberWidgetsPanelCheck(this) + ") non corrisponde al numero atteso (" +
+		expectedColumnsNumberWidgetsPanelCheck(this) + ") : " + loc() :
+	realColumnsNumberWidgetsPanelCheck(this) == expectedColumnsNumberWidgetsPanelCheck(this);
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

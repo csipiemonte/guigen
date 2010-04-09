@@ -249,13 +249,100 @@ public class GenUtilsChecks {
 
 	/**
 	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
-	 * corretto.
+	 * corretto, cioè composto da numeri interi.
 	 * 
-	 * @param wpIl
-	 *            WidgetsPanel da verificare.
+	 * @param wp Il WidgetsPanel da verificare.
+	 * @return true se l'attributo &egrave; corretto, false altrimenti.
+	 */	
+	public static boolean columnSizesFormatWidgetsPanelCheck(WidgetsPanel wp) {
+		// per il momento ignoriamo l'HorizontalFlowPanelLayout
+		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
+			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
+			while (st.hasMoreTokens()) {
+				try {
+					Integer.parseInt(st.nextToken());
+				} catch (NumberFormatException e) {
+					return false;
+				}
+			}
+		}
+		// tutto bene, ritorno true
+		return true;
+	}
+	
+	
+	/**
+	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
+	 * corretto, ovvero che la somma di tutti gli elementi corrisponda a 100.
+	 * 
+	 * @param wp Il WidgetsPanel da verificare.
 	 * @return true se l'attributo &egrave; corretto, false altrimenti.
 	 */
-	public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
+	public static boolean columnSizesSumWidgetsPanelCheck(WidgetsPanel wp) {
+		// per il momento ignoriamo l'HorizontalFlowPanelLayout
+		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
+			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
+			int colsSum = 0;
+			while (st.hasMoreTokens()) {
+				// non ci deve essere eccezione perchè prima ho verificato che siano tutti numeri
+				colsSum += Integer.parseInt(st.nextToken());
+			}
+			
+			// verifico che la somma di tutte le colonne corrisponda a 100
+			if (colsSum != 100) {
+				return false;
+			}
+		}
+		// tutto bene, ritorno true
+		return true;
+	}	
+	
+	
+	/**
+	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
+	 * corretto, ovvero che il numero atteso di colonne, specificato
+	 * nell'attributo, corrisponda con il numero di colonne fisiche che 
+	 * verranno realmente generate sulla base di quanto modellato.
+	 * 
+	 * @param wp Il WidgetsPanel da verificare.
+	 * @return true se l'attributo &egrave; corretto, false altrimenti.
+	 */
+	public static int realColumnsNumberWidgetsPanelCheck(WidgetsPanel wp) {	
+		int realCols = 0;
+		
+		// per il momento ignoriamo l'HorizontalFlowPanelLayout
+		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
+			if (wp.getLayout() instanceof VerticalFlowPanelLayout) {
+				realCols = Integer.parseInt(GenUtilsLayout.getGridPanelColumnsNumber(wp));
+			} else if (wp.getLayout() instanceof GridPanelLayout) {
+				realCols = getGridPanelRealColumnNumber(wp);
+			}
+		}
+		
+		return realCols;
+	}	
+
+	public static int expectedColumnsNumberWidgetsPanelCheck(WidgetsPanel wp) {
+		int expectedCols = 0;
+		
+		// per il momento ignoriamo l'HorizontalFlowPanelLayout
+		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
+			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
+			expectedCols = st.countTokens();			
+		}
+		
+		return expectedCols;
+	}
+	
+
+	/*
+	 * Verifica che l'attributo columnSizes di un WidgetsPanel sia formalmente
+	 * corretto.
+	 * 
+	 * @param wp Il WidgetsPanel da verificare.
+	 * @return true se l'attributo &egrave; corretto, false altrimenti.
+	 */
+	/*public static boolean columnSizesWidgetsPanelCheck(WidgetsPanel wp) {
 		// per il momento ignoriamo l'HorizontalFlowPanelLayout
 		if (wp.getLayout() instanceof VerticalFlowPanelLayout || wp.getLayout() instanceof GridPanelLayout) {
 			StringTokenizer st = new StringTokenizer(wp.getLayout().getColumnSizes(), ",");
@@ -290,7 +377,7 @@ public class GenUtilsChecks {
 
 		// tutto bene, ritorno true
 		return true;
-	}
+	}*/
 
 	/**
 	 * Determina il numero massimo di colonne FISICHE che verranno generate per il
@@ -334,8 +421,8 @@ public class GenUtilsChecks {
 		int cols = 2; 
 
 		// ... ma ci sono delle eccezioni ...
-		if ( w instanceof Table || w instanceof UserDefinedWidget || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
-			// Table, UserDefinedWidget e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi generano 1 colonna fisica
+		if ( w instanceof Table || w instanceof Button || w instanceof ConfirmButton || w instanceof ResetButton ) {
+			// Table, e i Button (Button, ConfirmButton, ResetButton) non hanno label, quindi generano 1 colonna fisica
 			cols = 1;
 		} else if ( w instanceof PlainText ) {
 			// un PlainText con label nulla genera 1 sola colonna fisica

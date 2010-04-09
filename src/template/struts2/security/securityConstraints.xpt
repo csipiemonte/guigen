@@ -54,7 +54,7 @@
 
 «DEFINE uiConstraint(GUIModel model, String behavior, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget-»
 «IF securityConstraints.size>0-»
-		// constraints per «this»
+		// constraints per «getFullID(this, contextPrefix)»
 «FOREACH this.securityConstraints AS currConstraint-»
 		UISecConstraint «getFullID(this, contextPrefix)»_«securityConstraints.indexOf(currConstraint)»_ctr =
 		«EXPAND uiConstraintNew(model, cp, contextPrefix, pduConf) FOR currConstraint-» 
@@ -82,7 +82,7 @@
 «ENDDEFINE»
 
 «DEFINE uiConstraintNew(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR UISecurityConstraint»
- 			null; /// ERRORE: constraint non gestito «this»
+ 			null; /// ERRORE: constraint non gestito «this.metaType»
 «ENDDEFINE»
 
 «DEFINE uiDummyConstraintNew(GUIModel model, String pBehavior, ContentPanel cp, String contextPrefix) FOR Widget-»
@@ -213,7 +213,7 @@
 
 «DEFINE uiConstraint(GUIModel model, String behavior) FOR Menu-»
 «IF securityConstraints.size>0-»
-		// constraints per «this»
+		// constraints per «this.name»
 «FOREACH this.securityConstraints AS currConstraint-»
 		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
 		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
@@ -237,7 +237,7 @@
 «REM»MenuItem è DEPRECATO
 «DEFINE uiConstraint(GUIModel model, String behavior) FOR MenuItem-»
 «IF securityConstraints.size>0-»
-		// constraints per «this»
+		// constraints per «this.name»
 «FOREACH this.securityConstraints AS currConstraint-»
 		UISecConstraint «name»_«securityConstraints.indexOf(currConstraint)»_ctr =
 		«EXPAND uiConstraintNew4Menu(model) FOR currConstraint-» 
@@ -258,7 +258,7 @@
 
 
 «DEFINE uiConstraintNew4Menu(GUIModel model) FOR UISecurityConstraint»
- 			null; /// ERRORE: constraint non gestito «this»
+ 			null; /// ERRORE: constraint non gestito «this.metaType»
 «ENDDEFINE»
 
 «DEFINE uiConstraintNew4Menu(GUIModel model) FOR CustomSecurityConstraint»
