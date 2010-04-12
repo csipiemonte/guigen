@@ -40,7 +40,7 @@ public class «getIrideIdAdapterFilterClassName()» implements Filter{
 	
 	«EXPAND authMarkerConstDef FOR this»
 	
-	«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
+	«LET model.appDataDefs AS appDataDefs-»
 	«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
 	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
 	«ENDLET-»
