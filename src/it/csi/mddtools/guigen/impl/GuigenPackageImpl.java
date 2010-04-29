@@ -34,6 +34,7 @@ import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.CommandEvent;
+import it.csi.mddtools.guigen.CommandFunctions;
 import it.csi.mddtools.guigen.CommandOnPanels;
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.CommandOutcome;
@@ -1232,6 +1233,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	private EEnum customCartridgeIDEEnum = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum commandFunctionsEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -1686,6 +1694,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EClass getCommandWidget() {
 		return commandWidgetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCommandWidget_FunctionSpecifier() {
+		return (EAttribute)commandWidgetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4996,6 +5013,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getCommandFunctions() {
+		return commandFunctionsEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -5072,6 +5098,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(widgetEClass, WIDGET__TOOLTIP);
 
 		commandWidgetEClass = createEClass(COMMAND_WIDGET);
+		createEAttribute(commandWidgetEClass, COMMAND_WIDGET__FUNCTION_SPECIFIER);
 
 		dataWidgetEClass = createEClass(DATA_WIDGET);
 		createEAttribute(dataWidgetEClass, DATA_WIDGET__DATA_TYPE_MODIFIER);
@@ -5571,6 +5598,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		commandStylesEEnum = createEEnum(COMMAND_STYLES);
 		logicAggregationTypesEEnum = createEEnum(LOGIC_AGGREGATION_TYPES);
 		customCartridgeIDEEnum = createEEnum(CUSTOM_CARTRIDGE_ID);
+		commandFunctionsEEnum = createEEnum(COMMAND_FUNCTIONS);
 	}
 
 	/**
@@ -5748,6 +5776,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getWidget_Tooltip(), ecorePackage.getEString(), "tooltip", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandWidgetEClass, CommandWidget.class, "CommandWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCommandWidget_FunctionSpecifier(), this.getCommandFunctions(), "functionSpecifier", "0", 0, 1, CommandWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataWidgetEClass, DataWidget.class, "DataWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataWidget_DataTypeModifier(), ecorePackage.getEString(), "dataTypeModifier", null, 0, 1, DataWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6314,6 +6343,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_3);
 		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_4);
 		addEEnumLiteral(customCartridgeIDEEnum, CustomCartridgeID.TECH_5);
+
+		initEEnum(commandFunctionsEEnum, CommandFunctions.class, "CommandFunctions");
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.UNSPECIFIED);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.ADD_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.EDIT_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.DELETE_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SEARCH);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SAVE);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.LOAD);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.DETAIL);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.NEXT_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.PREVIOUS_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.FIRST_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.LAST_ITEM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.CONFIRM);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.CANCEL);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.FORWARD);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.BACK);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SHOW_REPORT);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SHOW_HELP);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SEND_MESSAGE);
 
 		// Create resource
 		createResource(eNS_URI);

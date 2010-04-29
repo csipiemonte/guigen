@@ -26,6 +26,7 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/VALUE_CHANGED"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/FOCUS_GAINED"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/FOCUS_LOST"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/KEY_PRESSED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//DataLifetimeType">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//DataLifetimeType/USER_ACTION"/>
@@ -67,6 +68,27 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//LogicAggregationTypes/OR"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//LogicAggregationTypes/AND"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//LogicAggregationTypes/XOR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//CommandFunctions">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/UNSPECIFIED"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/ADD_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/EDIT_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/DELETE_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SEARCH"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SAVE"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/LOAD"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/DETAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/NEXT_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/PREVIOUS_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/FIRST_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/LAST_ITEM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/CONFIRM"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/CANCEL"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/FORWARD"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/BACK"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SHOW_REPORT"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SHOW_HELP"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SEND_MESSAGE"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//CustomCartridgeID">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CustomCartridgeID/PLATF_1"/>
@@ -132,8 +154,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Widget/securityConstraints"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultVisible"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/tooltip"/>
     </genClasses>
-    <genClasses ecoreClass="guigen.ecore#//CommandWidget"/>
+    <genClasses ecoreClass="guigen.ecore#//CommandWidget">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//CommandWidget/functionSpecifier"/>
+    </genClasses>
     <genClasses ecoreClass="guigen.ecore#//DataWidget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//DataWidget/dataTypeModifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//DataWidget/databinding"/>
@@ -235,6 +260,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataKeySelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataValueSelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/multidataPropertySelector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Column/tooltip"/>
     </genClasses>
     <genClasses image="false" ecoreClass="guigen.ecore#//Command"/>
     <genClasses ecoreClass="guigen.ecore#//CommandEvent"/>

@@ -1465,13 +1465,22 @@ public interface GuigenPackage extends EPackage {
 	int COMMAND_WIDGET__TOOLTIP = WIDGET__TOOLTIP;
 
 	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_WIDGET__FUNCTION_SPECIFIER = WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Command Widget</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 0;
+	int COMMAND_WIDGET_FEATURE_COUNT = WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1661,6 +1670,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int BUTTON__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUTTON__FUNCTION_SPECIFIER = COMMAND_WIDGET__FUNCTION_SPECIFIER;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -2959,6 +2977,15 @@ public interface GuigenPackage extends EPackage {
 	int RESET_BUTTON__TOOLTIP = BUTTON__TOOLTIP;
 
 	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_BUTTON__FUNCTION_SPECIFIER = BUTTON__FUNCTION_SPECIFIER;
+
+	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3047,6 +3074,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONFIRM_BUTTON__TOOLTIP = BUTTON__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIRM_BUTTON__FUNCTION_SPECIFIER = BUTTON__FUNCTION_SPECIFIER;
 
 	/**
 	 * The feature id for the '<em><b>Image</b></em>' attribute.
@@ -4775,6 +4811,15 @@ public interface GuigenPackage extends EPackage {
 	 * @ordered
 	 */
 	int MENU_VIEW__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MENU_VIEW__FUNCTION_SPECIFIER = COMMAND_WIDGET__FUNCTION_SPECIFIER;
 
 	/**
 	 * The number of structural features of the '<em>Menu View</em>' class.
@@ -6708,6 +6753,15 @@ public interface GuigenPackage extends EPackage {
 	int TAB_SWITCHER__TOOLTIP = COMMAND_WIDGET__TOOLTIP;
 
 	/**
+	 * The feature id for the '<em><b>Function Specifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAB_SWITCHER__FUNCTION_SPECIFIER = COMMAND_WIDGET__FUNCTION_SPECIFIER;
+
+	/**
 	 * The number of structural features of the '<em>Tab Switcher</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8162,6 +8216,17 @@ public interface GuigenPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.CommandFunctions <em>Command Functions</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.CommandFunctions
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
+	 * @generated
+	 */
+	int COMMAND_FUNCTIONS = 151;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationArea <em>Application Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8634,6 +8699,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCommandWidget();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CommandWidget#getFunctionSpecifier <em>Function Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Function Specifier</em>'.
+	 * @see it.csi.mddtools.guigen.CommandWidget#getFunctionSpecifier()
+	 * @see #getCommandWidget()
+	 * @generated
+	 */
+	EAttribute getCommandWidget_FunctionSpecifier();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.DataWidget <em>Data Widget</em>}'.
@@ -12532,6 +12608,16 @@ public interface GuigenPackage extends EPackage {
 	EEnum getCustomCartridgeID();
 
 	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.CommandFunctions <em>Command Functions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Command Functions</em>'.
+	 * @see it.csi.mddtools.guigen.CommandFunctions
+	 * @generated
+	 */
+	EEnum getCommandFunctions();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12924,6 +13010,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COMMAND_WIDGET = eINSTANCE.getCommandWidget();
+
+		/**
+		 * The meta object literal for the '<em><b>Function Specifier</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMMAND_WIDGET__FUNCTION_SPECIFIER = eINSTANCE.getCommandWidget_FunctionSpecifier();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.DataWidgetImpl <em>Data Widget</em>}' class.
@@ -16142,6 +16236,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum CUSTOM_CARTRIDGE_ID = eINSTANCE.getCustomCartridgeID();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.CommandFunctions <em>Command Functions</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.CommandFunctions
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
+		 * @generated
+		 */
+		EEnum COMMAND_FUNCTIONS = eINSTANCE.getCommandFunctions();
 
 	}
 

@@ -223,6 +223,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createLogicAggregationTypesFromString(eDataType, initialValue);
 			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
 				return createCustomCartridgeIDFromString(eDataType, initialValue);
+			case GuigenPackage.COMMAND_FUNCTIONS:
+				return createCommandFunctionsFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -258,6 +260,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertLogicAggregationTypesToString(eDataType, instanceValue);
 			case GuigenPackage.CUSTOM_CARTRIDGE_ID:
 				return convertCustomCartridgeIDToString(eDataType, instanceValue);
+			case GuigenPackage.COMMAND_FUNCTIONS:
+				return convertCommandFunctionsToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1750,6 +1754,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCustomCartridgeIDToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CommandFunctions createCommandFunctionsFromString(EDataType eDataType, String initialValue) {
+		CommandFunctions result = CommandFunctions.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCommandFunctionsToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
