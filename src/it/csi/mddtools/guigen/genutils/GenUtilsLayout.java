@@ -238,14 +238,14 @@ public class GenUtilsLayout {
 	 */
 	public static List<Widget> getWidgetsByRow(WidgetsPanel p, int row) {
 		List<Widget> res = new ArrayList<Widget>();
-		
+
 		for (Widget w : p.getWidgets()) {
 			int r = ((GridWidgetLayoutSpec)w.getLayoutSpec()).getRow();
 			if ( r == row ) {
 				res.add(w);
 			}
 		}
-		
+
 		return res;
 	}
 	

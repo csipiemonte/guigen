@@ -900,6 +900,7 @@ come target di refresh.
                summary="«this.summary»" «REM»STDMDD-332«ENDREM»
                «IF customDecorator»decorator="«getTableDecoratorFQN(model, this)»"«ENDIF»
                «getTablePortalStyle(model, this)»>
+	«REM»<display:caption>se label!=null</display:caption>«ENDREM»
 	«IF this.databinding != null -»
 		<display:column headerClass="nosort" media="html" >
 		«IF this.databinding.appData.type.metaType == SimpleType -»
@@ -920,8 +921,7 @@ come target di refresh.
 	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
 		«IF currCol.editable && currCol.editableFlagSelector!=null -»		
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
-				sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
-		>
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»">
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
 		«ELSEIF currCol.editable && currCol.editableFlagSelector==null»

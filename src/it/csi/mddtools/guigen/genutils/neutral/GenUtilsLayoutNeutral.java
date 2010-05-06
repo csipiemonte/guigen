@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Column;
+import it.csi.mddtools.guigen.CommandFunctions;
 import it.csi.mddtools.guigen.CommandPanel;
 import it.csi.mddtools.guigen.ConfirmButton;
 import it.csi.mddtools.guigen.ContentPanel;
@@ -193,9 +194,52 @@ public class GenUtilsLayoutNeutral {
 	 */
 	public static String getButtonStyleByLayout(GUIModel model, Button b) {
 		String res = "";
-		// TODO: Implementare nel caso sia necessario trasferire anche sul pulsante il tipo di pannello
-		//       (ma NON deve essere necessario....) o serva dare uno stile al pulsante
-		//       (idem con patate...)
+		String cmdStyle = "";
+
+		CommandFunctions cmdFunct =  b.getFunctionSpecifier();
+		if (cmdFunct != null) {
+			if (CommandFunctions.ADD_ITEM.equals(cmdFunct)) {
+				cmdStyle = "addItem";
+			} else if (CommandFunctions.EDIT_ITEM.equals(cmdFunct)) {
+				cmdStyle = "editItem";
+			} else if (CommandFunctions.DELETE_ITEM.equals(cmdFunct)) {
+				cmdStyle = "deleteItem";
+			} else if (CommandFunctions.SEARCH.equals(cmdFunct)) {
+				cmdStyle = "search";
+			} else if (CommandFunctions.SAVE.equals(cmdFunct)) {
+				cmdStyle = "save";
+			} else if (CommandFunctions.LOAD.equals(cmdFunct)) {
+				cmdStyle = "load";
+			} else if (CommandFunctions.DETAIL.equals(cmdFunct)) {
+				cmdStyle = "detail";
+			} else if (CommandFunctions.LOOKUP.equals(cmdFunct)) {
+				cmdStyle = "lookup";			
+			} else if (CommandFunctions.NEXT_ITEM.equals(cmdFunct)) {
+				cmdStyle = "nextItem";
+			} else if (CommandFunctions.PREVIOUS_ITEM.equals(cmdFunct)) {
+				cmdStyle = "previousItem";
+			} else if (CommandFunctions.FIRST_ITEM.equals(cmdFunct)) {
+				cmdStyle = "firstItem";
+			} else if (CommandFunctions.LAST_ITEM.equals(cmdFunct)) {
+				cmdStyle = "lastItem";
+			} else if (CommandFunctions.CONFIRM.equals(cmdFunct)) {
+				cmdStyle = "confirm";
+			} else if (CommandFunctions.CANCEL.equals(cmdFunct)) {
+				cmdStyle = "cancel";
+			} else if (CommandFunctions.FORWARD.equals(cmdFunct)) {
+				cmdStyle = "forward";
+			} else if (CommandFunctions.BACK.equals(cmdFunct)) {
+				cmdStyle = "back";
+			} else if (CommandFunctions.SHOW_REPORT.equals(cmdFunct)) {
+				cmdStyle = "showReport";
+			} else if (CommandFunctions.SHOW_HELP.equals(cmdFunct)) {
+				cmdStyle = "showHelp";
+			} else if (CommandFunctions.SEND_MESSAGE.equals(cmdFunct)) {
+				cmdStyle = "sendMessage";
+			}
+		}
+		
+		res = "cssClass=\"buttonWidget" + (!GenUtils.isNullOrEmpty(cmdStyle) ? " " + cmdStyle : "") + "\"";
 		return res;
 	}
 

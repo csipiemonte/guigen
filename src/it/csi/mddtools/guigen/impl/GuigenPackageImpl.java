@@ -6353,6 +6353,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SAVE);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.LOAD);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.DETAIL);
+		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.LOOKUP);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.NEXT_ITEM);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.PREVIOUS_ITEM);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.FIRST_ITEM);

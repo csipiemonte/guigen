@@ -103,6 +103,14 @@ public enum CommandFunctions implements Enumerator {
 	DETAIL(107, "DETAIL", "DETAIL"),
 
 	/**
+	 * The '<em><b>LOOKUP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LOOKUP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LOOKUP(108, "LOOKUP", "LOOKUP"), /**
 	 * The '<em><b>NEXT ITEM</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -331,6 +339,21 @@ public enum CommandFunctions implements Enumerator {
 	public static final int DETAIL_VALUE = 107;
 
 	/**
+	 * The '<em><b>LOOKUP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>LOOKUP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #LOOKUP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LOOKUP_VALUE = 108;
+
+	/**
 	 * The '<em><b>NEXT ITEM</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -511,6 +534,7 @@ public enum CommandFunctions implements Enumerator {
 			SAVE,
 			LOAD,
 			DETAIL,
+			LOOKUP,
 			NEXT_ITEM,
 			PREVIOUS_ITEM,
 			FIRST_ITEM,
@@ -580,6 +604,7 @@ public enum CommandFunctions implements Enumerator {
 			case SAVE_VALUE: return SAVE;
 			case LOAD_VALUE: return LOAD;
 			case DETAIL_VALUE: return DETAIL;
+			case LOOKUP_VALUE: return LOOKUP;
 			case NEXT_ITEM_VALUE: return NEXT_ITEM;
 			case PREVIOUS_ITEM_VALUE: return PREVIOUS_ITEM;
 			case FIRST_ITEM_VALUE: return FIRST_ITEM;
