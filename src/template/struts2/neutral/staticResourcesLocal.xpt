@@ -26,8 +26,14 @@ Definizioni generali: header, footer, ecc
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title><s:text name="header.applicativo.nome.label" /></title>
 
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
+		«IF model.targetPlatform.enableRichUIBehavior-»
+		<csiuicore:header/>
+		«ELSE-»
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
+		«ENDIF-»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
+		
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
 
 		<!--[if lte IE 6]>
@@ -47,7 +53,7 @@ Definizioni generali: header, footer, ecc
 		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->
 		«ENDPROTECT»
 		
-		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+		«REM»«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»«ENDREM»
 		
 	</head>
 
