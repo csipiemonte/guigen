@@ -62,6 +62,7 @@ ANT FILES
     </condition>
     <mkdir dir="${build}/classes" />
     <mkdir dir="${temp}/${target}/${earLib}" />
+    <mkdir dir="${temp}/static-resources" />
     <mkdir dir="${build}/archives/${target}" />
     <mkdir dir="${dist}/${target}" />
     <mkdir dir="${build}/javadoc" />
@@ -302,8 +303,13 @@ ANT FILES
   <!-- ############################################################# -->
   <!-- -->
   <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
-	<unzip src="${extjs-zipfile}" dest="${srcweb}" />
+  «IF isNullOrEmpty(getProperty("development.mode")) || getProperty("development.mode")=="false"-»
+  	<unzip src="${extjs-zipfile}" dest="${temp}/static-resources" />
+  	<unzip src="${csi-extjs-zipfile}" dest="${temp}/static-resources" />
+  «ELSE-»
+  	<unzip src="${extjs-zipfile}" dest="${srcweb}" />
   	<unzip src="${csi-extjs-zipfile}" dest="${srcweb}" />
+  «ENDIF-»
   </target>
 	«ENDIF-»
 
@@ -325,6 +331,9 @@ ANT FILES
       <webinf dir="${build}/temp/conf/web/${webapp}/WEB-INF"
               includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
       <fileset dir="${srcweb}" />
+      «IF targetPlatform.enableRichUIBehavior && (isNullOrEmpty(getProperty("development.mode"))||getProperty("development.mode")=="false")-»
+      <fileset dir="${temp}/static-resources"/>
+      «ENDIF-»
       <classes dir="${build}/jsp" includes="**" />
       <classes dir="${build}/classes"
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
