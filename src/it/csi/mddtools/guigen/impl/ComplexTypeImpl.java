@@ -200,7 +200,7 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 		}
 		else{
 			// field diretti
-			ris.addAll(getFields());
+			ris.addAll(type.getFields());
 			// field indiretti
 			if (type.getExtends()!=null){
 				alreadyVisited.add(type);
