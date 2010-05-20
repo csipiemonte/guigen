@@ -411,7 +411,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
 			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
-			<interceptor name="customToken" class="«getInterceptorsJavaPackage(this)».CustomTokenInterceptor"/>
+			<interceptor name="customToken" class="«getInterceptorsJavaPackage(this)».CustomTokenInterceptor">
+				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
+			</interceptor>
 			
 			<interceptor-stack name="jsp-stack">
 				<interceptor-ref name="exception" />
