@@ -1,0 +1,13 @@
+import ecore;
+
+boolean hasWidgetAnnotation(EClass c) :
+	c.eAnnotations.select(a|a.source=="uiwidgetdoc").size>0;
+
+String guigenDocsBase() :
+"html/guigen/uipatterns";
+
+String widgetCardFile(EClass c) :
+	guigenDocsBase()+"/widgets/"+c.name+".html";
+
+List[EStringToStringMapEntry] getAnnotationDetails(EClass c, String source, String keyPrefix) :
+	c.eAnnotations.select(a|a.source=="uiwidgetdoc").details.select(ad|ad.key.startsWith(keyPrefix));

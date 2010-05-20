@@ -82,6 +82,17 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
+«DEFINE getJspPageInvalidTokenFile FOR GUIModel»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<div class="chiusura">
+	<fmt:message key="error.invalidtoken.title" /><br>
+	<fmt:message key="error.invalidtoken.message" /><br/>
+</div>
+<div class="indietro">
+	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
 
 «REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
 «DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -664,6 +675,9 @@ Gestione dei LAYOUT - PANNELLI
 «ENDIF-»
 
 <s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+«IF !model.targetPlatform.enableRichUIBehavior-»
+	<s:token/>
+«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 

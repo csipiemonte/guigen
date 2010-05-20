@@ -120,6 +120,24 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
+«REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
+«DEFINE getJspPageInvalidTokenFile FOR GUIModel»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
+<h3><fmt:message key="error.invalidtoken.title" /></h3>
+<div>
+	<fmt:message key="error.invalidtoken.message" />
+	<br />
+</div>
+<div>
+	<!-- NOTA: questa URL è da parametrizzare in qualche modo -->
+	<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	<br />
+	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
+
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
 «DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
@@ -717,7 +735,9 @@ Gestione dei LAYOUT - PANNELLI
 «ENDIF-»
 
 <s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
-
+«IF !model.targetPlatform.enableRichUIBehavior-»
+	<s:token/>
+«ENDIF-»
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">
 		<div id="centerWrapper" class="floatWrapper">

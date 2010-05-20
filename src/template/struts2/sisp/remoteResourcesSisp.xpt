@@ -103,6 +103,25 @@ Definizioni generali: Pagine di ERRORE
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
+«REM»Crea la pagina di errore per errore da token non valido -> NO STRUTS«ENDREM»
+«DEFINE getJspPageInvalidTokenFile FOR GUIModel»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<h3><fmt:message key="error.invalidtoken.title" /></h3>
+<div class="contenuti">
+	<div class="messaggioKo">
+		<fmt:message key="error.invalidtoken.message" /><br/>
+	</div>
+	<div class="pulsNav">
+		<div class="pulsNavSx">
+			<a href="http://www.sistemapiemonte.it/" title="<fmt:message key="error.sessionexpired.btnmsgportalhome" />" class="nav205"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		</div>
+		<div class="pulsNavDx">
+			<a href="HomePage.do" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		</div>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
+«ENDDEFINE»
 
 «REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
 «DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -1141,6 +1160,9 @@ Gestione dei LAYOUT - PANNELLI
 «ENDIF-»
 
 <s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" method="post">
+«IF !model.targetPlatform.enableRichUIBehavior-»
+	<s:token/>
+«ENDIF-»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="sfondoColonna">

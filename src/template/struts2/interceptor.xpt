@@ -14,8 +14,84 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 «REM»Genera le classi dei convertitori«ENDREM»
 «DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND customTokenInterceptor(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
+«DEFINE customTokenInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/CustomTokenInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+
+import java.util.Map;
+
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.ValidationAware;
+import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
+import com.opensymphony.xwork2.util.LocalizedTextUtil;
+
+
+public class CustomTokenInterceptor extends MethodFilterInterceptor {
+
+    private static final long serialVersionUID = -6680894220590585506L;
+
+    public static final String INVALID_TOKEN_CODE = "invalid.token";
+
+    /**
+     * @see com.opensymphony.xwork2.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork2.ActionInvocation)
+     */
+    protected String doIntercept(ActionInvocation invocation) throws Exception {
+        if (log.isDebugEnabled()) {
+            log.debug("Intercepting invocation to check for valid transaction token.");
+        }
+
+        Map session = ActionContext.getContext().getSession();
+
+        synchronized (session) {
+            if (!TokenHelper.validToken()) {
+                return handleInvalidToken(invocation);
+            }
+
+            return handleValidToken(invocation);
+        }
+    }
+
+    /**
+     * Determines what to do if an invalida token is provided. If the action implements {@link ValidationAware}
+     *
+     * @param invocation the action invocation where the invalid token failed
+     * @return the return code to indicate should be processed
+     * @throws Exception when any unexpected error occurs.
+     */
+    protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
+        Object action = invocation.getAction();
+        String errorMessage = LocalizedTextUtil.findText(this.getClass(), "struts.messages.invalid.token",
+                invocation.getInvocationContext().getLocale(),
+                "The form has already been processed or no token was supplied, please try again.", new Object[0]);
+
+        if (action instanceof ValidationAware) {
+            ((ValidationAware) action).addActionError(errorMessage);
+        } else {
+            log.warn(errorMessage);
+        }
+
+        return INVALID_TOKEN_CODE;
+    }
+
+    /**
+     * Called when a valid token is found. This method invokes the action by can be changed to do something more
+     * interesting.
+     *
+     * @param invocation the action invocation
+     * @throws Exception when any unexpected error occurs.
+     */
+    protected String handleValidToken(ActionInvocation invocation) throws Exception {
+        return invocation.invoke();
+    }
+}
+
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»comment«ENDREM»
 «DEFINE tableSelectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»

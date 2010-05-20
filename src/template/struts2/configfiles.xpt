@@ -411,7 +411,8 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
 			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
-		
+			<interceptor name="customToken" class="«getInterceptorsJavaPackage(this)».CustomTokenInterceptor"/>
+			
 			<interceptor-stack name="jsp-stack">
 				<interceptor-ref name="exception" />
 				<interceptor-ref name="i18n" />
@@ -426,6 +427,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="validation" />
 				<interceptor-ref name="workflow" />
+				«IF !targetPlatform.enableRichUIBehavior-»
+				<interceptor-ref name="customToken" />
+				«ENDIF-»
 			</interceptor-stack>
 		</interceptors>
 		
@@ -442,6 +446,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
   				<param name="bufferSize">1024</param>
   				<param name="allowCaching">false</param>
 			</result>
+			«ENDIF-»
+			«IF !targetPlatform.enableRichUIBehavior-»
+			<result name="invalid.token">/jsp/error/invalidToken.jsp</result>
 			«ENDIF-»
 		</global-results>
 		<global-exception-mappings>

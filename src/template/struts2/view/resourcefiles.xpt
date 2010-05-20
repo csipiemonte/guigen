@@ -104,6 +104,7 @@
 	«EXPAND getJspFatalErrorFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspSessionExpiredFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this-»
+	«EXPAND getJspPageInvalidTokenFile(skip_component_dir_creation) FOR this-»
 «ENDDEFINE»
 
 
@@ -123,6 +124,12 @@
 «ENDFILE-»
 «ENDDEFINE»
 
+«REM»Crea la pagina di errore token non valido -> NO STRUTS«ENDREM»
+«DEFINE getJspPageInvalidTokenFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, skip_component_dir_creation) + "/invalidToken.jsp"-»
+«EXPAND remoteResources::getJspPageInvalidTokenFile FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
 
 «REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
 «DEFINE getJspApplicationErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
@@ -231,6 +238,9 @@ Gestione dei pannelli
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «pageIdMarker()»
 <s:form id="«this.name»" action="«getStrutsActionConfigName(this)»" method="post"«getFormEnctype(this)»>
+	«IF !model.targetPlatform.enableRichUIBehavior-»
+	<s:token/>
+	«ENDIF-»
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this, "", (PDefUseConfig)null) FOR currP»
 	«ENDLET-»
