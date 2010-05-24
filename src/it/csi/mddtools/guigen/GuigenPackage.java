@@ -3760,13 +3760,22 @@ public interface GuigenPackage extends EPackage {
 	int EVENT_HANDLER__SKIP_VALIDATION = 2;
 
 	/**
+	 * The feature id for the '<em><b>Method Protection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_HANDLER__METHOD_PROTECTION = 3;
+
+	/**
 	 * The number of structural features of the '<em>Event Handler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_HANDLER_FEATURE_COUNT = 3;
+	int EVENT_HANDLER_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of structural features of the '<em>Widget Target Action</em>' class.
@@ -8117,6 +8126,16 @@ public interface GuigenPackage extends EPackage {
 	int UDLRC_SPEC_CONSTANTS = 141;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.MethodProtectionTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
+	 * @generated
+	 */
+	int METHOD_PROTECTION_TYPES = 142;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8124,7 +8143,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 142;
+	int EVENT_TYPES = 143;
 
 
 	/**
@@ -8135,7 +8154,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 143;
+	int DATA_LIFETIME_TYPE = 144;
 
 
 	/**
@@ -8146,7 +8165,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 144;
+	int SIMPLE_TYPE_CODES = 145;
 
 
 	/**
@@ -8157,7 +8176,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 145;
+	int PORTAL_NAMES = 146;
 
 
 	/**
@@ -8168,7 +8187,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 146;
+	int TARGET_PLATFORM_CODES = 147;
 
 
 	/**
@@ -8179,7 +8198,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 147;
+	int MESSAGE_SEVERITY = 148;
 
 
 	/**
@@ -8190,7 +8209,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 148;
+	int COMMAND_STYLES = 149;
 
 
 	/**
@@ -8201,7 +8220,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 149;
+	int LOGIC_AGGREGATION_TYPES = 150;
 
 
 	/**
@@ -8212,7 +8231,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 150;
+	int CUSTOM_CARTRIDGE_ID = 151;
 
 
 	/**
@@ -8223,7 +8242,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 151;
+	int COMMAND_FUNCTIONS = 152;
 
 
 	/**
@@ -9851,6 +9870,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEventHandler_SkipValidation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.EventHandler#getMethodProtection <em>Method Protection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Protection</em>'.
+	 * @see it.csi.mddtools.guigen.EventHandler#getMethodProtection()
+	 * @see #getEventHandler()
+	 * @generated
+	 */
+	EAttribute getEventHandler_MethodProtection();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}'.
@@ -12518,6 +12548,16 @@ public interface GuigenPackage extends EPackage {
 	EEnum getUDLRCSpecConstants();
 
 	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Method Protection Types</em>'.
+	 * @see it.csi.mddtools.guigen.MethodProtectionTypes
+	 * @generated
+	 */
+	EEnum getMethodProtectionTypes();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13946,6 +13986,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_HANDLER__SKIP_VALIDATION = eINSTANCE.getEventHandler_SkipValidation();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Protection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_HANDLER__METHOD_PROTECTION = eINSTANCE.getEventHandler_MethodProtection();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}' class.
@@ -16146,6 +16194,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum UDLRC_SPEC_CONSTANTS = eINSTANCE.getUDLRCSpecConstants();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.MethodProtectionTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
+		 * @generated
+		 */
+		EEnum METHOD_PROTECTION_TYPES = eINSTANCE.getMethodProtectionTypes();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.

@@ -411,7 +411,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
 			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
-			<interceptor name="customToken" class="«getInterceptorsJavaPackage(this)».CustomTokenInterceptor">
+			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
 				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
 			</interceptor>
 			
@@ -429,9 +429,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="validation" />
 				<interceptor-ref name="workflow" />
-				«IF !targetPlatform.enableRichUIBehavior-»
-				<interceptor-ref name="customToken" />
-				«ENDIF-»
+				<interceptor-ref name="methodProtection" />
 			</interceptor-stack>
 		</interceptors>
 		

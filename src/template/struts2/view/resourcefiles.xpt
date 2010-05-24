@@ -238,9 +238,6 @@ Gestione dei pannelli
 «DEFINE setupContentPanel(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
 «pageIdMarker()»
 <s:form id="«this.name»" action="«getStrutsActionConfigName(this)»" method="post"«getFormEnctype(this)»>
-	«IF !model.targetPlatform.enableRichUIBehavior-»
-	<s:token/>
-	«ENDIF-»
 	«LET this.panels AS currP-»
 		«EXPAND setupFirstLevelPanel(model, skip_component_dir_creation, this, "", (PDefUseConfig)null) FOR currP»
 	«ENDLET-»

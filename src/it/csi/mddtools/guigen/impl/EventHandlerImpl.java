@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.MethodProtectionTypes;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getEventType <em>Event Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#isSkipValidation <em>Skip Validation</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.EventHandlerImpl#getMethodProtection <em>Method Protection</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,6 +87,26 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * @ordered
 	 */
 	protected boolean skipValidation = SKIP_VALIDATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMethodProtection() <em>Method Protection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMethodProtection()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final MethodProtectionTypes METHOD_PROTECTION_EDEFAULT = MethodProtectionTypes.REJECT_SAME;
+
+	/**
+	 * The cached value of the '{@link #getMethodProtection() <em>Method Protection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMethodProtection()
+	 * @generated
+	 * @ordered
+	 */
+	protected MethodProtectionTypes methodProtection = METHOD_PROTECTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -195,6 +217,27 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MethodProtectionTypes getMethodProtection() {
+		return methodProtection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMethodProtection(MethodProtectionTypes newMethodProtection) {
+		MethodProtectionTypes oldMethodProtection = methodProtection;
+		methodProtection = newMethodProtection == null ? METHOD_PROTECTION_EDEFAULT : newMethodProtection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION, oldMethodProtection, methodProtection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -218,6 +261,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return getEventType();
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 				return isSkipValidation();
+			case GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION:
+				return getMethodProtection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -238,6 +283,9 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return;
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 				setSkipValidation((Boolean)newValue);
+				return;
+			case GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION:
+				setMethodProtection((MethodProtectionTypes)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -260,6 +308,9 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 				setSkipValidation(SKIP_VALIDATION_EDEFAULT);
 				return;
+			case GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION:
+				setMethodProtection(METHOD_PROTECTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -278,6 +329,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 				return eventType != EVENT_TYPE_EDEFAULT;
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 				return skipValidation != SKIP_VALIDATION_EDEFAULT;
+			case GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION:
+				return methodProtection != METHOD_PROTECTION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -296,6 +349,8 @@ public class EventHandlerImpl extends EObjectImpl implements EventHandler {
 		result.append(eventType);
 		result.append(", skipValidation: ");
 		result.append(skipValidation);
+		result.append(", methodProtection: ");
+		result.append(methodProtection);
 		result.append(')');
 		return result.toString();
 	}

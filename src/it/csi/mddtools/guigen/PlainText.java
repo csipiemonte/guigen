@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPlainText()
- * @model
+ * @model annotation="uiwidgetdoc description='E\' un widget di visualizzazione di dati testuali.\r\nIl widget completo prevede una <i>label</i> ed il campo di visualizzazione associato, che\r\n&egrave; semplicemente il testo corrispondente al valore associato al widget\r\n(da qui il nome di <b>PlainText</b>).\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>TextField</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n<li>DialogPanel, per la visualizzazione del testo del dialog</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del PlainText prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n'"
  * @generated
  */
 public interface PlainText extends DataWidget {

@@ -846,6 +846,17 @@
         <details key="documentation" value="Se impostato a true non saranno eseguite le logiche automatiche di conversione/validazione&#xD;&#xA;a fronte dell'occorrenza dell'evento specificato.&#xD;&#xA;Serve per gestire casi in cui la non conformit&amp;agrave; dei dati immessi non&#xD;&#xA;&amp;egrave; importante, anzi deve essere ignorata (es. il tasto &quot;indietro&quot; o &quot;annulla&quot;)."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodProtection" eType="#//MethodProtectionTypes"
+        defaultValueLiteral="REJECT_SAME">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Permette di proteggere l'esecuzione del metodo associato all'&lt;b>EventHandler&lt;/b>&#xD;&#xA;da effetti indesiderati derivanti dal'eventuale esecuzione contemporanea di altri metodi.&#xD;&#xA;Le possibili protezioni sono:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>&lt;b>allowAll&lt;/b>: permette l'esecuzione contemporanea di qualsiasi metodo (nessuna &#xD;&#xA;protezione)&lt;/li>&#xD;&#xA;&lt;li>&lt;b>rejectSame&lt;/b> (&lt;i>default&lt;/i>): evita l'esecuzione contemporanea di altre istanze dello stesso &#xD;&#xA;metodo (protezione tipica del doppio click su uno stesso pulsante)&lt;/li>&#xD;&#xA;&lt;li>&lt;b>rejectAll&lt;/b>: evita l'esecuzione contemporanea di altre istanze di qualsiasi &#xD;&#xA;metodo (protezione cautelativa globale)&lt;/li>&#xD;&#xA;&lt;/ol>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MethodProtectionTypes">
+    <eLiterals name="REJECT_SAME" value="1"/>
+    <eLiterals name="ALLOW_ALL"/>
+    <eLiterals name="REJECT_ALL" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EventTypes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

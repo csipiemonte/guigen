@@ -205,6 +205,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createWidgetDataTypeFromString(eDataType, initialValue);
 			case GuigenPackage.UDLRC_SPEC_CONSTANTS:
 				return createUDLRCSpecConstantsFromString(eDataType, initialValue);
+			case GuigenPackage.METHOD_PROTECTION_TYPES:
+				return createMethodProtectionTypesFromString(eDataType, initialValue);
 			case GuigenPackage.EVENT_TYPES:
 				return createEventTypesFromString(eDataType, initialValue);
 			case GuigenPackage.DATA_LIFETIME_TYPE:
@@ -242,6 +244,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertWidgetDataTypeToString(eDataType, instanceValue);
 			case GuigenPackage.UDLRC_SPEC_CONSTANTS:
 				return convertUDLRCSpecConstantsToString(eDataType, instanceValue);
+			case GuigenPackage.METHOD_PROTECTION_TYPES:
+				return convertMethodProtectionTypesToString(eDataType, instanceValue);
 			case GuigenPackage.EVENT_TYPES:
 				return convertEventTypesToString(eDataType, instanceValue);
 			case GuigenPackage.DATA_LIFETIME_TYPE:
@@ -1574,6 +1578,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertUDLRCSpecConstantsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MethodProtectionTypes createMethodProtectionTypesFromString(EDataType eDataType, String initialValue) {
+		MethodProtectionTypes result = MethodProtectionTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMethodProtectionTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

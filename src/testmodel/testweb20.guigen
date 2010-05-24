@@ -70,8 +70,8 @@
                   <databinding appData="//@appDataDefs/@appData.8"/>
                   <multiDataBinding appData="//@appDataDefs/@appData.3"/>
                   <columnModel valueSelector="codIstat">
-                    <columns selector="codIstat" label="codIstat" sortable="true" tooltip="Il codice &lt;b>ISTAT&lt;/b> del comune"/>
-                    <columns selector="nome" label="nome" sortable="true" eventActive="true" tooltip="Il nome con cui il comune &amp;egrave; iscritto all\'anagrafe dei comuni"/>
+                    <columns selector="codIstat" label="&lt;acronym title=&quot;prova&quot;>codIstat &lt;/acronym>" sortable="true" tooltip="Il codice &lt;b>ISTAT&lt;/b> del comune"/>
+                    <columns selector="nome" label="&lt;abbr title=&quot;prova2&quot;>nome&lt;/abbr>" sortable="true" eventActive="true" tooltip="Il nome con cui il comune &amp;egrave; iscritto all\'anagrafe dei comuni"/>
                     <columns selector="capoluogo" label="capoluogo?" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="Capoluogo di provincia del comune"/>
                     <columns selector="popolazione" label="popolazione" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="La popolazione del comune"/>
                     <columns selector="popolazioneEditabile" label="pop editabile?" editable="true" tooltip="A seconda del valore di questo check la riga sar&amp;agrave; editabile o meno"/>
@@ -157,7 +157,7 @@
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bEditNone" label="Disabilita editing tutte righe" functionSpecifier="DELETE_ITEM">
-                  <eventHandlers>
+                  <eventHandlers methodProtection="REJECT_ALL">
                     <command xsi:type="guigen:ExecCommand" methodName="editNone" postExecData="//@appDataDefs/@appData.3">
                       <results resultCode="OK">
                         <command xsi:type="guigen:NOPCommand"/>
@@ -166,7 +166,7 @@
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bAbilita" label="abilita tfFloat" functionSpecifier="DETAIL">
-                  <eventHandlers>
+                  <eventHandlers methodProtection="ALLOW_ALL">
                     <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0" enable="true"/>
                   </eventHandlers>
                 </widgets>
@@ -558,7 +558,7 @@
             <subpanels xsi:type="guigen:WidgetsPanel" name="pSuggestedWidgets">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <widgets xsi:type="guigen:TextField" name="tfSuggestedText" label="Testo suggerito" dataType="//@typedefs/@types.7" required="true">
-                <eventHandlers eventType="KEY_PRESSED" skipValidation="true">
+                <eventHandlers eventType="KEY_PRESSED" skipValidation="true" methodProtection="ALLOW_ALL">
                   <command xsi:type="guigen:ExecCommand" methodName="getTextSuggestion">
                     <results>
                       <command xsi:type="guigen:NOPCommand"/>
@@ -780,5 +780,5 @@
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
-  <targetPlatform code="JBoss43" enableRichUIBehavior="true"/>
+  <targetPlatform code="JBoss43"/>
 </guigen:GUIModel>

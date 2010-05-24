@@ -566,6 +566,16 @@ String getClickHandlerMethodName(Widget source, String contextPrefix) :
 		"execute" 
 	);
 
+
+String methodProtectionAnnotation(EventHandler evh) :
+	if evh.methodProtection==null || evh.methodProtection==MethodProtectionTypes::ALLOW_ALL then
+		"@MethodProtection (level=\"ALLOW_ALL\")" 
+	else if evh.methodProtection!=null || evh.methodProtection==MethodProtectionTypes::REJECT_SAME then
+		"@MethodProtection (level=\"REJECT_SAME\")"
+	else if evh.methodProtection==null || evh.methodProtection==MethodProtectionTypes::REJECT_ALL then
+		"@MethodProtection (level=\"REJECT_ALL\")"
+	;
+
 /////////////////////////////////////////////////////////////////////////////////////
 /// DATA PROVIDER
 String getDataProviderMethodName(Widget source, String providedDataTipology, String contextPrefix) :

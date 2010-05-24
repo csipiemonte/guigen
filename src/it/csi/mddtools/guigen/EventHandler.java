@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getCommand <em>Command</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#isSkipValidation <em>Skip Validation</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.EventHandler#getMethodProtection <em>Method Protection</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,5 +125,44 @@ public interface EventHandler extends EObject {
 	 * @generated
 	 */
 	void setSkipValidation(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Method Protection</b></em>' attribute.
+	 * The default value is <code>"REJECT_SAME"</code>.
+	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.MethodProtectionTypes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di proteggere l'esecuzione del metodo associato all'<b>EventHandler</b>
+	 * da effetti indesiderati derivanti dal'eventuale esecuzione contemporanea di altri metodi.
+	 * Le possibili protezioni sono:
+	 * <ol>
+	 * <li><b>allowAll</b>: permette l'esecuzione contemporanea di qualsiasi metodo (nessuna 
+	 * protezione)</li>
+	 * <li><b>rejectSame</b> (<i>default</i>): evita l'esecuzione contemporanea di altre istanze dello stesso 
+	 * metodo (protezione tipica del doppio click su uno stesso pulsante)</li>
+	 * <li><b>rejectAll</b>: evita l'esecuzione contemporanea di altre istanze di qualsiasi 
+	 * metodo (protezione cautelativa globale)</li>
+	 * </ol>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Method Protection</em>' attribute.
+	 * @see it.csi.mddtools.guigen.MethodProtectionTypes
+	 * @see #setMethodProtection(MethodProtectionTypes)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_MethodProtection()
+	 * @model default="REJECT_SAME"
+	 * @generated
+	 */
+	MethodProtectionTypes getMethodProtection();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.EventHandler#getMethodProtection <em>Method Protection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Method Protection</em>' attribute.
+	 * @see it.csi.mddtools.guigen.MethodProtectionTypes
+	 * @see #getMethodProtection()
+	 * @generated
+	 */
+	void setMethodProtection(MethodProtectionTypes value);
 
 } // EventHandler

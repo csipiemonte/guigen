@@ -84,6 +84,7 @@ import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.MenuView;
 import it.csi.mddtools.guigen.Menubar;
 import it.csi.mddtools.guigen.MessageSeverity;
+import it.csi.mddtools.guigen.MethodProtectionTypes;
 import it.csi.mddtools.guigen.ModelSlot;
 import it.csi.mddtools.guigen.ModelSlotDef;
 import it.csi.mddtools.guigen.MsgBoxPanel;
@@ -1168,6 +1169,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum udlrcSpecConstantsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum methodProtectionTypesEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2666,6 +2674,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EAttribute getEventHandler_SkipValidation() {
 		return (EAttribute)eventHandlerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEventHandler_MethodProtection() {
+		return (EAttribute)eventHandlerEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4932,6 +4949,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getMethodProtectionTypes() {
+		return methodProtectionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getEventTypes() {
 		return eventTypesEEnum;
 	}
@@ -5242,6 +5268,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(eventHandlerEClass, EVENT_HANDLER__COMMAND);
 		createEAttribute(eventHandlerEClass, EVENT_HANDLER__EVENT_TYPE);
 		createEAttribute(eventHandlerEClass, EVENT_HANDLER__SKIP_VALIDATION);
+		createEAttribute(eventHandlerEClass, EVENT_HANDLER__METHOD_PROTECTION);
 
 		widgetTargetActionEClass = createEClass(WIDGET_TARGET_ACTION);
 
@@ -5589,6 +5616,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
+		methodProtectionTypesEEnum = createEEnum(METHOD_PROTECTION_TYPES);
 		eventTypesEEnum = createEEnum(EVENT_TYPES);
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
 		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
@@ -5920,6 +5948,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getEventHandler_Command(), this.getCommand(), null, "command", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventHandler_EventType(), this.getEventTypes(), "eventType", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEventHandler_SkipValidation(), ecorePackage.getEBoolean(), "skipValidation", null, 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEventHandler_MethodProtection(), this.getMethodProtectionTypes(), "methodProtection", "REJECT_SAME", 0, 1, EventHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(widgetTargetActionEClass, WidgetTargetAction.class, "WidgetTargetAction", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -6281,6 +6310,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(udlrcSpecConstantsEEnum, UDLRCSpecConstants.RIGHT);
 		addEEnumLiteral(udlrcSpecConstantsEEnum, UDLRCSpecConstants.CENTER);
 
+		initEEnum(methodProtectionTypesEEnum, MethodProtectionTypes.class, "MethodProtectionTypes");
+		addEEnumLiteral(methodProtectionTypesEEnum, MethodProtectionTypes.REJECT_SAME);
+		addEEnumLiteral(methodProtectionTypesEEnum, MethodProtectionTypes.ALLOW_ALL);
+		addEEnumLiteral(methodProtectionTypesEEnum, MethodProtectionTypes.REJECT_ALL);
+
 		initEEnum(eventTypesEEnum, EventTypes.class, "EventTypes");
 		addEEnumLiteral(eventTypesEEnum, EventTypes.CLICKED);
 		addEEnumLiteral(eventTypesEEnum, EventTypes.VALUE_CHANGED);
@@ -6368,6 +6402,79 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// uiwidgetdoc
+		createUiwidgetdocAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>uiwidgetdoc</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createUiwidgetdocAnnotations() {
+		String source = "uiwidgetdoc";																																																				
+		addAnnotation
+		  (buttonEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico pulsante di comando utilizzabile per comandare l\'esecuzione\r\ndelle varie funzioni applicative (ricerca, inserimento, verifica, conferma, ....)\r\nIl <b>Button</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario\r\nrealizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del Button prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,\r\nche pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;\r\ntale pulsante, con l\'effetto, ad esempio di permettere l\'associazione di uno\r\nstile specifico o di un\'icona rappresentativa della funzone stessa.\r\nL\'elenco delle funzioni specificabili &egrave il seguente:\r\n\t<ul>\r\n\t<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>\r\n\t<li>BACK: ritorno ad una schermata precedente</li>\r\n\t<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>\r\n\t<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>\r\n\t<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un\'entit&agrave;</li>\r\n\t<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>\r\n\t<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>\r\n\t<li>LAST_ITEM: posizionamento sull\'ultimo elemento di un elenco di dati</li>\r\n\t<li>LOAD: caricamento di un record</li>\r\n\t<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>\r\n\t<li>PREVIOUS_ITEM: posizionamento sull\'elemento precedente a quello corrente\r\n\t\t all\'interno di un elenco di dati</li>\r\n\t<li>SAVE: salvataggio dei dati immessi</li>\r\n\t<li>SEARCH: effettuazione della ricerca</li>\r\n\t<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>\r\n\t<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>\r\n\t<li>SHOW_REPORT: visualizzazione di un report</li>\r\n\t<li>UNSPECIFIED: funzione generica</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>possibilit&agrave; di effettuare un refresh parziale della schermata \r\na fronte dell\'esecuzione del comando associato alla pressione del pulsante</li>\r\n</ul>",
+			 "event-clicked", "<p>Il pulsante pu&ograve ricevere un evento di pressione da parte \r\ndell\'utente e, a fronte di questo evento &egrave; possibile eseguire logica\r\ndi business. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla pressione del pulsante viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla pressione del pulsante viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
+		   });				
+		addAnnotation
+		  (textFieldEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico widget di immissione di dati testuali a riga singola.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>TextField</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TextField prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare il numero massimo di caratteri\r\naccettabili</li>\r\n<li>la possibilit&agrave; di specificare la dimensione massima dell\'area editabile\r\n(che &egrave; utilizzata in modi differenti a seconda della cartuccia/skin)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (es. solo caratteri numerici per tipi numerici)</li>\r\n<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\nInoltre &egrave; possibile, se esplicitamente modellato, associare al <b>TextField</b> la\r\nfunzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i \r\ncaratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa\r\ndi caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di \r\nsuggerimenti &egrave; a carico dello sviluppatore).",
+			 "event-key-pressed", "<p>L\'evento <b>KeyPressed</b>, utilizzabile solo in modalit&agrave; ricca, \r\npermette di ottenere la funzione di <i>suggestion</i>\r\n</p>"
+		   });					
+		addAnnotation
+		  (textAreaEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico widget di immissione di dati testuali a riga multipla.\r\nIl widget completo prevede una <i>label</i> ed l\'area di immissione associata.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nLa <b>TextArea</b> pu&ograve; essere utilizzata all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: standard e ricca.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base della TextArea prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare la dimensione in righe/colonne\r\ndell\'area editabile</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<!-- <li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (es. solo caratteri numerici per tipi numerici)</li>\r\n<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li> -->\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>"
+		   });						
+		addAnnotation
+		  (calendarEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' un campo utilizzabile per l\'immissione di date (nel formato gg/mm/aaaa).\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>Calendar</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del Calnedar prevede:\r\n<ul>\r\n<li>la limitazione automatica del numero di caratteri digitabili (gg/mm/aaa=10)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (che deve necessariamente essere di tipo \"DATA\")</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (maschera GG/MM/AAAA)</li>\r\n<li><i>date-picker</i>: strumento di selezione della data a partire da mini-calendario</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>"
+		   });			
+		addAnnotation
+		  (comboBoxEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il widget di selezione di uno (o pi&ugrave;) dati a partire da una lista di dati precaricata.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>ComboBox</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TextField prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare per ogni elemento della lista,\r\nun valore visualizzato e la corrispondente chiave, utilizzata come valore\r\neffettivamente seleizonato e utilizzabile dalla logica applicativa</li>\r\n<li>la scelta tra selezione singola o multipla</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>funzione di <i>autocomplete</i> (restrizione dell\'elenco di opzioni a fronte dell\'immissione \r\nprogressiva dei caratteri iniziali della selezione stessa)</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n<!-- Inoltre &egrave; possibile, se esplicitamente modellato, associare alla <b>ComboBox</b> la\r\nfunzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i \r\ncaratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa\r\ndi caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di \r\nsuggerimenti &egrave; a carico dello sviluppatore). -->",
+			 "event-value-changed", "<p>E\'possibile, a fronte della selezione da parte dell\'utente di una delle\r\nopzioni presenti nella lista, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
+		   });						
+		addAnnotation
+		  (tableEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico widget di visualizzazione/editing di dati in formato tabellare.\r\n<!--Il widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.-->\r\nLa <b>Table</b> pu&ograve; essere utilizzata all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia; N.B: deve\r\nessere l\'unico widget all\'interno del pannello</li>\r\n</ul>\r\nPrevede tre modalit&agrave; di funzionamento, una <i>standard/visualizzazione</i>,\r\nuna <i>standard/editing</i> ed una <i>ricca</i>.\r\n<h4>modalit&agrave; standard/visualizzazione</h4>\r\nIl funzionamento di base della Table prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di visualizzare le informazioni contenute in una \r\ncollezione di record, con formattazioen dell\'informazione coerente con il tipo di dato\r\ndi ciascuna colonna</li>\r\n<li>la possibilit&agrave; (opzionale) di effettuare l\'ordinamento delle righe in base ai valori\r\ncontenuti in una colonna</li>\r\n<li>la possibilit&agrave; (opzionale) di <b>paginare</b> i risultati (con dimensione della pagina impostabile)</li>\r\n<li>la possibilit&agrave; (opzionale) di effettuare l\'<b>export</b> dei dati della tabella in formato excel o pdf</li>\r\n<li>la possibilit&agrave; (opzionale) di <b>selezione</b> singola o multipla delle righe della Tabella, allo scopo\r\ndi eseguire logiche applicative sulle righe selezionate (l\'esecuzione della logica deve essere comandata in un momento\r\nsuccessivo alla selezione da un <b>Button</b> posto nella stessa schermata)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitata a comando</li>\r\n<li>la possibilit&agrave; di essere resa invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitata/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<!--<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>-->\r\n</ul>\r\n<h4>modalit&agrave; standard/editing</h4>\r\nRipsetto alla modalit&agrave; <i>standard/visualizzazione</i> la modalit&agrave; <i>standard/editing</i>\r\nprevede alcune possibilit&agrave; aggiuntive:\r\n<ul>\r\n<li><b>editing <i>in place</i></b> delle celle di una colonna:\r\n\t<ul>\r\n\t<li>il <b>widget di editing</b> della cella dipende dal tipo di dato associato alla colonna:\r\n\t\t<ul>\r\n\t\t<li><b>Calendar</b> in caso di tipo DATA</li>\r\n\t\t<li><b>CheckBox</b> in caso di tipo BOOLEAN</li>\r\n\t\t<li><b>TextField</b> in tutti gli altri casi</li>\r\n\t\t</ul>\r\n\t</li>\r\n\t<li>&egrave; possibile selezionare il valore di una cella da una <b>lista di valori</b> (in questo caso il widget utilizzato\r\n\t\tper l\'immissione &egrave; la <b>ComboBox</b>); l\'elenco dei valori selezionabili pu&ograve; essere comune a tutte le\r\n\t\trighe oppure specifico per ciascuna riga\r\n\t</li>\r\n\t<li>&egrave; possibile, nell\'ambito di una colonna dichiarata <i>editabile</i>, decidere a runtime l\'editabilit&agrave;\r\n\t\tdella singola cella (nel qual caso il widget corrispondente apparir&agrave; disabilitato)\r\n\t</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sull\'intestazione delle colonne</li>\r\n<li>refresh della sola area della tabella in caso di esecuzione delle funzioni di ordinamento e paginazione</li>\r\n<li>possibilit&agrave; di ridimensionare/cambiare l\'ordine/nascondere le colonne della tabella interattivamente</li>\r\n</ul>",
+			 "event-clicked", "<p>In una tabella &egrave; possibile rendere \"attive\" le celle di alcune\r\ncolonne (purch\u00e8 esse non siano editabili). L\'evento \"clicked\" &egrave; proprio il \"click\" dell\'utente \r\nsu tali celle. \r\nE\'possibile, a fronte ddi questo evento, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAl click di una cella viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla click di una cella viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
+		   });							
+		addAnnotation
+		  (checkBoxEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico widget di selezione di un valore booleano (si/no).\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>CheckBox</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del CheckBox prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (es . campo required)</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n"
+		   });																			
+		addAnnotation
+		  (radioButtonsEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' il classico widget di selezione di una opzione tra un insieme finito (e definito a tempo di sviluppo) di possibilit&agrave;.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato, che &egrave; a sua volta costituito\r\nda un elenco di pulsanti la cui selezione &egrave; mutualmente esclusiva.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>RadioButtons</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del RadioButtons prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (es. verifica di campo required)</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n",
+			 "event-clicked", "<p>E\'possibile, a fronte della selezione da parte dell\'utente di una delle opzioni visualizzate, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
+		   });																																																																																																																																															
+		addAnnotation
+		  (plainTextEClass, 
+		   source, 
+		   new String[] {
+			 "description", "E\' un widget di visualizzazione di dati testuali.\r\nIl widget completo prevede una <i>label</i> ed il campo di visualizzazione associato, che\r\n&egrave; semplicemente il testo corrispondente al valore associato al widget\r\n(da qui il nome di <b>PlainText</b>).\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>TextField</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n<li>DialogPanel, per la visualizzazione del testo del dialog</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del PlainText prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n"
+		   });																																																																																																																																																								
 	}
 
 } //GuigenPackageImpl

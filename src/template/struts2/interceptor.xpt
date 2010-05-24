@@ -14,15 +14,15 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 «REM»Genera le classi dei convertitori«ENDREM»
 «DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
-	«EXPAND customTokenInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
-«DEFINE customTokenInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getInterceptorsJavaSrcDir(this, true)+"/CustomTokenInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+«DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtectionInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
 
-
+import java.lang.reflect.Method;
 import java.util.Map;
-
+import java.util.Iterator;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -30,256 +30,178 @@ import com.opensymphony.xwork2.ValidationAware;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 import com.opensymphony.xwork2.util.LocalizedTextUtil;
 
+public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 
-public class CustomTokenInterceptor extends MethodFilterInterceptor {
+	private static final long serialVersionUID = -6680894220590585506L;
 
-    private static final long serialVersionUID = -6680894220590585506L;
+	public static final String INVALID_TOKEN_CODE = "invalid.token";
 
-    public static final String INVALID_TOKEN_CODE = "invalid.token";
+	/**
+	 * @see com.opensymphony.xwork2.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork2.ActionInvocation)
+	 */
+	protected String doIntercept(ActionInvocation invocation) throws Exception {
+		if (log.isDebugEnabled()) {
+			log
+					.debug("Intercepting invocation to check for valid transaction token.");
+		}
 
-    /**
-     * @see com.opensymphony.xwork2.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork2.ActionInvocation)
-     */
-    protected String doIntercept(ActionInvocation invocation) throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("Intercepting invocation to check for valid transaction token.");
-        }
+		Map session = ActionContext.getContext().getSession();
 
-        Map session = ActionContext.getContext().getSession();
+		synchronized (session) {
+			// verifica se c'e' un lock in corso
+			String declaredProtection = getDeclaredProtection(invocation);
+			if (mustReject(invocation, session, declaredProtection))
+				return handleReject(invocation, session);
+			else {
+				// insert lock
+				String lockMarker = insertLock(invocation, session, declaredProtection);
+				String _res = handleAllow(invocation);
+				// remove lock
+				removeLock(lockMarker, session);
+				return _res;
+			}
+		}
+	}
 
-        synchronized (session) {
-            if (!TokenHelper.validToken()) {
-                return handleInvalidToken(invocation);
-            }
+	final static String LOCK_ALL_MARKER = "__lockAllMethods";
+	final static String LOCK_SAME_MARKER_PREFIX = "__lockSameMethods_";
 
-            return handleValidToken(invocation);
-        }
-    }
+	protected String methodLockMarker(ActionInvocation invocation) {
+		return LOCK_SAME_MARKER_PREFIX + invocation.getProxy().getActionName()
+				+ "." + invocation.getProxy().getMethod();
+	}
 
-    /**
-     * Determines what to do if an invalida token is provided. If the action implements {@link ValidationAware}
-     *
-     * @param invocation the action invocation where the invalid token failed
-     * @return the return code to indicate should be processed
-     * @throws Exception when any unexpected error occurs.
-     */
-    protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
-        Object action = invocation.getAction();
-        String errorMessage = LocalizedTextUtil.findText(this.getClass(), "struts.messages.invalid.token",
-                invocation.getInvocationContext().getLocale(),
-                "The form has already been processed or no token was supplied, please try again.", new Object[0]);
+	/**
+	 * 
+	 * @param invocation
+	 * @return null se il metodo della action non e' annotato, il tipo di annotazione
+	 * altrimenti
+	 */
+	protected String getDeclaredProtection(ActionInvocation invocation){
+		String lockType = null;
+		String methodName = invocation.getProxy().getMethod();
+		Method m = null;
+		try {
+			m = invocation.getAction().getClass().getDeclaredMethod(methodName,
+					new Class[]{});
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		if (m != null) {
+			MethodProtection prot = m.getAnnotation(MethodProtection.class);
+			if (prot == null)
+				lockType = MethodProtection.ALLOW_ALL;
+			else
+				lockType = prot.level();
+		}
+		return lockType;
+	}
+	
+	protected String insertLock(ActionInvocation invocation, Map session, String declaredProtection) {
+		if (MethodProtection.REJECT_ALL.equals(declaredProtection)) {
+			session.put(LOCK_ALL_MARKER, LOCK_ALL_MARKER);
+			return LOCK_ALL_MARKER;
+		} else if (MethodProtection.REJECT_SAME.equals(declaredProtection)) {
+			String marker = methodLockMarker(invocation);
+			session.put(marker, marker);
+			return marker;
+		} else {
+			// no lock
+			return null;
+		}
+	}
 
-        if (action instanceof ValidationAware) {
-            ((ValidationAware) action).addActionError(errorMessage);
-        } else {
-            log.warn(errorMessage);
-        }
+	protected void removeLock(String lockMarker, Map session) {
+		if (lockMarker != null)
+			session.remove(lockMarker);
+	}
 
-        return INVALID_TOKEN_CODE;
-    }
+	/**
+	 * cancella tutti i lock (globale e locali)
+	 * @param session
+	 */
+	protected void removeAllLocks(Map session){
+		session.remove(LOCK_ALL_MARKER);
+		Iterator<String> keys = session.keySet().iterator();
+		while (keys.hasNext()) {
+			String currKey = keys.next();
+			if (currKey.startsWith(LOCK_SAME_MARKER_PREFIX))
+				session.remove(currKey);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param invocation
+	 * @return true se c'e' un lock in corso che riguarda l'invocazione corrente, ovvero:
+	 * se il lock e' un lockAll oppure se il lock e' un lockSame e il metodo lockato coincide
+	 * con quello corrente. 
+	 */
+	protected boolean mustReject(ActionInvocation invocation, Map session, String declaredProtection) {
+		if (declaredProtection==null)
+			return false; // annotazione assente: non rientra nel lock
+		String lockAll = (String) session.get(LOCK_ALL_MARKER);
+		if (lockAll != null)
+			return true;
+		String lockSame = (String) session.get(methodLockMarker(invocation));
+		if (lockSame != null)
+			return true;
+		// else
+		return false;
+	}
 
-    /**
-     * Called when a valid token is found. This method invokes the action by can be changed to do something more
-     * interesting.
-     *
-     * @param invocation the action invocation
-     * @throws Exception when any unexpected error occurs.
-     */
-    protected String handleValidToken(ActionInvocation invocation) throws Exception {
-        return invocation.invoke();
-    }
+	protected String handleReject(ActionInvocation invocation, Map session) throws Exception {
+		Object action = invocation.getAction();
+		String errorMessage = LocalizedTextUtil
+				.findText(
+						this.getClass(),
+						"struts.messages.invalid.token",
+						invocation.getInvocationContext().getLocale(),
+						"The form has already been processed or no token was supplied, please try again.",
+						new Object[0]);
+
+		if (action instanceof ValidationAware) {
+			((ValidationAware) action).addActionError(errorMessage);
+		} else {
+			log.warn(errorMessage);
+		}
+		removeAllLocks(session);
+		return INVALID_TOKEN_CODE;
+	}
+
+	/**
+	 * Called when we must allow method execution. 
+	 *
+	 * @param invocation the action invocation
+	 * @throws Exception when any unexpected error occurs.
+	 */
+	protected String handleAllow(ActionInvocation invocation) throws Exception {
+		return invocation.invoke();
+	}
 }
+
 
 «ENDFILE»
 
 
-«FILE getInterceptorsJavaSrcDir(this, true)+"/TokenHelper.java"»package «getInterceptorsJavaPackage(this)»;
-/*
- * $Id: TokenHelper.java 471756 2006-11-06 15:01:43Z husted $
- *
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtection.java"»package «getInterceptorsJavaPackage(this)»;
 
-import java.math.BigInteger;
-import java.util.Map;
-import java.util.Random;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.util.LocalizedTextUtil;
-
-/**
- * TokenHelper
- *
- */
-public class TokenHelper {
-
-    /**
-     * The default name to map the token value
-     */
-    public static final String DEFAULT_TOKEN_NAME = "struts.token";
-
-    /**
-     * The name of the field which will hold the token name
-     */
-    public static final String TOKEN_NAME_FIELD = "struts.token.name";
-    private static final Log LOG = LogFactory.getLog(TokenHelper.class);
-    private static final Random RANDOM = new Random();
-
-
-    /**
-     * Sets a transaction token into the session using the default token name.
-     *
-     * @return the token string
-     */
-    public static String setToken() {
-        return setToken(DEFAULT_TOKEN_NAME);
-    }
-
-    /**
-     * Sets a transaction token into the session using the provided token name.
-     *
-     * @param tokenName the name to store into the session with the token as the value
-     * @return the token string
-     */
-    public static String setToken(String tokenName) {
-        Map session = ActionContext.getContext().getSession();
-        String token = generateGUID();
-        try {
-            session.put(tokenName, token);
-        }
-        catch(IllegalStateException e) {
-            // WW-1182 explain to user what the problem is
-            String msg = "Error creating HttpSession due response is commited to client. You can use the CreateSessionInterceptor or create the HttpSession from your action before the result is rendered to the client: " + e.getMessage();
-            LOG.error(msg, e);
-            throw new IllegalArgumentException(msg);
-        }
-
-        return token;
-    }
-
-
-    /**
-     * Gets a transaction token into the session using the default token name.
-     *
-     * @return token
-     */
-    public static String getToken() {
-        return getToken(DEFAULT_TOKEN_NAME);
-    }
-
-    /**
-     * Gets the Token value from the params in the ServletActionContext using the given name
-     *
-     * @param tokenName the name of the parameter which holds the token value
-     * @return the token String or null, if the token could not be found
-     */
-    public static String getToken(String tokenName) {
-        Map params = ActionContext.getContext().getParameters();
-        String[] tokens = (String[]) params.get(tokenName);
-        String token;
-
-        if ((tokens == null) || (tokens.length < 1)) {
-            LOG.warn("Could not find token mapped to token name " + tokenName);
-
-            return null;
-        }
-
-        token = tokens[0];
-
-        return token;
-    }
-
-    /**
-     * Gets the token name from the Parameters in the ServletActionContext
-     *
-     * @return the token name found in the params, or null if it could not be found
-     */
-    public static String getTokenName() {
-        Map params = ActionContext.getContext().getParameters();
-
-        if (!params.containsKey(TOKEN_NAME_FIELD)) {
-            LOG.warn("Could not find token name in params.");
-
-            return null;
-        }
-
-        String[] tokenNames = (String[]) params.get(TOKEN_NAME_FIELD);
-        String tokenName;
-
-        if ((tokenNames == null) || (tokenNames.length < 1)) {
-            LOG.warn("Got a null or empty token name.");
-
-            return null;
-        }
-
-        tokenName = tokenNames[0];
-
-        return tokenName;
-    }
-
-    /**
-     * Checks for a valid transaction token in the current request params. If a valid token is found, it is
-     * removed so the it is not valid again.
-     *
-     * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
-     */
-    public static boolean validToken() {
-        String tokenName = getTokenName();
-
-        if (tokenName == null) {
-            if (LOG.isDebugEnabled())
-                LOG.debug("no token name found -> Will not check token ");
-            //return false;
-            return true;
-        }
-
-        String token = getToken(tokenName);
-
-        if (token == null) {
-            if (LOG.isDebugEnabled())
-                LOG.debug("no token found for token name "+tokenName+" -> will not check token ");
-            return true;
-        }
-
-        Map session = ActionContext.getContext().getSession();
-        String sessionToken = (String) session.get(tokenName);
-
-        if (!token.equals(sessionToken)) {
-            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "struts.internal.invalid.token", ActionContext.getContext().getLocale(), "Form token {0} does not match the session token {1}.", new Object[]{
-                    token, sessionToken
-            }));
-
-            return false;
-        }
-
-        // remove the token so it won't be used again
-        session.remove(tokenName);
-
-        return true;
-    }
-
-    public static String generateGUID() {
-        return new BigInteger(165, RANDOM).toString(36).toUpperCase();
-    }
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MethodProtection {
+	public final static String ALLOW_ALL = "ALLOW_ALL";
+	public final static String REJECT_SAME = "REJECT_SAME";
+	public final static String REJECT_ALL = "REJECT_ALL";
+	String level();
 }
+
 
 «ENDFILE»
 «ENDDEFINE»
