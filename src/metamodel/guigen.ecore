@@ -135,6 +135,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello destinato a contenere sottopannelli. Serve principlamente per definire&#xD;&#xA;la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)&#xD;&#xA;sono disponibili pe rtutte le cartucce di layout/portale."/>
     </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> &amp;egrave; un pannello utilizzato principalmente per&#xD;&#xA;creare la macro struttura della schermata. E'un pannello destinato a &#xD;&#xA;contenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari&#xD;&#xA;layout disponibili. &lt;br/>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> tipicamente si colloca:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>come pannello principale (pi&amp;ugrave; esterno) della schermata;&lt;/li>&#xD;&#xA;&lt;li>come pannello principale del singolo quadrante all'interno di un &lt;b>FormPanel&lt;/b>&#xD;&#xA;con layout a quadranti (UDLRC)&lt;/li>&#xD;&#xA;&lt;li>come contenitore di ciascun &lt;i>item&lt;/i> di un pannello a &lt;i>tab&lt;/i>&#xD;&#xA;o &lt;i>wizard&lt;/i>&lt;/li>&#xD;&#xA;&lt;li>per ogni &lt;i>item&lt;/i> di un &lt;b>MultiPanel&lt;/b>&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> pu&amp;ograve; essere dotato di &lt;i>titolo&lt;/i>. Nel caso di&#xD;&#xA;&lt;b>FormPanel&lt;/b> utilizzato all'interno di un &lt;b>TabSetPanel&lt;/b> tale titolo &#xD;&#xA;&amp;egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia&#xD;&#xA;utilizzato all'interno di un &lt;b>WizardPanel&lt;/b> il titolo viene visualizzato come&#xD;&#xA;nome dello &lt;i>step&lt;/i> corrispondente.&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> non pu&amp;ograve; contenere widget, ma solo sottopannelli.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
         eType="#//Panel" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -151,6 +154,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//MultiPanel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Tipo specifico di &lt;b>MultiPanel&lt;/b> corredato di componente di controllo&#xD;&#xA;a &quot;tab&quot;: per passare da un tab all'altro è sufficiente selezionare la &quot;linguetta&quot; &#xD;&#xA;corrispondente.&#xD;&#xA;Come per tutti i &lt;b>MultiPanel&lt;/b> il programmatore avrà nel model le informazioni&#xD;&#xA;riguardanti:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tab correntemente visualizzato&lt;/li>&#xD;&#xA;&lt;li>il tab &quot;target&quot; (quello sulla cui 2linguetta&quot; si è cliccato; questa informazione &#xD;&#xA;&amp;egrave; disponibile solo all'interno di un &lt;b>EventHandler&lt;/b> associato&#xD;&#xA; al widget fittizio &lt;b>TabSwitcher&lt;/b>)&lt;/li>.&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il primo tab è quello visualizzato di default."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>TabSetPanel&lt;/b> &amp;egrave; un pannello utilizzato realizzare strutture organizzate&#xD;&#xA;a &lt;i>tab&lt;/i>. Prevede due sezioni visibili:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>la lista di &amp;quot; linguette &amp;quot; che servono per attivare i vari &lt;i>tab&lt;/i> &#xD;&#xA;(con evidenza visiva del tab correntemente selezionato)&lt;/li>&#xD;&#xA;&lt;li>la sezione in cui viene visualizzato il contenuto del &lt;i>tab&lt;/i> correntemente selezionato.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="switcher" eType="#//TabSwitcher"
         containment="true">
@@ -554,15 +560,24 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.&#xD;&#xA;Non è necessario nessun specificatore per i singoli elementi"/>
     </eAnnotations>
+    <eAnnotations source="uilayoutdoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;L' &lt;b>HorizontalFlowPanelLayout&lt;/b> (layout sequenziale a sviluppo&#xD;&#xA;orizzontale) prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati uno dopo l'altro in una sequenza &#xD;&#xA;orizzontale, all'interno dell'area disponibile per il pannello contenitore.&#xD;&#xA;Di fatto, se il numero di widget inseriti nel pannello &amp;egrave; &lt;i>n&lt;/i>, &#xD;&#xA;rappresenta un layout con &lt;i>n&lt;/i> colonne logiche (una per widget) e&#xD;&#xA;&lt;i>2*n&lt;/i> colonne fisiche (una per la label ed una per il campo effettivo, &#xD;&#xA;il tutto moltiplicato per il numero di widget).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget di ciascuno dei widget.&#xD;&#xA;Le percentuali sono relative allo spazio a disposizione dell'interno pannello.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerticalFlowPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Gli elementi sono posizionati l'uno sotto l'altro, dall'alto in basso.&#xD;&#xA;Non è necessario nessun specificatore per i singoli elementi.&#xD;&#xA;E'possibile impostare la percentuale delle colonne associate alla label&#xD;&#xA;ed al controllo della singola colonna implicitamente definita da questo tipo di &#xD;&#xA;layout."/>
     </eAnnotations>
+    <eAnnotations source="uilayoutdoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>VerticalFlowPanelLayout&lt;/b> (layout sequenziale a sviluppo&#xD;&#xA;verticale) prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati uno dopo l'altro in una sequenza &#xD;&#xA;verticale, all'interno dell'area disponibile per il pannello contenitore.&#xD;&#xA;Di fatto rappresenta un layout ad una colonna logica (un solo widget) e&#xD;&#xA;due colonne fisiche (una per la label ed una per il campo effettivo).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget. Le percentuali sono relative allo spazio a&#xD;&#xA;disposizione dell'interno pannello.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifica di posizionamento di widget in un layout UDLRC (Up/Down/Left/Right/Center).&#xD;&#xA;I valori ammissibili sono contenuti nella Enumeration &lt;b>UDLRCSpecConstants&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="uilayoutdoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;L' &lt;b>UDLRCPanelLayout&lt;/b> (layout a cinque quadranti Up, Down, Left,&#xD;&#xA;Right, Center)  prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati in uno dei quadranti. realizzando in questo modo&#xD;&#xA;stutture di posizionamento relativo molto flessibili.&#xD;&#xA;Tipicamente questo layout &amp;egrave; utilizzato nella disposizione di sotto-pannelli.&#xD;&#xA;Il layout pu&amp;ograve; anche essere utilizzato per la disposizione di pulsanti all'interno&#xD;&#xA;di un &lt;b>CommandPanel&lt;/b>.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WidgetLayoutSpecifier" abstract="true">
@@ -908,6 +923,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="DialogPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pagina utilizzabile per messaggi di feedback/conferme etc."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>DialogPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare funzioni di feedback utente&#xD;&#xA;(messaggi informativi, dichieste di conferme). E'associato all'intera schermata e, quando &amp;egrave; &#xD;&#xA;attivato, mostra all'utente i messaggi previsti sostituendo completamente la schermata operativa.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire solo quelle tipologie di pannelli che servono per:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>mostrare messaggi formattati all'utente (&lt;b>MsgBoxPanel&lt;/b>)&lt;/li>&#xD;&#xA;&lt;li>fornire all'utente i comandi per &amp;quot;rispondere&amp;quot; al feedback, ovvero uno o pi&amp;ugrave;&#xD;&#xA;pulsanti di conferma o cancellazione (&lt;b>CommandPanel&lt;/b>)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" eType="#//CommandPanel"
         containment="true">
@@ -1309,6 +1327,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Layout a griglia.&#xD;&#xA;I widget vengono inseriti in una griglia delle dimensioni specificate da &lt;b>columns&lt;/b> e &lt;b>rows&lt;/b>.&#xD;&#xA;Ogni cella contiene un widget e la corrispondente label, se specificata.&#xD;&#xA;Per specificare la posizione nella griglia di un widget occorre utilizzare il &lt;b>GridWidgetLayoutSpec&lt;/b> &#xD;&#xA;per ogni widget contenuto nel pannello che ha questo layout."/>
     </eAnnotations>
+    <eAnnotations source="uilayoutdoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>GridPanelLayout&lt;/b> (layout a grigia) &amp;egrave; applicabile esclusivamente&#xD;&#xA;al pannello &lt;b>WidgetsPanel&lt;/b> e prevede che gli elementi contenuti nel pannello&#xD;&#xA;che possiede questo layout (widget) siano visualizzati in una struttura a griglia.&#xD;&#xA;E' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella&#xD;&#xA;della griglia pu&amp;ograve; contenere al massimo un solo &lt;b>Widget&lt;/b>.&#xD;&#xA;In aggiunta un widget pu&amp;ograve; estendersi orizzontalmente per pi&amp;ugrave; di una cella&#xD;&#xA;(&lt;i>hspan&lt;/i>),&#xD;&#xA;Di fatto, se il numero di colonne previste dal layout  &amp;egrave; &lt;i>n&lt;/i>, &#xD;&#xA;occorre tenere in considerazione una struttura costituita da &lt;i>n&lt;/i> colonne logiche&#xD;&#xA;e &lt;i>2*n&lt;/i> colonne fisiche (una per la label ed una per il campo effettivo, &#xD;&#xA;il tutto moltiplicato per il numero colonne logiche).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget di ciascuna delle colonne logiche. &#xD;&#xA;Le percentuali sono relative allo spazio a disposizione dell'interno pannello.&#xD;&#xA;Nel clacolo occorre inoltre tenere in considerazione anche casi &amp;quot; degeneri &amp;quot; quali:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>label non valorizzate&lt;/li>&#xD;&#xA;&lt;li>span orizzontali maggiori di 1&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Dimensione orizzontale della griglia"/>
@@ -1349,6 +1370,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello destinato a contenere esclusivamente widget di comando (es. pulsanti).&#xD;&#xA;"/>
     </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>CommandPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare pulsantiere,&#xD;&#xA;ovvero gruppi di &lt;b>Button&lt;/b> destinati ad eseguire funzioni di business.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pulsanti disponibili.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cmdStyle" eType="#//CommandStyles">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Permette di differenziare stilisticamente (ove previsto dai pattern di portale)&#xD;&#xA;tra pulsanti ad uso &quot;funzionale&quot; e pulsanti ad uso &quot;navigazione&quot;."/>
@@ -1364,6 +1388,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MenuPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello destinato a contenere una &lt;b>MenuView&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MenuPanel&lt;/b> &amp;egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi&#xD;&#xA;esclusivamente per contenere il widget &lt;b>MenuView&lt;/b>.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true">
@@ -1385,6 +1412,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MultiPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello a visualizzazione alternativa. Permette di visualizzare uno solo &#xD;&#xA;dei pannelli definiti nella collezione &lt;i>panels&lt;/i>.&#xD;&#xA;Per visualizzare uno specifico pannello occorre utilizzare il comando&#xD;&#xA;&lt;b>ActivateMultipanelItem&lt;/b>.&#xD;&#xA;Lo statoiniziale di questo pannello &amp;egrave; la non visualizzazione di nessun pannello."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MultiPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare pannelli &lt;i>mutevoli&lt;/i>, ovvero che &#xD;&#xA;assumono programmaticamente le sembianze di uno tra &lt;i>n&lt;/i> pannelli possibili. Esiste anche la &#xD;&#xA;possibilit&amp;agrave; di non visualizzare nessun pannello: in quesot cao il &lt;b>MultiPanel&lt;/b> non produce nessuna&#xD;&#xA;struttura visualizzata. Il &lt;b>MultiPanel&lt;/b> &amp;egrave; lo strumento principale da utilizzare nel caso in cui sia &#xD;&#xA;necessaria la scomparsa di un intero pannello (cosa che non &amp;egravE; possibile realizzare esclusivamente&#xD;&#xA;con i comandi di visibilit&amp;agrave; sui &lt;b>Widget&lt;/b>).&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="panels" upperBound="-1"
         eType="#//Panel" containment="true">
@@ -1550,6 +1580,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello di visualizzazione di messaggi.&#xD;&#xA;Permette di visualizzare:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>informativi&lt;/li>&#xD;&#xA;&lt;li>di errore associati ai singoli campi&lt;/li>&#xD;&#xA;&lt;li>di errore globali&lt;/li>&#xD;&#xA;&lt;/ul>"/>
     </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Lo &lt;b>stdMessagePanel&lt;/b> &amp;egrave; un pannello di tipo informativo utilizzato per mostrare &#xD;&#xA;all'utente eventuali messaggi di errore o informativi.&#xD;&#xA;Se, durante l'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi&#xD;&#xA;informativi il pannello mostra tali messaggi.&#xD;&#xA;Se invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza&#xD;&#xA;grafica.&#xD;&#xA;Le tipologie di messaggio visualizzabili sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>messaggi informativi&lt;/li>&#xD;&#xA;&lt;li>messaggi di errore globali&lt;/li>&#xD;&#xA;&lt;li>messaggi di errore relativi a campi specifici&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;br/>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showGlobalMessages" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Impostare a true se si desidera visualizzare i messaggi di errore globali"/>
@@ -1614,6 +1647,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello per la visualizzazione delle informazioni identificative dell'utente loggato.&#xD;&#xA;Un &lt;b>ContentPanel&lt;/b> che contiene uno &lt;b>UserInfoPanel&lt;/b> deve referenziare &#xD;&#xA;l'application data &lt;i>common::currentUser&lt;/i>."/>
     </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Lo &lt;b>UserInfoPanel&lt;/b> &amp;egrave; un pannello utilizzato per visualizzare le informazioni&#xD;&#xA;relative all'utente selezionato, che tipicamente sono:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>il nome ed il cognome dell'utente&lt;/li>&#xD;&#xA;&lt;li>il codice fiscale dell'utente&lt;/li>&#xD;&#xA;&lt;li>l'ente di appartenenza&lt;/li>&#xD;&#xA;&lt;li>il ruolo&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;&lt;br/>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1623,6 +1659,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="WizardPanel" eSuperTypes="#//MultiPanel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Particolare tipo di &lt;b>MultiPanel&lt;/b> che prevede una sezione di&#xD;&#xA;navigazione in alto che rappresenta la sequenza degli step del wizard.&#xD;&#xA;Il naviogatore pu&amp;ograve; essere attivo o passivo. Nel caso in cui il navigatore&#xD;&#xA;sia passivo per passare d auno step all'altro &amp;egrave; necessario utilizzare&#xD;&#xA;il comando &lt;b>ActivateMultiPanelItem&lt;/b> agganciato ad un evento collegato ad &#xD;&#xA;un pulsante interno al pannello che descrive ciascuno step."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>WizardPanel&lt;/b> &amp;egrave; un pannello utilizzato realizzare strutture organizzate&#xD;&#xA;a &lt;i>wizard&lt;/i>:&#xD;&#xA;Prevede due sezioni visibili:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>la lista di &amp;quot; etichette &amp;quot; che servono per attivare i vari &lt;i>step&lt;/i> &#xD;&#xA;(con evidenza visiva dello step correntemente selezionato)&lt;/li>&#xD;&#xA;&lt;li>la sezione in cui viene visualizzato il contenuto dello &lt;i>step&lt;/i> corrente.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;Il &lt;b>WizardPanel&lt;/b> pu&amp;ograve; funzionare in tre differenti modalit&amp;agrave;:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>wizard &lt;b>passivo&lt;/b>: la navigazione tra gli step deve essere comandata dalla business&#xD;&#xA;logic (es. tasti di &amp;quot;avanti&amp;quot; o &amp;quot;indietro&amp;quot; all'interno dello step)&lt;/li>&#xD;&#xA;&lt;li>wizard &lt;b>attivo&lt;/b>: la navigazione tra gli step pu&amp;ograve; essere comandata sia dalla&#xD;&#xA;business logic (es. tasti di &amp;quot;avanti&amp;quot; o &amp;quot;indietro&amp;quot; all'interno dello step) sia&#xD;&#xA;tramite click sulle etichette dei vari step.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="navigatorActive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true">
@@ -1691,6 +1730,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MsgBoxPanel" eSuperTypes="#//Panel">
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MsgBoxPanel&lt;/b> &amp;egrave; un pannello utilizzabile per mostrare all'utente&#xD;&#xA;del testo in sola lettura, eventualmente formattato. Il testo pu&amp;ograve; essere statico&#xD;&#xA;(definito a tempo di modellazione) o dinamico (calcolato a runtime).&#xD;&#xA;E' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente&#xD;&#xA;utilizzare lo &lt;b>StdMessagePanel&lt;/b>, che &amp;egrave; orientato principalmente a brevi&#xD;&#xA;messaggi testuali.&#xD;&#xA;&lt;br/>&#xD;&#xA;Data la natura del pannello, &amp;egrave; possibile inserire esclusivamente dei widget di&#xD;&#xA;visualizzazione di testo (&lt;b>PlainText&lt;/b>).&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="messageSeverity" eType="#//MessageSeverity">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Tipologia del messaggio (utilizzato solo se il pannello &amp;egrave; contenuto in un&#xD;&#xA;&lt;b>DialogPanel&lt;/b>."/>
@@ -1720,6 +1762,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="WidgetsPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pannello destinato a contenere Widget."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>widgetsPanel&lt;/b> &amp;egrave; il pannello principale utilizzabile per la realizzazione di&#xD;&#xA;&lt;i>form&lt;/i> di immissione/visualizzazione dati. Al suo interno &amp;egrave; possibile inserire, secondo&#xD;&#xA;i vari layout disponibili, praticamente tutti i &lt;b>Widget&lt;/b>. L'effetto grafico &amp;egrave; quello di un&#xD;&#xA;insieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun&#xD;&#xA;widget &amp;egrave; dotato di label. Il pannello stesso pu&amp;ograve;, opzionalmente, essere dotato di&#xD;&#xA;&amp;quot;titolo&amp;quot; che viene visualzzato in testa al pannello.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione&#xD;&#xA;del &lt;b>MenuView&lt;/b> che deve invece essere obbligatoriamente inserito in un &lt;b>MenuPanel&lt;/b>.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true">
