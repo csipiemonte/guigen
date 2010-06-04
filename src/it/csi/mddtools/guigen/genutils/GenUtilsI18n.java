@@ -396,7 +396,11 @@ public class GenUtilsI18n {
 
 		for ( Column col : t.getColumnModel().getColumns() ) {
 			if ( !GenUtils.isNullOrEmpty(col.getLabel()) ) {
-				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".label=" + col.getLabel().trim());
+				String label = col.getLabel().trim();
+				if(!GenUtils.isNullOrEmpty(col.getTooltip())){
+					label = "<acronym title=\""+col.getTooltip()+"\">"+label+"</acronym>";
+				}
+				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".label=" + label);
 			}
 		}
 
