@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getRefreshViewCommand()
- * @model
+ * @model annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface RefreshViewCommand extends Command, CommandOnWidgets, CommandOnPanels {

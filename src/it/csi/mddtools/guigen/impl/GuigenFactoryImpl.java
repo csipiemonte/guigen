@@ -67,6 +67,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TITLEBAR: return createTitlebar();
 			case GuigenPackage.CONTENT_PANEL: return createContentPanel();
 			case GuigenPackage.FORM_PANEL: return createFormPanel();
+			case GuigenPackage.MULTI_PANEL: return createMultiPanel();
 			case GuigenPackage.TAB_SET_PANEL: return createTabSetPanel();
 			case GuigenPackage.COMMAND_WIDGET: return createCommandWidget();
 			case GuigenPackage.DATA_WIDGET: return createDataWidget();
@@ -129,7 +130,6 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.MENU_PANEL: return createMenuPanel();
 			case GuigenPackage.HIDDEN_VALUE: return createHiddenValue();
 			case GuigenPackage.USER_DEFINED_WIDGET: return createUserDefinedWidget();
-			case GuigenPackage.MULTI_PANEL: return createMultiPanel();
 			case GuigenPackage.ACTIVATE_MULTI_PANEL_ITEM_COMMAND: return createActivateMultiPanelItemCommand();
 			case GuigenPackage.UC_BASED_SECURITY_CONSTRAINT: return createUCBasedSecurityConstraint();
 			case GuigenPackage.SECURITY_MODEL: return createSecurityModel();

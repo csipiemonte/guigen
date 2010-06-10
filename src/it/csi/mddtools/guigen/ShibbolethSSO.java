@@ -18,7 +18,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getShibbolethSSO()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface ShibbolethSSO extends AutenticationMethod {

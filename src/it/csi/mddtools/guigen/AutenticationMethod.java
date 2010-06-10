@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getAutenticationMethod()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface AutenticationMethod extends EObject {

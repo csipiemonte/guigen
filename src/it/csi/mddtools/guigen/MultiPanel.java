@@ -29,7 +29,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMultiPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>MultiPanel</b> &egrave; un pannello utilizzato per realizzare pannelli <i>mutevoli</i>, ovvero che \r\nassumono programmaticamente le sembianze di uno tra <i>n</i> pannelli possibili. Esiste anche la \r\npossibilit&agrave; di non visualizzare nessun pannello: in quesot cao il <b>MultiPanel</b> non produce nessuna\r\nstruttura visualizzata. Il <b>MultiPanel</b> &egrave; lo strumento principale da utilizzare nel caso in cui sia \r\nnecessaria la scomparsa di un intero pannello (cosa che non &egravE; possibile realizzare esclusivamente\r\ncon i comandi di visibilit&agrave; sui <b>Widget</b>).\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface MultiPanel extends Panel {

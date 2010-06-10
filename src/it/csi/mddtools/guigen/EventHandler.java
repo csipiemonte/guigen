@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler()
- * @model
+ * @model annotation="logicpkg pkg='ui.event'"
  * @generated
  */
 public interface EventHandler extends EObject {

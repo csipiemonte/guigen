@@ -25,7 +25,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUDLRCWidgetLayoutSpec()
- * @model
+ * @model annotation="logicpkg pkg='ui.layout'"
  * @generated
  */
 public interface UDLRCWidgetLayoutSpec extends WidgetLayoutSpecifier {

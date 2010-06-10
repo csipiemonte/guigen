@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * [[TODO: add documentation here]]
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getWidgetDataType()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public enum WidgetDataType implements Enumerator {

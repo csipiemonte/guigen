@@ -25,7 +25,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getONOFFCommand()
- * @model
+ * @model annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface ONOFFCommand extends Command, CommandOnWidgets {

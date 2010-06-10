@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationData()
- * @model
+ * @model annotation="logicpkg pkg='mdl.data'"
  * @generated
  */
 public interface ApplicationData extends EObject {

@@ -117,10 +117,23 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.PANEL: {
+				Panel panel = (Panel)theEObject;
+				T result = casePanel(panel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GuigenPackage.FORM_PANEL: {
 				FormPanel formPanel = (FormPanel)theEObject;
 				T result = caseFormPanel(formPanel);
 				if (result == null) result = casePanel(formPanel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.MULTI_PANEL: {
+				MultiPanel multiPanel = (MultiPanel)theEObject;
+				T result = caseMultiPanel(multiPanel);
+				if (result == null) result = casePanel(multiPanel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -129,12 +142,6 @@ public class GuigenSwitch<T> {
 				T result = caseTabSetPanel(tabSetPanel);
 				if (result == null) result = caseMultiPanel(tabSetPanel);
 				if (result == null) result = casePanel(tabSetPanel);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GuigenPackage.PANEL: {
-				Panel panel = (Panel)theEObject;
-				T result = casePanel(panel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -616,13 +623,6 @@ public class GuigenSwitch<T> {
 				UserDefinedWidget userDefinedWidget = (UserDefinedWidget)theEObject;
 				T result = caseUserDefinedWidget(userDefinedWidget);
 				if (result == null) result = caseWidget(userDefinedWidget);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GuigenPackage.MULTI_PANEL: {
-				MultiPanel multiPanel = (MultiPanel)theEObject;
-				T result = caseMultiPanel(multiPanel);
-				if (result == null) result = casePanel(multiPanel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

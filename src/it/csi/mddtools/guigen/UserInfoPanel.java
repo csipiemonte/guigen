@@ -20,7 +20,8 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUserInfoPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nLo <b>UserInfoPanel</b> &egrave; un pannello utilizzato per visualizzare le informazioni\r\nrelative all\'utente selezionato, che tipicamente sono:\r\n<ol>\r\n<li>il nome ed il cognome dell\'utente</li>\r\n<li>il codice fiscale dell\'utente</li>\r\n<li>l\'ente di appartenenza</li>\r\n<li>il ruolo</li>\r\n</ol>\r\n<br/>\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface UserInfoPanel extends Panel {

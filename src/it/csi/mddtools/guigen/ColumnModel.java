@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getColumnModel()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets.table'"
  * @generated
  */
 public interface ColumnModel extends EObject {

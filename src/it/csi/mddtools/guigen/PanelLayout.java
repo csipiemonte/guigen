@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPanelLayout()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='ui.layout'"
  * @generated
  */
 public interface PanelLayout extends EObject {

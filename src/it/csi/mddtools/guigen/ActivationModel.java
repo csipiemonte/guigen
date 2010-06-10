@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getActivationModel()
- * @model
+ * @model annotation="logicpkg pkg='app'"
  * @generated
  */
 public interface ActivationModel extends EObject {

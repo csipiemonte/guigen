@@ -19,7 +19,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getJumpBackCommand()
- * @model
+ * @model annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface JumpBackCommand extends Command {

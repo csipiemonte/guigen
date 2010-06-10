@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getActorBasedSecurityConstraint()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface ActorBasedSecurityConstraint extends UISecurityConstraint {

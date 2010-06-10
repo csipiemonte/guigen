@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandWidget()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public interface CommandWidget extends Widget {

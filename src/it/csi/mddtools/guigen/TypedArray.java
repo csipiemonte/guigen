@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypedArray()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface TypedArray extends Type {

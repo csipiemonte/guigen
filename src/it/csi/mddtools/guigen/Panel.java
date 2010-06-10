@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getPanel()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface Panel extends EObject {

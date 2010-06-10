@@ -29,7 +29,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>CommandPanel</b> &egrave; un pannello utilizzato per realizzare pulsantiere,\r\novvero gruppi di <b>Button</b> destinati ad eseguire funzioni di business.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pulsanti disponibili.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface CommandPanel extends Panel {

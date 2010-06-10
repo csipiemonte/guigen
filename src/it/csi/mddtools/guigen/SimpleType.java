@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleType()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface SimpleType extends Type {

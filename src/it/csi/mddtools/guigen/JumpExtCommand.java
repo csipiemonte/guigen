@@ -26,7 +26,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getJumpExtCommand()
- * @model
+ * @model annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface JumpExtCommand extends Command {

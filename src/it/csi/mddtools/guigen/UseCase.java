@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUseCase()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface UseCase extends EObject {

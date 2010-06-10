@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMultiDataWidget()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public interface MultiDataWidget extends Widget {

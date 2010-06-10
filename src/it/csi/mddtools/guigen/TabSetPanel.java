@@ -36,7 +36,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTabSetPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>tab</i>. Prevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> \r\n(con evidenza visiva del tab correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface TabSetPanel extends MultiPanel {

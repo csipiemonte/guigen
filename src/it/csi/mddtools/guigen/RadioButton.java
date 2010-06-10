@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getRadioButton()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public interface RadioButton extends Widget {

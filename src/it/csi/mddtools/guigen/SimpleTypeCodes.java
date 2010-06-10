@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * Codici dei tipi base
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getSimpleTypeCodes()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public enum SimpleTypeCodes implements Enumerator {

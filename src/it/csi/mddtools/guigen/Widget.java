@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWidget()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public interface Widget extends EObject {

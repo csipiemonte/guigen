@@ -19,7 +19,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getConfirmButton()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public interface ConfirmButton extends Button {

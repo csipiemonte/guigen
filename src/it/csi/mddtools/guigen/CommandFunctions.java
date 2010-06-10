@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandFunctions()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets'"
  * @generated
  */
 public enum CommandFunctions implements Enumerator {

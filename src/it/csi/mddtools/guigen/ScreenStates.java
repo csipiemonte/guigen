@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getScreenStates()
- * @model
+ * @model annotation="logicpkg pkg='ui.state'"
  * @generated
  */
 public interface ScreenStates extends EObject {

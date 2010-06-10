@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getGridWidgetLayoutSpec()
- * @model
+ * @model annotation="logicpkg pkg='ui.layout'"
  * @generated
  */
 public interface GridWidgetLayoutSpec extends WidgetLayoutSpecifier {

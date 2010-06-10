@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommand()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface Command extends EObject {

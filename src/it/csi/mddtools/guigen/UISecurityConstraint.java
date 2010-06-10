@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUISecurityConstraint()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface UISecurityConstraint extends EObject {

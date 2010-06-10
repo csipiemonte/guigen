@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOutcome()
- * @model
+ * @model annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface CommandOutcome extends EObject {

@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getOPAUTHSSO()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface OPAUTHSSO extends AutenticationMethod {

@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * Valori ammissibili per l' <b>UDLRCWidgetLayoutSpecifier</b>.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getUDLRCSpecConstants()
- * @model
+ * @model annotation="logicpkg pkg='ui.layout'"
  * @generated
  */
 public enum UDLRCSpecConstants implements Enumerator {

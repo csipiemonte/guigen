@@ -28,7 +28,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getFormPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>FormPanel</b> &egrave; un pannello utilizzato principalmente per\r\ncreare la macro struttura della schermata. E\'un pannello destinato a \r\ncontenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari\r\nlayout disponibili. <br/>\r\nIl <b>FormPanel</b> tipicamente si colloca:\r\n<ul>\r\n<li>come pannello principale (pi&ugrave; esterno) della schermata;</li>\r\n<li>come pannello principale del singolo quadrante all\'interno di un <b>FormPanel</b>\r\ncon layout a quadranti (UDLRC)</li>\r\n<li>come contenitore di ciascun <i>item</i> di un pannello a <i>tab</i>\r\no <i>wizard</i></li>\r\n<li>per ogni <i>item</i> di un <b>MultiPanel</b></li>\r\n</ul>\r\nIl <b>FormPanel</b> pu&ograve; essere dotato di <i>titolo</i>. Nel caso di\r\n<b>FormPanel</b> utilizzato all\'interno di un <b>TabSetPanel</b> tale titolo \r\n&egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia\r\nutilizzato all\'interno di un <b>WizardPanel</b> il titolo viene visualizzato come\r\nnome dello <i>step</i> corrispondente.\r\nIl <b>FormPanel</b> non pu&ograve; contenere widget, ma solo sottopannelli.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface FormPanel extends Panel {

@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getRole()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface Role extends EObject {

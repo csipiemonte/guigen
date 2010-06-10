@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel()
- * @model
+ * @model annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface ContentPanel extends EObject {

@@ -27,7 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenuPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>MenuPanel</b> &egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi\r\nesclusivamente per contenere il widget <b>MenuView</b>.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface MenuPanel extends Panel {

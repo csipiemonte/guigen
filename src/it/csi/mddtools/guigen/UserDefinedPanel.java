@@ -20,7 +20,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getUserDefinedPanel()
- * @model
+ * @model annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface UserDefinedPanel extends Panel {

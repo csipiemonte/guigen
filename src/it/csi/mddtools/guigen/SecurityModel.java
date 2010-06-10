@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface SecurityModel extends EObject {

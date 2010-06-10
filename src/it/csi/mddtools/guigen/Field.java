@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getField()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface Field extends EObject {

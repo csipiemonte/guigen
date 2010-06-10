@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMenu()
- * @model
+ * @model annotation="logicpkg pkg='ui.menu'"
  * @generated
  */
 public interface Menu extends EObject {

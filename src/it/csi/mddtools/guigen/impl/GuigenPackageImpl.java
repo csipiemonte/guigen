@@ -5099,19 +5099,22 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(contentPanelEClass, CONTENT_PANEL__STATES);
 		createEReference(contentPanelEClass, CONTENT_PANEL__DEFAULT_STATE);
 
-		formPanelEClass = createEClass(FORM_PANEL);
-		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
-		createEReference(formPanelEClass, FORM_PANEL__WIDGETS);
-
-		tabSetPanelEClass = createEClass(TAB_SET_PANEL);
-		createEReference(tabSetPanelEClass, TAB_SET_PANEL__SWITCHER);
-
 		panelEClass = createEClass(PANEL);
 		createEAttribute(panelEClass, PANEL__NAME);
 		createEAttribute(panelEClass, PANEL__LABEL);
 		createEReference(panelEClass, PANEL__LAYOUT);
 		createEReference(panelEClass, PANEL__LAYOUT_SPEC);
 		createEAttribute(panelEClass, PANEL__SCROLLABLE);
+
+		formPanelEClass = createEClass(FORM_PANEL);
+		createEReference(formPanelEClass, FORM_PANEL__SUBPANELS);
+		createEReference(formPanelEClass, FORM_PANEL__WIDGETS);
+
+		multiPanelEClass = createEClass(MULTI_PANEL);
+		createEReference(multiPanelEClass, MULTI_PANEL__PANELS);
+
+		tabSetPanelEClass = createEClass(TAB_SET_PANEL);
+		createEReference(tabSetPanelEClass, TAB_SET_PANEL__SWITCHER);
 
 		widgetEClass = createEClass(WIDGET);
 		createEAttribute(widgetEClass, WIDGET__NAME);
@@ -5384,9 +5387,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		userDefinedWidgetEClass = createEClass(USER_DEFINED_WIDGET);
 
-		multiPanelEClass = createEClass(MULTI_PANEL);
-		createEReference(multiPanelEClass, MULTI_PANEL__PANELS);
-
 		activateMultiPanelItemCommandEClass = createEClass(ACTIVATE_MULTI_PANEL_ITEM_COMMAND);
 		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__MULTIPANEL);
 		createEReference(activateMultiPanelItemCommandEClass, ACTIVATE_MULTI_PANEL_ITEM_COMMAND__ACTIVE_ITEM);
@@ -5658,6 +5658,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		// Add supertypes to classes
 		formPanelEClass.getESuperTypes().add(this.getPanel());
+		multiPanelEClass.getESuperTypes().add(this.getPanel());
 		tabSetPanelEClass.getESuperTypes().add(this.getMultiPanel());
 		commandWidgetEClass.getESuperTypes().add(this.getWidget());
 		dataWidgetEClass.getESuperTypes().add(this.getWidget());
@@ -5710,7 +5711,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		menuPanelEClass.getESuperTypes().add(this.getPanel());
 		hiddenValueEClass.getESuperTypes().add(this.getDataWidget());
 		userDefinedWidgetEClass.getESuperTypes().add(this.getWidget());
-		multiPanelEClass.getESuperTypes().add(this.getPanel());
 		activateMultiPanelItemCommandEClass.getESuperTypes().add(this.getCommand());
 		ucBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
 		actorBasedSecurityConstraintEClass.getESuperTypes().add(this.getUISecurityConstraint());
@@ -5779,19 +5779,22 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getContentPanel_States(), this.getScreenStates(), null, "states", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContentPanel_DefaultState(), this.getScreenState(), null, "defaultState", null, 0, 1, ContentPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFormPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(tabSetPanelEClass, TabSetPanel.class, "TabSetPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTabSetPanel_Switcher(), this.getTabSwitcher(), null, "switcher", null, 0, 1, TabSetPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(panelEClass, Panel.class, "Panel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPanel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPanel_Label(), ecorePackage.getEString(), "label", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPanel_Layout(), this.getPanelLayout(), null, "layout", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPanel_LayoutSpec(), this.getWidgetLayoutSpecifier(), null, "layoutSpec", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPanel_Scrollable(), ecorePackage.getEBoolean(), "scrollable", null, 0, 1, Panel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(formPanelEClass, FormPanel.class, "FormPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFormPanel_Subpanels(), this.getPanel(), null, "subpanels", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFormPanel_Widgets(), this.getWidget(), null, "widgets", null, 0, -1, FormPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(multiPanelEClass, MultiPanel.class, "MultiPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMultiPanel_Panels(), this.getPanel(), null, "panels", null, 0, -1, MultiPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tabSetPanelEClass, TabSetPanel.class, "TabSetPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTabSetPanel_Switcher(), this.getTabSwitcher(), null, "switcher", null, 0, 1, TabSetPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(widgetEClass, Widget.class, "Widget", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWidget_Name(), ecorePackage.getEString(), "name", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6065,9 +6068,6 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(hiddenValueEClass, HiddenValue.class, "HiddenValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(userDefinedWidgetEClass, UserDefinedWidget.class, "UserDefinedWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(multiPanelEClass, MultiPanel.class, "MultiPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getMultiPanel_Panels(), this.getPanel(), null, "panels", null, 0, -1, MultiPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(activateMultiPanelItemCommandEClass, ActivateMultiPanelItemCommand.class, "ActivateMultiPanelItemCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivateMultiPanelItemCommand_Multipanel(), this.getMultiPanel(), null, "multipanel", null, 0, 1, ActivateMultiPanelItemCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6404,8 +6404,736 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createResource(eNS_URI);
 
 		// Create annotations
+		// logicpkg
+		createLogicpkgAnnotations();
+		// uipaneldoc
+		createUipaneldocAnnotations();
 		// uiwidgetdoc
 		createUiwidgetdocAnnotations();
+		// uilayoutdoc
+		createUilayoutdocAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>logicpkg</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createLogicpkgAnnotations() {
+		String source = "logicpkg";				
+		addAnnotation
+		  (applicationAreaEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "app"
+		   });												
+		addAnnotation
+		  (menubarEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.menu"
+		   });						
+		addAnnotation
+		  (contentPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });										
+		addAnnotation
+		  (panelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });									
+		addAnnotation
+		  (formPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });						
+		addAnnotation
+		  (multiPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });					
+		addAnnotation
+		  (tabSetPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });				
+		addAnnotation
+		  (widgetEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });											
+		addAnnotation
+		  (commandWidgetEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });			
+		addAnnotation
+		  (dataWidgetEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });								
+		addAnnotation
+		  (buttonEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });					
+		addAnnotation
+		  (textFieldEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });						
+		addAnnotation
+		  (textAreaEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });					
+		addAnnotation
+		  (widgetDataTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });				
+		addAnnotation
+		  (calendarEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (comboBoxEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });							
+		addAnnotation
+		  (tableEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });								
+		addAnnotation
+		  (checkBoxEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });																				
+		addAnnotation
+		  (radioButtonsEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (radioButtonEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });					
+		addAnnotation
+		  (resetButtonEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });			
+		addAnnotation
+		  (confirmButtonEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });			
+		addAnnotation
+		  (panelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });					
+		addAnnotation
+		  (horizontalFlowPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });				
+		addAnnotation
+		  (verticalFlowPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });				
+		addAnnotation
+		  (udlrcPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });			
+		addAnnotation
+		  (widgetLayoutSpecifierEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });			
+		addAnnotation
+		  (udlrcWidgetLayoutSpecEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });				
+		addAnnotation
+		  (udlrcSpecConstantsEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });			
+		addAnnotation
+		  (imageEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (menuEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.menu"
+		   });														
+		addAnnotation
+		  (columnModelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets.table"
+		   });					
+		addAnnotation
+		  (columnEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets.table"
+		   });														
+		addAnnotation
+		  (commandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (onoffCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (customCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });			
+		addAnnotation
+		  (visibilityCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (refreshViewCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });			
+		addAnnotation
+		  (jumpCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });					
+		addAnnotation
+		  (execCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });							
+		addAnnotation
+		  (eventHandlerEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.event"
+		   });						
+		addAnnotation
+		  (methodProtectionTypesEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.event"
+		   });			
+		addAnnotation
+		  (eventTypesEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.event"
+		   });								
+		addAnnotation
+		  (commandOnWidgetsEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });					
+		addAnnotation
+		  (dialogPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });					
+		addAnnotation
+		  (showDialogCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (commandOutcomeEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });					
+		addAnnotation
+		  (commandOnPanelsEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });											
+		addAnnotation
+		  (appWindowEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "app"
+		   });							
+		addAnnotation
+		  (sequenceCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (jumpBackCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });			
+		addAnnotation
+		  (applicationDataEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.data"
+		   });						
+		addAnnotation
+		  (dataLifetimeTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.data"
+		   });						
+		addAnnotation
+		  (appDataBindingEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.data"
+		   });					
+		addAnnotation
+		  (multiDataWidgetEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (typedefsEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });						
+		addAnnotation
+		  (typeEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });				
+		addAnnotation
+		  (simpleTypeEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });								
+		addAnnotation
+		  (complexTypeEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });					
+		addAnnotation
+		  (typedArrayEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });				
+		addAnnotation
+		  (simpleTypeCodesEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });				
+		addAnnotation
+		  (fieldEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });							
+		addAnnotation
+		  (applicationDataDefsEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.data"
+		   });								
+		addAnnotation
+		  (treeViewEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (plainTextEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });					
+		addAnnotation
+		  (menuViewEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });				
+		addAnnotation
+		  (gridPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });					
+		addAnnotation
+		  (gridWidgetLayoutSpecEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.layout"
+		   });								
+		addAnnotation
+		  (commandPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });						
+		addAnnotation
+		  (menuPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });					
+		addAnnotation
+		  (userDefinedWidgetEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });			
+		addAnnotation
+		  (activateMultiPanelItemCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });					
+		addAnnotation
+		  (autenticationMethodEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });			
+		addAnnotation
+		  (uiSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });					
+		addAnnotation
+		  (ucBasedSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });				
+		addAnnotation
+		  (securityModelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });								
+		addAnnotation
+		  (actorEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });					
+		addAnnotation
+		  (useCaseEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });					
+		addAnnotation
+		  (actorBasedSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });				
+		addAnnotation
+		  (customSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });				
+		addAnnotation
+		  (opauthssoEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });				
+		addAnnotation
+		  (ssobartssoEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });			
+		addAnnotation
+		  (customAuthenticationEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });				
+		addAnnotation
+		  (stdMessagePanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });						
+		addAnnotation
+		  (jumpExtCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });											
+		addAnnotation
+		  (userInfoPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });			
+		addAnnotation
+		  (userDefinedPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });				
+		addAnnotation
+		  (wizardPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });									
+		addAnnotation
+		  (typeNamespaceEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.types"
+		   });					
+		addAnnotation
+		  (appDataGroupEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "mdl.data"
+		   });					
+		addAnnotation
+		  (msgBoxPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });					
+		addAnnotation
+		  (nopCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (widgetsPanelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });				
+		addAnnotation
+		  (screenStateEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.state"
+		   });						
+		addAnnotation
+		  (screenStatesEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.state"
+		   });			
+		addAnnotation
+		  (screenStateCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (shibbolethSSOEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });			
+		addAnnotation
+		  (roleEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });					
+		addAnnotation
+		  (roleBasedSecurityConstraintEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "security"
+		   });					
+		addAnnotation
+		  (fileUploadEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.panels"
+		   });																			
+		addAnnotation
+		  (activationModelEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "app"
+		   });			
+		addAnnotation
+		  (activationParamEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "app"
+		   });			
+		addAnnotation
+		  (beginEditCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });				
+		addAnnotation
+		  (endEditCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });					
+		addAnnotation
+		  (chkEditStatusCommandEClass, 
+		   source, 
+		   new String[] {
+			 "pkg", "cmd"
+		   });																																				
+		addAnnotation
+		  (commandFunctionsEEnum, 
+		   source, 
+		   new String[] {
+			 "pkg", "ui.widgets"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>uipaneldoc</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createUipaneldocAnnotations() {
+		String source = "uipaneldoc";																																				
+		addAnnotation
+		  (formPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>FormPanel</b> &egrave; un pannello utilizzato principalmente per\r\ncreare la macro struttura della schermata. E\'un pannello destinato a \r\ncontenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari\r\nlayout disponibili. <br/>\r\nIl <b>FormPanel</b> tipicamente si colloca:\r\n<ul>\r\n<li>come pannello principale (pi&ugrave; esterno) della schermata;</li>\r\n<li>come pannello principale del singolo quadrante all\'interno di un <b>FormPanel</b>\r\ncon layout a quadranti (UDLRC)</li>\r\n<li>come contenitore di ciascun <i>item</i> di un pannello a <i>tab</i>\r\no <i>wizard</i></li>\r\n<li>per ogni <i>item</i> di un <b>MultiPanel</b></li>\r\n</ul>\r\nIl <b>FormPanel</b> pu&ograve; essere dotato di <i>titolo</i>. Nel caso di\r\n<b>FormPanel</b> utilizzato all\'interno di un <b>TabSetPanel</b> tale titolo \r\n&egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia\r\nutilizzato all\'interno di un <b>WizardPanel</b> il titolo viene visualizzato come\r\nnome dello <i>step</i> corrispondente.\r\nIl <b>FormPanel</b> non pu&ograve; contenere widget, ma solo sottopannelli.\r\n</p>"
+		   });						
+		addAnnotation
+		  (multiPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>MultiPanel</b> &egrave; un pannello utilizzato per realizzare pannelli <i>mutevoli</i>, ovvero che \r\nassumono programmaticamente le sembianze di uno tra <i>n</i> pannelli possibili. Esiste anche la \r\npossibilit&agrave; di non visualizzare nessun pannello: in quesot cao il <b>MultiPanel</b> non produce nessuna\r\nstruttura visualizzata. Il <b>MultiPanel</b> &egrave; lo strumento principale da utilizzare nel caso in cui sia \r\nnecessaria la scomparsa di un intero pannello (cosa che non &egravE; possibile realizzare esclusivamente\r\ncon i comandi di visibilit&agrave; sui <b>Widget</b>).\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>"
+		   });					
+		addAnnotation
+		  (tabSetPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>tab</i>. Prevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> \r\n(con evidenza visiva del tab correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>"
+		   });																																																																																																																																																																																		
+		addAnnotation
+		  (dialogPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>DialogPanel</b> &egrave; un pannello utilizzato per realizzare funzioni di feedback utente\r\n(messaggi informativi, dichieste di conferme). E\'associato all\'intera schermata e, quando &egrave; \r\nattivato, mostra all\'utente i messaggi previsti sostituendo completamente la schermata operativa.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire solo quelle tipologie di pannelli che servono per:\r\n<ul>\r\n<li>mostrare messaggi formattati all\'utente (<b>MsgBoxPanel</b>)</li>\r\n<li>fornire all\'utente i comandi per &quot;rispondere&quot; al feedback, ovvero uno o pi&ugrave;\r\npulsanti di conferma o cancellazione (<b>CommandPanel</b>)</li>\r\n</ul>\r\n</p>"
+		   });																																																																																																													
+		addAnnotation
+		  (commandPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>CommandPanel</b> &egrave; un pannello utilizzato per realizzare pulsantiere,\r\novvero gruppi di <b>Button</b> destinati ad eseguire funzioni di business.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pulsanti disponibili.\r\n</p>"
+		   });						
+		addAnnotation
+		  (menuPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>MenuPanel</b> &egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi\r\nesclusivamente per contenere il widget <b>MenuView</b>.\r\n</p>"
+		   });																																																	
+		addAnnotation
+		  (stdMessagePanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nLo <b>stdMessagePanel</b> &egrave; un pannello di tipo informativo utilizzato per mostrare \r\nall\'utente eventuali messaggi di errore o informativi.\r\nSe, durante l\'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi\r\ninformativi il pannello mostra tali messaggi.\r\nSe invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza\r\ngrafica.\r\nLe tipologie di messaggio visualizzabili sono:\r\n<ul>\r\n<li>messaggi informativi</li>\r\n<li>messaggi di errore globali</li>\r\n<li>messaggi di errore relativi a campi specifici</li>\r\n</ul>\r\n<br/>\r\n</p>"
+		   });																
+		addAnnotation
+		  (userInfoPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nLo <b>UserInfoPanel</b> &egrave; un pannello utilizzato per visualizzare le informazioni\r\nrelative all\'utente selezionato, che tipicamente sono:\r\n<ol>\r\n<li>il nome ed il cognome dell\'utente</li>\r\n<li>il codice fiscale dell\'utente</li>\r\n<li>l\'ente di appartenenza</li>\r\n<li>il ruolo</li>\r\n</ol>\r\n<br/>\r\n</p>"
+		   });						
+		addAnnotation
+		  (wizardPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>WizardPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>wizard</i>:\r\nPrevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; etichette &quot; che servono per attivare i vari <i>step</i> \r\n(con evidenza visiva dello step correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto dello <i>step</i> corrente.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\nIl <b>WizardPanel</b> pu&ograve; funzionare in tre differenti modalit&agrave;:\r\n<ol>\r\n<li>wizard <b>passivo</b>: la navigazione tra gli step deve essere comandata dalla business\r\nlogic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all\'interno dello step)</li>\r\n<li>wizard <b>attivo</b>: la navigazione tra gli step pu&ograve; essere comandata sia dalla\r\nbusiness logic (es. tasti di &quot;avanti&quot; o &quot;indietro&quot; all\'interno dello step) sia\r\ntramite click sulle etichette dei vari step.</li>\r\n</ol>\r\n</p>"
+		   });																	
+		addAnnotation
+		  (msgBoxPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>MsgBoxPanel</b> &egrave; un pannello utilizzabile per mostrare all\'utente\r\ndel testo in sola lettura, eventualmente formattato. Il testo pu&ograve; essere statico\r\n(definito a tempo di modellazione) o dinamico (calcolato a runtime).\r\nE\' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente\r\nutilizzare lo <b>StdMessagePanel</b>, che &egrave; orientato principalmente a brevi\r\nmessaggi testuali.\r\n<br/>\r\nData la natura del pannello, &egrave; possibile inserire esclusivamente dei widget di\r\nvisualizzazione di testo (<b>PlainText</b>).\r\n</p>"
+		   });								
+		addAnnotation
+		  (widgetsPanelEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di\r\n<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo\r\ni vari layout disponibili, praticamente tutti i <b>Widget</b>. L\'effetto grafico &egrave; quello di un\r\ninsieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun\r\nwidget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di\r\n&quot;titolo&quot; che viene visualzzato in testa al pannello.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione\r\ndel <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.\r\n</p>"
+		   });																																																																																								
 	}
 
 	/**
@@ -6415,94 +7143,128 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	protected void createUiwidgetdocAnnotations() {
-		String source = "uiwidgetdoc";																																																				
+		String source = "uiwidgetdoc";																																																																			
 		addAnnotation
 		  (buttonEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico pulsante di comando utilizzabile per comandare l\'esecuzione\r\ndelle varie funzioni applicative (ricerca, inserimento, verifica, conferma, ....)\r\nIl <b>Button</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario\r\nrealizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del Button prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,\r\nche pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;\r\ntale pulsante, con l\'effetto, ad esempio di permettere l\'associazione di uno\r\nstile specifico o di un\'icona rappresentativa della funzone stessa.\r\nL\'elenco delle funzioni specificabili &egrave il seguente:\r\n\t<ul>\r\n\t<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>\r\n\t<li>BACK: ritorno ad una schermata precedente</li>\r\n\t<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>\r\n\t<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>\r\n\t<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un\'entit&agrave;</li>\r\n\t<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>\r\n\t<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>\r\n\t<li>LAST_ITEM: posizionamento sull\'ultimo elemento di un elenco di dati</li>\r\n\t<li>LOAD: caricamento di un record</li>\r\n\t<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>\r\n\t<li>PREVIOUS_ITEM: posizionamento sull\'elemento precedente a quello corrente\r\n\t\t all\'interno di un elenco di dati</li>\r\n\t<li>SAVE: salvataggio dei dati immessi</li>\r\n\t<li>SEARCH: effettuazione della ricerca</li>\r\n\t<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>\r\n\t<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>\r\n\t<li>SHOW_REPORT: visualizzazione di un report</li>\r\n\t<li>UNSPECIFIED: funzione generica</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>possibilit&agrave; di effettuare un refresh parziale della schermata \r\na fronte dell\'esecuzione del comando associato alla pressione del pulsante</li>\r\n</ul>",
 			 "event-clicked", "<p>Il pulsante pu&ograve ricevere un evento di pressione da parte \r\ndell\'utente e, a fronte di questo evento &egrave; possibile eseguire logica\r\ndi business. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla pressione del pulsante viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla pressione del pulsante viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
-		   });				
+		   });					
 		addAnnotation
 		  (textFieldEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget di immissione di dati testuali a riga singola.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>TextField</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TextField prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare il numero massimo di caratteri\r\naccettabili</li>\r\n<li>la possibilit&agrave; di specificare la dimensione massima dell\'area editabile\r\n(che &egrave; utilizzata in modi differenti a seconda della cartuccia/skin)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (es. solo caratteri numerici per tipi numerici)</li>\r\n<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\nInoltre &egrave; possibile, se esplicitamente modellato, associare al <b>TextField</b> la\r\nfunzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i \r\ncaratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa\r\ndi caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di \r\nsuggerimenti &egrave; a carico dello sviluppatore).",
 			 "event-key-pressed", "<p>L\'evento <b>KeyPressed</b>, utilizzabile solo in modalit&agrave; ricca, \r\npermette di ottenere la funzione di <i>suggestion</i>\r\n</p>"
-		   });					
+		   });						
 		addAnnotation
 		  (textAreaEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget di immissione di dati testuali a riga multipla.\r\nIl widget completo prevede una <i>label</i> ed l\'area di immissione associata.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nLa <b>TextArea</b> pu&ograve; essere utilizzata all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: standard e ricca.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base della TextArea prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare la dimensione in righe/colonne\r\ndell\'area editabile</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<!-- <li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (es. solo caratteri numerici per tipi numerici)</li>\r\n<li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato</li> -->\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>"
-		   });						
+		   });								
 		addAnnotation
 		  (calendarEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' un campo utilizzabile per l\'immissione di date (nel formato gg/mm/aaaa).\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>Calendar</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del Calnedar prevede:\r\n<ul>\r\n<li>la limitazione automatica del numero di caratteri digitabili (gg/mm/aaa=10)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (che deve necessariamente essere di tipo \"DATA\")</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo\r\ndi dato previsto (maschera GG/MM/AAAA)</li>\r\n<li><i>date-picker</i>: strumento di selezione della data a partire da mini-calendario</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>"
-		   });			
+		   });				
 		addAnnotation
 		  (comboBoxEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il widget di selezione di uno (o pi&ugrave;) dati a partire da una lista di dati precaricata.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>ComboBox</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TextField prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di specificare per ogni elemento della lista,\r\nun valore visualizzato e la corrispondente chiave, utilizzata come valore\r\neffettivamente seleizonato e utilizzabile dalla logica applicativa</li>\r\n<li>la scelta tra selezione singola o multipla</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>funzione di <i>autocomplete</i> (restrizione dell\'elenco di opzioni a fronte dell\'immissione \r\nprogressiva dei caratteri iniziali della selezione stessa)</li>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n<!-- Inoltre &egrave; possibile, se esplicitamente modellato, associare alla <b>ComboBox</b> la\r\nfunzionalit&agrave; di <i>suggestion</i> che consiste nel fornire, man mano che si digitano i \r\ncaratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa\r\ndi caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di \r\nsuggerimenti &egrave; a carico dello sviluppatore). -->",
 			 "event-value-changed", "<p>E\'possibile, a fronte della selezione da parte dell\'utente di una delle\r\nopzioni presenti nella lista, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
-		   });						
+		   });							
 		addAnnotation
 		  (tableEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget di visualizzazione/editing di dati in formato tabellare.\r\n<!--Il widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.-->\r\nLa <b>Table</b> pu&ograve; essere utilizzata all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia; N.B: deve\r\nessere l\'unico widget all\'interno del pannello</li>\r\n</ul>\r\nPrevede tre modalit&agrave; di funzionamento, una <i>standard/visualizzazione</i>,\r\nuna <i>standard/editing</i> ed una <i>ricca</i>.\r\n<h4>modalit&agrave; standard/visualizzazione</h4>\r\nIl funzionamento di base della Table prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di visualizzare le informazioni contenute in una \r\ncollezione di record, con formattazioen dell\'informazione coerente con il tipo di dato\r\ndi ciascuna colonna</li>\r\n<li>la possibilit&agrave; (opzionale) di effettuare l\'ordinamento delle righe in base ai valori\r\ncontenuti in una colonna</li>\r\n<li>la possibilit&agrave; (opzionale) di <b>paginare</b> i risultati (con dimensione della pagina impostabile)</li>\r\n<li>la possibilit&agrave; (opzionale) di effettuare l\'<b>export</b> dei dati della tabella in formato excel o pdf</li>\r\n<li>la possibilit&agrave; (opzionale) di <b>selezione</b> singola o multipla delle righe della Tabella, allo scopo\r\ndi eseguire logiche applicative sulle righe selezionate (l\'esecuzione della logica deve essere comandata in un momento\r\nsuccessivo alla selezione da un <b>Button</b> posto nella stessa schermata)</li>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso a seconda del tipo di dato associato \r\nal campo e di alcuni ulteriori specifiche</li>\r\n<li>la possibilit&agrave; di essere disabilitata a comando</li>\r\n<li>la possibilit&agrave; di essere resa invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitata/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<!--<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>-->\r\n</ul>\r\n<h4>modalit&agrave; standard/editing</h4>\r\nRipsetto alla modalit&agrave; <i>standard/visualizzazione</i> la modalit&agrave; <i>standard/editing</i>\r\nprevede alcune possibilit&agrave; aggiuntive:\r\n<ul>\r\n<li><b>editing <i>in place</i></b> delle celle di una colonna:\r\n\t<ul>\r\n\t<li>il <b>widget di editing</b> della cella dipende dal tipo di dato associato alla colonna:\r\n\t\t<ul>\r\n\t\t<li><b>Calendar</b> in caso di tipo DATA</li>\r\n\t\t<li><b>CheckBox</b> in caso di tipo BOOLEAN</li>\r\n\t\t<li><b>TextField</b> in tutti gli altri casi</li>\r\n\t\t</ul>\r\n\t</li>\r\n\t<li>&egrave; possibile selezionare il valore di una cella da una <b>lista di valori</b> (in questo caso il widget utilizzato\r\n\t\tper l\'immissione &egrave; la <b>ComboBox</b>); l\'elenco dei valori selezionabili pu&ograve; essere comune a tutte le\r\n\t\trighe oppure specifico per ciascuna riga\r\n\t</li>\r\n\t<li>&egrave; possibile, nell\'ambito di una colonna dichiarata <i>editabile</i>, decidere a runtime l\'editabilit&agrave;\r\n\t\tdella singola cella (nel qual caso il widget corrispondente apparir&agrave; disabilitato)\r\n\t</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sull\'intestazione delle colonne</li>\r\n<li>refresh della sola area della tabella in caso di esecuzione delle funzioni di ordinamento e paginazione</li>\r\n<li>possibilit&agrave; di ridimensionare/cambiare l\'ordine/nascondere le colonne della tabella interattivamente</li>\r\n</ul>",
 			 "event-clicked", "<p>In una tabella &egrave; possibile rendere \"attive\" le celle di alcune\r\ncolonne (purch\u00e8 esse non siano editabili). L\'evento \"clicked\" &egrave; proprio il \"click\" dell\'utente \r\nsu tali celle. \r\nE\'possibile, a fronte ddi questo evento, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAl click di una cella viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla click di una cella viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
-		   });							
+		   });								
 		addAnnotation
 		  (checkBoxEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget di selezione di un valore booleano (si/no).\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>CheckBox</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del CheckBox prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (es . campo required)</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n"
-		   });																			
+		   });																				
 		addAnnotation
 		  (radioButtonsEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget di selezione di una opzione tra un insieme finito (e definito a tempo di sviluppo) di possibilit&agrave;.\r\nIl widget completo prevede una <i>label</i> ed il campo di immissione associato, che &egrave; a sua volta costituito\r\nda un elenco di pulsanti la cui selezione &egrave; mutualmente esclusiva.\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>RadioButtons</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del RadioButtons prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di effettuare, al momento del submit della form,\r\nla validazione dell\'input immesso (es. verifica di campo required)</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la visualizzazione di un marcatore di errore in prossimit&agrave; della label, in caso di fallita\r\nvalidazione</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n",
 			 "event-clicked", "<p>E\'possibile, a fronte della selezione da parte dell\'utente di una delle opzioni visualizzate, scatenare una logica applicativa e modificare di\r\nconseguenza la schermata visualizzata. Esistono due modalit&agrave; di esecuzione della logica \r\nassociata: <i>standard</i> e <i>ricca</i>.\r\n<h5>modalit&agrave; standard</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata\r\ne, al termine dell\'esecuzione viene ricaricata l\'intera schermata\r\noppure il flusso passa ad una schermata differente.\r\n<h5>modalit&agrave; ricca</h5>\r\nAlla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante\r\nl\'esecuzione viene sospesa l\'interazione utente e viene visualizzato un\r\nindicatore di \"operazione in corso\".\r\nAl termine dell\'esecuzione i possibili effetti sono:\r\n<ul>\r\n<li>il refresh dell\'intera schermata corrente, con mantenimento della\r\nposizione delle eventuali scrollbar</li>\r\n<li>il refresh di una porzione specifica di schermata</li>\r\n<li>il passaggio del flusso ad una schermata differente</li>\r\n</ul>\r\n</p>"
-		   });						
+		   });								
 		addAnnotation
 		  (resetButtonEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico pulsante di reset utilizzabile per ripulire la forma utente, riportandola allo stato \r\niniziale.\r\nIl <b>ResetButton</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n<li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario\r\nrealizzare una \"pulsantiera\" costituita da soli <b>Button</b></li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del ResetButton prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n<li>la possibilit&agrave; di associare al pulsante uno <i>specificatore di funzione</i>,\r\nche pu&ograve; essere utilizzato per connotare la funzione che eseguir&agrave;\r\ntale pulsante, con l\'effetto, ad esempio di permettere l\'associazione di uno\r\nstile specifico o di un\'icona rappresentativa della funzone stessa.\r\nL\'elenco delle funzioni specificabili &egrave il seguente:\r\n\t<ul>\r\n\t<li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella</li>\r\n\t<li>BACK: ritorno ad una schermata precedente</li>\r\n\t<li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando</li>\r\n\t<li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella</li>\r\n\t<li>DETAIL: visualizzazione del dettaglio di una entit&agrave;</li>\r\n\t<li>EDIT_ITEM: inizio delle attivit&agrave; di modifica di un\'entit&agrave;</li>\r\n\t<li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati</li>\r\n\t<li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati</li>\r\n\t<li>LAST_ITEM: posizionamento sull\'ultimo elemento di un elenco di dati</li>\r\n\t<li>LOAD: caricamento di un record</li>\r\n\t<li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati</li>\r\n\t<li>PREVIOUS_ITEM: posizionamento sull\'elemento precedente a quello corrente\r\n\t\t all\'interno di un elenco di dati</li>\r\n\t<li>SAVE: salvataggio dei dati immessi</li>\r\n\t<li>SEARCH: effettuazione della ricerca</li>\r\n\t<li>SEND_MESSAGE: invio di un messaggio (es. email)</li>\r\n\t<li>SHOW_HELP: visualizzazione di una pagina di aiuto</li>\r\n\t<li>SHOW_REPORT: visualizzazione di un report</li>\r\n\t<li>UNSPECIFIED: funzione generica</li>\r\n\t</ul>\r\n</li>\r\n</ul>\r\n",
 			 "event-clicked", "<p>Il pulsante pu&ograve; ricevere un evento di pressione da parte \r\ndell\'utente che scatena il reset della schermata.\r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b>\r\nper attivarlo). A fronte di questo evento <b>non</b> &egrave; perci&ograve; \r\npossibile eseguire logica di business. \r\n</p>"
-		   });																																																																																																																																										
+		   });																																																																																																																																																																																									
 		addAnnotation
 		  (treeViewEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' un widget utilizzabile per la visualizzazione di una struttura ad albero.\r\nIl <b>TreeView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di visualizzare una struttura ad albero in termini di testo sintetico descrittivo\r\ndel contenuto di ciascun nodo.</li>\r\n<li>la possibilit&agrave; di espandere un nodo non foglia per mostrarne i nodi figli</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il <b>TreeView</b> pu&ograve; ricevere un evento di pressione da parte \r\ndell\'utente che agisce in due modi a seconda che il nodo selezionato sia un nodo\r\nfoglia o intermedio.\r\n<ol>\r\n<li>in caso di nodo intermedio l\'evento &egrave; implicito (non occorre definire un \r\n<b>EventHandler</b>per attivarlo) e l\'effetto della selezione &egrave; l\'espansione \r\no la chiusura del nodo</li>\r\n<li>in caso di nodo foglia &egrave; possibile eseguire della logica server-side; tale\r\nlogica avr&agrave, a disposizione l\'informazione che permette di risalire al nodo selezionato.</li>\r\n</ol>\r\n</p>"
-		   });			
+		   });				
 		addAnnotation
 		  (plainTextEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' un widget di visualizzazione di dati testuali.\r\nIl widget completo prevede una <i>label</i> ed il campo di visualizzazione associato, che\r\n&egrave; semplicemente il testo corrispondente al valore associato al widget\r\n(da qui il nome di <b>PlainText</b>).\r\nLa <i>label</i> pu&ograve; essere, in casi particolari, vuota.\r\nIl <b>TextField</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia</li>\r\n<li>DialogPanel, per la visualizzazione del testo del dialog</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento, una <i>standard</i> ed una\r\n<i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del PlainText prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>\r\n"
-		   });				
+		   });					
 		addAnnotation
 		  (menuViewEClass, 
 		   source, 
 		   new String[] {
 			 "description", "Questo widget &egrave; un segnaposto utilizzabile per la visualizzazione della struttura\r\ndel menu. \r\nIl <b>MenuView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>MenuPanel, con layout Verticale</li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\nPer ciascuna voce di menu, inoltre &egrave; possibile replicare gli stessi comportamenti di \r\nvisibilit&agrave;/abilitazione.\r\n",
 			 "event-clicked", "<p>Il <b>MenuView</b> pu&ograve; ricevere un evento di selezione della voce\r\ndi menu corrispondente, alla quale &egrave, possibile associare una logica\r\ndi business da eseguire.\r\n</p>"
-		   });																																																																																														
+		   });																																																																																																																																						
 		addAnnotation
 		  (fileUploadEClass, 
 		   source, 
 		   new String[] {
 			 "description", "E\' il classico widget utilizzabile per la selezione di un <i>file</i> che dovr&agrave; essere inviato\r\nal server (funzione di <i>file upload</i>).\r\nIl <b>FileUpload</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del FileUpload prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di selezionare da file system un file mediante <i>browsing</i> sulle cartelle\r\nlocali alla postazione client</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il widget <b>FileUpload</b> contiene un pulsante che pu&ograve; ricevere un evento di pressione \r\nda parte dell\'utente a fronte del quale viene visualizzato il <i>dialog</i> di selezione del file da sottomettere al\r\nserver. \r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b> per attivarlo). \r\nA fronte di questo evento <b>non</b> &egrave; per&ograve; possibile eseguire logica di business. \r\n</p>"
-		   });																																																										
+		   });																																																																	
+	}
+
+	/**
+	 * Initializes the annotations for <b>uilayoutdoc</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createUilayoutdocAnnotations() {
+		String source = "uilayoutdoc";																																																																																																																																					
+		addAnnotation
+		  (horizontalFlowPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nL\' <b>HorizontalFlowPanelLayout</b> (layout sequenziale a sviluppo\r\norizzontale) prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati uno dopo l\'altro in una sequenza \r\norizzontale, all\'interno dell\'area disponibile per il pannello contenitore.\r\nDi fatto, se il numero di widget inseriti nel pannello &egrave; <i>n</i>, \r\nrappresenta un layout con <i>n</i> colonne logiche (una per widget) e\r\n<i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero di widget).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuno dei widget.\r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\n</p>"
+		   });				
+		addAnnotation
+		  (verticalFlowPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>VerticalFlowPanelLayout</b> (layout sequenziale a sviluppo\r\nverticale) prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati uno dopo l\'altro in una sequenza \r\nverticale, all\'interno dell\'area disponibile per il pannello contenitore.\r\nDi fatto rappresenta un layout ad una colonna logica (un solo widget) e\r\ndue colonne fisiche (una per la label ed una per il campo effettivo).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget. Le percentuali sono relative allo spazio a\r\ndisposizione dell\'interno pannello.\r\n</p>"
+		   });				
+		addAnnotation
+		  (udlrcPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nL\' <b>UDLRCPanelLayout</b> (layout a cinque quadranti Up, Down, Left,\r\nRight, Center)  prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati in uno dei quadranti. realizzando in questo modo\r\nstutture di posizionamento relativo molto flessibili.\r\nTipicamente questo layout &egrave; utilizzato nella disposizione di sotto-pannelli.\r\nIl layout pu&ograve; anche essere utilizzato per la disposizione di pulsanti all\'interno\r\ndi un <b>CommandPanel</b>.\r\n</p>"
+		   });																																																																																																																																																																																					
+		addAnnotation
+		  (gridPanelLayoutEClass, 
+		   source, 
+		   new String[] {
+			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
+		   });																																																																																																																																																																																																			
 	}
 
 } //GuigenPackageImpl

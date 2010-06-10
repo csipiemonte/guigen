@@ -3101,6 +3101,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (titlebarItemProvider != null) titlebarItemProvider.dispose();
 		if (contentPanelItemProvider != null) contentPanelItemProvider.dispose();
 		if (formPanelItemProvider != null) formPanelItemProvider.dispose();
+		if (multiPanelItemProvider != null) multiPanelItemProvider.dispose();
 		if (tabSetPanelItemProvider != null) tabSetPanelItemProvider.dispose();
 		if (commandWidgetItemProvider != null) commandWidgetItemProvider.dispose();
 		if (dataWidgetItemProvider != null) dataWidgetItemProvider.dispose();
@@ -3163,7 +3164,6 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (menuPanelItemProvider != null) menuPanelItemProvider.dispose();
 		if (hiddenValueItemProvider != null) hiddenValueItemProvider.dispose();
 		if (userDefinedWidgetItemProvider != null) userDefinedWidgetItemProvider.dispose();
-		if (multiPanelItemProvider != null) multiPanelItemProvider.dispose();
 		if (activateMultiPanelItemCommandItemProvider != null) activateMultiPanelItemCommandItemProvider.dispose();
 		if (ucBasedSecurityConstraintItemProvider != null) ucBasedSecurityConstraintItemProvider.dispose();
 		if (securityModelItemProvider != null) securityModelItemProvider.dispose();

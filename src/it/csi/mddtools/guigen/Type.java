@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getType()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface Type extends EObject {

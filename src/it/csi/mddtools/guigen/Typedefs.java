@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getTypedefs()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface Typedefs extends EObject {

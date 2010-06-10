@@ -26,7 +26,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getWidgetsPanel()
- * @model
+ * @model annotation="uipaneldoc description='<p>\r\nIl <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di\r\n<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo\r\ni vari layout disponibili, praticamente tutti i <b>Widget</b>. L\'effetto grafico &egrave; quello di un\r\ninsieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun\r\nwidget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di\r\n&quot;titolo&quot; che viene visualzzato in testa al pannello.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione\r\ndel <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.\r\n</p>'"
+ *        annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface WidgetsPanel extends Panel {

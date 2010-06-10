@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getApplicationArea()
- * @model
+ * @model annotation="logicpkg pkg='app'"
  * @generated
  */
 public interface ApplicationArea extends EObject {

@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * tipologie di eventi a cui &egrave; possibile associare un event handler.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getEventTypes()
- * @model
+ * @model annotation="logicpkg pkg='ui.event'"
  * @generated
  */
 public enum EventTypes implements Enumerator {

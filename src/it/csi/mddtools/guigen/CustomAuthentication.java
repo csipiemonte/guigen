@@ -18,7 +18,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCustomAuthentication()
- * @model
+ * @model annotation="logicpkg pkg='security'"
  * @generated
  */
 public interface CustomAuthentication extends AutenticationMethod {

@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getAppWindow()
- * @model
+ * @model annotation="logicpkg pkg='app'"
  * @generated
  */
 public interface AppWindow extends EObject {

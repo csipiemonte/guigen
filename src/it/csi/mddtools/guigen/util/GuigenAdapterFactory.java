@@ -92,16 +92,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createContentPanelAdapter();
 			}
 			@Override
+			public Adapter casePanel(Panel object) {
+				return createPanelAdapter();
+			}
+			@Override
 			public Adapter caseFormPanel(FormPanel object) {
 				return createFormPanelAdapter();
 			}
 			@Override
-			public Adapter caseTabSetPanel(TabSetPanel object) {
-				return createTabSetPanelAdapter();
+			public Adapter caseMultiPanel(MultiPanel object) {
+				return createMultiPanelAdapter();
 			}
 			@Override
-			public Adapter casePanel(Panel object) {
-				return createPanelAdapter();
+			public Adapter caseTabSetPanel(TabSetPanel object) {
+				return createTabSetPanelAdapter();
 			}
 			@Override
 			public Adapter caseWidget(Widget object) {
@@ -378,10 +382,6 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseUserDefinedWidget(UserDefinedWidget object) {
 				return createUserDefinedWidgetAdapter();
-			}
-			@Override
-			public Adapter caseMultiPanel(MultiPanel object) {
-				return createMultiPanelAdapter();
 			}
 			@Override
 			public Adapter caseActivateMultiPanelItemCommand(ActivateMultiPanelItemCommand object) {

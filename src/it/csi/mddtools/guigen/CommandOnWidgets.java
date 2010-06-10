@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOnWidgets()
  * @model abstract="true"
+ *        annotation="logicpkg pkg='cmd'"
  * @generated
  */
 public interface CommandOnWidgets extends Command {

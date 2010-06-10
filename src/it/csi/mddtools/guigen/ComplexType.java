@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType()
- * @model
+ * @model annotation="logicpkg pkg='mdl.types'"
  * @generated
  */
 public interface ComplexType extends Type {

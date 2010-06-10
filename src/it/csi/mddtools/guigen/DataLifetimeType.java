@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * Possibili modi di persistenza dell'application data.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenPackage#getDataLifetimeType()
- * @model
+ * @model annotation="logicpkg pkg='mdl.data'"
  * @generated
  */
 public enum DataLifetimeType implements Enumerator {
