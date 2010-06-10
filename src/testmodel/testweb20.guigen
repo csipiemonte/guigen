@@ -186,7 +186,11 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmdRight">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:ConfirmButton" name="bOpzioni" label="Opzioni" functionSpecifier="SHOW_REPORT"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bOpzioni" label="Opzioni" functionSpecifier="SHOW_REPORT">
+                  <eventHandlers>
+                    <command xsi:type="guigen:NOPCommand"/>
+                  </eventHandlers>
+                </widgets>
               </subpanels>
             </subpanels>
           </panels>
@@ -633,7 +637,11 @@
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="bCmd" label="">
-                <widgets xsi:type="guigen:ConfirmButton" name="bUno" label="B UNO"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bUno" label="B UNO">
+                  <eventHandlers>
+                    <command xsi:type="guigen:NOPCommand"/>
+                  </eventHandlers>
+                </widgets>
               </subpanels>
             </panels>
           </contentPanels>
@@ -780,5 +788,5 @@
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
-  <targetPlatform code="JBoss43"/>
+  <targetPlatform code="JBoss43" enableRichUIBehavior="true"/>
 </guigen:GUIModel>
