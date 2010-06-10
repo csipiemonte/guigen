@@ -503,16 +503,23 @@ nel panel def (use)
     
 	ExecCommand act_«actionsVarName»_«actionNumber» = new ExecCommand(resultNames4«getFullExecCmdMethodName(methodName, contextPrefix)», actionsForResults4«getFullExecCmdMethodName(methodName, contextPrefix)»){
 		public ExecResults doLogic(Object theModel) throws CommandExecutionException{
+			«REM»[SC] Introdotta logica per StopWatch«ENDREM»
+			it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(model)».util.Constants.APPLICATION_CODE);
+			ExecResults result = null;
 			try{
+				watcher.start();
 			«LET cp AS parentCP-»
 			«IF parentCP != null-»
-				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
 			«ELSEIF isInMenuBranch(this)-»
-				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
 			«ELSE-»
-				return getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
 			«ENDIF-»
 			«ENDLET-»
+				watcher.stop();
+				watcher.dumpElapsed("«getStrutsActionClassName(cp)»", "readOne()", "chiamata verso BackEnd", "«getFullExecCmdMethodName(methodName, contextPrefix)»");
+				return result;
 			}
 			catch(BEException e){
 				throw new CommandExecutionException("errore non gestito nell'esecuzione del metodo [«getFullExecCmdMethodName(methodName, contextPrefix)»]:"+
