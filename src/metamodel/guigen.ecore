@@ -10,6 +10,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Rappresenta l'area di user interface specifica dell'applicazione, &#xD;&#xA;innestata nella struttura comune solitamente definita dagli standard&#xD;&#xA;del sito di esposizione."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="app"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="menubar" eType="#//Menubar"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -68,6 +71,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Contiene la struttura del menu. "/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.menu"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelMenu" upperBound="-1"
         eType="#//Menu" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -89,6 +95,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ContentPanel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Il &lt;b>Content Panel&lt;/b> rappresenta la singola schermata&#xD;&#xA;dell'applicativo. Pu&amp;ograve; contenere pannelli strutturati con differenti&#xD;&#xA;tipi di layout."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="panels" eType="#//Panel"
         containment="true">
@@ -131,43 +140,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Pannello destinato a contenere sottopannelli. Serve principlamente per definire&#xD;&#xA;la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)&#xD;&#xA;sono disponibili pe rtutte le cartucce di layout/portale."/>
-    </eAnnotations>
-    <eAnnotations source="uipaneldoc">
-      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> &amp;egrave; un pannello utilizzato principalmente per&#xD;&#xA;creare la macro struttura della schermata. E'un pannello destinato a &#xD;&#xA;contenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari&#xD;&#xA;layout disponibili. &lt;br/>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> tipicamente si colloca:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>come pannello principale (pi&amp;ugrave; esterno) della schermata;&lt;/li>&#xD;&#xA;&lt;li>come pannello principale del singolo quadrante all'interno di un &lt;b>FormPanel&lt;/b>&#xD;&#xA;con layout a quadranti (UDLRC)&lt;/li>&#xD;&#xA;&lt;li>come contenitore di ciascun &lt;i>item&lt;/i> di un pannello a &lt;i>tab&lt;/i>&#xD;&#xA;o &lt;i>wizard&lt;/i>&lt;/li>&#xD;&#xA;&lt;li>per ogni &lt;i>item&lt;/i> di un &lt;b>MultiPanel&lt;/b>&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> pu&amp;ograve; essere dotato di &lt;i>titolo&lt;/i>. Nel caso di&#xD;&#xA;&lt;b>FormPanel&lt;/b> utilizzato all'interno di un &lt;b>TabSetPanel&lt;/b> tale titolo &#xD;&#xA;&amp;egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia&#xD;&#xA;utilizzato all'interno di un &lt;b>WizardPanel&lt;/b> il titolo viene visualizzato come&#xD;&#xA;nome dello &lt;i>step&lt;/i> corrispondente.&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> non pu&amp;ograve; contenere widget, ma solo sottopannelli.&#xD;&#xA;&lt;/p>"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
-        eType="#//Panel" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Un &lt;B>FormPanel&lt;/b> contiene uno o più sottopannelli organizzati in &#xD;&#xA;vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del&#xD;&#xA;&lt;b>FormPanel&lt;/b> dipende da:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tipo di layout associato al pannello&lt;/li>&#xD;&#xA;&lt;li>lo specificatore associato a ciascun sottopannello&lt;/li>&#xD;&#xA;&lt;/ul>"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
-        eType="#//Widget" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="OBSOLETO: NON UTILIZZARE: utilizzare un &lt;b>WidgetsPanel&lt;/b> o un&#xD;&#xA;&lt;b>CommandPanel&lt;/b> interni al &lt;b>FormPanel&lt;/b> ed inserire lì i&#xD;&#xA;widget."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//MultiPanel">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Tipo specifico di &lt;b>MultiPanel&lt;/b> corredato di componente di controllo&#xD;&#xA;a &quot;tab&quot;: per passare da un tab all'altro è sufficiente selezionare la &quot;linguetta&quot; &#xD;&#xA;corrispondente.&#xD;&#xA;Come per tutti i &lt;b>MultiPanel&lt;/b> il programmatore avrà nel model le informazioni&#xD;&#xA;riguardanti:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tab correntemente visualizzato&lt;/li>&#xD;&#xA;&lt;li>il tab &quot;target&quot; (quello sulla cui 2linguetta&quot; si è cliccato; questa informazione &#xD;&#xA;&amp;egrave; disponibile solo all'interno di un &lt;b>EventHandler&lt;/b> associato&#xD;&#xA; al widget fittizio &lt;b>TabSwitcher&lt;/b>)&lt;/li>.&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il primo tab è quello visualizzato di default."/>
-    </eAnnotations>
-    <eAnnotations source="uipaneldoc">
-      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>TabSetPanel&lt;/b> &amp;egrave; un pannello utilizzato realizzare strutture organizzate&#xD;&#xA;a &lt;i>tab&lt;/i>. Prevede due sezioni visibili:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>la lista di &amp;quot; linguette &amp;quot; che servono per attivare i vari &lt;i>tab&lt;/i> &#xD;&#xA;(con evidenza visiva del tab correntemente selezionato)&lt;/li>&#xD;&#xA;&lt;li>la sezione in cui viene visualizzato il contenuto del &lt;i>tab&lt;/i> correntemente selezionato.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="switcher" eType="#//TabSwitcher"
-        containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Il &lt;b>TabSwitcher&lt;/b> &amp;egrave; un widget fittizio che, se inserito, permette&#xD;&#xA;di effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento di&#xD;&#xA;selezione (click) delle &quot;linguette&quot;.&#xD;&#xA;"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Panel" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta dalla quale discendono tutti i pannelli"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -197,9 +175,69 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FormPanel" eSuperTypes="#//Panel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Pannello destinato a contenere sottopannelli. Serve principlamente per definire&#xD;&#xA;la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)&#xD;&#xA;sono disponibili pe rtutte le cartucce di layout/portale."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> &amp;egrave; un pannello utilizzato principalmente per&#xD;&#xA;creare la macro struttura della schermata. E'un pannello destinato a &#xD;&#xA;contenere altri pannelli con lo scopo di organizzarli in struttura secondo i vari&#xD;&#xA;layout disponibili. &lt;br/>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> tipicamente si colloca:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>come pannello principale (pi&amp;ugrave; esterno) della schermata;&lt;/li>&#xD;&#xA;&lt;li>come pannello principale del singolo quadrante all'interno di un &lt;b>FormPanel&lt;/b>&#xD;&#xA;con layout a quadranti (UDLRC)&lt;/li>&#xD;&#xA;&lt;li>come contenitore di ciascun &lt;i>item&lt;/i> di un pannello a &lt;i>tab&lt;/i>&#xD;&#xA;o &lt;i>wizard&lt;/i>&lt;/li>&#xD;&#xA;&lt;li>per ogni &lt;i>item&lt;/i> di un &lt;b>MultiPanel&lt;/b>&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> pu&amp;ograve; essere dotato di &lt;i>titolo&lt;/i>. Nel caso di&#xD;&#xA;&lt;b>FormPanel&lt;/b> utilizzato all'interno di un &lt;b>TabSetPanel&lt;/b> tale titolo &#xD;&#xA;&amp;egrave; utilizzato come etichetta del tab corrispondente, mentre nel caso in cui sia&#xD;&#xA;utilizzato all'interno di un &lt;b>WizardPanel&lt;/b> il titolo viene visualizzato come&#xD;&#xA;nome dello &lt;i>step&lt;/i> corrispondente.&#xD;&#xA;Il &lt;b>FormPanel&lt;/b> non pu&amp;ograve; contenere widget, ma solo sottopannelli.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subpanels" upperBound="-1"
+        eType="#//Panel" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Un &lt;B>FormPanel&lt;/b> contiene uno o più sottopannelli organizzati in &#xD;&#xA;vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del&#xD;&#xA;&lt;b>FormPanel&lt;/b> dipende da:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tipo di layout associato al pannello&lt;/li>&#xD;&#xA;&lt;li>lo specificatore associato a ciascun sottopannello&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
+        eType="#//Widget" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="OBSOLETO: NON UTILIZZARE: utilizzare un &lt;b>WidgetsPanel&lt;/b> o un&#xD;&#xA;&lt;b>CommandPanel&lt;/b> interni al &lt;b>FormPanel&lt;/b> ed inserire lì i&#xD;&#xA;widget."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiPanel" eSuperTypes="#//Panel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Pannello a visualizzazione alternativa. Permette di visualizzare uno solo &#xD;&#xA;dei pannelli definiti nella collezione &lt;i>panels&lt;/i>.&#xD;&#xA;Per visualizzare uno specifico pannello occorre utilizzare il comando&#xD;&#xA;&lt;b>ActivateMultipanelItem&lt;/b>.&#xD;&#xA;Lo statoiniziale di questo pannello &amp;egrave; la non visualizzazione di nessun pannello."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MultiPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare pannelli &lt;i>mutevoli&lt;/i>, ovvero che &#xD;&#xA;assumono programmaticamente le sembianze di uno tra &lt;i>n&lt;/i> pannelli possibili. Esiste anche la &#xD;&#xA;possibilit&amp;agrave; di non visualizzare nessun pannello: in quesot cao il &lt;b>MultiPanel&lt;/b> non produce nessuna&#xD;&#xA;struttura visualizzata. Il &lt;b>MultiPanel&lt;/b> &amp;egrave; lo strumento principale da utilizzare nel caso in cui sia &#xD;&#xA;necessaria la scomparsa di un intero pannello (cosa che non &amp;egravE; possibile realizzare esclusivamente&#xD;&#xA;con i comandi di visibilit&amp;agrave; sui &lt;b>Widget&lt;/b>).&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="panels" upperBound="-1"
+        eType="#//Panel" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="I pannelli visualizzabili in alternativa"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TabSetPanel" eSuperTypes="#//MultiPanel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Tipo specifico di &lt;b>MultiPanel&lt;/b> corredato di componente di controllo&#xD;&#xA;a &quot;tab&quot;: per passare da un tab all'altro è sufficiente selezionare la &quot;linguetta&quot; &#xD;&#xA;corrispondente.&#xD;&#xA;Come per tutti i &lt;b>MultiPanel&lt;/b> il programmatore avrà nel model le informazioni&#xD;&#xA;riguardanti:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il tab correntemente visualizzato&lt;/li>&#xD;&#xA;&lt;li>il tab &quot;target&quot; (quello sulla cui 2linguetta&quot; si è cliccato; questa informazione &#xD;&#xA;&amp;egrave; disponibile solo all'interno di un &lt;b>EventHandler&lt;/b> associato&#xD;&#xA; al widget fittizio &lt;b>TabSwitcher&lt;/b>)&lt;/li>.&#xD;&#xA;&lt;/ul>&#xD;&#xA;Il primo tab è quello visualizzato di default."/>
+    </eAnnotations>
+    <eAnnotations source="uipaneldoc">
+      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>TabSetPanel&lt;/b> &amp;egrave; un pannello utilizzato realizzare strutture organizzate&#xD;&#xA;a &lt;i>tab&lt;/i>. Prevede due sezioni visibili:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>la lista di &amp;quot; linguette &amp;quot; che servono per attivare i vari &lt;i>tab&lt;/i> &#xD;&#xA;(con evidenza visiva del tab correntemente selezionato)&lt;/li>&#xD;&#xA;&lt;li>la sezione in cui viene visualizzato il contenuto del &lt;i>tab&lt;/i> correntemente selezionato.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="switcher" eType="#//TabSwitcher"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il &lt;b>TabSwitcher&lt;/b> &amp;egrave; un widget fittizio che, se inserito, permette&#xD;&#xA;di effettuar eil post dei dati e l'esecuzione di logica a fronte dell'evento di&#xD;&#xA;selezione (click) delle &quot;linguette&quot;.&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Widget" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta dalla quale discendono tutti i vari tipi di widget."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -251,12 +289,18 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta di widget con funzione di comando (es pulsanti)"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionSpecifier" eType="#//CommandFunctions"
         defaultValueLiteral="0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataWidget" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta dalla quale discendono tutte le classi che rappresentano&#xD;&#xA;widget associabili a dati (&lt;b>ApplicationData&lt;/b>). Un &lt;b>DataWidget&lt;/b>&#xD;&#xA;ha un concetto di &lt;i>valore&lt;/i> del widget che rappresenta l'input inserito."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataTypeModifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -289,6 +333,9 @@
       <details key="description" value="E' il classico pulsante di comando utilizzabile per comandare l'esecuzione&#xD;&#xA;delle varie funzioni applicative (ricerca, inserimento, verifica, conferma, ....)&#xD;&#xA;Il &lt;b>Button&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il&#xD;&#xA;pulsante ad altri widget (es. pulsanti di lookup)&lt;/li>&#xD;&#xA;&lt;li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario&#xD;&#xA;realizzare una &quot;pulsantiera&quot; costituita da soli &lt;b>Button&lt;/b>&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del Button prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di associare al pulsante uno &lt;i>specificatore di funzione&lt;/i>,&#xD;&#xA;che pu&amp;ograve; essere utilizzato per connotare la funzione che eseguir&amp;agrave;&#xD;&#xA;tale pulsante, con l'effetto, ad esempio di permettere l'associazione di uno&#xD;&#xA;stile specifico o di un'icona rappresentativa della funzone stessa.&#xD;&#xA;L'elenco delle funzioni specificabili &amp;egrave il seguente:&#xD;&#xA;&#x9;&lt;ul>&#xD;&#xA;&#x9;&lt;li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella&lt;/li>&#xD;&#xA;&#x9;&lt;li>BACK: ritorno ad una schermata precedente&lt;/li>&#xD;&#xA;&#x9;&lt;li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando&lt;/li>&#xD;&#xA;&#x9;&lt;li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando&lt;/li>&#xD;&#xA;&#x9;&lt;li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella&lt;/li>&#xD;&#xA;&#x9;&lt;li>DETAIL: visualizzazione del dettaglio di una entit&amp;agrave;&lt;/li>&#xD;&#xA;&#x9;&lt;li>EDIT_ITEM: inizio delle attivit&amp;agrave; di modifica di un'entit&amp;agrave;&lt;/li>&#xD;&#xA;&#x9;&lt;li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati&lt;/li>&#xD;&#xA;&#x9;&lt;li>LAST_ITEM: posizionamento sull'ultimo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>LOAD: caricamento di un record&lt;/li>&#xD;&#xA;&#x9;&lt;li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>PREVIOUS_ITEM: posizionamento sull'elemento precedente a quello corrente&#xD;&#xA;&#x9;&#x9; all'interno di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>SAVE: salvataggio dei dati immessi&lt;/li>&#xD;&#xA;&#x9;&lt;li>SEARCH: effettuazione della ricerca&lt;/li>&#xD;&#xA;&#x9;&lt;li>SEND_MESSAGE: invio di un messaggio (es. email)&lt;/li>&#xD;&#xA;&#x9;&lt;li>SHOW_HELP: visualizzazione di una pagina di aiuto&lt;/li>&#xD;&#xA;&#x9;&lt;li>SHOW_REPORT: visualizzazione di un report&lt;/li>&#xD;&#xA;&#x9;&lt;li>UNSPECIFIED: funzione generica&lt;/li>&#xD;&#xA;&#x9;&lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>possibilit&amp;agrave; di effettuare un refresh parziale della schermata &#xD;&#xA;a fronte dell'esecuzione del comando associato alla pressione del pulsante&lt;/li>&#xD;&#xA;&lt;/ul>"/>
       <details key="event-clicked" value="&lt;p>Il pulsante pu&amp;ograve ricevere un evento di pressione da parte &#xD;&#xA;dell'utente e, a fronte di questo evento &amp;egrave; possibile eseguire logica&#xD;&#xA;di business. Esistono due modalit&amp;agrave; di esecuzione della logica &#xD;&#xA;associata: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h5>modalit&amp;agrave; standard&lt;/h5>&#xD;&#xA;Alla pressione del pulsante viene eseguita la logica applicativa associata&#xD;&#xA;e, al termine dell'esecuzione viene ricaricata l'intera schermata&#xD;&#xA;oppure il flusso passa ad una schermata differente.&#xD;&#xA;&lt;h5>modalit&amp;agrave; ricca&lt;/h5>&#xD;&#xA;Alla pressione del pulsante viene eseguita la logica applicativa associata. Durante&#xD;&#xA;l'esecuzione viene sospesa l'interazione utente e viene visualizzato un&#xD;&#xA;indicatore di &quot;operazione in corso&quot;.&#xD;&#xA;Al termine dell'esecuzione i possibili effetti sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il refresh dell'intera schermata corrente, con mantenimento della&#xD;&#xA;posizione delle eventuali scrollbar&lt;/li>&#xD;&#xA;&lt;li>il refresh di una porzione specifica di schermata&lt;/li>&#xD;&#xA;&lt;li>il passaggio del flusso ad una schermata differente&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="PER FUTURE ESPANSIONI"/>
@@ -302,6 +349,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il classico widget di immissione di dati testuali a riga singola.&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>TextField&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del TextField prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di specificare il numero massimo di caratteri&#xD;&#xA;accettabili&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di specificare la dimensione massima dell'area editabile&#xD;&#xA;(che &amp;egrave; utilizzata in modi differenti a seconda della cartuccia/skin)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso a seconda del tipo di dato associato &#xD;&#xA;al campo e di alcuni ulteriori specifiche&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo&#xD;&#xA;di dato previsto (es. solo caratteri numerici per tipi numerici)&lt;/li>&#xD;&#xA;&lt;li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato&lt;/li>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Inoltre &amp;egrave; possibile, se esplicitamente modellato, associare al &lt;b>TextField&lt;/b> la&#xD;&#xA;funzionalit&amp;agrave; di &lt;i>suggestion&lt;/i> che consiste nel fornire, man mano che si digitano i &#xD;&#xA;caratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa&#xD;&#xA;di caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di &#xD;&#xA;suggerimenti &amp;egrave; a carico dello sviluppatore)."/>
       <details key="event-key-pressed" value="&lt;p>L'evento &lt;b>KeyPressed&lt;/b>, utilizzabile solo in modalit&amp;agrave; ricca, &#xD;&#xA;permette di ottenere la funzione di &lt;i>suggestion&lt;/i>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fieldLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="15">
@@ -322,6 +372,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il classico widget di immissione di dati testuali a riga multipla.&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed l'area di immissione associata.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;La &lt;b>TextArea&lt;/b> pu&amp;ograve; essere utilizzata all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento: standard e ricca.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base della TextArea prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di specificare la dimensione in righe/colonne&#xD;&#xA;dell'area editabile&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso a seconda del tipo di dato associato &#xD;&#xA;al campo e di alcuni ulteriori specifiche&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;!-- &lt;li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo&#xD;&#xA;di dato previsto (es. solo caratteri numerici per tipi numerici)&lt;/li>&#xD;&#xA;&lt;li>verifiche client side al momento della digitazione di rispetto della dimensione massima del dato&lt;/li> -->&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rows" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="10">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -339,6 +392,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[TODO: add documentation here]]"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
+    </eAnnotations>
     <eLiterals name="STRINGA"/>
     <eLiterals name="NUMERICO"/>
     <eLiterals name="DATA"/>
@@ -352,6 +408,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' un campo utilizzabile per l'immissione di date (nel formato gg/mm/aaaa).&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>Calendar&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del Calnedar prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la limitazione automatica del numero di caratteri digitabili (gg/mm/aaa=10)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso (che deve necessariamente essere di tipo &quot;DATA&quot;)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>verifiche client side al momento della digitazione di aderenza dei caratteri immessi al tipo&#xD;&#xA;di dato previsto (maschera GG/MM/AAAA)&lt;/li>&#xD;&#xA;&lt;li>&lt;i>date-picker&lt;/i>: strumento di selezione della data a partire da mini-calendario&lt;/li>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComboBox" eSuperTypes="#//DataWidget #//MultiDataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -360,6 +419,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il widget di selezione di uno (o pi&amp;ugrave;) dati a partire da una lista di dati precaricata.&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>ComboBox&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del TextField prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di specificare per ogni elemento della lista,&#xD;&#xA;un valore visualizzato e la corrispondente chiave, utilizzata come valore&#xD;&#xA;effettivamente seleizonato e utilizzabile dalla logica applicativa&lt;/li>&#xD;&#xA;&lt;li>la scelta tra selezione singola o multipla&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso a seconda del tipo di dato associato &#xD;&#xA;al campo e di alcuni ulteriori specifiche&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>funzione di &lt;i>autocomplete&lt;/i> (restrizione dell'elenco di opzioni a fronte dell'immissione &#xD;&#xA;progressiva dei caratteri iniziali della selezione stessa)&lt;/li>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;!-- Inoltre &amp;egrave; possibile, se esplicitamente modellato, associare alla &lt;b>ComboBox&lt;/b> la&#xD;&#xA;funzionalit&amp;agrave; di &lt;i>suggestion&lt;/i> che consiste nel fornire, man mano che si digitano i &#xD;&#xA;caratteri nel campo di testo, una lista di voci che corrispondono nella loro parte iniziale alla stringa&#xD;&#xA;di caratteri immessa fino a quel momento (la logica di costruzione progressiva della lista di &#xD;&#xA;suggerimenti &amp;egrave; a carico dello sviluppatore). -->"/>
       <details key="event-value-changed" value="&lt;p>E'possibile, a fronte della selezione da parte dell'utente di una delle&#xD;&#xA;opzioni presenti nella lista, scatenare una logica applicativa e modificare di&#xD;&#xA;conseguenza la schermata visualizzata. Esistono due modalit&amp;agrave; di esecuzione della logica &#xD;&#xA;associata: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h5>modalit&amp;agrave; standard&lt;/h5>&#xD;&#xA;Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata&#xD;&#xA;e, al termine dell'esecuzione viene ricaricata l'intera schermata&#xD;&#xA;oppure il flusso passa ad una schermata differente.&#xD;&#xA;&lt;h5>modalit&amp;agrave; ricca&lt;/h5>&#xD;&#xA;Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante&#xD;&#xA;l'esecuzione viene sospesa l'interazione utente e viene visualizzato un&#xD;&#xA;indicatore di &quot;operazione in corso&quot;.&#xD;&#xA;Al termine dell'esecuzione i possibili effetti sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il refresh dell'intera schermata corrente, con mantenimento della&#xD;&#xA;posizione delle eventuali scrollbar&lt;/li>&#xD;&#xA;&lt;li>il refresh di una porzione specifica di schermata&lt;/li>&#xD;&#xA;&lt;li>il passaggio del flusso ad una schermata differente&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="keySelector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -385,6 +447,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il classico widget di visualizzazione/editing di dati in formato tabellare.&#xD;&#xA;&lt;!--Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.-->&#xD;&#xA;La &lt;b>Table&lt;/b> pu&amp;ograve; essere utilizzata all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia; N.B: deve&#xD;&#xA;essere l'unico widget all'interno del pannello&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede tre modalit&amp;agrave; di funzionamento, una &lt;i>standard/visualizzazione&lt;/i>,&#xD;&#xA;una &lt;i>standard/editing&lt;/i> ed una &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard/visualizzazione&lt;/h4>&#xD;&#xA;Il funzionamento di base della Table prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di visualizzare le informazioni contenute in una &#xD;&#xA;collezione di record, con formattazioen dell'informazione coerente con il tipo di dato&#xD;&#xA;di ciascuna colonna&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; (opzionale) di effettuare l'ordinamento delle righe in base ai valori&#xD;&#xA;contenuti in una colonna&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; (opzionale) di &lt;b>paginare&lt;/b> i risultati (con dimensione della pagina impostabile)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; (opzionale) di effettuare l'&lt;b>export&lt;/b> dei dati della tabella in formato excel o pdf&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; (opzionale) di &lt;b>selezione&lt;/b> singola o multipla delle righe della Tabella, allo scopo&#xD;&#xA;di eseguire logiche applicative sulle righe selezionate (l'esecuzione della logica deve essere comandata in un momento&#xD;&#xA;successivo alla selezione da un &lt;b>Button&lt;/b> posto nella stessa schermata)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso a seconda del tipo di dato associato &#xD;&#xA;al campo e di alcuni ulteriori specifiche&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitata a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere resa invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitata/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;!--&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>-->&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard/editing&lt;/h4>&#xD;&#xA;Ripsetto alla modalit&amp;agrave; &lt;i>standard/visualizzazione&lt;/i> la modalit&amp;agrave; &lt;i>standard/editing&lt;/i>&#xD;&#xA;prevede alcune possibilit&amp;agrave; aggiuntive:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>&lt;b>editing &lt;i>in place&lt;/i>&lt;/b> delle celle di una colonna:&#xD;&#xA;&#x9;&lt;ul>&#xD;&#xA;&#x9;&lt;li>il &lt;b>widget di editing&lt;/b> della cella dipende dal tipo di dato associato alla colonna:&#xD;&#xA;&#x9;&#x9;&lt;ul>&#xD;&#xA;&#x9;&#x9;&lt;li>&lt;b>Calendar&lt;/b> in caso di tipo DATA&lt;/li>&#xD;&#xA;&#x9;&#x9;&lt;li>&lt;b>CheckBox&lt;/b> in caso di tipo BOOLEAN&lt;/li>&#xD;&#xA;&#x9;&#x9;&lt;li>&lt;b>TextField&lt;/b> in tutti gli altri casi&lt;/li>&#xD;&#xA;&#x9;&#x9;&lt;/ul>&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;li>&amp;egrave; possibile selezionare il valore di una cella da una &lt;b>lista di valori&lt;/b> (in questo caso il widget utilizzato&#xD;&#xA;&#x9;&#x9;per l'immissione &amp;egrave; la &lt;b>ComboBox&lt;/b>); l'elenco dei valori selezionabili pu&amp;ograve; essere comune a tutte le&#xD;&#xA;&#x9;&#x9;righe oppure specifico per ciascuna riga&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;li>&amp;egrave; possibile, nell'ambito di una colonna dichiarata &lt;i>editabile&lt;/i>, decidere a runtime l'editabilit&amp;agrave;&#xD;&#xA;&#x9;&#x9;della singola cella (nel qual caso il widget corrispondente apparir&amp;agrave; disabilitato)&#xD;&#xA;&#x9;&lt;/li>&#xD;&#xA;&#x9;&lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sull'intestazione delle colonne&lt;/li>&#xD;&#xA;&lt;li>refresh della sola area della tabella in caso di esecuzione delle funzioni di ordinamento e paginazione&lt;/li>&#xD;&#xA;&lt;li>possibilit&amp;agrave; di ridimensionare/cambiare l'ordine/nascondere le colonne della tabella interattivamente&lt;/li>&#xD;&#xA;&lt;/ul>"/>
       <details key="event-clicked" value="&lt;p>In una tabella &amp;egrave; possibile rendere &quot;attive&quot; le celle di alcune&#xD;&#xA;colonne (purchè esse non siano editabili). L'evento &quot;clicked&quot; &amp;egrave; proprio il &quot;click&quot; dell'utente &#xD;&#xA;su tali celle. &#xD;&#xA;E'possibile, a fronte ddi questo evento, scatenare una logica applicativa e modificare di&#xD;&#xA;conseguenza la schermata visualizzata. Esistono due modalit&amp;agrave; di esecuzione della logica &#xD;&#xA;associata: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h5>modalit&amp;agrave; standard&lt;/h5>&#xD;&#xA;Al click di una cella viene eseguita la logica applicativa associata&#xD;&#xA;e, al termine dell'esecuzione viene ricaricata l'intera schermata&#xD;&#xA;oppure il flusso passa ad una schermata differente.&#xD;&#xA;&lt;h5>modalit&amp;agrave; ricca&lt;/h5>&#xD;&#xA;Alla click di una cella viene eseguita la logica applicativa associata. Durante&#xD;&#xA;l'esecuzione viene sospesa l'interazione utente e viene visualizzato un&#xD;&#xA;indicatore di &quot;operazione in corso&quot;.&#xD;&#xA;Al termine dell'esecuzione i possibili effetti sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il refresh dell'intera schermata corrente, con mantenimento della&#xD;&#xA;posizione delle eventuali scrollbar&lt;/li>&#xD;&#xA;&lt;li>il refresh di una porzione specifica di schermata&lt;/li>&#xD;&#xA;&lt;li>il passaggio del flusso ad una schermata differente&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnModel" eType="#//ColumnModel"
         containment="true">
@@ -416,6 +481,9 @@
     </eAnnotations>
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il classico widget di selezione di un valore booleano (si/no).&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>CheckBox&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del CheckBox prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso (es . campo required)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GUIModel">
@@ -515,6 +583,9 @@
       <details key="description" value="E' il classico widget di selezione di una opzione tra un insieme finito (e definito a tempo di sviluppo) di possibilit&amp;agrave;.&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di immissione associato, che &amp;egrave; a sua volta costituito&#xD;&#xA;da un elenco di pulsanti la cui selezione &amp;egrave; mutualmente esclusiva.&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>RadioButtons&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del RadioButtons prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di effettuare, al momento del submit della form,&#xD;&#xA;la validazione dell'input immesso (es. verifica di campo required)&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la visualizzazione di un marcatore di errore in prossimit&amp;agrave; della label, in caso di fallita&#xD;&#xA;validazione&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;"/>
       <details key="event-clicked" value="&lt;p>E'possibile, a fronte della selezione da parte dell'utente di una delle opzioni visualizzate, scatenare una logica applicativa e modificare di&#xD;&#xA;conseguenza la schermata visualizzata. Esistono due modalit&amp;agrave; di esecuzione della logica &#xD;&#xA;associata: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h5>modalit&amp;agrave; standard&lt;/h5>&#xD;&#xA;Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata&#xD;&#xA;e, al termine dell'esecuzione viene ricaricata l'intera schermata&#xD;&#xA;oppure il flusso passa ad una schermata differente.&#xD;&#xA;&lt;h5>modalit&amp;agrave; ricca&lt;/h5>&#xD;&#xA;Alla selezione di una opzione dalla lista viene eseguita la logica applicativa associata. Durante&#xD;&#xA;l'esecuzione viene sospesa l'interazione utente e viene visualizzato un&#xD;&#xA;indicatore di &quot;operazione in corso&quot;.&#xD;&#xA;Al termine dell'esecuzione i possibili effetti sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>il refresh dell'intera schermata corrente, con mantenimento della&#xD;&#xA;posizione delle eventuali scrollbar&lt;/li>&#xD;&#xA;&lt;li>il refresh di una porzione specifica di schermata&lt;/li>&#xD;&#xA;&lt;li>il passaggio del flusso ad una schermata differente&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="radio" upperBound="-1"
         eType="#//RadioButton" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -525,6 +596,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="RadioButton" eSuperTypes="#//Widget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Singolo elemento di un &lt;b>RadioButtons&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -540,15 +614,24 @@
       <details key="description" value="E' il classico pulsante di reset utilizzabile per ripulire la forma utente, riportandola allo stato &#xD;&#xA;iniziale.&#xD;&#xA;Il &lt;b>ResetButton&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il&#xD;&#xA;pulsante ad altri widget (es. pulsanti di lookup)&lt;/li>&#xD;&#xA;&lt;li>CommandPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario&#xD;&#xA;realizzare una &quot;pulsantiera&quot; costituita da soli &lt;b>Button&lt;/b>&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede una sola modalit&amp;agrave; di funzionamento: &lt;i>standard&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del ResetButton prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di associare al pulsante uno &lt;i>specificatore di funzione&lt;/i>,&#xD;&#xA;che pu&amp;ograve; essere utilizzato per connotare la funzione che eseguir&amp;agrave;&#xD;&#xA;tale pulsante, con l'effetto, ad esempio di permettere l'associazione di uno&#xD;&#xA;stile specifico o di un'icona rappresentativa della funzone stessa.&#xD;&#xA;L'elenco delle funzioni specificabili &amp;egrave il seguente:&#xD;&#xA;&#x9;&lt;ul>&#xD;&#xA;&#x9;&lt;li>ADD_ITEM: aggiunta di un elemento ad un insieme di dati/tabella&lt;/li>&#xD;&#xA;&#x9;&lt;li>BACK: ritorno ad una schermata precedente&lt;/li>&#xD;&#xA;&#x9;&lt;li>CANCEL: risposta negativa ad una richiesta di conferma di esecuzione di comando&lt;/li>&#xD;&#xA;&#x9;&lt;li>CONFIRM: risposta positiva ad una richiesta di conferma di esecuzione di comando&lt;/li>&#xD;&#xA;&#x9;&lt;li>DELETE_ITEM: eliminazione di un elemento da un insieme di dati/tabella&lt;/li>&#xD;&#xA;&#x9;&lt;li>DETAIL: visualizzazione del dettaglio di una entit&amp;agrave;&lt;/li>&#xD;&#xA;&#x9;&lt;li>EDIT_ITEM: inizio delle attivit&amp;agrave; di modifica di un'entit&amp;agrave;&lt;/li>&#xD;&#xA;&#x9;&lt;li>FIRST_ITEM: posizionamento sul primo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>FORWARD: prosecuzione al prossimo passo di una serie di passi guidati&lt;/li>&#xD;&#xA;&#x9;&lt;li>LAST_ITEM: posizionamento sull'ultimo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>LOAD: caricamento di un record&lt;/li>&#xD;&#xA;&#x9;&lt;li>NEXT_ITEM: posizionamento sul prossimo elemento di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>PREVIOUS_ITEM: posizionamento sull'elemento precedente a quello corrente&#xD;&#xA;&#x9;&#x9; all'interno di un elenco di dati&lt;/li>&#xD;&#xA;&#x9;&lt;li>SAVE: salvataggio dei dati immessi&lt;/li>&#xD;&#xA;&#x9;&lt;li>SEARCH: effettuazione della ricerca&lt;/li>&#xD;&#xA;&#x9;&lt;li>SEND_MESSAGE: invio di un messaggio (es. email)&lt;/li>&#xD;&#xA;&#x9;&lt;li>SHOW_HELP: visualizzazione di una pagina di aiuto&lt;/li>&#xD;&#xA;&#x9;&lt;li>SHOW_REPORT: visualizzazione di un report&lt;/li>&#xD;&#xA;&#x9;&lt;li>UNSPECIFIED: funzione generica&lt;/li>&#xD;&#xA;&#x9;&lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;"/>
       <details key="event-clicked" value="&lt;p>Il pulsante pu&amp;ograve; ricevere un evento di pressione da parte &#xD;&#xA;dell'utente che scatena il reset della schermata.&#xD;&#xA;Questo evento &amp;egrave; implicito (non occorre definire un &lt;b>EventHandler&lt;/b>&#xD;&#xA;per attivarlo). A fronte di questo evento &lt;b>non&lt;/b> &amp;egrave; perci&amp;ograve; &#xD;&#xA;possibile eseguire logica di business. &#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConfirmButton" eSuperTypes="#//Button">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Pulsante utilizzabile per l'esecuzione di azioni (salvataggio, ricerca, .....).&#xD;&#xA;E' possibile associare un evneto di tipo CLICKED a questo widget."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PanelLayout" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="superclasse di tutte le classi che definiscono un particolare layout"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSizes" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -563,6 +646,9 @@
     <eAnnotations source="uilayoutdoc">
       <details key="description" value="&lt;p>&#xD;&#xA;L' &lt;b>HorizontalFlowPanelLayout&lt;/b> (layout sequenziale a sviluppo&#xD;&#xA;orizzontale) prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati uno dopo l'altro in una sequenza &#xD;&#xA;orizzontale, all'interno dell'area disponibile per il pannello contenitore.&#xD;&#xA;Di fatto, se il numero di widget inseriti nel pannello &amp;egrave; &lt;i>n&lt;/i>, &#xD;&#xA;rappresenta un layout con &lt;i>n&lt;/i> colonne logiche (una per widget) e&#xD;&#xA;&lt;i>2*n&lt;/i> colonne fisiche (una per la label ed una per il campo effettivo, &#xD;&#xA;il tutto moltiplicato per il numero di widget).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget di ciascuno dei widget.&#xD;&#xA;Le percentuali sono relative allo spazio a disposizione dell'interno pannello.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerticalFlowPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -570,6 +656,9 @@
     </eAnnotations>
     <eAnnotations source="uilayoutdoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>VerticalFlowPanelLayout&lt;/b> (layout sequenziale a sviluppo&#xD;&#xA;verticale) prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati uno dopo l'altro in una sequenza &#xD;&#xA;verticale, all'interno dell'area disponibile per il pannello contenitore.&#xD;&#xA;Di fatto rappresenta un layout ad una colonna logica (un solo widget) e&#xD;&#xA;due colonne fisiche (una per la label ed una per il campo effettivo).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget. Le percentuali sono relative allo spazio a&#xD;&#xA;disposizione dell'interno pannello.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCPanelLayout" eSuperTypes="#//PanelLayout">
@@ -579,15 +668,24 @@
     <eAnnotations source="uilayoutdoc">
       <details key="description" value="&lt;p>&#xD;&#xA;L' &lt;b>UDLRCPanelLayout&lt;/b> (layout a cinque quadranti Up, Down, Left,&#xD;&#xA;Right, Center)  prevede che gli elementi contenuti nel pannello che possiede&#xD;&#xA;questo layout siano visualizzati in uno dei quadranti. realizzando in questo modo&#xD;&#xA;stutture di posizionamento relativo molto flessibili.&#xD;&#xA;Tipicamente questo layout &amp;egrave; utilizzato nella disposizione di sotto-pannelli.&#xD;&#xA;Il layout pu&amp;ograve; anche essere utilizzato per la disposizione di pulsanti all'interno&#xD;&#xA;di un &lt;b>CommandPanel&lt;/b>.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WidgetLayoutSpecifier" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Superclasse di tutte le classi di specificazione del posizionamento degli elementi in un pannello"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UDLRCWidgetLayoutSpec" eSuperTypes="#//WidgetLayoutSpecifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specificatore di posizionamento di un elemento all'interno di un contenitore&#xD;&#xA;dotato di layout &lt;b>UDLRC&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//UDLRCSpecConstants">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -599,6 +697,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Valori ammissibili per l' &lt;b>UDLRCWidgetLayoutSpecifier&lt;/b>."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
+    </eAnnotations>
     <eLiterals name="UP"/>
     <eLiterals name="DOWN" value="1"/>
     <eLiterals name="LEFT" value="2"/>
@@ -609,6 +710,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Utilizzato per la visualizzazione di immagini statiche all'interno della struttura UI."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Il percorso dell'immagine. Il valore può variare a seconda della cartuccia di&#xD;&#xA;generazione. Nel caso della cartuccia &lt;i>struts2&lt;/i> il valore è inserito as-is&#xD;&#xA;nel tag &lt;i>img&lt;/i>.&#xD;&#xA;"/>
@@ -618,6 +722,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Menu">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Voce di menu"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.menu"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -686,6 +793,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Modello delle colonne di una tabella (&lt;b>Table&lt;/b>). Determina quali &#xD;&#xA;colonne vengono visualizzate, in che ordine e altre caratteristiche della tabella.&#xD;&#xA;"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets.table"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
         eType="#//Column" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -701,6 +811,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Column">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Modello della singola colonna di una &lt;b>Table&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets.table"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="selector" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -765,6 +878,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta d acui discendono tutte le classi del framework di comandi."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CommandEvent">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -774,6 +890,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ONOFFCommand" eSuperTypes="#//Command #//CommandOnWidgets">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di abilitare/disabilitare i widget specificati. Lo stato di abilitazione&#xD;&#xA;rimane persistente in sessione."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -785,10 +904,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[TODO: add documentation here]]"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VisibilityCommand" eSuperTypes="#//Command #//CommandOnWidgets">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di mostrare/nascondere i widget specificati. Lo stato di visibilit&amp;agrave;&#xD;&#xA;rimane persistente in sessione."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="show" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -800,10 +925,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di effettuare il re-rendering di una porzione di ContentPanel.&#xD;&#xA;Funziona solo se sono abilitate le fatures di interazione &quot;ricca&quot;, nell'elemento&#xD;&#xA;&lt;b>TargetPlatform&lt;/b>.&#xD;&#xA;Al fine di garnatire l'accessibilit&amp;agrave;, Nel caso della cartuccia &quot;struts2&quot;, se il browser non supporta javascript, &#xD;&#xA;la feature effettua un &quot;downgrade&quot; automatico mantenendo il funzionamento&#xD;&#xA;seppur perdendo la funzione ricca (ovvero si ha il refresh completo della pagina).&#xD;&#xA;Essendo sottoclasse di &lt;b>CommandOnWidgets&lt;/b> e &lt;b>CommandOnPanels&lt;/b> &amp;egrave; &#xD;&#xA;possibile specificare la porzione di &lt;b>ContentPanel&lt;/b> che deve essere aggiornata.&#xD;&#xA;L'interpretazione delle proeprty &lt;i>targetWidgets&lt;/i> e &lt;i>targetPanels&lt;/i>&#xD;&#xA;dipende dalla particolare cartuccia di generazione utilizzata."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JumpCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di passare alla visualizzazione di un &lt;b>ContentPanel&lt;/b>&#xD;&#xA;differente."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="jumpTo" eType="#//ContentPanel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -819,6 +950,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ExecCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di eseguire logica custom all'intenro di una catena di comandi.&#xD;&#xA;Al metodo specificato in &lt;i>methodName&lt;/i> sar&amp;agave; passata una struttura&#xD;&#xA;dati contenente:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>i riferimenti agli &lt;b>ApplicationData&lt;/b> referenziati&#xD;&#xA;dal &lt;b>ContentPanel&lt;/b> che contiene il comando.&lt;/li>&#xD;&#xA;&lt;li>un riferimento alla sessione applicativa&lt;/li>&#xD;&#xA;&lt;li> alcune informazioni ausiliarie diepndenti dalla struttura del &#xD;&#xA;    &lt;b>ContentPanel&lt;/b> (es. Id del nodo selezionato in un tree, &#xD;&#xA;    informazioni circa il tab su cui si è cliccato, informazioni sulla cella selezionata&#xD;&#xA;in una tabella) &lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Nel metodo il programmatore potr&amp;agrave; eseguire qualsiasi tipo di logica ed in &#xD;&#xA;particolare:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li> modificare lo stato degli application data o della sessione.&lt;/li>&#xD;&#xA;&lt;li> inserire nel contesto applicativo messaggi informativi o di errore&lt;/li>&#xD;&#xA;&lt;li> determinare la prosecuzione del flusso, selezionando uno tra i &#xD;&#xA;&lt;i>results&lt;/i> disponibili.&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Al termine dell'esecuzione del metodo il flusso proseguir&amp;agrave; con il comando&#xD;&#xA;inserito nel &lt;b>CommandOutcome&lt;/b> specificato al termine della logica.&#xD;&#xA;"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//CommandOutcome" containment="true">
@@ -849,6 +983,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Gestore di un evento di User Interaction."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.event"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="command" eType="#//Command"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -873,6 +1010,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MethodProtectionTypes">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.event"/>
+    </eAnnotations>
     <eLiterals name="REJECT_SAME" value="1"/>
     <eLiterals name="ALLOW_ALL"/>
     <eLiterals name="REJECT_ALL" value="2"/>
@@ -880,6 +1020,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="EventTypes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="tipologie di eventi a cui &amp;egrave; possibile associare un event handler."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.event"/>
     </eAnnotations>
     <eLiterals name="CLICKED">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -913,6 +1056,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta da cui discendono i comandi che agiscono su un elenco di widget"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetWidgets" lowerBound="1"
         upperBound="-1" eType="#//Widget">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -926,6 +1072,9 @@
     </eAnnotations>
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>DialogPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare funzioni di feedback utente&#xD;&#xA;(messaggi informativi, dichieste di conferme). E'associato all'intera schermata e, quando &amp;egrave; &#xD;&#xA;attivato, mostra all'utente i messaggi previsti sostituendo completamente la schermata operativa.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire solo quelle tipologie di pannelli che servono per:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>mostrare messaggi formattati all'utente (&lt;b>MsgBoxPanel&lt;/b>)&lt;/li>&#xD;&#xA;&lt;li>fornire all'utente i comandi per &amp;quot;rispondere&amp;quot; al feedback, ovvero uno o pi&amp;ugrave;&#xD;&#xA;pulsanti di conferma o cancellazione (&lt;b>CommandPanel&lt;/b>)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" eType="#//CommandPanel"
         containment="true">
@@ -944,6 +1093,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Attiva un &lt;b>DialogPanel&lt;/b>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dialog" eType="#//DialogPanel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Il dialog da attivare."/>
@@ -953,6 +1105,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="CommandOutcome">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Possibile esito di un &lt;b>ExecCommand&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -969,6 +1124,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="CommandOnPanels" abstract="true" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta da cui discendono i comandi che agiscono su un elenco di pannelli"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetPanels" upperBound="-1"
         eType="#//Panel">
@@ -1016,6 +1174,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Finestra applicativa comprendente le parti comuni a tutte le schermate e la&#xD;&#xA;parte variabile."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="app"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="footer" eType="#//Footer"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1044,6 +1205,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di eseguire in sequenza i comandi specificati. I codice di ritorno &#xD;&#xA;del comando &amp;egrave; il codice dell'ultimo dei comandi."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
         eType="#//Command" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1055,10 +1219,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di ritornare alla schemata precedente. Da utilizzarsi in congiunzione con &#xD;&#xA;&lt;b>JumpCommand&lt;/b> e &lt;i>pushCurrentPage&lt;/i>."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationData">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Rappresenta l'astrazione di una variabile applicativa."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.data"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1080,6 +1250,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Possibili modi di persistenza dell'application data."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.data"/>
+    </eAnnotations>
     <eLiterals name="USER_ACTION">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Il valore &amp;egrave; disponibile solo fino al termine dell'azione utente corrente."/>
@@ -1100,6 +1273,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Collegamento con un application data o con una parte di esso."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.data"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" eType="#//ApplicationData">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="L'application data collegato"/>
@@ -1115,6 +1291,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta dalla quale discendono tutte le classi che rappresentano&#xD;&#xA;widget associabili a collezioni. Un &lt;b>MultiDataWidget&lt;/b>&#xD;&#xA;ha un concetto di &lt;i>collezione&lt;/i> del widget che rappresenta l'insieme &#xD;&#xA;finito di possibili valori selezionabili."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiDataBinding" eType="#//AppDataBinding"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1125,6 +1304,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Typedefs">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Insieme dei tipi definiti nell'applicazione"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//Type" containment="true">
@@ -1149,6 +1331,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Classe astratta dalla quale discendono tutti i tipi."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Nome identificativo del tipo.&#xD;&#xA;"/>
@@ -1158,6 +1343,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="SimpleType" eSuperTypes="#//Type">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Tipo base (semplice)."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//SimpleTypeCodes">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1191,6 +1379,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Struttura dati definita da utente. &#xD;&#xA;Nel caso di questa sottoclasse di &lt;b>Type&lt;/b> l'attributo &lt;i>name&lt;/i>&#xD;&#xA;deve essere un identificativo valido per java."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
+    </eAnnotations>
     <eOperations name="getAllFields" upperBound="-1" eType="#//Field"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//Field" containment="true">
@@ -1210,6 +1401,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Array tipato. Il nome impostato &amp;egrave; solo mnemonico."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentType" eType="#//Type">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Tipo degli elementi di cui sar&amp;agrave; costituito l'array."/>
@@ -1219,6 +1413,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="SimpleTypeCodes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Codici dei tipi base"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
     </eAnnotations>
     <eLiterals name="INT"/>
     <eLiterals name="LONG" value="1"/>
@@ -1239,6 +1436,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Field">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Il campo di un &lt;b>ComplexType&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1264,6 +1464,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ApplicationDataDefs">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Insieme delle definizioni di application data utilizzati nell'applicativo"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.data"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="appData" upperBound="-1"
         eType="#//ApplicationData" containment="true">
@@ -1300,6 +1503,9 @@
       <details key="description" value="E' un widget utilizzabile per la visualizzazione di una struttura ad albero.&#xD;&#xA;Il &lt;b>TreeView&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il&#xD;&#xA;pulsante ad altri widget (es. pulsanti di lookup)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del TreeView prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di visualizzare una struttura ad albero in termini di testo sintetico descrittivo&#xD;&#xA;del contenuto di ciascun nodo.&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di espandere un nodo non foglia per mostrarne i nodi figli&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>"/>
       <details key="event-clicked" value="&lt;p>Il &lt;b>TreeView&lt;/b> pu&amp;ograve; ricevere un evento di pressione da parte &#xD;&#xA;dell'utente che agisce in due modi a seconda che il nodo selezionato sia un nodo&#xD;&#xA;foglia o intermedio.&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>in caso di nodo intermedio l'evento &amp;egrave; implicito (non occorre definire un &#xD;&#xA;&lt;b>EventHandler&lt;/b>per attivarlo) e l'effetto della selezione &amp;egrave; l'espansione &#xD;&#xA;o la chiusura del nodo&lt;/li>&#xD;&#xA;&lt;li>in caso di nodo foglia &amp;egrave; possibile eseguire della logica server-side; tale&#xD;&#xA;logica avr&amp;agrave, a disposizione l'informazione che permette di risalire al nodo selezionato.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PlainText" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1307,6 +1513,9 @@
     </eAnnotations>
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' un widget di visualizzazione di dati testuali.&#xD;&#xA;Il widget completo prevede una &lt;i>label&lt;/i> ed il campo di visualizzazione associato, che&#xD;&#xA;&amp;egrave; semplicemente il testo corrispondente al valore associato al widget&#xD;&#xA;(da qui il nome di &lt;b>PlainText&lt;/b>).&#xD;&#xA;La &lt;i>label&lt;/i> pu&amp;ograve; essere, in casi particolari, vuota.&#xD;&#xA;Il &lt;b>TextField&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia&lt;/li>&#xD;&#xA;&lt;li>DialogPanel, per la visualizzazione del testo del dialog&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento, una &lt;i>standard&lt;/i> ed una&#xD;&#xA;&lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del PlainText prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="staticText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1322,6 +1531,9 @@
       <details key="description" value="Questo widget &amp;egrave; un segnaposto utilizzabile per la visualizzazione della struttura&#xD;&#xA;del menu. &#xD;&#xA;Il &lt;b>MenuView&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>MenuPanel, con layout Verticale&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede una sola modalit&amp;agrave; di funzionamento: &lt;i>standard&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del TreeView prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Per ciascuna voce di menu, inoltre &amp;egrave; possibile replicare gli stessi comportamenti di &#xD;&#xA;visibilit&amp;agrave;/abilitazione.&#xD;&#xA;"/>
       <details key="event-clicked" value="&lt;p>Il &lt;b>MenuView&lt;/b> pu&amp;ograve; ricevere un evento di selezione della voce&#xD;&#xA;di menu corrispondente, alla quale &amp;egrave, possibile associare una logica&#xD;&#xA;di business da eseguire.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GridPanelLayout" eSuperTypes="#//PanelLayout">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1329,6 +1541,9 @@
     </eAnnotations>
     <eAnnotations source="uilayoutdoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>GridPanelLayout&lt;/b> (layout a grigia) &amp;egrave; applicabile esclusivamente&#xD;&#xA;al pannello &lt;b>WidgetsPanel&lt;/b> e prevede che gli elementi contenuti nel pannello&#xD;&#xA;che possiede questo layout (widget) siano visualizzati in una struttura a griglia.&#xD;&#xA;E' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella&#xD;&#xA;della griglia pu&amp;ograve; contenere al massimo un solo &lt;b>Widget&lt;/b>.&#xD;&#xA;In aggiunta un widget pu&amp;ograve; estendersi orizzontalmente per pi&amp;ugrave; di una cella&#xD;&#xA;(&lt;i>hspan&lt;/i>),&#xD;&#xA;Di fatto, se il numero di colonne previste dal layout  &amp;egrave; &lt;i>n&lt;/i>, &#xD;&#xA;occorre tenere in considerazione una struttura costituita da &lt;i>n&lt;/i> colonne logiche&#xD;&#xA;e &lt;i>2*n&lt;/i> colonne fisiche (una per la label ed una per il campo effettivo, &#xD;&#xA;il tutto moltiplicato per il numero colonne logiche).&#xD;&#xA;E' possibile regolare le percentuali di occupazione della componente label&#xD;&#xA;e della componente widget di ciascuna delle colonne logiche. &#xD;&#xA;Le percentuali sono relative allo spazio a disposizione dell'interno pannello.&#xD;&#xA;Nel clacolo occorre inoltre tenere in considerazione anche casi &amp;quot; degeneri &amp;quot; quali:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>label non valorizzate&lt;/li>&#xD;&#xA;&lt;li>span orizzontali maggiori di 1&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columns" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1344,6 +1559,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GridWidgetLayoutSpec" eSuperTypes="#//WidgetLayoutSpecifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifica di posizionamento di widget in un layout a griglia"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.layout"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="row" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1373,6 +1591,9 @@
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>CommandPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare pulsantiere,&#xD;&#xA;ovvero gruppi di &lt;b>Button&lt;/b> destinati ad eseguire funzioni di business.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pulsanti disponibili.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cmdStyle" eType="#//CommandStyles">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Permette di differenziare stilisticamente (ove previsto dai pattern di portale)&#xD;&#xA;tra pulsanti ad uso &quot;funzionale&quot; e pulsanti ad uso &quot;navigazione&quot;."/>
@@ -1392,6 +1613,9 @@
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MenuPanel&lt;/b> &amp;egrave; un pannello privo di visualizzazione grafica propria, da utilizzarsi&#xD;&#xA;esclusivamente per contenere il widget &lt;b>MenuView&lt;/b>.&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1408,24 +1632,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di inserire un frammento di codice definito manualmente.&#xD;&#xA;Nella cartuccia di generazioen &quot;struts2&quot; questo corrisponde ad un frammento JSP."/>
     </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MultiPanel" eSuperTypes="#//Panel">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Pannello a visualizzazione alternativa. Permette di visualizzare uno solo &#xD;&#xA;dei pannelli definiti nella collezione &lt;i>panels&lt;/i>.&#xD;&#xA;Per visualizzare uno specifico pannello occorre utilizzare il comando&#xD;&#xA;&lt;b>ActivateMultipanelItem&lt;/b>.&#xD;&#xA;Lo statoiniziale di questo pannello &amp;egrave; la non visualizzazione di nessun pannello."/>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
-    <eAnnotations source="uipaneldoc">
-      <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MultiPanel&lt;/b> &amp;egrave; un pannello utilizzato per realizzare pannelli &lt;i>mutevoli&lt;/i>, ovvero che &#xD;&#xA;assumono programmaticamente le sembianze di uno tra &lt;i>n&lt;/i> pannelli possibili. Esiste anche la &#xD;&#xA;possibilit&amp;agrave; di non visualizzare nessun pannello: in quesot cao il &lt;b>MultiPanel&lt;/b> non produce nessuna&#xD;&#xA;struttura visualizzata. Il &lt;b>MultiPanel&lt;/b> &amp;egrave; lo strumento principale da utilizzare nel caso in cui sia &#xD;&#xA;necessaria la scomparsa di un intero pannello (cosa che non &amp;egravE; possibile realizzare esclusivamente&#xD;&#xA;con i comandi di visibilit&amp;agrave; sui &lt;b>Widget&lt;/b>).&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;&lt;/p>"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="panels" upperBound="-1"
-        eType="#//Panel" containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="I pannelli visualizzabili in alternativa"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivateMultiPanelItemCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di visualizzare uno degli item di un &lt;b>MultiPanel&lt;/b> &#xD;&#xA;(o di una delle sue sottoclassi &lt;b>TabSetPanel&lt;/b> o &lt;b>WizardPanel&lt;/b>)."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="multipanel" eType="#//MultiPanel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1443,10 +1659,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Superclasse di tutti i possibili meccanismi di autenticazione."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UISecurityConstraint" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Superclasse di tutti i security constraints applicabili a widget e menu."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1463,6 +1685,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Security constraint basato sull'abilitazione dell'utente corrente ad un particolare UseCase"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useCase" eType="#//UseCase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Lo UseCase di riferimento"/>
@@ -1472,6 +1697,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="SecurityModel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Caratteristiche di sicurezza dell'applicazione"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="autenticationMethod" eType="#//AutenticationMethod"
         containment="true">
@@ -1507,6 +1735,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Actor IRIDE2"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="codice identificativo (come censito in IRIDE2)"/>
@@ -1522,6 +1753,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="UseCase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="codice identificativo (come censito in IRIDE2)"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="permission" upperBound="-1"
         eType="#//Actor">
@@ -1539,6 +1773,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Security constraint basato sull'impersonificazione dell'utente corrente di un particolare Actor"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actor" eType="#//Actor">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="L'Actor di riferimento"/>
@@ -1549,6 +1786,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Security constraint a logica custom"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodNameSuffix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="suffisso del nome del metodo nel quale dovr&amp;agrave; essere codificata la logica del constraint."/>
@@ -1558,6 +1798,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPAUTHSSO" eSuperTypes="#//AutenticationMethod">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Meccanismo di autenticazione basato su Single Sign On di Oracle Portal"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minAuthLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1">
@@ -1570,10 +1813,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Meccanismo di autenticazione basato su Sistema di Single Sign On SSOBART"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomAuthentication" eSuperTypes="#//AutenticationMethod">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Meccanismo di autenticazione custom"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StdMessagePanel" eSuperTypes="#//Panel">
@@ -1582,6 +1831,9 @@
     </eAnnotations>
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Lo &lt;b>stdMessagePanel&lt;/b> &amp;egrave; un pannello di tipo informativo utilizzato per mostrare &#xD;&#xA;all'utente eventuali messaggi di errore o informativi.&#xD;&#xA;Se, durante l'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi&#xD;&#xA;informativi il pannello mostra tali messaggi.&#xD;&#xA;Se invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza&#xD;&#xA;grafica.&#xD;&#xA;Le tipologie di messaggio visualizzabili sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>messaggi informativi&lt;/li>&#xD;&#xA;&lt;li>messaggi di errore globali&lt;/li>&#xD;&#xA;&lt;li>messaggi di errore relativi a campi specifici&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;br/>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showGlobalMessages" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1603,6 +1855,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="JumpExtCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di far passare il flusso di esecuzione ad una pagina esterna all'applicativo."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="staticUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1650,10 +1905,16 @@
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Lo &lt;b>UserInfoPanel&lt;/b> &amp;egrave; un pannello utilizzato per visualizzare le informazioni&#xD;&#xA;relative all'utente selezionato, che tipicamente sono:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>il nome ed il cognome dell'utente&lt;/li>&#xD;&#xA;&lt;li>il codice fiscale dell'utente&lt;/li>&#xD;&#xA;&lt;li>l'ente di appartenenza&lt;/li>&#xD;&#xA;&lt;li>il ruolo&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;&lt;br/>&#xD;&#xA;&lt;/p>"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette la definizione di un pannello in modalit&amp;agrave; custom.&#xD;&#xA;L'implementazione di questo pannello dipende dalla cartuccia di generazione.&#xD;&#xA;Nel caso &quot;struts2&quot;, ad esempio, questo pannello di concretizza in un frammento JSP incluso."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WizardPanel" eSuperTypes="#//MultiPanel">
@@ -1662,6 +1923,9 @@
     </eAnnotations>
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>WizardPanel&lt;/b> &amp;egrave; un pannello utilizzato realizzare strutture organizzate&#xD;&#xA;a &lt;i>wizard&lt;/i>:&#xD;&#xA;Prevede due sezioni visibili:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>la lista di &amp;quot; etichette &amp;quot; che servono per attivare i vari &lt;i>step&lt;/i> &#xD;&#xA;(con evidenza visiva dello step correntemente selezionato)&lt;/li>&#xD;&#xA;&lt;li>la sezione in cui viene visualizzato il contenuto dello &lt;i>step&lt;/i> corrente.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di pannello disponibili.&#xD;&#xA;Il &lt;b>WizardPanel&lt;/b> pu&amp;ograve; funzionare in tre differenti modalit&amp;agrave;:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>wizard &lt;b>passivo&lt;/b>: la navigazione tra gli step deve essere comandata dalla business&#xD;&#xA;logic (es. tasti di &amp;quot;avanti&amp;quot; o &amp;quot;indietro&amp;quot; all'interno dello step)&lt;/li>&#xD;&#xA;&lt;li>wizard &lt;b>attivo&lt;/b>: la navigazione tra gli step pu&amp;ograve; essere comandata sia dalla&#xD;&#xA;business logic (es. tasti di &amp;quot;avanti&amp;quot; o &amp;quot;indietro&amp;quot; all'interno dello step) sia&#xD;&#xA;tramite click sulle etichette dei vari step.&lt;/li>&#xD;&#xA;&lt;/ol>&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="navigatorActive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true">
@@ -1701,6 +1965,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Namespace (package) di tipi."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.types"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="codice identificativo del namespace: deve essere univoco all'interno dell'applicazione e deve essere un identificatore di package java valido."/>
@@ -1717,6 +1984,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Raggruppamento logico di application data. da mantenere in modello separato."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="mdl.data"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="codice identificativo del gruppo. Ha valenza esclusivamente menmonica."/>
@@ -1732,6 +2002,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MsgBoxPanel" eSuperTypes="#//Panel">
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>MsgBoxPanel&lt;/b> &amp;egrave; un pannello utilizzabile per mostrare all'utente&#xD;&#xA;del testo in sola lettura, eventualmente formattato. Il testo pu&amp;ograve; essere statico&#xD;&#xA;(definito a tempo di modellazione) o dinamico (calcolato a runtime).&#xD;&#xA;E' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente&#xD;&#xA;utilizzare lo &lt;b>StdMessagePanel&lt;/b>, che &amp;egrave; orientato principalmente a brevi&#xD;&#xA;messaggi testuali.&#xD;&#xA;&lt;br/>&#xD;&#xA;Data la natura del pannello, &amp;egrave; possibile inserire esclusivamente dei widget di&#xD;&#xA;visualizzazione di testo (&lt;b>PlainText&lt;/b>).&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="messageSeverity" eType="#//MessageSeverity">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1758,6 +2031,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="No OPeration command. Serve da tappo per chiudere delle catene in cui occorra rimanere nella stessa schermata."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WidgetsPanel" eSuperTypes="#//Panel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1765,6 +2041,9 @@
     </eAnnotations>
     <eAnnotations source="uipaneldoc">
       <details key="description" value="&lt;p>&#xD;&#xA;Il &lt;b>widgetsPanel&lt;/b> &amp;egrave; il pannello principale utilizzabile per la realizzazione di&#xD;&#xA;&lt;i>form&lt;/i> di immissione/visualizzazione dati. Al suo interno &amp;egrave; possibile inserire, secondo&#xD;&#xA;i vari layout disponibili, praticamente tutti i &lt;b>Widget&lt;/b>. L'effetto grafico &amp;egrave; quello di un&#xD;&#xA;insieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun&#xD;&#xA;widget &amp;egrave; dotato di label. Il pannello stesso pu&amp;ograve;, opzionalmente, essere dotato di&#xD;&#xA;&amp;quot;titolo&amp;quot; che viene visualzzato in testa al pannello.&#xD;&#xA;&lt;br/>&#xD;&#xA;All'interno del singolo tab &amp;egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione&#xD;&#xA;del &lt;b>MenuView&lt;/b> che deve invece essere obbligatoriamente inserito in un &lt;b>MenuPanel&lt;/b>.&#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="widgets" upperBound="-1"
         eType="#//Widget" containment="true">
@@ -1777,6 +2056,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ScreenState">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Stato di visibili&amp;agrave; / abilitazione dei widget contenuti in un &#xD;&#xA;&lt;b>ContentPanel&lt;/b>. Per passare da uno stato all'altro &amp;egrave; &#xD;&#xA;necessario utilizzare il comando &lt;b>ScreenStateCommand&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.state"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1800,12 +2082,18 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="elenco delgi stati disponibili per un determinato &lt;b>ContentPanel&lt;/b>."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.state"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//ScreenState" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ScreenStateCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di far passare un &lt;b>ContnetPanel&lt;/b> nello stato specificato"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goTo" eType="#//ScreenState">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1817,10 +2105,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Meccanismo di autenticazione basato su SHIBBOLETH"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Role">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Ruolo come definito in IRIDE2"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1837,6 +2131,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Security constraint basato sull'appartenenza dell'utente corrente ad un particolare Role"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="security"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//Role">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Il role di riferimento"/>
@@ -1850,6 +2147,9 @@
     <eAnnotations source="uiwidgetdoc">
       <details key="description" value="E' il classico widget utilizzabile per la selezione di un &lt;i>file&lt;/i> che dovr&amp;agrave; essere inviato&#xD;&#xA;al server (funzione di &lt;i>file upload&lt;/i>).&#xD;&#xA;Il &lt;b>FileUpload&lt;/b> pu&amp;ograve; essere utilizzato all'interno di:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il&#xD;&#xA;pulsante ad altri widget (es. pulsanti di lookup)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;Prevede due modalit&amp;agrave; di funzionamento: &lt;i>standard&lt;/i> e &lt;i>ricca&lt;/i>.&#xD;&#xA;&lt;h4>modalit&amp;agrave; standard&lt;/h4>&#xD;&#xA;Il funzionamento di base del FileUpload prevede:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di selezionare da file system un file mediante &lt;i>browsing&lt;/i> sulle cartelle&#xD;&#xA;locali alla postazione client&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere reso invisibile a comando&lt;/li>&#xD;&#xA;&lt;li>la possibilit&amp;agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell'utente&#xD;&#xA;collegato&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;h4>modalit&amp;agrave; ricca&lt;/h4>&#xD;&#xA;La modalit&amp;agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>tooltip al passaggio del cursore sulla label del widget&lt;/li>&#xD;&#xA;&lt;/ul>"/>
       <details key="event-clicked" value="&lt;p>Il widget &lt;b>FileUpload&lt;/b> contiene un pulsante che pu&amp;ograve; ricevere un evento di pressione &#xD;&#xA;da parte dell'utente a fronte del quale viene visualizzato il &lt;i>dialog&lt;/i> di selezione del file da sottomettere al&#xD;&#xA;server. &#xD;&#xA;Questo evento &amp;egrave; implicito (non occorre definire un &lt;b>EventHandler&lt;/b> per attivarlo). &#xD;&#xA;A fronte di questo evento &lt;b>non&lt;/b> &amp;egrave; per&amp;ograve; possibile eseguire logica di business. &#xD;&#xA;&lt;/p>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TabSwitcher" eSuperTypes="#//CommandWidget">
@@ -1984,6 +2284,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Modello di attivazione dell'applicazione.&#xD;&#xA;Opzionale"/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="app"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activationParams" upperBound="-1"
         eType="#//ActivationParam" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1992,12 +2295,18 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivationParam">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="app"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//SimpleType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BeginEditCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Dichiara l'inizio di una sessione di editing, effettuando un backup in memoria&#xD;&#xA;degli &lt;b>ApplicationData&lt;/b> specificati.&#xD;&#xA;La copia di backup sar&amp;agrave; realizzata per valore e potr&amp;agrave; essere utilizzata&#xD;&#xA;per ripristinare il valore originario (funzione di &lt;i>undo&lt;/i> richiamata&#xD;&#xA;utilizzando &lt;b>EndEditCommand&lt;/b>."/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataEdited" upperBound="-1"
         eType="#//ApplicationData">
@@ -2009,6 +2318,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="EndEditCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di terminare una sessione di editing su un certo insieme di &lt;b>ApplicationData&lt;/b>,&#xD;&#xA;con la possibilità di effettuare un &lt;i>undo&lt;/i> sui dati specificati.&#xD;&#xA;Utilizzato in congiunzione con &lt;b>BeginEditCommand&lt;/b>. &#xD;&#xA;Nota: data la struttura dei due comandi di inizio e fine della sessione di&#xD;&#xA;editing &amp;egrave; possibile effettuare l'&lt;i>undo&lt;/i> di una parte degli&#xD;&#xA;application data specificati nel comando di inizio editing (specificando&#xD;&#xA;nel &lt;b>EndEditCommand&lt;/b> solo una parte degli application data&#xD;&#xA;precedentemente specificati nel &lt;b>BeginEditCommand&lt;/b>.&#xD;&#xA;Si consiglia, in questi casi, di terminare correttamente la sessione di &#xD;&#xA;editing per &lt;b>tutti&lt;/b> gli application data per evitar eche rimangano &#xD;&#xA;in memoria dati di backup obsoleti.&#xD;&#xA;Per far ci&amp;ograve; &amp;egrave; sufficiente utilizzare due volte il comando&#xD;&#xA;&lt;b>EndEditCommand&lt;/b>: la prima volta con &lt;i>undo&lt;/i> impostato a&#xD;&#xA;true (e specificando solo i dati di cui si vuole effettuare l'undo) e&#xD;&#xA;una seconda volta con &lt;i>undo&lt;/i> impostato a false, specificando &#xD;&#xA;i restanti dati.&#xD;&#xA;"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataEdited" upperBound="-1"
         eType="#//ApplicationData">
@@ -2025,6 +2337,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ChkEditStatusCommand" eSuperTypes="#//Command">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Permette di verificare se, all'interno di una sessione di editing, vi sono state&#xD;&#xA;delle variazioni al valore di uno o pi&amp;ugrave; &lt;b>ApplicationData&lt;/b>.&#xD;&#xA;Affinch&amp;egrave; il check sia veritiero è necessario che gli &lt;b>ApplicationData&lt;/b>&#xD;&#xA;oggetto di verifica siano un sottoinsieme dell'insieme di &lt;b>ApplicationData&lt;/b>&#xD;&#xA;indicati nel comando &lt;b>BeginEditCommand&lt;/b> che ha originato&#xD;&#xA;la sessione di editing (altrimenti non sar&amp;agrave; disponibile il valore originario&#xD;&#xA;con il quale effettuare il check di modifica).&#xD;&#xA;A fronte dell'esito del check sarà possibile proseguire l'esecuzione con uno &#xD;&#xA;tra due comandi (referenziati nei due elementi di tipo &lt;b>CommandOutcome&lt;/b>).&#xD;&#xA;Mediante l'attributo &lt;i>checkAggregation&lt;/i>E'possibile specificare la logica di aggregazione del check relativamente&#xD;&#xA;ai vari &lt;b>ApplicationData&lt;/b> referenziati:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>OR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di almeno uno dei dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>AND: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di tutti i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;li>XOR: l'esito sar&amp;agrave; di &quot;occorsa variazione&quot; se il valore di uno soltanto tra i dati&#xD;&#xA;      referenziati avr&amp;agrave; subito una modifica rispatto allo stato originale.&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="cmd"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataChecked" upperBound="-1"
         eType="#//ApplicationData">
@@ -2228,6 +2543,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CommandFunctions">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eLiterals name="UNSPECIFIED"/>
     <eLiterals name="ADD_ITEM" value="101"/>
     <eLiterals name="EDIT_ITEM" value="102"/>
