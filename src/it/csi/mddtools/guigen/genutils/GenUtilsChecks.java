@@ -1,6 +1,7 @@
 package it.csi.mddtools.guigen.genutils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -564,6 +565,25 @@ public class GenUtilsChecks {
 			alreadyVisited.add(ct);
 			return hasCircularHierarchy(ct.getExtends(), alreadyVisited);
 		}
+	}
+	
+	/**
+	 * Metodo che prende in input la lista di tutti gli appData "agganciati" 
+	 * al modello e ne verifica l'univocità a livello della property name
+	 * @param appDataList
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean applicationDataNamesAreAllUnambiguous(List appDataList){
+		HashMap<String, ApplicationData> hmAppData = new HashMap<String, ApplicationData>();
+		for (Iterator iterator = appDataList.iterator(); iterator.hasNext();) {
+			ApplicationData applicationData = (ApplicationData) iterator.next();
+			if (hmAppData.containsKey(applicationData.getName())){
+				return false;
+			}
+			hmAppData.put(applicationData.getName(), applicationData);
+		}
+		return true;
 	}
 
 }

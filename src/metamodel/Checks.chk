@@ -53,6 +53,10 @@ context Header ERROR "E' necessario impostare i nomi descrittivi del 'canale' e 
 context Header ERROR "E'necessario impostare il link (di produzione) del canale nell'oggetto Header (viene inserito nel filo d'arianna)" :
 	linkCanale != null && linkCanale.length>0;
 
+// [SC] Check che verifica l'univocita' dei nomi degli appData definiti nel modello	
+context GUIModel ERROR "I nomi degli application data devono essere univoci " + loc() :
+	applicationDataNamesAreAllUnambiguous(getAllApplicationData(this));	
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su AppModule context AppModule
