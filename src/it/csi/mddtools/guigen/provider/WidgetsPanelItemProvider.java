@@ -65,6 +65,7 @@ public class WidgetsPanelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addSummaryPropertyDescriptor(object);
+			addCollapsiblePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,28 @@ public class WidgetsPanelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Collapsible feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCollapsiblePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_WidgetsPanel_collapsible_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WidgetsPanel_collapsible_feature", "_UI_WidgetsPanel_type"),
+				 GuigenPackage.Literals.WIDGETS_PANEL__COLLAPSIBLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -159,6 +182,7 @@ public class WidgetsPanelItemProvider
 
 		switch (notification.getFeatureID(WidgetsPanel.class)) {
 			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
+			case GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.WIDGETS_PANEL__WIDGETS:

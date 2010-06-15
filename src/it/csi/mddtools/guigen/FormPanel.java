@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.FormPanel#getSubpanels <em>Subpanels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.FormPanel#getWidgets <em>Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.FormPanel#isCollapsible <em>Collapsible</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,5 +79,31 @@ public interface FormPanel extends Panel {
 	 * @generated
 	 */
 	EList<Widget> getWidgets();
+
+	/**
+	 * Returns the value of the '<em><b>Collapsible</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se <i>true</i> il pannello &egrave; collassabile.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Collapsible</em>' attribute.
+	 * @see #setCollapsible(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getFormPanel_Collapsible()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isCollapsible();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.FormPanel#isCollapsible <em>Collapsible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Collapsible</em>' attribute.
+	 * @see #isCollapsible()
+	 * @generated
+	 */
+	void setCollapsible(boolean value);
 
 } // FormPanel

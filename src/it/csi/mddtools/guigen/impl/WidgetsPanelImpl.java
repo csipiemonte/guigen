@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getWidgets <em>Widgets</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#getSummary <em>Summary</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetsPanelImpl#isCollapsible <em>Collapsible</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 	 * @ordered
 	 */
 	protected String summary = SUMMARY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isCollapsible() <em>Collapsible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCollapsible()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean COLLAPSIBLE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isCollapsible() <em>Collapsible</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCollapsible()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean collapsible = COLLAPSIBLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,6 +146,27 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isCollapsible() {
+		return collapsible;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCollapsible(boolean newCollapsible) {
+		boolean oldCollapsible = collapsible;
+		collapsible = newCollapsible;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE, oldCollapsible, collapsible));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -146,6 +188,8 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 				return getWidgets();
 			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
 				return getSummary();
+			case GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE:
+				return isCollapsible();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,6 +210,9 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
 				setSummary((String)newValue);
 				return;
+			case GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE:
+				setCollapsible((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -184,6 +231,9 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
 				setSummary(SUMMARY_EDEFAULT);
 				return;
+			case GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE:
+				setCollapsible(COLLAPSIBLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -200,6 +250,8 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 				return widgets != null && !widgets.isEmpty();
 			case GuigenPackage.WIDGETS_PANEL__SUMMARY:
 				return SUMMARY_EDEFAULT == null ? summary != null : !SUMMARY_EDEFAULT.equals(summary);
+			case GuigenPackage.WIDGETS_PANEL__COLLAPSIBLE:
+				return collapsible != COLLAPSIBLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -216,6 +268,8 @@ public class WidgetsPanelImpl extends PanelImpl implements WidgetsPanel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (summary: ");
 		result.append(summary);
+		result.append(", collapsible: ");
+		result.append(collapsible);
 		result.append(')');
 		return result.toString();
 	}

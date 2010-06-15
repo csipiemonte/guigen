@@ -458,13 +458,22 @@ public interface GuigenPackage extends EPackage {
 	int FORM_PANEL__WIDGETS = PANEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Collapsible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORM_PANEL__COLLAPSIBLE = PANEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Form Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FORM_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
+	int FORM_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TabSetPanelImpl <em>Tab Set Panel</em>}' class.
@@ -6376,13 +6385,22 @@ public interface GuigenPackage extends EPackage {
 	int WIDGETS_PANEL__SUMMARY = PANEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Collapsible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIDGETS_PANEL__COLLAPSIBLE = PANEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Widgets Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIDGETS_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
+	int WIDGETS_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.
@@ -8524,6 +8542,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFormPanel_Widgets();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.FormPanel#isCollapsible <em>Collapsible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Collapsible</em>'.
+	 * @see it.csi.mddtools.guigen.FormPanel#isCollapsible()
+	 * @see #getFormPanel()
+	 * @generated
+	 */
+	EAttribute getFormPanel_Collapsible();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TabSetPanel <em>Tab Set Panel</em>}'.
@@ -11444,6 +11473,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getWidgetsPanel_Summary();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WidgetsPanel#isCollapsible <em>Collapsible</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Collapsible</em>'.
+	 * @see it.csi.mddtools.guigen.WidgetsPanel#isCollapsible()
+	 * @see #getWidgetsPanel()
+	 * @generated
+	 */
+	EAttribute getWidgetsPanel_Collapsible();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ScreenState <em>Screen State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12898,6 +12938,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FORM_PANEL__WIDGETS = eINSTANCE.getFormPanel_Widgets();
+
+		/**
+		 * The meta object literal for the '<em><b>Collapsible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FORM_PANEL__COLLAPSIBLE = eINSTANCE.getFormPanel_Collapsible();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TabSetPanelImpl <em>Tab Set Panel</em>}' class.
@@ -15282,6 +15330,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute WIDGETS_PANEL__SUMMARY = eINSTANCE.getWidgetsPanel_Summary();
+
+		/**
+		 * The meta object literal for the '<em><b>Collapsible</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIDGETS_PANEL__COLLAPSIBLE = eINSTANCE.getWidgetsPanel_Collapsible();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ScreenStateImpl <em>Screen State</em>}' class.
