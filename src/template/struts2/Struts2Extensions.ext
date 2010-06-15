@@ -982,7 +982,15 @@ String endFragment(Panel p) :
 String pageIdMarker(ContentPanel cp) :
 	"<!-- pageId:"+cp.name+" -->";
 
+String getToggleHandleHtml(FormPanel fp, String contextPrefix) :
+	if (fp.collapsible) then
+	"<span id=\"toggle_"+getFullID(fp,contextPrefix)+"\"></span>"
+	else "";
 
+String getToggleHandleHtml(WidgetsPanel fp, String contextPrefix) :
+	if (fp.collapsible) then
+	"<span id=\"toggle_"+getFullID(fp,contextPrefix)+"\"></span>"
+	else "";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
@@ -995,6 +1003,7 @@ String pageIdMarker(ContentPanel cp) :
 
 String getReminclResourceProvider(GUIModel model) :
 	"";
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
