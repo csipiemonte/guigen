@@ -1,0 +1,111 @@
+wizard Table4CollectionAppdata {
+	guard : self.isTypeOf(WidgetsPanel)
+	title : 'Crea una tabella da applicaton data di tipo collection'
+	do {
+		UserInput.inform('TODO...'); 
+	}
+}
+
+wizard SimplePageStructure {
+	guard: self.isTypeOf(ContentPanel)
+	title: 'crea scheletro pagina (con scelta template)'
+	do {
+		if ((self.panels.size()>0) ) {
+			UserInput.inform(
+				'Attenzione: non è possibile creare la struttra della pagina\n'+
+				'poichè è già presente un FormPanel' 
+			);
+		}
+		else {
+			var template : String;
+			var templates : Sequence := Sequence{
+				'A- a quadranti, tre colonne orizzontali più sezioni in alto e in basso',
+				'B- a quadranti, due colonne (sinistra + centro) più sezioni in alto e in basso',
+				'C- a quadranti, due colonne (centro + destra) più sezioni in alto e in basso',
+				'D- a sviluppo verticalte, con colonna unica'
+			};
+			UserInput.inform(
+				'Questo wizard permette di creare la struttra della pagina\n'+
+				'con possibilità di scegliere tra differenti template'
+			);
+			
+			template := UserInput.choose(
+				'Scegliere il template di struttura da utilizzare',
+				templates
+			);
+			UserInput.inform('scelto:'+template);
+			if (template <> null){
+				if (template.startsWith('A-')) {
+					self.createPageTemplateA();
+				}
+				else if (template.startsWith('B-')) {
+					self.createPageTemplateB();
+				}
+				else if (template.startsWith('C-')) {
+					self.createPageTemplateC();
+				}
+				else if (template.startsWith('D-')) {
+					self.createPageTemplateD();
+				}
+			}
+		}
+	} 
+}
+
+
+/**
+ * udlrc completo
+ */
+operation ContentPanel createPageTemplateA() : Boolean {
+	var pMain: new FormPanel;
+	var udlrcl: new UDLRCPanelLayout;
+	var pLeft: new FormPanel;
+	var pCenter: new FormPanel;
+	var pDown: new FormPanel;
+	var pRight: new FormPanel;
+	var pUp: new FormPanel;
+	var lspecUp: new UDLRCWidgetLayoutSpec; lspecUp.value := UDLRCSpecConstants#UP;
+	var lspecDown: new UDLRCWidgetLayoutSpec; lspecDown.value := UDLRCSpecConstants#DOWN;
+	var lspecLeft: new UDLRCWidgetLayoutSpec; lspecLeft.value := UDLRCSpecConstants#LEFT;
+	var lspecCenter: new UDLRCWidgetLayoutSpec; lspecCenter.value := UDLRCSpecConstants#CENTER;
+	var lspecRight: new UDLRCWidgetLayoutSpec; lspecRight.value := UDLRCSpecConstants#RIGHT;
+	self.panels := pMain;
+	pMain.label="[[titolo della pagina]]";
+	pMain.layout := udlrcl;
+	pLeft.layoutSpec := lspecLeft;
+	pUp.layoutSpec := lspecUp;
+	pDown.layoutSpec := lspecDown;
+	pRight.layoutSpec := lspecRight;
+	pCenter.layoutSpec := lspecCenter;
+	pCenter.label := '--titolo pannello centrale--';
+	pMain.subpanels.add(pUp);
+	pMain.subpanels.add(pDown);
+	pMain.subpanels.add(pLeft);
+	pMain.subpanels.add(pCenter);
+	pMain.subpanels.add(pRight);
+	
+	return true;
+}
+
+operation ContentPanel createPageTemplateB() : Boolean {
+	UserInput.inform('TODO..B');
+	return true;
+}
+
+operation ContentPanel createPageTemplateC() : Boolean {
+	UserInput.inform('TODO..C');
+	return true;
+}
+
+/**
+ * a sviluppo verticale 1 col
+ */
+operation ContentPanel createPageTemplateD() : Boolean {
+	var pMain: new FormPanel;
+	var vl: new VerticalFlowPanelLayout;
+	self.panels := pMain;
+	pMain.layout := vl;
+	pMain.label := '[[Titolo della pagina]]'; 
+	return true;
+}
+

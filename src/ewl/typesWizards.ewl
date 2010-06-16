@@ -1,0 +1,15 @@
+
+/**
+ * Crea un tipo TypedArray basato su un complex type
+ */
+wizard TypedArray4ComplexType {
+	guard : self.isTypeOf(ComplexType)
+	title : 'Crea il tipo Collection ('+self.name+'[]) a partire dal tipo record ('+self.name+')'
+	do {
+		var tns : TypeNamespace := self.eContainer;
+		var typedArray : new TypedArray;
+		typedArray.name := self.name+'[]';
+		typedArray.componentType := self;
+		tns.types.add(typedArray); 
+	}
+}
