@@ -22,7 +22,11 @@
 var appArea = new ExtCsi.app.ApplicationArea(
 	{
 		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
-		homePage: '«getRegistryID(this.homePage)»'
+		homePage: '«getRegistryID(this.homePage)»',
+		«IF onInitCommand!=null-»
+		onInitCommand: «EXPAND controller::commands::cmd(model) FOR this.onInitCommand»
+		«ELSE» null
+		«ENDIF-»
 	}
 
 );
@@ -38,18 +42,23 @@ appArea.init();
 	new ExtCsi.ui.menu.Menubar(
 		{topLevelMenu: 
 			[
-			«EXPAND menuStruct FOREACH this.topLevelMenu SEPARATOR ","-»
+			«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-»
 			]
 		}
 	)
 «ENDDEFINE»
 
-«DEFINE menuStruct FOR Menu-»
+«DEFINE menuStruct(GUIModel model) FOR Menu-»
 			new ExtCsi.ui.menu.Menu(
 			{
 				name: '«name»',
-				label: '«label»'
-				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
+				label: '«label»',
+				eventHandler:
+				«IF eventHandler!=null-»
+				«EXPAND controller::commands::eventHandler(model) FOR this.eventHandler»
+				«ELSE»null
+				«ENDIF-»
+				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
 			}
 			)
 «ENDDEFINE»
@@ -63,7 +72,8 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 	new ExtCsi.ui.panels.ContentPanel(
 		{
 			name: '«name»',	
-			panels: «EXPAND view::panels::panelStruct(model) FOR panels»
+			panels: «EXPAND view::panels::panelStruct(model) FOR panels»,
+			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );
