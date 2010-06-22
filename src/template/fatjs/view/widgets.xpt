@@ -199,7 +199,9 @@
 «ENDDEFINE»
 
 «DEFINE databinding FOR AppDataBinding»
-					new ExtCsi.mdl.data.AppDataBinding({appData: '«getRegistryID(appData)»', path: «jsLiteralValue(path)»})
+«LET appData.eContainer.metaType == AppDataGroup ? appData.eContainer : null AS adg-»
+					new ExtCsi.mdl.data.AppDataBinding({appData: '«getRegistryID(appData, adg)»', path: «jsLiteralValue(path)»})
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE eventHandlers(GUIModel model) FOR Widget»
