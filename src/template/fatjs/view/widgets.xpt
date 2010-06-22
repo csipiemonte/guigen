@@ -191,9 +191,11 @@
 «ENDDEFINE»
 
 «DEFINE dataWidgetProperties(GUIModel model) FOR DataWidget»
-					dataType: null, // TODO «this.dataType»
+«LET dataType.eContainer.metaType==TypeNamespace ? dataType.eContainer : null AS tns-»
+					dataType: '«getRegistryID(dataType, tns)»',
 					dataTypeModifier: «jsLiteralValue(this.dataTypeModifier)»,
 					databinding: «IF databinding != null»«EXPAND databinding FOR this.databinding»«ELSE» null«ENDIF»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE databinding FOR AppDataBinding»

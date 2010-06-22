@@ -6,6 +6,10 @@ String getRegistryID(ContentPanel cp) :
 String getRegistryID(ApplicationData ad) :
 	'${'+ad.name+"}";	
 
+String getRegistryID(Type st, TypeNamespace tns) :
+	tns != null ?
+	"${"+tns.name+"."+st.name+"}" : "${"+st.name+"}";	
+
 String jsLiteralValue(String s) :
 	s==null? "null": "'"+s+"'";
 
