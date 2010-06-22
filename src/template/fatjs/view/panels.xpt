@@ -37,6 +37,32 @@
 			)
 «ENDDEFINE»
 
+«DEFINE panelStruct(GUIModel model) FOR MultiPanel»
+			new ExtCsi.ui.panels.MultiPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR TabSetPanel»
+			new ExtCsi.ui.panels.TabSetPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR WizardPanel»
+			new ExtCsi.ui.panels.WizardPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
 
 «DEFINE panelCommonProperties(GUIModel model) FOR Panel»
 					name: «jsLiteralValue(this.name)»,
