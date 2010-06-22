@@ -1,0 +1,102 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+«DEFINE eventHandler(GUIModel model) FOR EventHandler»
+new ExtCsi.ui.event.EventHandler(
+{
+	eventType: ExtCsi.ui.event.EventTypes().«eventType»,
+	skipValidation: «jsLiteralValue(this.skipValidation)»,
+	methodProtection: ExtCsi.ui.event.MethodProtectionTypes().«this.methodProtection»,
+	«EXPAND cmd(model) FOR this.command»
+}
+);
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel modle) FOR Command»
+«ERROR "comando "+metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR SequenceCommand»
+	new ExtCsi.cmd.SequenceCommand(
+		{commands: [«EXPAND cmd(model) FOREACH this.commands SEPARATOR ","»]}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR NOPCommand»
+	new ExtCsi.cmd.NOPCommand()
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR JumpCommand»
+	new ExtCsi.cmd.JumpCommand(
+		{
+			jumpTo: '«getRegistryID(this.jumpTo)»',
+			pushCurrentPage: «jsLiteralValue(pushCurrentPage)»
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR JumpExtCommand»
+	new ExtCsi.cmd.JumpExtCommand(
+		{
+		staticUrl: «jsLiteralValue(this.staticUrl)»,
+		locationCode: «jsLiteralValue(this.locationCode)»
+		}
+	)
+«ENDDEFINE»
+
+
+«DEFINE cmd(GUIModel model) FOR VisibilityCommand»
+	new ExtCsi.cmd.VisibilityCommand(
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»] 
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR ONOFFCommand»
+	new ExtCsi.cmd.ONOFFCommand(
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR ActivateMultiPanelItemCommand»
+	new ExtCsi.cmd.ActivateMultiPanelItemCommand(
+		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
+		multipanel: «jsLiteralValue(this.multipanel.name)»
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR ExecCommand»
+	new ExtCsi.cmd.ExecCommand({
+		methodName: «jsLiteralValue(methodName)»,
+		results: [«EXPAND cmdOutcome(model) FOREACH this.results SEPARATOR ","»]
+		// TODO postExecData
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmdOutcome(GUIModel model) FOR CommandOutcome»
+		new ExtCsi.cmd.CommandOutcome(
+		{
+			command: «EXPAND cmd(model) FOR this.command»}
+		)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR RefreshViewCommand»
+	new ExtCsi.cmd.RefreshViewCommand(
+		{
+			targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
+			targetPanels: [«FOREACH targetPanels AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model) FOR ScreenStateCommand»
+	new ExtCsi.cmd.ScreenStateCommand(
+		{
+			// TODO
+		}
+	)
+«ENDDEFINE»
