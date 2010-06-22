@@ -18,7 +18,8 @@
 
 var appArea = new ExtCsi.app.ApplicationArea(
 	{
-		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»
+		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
+		homePage: «getRegistryID(this.homePage)»
 	}
 
 );
@@ -59,7 +60,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 			name: '«name»',	
 			panels: «EXPAND panelStruct(model) FOR panels»
 		}
-	);
+	)
 );
 «ENDDEFINE»
 
@@ -69,7 +70,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE panelStruct(GUIModel model) FOR FormPanel»
 			new ExtCsi.ui.panels.FormPanel(
 				{
-					name: '«name»',
+					«EXPAND panelCommonProperties(model) FOR this»,
 					subpanels: [«EXPAND panelStruct(model) FOREACH subpanels SEPARATOR ","»]
 				}
 			)
@@ -78,7 +79,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE panelStruct(GUIModel model) FOR WidgetsPanel»
 			new ExtCsi.ui.panels.WidgetsPanel(
 				{
-					name: '«name»',
+					«EXPAND panelCommonProperties(model) FOR this»,
 					widgets: [«EXPAND widgetStruct(model) FOREACH widgets SEPARATOR ","»]
 				}
 			)
@@ -87,12 +88,32 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE panelStruct(GUIModel model) FOR CommandPanel»
 			new ExtCsi.ui.panels.CommandPanel(
 				{
-					name: '«name»',
+					«EXPAND panelCommonProperties(model) FOR this»,
 					widgets: [«EXPAND widgetStruct(model) FOREACH widgets SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
+
+«DEFINE panelCommonProperties(GUIModel model) FOR Panel»
+					name: «jsLiteralValue(this.name)»,
+					label: «jsLiteralValue(this.label)»,
+					layout: «EXPAND panelLayout FOR this.layout»,
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»,
+					scrollable: «jsLiteralValue(this.scrollable)»
+«ENDDEFINE»
+
+«DEFINE panelLayout FOR PanelLayout-»
+«ERROR "layout "+this.metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE panelLayout FOR VerticalFlowPanelLayout-»new ExtCsi.ui.layout.VerticalFlowPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR HorizontalFlowPanelLayout-»new ExtCsi.ui.layout.HorizontalFlowPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR UDLRCPanelLayout-»new ExtCsi.ui.layout.UDLRCPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR GridPanelLayout-»new ExtCsi.ui.layout.VerticalFlowPanelLayout({columns: «jsLiteralValue(columns)», rows: «jsLiteralValue(rows)»})«ENDDEFINE»
 
 «DEFINE widgetStruct(GUIModel model) FOR Widget»
 «ERROR "widget "+this.metaType+" non gestito"»
@@ -101,7 +122,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR TextField»
 			new ExtCsi.ui.widgets.TextField(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -109,7 +130,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR TextArea»
 			new ExtCsi.ui.widgets.TextArea(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -117,7 +138,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR PlainText»
 			new ExtCsi.ui.widgets.PlainText(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -125,7 +146,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR ComboBox»
 			new ExtCsi.ui.widgets.ComboBox(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -133,7 +154,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR CheckBox»
 			new ExtCsi.ui.widgets.CheckBox(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -141,7 +162,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR RadioButtons»
 			new ExtCsi.ui.widgets.RadioButtons(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -149,7 +170,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR Table»
 			new ExtCsi.ui.widgets.Table(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -157,7 +178,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR Calendar»
 			new ExtCsi.ui.widgets.Calendar(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -165,7 +186,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR TreeView»
 			new ExtCsi.ui.widgets.TreeView(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -173,7 +194,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR Button»
 			new ExtCsi.ui.widgets.Button(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -181,7 +202,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR ConfirmButton»
 			new ExtCsi.ui.widgets.ConfirmButton(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -189,7 +210,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 «DEFINE widgetStruct(GUIModel model) FOR ResetButton»
 			new ExtCsi.ui.widgets.ResetButton(
 				{
-					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND widgetCommonProperties(model) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -206,5 +227,13 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 					tooltip: «jsLiteralValue(this.tooltip)»,
 					defaultVisible: «jsLiteralValue(this.defaultVisible)»,
 					defaultEnabled: «jsLiteralValue(this.defaultEnabled)»,
-					layoutSpec: null // todo...
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»
+«ENDDEFINE»
+
+«DEFINE layoutSpec FOR WidgetLayoutSpecifier»
+«ERROR "layoutspecifier "+this.metaType+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE layoutSpec FOR UDLRCWidgetLayoutSpec»
+new ExtCsi.ui.layout.UDLRCWidgetLayoutSpec({value: ExtCSI.ui.layout.UDLRCSpecConstants().«value»})
 «ENDDEFINE»
