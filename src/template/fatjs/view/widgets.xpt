@@ -1,0 +1,121 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+«DEFINE widgetStruct(GUIModel model) FOR Widget»
+«ERROR "widget "+this.metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR TextField»
+			new ExtCsi.ui.widgets.TextField(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR TextArea»
+			new ExtCsi.ui.widgets.TextArea(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR PlainText»
+			new ExtCsi.ui.widgets.PlainText(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR ComboBox»
+			new ExtCsi.ui.widgets.ComboBox(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR CheckBox»
+			new ExtCsi.ui.widgets.CheckBox(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR RadioButtons»
+			new ExtCsi.ui.widgets.RadioButtons(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR Table»
+			new ExtCsi.ui.widgets.Table(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR Calendar»
+			new ExtCsi.ui.widgets.Calendar(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR TreeView»
+			new ExtCsi.ui.widgets.TreeView(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR Button»
+			new ExtCsi.ui.widgets.Button(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR ConfirmButton»
+			new ExtCsi.ui.widgets.ConfirmButton(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR ResetButton»
+			new ExtCsi.ui.widgets.ResetButton(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR MenuView»
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model) FOR TabSwitcher»
+«ENDDEFINE»
+
+«DEFINE widgetCommonProperties(GUIModel model) FOR Widget»
+					name: «jsLiteralValue(this.name)»,
+					label: «jsLiteralValue(this.label)»,
+					tooltip: «jsLiteralValue(this.tooltip)»,
+					defaultVisible: «jsLiteralValue(this.defaultVisible)»,
+					defaultEnabled: «jsLiteralValue(this.defaultEnabled)»,
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layout::layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»
+«ENDDEFINE»

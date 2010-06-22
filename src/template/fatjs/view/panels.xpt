@@ -1,0 +1,48 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+
+«DEFINE panelStruct(GUIModel model) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR FormPanel»
+			new ExtCsi.ui.panels.FormPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					subpanels: [«EXPAND panelStruct(model) FOREACH subpanels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR WidgetsPanel»
+			new ExtCsi.ui.panels.WidgetsPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					widgets: [«EXPAND widgets::widgetStruct(model) FOREACH widgets SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR CommandPanel»
+			new ExtCsi.ui.panels.CommandPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					widgets: [«EXPAND widgets::widgetStruct(model) FOREACH widgets SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+
+«DEFINE panelCommonProperties(GUIModel model) FOR Panel»
+					name: «jsLiteralValue(this.name)»,
+					label: «jsLiteralValue(this.label)»,
+					layout: «EXPAND layout::panelLayout FOR this.layout»,
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layout::layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»,
+					scrollable: «jsLiteralValue(this.scrollable)»
+«ENDDEFINE»
+
