@@ -50,21 +50,24 @@ new ExtCsi.ui.event.EventHandler(
 
 
 «DEFINE cmd(GUIModel model) FOR VisibilityCommand»
-	new ExtCsi.cmd.VisibilityCommand(
-		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»] 
+	new ExtCsi.cmd.VisibilityCommand({
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		} 
 	)
 «ENDDEFINE»
 
 «DEFINE cmd(GUIModel model) FOR ONOFFCommand»
-	new ExtCsi.cmd.ONOFFCommand(
+	new ExtCsi.cmd.ONOFFCommand({
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		}
 	)
 «ENDDEFINE»
 
 «DEFINE cmd(GUIModel model) FOR ActivateMultiPanelItemCommand»
-	new ExtCsi.cmd.ActivateMultiPanelItemCommand(
+	new ExtCsi.cmd.ActivateMultiPanelItemCommand({
 		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
 		multipanel: «jsLiteralValue(this.multipanel.name)»
+		}
 	)
 «ENDDEFINE»
 
