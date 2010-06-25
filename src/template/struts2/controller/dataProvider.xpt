@@ -9,6 +9,12 @@
 «REM»deve essere chiamato solo se richBehavior == true«ENDREM»
 «DEFINE dataProviderMethods(GUIModel model) FOR ContentPanel-»
 	//////////////////////////////////////////////////////////////////////////////////
+	/// metodo di data providing sull'intero ContentPanel
+	/// metodo: provide_CPDATA
+	//////////////////////////////////////////////////////////////////////////////////
+	«EXPAND dataProvider::formDataProviderMethod FOR model»
+	
+	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi di data providing sui widget dotati di multi data binding
 	/// contenuti nel contentPanel
 	/// metodo: provide<nomeWidget>_<tipologia dati>
@@ -57,6 +63,7 @@
 	 * al multi-data-binding relativo al widget «getFullID(this, contextPrefix)».
 	 * @return sempre il result "provideData"
 	 */
+	@SkipValidation 
 	public String «getDataProviderMethodName(this, "DATASET", contextPrefix)» () throws CommandExecutionException {
 	«LET multiDataBinding.appData.type AS appdataType-»
 	
@@ -83,4 +90,33 @@
 	«ENDLET-»
 	}
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE formDataProviderMethod FOR GUIModel-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * a tutti gli application data di tipo non collection referenziati nel ContentPanel.
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation
+	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
+		// costruzione struttura dati di 1° livello
+		Object dataToProvide = toModel();
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	}
 «ENDDEFINE»
