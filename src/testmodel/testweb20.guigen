@@ -35,57 +35,79 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:MenuView" name="menu"/>
               </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpTree" label="Albero cittadini">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="wpTree" label="Cittadini">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TreeView" name="treeProvaTree" dataType="//@typedefs/@types.7">
+                    <eventHandlers skipValidation="true">
+                      <command xsi:type="guigen:ExecCommand" methodName="onTreeClick">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.0/@subpanels.1/@subpanels.0/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@subpanels.0"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                    <multiDataBinding appData="//@appDataDefs/@appData.9"/>
+                  </widgets>
+                </subpanels>
+              </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Test refresh parziale">
               <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
-              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets0">
+              <subpanels xsi:type="guigen:FormPanel" name="fpPwidg1" label="Dati anagrafici" collapsible="true">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:TextField" name="tfFloat" label="Campo di test float" tooltip="Questo campo &amp;egrave; un &lt;b>TextField&lt;/b> &lt;br/> che contiene un dato &lt;i>float&lt;(i>" dataType="//@typedefs/@types.11" fieldMaxLength="5">
-                  <databinding appData="//@appDataDefs/@appData.1"/>
-                </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfInteger" label="Campo di test integer" tooltip="Questo campo &amp;egrave; un &lt;b>TextField&lt;/b> &lt;br/> che contiene un dato &lt;i>integer&lt;(i>" dataType="//@typedefs/@types.8" required="true">
-                  <databinding appData="//@appDataDefs/@appData.2"/>
-                </widgets>
-                <widgets xsi:type="guigen:CheckBox" name="ckSi" label="Attivo?" tooltip="Scegli solo se sei sicuro!" dataType="//@typedefs/@types.9">
-                  <databinding appData="//@appDataDefs/@appData.4"/>
-                </widgets>
-                <widgets xsi:type="guigen:Calendar" name="calData1" label="Data 1" tooltip="Questo &amp;egrave; un campo di testo con &lt;br/> &lt;b>Date Picker&lt;/b>" dataType="//@typedefs/@types.3"/>
-                <widgets xsi:type="guigen:TextField" name="tfString" label="Campo di test stringa" dataType="//@typedefs/@types.7" required="true"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets0" label="">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:TextField" name="tfFloat" label="Campo di test float" tooltip="Questo campo &amp;egrave; un &lt;b>TextField&lt;/b> &lt;br/> che contiene un dato &lt;i>float&lt;/i>" dataType="//@typedefs/@types.11" fieldMaxLength="5">
+                    <databinding appData="//@appDataDefs/@appData.1"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:TextField" name="tfInteger" label="Campo di test integer" tooltip="Questo campo &amp;egrave; un &lt;b>TextField&lt;/b> &lt;br/> che contiene un dato &lt;i>integer&lt;/i>" dataType="//@typedefs/@types.8" required="true">
+                    <databinding appData="//@appDataDefs/@appData.2"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:CheckBox" name="ckSi" label="Attivo?" tooltip="Scegli solo se sei sicuro!" dataType="//@typedefs/@types.9">
+                    <databinding appData="//@appDataDefs/@appData.4"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:Calendar" name="calData1" label="Data 1" tooltip="Questo &amp;egrave; un campo di testo con &lt;br/> &lt;b>Date Picker&lt;/b>" dataType="//@typedefs/@types.3"/>
+                  <widgets xsi:type="guigen:TextField" name="tfString" label="Campo di test stringa" dataType="//@typedefs/@types.7" required="true"/>
+                </subpanels>
               </subpanels>
-              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
+              <subpanels xsi:type="guigen:FormPanel" name="fpTabellaComuni" label="Tabella comuni" collapsible="true">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:Table" name="tblComuni" label="" dataType="//@typedefs/@types.7" pageSize="3" customDecorator="true">
-                  <eventHandlers skipValidation="true">
-                    <command xsi:type="guigen:ExecCommand" methodName="onTableClick">
-                      <results resultCode="REFRESH">
-                        <command xsi:type="guigen:SequenceCommand">
-                          <commands xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@panels.0"/>
-                          <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
-                        </command>
-                      </results>
-                      <results resultCode="JUMP">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
-                      </results>
-                    </command>
-                  </eventHandlers>
-                  <databinding appData="//@appDataDefs/@appData.8"/>
-                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
-                  <columnModel valueSelector="codIstat">
-                    <columns selector="codIstat" label="&lt;acronym title=&quot;prova&quot;>codIstat &lt;/acronym>" sortable="true" tooltip="Il codice &lt;b>ISTAT&lt;/b> del comune"/>
-                    <columns selector="nome" label="&lt;abbr title=&quot;prova2&quot;>nome&lt;/abbr>" sortable="true" eventActive="true" tooltip="Il nome con cui il comune &amp;egrave; iscritto all\'anagrafe dei comuni"/>
-                    <columns selector="capoluogo" label="capoluogo?" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="Capoluogo di provincia del comune"/>
-                    <columns selector="popolazione" label="popolazione" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="La popolazione del comune"/>
-                    <columns selector="popolazioneEditabile" label="pop editabile?" editable="true" tooltip="A seconda del valore di questo check la riga sar&amp;agrave; editabile o meno"/>
-                    <columns selector="codIstatGemellato" label="gemellato" editable="true" editableFlagSelector="popolazioneEditabile" multidataKeySelector="codIstat" multidataValueSelector="nome">
-                      <multiDataBinding appData="//@appDataDefs/@appData.3"/>
-                    </columns>
-                    <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie" tooltip="&lt;p>La via principale del comune. &lt;/p>&lt;p>Selezionare dalla lista&lt;/p>"/>
-                  </columnModel>
-                </widgets>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pWidget" label="Test abilitazione condizionata">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:Table" name="tblComuni" label="" dataType="//@typedefs/@types.7" pageSize="3" customDecorator="true">
+                    <eventHandlers skipValidation="true">
+                      <command xsi:type="guigen:ExecCommand" methodName="onTableClick">
+                        <results resultCode="REFRESH">
+                          <command xsi:type="guigen:SequenceCommand">
+                            <commands xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3" activeItem="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.3/@panels.0"/>
+                            <commands xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@subpanels.0/@widgets.0" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@subpanels.0"/>
+                          </command>
+                        </results>
+                        <results resultCode="JUMP">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                    <databinding appData="//@appDataDefs/@appData.8"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                    <columnModel valueSelector="codIstat">
+                      <columns selector="codIstat" label="codIstat" sortable="true" tooltip="Il codice ISTAT del comune"/>
+                      <columns selector="nome" label="nome" sortable="true" eventActive="true" tooltip="Il nome con cui il comune è iscritto all'anagrafe dei comuni"/>
+                      <columns selector="capoluogo" label="capoluogo?" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="Capoluogo di provincia del comune"/>
+                      <columns selector="popolazione" label="popolazione" editable="true" editableFlagSelector="popolazioneEditabile" tooltip="La popolazione del comune"/>
+                      <columns selector="popolazioneEditabile" label="pop editabile?" editable="true" tooltip="A seconda del valore di questo check la riga sarà editabile o meno"/>
+                      <columns selector="codIstatGemellato" label="gemellato" editable="true" editableFlagSelector="popolazioneEditabile" multidataKeySelector="codIstat" multidataValueSelector="nome">
+                        <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                      </columns>
+                      <columns selector="codViaPrincipale" label="Via princ" editable="true" multidataKeySelector="cod" multidataValueSelector="nome" multidataPropertySelector="vie" tooltip="La via principale del comune. Selezionare dalla lista"/>
+                    </columnModel>
+                  </widgets>
+                </subpanels>
               </subpanels>
-              <subpanels xsi:type="guigen:MultiPanel" name="pMultiDettaglio">
+              <subpanels xsi:type="guigen:MultiPanel" name="pMultiDettaglio" label="Dettagli multipli">
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <panels xsi:type="guigen:FormPanel" name="pDettaglio">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -106,50 +128,13 @@
                   </subpanels>
                 </panels>
               </subpanels>
-              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
-                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                <widgets xsi:type="guigen:ComboBox" name="cbComuni" label="comuni" tooltip="Scegli uno o pi&amp;ugrave; comuni" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
-                  <databinding appData="//@appDataDefs/@appData.6"/>
-                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
-                </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbComuni2" label="comuni" tooltip="Scegli un comune" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
-                  <eventHandlers eventType="VALUE_CHANGED">
-                    <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
-                  </eventHandlers>
-                  <multiDataBinding appData="//@appDataDefs/@appData.3"/>
-                </widgets>
-                <widgets xsi:type="guigen:RadioButtons" name="rbsRadios" label="Radio attivi" dataType="//@typedefs/@types.7">
-                  <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
-                    <command xsi:type="guigen:ExecCommand" methodName="onRBClick">
-                      <results resultCode="REFRESH">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.2" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
-                      </results>
-                      <results resultCode="JUMP">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
-                      </results>
-                    </command>
-                  </eventHandlers>
-                  <radio name="rbAttivoSi" label="Si" value="S"/>
-                  <radio name="rbAttivoNo" label="No" value="N"/>
-                </widgets>
-                <widgets xsi:type="guigen:TreeView" name="treeProvaTree" dataType="//@typedefs/@types.7">
-                  <eventHandlers skipValidation="true">
-                    <command xsi:type="guigen:ExecCommand" methodName="onTreeClick">
-                      <results resultCode="OK">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.4/@widgets.3" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2"/>
-                      </results>
-                    </command>
-                  </eventHandlers>
-                  <multiDataBinding appData="//@appDataDefs/@appData.9"/>
-                </widgets>
-              </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
                 <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
                 <widgets xsi:type="guigen:ConfirmButton" name="bSoftRepaint" label="Soft Repaint m&amp;sup3 ³" functionSpecifier="UNSPECIFIED">
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="eseguiQualcosa">
                       <results resultCode="OK">
-                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
+                        <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
                       </results>
                     </command>
                   </eventHandlers>
@@ -170,7 +155,7 @@
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bAbilita" label="abilita tfFloat" functionSpecifier="DETAIL">
                   <eventHandlers methodProtection="ALLOW_ALL">
-                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@widgets.0" enable="true"/>
+                    <command xsi:type="guigen:ONOFFCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1/@subpanels.0/@widgets.0" enable="true"/>
                   </eventHandlers>
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="bSvuotaPageCtx2" label="cambia pagina" functionSpecifier="CONFIRM">
@@ -178,6 +163,48 @@
                     <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.2"/>
                   </eventHandlers>
                 </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bStampaReport" functionSpecifier="SHOW_REPORT">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="StampaReport">
+                      <results resultCode="Ok">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:FormPanel" name="fpDatiMisti" label="Dati misti" collapsible="true">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2" label="Dati comuni">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbComuni" label="comuni" tooltip="Scegli uno o pi&amp;ugrave; comuni" dataType="//@typedefs/@types.20" keySelector="codIstat" valueSelector="nome">
+                    <databinding appData="//@appDataDefs/@appData.6"/>
+                    <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:ComboBox" name="cbComuni2" label="comuni" tooltip="Scegli un comune" dataType="//@typedefs/@types.7" keySelector="codIstat" valueSelector="nome">
+                    <eventHandlers eventType="VALUE_CHANGED">
+                      <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.5/@subpanels.0/@widgets.1" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1"/>
+                    </eventHandlers>
+                    <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:RadioButtons" name="rbsRadios" label="Radio attivi" dataType="//@typedefs/@types.7">
+                    <eventHandlers eventType="VALUE_CHANGED" skipValidation="true">
+                      <command xsi:type="guigen:ExecCommand" methodName="onRBClick">
+                        <results resultCode="REFRESH">
+                          <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.5/@subpanels.0/@widgets.2" targetPanels="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.2/@subpanels.0"/>
+                        </results>
+                        <results resultCode="JUMP">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@modules.0/@contentPanels.0"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                    <radio name="rbAttivoSi" label="Si" value="S"/>
+                    <radio name="rbAttivoNo" label="No" value="N"/>
+                  </widgets>
+                  <widgets xsi:type="guigen:PlainText" name="ptLinkEsterno" dataType="//@typedefs/@types.7" staticText="&lt;a title=&quot;Help - Attenzione: questo link si apre in una nuova finestra&quot; class=&quot;aprihelp&quot; href=&quot;http://www.google.it&quot;>Link esterno popup&lt;/a>"/>
+                  <widgets xsi:type="guigen:PlainText" name="ptLinkInterno" dataType="//@typedefs/@types.7" staticText="&lt;a title=&quot;Help - Attenzione: questo link si apre in una nuova finestra&quot; class=&quot;aprihelp&quot; href=&quot;html/layout.html&quot;>Link interno popup&lt;/a>"/>
+                  <widgets xsi:type="guigen:PlainText" name="ptLinkInternoDialog" dataType="//@typedefs/@types.7" staticText="&lt;a title=&quot;Help - Attenzione: questo link si apre in una nuova finestra&quot; class=&quot;dialog-help&quot; href=&quot;html/layout.html&quot;>Link interno dialog&lt;/a>"/>
+                </subpanels>
               </subpanels>
             </subpanels>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -197,6 +224,13 @@
               </subpanels>
             </subpanels>
           </panels>
+          <onRefreshCommand xsi:type="guigen:SequenceCommand">
+            <commands xsi:type="guigen:ExecCommand" methodName="caricaTree">
+              <results resultCode="Ok">
+                <command xsi:type="guigen:NOPCommand"/>
+              </results>
+            </commands>
+          </onRefreshCommand>
         </contentPanels>
         <contentPanels name="cpTestStates" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.3 //@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.7" defaultState="//@structure/@appWindow/@appArea/@contentPanels.1/@states/@states.0">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test States">
@@ -620,13 +654,6 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <onInitCommand xsi:type="guigen:SequenceCommand">
-          <commands xsi:type="guigen:ExecCommand" methodName="initCP" postExecData="//@appDataDefs/@appData.3 //@appDataDefs/@appData.5 //@appDataDefs/@appData.9 //@appDataDefs/@groups.1/@appData.1">
-            <results resultCode="OK">
-              <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
-            </results>
-          </commands>
-        </onInitCommand>
         <modules name="provamodulo">
           <contentPanels name="cpProva" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.3 //@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.7">
             <panels xsi:type="guigen:FormPanel" name="pMain" label="PROVA">
@@ -755,6 +782,15 @@
       <fields name="name" type="//@typedefs/@types.7"/>
     </types>
     <types xsi:type="guigen:TypedArray" name="Colore [ ]" componentType="//@typedefs/@types.37"/>
+    <types xsi:type="guigen:ComplexType" name="TreeStructure">
+      <fields name="text" type="//@typedefs/@types.7"/>
+      <fields name="id" type="//@typedefs/@types.7"/>
+      <fields name="leaf" type="//@typedefs/@types.9"/>
+      <fields name="cls" type="//@typedefs/@types.7"/>
+      <fields name="expanded" type="//@typedefs/@types.9"/>
+      <fields name="checked" type="//@typedefs/@types.9"/>
+      <fields name="uniqueid" type="//@typedefs/@types.7"/>
+    </types>
     <namespaces name="testcolformat">
       <types xsi:type="guigen:ComplexType" name="CT1">
         <fields name="f1" type="//@typedefs/@namespaces.0/@types.1"/>
@@ -777,7 +813,7 @@
     <appData name="codComuniSelez" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.20"/>
     <appData name="provaData" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.3"/>
     <appData name="codComuneSelTabella" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
-    <appData name="sampleTreeData" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.35"/>
+    <appData name="sampleTreeData" type="//@typedefs/@types.39"/>
     <groups name="testTabs">
       <appData name="valTf1a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
       <appData name="valTf2a" lifetimeExtent="SAME_PAGE" type="//@typedefs/@types.7"/>
