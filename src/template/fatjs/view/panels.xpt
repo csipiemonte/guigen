@@ -7,64 +7,64 @@
 
 
 
-«DEFINE panelStruct(GUIModel model) FOR Panel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR Panel»
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR FormPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR FormPanel»
 			new ExtCsi.ui.panels.FormPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					subpanels: [«EXPAND panelStruct(model) FOREACH subpanels SEPARATOR ","»]
+					subpanels: [«EXPAND panelStruct(model, cp) FOREACH subpanels SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR WidgetsPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WidgetsPanel»
 			new ExtCsi.ui.panels.WidgetsPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					widgets: [«EXPAND widgets::widgetStruct(model) FOREACH widgets SEPARATOR ","»]
+					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR CommandPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR CommandPanel»
 			new ExtCsi.ui.panels.CommandPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					widgets: [«EXPAND widgets::widgetStruct(model) FOREACH widgets SEPARATOR ","»]
+					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR MultiPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MultiPanel»
 			new ExtCsi.ui.panels.MultiPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR TabSetPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel»
 			new ExtCsi.ui.panels.TabSetPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR WizardPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WizardPanel»
 			new ExtCsi.ui.panels.WizardPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					panels: [«EXPAND panels::panelStruct(model) FOREACH panels SEPARATOR ","»]
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR UserDefinedPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
 			new ExtCsi.ui.panels.UserDefinedPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»
@@ -72,7 +72,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE panelStruct(GUIModel model) FOR UserInfoPanel»
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
 			new ExtCsi.ui.panels.UserInfoPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»

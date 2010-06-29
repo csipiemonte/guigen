@@ -102,7 +102,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 	new ExtCsi.ui.panels.ContentPanel(
 		{
 			name: '«name»',	
-			panels: «EXPAND view::panels::panelStruct(model) FOR panels»,
+			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)

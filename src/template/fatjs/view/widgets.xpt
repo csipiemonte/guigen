@@ -5,21 +5,22 @@
 «EXTENSION template::fatjs::FatJSExtensions»
 
 
-«DEFINE widgetStruct(GUIModel model) FOR Widget»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Widget»
 «ERROR "widget "+this.metaType+" non gestito"»
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR TextField»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextField»
 			new ExtCsi.ui.widgets.TextField(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
 					«EXPAND eventHandlers(model) FOR this»
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR TextArea»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextArea»
 			new ExtCsi.ui.widgets.TextArea(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -29,7 +30,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR PlainText»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR PlainText»
 			new ExtCsi.ui.widgets.PlainText(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -39,18 +40,18 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR ComboBox»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
 			new ExtCsi.ui.widgets.ComboBox(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND multidataWidgetProperties(model) FOR this»
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
 					«EXPAND eventHandlers(model) FOR this»
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR CheckBox»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR CheckBox»
 			new ExtCsi.ui.widgets.CheckBox(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -60,30 +61,30 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR RadioButtons»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR RadioButtons»
 			new ExtCsi.ui.widgets.RadioButtons(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
 					«EXPAND eventHandlers(model) FOR this»,
-					radio: [«EXPAND widgetStruct(model) FOREACH this.radio SEPARATOR ","»]
+					radio: [«EXPAND widgetStruct(model, cp) FOREACH this.radio SEPARATOR ","»]
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR RadioButton»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR RadioButton»
 					new ExtCsi.ui.widgets.RadioButton({
 						«EXPAND widgetCommonProperties(model) FOR this»,
 						value: «jsLiteralValue(this.value)»
 					})
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR Table»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Table»
 			new ExtCsi.ui.widgets.Table(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					multiDataBinding: «IF multiDataBinding!=null»«EXPAND databinding FOR this.multiDataBinding»«ELSE» null«ENDIF»,					 
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,					 
 					«EXPAND colModel(model) FOR this.columnModel»,
 					pageSize: «jsLiteralValue(pageSize)»,
 					«EXPAND eventHandlers(model) FOR this»
@@ -122,7 +123,7 @@
 						)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR Calendar»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Calendar»
 			new ExtCsi.ui.widgets.Calendar(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -132,7 +133,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR TreeView»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TreeView»
 			new ExtCsi.ui.widgets.TreeView(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -142,7 +143,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR Button»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Button»
 			new ExtCsi.ui.widgets.Button(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -151,7 +152,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR ConfirmButton»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ConfirmButton»
 			new ExtCsi.ui.widgets.ConfirmButton(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -160,7 +161,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR ResetButton»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ResetButton»
 			new ExtCsi.ui.widgets.ResetButton(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
@@ -169,7 +170,7 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR FileUpload»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR FileUpload»
 			new ExtCsi.ui.widgets.FileUpload(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»
@@ -177,10 +178,10 @@
 			)
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR MenuView»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR MenuView»
 «ENDDEFINE»
 
-«DEFINE widgetStruct(GUIModel model) FOR TabSwitcher»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TabSwitcher»
 «ENDDEFINE»
 
 «DEFINE widgetCommonProperties(GUIModel model) FOR Widget»
@@ -200,10 +201,10 @@
 «ENDLET-»
 «ENDDEFINE»
 
-«DEFINE multidataWidgetProperties(GUIModel model) FOR MultiDataWidget-»
+«DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
-					dataUrl: «getDataProviderMethodName("DATASET", null)»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName("DATASET", null)».do',
 	«ELSE-»
 					multiDataBinding: null,
 	«ENDIF-»
