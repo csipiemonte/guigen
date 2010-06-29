@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient <em>Enable Fat Client</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,5 +92,31 @@ public interface TargetPlatform extends EObject {
 	 * @generated
 	 */
 	void setEnableRichUIBehavior(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Enable Fat Client</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a true sono abilitati i comportamenti "ricchi" di User Interaction.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Enable Fat Client</em>' attribute.
+	 * @see #setEnableFatClient(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_EnableFatClient()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isEnableFatClient();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient <em>Enable Fat Client</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enable Fat Client</em>' attribute.
+	 * @see #isEnableFatClient()
+	 * @generated
+	 */
+	void setEnableFatClient(boolean value);
 
 } // TargetPlatform

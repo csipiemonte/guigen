@@ -17,6 +17,14 @@ context TargetPlatform WARNING "L'interazione 'ricca' è una feature sperimentale
 	"l'attributo 'enableRichUIBehavior' nell'oggetto TargetPlatform" :
 	enableRichUIBehavior != true;
 
+context TargetPlatform WARNING "L'abilitazione del Fat-Client è una feature sperimentale: se si desidera disabilitarla impostare a false "+
+"l'attributo 'enableFatClient' nell'oggetto TargetPlatform" :
+	enableFatClient != true;
+
+context TargetPlatform if enableFatClient == true ERROR "L'abilitazione della modalità Fat-Client è possibile solo se sono anche abilitate le feature 'ricche'"+
+"nell'oggetto TargetPlatform" :
+	enableRichUIBehavior==true;
+
 // validazioni generali (prodotto/componente etc..)
 context GUIModel ERROR "E' necessario specificare il codice prodotto (max 10 caratteri)" :
 	codProdotto!=null && codProdotto.length<=10;

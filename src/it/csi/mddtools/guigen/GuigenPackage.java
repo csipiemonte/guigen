@@ -5863,13 +5863,22 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR = 1;
 
 	/**
+	 * The feature id for the '<em><b>Enable Fat Client</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_PLATFORM__ENABLE_FAT_CLIENT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Target Platform</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_PLATFORM_FEATURE_COUNT = 2;
+	int TARGET_PLATFORM_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
@@ -11240,6 +11249,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_EnableRichUIBehavior();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient <em>Enable Fat Client</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enable Fat Client</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient()
+	 * @see #getTargetPlatform()
+	 * @generated
+	 */
+	EAttribute getTargetPlatform_EnableFatClient();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15136,6 +15156,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR = eINSTANCE.getTargetPlatform_EnableRichUIBehavior();
+
+		/**
+		 * The meta object literal for the '<em><b>Enable Fat Client</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TARGET_PLATFORM__ENABLE_FAT_CLIENT = eINSTANCE.getTargetPlatform_EnableFatClient();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.

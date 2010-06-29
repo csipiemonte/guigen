@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableFatClient <em>Enable Fat Client</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +72,26 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * @ordered
 	 */
 	protected boolean enableRichUIBehavior = ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnableFatClient() <em>Enable Fat Client</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableFatClient()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_FAT_CLIENT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnableFatClient() <em>Enable Fat Client</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableFatClient()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableFatClient = ENABLE_FAT_CLIENT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,6 +159,27 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnableFatClient() {
+		return enableFatClient;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableFatClient(boolean newEnableFatClient) {
+		boolean oldEnableFatClient = enableFatClient;
+		enableFatClient = newEnableFatClient;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT, oldEnableFatClient, enableFatClient));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -145,6 +187,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return getCode();
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
 				return isEnableRichUIBehavior();
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+				return isEnableFatClient();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -162,6 +206,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return;
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
 				setEnableRichUIBehavior((Boolean)newValue);
+				return;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+				setEnableFatClient((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,6 +228,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
 				setEnableRichUIBehavior(ENABLE_RICH_UI_BEHAVIOR_EDEFAULT);
 				return;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+				setEnableFatClient(ENABLE_FAT_CLIENT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -197,6 +247,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return code != CODE_EDEFAULT;
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
 				return enableRichUIBehavior != ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+				return enableFatClient != ENABLE_FAT_CLIENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -215,6 +267,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 		result.append(code);
 		result.append(", enableRichUIBehavior: ");
 		result.append(enableRichUIBehavior);
+		result.append(", enableFatClient: ");
+		result.append(enableFatClient);
 		result.append(')');
 		return result.toString();
 	}

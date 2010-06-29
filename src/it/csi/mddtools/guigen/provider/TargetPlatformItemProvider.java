@@ -67,6 +67,7 @@ public class TargetPlatformItemProvider
 
 			addCodePropertyDescriptor(object);
 			addEnableRichUIBehaviorPropertyDescriptor(object);
+			addEnableFatClientPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -116,6 +117,28 @@ public class TargetPlatformItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Enable Fat Client feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEnableFatClientPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TargetPlatform_enableFatClient_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableFatClient_feature", "_UI_TargetPlatform_type"),
+				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_FAT_CLIENT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns TargetPlatform.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -155,6 +178,7 @@ public class TargetPlatformItemProvider
 		switch (notification.getFeatureID(TargetPlatform.class)) {
 			case GuigenPackage.TARGET_PLATFORM__CODE:
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
+			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -3824,6 +3824,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTargetPlatform_EnableFatClient() {
+		return (EAttribute)targetPlatformEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUserInfoPanel() {
 		return userInfoPanelEClass;
 	}
@@ -5460,6 +5469,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		targetPlatformEClass = createEClass(TARGET_PLATFORM);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR);
+		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_FAT_CLIENT);
 
 		userInfoPanelEClass = createEClass(USER_INFO_PANEL);
 
@@ -6144,6 +6154,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTargetPlatform_EnableRichUIBehavior(), ecorePackage.getEBoolean(), "enableRichUIBehavior", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTargetPlatform_EnableFatClient(), ecorePackage.getEBoolean(), "enableFatClient", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -6953,7 +6964,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "cmd"
-		   });											
+		   });												
 		addAnnotation
 		  (userInfoPanelEClass, 
 		   source, 
@@ -7042,7 +7053,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		  (fileUploadEClass, 
 		   source, 
 		   new String[] {
-			 "pkg", "ui.panels"
+			 "pkg", "ui.widgets"
 		   });																			
 		addAnnotation
 		  (activationModelEClass, 
@@ -7131,7 +7142,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nLo <b>stdMessagePanel</b> &egrave; un pannello di tipo informativo utilizzato per mostrare \r\nall\'utente eventuali messaggi di errore o informativi.\r\nSe, durante l\'elaborazione, si verificano degli errori oppure se la business logic inserisce dei messaggi\r\ninformativi il pannello mostra tali messaggi.\r\nSe invece non si verifica almeno una di queste due condizioni, il pannello non ha nessuna evidenza\r\ngrafica.\r\nLe tipologie di messaggio visualizzabili sono:\r\n<ul>\r\n<li>messaggi informativi</li>\r\n<li>messaggi di errore globali</li>\r\n<li>messaggi di errore relativi a campi specifici</li>\r\n</ul>\r\n<br/>\r\n</p>"
-		   });																
+		   });																	
 		addAnnotation
 		  (userInfoPanelEClass, 
 		   source, 
@@ -7245,7 +7256,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "Questo widget &egrave; un segnaposto utilizzabile per la visualizzazione della struttura\r\ndel menu. \r\nIl <b>MenuView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>MenuPanel, con layout Verticale</li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\nPer ciascuna voce di menu, inoltre &egrave; possibile replicare gli stessi comportamenti di \r\nvisibilit&agrave;/abilitazione.\r\n",
 			 "event-clicked", "<p>Il <b>MenuView</b> pu&ograve; ricevere un evento di selezione della voce\r\ndi menu corrispondente, alla quale &egrave, possibile associare una logica\r\ndi business da eseguire.\r\n</p>"
-		   });																																																																																																																																							
+		   });																																																																																																																																								
 		addAnnotation
 		  (fileUploadEClass, 
 		   source, 
@@ -7286,7 +7297,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																																																																																																																				
+		   });																																																																																																																																																																																																					
 	}
 
 } //GuigenPackageImpl
