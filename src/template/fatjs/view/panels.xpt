@@ -64,6 +64,23 @@
 			)
 «ENDDEFINE»
 
+«DEFINE panelStruct(GUIModel model) FOR UserDefinedPanel»
+			new ExtCsi.ui.panels.UserDefinedPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model) FOR UserInfoPanel»
+			new ExtCsi.ui.panels.UserInfoPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+
 «DEFINE panelCommonProperties(GUIModel model) FOR Panel»
 					name: «jsLiteralValue(this.name)»,
 					label: «jsLiteralValue(this.label)»,

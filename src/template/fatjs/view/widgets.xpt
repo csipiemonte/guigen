@@ -33,6 +33,7 @@
 			new ExtCsi.ui.widgets.PlainText(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
+					staticText: «jsLiteralValue(staticText)»
 					«EXPAND dataWidgetProperties(model) FOR this»
 				}
 			)
@@ -43,7 +44,7 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					multiDataBinding: «IF multiDataBinding!=null»«EXPAND databinding FOR this.multiDataBinding»«ELSE» null«ENDIF»,
+					«EXPAND multidataWidgetProperties(model) FOR this»
 					«EXPAND eventHandlers(model) FOR this»
 				}
 			)
@@ -84,6 +85,7 @@
 					«EXPAND dataWidgetProperties(model) FOR this»,
 					multiDataBinding: «IF multiDataBinding!=null»«EXPAND databinding FOR this.multiDataBinding»«ELSE» null«ENDIF»,					 
 					«EXPAND colModel(model) FOR this.columnModel»,
+					pageSize: «jsLiteralValue(pageSize)»,
 					«EXPAND eventHandlers(model) FOR this»
 				}
 			)
@@ -196,6 +198,15 @@
 					dataTypeModifier: «jsLiteralValue(this.dataTypeModifier)»,
 					databinding: «IF databinding != null»«EXPAND databinding FOR this.databinding»«ELSE» null«ENDIF»
 «ENDLET-»
+«ENDDEFINE»
+
+«DEFINE multidataWidgetProperties(GUIModel model) FOR MultiDataWidget-»
+	«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
+					dataUrl: «getDataProviderMethodName("DATASET", null)»,
+	«ELSE-»
+					multiDataBinding: null,
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE databinding FOR AppDataBinding»
