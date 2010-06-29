@@ -103,6 +103,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 		{
 			name: '«name»',	
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
