@@ -5,6 +5,35 @@
 «EXTENSION template::fatjs::FatJSExtensions»
 
 «DEFINE main FOR GUIModel»
+	«EXPAND fatClientMainJSP FOR this»
+	«EXPAND fatClientJSStruct FOR this»
+«ENDDEFINE»
+
+«DEFINE fatClientMainJSP FOR GUIModel»
+«FILE getPresentationMarkupDir(true)+"/fatclient/main.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="/customtag" prefix="customtag" %>
+<%@taglib uri="/csiuicore" prefix="csiuicore" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title><s:text name="header.applicativo.nome.label" /></title>
+
+		<csiuicore:header/>
+		<script type="text/javascript" src="/ext-csi/core.js"></script>
+		<script type="text/javascript" src="/js/fatclient.js"></script>
+	</head>
+
+	<body>
+
+	</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE fatClientJSStruct FOR GUIModel-»
 «FILE getJavascriptSrcDir(true)+"/fatclient.js"»
 
 /**
