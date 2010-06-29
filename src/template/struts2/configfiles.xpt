@@ -467,6 +467,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="sessionExpired">
 			<result>/jsp/error/sessionExpired.jsp</result>
 		</action>
+		
+		«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+		<!-- punto di accesso per FAT CLIENT JS -->
+		<action name="fatclient">
+			<result>/jsp/fatclient/main.jsp</result>
+		</action>
+		«ENDIF-»
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction-»
 		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
 		«IF onInitAction != null-»

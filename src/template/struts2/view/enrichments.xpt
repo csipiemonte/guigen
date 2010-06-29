@@ -241,6 +241,15 @@ Ext.onReady( function() {
 	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
 	«EXPAND staticResourcesXML(this) FOREACH allCP-»
 	«ENDLET-»
+	«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+	<!-- risorsa JS del fat client -->
+	<file page="main">
+		<resource type="text/javascript">
+			<position value="ext-csi/core.js" />
+			<position value="js/fatclient.js" />
+		</resource>
+	</file>
+	«ENDIF-»
 </files>
 «ENDFILE»
 «ENDDEFINE»
