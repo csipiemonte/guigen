@@ -1,0 +1,145 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»deve essere chiamato solo se richBehavior == true«ENDREM»
+«DEFINE execCommandMethods(GUIModel model) FOR ContentPanel-»
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi di esecuzione associati agli ExecCommand (per fat client)
+	/// metodo: exec<methodName>
+	/// es: execSalvaPersona
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«EXPAND execCommandMethods(model, this, "", null) FOR this.panels-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
+	«EXPAND execCommandMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EventHandler-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR SequenceCommand-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.commands-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ChkEditStatusCommand-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.doIfChanged-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.doIfNotChanged-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandOutcome-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+	«EXPAND execCommandMethod(model, cp, contextPrefix, pduc) FOR this-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.results-»
+«ENDDEFINE»
+
+
+«DEFINE execCommandMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+	/**
+	 * Permette l'esecuzione del metodo di business [«methodName»] da un fat client
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation 
+	public String «getExecCommandMethodName(this, contextPrefix)» () throws CommandExecutionException {
+		
+		// action --> model
+		Object theModel = this.toModel();
+		// esecuzione azione
+		ExecResults execResults = null; 
+		
+		it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(model)».util.Constants.APPLICATION_CODE);
+			ExecResults result = null;
+			try{
+				watcher.start();
+			«LET cp AS parentCP-»
+			«IF parentCP != null-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
+			«ELSEIF isInMenuBranch(this)-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
+			«ELSE-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
+			«ENDIF-»
+			«ENDLET-»
+				watcher.stop();
+				watcher.dumpElapsed("«getStrutsActionClassName(cp)»", "readOne()", "chiamata verso BackEnd", "«getFullExecCmdMethodName(methodName, contextPrefix)»");
+			}
+			catch(BEException e){
+				throw new CommandExecutionException("errore non gestito nell'esecuzione del metodo [«getFullExecCmdMethodName(methodName, contextPrefix)»]:"+
+				e.getMessage(), e);
+			}
+		
+		Object outModel = execResults.getModel();
+		// model --> action
+		this.fromModel(outModel);
+		// impostazione degli appData
+		
+		/* verificare se servono ...
+		storeAppData(execResults, this);
+		// impostazione degli eventuali messaggi
+		updateMessages(
+			execResults.getFldErrors(), 
+			execResults.getGlobalErrors(), 
+			execResults.getGlobalMessages(), 
+			this);
+		*/
+		
+		Object dataToProvide = result;
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	
+	}
+«ENDDEFINE»

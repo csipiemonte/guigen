@@ -120,6 +120,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-»
 	«ENDIF-»
 	
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-»
+	«ENDIF-»
 	
 	«ENDLET»
 	
