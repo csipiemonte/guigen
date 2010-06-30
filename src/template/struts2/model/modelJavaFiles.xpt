@@ -322,7 +322,9 @@ package «getDTOBaseJavaPackage(model)+getAppModuleAsPkg(this,true,false)»;
 import java.util.*;
 import «getDTOBaseJavaPackage(model)».*;
 «EXPAND importAllNamespaces(model) FOR model.typedefs»
-
+«IF model.targetPlatform.enableFatClient-»
+import «getUIUtilsJavaPackage(model)».*;
+«ENDIF-»
 /**
  * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
  * logica di business associata alla Schermata [«this.name»]
@@ -349,6 +351,10 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	/// ulteriori campi comuni 
 	////////////////////////////////////////////////////////////////////
 	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
 }
 «ENDFILE»
 «ENDDEFINE»

@@ -1,0 +1,693 @@
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM INTERCEPTOR CLASSES
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera le classi dei convertitori«ENDREM»
+«DEFINE uiutilsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND tableFilterStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataFilterStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableStatusStructFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataArrangerFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDataArrangerExcFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDynComparatorFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableDynComparatorExcFile(skip_component_dir_creation) FOR this»
+	«EXPAND tableArrangedDataFile(skip_component_dir_creation) FOR this»
+	«EXPAND utilityFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+«DEFINE tableFilterStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableFilter.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class TableFilter {
+	/**
+	 * Dati impostati nel filtro
+	 * @generated
+	 */
+	private DataFilter data;
+	
+	/**
+	 * campo oggetto del filtro
+	 */
+	private String field;
+	
+	public DataFilter getData() {
+		return data;
+	}
+	public void setData(DataFilter data) {
+		this.data = data;
+	}
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDataFilterStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DataFilter.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+ 
+public class DataFilter {
+	private String type;
+	private String value;
+	private String comparison;
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	public String getComparison() {
+		return comparison;
+	}
+	public void setComparison(String comparison) {
+		this.comparison = comparison;
+	}
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableStatusStructFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableStatus.java"»package «getUIUtilsJavaPackage(this)»;
+
+
+/**
+ * Contiene lo stato della tabella dal punto di vista di:
+ * - porzione di dati da visualizzare nella viewport
+ * - ordinamento
+ * @generated
+ */
+public class TableStatus {
+	private String callback;
+	private String start;
+	private String limit;
+	private String sort;
+	private String dir;
+	public String getCallback() {
+		return callback;
+	}
+	public void setCallback(String callback) {
+		this.callback = callback;
+	}
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getLimit() {
+		return limit;
+	}
+	public void setLimit(String limit) {
+		this.limit = limit;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	public String getDir() {
+		return dir;
+	}
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDataArrangerFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableDataArranger.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.util.Date;
+import java.util.Locale;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import flexjson.JSONSerializer;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+
+
+public class TableDataArranger {
+	
+	@SuppressWarnings("unchecked")
+	public TableArrangedData arrange(List listaOggetti, TableStatus tableStatus, List<TableFilter> filter){
+		
+		String callback = tableStatus.getCallback();
+		if (callback == null) {
+			callback = "";
+		}
+		// start=25&limit=25&sort=replycount&dir=ASC&_dc=1239896937456&callback=stcCallback1009
+		String start = tableStatus.getStart();
+		if (start == null) {
+			start = "0";
+		}
+		
+		String limit = tableStatus.getLimit();
+		if (limit == null) {
+			limit = "5";
+		}
+
+		String metodo = tableStatus.getSort();
+
+		String dir = tableStatus.getDir();
+		
+		boolean sortAsc = true;
+		if (dir != null && dir.equalsIgnoreCase("DESC")) {
+			sortAsc = false;
+		}
+		
+		List<Object> listaValori = new ArrayList<Object>();
+		
+		if (filter != null && filter.size() > 0) {
+			for (Object oggetto : listaOggetti) {
+				boolean flagString = true;
+				boolean flagList = true;
+				boolean flagNumero = true;
+				boolean isGtLt = false;
+				boolean flagGtLt = false;
+				boolean isDateComparison = false;
+				boolean flagDateComparison = false;
+				boolean flagData = true;
+				boolean flagBoolean = true;
+				for (TableFilter filtro : filter) {
+					
+					DataFilter dataFilter = filtro.getData();
+					String campo = filtro.getField();
+					
+					Method method = null;
+					
+					try {
+						method = Utility.convertiMetodo(campo, oggetto);
+					} catch (SecurityException e1) {
+						throw new TableDataArrangerException("Errore su griglia filtrata", e1.getCause());
+					}	
+					/*filtro su campo di testo*/
+					if (dataFilter.getType().equalsIgnoreCase("string")) {
+						try{
+							String vv = (String) method.invoke(oggetto, (Object[]) null);	
+							flagString = false;
+							if (vv.toLowerCase().indexOf(dataFilter.getValue().toLowerCase()) != -1) {
+								flagString = true;
+							}
+						}catch (Exception e) {
+							throw new TableDataArrangerException("Filtro campo testo non eseguito", e.getCause());
+						}
+						
+					}
+					/*filtro su campo con lista di valori*/
+					if (dataFilter.getType().equalsIgnoreCase("list")) {
+						try{
+							String vv = (String) method.invoke(oggetto, (Object[]) null);	
+							flagList = false;
+							StringTokenizer tok = new StringTokenizer(dataFilter.getValue(), ",");
+							String tmp = "";
+							while (tok.hasMoreTokens()) {
+								tmp = tok.nextToken().trim();
+								if (tmp.equalsIgnoreCase(vv)) {
+									flagList = true;
+									break;
+								}								
+							}
+						}catch (Exception e) {
+							throw new TableDataArrangerException("Filtro lista valori check non eseguito", e.getCause());
+						}
+					}
+					/*filtro su campo numerico*/
+					if (dataFilter.getType().equalsIgnoreCase("numeric")) {
+						try{
+							Float vv = (Float) method.invoke(oggetto, (Object[]) null);	
+							flagNumero = false;
+							Float numeroPassato = Float.parseFloat(dataFilter.getValue());
+							if(dataFilter.getComparison().equalsIgnoreCase("eq") && vv.compareTo(numeroPassato) == 0){
+								flagNumero = true;
+							}
+							if(dataFilter.getComparison().equalsIgnoreCase("lt")){
+								isGtLt = true;
+							}
+							if(dataFilter.getComparison().equalsIgnoreCase("lt") && vv.compareTo(numeroPassato) < 0){
+								flagNumero = true;
+								flagGtLt = true;
+							}
+							if(dataFilter.getComparison().equalsIgnoreCase("gt") && 
+									vv.compareTo(numeroPassato) > 0 && (!isGtLt || (isGtLt && flagGtLt))){
+								
+								flagNumero = true;
+								
+							}
+							
+							
+						}catch (Exception e) {
+							throw new TableDataArrangerException("Filtro campo numerico non eseguito", e.getCause());
+						}
+					}
+					/*filtro su campo data*/
+					if (dataFilter.getType().equalsIgnoreCase("date")) {
+						try{
+							String vv = (String) method.invoke(oggetto, (Object[]) null);	
+							flagData = false;	
+							Date dataOrigine = Utility.convertToDate(vv);						
+							Date dataPassata = Utility.convertToDate(dataFilter.getValue());		
+							if(dataFilter.getComparison().equalsIgnoreCase("eq") && dataOrigine.equals(dataPassata)){
+								flagData = true;
+							}
+							if(dataFilter.getComparison().equalsIgnoreCase("lt")){
+								isDateComparison = true;
+							}
+							
+							if(dataFilter.getComparison().equalsIgnoreCase("lt") && dataOrigine.before(dataPassata)){
+								flagData = true;
+								flagDateComparison = true;
+							}
+							if(dataFilter.getComparison().equalsIgnoreCase("gt") && 
+									dataOrigine.after(dataPassata) && (!isDateComparison || (isDateComparison && flagDateComparison))){
+								flagData = true;
+							}	
+							
+						}catch (Exception e) {
+							throw new TableDataArrangerException("Filtro campo data non eseguito", e.getCause());
+						}
+					}
+					/*filtro su campo boolean*/
+					if (dataFilter.getType().equalsIgnoreCase("boolean")) {
+						try{
+							flagBoolean = false;
+							boolean vv = (Boolean) method.invoke(oggetto, (Object[]) null);
+							boolean valore = Boolean.parseBoolean(dataFilter.getValue());
+							if(vv == valore){
+								flagBoolean = true;
+							}
+						}catch (Exception e) {
+							throw new TableDataArrangerException("Filtro campo boolean non eseguito", e.getCause());
+						}
+					}
+					
+				}
+					
+				if(flagString && flagList && flagNumero && flagData && flagBoolean){
+					listaValori.add(oggetto);
+				}
+			}
+		} else {				
+			listaValori.addAll(listaOggetti);				
+		}		
+		
+		/**ordino eventualmente la lista*/
+		if(metodo != null){
+			DynamicComparator.sort(listaValori, metodo, sortAsc);
+		}
+		int i = Integer.parseInt(start);
+		int j = Integer.parseInt(limit);
+		int k = 0;
+		
+		List<Object> l1 = new ArrayList<Object>();
+		
+		//***metto gli oggetti relativi al range di paginazione
+		for (Object oggetto : listaValori) {
+			
+			k++;
+			if (k >= i && k <= i + j) {
+				
+				l1.add(oggetto);
+			}
+		}
+
+		TableArrangedData griglia = new TableArrangedData();
+		griglia.setNumtot(listaValori.size());
+		griglia.setElenco(l1);
+		
+		return griglia;
+		
+		
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableDataArrangerExcFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableDataArrangerException.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class TableDataArrangerException  extends RuntimeException{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1230490300627824754L;
+
+	public TableDataArrangerException() {
+		super();
+	}
+
+	public TableDataArrangerException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public TableDataArrangerException(String message) {
+		super(message);
+	}
+
+	public TableDataArrangerException(Throwable cause) {
+		super(cause);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE tableDynComparatorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DynamicComparator.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @generated
+ */
+@SuppressWarnings("unchecked")
+public final class DynamicComparator implements Comparator {
+	// Class Members
+	public static final int EQUAL = 0;
+	public static final int LESS_THAN = -1;
+	public static final int GREATER_THAN = 1;
+
+	
+	@SuppressWarnings("unused")
+	private Collection collection;
+	private String methodName;
+	private boolean sortAsc;
+
+	private DynamicComparator(Collection collection, String methodName,
+			boolean sortAsc) {
+		this.collection = collection;
+		this.methodName = methodName;
+		this.sortAsc = sortAsc;
+	}
+
+	// Sort invocation starts here
+	public static void sort(List list, String methodName, boolean sortAsc) {
+		Collections
+				.sort(list, new DynamicComparator(list, methodName, sortAsc));
+	}
+
+	// Compare for Collections.sort here
+	
+	public int compare(Object o1, Object o2) {
+		int rv = 0;
+
+		try {
+			// Determine the return type
+			Method method = Utility.convertiMetodo(methodName, o1); // o1.getClass().getMethod(methodName, null);
+			Class c = method.getReturnType();
+			//System.out.println("return type is " + c);
+
+			// Invoke method to gather two comparable objects
+			java.lang.Object result1 = method.invoke(o1, (Object[]) null);
+			java.lang.Object result2 = method.invoke(o2, (Object[]) null);
+			//***controllo se mi sta arrivando una data in formato String
+			if(result1 instanceof String && (Utility.convertToDate((String) result1) instanceof Date)){
+				result1 = Utility.convertToDate((String) result1);
+				result2 = Utility.convertToDate((String) result2);
+			}
+
+			if (c.isAssignableFrom(Class.forName("java.util.Comparator"))) {
+				//System.out.println(c + " implements java.util.Comparator");
+				java.util.Comparator c1 = (java.util.Comparator) result1;
+				java.util.Comparator c2 = (java.util.Comparator) result2;
+				rv = c1.compare(c1, c2);
+			} else if (Class.forName("java.lang.Comparable")
+					.isAssignableFrom(c)) {
+				//System.out.println(c + "implements java.lang.Comparable");
+				java.lang.Comparable c1 = (java.lang.Comparable) result1;
+				java.lang.Comparable c2 = (java.lang.Comparable) result2;
+				rv = c1.compareTo(c2);
+			} else if (c.isPrimitive()) {
+				//System.out.println("c.isPrimitive");
+				long f1 = ((Number) result1).longValue();
+				long f2 = ((Number) result2).longValue();
+				if (f1 == f2)
+					rv = EQUAL;
+				else if (f1 < f2)
+					rv = LESS_THAN;
+				else if (f1 > f2)
+					rv = GREATER_THAN;
+			} else {
+				throw new DynamicComparatorException(
+						"DynamicComparator does not currently support ''"
+								+ c.getName() + "''!");
+			}
+		} catch (Exception nsme) {
+			throw new DynamicComparatorException("Attenzione gli unici tipi primitivi supportati dal comparator sono i long e gli int", nsme.getCause());
+		}
+		return rv * getSortOrder();
+	}
+
+	/**
+	 * Not used for sorting. Only here to meet the requirements of the
+	 * Comparator interface.
+	 * 
+	 * @param o
+	 *            The object for comparison
+	 * @return boolean
+	 */
+	public boolean equals(Object o) {
+		return true;
+	}
+
+	// Sort order getter
+	private int getSortOrder() {
+		return sortAsc ? 1 : -1;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableDynComparatorExcFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/DynamicComparatorException.java"»package «getUIUtilsJavaPackage(this)»;
+
+/**
+ * @generated
+ */
+public class DynamicComparatorException  extends RuntimeException{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2329268720665818420L;
+
+	public DynamicComparatorException() {
+		super();
+	}
+
+	public DynamicComparatorException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public DynamicComparatorException(String message) {
+		super(message);
+	}
+
+	public DynamicComparatorException(Throwable cause) {
+		super(cause);
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tableArrangedDataFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/TableArrangedData.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.util.List;
+
+/**
+ * @generated
+ */
+public class TableArrangedData {
+	
+	private int numtot;
+	private List<Object> elenco;
+	
+	public int getNumtot() {
+		return numtot;
+	}
+	public void setNumtot(int numtot) {
+		this.numtot = numtot;
+	}
+	public List<Object> getElenco() {
+		return elenco;
+	}
+	public void setElenco(List<Object> elenco) {
+		this.elenco = elenco;
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE utilityFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/Utility.java"»package «getUIUtilsJavaPackage(this)»;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * @generated
+ */
+public class Utility {
+
+	/**
+	 * Converte una stringa in una data nel formato italiano dd/mm/yyyy
+	 * 
+	 * @param from
+	 *            as String
+	 * @return Date
+	 */
+	public static Date getConvertDate(String from) {
+		Date date = new Date();
+		try {
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			// DateFormat formatter1 = new SimpleDateFormat()
+			date = (Date) formatter.parse(from);
+		} catch (Exception e) {
+			return null;
+		}
+		return date;
+	}
+
+	/**
+	 * Converte una data in una Stringa nel formato dd/mm/yyyy
+	 * 
+	 * @param from
+	 *            as Date
+	 * @return String
+	 */
+	public static String getConvertDate(Date from) {
+		String s = "";
+		try {
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			s = formatter.format(from);
+		} catch (Exception e) {
+			return s;
+		}
+		return s;
+	}
+	
+	public static String getConvertDate(Long from) {
+		String s = "";
+		try {
+			Date d = new Date(from); 
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			s = formatter.format(d);
+		} catch (Exception e) {
+			return s;
+		}
+		return s;
+	}
+
+	
+	/**
+	 * Converte una stringa in un float nel formato italiano cioè separatore la
+	 * , e le cifre decimali passate
+	 * 
+	 * @param numero
+	 *            as String
+	 * @param cifre
+	 *            as int         
+	 * @return float
+	 */
+	public static float createFloat(String numero, int cifre) {
+		try {
+			Locale locale = Locale.ITALIAN;
+			NumberFormat format = NumberFormat.getNumberInstance(locale);
+			format.setMaximumFractionDigits(cifre); // what you seem to want
+			format.setMinimumFractionDigits(cifre); // cifre dopo la virgola
+
+			return Float.valueOf(format.parse(numero.trim()).toString())
+					.floatValue();
+		} catch (Exception e) {
+			return Float.parseFloat("0");
+		}
+
+	}
+
+	public static Date convertToDate(String date){
+		Date dateoutput = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			dateoutput = sdf.parse(date);
+		} catch (Exception e) {
+			return null;
+		}
+		return dateoutput;
+	}
+	
+	public static Method convertiMetodo(String metodo, Object oggetto) {
+		Method method = null;
+		try {
+			PropertyDescriptor nameDescriptor = new PropertyDescriptor(metodo, oggetto.getClass());
+			method = nameDescriptor.getReadMethod();
+		} catch (IntrospectionException e) {
+			throw new RuntimeException("Metodo non trovato", e.getCause());
+		}
+
+		return method;
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»

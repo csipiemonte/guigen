@@ -38,6 +38,10 @@ import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase
 
 import «getInterceptorsJavaPackage(model)».MethodProtection;
 
+«IF model.targetPlatform.enableFatClient-»
+import «getUIUtilsJavaPackage(model)».*;
+«ENDIF-»
+
 /**
  * «getStrutsActionClassName(this)» Action Class.
  *
@@ -50,6 +54,11 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     «EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
 	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
 	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
+	
 	/**
 	 * classe model associata
 	 */
