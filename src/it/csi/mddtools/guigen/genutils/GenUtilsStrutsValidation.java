@@ -88,6 +88,7 @@ public class GenUtilsStrutsValidation {
 		simpleTypeUdValidators.put("csiUdNumericIntValidator",   "IntRangeFieldValidator");      // 2
 		simpleTypeUdValidators.put("csiUdNumericDecValidator",   "DoubleRangeFieldValidator");   // 3
 		simpleTypeUdValidators.put("csiUdDateValidator",         "CsiDateValidator");            // 4
+		simpleTypeUdValidators.put("csiUdLongRangeValidator",    "CsiLongRangeValidator");       // 5
 	}
 
 
@@ -108,6 +109,7 @@ public class GenUtilsStrutsValidation {
 		// aggiungere alla lista i Custom Validators che Guigen genererà di default
 		// nel commento l'indice con cui si potrà accedere al validatore
 		res.add("csiDateValidator");             // 0
+		res.add("csiLongRangeValidator");			 // 1	
 		
 		return res;
 	}
@@ -619,8 +621,11 @@ public class GenUtilsStrutsValidation {
 			if ( GenUtils.isString(type) ) {
 				res += applyStringValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( GenUtils.isInteger(type) ) {
-				// tipo numerico intero (INT o LONG)
+				// tipo numerico intero (INT)
 				res += applyNumericIntValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
+			} else if ( GenUtils.isLong(type) ) {
+				// tipo numerico intero (Long)
+				res += applyNumericLongValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
 			} else if ( GenUtils.isDecimal(type) ) {
 				// tipo numerico decimale (DOUBLE o FLOAT)
 				res += applyNumericDecValidationRule(validationRule, fieldName, keyName, expandFieldName, type.isUserDefined());
@@ -709,7 +714,36 @@ public class GenUtilsStrutsValidation {
 
 		return res;
 	}
+	
+	/**
+	 *
+	 * @param validationRule Le regole di validazione splittate in <i>validatore</i> (<code>validationRule[0]</code>)
+	 *                       e <i>parametri</i> (<code>validationRule[1]</code>).
+	 * @param fieldName  Il nome del campo da utilizzare.
+	 * @param expandFieldName  true se &grave; necessario inserire nell'annotazione la propriet&agrave; <code>fieldName</code>, false altrimenti.
+	 * @param userDefined true se il SimpleType è UserDefined, false altrimenti.
+	 * @return L'annotazione da inserire nella Action di Struts.
+	 */
+	public static String applyNumericLongValidationRule(String[] validationRule, String fieldName, String keyName, boolean expandFieldName, boolean userDefined) {
+		String res = "";
 
+		if ( validationRule[0].equals(NUMERIC_RANGE_VALIDATOR) ) {
+			if ( !GenUtils.isNullOrEmpty(validationRule[1]) ) {
+				String[] range = getRange(validationRule[1]);
+				if ( range[0] != null || range[1] != null ) {
+					if (userDefined) {
+						res += getNumericLongRangeUdValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					} else {
+						res += getNumericLongRangeValidationAnnotation(range, fieldName, keyName, expandFieldName);
+					}
+				}
+			}
+		} else if (validationRule[0].equals(CUSTOM_VALIDATOR) ) {
+			res += getCustomValidatorAnnotation(validationRule[1], fieldName, keyName, expandFieldName);
+		}
+
+		return res;
+	}	
 
 	/**
 	 *
@@ -912,8 +946,8 @@ public class GenUtilsStrutsValidation {
 		if ( !GenUtils.isNullOrEmpty(validationRule[0]) ) {
 			if ( GenUtils.isString(type) ) {
 				res += getStringValidationLabel(validationRule, fieldLabel);
-			} else if ( GenUtils.isInteger(type) ) {
-				// tipo numerico intero
+			} else if ( GenUtils.isInteger(type) || GenUtils.isLong(type) ) {
+				// tipo numerico integer o Long
 				res += getNumericIntValidationLabel(validationRule, fieldLabel);
 			} else if ( GenUtils.isDecimal(type) ) {
 				// tipo numerico decimale
@@ -1309,6 +1343,20 @@ public class GenUtilsStrutsValidation {
 					"parameters = { @ValidationParameter( name = \"format\", value = \"" + format + "\" ) } " +
 			   ")";
 	}
+	
+	/**
+	 * 
+	 * @param fieldName Il nome del campo da utilizzare.
+	 * @return  L'annotazione da inserire nella Action di Struts.
+	 */
+	private static String getLongValidatorAnnotation(String fieldName, String keyName, boolean expandFieldName) {
+		return "@CustomValidator(" +
+					"type = \"" + getGuigenCustomValidators().get(1) + "\", " +
+					(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+					" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+					getValidationKey(keyName) + " } " +
+			   ")";
+	}
 
 
 	/**
@@ -1468,6 +1516,59 @@ public class GenUtilsStrutsValidation {
 		
 		return res;	
 	}	
+	
+	private static String getNumericLongRangeUdValidationAnnotation(
+			String[] range, String fieldName, String keyName,
+			boolean expandFieldName) {
+		String res = "";
+//		TODO [SC] verificare il corretto funzionamento
+		res += "@CustomValidator(" +
+				"type = \"csiUdLongRangeValidator\", " +
+				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				getValidationKey(keyName) + ", " + 
+				"parameters = { " ;
+					// minimo e massimo
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+						res += "@ValidationParameter( name = \"min\", value = \"" + range[0] + "\" ) ";
+					}
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+						res += ", @ValidationParameter( name = \"max\", value = \"" + range[1] + "\" ) ";
+					}					
+				res += "} ";
+		res += ")";
+		
+		
+		return res;	
+	}
+	
+	private static String getNumericLongRangeValidationAnnotation(
+			String[] range, String fieldName, String keyName,
+			boolean expandFieldName) {
+		String res = "";
+//		TODO [SC] verificare il corretto funzionamento
+		res += "@CustomValidator(" +
+				"type = \"csiLongRangeValidator\", " +
+				(expandFieldName ? "fieldName = \"" + fieldName + "\", " : "") +
+				" message = \"\", " + // message è obbligatorio: va settato a Stringa vuota se si usa key
+				getValidationKey(keyName) + ", " + 
+				"parameters = { " ;
+					// minimo e massimo
+					if ( !GenUtils.isNullOrEmpty(range[0]) ) {
+						res += "@ValidationParameter( name = \"min\", value = \"" + range[0] + "\" ) ";
+					}
+					if ( !GenUtils.isNullOrEmpty(range[1]) ) {
+						res += ", @ValidationParameter( name = \"max\", value = \"" + range[1] + "\" ) ";
+					}					
+				res += "} ";
+		res += ")";
+		
+		return res;		
+	}
+
+
+	
+	
 
 
 	private static String getNumericDecRangeUdValidationAnnotation(String[] range, String fieldName, String keyName, boolean expandFieldName) {

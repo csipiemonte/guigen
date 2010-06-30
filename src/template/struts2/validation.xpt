@@ -27,6 +27,7 @@ STRUTS2 CUSTOM VALIDATORS CLASSES
 
 	«REM»Validatori custom definiti dal generatore«ENDREM»
 	«EXPAND strutsCsiDateValidatorJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsCsiLongRangeValidatorJavaFile(skip_component_dir_creation) FOR this»
 	
 	«REM»Validators per Simple Types User Defined«ENDREM»
 	«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator»
@@ -161,6 +162,65 @@ public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
 «ENDLET»
 «ENDDEFINE»
 
+
+«REM»[SC] Crea un validatore custom di Struts 2 per la gestione dei range per i tipi java.lang.Long«ENDREM»
+«DEFINE strutsCsiLongRangeValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«LET ((List[String])getGuigenCustomValidators()).get(1) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.AbstractRangeValidator;
+
+
+/**
+ * Controlla il valore del campo di tipo Long sia contenuto nel range atteso
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends AbstractRangeValidator {
+
+	private Long max = null;
+	private Long min = null;
+
+	public void setMax(Long max) {
+		this.max = max;
+	}
+
+	public Long getMax() {
+		return max;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Comparable getMaxComparatorValue() {
+		return max;
+	}
+
+	public void setMin(Long min) {
+		this.min = min;
+	}
+
+	public Long getMin() {
+		return min;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Comparable getMinComparatorValue() {
+		return min;
+	}
+	
+	@Override
+	public void validate(Object object) throws ValidationException {
+		String fieldName = getFieldName();
+		Long value = (Long)this.getFieldValue(fieldName, object);
+		if (getMin() > value || (getMax()!=null && getMax() < value)) {
+			addFieldError(fieldName, object);
+		}
+	}
+
+}
+«ENDFILE»
+«ENDLET»
+«ENDDEFINE»
 
 
 

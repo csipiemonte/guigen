@@ -3061,7 +3061,7 @@ public class GenUtils {
 	 * @return
 	 */
 	public static boolean isNumeric(SimpleType t) {
-		return isInteger(t) || isDecimal(t);
+		return isInteger(t) || isDecimal(t) || isLong(t);
 	}
 	
 	/**
@@ -3070,8 +3070,17 @@ public class GenUtils {
 	 * @return
 	 */
 	public static boolean isInteger(SimpleType t) {
-		return t.getCode() == SimpleTypeCodes.INT || t.getCode() == SimpleTypeCodes.LONG;
+		return t.getCode() == SimpleTypeCodes.INT;
 	}	
+	
+	/**
+	 * 
+	 * @param t
+	 * @return
+	 */
+	public static boolean isLong(SimpleType t) {
+		return t.getCode() == SimpleTypeCodes.LONG;
+	}
 	
 	/**
 	 * 
