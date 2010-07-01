@@ -47,12 +47,14 @@ globalRegistry.registerObject('«getRegistryID(this, tns)»',
 «ENDDEFINE»
 
 «DEFINE field(TypeNamespace tns) FOR Field»
-			new ExtCsi.mdl.types.Field(
-			{
-			name: «jsLiteralValue(name)»,
-			type: '«getRegistryID(type, tns)»'
-			}
-			)
+«LET type.eContainer.metaType == TypeNamespace ? ((TypeNamespace)type.eContainer) : null AS fieldTns»
+new ExtCsi.mdl.types.Field(
+	{
+		name: «jsLiteralValue(name)»,
+		type: '«getRegistryID(type, fieldTns)»'
+	}
+)
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE type(TypeNamespace tns) FOR TypedArray»
