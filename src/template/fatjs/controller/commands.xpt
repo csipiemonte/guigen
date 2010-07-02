@@ -75,7 +75,7 @@ new ExtCsi.ui.event.EventHandler(
 «LET cp != null ? getStrutsActionConfigName(cp) : "HomeAction" AS actionName-»
 	new ExtCsi.cmd.ExecCommand({
 		methodName: «jsLiteralValue(methodName)»,
-		methodUrl: '«actionName»!«this.getExecCommandMethodName(null)».do'
+		methodUrl: '«actionName»!«this.getExecCommandMethodName(null)».do',
 		results: [«EXPAND cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
 		// TODO postExecData
 		}
