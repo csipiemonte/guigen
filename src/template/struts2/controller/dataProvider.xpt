@@ -12,7 +12,7 @@
 	/// metodo di data providing sull'intero ContentPanel
 	/// metodo: provide_CPDATA
 	//////////////////////////////////////////////////////////////////////////////////
-	«EXPAND dataProvider::formDataProviderMethod FOR model»
+	«EXPAND dataProvider::formDataProviderMethod FOR this»
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi di data providing sui widget dotati di multi data binding
@@ -102,7 +102,7 @@
 		dataToProvide = arranger.arrange((List)dataToProvide, tableStatus, filter);
 «ENDDEFINE»
 
-«DEFINE formDataProviderMethod FOR GUIModel-»
+«DEFINE formDataProviderMethod FOR ContentPanel-»
 	/**
 	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
 	 * a tutti gli application data di tipo non collection referenziati nel ContentPanel.
@@ -110,11 +110,11 @@
 	 */
 	@SkipValidation
 	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
-		// costruzione struttura dati di 1° livello
+		// costruzione struttura dati di 1° livello (esclusi gli appdata di tipo collection)
 		Object dataToProvide = toModel();
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
-		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		String response = serializer.exclude("*.class")«EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)».deepSerialize(dataToProvide);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -130,3 +130,5 @@
 		}
 	}
 «ENDDEFINE»
+
+«DEFINE jsonExcludeAppdata FOR ApplicationData-».exclude("«getAppDataKey()»")«ENDDEFINE»
