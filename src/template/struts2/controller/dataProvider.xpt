@@ -114,7 +114,7 @@
 		Object dataToProvide = toModel();
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
-		String response = serializer.exclude("*.class")«EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)».deepSerialize(dataToProvide);
+		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(dataToProvide);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -131,4 +131,4 @@
 	}
 «ENDDEFINE»
 
-«DEFINE jsonExcludeAppdata FOR ApplicationData-».exclude("«getAppDataKey()»")«ENDDEFINE»
+«DEFINE jsonExcludeAppdata FOR ApplicationData-», "*.«getAppDataKey()»"«ENDDEFINE»
