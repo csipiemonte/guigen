@@ -5,32 +5,32 @@
 «EXTENSION template::fatjs::FatJSExtensions»
 
 
-«DEFINE eventHandler(GUIModel model) FOR EventHandler»
+«DEFINE eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
 new ExtCsi.ui.event.EventHandler(
 {
 	eventType: ExtCsi.ui.event.EventTypes().«eventType»,
 	skipValidation: «jsLiteralValue(this.skipValidation)»,
 	methodProtection: ExtCsi.ui.event.MethodProtectionTypes().«this.methodProtection»,
-	command: «EXPAND cmd(model) FOR this.command»
+	command: «EXPAND cmd(model, cp) FOR this.command»
 }
 )
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel modle) FOR Command»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR Command»
 «ERROR "comando "+metaType+" non gestito"»
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR SequenceCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR SequenceCommand»
 	new ExtCsi.cmd.SequenceCommand(
-		{commands: [«EXPAND cmd(model) FOREACH this.commands SEPARATOR ","»]}
+		{commands: [«EXPAND cmd(model, cp) FOREACH this.commands SEPARATOR ","»]}
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR NOPCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR NOPCommand»
 	new ExtCsi.cmd.NOPCommand()
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR JumpCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR JumpCommand»
 	new ExtCsi.cmd.JumpCommand(
 		{
 			jumpTo: '«getRegistryID(this.jumpTo)»',
@@ -39,7 +39,7 @@ new ExtCsi.ui.event.EventHandler(
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR JumpExtCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR JumpExtCommand»
 	new ExtCsi.cmd.JumpExtCommand(
 		{
 		staticUrl: «jsLiteralValue(this.staticUrl)»,
@@ -49,21 +49,21 @@ new ExtCsi.ui.event.EventHandler(
 «ENDDEFINE»
 
 
-«DEFINE cmd(GUIModel model) FOR VisibilityCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand»
 	new ExtCsi.cmd.VisibilityCommand({
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
 		} 
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR ONOFFCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
 	new ExtCsi.cmd.ONOFFCommand({
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
 		}
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR ActivateMultiPanelItemCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand»
 	new ExtCsi.cmd.ActivateMultiPanelItemCommand({
 		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
 		multipanel: «jsLiteralValue(this.multipanel.name)»
@@ -71,24 +71,27 @@ new ExtCsi.ui.event.EventHandler(
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR ExecCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ExecCommand»
+«LET cp != null ? getStrutsActionConfigName(cp) : "HomeAction" AS actionName-»
 	new ExtCsi.cmd.ExecCommand({
 		methodName: «jsLiteralValue(methodName)»,
-		results: [«EXPAND cmdOutcome(model) FOREACH this.results SEPARATOR ","»]
+		methodUrl: '«actionName»!«this.getExecCommandMethodName(null)».do'
+		results: [«EXPAND cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
 		// TODO postExecData
 		}
 	)
+«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE cmdOutcome(GUIModel model) FOR CommandOutcome»
+«DEFINE cmdOutcome(GUIModel model, ContentPanel cp) FOR CommandOutcome»
 		new ExtCsi.cmd.CommandOutcome(
 		{
 			resultCode: «jsLiteralValue(resultCode)»,
-			command: «EXPAND cmd(model) FOR this.command»}
+			command: «EXPAND cmd(model, cp) FOR this.command»}
 		)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR RefreshViewCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR RefreshViewCommand»
 	new ExtCsi.cmd.RefreshViewCommand(
 		{
 			targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
@@ -97,7 +100,7 @@ new ExtCsi.ui.event.EventHandler(
 	)
 «ENDDEFINE»
 
-«DEFINE cmd(GUIModel model) FOR ScreenStateCommand»
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ScreenStateCommand»
 	new ExtCsi.cmd.ScreenStateCommand(
 		{
 			// TODO

@@ -52,7 +52,7 @@ var appArea = new ExtCsi.app.ApplicationArea(
 		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
 		homePage: '«getRegistryID(this.homePage)»',
 		«IF onInitCommand!=null-»
-		onInitCommand: «EXPAND controller::commands::cmd(model) FOR this.onInitCommand»
+		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
 		«ELSE» onInitCommand: null
 		«ENDIF-»
 	}
@@ -84,7 +84,7 @@ Ext.onReady( function() {
 				label: '«label»',
 				eventHandler:
 				«IF eventHandler!=null-»
-				«EXPAND controller::commands::eventHandler(model) FOR this.eventHandler»
+				«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandler»
 				«ELSE»null
 				«ENDIF-»
 				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
@@ -103,7 +103,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 			name: '«name»',	
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
 			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
-			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );

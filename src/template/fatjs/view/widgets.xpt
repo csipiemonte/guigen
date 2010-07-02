@@ -15,7 +15,7 @@
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
 					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -25,7 +25,7 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -48,7 +48,7 @@
 					valueSelector: «jsLiteralValue(valueSelector)»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
 					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -58,7 +58,7 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -68,7 +68,7 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»,
 					radio: [«EXPAND widgetStruct(model, cp) FOREACH this.radio SEPARATOR ","»]
 				}
 			)
@@ -89,7 +89,7 @@
 					«EXPAND multidataWidgetProperties(model, cp) FOR this»,					 
 					«EXPAND colModel(model) FOR this.columnModel»,
 					pageSize: «jsLiteralValue(pageSize)»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -130,7 +130,7 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -140,7 +140,8 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -149,7 +150,7 @@
 			new ExtCsi.ui.widgets.Button(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -158,7 +159,7 @@
 			new ExtCsi.ui.widgets.ConfirmButton(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -167,7 +168,7 @@
 			new ExtCsi.ui.widgets.ResetButton(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
-					«EXPAND eventHandlers(model) FOR this»
+					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
@@ -219,7 +220,7 @@
 «ENDLET-»
 «ENDDEFINE»
 
-«DEFINE eventHandlers(GUIModel model) FOR Widget»
+«DEFINE eventHandlers(GUIModel model, ContentPanel cp) FOR Widget»
 					eventHandlers: «IF eventHandlers.size>0»
-					[«EXPAND template::fatjs::controller::commands::eventHandler(model) FOREACH this.eventHandlers SEPARATOR ","»]«ELSE» null«ENDIF»
+					[«EXPAND template::fatjs::controller::commands::eventHandler(model, cp) FOREACH this.eventHandlers SEPARATOR ","»]«ELSE» null«ENDIF»
 «ENDDEFINE»
