@@ -14,6 +14,7 @@
 			new ExtCsi.ui.panels.FormPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
+					collapsible: «jsLiteralValue(this.collapsible)»,
 					subpanels: [«EXPAND panelStruct(model, cp) FOREACH subpanels SEPARATOR ","»]
 				}
 			)
@@ -23,6 +24,7 @@
 			new ExtCsi.ui.panels.WidgetsPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
+					collapsible: «jsLiteralValue(this.collapsible)»,
 					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
 				}
 			)
