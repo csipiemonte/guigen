@@ -38,7 +38,7 @@ import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase
 
 import «getInterceptorsJavaPackage(model)».MethodProtection;
 
-«IF model.targetPlatform.enableFatClient-»
+«IF model.targetPlatform.enableRichUIBehavior-»
 import «getUIUtilsJavaPackage(model)».*;
 «ENDIF-»
 
@@ -55,7 +55,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
 	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
 	
-	«IF model.targetPlatform.enableFatClient-»
+	«IF model.targetPlatform.enableRichUIBehavior-»
 	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
 	«ENDIF-»
 	

@@ -322,7 +322,7 @@ package «getDTOBaseJavaPackage(model)+getAppModuleAsPkg(this,true,false)»;
 import java.util.*;
 import «getDTOBaseJavaPackage(model)».*;
 «EXPAND importAllNamespaces(model) FOR model.typedefs»
-«IF model.targetPlatform.enableFatClient-»
+«IF model.targetPlatform.enableRichUIBehavior-»
 import «getUIUtilsJavaPackage(model)».*;
 «ENDIF-»
 /**
@@ -352,7 +352,7 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	////////////////////////////////////////////////////////////////////
 	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
 	
-	«IF model.targetPlatform.enableFatClient-»
+	«IF model.targetPlatform.enableRichUIBehavior-»
 	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
 	«ENDIF-»
 }
