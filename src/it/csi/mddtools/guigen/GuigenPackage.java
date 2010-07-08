@@ -3544,13 +3544,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__TOOLTIP = 10;
 
 	/**
+	 * The feature id for the '<em><b>Active Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__ACTIVE_FLAG_SELECTOR = 11;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 11;
+	int COLUMN_FEATURE_COUNT = 12;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -7903,6 +7912,15 @@ public interface GuigenPackage extends EPackage {
 	int EXTRA_COLUMN__TOOLTIP = COLUMN__TOOLTIP;
 
 	/**
+	 * The feature id for the '<em><b>Active Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__ACTIVE_FLAG_SELECTOR = COLUMN__ACTIVE_FLAG_SELECTOR;
+
+	/**
 	 * The feature id for the '<em><b>Insert After</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9686,6 +9704,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_Tooltip();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Active Flag Selector</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getActiveFlagSelector()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_ActiveFlagSelector();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -13868,6 +13897,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__TOOLTIP = eINSTANCE.getColumn_Tooltip();
+
+		/**
+		 * The meta object literal for the '<em><b>Active Flag Selector</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__ACTIVE_FLAG_SELECTOR = eINSTANCE.getColumn_ActiveFlagSelector();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

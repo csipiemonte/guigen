@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getTooltip <em>Tooltip</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -252,6 +253,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String tooltip = TOOLTIP_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getActiveFlagSelector() <em>Active Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActiveFlagSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ACTIVE_FLAG_SELECTOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getActiveFlagSelector() <em>Active Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActiveFlagSelector()
+	 * @generated
+	 * @ordered
+	 */
+	protected String activeFlagSelector = ACTIVE_FLAG_SELECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -530,6 +551,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getActiveFlagSelector() {
+		return activeFlagSelector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActiveFlagSelector(String newActiveFlagSelector) {
+		String oldActiveFlagSelector = activeFlagSelector;
+		activeFlagSelector = newActiveFlagSelector;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR, oldActiveFlagSelector, activeFlagSelector));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -569,6 +611,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getMultidataPropertySelector();
 			case GuigenPackage.COLUMN__TOOLTIP:
 				return getTooltip();
+			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
+				return getActiveFlagSelector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -613,6 +657,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__TOOLTIP:
 				setTooltip((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
+				setActiveFlagSelector((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -659,6 +706,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__TOOLTIP:
 				setTooltip(TOOLTIP_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
+				setActiveFlagSelector(ACTIVE_FLAG_SELECTOR_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -693,6 +743,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return MULTIDATA_PROPERTY_SELECTOR_EDEFAULT == null ? multidataPropertySelector != null : !MULTIDATA_PROPERTY_SELECTOR_EDEFAULT.equals(multidataPropertySelector);
 			case GuigenPackage.COLUMN__TOOLTIP:
 				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
+			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
+				return ACTIVE_FLAG_SELECTOR_EDEFAULT == null ? activeFlagSelector != null : !ACTIVE_FLAG_SELECTOR_EDEFAULT.equals(activeFlagSelector);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -727,6 +779,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(multidataPropertySelector);
 		result.append(", tooltip: ");
 		result.append(tooltip);
+		result.append(", activeFlagSelector: ");
+		result.append(activeFlagSelector);
 		result.append(')');
 		return result.toString();
 	}

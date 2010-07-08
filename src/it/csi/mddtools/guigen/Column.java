@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataValueSelector <em>Multidata Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -387,5 +388,33 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setTooltip(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Active Flag Selector</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di stabilire a runtime se una cella della colonna (che deve essere
+	 * dichiarata <i>eventActive</i>) sarà effettivamente attiva (ovvero sarà "cliccabile").
+	 * Rappresenta il selettore di un field del record di cui &egrave; costituita
+	 * la collezione collegata alla tabella: questo field deve essere di tipo boolean.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Active Flag Selector</em>' attribute.
+	 * @see #setActiveFlagSelector(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_ActiveFlagSelector()
+	 * @model
+	 * @generated
+	 */
+	String getActiveFlagSelector();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Active Flag Selector</em>' attribute.
+	 * @see #getActiveFlagSelector()
+	 * @generated
+	 */
+	void setActiveFlagSelector(String value);
 
 } // Column
