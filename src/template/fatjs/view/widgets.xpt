@@ -14,7 +14,12 @@
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
-					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)».do'
+					«ELSE-»
+					multiDataBinding: null
+					«ENDIF-»,
 					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
