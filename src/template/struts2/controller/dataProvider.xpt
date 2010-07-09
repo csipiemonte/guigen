@@ -90,7 +90,48 @@
 		}
 	«ENDLET-»
 	}
+	«IF this.metaType == Table»
+		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) this).columnModel.columns.select(c | c.multiDataBinding != null)»
+	«ENDIF»
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Column-»
+«LET (Table)this.eContainer.eContainer AS table»
+«IF this.multiDataBinding!=null-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * al multi-data-binding relativo al widget «getFullID(table, contextPrefix)».
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation 
+	public String «getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)» () throws CommandExecutionException {
+	«LET multiDataBinding.appData.type AS appdataType-»
+	
+		// reperisce il dato da serializzare
+		com.opensymphony.xwork2.ActionContext ctx = 
+			com.opensymphony.xwork2.ActionContext.getContext();
+		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForColumnMultiValue(this, pduc)»");
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	«ENDLET-»
+	}
+«ENDIF-»
+«ENDLET»
 «ENDDEFINE»
 
 «REM»parte specifica di aggiustamento dei dati per i vari widget«ENDREM»
