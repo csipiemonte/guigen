@@ -92,23 +92,23 @@
 					«EXPAND widgetCommonProperties(model) FOR this»,
 					«EXPAND dataWidgetProperties(model) FOR this»,
 					«EXPAND multidataWidgetProperties(model, cp) FOR this»,					 
-					«EXPAND colModel(model) FOR this.columnModel»,
+					«EXPAND colModel(model, this, cp) FOR this.columnModel»,
 					pageSize: «jsLiteralValue(pageSize)»,
 					«EXPAND eventHandlers(model, cp) FOR this»
 				}
 			)
 «ENDDEFINE»
 
-«DEFINE colModel(GUIModel model) FOR ColumnModel»
+«DEFINE colModel(GUIModel model, Table table, ContentPanel cp) FOR ColumnModel»
 					columnModel: new ExtCsi.ui.widgets.table.ColumnModel(
 					{
 						valueSelector: «jsLiteralValue(valueSelector)», 
-						columns: [«EXPAND column FOREACH this.columns SEPARATOR ","»]
+						columns: [«EXPAND column(table, cp) FOREACH this.columns SEPARATOR ","»]
 					}
 					)					
 «ENDDEFINE»
 
-«DEFINE column FOR Column»
+«DEFINE column(Table table, ContentPanel cp) FOR Column»
 						new ExtCsi.ui.widgets.table.Column(
 						{
 							label: «jsLiteralValue(label)»,
@@ -118,11 +118,12 @@
 							selector: «jsLiteralValue(selector)»,
 							«IF editable-»
 							editableFlagSelector: «jsLiteralValue(editableFlagSelector)»,
+							multidataPropertySelector: «jsLiteralValue(multidataPropertySelector)»,
 							«IF multiDataBinding!=null-»
 							multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
-							multidataPropertySelector: «jsLiteralValue(multidataPropertySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
+							dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)».do',
 							«ENDIF-»
 							«ENDIF-»
 							eventActive: «jsLiteralValue(this.eventActive)»
