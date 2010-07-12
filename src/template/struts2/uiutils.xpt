@@ -252,27 +252,23 @@ public class TableDataArranger {
 					/*filtro su campo numerico*/
 					if (dataFilter.getType().equalsIgnoreCase("numeric")) {
 						try{
-							Float vv = (Float) method.invoke(oggetto, (Object[]) null);	
+							String vv = String.valueOf(method.invoke(oggetto,(Object[]) null));
+							Double v = Double.parseDouble(vv);
 							flagNumero = false;
-							Float numeroPassato = Float.parseFloat(dataFilter.getValue());
-							if(dataFilter.getComparison().equalsIgnoreCase("eq") && vv.compareTo(numeroPassato) == 0){
+							Double numeroPassato = Double.parseDouble(dataFilter.getValue());
+							if (dataFilter.getComparison().equalsIgnoreCase("eq") && v.compareTo(numeroPassato) == 0) {
 								flagNumero = true;
 							}
-							if(dataFilter.getComparison().equalsIgnoreCase("lt")){
+							if (dataFilter.getComparison().equalsIgnoreCase("lt")) {
 								isGtLt = true;
 							}
-							if(dataFilter.getComparison().equalsIgnoreCase("lt") && vv.compareTo(numeroPassato) < 0){
+							if (dataFilter.getComparison().equalsIgnoreCase("lt") && v.compareTo(numeroPassato) < 0) {
 								flagNumero = true;
 								flagGtLt = true;
 							}
-							if(dataFilter.getComparison().equalsIgnoreCase("gt") && 
-									vv.compareTo(numeroPassato) > 0 && (!isGtLt || (isGtLt && flagGtLt))){
-								
+							if (dataFilter.getComparison().equalsIgnoreCase("gt") && v.compareTo(numeroPassato) > 0&& (!isGtLt || (isGtLt && flagGtLt))) {
 								flagNumero = true;
-								
 							}
-							
-							
 						}catch (Exception e) {
 							throw new TableDataArrangerException("Filtro campo numerico non eseguito", e.getCause());
 						}
