@@ -24,7 +24,7 @@ public class TrackingInvoker extends org.openarchitectureware.workflow.lib.Abstr
 
 	public void setTrack(boolean b){
 		System.out.println("setTrack:"+modelName);
-		Properties info = ProfilingPacketBuilder.packGenerateInfo("guigen", "1.5.0.012", modelName, "?", targetProjectName);
+		Properties info = ProfilingPacketBuilder.packGenerateInfo("guigen", "1.5.0.013", modelName, "?", targetProjectName);
 		System.out.println("333");
 		TrackingSender.sendTrackingInfo(info);
 	}
