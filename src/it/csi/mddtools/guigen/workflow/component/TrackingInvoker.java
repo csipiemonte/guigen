@@ -1,5 +1,7 @@
 package it.csi.mddtools.guigen.workflow.component;
 
+import it.csi.mddtools.guigen.genutils.MiscUtils;
+
 import java.io.IOException;
 import java.util.Properties;
 import java.util.jar.Manifest;
@@ -25,15 +27,10 @@ public class TrackingInvoker extends org.openarchitectureware.workflow.lib.Abstr
 	}
 
 	public void setTrack(boolean b){
-		System.out.println("setTrack:"+modelName);
-		try {
-			Manifest mf = new Manifest(this.getClass().getResourceAsStream("/META-INF/MANIFEST.MF"));
-			System.out.println(mf.getEntries());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Properties info = ProfilingPacketBuilder.packGenerateInfo("guigen", "1.5.0.013", modelName, "?", targetProjectName);
+		//System.out.println("setTrack:"+modelName);
+		String pluginName = MiscUtils.getPluginName();
+		String pluginVersion = MiscUtils.getPluginVersion();
+		Properties info = ProfilingPacketBuilder.packGenerateInfo(pluginName, pluginVersion, modelName, "?", targetProjectName);
 		System.out.println("333");
 		TrackingSender.sendTrackingInfo(info);
 	}
