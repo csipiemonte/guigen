@@ -7,7 +7,7 @@
 «EXTENSION template::struts2::Struts2Extensions»
 
 
-«DEFINE configFiles(boolean skip_component_dir_creation) FOR GUIModel»
+«DEFINE configFiles(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
 	«REM»Generazione dei file standard«ENDREM»
 	«EXPAND applicationXmlFile(skip_component_dir_creation) FOR this»
 	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
@@ -25,7 +25,7 @@
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR this»
 	«REM»Generazione dei files specifici per il CSI«ENDREM»
 	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
