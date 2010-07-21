@@ -22,7 +22,11 @@
             </eventHandler>
           </topLevelMenu>
           <topLevelMenu name="mnuLevel1" label="level 1">
-            <submenu name="mnuLevel2" label="level 2"/>
+            <submenu name="mnuLevel2" label="level 2">
+              <eventHandler>
+                <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+              </eventHandler>
+            </submenu>
           </topLevelMenu>
         </menubar>
         <contentPanels name="cpTestsoftRepaint" appData="//@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.4 //@appDataDefs/@appData.5 //@appDataDefs/@appData.6 //@appDataDefs/@appData.8 //@appDataDefs/@appData.9">
@@ -651,6 +655,27 @@
                   </command>
                 </eventHandlers>
               </widgets>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpHMenu" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Test Repaint">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Test refresh parziale">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pUp">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
             </subpanels>
           </panels>
         </contentPanels>
