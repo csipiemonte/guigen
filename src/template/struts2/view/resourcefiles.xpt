@@ -935,6 +935,24 @@ come target di refresh.
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" «getColumnComparator(model, currCol, this)»>
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»				
 		</display:column>
+		«REM»[SC] Jira STDMDD-536 Introdotta gestione dell'Active Flag Selector «ENDREM»
+		«ELSEIF currCol.eventActive && currCol.activeFlagSelector!=null -»		
+		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" 						
+						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»">
+				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
+					<s:url id="targetUrlLinkableCell" 
+						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do?idColonna=«currCol.selector»" 
+						   includeParams="none" >
+						<s:param name="idRiga" value="«tabColMod.valueSelector»" />
+					</s:url>
+					<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
+						<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+					</s:a>
+				</s:if>
+				<s:else>
+					<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
+				</s:else> 								
+		</display:column>
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
