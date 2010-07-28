@@ -6,6 +6,16 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
+
+«DEFINE execCommandMethods(GUIModel model) FOR Menubar-»
+«EXPAND execCommandMethods(model) FOREACH topLevelMenu»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model) FOR Menu-»
+«EXPAND execCommandMethods(model, null, null, null) FOR this.eventHandler-»
+«ENDDEFINE»
+
+
 «REM»deve essere chiamato solo se richBehavior == true«ENDREM»
 «DEFINE execCommandMethods(GUIModel model) FOR ContentPanel-»
 	

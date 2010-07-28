@@ -53,7 +53,10 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	public String execute() throws CommandExecutionException {
 		return SUCCESS;
 	}
-
+	
+	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(this) FOR this.structure.appWindow.appArea.menubar»
+	
+	
 	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
 		«IF tlmenu.eventHandler!=null»
 	/**
