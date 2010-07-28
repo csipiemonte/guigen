@@ -473,6 +473,10 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="fatclient">
 			<result>/jsp/fatclient/main.jsp</result>
 		</action>
+		<!-- menu -->
+		<action name="«getStrutsMenuClassName(this)»" class="«getStrutsMenuFQN(this)»">
+			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)»</result>
+		</action>
 		«ENDIF-»
 		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction-»
 		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
