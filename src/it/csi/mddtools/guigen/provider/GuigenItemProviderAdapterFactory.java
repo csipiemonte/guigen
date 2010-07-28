@@ -2997,6 +2997,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ClearAppdataCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ClearAppdataCommandItemProvider clearAppdataCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ClearAppdataCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createClearAppdataCommandAdapter() {
+		if (clearAppdataCommandItemProvider == null) {
+			clearAppdataCommandItemProvider = new ClearAppdataCommandItemProvider(this);
+		}
+
+		return clearAppdataCommandItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3222,6 +3245,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (customTemplateItemProvider != null) customTemplateItemProvider.dispose();
 		if (modelSlotDefItemProvider != null) modelSlotDefItemProvider.dispose();
 		if (modelSlotItemProvider != null) modelSlotItemProvider.dispose();
+		if (clearAppdataCommandItemProvider != null) clearAppdataCommandItemProvider.dispose();
 	}
 
 }

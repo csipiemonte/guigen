@@ -188,6 +188,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.CUSTOM_TEMPLATE: return createCustomTemplate();
 			case GuigenPackage.MODEL_SLOT_DEF: return createModelSlotDef();
 			case GuigenPackage.MODEL_SLOT: return createModelSlot();
+			case GuigenPackage.CLEAR_APPDATA_COMMAND: return createClearAppdataCommand();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1539,6 +1540,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ModelSlot createModelSlot() {
 		ModelSlotImpl modelSlot = new ModelSlotImpl();
 		return modelSlot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ClearAppdataCommand createClearAppdataCommand() {
+		ClearAppdataCommandImpl clearAppdataCommand = new ClearAppdataCommandImpl();
+		return clearAppdataCommand;
 	}
 
 	/**

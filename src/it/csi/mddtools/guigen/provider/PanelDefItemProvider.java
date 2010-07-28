@@ -443,6 +443,11 @@ public class PanelDefItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__ON_REFRESH_COMMAND,
+				 GuigenFactory.eINSTANCE.createClearAppdataCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__STATES,
 				 GuigenFactory.eINSTANCE.createPanelDefStates()));
 	}

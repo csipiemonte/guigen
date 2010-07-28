@@ -279,6 +279,11 @@ public class CommandOutcomeItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
 				 GuigenFactory.eINSTANCE.createPDefStateCommand()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMMAND_OUTCOME__COMMAND,
+				 GuigenFactory.eINSTANCE.createClearAppdataCommand()));
 	}
 
 	/**

@@ -1169,6 +1169,15 @@ public interface GuigenFactory extends EFactory {
 	ModelSlot createModelSlot();
 
 	/**
+	 * Returns a new object of class '<em>Clear Appdata Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Clear Appdata Command</em>'.
+	 * @generated
+	 */
+	ClearAppdataCommand createClearAppdataCommand();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

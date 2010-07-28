@@ -29,6 +29,7 @@ import it.csi.mddtools.guigen.Button;
 import it.csi.mddtools.guigen.Calendar;
 import it.csi.mddtools.guigen.CheckBox;
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
+import it.csi.mddtools.guigen.ClearAppdataCommand;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.ColumnModel;
 import it.csi.mddtools.guigen.ComboBox;
@@ -1155,6 +1156,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass modelSlotEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass clearAppdataCommandEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4967,6 +4975,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getClearAppdataCommand() {
+		return clearAppdataCommandEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClearAppdataCommand_AppData() {
+		return (EReference)clearAppdataCommandEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -5653,6 +5679,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(modelSlotEClass, MODEL_SLOT__DEF);
 		createEReference(modelSlotEClass, MODEL_SLOT__VAL);
 
+		clearAppdataCommandEClass = createEClass(CLEAR_APPDATA_COMMAND);
+		createEReference(clearAppdataCommandEClass, CLEAR_APPDATA_COMMAND__APP_DATA);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5789,6 +5818,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		tableCustomizationParamEClass.getESuperTypes().add(this.getPDefParam());
 		extraColumnEClass.getESuperTypes().add(this.getColumn());
 		tableCustomizationPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
+		clearAppdataCommandEClass.getESuperTypes().add(this.getCommand());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6338,6 +6368,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(modelSlotEClass, ModelSlot.class, "ModelSlot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModelSlot_Def(), this.getModelSlotDef(), null, "def", null, 0, 1, ModelSlot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelSlot_Val(), ecorePackage.getEObject(), null, "val", null, 0, 1, ModelSlot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(clearAppdataCommandEClass, ClearAppdataCommand.class, "ClearAppdataCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getClearAppdataCommand_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ClearAppdataCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

@@ -8151,6 +8151,34 @@ public interface GuigenPackage extends EPackage {
 	int MODEL_SLOT_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ClearAppdataCommandImpl <em>Clear Appdata Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.ClearAppdataCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getClearAppdataCommand()
+	 * @generated
+	 */
+	int CLEAR_APPDATA_COMMAND = 140;
+
+	/**
+	 * The feature id for the '<em><b>App Data</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLEAR_APPDATA_COMMAND__APP_DATA = COMMAND_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Clear Appdata Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLEAR_APPDATA_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8158,7 +8186,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 140;
+	int WIDGET_DATA_TYPE = 141;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -8168,7 +8196,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 141;
+	int UDLRC_SPEC_CONSTANTS = 142;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -8178,7 +8206,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 142;
+	int METHOD_PROTECTION_TYPES = 143;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -8188,7 +8216,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 143;
+	int EVENT_TYPES = 144;
 
 
 	/**
@@ -8199,7 +8227,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 144;
+	int DATA_LIFETIME_TYPE = 145;
 
 
 	/**
@@ -8210,7 +8238,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 145;
+	int SIMPLE_TYPE_CODES = 146;
 
 
 	/**
@@ -8221,7 +8249,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 146;
+	int PORTAL_NAMES = 147;
 
 
 	/**
@@ -8232,7 +8260,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 147;
+	int TARGET_PLATFORM_CODES = 148;
 
 
 	/**
@@ -8243,7 +8271,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 148;
+	int MESSAGE_SEVERITY = 149;
 
 
 	/**
@@ -8254,7 +8282,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 149;
+	int COMMAND_STYLES = 150;
 
 
 	/**
@@ -8265,7 +8293,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 150;
+	int LOGIC_AGGREGATION_TYPES = 151;
 
 
 	/**
@@ -8276,7 +8304,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 151;
+	int CUSTOM_CARTRIDGE_ID = 152;
 
 
 	/**
@@ -8287,7 +8315,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 152;
+	int COMMAND_FUNCTIONS = 153;
 
 
 	/**
@@ -12617,6 +12645,27 @@ public interface GuigenPackage extends EPackage {
 	EReference getModelSlot_Val();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ClearAppdataCommand <em>Clear Appdata Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Clear Appdata Command</em>'.
+	 * @see it.csi.mddtools.guigen.ClearAppdataCommand
+	 * @generated
+	 */
+	EClass getClearAppdataCommand();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.ClearAppdataCommand#getAppData <em>App Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>App Data</em>'.
+	 * @see it.csi.mddtools.guigen.ClearAppdataCommand#getAppData()
+	 * @see #getClearAppdataCommand()
+	 * @generated
+	 */
+	EReference getClearAppdataCommand_AppData();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16295,6 +16344,24 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODEL_SLOT__VAL = eINSTANCE.getModelSlot_Val();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ClearAppdataCommandImpl <em>Clear Appdata Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.ClearAppdataCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getClearAppdataCommand()
+		 * @generated
+		 */
+		EClass CLEAR_APPDATA_COMMAND = eINSTANCE.getClearAppdataCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>App Data</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLEAR_APPDATA_COMMAND__APP_DATA = eINSTANCE.getClearAppdataCommand_AppData();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

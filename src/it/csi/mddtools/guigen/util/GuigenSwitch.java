@@ -1038,6 +1038,13 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.CLEAR_APPDATA_COMMAND: {
+				ClearAppdataCommand clearAppdataCommand = (ClearAppdataCommand)theEObject;
+				T result = caseClearAppdataCommand(clearAppdataCommand);
+				if (result == null) result = caseCommand(clearAppdataCommand);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -3139,6 +3146,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseModelSlot(ModelSlot object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Clear Appdata Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Clear Appdata Command</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseClearAppdataCommand(ClearAppdataCommand object) {
 		return null;
 	}
 
