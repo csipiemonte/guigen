@@ -290,6 +290,20 @@
 	/// Jump Command end
 «ENDDEFINE»
 
+«DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ClearAppdataCommand-»
+	/// Clear AppData Command begin
+	String [] act_«actionsVarName»_«actionNumber»_appdataToBeRemovedFromSession = new String[]{
+		«FOREACH this.appData AS tp SEPARATOR ","-»
+			"«tp.name»"
+		«ENDFOREACH-»
+	};
+	
+	ClearAppDataCommand act_«actionsVarName»_«actionNumber» = new ClearAppDataCommand(act_«actionsVarName»_«actionNumber»_appdataToBeRemovedFromSession);
+		
+	/// Clear AppData Command end
+«ENDDEFINE»
+
+
 «REM»[AM] Un refresh view attaccato ad un widget dentro un PanelDef può puntare SOLO a pannelli interni al paneldef. 
 questa è una limitazione da valutare ed eventualmente suggerire di mettere delle refresh più ampie a livello di onRefreshCommand ?«ENDREM»
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR RefreshViewCommand-»
