@@ -71,7 +71,7 @@
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
 		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
-		«EXPAND arrangeDataToProvide FOR this»
+		«EXPAND arrangeDataToProvide(cp, contextPrefix) FOR this»
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
@@ -135,10 +135,13 @@
 «ENDDEFINE»
 
 «REM»parte specifica di aggiustamento dei dati per i vari widget«ENDREM»
-«DEFINE arrangeDataToProvide FOR MultiDataWidget»
+«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR MultiDataWidget»
 «ENDDEFINE»
 
-«DEFINE arrangeDataToProvide FOR Table»
+«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR Table»
+		if(isTableClearStatus("«cp.name»_«getFullID(this, contextPrefix)»")){
+			tableStatus.setClearStatus(true);
+		}
 		TableDataArranger arranger = new TableDataArranger();
 		dataToProvide = arranger.arrange((List)dataToProvide, tableStatus, filter);
 «ENDDEFINE»

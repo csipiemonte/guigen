@@ -144,6 +144,9 @@ public class TableStatus {
 	private String dir;
 	//***parametro che contiene il nome dell'id del record
 	private String valueSelector;
+	//***parametro che contiene lo stato della tabella
+	//***se impostato a true allora rimuove il relativo cookie dello stato.
+	private boolean clearStatus;
 	
 	public String getCallback() {
 		return callback;
@@ -180,6 +183,12 @@ public class TableStatus {
 	}
 	public void setValueSelector(String valueSelector) {
 		this.valueSelector = valueSelector;
+	}
+	public boolean isClearStatus() {
+		return clearStatus;
+	}
+	public void setClearStatus(boolean clearStatus) {
+		this.clearStatus = clearStatus;
 	}
 }
 «ENDFILE»
@@ -422,7 +431,10 @@ public class TableDataArranger {
 		griglia.setNumtot(listaValori.size());
 		griglia.setElenco(l1);
 		griglia.setPositions(injectPosictions(l1, listaOggetti, valueSelector));
-
+		if(tableStatus.isClearStatus()){
+			griglia.setClearStatus(true);
+		}
+		
 		return griglia;
 
 	}
@@ -688,10 +700,15 @@ import java.util.List;
  */
 public class TableArrangedData {
 	
+	//***numero totale dei record nella tabella
 	private int numtot;
+	//***elenco dei record della tabella
 	private List<Object> elenco;
+	//***elenco delle posizioni occupate dai record nella collection originale
 	private List<DataPosition> positions;
-
+	//***parametro che indica se deve essere resettato lo stato della tabella
+	private boolean clearStatus;
+	
 	public int getNumtot() {
 		return numtot;
 	}
@@ -710,7 +727,12 @@ public class TableArrangedData {
 	public void setPositions(List<DataPosition> positions) {
 		this.positions = positions;
 	}
-
+	public boolean isClearStatus() {
+		return clearStatus;
+	}
+	public void setClearStatus(boolean clearStatus) {
+		this.clearStatus = clearStatus;
+	}
 }
 
 «ENDFILE»
