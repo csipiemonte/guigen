@@ -54,9 +54,10 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		return SUCCESS;
 	}
 	
+	«IF this.targetPlatform.enableFatClient»
 	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(this) FOR this.structure.appWindow.appArea.menubar»
-	
-	
+	«ENDIF»
+		
 	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
 		«IF tlmenu.eventHandler!=null»
 	/**
