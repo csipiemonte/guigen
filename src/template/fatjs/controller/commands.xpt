@@ -56,6 +56,13 @@ new ExtCsi.ui.event.EventHandler(
 	)
 «ENDDEFINE»
 
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ShowDialogCommand»
+	new ExtCsi.cmd.ShowDialogCommand({
+		dialog: '«this.dialog.name»'
+		} 
+	)
+«ENDDEFINE»
+
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
 	new ExtCsi.cmd.ONOFFCommand({
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]

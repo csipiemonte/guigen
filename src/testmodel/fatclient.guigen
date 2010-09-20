@@ -44,12 +44,24 @@
           </topLevelMenu>
           <topLevelMenu name="mnuLevel1" label="Voce di menu 1">
             <submenu name="mnLivello1_1" label="Livello1_1">
-              <submenu name="mnLivello1_1_1" label="Livello1_1_1"/>
-              <submenu name="mnLivello1_1_2" label="Livello1_1_2"/>
+              <submenu name="mnLivello1_1_1" label="Test tabs">
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.4"/>
+                </eventHandler>
+              </submenu>
+              <submenu name="mnLivello1_1_2" label="Test wizard">
+                <eventHandler>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.5"/>
+                </eventHandler>
+              </submenu>
               <submenu name="mnLivello1_1_3" label="Livello 1_1_3">
                 <submenu name="mnLivello1_1_3_1" label="Livello1_1_3_1">
                   <submenu name="mnLivello1_1_3_1_1" label="Livello1_1_3_1_1">
-                    <submenu name="mnLivello1_1_3_1_1_1" label="Livello1_1_3_1_1_1"/>
+                    <submenu name="mnLivello1_1_3_1_1_1" label="Test Multipanel">
+                      <eventHandler>
+                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                      </eventHandler>
+                    </submenu>
                   </submenu>
                 </submenu>
               </submenu>
@@ -451,6 +463,327 @@
               <command xsi:type="guigen:NOPCommand"/>
             </results>
           </onRefreshCommand>
+        </contentPanels>
+        <contentPanels name="cpTab" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Test tabs">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Outer label">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pCenterInner" label="Inner label">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:TabSetPanel" name="pTab">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <panels xsi:type="guigen:FormPanel" name="pTab1" label="Tab 1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab2" label="Tab 2">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab3" label="Tab 3">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                    <subpanels xsi:type="guigen:WizardPanel" name="pWiz3">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <panels xsi:type="guigen:FormPanel" name="pStep3_1" label="Step 3_1">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_1">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_1_1" label="textfield 3_1_1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep3_2" label="Step 3_2">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_2">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_2_1" label="textfield 3_2_1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep3_3" label="Step 3_3">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_3">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_3_1" label="textfield 3_3_1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep3_4" label="Step 3_4">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_4">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_4_1" label="textfield 3_4_1" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <switcher name="tswWizinner">
+                        <eventHandlers>
+                          <command xsi:type="guigen:ExecCommand" methodName="onWiz3Switch">
+                            <results resultCode="OK">
+                              <command xsi:type="guigen:NOPCommand"/>
+                            </results>
+                          </command>
+                        </eventHandlers>
+                      </switcher>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab4" label="Tab 4">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                    <subpanels xsi:type="guigen:WizardPanel" name="pWiz4">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <panels xsi:type="guigen:FormPanel" name="pStep4_1" label="Step 4_1">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_1">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_1_1" label="textfield 4.1.1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep4_2" label="Step 4_2">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_2">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_2_1" label="textfield 4_2_1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep4_3" label="Step 4_3">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_3">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_3_1" label="textfield 4_3_1" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <panels xsi:type="guigen:FormPanel" name="pStep4_4" label="Step 4_4">
+                        <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                        <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_4">
+                          <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_4_1" label="textfield 4_4_1" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                        </subpanels>
+                      </panels>
+                      <switcher name="tswWiz4">
+                        <eventHandlers>
+                          <command xsi:type="guigen:ExecCommand" methodName="onWizInnerSwitch">
+                            <results resultCode="OK">
+                              <command xsi:type="guigen:NOPCommand"/>
+                            </results>
+                          </command>
+                        </eventHandlers>
+                      </switcher>
+                    </subpanels>
+                  </panels>
+                  <switcher name="tswTab1">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="onTab1Switch">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </switcher>
+                </subpanels>
+                <subpanels xsi:type="guigen:TabSetPanel" name="pTabNoSwitcher">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <panels xsi:type="guigen:FormPanel" name="pTab2_nosw" label="Tab 2">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2_nosw">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab1_nosw" label="Tab 1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1_nosw">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                </subpanels>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pRight">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu2">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu2"/>
+              </subpanels>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpTestWizards" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Test tabs">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter" label="Outer label">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:FormPanel" name="pCenterInner" label="Inner label">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <subpanels xsi:type="guigen:WizardPanel" name="pTab">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <panels xsi:type="guigen:FormPanel" name="pTab1" label="Tab 1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab2" label="Tab 2">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab3" label="Tab 3">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab4" label="Tab 4">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <switcher name="tswTab2">
+                    <eventHandlers>
+                      <command xsi:type="guigen:ExecCommand" methodName="onTab1Switch">
+                        <results resultCode="OK">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </command>
+                    </eventHandlers>
+                  </switcher>
+                </subpanels>
+                <subpanels xsi:type="guigen:WizardPanel" name="pTabNoSwitcher">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <panels xsi:type="guigen:FormPanel" name="pTab2_nosw" label="Tab 2">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2_nosw">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                  <panels xsi:type="guigen:FormPanel" name="pTab1_nosw" label="Tab 1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1_nosw">
+                      <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                    </subpanels>
+                  </panels>
+                </subpanels>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+            </subpanels>
+          </panels>
+        </contentPanels>
+        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.0">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Test States">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              <subpanels xsi:type="guigen:MultiPanel" name="pMulti">
+                <panels xsi:type="guigen:FormPanel" name="pMultiItem1" label="pannello 1">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="wigets 1">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                    <widgets xsi:type="guigen:PlainText" name="txtFisso1" dataType="//@typedefs/@types.7" staticText="primo pannello"/>
+                    <widgets xsi:type="guigen:TextField" name="tfFloat" label="float:" dataType="//@typedefs/@types.5"/>
+                    <widgets xsi:type="guigen:TextField" name="tfString" label="Stringa:" dataType="//@typedefs/@types.5"/>
+                    <widgets xsi:type="guigen:FileUpload" name="uplMyFile" label="File:"/>
+                  </subpanels>
+                </panels>
+                <panels xsi:type="guigen:FormPanel" name="pMultiItem2" label="pannello 2">
+                  <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2" label="widgets 2">
+                    <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                  </subpanels>
+                </panels>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmd">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bHide" label="nascondi multipanel">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@subpanels.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bShow1" label="mostra pannello 1">
+                  <eventHandlers skipValidation="true">
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@subpanels.1" activeItem="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@subpanels.1/@panels.0"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bShow2" label="Mostra pannello 2">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@subpanels.1" activeItem="//@structure/@appWindow/@appArea/@contentPanels.6/@panels/@subpanels.1/@subpanels.1/@panels.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bShow3" label="Apri dialog">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ShowDialogCommand" dialog="//@structure/@appWindow/@appArea/@contentPanels.6/@dialogs.0"/>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pUp">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+            </subpanels>
+          </panels>
+          <dialogs name="dialog_prova" label="Dialog prova">
+            <commands name="cmdPdg">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbVHome" label="Vai alla home">
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbVHome1" label="Annulla">
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:NOPCommand"/>
+                </eventHandlers>
+              </widgets>
+            </commands>
+            <msgBoxes name="MsgBoxDialog" label="Questo è un dialog di prova">
+              <textMessages name="ptMsgDialog" label="Messaggio" dataType="//@typedefs/@types.7" staticText="Questo è il messaggio del dialog"/>
+            </msgBoxes>
+          </dialogs>
         </contentPanels>
       </appArea>
     </appWindow>

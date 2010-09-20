@@ -48,6 +48,27 @@
 			)
 «ENDDEFINE»
 
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+			new ExtCsi.ui.panels.StdMessagePanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					showGlobalMessages: «this.showGlobalMessages»,
+					showFieldErrorDetails: «this.showFieldErrorDetails»,
+					showFieldErrors: «this.showFieldErrors»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR DialogPanel»
+			new ExtCsi.ui.panels.DialogPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					commands: «EXPAND panelStruct(model, cp) FOR commands»,
+					msgBoxes: [«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
 «DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel»
 			new ExtCsi.ui.panels.TabSetPanel(
 				{

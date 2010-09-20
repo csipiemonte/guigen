@@ -101,6 +101,7 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 	new ExtCsi.ui.panels.ContentPanel(
 		{
 			name: '«name»',	
+			dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
 			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
