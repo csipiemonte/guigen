@@ -59,12 +59,22 @@
 			)
 «ENDDEFINE»
 
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+			new ExtCsi.ui.panels.MsgBoxPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					messageSeverity: «this.messageSeverity»,
+					textMessages: [«EXPAND widgets::widgetStruct(model, cp) FOREACH textMessages SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
 «DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR DialogPanel»
 			new ExtCsi.ui.panels.DialogPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					commands: «EXPAND panelStruct(model, cp) FOR commands»,
-					msgBoxes: [«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","»]
+					msgBoxes: [«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","»],
+					commands: «EXPAND panelStruct(model, cp) FOR commands»
 				}
 			)
 «ENDDEFINE»
