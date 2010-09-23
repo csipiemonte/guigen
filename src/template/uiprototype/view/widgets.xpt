@@ -1,0 +1,60 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+«REM»
+Combobox di esempio 
+«ENDREM»
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextField»
+			new ExtCsi.ui.widgets.TextField(
+				{
+					«EXPAND template::fatjs::view::widgets::widgetCommonProperties(model) FOR this»,
+					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
+					«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)».do'
+					«ELSE-»
+					multiDataBinding: null
+					«ENDIF-»,
+					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+
+«DEFINE column(Table table, ContentPanel cp) FOR Column»
+						new ExtCsi.ui.widgets.table.Column(
+						{
+							label: «jsLiteralValue(label)»,
+							editable: «jsLiteralValue(this.editable)»,
+							sortable: «jsLiteralValue(sortable)»,
+							tooltip: «jsLiteralValue(tooltip)»,
+							selector: «jsLiteralValue(selector)»,
+							«IF editable-»
+							editableFlagSelector: «jsLiteralValue(editableFlagSelector)»,
+							multidataPropertySelector: «jsLiteralValue(multidataPropertySelector)»,
+							«IF multiDataBinding!=null-»
+							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
+							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
+							dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)».do',
+							«ENDIF-»
+							«ENDIF-»
+							«IF eventActive-»
+							activeFlagSelector: «jsLiteralValue(activeFlagSelector)»,
+							«ENDIF-»
+							eventActive: «jsLiteralValue(this.eventActive)»
+						}
+						)
+«ENDDEFINE»
+
+
+«DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
+	«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName("DATASET", null)».do'
+	«ELSE-»
+					multiDataBinding: null
+	«ENDIF-»
+«ENDDEFINE»
