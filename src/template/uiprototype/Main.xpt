@@ -13,7 +13,7 @@
 «ENDDEFINE»
 
 «DEFINE fatClientMainJSP FOR GUIModel»
-«FILE getWebDir()+"/main.html"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+«FILE getWebDir()+"/index.html"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -131,10 +131,13 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 		{
 			name: '«name»',	
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
+			dataUrl: '«getWebDir()»/«getDataDir()»/«getFormDataProviderMethodName()».txt',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );
+«FILE  getWebDir()+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"»
+    struttura json ContentPanel 
+«ENDFILE»	
 «ENDDEFINE»
 

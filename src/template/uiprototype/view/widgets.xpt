@@ -15,13 +15,16 @@ Combobox di esempio
 					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
 					«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)».do'
+					dataUrl: '«  getWebDir()»«getDataDir()»/«cp.name»uno.txt'
 					«ELSE-»
 					multiDataBinding: null
 					«ENDIF-»,
 					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
 				}
 			)
+«FILE getWebDir()+getDataDir()+"/"+cp.name+"uno.txt"»
+    struttura json widgetStruct 
+«ENDFILE»			
 «ENDDEFINE»
 
 
@@ -40,7 +43,7 @@ Combobox di esempio
 							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
-							dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)».do',
+							dataUrl: '«getWebDir()»«getDataDir()»/«cp.name»«table.name».txt',
 							«ENDIF-»
 							«ENDIF-»
 							«IF eventActive-»
@@ -49,16 +52,20 @@ Combobox di esempio
 							eventActive: «jsLiteralValue(this.eventActive)»
 						}
 						)
+«FILE getWebDir()+getDataDir()+"/"+cp.name+table.name+".txt"»
+    struttura json column
+«ENDFILE»						
 «ENDDEFINE»
 
 
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName("DATASET", null)».do'
+					dataUrl: '«getWebDir()»«getDataDir()»/«cp.name».txt'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
-«FILE "/src/fatclientprototype/main.html"»
+«FILE getWebDir()+getDataDir()+"/"+cp.name+".txt"»
+    struttura json multidataWidgetProperties
 «ENDFILE»	
 «ENDDEFINE»
