@@ -32,25 +32,6 @@ Definizioni generali: header, footer, ecc
 		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
 		
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
-		
-		<script type="text/javascript">
-		
-		/// arricchisce i textfield con classe "calendar" con il date picker extjs.
-		function calendarEnrichment(){
-			var dh = Ext.DomHelper;
-			var els=Ext.get(Ext.query("input.calendar"));
-			els.each(function(el){
-				var span = dh.insertBefore(el, {tag:"span"})
-				var d = new Ext.form.DateField({el: el.dom});
-				d.render(span);
-			})
-		}
-		
-		Ext.onReady( function() {
-			calendarEnrichment();
-		});
-		
-		</script>
 
 	</head>
 
