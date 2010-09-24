@@ -15,7 +15,7 @@ Combobox di esempio
 					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
 					«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«  getWebDir(model)»«getDataDir()»/«cp.name»uno.txt'
+					dataUrl: '«  getUrlWebDir(model)»«getDataDir()»/«cp.name»uno.txt'
 					«ELSE-»
 					multiDataBinding: null
 					«ENDIF-»,
@@ -43,7 +43,7 @@ Combobox di esempio
 							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
-							dataUrl: '«getWebDir(model)»«getDataDir()»/«cp.name»«table.name».txt',
+							dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name»«table.name».txt',
 							«ENDIF-»
 							«ENDIF-»
 							«IF eventActive-»
@@ -61,7 +61,7 @@ Combobox di esempio
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getWebDir(model)»«getDataDir()»/«cp.name».txt'
+					dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name».txt'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
