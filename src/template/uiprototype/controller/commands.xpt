@@ -10,13 +10,13 @@
 «LET cp != null ? getStrutsActionConfigName(cp) : ( !isInMenuBranch() ? "HomeAction" : "MenuAction") AS actionName-»
 	new ExtCsi.cmd.ExecCommand({
 		methodName: «jsLiteralValue(methodName)»,
-		methodUrl: '«getWebDir()»«getDataDir()»/«this.getExecCommandMethodName(null)».txt',
+		methodUrl: '«getWebDir(model)»«getDataDir()»/«this.getExecCommandMethodName(null)».txt',
 		results: [«EXPAND template::fatjs::controller::commands::cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
 		// TODO postExecData
 		}
 	)
 «ENDLET-»
-«FILE getWebDir()+getDataDir()+"/"+this.getExecCommandMethodName(null)+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+this.getExecCommandMethodName(null)+".txt"»
     struttura json widgetStruct 
 «ENDFILE»
 «ENDDEFINE»

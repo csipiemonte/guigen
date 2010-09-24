@@ -15,20 +15,20 @@ Combobox di esempio
 					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
 					«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«  getWebDir()»«getDataDir()»/«cp.name»uno.txt'
+					dataUrl: '«  getWebDir(model)»«getDataDir()»/«cp.name»uno.txt'
 					«ELSE-»
 					multiDataBinding: null
 					«ENDIF-»,
 					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
 				}
 			)
-«FILE getWebDir()+getDataDir()+"/"+cp.name+"uno.txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»
     struttura json widgetStruct 
 «ENDFILE»			
 «ENDDEFINE»
 
 
-«DEFINE column(Table table, ContentPanel cp) FOR Column»
+«DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
 						new ExtCsi.ui.widgets.table.Column(
 						{
 							label: «jsLiteralValue(label)»,
@@ -43,7 +43,7 @@ Combobox di esempio
 							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
-							dataUrl: '«getWebDir()»«getDataDir()»/«cp.name»«table.name».txt',
+							dataUrl: '«getWebDir(model)»«getDataDir()»/«cp.name»«table.name».txt',
 							«ENDIF-»
 							«ENDIF-»
 							«IF eventActive-»
@@ -52,7 +52,7 @@ Combobox di esempio
 							eventActive: «jsLiteralValue(this.eventActive)»
 						}
 						)
-«FILE getWebDir()+getDataDir()+"/"+cp.name+table.name+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+table.name+".txt"»
     struttura json column
 «ENDFILE»						
 «ENDDEFINE»
@@ -61,11 +61,11 @@ Combobox di esempio
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getWebDir()»«getDataDir()»/«cp.name».txt'
+					dataUrl: '«getWebDir(model)»«getDataDir()»/«cp.name».txt'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
-«FILE getWebDir()+getDataDir()+"/"+cp.name+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+".txt"»
     struttura json multidataWidgetProperties
 «ENDFILE»	
 «ENDDEFINE»
