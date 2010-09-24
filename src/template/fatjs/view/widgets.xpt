@@ -103,15 +103,14 @@
 					columnModel: new ExtCsi.ui.widgets.table.ColumnModel(
 					{
 						valueSelector: «jsLiteralValue(valueSelector)», 
-						columns: [«EXPAND column(table, cp) FOREACH this.columns SEPARATOR ","»]
+						columns: [«EXPAND column(table, cp,model) FOREACH this.columns SEPARATOR ","»]
 					}
 					)					
 «ENDDEFINE»
 
-«DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
-«ENDDEFINE»
 
-«DEFINE column(Table table, ContentPanel cp) FOR Column»
+
+«DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
 						new ExtCsi.ui.widgets.table.Column(
 						{
 							label: «jsLiteralValue(label)»,
