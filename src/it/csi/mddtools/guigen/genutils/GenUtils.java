@@ -65,6 +65,7 @@ import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UCMappingPDefVal;
+import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UseCase;
 import it.csi.mddtools.guigen.UseCaseMappingParam;
@@ -73,6 +74,7 @@ import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 import it.csi.mddtools.guigen.WizardPanel;
+import it.csi.mddtools.guigen.impl.UDLRCWidgetLayoutSpecImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -3541,6 +3543,32 @@ public class GenUtils {
 			return null;
 		}
 	}
+	
+	public static boolean thereAreInnerPanelsWithTheSameUDLRCConstraint(FormPanel fp){
+		EList<EObject> contents = fp.eContents();
+		HashMap<UDLRCSpecConstants, UDLRCWidgetLayoutSpecImpl> mapSpecs = new HashMap<UDLRCSpecConstants, UDLRCWidgetLayoutSpecImpl>();
+		for (EObject o: contents){
+			if (o instanceof Panel){
+				if (o instanceof FormPanel){
+					return thereAreInnerPanelsWithTheSameUDLRCConstraint((FormPanel)o);
+				}
+				else{
+					Panel p = (Panel)o;
+					UDLRCWidgetLayoutSpecImpl specs = (UDLRCWidgetLayoutSpecImpl)p.getLayoutSpec();
+					if (specs!=null){
+						if (mapSpecs.containsKey(specs.getValue())){
+							return true;
+						}
+						else{
+							mapSpecs.put(specs.getValue(), specs);
+						}
+					}
+				}
+			}
+		}
+		return false; 
+	}
+	
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS

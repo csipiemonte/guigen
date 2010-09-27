@@ -132,6 +132,9 @@ context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSE
     		this.subpanels.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
     	)
     );
+    
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere Panels aventi UDLRC constraint identiche  "+loc() :
+    thereAreInnerPanelsWithTheSameUDLRCConstraint(this);    
 
 // Con l'introduzione del WidgetsPanel, il FormPanel non deve più contenere widgets.
 context FormPanel ERROR "Un FormPanel non può contenere Widgets. L'attributo widgets è stato mantenuto solo per retrocompatibilità. " + loc() :
