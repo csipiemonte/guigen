@@ -1,0 +1,143 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«IMPORT template::fatjs»
+«IMPORT template::fatjs»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+
+«DEFINE main FOR GUIModel»
+	«EXPAND fatClientMainJSP FOR this»
+	«EXPAND fatClientJSStruct FOR this»
+«ENDDEFINE»
+
+«DEFINE fatClientMainJSP FOR GUIModel»
+«FILE getWebDir()+"/index.html"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>testweb 20</title>
+
+  
+<!-- inserimento risorse extjs -->
+<link rel="stylesheet" type="text/css" href="ext-all/resources/css/ext-all.css" />
+
+<link rel="stylesheet" type="text/css" href="ext-all/resources/css/xtheme-gray.css" />
+<link rel="stylesheet" type="text/css" href="ext-csi/ajaxify-tag/css/ajaxify.css" />
+<link rel="stylesheet" type="text/css" href="ext-csi/fileuploadfield/css/fileuploadfield.css" />
+<script type="text/javascript" src="ext-all/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext-all/ext-all.js"></script>
+<script type="text/javascript" src="ext-csi/util/Format.js"></script>
+<script type="text/javascript" src="ext-csi/locale/ext-lang-it.js"></script>
+<script type="text/javascript" src="ext-csi/fileuploadfield/FileUploadField.js"></script>
+<link rel="stylesheet" type="text/css" href="ext-csi/grid-filter/css/GridFilters.css" />
+<link rel="stylesheet" type="text/css" href="ext-csi/grid-filter/css/RangeMenu.css" />
+<link rel="stylesheet" type="text/css" href="ext-csi/multiselect/css/MultiSelect.css" />
+<script type="text/javascript" src="ext-csi/grid-filter/menu/RangeMenu.js"></script>
+
+<script type="text/javascript" src="ext-csi/grid-filter/menu/ListMenu.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/GridFilters.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/Filter.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/StringFilter.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/DateFilter.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/ListFilter.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/NumericFilter.js"></script>
+<script type="text/javascript" src="ext-csi/grid-filter/filter/BooleanFilter.js"></script>
+<script type="text/javascript" src="ext-csi/multiselect/MultiSelect.js"></script>
+
+<script type="text/javascript" src="ext-csi/multiselect/ItemSelector.js"></script>
+<script type="text/javascript" src="ext-csi/core/core.js"></script>
+<script type="text/javascript" src="fatclient-prototype.js"></script>
+  
+ </head>
+
+ <body>
+
+ </body>
+
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE fatClientJSStruct FOR GUIModel-»
+«FILE getWebDir()+"/fatclient-prototype.js"»
+
+/**
+ * Definizione della struttura ExtCSI dell'applicazione
+ */
+
+«EXPAND model::types::types FOR this»
+«EXPAND model::data::datas FOR this»
+«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE appAreaStruct(GUIModel model) FOR ApplicationArea»
+
+var appArea = new ExtCsi.app.ApplicationArea(
+	{
+		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
+		homePage: '«getRegistryID(this.homePage)»',
+		«IF onInitCommand!=null-»
+		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
+		«ELSE» onInitCommand: null
+		«ENDIF-»
+	}
+
+);
+
+«LET this.getAllContentPanels() AS allCP»
+«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP»
+«ENDLET»
+Ext.onReady( function() { 
+	appArea.init();
+}); 
+«ENDDEFINE»
+
+«DEFINE menuBarStruct(GUIModel model) FOR Menubar»
+	new ExtCsi.ui.menu.Menubar(
+		{topLevelMenu: 
+			[
+			«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-»
+			]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE menuStruct(GUIModel model) FOR Menu-»
+			new ExtCsi.ui.menu.Menu(
+			{
+				name: '«name»',
+				label: '«label»',
+				eventHandler:
+				«IF eventHandler!=null-»
+				«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandler»
+				«ELSE»null
+				«ENDIF-»
+				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
+			}
+			)
+«ENDDEFINE»
+
+«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanel»
+/**
+ * struttura del content panel «this.name»
+ */ 
+ 
+globalRegistry.registerObject('«getRegistryID(this)»', 
+	new ExtCsi.ui.panels.ContentPanel(
+		{
+			name: '«name»',	
+			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+			dataUrl: '«getWebDir(model)»/«getDataDir()»/«getFormDataProviderMethodName()».txt',
+			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+		}
+	)
+);
+«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"»
+    struttura json ContentPanel 
+«ENDFILE»	
+«ENDDEFINE»
+
