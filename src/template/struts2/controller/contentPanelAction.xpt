@@ -27,6 +27,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.validator.annotations.*;
+import com.opensymphony.xwork2.ActionContext;
 
 import «getDTOBaseJavaPackage(model)».*;
 
@@ -160,9 +161,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		«ENDIF-»
 		      
 		«IF this.onRefreshCommand!=null»
-		// comandi eseguiti ad ogni refresh
-		ICommand cmd = initOnRefreshCommand();
-		cmd.doCommand(this);
+		// comandi eseguiti ad ogni refresh solo se non sono in modalità fatclient
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+		
+		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+			ICommand cmd = initOnRefreshCommand();
+			cmd.doCommand(this);
+		}
 		«ENDIF»
 	}
 	

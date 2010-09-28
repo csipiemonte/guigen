@@ -234,7 +234,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 */
 
 	«IF structure.appWindow.appArea.menubar != null»
-	static Map<String, List<String>> submenuMap = new HashMap<String, List<String>>();
+	static List<MenuStructure> menuMap = new ArrayList<MenuStructure>();
 	static {
 		«EXPAND submenuMap FOR structure.appWindow.appArea.menubar»
 	}
@@ -269,10 +269,10 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 */
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
 	«IF getActualSecurityModel(this) != null»
-		List<String> subMenuList = submenuMap.get(menuName);
-		if ( subMenuList != null ) {
-			for (String subMenu : subMenuList) {
-				if (isMenuVisible(subMenu)) {
+		for (MenuStructure menuStructure : menuMap) {
+			MenuStructure mstr = menuStructure.getSubMenu(menuStructure, menuName);
+			for (MenuStructure subMenu : mstr.getSubmenus()) {
+				if (isMenuVisible(subMenu.getMenuName())) {
 					return true;
 				}
 			}
@@ -319,13 +319,10 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * @return true se un sottomenu del menu dato (a qualunque livello) &egrave; attivo (ovvero &grave; stato cliccato)
 	 */
 	public boolean isSubMenuActive(String menuName) {
-		List<String> subMenuList = submenuMap.get(menuName);
-		if ( subMenuList != null ) {
-			for ( String subMenu : subMenuList ) {
-				if ( isMenuActive(subMenu) ) {
-					return true;
-				}
-				if ( isSubMenuActive(subMenu) ) {
+		for (MenuStructure menuStructure : menuMap) {
+			MenuStructure mstr = menuStructure.getSubMenu(menuStructure, menuName);
+			for (MenuStructure subMenu : mstr.getSubmenus()) {
+				if (isMenuActive(subMenu.getMenuName())) {
 					return true;
 				}
 			}
@@ -352,6 +349,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     	return clearStatus;
     }
 	
+	«EXPAND provideMenuStatus FOR this»
 
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
@@ -437,21 +435,52 @@ Esteso a qualunque livello di annidamento
 «ENDREM»
 «DEFINE submenuMap FOR Menubar»
 «FOREACH this.topLevelMenu AS topLevelMenu»
+MenuStructure «topLevelMenu.name»Menu = new MenuStructure("«topLevelMenu.name»");
 «EXPAND submenuList FOR topLevelMenu»
+menuMap.add(«topLevelMenu.name»Menu);
 «ENDFOREACH»
 «ENDDEFINE»
 
 
 «DEFINE submenuList FOR Menu»
 «IF this.submenu.size > 0»
-	List<String> «this.name»SubmenuList = new ArrayList<String>();
 	«FOREACH this.submenu AS subMenu-»
+	MenuStructure «subMenu.name»Menu = new MenuStructure("«subMenu.name»");
+	«REM»
 	«this.name»SubmenuList.add("«subMenu.name»");
+	subMenu.setSubmenus(submenus);
 	«ENDFOREACH-»
 	submenuMap.put("«this.name»", «this.name»SubmenuList);
 
 	«FOREACH this.submenu AS subMenu-»
-		«EXPAND submenuList FOR subMenu»
+	«ENDREM»
+	«EXPAND submenuList FOR subMenu»
+	«this.name»Menu.getSubmenus().add(«subMenu.name»Menu);
 	«ENDFOREACH-»
-	«ENDIF»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE provideMenuStatus FOR GUIModel»
+	/**
+	 * Restituisce lo stato del menu
+	 * @return List<MenuStructure>
+	 */
+	protected List<MenuStructure> getMenuStatus(){
+		
+		List<MenuStructure> menus = new ArrayList<MenuStructure>();
+		for (MenuStructure menuStructure : menuMap) {
+			//***sul fatclient non ho bisogno dello stato attivo per cui lo imposto a false
+			menus.add(new MenuStructure(menuStructure.getMenuName(),
+					isMenuVisible(menuStructure.getMenuName()),
+					isMenuEnabled(menuStructure.getMenuName()), false));
+
+			for (String subMenu : menuStructure.getAllSubMenu()) {
+
+				menus.add(new MenuStructure(subMenu, isMenuVisible(subMenu),
+						isMenuEnabled(subMenu), false));
+
+			}
+		}
+		return menus;
+	}
 «ENDDEFINE»

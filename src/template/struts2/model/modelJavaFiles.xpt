@@ -247,6 +247,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaT
 
 
 «DEFINE baseActionModelfile(GUIModel model) FOR GUIModel»
+«EXPAND menuStructurefile(model) FOR model»
 «FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
 
 import java.util.Map;
@@ -312,6 +313,88 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE menuStructurefile(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/MenuStructure.java"»package «getDTOBaseJavaPackage()»;
+import java.util.*;
+import flexjson.JSON;
+
+public class MenuStructure implements java.io.Serializable{
+
+	private String menuName;
+	private List<MenuStructure> submenus = new ArrayList<MenuStructure>();
+
+	private boolean visible;
+	private boolean enabled;
+
+	public String getMenuName() {
+		return menuName;
+	}
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+	@JSON(include = false)
+	public List<MenuStructure> getSubmenus() {
+		return submenus;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public MenuStructure() {
+	}
+
+	public MenuStructure(String menuName) {
+		this.menuName = menuName;
+	}
+
+	public MenuStructure(String menuName, boolean visible, boolean enabled,
+			boolean active) {
+		this.menuName = menuName;
+		this.visible = visible;
+		this.enabled = enabled;
+	}
+
+	@JSON(include = false)
+	public List<String> getAllSubMenu() {
+		List<String> allSubMenu = new ArrayList<String>();
+
+		return addSubMenu(allSubMenu, getSubmenus());
+	}
+	
+	@JSON(include = false)
+	public MenuStructure getSubMenu(MenuStructure mn, String menuName){
+		for (MenuStructure menuStructure : mn.getSubmenus()) {
+			if(menuStructure.getMenuName().equalsIgnoreCase(menuName)){
+				return menuStructure;
+			}
+			getSubMenu(menuStructure, menuName);
+		}
+		
+		return mn;
+	}
+
+	private List<String> addSubMenu(List<String> allSubMenu,
+			List<MenuStructure> submenus) {
+		for (MenuStructure menuStructure : submenus) {
+			allSubMenu.add(menuStructure.getMenuName());
+			addSubMenu(allSubMenu, menuStructure.getSubmenus());
+		}
+		return allSubMenu;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»dto con solo le property delle action (parametri per spring)«ENDREM»
 «DEFINE actionModelFile(GUIModel model) FOR ContentPanel»

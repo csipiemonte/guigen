@@ -156,9 +156,12 @@
 	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
 		// costruzione struttura dati di 1° livello (esclusi gli appdata di tipo collection)
 		Object dataToProvide = toModel();
+		Map cpData = new HashMap<String, Object>();
+		cpData.put("cpData", dataToProvide);
+		cpData.put("menuStatus", getMenuStatus());
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
-		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(dataToProvide);
+		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(cpData);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {

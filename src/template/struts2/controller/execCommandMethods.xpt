@@ -27,6 +27,9 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	
 	«EXPAND execCommandMethods(model, this, "", null) FOR this.panels-»
+	«IF this.onRefreshCommand != null»
+	«EXPAND execCommandMethods(model, this, "", null) FOR this.onRefreshCommand-»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
