@@ -132,9 +132,37 @@ context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSE
     		this.subpanels.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
     	)
     );
-    
-context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere Panels aventi UDLRC constraint identiche  "+loc() :
-    thereAreInnerPanelsWithTheSameUDLRCConstraint(this);    
+ 
+// { STDMDD-605   
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (UP):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::UP)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (DOWN):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::DOWN)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (LEFT):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::LEFT)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (RIGHT):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::RIGHT)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (CENTER):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::CENTER)).size<=1;
+// STDMDD-605 }
+	
+
+	
+
 
 // Con l'introduzione del WidgetsPanel, il FormPanel non deve più contenere widgets.
 context FormPanel ERROR "Un FormPanel non può contenere Widgets. L'attributo widgets è stato mantenuto solo per retrocompatibilità. " + loc() :

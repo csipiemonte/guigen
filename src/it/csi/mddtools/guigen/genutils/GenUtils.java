@@ -3544,31 +3544,6 @@ public class GenUtils {
 		}
 	}
 	
-	public static boolean thereAreInnerPanelsWithTheSameUDLRCConstraint(FormPanel fp){
-		EList<EObject> contents = fp.eContents();
-		HashMap<UDLRCSpecConstants, UDLRCWidgetLayoutSpecImpl> mapSpecs = new HashMap<UDLRCSpecConstants, UDLRCWidgetLayoutSpecImpl>();
-		for (EObject o: contents){
-			if (o instanceof Panel){
-				if (o instanceof FormPanel){
-					return thereAreInnerPanelsWithTheSameUDLRCConstraint((FormPanel)o);
-				}
-				else{
-					Panel p = (Panel)o;
-					UDLRCWidgetLayoutSpecImpl specs = (UDLRCWidgetLayoutSpecImpl)p.getLayoutSpec();
-					if (specs!=null){
-						if (mapSpecs.containsKey(specs.getValue())){
-							return true;
-						}
-						else{
-							mapSpecs.put(specs.getValue(), specs);
-						}
-					}
-				}
-			}
-		}
-		return false; 
-	}
-	
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY METHODS
