@@ -316,7 +316,9 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 «DEFINE menuStructurefile(GUIModel model) FOR GUIModel»
 «FILE getDTOBaseSrcDir()+"/MenuStructure.java"»package «getDTOBaseJavaPackage()»;
 import java.util.*;
+«IF model.targetPlatform.enableRichUIBehavior-»
 import flexjson.JSON;
+«ENDIF-»
 
 public class MenuStructure implements java.io.Serializable{
 
@@ -333,7 +335,9 @@ public class MenuStructure implements java.io.Serializable{
 		this.menuName = menuName;
 	}
 
+«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
+«ENDIF-»
 	public List<MenuStructure> getSubmenus() {
 		return submenus;
 	}
@@ -365,14 +369,18 @@ public class MenuStructure implements java.io.Serializable{
 		this.enabled = enabled;
 	}
 
+«IF model.targetPlatform.enableRichUIBehavior-»
 	@JSON(include = false)
+«ENDIF-»
 	public List<String> getAllSubMenu() {
 		List<String> allSubMenu = new ArrayList<String>();
 
 		return addSubMenu(allSubMenu, getSubmenus());
 	}
-	
+
+«IF model.targetPlatform.enableRichUIBehavior-»	
 	@JSON(include = false)
+«ENDIF-»
 	public MenuStructure getSubMenu(MenuStructure mn, String menuName){
 		for (MenuStructure menuStructure : mn.getSubmenus()) {
 			if(menuStructure.getMenuName().equalsIgnoreCase(menuName)){
