@@ -440,9 +440,9 @@ context MenuView ERROR "ad una MenuView non è possibile associare evnet handler,
 						" della struttura menu globale (di cui funge solo da segnaposto) "+loc() :
 	this.eventHandlers.size == 0;
 
-// un Treeview può avere solo un event handler di tipo click
-context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED "+loc() :
-	this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==(this.eventHandlers.size);
+// un Treeview può avere solo un event handler di tipo click o node_expanded
+context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED o NODE_EXPANDED"+loc() :
+	this.eventHandlers.select(eh|eh.eventType!=EventTypes::CLICKED && eh.eventType!=EventTypes::NODE_EXPANDED).size==0;
 
 // per rendere "eventActive" una colonna di una table occorre specificare un event handler clicked nella table
 context Column ERROR "una colonna di una Table può essere dichiarata 'eventActive' solo se la tabella "+

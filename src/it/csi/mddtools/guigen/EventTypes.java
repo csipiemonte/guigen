@@ -71,7 +71,15 @@ public enum EventTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KEY_PRESSED(4, "KEY_PRESSED", "KEY_PRESSED");
+	KEY_PRESSED(4, "KEY_PRESSED", "KEY_PRESSED"), /**
+	 * The '<em><b>NODE EXPANDED</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_EXPANDED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_EXPANDED(5, "NODE_EXPANDED", "NODE_EXPANDED");
 
 	/**
 	 * The '<em><b>CLICKED</b></em>' literal value.
@@ -172,6 +180,21 @@ public enum EventTypes implements Enumerator {
 	public static final int KEY_PRESSED_VALUE = 4;
 
 	/**
+	 * The '<em><b>NODE EXPANDED</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta l'evento di apertura di un nodo in un Tree (applicabile solo a
+	 * <b>TreeView</b>)
+	 * <!-- end-model-doc -->
+	 * @see #NODE_EXPANDED
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_EXPANDED_VALUE = 5;
+
+	/**
 	 * An array of all the '<em><b>Event Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -184,6 +207,7 @@ public enum EventTypes implements Enumerator {
 			FOCUS_GAINED,
 			FOCUS_LOST,
 			KEY_PRESSED,
+			NODE_EXPANDED,
 		};
 
 	/**
@@ -239,6 +263,7 @@ public enum EventTypes implements Enumerator {
 			case FOCUS_GAINED_VALUE: return FOCUS_GAINED;
 			case FOCUS_LOST_VALUE: return FOCUS_LOST;
 			case KEY_PRESSED_VALUE: return KEY_PRESSED;
+			case NODE_EXPANDED_VALUE: return NODE_EXPANDED;
 		}
 		return null;
 	}
