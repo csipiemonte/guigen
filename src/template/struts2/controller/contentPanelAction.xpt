@@ -123,6 +123,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	«IF model.targetPlatform.enableFatClient-»
 	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-»
+	//***lista dei widgets presenti nel content panel
+	public static List<String> listaWidgets = new ArrayList<String>();
+	
+	public static List<String> getListaWidgets() {
+		«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR panels»
+		return listaWidgets;
+	}
 	«ENDIF-»
 	
 	«ENDLET»

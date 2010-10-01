@@ -350,6 +350,10 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     }
 	
 	«EXPAND provideMenuStatus FOR this»
+	
+	«IF this.targetPlatform.enableFatClient-»
+	«EXPAND provideWidgetsStatus FOR this»
+	«ENDIF-»
 
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
@@ -482,5 +486,18 @@ menuMap.add(«topLevelMenu.name»Menu);
 			}
 		}
 		return menus;
+	}
+«ENDDEFINE»
+
+«DEFINE provideWidgetsStatus FOR GUIModel»
+	/**
+	 * restituisce lo stato di tutti i widgets presenti nel contentpanel
+	 */
+	protected List<MenuStructure> getWidgetsStatus(List<String> listaWidgets, String cpName){
+		List<MenuStructure> widgets = new ArrayList<MenuStructure>();
+		for (String widget : listaWidgets) {
+			widgets.add(new MenuStructure(widget, isWidgetVisible(cpName, widget), isWidgetDisabled(cpName, widget), false));
+		}
+		return widgets;
 	}
 «ENDDEFINE»
