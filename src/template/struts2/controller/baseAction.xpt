@@ -493,10 +493,11 @@ menuMap.add(«topLevelMenu.name»Menu);
 	/**
 	 * restituisce lo stato di tutti i widgets presenti nel contentpanel
 	 */
-	protected List<MenuStructure> getWidgetsStatus(List<String> listaWidgets, String cpName){
-		List<MenuStructure> widgets = new ArrayList<MenuStructure>();
+	protected List<WidgetsStructure> getWidgetsStatus(List<String> listaWidgets,
+			String cpName) {
+		List<WidgetsStructure> widgets = new ArrayList<WidgetsStructure>();
 		for (String widget : listaWidgets) {
-			widgets.add(new MenuStructure(widget, isWidgetVisible(cpName, widget), isWidgetDisabled(cpName, widget), false));
+			widgets.add(new WidgetsStructure(widget, isWidgetVisible(cpName, widget), isWidgetDisabled(cpName,widget)));
 		}
 		return widgets;
 	}
