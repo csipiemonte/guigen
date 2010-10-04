@@ -51,9 +51,9 @@ new ExtCsi.ui.event.EventHandler(
 
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand»
 	new ExtCsi.cmd.VisibilityCommand({
+		show: «this.show»,
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
-		} 
-	)
+	})
 «ENDDEFINE»
 
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR ShowDialogCommand»
@@ -65,9 +65,9 @@ new ExtCsi.ui.event.EventHandler(
 
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
 	new ExtCsi.cmd.ONOFFCommand({
+		enable: «this.enable»,
 		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
-		}
-	)
+	})
 «ENDDEFINE»
 
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand»

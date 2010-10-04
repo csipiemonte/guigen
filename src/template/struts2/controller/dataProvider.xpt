@@ -14,6 +14,7 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	«IF model.targetPlatform.enableFatClient-»
 	«EXPAND dataProvider::formDataProviderMethod FOR this»
+	«EXPAND provideWidgetsStatus FOR this»
 	«ENDIF-»
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi di data providing sui widget dotati di multi data binding
@@ -179,6 +180,46 @@
 			e.printStackTrace();
 			throw new CommandExecutionException("errore provide Data",e);
 		}
+	}
+«ENDDEFINE»
+
+«DEFINE provideWidgetsStatus FOR ContentPanel-»
+	//***esecuzione della logica di abilitazione visibilità widgets del cp
+	private String enableWidget;
+	private List<String> nomiWidgets;
+	private String showWidget;
+	
+ 	public String getEnableWidget() {
+		return enableWidget;
+	}
+
+	public void setEnableWidget(String enableWidget) {
+		this.enableWidget = enableWidget;
+	}
+
+	public List<String> getNomiWidgets() {
+		return nomiWidgets;
+	}
+
+	public void setNomiWidgets(List<String> nomiWidgets) {
+		this.nomiWidgets = nomiWidgets;
+	}
+	public String getShowWidget() {
+		return showWidget;
+	}
+
+	public void setShowWidget(String showWidget) {
+		this.showWidget = showWidget;
+	}
+
+	public void execSetWidgetsOnOffStatus() throws CommandExecutionException{
+		
+		super.setWidgetsOnOffStatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
+	}
+	
+	public void execSetWidgetsVisibilityStatus() throws CommandExecutionException{
+		
+		super.setWidgetsVisibilitytatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
 	}
 «ENDDEFINE»
 
