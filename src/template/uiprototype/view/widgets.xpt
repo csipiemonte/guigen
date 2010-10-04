@@ -15,14 +15,14 @@ Combobox di esempio
 					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
 					«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«  getUrlWebDir(model)»«getDataDir()»/«cp.name»uno.txt'
+					dataUrl: '«  getUrlWebDir(model)»«getDataDir()»/«cp.name»uno.html'
 					«ELSE-»
 					multiDataBinding: null
 					«ENDIF-»,
 					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
 				}
 			)
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.html"»
     struttura json widgetStruct 
 «ENDFILE»			
 «ENDDEFINE»
@@ -43,7 +43,7 @@ Combobox di esempio
 							multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
-							dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name»«table.name».txt',
+							dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name»«table.name».html',
 							«ENDIF-»
 							«ENDIF-»
 							«IF eventActive-»
@@ -52,7 +52,7 @@ Combobox di esempio
 							eventActive: «jsLiteralValue(this.eventActive)»
 						}
 						)
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+table.name+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+table.name+".html"»
     struttura json column
 «ENDFILE»						
 «ENDDEFINE»
@@ -61,11 +61,11 @@ Combobox di esempio
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name».txt'
+					dataUrl: '«getUrlWebDir(model)»«getDataDir()»/«cp.name».html'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+".html"»
     struttura json multidataWidgetProperties
 «ENDFILE»	
 «ENDDEFINE»

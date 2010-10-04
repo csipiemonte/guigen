@@ -134,12 +134,12 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 		{
 			name: '«name»',	
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-			dataUrl: '«getWebDir(model)»/«getDataDir()»/«getFormDataProviderMethodName()».txt',
+			dataUrl: '«getWebDir(model)»/«getDataDir()»/«getFormDataProviderMethodName()».html',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );
-«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"»
+«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".html"»
     struttura json ContentPanel 
 «ENDFILE»	
 «ENDDEFINE»
