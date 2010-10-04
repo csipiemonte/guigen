@@ -162,7 +162,7 @@
 		Map cpData = new HashMap<String, Object>();
 		cpData.put("cpData", dataToProvide);
 		cpData.put("menuStatus", getMenuStatus());
-		cpData.put("widgetsStatus", getWidgetsStatus(listaWidgets, "«this.name»"));
+		cpData.put("widgetsStatus", getWidgetsStatus(getListaWidgets(), "«this.name»"));
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
 		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(cpData);
