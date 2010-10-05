@@ -305,12 +305,14 @@ ANT FILES
   <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
   «IF isNullOrEmpty(getProperty("development.mode")) || getProperty("development.mode")=="false"-»
   	<unzip src="${extjs-zipfile}" dest="${temp}/static-resources" />
-  	<unzip src="${csi-extjs-zipfile}" dest="${temp}/static-resources" />
+  	<unzip src="${csi-extjscore-zipfile}" dest="${temp}/static-resources" />
+  	<unzip src="${csi-extjsenricher-zipfile}" dest="${temp}/static-resources" />
+  	«IF targetPlatform.enableFatClient-»
+  	<unzip src="${csi-extjsmdd-zipfile}" dest="${temp}/static-resources" />
+  	«ENDIF-»
   «ELSE-»
   	<!-- modalita' di sviluppo delle estensioni JS: le risorse statiche devono 
   	     essere inserite manualmente in ${srcweb} -->
-  	<!--<unzip src="${extjs-zipfile}" dest="${srcweb}" />
-  	<unzip src="${csi-extjs-zipfile}" dest="${srcweb}" />-->
   «ENDIF-»
   </target>
 	«ENDIF-»
@@ -536,7 +538,11 @@ ANT FILES
 «IF targetPlatform.enableRichUIBehavior-»
 # - [Files delle risorse statiche per rich UI] -------------------------------
   extjs-zipfile = ${lib}/ext-3.2.2-all.zip
-  csi-extjs-zipfile = ${lib}/ext-1.0.0-csi.zip
+  csi-extjscore-zipfile = ${lib}/ext-csi-1.0.0-core.zip
+  csi-extjsenricher-zipfile = ${lib}/ext-csi-1.0.0-enricher.zip
+«ENDIF-»
+«IF targetPlatform.enableFatClient-»
+  csi-extjsmdd-zipfile = ${lib}/ext-csi-1.0.0-mdd.zip
 «ENDIF-»
 
 # - [ear-libs-filter] --------------------------------------------------------
@@ -721,9 +727,13 @@ IVY FILES (gestione delle dipendenze)
 
 		«IF targetPlatform.enableRichUIBehavior-»
 		<!-- librerie js per rich u.i -->
-		<dependency org="csipiemonte" name="extjscsi" rev="1.0.0"/>
+		<dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
+		<dependency org="csipiemonte" name="extjscsienricher" rev="1.0.0"/>
 		<dependency org="others" name="flexjson" rev="1.9.2" />
 		<dependency org="csipiemonte" name="csiui" rev="1.0.0" />
+		«ENDIF-»
+		«IF targetPlatform.enableFatClient-»
+		<dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
 		«ENDIF-»
 		
 		«IF getActualSecurityModel(this).autenticationMethod!=null-»
