@@ -38,7 +38,7 @@ globalRegistry.registerObject('«getRegistryID(this, tns)»',
 globalRegistry.registerObject('«getRegistryID(this, tns)»',
 	new ExtCsi.mdl.types.ComplexType(
 		{ name: «jsLiteralValue(name)»,
-		  «IF extends!=null-»extendType: '«getRegistryID(extends, tns)»',«ENDIF-» 
+		  «IF extends!=null-»extendType: '«getRegistryID(extends, tns)»',«ENDIF-»
 		  initFields: «jsLiteralValue(initFields)»,
 		  fields: [«EXPAND field(tns) FOREACH this.fields SEPARATOR ","»]  
 		}
@@ -58,13 +58,15 @@ new ExtCsi.mdl.types.Field(
 «ENDDEFINE»
 
 «DEFINE type(TypeNamespace tns) FOR TypedArray»
+«LET componentType.eContainer.metaType == TypeNamespace ? ((TypeNamespace)componentType.eContainer) : null AS componentTns»
 globalRegistry.registerObject('«getRegistryID(this, tns)»',
 	new ExtCsi.mdl.types.TypedArray(
 		{ name: «jsLiteralValue(name)»,
-		  componentType: '«getRegistryID(componentType,tns)»'  
+		  componentType: '«getRegistryID(componentType,componentTns)»'  
 		}
 	)
 );
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE types FOR TypeNamespace»

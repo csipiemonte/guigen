@@ -5,6 +5,7 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION org::openarchitectureware::util::stdlib::naming»
+«EXTENSION template::fatjs::FatJSExtensions»
 
 «REM»crea i file JS di arricchimento delle pagine web«ENDREM»
 «DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
@@ -204,7 +205,7 @@ Ext.onReady( function() {
 «IF widgets.select(w|!isNullOrEmpty(w.tooltip)).size>0-»
 	/// arricchimento per «this.metaType.name» [«getFullID(this, contextPrefix)»]: aggiunta tooltip su label
 	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|!isNullOrEmpty(w.tooltip)) AS currWidg SEPARATOR ","»
-		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:'«currWidg.tooltip»'}«ENDFOREACH-»
+		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:«jsLiteralValue(currWidg.tooltip)»}«ENDFOREACH-»
 	];
 	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = function(){uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips)};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getFullID(this,contextPrefix)»", addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()»);

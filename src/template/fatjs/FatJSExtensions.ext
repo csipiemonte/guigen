@@ -13,7 +13,7 @@ String getRegistryID(Type st, TypeNamespace tns) :
 
 // TODO: verificare se ci sono altri casi da "ripulire"
 String jsLiteralValue(String s) :
-	s==null? "null": "'"+s.replaceAll("'","&lsquo;")+"'";
+	s==null? "null": "'"+s.replaceAll("'","&lsquo;").replaceAll("à","&agrave;").replaceAll("è","&egrave;").replaceAll("é","&egrave;")+"'";
 
 String jsLiteralValue(int i) :
 	i==null? "null": i;
