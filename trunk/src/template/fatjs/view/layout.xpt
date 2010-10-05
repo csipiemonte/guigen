@@ -1,0 +1,33 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+
+«DEFINE panelLayout FOR PanelLayout-»
+«ERROR "layout "+this.metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE panelLayout FOR VerticalFlowPanelLayout-»new ExtCsi.ui.layout.VerticalFlowPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR HorizontalFlowPanelLayout-»new ExtCsi.ui.layout.HorizontalFlowPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR UDLRCPanelLayout-»new ExtCsi.ui.layout.UDLRCPanelLayout()«ENDDEFINE»
+
+«DEFINE panelLayout FOR GridPanelLayout-»new ExtCsi.ui.layout.VerticalFlowPanelLayout({columns: «jsLiteralValue(columns)», rows: «jsLiteralValue(rows)»})«ENDDEFINE»
+
+
+«DEFINE layoutSpec FOR WidgetLayoutSpecifier»
+«ERROR "layoutspecifier "+this.metaType+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE layoutSpec FOR UDLRCWidgetLayoutSpec»
+new ExtCsi.ui.layout.UDLRCWidgetLayoutSpec({value: ExtCsi.ui.layout.UDLRCSpecConstants().«value»})
+«ENDDEFINE»
+
+«DEFINE layoutSpec FOR GridWidgetLayoutSpec»
+new ExtCsi.ui.layout.GridWidgetLayoutSpec({row: «jsLiteralValue(row)», column: «jsLiteralValue(column)», hspan: «jsLiteralValue(hspan)», vspan: «jsLiteralValue(vspan)»})
+«ENDDEFINE»

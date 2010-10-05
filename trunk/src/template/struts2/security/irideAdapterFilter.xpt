@@ -1,0 +1,182 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE IrideIdMaterializerFilter(GUIModel model) FOR AutenticationMethod»
+«FILE getIrideIdAdapterFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import «getBaseJavaPackage(model)+".business.*;"»
+import org.apache.log4j.*;
+import «getBaseJavaPackage(model)».util.*;
+
+/**
+ * Inserisce in sessione:
+ * <ul> 
+ *  <li>l'identit&agrave; digitale relativa all'utente autenticato.
+ *  <li>l'oggetto <code>currentUser</code>
+ * </ul>
+ * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
+ * logica applicativa.
+ *
+ * @author CSIPiemonte
+ */
+public class «getIrideIdAdapterFilterClassName()» implements Filter{
+
+	public static final String IRIDE_ID_SESSIONATTR = "iride2_id";
+	
+	«EXPAND authMarkerConstDef FOR this»
+	
+	«LET model.appDataDefs AS appDataDefs-»
+	«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+	public static final String USERINFO_SESSIONATTR = "«getAppDataKey(currentUserAD)»";
+	«ENDLET-»
+	«ENDLET-»
+	
+	/**  */
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+		HttpServletRequest hreq = (HttpServletRequest)req;
+		if (hreq.getSession().getAttribute(IRIDE_ID_SESSIONATTR)==null){
+			String marker = getToken(hreq);
+			if (marker!=null){
+				try {
+					Identita identita = new Identita(normalizeToken(marker));
+					log.debug("[IrideIdAdapterFilter::doFilter] Inserito in sessione marcatore IRIDE:"+identita);
+					hreq.getSession().setAttribute(IRIDE_ID_SESSIONATTR, identita);
+					«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-»
+					«toJavaType(userInfoType, model)» userInfo = new «toJavaType(userInfoType, model)»();
+					«ENDLET-»
+					userInfo.setNome(identita.getNome());
+					userInfo.setCognome(identita.getCognome());
+					userInfo.setEnte("--");
+					userInfo.setRuolo("--");
+					userInfo.setCodFisc(identita.getCodFiscale());
+					userInfo.setIdIride(identita.toString());
+					hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
+				} catch (MalformedIdTokenException e) {
+					log.error("[IrideIdAdapterFilter::doFilter] "+e.toString(),e);
+				}
+			}
+			else {
+				// STDMDD-325: il marcatore deve sempre essere presente altrimenti e' una 
+				// condizione di errore (escluse le pagine home e di servizio)
+				if (mustCheckPage(hreq.getRequestURI())){
+					log.error("[IrideIdAdapterFilter::doFilter] Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+					throw new ServletException("Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+				}
+			}
+		}
+		
+		fchn.doFilter(req, resp);
+		
+	}
+
+	
+    private boolean mustCheckPage(String requestURI) {
+		if (requestURI.indexOf("HomePage.do") > -1
+				|| requestURI.indexOf("sessionExpired.do") > -1
+				|| requestURI.indexOf("fatalError") > -1
+				|| requestURI.indexOf("notFoundError") > -1
+				|| requestURI.indexOf("sessionExpired.jsp") > -1
+				|| requestURI.indexOf("Logout") > -1)
+			return false;
+		else
+			return true;
+	}
+	
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// NOP
+	}
+
+	«EXPAND getSecurityToken FOR this»
+	
+	«EXPAND normalizeToken FOR this»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR AutenticationMethod»
+«ERROR ""+this+ " non supportato"»
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR OPAUTHSSO»
+	public final static String AUTH_ID_MARKER = "it.csi.opauth.filter.identita";
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR SSOBARTSSO»
+	public final static String AUTH_ID_MARKER = "edu.yale.its.tp.cas.client.filter.user";
+«ENDDEFINE»
+
+«DEFINE authMarkerConstDef FOR ShibbolethSSO»
+	public final static String AUTH_ID_MARKER = "Shib-Iride-IdentitaDigitale";
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR AutenticationMethod»
+«ERROR ""+this+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR SSOBARTSSO»
+	public String getToken(HttpServletRequest httpreq){	
+		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
+		return marker;
+	}
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR CustomAuthentication»
+«ERROR ""+this+" non supportato"»
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR OPAUTHSSO»
+	public String getToken(HttpServletRequest httpreq){	
+		String marker = (String)httpreq.getSession().getAttribute(AUTH_ID_MARKER);
+		return marker;
+	}
+«ENDDEFINE»
+
+«DEFINE getSecurityToken FOR ShibbolethSSO»
+	public String getToken(HttpServletRequest httpreq){
+		String marker = (String)httpreq.getHeader(AUTH_ID_MARKER);
+		return marker;
+	}
+«ENDDEFINE»
+
+«DEFINE normalizeToken FOR AutenticationMethod»
+	private String normalizeToken(String token){
+		return token;
+	}
+«ENDDEFINE»
+
+«DEFINE normalizeToken FOR OPAUTHSSO»
+	private String normalizeToken(String token){
+		String tmp = null;
+		
+		if(token.indexOf("~") == -1){
+			return token;
+		}else{
+			String[] tok = token.split("~");
+			tmp = tok[6]+"/"+tok[4];
+		}
+				
+		return tmp;
+	}
+«ENDDEFINE»

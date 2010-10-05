@@ -1,0 +1,155 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE i18nFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND globalMessagesPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND homePagePropertiesFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+
+«REM»Crea il resource bundle globale dell'applicazione«ENDREM»
+«DEFINE globalMessagesPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsGlobalMessagesPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# Properties file globale dell'applicazione
+#######################################################################
+
+###
+# Ridefinizione properties di Struts2/XWork
+###
+xwork.default.invalid.fieldvalue=Valore non ammesso.
+
+
+###
+# Label delle pagine di errore
+###
+
+# Pagina di errore 404 (Page Not Found)-> NO STRUTS
+error.notfound.title=Pagina non trovata
+error.notfound.warning=Attenzione!
+error.notfound.message=Pagina non trovata
+error.notfound.btnmsg=torna alla home
+
+# Pagina di errore 500 (Internal Server Error)-> NO STRUTS
+error.fatalerror.title=Errore generico
+error.fatalerror.warning=Attenzione!
+error.fatalerror.message=Errore generico (FATAL)
+error.fatalerror.btnmsg=torna alla home
+
+# Pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]
+error.applicationerror.title=ApplicationError (Runtime)
+error.applicationerror.warning=Attenzione!
+error.applicationerror.message=Si &egrave; verificato un errore
+error.applicationerror.btnmsg=torna alla home
+
+# Pagina di errore 
+error.sessionexpired.title=Sessione scaduta
+error.sessionexpired.warning=Attenzione!
+error.sessionexpired.timeout=La sessione di lavoro &egrave; scaduta perch&eacute; dopo 30 minuti l&#39;accesso al servizio &egrave; automaticamente disattivato.
+error.sessionexpired.datanotsaved=I dati non salvati sono andati perduti.
+error.sessionexpired.authentication=La tua autenticazione per il portale «getPortalName()» &egrave; ancora valida: puoi continuare la navigazione di "«getApplicationName(this)»" o di uno dei servizi del portale.
+error.sessionexpired.btnmsgportalhome=torna alla home page del portale
+error.sessionexpired.btnmsgservicehome=torna al servizio
+
+# Pagina di conferma chiusura sessione utente (conferma logout)
+message.confirmlogout.title=CONFERMA CHIUSURA SESSIONE
+message.confirmlogout.warning=Attenzione!
+message.confirmlogout.closemessage=Chiudendo la sessione di lavoro tutti i dati non salvati saranno cancellati.
+message.confirmlogout.certmessage=Se l&#39;autenticazione &egrave; avvenuta tramite un certificato digitale, e si desidera accedere nuovamente come altro utente, per motivi di sicurezza &egrave; opportuno chiudere questa finestra del browser e tutte quelle aperte a partire da questa.
+message.confirmlogout.btnmsglogout=Conferma e torna all&#39;introduzione del servizio
+
+# Pagina di errore per token non valido
+error.invalidtoken.title=richiesta non coerente con il flusso applicativo
+error.invalidtoken.message=<p>Attenzione. E'stata effettuata una richiesta non coerente con il flusso applicativo <br/>(possibili cause: pressione ripetuta di un pulsante prima che l'operazione precedente fosse terminata, utilizzo del tasto "back" invece dei pulsanti di navigazione previsti dall'applicativo)</p>. 
+
+«IF this.structure.appWindow.header != null || this.structure.appWindow.footer != null»
+###
+# Header e footer
+###
+
+«IF this.structure.appWindow.header != null-»
+# Header
+«EXPAND template::struts2::view::remoteResources::headerLabels FOR this-»«REM»Le label si differenziano per PORTALE«ENDREM»
+«ENDIF-»
+
+«IF this.structure.appWindow.footer != null-»
+# Footer
+«ENDIF-»
+«ENDIF»
+
+###
+# Label del menu
+###
+«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS menuLabel-»
+«menuLabel»
+«ENDFOREACH-»
+
+«REM»STDMDD-159: visitor validator.«ENDREM»
+###
+# Label della validazione mediante Visitor Validator degli ApplicationDAta dell'applicazione
+###
+«FOREACH getVisitorValidatorLabels(((List[Type])getAllTypes(this)).select(e|e.metaType == ComplexType)) AS validatorLabel-»
+«validatorLabel»
+«ENDFOREACH-»
+
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Crea il resource bundle della homepage dell'applicazione«ENDREM»
+«DEFINE homePagePropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsHomePropertiesFile(this, skip_component_dir_creation)»#######################################################################
+# Properties file della HomePage dell'applicazione
+#######################################################################
+
+«LET this.structure.appWindow.appArea.homePage AS cp-»
+«EXPAND template::struts2::i18n::labels::panelLabelDefs(this, true) FOR cp»
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsHomeClassName(this)+"Properties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDLET-»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionPropertiesFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionPropertiesFile(this, model, skip_component_dir_creation)»#######################################################################
+# Properties file per il ContentPanel «this.name»
+#######################################################################
+
+«EXPAND template::struts2::i18n::labels::panelLabelDefs(model, false) FOR this»
+
+«REM»STDMDD-159: visitor validator.«ENDREM»
+###
+# Label degli ApplicationData, nella forma
+#   - VISITOR VALIDATOR : <contentpanel_name>.<applicationdata_name>.visitorvalidator.label=<label>
+###
+«FOREACH getApplicationDataLabels(this) AS adLabel-»
+«adLabel»
+«ENDFOREACH-»
+
+
+«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")»
+###
+# User Defined labels
+###
+«ENDPROTECT»
+«ENDFILE»
+«ENDDEFINE»

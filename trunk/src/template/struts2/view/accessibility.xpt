@@ -1,0 +1,28 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::richFeatures»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
+
+«DEFINE enterKeyHandler FOR GUIModel»
+	<!-- gestione del tasto [Enter] -->
+	<script type="text/javascript">
+		document.onkeypress = function(event) { 
+			var targ; 
+			if(window.event){ 
+				event = window.event; 
+			} 
+
+			var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode; 
+			if (keyCode == 13) { 
+				var el = event.srcElement||event.target; 
+				var targ = el.type; 
+				if (targ != 'submit') { 
+					return false; 
+				} 
+			} 
+		}  
+	</script>
+«ENDDEFINE»

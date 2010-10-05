@@ -1,0 +1,169 @@
+«IMPORT ecore»
+
+«EXTENSION template::guigendoc::guigendoc»
+«DEFINE main FOR EPackage»
+«LET this.eClassifiers.typeSelect(EClass).select(c|hasWidgetAnnotation(c)) AS allWidgetClasses»
+«EXPAND widgetdoc FOR allWidgetClasses»
+«ENDLET»
+«LET this.eClassifiers.typeSelect(EClass).select(c|hasPanelAnnotation(c)) AS allPanelClasses»
+«EXPAND paneldoc FOR allPanelClasses»
+«ENDLET»
+«LET this.eClassifiers.typeSelect(EClass).select(c|hasLayoutAnnotation(c)) AS allLayoutClasses»
+«EXPAND layoutdoc FOR allLayoutClasses»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE widgetdoc FOR List[EClass]»
+«EXPAND widgetdoc FOREACH this»
+«ENDDEFINE»
+
+«DEFINE paneldoc FOR List[EClass]»
+«EXPAND paneldoc FOREACH this»
+«ENDDEFINE»
+
+«DEFINE layoutdoc FOR List[EClass]»
+«EXPAND layoutdoc FOREACH this»
+«ENDDEFINE»
+
+«DEFINE widgetdoc FOR EClass»
+«FILE widgetCardFile()»<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>Scheda del widget «name»</title>
+   </head>
+
+   <body>
+      <h2>
+         UI Widgets - scheda del widget [<img src="img/«name».gif"></img>«name»]
+      </h2>
+      <p>
+         In questa scheda &egrave; descritto il widget <b>«name»</b>, in termini di:
+         <ul>
+         <li>riferimento alla documentazione di dettaglio dell'elemento del metamodello utilizzabile durante la modellazione</li>
+         <li>uno o pi&ugrave; snapshot che rappresentano graficamente il widget</li>
+         <li>una descrizione del widget che ne descrive l'utilizzo e le possibili varianti</li>
+         <li>elenco degli <i>eventi</i> gestibili (implicitamente o esplicitamente) relativamente al widget</li>
+         </ul> 
+      </p> 
+      <h3>Identificativo e riferimenti di dettaglio</h3>
+      <p>
+      	La documentazione <i>metamodeldoc</i> di dettaglio del widget <b>«name»</b> &egrave; disponibile
+      	<a href="../../metamodeldoc/html/guigen/classes/«name».html">qui</a>. 
+      </p>
+      <h3>Descrizione</h3>
+      «LET getAnnotationDetails("uiwidgetdoc", "description") AS descriptions-»
+      «FOREACH descriptions AS currDescr-»
+      
+      «currDescr.value»
+      
+      «ENDFOREACH-»
+      «ENDLET-»
+      <hr></hr>
+      <h3>Immagini esemplificative</h3>
+      
+      <img src="img/«name»_1.gif" border="1"></img>
+      <br></br>
+      <b>fig.1 - esempio di rendering grafico del widget</b>
+      <hr></hr>
+      <h3>Eventi associati al widget</h3>
+      «LET getAnnotationDetails("uiwidgetdoc", "event-") AS details-»
+      «FOREACH details AS currDtl-»
+      <h4>evento "«currDtl.key»"</h4>
+      «currDtl.value»
+      
+      «ENDFOREACH-»
+      «ENDLET-»
+   </body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE paneldoc FOR EClass»
+«FILE panelCardFile()»<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>Scheda del pannello «name»</title>
+   </head>
+
+   <body>
+      <h2>
+         UI Panels - scheda del pannello [<img src="img/«name».gif"></img>«name»]
+      </h2>
+      <p>
+         In questa scheda &egrave; descritto il pannello <b>«name»</b>, in termini di:
+         <ul>
+         <li>riferimento alla documentazione di dettaglio dell'elemento del metamodello utilizzabile durante la modellazione</li>
+         <li>uno o pi&ugrave; snapshot che rappresentano graficamente il pannello</li>
+         <li>una descrizione del pannello che ne descrive l'utilizzo e le possibili varianti</li>
+         <li>elenco degli <i>eventi</i> gestibili (implicitamente o esplicitamente) relativamente al pannello</li>
+         </ul> 
+      </p> 
+      <h3>Identificativo e riferimenti di dettaglio</h3>
+      <p>
+      	La documentazione <i>metamodeldoc</i> di dettaglio del pannello <b>«name»</b> &egrave; disponibile
+      	<a href="../../metamodeldoc/html/guigen/classes/«name».html">qui</a>. 
+      </p>
+      <h3>Descrizione</h3>
+      «LET getAnnotationDetails("uipaneldoc", "description") AS descriptions-»
+      «FOREACH descriptions AS currDescr-»
+      
+      «currDescr.value»
+      
+      «ENDFOREACH-»
+      «ENDLET-»
+      <hr></hr>
+      <h3>Immagini esemplificative</h3>
+      
+      <img src="img/«name»_1.gif" border="1"></img>
+      <br></br>
+      <b>fig.1 - esempio</b>
+      <hr></hr>      
+   </body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE layoutdoc FOR EClass»
+«FILE layoutCardFile()»<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>Scheda della modalit&agrave; di layout «name»</title>
+   </head>
+
+   <body>
+      <h2>
+         UI Layout - scheda della modalit&agrave; di layout [<img src="img/«name».gif"></img>«name»]
+      </h2>
+      <p>
+         In questa scheda &egrave; descritto il layout <b>«name»</b>, in termini di:
+         <ul>
+         <li>riferimento alla documentazione di dettaglio dell'elemento del metamodello utilizzabile durante la modellazione</li>
+         <li>uno o pi&ugrave; snapshot che rappresentano graficamente il tipo di layout</li>
+         <li>una descrizione del layout che ne descrive l'utilizzo e le possibili varianti</li>
+         </ul> 
+      </p> 
+      <h3>Identificativo e riferimenti di dettaglio</h3>
+      <p>
+      	La documentazione <i>metamodeldoc</i> di dettaglio del layout <b>«name»</b> &egrave; disponibile
+      	<a href="../../metamodeldoc/html/guigen/classes/«name».html">qui</a>. 
+      </p>
+      <h3>Descrizione</h3>
+      «LET getAnnotationDetails("uilayoutdoc", "description") AS descriptions-»
+      «FOREACH descriptions AS currDescr-»
+      
+      «currDescr.value»
+      
+      «ENDFOREACH-»
+      «ENDLET-»
+      <hr></hr>
+      <h3>Immagini esemplificative</h3>
+      
+      <img src="img/«name»_1.gif" border="1"></img>
+      <br></br>
+      <b>fig.1 - esempio</b>
+      <hr></hr>      
+   </body>
+</html>
+«ENDFILE»
+«ENDDEFINE»

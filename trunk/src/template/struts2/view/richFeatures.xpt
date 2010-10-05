@@ -1,0 +1,114 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::richFeatures»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
+
+«DEFINE ajaxifyControlHeader FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Widget»
+	«ERROR "widget "+this+" non ajaxificabile"»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Button-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(clickHandler, contextPrefix)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Button»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
+	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+		widgetType="button" 
+		requestUri="«parentCP.name»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)».do" 
+		pageId="«parentCP.name»" 
+		formName="«parentCP.name»">
+	«ENDLET-»
+«ENDDEFINE»
+
+
+«DEFINE ajaxifyControlFooter FOR TabSwitcher»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="table" 
+		pageId="«parentCP.name»">
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR Table»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="combo" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»" >
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR ComboBox-»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
+	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="radio" 
+		requestUri="«parentCP.name»!«getHandlerMethodName(vcHandler, contextPrefix)».do"
+		pageId="«parentCP.name»"
+		formName="«parentCP.name»" >
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR RadioButtons-»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
+	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+		widgetType="tree" 
+		pageId="«parentCP.name»">
+«ENDDEFINE»
+
+«DEFINE ajaxifyControlFooter FOR TreeView»
+	</csiuicore:ajaxify>
+«ENDDEFINE»
+
+«DEFINE dataProviderStreamProperty FOR GUIModel»
+	protected java.io.InputStream dataProviderStream = null;
+	
+	public java.io.InputStream getDataProviderStream() {
+		return dataProviderStream;
+	}
+«ENDDEFINE»
+

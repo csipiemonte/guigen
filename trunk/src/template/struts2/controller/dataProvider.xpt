@@ -1,0 +1,226 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»deve essere chiamato solo se richBehavior == true«ENDREM»
+«DEFINE dataProviderMethods(GUIModel model) FOR ContentPanel-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodo di data providing sull'intero ContentPanel
+	/// metodo: provide_CPDATA
+	//////////////////////////////////////////////////////////////////////////////////
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND dataProvider::formDataProviderMethod FOR this»
+	«EXPAND provideWidgetsStatus FOR this»
+	«ENDIF-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi di data providing sui widget dotati di multi data binding
+	/// contenuti nel contentPanel
+	/// metodo: provide<nomeWidget>_<tipologia dati>
+	/// es: provideCbComuni_DATASET
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«EXPAND dataProviderMethods(model, this, "", null) FOR this.panels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
+	«EXPAND dataProviderMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
+	«EXPAND dataProviderMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+
+«DEFINE dataProviderMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
+«IF MultiDataWidget.isAssignableFrom(this.metaType)-»
+	«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOR (MultiDataWidget)this-»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
+«IF this.multiDataBinding!=null-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * al multi-data-binding relativo al widget «getFullID(this, contextPrefix)».
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation 
+	public String «getDataProviderMethodName(this, "DATASET", contextPrefix)» () throws CommandExecutionException {
+	«LET multiDataBinding.appData.type AS appdataType-»
+	
+		// reperisce il dato da serializzare
+		com.opensymphony.xwork2.ActionContext ctx = 
+			com.opensymphony.xwork2.ActionContext.getContext();
+		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
+		«EXPAND arrangeDataToProvide(cp, contextPrefix) FOR this»
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	«ENDLET-»
+	}
+	«IF this.metaType == Table»
+		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) this).columnModel.columns.select(c | c.multiDataBinding != null)»
+	«ENDIF»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Column-»
+«LET (Table)this.eContainer.eContainer AS table»
+«IF this.multiDataBinding!=null-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * al multi-data-binding relativo al widget «getFullID(table, contextPrefix)».
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation 
+	public String «getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)» () throws CommandExecutionException {
+	«LET multiDataBinding.appData.type AS appdataType-»
+	
+		// reperisce il dato da serializzare
+		com.opensymphony.xwork2.ActionContext ctx = 
+			com.opensymphony.xwork2.ActionContext.getContext();
+		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForColumnMultiValue(this, pduc)»");
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	«ENDLET-»
+	}
+«ENDIF-»
+«ENDLET»
+«ENDDEFINE»
+
+«REM»parte specifica di aggiustamento dei dati per i vari widget«ENDREM»
+«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR MultiDataWidget»
+«ENDDEFINE»
+
+«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR Table»
+		if(isTableClearStatus("«cp.name»_«getFullID(this, contextPrefix)»")){
+			tableStatus.setClearStatus(true);
+		}
+		TableDataArranger arranger = new TableDataArranger();
+		if(dataToProvide != null){
+			dataToProvide = arranger.arrange((List)dataToProvide, tableStatus, filter);
+		}
+«ENDDEFINE»
+
+«DEFINE formDataProviderMethod FOR ContentPanel-»
+	/**
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
+	 * a tutti gli application data di tipo non collection referenziati nel ContentPanel.
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation
+	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
+		// costruzione struttura dati di 1° livello (esclusi gli appdata di tipo collection)
+		Object dataToProvide = toModel();
+		Map cpData = new HashMap<String, Object>();
+		cpData.put("cpData", dataToProvide);
+		cpData.put("menuStatus", getMenuStatus());
+		cpData.put("widgetsStatus", getWidgetsStatus(getListaWidgets(), "«this.name»"));
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(cpData);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE provideWidgetsStatus FOR ContentPanel-»
+	//***esecuzione della logica di abilitazione visibilità widgets del cp
+	private String enableWidget;
+	private List<String> nomiWidgets;
+	private String showWidget;
+	
+ 	public String getEnableWidget() {
+		return enableWidget;
+	}
+
+	public void setEnableWidget(String enableWidget) {
+		this.enableWidget = enableWidget;
+	}
+
+	public List<String> getNomiWidgets() {
+		return nomiWidgets;
+	}
+
+	public void setNomiWidgets(List<String> nomiWidgets) {
+		this.nomiWidgets = nomiWidgets;
+	}
+	public String getShowWidget() {
+		return showWidget;
+	}
+
+	public void setShowWidget(String showWidget) {
+		this.showWidget = showWidget;
+	}
+
+	public void execSetWidgetsOnOffStatus() throws CommandExecutionException{
+		
+		super.setWidgetsOnOffStatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
+	}
+	
+	public void execSetWidgetsVisibilityStatus() throws CommandExecutionException{
+		
+		super.setWidgetsVisibilitytatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
+	}
+«ENDDEFINE»
+
+«DEFINE jsonExcludeAppdata FOR ApplicationData-», "*.«getAppDataKey()»"«ENDDEFINE»

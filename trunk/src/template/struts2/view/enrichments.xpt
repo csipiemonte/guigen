@@ -1,0 +1,287 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::remoteResources»
+«IMPORT template::struts2::richFeatures»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION org::openarchitectureware::util::stdlib::naming»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+«REM»crea i file JS di arricchimento delle pagine web«ENDREM»
+«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
+«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
+/**
+ * Arricchimenti standard per il ContentPanel [«name»] da registrare nella
+ * variabile globale uiEnricherMgr
+ */
+function initStdEnrichments4«name.toFirstUpper()»() {
+	var contentPanelName = "«name»";
+	«EXPAND enrichmentDefs(model, this, "", null) FOR panels-»
+}
+
+/**
+ * Arricchimenti custom
+ */
+function initCustomEnrichments4«name.toFirstUpper()»(){
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(name+"custom_enrichments")»
+	/*
+	 * definire e registrare qui eventuali arricchimenti custom, nel formato:
+	 * var customEnr_n = function(){
+	 *	// codice da eseguire all'applicazione dell'arricchimento
+	 * };
+	 * String customEnr_fragmentID = p_[id del pannello a cui deve essere associato l'arricchimento];
+	 * uiEnricherMgr.registerEnrichment(contentPanelName, customEnr_fragmentID, customEnr_n);
+	*/	
+«ENDPROTECT»
+}
+
+function initUIStruct«name.toFirstUpper()»(){
+	var contentPanelName = "«name»";
+	var structure = 
+	«EXPAND uiStruct(this, "", (PDefUseConfig)null, 6) FOR this.panels-»;
+	uiEnricherMgr.setPageStructure(contentPanelName, structure);
+}
+
+Ext.onReady( function() { 
+	
+	uiNRichLib.initStateManager();
+
+	initStdEnrichments4«name.toFirstUpper()»();
+	initCustomEnrichments4«name.toFirstUpper()»();
+	initUIStruct«name.toFirstUpper()»();
+	uiEnricherMgr.setReady(); 
+	uiEnricherMgr.applyAll("«name»"); 
+}); 
+
+
+
+«ENDFILE-»
+«ENDDEFINE»
+
+«REM»struttura UI«ENDREM»
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR Panel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«getBlankPadding(lpad+2)»]
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR FormPanel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.subpanels SEPARATOR ","-»
+«getBlankPadding(lpad+2)»]
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR MultiPanel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«EXPAND uiStruct(cp, contextPrefix, pduc, lpad+2) FOREACH this.panels SEPARATOR ","-»
+«getBlankPadding(lpad+2)»]
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR PanelDefUse-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: [
+«EXPAND uiStruct(cp, getChainedContext(contextPrefix, name), this.config, lpad+2) FOR this.panelDef.panel-»
+«getBlankPadding(lpad+2)»]
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR WidgetsPanel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR CommandPanel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+«DEFINE uiStruct(ContentPanel cp, String contextPrefix, PDefUseConfig pduc, int lpad) FOR MenuPanel-»
+«getBlankPadding(lpad+0)»{
+«getBlankPadding(lpad+2)»name: "p_«name»", panels: []
+«getBlankPadding(lpad+0)»}
+«ENDDEFINE»
+
+
+«REM»arricchimenti per i vari pannelli«ENDREM»
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH subpanels-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
+    «EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH panels-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
+	«EXPAND enrichmentDefs(model, cp, getChainedContext(contextPrefix, this.name), this.config) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND toolTipEnrichments(model, cp, contextPrefix, pduc) FOR this-»
+	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
+	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MenuPanel-»
+	«EXPAND enrichmentDefs(model, cp, contextPrefix, pduc) FOREACH widgets-»
+«ENDDEFINE»
+
+«REM»arricchimenti per i vari widget«ENDREM»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Calendar-»
+	/// arricchimento per «this.metaType.name» [«name»]: aggiunta datepicker
+	var addDateTo«name.toFirstUpper()» = function(){uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»)};
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
+	/// arricchimento per «this.metaType.name» [«name»]: tooltip header di colonna
+	var «name»Tips = [
+	«IF this.databinding!=null-»
+		'',«ENDIF-»«FOREACH columnModel.columns AS currCol SEPARATOR ","»
+		''«ENDFOREACH-»
+	];
+	«LET "row_"+getFullID(this, contextPrefix) AS tableHtmlID-»«REM»id strano per table!«ENDREM»
+	var enhanceGrid«name.toFirstUpper()» =  
+		function(){uiNRichLib.dynaDisplayTableNRich(
+			'«tableHtmlID»',«name»Tips
+			)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", enhanceGrid«name.toFirstUpper()»);
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextField-»
+«IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
+«LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
+	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
+	var addSuggestionsTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.addTextSuggestionNRich(
+			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
+			'«getWidgetName(this, contextPrefix)»',
+			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
+			 «required ? "true" : "false"»)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
+«ENDLET-»
+«ELSE-»
+	/// arricchimento di base per «this.metaType.name» [«name»]
+	var addBasicEnrichmentTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.basicTextFieldNRich(
+			'«getWidgetName(this, contextPrefix)»',
+			 «required ? "true" : "false"», 
+			 '«toJavaType(this.dataType,model)»', 
+			 null)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addBasicEnrichmentTo«name.toFirstUpper()»);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
+	«IF (!(databinding!=null && isBoundToArray(this.databinding)) ||
+          	  (databinding==null && dataType.metaType==TypedArray))-»
+	/// arricchimento per «this.metaType.name» [«name»]: autonarrowing
+	var addNarrowingTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.addComboNarrowingNRich(
+			'«getWidgetName(this, contextPrefix)»',
+			 «required ? "false" : "true"»)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addNarrowingTo«name.toFirstUpper()»);
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE toolTipEnrichments(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+«IF widgets.select(w|!isNullOrEmpty(w.tooltip)).size>0-»
+	/// arricchimento per «this.metaType.name» [«getFullID(this, contextPrefix)»]: aggiunta tooltip su label
+	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|!isNullOrEmpty(w.tooltip)) AS currWidg SEPARATOR ","»
+		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:«jsLiteralValue(currWidg.tooltip)»}«ENDFOREACH-»
+	];
+	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = function(){uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips)};
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getFullID(this,contextPrefix)»", addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()»);
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»file di configurazione del caricamento risorse per tag csiui:header«ENDREM»
+«DEFINE staticResourcesXML FOR GUIModel-»
+«FILE getWebModuleConfigDir(true)+"/staticResources.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<files>
+	<!-- risorse caricate in ogni pagina -->
+	<file page="all">
+		<resource type="text/css">
+			<position value="ext-all/resources/css/ext-all.css" />
+			<position value="ext-all/resources/css/xtheme-gray.css" />
+			<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
+		</resource>
+		<resource type="text/javascript">
+			<position value="ext-all/adapter/ext/ext-base.js" />
+			<position value="ext-all/ext-all.js" />
+			<position value="ext-csi/util/Format.js" />
+			<position value="ext-csi/locale/ext-lang-it.js" />
+			
+			<position value="ext-csi/table-grid/TableGrid.js" />
+			<position value="ext-csi/miframe/miframe.js" />
+			<position value="ext-csi-enricher/round-corners/RoundCorner.js" />
+			<position value="ext-csi-enricher/enricher/enricher.js" />
+			<position value="ext-csi-enricher/menu/csimenu.js" />
+			<position value="ext-csi-enricher/toggle-panel/toggle.js" />
+			<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
+			<!-- componente js dello skin -->
+			<position value="ris/js/style.js" />
+		</resource>
+	</file>	
+	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
+	«EXPAND staticResourcesXML(this) FOREACH allCP-»
+	«ENDLET-»
+	«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+	<!-- risorsa JS del fat client -->
+	<file page="main">
+		<resource type="text/css">
+			<position value="ext-csi/grid-filter/css/GridFilters.css" />
+  			<position value="ext-csi/grid-filter/css/RangeMenu.css" />
+  			<position value="ext-csi/multiselect/css/MultiSelect.css" />
+		</resource>
+		<resource type="text/javascript">
+			<position value="ext-csi/grid-filter/menu/RangeMenu.js" />
+  			<position value="ext-csi/grid-filter/menu/ListMenu.js" />
+  			<position value="ext-csi/grid-filter/GridFilters.js" />
+  			<position value="ext-csi/grid-filter/filter/Filter.js" />
+  			<position value="ext-csi/grid-filter/filter/StringFilter.js" />
+  			<position value="ext-csi/grid-filter/filter/DateFilter.js" />
+  			<position value="ext-csi/grid-filter/filter/ListFilter.js" />
+  			<position value="ext-csi/grid-filter/filter/NumericFilter.js" />
+  			<position value="ext-csi/grid-filter/filter/BooleanFilter.js" />
+  			<position value="ext-csi/multiselect/MultiSelect.js" />
+  			<position value="ext-csi/multiselect/ItemSelector.js" />
+  			<position value="ext-csi/tree-state/TreePanelStatefull_plugin.js" />
+  			
+			<position value="ext-csi-mdd/core/core.js" />
+			<position value="js/fatclient.js" />
+		</resource>
+	</file>
+	«ENDIF-»
+</files>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
+	<!-- risorse specifiche del ContentPanel [«name»] -->
+	<file page="«name»">
+		<resource type="text/javascript">
+			<!-- arricchimenti della schermata -->
+			<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
+		</resource>
+	</file>
+«ENDDEFINE»

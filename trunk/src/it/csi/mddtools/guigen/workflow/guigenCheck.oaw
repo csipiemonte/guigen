@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<workflow>
+
+    <!-- ***************************************************
+         modello da elaborare (scegliere la property in base
+         al tipo di operativita' (plugin/standalone)
+    -->
+	
+	<!-- utilizzare in modalita' standalone -->
+	<!--<property name="modelfile" value="src/prova2.xmi" />-->
+	<!--<property name="modelfile" value="src/piol.guigen" />-->
+	<!--<property name="modelfile" value="src/wicketModel1.xmi" />-->
+	
+	<!-- utilizzare in modalita' plugin -->
+	<!--<property name="model" value="guigen/src/testmodel/testsecurity.guigen" />-->
+	<!--<property name="model" value="guigen/src/piol.guigen" />-->
+	
+	<!-- *****************************************************
+	     determina il tipo di applicazione da generare (e i 
+	     template da utilizzare).
+	     Puo' valere:
+	     -swingpreview: preview swing senza binding dati
+	     -wicket: applicazione completa basata su wicket
+	     -struts2
+	-->
+	<property name="target-platform" value="struts2"/>
+	
+	
+	<!-- set up EMF for standalone execution -->
+		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
+		<!--<platformUri value="d:/javatools/eclipses/europa-oAW-43/eclipse"/>-->
+		<platformUri value=".." />
+		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
+		
+	</bean>
+	
+	<!-- load model and store it in slot 'model' -->
+	<component class="org.eclipse.mwe.emf.Reader">
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${model}" />
+		
+		<!-- usare se modalita' standalone -->
+		<!--<uri value="${modelfile}" />-->
+		
+		<!-- invariante rispetto alla modalita'-->
+		<modelSlot value="model" />
+	</component>
+
+	<!-- check model (common checks) -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="metamodel::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+	
+	<!-- check model (cartridge [=layout] checks) -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="template::${target-platform}::${portal}::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+
+</workflow>

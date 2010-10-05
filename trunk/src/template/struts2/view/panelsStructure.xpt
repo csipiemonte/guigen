@@ -1,0 +1,50 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«EXPAND widgetsStructure::widgetStruct(model, cp, contextPrefix) FOREACH widgets»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+	«EXPAND widgetsStructure::widgetStruct(model, cp, contextPrefix) FOREACH widgets»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH msgBoxes»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOR commands»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOREACH panels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND panelsStructure::panelStruct(model, cp, getChainedContext(contextPrefix, this.name)) FOR panelDef»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDef»
+	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOR panel»
+«ENDDEFINE»
+
+

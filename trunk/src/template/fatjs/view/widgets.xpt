@@ -1,0 +1,246 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Widget»
+«ERROR "widget "+this.metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextField»
+			new ExtCsi.ui.widgets.TextField(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)».do'
+					«ELSE-»
+					multiDataBinding: null
+					«ENDIF-»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TextArea»
+			new ExtCsi.ui.widgets.TextArea(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR PlainText»
+			new ExtCsi.ui.widgets.PlainText(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					staticText: «jsLiteralValue(staticText)»,
+					«EXPAND dataWidgetProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
+			new ExtCsi.ui.widgets.PlainText(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					staticText: 'Attenzione widget non gestito!'
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
+			new ExtCsi.ui.widgets.ComboBox(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					keySelector: «jsLiteralValue(keySelector)»,
+					valueSelector: «jsLiteralValue(valueSelector)»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR CheckBox»
+			new ExtCsi.ui.widgets.CheckBox(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR RadioButtons»
+			new ExtCsi.ui.widgets.RadioButtons(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»,
+					radio: [«EXPAND widgetStruct(model, cp) FOREACH this.radio SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR RadioButton»
+					new ExtCsi.ui.widgets.RadioButton({
+						«EXPAND widgetCommonProperties(model) FOR this»,
+						value: «jsLiteralValue(this.value)»
+					})
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Table»
+			new ExtCsi.ui.widgets.Table(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,					 
+					«EXPAND colModel(model, this, cp) FOR this.columnModel»,
+					pageSize: «jsLiteralValue(pageSize)»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE colModel(GUIModel model, Table table, ContentPanel cp) FOR ColumnModel»
+					columnModel: new ExtCsi.ui.widgets.table.ColumnModel(
+					{
+						valueSelector: «jsLiteralValue(valueSelector)», 
+						columns: [«EXPAND column(table, cp,model) FOREACH this.columns SEPARATOR ","»]
+					}
+					)					
+«ENDDEFINE»
+
+
+
+«DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
+						new ExtCsi.ui.widgets.table.Column(
+						{
+							label: «jsLiteralValue(label)»,
+							editable: «jsLiteralValue(this.editable)»,
+							sortable: «jsLiteralValue(sortable)»,
+							tooltip: «jsLiteralValue(tooltip)»,
+							selector: «jsLiteralValue(selector)»,
+							«IF editable-»
+							editableFlagSelector: «jsLiteralValue(editableFlagSelector)»,
+							multidataPropertySelector: «jsLiteralValue(multidataPropertySelector)»,
+							«IF multiDataBinding!=null-»
+							multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
+							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
+							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
+							dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)».do',
+							«ENDIF-»
+							«ENDIF-»
+							«IF eventActive-»
+							activeFlagSelector: «jsLiteralValue(activeFlagSelector)»,
+							«ENDIF-»
+							eventActive: «jsLiteralValue(this.eventActive)»
+						}
+						)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Calendar»
+			new ExtCsi.ui.widgets.Calendar(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TreeView»
+			new ExtCsi.ui.widgets.TreeView(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR Button»
+			new ExtCsi.ui.widgets.Button(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ConfirmButton»
+			new ExtCsi.ui.widgets.ConfirmButton(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ResetButton»
+			new ExtCsi.ui.widgets.ResetButton(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR FileUpload»
+			new ExtCsi.ui.widgets.FileUpload(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR MenuView»
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR TabSwitcher»
+«ENDDEFINE»
+
+«DEFINE widgetCommonProperties(GUIModel model) FOR Widget»
+					name: «jsLiteralValue(this.name)»,
+					label: «jsLiteralValue(this.label)»,
+					tooltip: «jsLiteralValue(this.tooltip)»,
+					defaultVisible: «jsLiteralValue(this.defaultVisible)»,
+					defaultEnabled: «jsLiteralValue(this.defaultEnabled)»,
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layout::layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»
+«ENDDEFINE»
+
+«DEFINE dataWidgetProperties(GUIModel model) FOR DataWidget»
+«LET dataType.eContainer.metaType==TypeNamespace ? dataType.eContainer : null AS tns-»
+					dataType: '«getRegistryID(dataType, tns)»',
+					dataTypeModifier: «jsLiteralValue(this.dataTypeModifier)»,
+					required: «jsLiteralValue(required)»,
+					databinding: «IF databinding != null»«EXPAND databinding FOR this.databinding»«ELSE» null«ENDIF»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
+	«IF multiDataBinding!=null-»
+					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
+					dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName("DATASET", null)».do'
+	«ELSE-»
+					multiDataBinding: null
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE databinding FOR AppDataBinding»
+«LET appData.eContainer.metaType == AppDataGroup ? appData.eContainer : null AS adg-»
+					new ExtCsi.mdl.data.AppDataBinding({appData: '«getRegistryID(appData, adg)»', path: «jsLiteralValue(path)»})
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE eventHandlers(GUIModel model, ContentPanel cp) FOR Widget»
+					eventHandlers: «IF eventHandlers.size>0»
+					[«EXPAND template::fatjs::controller::commands::eventHandler(model, cp) FOREACH this.eventHandlers SEPARATOR ","»]«ELSE» null«ENDIF»
+«ENDDEFINE»

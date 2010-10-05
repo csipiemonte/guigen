@@ -1,0 +1,25 @@
+import guigen;
+
+String getRegistryID(ContentPanel cp) :
+	'${'+cp.name+"}";
+	
+String getRegistryID(ApplicationData ad, AppDataGroup adg) :
+	adg != null ?
+	"${"+adg.name+"."+ad.name+"}" : "${"+ad.name+"}";	
+
+String getRegistryID(Type st, TypeNamespace tns) :
+	tns != null ?
+	"${"+tns.name+"."+st.name+"}" : "${"+st.name+"}";	
+
+// TODO: verificare se ci sono altri casi da "ripulire"
+String jsLiteralValue(String s) :
+	s==null? "null": "'"+s.replaceAll("'","&lsquo;").replaceAll("à","&agrave;").replaceAll("è","&egrave;").replaceAll("é","&egrave;")+"'";
+
+String jsLiteralValue(int i) :
+	i==null? "null": i;
+	
+String jsLiteralValue(boolean b) :
+	b==null? "null": (b ? "true" : "false");
+	
+String jsLiteralValue(Void v) :
+	"null";

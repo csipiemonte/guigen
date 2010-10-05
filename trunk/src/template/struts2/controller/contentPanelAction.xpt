@@ -1,0 +1,313 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)»;
+
+«IF hasFileUpload(this)»import java.io.File;«ENDIF»
+import java.util.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.beans.IntrospectionException;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import com.opensymphony.xwork2.Preparable;
+import com.opensymphony.xwork2.validator.annotations.*;
+import com.opensymphony.xwork2.ActionContext;
+
+import «getDTOBaseJavaPackage(model)».*;
+
+import «getSecurityJavaPackage(model)».*;
+
+import «getBaseJavaPackage(model)».business.*;
+
+import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
+
+import «getInterceptorsJavaPackage(model)».MethodProtection;
+
+«IF model.targetPlatform.enableRichUIBehavior-»
+import «getUIUtilsJavaPackage(model)».*;
+«ENDIF-»
+
+/**
+ * «getStrutsActionClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+@Validation()
+public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» 
+	implements Preparable{
+
+    «EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
+	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
+	
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(this, false, false, model)».class;
+	}
+ 
+ 	«LET getAllEventSourceWidgets() AS allEventSources»
+	«REM»«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»«ENDREM»
+	/**
+	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici
+	 * @return SUCCESS.
+	 */
+	@SkipValidation
+	public String execute() throws CommandExecutionException {
+		// esegue eventuali comandi di clear appdata
+		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		if (clearCmd != null){
+			clearCmd.doCommand(this);
+			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		}
+		return SUCCESS;
+	}
+	
+	«REM»per ora non gestisce ancora tab inclusi«ENDREM»
+	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
+	«IF allTabSwitchers.size>0-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi specifici per la gestione del click sui Tab
+	/// contenuto nel contentPanel
+	/// metodo: handle<id_completo_tab_item>_CLICKED
+	/// 
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«FOREACH allTabSwitchers AS currTabSwitcher-»
+	«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-»
+	
+	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
+	«FOREACH currTabSet.panels AS currTab-»
+		«EXPAND template::struts2::controller::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDFOREACH-»
+	
+	«ENDIF-»
+	«ENDLET-»
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi specifici per la gestione del singolo tipo di evento sul singolo widget
+	/// contenuto nel contentPanel
+	/// metodo: handle<nomeWidget>_<NOME_EVENTO>
+	/// es: handletreeVoci_CLICKED
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	
+	«EXPAND template::struts2::controller::eventHandlers::handlerMethod(model) FOR this-»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-»
+	«ENDIF-»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-»
+	//***lista dei widgets presenti nel content panel
+	public List<String> listaWidgets = new ArrayList<String>();
+	
+	public List<String> getListaWidgets() {
+		«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR panels»
+		return listaWidgets;
+	}
+	«ENDIF-»
+	
+	«ENDLET»
+	
+	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsActionClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+	
+	
+	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
+	protected Map<String, UISecConstraint> allOnOffConstraints = null;
+	
+	
+	/**
+	 * Metodo di preparazione della schermata/action
+	 */
+	public void prepare() throws CommandExecutionException{
+	    super.prepare();
+	    
+	    // cancellazione eventuale degli errori di conversione non desiderati
+	    clearConversionErrorsIfSkipValidation();
+	     
+	    // caricamento struttura di constraints
+	    if (allVisibilityConstraints==null)
+	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
+	    if (allOnOffConstraints==null)
+	    	allOnOffConstraints = getPageONOFFUIConstraints();
+	    
+		«IF defaultState!=null-»
+		«EXPAND defaultStateCode FOR this»
+		«ENDIF-»
+		      
+		«IF this.onRefreshCommand!=null»
+		// comandi eseguiti ad ogni refresh solo se non sono in modalità fatclient
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+		
+		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+			ICommand cmd = initOnRefreshCommand();
+			cmd.doCommand(this);
+		}
+		«ENDIF»
+	}
+	
+	
+	«EXPAND security::securedWidgetCheck(model) FOR this»
+
+	
+	«LET this.onRefreshCommand AS onRefreshAction»
+	«IF onRefreshAction != null»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR onRefreshAction»
+    «ENDIF»
+	«ENDLET»
+	
+	
+	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
+	
+	
+	/**  */
+	void dumpModel(boolean pre) {
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] START");
+			
+		
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [a] campi pubblici del model");
+		try {
+			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
+			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
+			for (int i = 0; i < props.length; i++) {
+				java.beans.PropertyDescriptor pd = props[i];
+				java.lang.reflect.Method m = pd.getReadMethod();
+				if (m != null) {
+					Object pval = m.invoke(this, new Object[]{});
+					log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+pd.getName() + ":" + pval);
+				}
+			}
+		}
+		catch (IllegalAccessException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (InvocationTargetException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (IntrospectionException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		}
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [b] stato dei widget");
+		Object cpWidgetStatus = session.get("«this.name»");
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+cpWidgetStatus);
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [c] sessione");
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
+	}
+	
+	static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(){
+	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
+	 	ICommand clearCmd = new ICommand(){
+	 		public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
+	 			getSession().remove("«getAppDataKey(currAd)»");
+	 			getSession().remove("«getAppDataKey(currAd)»_bckp"); // eventuale backup
+	 	«ENDFOREACH-»
+	 			return null;
+	 		}
+	 	};
+	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 	«ELSE-»
+	 	// nothing to clear...
+	 	«ENDIF-»
+	 }
+
+	«REM»Espande la struttura della InitAction«ENDREM»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
+    
+    @SkipValidation
+    public String handleChangeTab() {
+		if (this.hasActionErrors() || this.hasFieldErrors() || this.hasErrors())
+			return INPUT;
+		else{
+			session.put(selectedTabKey, selectedTabValue);
+			return SUCCESS;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE defaultStateCode FOR ContentPanel»
+	// gestione dello stato di default
+	if (getSession().get("«name»_currentState")==null){
+	// Screen State Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] default_widgets_on = new String[]{
+    «FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«currWidgOn.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_off = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«((Widget)currWidgOff).name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_show = new String[]{
+    «FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«currWidgVisible.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_hide = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«((Widget)currWidgHidden).name»"
+    «ENDFOREACH-»
+    };
+    
+	ScreenStateCommand defaultScreenStateCmd = new ScreenStateCommand(
+		"«name»",null, 
+		default_widgets_on,
+		default_widgets_off,
+		default_widgets_show,
+		default_widgets_hide);
+	//Screen State Command end
+	
+	defaultScreenStateCmd.doCommand(this);
+	}
+	
+«ENDDEFINE»

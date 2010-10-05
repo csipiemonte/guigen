@@ -1,0 +1,94 @@
+«IMPORT metamodeldoc»
+«IMPORT ecore»
+
+«EXTENSION extensions::Name»
+«EXTENSION extensions::Basics»
+«EXTENSION extensions::i18n»
+
+«EXTENSION extensions::html::HTML»
+
+«DEFINE Entry FOR DAttribute»
+<h2><a name="«detailsName()»" />«image()»«_("Attribute")» «wrapListType(typeName(),this)» «name»</h2>
+«EXPAND Annotation::MetamodelDocAnnotation -»
+«EXPAND Description -»
+«EXPAND Annotation::Annotations(3) -»
+«ENDDEFINE»
+
+«DEFINE Entry FOR DReference»
+<h2><a name="«detailsName()»" />«image()»«_("Reference")» «wrapListType(typeName(),this)» «name»</h2>
+«EXPAND Annotation::MetamodelDocAnnotation -»
+«EXPAND Description -»
+«EXPAND Annotation::Annotations(3) -»
+«ENDDEFINE»
+
+«DEFINE Entry FOR DOperation»
+<h2><a name="«detailsName()»" />«image()»«_("Operation")» «wrapListType(typeName(),this)» «name»(«parameters.collect(p|wrapListType(p.typeName(),p) + " " + p.name).flatString(", ")»)</h2>
+«EXPAND Annotation::MetamodelDocAnnotation -»
+«EXPAND Description -»
+«EXPAND Annotation::Annotations(3) -»
+«ENDDEFINE»
+
+«DEFINE Entry FOR DEnumLiteral»
+<h2><a name="«detailsName()»" />«image()»«_("Enum Literal")» «name»(«literal») = «value»</h2>
+«EXPAND Annotation::MetamodelDocAnnotation -»
+«EXPAND Description -»
+«EXPAND Annotation::Annotations(3) -»
+«ENDDEFINE»
+
+«DEFINE Description FOR DModelElement»
+«_description != null ? "<p>"+_description+"</p>" : ""»
+«EXPAND Table -»
+«ENDDEFINE»
+
+«DEFINE Table FOR DModelElement -»
+<table border="1">
+«EXPAND TableHeader -»
+«EXPAND TableBody -»
+</table>
+«ENDDEFINE»
+
+«DEFINE TableHeader FOR DModelElement -»
+<thead>
+<tr><th>«_("Property")»</th><th>«_("Description")»</th></tr>
+</thead>
+«ENDDEFINE»
+
+«DEFINE TableBody FOR DModelElement -»
+<tbody>
+«EXPAND TableExtraInfo -»
+«FOREACH 
+	eClass()
+	.eAllStructuralFeatures
+	.typeSelect(ecore::EAttribute)
+	.reject(e|e.name.startsWith("_"))
+	.sortBy(e|e.name)
+AS	ea»
+«EXPAND TableRow(ea.name,this.eGet(ea).toString())»
+«ENDFOREACH»
+</tbody>
+«ENDDEFINE»
+
+«DEFINE TableExtraInfo FOR DPropertyDescriptionContainer -»
+«ERROR "No TableExtraInfo template defined for "+toString() -»
+«ENDDEFINE»
+
+«DEFINE TableExtraInfo FOR DEnumLiteral -»
+«ENDDEFINE»
+
+«DEFINE TableExtraInfo FOR DTypedElement -»
+«EXPAND TableRow("type",type.referenceLink()) -»
+«ENDDEFINE»
+
+«DEFINE TableExtraInfo FOR DReference -»
+«EXPAND TableRow("type",type.referenceLink()) -»
+«IF opposite != null
+&&	opposite.reference != null -»
+	«EXPAND TableRow("opposite", opposite.referenceContainer().detailsLink(2)) -»
+«ENDIF -»
+«ENDDEFINE»
+
+«DEFINE TableRow(String name,String value) FOR Object -»
+<tr><td>«_(name)»</td><td>«value»</td></tr>
+«ENDDEFINE»
+
+

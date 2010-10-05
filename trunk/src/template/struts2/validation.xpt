@@ -1,0 +1,531 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE validationMetadata FOR GUIModel»
+	«LET (List[ContentPanel])getAllContentPanels(this) AS pages»
+		«EXPAND validationMetadata(this) FOREACH pages»
+	«ENDLET»
+«ENDDEFINE»
+
+«DEFINE validationMetadata(GUIModel model) FOR ContentPanel»
+«FILE getPresentationJavaSrcDir(model, true)+"/"+getStrutsActionClassName()+"-validations.xml"»
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM VALIDATORS CLASSES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Crea le classi dei validatori custom di Struts 2 definiti«ENDREM»
+«DEFINE strutsCustomValidatorsJavaFiles(boolean skip_component_dir_creation) FOR GUIModel»
+
+	«REM»Validatori custom definiti dal generatore«ENDREM»
+	«EXPAND strutsCsiDateValidatorJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND strutsCsiLongRangeValidatorJavaFile(skip_component_dir_creation) FOR this»
+	
+	«REM»Validators per Simple Types User Defined«ENDREM»
+	«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator»
+		«EXPAND strutsUserDefinedTypesValidatorJavaFile(currValidator, skip_component_dir_creation) FOR this»
+	«ENDFOREACH»
+	
+	«REM»Validatori custom modellati dall'utente«ENDREM»
+	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator»
+		«EXPAND strutsCustomValidatorJavaFile(currValidator, skip_component_dir_creation) FOR this»
+	«ENDFOREACH»
+
+«ENDDEFINE»
+
+
+«REM»Crea la struttura di un validatore custom di Struts 2 come definito dall'utente. 
+Spettera' all'utente inserire nelle regioni protette il codice del validatore«ENDREM»
+«DEFINE strutsCustomValidatorJavaFile(String validatorName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".import")»
+/* Inserire qui gli altri import necessari al validatore */
+«ENDPROTECT»
+
+/**
+ * «validatorName.toFirstUpper()» Custom Validation Class.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
+
+	@Override
+	public void validate (Object object) throws ValidationException {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".validate")»
+		/* Inserire qui il codice che implementa la logica del validatore */
+		
+		// nome del campo
+		String fieldName = getFieldName();
+
+		// valore del campo, come generico Object da castare nel tipo desiderato/atteso
+		Object value = this.getFieldValue(fieldName, object);
+
+		«ENDPROTECT»
+	}
+	
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(validatorName + ".other")»
+	/* Inserire qui proprieta' e metodi del validatore */
+	«ENDPROTECT»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Crea un validatore custom di Struts 2 per la gestione delle date«ENDREM»
+«DEFINE strutsCsiDateValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«LET ((List[String])getGuigenCustomValidators()).get(0) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import java.text.SimpleDateFormat;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.FieldValidatorSupport;
+
+/**
+ * Controlla che la data sia nel formato atteso.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends FieldValidatorSupport {
+
+	/** Formato atteso della data (obbligatorio) */
+	private String format;
+
+
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+
+	public void validate(Object object) throws ValidationException {
+		// nome del campo
+		String fieldName = getFieldName();
+
+		// valore del campo
+		String value = (String) this.getFieldValue(fieldName, object);
+
+		if (!validateStringDate(value)) {
+			addFieldError(fieldName, object);
+		}
+	}
+
+	public boolean validateStringDate(String value) throws ValidationException {
+		if (format == null || format.trim().length() == 0 || "gg/mm/aaaa".equals(format)) {
+			if (value != null && value.trim().length() > 0) {
+				if (!checkValideDate(value))
+					return false;
+			}
+		} else {
+			if (value != null && value.trim().length() > 0) {
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				try {
+					sdf.parse(value);
+				} catch (Exception e) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public boolean checkValideDate(String date) {
+		if (!isNullOrEmpty(date)) {
+			if (date.matches("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((1[6-9]|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$"))
+				return true;
+			else return false;
+		}
+		
+		return false;
+	}
+
+	protected boolean isNullOrEmpty(String s) {
+		return s == null || s.length() == 0;
+	}
+
+}
+«ENDFILE»
+«ENDLET»
+«ENDDEFINE»
+
+
+«REM»[SC] Crea un validatore custom di Struts 2 per la gestione dei range per i tipi java.lang.Long«ENDREM»
+«DEFINE strutsCsiLongRangeValidatorJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«LET ((List[String])getGuigenCustomValidators()).get(1) AS validatorName»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import com.opensymphony.xwork2.validator.ValidationException;
+import com.opensymphony.xwork2.validator.validators.AbstractRangeValidator;
+
+
+/**
+ * Controlla il valore del campo di tipo Long sia contenuto nel range atteso
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends AbstractRangeValidator {
+
+	private Long max = null;
+	private Long min = null;
+
+	public void setMax(Long max) {
+		this.max = max;
+	}
+
+	public Long getMax() {
+		return max;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Comparable getMaxComparatorValue() {
+		return max;
+	}
+
+	public void setMin(Long min) {
+		this.min = min;
+	}
+
+	public Long getMin() {
+		return min;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Comparable getMinComparatorValue() {
+		return min;
+	}
+	
+	@Override
+	public void validate(Object object) throws ValidationException {
+		String fieldName = getFieldName();
+		Long value = (Long)this.getFieldValue(fieldName, object);
+		if (getMin() > value || (getMax()!=null && getMax() < value)) {
+			addFieldError(fieldName, object);
+		}
+	}
+
+}
+«ENDFILE»
+«ENDLET»
+«ENDDEFINE»
+
+
+
+«REM»Crea un validatore custom di Struts 2 per la validazione di Simple Types User Defined«ENDREM»
+«DEFINE strutsUserDefinedTypesValidatorJavaFile(String validatorName, boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsCustomValidatorJavaFile(validatorName, this, skip_component_dir_creation)»package «getValidationJavaPackage(this)»;
+
+import java.lang.reflect.Method;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+
+import com.opensymphony.xwork2.validator.*;
+import com.opensymphony.xwork2.validator.validators.*;
+
+import org.apache.log4j.Logger;
+
+import «getBaseJavaPackage(this)».util.*;
+
+/**
+ * «validatorName.toFirstUpper()» Simple Type User Defined Validator Class.
+ *
+ * @author GuiGen
+ */
+public class «validatorName.toFirstUpper()» extends «getGuigenUserDefinedTypeValidatorClassImpl(validatorName)» {
+
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation.validator");
+
+	@Override
+	public void validate (Object object) throws ValidationException {
+		// nome del campo da validare
+		String fieldName = getFieldName();
+
+		// valore del campo (questo e' il SimpleType User Defined)
+		Object fieldObj = (Object) this.getFieldValue(fieldName, object);
+		if (fieldObj == null) {
+			return;
+		}
+
+		// reperisco il valore del SimpleType User Defined chiamando il metodo getValue()
+		// se non c'e' nessun valore non faccio nessuna validazione
+		// se e' obbligatorio un valore, allora deve essere aggiunto sul campo un required validator
+		Object obj;
+		try {
+			Method readMethod = findReadMethod("value", fieldObj.getClass());
+			obj = readMethod.invoke(fieldObj, new Object[]{});
+			if (obj == null) {
+				return;
+			}
+		} catch (Exception e) {
+			log.error("[«validatorName.toFirstUpper()»::validate] Errore nel reperimento o invocazione del metodo getValue, classe:" + object.getClass().getName() + ": " + e, e);
+			throw new ValidationException("Errore nel reperimento o invocazione del metodo getValue, classe:"+ fieldObj.getClass().getName() + ": " + e);
+		}
+		
+		«REM»Da qui in avanti c'è il codice specifico per ogni validatore«ENDREM»
+		«EXPAND expandValidatorBodyCode(validatorName) FOR this-»
+	}
+
+	«EXPAND expandValidatorMethods(validatorName) FOR this-»
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	// INTROSPECTION METHODS
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	private Class objClass;
+
+	private Class getObjClass() {
+		return objClass;
+	}
+
+	private void setObjClass(Class cl) {
+		objClass = cl;
+	}
+
+	private Method findReadMethod(String name, Class cl) throws IntrospectionException {
+		name = (name.startsWith("get") || name.startsWith("set") ? name
+				.substring(3) : name.startsWith("is")
+				? name.substring(2)
+				: name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getReadMethod();
+		}
+		return null;
+	}
+
+	private Method findWriteMethod(String name, Class cl) throws IntrospectionException {
+		name = (name.startsWith("get") || name.startsWith("set") ? name
+				.substring(3) : name.startsWith("is")
+				? name.substring(2)
+				: name);
+		BeanInfo bi = java.beans.Introspector.getBeanInfo(cl);
+		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPd = pds[i];
+			if (currPd.getName().equalsIgnoreCase(name))
+				return currPd.getWriteMethod();
+		}
+		return null;
+	}	
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Espande la logica di validazione per Simple Types User Defined«ENDREM»
+«DEFINE expandValidatorBodyCode(String validatorName) FOR GUIModel»
+	«IF validatorName == "csiUdStringRangeValidator"-»
+		«EXPAND csiUdStringRangeValidatorBodyCode FOR this-»«REM»0«ENDREM»
+	«ELSEIF validatorName == "csiUdStringRegexpValidator"-»
+		«EXPAND csiUdStringRegexpValidatorBodyCode FOR this-»«REM»1«ENDREM»
+	«ELSEIF validatorName == "csiUdNumericIntValidator"-»
+		«EXPAND csiUdNumericIntValidatorBodyCode FOR this-»«REM»2«ENDREM»
+	«ELSEIF validatorName == "csiUdNumericDecValidator"-»
+		«EXPAND csiUdNumericDecValidatorBodyCode FOR this-»«REM»3«ENDREM»
+	«ELSEIF validatorName == "csiUdDateValidator"-»
+		«EXPAND csiUdDateValidatorBodyCode FOR this»«REM»4«ENDREM»
+	«ENDIF-»
+«ENDDEFINE»
+
+«REM»Espande proprietà e metodi dei validatori originali sovrascritti o copiati nel validatori per Simple Types User Defined«ENDREM»
+«DEFINE expandValidatorMethods(String validatorName) FOR GUIModel»
+////////////////////////////////////////////////////////////////////////////////////////
+// PROPRIETA' E METODI DEL VALIDATORE ORIGINALE SOVRASCRITTI O COPIATI
+////////////////////////////////////////////////////////////////////////////////////////
+
+	«IF validatorName == "csiUdStringRangeValidator"-»
+		«EXPAND csiUdStringRangeValidatorMethods FOR this-»«REM»0«ENDREM»
+	«ELSEIF validatorName == "csiUdStringRegexpValidator"-»
+		«EXPAND csiUdStringRegexpValidatorMethods FOR this-»«REM»1«ENDREM»
+	«ELSEIF validatorName == "csiUdNumericIntValidator"-»
+		«EXPAND csiUdNumericIntValidatorMethods FOR this-»«REM»2«ENDREM»
+	«ELSEIF validatorName == "csiUdNumericDecValidator"-»
+		«EXPAND csiUdNumericDecValidatorMethods FOR this-»«REM»3«ENDREM»
+	«ELSEIF validatorName == "csiUdDateValidator"-»
+		«EXPAND csiUdDateValidatorMethods FOR this»«REM»4«ENDREM»
+	«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»--------------- Corpo del validatore (logica del validatore) ---------------«ENDREM»
+
+«REM»0«ENDREM»
+«DEFINE csiUdStringRangeValidatorBodyCode FOR GUIModel»
+// da qui in avanti c'e' la logica del metodo originale StringLengthFieldValidator.validate()
+String val = (String) obj;
+if (val == null || val.length() <= 0) {
+	// use a required validator for these
+	return;
+}
+if (getTrim()) {
+	val = val.trim();
+	if (val.length() <= 0) {
+		// use a required validator
+		return;
+	}
+}
+
+if ((getMinLength() > -1) && (val.length() < getMinLength())) {
+	addFieldError(fieldName, object);
+} else if ((getMaxLength() > -1) && (val.length() > getMaxLength())) {
+	addFieldError(fieldName, object);
+}
+«ENDDEFINE»
+
+«REM»1«ENDREM»
+«DEFINE csiUdStringRegexpValidatorBodyCode FOR GUIModel»
+// da qui in avanti c'e' la logica del metodo originale RegexFieldValidator.validate()
+// XW-375 - must be a string
+if (!(obj instanceof String)) {
+	return;
+}
+
+// string must not be empty
+String str = ((String) obj).trim();
+if (str.length() == 0) {
+	return;
+}
+
+// match against expression
+java.util.regex.Pattern pattern;
+if (isCaseSensitive()) {
+	pattern = java.util.regex.Pattern.compile(getExpression());
+} else {
+	pattern = java.util.regex.Pattern.compile(getExpression(), java.util.regex.Pattern.CASE_INSENSITIVE);
+}
+
+String compare = (String) obj;
+if ( isTrimed() ) {
+	compare = compare.trim();
+}
+java.util.regex.Matcher matcher = pattern.matcher( compare );
+
+if (!matcher.matches()) {
+	addFieldError(fieldName, object);
+}
+«ENDDEFINE»
+
+«REM»2«ENDREM»
+«DEFINE csiUdNumericIntValidatorBodyCode FOR GUIModel»
+// setto la classe 
+setObjClass(fieldObj.getClass());
+
+// chiamo il metodo validate() della superclasse passando l'oggetto originale
+super.validate(object);
+«ENDDEFINE»
+
+«REM»3«ENDREM»
+«DEFINE csiUdNumericDecValidatorBodyCode FOR GUIModel»
+// da qui in avanti c'e' la logica del metodo originale DoubleRangeFieldValidator.validate()
+Double value;
+try {
+	value = Double.valueOf(obj.toString());
+} catch (NumberFormatException e) {
+	return;
+}
+
+Double minInclusiveValue = parseDouble(getMinInclusive());
+Double maxInclusiveValue = parseDouble(getMaxInclusive());
+Double minExclusiveValue = parseDouble(getMinExclusive());
+Double maxExclusiveValue = parseDouble(getMaxExclusive());
+
+if ((maxInclusiveValue != null && value.compareTo(maxInclusiveValue) > 0) ||
+	(minInclusiveValue != null && value.compareTo(minInclusiveValue) < 0) ||
+	(maxExclusiveValue != null && value.compareTo(maxExclusiveValue) >= 0) ||
+	(minExclusiveValue != null && value.compareTo(minExclusiveValue) <= 0)) {
+	addFieldError(fieldName, object);
+}
+«ENDDEFINE»
+
+«REM»4«ENDREM»
+«DEFINE csiUdDateValidatorBodyCode FOR GUIModel»
+String value = (String)obj;
+if (!validateStringDate(value)) {
+	addFieldError(fieldName, object);
+}
+«ENDDEFINE»
+
+
+«REM»--------------- Proprietà e metodi del validatore originale sovrascritti o copiati ---------------«ENDREM»
+
+«REM»0«ENDREM»
+«DEFINE csiUdStringRangeValidatorMethods FOR GUIModel»
+«ENDDEFINE»
+
+«REM»1«ENDREM»
+«DEFINE csiUdStringRegexpValidatorMethods FOR GUIModel»
+«ENDDEFINE»
+
+«REM»2«ENDREM»
+«DEFINE csiUdNumericIntValidatorMethods FOR GUIModel»
+	@Override
+    public Comparable getMaxComparatorValue() {
+		try {
+			Object tmpObj = getObjClass().newInstance();
+			Method writeMethod = findWriteMethod("value", getObjClass());
+			if (writeMethod != null) {
+				writeMethod.invoke(tmpObj, new Object[]{getMax()});
+				return (Comparable) tmpObj;
+			}
+			throw new IllegalArgumentException("Metodo getValue() non trovato");
+		} catch (Exception e) {
+			log.error("[CsiUdNumericIntValidator::getMaxComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e, e);
+			throw new IllegalArgumentException("[CsiUdNumericIntValidator::getMaxComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e);
+		}
+    }
+
+	@Override
+    public Comparable getMinComparatorValue() {
+		try {
+			Object tmpObj = getObjClass().newInstance();
+			Method writeMethod = findWriteMethod("value", getObjClass());
+			if (writeMethod != null) {
+				writeMethod.invoke(tmpObj, new Object[]{getMin()});
+				return (Comparable) tmpObj;
+			}
+			throw new IllegalArgumentException("Metodo getValue() non trovato");
+		} catch (Exception e) {
+			log.error("[CsiUdNumericIntValidator::getMinComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e, e);
+			throw new IllegalArgumentException("[CsiUdNumericIntValidator::getMinComparatorValue] Errore nel reperimento o invocazione del metodo getValue, classe:" + objClass.getClass().getName() + ": " + e);
+		}
+    }
+
+«ENDDEFINE»
+
+«REM»3«ENDREM»
+«DEFINE csiUdNumericDecValidatorMethods FOR GUIModel»
+private Double parseDouble (String value) {
+	if (value != null) {
+		try {
+			return Double.valueOf(value);
+		} catch (NumberFormatException e) {
+			log.warn("[CsiUdNumericDecValidator::parseDouble]: Unable to parse given double parameter " + value);
+		}
+	}
+	return null;
+}
+
+«ENDDEFINE»
+
+«REM»4«ENDREM»
+«DEFINE csiUdDateValidatorMethods FOR GUIModel»
+«ENDDEFINE»
+

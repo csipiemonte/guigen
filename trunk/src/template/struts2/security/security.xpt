@@ -1,0 +1,757 @@
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethod»
+«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSO»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
+«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
+«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
+<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+	    <filter-name>CAS Filter</filter-name>
+    	<filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.loginError</param-name>
+      		<param-value>/ssobart/errore.jsp</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
+      		<param-value>http://@SSOBART_VALIDATE_SERVER@/ssobartverify/serviceValidate</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>logger</param-name>
+      		<param-value>@APP_PREFIX@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
+      		<param-value>@DEFAULT_APP_SERVER@</param-value>
+    	</init-param>
+     	<init-param>
+      		<param-name>urlServerParacadute</param-name>
+      		<param-value>@SSOBART_URL_PARACADUTE@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>edu.yale.its.tp.cas.codServizio</param-name>
+      		<param-value>@SSOBART_CODSERVIZIO@</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>pepauth.defpd</param-name>
+      		<param-value>/WEB-INF/SSOBARTPepAuthPD.xml</param-value>
+    	</init-param>
+  </filter>
+
+	
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/HomePage.do</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
+	<!-- ############################################################### 
+         definizione filter per autentication con shibboleth 
+         ###############################################################
+    -->
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     con shibboleth il filter di autenticazione non esiste
+	     (sostituito dal modulo apache)
+	     ################################################################
+	-->
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
+«ERROR "authentication method non supportato:" + this.metaType»
+«ENDDEFINE»
+
+«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSO»
+	<!-- ############################################################### 
+         definizione filter per autentication con OPAUTH (oracle portal) 
+         ###############################################################
+    -->
+	<filter>
+		<filter-name>OP Filter</filter-name>
+		<filter-class>it.csi.opauth.filter.OPFilter</filter-class>
+		<init-param>
+			<param-name>it.csi.opauth.filter.loginAccessUrl</param-name>
+			<param-value>
+				http://@OP_SERVER@/portal/pls/portal/csi_custom.ext_login
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.minAuthLevel</param-name>
+			<param-value>«this.minAuthLevel»</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logger</param-name>
+			<param-value>@APP_PREFIX@.OPclient</param-value>
+		</init-param>
+		<init-param>
+			<param-name>it.csi.opauth.filter.serverName</param-name>
+			<param-value>@DEFAULT_APP_SERVER@</param-value>
+		</init-param>
+	</filter>
+
+    «EXPAND irideIdFilterDef(model) FOR this»
+    
+	<!-- ################################################################
+	     il filter di autenticazione e' il primo ad essere innescato
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>OP Filter</filter-name>
+		<url-pattern>/HomePage.do</url-pattern>
+	</filter-mapping>
+	
+	«EXPAND irideIdFilterMap(model) FOR this»
+«ENDDEFINE»
+
+«DEFINE irideIdFilterDef(GUIModel model) FOR AutenticationMethod»
+	<filter>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<filter-class>«getIrideIdAdapterFilterFQN(model)»</filter-class>
+	</filter>
+«ENDDEFINE»
+
+«DEFINE irideIdFilterMap(GUIModel model) FOR AutenticationMethod»
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	<!-- replace variabili di environment per opauth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@OP_SERVER@"  
+		value="${opauth.server.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${opauth.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${opauth.logout.url}"/>	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	<!-- replace variabili di environment per shibboleth -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${shibboleth.logout.url}"/>	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- replace variabili di environment per SSOBART -->
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@APP_PREFIX@"  
+		value="${componente}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_VALIDATE_SERVER@"  
+		value="${ssobart.validate.server}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@DEFAULT_APP_SERVER@"  
+		value="${ssobart.default.appserver}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_URL_PARACADUTE@"  
+		value="${ssobart.url.paracadute}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@SSOBART_CODSERVIZIO@"  
+		value="${ssobart.codservizio}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/SSOBARTPepAuthPD.xml" 
+		token="@SSOBART_PEPAUTH_URL@"  
+		value="${ssobart.pepauth.url}"/>
+				
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOGOUT_URL@"  
+		value="${ssobart.logout.url}"/>
+		
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
+	<!-- replace variabili di environment per opauth -->
+	<replace file="${build}/temp/«getSpringIRIDE2PDConfig(model)»" 
+		token="@IRIDE_PROVIDER_URL@"  
+		value="${iride2.pep.provider.url}"/>	
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR OPAUTHSSO»
+#-[configurazione opauth]--------------------------------------------------
+opauth.server.url = spintest.csi.it:7778
+opauth.default.appserver = localhost:8078
+opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
+#-[configurazione shibboleth]--------------------------------------------------
+shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
+#-[configurazione ssobart]--------------------------------------------------
+ssobart.default.appserver = localhost:8078
+ssobart.validate.server = <server>:<port>
+ssobart.url.paracadute = <url>
+ssobart.codservizio = «getActualSecurityModel(model).securityAppID»
+ssobart.pepauth.url = t3://iridetest1wls1.csi.it:7111,iridetest1wls2.csi.it:7111
+ssobart.logout.url = https://<ssobartserver>/ssobart/logout
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ERROR ""+this+ "non supportato"»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
+#-[configurazione iride2]--------------------------------------------------
+iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
+
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSO»
+	<!-- ############################################################## -->
+    <!-- # SSOBART                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="ssobart-client" rev="2.1.0" />
+	<dependency org="csipiemonte" name="ssobart-client-pepauth" rev="1.1.0" />
+    
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
+«ENDDEFINE»
+
+«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR OPAUTHSSO»
+	
+	<!-- ############################################################## -->
+    <!-- # OPAUTH                                                     # -->
+    <!-- ############################################################## -->
+	<dependency org="csipiemonte" name="opauth4j" rev="1.0.3" />
+    <!-- <dependency org="csipiemonte" name="iride-simulation" rev="1.1.0" /> -->
+    <!-- <dependency org="csipiemonte" name="simula" rev="1.1.0" /> -->    
+    <!-- ############################################################## -->
+    <!-- # IBM                                                        # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="ibm" name="xml" rev="1.0.0" />
+    
+«ENDDEFINE»
+
+«REM»le librerie client weblogic sono da aggiungere solo se la target
+	 platform è JBOSS
+«ENDREM»
+«DEFINE ivyDependenciesForAuthorization(GUIModel model) FOR SecurityModel-»
+«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+	<!-- ############################################################## -->
+    <!-- # WEBLOGIC CLIENT (solo per JBoss)                           # -->
+    <!-- ############################################################## -->
+    <!--  -->
+    <dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" />
+«ENDIF-»   
+«ENDDEFINE»
+
+«DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
+«EXPAND ApplSessGuardFilter FOR this»
+«IF getActualSecurityModel(this).autenticationMethod!=null»
+«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
+«EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
+«EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR this»
+«EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
+«ENDIF»
+«EXPAND constraintJavaFiles FOR this»
+«EXPAND template::struts2::security::securityHelper::springSecurityHelperClasses FOR this»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR AutenticationMethod»
+«ENDDEFINE»
+
+«DEFINE extraConfigFiles(GUIModel model) FOR SSOBARTSSO»
+	«EXPAND template::struts2::security::irideIntegration::pepauthPDFile FOR model»
+«ENDDEFINE»
+
+«DEFINE constraintJavaFiles FOR GUIModel»
+«FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage(this)+".business.*;"»
+
+public interface UISecConstraint {
+
+	public static final int ONOFF_CONSTRAINED_BEHAVIOR = 1;
+	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public abstract class AbstractUISecConstraint implements UISecConstraint{
+
+protected int constrainedBehavior = UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR;
+protected final boolean defaultState;
+protected final String nomeContainer;
+protected final String nomeWidget;
+
+public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
+	if (nomeContainer==null||nomeWidget==null)
+		throw new IllegalArgumentException("Errore interno: nome container e nome widget obbligatori per constraint");
+	if (constrainedBehavior!=UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR && 
+		constrainedBehavior!=UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR)
+		throw new IllegalArgumentException("Errore interno: comportamento oggetto di constraint non gestibile:"+constrainedBehavior);
+	this.nomeContainer=nomeContainer;
+	this.nomeWidget=nomeWidget;
+	this.constrainedBehavior=constrainedBehavior;
+	this.defaultState=defaultState;
+}
+	/**
+	 * Combina adeguatamente:
+	 * <ul>
+	 * <li>l'esito della verifica specifica
+	 * <li>lo stato di default (relativo al comportamento oggetto di constraint - visibilit&agrave; o abilitazione)
+	 * <li>lo stato corrente  (relativo al comportamento oggetto di constraint - visibilit&agrave; o abilitazione)
+	 * </ul>
+	 * In sintesi il comportamento oggetto di constraint sar&agrave; cos&igrave; valutato:
+	 * <ul>
+	 * <li>se lo stato corrente non &egrave; specificato (il widget non &egrave; stato impostato esplicitamente
+	 *     ad invisibile o disabilitato) viene utilizzato come stato corrente lo stato di default
+	 * <li>se lo stato corrente combinato (corrente effettivo + default) &egrave; OFF (invisibile o disabilitato)
+	 *     lo stato finale o OFF
+	 * <li>se lo stato corrente combinato (corrente effettivo + default) &egrave; ON, viene eseguito
+	 *     il check specifico (che dipende dat tipo di constraint) e lo stato finale &egrave; 
+	 *     ON (visibile o abilitato) se il check specifico &egrave; verificato, OFF altrimenti.
+	 * </ul>
+	 * @param session mantiene lo stato corrente del widget
+	 * @return
+	 */
+	protected boolean combineAll(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		if(checkedBehavior!=this.constrainedBehavior)
+			return false; // se il comportamento osservato e' un'altro passo oltre
+		else{
+			Boolean currentState = getCurrentState(session);
+			if (currentState == null)
+				currentState = Boolean.valueOf(defaultState);
+			if (currentState.booleanValue() == false)
+				return false;
+			else
+				return specificCheck(session, sh);
+		}
+	}
+
+	/**
+	 * Cerca in sessione lo stato corrente.
+	 * @return null se lo stato (per il comportamento in osservazione) non &egrave; impostato oppure
+	 * il valore effettivo se questo &egrave; impostato.
+	 */
+	protected Boolean getCurrentState(Map session){
+		String behaviorSuffix = "";
+		switch (constrainedBehavior) {
+		case UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR:
+			behaviorSuffix = "_enabled";
+			break;
+		case UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR:
+			behaviorSuffix = "_visible";
+			break;
+		default:
+			break;
+		} 
+		Map cpData = (Map) session.get(nomeContainer);
+		if (cpData != null) {
+			Boolean behaviorFlag = (Boolean) cpData.get(nomeWidget
+					+ behaviorSuffix);
+			if (behaviorFlag != null) {
+				return behaviorFlag.booleanValue();
+			} else
+				return null; // unspecified current state
+		} else
+			return null; // unspecified current state
+	}
+	
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		
+		return combineAll(session, checkedBehavior, sh);
+	}
+	
+	/**
+	 * Questo metodo &egrave;ridefinito nelle varie tipologie di constraint e implementa
+	 * i check specifici
+	 * @param session
+	 * @return
+	 */
+	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
+	
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/CustomUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class CustomUISecConstraint extends AbstractUISecConstraint {
+
+	public CustomUISecConstraint(String nomeContainer, String nomeWidget, int constrainedBehavior, boolean defaultState) {
+		super(nomeContainer,nomeWidget,constrainedBehavior,defaultState);
+	}
+	
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		// viene sempre ridefinito
+		return true;
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
+
+	private final String actorCode;
+	
+	public ActorBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String actorCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.actorCode=actorCode;
+	}
+	
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForActor(session, actorCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
+
+	private final String roleCode;
+	private final String domainCode;
+	
+	public RoleBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String roleCode, String domainCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.roleCode=roleCode;
+		this.domainCode=domainCode;
+	}
+	
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForRole(session, roleCode, domainCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class UCBasedUISecConstraint extends AbstractUISecConstraint {
+
+	private final String useCaseCode;
+	
+	public UCBasedUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, String useCaseCode) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		this.useCaseCode=useCaseCode;
+	}
+	
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)  throws BEException{
+		return sh.verifyCurrentUserForUC(session, useCaseCode);
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class ComplexUISecConstraint implements UISecConstraint {
+
+	protected UISecConstraint [] constraints = null;
+	
+	public ComplexUISecConstraint(UISecConstraint [] constraints) {
+		this.constraints=constraints;
+	}
+	
+	/**
+	 * Verifica se almeno uno dei constraints &egrave; soddisfatto.
+	 */
+	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh)  throws BEException{
+		if (constraints!=null && constraints.length>0){
+			boolean verified = false;
+			for (int i = 0; i < constraints.length && !verified; i++) {
+				UISecConstraint currCtr = constraints[i];
+				verified |= currCtr.verifyConstraint(session, checkedBehavior, sh);
+			}
+			return verified;
+		}
+		else
+			return true;
+	}
+
+}
+«ENDFILE»
+
+«FILE getSecurityJavaSrcDir(this,true)+"/DummyUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+
+import java.util.Map;
+import «getBaseJavaPackage()+".business.*;"»
+
+public class DummyUISecConstraint extends AbstractUISecConstraint {
+
+	private final boolean _fixedValue;
+
+	public DummyUISecConstraint(String nomeContainer, String nomeWidget,
+			int constrainedBehavior, boolean defaultState, boolean fixedValue) {
+		super(nomeContainer, nomeWidget, constrainedBehavior, defaultState);
+		_fixedValue = fixedValue;
+	}
+
+	@Override
+	public boolean specificCheck(Map session, SecurityHelper sh)
+			throws BEException {
+		return _fixedValue;
+	}
+
+}
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+
+«DEFINE ApplSessGuardFilter FOR GUIModel»
+«FILE getSessionGuardFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
+
+/**
+ * Gestisce la validit&agrave; della sessione applicativa. 
+ *
+ * @author CSIPiemonte
+ */
+public class «getSessionGuardFilterClassName()» implements Filter {
+
+	public static final String VALID_APP_SESSION_SESSIONATTR = "valid_app_session";
+
+	/**  */
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE
+			+ ".security");
+
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException{
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		String sessMark = (String)hreq.getSession().getAttribute(VALID_APP_SESSION_SESSIONATTR);
+		if (sessMark != null){
+			// sessione gia' valida: vai avanti
+			log.debug("[AppSessionGuardFilter::doFilter] sessione applicativa valida. proseguo ");
+			fchn.doFilter(req, resp);
+			return;
+		}
+		else{
+			// se la sessione non e' valida si discrimina in base alla pagina richiesta:
+			// HomePage, error &co o altra pagina?
+			if (isHomePage(hreq.getRequestURI())){
+				log.info("[AppSessionGuardFilter::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
+				hreq.getSession().setAttribute(VALID_APP_SESSION_SESSIONATTR, VALID_APP_SESSION_SESSIONATTR);
+				fchn.doFilter(req, resp);
+				return;
+			}
+			else{
+			    // siamo gia' nella pagina di sessione scaduta?
+			    if (!mustCheckPage(hreq.getRequestURI())){
+			    	fchn.doFilter(req, resp);
+					return;
+			    }
+			    else{ 
+					log.info("[AppSessionGuardFilter::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
+					/// REDIRECT....
+					HttpServletResponse hresp = (HttpServletResponse)resp;
+					hresp.sendRedirect("sessionExpired.do");
+					return;
+				}
+			}
+		}
+
+	}
+				
+	private boolean isHomePage(String requestURI) {
+		if (requestURI.indexOf("HomePage.do") > -1 || requestURI.endsWith("/") || requestURI.indexOf("index.jsp") > -1)
+			return true;
+		else
+			return false;
+	}
+	
+	private boolean mustCheckPage(String requestURI){
+		if (
+			requestURI.indexOf("HomePage.do")>-1 ||
+			requestURI.indexOf("sessionExpired.do")>-1 ||
+			requestURI.indexOf("fatalError")>-1 ||
+			requestURI.indexOf("notFoundError")>-1 ||
+			requestURI.indexOf("sessionExpired.jsp")>-1 ||
+			requestURI.indexOf("Logout")>-1
+		   )
+		   return false;
+		else
+		   return true;
+	}
+	
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// NOP
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanel»
+// ridefinizione dei metodi di verifica visibilita'/validazione
+// per supportare i security check
+
+	public boolean isWidgetDisabled(String cpName, String widgShortName) {
+		UISecConstraint ctr = allOnOffConstraints.get(widgShortName);
+		if (ctr!=null){
+			try{
+				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsActionClassName(this)»::isWidgetDisabled] errore durante verifica->disable");
+				return true; // forzo la DISABILITAZIONE
+			}
+		}
+		else
+			return super.isWidgetDisabled(cpName, widgShortName);
+	}
+	
+	public boolean isWidgetVisible(String cpName, String widgShortName) {
+		UISecConstraint ctr = allVisibilityConstraints.get(widgShortName);
+		if (ctr!=null){
+			try{
+				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
+			}
+			catch(BEException ex){
+				log.error("[«getStrutsActionClassName(this)»::isWidgetVisible] errore durante verifica->hide");
+				return false; // forzo l'invisibilita'
+			}
+		}
+		else
+			return super.isWidgetVisible(cpName, widgShortName);
+	}
+
+«ENDDEFINE»
+
+
+«REM»#######«ENDREM»
+
+
+
+

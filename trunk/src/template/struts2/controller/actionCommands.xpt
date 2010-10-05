@@ -1,0 +1,934 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions »
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE actionImplClasses FOR GUIModel»
+«FILE getPresentationJavaSrcDir(true)+"/ICommand.java"»
+package «getPresentationJavaPackage()»;
+
+/**
+ * Interfaccia comune di tutte le azioni di presentation
+ *
+ * @author CSI Piemonte
+ */
+public interface ICommand extends java.io.Serializable {
+	/**
+	 * Esegue l'azione corrispondente
+	 * @return il codice del RESULT struts conseguente all'azione (se l'azione comporta)
+	 * una decisione sul result, null altrimenti
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException;
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/CommandExecutionException.java"»
+package «getPresentationJavaPackage()»;
+
+/**
+ * Eccezione rilanciat ain caso di errori durante l'esecuzione della
+ * catena di comandi.
+ *
+ * @author CSI Piemonte
+ */
+public class CommandExecutionException extends Exception{
+	public CommandExecutionException(String msg, Throwable nested){
+		super(msg, nested);
+	}
+	
+	public CommandExecutionException(String msg){
+		super(msg);
+	}
+};
+«ENDFILE»
+
+
+«FILE getPresentationJavaSrcDir(true)+"/NOPCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// NO OPERATION
+public class NOPCommand implements ICommand {
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	public NOPCommand() {
+		
+	}
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		return null;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// JUMP_ACTION
+public class JumpCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	String name;
+	String _currentPageName = null;
+	boolean _pushCurrent;
+	public JumpCommand(String panelName, String currentPageName,
+			boolean pushCurrent) {
+		name = panelName;
+		_pushCurrent = pushCurrent;
+		_currentPageName = currentPageName;
+	}
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		if (_pushCurrent) {
+			//TODO capire se e come impleemntare lo stack delle action
+			//_pageStack.add(_currentPageName);
+		}
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData();
+		return "GO_TO_"+name;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// REFRESHVIEW_ACTION
+public class RefreshViewCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _currentPanelName = null;
+	String [] _targetPanels=null;
+	String [] _targetWidgets=null;
+	
+	public RefreshViewCommand(String currentPanelName, String [] targetPanelNames,
+			String  [] targetWidgetNames) {
+		_currentPanelName = currentPanelName;
+		_targetPanels = targetPanelNames;
+		_targetWidgets = targetWidgetNames;
+	}
+	
+	
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		return null;
+	}
+};
+«ENDFILE»
+
+
+«FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// JUMP_ACTION
+public class JumpExtCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	String locationCode;
+	public JumpExtCommand(String locationCode) {
+		this.locationCode = locationCode;
+	}
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData();
+		return "GO_TO_"+locationCode;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// ActivateMultiPanelItemCommand
+public class ActivateMultiPanelItemCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String contentPanelName;
+	String containerName; 
+	String itemName;
+	
+	/**
+	 * @param contentPanelName il nome del content panel
+	 * @param containerName il nome del multi-panel contenitore
+	 * @param itemName il nome dell'item da attivare (se null => non mostrare
+	 *  nessun pannello
+	 */
+	public ActivateMultiPanelItemCommand(String contentPanelName, String containerName, String itemName) {
+		assert contentPanelName!=null && contentPanelName.length()>0;
+		assert containerName!=null && containerName.length()>0;
+		// item name puo essere nullo => deselect
+		
+		this.contentPanelName = contentPanelName;
+		this.containerName = containerName;
+		this.itemName = itemName;
+	}
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		if (itemName!=null){
+			strutsAction.getSession().put(
+				contentPanelName+"_"+containerName+"_selectedMultiPanel", 
+				contentPanelName+"_"+containerName+"_"+itemName);
+		}
+		else{
+			strutsAction.getSession().remove(contentPanelName+"_"+containerName+"_selectedMultiPanel");
+		}
+		return null;
+	}
+};
+«ENDFILE»
+
+
+«FILE getPresentationJavaSrcDir(true)+"/ScreenStateCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class ScreenStateCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _containerName = null;
+	String _stateName = null;
+	String[] _widgetsOn = null;
+	String[] _widgetsOff = null;
+	String[] _widgetsShown = null;
+	String[] _widgetsHidden = null;
+
+	public ScreenStateCommand(
+			String containerName,
+			String stateName, 
+			String widgetsOn[],
+			String widgetsOff[],
+			String widgetsShown[],
+			String widgetsHidden[]
+			) {
+		_containerName = containerName;
+		_stateName = stateName;
+		_widgetsOn = widgetsOn;
+		_widgetsOff = widgetsOff;
+		_widgetsShown = widgetsShown;
+		_widgetsHidden = widgetsHidden;
+	}
+
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
+		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
+		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
+		VisibilityCommand hide = new VisibilityCommand(_containerName, _widgetsHidden, false);
+		turnOn.doCommand(strutsAction);
+		turnOff.doCommand(strutsAction);
+		show.doCommand(strutsAction);
+		hide.doCommand(strutsAction);
+		if (_stateName != null){
+			strutsAction.getSession().put(_containerName+"_currentState",_stateName);
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/PDefStateCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class PDefStateCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _containerName = null;
+	String _stateName = null;
+	String[] _widgetsOn = null;
+	String[] _widgetsOff = null;
+	String[] _widgetsShown = null;
+	String[] _widgetsHidden = null;
+
+	public PDefStateCommand(
+			String containerName,
+			String stateName, 
+			String widgetsOn[],
+			String widgetsOff[],
+			String widgetsShown[],
+			String widgetsHidden[]
+			) {
+		_containerName = containerName;
+		_stateName = stateName;
+		_widgetsOn = widgetsOn;
+		_widgetsOff = widgetsOff;
+		_widgetsShown = widgetsShown;
+		_widgetsHidden = widgetsHidden;
+	}
+
+	
+	/**
+	 * La logica &egrave; l astessa di ScreenStateCommand, poich&egrave; i nomi dei widget sono espansi
+	 * all'inizializzazione del comando.
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		OnOffCommand turnOn = new OnOffCommand(_containerName, _widgetsOn, true);
+		OnOffCommand turnOff = new OnOffCommand(_containerName, _widgetsOff, false);
+		VisibilityCommand show = new VisibilityCommand(_containerName, _widgetsShown, true);
+		VisibilityCommand hide = new VisibilityCommand(_containerName, _widgetsHidden, false);
+		turnOn.doCommand(strutsAction);
+		turnOff.doCommand(strutsAction);
+		show.doCommand(strutsAction);
+		hide.doCommand(strutsAction);
+		if (_stateName != null){
+			strutsAction.getSession().put(_containerName+"_currentState",_stateName);
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+
+
+«FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class OnOffCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _containerName = null;
+	String[] _targets = null;
+	boolean _show = true;
+
+	public OnOffCommand(String containerName, String targets[], boolean show) {
+		_containerName = containerName;
+		_targets = targets;
+		_show = show;
+	}
+
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		if (_targets != null) {
+			Map<String, Boolean> cpWidgetsStatus = 
+				(Map<String, Boolean>) strutsAction.session.get(_containerName);		
+			if(cpWidgetsStatus == null){
+				cpWidgetsStatus = new HashMap<String, Boolean>();
+				strutsAction.session.put(_containerName, cpWidgetsStatus);
+			}
+			for (int i = 0; i < _targets.length; i++) {
+				cpWidgetsStatus.put(_targets[i]+"_enabled", Boolean.valueOf(_show));
+			}
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/VisibilityCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class VisibilityCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _containerName = null;
+	String[] _targets = null;
+	boolean _show = true;
+
+	public VisibilityCommand(String containerName, String targets[], boolean show) {
+		_containerName = containerName;
+		_targets = targets;
+		_show = show;
+	}
+
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		if (_targets != null) {
+			Map<String, Boolean> cpWidgetsStatus = 
+				(Map<String, Boolean>) strutsAction.session.get(_containerName);			
+			if(cpWidgetsStatus == null){
+				cpWidgetsStatus = new HashMap<String, Boolean>();
+				strutsAction.session.put(_containerName, cpWidgetsStatus);
+			}
+			for (int i = 0; i < _targets.length; i++) {
+				cpWidgetsStatus.put(_targets[i]+"_visible", Boolean.valueOf(_show));
+			}
+		}
+		return null;
+	}
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ExecCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.util.*;
+import com.opensymphony.xwork2.ActionSupport;
+import «getDTOBaseJavaPackage()».*;
+
+////ExecCommand
+public abstract class ExecCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String _esiti[] = null;
+	ICommand _azioni[] = null;
+	java.util.Hashtable _resultAzioni = new java.util.Hashtable();
+
+	public ExecCommand(String esiti[], ICommand[] azioni) {
+		_esiti = esiti;
+		_azioni = azioni;
+		if (_esiti != null) {
+			for (int i = 0; i < _esiti.length; i++)
+				_resultAzioni.put(_esiti[i], _azioni[i]);
+		}
+	}
+
+	/**
+	 * Esecuzione della logica di business.
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		// action --> model
+		Object theModel = strutsAction.toModel();
+		// esecuzione azione
+		ExecResults execResults = doLogic(theModel); 
+		String result = execResults.getResultCode();
+		Object outModel = execResults.getModel();
+		// model --> action
+		strutsAction.fromModel(outModel);
+		// impostazione degli appData
+		storeAppData(execResults, strutsAction);
+		// impostazione degli eventuali messaggi
+		updateMessages(
+			execResults.getFldErrors(), 
+			execResults.getGlobalErrors(), 
+			execResults.getGlobalMessages(), 
+			strutsAction);
+		// determinazione esito e azione corrispondente
+		ICommand resultAction = null;
+		for (int i = 0; i<_esiti.length; i++){
+			if (_esiti[i].equals(result))
+				resultAction = _azioni[i];
+		}
+		// esecuzione azione conseguente all'esito
+		if(resultAction!=null){
+			return resultAction.doCommand(strutsAction);
+		}
+		else
+			throw new IllegalStateException("Il result code "+result+" non e' tra quelli previsti ("+_esiti+")");
+	}
+	
+	/**
+	 * inserisce negli appositi campi della action struts2 gli errori/messaggi provenienti dalla
+	 * business logic.
+	 */
+	public void updateMessages(Map<String,String> fieldErrors, Collection<String> globalErrors, Collection<String> globalMessages, ActionSupport action){
+		if (fieldErrors!=null){
+			Iterator<String> fieldKey_it = fieldErrors.keySet().iterator();
+			while(fieldKey_it.hasNext()){
+				String currKey = fieldKey_it.next();
+				action.addFieldError(currKey, fieldErrors.get(currKey));
+			}
+		}
+		if (globalErrors!=null){
+			Iterator<String> it = globalErrors.iterator();
+			while(it.hasNext()){
+				action.addActionError(it.next());
+			}
+		}
+		if (globalMessages!=null){
+			Iterator<String> it = globalMessages.iterator();
+			while(it.hasNext()){
+				action.addActionMessage(it.next());
+			}
+		}
+	}
+	
+	/**
+	 * Deve essere implamentata nella sottoclasse in modo da impostare in sessione o action i valori
+	 * degli app data previsti dalla exec action
+	 */
+	public abstract void storeAppData(ExecResults res, BaseAction strutsAction);
+	
+	
+	// deve essere sovrascritto per eseguire la logica e deve restituire il result_code
+	// corretto
+	public abstract ExecResults doLogic(Object theModel) throws CommandExecutionException;
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ClearAppDataCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// NO OPERATION
+public class ClearAppDataCommand implements ICommand {
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	private String[] _attributesToBeRemovedFromSession = null;
+	
+	public ClearAppDataCommand(String[] attributesToBeRemovedFromSession) {
+		this._attributesToBeRemovedFromSession = attributesToBeRemovedFromSession;
+	}
+	
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		if (_attributesToBeRemovedFromSession!=null && _attributesToBeRemovedFromSession.length!=0){
+			for (int i = 0; i < _attributesToBeRemovedFromSession.length; i++) {
+				strutsAction.getSession().remove(_attributesToBeRemovedFromSession[i]);				
+			}			 
+		}
+		return null;
+	}
+};
+«ENDFILE»
+
+«FILE getDTOBaseSrcDir(this)+"/ExecResults.java"»
+package «getDTOBaseJavaPackage()»;
+
+import java.util.*;
+ 
+public class ExecResults {
+	private String _resultCode;
+	private Map<String, String> fldErrors = new HashMap<String, String>();
+	private Collection<String> globalErrors=new ArrayList<String>();
+	private Collection<String> globalMessages=new ArrayList<String>();
+	private Object _model;
+	
+	public void setModel(Object model){
+		_model=model;
+	}
+	
+	public Object getModel(){
+		return _model;
+	}
+	
+	
+	public void setResultCode(String code){
+		_resultCode = code; 
+	}
+	
+	public String getResultCode(){
+		return _resultCode;
+	}
+	
+	public Map<String, String> getFldErrors() {
+		return fldErrors;
+	}
+
+	public void setFldErrors(Map<String, String> fldErrors) {
+		this.fldErrors = fldErrors;
+	}
+
+	public Collection<String> getGlobalErrors() {
+		return globalErrors;
+	}
+
+	public void setGlobalErrors(Collection<String> globalErrors) {
+		this.globalErrors = globalErrors;
+	}
+
+	public Collection<String> getGlobalMessages() {
+		return globalMessages;
+	}
+
+	public void setGlobalMessages(Collection<String> globalMessages) {
+		this.globalMessages = globalMessages;
+	}
+}
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// SEQUENCE_ACTION
+public class SequenceCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	ICommand[] _actions;
+	public SequenceCommand(ICommand[] actions) {
+		_actions = actions;
+	}
+	
+	/**
+	 * La sequence action esegue in sequenza tutte le azioni atomiche
+	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
+	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
+		String result=null;
+		if (_actions != null) {
+			for (int i = 0; i < _actions.length; i++) {
+				ICommand currAct = _actions[i];
+				String currResult = currAct.doCommand(strutsAction);
+				if (currResult!=null)
+					result=currResult;
+			}
+		}
+		return result;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// SHOW_DIALOG_ACTION
+public class ShowDialogCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String name;
+	public ShowDialogCommand(String panelName) {
+		name = panelName;
+	}
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		return "SHOW_"+name;
+	}
+};
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/BeginEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+/// BEGIN_EDIT_ACTION
+public class BeginEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String [] targetAppDataNames;
+	public BeginEditCommand(String [] targetAppDataNames) {
+		this.targetAppDataNames = targetAppDataNames;
+	}
+	
+	/**
+	 * Salva un backup (deep copy) degli appdata specificati
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				try{
+					storeBackup(currADName, strutsAction);
+				}
+				catch(CloneNotSupportedException cnse){
+					throw new CommandExecutionException(
+						"Errore nella creazioene del backup dell'appdata ["+currADName+"]:"+cnse.getMessage(),cnse);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static void storeBackup(String adName, BaseAction strutsAction) throws CloneNotSupportedException
+	{
+		Object currADVal = strutsAction.getSession().get(adName);
+		Object currADValClone = deepClone(currADVal);
+		if (currADVal != null) {
+			strutsAction.getSession().put(adName + "_bckp", currADValClone);
+		}
+	}
+	
+	public static Object deepClone(Object orig) throws CloneNotSupportedException{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(orig);
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			Object clone = ois.readObject();
+			return clone;
+		} catch (IOException e) {
+			throw new CloneNotSupportedException();
+		} catch (ClassNotFoundException e) {
+			throw new CloneNotSupportedException();
+		}
+	}
+};
+
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
+package «getPresentationJavaPackage()»;
+
+
+/// END_EDIT_ACTION
+public class EndEditCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	String [] targetAppDataNames;
+	boolean undo;
+	
+	public EndEditCommand(String [] targetAppDataNames, boolean undo) {
+		this.targetAppDataNames = targetAppDataNames;
+		this.undo=undo;
+	}
+	
+	/**
+	 * Elimina i backup (deep copy) degli appdata specificati, ripristinando il
+	 * valore se undo==true; 
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		if (targetAppDataNames != null){
+			for (int i = 0; i < targetAppDataNames.length; i++) {
+				String currADName = targetAppDataNames[i];
+				endEditForAppdata(currADName, undo, strutsAction);
+			}
+		}
+		return null;
+	}
+	
+	public static void endEditForAppdata(String adName, boolean undo,
+			BaseAction strutsAction) {
+		if (undo) {
+			// undo del dato
+			Object currADValBkp = strutsAction.getSession().get(
+					adName + "_bckp");
+			if (currADValBkp != null) {
+				strutsAction.getSession().put(adName, currADValBkp);
+			}
+		}
+		// rimuove il backup 
+		strutsAction.getSession().remove(adName + "_bckp");
+	}
+	
+};
+
+
+«ENDFILE»
+
+«FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
+package «getPresentationJavaPackage()»;
+
+/// CHECK_EDIT_STATUS_ACTION
+public class ChkEditStatusCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	ICommand _doIfChanged;
+	ICommand _doIfNotChanged;
+	String _checkAggr;
+	String [] _checkedData;
+	
+	public ChkEditStatusCommand(
+			String [] checkedData, 
+			String checkAggregation, 
+			ICommand doIfChanged,
+			ICommand doIfNotChanged) {
+		_checkedData=checkedData;
+		_checkAggr=checkAggregation;
+		_doIfChanged=doIfChanged;
+		_doIfNotChanged=doIfNotChanged;
+	}
+
+	/**
+	 * La sequence action esegue in sequenza tutte le azioni atomiche
+	 * incluse come step, mantenendo il pi&ugrave; recente risultato non nullo restituito
+	 * dagli step (per determinare al termine quale debba essere la pagina successiva
+	 */
+	public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
+		boolean changed = checkAppdata4Changes(_checkedData, _checkAggr, strutsAction);
+		if (changed)
+			return _doIfChanged.doCommand(strutsAction);
+		else
+			return _doIfNotChanged.doCommand(strutsAction);
+	}
+
+	/**
+	 * Verifica variazioni sugli appdata con la politica di aggregazione specificata
+	 * @param checkedData
+	 * @param checkAggr
+	 * @param strutsAction
+	 * @return
+	 */
+	private boolean checkAppdata4Changes(String[] checkedData, String checkAggr, BaseAction strutsAction) {
+		if (checkedData==null || checkedData.length==0)
+			return false;
+		// else
+		boolean ris = "OR".equals(checkAggr) ? false : ("AND".equals(checkAggr) ? true : false);
+		for (int i = 0; i < checkedData.length; i++) {
+			String currADName = checkedData[i];
+			boolean currChanged = checkAppdata4Changes(currADName, strutsAction);
+			if (currChanged && "OR".equals(checkAggr))
+				return true; // al primo esco con true
+			else if (!currChanged && "AND".equals(checkAggr))
+				return false; // al primo falso esco con falso
+			else if ("XOR".equals(checkAggr)){
+				if (currChanged && ris)
+					return false; // secondo match: rompe lo xor
+			}
+		}
+		return ris;
+	}
+
+	/**
+	 * verifica se il singolo appdata e' variato
+	 * @param currADName
+	 * @param strutsAction
+	 * @return
+	 */
+	private boolean checkAppdata4Changes(String currADName,
+			BaseAction strutsAction) {
+		Object adVal = strutsAction.getSession().get(currADName);
+		Object adBkp = strutsAction.getSession().get(currADName+"_bckp");
+		if (adBkp != null){
+			«getDTOBaseJavaPackage()».DTOUtils dtoUtils = «getDTOBaseJavaPackage()».DTOUtils.getInstance();
+			return !(dtoUtils.deepEquals(adVal, adBkp));
+		}
+		else
+			return false;
+	}
+	
+	
+};
+
+«ENDFILE»
+
+«EXPAND dtoUtilsFile FOR this»
+
+«ENDDEFINE»
+
+«REM»sarebbe da spostare in "model"«ENDREM»
+«DEFINE dtoUtilsFile FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/DTOUtils.java"»package «getDTOBaseJavaPackage()»;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+public class DTOUtils {
+
+	private static DTOUtils _instance;
+	
+	static{
+		_instance = new DTOUtils();
+	}
+	
+	public static DTOUtils getInstance(){
+		return _instance;
+	}
+	public boolean deepEquals(Object o1, Object o2){
+		if ((o1==null || o2==null) && (o1!=null || o2!=null))
+			return false;
+		else if (!(o1.getClass().equals(o2.getClass())))
+			return false;
+		// else: stesso tipo e nessuno dei due nullo
+		else if (List.class.isAssignableFrom(o1.getClass())) {
+			return deepEqualsArray(o1, o2);
+		}
+		else if (o1 instanceof Integer || o1 instanceof Long
+				|| o1 instanceof Float || o1 instanceof Double
+				|| o1 instanceof String || o1 instanceof Byte 
+				|| o1 instanceof Boolean)
+			return o1.equals(o2);
+		else {
+			// oggetti complessi
+			return deepEqualsBean(o1, o2);
+		}
+	}
+	private boolean deepEqualsBean(Object o1, Object o2) {
+		BeanInfo bi;
+		try {
+			bi = Introspector.getBeanInfo(o1.getClass());
+		} catch (IntrospectionException e) {
+			throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+		}
+		PropertyDescriptor [] pds = bi.getPropertyDescriptors();
+		for (int i = 0; i < pds.length; i++) {
+			PropertyDescriptor currPD = pds[i];
+			Method getter = currPD.getReadMethod();
+			Method setter = currPD.getWriteMethod();
+			if (getter != null && setter != null){
+				try {
+					Object v1 = getter.invoke(o1, new Object[]{});
+					Object v2 = getter.invoke(o2, new Object[]{});
+					if (!deepEquals(v1, v2))
+						return false; // basta uno diverso => false
+				} 
+				catch (IllegalAccessException e) {
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+				catch (InvocationTargetException e) {
+					throw new IllegalArgumentException("errore in lettura campi di "+o1.getClass()+":"+e);
+				}
+			}
+		}
+		return true;
+	}
+	private boolean deepEqualsArray(Object o1, Object o2) {
+		List l1 = (List)o1;
+		List l2 = (List)o2;
+		if (l1.size() != l2.size())
+			return false;
+		else{
+			for (int i = 0; i < l1.size(); i++) {
+				Object curr1 = l1.get(i);
+				Object curr2 = l2.get(i);
+				if (!deepEquals(curr1, curr2))
+					return false; // al primo diverso mi fermo
+			}
+			return true;
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+

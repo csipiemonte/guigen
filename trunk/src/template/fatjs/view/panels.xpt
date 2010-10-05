@@ -1,0 +1,124 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR FormPanel»
+			new ExtCsi.ui.panels.FormPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					collapsible: «jsLiteralValue(this.collapsible)»,
+					subpanels: [«EXPAND panelStruct(model, cp) FOREACH subpanels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WidgetsPanel»
+			new ExtCsi.ui.panels.WidgetsPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					collapsible: «jsLiteralValue(this.collapsible)»,
+					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR CommandPanel»
+			new ExtCsi.ui.panels.CommandPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					widgets: [«EXPAND widgets::widgetStruct(model, cp) FOREACH widgets SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MultiPanel»
+			new ExtCsi.ui.panels.MultiPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR StdMessagePanel»
+			new ExtCsi.ui.panels.StdMessagePanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					showGlobalMessages: «this.showGlobalMessages»,
+					showFieldErrorDetails: «this.showFieldErrorDetails»,
+					showFieldErrors: «this.showFieldErrors»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR MsgBoxPanel»
+			new ExtCsi.ui.panels.MsgBoxPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					messageSeverity: '«this.messageSeverity»',
+					textMessages: [«EXPAND widgets::widgetStruct(model, cp) FOREACH textMessages SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR DialogPanel»
+			new ExtCsi.ui.panels.DialogPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					msgBoxes: [«EXPAND panelStruct(model, cp) FOREACH msgBoxes SEPARATOR ","»],
+					commands: «EXPAND panelStruct(model, cp) FOR commands»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel»
+			new ExtCsi.ui.panels.TabSetPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR WizardPanel»
+			new ExtCsi.ui.panels.WizardPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»,
+					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
+			new ExtCsi.ui.panels.UserDefinedPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserInfoPanel»
+			new ExtCsi.ui.panels.UserInfoPanel(
+				{
+					«EXPAND panelCommonProperties(model) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+
+«DEFINE panelCommonProperties(GUIModel model) FOR Panel»
+					name: «jsLiteralValue(this.name)»,
+					label: «jsLiteralValue(this.label)»,
+					layout: «EXPAND layout::panelLayout FOR this.layout»,
+					layoutSpec: «IF layoutSpec!=null»«EXPAND layout::layoutSpec FOR this.layoutSpec»«ELSE» null«ENDIF»,
+					scrollable: «jsLiteralValue(this.scrollable)»
+«ENDDEFINE»
+

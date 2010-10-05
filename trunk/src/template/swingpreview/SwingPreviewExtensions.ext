@@ -1,0 +1,19 @@
+import guigen;
+import ecore;
+
+///////////////////////////////////////////////////////////////////////
+/// Estensioni java specifiche dalla piattaforma target swingpreview //
+///////////////////////////////////////////////////////////////////////
+
+
+String nsewcSpec2BorderSpec(UDLRCWidgetLayoutSpec ls) :
+	(ls.value==UDLRCSpecConstants::UP? "BorderLayout.NORTH":
+		(ls.value==UDLRCSpecConstants::DOWN? "BorderLayout.SOUTH":
+	 	 	(ls.value==UDLRCSpecConstants::RIGHT? "BorderLayout.EAST":
+	  			(ls.value==UDLRCSpecConstants::LEFT? "BorderLayout.WEST":
+	  				"BorderLayout.CENTER"
+				)
+			)
+		)  
+	);
+	

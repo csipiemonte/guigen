@@ -1,0 +1,163 @@
+«IMPORT metamodeldoc»
+
+«EXTENSION oawutil::Log»
+«EXTENSION oawutil::Monitor»
+«EXTENSION extensions::Basics»
+«EXTENSION extensions::Properties»
+«EXTENSION extensions::html::HTML»
+«EXTENSION extensions::i18n»
+«EXTENSION extensions::Name»
+
+
+«DEFINE Root FOR DClassOrInterface -»
+«stepStart("Class " + fullName())»
+«FILE "html/"+filePath()»«EXPAND Specific FOR this»
+«IF	(	attributes.size
+	+	references.size
+	+	operations.size
+	+	allSuperTypes().attributes.size
+	+	allSuperTypes().references.size
+	+	allSuperTypes().operations.size
+	)
+>	0»
+<table border="1">
+«EXPAND TableRow({this},"Direct ") FOR this»
+«EXPAND TableRow(allSuperTypes(),"Inherited ") FOR this»
+</table>
+«ENDIF»
+«EXPAND UsageDoc -»
+«EXPAND Details::Entry
+	FOREACH attributes»
+«EXPAND Details::Entry
+	FOREACH references»
+«EXPAND Details::Entry
+	FOREACH operations»
+«EXPAND Annotation::Annotations»
+«htmlFooter()»
+«ENDFILE»
+«stepStop()»
+«ENDDEFINE»
+
+«DEFINE Specific FOR DClassOrInterface»
+«error("Target Specific not implemented for "+this.toString())»
+«ENDDEFINE»
+«DEFINE Specific FOR DClass»«htmlHeader(_("Developer documentation for the " + (abstract?"abstract ":"") + "model class ") + name)»
+<h1>«_((abstract?"Abstract ":"") + "Class")» "«fullName()»"</h1>
+<p>«_("Defined in package")» : «getDContainer().link()»</p>
+«EXPAND Annotation::MetamodelDocAnnotation»
+«EXPAND Annotation::DetailLinks -»
+«EXPAND Basics::ListOf(_("All implemented Interfaces"))
+	FOR allSuperTypes().typeSelect(DInterface).link() -»
+«EXPAND Types»
+«EXPAND Basics::ListOf(_("All known Sub Classes"))
+	FOR allSubTypes().typeSelect(DClass).link() -»
+«ENDDEFINE»
+
+«DEFINE Specific FOR DInterface»«htmlHeader(_("Developer documentation for the model interface ") + name)»
+<h1>«_("Interface")» "«fullName()»"</h1>
+<p>«_("Defined in package")» : «getDContainer().link()»</p>
+«EXPAND Annotation::MetamodelDocAnnotation»
+«EXPAND Annotation::DetailLinks -»
+«EXPAND Types»
+«IF DInterface.isInstance(this)»
+«EXPAND Basics::ListOf(_("All known Sub Interfaces"))
+	FOR allSubTypes().typeSelect(DInterface).link() -»
+«EXPAND Basics::ListOf(_("All Implementing Classes"))
+	FOR allSubTypes().typeSelect(DClass).link() -»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE Types FOR DClassOrInterface»
+«IF (! superTypes.isEmpty)
+||	(! subTypes.isEmpty)»
+<p>«_("Super and Sub Types")»</p>
+«EXPAND SuperTypesOpen»
+<ul><li><b>«image()»«fullName()»</b>
+«IF ! subTypes.isEmpty»
+<ul>«EXPAND SubTypes»</ul>
+«ENDIF»
+</li></ul>
+«EXPAND SuperTypesClose»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE SuperTypesOpen FOR DClassOrInterface -»
+«EXPAND SuperTypeOpen FOREACH
+	(List[DClassOrInterface])(superTypes.referenceContainer()) -»
+«ENDDEFINE»
+«DEFINE SuperTypeOpen FOR DClassOrInterface»
+«EXPAND SuperTypesOpen»<ul><li>«link()»
+«ENDDEFINE»
+«DEFINE SuperTypesClose FOR DClassOrInterface -»
+«EXPAND SuperTypeClose FOREACH
+	(List[DClassOrInterface])(superTypes.referenceContainer()) -»
+«ENDDEFINE»
+«DEFINE SuperTypeClose FOR DClassOrInterface»
+«EXPAND SuperTypesClose»</li></ul>
+«ENDDEFINE»
+
+«DEFINE SubTypes FOR DClassOrInterface -»
+«EXPAND SubType FOREACH
+	((List[DClassOrInterface])(subTypes.referenceContainer())).sortBy(e|e.fullName()) -»
+«ENDDEFINE»
+«DEFINE SubType FOR DClassOrInterface»
+<li>«link()»«subTypes.isEmpty?"":" <smaller>("+_("more subTypes available")+")</smaller>"»</li>
+«ENDDEFINE»
+
+«DEFINE TableRow(List[DClassOrInterface] l, String preText) FOR DClassOrInterface»
+«IF	(	l.attributes.size
+	+	l.references.size
+	+	l.operations.size
+	)
+>	0»
+<tr style="vertical-align:top">
+«EXPAND TableCell(
+	preText + "Attributes",
+	l.attributes,
+	this.attributes,
+	allSuperTypes().attributes)
+»
+«EXPAND TableCell(
+	preText + "References",
+	l.references,
+	this.references,
+	allSuperTypes().references)
+»
+«EXPAND TableCell(
+	preText + "Operations",
+	l.operations,
+	this.operations,
+	allSuperTypes().operations)
+»
+</tr>
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE TableCell(
+	String text,
+	List[DModelElement] cellList,
+	List[DModelElement] thisList,
+	List[DModelElement] superList
+) FOR Object»
+«IF	(	thisList.size
+	+	superList.size
+	)
+>	0»
+<td>
+«EXPAND Basics::ListOf(_(text))
+	FOR cellList.collect(e|e.detailsLink(2))»
+</td>
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE UsageDoc FOR DClassOrInterface -»
+«EXPAND Basics::ListOf(_("Referenced by"))
+	FOR allReferences()
+		.select(e|e.type.referenceContainer() == this)
+		.collect(
+			e|	e.detailsLink(2)
+			+	" ("
+			+	e.dContainer.link()
+			+	")"
+		) -»
+«ENDDEFINE»

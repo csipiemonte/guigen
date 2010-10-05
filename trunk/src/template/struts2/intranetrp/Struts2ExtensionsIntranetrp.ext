@@ -1,0 +1,81 @@
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout IntranetRegionePiemonte                  //
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssIntranetrp(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLinkCssIntranetrp(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLabelIntranetrp(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+//
+String getMenuWithChildCssIntranetrp(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLinkCssIntranetrp(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLabelIntranetrp(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout IntranetRegionePiemonte usate in AOP     //
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutIntranetrp(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce lo stile del <div> per i Button
+String getButtonDivStyleByLayoutIntranetrp(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getButtonDivStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei Button
+String getButtonStyleByLayoutIntranetrp(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile dei TextField
+String getTextFieldStyleByLayoutIntranetrp(GUIModel model, TextField t) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getTextFieldStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.TextField);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalIntranetrp(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]
+String getColumnStyleIntranetrp(Column col, Table t, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyleIntranetrp(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
+//      Utilizzato per allineare a destra i dati numerici.
+String getCustomComponentColumnStyleByPortalIntranetrp(GUIModel model, PlainText w) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
+
+// [DM] Restituisce la classe per un TextField in una Table.
+// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+String getColumnEditableTextfieldPortalStyleIntranetrp(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+	// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+String getCustomtagHeaderColspanIntranetrp(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.intranetrp.GenUtilsLayoutIntranetrp.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);

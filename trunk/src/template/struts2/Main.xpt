@@ -1,0 +1,45 @@
+«IMPORT guigen»
+
+«IMPORT template::struts2::buildfiles»
+«IMPORT template::struts2::configfiles»
+«IMPORT template::struts2::javafiles»
+«IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::view::enrichments»
+«IMPORT template::struts2::i18nfiles»
+«EXTENSION template::GenericExtensions»
+
+
+«DEFINE main (boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
+	«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+	«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
+	«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera le Actions Struts2 corrispondenti ai ContentPanels dell'applicazione«ENDREM»
+«DEFINE contentPanelsFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«REM»Espande ogni ContentPanels dell'applicazione come Action Struts2 + pagina JSP«ENDREM»
+	«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanels»
+		«EXPAND contentPanelFiles(this, skip_component_dir_creation) FOREACH contentPanels»
+	«ENDLET»
+	«IF targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::struts2::view::enrichments::staticResourcesXML FOR this»
+	«ENDIF»
+	«REM»Crea la configurazione XML delle Action«ENDREM»
+	«EXPAND template::struts2::configfiles::strutsApplicationConfigFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera le componenti di una Action Struts2 (classe Java, file JSP, definizione XML, resource bundle)«ENDREM»
+«DEFINE contentPanelFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«EXPAND template::struts2::controller::contentPanelAction::actionJavaFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::view::resourcefiles::actionJspFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::i18n::i18nfiles::actionPropertiesFile(model, skip_component_dir_creation) FOR this»
+	«IF model.targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::struts2::view::enrichments::enrichmentDefs(model, skip_component_dir_creation) FOR this»
+	«ENDIF-»
+«ENDDEFINE»
+

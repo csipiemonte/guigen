@@ -1,0 +1,34 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+«DEFINE datas FOR GUIModel»
+/**
+ * def. e registrazione app data
+ */
+function registerAppdata(){
+«EXPAND data(null) FOREACH appDataDefs.appData»
+«EXPAND datas FOREACH appDataDefs.groups»
+«EXPAND datas FOREACH appDataDefs.extGroups»
+}
+
+registerAppdata();
+«ENDDEFINE»
+
+«DEFINE data(AppDataGroup adg) FOR ApplicationData-»
+«LET type.eContainer.metaType==TypeNamespace ? type.eContainer : null AS tns-»
+	globalRegistry.registerObject('«getRegistryID(this, adg)»',
+	new ExtCsi.mdl.data.ApplicationData(
+		{ name: «jsLiteralValue(name)»,
+		  type: '«getRegistryID(this.type, tns)»'
+		}
+	)
+	);
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE datas FOR AppDataGroup»
+«EXPAND data(this) FOREACH this.appData»
+«ENDDEFINE»
