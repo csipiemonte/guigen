@@ -417,13 +417,17 @@ public class TableDataArranger {
 
 		List<Object> l1 = new ArrayList<Object>();
 
-		//***metto gli oggetti relativi al range di paginazione
-		for (Object oggetto : listaValori) {
-
-			k++;
-			if (k >= i && k <= i + j) {
-
-				l1.add(oggetto);
+		//***se la tabella non è paginata allora aggiungo tutto
+		if(j == 0 || j == -1){
+			l1.addAll(listaValori);
+		}else{
+			//***metto gli oggetti relativi al range di paginazione
+			for (Object oggetto : listaValori) {
+				k++;
+				if (k >= i && k <= i + j) {
+	
+					l1.add(oggetto);
+				}
 			}
 		}
 

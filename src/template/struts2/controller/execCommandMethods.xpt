@@ -12,7 +12,10 @@
 «ENDDEFINE»
 
 «DEFINE execCommandMethods(GUIModel model) FOR Menu-»
+«IF this.eventHandler != null-»
 «EXPAND execCommandMethods(model, null, null, null) FOR this.eventHandler-»
+«ENDIF-»
+«EXPAND execCommandMethods(model) FOREACH  this.submenu-»
 «ENDDEFINE»
 
 
