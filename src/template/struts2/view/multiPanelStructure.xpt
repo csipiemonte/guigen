@@ -1,0 +1,29 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+
+
+
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels»
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	listaMultiPanels.add("«getFullID(contextPrefix)»");
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	listaMultiPanels.add("«getFullID(contextPrefix)»");
+«ENDDEFINE»
+
+«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	listaMultiPanels.add("«getFullID(contextPrefix)»");
+«ENDDEFINE»
+
+

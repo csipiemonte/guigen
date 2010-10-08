@@ -355,6 +355,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	«EXPAND provideWidgetsStatus FOR this»
 	«EXPAND setWidgetsOnOffStatus FOR this»
 	«EXPAND setWidgetsVisibilityStatus FOR this»
+	«EXPAND provideMultiPanelStatus FOR this»
 	«ENDIF-»
 
 	/**
@@ -500,6 +501,20 @@ menuMap.add(«topLevelMenu.name»Menu);
 		List<WidgetsStructure> widgets = new ArrayList<WidgetsStructure>();
 		for (String widget : listaWidgets) {
 			widgets.add(new WidgetsStructure(widget, isWidgetVisible(cpName, widget), isWidgetDisabled(cpName,widget)));
+		}
+		return widgets;
+	}
+«ENDDEFINE»
+
+«DEFINE provideMultiPanelStatus FOR GUIModel»
+	/**
+	 * restituisce i pannelli attivi nel contentPanel
+	 */
+	protected List<MultiPanelStructure> getMultiPanelStatus(
+			List<String> listaMultiPanel, String cpName) {
+		List<MultiPanelStructure> widgets = new ArrayList<MultiPanelStructure>();
+		for (String panel : listaMultiPanel) {
+			widgets.add(new MultiPanelStructure(panel, (String) session.get(cpName+"_"+panel+"_selectedMultiPanel")));
 		}
 		return widgets;
 	}

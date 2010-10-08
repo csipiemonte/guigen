@@ -160,10 +160,12 @@
 	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
 		// costruzione struttura dati di 1° livello (esclusi gli appdata di tipo collection)
 		Object dataToProvide = toModel();
-		Map cpData = new HashMap<String, Object>();
+		Map<String, Object> cpData = new HashMap<String, Object>();
 		cpData.put("cpData", dataToProvide);
 		cpData.put("menuStatus", getMenuStatus());
 		cpData.put("widgetsStatus", getWidgetsStatus(getListaWidgets(), "«this.name»"));
+		cpData.put("multiPanelStatus", getMultiPanelStatus(getListaMultiPanels(), "«this.name»"));
+		
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
 		String response = serializer.exclude("*.class", "*.session" «EXPAND jsonExcludeAppdata FOREACH this.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(cpData);
@@ -211,15 +213,19 @@
 	public void setShowWidget(String showWidget) {
 		this.showWidget = showWidget;
 	}
-
+	//***setta in sessione lo stato di abilitazione disabilitazione dei widgets
 	public void execSetWidgetsOnOffStatus() throws CommandExecutionException{
 		
 		super.setWidgetsOnOffStatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
 	}
-	
+	//***setta in sessione lo stato di visibilità dei widgets
 	public void execSetWidgetsVisibilityStatus() throws CommandExecutionException{
 		
 		super.setWidgetsVisibilitytatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
+	}
+	//***setta in sessione il tab corrente
+	public void execChangeTab() {
+		session.put(selectedTabKey, selectedTabValue);
 	}
 «ENDDEFINE»
 

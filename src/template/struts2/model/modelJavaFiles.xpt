@@ -249,6 +249,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaT
 «DEFINE baseActionModelfile(GUIModel model) FOR GUIModel»
 «EXPAND widgetsStructurefile(model) FOR model»
 «EXPAND menuStructurefile(model) FOR model»
+«EXPAND multiPanelStructure(model) FOR model»
 «FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
 
 import java.util.Map;
@@ -309,6 +310,34 @@ public abstract class BaseSessionAwareDTO implements java.io.Serializable {
 
 		sb.append("}\n");
 		return sb.toString();
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE multiPanelStructure(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/MultiPanelStructure.java"»package «getDTOBaseJavaPackage()»;
+public class MultiPanelStructure implements java.io.Serializable{
+	private String selectedPanelKey;
+	private String selectedPanelValue;
+	public String getSelectedPanelKey() {
+		return selectedPanelKey;
+	}
+	public void setSelectedPanelKey(String selectedPanelKey) {
+		this.selectedPanelKey = selectedPanelKey;
+	}
+	public String getSelectedPanelValue() {
+		return selectedPanelValue;
+	}
+	public void setSelectedPanelValue(String selectedPanelValue) {
+		this.selectedPanelValue = selectedPanelValue;
+	}
+	public MultiPanelStructure() {
+	}
+	public MultiPanelStructure(String selectedPanelKey,
+			String selectedPanelValue) {
+		this.selectedPanelKey = selectedPanelKey;
+		this.selectedPanelValue = selectedPanelValue;
 	}
 }
 «ENDFILE»
