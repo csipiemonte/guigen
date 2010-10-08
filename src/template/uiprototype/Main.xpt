@@ -18,7 +18,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>testweb 20</title>
+  <title>FatClientPrototype</title>
 
   
 <!-- inserimento risorse extjs -->
@@ -50,7 +50,7 @@
 
 <script type="text/javascript" src="ext-csi/tree-state/TreePanelStatefull_plugin.js"></script>
 
-<script type="text/javascript" src="ext-csi/core/core.js"></script>
+<script type="text/javascript" src="ext-csi-mdd/core/core.js"></script>
 <script type="text/javascript" src="fatclient-prototype.js"></script>
   
  </head>
@@ -134,12 +134,12 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 		{
 			name: '«name»',	
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-			dataUrl: '«getWebDir(model)»/«getDataDir()»/«getFormDataProviderMethodName()».html',
+			dataUrl: '«getDataDir()»/«getFormDataProviderMethodName()».txt',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );
-«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".html"»
+«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"»
     struttura json ContentPanel 
 «ENDFILE»	
 «ENDDEFINE»

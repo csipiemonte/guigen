@@ -27,6 +27,13 @@
 	<!-- valore di default se non specificato -->
 	<property name="propertiesFile" value="it/csi/mddtools/guigen/workflow/emptyProperties.properties" />
 	
+    <bean class="it.csi.mddtools.guigen.workflow.component.uiprototype.Utility">
+		<modelName value="${model}"/>
+		<targetProjectName value="${targetProjectName}"/>
+		<util value="true"/>
+	</bean>
+	
+	
 	<!-- set up EMF for standalone execution -->
 		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
 		<platformUri value=".." />
@@ -72,6 +79,8 @@
 		<checkFile value="template::${target-platform}::${portal}::Checks" />
 		<emfAllChildrenSlot value="model" />
 	</component>
+	
+ 
 
 	<!--  generate code -->
 	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
@@ -87,6 +96,7 @@
 		</outlet>
 	</component>
 	
+
 	<!-- AOP definition for expand templates -->
 	<component adviceTarget="mygenerator" class="oaw.xpand2.GeneratorAdvice" id="myxptaop">
 		<advices value="template::uiprototype::aop"/>

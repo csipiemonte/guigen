@@ -14,7 +14,7 @@ public class LeggiScriviFile {
 	
 	
 	private static String file = "D://mddsvil//galileo-mddtools//eclipse//workspace//Test//ext-csi-mdd//core//core.js";
-	public StringBuffer openFile(String fileName)
+	public static StringBuffer openFile(String fileName)
 	{
 		StringBuffer ilFile = new StringBuffer();
 
@@ -43,7 +43,7 @@ public class LeggiScriviFile {
 
 	} 
 
-	public boolean saveFile(String fileName, String fileString)
+	public static boolean saveFile(String fileName, String fileString)
 	{PrintWriter out;
 	  try
 	  {
@@ -69,16 +69,17 @@ public class LeggiScriviFile {
 	return true;
 	}
 	
-	public void replaceText(){
-		String s=openFile(file).toString();
+	public static void replaceText(String fileReplace){
+	 
+		String s=openFile(fileReplace).toString();
 		s=s.replaceAll("method : 'POST',","method : 'GET',");	
-		saveFile(file,s);
+		saveFile(fileReplace,s);
 	}
 	
 	
 	public static void main(String[] args) {
 		LeggiScriviFile ls= new LeggiScriviFile();
-		ls.replaceText();
+		ls.replaceText(file);
 		
 		
 		
