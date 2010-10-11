@@ -54,10 +54,17 @@
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
 «ENDDEFINE»
 
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSetPanel-»
+	«IF switcher != null»«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR switcher-»«ENDIF»
+«ENDDEFINE»
+
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
 	«EXPAND execCommandMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
 «ENDDEFINE»
 
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSwitcher-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.eventHandlers-»
+«ENDDEFINE»
 
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.eventHandlers-»
