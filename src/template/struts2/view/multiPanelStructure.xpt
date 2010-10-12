@@ -16,14 +16,17 @@
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
 	listaMultiPanels.add("«getFullID(contextPrefix)»");
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
 	listaMultiPanels.add("«getFullID(contextPrefix)»");
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
 	listaMultiPanels.add("«getFullID(contextPrefix)»");
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»
 «ENDDEFINE»
 
 
