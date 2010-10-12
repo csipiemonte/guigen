@@ -55,6 +55,12 @@
 «ENDDEFINE»
 
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSetPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+	«IF switcher != null»«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR switcher-»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WizardPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
 	«IF switcher != null»«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR switcher-»«ENDIF»
 «ENDDEFINE»
 
