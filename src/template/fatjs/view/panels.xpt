@@ -93,7 +93,7 @@
 			new ExtCsi.ui.panels.WizardPanel(
 				{
 					«EXPAND panelCommonProperties(model) FOR this»,
-					switcher: «EXPAND widgets::widgetStruct(model, cp) FOR switcher»,
+					switcher: «IF switcher != null»«EXPAND widgets::widgetStruct(model, cp) FOR switcher»«ELSE»null«ENDIF»,
 					panels: [«EXPAND panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
 				}
 			)
