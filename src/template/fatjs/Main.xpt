@@ -103,10 +103,22 @@ globalRegistry.registerObject('«getRegistryID(this)»',
 			name: '«name»',	
 			dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
 			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+			states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
 			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
 			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 		}
 	)
 );
 «ENDDEFINE»
+
+«DEFINE screenState(GUIModel model, ContentPanel cp) FOR ScreenState»
+	new ExtCsi.ui.state.ScreenState(
+		{
+			name: «this.name»,
+			widgetsOn: [«FOREACH widgetsOn AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»],
+			widgetsVisible: [«FOREACH widgetsVisible AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+		}
+	)
+«ENDDEFINE»
+
 
