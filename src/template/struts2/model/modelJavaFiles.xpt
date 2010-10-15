@@ -516,6 +516,22 @@ public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionA
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
 	«ENDIF-»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	//***lista delle tabelle che hanno clearStatus settato a true
+	public List<String> listaClearStatus;
+
+	public List<String> getListaClearStatus() {
+		listaClearStatus = new ArrayList<String>();
+		Boolean cleared = null;
+		«EXPAND template::struts2::view::panelsStructure::clearStatusTable(this, "") FOR panels»
+		return listaClearStatus;
+	}
+
+	public void setListaClearStatus(List<String> listaClearStatus) {
+		this.listaClearStatus = listaClearStatus;
+	}
+	«ENDIF-»
 }
 «ENDFILE»
 «ENDDEFINE»
