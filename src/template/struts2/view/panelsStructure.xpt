@@ -6,7 +6,7 @@
 
 
 
-
+«REM»metodi per reperire la lista dei widget presenti nel content panel«ENDREM»
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
 «ENDDEFINE»
 
@@ -47,4 +47,35 @@
 	«EXPAND panelsStructure::panelStruct(model, cp, contextPrefix) FOR panel»
 «ENDDEFINE»
 
+
+«REM»metodi per reperire la lista delle tabelle che hanno il clear status impostato«ENDREM»
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND clearStatusTable(cp, contextPrefix) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND clearStatusTable(cp, contextPrefix) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR PanelDefUse»
+	«EXPAND clearStatusTable(cp, getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
+	«FOREACH this.widgets.typeSelect(Table) AS currTable»
+    	«EXPAND clearStatusTable(cp, contextPrefix) FOR currTable-»
+    «ENDFOREACH»
+«ENDDEFINE»
+
+
+
+«DEFINE clearStatusTable(ContentPanel cp, String contextPrefix) FOR Table»
+    cleared = (Boolean) getSession().get("«cp.name»_«getFullID(this, contextPrefix)»_clearStatus");
+    if(cleared != null && cleared){
+    	listaClearStatus.add("«cp.name»-«getFullID(this, contextPrefix)»");
+    }
+«ENDDEFINE»
 
