@@ -114,3 +114,38 @@ new ExtCsi.ui.event.EventHandler(
 		}
 	)
 «ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR BeginEditCommand»
+	new ExtCsi.cmd.BeginEditCommand(
+		{
+			dataEdited: [«EXPAND databinding FOREACH dataEdited SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR EndEditCommand»
+	new ExtCsi.cmd.EndEditCommand(
+		{
+			undo: «undo»,
+			dataEdited: [«EXPAND databinding FOREACH dataEdited SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ChkEditStatusCommand»
+	new ExtCsi.cmd.ChkEditStatusCommand(
+		{
+			doIfChanged: «EXPAND cmdOutcome(model, cp) FOR doIfChanged»,
+			doIfNotChanged: «EXPAND cmdOutcome(model, cp) FOR doIfNotChanged»,
+			dataEdited: [«EXPAND databinding FOREACH dataChecked SEPARATOR ","»]
+		}
+	)
+«ENDDEFINE»
+
+
+
+«DEFINE databinding FOR ApplicationData»
+«LET this.eContainer.metaType == AppDataGroup ? this.eContainer : null AS adg-»
+		'«getRegistryID(this, adg)»'
+«ENDLET-»
+«ENDDEFINE»

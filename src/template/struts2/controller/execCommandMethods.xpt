@@ -30,6 +30,7 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	
 	«EXPAND execCommandMethods(model, this, "", null) FOR this.panels-»
+	«EXPAND execCommandMethods(model, this, "", null) FOREACH this.dialogs-»
 	«IF this.onRefreshCommand != null»
 	«EXPAND execCommandMethods(model, this, "", null) FOR this.onRefreshCommand-»
 	«ENDIF»
@@ -79,6 +80,10 @@
 
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EventHandler-»
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR DialogPanel»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR commands»
 «ENDDEFINE»
 
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Command-»
