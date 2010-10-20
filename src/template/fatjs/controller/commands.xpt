@@ -118,7 +118,7 @@ new ExtCsi.ui.event.EventHandler(
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR BeginEditCommand»
 	new ExtCsi.cmd.BeginEditCommand(
 		{
-			dataEdited: [«EXPAND databinding FOREACH dataEdited SEPARATOR ","»]
+			dataEdited: [«EXPAND appDataName FOREACH dataEdited SEPARATOR ","»]
 		}
 	)
 «ENDDEFINE»
@@ -127,7 +127,7 @@ new ExtCsi.ui.event.EventHandler(
 	new ExtCsi.cmd.EndEditCommand(
 		{
 			undo: «undo»,
-			dataEdited: [«EXPAND databinding FOREACH dataEdited SEPARATOR ","»]
+			dataEdited: [«EXPAND appDataName FOREACH dataEdited SEPARATOR ","»]
 		}
 	)
 «ENDDEFINE»
@@ -135,9 +135,10 @@ new ExtCsi.ui.event.EventHandler(
 «DEFINE cmd(GUIModel model, ContentPanel cp) FOR ChkEditStatusCommand»
 	new ExtCsi.cmd.ChkEditStatusCommand(
 		{
+			checkAggregation: '«this.checkAggregation»',
 			doIfChanged: «EXPAND cmdOutcome(model, cp) FOR doIfChanged»,
 			doIfNotChanged: «EXPAND cmdOutcome(model, cp) FOR doIfNotChanged»,
-			dataEdited: [«EXPAND databinding FOREACH dataChecked SEPARATOR ","»]
+			dataChecked: [«EXPAND appDataName FOREACH dataChecked SEPARATOR ","»]
 		}
 	)
 «ENDDEFINE»
@@ -148,4 +149,8 @@ new ExtCsi.ui.event.EventHandler(
 «LET this.eContainer.metaType == AppDataGroup ? this.eContainer : null AS adg-»
 		'«getRegistryID(this, adg)»'
 «ENDLET-»
+«ENDDEFINE»
+
+«DEFINE appDataName FOR ApplicationData»
+	'appData«this.name»'
 «ENDDEFINE»

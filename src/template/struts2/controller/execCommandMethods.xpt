@@ -28,7 +28,36 @@
 	/// metodo: exec<methodName>
 	/// es: execSalvaPersona
 	//////////////////////////////////////////////////////////////////////////////////
-	
+	/*
+	 * variabile postata da fatclient se ho un beginEdit oppure un endEdit Command
+	 */
+	private String dataEdited[];
+	public String[] getDataEdited() {
+		return dataEdited;
+	}
+	public void setDataEdited(String[] dataEdited) {
+		this.dataEdited = dataEdited;
+	}
+	/*
+	 * variabile postata da fatclient se ho un endEdit command
+	 */
+	private boolean undoEditCommand;
+	public boolean isUndoEditCommand() {
+		return undoEditCommand;
+	}
+	public void setUndoEditCommand(boolean undoEditCommand) {
+		this.undoEditCommand = undoEditCommand;
+	}
+	/*
+	 * variabile postata da fatclient se ho un chkEdit command
+	 */
+	private String checkAggregation;
+	public String getCheckAggregation() {
+		return checkAggregation;
+	}
+	public void setCheckAggregation(String checkAggregation) {
+		this.checkAggregation = checkAggregation;
+	}
 	«EXPAND execCommandMethods(model, this, "", null) FOR this.panels-»
 	«EXPAND execCommandMethods(model, this, "", null) FOREACH this.dialogs-»
 	«IF this.onRefreshCommand != null»
@@ -93,11 +122,6 @@
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.commands-»
 «ENDDEFINE»
 
-«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ChkEditStatusCommand-»
-	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.doIfChanged-»
-	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.doIfNotChanged-»
-«ENDDEFINE»
-
 «DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandOutcome-»
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
 «ENDDEFINE»
@@ -107,6 +131,108 @@
 	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.results-»
 «ENDDEFINE»
 
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR BeginEditCommand-»
+	/// Begin Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando BeginEditCommand da un fatclient
+	 */
+	@SkipValidation
+	public String execBeginEditCommand() throws CommandExecutionException{
+		BeginEditCommand beginEditCommand = new BeginEditCommand(this.dataEdited);
+		beginEditCommand.doCommand(this);
+		
+		ExecResults result = new ExecResults();
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// Begin Edit Command end - fatclient
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EndEditCommand-»
+	/// End Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando EndEditCommand da un fatclient
+	 */
+	@SkipValidation
+	public String execEndEditCommand() throws CommandExecutionException{
+		EndEditCommand endEditCommand = new EndEditCommand(
+				this.dataEdited, this.undoEditCommand);
+		endEditCommand.doCommand(this);
+		
+		ExecResults result = new ExecResults();
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// End Edit Command end - fatclient
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ChkEditStatusCommand-»
+	/// Chk Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando ChkEditCommand da un fatclient
+	 */
+	@SkipValidation
+	public String execChkEditCommand() throws CommandExecutionException{
+		ChkEditStatusCommand chkEditCommand = new ChkEditStatusCommand(
+				this.dataEdited, this.checkAggregation,
+				null,
+				null);
+		boolean changed = chkEditCommand.checkAppdata4Changes(this.dataEdited, this.checkAggregation, this);
+		
+		ExecResults result = new ExecResults();
+		if (changed){
+			result.setResultCode("«this.doIfChanged.resultCode»");
+		}else{
+			result.setResultCode("«this.doIfNotChanged.resultCode»");
+		}
+		
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// Chk Edit Command end - fatclient
+«ENDDEFINE»
 
 «DEFINE execCommandMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
 	/**
