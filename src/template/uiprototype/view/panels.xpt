@@ -3,6 +3,7 @@
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::fatjs::FatJSExtensions»
+«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
 
 
 
@@ -17,6 +18,10 @@
 					panels: [«EXPAND template::fatjs::view::panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
 				}
 			)
+			
+«FILE getWebDir(model)+cp.name+"!execChangeTab.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»			
 «ENDDEFINE»
 
 

@@ -23,7 +23,7 @@ Combobox di esempio
 				}
 			)
 «FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»
-    struttura json widgetStruct 
+   
 «ENDFILE»			
 «ENDDEFINE»
 
@@ -53,20 +53,54 @@ Combobox di esempio
 						}
 						)
 «FILE getWebDir(model)+getDataDir()+"/"+cp.name+table.name+".txt"»
-    struttura json column
+
 «ENDFILE»						
+«ENDDEFINE»
+
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
+			new ExtCsi.ui.widgets.ComboBox(
+				{
+					«EXPAND template::fatjs::view::widgets::widgetCommonProperties(model) FOR this»,
+					keySelector: «jsLiteralValue(keySelector)»,
+					valueSelector: «jsLiteralValue(valueSelector)»,
+					«EXPAND template::fatjs::view::widgets::dataWidgetProperties(model) FOR this»,
+					«EXPAND template::uiprototype::view::widgets::multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
+				}
+			)
+			
+«REM»creo dati fittizi x combo in formato JSON
+«ENDREM»
+	«EXPAND creaDataStructureJson(model,cp) FOR this»		
+
 «ENDDEFINE»
 
 
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND template::fatjs::view::widgets::databinding FOR this.multiDataBinding»,
-					dataUrl: '«getDataDir()»/«cp.name».txt'
+					dataUrl: '«getDataDir()»/«this.name».txt'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+".txt"»
-    struttura json multidataWidgetProperties
+
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»
+
+«ENDFILE»	
+
+«ENDDEFINE»
+
+
+
+«DEFINE creaDataStructureJson(GUIModel model, ContentPanel cp) FOR ComboBox-»
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»
+  «IF this.metaType == ComboBox -»
+     	 [     	 
+		«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','»
+			{«jsLiteralValue(keySelector)» : «iter.counter1»,«jsLiteralValue(valueSelector)»: "«c»"}
+		«ENDFOREACH» 
+		]
+	«ENDIF-» 
 «ENDFILE»	
 «ENDDEFINE»
 

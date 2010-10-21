@@ -20,3 +20,23 @@
     {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
 «ENDFILE»
 «ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand»
+	new ExtCsi.cmd.VisibilityCommand({
+		show: «this.show»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«FILE getWebDir(model)+cp.name+"!execSetWidgetsVisibilityStatus.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»	
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
+	new ExtCsi.cmd.ONOFFCommand({
+		enable: «this.enable»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«FILE getWebDir(model)+cp.name+"!execSetWidgetsOnOffStatus.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»		
+«ENDDEFINE»
