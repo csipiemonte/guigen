@@ -738,7 +738,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.5">
+        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.15">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test States">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -956,13 +956,20 @@
                 </widgets>
                 <widgets xsi:type="guigen:ConfirmButton" name="cbSalva" label="Salva">
                   <eventHandlers>
-                    <command xsi:type="guigen:ChkEditStatusCommand" dataChecked="//@appDataDefs/@groups.0/@appData.15">
-                      <doIfChanged resultCode="Ok">
-                        <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
-                      </doIfChanged>
-                      <doIfNotChanged resultCode="Ko">
-                        <command xsi:type="guigen:NOPCommand"/>
-                      </doIfNotChanged>
+                    <command xsi:type="guigen:SequenceCommand">
+                      <commands xsi:type="guigen:ChkEditStatusCommand" dataChecked="//@appDataDefs/@groups.0/@appData.15">
+                        <doIfChanged resultCode="Ok">
+                          <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
+                        </doIfChanged>
+                        <doIfNotChanged resultCode="Ko">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </doIfNotChanged>
+                      </commands>
+                      <commands xsi:type="guigen:ExecCommand" methodName="salvaCittadino">
+                        <results resultCode="Salvato">
+                          <command xsi:type="guigen:NOPCommand"/>
+                        </results>
+                      </commands>
                     </command>
                   </eventHandlers>
                 </widgets>

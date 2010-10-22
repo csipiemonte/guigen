@@ -537,7 +537,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.3 //@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.7">
+        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.4 //@appDataDefs/@appData.6 //@appDataDefs/@appData.5 //@appDataDefs/@appData.3 //@appDataDefs/@appData.0 //@appDataDefs/@appData.1 //@appDataDefs/@appData.2 //@appDataDefs/@appData.7 //@appDataDefs/@appData.8">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test States">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pLeft">
@@ -567,8 +567,26 @@
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2" label="widgets 2">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:PlainText" name="txtFisso2" dataType="//@typedefs/@types.7" staticText="primo pannello"/>
-                    <widgets xsi:type="guigen:TextField" name="tfData" label="data robusta:" dataTypeModifier="format:gg/mm/aaaa" dataType="//@typedefs/@types.3"/>
+                    <widgets xsi:type="guigen:Table" name="tblComuniBis" label="" dataType="//@typedefs/@types.7" pageSize="3" customDecorator="true">
+                      <eventHandlers skipValidation="true">
+                        <command xsi:type="guigen:ExecCommand" methodName="onTableClick">
+                          <results resultCode="Ok">
+                            <command xsi:type="guigen:ShowDialogCommand" dialog="//@structure/@appWindow/@appArea/@contentPanels.4/@dialogs.0"/>
+                          </results>
+                        </command>
+                      </eventHandlers>
+                      <databinding appData="//@appDataDefs/@appData.8"/>
+                      <multiDataBinding appData="//@appDataDefs/@appData.3"/>
+                      <columnModel valueSelector="codIstat">
+                        <columns selector="codIstat" label="codIstat" sortable="true" tooltip="Il codice ISTAT del comune"/>
+                        <columns selector="nome" label="nome" sortable="true" eventActive="true" tooltip="Il nome con cui il comune è iscritto all'anagrafe dei comuni"/>
+                        <columns selector="capoluogo" label="capoluogo?" tooltip="Capoluogo di provincia del comune"/>
+                        <columns selector="popolazione" label="popolazione" tooltip="La popolazione del comune"/>
+                        <columns selector="popolazioneEditabile" label="pop editabile?" tooltip="A seconda del valore di questo check la riga sarà editabile o meno"/>
+                        <columns selector="codIstatGemellato" label="gemellato" multidataValueSelector=""/>
+                        <columns selector="codViaPrincipale" label="Via princ" multidataKeySelector="" multidataPropertySelector="" tooltip="La via principale del comune. Selezionare dalla lista"/>
+                      </columnModel>
+                    </widgets>
                   </subpanels>
                 </panels>
               </subpanels>
@@ -584,9 +602,14 @@
                     <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@subpanels.1" activeItem="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@subpanels.1/@panels.0"/>
                   </eventHandlers>
                 </widgets>
-                <widgets xsi:type="guigen:ConfirmButton" name="bShow2" label="mostra pannello 2">
+                <widgets xsi:type="guigen:ConfirmButton" name="bShow2" label="Mostra pannello 2">
                   <eventHandlers>
                     <command xsi:type="guigen:ActivateMultiPanelItemCommand" multipanel="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@subpanels.1" activeItem="//@structure/@appWindow/@appArea/@contentPanels.4/@panels/@subpanels.1/@subpanels.1/@panels.1"/>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:ConfirmButton" name="bShow3" label="Apri dialog">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ShowDialogCommand" dialog="//@structure/@appWindow/@appArea/@contentPanels.4/@dialogs.0"/>
                   </eventHandlers>
                 </widgets>
               </subpanels>
@@ -596,6 +619,31 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
             </subpanels>
           </panels>
+          <onRefreshCommand xsi:type="guigen:ExecCommand" methodName="caricaTabellaComuni">
+            <results resultCode="Ok">
+              <command xsi:type="guigen:NOPCommand"/>
+            </results>
+          </onRefreshCommand>
+          <dialogs name="dialog_prova" label="Dialog prova">
+            <commands name="cmdPdg">
+              <layout xsi:type="guigen:UDLRCPanelLayout"/>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbVHome" label="Vai alla home">
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </eventHandlers>
+              </widgets>
+              <widgets xsi:type="guigen:ConfirmButton" name="cbVHome1" label="Annulla">
+                <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="RIGHT"/>
+                <eventHandlers>
+                  <command xsi:type="guigen:NOPCommand"/>
+                </eventHandlers>
+              </widgets>
+            </commands>
+            <msgBoxes name="msgdl" label="Prova di dialog">
+              <textMessages name="ptMessDp" label="Messaggio" dataType="//@typedefs/@types.7" staticText="Questo è il messaggio del dialog"/>
+            </msgBoxes>
+          </dialogs>
         </contentPanels>
         <contentPanels name="cpSuggestion" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@appData.3">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Funzionalità di suggestion">
