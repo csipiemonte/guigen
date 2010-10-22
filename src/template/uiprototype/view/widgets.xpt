@@ -28,6 +28,18 @@ Combobox di esempio
 «ENDDEFINE»
 
 
+«DEFINE colModel(GUIModel model, Table table, ContentPanel cp) FOR ColumnModel»
+					columnModel: new ExtCsi.ui.widgets.table.ColumnModel(
+					{
+						valueSelector: «jsLiteralValue(valueSelector)», 
+						columns: [«EXPAND template::uiprototype::view::widgets::column(table, cp,model) FOREACH this.columns SEPARATOR ","-»]
+					}
+			)	
+
+«FILE getWebDir(model)+getDataDir()+"/"+table.name+".txt"-»{"clearStatus":false,"elenco":[«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','-»
+{«EXPAND columnJson(table, cp,model,iter.counter1) FOREACH this.columns SEPARATOR ","-»}«ENDFOREACH»],"numtot":9,"positions":[]} «ENDFILE»«ENDDEFINE»«DEFINE columnJson(Table table, ContentPanel cp,GUIModel model,Integer iter) FOR Column-»"«selector»" : "DATO_«this.selector»_«iter»"«ENDDEFINE»
+
+
 «DEFINE column(Table table, ContentPanel cp,GUIModel model) FOR Column»
 						new ExtCsi.ui.widgets.table.Column(
 						{
@@ -52,9 +64,7 @@ Combobox di esempio
 							eventActive: «jsLiteralValue(this.eventActive)»
 						}
 						)
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+table.name+".txt"»
-
-«ENDFILE»						
+						
 «ENDDEFINE»
 
 «DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
