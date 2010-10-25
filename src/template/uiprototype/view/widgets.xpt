@@ -22,9 +22,7 @@ Combobox di esempio
 					«EXPAND template::fatjs::view::widgets::eventHandlers(model, cp) FOR this»
 				}
 			)
-«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»
-   
-«ENDFILE»			
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"uno.txt"»«ENDFILE»			
 «ENDDEFINE»
 
 
@@ -109,22 +107,12 @@ Combobox di esempio
 					multiDataBinding: null
 	«ENDIF-»
 
-«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»
-
-«ENDFILE»	
-
-«ENDDEFINE»
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»«ENDFILE»«ENDDEFINE»
 
 
 
 «DEFINE creaDataStructureJson(GUIModel model, ContentPanel cp) FOR ComboBox-»
-«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"»
-     	 [     	 
-		«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','»
-			{«jsLiteralValue(keySelector)» : «iter.counter1»,«jsLiteralValue(valueSelector)»: "«c»"}
-		«ENDFOREACH» 
-		] 
-«ENDFILE»	
+«FILE getWebDir(model)+getDataDir()+"/"+this.name+".txt"-»[«FOREACH {'DATO 1','DATO 2','DATO 3','DATO 4','DATO 5','DATO 6','DATO 7','DATO 8','DATO 9'} AS c ITERATOR iter SEPARATOR ','»{"«keySelector»" : «iter.counter1»,"«valueSelector»": "«c»"}«ENDFOREACH»]«ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE creaDataStructureJson(GUIModel model, ContentPanel cp) FOR TreeView-»

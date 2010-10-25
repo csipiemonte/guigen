@@ -40,3 +40,17 @@
     {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
 «ENDFILE»		
 «ENDDEFINE»
+
+«DEFINE eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
+new ExtCsi.ui.event.EventHandler(
+{
+	eventType: ExtCsi.ui.event.EventTypes().«eventType»,
+	skipValidation: «jsLiteralValue(this.skipValidation)»,
+	methodProtection: ExtCsi.ui.event.MethodProtectionTypes().«this.methodProtection»,
+	command: «EXPAND template::fatjs::controller::commands::cmd(model, cp) FOR this.command»
+}
+)
+«FILE getWebDir(model)+cp.name+"!execPostEvtHandler.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»	
+«ENDDEFINE»
