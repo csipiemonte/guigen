@@ -92,7 +92,11 @@ var appArea = new ExtCsi.app.ApplicationArea(
 );
 
 «LET this.getAllContentPanels() AS allCP»
-«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP»
+ExtCsi.app.ContentPanels = function() {
+	return {
+«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","»
+	}
+}();
 «ENDLET»
 Ext.onReady( function() { 
 	appArea.init();
@@ -128,17 +132,18 @@ Ext.onReady( function() {
 /**
  * struttura del content panel «this.name»
  */ 
- 
-globalRegistry.registerObject('«getRegistryID(this)»', 
-	new ExtCsi.ui.panels.ContentPanel(
-		{
-			name: '«name»',	
-			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-			dataUrl: '«getDataDir()»/«getFormDataProviderMethodName()».txt',
-			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
-		}
-	)
-);
+«name» : function() {
+	globalRegistry.registerObject('«getRegistryID(this)»', 
+		new ExtCsi.ui.panels.ContentPanel(
+			{
+				name: '«name»',	
+				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+				dataUrl: '«getDataDir()»/«getFormDataProviderMethodName()».txt',
+				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+			}
+		)
+	);
+}
 «FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"»
 
 «ENDFILE»	
