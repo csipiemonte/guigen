@@ -60,7 +60,11 @@ var appArea = new ExtCsi.app.ApplicationArea(
 );
 
 «LET this.getAllContentPanels() AS allCP»
-«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP»
+ExtCsi.app.ContentPanels = function() {
+	return {
+«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","»
+	}
+}();
 «ENDLET»
 Ext.onReady( function() { 
 	appArea.init();
@@ -96,19 +100,20 @@ Ext.onReady( function() {
 /**
  * struttura del content panel «this.name»
  */ 
- 
-globalRegistry.registerObject('«getRegistryID(this)»', 
-	new ExtCsi.ui.panels.ContentPanel(
-		{
-			name: '«name»',	
-			dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
-			panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-			states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
-			dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
-			onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
-		}
-	)
-);
+«name» : function() {
+	globalRegistry.registerObject('«getRegistryID(this)»', 
+		new ExtCsi.ui.panels.ContentPanel(
+			{
+				name: '«name»',	
+				dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
+				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
+				states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
+				dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
+				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+			}
+		)
+	);
+}
 «ENDDEFINE»
 
 «DEFINE screenState(GUIModel model, ContentPanel cp) FOR ScreenState»
