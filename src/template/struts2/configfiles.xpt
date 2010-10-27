@@ -414,6 +414,12 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
 				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
 			</interceptor>
+			«IF targetPlatform.enableFatClient-»
+			<interceptor name="preserveUpload" class="«getInterceptorsJavaPackage(this)».PreserveUploadInterceptor">
+				<param name="startMethod">execStartUploadFile</param>
+				<param name="endMethod">execEndUploadFile</param>
+			</interceptor>
+			«ENDIF-»
 			
 			<interceptor-stack name="jsp-stack">
 				<interceptor-ref name="exception" />
@@ -424,6 +430,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
 				<interceptor-ref name="fileUpload"/>
+				«IF targetPlatform.enableFatClient-»
+				<interceptor-ref name="preserveUpload"/>
+				«ENDIF-»
 				<interceptor-ref name="params" />
 				<interceptor-ref name="conversionError"/>
 				<interceptor-ref name="prepare" />
@@ -442,6 +451,14 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
 			<result name="provideData" type="stream">
   				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+			«ENDIF-»
+			«IF targetPlatform.enableFatClient-»
+			<result name="provideHtml" type="stream">
+  				<param name="contentType">text/html;charset=iso-8859-1</param>
   				<param name="inputName">dataProviderStream</param>
   				<param name="bufferSize">1024</param>
   				<param name="allowCaching">false</param>

@@ -15,6 +15,7 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 «DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
 	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 «DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
@@ -273,3 +274,117 @@ public class TableSelectionInterceptor implements Interceptor {
 }
 «ENDFILE»
 «ENDDEFINE»
+
+«DEFINE preserveUploadInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/PreserveUploadInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+
+
+/**
+ * PreserveUploadInterceptor Interceptor Class.
+ * 
+ * @author GuiGen
+ */
+public class PreserveUploadInterceptor extends AbstractInterceptor {
+
+	protected String startMethod;
+	protected String endMethod;
+
+	public void setStartMethod(String startMethod) {
+		this.startMethod = startMethod;
+	}
+
+	public void setEndMethod(String endMethod) {
+		this.endMethod = endMethod;
+	}
+
+	protected static final Logger log = Logger.getLogger(PreserveUploadInterceptor.class);
+	
+	@SuppressWarnings("unchecked")
+	public String intercept(ActionInvocation invocation) throws Exception {
+		ActionContext ac = invocation.getInvocationContext();
+		HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
+
+		String methodName = invocation.getProxy().getMethod();
+		Map session = ac.getSession();
+		
+		/*
+		 * se ho il metodo implicito
+		 */
+		if (methodName.equalsIgnoreCase(startMethod)) {
+			MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) request;
+			Enumeration fileParameterNames = multiWrapper
+					.getFileParameterNames();
+			while (fileParameterNames != null
+					&& fileParameterNames.hasMoreElements()) {
+
+				String inputName = (String) fileParameterNames.nextElement();
+				String contentTypeName = inputName + "ContentType";
+				String fileNameName = inputName + "FileName";
+
+				File[] files = multiWrapper.getFiles(inputName);
+				Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+
+				String newInputName = files[0].getCanonicalPath().replace("upload_", "upload_fatclient_");
+				File newFile = new File(newInputName);
+
+				// ***mantengo i files uploadati
+				InputStream in = new FileInputStream(files[0]);
+				OutputStream out = new FileOutputStream(newFile);
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				if(log.isDebugEnabled()){
+					log.debug("Copiato file: "+files[0].getCanonicalPath()+" in "+newFile.getCanonicalPath());
+				}
+
+				session.put(inputName+"_FileUpl", newInputName);
+				session.put(contentTypeName, ((String[]) params.get(contentTypeName))[0]);
+				session.put(fileNameName, ((String[]) params.get(fileNameName))[0]);
+
+			}
+		}
+
+		if(methodName.equalsIgnoreCase(endMethod)){
+			Set<String> keys = session.keySet();
+			for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
+				String key = iterator.next();
+
+				if (key.endsWith("_FileUpl") || key.endsWith("ContentType") || key.endsWith("FileName") ) {
+
+					iterator.remove();
+
+				}
+			}
+
+		}
+
+		return invocation.invoke();
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+

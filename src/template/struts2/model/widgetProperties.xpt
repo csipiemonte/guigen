@@ -140,24 +140,48 @@
 	public void set«name.toFirstUpper()»(File value) {
 		_«name» = value;
 	}
-	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
 	public File get«name.toFirstUpper()»() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(_«name» == null){
+			String pathFile = (String) session.get("«name»_FileUpl");
+			if(pathFile != null){
+				_«name» = new File(pathFile);
+			}
+		}
+		«ENDIF-»
 		return _«name»;
 	}
 
 	public void set«name.toFirstUpper()»ContentType(String value) {
 		_«name»ContentType = value;
 	}
-	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
 	public String get«name.toFirstUpper()»ContentType() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(_«name»ContentType == null){
+			return (String) session .get("«name»ContentType");
+		}
+		«ENDIF-»
 		return _«name»ContentType;
 	}
 
 	public void set«name.toFirstUpper()»FileName(String value) {
 		_«name»FileName = value;
 	}
-	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+	«ENDIF-»
 	public String get«name.toFirstUpper()»FileName() {
+		«IF model.targetPlatform.enableFatClient-»
+		if(_«name»FileName == null){
+			return (String) session.get("«name»FileName");
+		}
+		«ENDIF-»
 		return _«name»FileName;
 	}
 «ENDDEFINE»
