@@ -298,7 +298,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
 
-
 /**
  * PreserveUploadInterceptor Interceptor Class.
  * 
@@ -317,16 +316,18 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 		this.endMethod = endMethod;
 	}
 
-	protected static final Logger log = Logger.getLogger(PreserveUploadInterceptor.class);
-	
+	protected static final Logger log = Logger
+			.getLogger(PreserveUploadInterceptor.class);
+
 	@SuppressWarnings("unchecked")
 	public String intercept(ActionInvocation invocation) throws Exception {
 		ActionContext ac = invocation.getInvocationContext();
-		HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
+		HttpServletRequest request = (HttpServletRequest) ac
+				.get(ServletActionContext.HTTP_REQUEST);
 
 		String methodName = invocation.getProxy().getMethod();
 		Map session = ac.getSession();
-		
+
 		/*
 		 * se ho il metodo implicito
 		 */
@@ -342,9 +343,11 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 				String fileNameName = inputName + "FileName";
 
 				File[] files = multiWrapper.getFiles(inputName);
-				Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+				Map<String, Object> params = (Map<String, Object>) ActionContext
+						.getContext().getParameters();
 
-				String newInputName = files[0].getCanonicalPath().replace("upload_", "upload_fatclient_");
+				String newInputName = files[0].getCanonicalPath().replace(
+						"upload_", "upload_fatclient_");
 				File newFile = new File(newInputName);
 
 				// ***mantengo i files uploadati
@@ -357,25 +360,42 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 				}
 				in.close();
 				out.close();
-				if(log.isDebugEnabled()){
-					log.debug("Copiato file: "+files[0].getCanonicalPath()+" in "+newFile.getCanonicalPath());
+				if (log.isDebugEnabled()) {
+					log.debug("Copiato file: " + files[0].getCanonicalPath()
+							+ " in " + newFile.getCanonicalPath());
 				}
 
-				session.put(inputName+"_FileUpl", newInputName);
-				session.put(contentTypeName, ((String[]) params.get(contentTypeName))[0]);
-				session.put(fileNameName, ((String[]) params.get(fileNameName))[0]);
+				session.put(inputName + "_FileUpl", newInputName);
+				session.put(contentTypeName, ((String[]) params
+						.get(contentTypeName))[0]);
+				session.put(fileNameName,
+						((String[]) params.get(fileNameName))[0]);
 
 			}
 		}
 
-		if(methodName.equalsIgnoreCase(endMethod)){
+		if (methodName.equalsIgnoreCase(endMethod)) {
 			Set<String> keys = session.keySet();
-			for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
+			for (Iterator<String> iterator = keys.iterator(); iterator
+					.hasNext();) {
 				String key = iterator.next();
 
-				if (key.endsWith("_FileUpl") || key.endsWith("ContentType") || key.endsWith("FileName") ) {
+				if(key.endsWith("_FileUpl")){
+					String pathFile = (String) session.get(key);
+					if (pathFile != null) {
+						File ff = new File(pathFile);
+						if ((ff != null) && ff.isFile()) {
+							if (ff.delete() == false) {
+								log.warn("Resource Leaking:  Could not remove uploaded file '"+ff.getCanonicalPath()+"'.");
+							}
+						}
+					}
+					
+				}
+				if (key.endsWith("_FileUpl") || key.endsWith("ContentType")
+						|| key.endsWith("FileName")) {
 
-					iterator.remove();
+					session.remove(key);
 
 				}
 			}
