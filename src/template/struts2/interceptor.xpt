@@ -15,7 +15,9 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 «DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
 	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
+	«IF targetPlatform.enableFatClient»
 	«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
