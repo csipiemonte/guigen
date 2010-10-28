@@ -222,23 +222,12 @@ Ext.onReady( function() {
 		<resource type="text/css">
 			<position value="ext-all/resources/css/ext-all.css" />
 			<position value="ext-all/resources/css/xtheme-gray.css" />
-			<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
 		</resource>
 		<resource type="text/javascript">
 			<position value="ext-all/adapter/ext/ext-base.js" />
 			<position value="ext-all/ext-all.js" />
 			<position value="ext-csi/util/Format.js" />
 			<position value="ext-csi/locale/ext-lang-it.js" />
-			
-			<position value="ext-csi/table-grid/TableGrid.js" />
-			<position value="ext-csi/miframe/miframe.js" />
-			<position value="ext-csi-enricher/round-corners/RoundCorner.js" />
-			<position value="ext-csi-enricher/enricher/enricher.js" />
-			<position value="ext-csi-enricher/menu/csimenu.js" />
-			<position value="ext-csi-enricher/toggle-panel/toggle.js" />
-			<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
-			<!-- componente js dello skin -->
-			<position value="ris/js/style.js" />
 		</resource>
 	</file>	
 	«LET (List[ContentPanel])getAllContentPanels(this.structure.appWindow.appArea) AS allCP-»
@@ -266,6 +255,7 @@ Ext.onReady( function() {
   			<position value="ext-csi/multiselect/MultiSelect.js" />
   			<position value="ext-csi/multiselect/ItemSelector.js" />
   			<position value="ext-csi/tree-state/TreePanelStatefull_plugin.js" />
+  			<position value="ext-csi/fileuploadfield/FileUploadField.js" />
   			
 			<position value="ext-csi-mdd/core/core.js" />
 			<position value="js/fatclient.js" />
@@ -280,7 +270,19 @@ Ext.onReady( function() {
 «DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
 	<!-- risorse specifiche del ContentPanel [«name»] -->
 	<file page="«name»">
+		<resource type="text/css">
+			<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
+		</resource>
 		<resource type="text/javascript">
+			<position value="ext-csi/table-grid/TableGrid.js" />
+			<position value="ext-csi/miframe/miframe.js" />
+			<position value="ext-csi-enricher/round-corners/RoundCorner.js" />
+			<position value="ext-csi-enricher/enricher/enricher.js" />
+			<position value="ext-csi-enricher/menu/csimenu.js" />
+			<position value="ext-csi-enricher/toggle-panel/toggle.js" />
+			<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
+			<!-- componente js dello skin -->
+			<position value="ris/js/style.js" />
 			<!-- arricchimenti della schermata -->
 			<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
 		</resource>

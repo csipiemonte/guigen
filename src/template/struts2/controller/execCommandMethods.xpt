@@ -137,6 +137,7 @@
 	 * Permette l'esecuzione del comando BeginEditCommand da un fatclient
 	 */
 	@SkipValidation
+	@FatClientOnly
 	public String execBeginEditCommand() throws CommandExecutionException{
 		BeginEditCommand beginEditCommand = new BeginEditCommand(this.dataEdited);
 		beginEditCommand.doCommand(this);
@@ -168,6 +169,7 @@
 	 * Permette l'esecuzione del comando EndEditCommand da un fatclient
 	 */
 	@SkipValidation
+	@FatClientOnly
 	public String execEndEditCommand() throws CommandExecutionException{
 		EndEditCommand endEditCommand = new EndEditCommand(
 				this.dataEdited, this.undoEditCommand);
@@ -200,6 +202,7 @@
 	 * Permette l'esecuzione del comando ChkEditCommand da un fatclient
 	 */
 	@SkipValidation
+	@FatClientOnly
 	public String execChkEditCommand() throws CommandExecutionException{
 		ChkEditStatusCommand chkEditCommand = new ChkEditStatusCommand(
 				this.dataEdited, this.checkAggregation,
@@ -239,7 +242,8 @@
 	 * Permette l'esecuzione del metodo di business [«methodName»] da un fat client
 	 * @return sempre il result "provideData"
 	 */
-	@SkipValidation 
+	@SkipValidation
+	@FatClientOnly
 	public String «getExecCommandMethodName(this, contextPrefix)» () throws CommandExecutionException {
 		
 		// action --> model

@@ -66,6 +66,7 @@
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation 
+	@FatClientOnly
 	public String «getDataProviderMethodName(this, "DATASET", contextPrefix)» () throws CommandExecutionException {
 	«LET multiDataBinding.appData.type AS appdataType-»
 	
@@ -106,7 +107,8 @@
 	 * al multi-data-binding relativo al widget «getFullID(table, contextPrefix)».
 	 * @return sempre il result "provideData"
 	 */
-	@SkipValidation 
+	@SkipValidation
+	@FatClientOnly
 	public String «getDataProviderMethodName(table, this.selector+"_DATASET", contextPrefix)» () throws CommandExecutionException {
 	«LET multiDataBinding.appData.type AS appdataType-»
 	
@@ -157,6 +159,7 @@
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation
+	@FatClientOnly
 	public String «getFormDataProviderMethodName()» () throws CommandExecutionException {
 		// costruzione struttura dati di 1° livello (esclusi gli appdata di tipo collection)
 		Object dataToProvide = toModel();
@@ -213,27 +216,35 @@
 	public void setShowWidget(String showWidget) {
 		this.showWidget = showWidget;
 	}
-	//***setta in sessione lo stato di abilitazione disabilitazione dei widgets
+	//***setta in sessione lo stato di abilitazione disabilitazione dei widget
+	@SkipValidation
+	@FatClientOnly
 	public void execSetWidgetsOnOffStatus() throws CommandExecutionException{
 		
 		super.setWidgetsOnOffStatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(enableWidget).booleanValue());
 	}
 	//***setta in sessione lo stato di visibilità dei widgets
+	@SkipValidation
+	@FatClientOnly
 	public void execSetWidgetsVisibilityStatus() throws CommandExecutionException{
 		
 		super.setWidgetsVisibilitytatus("«this.name»", nomiWidgets.toArray(new String[]{}), Boolean.valueOf(showWidget).booleanValue());
 	}
 	//***setta in sessione il tab corrente
+	@SkipValidation
+	@FatClientOnly
 	public void execChangeTab() {
 		session.put(selectedTabKey, selectedTabValue);
 	}
 	//***metodo fittizio per eseguire un post prima di ogni eventHandler
+	@FatClientOnly
 	public void execPostEvtHandler(){
 		//***post data
 	}
 	//***metodo fittizio per eseguire un post prima di ogni eventHandler
 	//***senza effettuare validazioni
 	@SkipValidation
+	@FatClientOnly
 	public void execPostEvtHandlerNoValidation(){
 		//***post data
 	}

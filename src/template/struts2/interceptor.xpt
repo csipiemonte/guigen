@@ -207,6 +207,21 @@ public @interface MethodProtection {
 
 
 «ENDFILE»
+
+«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientOnly.java"»package «getInterceptorsJavaPackage(this)»;
+
+import static java.lang.annotation.ElementType.METHOD; 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;  
+/**
+ * Marks an Action method to not be validated
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(METHOD)
+public @interface FatClientOnly {
+}
+«ENDFILE»
 «ENDDEFINE»
 
 «REM»comment«ENDREM»
@@ -335,6 +350,19 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 		 */
 		if (methodName.equalsIgnoreCase(startMethod)) {
 			MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) request;
+			
+			Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+			
+			//***sul metodo non ho la validazione per cui se ho errori sul wrapper li ribalto sulla action
+			if (multiWrapper.hasErrors()) {
+				StringBuffer buf = new StringBuffer();
+				for (String error : multiWrapper.getErrors()) {
+					buf.append(error);
+				}
+				params.put(startMethod+"_errors", buf.toString());
+				return invocation.invoke();
+			}
+			
 			Enumeration fileParameterNames = multiWrapper
 					.getFileParameterNames();
 			while (fileParameterNames != null
@@ -345,8 +373,6 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 				String fileNameName = inputName + "FileName";
 
 				File[] files = multiWrapper.getFiles(inputName);
-				Map<String, Object> params = (Map<String, Object>) ActionContext
-						.getContext().getParameters();
 
 				String newInputName = files[0].getCanonicalPath().replace(
 						"upload_", "upload_fatclient_");

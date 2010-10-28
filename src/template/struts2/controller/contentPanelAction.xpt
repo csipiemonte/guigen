@@ -38,6 +38,7 @@ import «getBaseJavaPackage(model)».business.*;
 import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
 
 import «getInterceptorsJavaPackage(model)».MethodProtection;
+import «getInterceptorsJavaPackage(model)».FatClientOnly;
 
 «IF model.targetPlatform.enableRichUIBehavior-»
 import «getUIUtilsJavaPackage(model)».*;
@@ -143,6 +144,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	«IF hasFileUpload(this)»
 	//***metodo per lo start upload dei files solo nel caso di fatclient
 	@SkipValidation
+	@FatClientOnly
 	public String execStartUploadFile() throws CommandExecutionException {
 		
 		String response = "{success:true, file:\"\"}";
@@ -150,8 +152,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
-			if(hasActionErrors()){
-				response = "{success:false, msg:\""+getActionErrors().toString()+"\"}";
+			String errors = (String) ActionContext.getContext().getParameters().get("execStartUploadFile_errors");
+			if (errors != null) {
+				response = "{success:false, msg:\""
+						+ errors + "\"}";
 			}
 			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
 			dataProviderStream = bais;
@@ -166,6 +170,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	//***metodo implicito per l'end upload dei files solo nel caso di fatclient
 	@SkipValidation
+	@FatClientOnly
 	public String execEndUploadFile() throws CommandExecutionException{
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
