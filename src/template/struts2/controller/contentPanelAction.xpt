@@ -38,9 +38,13 @@ import «getBaseJavaPackage(model)».business.*;
 import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
 
 import «getInterceptorsJavaPackage(model)».MethodProtection;
-import «getInterceptorsJavaPackage(model)».FatClientOnly;
+
+«IF model.targetPlatform.enableFatClient-»
+import «getInterceptorsJavaPackage(model)».FatClientValidatorInterceptor;
+«ENDIF-»
 
 «IF model.targetPlatform.enableRichUIBehavior-»
+import «getInterceptorsJavaPackage(model)».FatClientOnly;
 import «getUIUtilsJavaPackage(model)».*;
 import flexjson.JSON;
 «ENDIF-»

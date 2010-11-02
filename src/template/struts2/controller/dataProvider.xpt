@@ -236,17 +236,59 @@
 	public void execChangeTab() {
 		session.put(selectedTabKey, selectedTabValue);
 	}
-	//***metodo fittizio per eseguire un post prima di ogni eventHandler
+	
+	/***metodo fittizio per eseguire un post prima di ogni eventHandler
+	 * se ci sono degli errori o messaggi di validazione settati nella
+	 * mappa dei parametri dall'interceptor allora li restituisce
+	 * alla response serializzati
+	 */
 	@FatClientOnly
-	public void execPostEvtHandler(){
-		//***post data
+	public String execPostEvtHandler() throws CommandExecutionException{
+		String response = "{\"fldErrors\":{},\"globalErrors\":[],\"globalMessages\":[],\"model\":null,\"resultCode\":\"Ok\"}";
+
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+			String actionErrors = serializer.exclude("*.class").deepSerialize(ActionContext.getContext().getParameters()
+				.get(FatClientValidatorInterceptor.ACTION_ERRORS));
+			String fieldErrors = serializer.exclude("*.class").deepSerialize(ActionContext.getContext().getParameters()
+				.get(FatClientValidatorInterceptor.FIELD_ERRORS));
+			String globalMessages = serializer.exclude("*.class").deepSerialize(ActionContext.getContext().getParameters()
+				.get(FatClientValidatorInterceptor.ACTION_MESSAGES));
+			
+			response = "{\"fldErrors\":"+fieldErrors+",\"globalErrors\":"+actionErrors+",\"globalMessages\":"+globalMessages+",\"model\":null,\"resultCode\":\"Ok\"}";
+			
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
 	}
+	
 	//***metodo fittizio per eseguire un post prima di ogni eventHandler
 	//***senza effettuare validazioni
 	@SkipValidation
 	@FatClientOnly
-	public void execPostEvtHandlerNoValidation(){
-		//***post data
+	public String execPostEvtHandlerNoValidation() throws CommandExecutionException{
+		String response = "{\"fldErrors\":{},\"globalErrors\":[],\"globalMessages\":[],\"model\":null,\"resultCode\":\"Ok\"}";
+
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
 	}
 «ENDDEFINE»
 

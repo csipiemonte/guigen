@@ -17,6 +17,7 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
 	«IF targetPlatform.enableFatClient»
 	«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND fatClientValidatorInterceptor(skip_component_dir_creation) FOR this»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -436,3 +437,78 @@ public class PreserveUploadInterceptor extends AbstractInterceptor {
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE fatClientValidatorInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientValidatorInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+
+/**
+ * FatClientValidatorInterceptor Interceptor Class.
+ * 
+ * @author GuiGen
+ */
+public class FatClientValidatorInterceptor extends AbstractInterceptor {
+
+	protected static final Logger log = Logger
+			.getLogger(FatClientValidatorInterceptor.class);
+	
+	public static final String ACTION_ERRORS = "fatClient_actionErrors";
+	public static final String FIELD_ERRORS = "fatClient_fieldErrors";
+	public static final String ACTION_MESSAGES = "fatClient_actionMessages";
+
+	
+	/*
+	 * mette gli eventuali errori nella mappa parametri della action e li rimuove dal
+	 * contesto di validazione
+	 * solo per il fat client
+	 * (non-Javadoc)
+	 * @see com.opensymphony.xwork2.interceptor.AbstractInterceptor#intercept(com.opensymphony.xwork2.ActionInvocation)
+	 */
+	@SuppressWarnings("unchecked")
+	public String intercept(ActionInvocation invocation) throws Exception {
+				
+		ActionSupport action = (ActionSupport) invocation.getAction();
+		if (action != null) {
+			Method method = getActionMethod(action.getClass(), invocation.getProxy().getMethod());
+			if(method.isAnnotationPresent(FatClientOnly.class)){
+				Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+				Collection erroriAction = action.getActionErrors();
+				Map mappaErrori = action.getFieldErrors();
+				Collection mappaMessaggi = action.getActionMessages();
+				params.put(ACTION_ERRORS, erroriAction);
+				params.put(FIELD_ERRORS, mappaErrori);
+				params.put(ACTION_MESSAGES, mappaMessaggi);
+				action.clearErrorsAndMessages();
+			}
+		}
+
+		return invocation.invoke();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected Method getActionMethod(Class actionClass, String methodName) throws NoSuchMethodException {
+		Method method;
+		try {
+			method = actionClass.getMethod(methodName, new Class[0]);
+		} catch (NoSuchMethodException e) {
+			try {
+				String altMethodName = "do" + methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+				method = actionClass.getMethod(altMethodName, new Class[0]);
+			} catch (NoSuchMethodException e1) {
+				// throw the original one
+				throw e;
+			}
+		}
+		return method;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»

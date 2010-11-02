@@ -419,6 +419,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<param name="startMethod">execStartUploadFile</param>
 				<param name="endMethod">execEndUploadFile</param>
 			</interceptor>
+			<interceptor name="fatClientValidator" class="«getInterceptorsJavaPackage(this)».FatClientValidatorInterceptor"/>
 			«ENDIF-»
 			
 			<interceptor-stack name="jsp-stack">
@@ -437,6 +438,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="conversionError"/>
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="validation" />
+				«IF targetPlatform.enableFatClient-»
+				<interceptor-ref name="fatClientValidator" />
+				«ENDIF-»
 				<interceptor-ref name="workflow" />
 				<interceptor-ref name="methodProtection" />
 			</interceptor-stack>
