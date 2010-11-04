@@ -50,10 +50,13 @@
 «ENDDEFINE»
 
 «DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR UserDefinedWidget»
-			new ExtCsi.ui.widgets.PlainText(
+			new ExtCsi.ui.widgets.UserDefinedWidget(
 				{
 					«EXPAND widgetCommonProperties(model) FOR this»,
-					staticText: 'Attenzione widget non gestito!'
+					userDefinedFunction: function(){
+					«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(cp.name+"_"+getFullID(this.name))»
+					«ENDPROTECT»
+					}
 				}
 			)
 «ENDDEFINE»

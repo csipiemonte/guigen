@@ -102,7 +102,11 @@
 «DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR UserDefinedPanel»
 			new ExtCsi.ui.panels.UserDefinedPanel(
 				{
-					«EXPAND panelCommonProperties(model) FOR this»
+					«EXPAND panelCommonProperties(model) FOR this»,
+					userDefinedFunction: function(){
+					«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(cp.name+"_"+getFullID(this.name))»
+					«ENDPROTECT»
+					}
 				}
 			)
 «ENDDEFINE»
