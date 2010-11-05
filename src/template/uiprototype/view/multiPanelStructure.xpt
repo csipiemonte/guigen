@@ -9,25 +9,22 @@
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
-	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels»
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels SEPARATOR ","»
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
-	listaMultiPanels.add("«getFullID(contextPrefix)»");
-«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"-»{"selectedPanelKey":"«this.name»","selectedPanelValue":null}«ENDFILE»			
-«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»	
+	{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null}
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels SEPARATOR ","»
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
-	listaMultiPanels.add("«getFullID(contextPrefix)»");
-«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+".txt"-»{"selectedPanelKey":"«this.name»","selectedPanelValue":null}«ENDFILE»			
-		«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»
+	{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null}
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels SEPARATOR ","»
 «ENDDEFINE»
 
 «DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
-	listaMultiPanels.add("«getFullID(contextPrefix)»");
-«FILE  getWebDir(model)+getDataDir()+"/"+getFormDataProviderMethodName()+getFormDataProviderMethodName()+".txt"-»{"selectedPanelKey":"«this.name»","selectedPanelValue":null}«ENDFILE»			
-	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels»
+	{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null}
+	«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels SEPARATOR ","»
 «ENDDEFINE»
 
 
