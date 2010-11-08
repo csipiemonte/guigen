@@ -1,12 +1,6 @@
 «IMPORT guigen»
 
 
-
-«REM»
-«ENDREM»
-
-
-
 «AROUND template::fatjs::view::widgets::widgetStruct(GUIModel model, ContentPanel cp) FOR TextField-»
 	«EXPAND template::uiprototype::view::widgets::widgetStruct(model,cp) FOR this»
 «ENDAROUND»
@@ -37,6 +31,10 @@
 «ENDAROUND»
 
 
+«AROUND template::fatjs::controller::commands::cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand-»
+	«EXPAND template::uiprototype::controller::commands::cmd(model,cp) FOR this»
+«ENDAROUND»
+
 «AROUND template::fatjs::view::panels::panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel-»
 	«EXPAND template::uiprototype::view::panels::panelStruct( model,  cp) FOR this»
 «ENDAROUND»
@@ -56,11 +54,31 @@
 	«EXPAND template::uiprototype::view::widgets::colModel(model,table, cp) FOR this»
 «ENDAROUND»
 
-
-
 «AROUND template::fatjs::controller::commands::eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
 	«EXPAND template::uiprototype::controller::commands::eventHandler(model, cp) FOR this»
 «ENDAROUND»
 
+
+«REM»AOP per multipanel«ENDREM»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
 
 
