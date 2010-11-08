@@ -50,7 +50,24 @@ new ExtCsi.ui.event.EventHandler(
 	command: «EXPAND template::fatjs::controller::commands::cmd(model, cp) FOR this.command»
 }
 )
-«FILE getWebDir(model)+cp.name+"!execPostEvtHandler.do"»
-    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
-«ENDFILE»	
+«IF cp.name != null»
+«FILE getWebDir(model)+cp.name+"!execPostEvtHandler.do"-»{"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}«ENDFILE»
+«FILE getWebDir(model)+cp.name+"!execPostEvtHandlerNoValidation.do"-» {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}«ENDFILE»
+«ENDIF»
 «ENDDEFINE»
+
+
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand»
+	new ExtCsi.cmd.ActivateMultiPanelItemCommand({
+		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
+		multipanel: «jsLiteralValue(this.multipanel.name)»
+		}
+	)
+«FILE getWebDir(model)+cp.name+"!execChangeTab.do"-»«ENDFILE»	
+«ENDDEFINE»
+
+
+
+
+
