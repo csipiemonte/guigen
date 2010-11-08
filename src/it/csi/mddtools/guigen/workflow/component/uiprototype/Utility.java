@@ -115,6 +115,7 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 	}
 	
 	private static void donwload(){
+		//commentato perchè la lib la scarico da svn e poi sarà presa da repart
 	   downloadResource_2(urlExtCsi,nomeZipExtCsi);
 		downloadResource_2(urlExtJs, nomeZipExtJs);
 		downloadResource_2(urlExtJsCore, nomeZipExtJsCore);			
@@ -135,9 +136,22 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 	}
 
 	public void setUtil(boolean b) throws IOException {
-	
+		
+		
+		File f = new File (pathResources());
+		if (f.exists()){
+		  // boolean esiste = f.isDirectory ();
+			System.out.println("esiste !!!");
+		}
+		else{
+			boolean success = (new File(getWorkingDir()+"//"+getTargetProjectName())).mkdir();
+			success = (new File(getWorkingDir()+"//"+getTargetProjectName()+"//WebContent")).mkdir();
+			System.out.println("non esiste !!! ");
+		}
+
 		Utility.leggiProperties();
-		Utility.donwload();
+		//per repart che non funge
+	//	Utility.donwload();
 	    
 	    Unzip unz= new Unzip();
 	    File zipFileExtCsi = new File(pathResources()+nomeZipExtCsi);
@@ -152,9 +166,10 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 	    Unzip.extract(zipFileExtJsCore, destFile);
 	    
 	  
-	    LeggiScriviFile ls= new LeggiScriviFile();
-	    LeggiScriviFile.replaceText(pathResources()+"ext-csi-mdd//core//core.js");
-	}
+//	    LeggiScriviFile ls= new LeggiScriviFile();
+//	    LeggiScriviFile.replaceText(pathResources()+"ext-csi-mdd//core//core.js");
+	}  
+	
 	
 public static String getWorkingDir(){	
 //	System.out.println("test:"+System.getProperty("user.dir"));
