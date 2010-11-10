@@ -21,6 +21,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IChangeNotifier;
 import org.eclipse.emf.edit.provider.IDisposable;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemFontProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
@@ -3020,6 +3021,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MapView} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MapViewItemProvider mapViewItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MapView}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMapViewAdapter() {
+		if (mapViewItemProvider == null) {
+			mapViewItemProvider = new MapViewItemProvider(this);
+		}
+
+		return mapViewItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3246,6 +3270,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (modelSlotDefItemProvider != null) modelSlotDefItemProvider.dispose();
 		if (modelSlotItemProvider != null) modelSlotItemProvider.dispose();
 		if (clearAppdataCommandItemProvider != null) clearAppdataCommandItemProvider.dispose();
+		if (mapViewItemProvider != null) mapViewItemProvider.dispose();
 	}
 
 }

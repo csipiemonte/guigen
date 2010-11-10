@@ -1178,6 +1178,15 @@ public interface GuigenFactory extends EFactory {
 	ClearAppdataCommand createClearAppdataCommand();
 
 	/**
+	 * Returns a new object of class '<em>Map View</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Map View</em>'.
+	 * @generated
+	 */
+	MapView createMapView();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

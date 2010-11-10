@@ -8179,6 +8179,142 @@ public interface GuigenPackage extends EPackage {
 	int CLEAR_APPDATA_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MapViewImpl <em>Map View</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MapViewImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapView()
+	 * @generated
+	 */
+	int MAP_VIEW = 141;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NAME = DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__LABEL = DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__LAYOUT_SPEC = DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__EVENT_HANDLERS = DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__SECURITY_CONSTRAINTS = DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__DEFAULT_VISIBLE = DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__DEFAULT_ENABLED = DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__TOOLTIP = DATA_WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Data Type Modifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__DATA_TYPE_MODIFIER = DATA_WIDGET__DATA_TYPE_MODIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Databinding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__DATABINDING = DATA_WIDGET__DATABINDING;
+
+	/**
+	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__DATA_TYPE = DATA_WIDGET__DATA_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__REQUIRED = DATA_WIDGET__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>Map Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__MAP_ID = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Map View</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8186,7 +8322,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 141;
+	int WIDGET_DATA_TYPE = 142;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -8196,7 +8332,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 142;
+	int UDLRC_SPEC_CONSTANTS = 143;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -8206,7 +8342,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 143;
+	int METHOD_PROTECTION_TYPES = 144;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -8216,7 +8352,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 144;
+	int EVENT_TYPES = 145;
 
 
 	/**
@@ -8227,7 +8363,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 145;
+	int DATA_LIFETIME_TYPE = 146;
 
 
 	/**
@@ -8238,7 +8374,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 146;
+	int SIMPLE_TYPE_CODES = 147;
 
 
 	/**
@@ -8249,7 +8385,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 147;
+	int PORTAL_NAMES = 148;
 
 
 	/**
@@ -8260,7 +8396,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 148;
+	int TARGET_PLATFORM_CODES = 149;
 
 
 	/**
@@ -8271,7 +8407,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 149;
+	int MESSAGE_SEVERITY = 150;
 
 
 	/**
@@ -8282,7 +8418,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 150;
+	int COMMAND_STYLES = 151;
 
 
 	/**
@@ -8293,7 +8429,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 151;
+	int LOGIC_AGGREGATION_TYPES = 152;
 
 
 	/**
@@ -8304,7 +8440,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 152;
+	int CUSTOM_CARTRIDGE_ID = 153;
 
 
 	/**
@@ -8315,7 +8451,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 153;
+	int COMMAND_FUNCTIONS = 154;
 
 
 	/**
@@ -12666,6 +12802,27 @@ public interface GuigenPackage extends EPackage {
 	EReference getClearAppdataCommand_AppData();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MapView <em>Map View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Map View</em>'.
+	 * @see it.csi.mddtools.guigen.MapView
+	 * @generated
+	 */
+	EClass getMapView();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#getMapId <em>Map Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Map Id</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getMapId()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_MapId();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16362,6 +16519,24 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CLEAR_APPDATA_COMMAND__APP_DATA = eINSTANCE.getClearAppdataCommand_AppData();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MapViewImpl <em>Map View</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MapViewImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapView()
+		 * @generated
+		 */
+		EClass MAP_VIEW = eINSTANCE.getMapView();
+
+		/**
+		 * The meta object literal for the '<em><b>Map Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__MAP_ID = eINSTANCE.getMapView_MapId();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

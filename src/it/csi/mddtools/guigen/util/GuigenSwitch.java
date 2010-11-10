@@ -1045,6 +1045,14 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.MAP_VIEW: {
+				MapView mapView = (MapView)theEObject;
+				T result = caseMapView(mapView);
+				if (result == null) result = caseDataWidget(mapView);
+				if (result == null) result = caseWidget(mapView);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -3161,6 +3169,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseClearAppdataCommand(ClearAppdataCommand object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Map View</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Map View</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMapView(MapView object) {
 		return null;
 	}
 

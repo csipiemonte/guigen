@@ -367,17 +367,21 @@ context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel
 context Button if (metaType != ResetButton) ERROR "Ogni pulsante non di reset deve avere un eventHandler associato "+ loc() :
 	this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size > 0;  
  
- // [DM] Calendar
- context Calendar ERROR "Un Calendar deve avere un DataType di tipo DATE " + loc() :
+// [DM] Calendar
+context Calendar ERROR "Un Calendar deve avere un DataType di tipo DATE " + loc() :
  	this.dataType.metaType == SimpleType && ((SimpleType)(this.dataType)).code == guigen::SimpleTypeCodes::DATE;
 
- context Calendar if (this.databinding != null) ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
+context Calendar if (this.databinding != null) ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
 	calendarDataBindingTypeCheck(this);
 
 
-  context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSetPanel o a un WizardPanel:" +loc() :
+context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSetPanel o a un WizardPanel:" +loc() :
   	this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel;
-  	
+
+context MapView ERROR "E' necessario impostare l'id della mappa da visualizzare:"+loc() :
+	!isNullOrEmpty(mapId);
+	
+	 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
 

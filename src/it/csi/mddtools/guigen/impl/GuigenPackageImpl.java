@@ -79,6 +79,7 @@ import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.LogicAggregationTypes;
+import it.csi.mddtools.guigen.MapView;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -1163,6 +1164,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass clearAppdataCommandEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mapViewEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4993,6 +5001,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMapView() {
+		return mapViewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapView_MapId() {
+		return (EAttribute)mapViewEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -5682,6 +5708,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		clearAppdataCommandEClass = createEClass(CLEAR_APPDATA_COMMAND);
 		createEReference(clearAppdataCommandEClass, CLEAR_APPDATA_COMMAND__APP_DATA);
 
+		mapViewEClass = createEClass(MAP_VIEW);
+		createEAttribute(mapViewEClass, MAP_VIEW__MAP_ID);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5819,6 +5848,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		extraColumnEClass.getESuperTypes().add(this.getColumn());
 		tableCustomizationPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		clearAppdataCommandEClass.getESuperTypes().add(this.getCommand());
+		mapViewEClass.getESuperTypes().add(this.getDataWidget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6371,6 +6401,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(clearAppdataCommandEClass, ClearAppdataCommand.class, "ClearAppdataCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClearAppdataCommand_AppData(), this.getApplicationData(), null, "appData", null, 0, -1, ClearAppdataCommand.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mapViewEClass, MapView.class, "MapView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMapView_MapId(), ecorePackage.getEString(), "mapId", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
