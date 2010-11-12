@@ -3044,6 +3044,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Point} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PointItemProvider pointItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Point}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPointAdapter() {
+		if (pointItemProvider == null) {
+			pointItemProvider = new PointItemProvider(this);
+		}
+
+		return pointItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MapEnvelope} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MapEnvelopeItemProvider mapEnvelopeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MapEnvelope}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMapEnvelopeAdapter() {
+		if (mapEnvelopeItemProvider == null) {
+			mapEnvelopeItemProvider = new MapEnvelopeItemProvider(this);
+		}
+
+		return mapEnvelopeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3271,6 +3317,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (modelSlotItemProvider != null) modelSlotItemProvider.dispose();
 		if (clearAppdataCommandItemProvider != null) clearAppdataCommandItemProvider.dispose();
 		if (mapViewItemProvider != null) mapViewItemProvider.dispose();
+		if (pointItemProvider != null) pointItemProvider.dispose();
+		if (mapEnvelopeItemProvider != null) mapEnvelopeItemProvider.dispose();
 	}
 
 }

@@ -9,7 +9,8 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.MapView;
+import it.csi.mddtools.guigen.MapEnvelope;
+import it.csi.mddtools.guigen.Point;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,35 +18,40 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemFontProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MapView} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.MapEnvelope} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MapViewItemProvider
-	extends DataWidgetItemProvider
+public class MapEnvelopeItemProvider
+	extends ItemProviderAdapter
 	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MapViewItemProvider(AdapterFactory adapterFactory) {
+	public MapEnvelopeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,54 +66,8 @@ public class MapViewItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMapIdPropertyDescriptor(object);
-			addNumLevelsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Map Id feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMapIdPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_MapView_mapId_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_mapId_feature", "_UI_MapView_type"),
-				 GuigenPackage.Literals.MAP_VIEW__MAP_ID,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Num Levels feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNumLevelsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_MapView_numLevels_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_numLevels_feature", "_UI_MapView_type"),
-				 GuigenPackage.Literals.MAP_VIEW__NUM_LEVELS,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -122,9 +82,8 @@ public class MapViewItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC);
-			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC);
-			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC);
+			childrenFeatures.add(GuigenPackage.Literals.MAP_ENVELOPE__NORTH_EAST);
+			childrenFeatures.add(GuigenPackage.Literals.MAP_ENVELOPE__SOUTH_WEST);
 		}
 		return childrenFeatures;
 	}
@@ -143,28 +102,40 @@ public class MapViewItemProvider
 	}
 
 	/**
-	 * This returns MapView.gif.
+	 * This returns MapEnvelope.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MapView"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MapEnvelope"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((MapView)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_MapView_type") :
-			getString("_UI_MapView_type") + " " + label;
+		MapEnvelope me = (MapEnvelope)object;
+		String label = "";
+		if (me.getNorthEast()!=null){
+			Point p = me.getNorthEast();
+			label+="N.E:("+p.getX()+","+p.getY()+")";
+		}
+		else
+			label+="N.E:??";
+		label+=" - ";
+		if (me.getSouthWest()!=null){
+			Point p = me.getSouthWest();
+			label+="S.W:("+p.getX()+","+p.getY()+")";
+		}
+		else
+			label+="S.W:??";
+		return getString("_UI_MapEnvelope_type")+" "+label;
 	}
 
 	/**
@@ -178,14 +149,9 @@ public class MapViewItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(MapView.class)) {
-			case GuigenPackage.MAP_VIEW__MAP_ID:
-			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
-			case GuigenPackage.MAP_VIEW__MAX_ENVELOPE_SPEC:
-			case GuigenPackage.MAP_VIEW__SCALE_ENVELOPE_SPEC:
+		switch (notification.getFeatureID(MapEnvelope.class)) {
+			case GuigenPackage.MAP_ENVELOPE__NORTH_EAST:
+			case GuigenPackage.MAP_ENVELOPE__SOUTH_WEST:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -205,18 +171,13 @@ public class MapViewItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC,
-				 GuigenFactory.eINSTANCE.createMapEnvelope()));
+				(GuigenPackage.Literals.MAP_ENVELOPE__NORTH_EAST,
+				 GuigenFactory.eINSTANCE.createPoint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC,
-				 GuigenFactory.eINSTANCE.createMapEnvelope()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC,
-				 GuigenFactory.eINSTANCE.createMapEnvelope()));
+				(GuigenPackage.Literals.MAP_ENVELOPE__SOUTH_WEST,
+				 GuigenFactory.eINSTANCE.createPoint()));
 	}
 
 	/**
@@ -231,9 +192,8 @@ public class MapViewItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC ||
-			childFeature == GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC ||
-			childFeature == GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC;
+			childFeature == GuigenPackage.Literals.MAP_ENVELOPE__NORTH_EAST ||
+			childFeature == GuigenPackage.Literals.MAP_ENVELOPE__SOUTH_WEST;
 
 		if (qualify) {
 			return getString
@@ -241,6 +201,17 @@ public class MapViewItemProvider
 				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return GuigenEditPlugin.INSTANCE;
 	}
 
 }

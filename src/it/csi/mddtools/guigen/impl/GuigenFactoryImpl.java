@@ -190,6 +190,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.MODEL_SLOT: return createModelSlot();
 			case GuigenPackage.CLEAR_APPDATA_COMMAND: return createClearAppdataCommand();
 			case GuigenPackage.MAP_VIEW: return createMapView();
+			case GuigenPackage.POINT: return createPoint();
+			case GuigenPackage.MAP_ENVELOPE: return createMapEnvelope();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1561,6 +1563,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public MapView createMapView() {
 		MapViewImpl mapView = new MapViewImpl();
 		return mapView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Point createPoint() {
+		PointImpl point = new PointImpl();
+		return point;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MapEnvelope createMapEnvelope() {
+		MapEnvelopeImpl mapEnvelope = new MapEnvelopeImpl();
+		return mapEnvelope;
 	}
 
 	/**

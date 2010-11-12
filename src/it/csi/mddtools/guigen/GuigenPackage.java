@@ -8306,13 +8306,123 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW__MAP_ID = DATA_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Start Envelope Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__START_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Max Envelope Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__MAX_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Scale Envelope Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__SCALE_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Num Levels</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NUM_LEVELS = DATA_WIDGET_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Map View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PointImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPoint()
+	 * @generated
+	 */
+	int POINT = 142;
+
+	/**
+	 * The feature id for the '<em><b>X</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT__X = 0;
+
+	/**
+	 * The feature id for the '<em><b>Y</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT__Y = 1;
+
+	/**
+	 * The number of structural features of the '<em>Point</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MapEnvelopeImpl <em>Map Envelope</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MapEnvelopeImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapEnvelope()
+	 * @generated
+	 */
+	int MAP_ENVELOPE = 143;
+
+	/**
+	 * The feature id for the '<em><b>North East</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_ENVELOPE__NORTH_EAST = 0;
+
+	/**
+	 * The feature id for the '<em><b>South West</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_ENVELOPE__SOUTH_WEST = 1;
+
+	/**
+	 * The number of structural features of the '<em>Map Envelope</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_ENVELOPE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -8322,7 +8432,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 142;
+	int WIDGET_DATA_TYPE = 144;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -8332,7 +8442,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 143;
+	int UDLRC_SPEC_CONSTANTS = 145;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -8342,7 +8452,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 144;
+	int METHOD_PROTECTION_TYPES = 146;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -8352,7 +8462,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 145;
+	int EVENT_TYPES = 147;
 
 
 	/**
@@ -8363,7 +8473,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 146;
+	int DATA_LIFETIME_TYPE = 148;
 
 
 	/**
@@ -8374,7 +8484,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 147;
+	int SIMPLE_TYPE_CODES = 149;
 
 
 	/**
@@ -8385,7 +8495,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 148;
+	int PORTAL_NAMES = 150;
 
 
 	/**
@@ -8396,7 +8506,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 149;
+	int TARGET_PLATFORM_CODES = 151;
 
 
 	/**
@@ -8407,7 +8517,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 150;
+	int MESSAGE_SEVERITY = 152;
 
 
 	/**
@@ -8418,7 +8528,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 151;
+	int COMMAND_STYLES = 153;
 
 
 	/**
@@ -8429,7 +8539,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 152;
+	int LOGIC_AGGREGATION_TYPES = 154;
 
 
 	/**
@@ -8440,7 +8550,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 153;
+	int CUSTOM_CARTRIDGE_ID = 155;
 
 
 	/**
@@ -8451,7 +8561,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 154;
+	int COMMAND_FUNCTIONS = 156;
 
 
 	/**
@@ -12823,6 +12933,114 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getMapView_MapId();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapView#getStartEnvelopeSpec <em>Start Envelope Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Start Envelope Spec</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getStartEnvelopeSpec()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EReference getMapView_StartEnvelopeSpec();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapView#getMaxEnvelopeSpec <em>Max Envelope Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Max Envelope Spec</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getMaxEnvelopeSpec()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EReference getMapView_MaxEnvelopeSpec();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapView#getScaleEnvelopeSpec <em>Scale Envelope Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Scale Envelope Spec</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getScaleEnvelopeSpec()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EReference getMapView_ScaleEnvelopeSpec();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#getNumLevels <em>Num Levels</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Num Levels</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getNumLevels()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_NumLevels();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Point <em>Point</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Point</em>'.
+	 * @see it.csi.mddtools.guigen.Point
+	 * @generated
+	 */
+	EClass getPoint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Point#getX <em>X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>X</em>'.
+	 * @see it.csi.mddtools.guigen.Point#getX()
+	 * @see #getPoint()
+	 * @generated
+	 */
+	EAttribute getPoint_X();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Point#getY <em>Y</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Y</em>'.
+	 * @see it.csi.mddtools.guigen.Point#getY()
+	 * @see #getPoint()
+	 * @generated
+	 */
+	EAttribute getPoint_Y();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MapEnvelope <em>Map Envelope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Map Envelope</em>'.
+	 * @see it.csi.mddtools.guigen.MapEnvelope
+	 * @generated
+	 */
+	EClass getMapEnvelope();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapEnvelope#getNorthEast <em>North East</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>North East</em>'.
+	 * @see it.csi.mddtools.guigen.MapEnvelope#getNorthEast()
+	 * @see #getMapEnvelope()
+	 * @generated
+	 */
+	EReference getMapEnvelope_NorthEast();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapEnvelope#getSouthWest <em>South West</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>South West</em>'.
+	 * @see it.csi.mddtools.guigen.MapEnvelope#getSouthWest()
+	 * @see #getMapEnvelope()
+	 * @generated
+	 */
+	EReference getMapEnvelope_SouthWest();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16537,6 +16755,90 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MAP_VIEW__MAP_ID = eINSTANCE.getMapView_MapId();
+
+		/**
+		 * The meta object literal for the '<em><b>Start Envelope Spec</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_VIEW__START_ENVELOPE_SPEC = eINSTANCE.getMapView_StartEnvelopeSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Envelope Spec</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_VIEW__MAX_ENVELOPE_SPEC = eINSTANCE.getMapView_MaxEnvelopeSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Scale Envelope Spec</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_VIEW__SCALE_ENVELOPE_SPEC = eINSTANCE.getMapView_ScaleEnvelopeSpec();
+
+		/**
+		 * The meta object literal for the '<em><b>Num Levels</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__NUM_LEVELS = eINSTANCE.getMapView_NumLevels();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PointImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPoint()
+		 * @generated
+		 */
+		EClass POINT = eINSTANCE.getPoint();
+
+		/**
+		 * The meta object literal for the '<em><b>X</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POINT__X = eINSTANCE.getPoint_X();
+
+		/**
+		 * The meta object literal for the '<em><b>Y</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute POINT__Y = eINSTANCE.getPoint_Y();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MapEnvelopeImpl <em>Map Envelope</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MapEnvelopeImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapEnvelope()
+		 * @generated
+		 */
+		EClass MAP_ENVELOPE = eINSTANCE.getMapEnvelope();
+
+		/**
+		 * The meta object literal for the '<em><b>North East</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_ENVELOPE__NORTH_EAST = eINSTANCE.getMapEnvelope_NorthEast();
+
+		/**
+		 * The meta object literal for the '<em><b>South West</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_ENVELOPE__SOUTH_WEST = eINSTANCE.getMapEnvelope_SouthWest();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

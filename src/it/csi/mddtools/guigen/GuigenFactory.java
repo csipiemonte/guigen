@@ -1187,6 +1187,24 @@ public interface GuigenFactory extends EFactory {
 	MapView createMapView();
 
 	/**
+	 * Returns a new object of class '<em>Point</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Point</em>'.
+	 * @generated
+	 */
+	Point createPoint();
+
+	/**
+	 * Returns a new object of class '<em>Map Envelope</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Map Envelope</em>'.
+	 * @generated
+	 */
+	MapEnvelope createMapEnvelope();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
