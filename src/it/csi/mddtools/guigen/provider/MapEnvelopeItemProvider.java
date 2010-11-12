@@ -122,6 +122,8 @@ public class MapEnvelopeItemProvider
 	public String getText(Object object) {
 		MapEnvelope me = (MapEnvelope)object;
 		String label = "";
+		EStructuralFeature ref = me.eContainingFeature();
+		label+=ref.getName()+" ";
 		if (me.getNorthEast()!=null){
 			Point p = me.getNorthEast();
 			label+="N.E:("+p.getX()+","+p.getY()+")";
