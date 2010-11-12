@@ -24,8 +24,14 @@
 	«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR this»
 	«REM»Generazione dei files di Spring«ENDREM»
 	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«IF hasGisMap()»
+	«EXPAND getMapPdConfigurationFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
 	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+	«IF hasGisMap()»
+	«EXPAND template::struts2::appResources::gisMapSpringConfigurationFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
 	«REM»Generazione dei files specifici per il CSI«ENDREM»
 	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
 	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
@@ -177,7 +183,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml</param-value>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml«IF hasGisMap()»,/WEB-INF/gis-beans.xml«ENDIF»</param-value>
 	</context-param>
 
 «IF getActualSecurityModel(this).autenticationMethod!=null»
@@ -828,7 +834,98 @@ cose tipo la "todo list"«ENDREM»
 «ENDFILE»
 «ENDDEFINE»
 
-
+«REM»
+===========================================================================================================================
+CONFIGURAZIONE SERVIZIO MAPPE
+===========================================================================================================================
+«ENDREM»
+«REM»Genera il file di configurazione del servizio mappe«ENDREM»
+«DEFINE getMapPdConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getGisMapPdConfigurationFile(this, skip_component_dir_creation)»
+<porta-delegata name="GosgisGosgissoPD">
+  <services>
+    <service name="gosgisso" public-interface-class="it.csi.gosgis.gosgisso.interfacecsi.gosgisgosgisso.GosgisGosgissoSrv" >
+      <operations>
+        <operation name="testResources" type="synch-call">
+            <param-list />
+            <ret-val type="boolean" />
+        </operation>
+        <operation name="getInfoFruitore" type="synch-call">
+          <param-list>
+            <param name="codiceProdotto" type="java.lang.String" />
+            <param name="userApp" type="java.lang.String" />
+            <param name="pwdApp" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+        </operation>
+        <operation name="getInfoServizio" type="synch-call">
+          <param-list>
+            <param name="mapService" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoServiceInfoVO" />
+        </operation>
+        <operation name="elencoServiziConfiguratiPerFruitore" type="synch-call">
+          <param-list>
+            <param name="codiceFruitore" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO[]" />
+        </operation>
+        <operation name="getImage" type="synch-call">
+          <param-list>
+            <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+            <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+            <param name="map" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.request.GosgissoMapRequestVO" />
+            <param name="layers" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoLayerVO[]" />
+            <param name="envelope" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoEnvelopeVO" />
+            <param name="acetates" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.render.acetate.BaseAcetateLayer[]" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapVO" />
+        </operation>
+        <operation name="getToc" type="synch-call">
+          <param-list>
+            <param name="applicativo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+        	<param name="servizio" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />            
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.toc.GosgissoArgomentoVO[]" />
+        </operation>
+        <operation name="getFeatures" type="synch-call">
+          <param-list>
+            <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+            <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+            <param name="featureRequest" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.request.GosgissoFeatureRequestVO" />
+          </param-list>
+          <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoResultSetVO" />
+        </operation>
+	    <operation name="getCampiAliasPerLayerFruitore" type="synch-call">
+	      <param-list>
+	        <param name="userInfo" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.infofruitore.GosgissoInfoFruitoreVO" />
+	        <param name="service" type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoMapserviceVO" />
+	        <param name="idLayer" type="java.lang.String" />
+	      </param-list>
+	      <ret-val type="it.csi.gosgis.gosgisso.dto.gosgisgosgisso.GosgissoAliasVO[]" />
+	    </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+  <url-pa></url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+      <pluggable-pd name="jeegiaquattro.PdD.gosgisso" class="it.csi.csi.porte.ejb20.PortaDelegataEJB" url-pa="gosgisso/ejb/GosgisGosgissoPA" >
+        <properties>
+          <property name="java.naming.provider.url" value="@@@gismap.provider.url@@@" />
+          <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+          <property name="csi.auth.jaas.client.class"
+               value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          <property name="csi.auth.basic"
+               value="" />     
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <queue-manager url=""/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================

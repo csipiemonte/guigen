@@ -54,3 +54,6 @@ context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato i
 // [DM] check su WidgetsPanel
 context WidgetsPanel if this.widgets.select(w|w.metaType==Table).size > 0 ERROR "Un WidgetsPanel che contiene uno o più Table non può contenere altri tipi di widgets " + loc() :
 	 this.widgets.select(w|w.metaType!=Table).size == 0;
+	 
+context WidgetsPanel if this.widgets.select(w|w.metaType==MapView).size > 0 ERROR "Un WidgetsPanel che contiene uno o più MapView non può contenere altri tipi di widgets " + loc() :
+	 this.widgets.select(w|w.metaType!=MapView).size == 0;

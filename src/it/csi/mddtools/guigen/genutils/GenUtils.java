@@ -33,6 +33,7 @@ import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
+import it.csi.mddtools.guigen.MapView;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuPanel;
 import it.csi.mddtools.guigen.Menubar;
@@ -2606,6 +2607,71 @@ public class GenUtils {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param cp
+	 * @return
+	 * @author [DM]: controllo se il cp ha almeno una mappaGis
+	 */
+	public static boolean hasGisMap(ContentPanel cp) {
+		List<Widget> widgetsList = findAllWidgetsInContentPanel(cp);
+		for (Widget widget : widgetsList) {
+			if ( widget instanceof MapView ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 * @author [DM]: controllo se il modello ha almeno una mappaGis
+	 */
+	public static boolean hasGisMap(GUIModel model) {
+		List<ContentPanel> listaCp = getAllContentPanels(model);
+		
+		for (ContentPanel contentPanel : listaCp) {
+			if(hasGisMap(contentPanel)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 * prendo tutte le mappe modellate in modo univoco
+	 */
+	public static List<MapView> getMapsInModel(GUIModel model){
+		List<MapView> listaMappe = new ArrayList<MapView>();
+		
+		List<ContentPanel> listaCp = getAllContentPanels(model);
+		
+		for (ContentPanel contentPanel : listaCp) {
+			List<Widget> widgetsList = findAllWidgetsInContentPanel(contentPanel);
+			for (Widget widget : widgetsList) {
+				if ( widget instanceof MapView ) {
+					MapView inlineMap = (MapView) widget;
+					boolean flag = true;
+					for (MapView mapView : listaMappe) {
+						if(mapView.getMapId().equalsIgnoreCase(inlineMap.getMapId())){
+							flag = false;
+						}
+					}
+					if(flag){
+						listaMappe.add((MapView) widget);
+					}
+				}
+			}
+		}
+		
+		return listaMappe;
 	}
 
 	

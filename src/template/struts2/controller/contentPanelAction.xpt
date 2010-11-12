@@ -90,6 +90,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		return SUCCESS;
 	}
 	
+	«IF hasGisMap(this)»
+	private GreaseDTOMapper greaseMapper;	
+
+	public GreaseDTOMapper getGreaseMapper() {
+		return greaseMapper;
+	}
+	public void setGreaseMapper(GreaseDTOMapper greaseMapper) {
+		this.greaseMapper = greaseMapper;
+	}
+	
+	
+	«ENDIF»
+	
 	«REM»per ora non gestisce ancora tab inclusi«ENDREM»
 	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
 	«IF allTabSwitchers.size>0-»

@@ -243,9 +243,12 @@ ANT FILES
 		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
 		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
 	«ENDIF-»
+	«IF hasGisMap()»
+  	<replace file="${temp}/conf/ejb/business/mddgis/META-INF/pd_gosgisso_baseservice.xml"  token="@@@gismap.provider.url@@@" value="${gosgisso.java.naming.provider.url}" />
+	«ENDIF»
 
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
-    <!-- gestire qui i  replace delle proprie variabile d'ambiente -->
+    <!-- gestire qui i  replace delle proprie variabili d'ambiente -->
     «ENDPROTECT»
   </target>
 
@@ -655,6 +658,11 @@ remincl.resource.provider=«getReminclResourceProvider(this)»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
 
+«IF hasGisMap(this)-»
+#-[Variabili servizio mappe]---------------------------------------------------
+#-ambiente dev
+gosgisso.java.naming.provider.url=t3://dev-wls9-02.csi.it:9107
+«ENDIF-»
 
 
 «ENDFILE»
@@ -744,7 +752,50 @@ IVY FILES (gestione delle dipendenze)
 		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-»
 		«ENDIF-»
 
+		«IF hasGisMap(this)»
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+      		<artifact name="csi-core-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-1.4.5" type="jar" />
+      		<artifact name="csi-rmi-1.4.5" type="jar" />
+      		<artifact name="csi-stadapter-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-diag" rev="1.1.2">
+      		<artifact name="coop-diag-1.1.2" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0">
+      		<artifact name="coop-trace-1.1.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="apache" name="commons-lang" rev="2.2" >
+      		<artifact name="commons-lang-2.2" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="gosgisso" rev="1.1.0">
+      		<artifact name="gosgisso-gosgisgosgisso-client-1.1.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="splugesf-giscommon" rev="1.1.0">
+      		<artifact name="splugesf-giscommon-1.1.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" >
+      		<artifact name="weblogic-client-3.0.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.1.1">
+      		<artifact name="jeegfw-2.1.1" type="jar" />
+    	</dependency>
+	
+		<dependency org="csipiemonte" name="grease-jeegri" rev="1.0.1" >
+      		<artifact name="jeegri-1.0.1" type="jar" />
+    	</dependency>
+		«ELSE»
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		«ENDIF»
 		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" />
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»

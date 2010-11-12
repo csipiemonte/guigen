@@ -104,12 +104,21 @@ String getJsFunctionsFile(GUIModel model, boolean omit_root) :
 
 String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
 	getEjbConfigDir(model, omit_root) + "/beanContext.xml";
+
+String getGisMapPdConfigurationFile(GUIModel model, boolean omit_root) :
+	getEjbConfigDir(model, omit_root) + "/pd_gosgisso_baseservice.xml";
 	
 String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
 
 String getSpringDaoConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/dao-beans.xml";
+	
+String getSpringGisMapConfigurationFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/gis-beans.xml";
+	
+String getSpringGisMapPropertiesFile(GUIModel model, boolean omit_root) :
+	getWebModuleConfigDir(model, omit_root) + "/gisMapConf.properties";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione servizi supplier
@@ -668,6 +677,15 @@ String getFullID(Panel p, String contextPrefix) : JAVA
 
 boolean hasFileUpload(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.hasFileUpload(it.csi.mddtools.guigen.ContentPanel);
+	
+boolean hasGisMap(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasGisMap(it.csi.mddtools.guigen.ContentPanel);
+	
+boolean hasGisMap(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.hasGisMap(it.csi.mddtools.guigen.GUIModel);
+	
+List getMapsInModel(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getMapsInModel(it.csi.mddtools.guigen.GUIModel);
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);

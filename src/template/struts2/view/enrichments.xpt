@@ -272,19 +272,48 @@ Ext.onReady( function() {
 	<file page="«name»">
 		<resource type="text/css">
 			<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
+			«IF hasGisMap()»
+			<position value="css/openlayers_style.css" />
+			<position value="css/grease.css" />
+			<position value="css/toolbar.css" />
+			«ENDIF»
 		</resource>
 		<resource type="text/javascript">
 			<position value="ext-csi/table-grid/TableGrid.js" />
 			<position value="ext-csi/miframe/miframe.js" />
-			<position value="ext-csi-enricher/round-corners/RoundCorner.js" />
 			<position value="ext-csi-enricher/enricher/enricher.js" />
 			<position value="ext-csi-enricher/menu/csimenu.js" />
 			<position value="ext-csi-enricher/toggle-panel/toggle.js" />
 			<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
+			«IF hasGisMap()»
+			<position value="js/added/frameworks/core/OpenLayers-2.8.js" />
+			<position value="js/added/frameworks/estensioni/olLayer.js" />
+			<position value="js/added/grease/extDataConn.js" />
+			<position value="js/added/grease/extViewport.js" />
+			<position value="js/added/grease/extProgressBar.js" />
+			<position value="js/added/grease/extGreaseBorderLayout.js" />
+			<position value="js/added/grease/extGreaseCycleButton.js" />
+			<position value="js/added/frameworks/estensioni/extTocTree.js" />
+			<position value="js/added/frameworks/estensioni/extTocPanel.js" />
+			<position value="js/added/grease/extSlider.js" />
+			<position value="js/added/grease/extClickTip.js" />
+			<position value="js/added/grease/olCsiLayer.js" />
+			<position value="js/added/grease/olZoomBox.js" />
+			<position value="js/added/grease/olClick.js" />
+			<position value="js/added/grease/olControlZoomOut.js" />
+			<position value="js/added/grease/olGreaseIdentify.js" />
+			<position value="js/added/grease/jeegri2.js" />
+			<position value="js/added/grease/greasemap.js" />
+			<position value="js/added/grease/olNavigationHistory.js" />
+			<position value="js/added/grease/commonUtils.js" />
+			<position value="js/added/verticalesetupnoviewport.js" />
+			<position value="js/added/bodyMap.js" />
+			«ENDIF»
 			<!-- componente js dello skin -->
 			<position value="ris/js/style.js" />
 			<!-- arricchimenti della schermata -->
 			<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
+			
 		</resource>
 	</file>
 «ENDDEFINE»

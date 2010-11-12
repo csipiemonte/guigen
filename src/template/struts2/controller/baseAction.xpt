@@ -70,6 +70,13 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	public Map getSession() {
 		return this.session;
 	}
+	
+	«IF hasGisMap(this)»
+	public static int ERROR_LEVEL_WARNING = 0;
+	public static int ERROR_LEVEL_ERROR = 1;
+	public static int ERROR_LEVEL_FATAL = 2;
+	public static int ERROR_LEVEL_NO_ERROR = -1;
+	«ENDIF»
 
 	
 	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;

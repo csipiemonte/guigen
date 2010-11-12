@@ -23,6 +23,9 @@ STRUTS2 CUSTOM INTERCEPTOR CLASSES
 	«EXPAND tableDynComparatorExcFile(skip_component_dir_creation) FOR this»
 	«EXPAND tableArrangedDataFile(skip_component_dir_creation) FOR this»
 	«EXPAND utilityFile(skip_component_dir_creation) FOR this»
+	«IF hasGisMap()»
+	«EXPAND greaseDTOMapperFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE tableFilterStructFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -859,5 +862,91 @@ public class Utility {
 
 }
 
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE greaseDTOMapperFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/GreaseDTOMapper.java"»package «getUIUtilsJavaPackage(this)»;
+import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb;
+
+import java.util.ArrayList;
+
+public class GreaseDTOMapper {
+	
+	public it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb fromGrease(
+			ServizioWeb sw) {
+		it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb();
+		result.setIdServizio(sw.getIdServizio());
+		result.setIeOpacity(sw.getIeOpacity());
+		result.setOpacity(sw.getOpacity());
+		result.setOrdine(sw.getOrdine());
+		result.setImages(fromGrease(sw.getImages()));
+		return result;
+	}
+
+	public it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb fromGrease(
+			MapImageWeb src) {
+		if (src == null)
+			return null;
+		else {
+			it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb();
+			result.setDeltaz(src.getDeltaz());
+			result.setDimx(src.getDimx());
+			result.setDimxStr(src.getDimxStr());
+			result.setDimy(src.getDimy());
+			result.setDimyStr(src.getDimyStr());
+			result.setIdImage(src.getIdImage());
+			result.setImageUrl(src.getImageUrl());
+			result.setOffsetLeft(src.getOffsetLeft());
+			result.setOffsetTop(src.getOffsetTop());
+			return result;
+		}
+
+	}
+
+	public ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb> fromGrease(
+			MapImageWeb[] images) {
+		if (images == null)
+			return null;
+		else {
+			ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb> result = new ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb>();
+			for (int i = 0; i < images.length; i++) {
+				MapImageWeb currSrc = images[i];
+				it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb currDst = fromGrease(currSrc);
+				result.add(currDst);
+			}
+			return result;
+		}
+	}
+
+	public it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb fromGrease(
+			EnvelopeWeb src) {
+		if (src == null)
+			return null;
+		else {
+			it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb();
+			result.setNordest(fromGrease(src.getNordest()));
+			result.setSudovest(fromGrease(src.getSudovest()));
+			return result;
+		}
+	}
+
+	public it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb fromGrease(
+			PuntoWeb src) {
+		if (src == null)
+			return null;
+		else {
+			it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb();
+			result.setCoordX(src.getCoordX());
+			result.setCoordXStr(src.getCoordXStr());
+			result.setCoordY(src.getCoordY());
+			result.setCoordYStr(src.getCoordYStr());
+			return result;
+		}
+	}
+}
 «ENDFILE»
 «ENDDEFINE»

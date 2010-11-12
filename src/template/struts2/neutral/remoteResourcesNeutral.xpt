@@ -690,7 +690,7 @@ Gestione dei LAYOUT - PANNELLI
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
 <div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
-	«IF this.widgets.select(e|e.metaType == Table).size == 0»
+	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
 	<customtag:widgetsPanel id="«getFullID(this, contextPrefix)»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
 		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF»«IF !isRemote()» isStandalone="true"«ENDIF»
 		«getPanelGridPercentCols(this)»>
@@ -701,7 +701,7 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
-	«IF this.widgets.select(e|e.metaType == Table).size == 0»
+	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
 	</customtag:widgetsPanel>
 	«ENDIF»
 </div>
@@ -885,6 +885,18 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la footer di un widget di tipo Table (ATTENZIONE: non ci devono essere tabelle annidate, quindi niente CustomTag)«ENDREM»
 «DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Table»
+</div>
+«ENDDEFINE»
+
+«REM»--------------- MapView ---------------«ENDREM»
+
+«REM»Genera la header di un widget di tipo MapView (ATTENZIONE: non ci devono essere MapView annidate, quindi niente CustomTag)«ENDREM»
+«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MapView»
+<div class="mapViewWidget">
+«ENDDEFINE»
+
+«REM»Genera la footer di un widget di tipo MapView (ATTENZIONE: non ci devono essere MapView annidate, quindi niente CustomTag)«ENDREM»
+«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MapView»
 </div>
 «ENDDEFINE»
 

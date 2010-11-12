@@ -29,6 +29,10 @@
 	«IF targetPlatform.enableRichUIBehavior»
 		«EXPAND uiutils::uiutilsClassesFiles(skip_component_dir_creation) FOR this»
 	«ENDIF»
+	«IF hasGisMap()»
+		«EXPAND gisMapScaleDefinitionJavaFile(skip_component_dir_creation) FOR this»
+		«EXPAND gisMapManagerJavaFile(skip_component_dir_creation) FOR this»
+	«ENDIF»
 	«REM»«EXPAND viewFragmentResultJavaFile FOR this»«ENDREM»
 «ENDDEFINE»
 
@@ -96,8 +100,152 @@ public final class Constants
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»
+==========================================================================================================================
+DEFINIZIONE UTILITY GIS PER LE MAPPE
+===========================================================================================================================
+«ENDREM»
+«DEFINE gisMapScaleDefinitionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapScaleDefinition.java" »package «getBaseJavaPackage(this)».business.greaseutils;
+import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
+import it.csi.jeegia.jeegfw.util.managers.ScalePredefiniteDefinitionImpl;
 
+public class GisMapScaleDefinition extends ScalePredefiniteDefinitionImpl {
 
+	private String numLivelli;
+	private String scaleEnvelopeSudOvestX;
+	private String scaleEnvelopeSudOvestY;
+	private String scaleEnvelopeNordEstX;
+	private String scaleEnvelopeNordEstY;
+	
+	public void setNumLivelli(String numLivelli) {
+		this.numLivelli = numLivelli;
+	}
+
+	public void setScaleEnvelopeSudOvestX(String scaleEnvelopeSudOvestX) {
+		this.scaleEnvelopeSudOvestX = scaleEnvelopeSudOvestX;
+	}
+
+	public void setScaleEnvelopeSudOvestY(String scaleEnvelopeSudOvestY) {
+		this.scaleEnvelopeSudOvestY = scaleEnvelopeSudOvestY;
+	}
+
+	public void setScaleEnvelopeNordEstX(String scaleEnvelopeNordEstX) {
+		this.scaleEnvelopeNordEstX = scaleEnvelopeNordEstX;
+	}
+
+	public void setScaleEnvelopeNordEstY(String scaleEnvelopeNordEstY) {
+		this.scaleEnvelopeNordEstY = scaleEnvelopeNordEstY;
+	}
+
+	public GisMapScaleDefinition(String arg0) {
+		super(arg0);
+		log
+				.debug("[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] BEGIN");
+		try {
+			numLevels = Integer.parseInt(this.numLivelli);
+			envelopeLivZero = new EnvelopeWeb();
+			envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.scaleEnvelopeSudOvestX), new Double(this.scaleEnvelopeSudOvestY)));
+			envelopeLivZero.setNordest(new PuntoWeb(new Double(this.scaleEnvelopeNordEstX), new Double(this.scaleEnvelopeNordEstY)));
+			double deltaUtmPiramide = (envelopeLivZero.getNordest().getCoordX()
+					.doubleValue() - envelopeLivZero.getSudovest().getCoordX()
+					.doubleValue());
+
+			scaleFactors = new double[numLevels];
+			for (int i = 0; i < numLevels; i++) {
+				int numTasselliPerLato = new Double(Math.pow(2, i)).intValue();
+				int largPiramidePixel = numTasselliPerLato * dimTassello;
+				scaleFactors[i] = deltaUtmPiramide / largPiramidePixel;
+			}
+		} catch (Exception e) {
+			log
+					.error(
+							"[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] ",
+							e);
+		} finally {
+			log
+					.debug("[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] END");
+		}
+
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE gisMapManagerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapManager.java" »package «getBaseJavaPackage(this)».business.greaseutils;
+import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.MapManager;
+
+public class GisMapManager extends MapManager {
+
+	public GisMapManager(String rootLogger) {
+		super(rootLogger);
+	}
+
+	private String startEnvelopeSudOvestX;
+	private String startEnvelopeSudOvestY;
+	private String startEnvelopeNordEstX;
+	private String startEnvelopeNordEstY;
+	private String maxEnvelopeSudOvestX;
+	private String maxEnvelopeSudOvestY;
+	private String maxEnvelopeNordEstX;
+	private String maxEnvelopeNordEstY;
+
+	public void setStartEnvelopeSudOvestX(String startEnvelopeSudOvestX) {
+		this.startEnvelopeSudOvestX = startEnvelopeSudOvestX;
+	}
+
+	public void setStartEnvelopeSudOvestY(String startEnvelopeSudOvestY) {
+		this.startEnvelopeSudOvestY = startEnvelopeSudOvestY;
+	}
+
+	public void setStartEnvelopeNordEstX(String startEnvelopeNordEstX) {
+		this.startEnvelopeNordEstX = startEnvelopeNordEstX;
+	}
+
+	public void setStartEnvelopeNordEstY(String startEnvelopeNordEstY) {
+		this.startEnvelopeNordEstY = startEnvelopeNordEstY;
+	}
+
+	public void setMaxEnvelopeSudOvestX(String maxEnvelopeSudOvestX) {
+		this.maxEnvelopeSudOvestX = maxEnvelopeSudOvestX;
+	}
+
+	public void setMaxEnvelopeSudOvestY(String maxEnvelopeSudOvestY) {
+		this.maxEnvelopeSudOvestY = maxEnvelopeSudOvestY;
+	}
+
+	public void setMaxEnvelopeNordEstX(String maxEnvelopeNordEstX) {
+		this.maxEnvelopeNordEstX = maxEnvelopeNordEstX;
+	}
+
+	public void setMaxEnvelopeNordEstY(String maxEnvelopeNordEstY) {
+		this.maxEnvelopeNordEstY = maxEnvelopeNordEstY;
+	}
+
+	protected EnvelopeWeb getStartEnvelope() throws Exception {
+		EnvelopeWeb envelopeLivZero = new EnvelopeWeb();
+		envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.startEnvelopeSudOvestX),
+				new Double(this.startEnvelopeSudOvestY)));
+		envelopeLivZero.setNordest(new PuntoWeb(new Double(this.startEnvelopeNordEstX), new Double(
+				this.startEnvelopeNordEstY)));
+		return cloneEnvelope(envelopeLivZero);
+	}
+
+	protected EnvelopeWeb getMaxEnvelope() throws Exception {
+		EnvelopeWeb envelopeLivZero = new EnvelopeWeb();
+		envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.maxEnvelopeSudOvestX),
+				new Double(this.maxEnvelopeSudOvestY)));
+		envelopeLivZero.setNordest(new PuntoWeb(new Double(this.maxEnvelopeNordEstX), new Double(
+				this.maxEnvelopeNordEstY)));
+		return cloneEnvelope(envelopeLivZero);
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»
 «DEFINE viewFragmentResultJavaFile FOR GUIModel»
