@@ -2673,6 +2673,33 @@ public class GenUtils {
 		
 		return listaMappe;
 	}
+	
+	/**
+	 * 
+	 * @param cp
+	 * @return tutte le mappe con diverso id contenute in un content panel
+	 */
+	public static List<MapView> getMapsInContentPanel(ContentPanel cp){
+		List<MapView> listaMappe = new ArrayList<MapView>();
+		
+		List<Widget> widgetsList = findAllWidgetsInContentPanel(cp);
+		for (Widget widget : widgetsList) {
+			if ( widget instanceof MapView ) {
+				MapView inlineMap = (MapView) widget;
+				boolean flag = true;
+				for (MapView mapView : listaMappe) {
+					if(mapView.getMapId().equalsIgnoreCase(inlineMap.getMapId())){
+						flag = false;
+					}
+				}
+				if(flag){
+					listaMappe.add((MapView) widget);
+				}
+			}
+		}
+		
+		return listaMappe;
+	}
 
 	
 	/**

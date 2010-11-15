@@ -870,29 +870,29 @@ public class Utility {
 import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb;
+import «getBaseJavaPackage(this)».dto.DTOUtils;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class GreaseDTOMapper {
 	
-	public it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb fromGrease(
-			ServizioWeb sw) {
-		it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.ServizioWeb();
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb fromGrease(ServizioWeb sw) {
+		«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb();
 		result.setIdServizio(sw.getIdServizio());
-		result.setIeOpacity(sw.getIeOpacity());
 		result.setOpacity(sw.getOpacity());
 		result.setOrdine(sw.getOrdine());
 		result.setImages(fromGrease(sw.getImages()));
 		return result;
 	}
 
-	public it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb fromGrease(
-			MapImageWeb src) {
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb fromGrease(MapImageWeb src) {
 		if (src == null)
 			return null;
 		else {
-			it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb();
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb();
 			result.setDeltaz(src.getDeltaz());
 			result.setDimx(src.getDimx());
 			result.setDimxStr(src.getDimxStr());
@@ -907,45 +907,83 @@ public class GreaseDTOMapper {
 
 	}
 
-	public ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb> fromGrease(
+	public ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb> fromGrease(
 			MapImageWeb[] images) {
 		if (images == null)
 			return null;
 		else {
-			ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb> result = new ArrayList<it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb>();
+			ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb> result = new ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb>();
 			for (int i = 0; i < images.length; i++) {
 				MapImageWeb currSrc = images[i];
-				it.csi.mddgis.mddgis.dto.greasemapfacade.MapImageWeb currDst = fromGrease(currSrc);
+				«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb currDst = fromGrease(currSrc);
 				result.add(currDst);
 			}
 			return result;
 		}
 	}
 
-	public it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb fromGrease(
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb fromGrease(
 			EnvelopeWeb src) {
 		if (src == null)
 			return null;
 		else {
-			it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.EnvelopeWeb();
+			«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb();
 			result.setNordest(fromGrease(src.getNordest()));
 			result.setSudovest(fromGrease(src.getSudovest()));
 			return result;
 		}
 	}
 
-	public it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb fromGrease(
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb fromGrease(
 			PuntoWeb src) {
 		if (src == null)
 			return null;
 		else {
-			it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb result = new it.csi.mddgis.mddgis.dto.greasemapfacade.PuntoWeb();
+			«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb();
 			result.setCoordX(src.getCoordX());
 			result.setCoordXStr(src.getCoordXStr());
 			result.setCoordY(src.getCoordY());
 			result.setCoordYStr(src.getCoordYStr());
 			return result;
 		}
+	}
+	
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb fromGrease(MappaWeb mappa) throws Exception {
+		if (mappa == null) {
+			return null;
+		}
+
+		Hashtable<String, String> classMaps = new Hashtable<String, String>();
+		
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb","«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioClientWeb");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioTMS");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig", "«getBaseJavaPackage(this)».dto.greasemapfacade.OpenLayerMapConfig");
+		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb");
+		
+		return («getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb) DTOUtils.deepCopy(mappa, classMaps);
+	}
+	
+	public it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb toGrease(«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa) throws Exception {
+		if (mappa == null) {
+			return null;
+		}
+
+		Hashtable<String, String> classMaps = new Hashtable<String, String>();
+		
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioClientWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioTMS", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.OpenLayerMapConfig", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
+		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
+		
+		return (it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb) DTOUtils.deepCopy(mappa, classMaps);
 	}
 }
 «ENDFILE»

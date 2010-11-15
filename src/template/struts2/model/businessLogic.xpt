@@ -98,7 +98,9 @@ import «getDTOBaseJavaPackage(model)».*;
 import org.apache.log4j.*;
 import «getBaseJavaPackage(model)».util.*;
 import «getBaseJavaPackage(model)».business.*;
-
+«IF hasGisMap()»
+import it.csi.jeegia.jeegfw.presentation.managers.helper.interfaces.MapInterface;
+«ENDIF»
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
 
 «ENDPROTECT»
@@ -130,7 +132,18 @@ public class «getSpringCPBEClassName()»{
 	«REM»[DM] gestione del reset delle tabelle«ENDREM»
 	«EXPAND resetTableMethods FOR this»
 	
+	«IF hasGisMap()»
+	//*********************bean di iniezione delle mappe
+	«LET (List[MapView])getMapsInContentPanel() AS maps-»
+	«FOREACH maps AS map-»
+	private MapInterface mapManager«map.mapId.toFirstUpper()»;
 	
+	public void setMapManager«map.mapId.toFirstUpper()»(MapInterface mapManager«map.mapId.toFirstUpper()») {
+		this.mapManager«map.mapId.toFirstUpper()» = mapManager«map.mapId.toFirstUpper()»;
+	}
+	«ENDFOREACH»
+	«ENDLET»
+	«ENDIF»
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////

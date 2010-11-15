@@ -106,8 +106,11 @@ String getSpringEjbConfigurationFile(GUIModel model, boolean omit_root) :
 	getEjbConfigDir(model, omit_root) + "/beanContext.xml";
 
 String getGisMapPdConfigurationFile(GUIModel model, boolean omit_root) :
-	getEjbConfigDir(model, omit_root) + "/pd_gosgisso_baseservice.xml";
-	
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/map-config/pd_gosgisso_baseservice.xml";
+
+String getGisMapPdPropertiesFile(GUIModel model, boolean omit_root) :
+	getEjbConfigRootDir(model, omit_root) + "/business/" + model.codComponente + "/map-config/gosgissobase-delegate.properties";
+		
 String getSpringWebConfigurationFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/applicationContext.xml";
 
@@ -686,6 +689,9 @@ boolean hasGisMap(GUIModel model) : JAVA
 	
 List getMapsInModel(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getMapsInModel(it.csi.mddtools.guigen.GUIModel);
+	
+List getMapsInContentPanel(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.GenUtils.getMapsInContentPanel(it.csi.mddtools.guigen.ContentPanel);
 
 List getAllPossibleJumps(ContentPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getAllPossibleJumps(it.csi.mddtools.guigen.ContentPanel);

@@ -84,17 +84,13 @@
 «ENDLET»
 «ENDFILE»
 «FILE getSpringGisMapConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-       
-    <context:property-placeholder location="«getSpringGisMapPropertiesFile(this, skip_component_dir_creation)»"/>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>   
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+		     <value>/WEB-INF/classes/gisMapConf.properties</value> 
+		</property>
+	</bean>
     
     <!-- ========================== Inizio confugurazione mappe ============================= -->
     «LET (List[MapView])getMapsInModel() AS maps-»
@@ -193,11 +189,21 @@
 		<constructor-arg index="0">
 			<value>«this.codComponente»</value> <!-- logger applicativo -->
 		</constructor-arg>
-		<property name="numLivelli" value="«map.numLevels»" />
-		<property name="scaleEnvelopeSudOvestX" value="«map.scaleEnvelopeSpec.southWest.x»" />
-		<property name="scaleEnvelopeSudOvestY" value="«map.scaleEnvelopeSpec.southWest.y»" />
-		<property name="scaleEnvelopeNordEstX" value="«map.scaleEnvelopeSpec.northEast.x»" />
-		<property name="scaleEnvelopeNordEstY" value="«map.scaleEnvelopeSpec.northEast.y»" />
+		<constructor-arg index="1">
+			<value>«map.numLevels»</value> <!-- numLivelli -->
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>«map.scaleEnvelopeSpec.southWest.x»</value> <!-- scaleEnvelopeSudOvestX -->
+		</constructor-arg>
+		<constructor-arg index="3">
+			<value>«map.scaleEnvelopeSpec.southWest.y»</value> <!-- scaleEnvelopeSudOvestY -->
+		</constructor-arg>
+		<constructor-arg index="4">
+			<value>«map.scaleEnvelopeSpec.northEast.x»</value> <!-- scaleEnvelopeNordEstX -->
+		</constructor-arg>
+		<constructor-arg index="5">
+			<value>«map.scaleEnvelopeSpec.northEast.y»</value> <!-- scaleEnvelopeNordEstY -->
+		</constructor-arg>
 	</bean>
 
 	<bean id="gisBusinessCasting«map.mapId.toFirstUpper()»"
@@ -234,6 +240,7 @@
 		<constructor-arg index="0">
 			<value>«this.codComponente»</value> <!-- logger applicativo -->
 		</constructor-arg>
+
 		<property name="startEnvelopeSudOvestX" value="«map.startEnvelopeSpec.southWest.x»" />
 		<property name="startEnvelopeSudOvestY" value="«map.startEnvelopeSpec.southWest.y»" />
 		<property name="startEnvelopeNordEstX" value="«map.startEnvelopeSpec.northEast.x»" />

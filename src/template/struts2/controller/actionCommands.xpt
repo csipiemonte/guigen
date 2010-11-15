@@ -850,8 +850,12 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Hashtable;
 import java.util.List;
 
 public class DTOUtils {
@@ -926,6 +930,208 @@ public class DTOUtils {
 					return false; // al primo diverso mi fermo
 			}
 			return true;
+		}
+	}
+	
+	/**
+	 * Effettua la copia del bean source nel bean di destinazione utilizzando i
+	 * mapping dei nomi di classe specificati.
+	 * 
+	 * @param source
+	 *            l'oggetto corrente
+	 * @param classMaps
+	 *            il mapping delle classi (dominio a - dominio b)
+	 * @return l'oggetto "copiato"
+	 * @throws Exception
+	 */
+	public static Object deepCopy(Object source, Hashtable<String, String> classMaps)
+			throws Exception {
+
+		if (source == null)
+			return null;
+		else if (source.getClass().isArray()) {
+			// verifico se c'è un mapping corrispondente per il component type
+			String mappedCompType = (String) classMaps.get(source.getClass()
+					.getComponentType().getName());
+			Class dstCompType = source.getClass().getComponentType();
+			if (mappedCompType != null)
+				dstCompType = Class.forName(mappedCompType);
+			Object risArray[] = (Object[]) (Array.newInstance(dstCompType,
+					((Object[]) source).length));
+			// ciclo su ogni elemento
+			for (int ai = 0; ai < risArray.length; ai++) {
+				Object currArrayElement = ((Object[]) source)[ai];
+				risArray[ai] = DTOUtils.deepCopy(currArrayElement,
+						classMaps);
+			}
+			return risArray;
+		} else {
+			BeanInfo beanInfoSrc = Introspector.getBeanInfo(source.getClass());
+			// verifico se esiste un mapping
+			String s_cl2 = (String) classMaps.get(source.getClass().getName());
+			Class cl2 = (s_cl2 != null ? Class.forName(s_cl2) : source
+					.getClass());
+			BeanInfo beanInfoDst = Introspector.getBeanInfo(cl2);
+			PropertyDescriptor pdescrSrc[] = beanInfoSrc
+					.getPropertyDescriptors();
+			PropertyDescriptor pdescrDst[] = beanInfoDst
+					.getPropertyDescriptors();
+			PropertyDescriptor currPDSrc = null;
+			Field[] srcFlds = source.getClass().getFields();
+			Field[] dstFlds = cl2.getFields();
+			Object dstObj = beanInfoDst.getBeanDescriptor().getBeanClass()
+					.newInstance();
+
+			// / Ciclo 1: faccio prima un giro per ogni property del source
+			for (int i = 0; i < pdescrSrc.length; i++) {
+				currPDSrc = pdescrSrc[i];
+				Class currSrcPropType = currPDSrc.getPropertyType();
+				// se è object prendo il tipo effettivo
+				if (currSrcPropType.equals(Object.class)) {
+
+					// JDK:1.3.1.Object o =
+					// currPDSrc.getReadMethod().invoke(source,null);
+					Object o = currPDSrc.getReadMethod().invoke(source);
+					if (o != null)
+						currSrcPropType = o.getClass();
+				}
+
+				// se c'è un mapping devo copiare nella nuova classe, se no
+				// copio l'oggetto così com'è
+				String s_currSrcPropTypeMapped = (String) classMaps
+						.get(currSrcPropType.getName());
+				// cerco la proprietà destinataria omonima
+				PropertyDescriptor pdDstOmonima = null;
+				for (int pdi = 0; pdi < pdescrDst.length; pdi++) {
+					if (pdescrDst[pdi].getName().equals(currPDSrc.getName())) {
+						pdDstOmonima = pdescrDst[pdi];
+						break;
+					}
+				}
+				// in alternativa cerco un field public omonimo
+				Field fieldDstOmonimo = null;
+				for (int fldi = 0; fldi < dstFlds.length; fldi++) {
+					if (dstFlds[fldi].getName().equals(currPDSrc.getName())) {
+						if (!java.lang.reflect.Modifier.isFinal(fieldDstOmonimo
+								.getModifiers()))
+							fieldDstOmonimo = dstFlds[fldi];
+						break;
+					}
+				}
+
+				if (s_currSrcPropTypeMapped == null) {
+					// caso in cui non devo cambiare classe
+					if (pdDstOmonima != null
+							&& pdDstOmonima.getWriteMethod() != null) {
+						// leggo il valore src
+						// JDK:1.3.1 Object srcPropVal =
+						// currPDSrc.getReadMethod().invoke(source,null);
+						Object srcPropVal = currPDSrc.getReadMethod().invoke(
+								source);
+						// lo scrivo in dst
+						pdDstOmonima.getWriteMethod().invoke(dstObj,
+								new Object[] { srcPropVal });
+					} else if (fieldDstOmonimo != null) {
+						// JDK:1.3.1 Object srcPropVal =
+						// currPDSrc.getReadMethod().invoke(source,null);
+						Object srcPropVal = currPDSrc.getReadMethod().invoke(
+								source);
+						fieldDstOmonimo.set(dstObj, srcPropVal);
+					}
+				} else {
+					// caso in cui devo cambiare classe
+					if (pdDstOmonima != null
+							&& pdDstOmonima.getWriteMethod() != null) {
+						// leggo il valore src
+						// JDK:1.3.1 Object srcPropVal =
+						// currPDSrc.getReadMethod().invoke(source,null);
+						Object srcPropVal = currPDSrc.getReadMethod().invoke(
+								source);
+						// lo rimappo
+						Object remappedObj = DTOUtils.deepCopy(srcPropVal,
+								classMaps);
+						// lo scrivo in dst
+						pdDstOmonima.getWriteMethod().invoke(dstObj,
+								new Object[] { remappedObj });
+					} else if (fieldDstOmonimo != null) {
+						// JDK:1.3.1 Object srcPropVal =
+						// currPDSrc.getReadMethod().invoke(source,null);
+						Object srcPropVal = currPDSrc.getReadMethod().invoke(
+								source);
+						Object remappedObj = DTOUtils.deepCopy(srcPropVal,
+								classMaps);
+						fieldDstOmonimo.set(dstObj, remappedObj);
+					}
+				}
+			}
+
+			// / Ciclo 2: poi faccio un giro per ogni field public del source
+			Field currFldSrc = null;
+			for (int i = 0; i < srcFlds.length; i++) {
+				currFldSrc = srcFlds[i];
+				Class currSrcFldType = currFldSrc.getType();
+				// se c'è un mapping devo copiare nella nuova classe, se no
+				// copio l'oggetto così com'è
+				// a.Solano: modifica per controllare attributi di tipo classe
+				// custom
+
+				// String
+				// s_currSrcFldTypeMapped=(String)classMaps.get(currSrcFldType);
+				String s_currSrcFldTypeMapped = (String) classMaps
+						.get(currSrcFldType.getName());
+				// cerco la proprietà destinataria omonima
+				PropertyDescriptor pdDstOmonima = null;
+				for (int pdi = 0; pdi < pdescrDst.length; pdi++) {
+					if (pdescrDst[pdi].getName().equals(currFldSrc.getName())) {
+						pdDstOmonima = pdescrDst[pdi];
+						break;
+					}
+				}
+				// in alternativa cerco un field public omonimo
+				Field fieldDstOmonimo = null;
+				for (int fldi = 0; fldi < dstFlds.length; fldi++) {
+					if (dstFlds[fldi].getName().equals(currFldSrc.getName())) {
+						if (!Modifier.isFinal(dstFlds[fldi].getModifiers()))
+							fieldDstOmonimo = dstFlds[fldi];
+						break;
+					}
+				}
+
+				if (s_currSrcFldTypeMapped == null) {
+					// caso in cui non devo cambiare classe
+					if (pdDstOmonima != null
+							&& pdDstOmonima.getWriteMethod() != null) {
+						// leggo il valore src
+						Object srcFldVal = currFldSrc.get(source);
+						// lo scrivo in dst
+						pdDstOmonima.getWriteMethod().invoke(dstObj,
+								new Object[] { srcFldVal });
+					} else if (fieldDstOmonimo != null) {
+						Object srcFldVal = currFldSrc.get(source);
+						fieldDstOmonimo.set(dstObj, srcFldVal);
+					}
+				} else {
+					// caso in cui devo cambiare classe
+					if (pdDstOmonima != null
+							&& pdDstOmonima.getWriteMethod() != null) {
+						// leggo il valore src
+						Object srcFldVal = currFldSrc.get(source);
+						// lo rimappo
+						Object remappedObj = DTOUtils.deepCopy(srcFldVal,
+								classMaps);
+						// lo scrivo in dst
+						pdDstOmonima.getWriteMethod().invoke(dstObj,
+								new Object[] { remappedObj });
+					} else if (fieldDstOmonimo != null) {
+						Object srcFldVal = currFldSrc.get(source);
+						Object remappedObj = DTOUtils.deepCopy(srcFldVal,
+								classMaps);
+						fieldDstOmonimo.set(dstObj, remappedObj);
+					}
+				}
+			}
+
+			return dstObj;
 		}
 	}
 }

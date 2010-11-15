@@ -113,45 +113,23 @@ import it.csi.jeegia.jeegfw.util.managers.ScalePredefiniteDefinitionImpl;
 
 public class GisMapScaleDefinition extends ScalePredefiniteDefinitionImpl {
 
-	private String numLivelli;
-	private String scaleEnvelopeSudOvestX;
-	private String scaleEnvelopeSudOvestY;
-	private String scaleEnvelopeNordEstX;
-	private String scaleEnvelopeNordEstY;
-	
-	public void setNumLivelli(String numLivelli) {
-		this.numLivelli = numLivelli;
-	}
-
-	public void setScaleEnvelopeSudOvestX(String scaleEnvelopeSudOvestX) {
-		this.scaleEnvelopeSudOvestX = scaleEnvelopeSudOvestX;
-	}
-
-	public void setScaleEnvelopeSudOvestY(String scaleEnvelopeSudOvestY) {
-		this.scaleEnvelopeSudOvestY = scaleEnvelopeSudOvestY;
-	}
-
-	public void setScaleEnvelopeNordEstX(String scaleEnvelopeNordEstX) {
-		this.scaleEnvelopeNordEstX = scaleEnvelopeNordEstX;
-	}
-
-	public void setScaleEnvelopeNordEstY(String scaleEnvelopeNordEstY) {
-		this.scaleEnvelopeNordEstY = scaleEnvelopeNordEstY;
-	}
-
-	public GisMapScaleDefinition(String arg0) {
-		super(arg0);
+	public GisMapScaleDefinition(String logger, String numLivelli, String scaleEnvelopeSudOvestX, 
+			String scaleEnvelopeSudOvestY, String scaleEnvelopeNordEstX, String scaleEnvelopeNordEstY) {
+		super(logger);
 		log
 				.debug("[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] BEGIN");
 		try {
-			numLevels = Integer.parseInt(this.numLivelli);
+			numLevels = Integer.parseInt(numLivelli);
 			envelopeLivZero = new EnvelopeWeb();
-			envelopeLivZero.setSudovest(new PuntoWeb(new Double(this.scaleEnvelopeSudOvestX), new Double(this.scaleEnvelopeSudOvestY)));
-			envelopeLivZero.setNordest(new PuntoWeb(new Double(this.scaleEnvelopeNordEstX), new Double(this.scaleEnvelopeNordEstY)));
+			envelopeLivZero.setSudovest(new PuntoWeb(new Double(
+					scaleEnvelopeSudOvestX), new Double(
+					scaleEnvelopeSudOvestY)));
+			envelopeLivZero.setNordest(new PuntoWeb(new Double(
+					scaleEnvelopeNordEstX), new Double(
+					scaleEnvelopeNordEstY)));
 			double deltaUtmPiramide = (envelopeLivZero.getNordest().getCoordX()
 					.doubleValue() - envelopeLivZero.getSudovest().getCoordX()
 					.doubleValue());
-
 			scaleFactors = new double[numLevels];
 			for (int i = 0; i < numLevels; i++) {
 				int numTasselliPerLato = new Double(Math.pow(2, i)).intValue();
@@ -159,10 +137,9 @@ public class GisMapScaleDefinition extends ScalePredefiniteDefinitionImpl {
 				scaleFactors[i] = deltaUtmPiramide / largPiramidePixel;
 			}
 		} catch (Exception e) {
-			log
-					.error(
-							"[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] ",
-							e);
+			log.error(
+					"[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] ",
+					e);
 		} finally {
 			log
 					.debug("[GisMapScaleDefinition::ScalePredefiniteDefinitionImpl] END");
