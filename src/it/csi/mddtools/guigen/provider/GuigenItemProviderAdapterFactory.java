@@ -1365,6 +1365,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypeAnnotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeAnnotationItemProvider typeAnnotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.TypeAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeAnnotationAdapter() {
+		if (typeAnnotationItemProvider == null) {
+			typeAnnotationItemProvider = new TypeAnnotationItemProvider(this);
+		}
+
+		return typeAnnotationItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.TypedArray} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3245,6 +3268,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (typedefsItemProvider != null) typedefsItemProvider.dispose();
 		if (simpleTypeItemProvider != null) simpleTypeItemProvider.dispose();
 		if (complexTypeItemProvider != null) complexTypeItemProvider.dispose();
+		if (typeAnnotationItemProvider != null) typeAnnotationItemProvider.dispose();
 		if (typedArrayItemProvider != null) typedArrayItemProvider.dispose();
 		if (fieldItemProvider != null) fieldItemProvider.dispose();
 		if (applicationDataDefsItemProvider != null) applicationDataDefsItemProvider.dispose();

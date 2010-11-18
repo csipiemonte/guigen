@@ -118,6 +118,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.TYPEDEFS: return createTypedefs();
 			case GuigenPackage.SIMPLE_TYPE: return createSimpleType();
 			case GuigenPackage.COMPLEX_TYPE: return createComplexType();
+			case GuigenPackage.TYPE_ANNOTATION: return createTypeAnnotation();
 			case GuigenPackage.TYPED_ARRAY: return createTypedArray();
 			case GuigenPackage.FIELD: return createField();
 			case GuigenPackage.APPLICATION_DATA_DEFS: return createApplicationDataDefs();
@@ -833,6 +834,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public ComplexType createComplexType() {
 		ComplexTypeImpl complexType = new ComplexTypeImpl();
 		return complexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeAnnotation createTypeAnnotation() {
+		TypeAnnotationImpl typeAnnotation = new TypeAnnotationImpl();
+		return typeAnnotation;
 	}
 
 	/**

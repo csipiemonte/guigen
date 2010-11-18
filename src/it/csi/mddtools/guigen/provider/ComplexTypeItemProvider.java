@@ -125,6 +125,7 @@ public class ComplexTypeItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GuigenPackage.Literals.COMPLEX_TYPE__FIELDS);
+			childrenFeatures.add(GuigenPackage.Literals.COMPLEX_TYPE__TYPE_ANNOTATION);
 		}
 		return childrenFeatures;
 	}
@@ -188,6 +189,7 @@ public class ComplexTypeItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -209,6 +211,11 @@ public class ComplexTypeItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.COMPLEX_TYPE__FIELDS,
 				 GuigenFactory.eINSTANCE.createField()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.COMPLEX_TYPE__TYPE_ANNOTATION,
+				 GuigenFactory.eINSTANCE.createTypeAnnotation()));
 	}
 
 }

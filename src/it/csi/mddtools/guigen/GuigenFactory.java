@@ -530,6 +530,15 @@ public interface GuigenFactory extends EFactory {
 	ComplexType createComplexType();
 
 	/**
+	 * Returns a new object of class '<em>Type Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Annotation</em>'.
+	 * @generated
+	 */
+	TypeAnnotation createTypeAnnotation();
+
+	/**
 	 * Returns a new object of class '<em>Typed Array</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

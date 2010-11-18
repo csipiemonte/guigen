@@ -140,6 +140,7 @@ import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.Titlebar;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
+import it.csi.mddtools.guigen.TypeAnnotation;
 import it.csi.mddtools.guigen.TypeDefMappingPDefVal;
 import it.csi.mddtools.guigen.TypeDefMappingParam;
 import it.csi.mddtools.guigen.TypeNamespace;
@@ -634,6 +635,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass complexTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeAnnotationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3217,6 +3225,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getComplexType_TypeAnnotation() {
+		return (EReference)complexTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeAnnotation() {
+		return typeAnnotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeAnnotation_Language() {
+		return (EAttribute)typeAnnotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeAnnotation_Fqn() {
+		return (EAttribute)typeAnnotationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypedArray() {
 		return typedArrayEClass;
 	}
@@ -5540,6 +5584,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(complexTypeEClass, COMPLEX_TYPE__FIELDS);
 		createEAttribute(complexTypeEClass, COMPLEX_TYPE__INIT_FIELDS);
 		createEReference(complexTypeEClass, COMPLEX_TYPE__EXTENDS);
+		createEReference(complexTypeEClass, COMPLEX_TYPE__TYPE_ANNOTATION);
+
+		typeAnnotationEClass = createEClass(TYPE_ANNOTATION);
+		createEAttribute(typeAnnotationEClass, TYPE_ANNOTATION__LANGUAGE);
+		createEAttribute(typeAnnotationEClass, TYPE_ANNOTATION__FQN);
 
 		typedArrayEClass = createEClass(TYPED_ARRAY);
 		createEReference(typedArrayEClass, TYPED_ARRAY__COMPONENT_TYPE);
@@ -6244,8 +6293,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getComplexType_Fields(), this.getField(), null, "fields", null, 0, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComplexType_InitFields(), ecorePackage.getEBoolean(), "initFields", "false", 0, 1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComplexType_Extends(), this.getComplexType(), null, "extends", null, 0, 1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComplexType_TypeAnnotation(), this.getTypeAnnotation(), null, "typeAnnotation", null, 0, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(complexTypeEClass, this.getField(), "getAllFields", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(typeAnnotationEClass, TypeAnnotation.class, "TypeAnnotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeAnnotation_Language(), ecorePackage.getEString(), "language", null, 0, 1, TypeAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeAnnotation_Fqn(), ecorePackage.getEString(), "fqn", null, 0, 1, TypeAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typedArrayEClass, TypedArray.class, "TypedArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedArray_ComponentType(), this.getType(), null, "componentType", null, 0, 1, TypedArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

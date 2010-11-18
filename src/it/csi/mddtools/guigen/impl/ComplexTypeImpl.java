@@ -10,6 +10,7 @@ import it.csi.mddtools.guigen.ComplexType;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.GuigenPackage;
 
+import it.csi.mddtools.guigen.TypeAnnotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#isInitFields <em>Init Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComplexTypeImpl#getTypeAnnotation <em>Type Annotation</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,6 +85,16 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 	 * @ordered
 	 */
 	protected ComplexType extends_;
+
+	/**
+	 * The cached value of the '{@link #getTypeAnnotation() <em>Type Annotation</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypeAnnotation()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TypeAnnotation> typeAnnotation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -176,6 +188,18 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TypeAnnotation> getTypeAnnotation() {
+		if (typeAnnotation == null) {
+			typeAnnotation = new EObjectContainmentEList<TypeAnnotation>(TypeAnnotation.class, this, GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION);
+		}
+		return typeAnnotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * Restituisce l'elenco completo dei field definiti in questo complex type e nei super-tipi
 	 * <!-- end-user-doc -->
 	 * @generated NOT
@@ -220,6 +244,8 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 		switch (featureID) {
 			case GuigenPackage.COMPLEX_TYPE__FIELDS:
 				return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
+				return ((InternalEList<?>)getTypeAnnotation()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -239,6 +265,8 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
 				if (resolve) return getExtends();
 				return basicGetExtends();
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
+				return getTypeAnnotation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -262,6 +290,10 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
 				setExtends((ComplexType)newValue);
 				return;
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
+				getTypeAnnotation().clear();
+				getTypeAnnotation().addAll((Collection<? extends TypeAnnotation>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -283,6 +315,9 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
 				setExtends((ComplexType)null);
 				return;
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
+				getTypeAnnotation().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -301,6 +336,8 @@ public class ComplexTypeImpl extends TypeImpl implements ComplexType {
 				return initFields != INIT_FIELDS_EDEFAULT;
 			case GuigenPackage.COMPLEX_TYPE__EXTENDS:
 				return extends_ != null;
+			case GuigenPackage.COMPLEX_TYPE__TYPE_ANNOTATION:
+				return typeAnnotation != null && !typeAnnotation.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getFields <em>Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#isInitFields <em>Init Fields</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComplexType#getExtends <em>Extends</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComplexType#getTypeAnnotation <em>Type Annotation</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,6 +112,22 @@ public interface ComplexType extends Type {
 	 * @generated
 	 */
 	void setExtends(ComplexType value);
+
+	/**
+	 * Returns the value of the '<em><b>Type Annotation</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.TypeAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type Annotation</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Annotation</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComplexType_TypeAnnotation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<TypeAnnotation> getTypeAnnotation();
 
 	/**
 	 * <!-- begin-user-doc -->

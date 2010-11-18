@@ -539,6 +539,12 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.TYPE_ANNOTATION: {
+				TypeAnnotation typeAnnotation = (TypeAnnotation)theEObject;
+				T result = caseTypeAnnotation(typeAnnotation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GuigenPackage.TYPED_ARRAY: {
 				TypedArray typedArray = (TypedArray)theEObject;
 				T result = caseTypedArray(typedArray);
@@ -2041,6 +2047,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseComplexType(ComplexType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Annotation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeAnnotation(TypeAnnotation object) {
 		return null;
 	}
 

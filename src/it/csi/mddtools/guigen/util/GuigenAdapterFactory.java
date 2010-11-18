@@ -336,6 +336,10 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createComplexTypeAdapter();
 			}
 			@Override
+			public Adapter caseTypeAnnotation(TypeAnnotation object) {
+				return createTypeAnnotationAdapter();
+			}
+			@Override
 			public Adapter caseTypedArray(TypedArray object) {
 				return createTypedArrayAdapter();
 			}
@@ -1574,6 +1578,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createComplexTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.TypeAnnotation <em>Type Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.TypeAnnotation
+	 * @generated
+	 */
+	public Adapter createTypeAnnotationAdapter() {
 		return null;
 	}
 
