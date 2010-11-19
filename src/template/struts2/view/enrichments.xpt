@@ -212,6 +212,19 @@ Ext.onReady( function() {
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
+	/// arricchimento per «this.metaType.name» [«name»]: mapView
+	var addMapTo«name.toFirstUpper()» = function(){new ExtCsi.ui.maps.InitMap({
+											idHiddenField: hidden_field_«this.name»,
+											idDivToolbar: toolbar_«this.name»,
+											idDivMappa: «this.name»,
+											actionName: contentPanelName,
+											appDataName: «getAppDataPropertyName(this.databinding.appData).toFirstLower()»											
+										}).init()};
+	
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
+«ENDDEFINE»
+
 
 «REM»file di configurazione del caricamento risorse per tag csiui:header«ENDREM»
 «DEFINE staticResourcesXML FOR GUIModel-»
