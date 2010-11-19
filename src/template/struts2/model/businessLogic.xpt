@@ -99,7 +99,7 @@ import org.apache.log4j.*;
 import «getBaseJavaPackage(model)».util.*;
 import «getBaseJavaPackage(model)».business.*;
 «IF hasGisMap()»
-import it.csi.jeegia.jeegfw.presentation.managers.helper.interfaces.MapInterface;
+import «getBaseJavaPackage(model)».presentation.uiutils.GreaseDTOMapper;
 «ENDIF»
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
 
@@ -136,10 +136,10 @@ public class «getSpringCPBEClassName()»{
 	//*********************bean di iniezione delle mappe
 	«LET (List[MapView])getMapsInContentPanel() AS maps-»
 	«FOREACH maps AS map-»
-	private MapInterface mapManager«map.mapId.toFirstUpper()»;
-	
-	public void setMapManager«map.mapId.toFirstUpper()»(MapInterface mapManager«map.mapId.toFirstUpper()») {
-		this.mapManager«map.mapId.toFirstUpper()» = mapManager«map.mapId.toFirstUpper()»;
+	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
+
+	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
+		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
 	}
 	«ENDFOREACH»
 	«ENDLET»

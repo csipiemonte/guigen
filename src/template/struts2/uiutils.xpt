@@ -867,123 +867,201 @@ public class Utility {
 
 «DEFINE greaseDTOMapperFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getUIUtilsJavaSrcDir(this, true)+"/GreaseDTOMapper.java"»package «getUIUtilsJavaPackage(this)»;
-import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
-import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
-import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb;
+
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb;
-import «getBaseJavaPackage(this)».dto.DTOUtils;
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.GetImageManager;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.interfaces.MapInterface;
+import «getBaseJavaPackage(this)».dto.BeanMapping;
+import «getBaseJavaPackage(this)».dto.MappingException;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Properties;
 
-public class GreaseDTOMapper {
-	
-	public «getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb fromGrease(ServizioWeb sw) {
-		«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb();
-		result.setIdServizio(sw.getIdServizio());
-		result.setOpacity(sw.getOpacity());
-		result.setOrdine(sw.getOrdine());
-		result.setImages(fromGrease(sw.getImages()));
-		return result;
+import org.apache.commons.beanutils.BeanUtilsBean;
+
+public class GreaseDTOMapper {	
+
+	private MapInterface mapManager;
+
+	public void setMapManager(MapInterface mapManager) {
+		this.mapManager = mapManager;
 	}
 
-	public «getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb fromGrease(MapImageWeb src) {
-		if (src == null)
-			return null;
-		else {
-			«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb();
-			result.setDeltaz(src.getDeltaz());
-			result.setDimx(src.getDimx());
-			result.setDimxStr(src.getDimxStr());
-			result.setDimy(src.getDimy());
-			result.setDimyStr(src.getDimyStr());
-			result.setIdImage(src.getIdImage());
-			result.setImageUrl(src.getImageUrl());
-			result.setOffsetLeft(src.getOffsetLeft());
-			result.setOffsetTop(src.getOffsetTop());
-			return result;
+	private GetImageManager imageManager;
+
+	public void setImageManager(GetImageManager imageManager) {
+		this.imageManager = imageManager;
+	}
+
+	/**
+	 * conversione oggetto mappa
+	 * 
+	 * @return
+	 * @throws IntrospectionException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws MappingException
+	 * @throws JeegfwBaseException
+	 */
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb getMap()
+			throws IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException, JeegfwBaseException {
+
+		return fromGrease(mapManager.getMap());
+
+	}
+
+	/**
+	 * overwrite metodo originale su
+	 * it.csi.jeegia.jeegfw.util.jeegweb.BaseMapUtils
+	 * 
+	 * @param serviziServer
+	 * @param serviziClient
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<ServizioClientWeb> mergeServiziClient(
+			ArrayList<ServizioWeb> serviziServer,
+			ArrayList<ServizioClientWeb> serviziClient) throws Exception {
+
+		ArrayList<ServizioClientWeb> ret = new ArrayList<ServizioClientWeb>();
+		for (ServizioWeb curWeb : serviziServer) {
+			ServizioClientWeb newSrv = new ServizioClientWeb();
+			BeanUtilsBean.getInstance().copyProperties(newSrv, curWeb);
+			newSrv.setTipoMapservice("GREASE");
+			ret.add(newSrv);
+		}
+		for (ServizioClientWeb cur : serviziClient) {
+			ret.add(cur);
 		}
 
-	}
-
-	public ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb> fromGrease(
-			MapImageWeb[] images) {
-		if (images == null)
-			return null;
-		else {
-			ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb> result = new ArrayList<«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb>();
-			for (int i = 0; i < images.length; i++) {
-				MapImageWeb currSrc = images[i];
-				«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb currDst = fromGrease(currSrc);
-				result.add(currDst);
+		boolean scambio = true;
+		while (scambio) {
+			scambio = false;
+			for (int i = 0; i < ret.size() - 1; i++) {
+				if (((ServizioClientWeb) ret.get(i)).getOrdine() > ((ServizioClientWeb) ret
+						.get(i + 1)).getOrdine()) {
+					scambio = true;
+					ServizioClientWeb aa = (ServizioClientWeb) ret.get(i);
+					ret.set(i, ret.get(i + 1));
+					ret.set(i + 1, aa);
+				}
 			}
-			return result;
 		}
+
+		return ret;
 	}
 
-	public «getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb fromGrease(
-			EnvelopeWeb src) {
-		if (src == null)
-			return null;
-		else {
-			«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb();
-			result.setNordest(fromGrease(src.getNordest()));
-			result.setSudovest(fromGrease(src.getSudovest()));
-			return result;
-		}
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb calcolaNavigazione(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa,
+			ToolbarWeb toolbar) throws JeegfwBaseException,
+			IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException {
+
+		MappaWeb map = mapManager.calcolaNavigazione(toGrease(mappa), toolbar);
+		return fromGrease(map);
+
 	}
 
-	public «getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb fromGrease(
-			PuntoWeb src) {
-		if (src == null)
-			return null;
-		else {
-			«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb result = new «getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb();
-			result.setCoordX(src.getCoordX());
-			result.setCoordXStr(src.getCoordXStr());
-			result.setCoordY(src.getCoordY());
-			result.setCoordYStr(src.getCoordYStr());
-			return result;
-		}
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb getRefreshIMages(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
+			throws JeegfwBaseException, IntrospectionException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException, MappingException {
+
+		MappaWeb map = imageManager.getRefreshIMages(toGrease(mappa));
+		return fromGrease(map);
+
 	}
-	
-	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb fromGrease(MappaWeb mappa) throws Exception {
+
+	public «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb fromGrease(
+			MappaWeb mappa) throws IntrospectionException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException, MappingException {
 		if (mappa == null) {
 			return null;
 		}
 
-		Hashtable<String, String> classMaps = new Hashtable<String, String>();
-		
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb","«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioClientWeb");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioTMS");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig", "«getBaseJavaPackage(this)».dto.greasemapfacade.OpenLayerMapConfig");
-		classMaps.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb", "«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb");
-		
-		return («getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb) DTOUtils.deepCopy(mappa, classMaps);
+		Properties properties = new Properties();
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb",
+				"«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb");
+
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
+
+		return («getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb) BeanMapping
+				.convert(properties, mappa);
+
 	}
-	
-	public it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb toGrease(«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa) throws Exception {
+
+	public MappaWeb toGrease(
+			«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb mappa)
+			throws IntrospectionException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, MappingException {
 		if (mappa == null) {
 			return null;
 		}
 
-		Hashtable<String, String> classMaps = new Hashtable<String, String>();
+		// *****aggiunta logica nelle proprietà
+		for (int i = 0; mappa.getServizioMappa() != null
+				&& i < mappa.getServizioMappa().size(); i++) {
+			if (mappa.getElencoServiziId() == null) {
+				mappa.setElencoServiziId(mappa.getServizioMappa().get(i)
+						.getIdServizio());
+			} else {
+				mappa.setElencoServiziId(mappa.getElencoServiziId() + "|"
+						+ mappa.getServizioMappa().get(i).getIdServizio());
+			}
+		}
+
+		// ********fine aggiunta logica
+		Properties properties = new Properties();
+		properties.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
+		properties.put(
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
+		properties.put("it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb",
+				"it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
 		
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.EnvelopeWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.PuntoWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioClientWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioTMS", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.MapImageWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MapImageWeb");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.OpenLayerMapConfig", "it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig");
-		classMaps.put("«getBaseJavaPackage(this)».dto.greasemapfacade.ServizioWeb", "it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb");
-		
-		return (it.csi.jeegia.jeegfw.dto.jeegweb.mappa.MappaWeb) DTOUtils.deepCopy(mappa, classMaps);
+		return (MappaWeb) BeanMapping.convert(properties, mappa);
+
 	}
 }
 «ENDFILE»

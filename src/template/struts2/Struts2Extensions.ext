@@ -512,6 +512,8 @@ String toJavaType(Type type, GUIModel model) :
 		toJavaSimpleType(type)
 	else if (type.metaType==SimpleType && ((SimpleType)type).userDefined) then
 		toJavaSimpleUDType((SimpleType)type, model)		
+	else if (type.metaType==ComplexType && ((ComplexType)type).typeAnnotation != null && ((ComplexType)type).typeAnnotation.size > 0) then
+		((ComplexType)type).typeAnnotation.get(0).fqn
 	else if (type.metaType==ComplexType) then
 		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg((ComplexType)type,false,true)+type.name.toFirstUpper() 
 	else 

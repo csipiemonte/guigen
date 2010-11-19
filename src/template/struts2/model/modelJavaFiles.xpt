@@ -165,6 +165,8 @@ public class «getUDTClassName(this)» implements java.io.Serializable, Comparable
 
 «REM»comment«ENDREM»
 «DEFINE modelClass(GUIModel model) FOR ComplexType»
+«REM»genero il dto solo se non ho annotazioni«ENDREM»
+«IF this.typeAnnotation == null || this.typeAnnotation.size == 0»
 «FILE getFullDTOClassFile(this,model)»
 package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
 «REM»STDMDD-159: visitor validator.«ENDREM»
@@ -208,6 +210,7 @@ public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaT
 	}
 }
 «ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 
