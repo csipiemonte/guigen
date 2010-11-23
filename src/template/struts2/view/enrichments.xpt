@@ -215,11 +215,13 @@ Ext.onReady( function() {
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
 	/// arricchimento per «this.metaType.name» [«name»]: mapView
 	var addMapTo«name.toFirstUpper()» = function(){new ExtCsi.ui.maps.InitMap({
-											idHiddenField: hidden_field_«this.name»,
-											idDivToolbar: toolbar_«this.name»,
-											idDivMappa: «this.name»,
+											idHiddenField: 'hidden_field_«this.name»',
+											idDivToolbar: 'toolbar_«this.name»',
+											idDivMappa: '«this.name»',
+											idMappa: '«this.mapId»',
 											actionName: contentPanelName,
-											appDataName: «getAppDataPropertyName(this.databinding.appData).toFirstLower()»											
+											appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
+											projectName: '«model.codComponente»'											
 										}).init()};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
