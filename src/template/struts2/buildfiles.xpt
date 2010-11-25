@@ -310,6 +310,9 @@ ANT FILES
   	<unzip src="${extjs-zipfile}" dest="${temp}/static-resources" />
   	<unzip src="${csi-extjscore-zipfile}" dest="${temp}/static-resources" />
   	<unzip src="${csi-extjsenricher-zipfile}" dest="${temp}/static-resources" />
+  	«IF hasGisMap()»
+  	<unzip src="${openlayers-zipfile}" dest="${temp}/static-resources" />
+  	«ENDIF»
   	«IF targetPlatform.enableFatClient-»
   	<unzip src="${csi-extjsmdd-zipfile}" dest="${temp}/static-resources" />
   	«ENDIF-»
@@ -547,7 +550,10 @@ ANT FILES
 # - [Files delle risorse statiche per rich UI] -------------------------------
   extjs-zipfile = ${lib}/ext-3.2.2-all.zip
   csi-extjscore-zipfile = ${lib}/ext-csi-1.0.0-core.zip
-  csi-extjsenricher-zipfile = ${lib}/ext-csi-1.0.0-enricher.zip
+  csi-extjsenricher-zipfile = ${lib}/ext-csi-enricher-1.1.0.zip
+  «IF hasGisMap()»
+  openlayers-zipfile = ${lib}/openlayers-2.10.zip
+  «ENDIF»
 «ENDIF-»
 «IF targetPlatform.enableFatClient-»
   csi-extjsmdd-zipfile = ${lib}/ext-csi-1.0.0-mdd.zip
@@ -741,9 +747,12 @@ IVY FILES (gestione delle dipendenze)
 		«IF targetPlatform.enableRichUIBehavior-»
 		<!-- librerie js per rich u.i -->
 		<dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
-		<dependency org="csipiemonte" name="extjscsienricher" rev="1.0.0"/>
+		<dependency org="csipiemonte" name="extjscsienricher" rev="1.1.0"/>
 		<dependency org="others" name="flexjson" rev="1.9.2" />
-		<dependency org="csipiemonte" name="csiui" rev="1.0.0" />
+		<dependency org="csipiemonte" name="csiui" rev="1.1.0" />
+		«IF hasGisMap()»
+		<dependency org="openlayers" name="openlayers" rev="2.10" />
+		«ENDIF»
 		«ENDIF-»
 		«IF targetPlatform.enableFatClient-»
 		<dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
