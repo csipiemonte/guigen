@@ -233,9 +233,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
-			MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
-			mappa.setEnvelope(mappaTmp.getEnvelope());
-	
+			if(!mappa.getNoresetEnvelope()){
+				MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
+				mappa.setEnvelope(mappaTmp.getEnvelope());
+			}	
 			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
 			
 			MapEnvelopeResponse res = new MapEnvelopeResponse();
