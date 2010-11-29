@@ -244,6 +244,12 @@ ANT FILES
 		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
 	«ENDIF-»
 	«IF hasGisMap()»
+	«LET (List[MapView])getMapsInModel() AS maps-»
+	«FOREACH maps AS map-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».user@@@"  value="${gisMap.«map.mapId».user}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».password@@@"  value="${gisMap.«map.mapId».password}"/>
+	«ENDFOREACH»
+	«ENDLET»
   	<replace file="${temp}/conf/ejb/business/mddgis/map-config/pd_gosgisso_baseservice.xml"  token="@@@gismap.provider.url@@@" value="${gosgisso.java.naming.provider.url}" />
 	«ENDIF»
 
@@ -673,6 +679,12 @@ remincl.resource.provider=«getReminclResourceProvider(this)»
 #-[Variabili servizio mappe]---------------------------------------------------
 #-ambiente dev
 gosgisso.java.naming.provider.url=t3://dev-wls9-02.csi.it:9107
+«LET (List[MapView])getMapsInModel() AS maps-»
+«FOREACH maps AS map-»
+gisMap.«map.mapId».user=
+gisMap.«map.mapId».password=
+«ENDFOREACH»
+«ENDLET»
 «ENDIF-»
 
 

@@ -221,7 +221,10 @@ Ext.onReady( function() {
 											idMappa: '«this.mapId»',
 											actionName: contentPanelName,
 											appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
-											projectName: '«model.codComponente»'											
+											projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
+											clickEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)».do',
+											refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»«ENDLET-»]
+											«ENDIF»					
 										}).init()};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);

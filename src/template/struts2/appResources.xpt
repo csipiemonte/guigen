@@ -76,10 +76,8 @@
 «LET (List[MapView])getMapsInModel() AS maps-»
 «FOREACH maps AS map-»
 #-------------credenziali di accesso per la mappa(nome: «map.name», id: «map.mapId»)
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(map.mapId)»
-«map.mapId».gisUser=
-«map.mapId».gisPwd=
-«ENDPROTECT»
+«map.mapId».gisUser=@@@gisMap.«map.mapId».user@@@
+«map.mapId».gisPwd=@@@gisMap.«map.mapId».password@@@
 «ENDFOREACH»
 «ENDLET»
 «ENDFILE»
