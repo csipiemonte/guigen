@@ -268,6 +268,21 @@
 		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
 		<property name="tocHelper" ref="tocHelper«map.mapId.toFirstUpper()»" />
 	</bean>
+	
+	«REM»
+	**************da decommentare quando sarà attiva la funzione di identify
+	
+	<bean id="queryManager«map.mapId.toFirstUpper()»"
+		class="«getUIUtilsJavaPackage(this)».SpatialQueryExtJsManager">
+		<constructor-arg index="0" value="«this.codComponente»" />
+		<property name="elencoServiziHelper" ref="elencoServiziHelper«map.mapId.toFirstUpper()»" />
+		<property name="converter" ref="gisBusinessCasting«map.mapId.toFirstUpper()»" />
+		<property name="getFeaturesHelper" ref="getFeaturesHelper«map.mapId.toFirstUpper()»" />
+		<property name="aliasHelper" ref="aliasHelper«map.mapId.toFirstUpper()»" />
+		<property name="queryHelperFactory" ref="helperFactory«map.mapId.toFirstUpper()»" />
+	</bean>
+	«ENDREM»
+	
 	«ENDFOREACH-»
 	«ENDLET-»
 

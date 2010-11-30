@@ -1065,4 +1065,569 @@ public class GreaseDTOMapper {
 	}
 }
 «ENDFILE»
+
+
+«REM»
+
+************************da decommentare quando sarà attiva l'identificazione puntuale
+
+«FILE getUIUtilsJavaSrcDir(this, true)+"/SpatialQueryExtJsInterface.java"»package «getUIUtilsJavaPackage(this)»;
+import «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb;
+
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import «getUIUtilsJavaPackage(this)».ResultsetExtJsWeb;
+
+public interface SpatialQueryExtJsInterface {
+
+  
+  /**
+   * Esegue un'interrogazione spaziale sul layer specificato da mappa.idLayerAttivo e mappa.idServizioAttivo;
+   * il filtro geometrico e' recuperato da mappa.xclick e mappa.yclick mentre il tipo di interrogazione dal comando della toolbar
+   * @param mappa - mappa corrente
+   * @param toolbar - toolbar
+   * @return
+   * @throws JeegfwBaseException
+   */
+  public ResultsetExtJsWeb interrogaExtJs(MappaWeb mappa,ToolbarWeb toolbar ) throws JeegfwBaseException;
+
+}
+«ENDFILE»
+
+«FILE getUIUtilsJavaSrcDir(this, true)+"/SpatialQueryExtJsManager.java"»package «getUIUtilsJavaPackage(this)»;
+import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
+import «getBaseJavaPackage(this)».dto.greasemapfacade.MappaWeb;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetCampoTableDesc;
+import it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.FeatureRequest;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.Filter;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.feature.ResultSet;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.layer.Layer;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.mapservice.Mapservice;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwAppException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwBaseException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwLayerFuoriScalaException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwLayerNonSelezionatoException;
+import it.csi.jeegia.jeegfw.exception.common.JeegfwSysException;
+import it.csi.jeegia.jeegfw.presentation.managers.helper.SpatialQueryManager;
+import it.csi.jeegia.jeegfw.presentation.serviceintegration.helper.interfaces.GetFeaturesInterface;
+import it.csi.jeegia.jeegfw.util.jeegweb.BaseMapUtils;
+import it.csi.jeegia.jeegfw.util.managers.HelperFactoryInterface;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.ArrayUtils;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+
+public class SpatialQueryExtJsManager extends SpatialQueryManager implements
+		SpatialQueryExtJsInterface {
+
+	public SpatialQueryExtJsManager(String rootLogger) {
+		super(rootLogger);
+	}
+
+	public ResultsetExtJsWeb interrogaExtJs(MappaWeb mappa, ToolbarWeb toolbar)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::interroga] BEGIN");
+		try {
+
+			controllaLayerSelezionato(mappa);
+			controllaScala(mappa);
+
+			if (ToolbarWeb.CMD_IDENTIFY.equals(toolbar.getComando()))
+				return makeIdentifyExtJs(mappa);
+			else if (ToolbarWeb.CMD_IDENTIFY_POLYGON.equals(toolbar
+					.getComando()))
+				return makeIdentifypolygonExtJs(mappa);
+
+			throw new Exception("comando sconosciuto");
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::interroga]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::interroga] END");
+		}
+	}
+
+	private void controllaLayerSelezionato(MappaWeb mappa)
+			throws JeegfwBaseException {
+		if (mappa.getIdLayerAttivo() == null
+				|| mappa.getIdLayerAttivo().trim().equals("")
+				|| mappa.getIdServizioAttivo() == null
+				|| mappa.getIdServizioAttivo().trim().equals("")) {
+
+			throw new JeegfwLayerNonSelezionatoException(
+					"Selezionare un layer da interrogare.");
+
+		}
+	}
+
+	private void controllaScala(MappaWeb mappa) throws JeegfwBaseException {
+		Mapservice srv = elencoServiziHelper.getServizio(mappa
+				.getIdServizioAttivo(), true);
+		double scalaFactor = calcolaScaleFactor(mappa);
+		double scMin = 0;
+		double scMax = 0;
+		for (Layer curLay : srv.getElencoLayer()) {
+			if (curLay.getLayerId().equals(mappa.getIdLayerAttivo())) {
+				scMax = curLay.getMaxScaleFactor();
+				scMin = curLay.getMinScaleFactor();
+				break;
+			}
+		}
+		boolean inScala = false;
+		if (scalaFactor <= scMax && scalaFactor >= scMin)
+			inScala = true;
+		else if (scalaFactor <= scMax && scMin == 0)
+			inScala = true;
+		else if (0 == scMax && scalaFactor >= scMin)
+			inScala = true;
+		else if (0 == scMax && scMin == 0)
+			inScala = true;
+		else if (scalaFactor > scMax)
+			inScala = false;
+		else if (scalaFactor < scMin)
+			inScala = false;
+
+		if (inScala == false) {
+			throw new JeegfwLayerFuoriScalaException("layer non in scala");
+		}
+
+	}
+	
+	/**
+	 * Calcola lo scaleFactor (dimesioniUtm/dimensioniPixels)
+	 * 
+	 * @param mappa
+	 * @return
+	 */
+	private double calcolaScaleFactor(MappaWeb mappa) {
+		double scala = (mappa.getEnvelope().getNordest().getCoordX()
+				.doubleValue() - mappa.getEnvelope().getSudovest().getCoordX()
+				.doubleValue())
+				/ (new Double(mappa.getDimx()).doubleValue());
+		return scala;
+	}
+
+	protected GetFeaturesInterface getHelper(Mapservice srv) {
+		if (queryHelperFactory.getQueryInterface(srv) == null) {
+			return getFeaturesHelper;
+		} else {
+			return queryHelperFactory.getQueryInterface(srv);
+		}
+
+	}
+
+	protected PuntoWeb[] getUtmClics(PuntoWeb[] ptClick, MappaWeb mappa)
+			throws Exception {
+		return ptClick;
+	}
+
+	protected double calcolaTolleranza(MappaWeb mappa, int pixelTol) {
+		double scaelfactor = calcolaScaleFactor(mappa);
+		double ret = pixelTol * scaelfactor;
+		if (ret > 500)
+			ret = 500;
+		return ret;
+	}
+
+	protected ResultsetExtJsWeb makeIdentifyExtJs(MappaWeb mappa)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::makeIdentify] BEGIN");
+		try {
+
+			PuntoWeb[] ptClickUtm = getUtmClics(BaseMapUtils.getPuntiClik(mappa
+					.getXclick(), mappa.getYclick()), mappa);
+			PuntoWeb centro = ptClickUtm[0];
+
+			double toollerance = calcolaTolleranza(mappa, 2);
+			Coordinate[] points = new Coordinate[] {
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							- toollerance),
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							+ toollerance),
+					new Coordinate(centro.getCoordX() + toollerance, centro
+							.getCoordY()
+							+ toollerance),
+					new Coordinate(centro.getCoordX() + toollerance, centro
+							.getCoordY()
+							- toollerance),
+					new Coordinate(centro.getCoordX() - toollerance, centro
+							.getCoordY()
+							- toollerance), };
+			Geometry geom = new GeometryFactory().createPolygon(
+					new GeometryFactory().createLinearRing(points), null);
+
+			Filter filtro = makefiltro(geom);
+
+			Mapservice srv = elencoServiziHelper.getServizio(mappa
+					.getIdServizioAttivo(), true);
+			ResultSet result = eseguiQuery(srv, mappa.getIdServizioAttivo(),
+					mappa.getIdLayerAttivo(), filtro);
+
+			ResultsetExtJsWeb ret = castToResultsetExtJsWeb(result, srv, mappa
+					.getIdServizioAttivo(), mappa.getIdLayerAttivo(), true);
+			return ret;
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::makeIdentify]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::makeIdentify] END");
+		}
+	}
+
+	protected Filter makefiltro(Geometry geom) {
+		Filter filtro = new Filter();
+		filtro.setGeometria(geom);
+		filtro.setStartRecord(0);
+		filtro.setWhereExpression(null);
+		return filtro;
+
+	}
+
+	protected FeatureRequest makeFeatureRequest(Filter filtro,
+			String idServizioAttivo, String idLayer) throws Exception {
+		FeatureRequest fr = new FeatureRequest();
+		fr.setFiltro(filtro);
+		fr.setIdLayer(idLayer);
+		fr.setReturnGeometry(true);
+		fr.setTotalCount(false);
+		fr.setElencoServiziApplicativi(elencoServiziHelper.getLayer(
+				idServizioAttivo, idLayer, true).getElencoServiziApplicativi());
+		return fr;
+	}
+
+	protected ResultsetExtJsWeb makeIdentifypolygonExtJs(MappaWeb mappa)
+			throws JeegfwBaseException {
+		log.debug("[SpatialQueryManager::makeIdentifypolygon] BEGIN");
+		try {
+
+			PuntoWeb[] ptClickUtm = getUtmClics(BaseMapUtils.getPuntiClik(mappa
+					.getXclick(), mappa.getYclick()), mappa);
+
+			if (ptClickUtm.length < 3)
+				return makeIdentifyExtJs(mappa);
+
+			Coordinate[] points = null;
+			for (int i = 0; i < ptClickUtm.length; i++) {
+				points = (Coordinate[]) ArrayUtils.add(points, new Coordinate(
+						ptClickUtm[i].getCoordX(), ptClickUtm[i].getCoordY()));
+			}
+
+			Geometry geom = new GeometryFactory().createPolygon(
+					new GeometryFactory().createLinearRing(points), null);
+
+			Filter filtro = makefiltro(geom);
+
+			Mapservice srv = elencoServiziHelper.getServizio(mappa
+					.getIdServizioAttivo(), true);
+			ResultSet result = eseguiQuery(srv, mappa.getIdServizioAttivo(),
+					mappa.getIdLayerAttivo(), filtro);
+
+			ResultsetExtJsWeb ret = castToResultsetExtJsWeb(result, srv, mappa
+					.getIdServizioAttivo(), mappa.getIdLayerAttivo(), true);
+			return ret;
+
+		} catch (JeegfwSysException e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw e;
+		} catch (JeegfwAppException e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw e;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::makeIdentifypolygon]", e);
+			throw new JeegfwSysException(e.getMessage());
+		} finally {
+			log.debug("[SpatialQueryManager::makeIdentifypolygon] END");
+		}
+	}
+
+	protected ResultsetExtJsWeb castToResultsetExtJsWeb(ResultSet result,
+			Mapservice srv, String idServizioAttivo, String idLayerAttivo,
+			boolean soloAlias) throws Exception {
+		log.debug("[SpatialQueryManager::ResultsetWeb] BEGIN");
+		try {
+			Map<String, ResultSetCampoTableDesc> tableDesc = null;
+			List<ResultsetDataExtJsRow> tableRows = null;
+			List<String> columns = null;
+
+			tableDesc = new HashMap<String, ResultSetCampoTableDesc>();
+			columns = new ArrayList<String>();
+
+			columns.add("COL1");
+			tableDesc.put("COL1", new ResultSetCampoTableDesc("Num Rec"));
+
+			for (int i = 0; result != null && result.getCampi() != null
+					&& i < result.getCampi().length; i++) {
+				String valHCol = aliasHelper.getAliasPerCampo(srv,
+						idLayerAttivo, result.getCampi()[i].getNomeCompleto(),
+						soloAlias);
+				if (null != valHCol) {
+					columns.add("COL" + (i + 2));
+					tableDesc.put("COL" + (i + 2), new ResultSetCampoTableDesc(
+							valHCol));
+				}
+			}
+
+			tableRows = new ArrayList<ResultsetDataExtJsRow>();
+			for (int i = 0; result != null && result.getDati() != null
+					&& i < result.getDati().length; i++) {
+				Map<String, String> cur = new HashMap<String, String>();
+				cur.put("COL1", "" + i);
+				for (int j = 0; result.getDati()[i].getValori() != null
+						&& j < result.getDati()[i].getValori().length; j++) {
+					cur.put("COL" + (j + 2), result.getDati()[i].getValori()[j]
+							.toString());
+				}
+
+				ResultsetDataExtJsRow riga = new ResultsetDataExtJsRow(
+						(HashMap<String, String>) cur);
+				riga.setGeometria(result.getDati()[i].getGeometry());
+				riga.setEnvelope(result.getDati()[i].getEnvelope());
+
+				tableRows.add(riga);
+
+			}
+
+			ResultsetExtJsWeb ret = new ResultsetExtJsWeb();
+			ret.setColumns(columns);
+			ret.setTableDesc(tableDesc);
+			ret.setExtJsDataRows(tableRows);
+
+			return ret;
+		} catch (Exception e) {
+			log.error("[SpatialQueryManager::ResultsetWeb] -  ", e);
+			throw e;
+		} finally {
+			log.debug("[SpatialQueryManager::ResultsetWeb] END");
+		}
+	}
+
+	public void setQueryHelperFactory(HelperFactoryInterface queryHelperFactory) {
+		this.queryHelperFactory = queryHelperFactory;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ResultsetExtJsWeb.java"»package «getUIUtilsJavaPackage(this)»;
+import java.util.List;
+import java.util.Map;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultsetWeb;
+
+
+public class ResultsetExtJsWeb extends ResultsetWeb {
+
+	private List<ExtJsColumnIdentify> columnModel=null;
+	private List<Map<String,String>> rows=null;
+	private List<ResultsetDataExtJsRow> extJsDataRows=null;
+	private List<Map<String,Object>> rowsobj=null;
+	
+	public List<ExtJsColumnIdentify> getColumnModel() {
+		return columnModel;
+	}
+
+	public void setColumnModel(List<ExtJsColumnIdentify> columnModel) {
+		this.columnModel = columnModel;
+	}
+
+	public List<Map<String, String>> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<Map<String, String>> rows) {
+		this.rows = rows;
+	}
+
+	public List<ResultsetDataExtJsRow> getExtJsDataRows() {
+		return extJsDataRows;
+	}
+
+	public void setExtJsDataRows(List<ResultsetDataExtJsRow> extJsDataRows) {
+		this.extJsDataRows = extJsDataRows;
+	}
+
+	public List<Map<String, Object>> getRowsobj() {
+		return rowsobj;
+	}
+
+	public void setRowsobj(List<Map<String, Object>> rowsobj) {
+		this.rowsobj = rowsobj;
+	}
+	
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ExtJsColumnIdentify.java"»package «getUIUtilsJavaPackage(this)»;
+public class ExtJsColumnIdentify {
+
+	private String header;
+	private String dataIndex;
+	private boolean sortable;
+	private boolean hidden;
+	private String mapping;
+
+	public String getHeader() {
+		return header;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public boolean isSortable() {
+		return sortable;
+	}
+
+	public void setSortable(boolean sortable) {
+		this.sortable = sortable;
+	}
+
+	public String getDataIndex() {
+		return dataIndex;
+	}
+
+	public void setDataIndex(String dataIndex) {
+		this.dataIndex = dataIndex;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public String getMapping() {
+		return mapping;
+	}
+
+	public void setMapping(String mapping) {
+		this.mapping = mapping;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/ResultsetDataExtJsRow.java"»package «getUIUtilsJavaPackage(this)»;
+import java.util.Map;
+import it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetDataRow;
+import it.csi.jeegia.jeegfw.dto.serviceintegration.Envelope;
+
+public class ResultsetDataExtJsRow extends ResultSetDataRow {
+	private Envelope envelope = null;
+
+	public ResultsetDataExtJsRow() {
+		super();
+	}
+
+	public ResultsetDataExtJsRow(Map<String, String> valori) {
+		super(valori);
+	}
+
+	public Envelope getEnvelope() {
+		return envelope;
+	}
+
+	public void setEnvelope(Envelope envelope) {
+		this.envelope = envelope;
+	}
+
+}
+«ENDFILE»
+«FILE getUIUtilsJavaSrcDir(this, true)+"/RispostaObj.java"»package «getUIUtilsJavaPackage(this)»;
+import java.io.Serializable;
+
+public class RispostaObj implements Serializable {
+
+	public static int ERROR_LEVEL_WARNING = 0;
+	public static int ERROR_LEVEL_ERROR = 1;
+	public static int ERROR_LEVEL_FATAL = 2;
+	public static int ERROR_LEVEL_NO_ERROR = -1;
+
+	private static String ERROR_TYPE_WARNING = "WARNING";
+	private static String ERROR_TYPE_ERROR = "ERROR";
+	private static String ERROR_TYPE_FATAL = "FATAL";
+
+	private String errorMsg = null;
+	private int errorLevel = RispostaObj.ERROR_LEVEL_NO_ERROR;
+	private String errorType = null;
+	private String customErrorType = null;
+	private Object dati = null;
+
+	public Object getDati() {
+		return dati;
+	}
+
+	public void setDati(Object dati) {
+		this.dati = dati;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getErrorType() {
+		return errorType;
+	}
+
+	public String getCustomErrorType() {
+		return customErrorType;
+	}
+
+	public void setCustomErrorType(String customErrorType) {
+		this.customErrorType = customErrorType;
+	}
+
+	public int getErrorLevel() {
+		return errorLevel;
+	}
+
+	public void setErrorLevel(int errorLevel) {
+		switch (errorLevel) {
+		case 0:
+			this.errorType = RispostaObj.ERROR_TYPE_WARNING;
+			break;
+		case 1:
+			this.errorType = RispostaObj.ERROR_TYPE_ERROR;
+			break;
+		case 2:
+			this.errorType = RispostaObj.ERROR_TYPE_FATAL;
+			break;
+
+		default:
+			this.errorType = null;
+			break;
+		}
+		this.errorLevel = errorLevel;
+	}
+
+}
+«ENDFILE»
+«ENDREM»
 «ENDDEFINE»

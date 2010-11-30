@@ -382,7 +382,7 @@ context MapView ERROR "E' necessario impostare l'id della mappa da visualizzare:
 	!isNullOrEmpty(mapId);
 	
 context MapView ERROR "Ad una mappa si può associare un solo evento di tipo CLICKED:"+loc() :
-	this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size == 1 && this.eventHandlers.select(e|e.eventType != EventTypes::CLICKED).size == 0;
+	this.eventHandlers.size == 0 || (this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size == 1 && this.eventHandlers.select(e|e.eventType != EventTypes::CLICKED).size == 0);
 	
 	 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

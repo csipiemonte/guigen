@@ -3459,15 +3459,15 @@ public class GenUtils {
 
 	//public static String[] getRefreshTargetIds(CommandWidget cw){
 	public static ArrayList<String> getRefreshTargetIds(Widget cw){
-		System.out.println("getRefreshTargetIds:CommandWidget "+cw.getName());
+		//System.out.println("getRefreshTargetIds:CommandWidget "+cw.getName());
 		String [] ris = getRefreshTargetIds(cw.getEventHandlers());
-		System.out.println("getRefreshTargetIds:CommandWidget->"+ris);
+		//System.out.println("getRefreshTargetIds:CommandWidget->"+ris);
 		//return ris;
 		ArrayList<String> ris2 = new ArrayList<String>();
 		if (ris!=null){
 			for (int i = 0; i < ris.length; i++) {
 				String string = ris[i];
-				System.out.println("getRefreshTargetIds: "+string);
+				//System.out.println("getRefreshTargetIds: "+string);
 				ris2.add(string);
 			}
 			return ris2;

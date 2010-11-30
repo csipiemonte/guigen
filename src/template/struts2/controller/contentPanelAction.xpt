@@ -298,8 +298,167 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
+	«REM» 
+	*****************da decommentare quando sarà attiva la funzione di identify
+	
+	private SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()»;
+
+  	public void setQueryManager«map.mapId.toFirstUpper()»(SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()») {
+    	this.queryManager«map.mapId.toFirstUpper()» = queryManager«map.mapId.toFirstUpper()»;
+  	}
+  	
+  	private it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbar;
+  	
+  	public it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb getToolbar() {
+    	return toolbar;
+  	}
+
+  	public void setToolbar(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbar) {
+    	this.toolbar = toolbar;
+  	}
+  
+	public String identify«map.mapId.toFirstUpper()»() throws Exception {
+
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		try {
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			
+			ResultsetExtJsWeb identifyResult = queryManager«map.mapId.toFirstUpper()».interrogaExtJs(mappa,toolbar);
+
+		    ResultsetExtJsWeb identifyResultExtJs = adaptResultsetExtJsWeb(identifyResult);
+		      
+		    RispostaObj res = new RispostaObj();
+		    res.setDati(identifyResultExtJs);
+			
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (it.csi.jeegia.jeegfw.exception.common.JeegfwLayerNonSelezionatoException e) {
+      		RispostaObj res = new RispostaObj();
+      		res.setErrorMsg("Nessun Layer selezionato");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_WARNING);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (it.csi.jeegia.jeegfw.exception.common.JeegfwLayerFuoriScalaException e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Il layer selezionato non e' visibile o interrogabile a questa scala");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_WARNING);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (RuntimeException e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (Exception e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (Throwable e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+     		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	}
+	}
+	«ENDREM»
+	
 	«ENDFOREACH-»
 	«ENDLET-»
+	
+	«REM»
+	****************Da decommentare quando sarà attiva la funzione identify
+	
+	protected ResultsetExtJsWeb adaptResultsetExtJsWeb(ResultsetExtJsWeb result) {
+
+		List<ExtJsColumnIdentify> columnModel = new ArrayList<ExtJsColumnIdentify>();
+		if (result.getColumns() != null) {
+			List<String> fields = result.getColumns();
+			Iterator<String> iterator = fields.iterator();
+			while (iterator.hasNext()) {
+				String name = iterator.next();
+				String alias = null;
+				if (result.getTableDesc() != null) {
+					Map<String, it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetCampoTableDesc> tableDesc = result
+							.getTableDesc();
+					if (tableDesc.containsKey(name)) {
+						alias = tableDesc.get(name).getNomeCampo();
+					}
+				}
+				if (alias != null) {
+					ExtJsColumnIdentify column = new ExtJsColumnIdentify();
+					column.setHeader(alias);
+					column.setDataIndex(name);
+					column.setSortable(true);
+					columnModel.add(column);
+				}
+			}
+		}
+		// aggiunge la envelope
+		ExtJsColumnIdentify columnenv = new ExtJsColumnIdentify();
+		columnenv.setHeader("envelope");
+		columnenv.setDataIndex("envelope");
+		columnenv.setSortable(false);
+		columnenv.setHidden(true);
+		columnModel.add(columnenv);
+		// aggiunge la geometria
+		ExtJsColumnIdentify columngeom = new ExtJsColumnIdentify();
+		columngeom.setHeader("geometria");
+		columngeom.setDataIndex("geometria");
+		columngeom.setSortable(false);
+		columngeom.setHidden(true);
+		columnModel.add(columngeom);
+		// aggiunge il cm
+		result.setColumnModel(columnModel);
+
+		List<Map<String, Object>> rowsobj = new ArrayList<Map<String, Object>>();
+		if (result.getExtJsDataRows() != null) {
+			Iterator<ResultsetDataExtJsRow> iterator = result
+					.getExtJsDataRows().iterator();
+			while (iterator.hasNext()) {
+				ResultsetDataExtJsRow dataRow = iterator.next();
+				Map<String, Object> row = new HashMap<String, Object>();
+				row.putAll(dataRow.getValori());
+				// envelope
+				row.put("envelope", dataRow.getEnvelope());
+				// geometria
+				row.put("geometria", dataRow.getGeometria());
+				rowsobj.add(row);
+			}
+		}
+		result.setRowsobj(rowsobj);
+
+		return result;
+	}
+	«ENDREM»
 	//**************************************fine gestione mappe****************************************************
 	«ENDIF»
 	
