@@ -816,13 +816,13 @@ cose tipo la "todo list"«ENDREM»
 	<!-- bean relativi ai singoli content panel -->
 	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
 	<bean id="«getSpringCPBEClassName(currCP)»" class="«getSpringCPBEFQN(this,currCP)»">
-	«IF hasGisMap(currCP)»
+	«IF hasGisMap(currCP)-»
 	«LET (List[MapView])getMapsInContentPanel(currCP) AS maps-»
 	«FOREACH maps AS map-»
-	<property name="mapAdapter«map.mapId.toFirstUpper()»" ref="mapAdapter«map.mapId.toFirstUpper()»"/>
-	«ENDFOREACH»
-	«ENDLET»
-	«ENDIF»
+		<property name="mapAdapter«map.mapId.toFirstUpper()»" ref="mapAdapter«map.mapId.toFirstUpper()»"/>
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDIF-»
 	</bean>
 	«ENDFOREACH»
 	
