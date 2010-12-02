@@ -505,7 +505,7 @@ public class ClearAppDataCommand implements ICommand {
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_attributesToBeRemovedFromSession!=null && _attributesToBeRemovedFromSession.length!=0){
 			for (int i = 0; i < _attributesToBeRemovedFromSession.length; i++) {
-				strutsAction.getSession().remove(_attributesToBeRemovedFromSession[i]);				
+				strutsAction.getSession().remove("appData"+_attributesToBeRemovedFromSession[i]);				
 			}			 
 		}
 		return null;
