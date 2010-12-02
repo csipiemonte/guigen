@@ -614,7 +614,10 @@ ear-custom-libs-filter =
   war-exclude-libs-filter = servlet*.jar,                  \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
-                            «getAppServerLib(this)»*.jar
+                            «getAppServerLib(this)»*.jar   «IF targetPlatform.code == TargetPlatformCodes::JBoss43-»\
+                            weblogic-7*.jar                \
+                            weblogic-9*.jar                \
+                            «ENDIF-»
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
@@ -806,10 +809,6 @@ IVY FILES (gestione delle dipendenze)
     	
     	<dependency org="csipiemonte" name="splugesf-giscommon" rev="1.1.0">
       		<artifact name="splugesf-giscommon-1.1.0" type="jar" />
-    	</dependency>
-    	
-    	<dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" >
-      		<artifact name="weblogic-client-3.0.0" type="jar" />
     	</dependency>
     	
     	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.1.1">
