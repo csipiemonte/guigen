@@ -59,7 +59,13 @@ public class MethodProtectionInterceptor extends MethodFilterInterceptor {
 			else {
 				// insert lock
 				String lockMarker = insertLock(invocation, session, declaredProtection);
-				String _res = handleAllow(invocation);
+				String _res = null;
+				try {
+					_res = handleAllow(invocation);
+				} catch (Exception e) {
+					removeLock(lockMarker, session);
+					throw new Exception("Errore occorso nell'esecuzione del metodo: "+e);
+				}
 				// remove lock
 				removeLock(lockMarker, session);
 				return _res;
