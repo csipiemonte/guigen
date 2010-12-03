@@ -462,6 +462,12 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.HEADER_META_ATTR: {
+				HeaderMetaAttr headerMetaAttr = (HeaderMetaAttr)theEObject;
+				T result = caseHeaderMetaAttr(headerMetaAttr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GuigenPackage.FOOTER: {
 				Footer footer = (Footer)theEObject;
 				T result = caseFooter(footer);
@@ -1867,6 +1873,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseHeader(Header object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Header Meta Attr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Header Meta Attr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseHeaderMetaAttr(HeaderMetaAttr object) {
 		return null;
 	}
 

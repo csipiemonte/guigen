@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -25,6 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Header#getNomeCanale <em>Nome Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Header#getLinkCanale <em>Link Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Header#getNomeApplicativo <em>Nome Applicativo</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Header#getTitle <em>Title</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Header#getMetaAttributes <em>Meta Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,4 +181,46 @@ public interface Header extends EObject {
 	 * @generated
 	 */
 	void setNomeApplicativo(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Title</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Title</em>' attribute.
+	 * @see #setTitle(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_Title()
+	 * @model
+	 * @generated
+	 */
+	String getTitle();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Header#getTitle <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Title</em>' attribute.
+	 * @see #getTitle()
+	 * @generated
+	 */
+	void setTitle(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Meta Attributes</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.HeaderMetaAttr}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Attributes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Attributes</em>' containment reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeader_MetaAttributes()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<HeaderMetaAttr> getMetaAttributes();
 } // Header

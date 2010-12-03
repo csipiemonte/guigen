@@ -1112,6 +1112,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.HeaderMetaAttr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected HeaderMetaAttrItemProvider headerMetaAttrItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.HeaderMetaAttr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createHeaderMetaAttrAdapter() {
+		if (headerMetaAttrItemProvider == null) {
+			headerMetaAttrItemProvider = new HeaderMetaAttrItemProvider(this);
+		}
+
+		return headerMetaAttrItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Footer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3257,6 +3280,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (showDialogCommandItemProvider != null) showDialogCommandItemProvider.dispose();
 		if (commandOutcomeItemProvider != null) commandOutcomeItemProvider.dispose();
 		if (headerItemProvider != null) headerItemProvider.dispose();
+		if (headerMetaAttrItemProvider != null) headerMetaAttrItemProvider.dispose();
 		if (footerItemProvider != null) footerItemProvider.dispose();
 		if (appWindowItemProvider != null) appWindowItemProvider.dispose();
 		if (staticLinksItemProvider != null) staticLinksItemProvider.dispose();

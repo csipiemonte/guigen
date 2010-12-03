@@ -288,6 +288,10 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createHeaderAdapter();
 			}
 			@Override
+			public Adapter caseHeaderMetaAttr(HeaderMetaAttr object) {
+				return createHeaderMetaAttrAdapter();
+			}
+			@Override
 			public Adapter caseFooter(Footer object) {
 				return createFooterAdapter();
 			}
@@ -1410,6 +1414,20 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createHeaderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.HeaderMetaAttr <em>Header Meta Attr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.HeaderMetaAttr
+	 * @generated
+	 */
+	public Adapter createHeaderMetaAttrAdapter() {
 		return null;
 	}
 

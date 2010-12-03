@@ -9,11 +9,18 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.Header;
 
+import it.csi.mddtools.guigen.HeaderMetaAttr;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +34,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getNomeCanale <em>Nome Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getLinkCanale <em>Link Canale</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getNomeApplicativo <em>Nome Applicativo</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderImpl#getMetaAttributes <em>Meta Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,6 +133,34 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	 * @ordered
 	 */
 	protected String nomeApplicativo = NOME_APPLICATIVO_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TITLE_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String title = TITLE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getMetaAttributes() <em>Meta Attributes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaAttributes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<HeaderMetaAttr> metaAttributes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -254,6 +291,53 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTitle(String newTitle) {
+		String oldTitle = title;
+		title = newTitle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.HEADER__TITLE, oldTitle, title));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<HeaderMetaAttr> getMetaAttributes() {
+		if (metaAttributes == null) {
+			metaAttributes = new EObjectContainmentEList<HeaderMetaAttr>(HeaderMetaAttr.class, this, GuigenPackage.HEADER__META_ATTRIBUTES);
+		}
+		return metaAttributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GuigenPackage.HEADER__META_ATTRIBUTES:
+				return ((InternalEList<?>)getMetaAttributes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -267,6 +351,10 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return getLinkCanale();
 			case GuigenPackage.HEADER__NOME_APPLICATIVO:
 				return getNomeApplicativo();
+			case GuigenPackage.HEADER__TITLE:
+				return getTitle();
+			case GuigenPackage.HEADER__META_ATTRIBUTES:
+				return getMetaAttributes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -276,6 +364,7 @@ public class HeaderImpl extends EObjectImpl implements Header {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -293,6 +382,13 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return;
 			case GuigenPackage.HEADER__NOME_APPLICATIVO:
 				setNomeApplicativo((String)newValue);
+				return;
+			case GuigenPackage.HEADER__TITLE:
+				setTitle((String)newValue);
+				return;
+			case GuigenPackage.HEADER__META_ATTRIBUTES:
+				getMetaAttributes().clear();
+				getMetaAttributes().addAll((Collection<? extends HeaderMetaAttr>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -321,6 +417,12 @@ public class HeaderImpl extends EObjectImpl implements Header {
 			case GuigenPackage.HEADER__NOME_APPLICATIVO:
 				setNomeApplicativo(NOME_APPLICATIVO_EDEFAULT);
 				return;
+			case GuigenPackage.HEADER__TITLE:
+				setTitle(TITLE_EDEFAULT);
+				return;
+			case GuigenPackage.HEADER__META_ATTRIBUTES:
+				getMetaAttributes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -343,6 +445,10 @@ public class HeaderImpl extends EObjectImpl implements Header {
 				return LINK_CANALE_EDEFAULT == null ? linkCanale != null : !LINK_CANALE_EDEFAULT.equals(linkCanale);
 			case GuigenPackage.HEADER__NOME_APPLICATIVO:
 				return NOME_APPLICATIVO_EDEFAULT == null ? nomeApplicativo != null : !NOME_APPLICATIVO_EDEFAULT.equals(nomeApplicativo);
+			case GuigenPackage.HEADER__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+			case GuigenPackage.HEADER__META_ATTRIBUTES:
+				return metaAttributes != null && !metaAttributes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -367,6 +473,8 @@ public class HeaderImpl extends EObjectImpl implements Header {
 		result.append(linkCanale);
 		result.append(", nomeApplicativo: ");
 		result.append(nomeApplicativo);
+		result.append(", title: ");
+		result.append(title);
 		result.append(')');
 		return result.toString();
 	}

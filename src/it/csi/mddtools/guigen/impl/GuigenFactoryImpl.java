@@ -107,6 +107,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.SHOW_DIALOG_COMMAND: return createShowDialogCommand();
 			case GuigenPackage.COMMAND_OUTCOME: return createCommandOutcome();
 			case GuigenPackage.HEADER: return createHeader();
+			case GuigenPackage.HEADER_META_ATTR: return createHeaderMetaAttr();
 			case GuigenPackage.FOOTER: return createFooter();
 			case GuigenPackage.APP_WINDOW: return createAppWindow();
 			case GuigenPackage.STATIC_LINKS: return createStaticLinks();
@@ -724,6 +725,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public Header createHeader() {
 		HeaderImpl header = new HeaderImpl();
 		return header;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public HeaderMetaAttr createHeaderMetaAttr() {
+		HeaderMetaAttrImpl headerMetaAttr = new HeaderMetaAttrImpl();
+		return headerMetaAttr;
 	}
 
 	/**

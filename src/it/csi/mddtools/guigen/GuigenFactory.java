@@ -431,6 +431,15 @@ public interface GuigenFactory extends EFactory {
 	Header createHeader();
 
 	/**
+	 * Returns a new object of class '<em>Header Meta Attr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Header Meta Attr</em>'.
+	 * @generated
+	 */
+	HeaderMetaAttr createHeaderMetaAttr();
+
+	/**
 	 * Returns a new object of class '<em>Footer</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
