@@ -28,11 +28,16 @@ Definizioni generali: header, footer, ecc
 
 		«IF model.targetPlatform.enableRichUIBehavior-»
 		<csiuicore:header/>
+		«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2"-»
+		
 		«ELSE-»
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
 		«ENDIF-»
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.struts")»
+		«IF getProperty("staticResourcesSchemaVersion") == "V2"-»
+		
+		«ELSE-»
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
 
 		<!--[if lte IE 6]>
@@ -46,7 +51,8 @@ Definizioni generali: header, footer, ecc
 		
 		<!-- funzioni e definizioni javascript -->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-
+		«ENDIF-»
+		
 		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
 		
 		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->

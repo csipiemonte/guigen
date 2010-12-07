@@ -151,7 +151,14 @@ String getBaseJavaPath(GUIModel model) :
 String getWebSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
 
-
+String getRemoteGlobalJslibDir() : 
+	"/ris/utheme/global/jslib/";
+	
+String getRemoteComponentDir(GUIModel model) : 
+	"/ris/utheme/"+model.codProdotto+"/"+model.codComponente+"/";
+	
+String getRemoteGlobalXthemeDir() : 
+	"/ris/utheme/global/xthemeV1/";
 ////////////////////////////////////////////////////////////
 /// Estensioni di layout                                  //
 ////////////////////////////////////////////////////////////
@@ -172,7 +179,6 @@ String getApplicationName(GUIModel model) :
 // [DM] il reperimento delle risorsestatiche: true = remoto, false = locale (default = false)
 boolean isRemote() :
 	!isNullOrEmpty(getProperty("guigen.remoteresources")) ? (getProperty("guigen.remoteresources") == "true" ? true : false ) : false;
-
 
 
 ////////////////////////////////////////////////////////////
@@ -317,3 +323,6 @@ EObject getCmdChainContainer(Command cmd) : JAVA
 // [SC] Restituisce il campo per l'editabilità di una colonna della tabella
 boolean applicationDataNamesAreAllUnambiguous(List appDataList) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.applicationDataNamesAreAllUnambiguous(java.util.List);	
+	
+Void setProperty(String name, String val) : JAVA
+  it.csi.mddtools.guigen.genutils.GenUtils.setProperty(java.lang.String, java.lang.String);

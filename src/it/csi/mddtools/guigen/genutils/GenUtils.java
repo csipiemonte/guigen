@@ -686,7 +686,16 @@ public class GenUtils {
 		return res;
 	}
 
-
+	/**
+	 * setta nel contesto la proprietà passata
+	 * @param name
+	 * @param val
+	 */
+	public static void setProperty(String name, String val){
+		java.util.Properties props = org.openarchitectureware.util.stdlib.PropertiesExtension.getProperties();
+		props.put(name, val);
+		org.openarchitectureware.util.stdlib.PropertiesExtension.setProperties(props);
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// exec actions

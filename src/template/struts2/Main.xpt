@@ -9,7 +9,10 @@
 «EXTENSION template::GenericExtensions»
 
 
-«DEFINE main (boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
+«DEFINE main (boolean skip_component_dir_creation, boolean useExternalDaoBeans, String staticResourcesSchemaVersion) FOR GUIModel»
+
+	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
+	
 	«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
 	«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
 	«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»

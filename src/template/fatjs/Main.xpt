@@ -4,7 +4,8 @@
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::fatjs::FatJSExtensions»
 
-«DEFINE main FOR GUIModel»
+«DEFINE main(String staticResourcesSchemaVersion) FOR GUIModel»
+	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
 	«EXPAND fatClientMainJSP FOR this»
 	«EXPAND fatClientJSStruct FOR this»
 «ENDDEFINE»
@@ -33,6 +34,7 @@
 
 
 «DEFINE fatClientJSStruct FOR GUIModel-»
+«IF getProperty("staticResourcesSchemaVersion") == "V1" || !isRemote()»
 «FILE getJavascriptSrcDir(true)+"/fatclient.js"»
 
 /**
@@ -43,6 +45,7 @@
 «EXPAND model::data::datas FOR this»
 «EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
 «ENDFILE»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE appAreaStruct(GUIModel model) FOR ApplicationArea»

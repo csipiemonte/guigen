@@ -28,7 +28,7 @@
 	<property name="propertiesFile" value="it/csi/mddtools/guigen/workflow/emptyProperties.properties" />
 	
 	<!-- valore di default se non specificato -->
-	<property name="useExternalDaoBeans" value="false" />
+	<property name="useExternalDaoBeans" value="false" />	
 	
 	<!-- TRACK! -->
 	<bean class="it.csi.mddtools.guigen.workflow.component.TrackingInvoker">
@@ -87,7 +87,7 @@
 	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
 		<metaModel idRef="mm"/>
 		<expand
-			value="template::${target-platform}::Main::main(true, ${useExternalDaoBeans}) FOR model" />
+			value="template::${target-platform}::Main::main(true, ${useExternalDaoBeans}, '${staticResourcesSchemaVersion}') FOR model" />
 		<!-- AOP definition for extensions -->
 		<extensionAdvice value="template::${target-platform}::${portal}::aopExtension"/>
 		<!--  protected regions configurator --> 

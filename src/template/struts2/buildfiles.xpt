@@ -275,8 +275,7 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all, 
-                   commons-jar, business-ejb-jar, integration-jar, 
-                   «IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»
+                   commons-jar, business-ejb-jar, integration-jar, «IF !isRemote()-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -304,8 +303,9 @@ ANT FILES
       </manifest>
     </ear>
   </target>
-
-	«IF this.targetPlatform.enableRichUIBehavior-»
+  
+  «IF !isRemote()-»
+  «IF this.targetPlatform.enableRichUIBehavior-»
   <!-- -->
   <!-- ############################################################# -->
   <!-- # _unzip_js                                                 # -->
@@ -327,7 +327,8 @@ ANT FILES
   	     essere inserite manualmente in ${srcweb} -->
   «ENDIF-»
   </target>
-	«ENDIF-»
+  «ENDIF-»
+  «ENDIF-»
 
   <!-- -->
   <!-- ############################################################# -->
@@ -552,6 +553,7 @@ ANT FILES
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
+«IF !isRemote()-»
 «IF targetPlatform.enableRichUIBehavior-»
 # - [Files delle risorse statiche per rich UI] -------------------------------
   extjs-zipfile = ${lib}/ext-3.2.2-all.zip
@@ -564,7 +566,7 @@ ANT FILES
 «IF targetPlatform.enableFatClient-»
   csi-extjsmdd-zipfile = ${lib}/ext-csi-1.0.0-mdd.zip
 «ENDIF-»
-
+«ENDIF-»
 # - [ear-libs-filter] --------------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
 # essere inclusi all'interno dell'EAR prodotto.
@@ -761,17 +763,19 @@ IVY FILES (gestione delle dipendenze)
 
 		«IF targetPlatform.enableRichUIBehavior-»
 		<!-- librerie js per rich u.i -->
+		«IF !isRemote()-»
 		<dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
 		<dependency org="csipiemonte" name="extjscsienricher" rev="1.1.0"/>
-		<dependency org="others" name="flexjson" rev="1.9.2" />
-		<dependency org="csipiemonte" name="csiui" rev="1.1.0" />
 		«IF hasGisMap()»
 		<dependency org="openlayers" name="openlayers" rev="2.10" />
 		«ENDIF»
-		«ENDIF-»
 		«IF targetPlatform.enableFatClient-»
 		<dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
 		«ENDIF-»
+		«ENDIF-»
+		<dependency org="others" name="flexjson" rev="1.9.2" />
+		<dependency org="csipiemonte" name="csiui" rev="1.1.0" />
+		«ENDIF»
 		
 		«IF getActualSecurityModel(this).autenticationMethod!=null-»
 		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
