@@ -34,17 +34,24 @@
 
 
 «DEFINE fatClientJSStruct FOR GUIModel-»
-«IF getProperty("staticResourcesSchemaVersion") == "V1" || !isRemote()»
+«IF getProperty("staticResourcesSchemaVersion") == "V1" && !isRemote()»
 «FILE getJavascriptSrcDir(true)+"/fatclient.js"»
-
 /**
  * Definizione della struttura ExtCSI dell'applicazione
  */
-
 «EXPAND model::types::types FOR this»
 «EXPAND model::data::datas FOR this»
 «EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
 «ENDFILE»
+«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2" && !isRemote()»
+«FILE getWebSrcDir(this, true)+getPathComponentDir(this, true)+"js/fatclient.js"»
+/**
+ * Definizione della struttura ExtCSI dell'applicazione
+ */
+«EXPAND model::types::types FOR this»
+«EXPAND model::data::datas FOR this»
+«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
+«ENDFILE-»
 «ENDIF»
 «ENDDEFINE»
 

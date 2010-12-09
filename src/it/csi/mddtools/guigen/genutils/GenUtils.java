@@ -31,6 +31,7 @@ import it.csi.mddtools.guigen.FormPanel;
 import it.csi.mddtools.guigen.GUIModel;
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Header;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.MapView;
@@ -2506,7 +2507,29 @@ public class GenUtils {
 			result.addAll(currSM);
 		}
 		return result;
-	}	
+	}
+	
+	/**
+	 * restituisce il path delle risorse statiche relative all'applicativo
+	 * @param model
+	 * @param remote
+	 * @return
+	 */
+	public static String getPathComponentDir(GUIModel model, Boolean remote){
+		Header header = model.getStructure().getAppWindow().getHeader();
+		String pre = "";
+		if(remote){
+			pre = "/";
+		}
+		
+		String codCanale = header.getCodCanale();
+		if(codCanale == null || codCanale.length() == 0){
+			codCanale = "general";
+		}
+		String codApplicativo = header.getCodApplicativo();
+		
+		return pre+"ris/utheme/"+codCanale+"/"+codApplicativo+"/";
+	}
 	
 
 	/**

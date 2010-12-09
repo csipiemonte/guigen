@@ -275,7 +275,7 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all, 
-                   commons-jar, business-ejb-jar, integration-jar, «IF !isRemote()-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
+                   commons-jar, business-ejb-jar, integration-jar, «IF (!isRemote() && getProperty("staticResourcesSchemaVersion") == "V2") || getProperty("staticResourcesSchemaVersion") == "V1"-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -304,7 +304,7 @@ ANT FILES
     </ear>
   </target>
   
-  «IF !isRemote()-»
+  «IF (!isRemote() && getProperty("staticResourcesSchemaVersion") == "V2") || getProperty("staticResourcesSchemaVersion") == "V1"-»
   «IF this.targetPlatform.enableRichUIBehavior-»
   <!-- -->
   <!-- ############################################################# -->
@@ -553,7 +553,7 @@ ANT FILES
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
-«IF !isRemote()-»
+«IF !isRemote() || getProperty("staticResourcesSchemaVersion") == "V1"-»
 «IF targetPlatform.enableRichUIBehavior-»
 # - [Files delle risorse statiche per rich UI] -------------------------------
   extjs-zipfile = ${lib}/ext-3.2.2-all.zip
@@ -763,7 +763,7 @@ IVY FILES (gestione delle dipendenze)
 
 		«IF targetPlatform.enableRichUIBehavior-»
 		<!-- librerie js per rich u.i -->
-		«IF !isRemote()-»
+		«IF !isRemote() || getProperty("staticResourcesSchemaVersion") == "V1"-»
 		<dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
 		<dependency org="csipiemonte" name="extjscsienricher" rev="1.1.0"/>
 		«IF hasGisMap()»

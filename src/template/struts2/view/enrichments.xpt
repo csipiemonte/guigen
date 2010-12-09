@@ -9,8 +9,12 @@
 
 «REM»crea i file JS di arricchimento delle pagine web«ENDREM»
 «DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-«IF getProperty("staticResourcesSchemaVersion") == "V1" || !isRemote()»
+«IF getProperty("staticResourcesSchemaVersion") == "V1" && !isRemote()»
 «FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
+«EXPAND enrichmentsCommon(model, skip_component_dir_creation) FOR this»
+«ENDFILE-»
+«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2" && !isRemote()»
+«FILE getWebSrcDir(model, true)+getPathComponentDir(model, true)+"js/"+getEnrichmentFileWebRootRelative(this, model)»
 «EXPAND enrichmentsCommon(model, skip_component_dir_creation) FOR this»
 «ENDFILE-»
 «ENDIF»
@@ -251,7 +255,18 @@ Ext.onReady( function() {
 			<position value="«getRemoteGlobalJslibDir()»extjscsicore/1.1.0/util/Format.js" />
 			<position value="«getRemoteGlobalJslibDir()»extjscsicore/1.1.0/locale/ext-lang-it.js" />
 		</resource>
-		«ELSE»
+		«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2" && !isRemote()-»
+		<resource type="text/css">
+			<position value="«getLocalGlobalXthemeDir()»css/ext-all/resources/css/ext-all.css" />
+			<position value="«getLocalGlobalXthemeDir()»css/general/css/xtheme-general.css" />
+		</resource>
+		<resource type="text/javascript">
+			<position value="«getLocalGlobalJslibDir()»ext-all/3.2.2/adapter/ext/ext-base.js" />
+			<position value="«getLocalGlobalJslibDir()»ext-all/3.2.2/ext-all.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/util/Format.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/locale/ext-lang-it.js" />
+		</resource>
+		«ELSE-»
 		<resource type="text/css">
 			<position value="ext-all/resources/css/ext-all.css" />
 			<position value="ext-all/resources/css/xtheme-gray.css" />
@@ -293,9 +308,34 @@ Ext.onReady( function() {
   			<position value="«getRemoteGlobalJslibDir()»extjscsicore/1.1.0/fileuploadfield/FileUploadField.js" />
   			
 			<position value="«getRemoteGlobalJslibDir()»extjscsimdd/1.0.0/core/core.js" />
-			<position value="«getRemoteComponentDir(this)»js/fatclient.js" />
+			<position value="«getPathComponentDir(this, true)»js/fatclient.js" />
 		</resource>
-		«ELSE»
+		«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2" && !isRemote()-»
+		<resource type="text/css">
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/css/GridFilters.css" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/css/RangeMenu.css" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/multiselect/css/MultiSelect.css" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsimdd/1.0.0/core/css/core.css" />
+		</resource>
+		<resource type="text/javascript">
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/menu/RangeMenu.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/menu/ListMenu.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/GridFilters.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/Filter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/StringFilter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/DateFilter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/ListFilter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/NumericFilter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/grid-filter/filter/BooleanFilter.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/multiselect/MultiSelect.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/multiselect/ItemSelector.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/tree-state/TreePanelStatefull_plugin.js" />
+  			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/fileuploadfield/FileUploadField.js" />
+  			
+			<position value="«getLocalGlobalJslibDir()»extjscsimdd/1.0.0/core/core.js" />
+			<position value="«getPathComponentDir(this, false)»js/fatclient.js" />
+		</resource>
+		«ELSE-»
 		<resource type="text/css">
 			<position value="ext-csi/grid-filter/css/GridFilters.css" />
   			<position value="ext-csi/grid-filter/css/RangeMenu.css" />
@@ -331,13 +371,13 @@ Ext.onReady( function() {
 «DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
 	<!-- risorse specifiche del ContentPanel [«name»] -->
 	<file page="«name»">
-		«IF getProperty("staticResourcesSchemaVersion") == "V2" && isRemote()»
+		«IF getProperty("staticResourcesSchemaVersion") == "V2" && isRemote()-»
 		<resource type="text/css">
 			<position value="«getRemoteGlobalJslibDir()»extjscsienricher/1.1.0/ajaxify-tag/css/ajaxify.css" />
 			«IF hasGisMap()»
-			<position value="«getRemoteComponentDir(model)»css/openlayers_style.css" />
-			<position value="«getRemoteComponentDir(model)»css/grease.css" />
-			<position value="«getRemoteComponentDir(model)»css/toolbar.css" />
+			<position value="«getPathComponentDir(model, true)»css/openlayers_style.css" />
+			<position value="«getPathComponentDir(model, true)»css/grease.css" />
+			<position value="«getPathComponentDir(model, true)»css/toolbar.css" />
 			«ENDIF»
 		</resource>
 		<resource type="text/javascript">
@@ -354,9 +394,34 @@ Ext.onReady( function() {
 			<!-- componente js dello skin -->
 			<position value="«getRemoteGlobalXthemeDir()»js/style.js" />
 			<!-- arricchimenti della schermata -->
-			<position value="«getRemoteComponentDir(model)»js/«getEnrichmentFileWebRootRelative(this, model)»" />
+			<position value="«getPathComponentDir(model, true)»js/«getEnrichmentFileWebRootRelative(this, model)»" />
 		</resource>
-		«ELSE»
+		«ELSEIF getProperty("staticResourcesSchemaVersion") == "V2" && !isRemote()-»
+		<resource type="text/css">
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/ajaxify-tag/css/ajaxify.css" />
+			«IF hasGisMap()»
+			<position value="«getPathComponentDir(model, false)»css/openlayers_style.css" />
+			<position value="«getPathComponentDir(model, false)»css/grease.css" />
+			<position value="«getPathComponentDir(model, false)»css/toolbar.css" />
+			«ENDIF»
+		</resource>
+		<resource type="text/javascript">
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/table-grid/TableGrid.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsicore/1.1.0/miframe/miframe.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/enricher/enricher.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/menu/csimenu.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/toggle-panel/toggle.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/ajaxify-tag/ajaxifyTag.js" />
+			«IF hasGisMap()»
+			<position value="«getLocalGlobalJslibDir()»openlayers/2.10/core/OpenLayers.js" />
+			<position value="«getLocalGlobalJslibDir()»extjscsienricher/1.1.0/maps/map-setup.js" />
+			«ENDIF»
+			<!-- componente js dello skin -->
+			<position value="«getLocalGlobalXthemeDir()»js/style.js" />
+			<!-- arricchimenti della schermata -->
+			<position value="«getPathComponentDir(model, false)»js/«getEnrichmentFileWebRootRelative(this, model)»" />
+		</resource>
+		«ELSE-»
 		<resource type="text/css">
 			<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
 			«IF hasGisMap()»

@@ -22,14 +22,33 @@ Definizioni generali: header, footer, ecc
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
-<!-- fine HEAD di APPLICATIVO (con remincl) -->
-		
+		«IF getProperty("staticResourcesSchemaVersion") == "V2"-»
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		«FOREACH this.metaAttributes AS metaAttribute-»
+		<meta name="«metaAttribute.name»" content="«metaAttribute.value»" />
+		«ENDFOREACH-»
+		<title>«this.title»</title>
+		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+		<link rel="stylesheet" type="text/css" href="«getRemoteGlobalXstructureDir()»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getRemoteGlobalXstructureDir()»css/xhtmlStructureUniversal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getRemoteGlobalXstructureDir()»css/general/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getPathComponentDir(model, true)»css/general/applicazione.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getRemoteGlobalXstructureDir()»css/corner/corner.css" media="screen" />
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="«getPathComponentDir(model, true)»/js/jsFunctions.js"></script>
+		«ELSE-»
+		<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
+		<!-- fine HEAD di APPLICATIVO (con remincl) -->
 		
 		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
 		
 		<!-- funzioni e definizioni javascript -->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
+		
+		«ENDIF-»
 		
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
 
@@ -48,8 +67,13 @@ Definizioni generali: header, footer, ecc
 			<div id="applicationArea">
 
 				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
+				«IF getProperty("staticResourcesSchemaVersion") == "V2"»
+				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)-»«codCanale»«ELSE-»general«ENDIF-»/«IF !isNullOrEmpty(codApplicativo)-»«codApplicativo»/«ENDIF-»application_header.html" resourceProvider="sp" />
+				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
+				«ELSE»
 				<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
 				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
+				«ENDIF»
 
 <!-- FINE HEADER -->
 «ENDDEFINE»

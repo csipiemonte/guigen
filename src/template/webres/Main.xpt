@@ -20,7 +20,7 @@
 
 «DEFINE contentPanelFiles(GUIModel model) FOR ContentPanel»
 	«IF model.targetPlatform.enableRichUIBehavior-»
-		«FILE getWebSrcDir(model, true)+getRemoteComponentDir(model)+"js/"+getEnrichmentFileWebRootRelative(this, model)»
+		«FILE getWebSrcDir(model, true)+getPathComponentDir(model, true)+"js/"+getEnrichmentFileWebRootRelative(this, model)»
 		«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, true) FOR this»
 		«ENDFILE»
 	«ENDIF-»
@@ -28,7 +28,7 @@
 
 «DEFINE insertFatClientJsFile FOR GUIModel»
 «IF targetPlatform.enableFatClient»
-«FILE getWebSrcDir(true)+getRemoteComponentDir(this)+"js/fatclient.js"»
+«FILE getWebSrcDir(true)+getPathComponentDir(this, true)+"js/fatclient.js"»
 
 /**
  * Definizione della struttura ExtCSI dell'applicazione

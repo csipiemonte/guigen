@@ -154,11 +154,24 @@ String getWebSrcDir(GUIModel model, boolean omit_root) :
 String getRemoteGlobalJslibDir() : 
 	"/ris/utheme/global/jslib/";
 	
-String getRemoteComponentDir(GUIModel model) : 
-	"/ris/utheme/"+model.codProdotto+"/"+model.codComponente+"/";
+String getLocalGlobalJslibDir() : 
+	"ris/utheme/global/jslib/";
+
+//***passare true per risorse remote, false per risorse locali
+String getPathComponentDir(GUIModel model, boolean remote) : JAVA 
+	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDir(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
 	
 String getRemoteGlobalXthemeDir() : 
 	"/ris/utheme/global/xthemeV1/";
+	
+String getLocalGlobalXthemeDir() : 
+	"ris/utheme/global/xthemeV1/";
+	
+String getRemoteGlobalXstructureDir() : 
+	"/ris/utheme/global/xstructureV1/";
+	
+String getLocalGlobalXstructureDir() : 
+	"ris/utheme/global/xstructureV1/";
 ////////////////////////////////////////////////////////////
 /// Estensioni di layout                                  //
 ////////////////////////////////////////////////////////////
