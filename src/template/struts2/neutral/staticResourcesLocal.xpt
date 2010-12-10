@@ -33,8 +33,14 @@ Definizioni generali: header, footer, ecc
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/globalPortal.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/xhtmlStructureUniversal.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/general/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/general/applicazione.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/corner/corner.css" media="screen" />
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie6.css" media="screen" />
+		<![endif]-->
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie7.css" media="screen" />
+		<![endif]-->
 		<!-- funzioni e definizioni javascript -->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»/js/jsFunctions.js"></script>
 		«ELSE-»
@@ -98,22 +104,40 @@ Definizioni generali: header, footer, ecc
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title><fmt:message key="header.applicativo.nome.label" /></title>
+		«FOREACH this.metaAttributes AS metaAttribute-»
+		<meta name="«metaAttribute.name»" content="«metaAttribute.value»" />
+		«ENDFOREACH-»
+		<title>«this.title»</title>
 
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
+		«IF getProperty("staticResourcesSchemaVersion") == "V2"-»
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/xhtmlStructureUniversal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/general/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/corner/corner.css" media="screen" />
+		<!--[if lte IE 6]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie6.css" media="screen" />
+		<![endif]-->
+		<!--[if IE 7]>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie7.css" media="screen" />
+		<![endif]-->
+		<!-- funzioni e definizioni javascript -->
+		<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»/js/jsFunctions.js"></script>
+		«ELSE-»
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
-
 		<!--[if lte IE 6]>
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
 		<![endif]-->
-
 		<!--[if IE 7]>
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
 		<![endif]-->
-
 		<!-- funzioni e definizioni javascript -->
 		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
+		
+		«ENDIF-»
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
 
 
 		<!-- Aggiungere i link alle proprie risorse statiche (css, js, altro) -->

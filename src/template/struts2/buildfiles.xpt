@@ -275,7 +275,7 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all, 
-                   commons-jar, business-ejb-jar, integration-jar, «IF (!isRemote() && getProperty("staticResourcesSchemaVersion") == "V2") || getProperty("staticResourcesSchemaVersion") == "V1"-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
+                   commons-jar, business-ejb-jar, integration-jar, «IF getProperty("staticResourcesSchemaVersion") == "V1"-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -304,7 +304,7 @@ ANT FILES
     </ear>
   </target>
   
-  «IF (!isRemote() && getProperty("staticResourcesSchemaVersion") == "V2") || getProperty("staticResourcesSchemaVersion") == "V1"-»
+  «IF getProperty("staticResourcesSchemaVersion") == "V1"-»
   «IF this.targetPlatform.enableRichUIBehavior-»
   <!-- -->
   <!-- ############################################################# -->

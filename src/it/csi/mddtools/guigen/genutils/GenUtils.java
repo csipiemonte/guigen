@@ -2530,7 +2530,6 @@ public class GenUtils {
 		
 		return pre+"ris/utheme/"+codCanale+"/"+codApplicativo+"/";
 	}
-	
 
 	/**
 	 *
