@@ -32,8 +32,10 @@ Definizioni generali: Pagine di ERRORE
 	<br/>
 	<fmt:message key="error.notfound.message" />
 </div>
-<div id="applicationError_links">
-	<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button left">
+		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.notfound.btnmsg" /></a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -49,8 +51,10 @@ Definizioni generali: Pagine di ERRORE
 	<br />
 	<fmt:message key="error.fatalerror.message" />
 </div>
-<div id="applicationError_links">
-	<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button left">
+		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.fatalerror.btnmsg" /></a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -66,9 +70,11 @@ Definizioni generali: Pagine di ERRORE
 	<br />
 	<s:property value="%{exception.message}"/>
 </div>
-<div id="applicationError_links">
-	<s:url id="homePageUrl" action="HomePage" />
-	<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button left">
+		<s:url id="homePageUrl" action="HomePage" />
+		<s:a href="%{homePageUrl}" cssClass="buttonWidget"><s:text name="error.applicationerror.btnmsg" /></s:a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDDEFINE»
@@ -89,11 +95,14 @@ Definizioni generali: Pagine di ERRORE
 	<br />
 	<fmt:message key="error.sessionexpired.authentication" />
 </div>
-<div id="applicationError_links">
+<div id="applicationError_links" class="commandPanel navigation">
 	<!-- NOTA: questa URL è da parametrizzare in qualche modo -->
-	<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
-	<br />
-	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+	<div class="button left">
+		<a href="#" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	</div>
+	<div class="button right">
+		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -111,9 +120,11 @@ Definizioni generali: Pagine di ERRORE
 	<br />
 	<s:text name="message.confirmlogout.certmessage" />
 </div>
-<div id="applicationError_links">
-	<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
-	<s:a href="%{localLogoutUrl}"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button left">
+		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<s:a href="%{localLogoutUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
 «ENDFILE»
@@ -129,11 +140,14 @@ Definizioni generali: Pagine di ERRORE
 	<fmt:message key="error.invalidtoken.message" />
 	<br />
 </div>
-<div id="applicationError_links">
+<div id="applicationError_links" class="commandPanel navigation">
 	<!-- NOTA: questa URL è da parametrizzare in qualche modo -->
-	<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
-	<br />
-	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+	<div class="button left">
+		<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	</div>
+	<div class="button right">
+		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
@@ -291,7 +305,9 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 			<li«getMenuWithChildCssNeutral(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
+					<span>
 					«getMenuWithChildLabelNeutral(this, level)»
+					</span>
 				</s:a>
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
@@ -569,7 +585,7 @@ Gestione dei PANNELLI
 
 «DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span></li>
+	<li class="item-«stepNumber» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span><span class="separator"> | </span></li>
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -586,7 +602,8 @@ Gestione dei PANNELLI
 		          key="«cp.name».«getFullID(this, contextPrefix)».label" />
         «IF model.targetPlatform.enableRichUIBehavior-»
         	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher-»
-        «ENDIF-»	
+        «ENDIF-»
+        <span class="separator"> | </span>	
 	«ELSE-»
 		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
 	«ENDIF-»
@@ -596,7 +613,7 @@ Gestione dei PANNELLI
 
 «DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber»"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></li>
+	<li class="item-«stepNumber»"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /><span class="separator"> | </span></li>
 	«ENDLET-»
 «ENDDEFINE»
 

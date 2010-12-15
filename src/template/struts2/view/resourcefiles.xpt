@@ -373,6 +373,7 @@ Gestione dei pannelli
 «REM»Genera un TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR TabSetPanel»
 	«REM»Definizione del pannello«ENDREM»
+	<div class="tabSetPanelContent">
 	«startFragment()»
 	«EXPAND remoteResources::setupTabSetPanel(model, cp, contextPrefix) FOR this-»
 
@@ -382,11 +383,13 @@ Gestione dei pannelli
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration, contextPrefix) FOR currTab-»
 	«ENDFOREACH-»
 	«endFragment()»
+	</div>
 «ENDDEFINE»
 
 «REM»Genera un WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR WizardPanel»
 	«REM»Definizione del pannello«ENDREM»
+	<div class="wizardPanelContent">
 	«startFragment()»
 	«EXPAND remoteResources::setupWizardPanel(model, cp, contextPrefix) FOR this-»
 	
@@ -395,7 +398,8 @@ Gestione dei pannelli
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante, contextPrefix, pduConf) FOR currStep-»
 		«EXPAND createMultiPanelSubpanelIncludeDirective(model, cp, this, i.firstIteration, contextPrefix) FOR currStep-»
 	«ENDFOREACH-»
-	«endFragment()»	
+	«endFragment()»
+	</div>
 «ENDDEFINE»
 
 
