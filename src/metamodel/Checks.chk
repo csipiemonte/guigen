@@ -375,6 +375,34 @@ context Column if multiDataBinding !=null ERROR "configurare in alternativa il m
 context Column if multidataPropertySelector !=null ERROR "configurare in alternativa il multidataBinding o il multidataPropertySelector " + loc () :
 	multiDataBinding == null;
 
+// verifica presenza del campo collegato alla colonna
+context Column if !isNullOrEmpty(selector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal selettore '"+this.selector+"'" +loc():
+	canResolveColumnBinding(this, selector);
+
+// verifica presenza del campo collegato alla cliccabilità della colonna
+context Column if !isNullOrEmpty(this.activeFlagSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal activeFlagSelector '"+this.activeFlagSelector+"'" +loc():
+	canResolveColumnBinding(this, activeFlagSelector);
+
+// verifica presenza del campo collegato alla editabilità della colonna
+context Column if !isNullOrEmpty(this.editableFlagSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal editableFlagSelector '"+this.editableFlagSelector+"'" +loc():
+	canResolveColumnBinding(this, editableFlagSelector);
+
+/// questi check non vanno bene: da rivedere in seguito gestendo tutte le casistiche
+//context Column if !isNullOrEmpty(this.multidataKeySelector) && !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataKeySelector '"+this.multidataKeySelector+"'" +loc():
+//	let tableElType = getTableElementsType(getOwnerTable(this)):
+//	let mdPropField = tableElType != null ? getSelectedField(null,tableElType, multidataPropertySelector) : ((Field)null) :
+//	if (mdPropField != null && ((Field)mdPropField).type!=null) then
+//		getSelectedField(null, ((Field)mdPropField).type, this.multidataKeySelector)!=null
+//	else
+//		true;
+
+//context Column if !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataPropertySelector '"+this.multidataPropertySelector+"'" +loc():
+//	canResolveColumnBinding(this, multidataPropertySelector);
+
+//context Column if !isNullOrEmpty(this.multidataValueSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataValueSelector '"+this.multidataValueSelector+"'" +loc():
+//	canResolveColumnBinding(this, multidataValueSelector);
+
+
 	 	
 // [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
 context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un Pannello con Vertical o Horizontal layout " + loc() :
