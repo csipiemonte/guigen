@@ -198,6 +198,30 @@ boolean isRemote() :
 
 
 ////////////////////////////////////////////////////////////
+/// Estensioni legate a binding                           //
+////////////////////////////////////////////////////////////
+
+ComplexType getTableElementsType(Table t) :
+	if t==null then
+		null
+	else
+		t.multiDataBinding.appData.type;
+
+Table getOwnerTable(Column c):
+	let colModel = (ColumnModel)c.eContainer :
+	let table = (Table)colModel.eContainer:
+	table;
+
+// n.b: selector path può contenenre il selector, il multidataKeySelector, ...
+boolean canResolveColumnBinding(Column c, String selectorPath) :
+	
+	let bindingType = getTableElementsType(getOwnerTable(c)) :
+	if (bindingType == null) then
+		true
+	else
+		getSelectedField(null,bindingType, selectorPath)!= null;
+
+////////////////////////////////////////////////////////////
 /// Estensioni di utilita'                                //
 ////////////////////////////////////////////////////////////
 
