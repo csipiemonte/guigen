@@ -101,6 +101,18 @@ context ContentPanel ERROR "E'necessario definire il pannello principale nel con
 context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello " + loc():
 	this.name != null && this.name != "";
 
+context FormPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
+context WidgetsPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+	
+context CommandPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
+context MenuPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
 context Panel if findParentContentPanel(this)!=null ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel "+loc() :
     findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
 
@@ -132,7 +144,15 @@ context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSE
     		this.subpanels.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
     	)
     );
- 
+
+//Un UDLRC di primo livello deve avere almeno il pannello CENTER
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout && eContainer.metaType==ContentPanel) 
+ERROR "Un FormPanel di primo livello avente layout UDLRC deve contenere almeno il quadrante CENTER:"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::CENTER)).size==1;
+		
+		
 // { STDMDD-605   
 context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (UP):"+loc() :
 	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
