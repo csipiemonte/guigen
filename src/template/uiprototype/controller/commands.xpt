@@ -10,13 +10,13 @@
 «LET cp != null ? getStrutsActionConfigName(cp) : ( !isInMenuBranch() ? "HomeAction" : "MenuAction") AS actionName-»
 	new ExtCsi.cmd.ExecCommand({
 		methodName: «jsLiteralValue(methodName)»,
-		methodUrl: '«getDataDir()»/«this.getExecCommandMethodName(null)».txt',
+		methodUrl: '«getDataDir()»/«cp.name»»_«this.getExecCommandMethodName(null)».txt',
 		results: [«EXPAND template::fatjs::controller::commands::cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
 		// TODO postExecData
 		}
 	)
 «ENDLET-»
-«FILE getWebDir(model)+getDataDir()+"/"+this.getExecCommandMethodName(null)+".txt"»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+"_"+this.getExecCommandMethodName(null)+".txt"»
 «REM»//TODO prende il primo {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"«this.results.first().resultCode»"} «ENDREM»
 {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":[«FOREACH this.results AS outCome SEPARATOR ","-»"«outCome.resultCode»"«ENDFOREACH» ]}«ENDFILE»
 «ENDDEFINE»

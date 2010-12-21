@@ -116,7 +116,7 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 	
 	private static void donwload(){
 		//commentato perchè la lib la scarico da svn e poi sarà presa da repart
-	   downloadResource_2(urlExtCsi,nomeZipExtCsi);
+	  downloadResource_2(urlExtCsi,nomeZipExtCsi);
 		downloadResource_2(urlExtJs, nomeZipExtJs);
 		downloadResource_2(urlExtJsCore, nomeZipExtJsCore);			
 	}
@@ -151,7 +151,7 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 
 		Utility.leggiProperties();
 		//per repart che non funge
-	//	Utility.donwload();
+		Utility.donwload();
 	    
 	    Unzip unz= new Unzip();
 	    File zipFileExtCsi = new File(pathResources()+nomeZipExtCsi);
