@@ -74,10 +74,14 @@
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
 		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
-		«EXPAND arrangeDataToProvide(cp, contextPrefix) FOR this»
+		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR this»
 		// serializza
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«IF this.metaType == TreeView»
+		String response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
+		«ELSE-»
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
+		«ENDIF-»
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
 		try {
@@ -139,10 +143,10 @@
 «ENDDEFINE»
 
 «REM»parte specifica di aggiustamento dei dati per i vari widget«ENDREM»
-«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR MultiDataWidget»
+«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiDataWidget»
 «ENDDEFINE»
 
-«DEFINE arrangeDataToProvide(ContentPanel cp, String contextPrefix) FOR Table»
+«DEFINE arrangeDataToProvide(GUIModel model, ContentPanel cp, String contextPrefix) FOR Table»
 		if(isTableClearStatus("«cp.name»_«getFullID(this, contextPrefix)»")){
 			tableStatus.setClearStatus(true);
 		}

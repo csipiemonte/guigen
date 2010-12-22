@@ -305,9 +305,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 			<li«getMenuWithChildCssNeutral(this, level)»>
 				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-					<span>
-					«getMenuWithChildLabelNeutral(this, level)»
-					</span>
+					<span>«getMenuWithChildLabelNeutral(this, level)»</span>
 				</s:a>
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
@@ -315,7 +313,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 			</li>
 		</s:if>
 		<s:else>
-			<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
+			<li«getMenuWithChildCssNeutral(this, level)»><span>«getMenuWithChildLabelNeutral(this, level)»</span>
 				<ul>
 					«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 				</ul>
@@ -323,7 +321,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		</s:else>
 		«ENDLET»
 	«ELSE»
-		<li«getMenuWithChildCssNeutral(this, level)»>«getMenuWithChildLabelNeutral(this, level)»
+		<li«getMenuWithChildCssNeutral(this, level)»><span>«getMenuWithChildLabelNeutral(this, level)»</span>
 			<ul>
 				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
 			</ul>
@@ -605,7 +603,7 @@ Gestione dei PANNELLI
         «ENDIF-»
         <span class="separator"> | </span>	
 	«ELSE-»
-		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
+		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a><span class="separator"> | </span>
 	«ENDIF-»
 	«ENDLET-»
 	</li>
@@ -988,8 +986,8 @@ Gestione del BUILD => file: buildfiles.xpt
 
 «REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.0.3">
-	<artifact name="custom-component-2.0.3" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.1.0">
+	<artifact name="custom-component-2.1.0" type="jar"/>
 </dependency>
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.2.0">
 	<artifact name="util-struts2-csitemplate-1.2.0" type="jar"/>
