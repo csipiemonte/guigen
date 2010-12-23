@@ -660,7 +660,7 @@ Gestione dei LAYOUT - PANNELLI
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
 «IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
 «IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
-<h4><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />«getToggleHandleHtml(this,contextPrefix)»</h4>
+<h4 class="fpLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" />«getToggleHandleHtml(this,contextPrefix)»</h4>
 «ENDIF-»
 <div class="formPanel«IF this.layout.metaType == UDLRCPanelLayout» floatWrapper«ENDIF»" id="«getFullID(this, contextPrefix)»">
 «ENDIF-»
@@ -704,10 +704,11 @@ Gestione dei LAYOUT - PANNELLI
 «REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
 «DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
 «IF !this.widgets.isEmpty -»
+«IF !isNullOrEmpty(this.label)»<h4 class="wpLabel">«this.label» «getToggleHandleHtml(this,contextPrefix)»</h4>«ENDIF»
 <div class="widgetsPanel" id="«getFullID(this, contextPrefix)»">
 	«IF this.widgets.select(e|e.metaType == Table).size == 0 && this.widgets.select(e|e.metaType == MapView).size == 0»
 	<customtag:widgetsPanel id="«getFullID(this, contextPrefix)»Tbl" columns="«getGridPanelColumnsNumber(this)»" tableStyleClass="formTable"
-		summary="«this.summary»" «IF !isNullOrEmpty(this.label)»caption="«this.label»"«ENDIF»«IF !isRemote()» isStandalone="true"«ENDIF»
+		summary="«this.summary»" «IF !isRemote()» isStandalone="true"«ENDIF»
 		«getPanelGridPercentCols(this)»>
 	«ENDIF»
 «ENDIF-»
