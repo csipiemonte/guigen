@@ -542,6 +542,9 @@ context TextField if multiDataBinding != null ERROR "Il collection-binding assoc
 	multiDataBinding.appData.type.metaType == TypedArray &&
 	((TypedArray)(multiDataBinding.appData.type)).componentType.metaType == SimpleType;
 	
+context Field if !name.isNullOrEmpty()  ERROR "In un complexType il nome dei fields deve essere univoco" : 
+	((ComplexType) eContainer).getAllFields().select(e|e.name == name).size == 1;
+	
 context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
 	this.dataType != null;
 
