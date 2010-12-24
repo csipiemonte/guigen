@@ -656,6 +656,26 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createMapEnvelopeAdapter();
 			}
 			@Override
+			public Adapter casePortalProfile(PortalProfile object) {
+				return createPortalProfileAdapter();
+			}
+			@Override
+			public Adapter caseWebResourceModule(WebResourceModule object) {
+				return createWebResourceModuleAdapter();
+			}
+			@Override
+			public Adapter caseStdWebResourceModule(StdWebResourceModule object) {
+				return createStdWebResourceModuleAdapter();
+			}
+			@Override
+			public Adapter caseRepartArtifact(RepartArtifact object) {
+				return createRepartArtifactAdapter();
+			}
+			@Override
+			public Adapter caseRepartModule(RepartModule object) {
+				return createRepartModuleAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2716,6 +2736,76 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMapEnvelopeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PortalProfile <em>Portal Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PortalProfile
+	 * @generated
+	 */
+	public Adapter createPortalProfileAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.WebResourceModule <em>Web Resource Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.WebResourceModule
+	 * @generated
+	 */
+	public Adapter createWebResourceModuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.StdWebResourceModule <em>Std Web Resource Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.StdWebResourceModule
+	 * @generated
+	 */
+	public Adapter createStdWebResourceModuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RepartArtifact <em>Repart Artifact</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.RepartArtifact
+	 * @generated
+	 */
+	public Adapter createRepartArtifactAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.RepartModule <em>Repart Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.RepartModule
+	 * @generated
+	 */
+	public Adapter createRepartModuleAdapter() {
 		return null;
 	}
 

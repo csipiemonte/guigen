@@ -1223,6 +1223,42 @@ public interface GuigenFactory extends EFactory {
 	MapEnvelope createMapEnvelope();
 
 	/**
+	 * Returns a new object of class '<em>Portal Profile</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Portal Profile</em>'.
+	 * @generated
+	 */
+	PortalProfile createPortalProfile();
+
+	/**
+	 * Returns a new object of class '<em>Std Web Resource Module</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Std Web Resource Module</em>'.
+	 * @generated
+	 */
+	StdWebResourceModule createStdWebResourceModule();
+
+	/**
+	 * Returns a new object of class '<em>Repart Artifact</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Repart Artifact</em>'.
+	 * @generated
+	 */
+	RepartArtifact createRepartArtifact();
+
+	/**
+	 * Returns a new object of class '<em>Repart Module</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Repart Module</em>'.
+	 * @generated
+	 */
+	RepartModule createRepartModule();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

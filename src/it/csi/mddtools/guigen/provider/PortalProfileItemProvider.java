@@ -7,9 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.TargetPlatform;
-import it.csi.mddtools.guigen.TargetPlatformCodes;
+import it.csi.mddtools.guigen.PortalProfile;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,9 +19,10 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemFontProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -32,22 +33,26 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TargetPlatform} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.PortalProfile} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TargetPlatformItemProvider
+public class PortalProfileItemProvider
 	extends ItemProviderAdapter
 	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TargetPlatformItemProvider(AdapterFactory adapterFactory) {
+	public PortalProfileItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,28 +67,25 @@ public class TargetPlatformItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCodePropertyDescriptor(object);
-			addEnableRichUIBehaviorPropertyDescriptor(object);
-			addEnableFatClientPropertyDescriptor(object);
-			addPortalProfilesPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Code feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCodePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_code_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_code_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__CODE,
+				 getString("_UI_PortalProfile_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PortalProfile_name_feature", "_UI_PortalProfile_type"),
+				 GuigenPackage.Literals.PORTAL_PROFILE__NAME,
 				 true,
 				 false,
 				 false,
@@ -93,95 +95,60 @@ public class TargetPlatformItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Enable Rich UI Behavior feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEnableRichUIBehaviorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_enableRichUIBehavior_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableRichUIBehavior_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.PORTAL_PROFILE__RES_MODULES);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This adds a property descriptor for the Enable Fat Client feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEnableFatClientPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_enableFatClient_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableFatClient_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_FAT_CLIENT,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
-	 * This adds a property descriptor for the Portal Profiles feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPortalProfilesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_portalProfiles_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_portalProfiles_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__PORTAL_PROFILES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns TargetPlatform.gif.
+	 * This returns PortalProfile.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TargetPlatform"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PortalProfile"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TargetPlatformCodes labelValue = ((TargetPlatform)object).getCode();
-		String label = labelValue == null ? null : labelValue.toString();
+		PortalProfile pp = (PortalProfile)object;
+		String label = "";
+		label += pp.getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_TargetPlatform_type") :
-			getString("_UI_TargetPlatform_type") + " " + label;
+			getString("_UI_PortalProfile_type") :
+			getString("_UI_PortalProfile_type") + " " + label;
 	}
 
 	/**
@@ -195,11 +162,12 @@ public class TargetPlatformItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(TargetPlatform.class)) {
-			case GuigenPackage.TARGET_PLATFORM__CODE:
-			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
-			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+		switch (notification.getFeatureID(PortalProfile.class)) {
+			case GuigenPackage.PORTAL_PROFILE__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.PORTAL_PROFILE__RES_MODULES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -215,6 +183,11 @@ public class TargetPlatformItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.PORTAL_PROFILE__RES_MODULES,
+				 GuigenFactory.eINSTANCE.createStdWebResourceModule()));
 	}
 
 	/**

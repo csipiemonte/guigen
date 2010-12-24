@@ -109,9 +109,13 @@ import it.csi.mddtools.guigen.PanelLayout;
 import it.csi.mddtools.guigen.PlainText;
 import it.csi.mddtools.guigen.Point;
 import it.csi.mddtools.guigen.PortalNames;
+import it.csi.mddtools.guigen.PortalProfile;
 import it.csi.mddtools.guigen.RadioButton;
 import it.csi.mddtools.guigen.RadioButtons;
 import it.csi.mddtools.guigen.RefreshViewCommand;
+import it.csi.mddtools.guigen.RepartArtifact;
+import it.csi.mddtools.guigen.RepartModule;
+import it.csi.mddtools.guigen.RepartModuleTypes;
 import it.csi.mddtools.guigen.ResetButton;
 import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.RoleBasedSecurityConstraint;
@@ -129,6 +133,8 @@ import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.StaticLinks;
 import it.csi.mddtools.guigen.Statusbar;
 import it.csi.mddtools.guigen.StdMessagePanel;
+import it.csi.mddtools.guigen.StdWebResModuleNames;
+import it.csi.mddtools.guigen.StdWebResourceModule;
 import it.csi.mddtools.guigen.TabSetPanel;
 import it.csi.mddtools.guigen.TabSwitcher;
 import it.csi.mddtools.guigen.Table;
@@ -160,6 +166,8 @@ import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityCommand;
+import it.csi.mddtools.guigen.WebResModuleDeployTypes;
+import it.csi.mddtools.guigen.WebResourceModule;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetDataType;
 import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
@@ -1209,6 +1217,41 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass portalProfileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass webResourceModuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stdWebResourceModuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass repartArtifactEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass repartModuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1294,6 +1337,27 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum commandFunctionsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum webResModuleDeployTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum stdWebResModuleNamesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum repartModuleTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -3971,6 +4035,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTargetPlatform_PortalProfiles() {
+		return (EReference)targetPlatformEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUserInfoPanel() {
 		return userInfoPanelEClass;
 	}
@@ -5222,6 +5295,177 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPortalProfile() {
+		return portalProfileEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPortalProfile_Name() {
+		return (EAttribute)portalProfileEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortalProfile_ResModules() {
+		return (EReference)portalProfileEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWebResourceModule() {
+		return webResourceModuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWebResourceModule_Name() {
+		return (EAttribute)webResourceModuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWebResourceModule_Version() {
+		return (EAttribute)webResourceModuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebResourceModule_RepartModule() {
+		return (EReference)webResourceModuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWebResourceModule_DeploymentType() {
+		return (EAttribute)webResourceModuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStdWebResourceModule() {
+		return stdWebResourceModuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStdWebResourceModule_StdName() {
+		return (EAttribute)stdWebResourceModuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRepartArtifact() {
+		return repartArtifactEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartArtifact_Name() {
+		return (EAttribute)repartArtifactEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartArtifact_Type() {
+		return (EAttribute)repartArtifactEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRepartModule() {
+		return repartModuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartModule_Organization() {
+		return (EAttribute)repartModuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartModule_Name() {
+		return (EAttribute)repartModuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartModule_Version() {
+		return (EAttribute)repartModuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRepartModule_Type() {
+		return (EAttribute)repartModuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRepartModule_Artifacts() {
+		return (EReference)repartModuleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -5332,6 +5576,33 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getCommandFunctions() {
 		return commandFunctionsEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getWebResModuleDeployTypes() {
+		return webResModuleDeployTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getStdWebResModuleNames() {
+		return stdWebResModuleNamesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getRepartModuleTypes() {
+		return repartModuleTypesEEnum;
 	}
 
 	/**
@@ -5746,6 +6017,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_FAT_CLIENT);
+		createEReference(targetPlatformEClass, TARGET_PLATFORM__PORTAL_PROFILES);
 
 		userInfoPanelEClass = createEClass(USER_INFO_PANEL);
 
@@ -5937,6 +6209,30 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(mapEnvelopeEClass, MAP_ENVELOPE__NORTH_EAST);
 		createEReference(mapEnvelopeEClass, MAP_ENVELOPE__SOUTH_WEST);
 
+		portalProfileEClass = createEClass(PORTAL_PROFILE);
+		createEAttribute(portalProfileEClass, PORTAL_PROFILE__NAME);
+		createEReference(portalProfileEClass, PORTAL_PROFILE__RES_MODULES);
+
+		webResourceModuleEClass = createEClass(WEB_RESOURCE_MODULE);
+		createEAttribute(webResourceModuleEClass, WEB_RESOURCE_MODULE__NAME);
+		createEAttribute(webResourceModuleEClass, WEB_RESOURCE_MODULE__VERSION);
+		createEAttribute(webResourceModuleEClass, WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE);
+		createEReference(webResourceModuleEClass, WEB_RESOURCE_MODULE__REPART_MODULE);
+
+		stdWebResourceModuleEClass = createEClass(STD_WEB_RESOURCE_MODULE);
+		createEAttribute(stdWebResourceModuleEClass, STD_WEB_RESOURCE_MODULE__STD_NAME);
+
+		repartArtifactEClass = createEClass(REPART_ARTIFACT);
+		createEAttribute(repartArtifactEClass, REPART_ARTIFACT__NAME);
+		createEAttribute(repartArtifactEClass, REPART_ARTIFACT__TYPE);
+
+		repartModuleEClass = createEClass(REPART_MODULE);
+		createEAttribute(repartModuleEClass, REPART_MODULE__ORGANIZATION);
+		createEAttribute(repartModuleEClass, REPART_MODULE__NAME);
+		createEAttribute(repartModuleEClass, REPART_MODULE__VERSION);
+		createEAttribute(repartModuleEClass, REPART_MODULE__TYPE);
+		createEReference(repartModuleEClass, REPART_MODULE__ARTIFACTS);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -5951,6 +6247,9 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		logicAggregationTypesEEnum = createEEnum(LOGIC_AGGREGATION_TYPES);
 		customCartridgeIDEEnum = createEEnum(CUSTOM_CARTRIDGE_ID);
 		commandFunctionsEEnum = createEEnum(COMMAND_FUNCTIONS);
+		webResModuleDeployTypesEEnum = createEEnum(WEB_RES_MODULE_DEPLOY_TYPES);
+		stdWebResModuleNamesEEnum = createEEnum(STD_WEB_RES_MODULE_NAMES);
+		repartModuleTypesEEnum = createEEnum(REPART_MODULE_TYPES);
 	}
 
 	/**
@@ -6075,6 +6374,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		tableCustomizationPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		clearAppdataCommandEClass.getESuperTypes().add(this.getCommand());
 		mapViewEClass.getESuperTypes().add(this.getDataWidget());
+		stdWebResourceModuleEClass.getESuperTypes().add(this.getWebResourceModule());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6463,6 +6763,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTargetPlatform_EnableRichUIBehavior(), ecorePackage.getEBoolean(), "enableRichUIBehavior", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTargetPlatform_EnableFatClient(), ecorePackage.getEBoolean(), "enableFatClient", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetPlatform_PortalProfiles(), this.getPortalProfile(), null, "portalProfiles", null, 0, -1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -6654,6 +6955,30 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getMapEnvelope_NorthEast(), this.getPoint(), null, "northEast", null, 0, 1, MapEnvelope.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapEnvelope_SouthWest(), this.getPoint(), null, "southWest", null, 0, 1, MapEnvelope.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(portalProfileEClass, PortalProfile.class, "PortalProfile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPortalProfile_Name(), ecorePackage.getEString(), "name", null, 0, 1, PortalProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPortalProfile_ResModules(), this.getWebResourceModule(), null, "resModules", null, 0, -1, PortalProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(webResourceModuleEClass, WebResourceModule.class, "WebResourceModule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWebResourceModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, WebResourceModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWebResourceModule_Version(), ecorePackage.getEString(), "version", null, 0, 1, WebResourceModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWebResourceModule_DeploymentType(), this.getWebResModuleDeployTypes(), "deploymentType", null, 0, 1, WebResourceModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWebResourceModule_RepartModule(), this.getRepartModule(), null, "repartModule", null, 0, 1, WebResourceModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stdWebResourceModuleEClass, StdWebResourceModule.class, "StdWebResourceModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStdWebResourceModule_StdName(), this.getStdWebResModuleNames(), "stdName", null, 0, 1, StdWebResourceModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(repartArtifactEClass, RepartArtifact.class, "RepartArtifact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRepartArtifact_Name(), ecorePackage.getEString(), "name", null, 0, 1, RepartArtifact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRepartArtifact_Type(), ecorePackage.getEString(), "type", null, 0, 1, RepartArtifact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(repartModuleEClass, RepartModule.class, "RepartModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRepartModule_Organization(), ecorePackage.getEString(), "organization", null, 1, 1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRepartModule_Name(), ecorePackage.getEString(), "name", null, 1, 1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRepartModule_Version(), ecorePackage.getEString(), "version", null, 1, 1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRepartModule_Type(), this.getRepartModuleTypes(), "type", null, 1, 1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRepartModule_Artifacts(), this.getRepartArtifact(), null, "artifacts", null, 1, -1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -6759,6 +7084,29 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SHOW_REPORT);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SHOW_HELP);
 		addEEnumLiteral(commandFunctionsEEnum, CommandFunctions.SEND_MESSAGE);
+
+		initEEnum(webResModuleDeployTypesEEnum, WebResModuleDeployTypes.class, "WebResModuleDeployTypes");
+		addEEnumLiteral(webResModuleDeployTypesEEnum, WebResModuleDeployTypes.APPSERVER);
+		addEEnumLiteral(webResModuleDeployTypesEEnum, WebResModuleDeployTypes.WEBSERVER_GLOBAL);
+		addEEnumLiteral(webResModuleDeployTypesEEnum, WebResModuleDeployTypes.WEBSERVER_LOCAL);
+
+		initEEnum(stdWebResModuleNamesEEnum, StdWebResModuleNames.class, "StdWebResModuleNames");
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXT_ALL);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.OPENLAYERS);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSICORE);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSIENRICHER);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSIMDD);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.XTHEME);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.XSTRUCTURE);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.AREABRAND);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.XAREABRAND);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.ENRICHMENTS);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.GLOBALINCLUSIONS);
+
+		initEEnum(repartModuleTypesEEnum, RepartModuleTypes.class, "RepartModuleTypes");
+		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.JAVA);
+		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.WEBRES);
+		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.JAVASCRIPT);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -7417,7 +7765,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.widgets"
-		   });
+		   });																																		
 	}
 
 	/**
@@ -7493,7 +7841,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di\r\n<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo\r\ni vari layout disponibili, praticamente tutti i <b>Widget</b>. L\'effetto grafico &egrave; quello di un\r\ninsieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun\r\nwidget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di\r\n&quot;titolo&quot; che viene visualzzato in testa al pannello.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione\r\ndel <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.\r\n</p>"
-		   });																																																																																									
+		   });																																																																																																																											
 	}
 
 	/**
@@ -7590,7 +7938,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "E\' il classico widget utilizzabile per la selezione di un <i>file</i> che dovr&agrave; essere inviato\r\nal server (funzione di <i>file upload</i>).\r\nIl <b>FileUpload</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del FileUpload prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di selezionare da file system un file mediante <i>browsing</i> sulle cartelle\r\nlocali alla postazione client</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il widget <b>FileUpload</b> contiene un pulsante che pu&ograve; ricevere un evento di pressione \r\nda parte dell\'utente a fronte del quale viene visualizzato il <i>dialog</i> di selezione del file da sottomettere al\r\nserver. \r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b> per attivarlo). \r\nA fronte di questo evento <b>non</b> &egrave; per&ograve; possibile eseguire logica di business. \r\n</p>"
-		   });																																																																	
+		   });																																																																																																			
 	}
 
 	/**
@@ -7624,7 +7972,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																																																																																																																					
+		   });																																																																																																																																																																																																																																							
 	}
 
 } //GuigenPackageImpl

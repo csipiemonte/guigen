@@ -5982,13 +5982,22 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM__ENABLE_FAT_CLIENT = 2;
 
 	/**
+	 * The feature id for the '<em><b>Portal Profiles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_PLATFORM__PORTAL_PROFILES = 3;
+
+	/**
 	 * The number of structural features of the '<em>Target Platform</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_PLATFORM_FEATURE_COUNT = 3;
+	int TARGET_PLATFORM_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
@@ -8526,6 +8535,263 @@ public interface GuigenPackage extends EPackage {
 	int MAP_ENVELOPE_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PortalProfileImpl <em>Portal Profile</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PortalProfileImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalProfile()
+	 * @generated
+	 */
+	int PORTAL_PROFILE = 146;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_PROFILE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Res Modules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_PROFILE__RES_MODULES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Portal Profile</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_PROFILE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl <em>Web Resource Module</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.WebResourceModuleImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResourceModule()
+	 * @generated
+	 */
+	int WEB_RESOURCE_MODULE = 147;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_MODULE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_MODULE__VERSION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Deployment Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Repart Module</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_MODULE__REPART_MODULE = 3;
+
+	/**
+	 * The number of structural features of the '<em>Web Resource Module</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_MODULE_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.StdWebResourceModuleImpl <em>Std Web Resource Module</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.StdWebResourceModuleImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResourceModule()
+	 * @generated
+	 */
+	int STD_WEB_RESOURCE_MODULE = 148;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE__NAME = WEB_RESOURCE_MODULE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE__VERSION = WEB_RESOURCE_MODULE__VERSION;
+
+	/**
+	 * The feature id for the '<em><b>Deployment Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE = WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Repart Module</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE__REPART_MODULE = WEB_RESOURCE_MODULE__REPART_MODULE;
+
+	/**
+	 * The feature id for the '<em><b>Std Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE__STD_NAME = WEB_RESOURCE_MODULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Std Web Resource Module</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STD_WEB_RESOURCE_MODULE_FEATURE_COUNT = WEB_RESOURCE_MODULE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RepartArtifactImpl <em>Repart Artifact</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RepartArtifactImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartArtifact()
+	 * @generated
+	 */
+	int REPART_ARTIFACT = 149;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_ARTIFACT__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_ARTIFACT__TYPE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Repart Artifact</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_ARTIFACT_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.RepartModuleImpl <em>Repart Module</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.RepartModuleImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModule()
+	 * @generated
+	 */
+	int REPART_MODULE = 150;
+
+	/**
+	 * The feature id for the '<em><b>Organization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE__ORGANIZATION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE__VERSION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE__TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Artifacts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE__ARTIFACTS = 4;
+
+	/**
+	 * The number of structural features of the '<em>Repart Module</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REPART_MODULE_FEATURE_COUNT = 5;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8533,7 +8799,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 146;
+	int WIDGET_DATA_TYPE = 151;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -8543,7 +8809,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 147;
+	int UDLRC_SPEC_CONSTANTS = 152;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -8553,7 +8819,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 148;
+	int METHOD_PROTECTION_TYPES = 153;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -8563,7 +8829,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 149;
+	int EVENT_TYPES = 154;
 
 
 	/**
@@ -8574,7 +8840,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 150;
+	int DATA_LIFETIME_TYPE = 155;
 
 
 	/**
@@ -8585,7 +8851,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 151;
+	int SIMPLE_TYPE_CODES = 156;
 
 
 	/**
@@ -8596,7 +8862,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 152;
+	int PORTAL_NAMES = 157;
 
 
 	/**
@@ -8607,7 +8873,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 153;
+	int TARGET_PLATFORM_CODES = 158;
 
 
 	/**
@@ -8618,7 +8884,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 154;
+	int MESSAGE_SEVERITY = 159;
 
 
 	/**
@@ -8629,7 +8895,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 155;
+	int COMMAND_STYLES = 160;
 
 
 	/**
@@ -8640,7 +8906,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 156;
+	int LOGIC_AGGREGATION_TYPES = 161;
 
 
 	/**
@@ -8651,7 +8917,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 157;
+	int CUSTOM_CARTRIDGE_ID = 162;
 
 
 	/**
@@ -8662,7 +8928,39 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 158;
+	int COMMAND_FUNCTIONS = 163;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.WebResModuleDeployTypes <em>Web Res Module Deploy Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.WebResModuleDeployTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
+	 * @generated
+	 */
+	int WEB_RES_MODULE_DEPLOY_TYPES = 164;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.StdWebResModuleNames
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
+	 * @generated
+	 */
+	int STD_WEB_RES_MODULE_NAMES = 165;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.RepartModuleTypes <em>Repart Module Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.RepartModuleTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
+	 * @generated
+	 */
+	int REPART_MODULE_TYPES = 166;
 
 
 	/**
@@ -11761,6 +12059,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_EnableFatClient();
 
 	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.TargetPlatform#getPortalProfiles <em>Portal Profiles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Portal Profiles</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform#getPortalProfiles()
+	 * @see #getTargetPlatform()
+	 * @generated
+	 */
+	EReference getTargetPlatform_PortalProfiles();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13239,6 +13548,210 @@ public interface GuigenPackage extends EPackage {
 	EReference getMapEnvelope_SouthWest();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PortalProfile <em>Portal Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Portal Profile</em>'.
+	 * @see it.csi.mddtools.guigen.PortalProfile
+	 * @generated
+	 */
+	EClass getPortalProfile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PortalProfile#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.PortalProfile#getName()
+	 * @see #getPortalProfile()
+	 * @generated
+	 */
+	EAttribute getPortalProfile_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.PortalProfile#getResModules <em>Res Modules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Res Modules</em>'.
+	 * @see it.csi.mddtools.guigen.PortalProfile#getResModules()
+	 * @see #getPortalProfile()
+	 * @generated
+	 */
+	EReference getPortalProfile_ResModules();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WebResourceModule <em>Web Resource Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Web Resource Module</em>'.
+	 * @see it.csi.mddtools.guigen.WebResourceModule
+	 * @generated
+	 */
+	EClass getWebResourceModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WebResourceModule#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.WebResourceModule#getName()
+	 * @see #getWebResourceModule()
+	 * @generated
+	 */
+	EAttribute getWebResourceModule_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WebResourceModule#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see it.csi.mddtools.guigen.WebResourceModule#getVersion()
+	 * @see #getWebResourceModule()
+	 * @generated
+	 */
+	EAttribute getWebResourceModule_Version();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.WebResourceModule#getRepartModule <em>Repart Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Repart Module</em>'.
+	 * @see it.csi.mddtools.guigen.WebResourceModule#getRepartModule()
+	 * @see #getWebResourceModule()
+	 * @generated
+	 */
+	EReference getWebResourceModule_RepartModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WebResourceModule#getDeploymentType <em>Deployment Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Deployment Type</em>'.
+	 * @see it.csi.mddtools.guigen.WebResourceModule#getDeploymentType()
+	 * @see #getWebResourceModule()
+	 * @generated
+	 */
+	EAttribute getWebResourceModule_DeploymentType();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.StdWebResourceModule <em>Std Web Resource Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Std Web Resource Module</em>'.
+	 * @see it.csi.mddtools.guigen.StdWebResourceModule
+	 * @generated
+	 */
+	EClass getStdWebResourceModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.StdWebResourceModule#getStdName <em>Std Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Std Name</em>'.
+	 * @see it.csi.mddtools.guigen.StdWebResourceModule#getStdName()
+	 * @see #getStdWebResourceModule()
+	 * @generated
+	 */
+	EAttribute getStdWebResourceModule_StdName();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RepartArtifact <em>Repart Artifact</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Repart Artifact</em>'.
+	 * @see it.csi.mddtools.guigen.RepartArtifact
+	 * @generated
+	 */
+	EClass getRepartArtifact();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartArtifact#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.RepartArtifact#getName()
+	 * @see #getRepartArtifact()
+	 * @generated
+	 */
+	EAttribute getRepartArtifact_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartArtifact#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.RepartArtifact#getType()
+	 * @see #getRepartArtifact()
+	 * @generated
+	 */
+	EAttribute getRepartArtifact_Type();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.RepartModule <em>Repart Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Repart Module</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule
+	 * @generated
+	 */
+	EClass getRepartModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartModule#getOrganization <em>Organization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Organization</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule#getOrganization()
+	 * @see #getRepartModule()
+	 * @generated
+	 */
+	EAttribute getRepartModule_Organization();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartModule#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule#getName()
+	 * @see #getRepartModule()
+	 * @generated
+	 */
+	EAttribute getRepartModule_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartModule#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule#getVersion()
+	 * @see #getRepartModule()
+	 * @generated
+	 */
+	EAttribute getRepartModule_Version();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.RepartModule#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule#getType()
+	 * @see #getRepartModule()
+	 * @generated
+	 */
+	EAttribute getRepartModule_Type();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.RepartModule#getArtifacts <em>Artifacts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Artifacts</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModule#getArtifacts()
+	 * @see #getRepartModule()
+	 * @generated
+	 */
+	EReference getRepartModule_Artifacts();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13367,6 +13880,36 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getCommandFunctions();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WebResModuleDeployTypes <em>Web Res Module Deploy Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Web Res Module Deploy Types</em>'.
+	 * @see it.csi.mddtools.guigen.WebResModuleDeployTypes
+	 * @generated
+	 */
+	EEnum getWebResModuleDeployTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Std Web Res Module Names</em>'.
+	 * @see it.csi.mddtools.guigen.StdWebResModuleNames
+	 * @generated
+	 */
+	EEnum getStdWebResModuleNames();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.RepartModuleTypes <em>Repart Module Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Repart Module Types</em>'.
+	 * @see it.csi.mddtools.guigen.RepartModuleTypes
+	 * @generated
+	 */
+	EEnum getRepartModuleTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -15901,6 +16444,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute TARGET_PLATFORM__ENABLE_FAT_CLIENT = eINSTANCE.getTargetPlatform_EnableFatClient();
 
 		/**
+		 * The meta object literal for the '<em><b>Portal Profiles</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TARGET_PLATFORM__PORTAL_PROFILES = eINSTANCE.getTargetPlatform_PortalProfiles();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -17115,6 +17666,168 @@ public interface GuigenPackage extends EPackage {
 		EReference MAP_ENVELOPE__SOUTH_WEST = eINSTANCE.getMapEnvelope_SouthWest();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PortalProfileImpl <em>Portal Profile</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PortalProfileImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalProfile()
+		 * @generated
+		 */
+		EClass PORTAL_PROFILE = eINSTANCE.getPortalProfile();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORTAL_PROFILE__NAME = eINSTANCE.getPortalProfile_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Res Modules</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORTAL_PROFILE__RES_MODULES = eINSTANCE.getPortalProfile_ResModules();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl <em>Web Resource Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.WebResourceModuleImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResourceModule()
+		 * @generated
+		 */
+		EClass WEB_RESOURCE_MODULE = eINSTANCE.getWebResourceModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_MODULE__NAME = eINSTANCE.getWebResourceModule_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_MODULE__VERSION = eINSTANCE.getWebResourceModule_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Repart Module</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_RESOURCE_MODULE__REPART_MODULE = eINSTANCE.getWebResourceModule_RepartModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Deployment Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE = eINSTANCE.getWebResourceModule_DeploymentType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.StdWebResourceModuleImpl <em>Std Web Resource Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.StdWebResourceModuleImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResourceModule()
+		 * @generated
+		 */
+		EClass STD_WEB_RESOURCE_MODULE = eINSTANCE.getStdWebResourceModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Std Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STD_WEB_RESOURCE_MODULE__STD_NAME = eINSTANCE.getStdWebResourceModule_StdName();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RepartArtifactImpl <em>Repart Artifact</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RepartArtifactImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartArtifact()
+		 * @generated
+		 */
+		EClass REPART_ARTIFACT = eINSTANCE.getRepartArtifact();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_ARTIFACT__NAME = eINSTANCE.getRepartArtifact_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_ARTIFACT__TYPE = eINSTANCE.getRepartArtifact_Type();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.RepartModuleImpl <em>Repart Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.RepartModuleImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModule()
+		 * @generated
+		 */
+		EClass REPART_MODULE = eINSTANCE.getRepartModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Organization</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_MODULE__ORGANIZATION = eINSTANCE.getRepartModule_Organization();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_MODULE__NAME = eINSTANCE.getRepartModule_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_MODULE__VERSION = eINSTANCE.getRepartModule_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REPART_MODULE__TYPE = eINSTANCE.getRepartModule_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Artifacts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REPART_MODULE__ARTIFACTS = eINSTANCE.getRepartModule_Artifacts();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -17243,6 +17956,36 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum COMMAND_FUNCTIONS = eINSTANCE.getCommandFunctions();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WebResModuleDeployTypes <em>Web Res Module Deploy Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.WebResModuleDeployTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
+		 * @generated
+		 */
+		EEnum WEB_RES_MODULE_DEPLOY_TYPES = eINSTANCE.getWebResModuleDeployTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.StdWebResModuleNames
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
+		 * @generated
+		 */
+		EEnum STD_WEB_RES_MODULE_NAMES = eINSTANCE.getStdWebResModuleNames();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.RepartModuleTypes <em>Repart Module Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.RepartModuleTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
+		 * @generated
+		 */
+		EEnum REPART_MODULE_TYPES = eINSTANCE.getRepartModuleTypes();
 
 	}
 

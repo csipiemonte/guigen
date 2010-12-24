@@ -1925,6 +1925,8 @@
         <details key="documentation" value="Se impostato a true sono abilitati i comportamenti &quot;ricchi&quot; di User Interaction."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portalProfiles" upperBound="-1"
+        eType="#//PortalProfile"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TargetPlatformCodes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2631,5 +2633,186 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="southWest" eType="#//Point"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortalProfile">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Definisce alcune caratteristiche dipendenti dal portale di esposizione.&#xD;&#xA;In particolare l'elenco delle risorse statiche che devono essere referenziate&#xD;&#xA;dall'applicazione e in che modo deve avvenire tale utilizzo.&#xD;&#xA;Permette di modellare tutte le varie combinazioni di possibli utilizzi&#xD;&#xA;di librerie javascript, temi, risorse da includere, modalit&amp;agrave; remote/locali"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Nome logico (carattere informativo) del portale"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resModules" upperBound="-1"
+        eType="#//WebResourceModule" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Risorse statiche necessarie per l'esposizione dell'applicazione sul portale"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WebResourceModule" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Modulo di risorse web che l'applicazione utilizza in vario modo. &#xD;&#xA;Preferibilmente si utilizza la sottoclasse &lt;i>StdWebResourceModule&lt;/i>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Nome logico del modulo. Non &amp;egrave; necessario che corrisponda al nome&#xD;&#xA;del modulo disponibile su repart."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Versione del modulo. Non &amp;egrave; necessario che corrisponda alla versione&#xD;&#xA;del modulo disponibile su repart."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deploymentType" eType="#//WebResModuleDeployTypes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Determina:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>dove il modulo sar&amp;agrave; installato in esercizio&lt;/li>&#xD;&#xA;&lt;li>se e come sar&amp;agrave; referenziato a build time&lt;/i>&#xD;&#xA;&lt;li>come sar&amp;agrave; referenziato a runtime&lt;/i>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repartModule" eType="#//RepartModule"
+        unsettable="true" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Modulo effettivo disponibile su repart."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WebResModuleDeployTypes">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Possibili tipologie di &lt;i>deploy&lt;/i> del modulo (e degli artefatti corrispondenti)"/>
+    </eAnnotations>
+    <eLiterals name="APPSERVER">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gli artefatti relativi al modulo sono contenuti nel pacchetto applicativo&#xD;&#xA;che sarà installato nell'application server (es. nell'EAR)"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="WEBSERVER_GLOBAL">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gli artefatti relativi al modulo sono referenziati in una cartella del &#xD;&#xA;&lt;i>web server&lt;/i> che espone l'applicazione che è disponibile con ciclo&#xD;&#xA;di vita indipendente dall'applicazione (cartella globale)"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="WEBSERVER_LOCAL">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gli artefatti relativi al modulo sono installati e in una cartella del &#xD;&#xA;&lt;i>web server&lt;/i> che espone l'applicazione. La cartella segue il&#xD;&#xA;ciclo di vita dell'applicazione (cartella locale). Le risorse sono poi &#xD;&#xA;referenziate dalle componenti applicative puntando a quella&#xD;&#xA;cartella"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StdWebResourceModule" eSuperTypes="#//WebResourceModule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Modulo standard di risorse web attualmente utilizzabili nell'applicazione.&#xD;&#xA;L'utilizzo effettivo di ciascuna tipologia dipende dal tipo di modulo&#xD;&#xA;(attributo &lt;i>stdName&lt;/i>)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stdName" eType="#//StdWebResModuleNames"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RepartArtifact">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Rappresenta un &lt;i>artefatto&lt;/i> all'interno di un &lt;i>modulo&lt;/i> disponibile&#xD;&#xA;sul repository degli artefatti."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Nome dell'artefatto, tipicamente coincidente col nome del file presente&#xD;&#xA;sul repository delgi artefatti."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tipo dell'artefatto. Tipicamente coincidente con l'estensione del file&#xD;&#xA;presente sul repository"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RepartModule">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Rappresenta un &lt;i>modulo&lt;/i> di &lt;i>artefatti&lt;/i> disponibile&#xD;&#xA;sul repository degli artefatti."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="organization" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="organizzazione a cui appartiene il modulo"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="nome del modulo"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="versione del modulo"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//RepartModuleTypes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="tipo di modulo"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="artifacts" lowerBound="1"
+        upperBound="-1" eType="#//RepartArtifact" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco degli artefatti contenuti nel modulo"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StdWebResModuleNames">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Moduli standard di risorse web"/>
+    </eAnnotations>
+    <eLiterals name="ext_all" value="101">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Libreria Javascript &lt;i>ExtJs&lt;/i>, utilizzata per la realizzazione delle funzioni &#xD;&#xA;&amp;quot;ricche&amp;quot;.&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="openlayers" value="102">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Libreria Javascript &lt;i>OpenLayers&lt;/i>, utilizzata per la realizzazione &#xD;&#xA;delle funzionalit&amp;agrave; GIS (widget &lt;b>MapView&lt;/b>).&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="extjscsicore" value="201">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Libreria Javascript &lt;i>extjscsicore&lt;/i> (estensione di ExtJS per la&#xD;&#xA;realizzazione di widget/funzioni ricche utilizzate dalla modalit&amp;agrave;&#xD;&#xA;&lt;i>arricchita&lt;/i> di guigen).&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="extjscsienricher" value="202">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Libreria Javascript &lt;i>extjscsienricher&lt;/i> (estensione di ExtJS per la&#xD;&#xA;realizzazione del meccanismo di &lt;i>arricchimento&lt;/i> disponibile in guigen).&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="extjscsimdd" value="203">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Libreria Javascript &lt;i>extjscsimdd&lt;/i> (estensione di ExtJS per la&#xD;&#xA;realizzazione dello strato completo di presentation in modalit&amp;agrave;&#xD;&#xA;&lt;i>FAT&lt;/i> di guigen).&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="xtheme" value="301">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Stilizzazione di base delle estensioni alla user interface fornite dalla libreria&#xD;&#xA;&lt;i>ExtJS&lt;/i>.&#xD;&#xA;E' specifica di ogni portale.&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="xstructure" value="302">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Impostazione della struttura portante necessaria per realizzare&#xD;&#xA;i vari tipi di layout per XHTML universale.&#xD;&#xA;E' specifica di ogni portale.&#xD;&#xA;Tipologia: stili CSS."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="areabrand" value="303">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Stilizzazione specifica della singola area tematica atta a realizzarne il&#xD;&#xA;&lt;i>brand>&lt;/i>.&#xD;&#xA;Agisce come specializzazione di &lt;i>xstructure&lt;/i>.&#xD;&#xA;E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica&#xD;&#xA;di default (general) deve essere stilizzata in questo modo.&#xD;&#xA;Tipologia: stili CSS."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="xareabrand" value="304">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Stilizzazione specifica della singola area tematica atta a realizzarne il&#xD;&#xA;&lt;i>brand>&lt;/i>.&#xD;&#xA;Agisce come specializzazione di quanto definito in &lt;i>xtheme&lt;/i>.&#xD;&#xA;E' specifica di ogni portale e di ogni area tematica. Anche l'area tematica&#xD;&#xA;di default (general) deve essere stilizzata in questo modo.&#xD;&#xA;Tipologia: stili css"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="enrichments" value="401">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Arricchimenti specifici della singola applicazione.&#xD;&#xA;Tipologia: javascript"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="globalinclusions" value="501">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Frammenti html inclusi globalmente.&#xD;&#xA;Tipologia: risorse web di varia natura (tipicamente html)"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RepartModuleTypes">
+    <eLiterals name="java" value="1"/>
+    <eLiterals name="webres" value="2"/>
+    <eLiterals name="javascript" value="3"/>
   </eClassifiers>
 </ecore:EPackage>

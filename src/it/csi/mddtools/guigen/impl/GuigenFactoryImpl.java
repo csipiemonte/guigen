@@ -194,6 +194,10 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.MAP_VIEW: return createMapView();
 			case GuigenPackage.POINT: return createPoint();
 			case GuigenPackage.MAP_ENVELOPE: return createMapEnvelope();
+			case GuigenPackage.PORTAL_PROFILE: return createPortalProfile();
+			case GuigenPackage.STD_WEB_RESOURCE_MODULE: return createStdWebResourceModule();
+			case GuigenPackage.REPART_ARTIFACT: return createRepartArtifact();
+			case GuigenPackage.REPART_MODULE: return createRepartModule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -233,6 +237,12 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createCustomCartridgeIDFromString(eDataType, initialValue);
 			case GuigenPackage.COMMAND_FUNCTIONS:
 				return createCommandFunctionsFromString(eDataType, initialValue);
+			case GuigenPackage.WEB_RES_MODULE_DEPLOY_TYPES:
+				return createWebResModuleDeployTypesFromString(eDataType, initialValue);
+			case GuigenPackage.STD_WEB_RES_MODULE_NAMES:
+				return createStdWebResModuleNamesFromString(eDataType, initialValue);
+			case GuigenPackage.REPART_MODULE_TYPES:
+				return createRepartModuleTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -272,6 +282,12 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertCustomCartridgeIDToString(eDataType, instanceValue);
 			case GuigenPackage.COMMAND_FUNCTIONS:
 				return convertCommandFunctionsToString(eDataType, instanceValue);
+			case GuigenPackage.WEB_RES_MODULE_DEPLOY_TYPES:
+				return convertWebResModuleDeployTypesToString(eDataType, instanceValue);
+			case GuigenPackage.STD_WEB_RES_MODULE_NAMES:
+				return convertStdWebResModuleNamesToString(eDataType, instanceValue);
+			case GuigenPackage.REPART_MODULE_TYPES:
+				return convertRepartModuleTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1612,6 +1628,46 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PortalProfile createPortalProfile() {
+		PortalProfileImpl portalProfile = new PortalProfileImpl();
+		return portalProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StdWebResourceModule createStdWebResourceModule() {
+		StdWebResourceModuleImpl stdWebResourceModule = new StdWebResourceModuleImpl();
+		return stdWebResourceModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RepartArtifact createRepartArtifact() {
+		RepartArtifactImpl repartArtifact = new RepartArtifactImpl();
+		return repartArtifact;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RepartModule createRepartModule() {
+		RepartModuleImpl repartModule = new RepartModuleImpl();
+		return repartModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -1864,6 +1920,66 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCommandFunctionsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WebResModuleDeployTypes createWebResModuleDeployTypesFromString(EDataType eDataType, String initialValue) {
+		WebResModuleDeployTypes result = WebResModuleDeployTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertWebResModuleDeployTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StdWebResModuleNames createStdWebResModuleNamesFromString(EDataType eDataType, String initialValue) {
+		StdWebResModuleNames result = StdWebResModuleNames.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStdWebResModuleNamesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RepartModuleTypes createRepartModuleTypesFromString(EDataType eDataType, String initialValue) {
+		RepartModuleTypes result = RepartModuleTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRepartModuleTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

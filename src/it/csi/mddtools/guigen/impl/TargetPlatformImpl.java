@@ -7,15 +7,19 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PortalProfile;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +31,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableFatClient <em>Enable Fat Client</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getPortalProfiles <em>Portal Profiles</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +97,16 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * @ordered
 	 */
 	protected boolean enableFatClient = ENABLE_FAT_CLIENT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPortalProfiles() <em>Portal Profiles</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPortalProfiles()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PortalProfile> portalProfiles;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -180,6 +195,18 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PortalProfile> getPortalProfiles() {
+		if (portalProfiles == null) {
+			portalProfiles = new EObjectResolvingEList<PortalProfile>(PortalProfile.class, this, GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES);
+		}
+		return portalProfiles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -189,6 +216,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return isEnableRichUIBehavior();
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				return isEnableFatClient();
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
+				return getPortalProfiles();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,6 +227,7 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -209,6 +239,10 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return;
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				setEnableFatClient((Boolean)newValue);
+				return;
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
+				getPortalProfiles().clear();
+				getPortalProfiles().addAll((Collection<? extends PortalProfile>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -231,6 +265,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				setEnableFatClient(ENABLE_FAT_CLIENT_EDEFAULT);
 				return;
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
+				getPortalProfiles().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -249,6 +286,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return enableRichUIBehavior != ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				return enableFatClient != ENABLE_FAT_CLIENT_EDEFAULT;
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
+				return portalProfiles != null && !portalProfiles.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

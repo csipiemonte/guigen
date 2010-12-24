@@ -7,9 +7,9 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.TargetPlatform;
-import it.csi.mddtools.guigen.TargetPlatformCodes;
+import it.csi.mddtools.guigen.WebResourceModule;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,9 +19,9 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemFontProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
@@ -32,22 +32,26 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.TargetPlatform} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.WebResourceModule} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TargetPlatformItemProvider
+public class WebResourceModuleItemProvider
 	extends ItemProviderAdapter
 	implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TargetPlatformItemProvider(AdapterFactory adapterFactory) {
+	public WebResourceModuleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,28 +66,27 @@ public class TargetPlatformItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCodePropertyDescriptor(object);
-			addEnableRichUIBehaviorPropertyDescriptor(object);
-			addEnableFatClientPropertyDescriptor(object);
-			addPortalProfilesPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addVersionPropertyDescriptor(object);
+			addDeploymentTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Code feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCodePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_code_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_code_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__CODE,
+				 getString("_UI_WebResourceModule_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WebResourceModule_name_feature", "_UI_WebResourceModule_type"),
+				 GuigenPackage.Literals.WEB_RESOURCE_MODULE__NAME,
 				 true,
 				 false,
 				 false,
@@ -93,95 +96,115 @@ public class TargetPlatformItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Enable Rich UI Behavior feature.
+	 * This adds a property descriptor for the Version feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEnableRichUIBehaviorPropertyDescriptor(Object object) {
+	protected void addVersionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_enableRichUIBehavior_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableRichUIBehavior_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR,
+				 getString("_UI_WebResourceModule_version_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WebResourceModule_version_feature", "_UI_WebResourceModule_type"),
+				 GuigenPackage.Literals.WEB_RESOURCE_MODULE__VERSION,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Enable Fat Client feature.
+	 * This adds a property descriptor for the Deployment Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addEnableFatClientPropertyDescriptor(Object object) {
+	protected void addDeploymentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_enableFatClient_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_enableFatClient_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__ENABLE_FAT_CLIENT,
+				 getString("_UI_WebResourceModule_deploymentType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WebResourceModule_deploymentType_feature", "_UI_WebResourceModule_type"),
+				 GuigenPackage.Literals.WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE,
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Portal Profiles feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPortalProfilesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_portalProfiles_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_portalProfiles_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__PORTAL_PROFILES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.WEB_RESOURCE_MODULE__REPART_MODULE);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This returns TargetPlatform.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
+	 * This returns WebResourceModule.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TargetPlatform"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/WebResourceModule"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		TargetPlatformCodes labelValue = ((TargetPlatform)object).getCode();
-		String label = labelValue == null ? null : labelValue.toString();
+		WebResourceModule wrm = (WebResourceModule)object;
+		String label = "";
+		label += "["+wrm.getName()+"]";
+		label+=" v."+wrm.getVersion();
+		label+=", deployment:"+wrm.getDeploymentType().getLiteral();
+		if (wrm.getRepartModule()!=null){
+		label += ", module:"+
+		wrm.getRepartModule().getOrganization()+"/"+
+		wrm.getRepartModule().getName()+"/"+
+		wrm.getRepartModule().getVersion()+
+		" ("+wrm.getRepartModule().getType().getLiteral()+")";
+		}
+		else
+			label+=", module:???";
 		return label == null || label.length() == 0 ?
-			getString("_UI_TargetPlatform_type") :
-			getString("_UI_TargetPlatform_type") + " " + label;
+			getString("_UI_WebResourceModule_type") :
+			getString("_UI_WebResourceModule_type") + " " + label;
 	}
 
 	/**
@@ -195,11 +218,14 @@ public class TargetPlatformItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(TargetPlatform.class)) {
-			case GuigenPackage.TARGET_PLATFORM__CODE:
-			case GuigenPackage.TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR:
-			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
+		switch (notification.getFeatureID(WebResourceModule.class)) {
+			case GuigenPackage.WEB_RESOURCE_MODULE__NAME:
+			case GuigenPackage.WEB_RESOURCE_MODULE__VERSION:
+			case GuigenPackage.WEB_RESOURCE_MODULE__DEPLOYMENT_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.WEB_RESOURCE_MODULE__REPART_MODULE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -215,6 +241,11 @@ public class TargetPlatformItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.WEB_RESOURCE_MODULE__REPART_MODULE,
+				 GuigenFactory.eINSTANCE.createRepartModule()));
 	}
 
 	/**

@@ -3136,6 +3136,98 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PortalProfile} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortalProfileItemProvider portalProfileItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PortalProfile}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortalProfileAdapter() {
+		if (portalProfileItemProvider == null) {
+			portalProfileItemProvider = new PortalProfileItemProvider(this);
+		}
+
+		return portalProfileItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.StdWebResourceModule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StdWebResourceModuleItemProvider stdWebResourceModuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.StdWebResourceModule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStdWebResourceModuleAdapter() {
+		if (stdWebResourceModuleItemProvider == null) {
+			stdWebResourceModuleItemProvider = new StdWebResourceModuleItemProvider(this);
+		}
+
+		return stdWebResourceModuleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RepartArtifact} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RepartArtifactItemProvider repartArtifactItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RepartArtifact}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRepartArtifactAdapter() {
+		if (repartArtifactItemProvider == null) {
+			repartArtifactItemProvider = new RepartArtifactItemProvider(this);
+		}
+
+		return repartArtifactItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.RepartModule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RepartModuleItemProvider repartModuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.RepartModule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRepartModuleAdapter() {
+		if (repartModuleItemProvider == null) {
+			repartModuleItemProvider = new RepartModuleItemProvider(this);
+		}
+
+		return repartModuleItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3367,6 +3459,10 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (mapViewItemProvider != null) mapViewItemProvider.dispose();
 		if (pointItemProvider != null) pointItemProvider.dispose();
 		if (mapEnvelopeItemProvider != null) mapEnvelopeItemProvider.dispose();
+		if (portalProfileItemProvider != null) portalProfileItemProvider.dispose();
+		if (stdWebResourceModuleItemProvider != null) stdWebResourceModuleItemProvider.dispose();
+		if (repartArtifactItemProvider != null) repartArtifactItemProvider.dispose();
+		if (repartModuleItemProvider != null) repartModuleItemProvider.dispose();
 	}
 
 }

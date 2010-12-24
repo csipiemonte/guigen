@@ -112,6 +112,29 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SHOW_HELP"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//CommandFunctions/SEND_MESSAGE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//WebResModuleDeployTypes">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//WebResModuleDeployTypes/APPSERVER"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//WebResModuleDeployTypes/WEBSERVER_GLOBAL"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//WebResModuleDeployTypes/WEBSERVER_LOCAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//StdWebResModuleNames">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/ext_all"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/openlayers"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsicore"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsienricher"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsimdd"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xtheme"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xstructure"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/areabrand"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xareabrand"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/enrichments"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/globalinclusions"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//RepartModuleTypes">
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//RepartModuleTypes/java"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//RepartModuleTypes/webres"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//RepartModuleTypes/javascript"/>
+    </genEnums>
     <genClasses ecoreClass="guigen.ecore#//ApplicationArea">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/menubar"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ApplicationArea/titlebar"/>
@@ -329,6 +352,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/nomeCanale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/linkCanale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/nomeApplicativo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Header/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Header/metaAttributes"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//HeaderMetaAttr">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//HeaderMetaAttr/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//HeaderMetaAttr/value"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Footer"/>
     <genClasses ecoreClass="guigen.ecore#//AppWindow">
@@ -372,7 +401,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ComplexType/fields"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComplexType/initFields"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//ComplexType/extends"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//ComplexType/typeAnnotation"/>
       <genOperations ecoreOperation="guigen.ecore#//ComplexType/getAllFields"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//TypeAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TypeAnnotation/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TypeAnnotation/fqn"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//TypedArray">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//TypedArray/componentType"/>
@@ -464,6 +498,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TargetPlatform/code"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TargetPlatform/enableRichUIBehavior"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//TargetPlatform/enableFatClient"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guigen.ecore#//TargetPlatform/portalProfiles"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//UserInfoPanel"/>
     <genClasses ecoreClass="guigen.ecore#//UserDefinedPanel"/>
@@ -643,6 +678,42 @@
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//MapView">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MapView/mapId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/startEnvelopeSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/maxEnvelopeSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/scaleEnvelopeSpec"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MapView/numLevels"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Point/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Point/y"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//MapEnvelope">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapEnvelope/northEast"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapEnvelope/southWest"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//PortalProfile">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//PortalProfile/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//PortalProfile/resModules"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//WebResourceModule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//WebResourceModule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//WebResourceModule/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//WebResourceModule/deploymentType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//WebResourceModule/repartModule"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//StdWebResourceModule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//StdWebResourceModule/stdName"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//RepartArtifact">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartArtifact/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartArtifact/type"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//RepartModule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/organization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//RepartModule/artifacts"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
