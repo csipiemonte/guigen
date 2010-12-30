@@ -40,7 +40,7 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 			urlExtCsi = properties.getProperty(extCsiUrl);
 			urlExtJs  =  properties.getProperty(extJsUrl);
 			urlExtJsCore =properties.getProperty(extJsUrlCore);
-			System.out.println("url=" + urlExtCsi);	
+			System.out.println("url download librerie extjs=" + urlExtCsi);	
 		} catch (Exception ex) {
 			System.err
 					.println("File properties non trovato." + ex.getMessage());
@@ -48,9 +48,9 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 		nomeZipExtCsi= urlExtCsi.substring(urlExtCsi.lastIndexOf("/")+1);
 		nomeZipExtJs= urlExtJs.substring(urlExtJs.lastIndexOf("/")+1);
 		nomeZipExtJsCore= urlExtJsCore.substring(urlExtJsCore.lastIndexOf("/")+1);
-		System.out.println("extcsi:"+nomeZipExtCsi);
-		System.out.println("extJs:"+nomeZipExtJs);
-		System.out.println("extJsCore:"+nomeZipExtJsCore);
+//		System.out.println("extcsi:"+nomeZipExtCsi);
+//		System.out.println("extJs:"+nomeZipExtJs);
+//		System.out.println("extJsCore:"+nomeZipExtJsCore);
 	}
 
 	public static void downloadResource(String url,String nomeFile) {
@@ -129,8 +129,8 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 	}
 	
 	private static String pathResources(){
-		System.out.println("path==="+getTargetProjectName());
-		System.out.println("working dir="+getWorkingDir());
+//		System.out.println("path==="+getTargetProjectName());
+//		System.out.println("working dir="+getWorkingDir());
 		return getWorkingDir()+"//"+getTargetProjectName()+"//WebContent//";
 		
 	}
@@ -141,12 +141,12 @@ public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkf
 		File f = new File (pathResources());
 		if (f.exists()){
 		  // boolean esiste = f.isDirectory ();
-			System.out.println("esiste !!!");
+			System.out.println("path per le risorse già esistente.");
 		}
 		else{
 			boolean success = (new File(getWorkingDir()+"//"+getTargetProjectName())).mkdir();
 			success = (new File(getWorkingDir()+"//"+getTargetProjectName()+"//WebContent")).mkdir();
-			System.out.println("non esiste !!! ");
+			System.out.println("path per le risorse non ancora esistente: creato.");
 		}
 
 		Utility.leggiProperties();
