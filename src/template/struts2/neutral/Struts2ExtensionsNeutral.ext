@@ -85,7 +85,8 @@ String getFragmentIdNeutral(Panel p) :
 	"p_"+p.name;
 
 String startFragmentNeutral(Panel p) :
-	"<div id=\""+getFragmentId(p)+"\"><!-- startFragment:"+getFragmentId(p)+" -->";
+	"<div id=\""+getFragmentId(p)+"\"" + " class=\""+getPanelBlockCSS(p)+(p.scrollable ? " scroll" : "")+"\"" + "><!-- startFragment:"+getFragmentId(p)+" -->";
+
 
 String endFragmentNeutral(Panel p) :
 	"<!-- endFragment:"+getFragmentId(p)+" --></div>";
@@ -93,6 +94,29 @@ String endFragmentNeutral(Panel p) :
 String pageIdMarkerNeutral(ContentPanel cp) :
 	"<!-- pageId:"+cp.name+" -->";
 
+// nota: non riesco a usare il metaType perche' mette anche il prefisso 'guigen::'
+String getPanelBlockCSS(Panel p) :
+	"panelBlock";
+String getPanelBlockCSS(FormPanel p) :
+	"formPanelBlock";
+String getPanelBlockCSS(WidgetsPanel p) :
+	"widgetsPanelBlock";
+String getPanelBlockCSS(TabSetPanel p) :
+	"tabSetPanelBlock";
+String getPanelBlockCSS(WizardPanel p) :
+	"wizardPanelBlock";
+String getPanelBlockCSS(StdMessagePanel p) :
+	"stdMessagePanelBlock";
+String getPanelBlockCSS(MsgBoxPanel p) :
+	"msgBoxPanelBlock";
+String getPanelBlockCSS(MenuPanel p) :
+	"menuPanelBlock";			
+String getPanelBlockCSS(CommandPanel p) :
+	"commandPanelBlock";
+String getPanelBlockCSS(UserInfoPanel p) :
+	"userInfoPanelBlock";	
+String getPanelBlockCSS(DialogPanel p) :
+	"dialogPanelBlock";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
