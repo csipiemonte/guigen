@@ -507,7 +507,7 @@ Gestione dei PANNELLI
 «REM»TabsetPanel«ENDREM»
 «DEFINE setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
 «IF !isNullOrEmpty(this.label)-»
-<h4><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
+<h4 class="tspLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
 «ENDIF-»
 <div class="tabSetPanel" id="«getFullID(this, contextPrefix)»">
 	<ul>
@@ -551,7 +551,7 @@ Gestione dei PANNELLI
 «REM»WizardPanel«ENDREM»
 «DEFINE setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
 «IF !isNullOrEmpty(this.label)-»
-<h4><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
+<h4 class="wzpLabel"><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h4>
 «ENDIF-»
 «LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first()) : null AS switchHnd-»
 <div class="wizardPanel" id="«getFullID(this, contextPrefix)»">
