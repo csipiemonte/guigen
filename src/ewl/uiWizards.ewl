@@ -200,37 +200,33 @@ operation ContentPanel createPageTemplateC(mainLabel: String, centerLabel: Strin
 operation ContentPanel createPageUDLRC(mainLabel: String, centerLabel: String,
 	 up: Boolean ,  down: Boolean, left: Boolean, right: Boolean, center: Boolean) : Boolean {
 	var pMain: new FormPanel;
-	var udlrcl: new UDLRCPanelLayout;
-	var pLeft: new FormPanel;
-	var pCenter: new FormPanel;
-	var pDown: new FormPanel;
-	var pRight: new FormPanel;
-	var pUp: new FormPanel;
-	var lspecUp: new UDLRCWidgetLayoutSpec; lspecUp.value := UDLRCSpecConstants#UP;
-	var lspecDown: new UDLRCWidgetLayoutSpec; lspecDown.value := UDLRCSpecConstants#DOWN;
-	var lspecLeft: new UDLRCWidgetLayoutSpec; lspecLeft.value := UDLRCSpecConstants#LEFT;
-	var lspecCenter: new UDLRCWidgetLayoutSpec; lspecCenter.value := UDLRCSpecConstants#CENTER;
-	var lspecRight: new UDLRCWidgetLayoutSpec; lspecRight.value := UDLRCSpecConstants#RIGHT;
+	var udlrcl: UDLRCPanelLayout;
+	var pLeft: FormPanel;
+	var pCenter: FormPanel;
+	var pDown: FormPanel;
+	var pRight: FormPanel;
+	var pUp: FormPanel;
+
 	self.panels := pMain;
 	pMain.name := 'pMain';
 	pMain.label=mainLabel;
 	pMain.layout := udlrcl;
-	pLeft.name := 'pLeft';
-	pLeft.layoutSpec := lspecLeft;
-	pUp.name := 'pUp';
-	pUp.layoutSpec := lspecUp;
-	pDown.name := 'pDown';
-	pDown.layoutSpec := lspecDown;
-	pRight.name := 'pRight';
-	pRight.layoutSpec := lspecRight;
-	pCenter.name := 'pCenter';
-	pCenter.layoutSpec := lspecCenter;
-	pCenter.label := centerLabel;
-	if (up) {pMain.subpanels.add(pUp);}
-	if (down) {pMain.subpanels.add(pDown);}
-	if (left) {pMain.subpanels.add(pLeft);}
-	if (center){pMain.subpanels.add(pCenter);}
-	if (right){pMain.subpanels.add(pRight);}
+
+	if (up) {
+		pUp := pMain.addSubFormPanel('pUp', null, 'UP');
+	}
+	if (down) {
+		pDown := pMain.addSubFormPanel('pDown', null, 'DOWN');
+	}
+	if (left) {
+		pLeft := pMain.addSubFormPanel('pLeft', null, 'LEFT');
+	}
+	if (center){
+		pCenter := pMain.addSubFormPanel('pCenter', centerLabel, 'CENTER');
+	}
+	if (right){
+		pRight := pMain.addSubFormPanel('pRight', null, 'RIGHT');
+	}
 	-- menu?
 	var mnuOptions: Sequence;
 	mnuOptions := Sequence{'A- non visualizzare'};
@@ -252,6 +248,30 @@ operation ContentPanel createPageUDLRC(mainLabel: String, centerLabel: String,
 			pUp.addUserInfo();
 	}
 	return true;
+}
+
+
+// aggiunge un nuovo form panel come sottopannello nella posizione specificata
+// (se specificata)
+function FormPanel addSubFormPanel(name: String, label: String, constraint: String) : FormPanel{
+	var panel: new FormPanel;
+	panel.name := name;
+	panel.label := label;
+	if (constraint <> null){
+		var layoutSpec: new UDLRCWidgetLayoutSpec;
+		if (constraint == 'UP')
+			layoutSpec.value := UDLRCSpecConstants#UP;
+		else if (constraint == 'DOWN')
+			layoutSpec.value := UDLRCSpecConstants#DOWN;
+		else if (constraint == 'CENTER')
+			layoutSpec.value := UDLRCSpecConstants#CENTER;
+		else if (constraint == 'LEFT')
+			layoutSpec.value := UDLRCSpecConstants#LEFT;
+		else if (constraint == 'RIGHT')
+			layoutSpec.value := UDLRCSpecConstants#RIGHT;
+	} 
+	self.subpanels.add(panel);
+	return panel;	
 }
 
 /**
