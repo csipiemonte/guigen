@@ -154,21 +154,35 @@ wizard SimplePageStructure {
 				var centerLabel :='--centerLabel--';
 				if (template.startsWith('A-')) {
 					centerLabel := UserInput.prompt('Etichetta del pannello centrale',centerLabel);
-					self.createPageTemplateA(mainLabel, centerLabel);
+					if (centerLabel <> null and centerLabel <> '') 
+						self.createPageTemplateA(mainLabel, centerLabel);
+					else
+						abort;
 				}
 				else if (template.startsWith('B-')) {
 					centerLabel := UserInput.prompt('Etichetta del pannello centrale',centerLabel);
-					self.createPageTemplateB(mainLabel, centerLabel);
+					if (centerLabel <> null and centerLabel <> '')
+						self.createPageTemplateB(mainLabel, centerLabel);
+					else
+						abort;
 				}
 				else if (template.startsWith('C-')) {
 					centerLabel := UserInput.prompt('Etichetta del pannello centrale',centerLabel);
-					self.createPageTemplateC(mainLabel, centerLabel);
+					if (centerLabel <> null and centerLabel <> '')
+						self.createPageTemplateC(mainLabel, centerLabel);
+					else
+						abort;
 				}
 				else if (template.startsWith('D-')) {
 					centerLabel := UserInput.prompt('Etichetta del pannello centrale',centerLabel);
-					self.createPageTemplateD(mainLabel, centerLabel);
+					if (centerLabel <> null and centerLabel <> '')
+						self.createPageTemplateD(mainLabel, centerLabel);
+					else
+						abort;
 				}
 			}
+			else
+				abort;
 		}
 	} 
 }
