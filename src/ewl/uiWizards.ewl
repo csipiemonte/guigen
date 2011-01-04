@@ -214,7 +214,7 @@ operation ContentPanel createPageTemplateC(mainLabel: String, centerLabel: Strin
 operation ContentPanel createPageUDLRC(mainLabel: String, centerLabel: String,
 	 up: Boolean ,  down: Boolean, left: Boolean, right: Boolean, center: Boolean) : Boolean {
 	var pMain: new FormPanel;
-	var udlrcl: UDLRCPanelLayout;
+	var udlrcl: new UDLRCPanelLayout;
 	var pLeft: FormPanel;
 	var pCenter: FormPanel;
 	var pDown: FormPanel;
@@ -271,7 +271,7 @@ function FormPanel addSubFormPanel(name: String, label: String, constraint: Stri
 	var panel: new FormPanel;
 	panel.name := name;
 	panel.label := label;
-	if (constraint <> null){
+	if (constraint <> null and constraint <> ''){
 		var layoutSpec: new UDLRCWidgetLayoutSpec;
 		if (constraint == 'UP')
 			layoutSpec.value := UDLRCSpecConstants#UP;
@@ -283,6 +283,8 @@ function FormPanel addSubFormPanel(name: String, label: String, constraint: Stri
 			layoutSpec.value := UDLRCSpecConstants#LEFT;
 		else if (constraint == 'RIGHT')
 			layoutSpec.value := UDLRCSpecConstants#RIGHT;
+		panel.layoutSpec := layoutSpec;
+		panel.layout := new VerticalFlowPanelLayout;
 	} 
 	self.subpanels.add(panel);
 	return panel;	
