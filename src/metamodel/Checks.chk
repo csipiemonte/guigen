@@ -71,8 +71,9 @@ context GUIModel ERROR "I nomi degli application data devono essere univoci " + 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su AppModule context AppModule
-
-
+context AppModule ERROR "E' necessario specificare il name dell AppModule:"+loc() :
+	!isNullOrEmpty(name);
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
@@ -431,7 +432,9 @@ context MapView ERROR "E' necessario impostare l'id della mappa da visualizzare:
 	
 context MapView ERROR "Ad una mappa si può associare un solo evento di tipo CLICKED:"+loc() :
 	this.eventHandlers.size == 0 || (this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size == 1 && this.eventHandlers.select(e|e.eventType != EventTypes::CLICKED).size == 0);
-	
+
+context MapView ERROR "E' necessario specificare il value-binding per la mappa:"+loc() :
+	this.databinding != null;	
 	 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Validazione su azioni e listener
@@ -805,7 +808,8 @@ context ApplicationArea if (extModules.size>0 && ((GUIModel)eRootContainer).secu
 "- pannelli ch enon referenziano:"+extModules.contentPanels.select(cp|cp.appData.select(ab|ab.name=="currentUser").size==0).name :
 	extModules.contentPanels.appData.select(ab|ab.name=="currentUser").size==extModules.contentPanels.size;
 	
-	
+context ApplicationArea ERROR "E' necessario specificare una MenuBar (anche vuota) nell'ApplicationArea"+loc() :
+	menubar != null;	
 	
 ///// ActivationModel
 
