@@ -28,6 +28,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getKeySelector <em>Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getValueSelector <em>Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue <em>Omit Header Value</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComboBox#getFieldLength <em>Field Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,4 +130,30 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * @generated
 	 */
 	void setOmitHeaderValue(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Field Length</b></em>' attribute.
+	 * The default value is <code>"15"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Dimensione in caratteri dell area visibile del campo.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Field Length</em>' attribute.
+	 * @see #setFieldLength(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_FieldLength()
+	 * @model default="15"
+	 * @generated
+	 */
+	int getFieldLength();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ComboBox#getFieldLength <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field Length</em>' attribute.
+	 * @see #getFieldLength()
+	 * @generated
+	 */
+	void setFieldLength(int value);
 } // ComboBox

@@ -64,6 +64,7 @@ public class ComboBoxItemProvider
 			addKeySelectorPropertyDescriptor(object);
 			addValueSelectorPropertyDescriptor(object);
 			addOmitHeaderValuePropertyDescriptor(object);
+			addFieldLengthPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -130,6 +131,28 @@ public class ComboBoxItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Field Length feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFieldLengthPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComboBox_fieldLength_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComboBox_fieldLength_feature", "_UI_ComboBox_type"),
+				 GuigenPackage.Literals.COMBO_BOX__FIELD_LENGTH,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -204,6 +227,7 @@ public class ComboBoxItemProvider
 			case GuigenPackage.COMBO_BOX__KEY_SELECTOR:
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
+			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:

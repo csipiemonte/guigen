@@ -2248,13 +2248,22 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__OMIT_HEADER_VALUE = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Field Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__FIELD_LENGTH = DATA_WIDGET_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 4;
+	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9652,6 +9661,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getComboBox_OmitHeaderValue();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ComboBox#getFieldLength <em>Field Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Field Length</em>'.
+	 * @see it.csi.mddtools.guigen.ComboBox#getFieldLength()
+	 * @see #getComboBox()
+	 * @generated
+	 */
+	EAttribute getComboBox_FieldLength();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Table <em>Table</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14476,6 +14496,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMBO_BOX__OMIT_HEADER_VALUE = eINSTANCE.getComboBox_OmitHeaderValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Field Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMBO_BOX__FIELD_LENGTH = eINSTANCE.getComboBox_FieldLength();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.

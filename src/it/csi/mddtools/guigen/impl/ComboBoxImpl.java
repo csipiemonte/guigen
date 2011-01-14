@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getKeySelector <em>Key Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getValueSelector <em>Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#isOmitHeaderValue <em>Omit Header Value</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getFieldLength <em>Field Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,6 +101,26 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * @ordered
 	 */
 	protected boolean omitHeaderValue = OMIT_HEADER_VALUE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFieldLength() <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int FIELD_LENGTH_EDEFAULT = 15;
+
+	/**
+	 * The cached value of the '{@link #getFieldLength() <em>Field Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected int fieldLength = FIELD_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -231,6 +252,27 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getFieldLength() {
+		return fieldLength;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFieldLength(int newFieldLength) {
+		int oldFieldLength = fieldLength;
+		fieldLength = newFieldLength;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__FIELD_LENGTH, oldFieldLength, fieldLength));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -256,6 +298,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return getValueSelector();
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 				return isOmitHeaderValue();
+			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
+				return getFieldLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -279,6 +323,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return;
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 				setOmitHeaderValue((Boolean)newValue);
+				return;
+			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
+				setFieldLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -304,6 +351,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 				setOmitHeaderValue(OMIT_HEADER_VALUE_EDEFAULT);
 				return;
+			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
+				setFieldLength(FIELD_LENGTH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -324,6 +374,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return VALUE_SELECTOR_EDEFAULT == null ? valueSelector != null : !VALUE_SELECTOR_EDEFAULT.equals(valueSelector);
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 				return omitHeaderValue != OMIT_HEADER_VALUE_EDEFAULT;
+			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
+				return fieldLength != FIELD_LENGTH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -376,6 +428,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		result.append(valueSelector);
 		result.append(", omitHeaderValue: ");
 		result.append(omitHeaderValue);
+		result.append(", fieldLength: ");
+		result.append(fieldLength);
 		result.append(')');
 		return result.toString();
 	}
