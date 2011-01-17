@@ -787,7 +787,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget generico«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF»
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF»
 	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)» «getCustomtagRequiredField(this)»>
 «ENDDEFINE»
 
@@ -810,7 +810,7 @@ Gestione dei LAYOUT - WIDGETS
 
 «REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
 «DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
-<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal(model, this)»>
+<customtag:widgetsPanelColumn «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal(model, this)»>
 «ENDDEFINE»
 
 «REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
@@ -959,8 +959,8 @@ Gestione del BUILD => file: buildfiles.xpt
 
 «REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
 «DEFINE strutsThemeIvy FOR GUIModel»
-<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.0.3">
-	<artifact name="custom-component-2.0.3" type="jar"/>
+<dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.1.1">
+	<artifact name="custom-component-2.1.1" type="jar"/>
 </dependency>
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.2.0">
 	<artifact name="util-struts2-csitemplate-1.2.0" type="jar"/>
