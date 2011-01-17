@@ -254,7 +254,10 @@ public class GenUtilsLayoutNeutral {
 	 */
 	public static String getTextFieldStyleByLayout(GUIModel model, TextField t) {
 		String res = "";
-
+		
+		if(t.getFieldLength() > 0){
+			res += "size=\""+t.getFieldLength()+"\" ";
+		}
 		// stile per il formato (numerico o no)
 		String style = "";
 		Type tp = t.getDataType();
@@ -266,7 +269,7 @@ public class GenUtilsLayoutNeutral {
 
 		// compongo lo stile
 		if ( !GenUtils.isNullOrEmpty(style) ) {
-			res = "cssClass=\"" + style + "\"";
+			res += "cssClass=\"" + style + "\"";
 		}
 
 		return res;
