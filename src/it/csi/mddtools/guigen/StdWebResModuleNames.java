@@ -76,14 +76,14 @@ public enum StdWebResModuleNames implements Enumerator {
 	EXTJSCSIMDD(203, "extjscsimdd", "extjscsimdd"),
 
 	/**
-	 * The '<em><b>Extjstheme</b></em>' literal object.
+	 * The '<em><b>Extlibstheme</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #EXTJSTHEME_VALUE
+	 * @see #EXTLIBSTHEME_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	EXTJSTHEME(301, "extjstheme", "extjstheme"), /**
+	EXTLIBSTHEME(301, "extlibstheme", "extlibstheme"), /**
 	 * The '<em><b>Xstructure</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,14 +104,14 @@ public enum StdWebResModuleNames implements Enumerator {
 	AREABRAND(303, "areabrand", "areabrand"),
 
 	/**
-	 * The '<em><b>Extjsareabrand</b></em>' literal object.
+	 * The '<em><b>Extlibsareabrand</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #EXTJSAREABRAND_VALUE
+	 * @see #EXTLIBSAREABRAND_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	EXTJSAREABRAND(304, "extjsareabrand", "extjsareabrand"), /**
+	EXTLIBSAREABRAND(304, "extlibsareabrand", "extlibsareabrand"), /**
 	 * The '<em><b>Openlayerstheme</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,7 +250,7 @@ public enum StdWebResModuleNames implements Enumerator {
 	public static final int EXTJSCSIMDD_VALUE = 203;
 
 	/**
-	 * The '<em><b>Extjstheme</b></em>' literal value.
+	 * The '<em><b>Extlibstheme</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -259,12 +259,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * E' specifica di ogni portale.
 	 * Tipologia: javascript
 	 * <!-- end-model-doc -->
-	 * @see #EXTJSTHEME
-	 * @model name="extjstheme"
+	 * @see #EXTLIBSTHEME
+	 * @model name="extlibstheme"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int EXTJSTHEME_VALUE = 301;
+	public static final int EXTLIBSTHEME_VALUE = 301;
 
 	/**
 	 * The '<em><b>Xstructure</b></em>' literal value.
@@ -311,7 +311,7 @@ public enum StdWebResModuleNames implements Enumerator {
 	public static final int AREABRAND_VALUE = 303;
 
 	/**
-	 * The '<em><b>Extjsareabrand</b></em>' literal value.
+	 * The '<em><b>Extlibsareabrand</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -322,12 +322,12 @@ public enum StdWebResModuleNames implements Enumerator {
 	 * di default (general) deve essere stilizzata in questo modo.
 	 * Tipologia: stili css
 	 * <!-- end-model-doc -->
-	 * @see #EXTJSAREABRAND
-	 * @model name="extjsareabrand"
+	 * @see #EXTLIBSAREABRAND
+	 * @model name="extlibsareabrand"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int EXTJSAREABRAND_VALUE = 304;
+	public static final int EXTLIBSAREABRAND_VALUE = 304;
 
 	/**
 	 * The '<em><b>Openlayerstheme</b></em>' literal value.
@@ -416,10 +416,10 @@ public enum StdWebResModuleNames implements Enumerator {
 			EXTJSCSICORE,
 			EXTJSCSIENRICHER,
 			EXTJSCSIMDD,
-			EXTJSTHEME,
+			EXTLIBSTHEME,
 			XSTRUCTURE,
 			AREABRAND,
-			EXTJSAREABRAND,
+			EXTLIBSAREABRAND,
 			OPENLAYERSTHEME,
 			OPENLAYERSAREABRAND,
 			ENRICHMENTS,
@@ -479,10 +479,10 @@ public enum StdWebResModuleNames implements Enumerator {
 			case EXTJSCSICORE_VALUE: return EXTJSCSICORE;
 			case EXTJSCSIENRICHER_VALUE: return EXTJSCSIENRICHER;
 			case EXTJSCSIMDD_VALUE: return EXTJSCSIMDD;
-			case EXTJSTHEME_VALUE: return EXTJSTHEME;
+			case EXTLIBSTHEME_VALUE: return EXTLIBSTHEME;
 			case XSTRUCTURE_VALUE: return XSTRUCTURE;
 			case AREABRAND_VALUE: return AREABRAND;
-			case EXTJSAREABRAND_VALUE: return EXTJSAREABRAND;
+			case EXTLIBSAREABRAND_VALUE: return EXTLIBSAREABRAND;
 			case OPENLAYERSTHEME_VALUE: return OPENLAYERSTHEME;
 			case OPENLAYERSAREABRAND_VALUE: return OPENLAYERSAREABRAND;
 			case ENRICHMENTS_VALUE: return ENRICHMENTS;

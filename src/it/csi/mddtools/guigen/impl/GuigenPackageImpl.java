@@ -7107,10 +7107,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSICORE);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSIENRICHER);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSCSIMDD);
-		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSTHEME);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTLIBSTHEME);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.XSTRUCTURE);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.AREABRAND);
-		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTJSAREABRAND);
+		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.EXTLIBSAREABRAND);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.OPENLAYERSTHEME);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.OPENLAYERSAREABRAND);
 		addEEnumLiteral(stdWebResModuleNamesEEnum, StdWebResModuleNames.ENRICHMENTS);
