@@ -809,7 +809,10 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero una suggestion con bind su chiave e valore«ENDREM»
-<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»" id="«getWidgetName(this, contextPrefix)»" size="«fieldLength»"/>
+<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»" 
+	id="«getWidgetName(this, contextPrefix)»" 
+	size="«fieldLength»"
+	/>
 <noscript>
 	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»" 
 		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»" 

@@ -207,7 +207,24 @@ Ext.onReady( function() {
 			'«getAppDataKey(databinding.appData)»',
 			'«keySelector»',
 			'«valueSelector»',
-			 «required ? "true" : "false"»)}; 
+			«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0-»
+			«LET getRefreshTargetIds(this) AS targetIdsTemp-»
+			«LET (Panel)(this.eContainer) AS parentPanel-»
+			«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
+			'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',«REM»targetIds«ENDREM»
+			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)».do',«REM»requestUri«ENDREM»
+			'«cp.name»',«REM»pageId«ENDREM»
+			'«cp.name»',«REM»formName«ENDREM»
+			«ENDLET-»
+			«ENDLET-»
+			«ENDLET-»
+			«ELSE-»
+			'',
+			'',
+			'',
+			'',
+			«ENDIF-»
+			«required ? "true" : "false"»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
