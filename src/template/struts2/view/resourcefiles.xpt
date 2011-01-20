@@ -808,6 +808,27 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
+«IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero una suggestion con bind su chiave e valore«ENDREM»
+<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»" id="«getWidgetName(this, contextPrefix)»" size="«fieldLength»"/>
+<noscript>
+	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»" 
+		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»" 
+		value="conferma" cssClass="«getComboBoxValueChangedHandlerStyle(model)»" />
+	<s:select name="«getAppDataKey(databinding.appData)».«keySelector»" id="suggest_«getWidgetName(this, contextPrefix)»"
+          «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
+          list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
+          disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+          «IF (databinding!=null && isBoundToArray(this.databinding)) ||
+          	  (databinding==null && dataType.metaType==TypedArray)-»
+          multiple="true" 
+          cssClass="selectMultiple"
+          «ENDIF-»
+          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+          «getComboBoxValueChangedHandlerJS(this, cp, contextPrefix)»
+          />
+</noscript>
+«ELSE-»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
@@ -827,6 +848,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «getComboBoxValueChangedHandlerNoScript(this, model, cp, contextPrefix)»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
+«ENDIF-»
 «ENDIF-»
 «ENDLET-»
 «ENDLET-»

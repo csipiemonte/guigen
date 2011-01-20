@@ -197,6 +197,20 @@ Ext.onReady( function() {
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ComboBox-»
+«IF eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).size>0-»
+«LET eventHandlers.selectFirst(eh|eh.eventType==EventTypes::KEY_PRESSED) AS keyPressedEvh-»
+	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
+	var addSuggestionsTo«name.toFirstUpper()» =  
+		function(){uiNRichLib.addComboSuggestionNRich(
+			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
+			'«getWidgetName(this, contextPrefix)»',
+			'«getAppDataKey(databinding.appData)»',
+			'«keySelector»',
+			'«valueSelector»',
+			 «required ? "true" : "false"»)}; 
+	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
+«ENDLET-»
+«ELSE-»
 	«IF (!(databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray))-»
 	/// arricchimento per «this.metaType.name» [«name»]: autonarrowing
@@ -206,6 +220,7 @@ Ext.onReady( function() {
 			 «required ? "false" : "true"»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addNarrowingTo«name.toFirstUpper()»);
 	«ENDIF»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE toolTipEnrichments(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»

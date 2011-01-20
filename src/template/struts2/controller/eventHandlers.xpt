@@ -128,6 +128,22 @@
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model before");
 				dumpModel(false);
 		}
+		«IF proceedToJSon(currEventHandler, currEventWidget)-»
+		//***se javascript è abilitato esiste il cookie iniettato nella home
+		boolean javascriptabilitato = false;
+		javax.servlet.http.Cookie[] cookie = org.apache.struts2.ServletActionContext.getRequest().getCookies();
+		if (cookie != null) {
+			for (javax.servlet.http.Cookie cookie2 : cookie) {
+				String nome = cookie2.getName();
+				if (nome.equalsIgnoreCase("javascriptAbilitato")) {
+					javascriptabilitato = true;
+
+					break;
+				}
+			}
+		}
+		«ENDIF»
+    	
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
@@ -136,8 +152,12 @@
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning result [" + result + "]");
 			}
 			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-			// procedi con la serializzazione JSON del risultato
-			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			if(javascriptabilitato){
+				// procedi con la serializzazione JSON del risultato
+				return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			}else{
+				return result;
+			}
 			«ELSE-»
 			return result;
 			«ENDIF-»
@@ -149,8 +169,12 @@
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] returning default result [SUCCESS]");
 			}
 			«IF proceedToJSon(currEventHandler, currEventWidget)-»
-			// procedi con la serializzazione JSON del risultato
-			return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			if(javascriptabilitato){
+				// procedi con la serializzazione JSON del risultato
+				return «getDataProviderMethodName(currEventWidget, "DATASET", contextPrefix)»();
+			}else{
+				return SUCCESS;
+			}
 			«ELSE-»
 			return SUCCESS;
 			«ENDIF-»

@@ -625,7 +625,7 @@ boolean proceedToJSon(EventHandler evh, Widget w) :
 	isSuggestedTextField(evh, w);
 	
 boolean isSuggestedTextField(EventHandler evh, Widget w) :
-	w.metaType == TextField && evh.eventType == EventTypes::KEY_PRESSED;
+	(w.metaType == TextField || w.metaType == ComboBox) && evh.eventType == EventTypes::KEY_PRESSED;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// ALTRE UTILITY

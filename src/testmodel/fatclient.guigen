@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="testr" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" xsi:schemaLocation="http://www.csi.it/mddtools ../metamodel/guigen.ecore" codProdotto="test" codComponente="fatclient" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <structure>
     <appWindow>
       <footer/>
@@ -71,7 +71,7 @@
             </submenu>
           </topLevelMenu>
         </menubar>
-        <contentPanels name="cpSingolo" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.7">
+        <contentPanels name="cpSingolo" appData="//@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.1 //@appDataDefs/@groups.0/@appData.0 //@appDataDefs/@groups.0/@appData.3 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.6">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -89,7 +89,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpSceltaComune" label="Selezionare un comune per avviare la ricerca" collapsible="true">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:ComboBox" name="cbxRegioni" label="Elenco regioni" tooltip="Selezionare una regione" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                  <widgets xsi:type="guigen:ComboBox" name="cbxRegioni" label="Elenco regioni" tooltip="Selezionare una regione" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
                     <eventHandlers eventType="VALUE_CHANGED">
                       <command xsi:type="guigen:ExecCommand" methodName="caricaProvince">
                         <results resultCode="Ko">
@@ -106,7 +106,7 @@
                     <databinding appData="//@appDataDefs/@groups.0/@appData.3" path="regioneSelezionata"/>
                     <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.0"/>
                   </widgets>
-                  <widgets xsi:type="guigen:ComboBox" name="cbxProvincia" label="Selezione provincia" defaultEnabled="false" tooltip="Selezionare una provincia dalla lista" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                  <widgets xsi:type="guigen:ComboBox" name="cbxProvincia" label="Selezione provincia" defaultEnabled="false" tooltip="Selezionare una provincia dalla lista" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
                     <eventHandlers eventType="VALUE_CHANGED">
                       <command xsi:type="guigen:ExecCommand" methodName="caricaComuni">
                         <results resultCode="Ko">
@@ -123,7 +123,7 @@
                     <databinding appData="//@appDataDefs/@groups.0/@appData.3" path="provinciaSelezionata"/>
                     <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.1"/>
                   </widgets>
-                  <widgets xsi:type="guigen:ComboBox" name="cbxComune" label="Selezione comune" defaultEnabled="false" tooltip="Selezionare un comune dall'elenco" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                  <widgets xsi:type="guigen:ComboBox" name="cbxComune" label="Selezione comune" defaultEnabled="false" tooltip="Selezionare un comune dall'elenco" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
                     <databinding appData="//@appDataDefs/@groups.0/@appData.3" path="comuneSelezionato"/>
                     <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.2"/>
                   </widgets>
@@ -151,13 +151,13 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoCittadini" label="Elenco dei cittadini per il comune selezionato" collapsible="true">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:Table" name="tblElencoCittadini" defaultVisible="false" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                  <widgets xsi:type="guigen:Table" name="tblElencoCittadini" defaultVisible="false" dataType="//@typedefs/@namespaces.1/@types.10" pageSize="10" enableExport="false">
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
                     <columnModel valueSelector="id">
                       <columns selector="cognome" label="Cognome" sortable="true" editable="true" tooltip="Cognome del cittadino"/>
                       <columns selector="nome" label="Nome" sortable="true" editable="true" editableFlagSelector="nomeEditable" tooltip="Nome del cittadino"/>
                       <columns selector="sesso" label="Sesso" sortable="true" editable="true" editableFlagSelector="sessoEditable" multidataKeySelector="id" multidataValueSelector="descrizione">
-                        <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.7"/>
+                        <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.6"/>
                       </columns>
                       <columns selector="retribuzione" label="Retribuzione" sortable="true" editable="true"/>
                       <columns selector="dataNascita" label="Data di nascita" sortable="true" editable="true" editableFlagSelector="dataNascitaEditable"/>
@@ -192,7 +192,7 @@
             </results>
           </onRefreshCommand>
         </contentPanels>
-        <contentPanels name="cpDoppio" appData="//@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.11">
+        <contentPanels name="cpDoppio" appData="//@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.13 //@appDataDefs/@groups.1/@appData.1">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -210,7 +210,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpSelezioneComune" label="Selezionare un comune dall'albero dei cittadini">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadini" dataType="//@typedefs/@types.7">
+                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadini" dataType="//@typedefs/@namespaces.1/@types.10">
                     <eventHandlers>
                       <command xsi:type="guigen:ExecCommand" methodName="caricaElencoCittadini">
                         <results resultCode="Ok">
@@ -218,14 +218,7 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <eventHandlers eventType="NODE_EXPANDED">
-                      <command xsi:type="guigen:ExecCommand" methodName="caricaRamiTree">
-                        <results resultCode="Ok">
-                          <command xsi:type="guigen:RefreshViewCommand" targetWidgets="//@structure/@appWindow/@appArea/@contentPanels.1/@panels/@subpanels.1/@subpanels.0/@subpanels.0/@widgets.0"/>
-                        </results>
-                      </command>
-                    </eventHandlers>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.13"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -237,7 +230,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoCittadini" label="Elenco dei cittadini per il comune selezionato" collapsible="true">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTw" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
+                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTw" dataType="//@typedefs/@namespaces.1/@types.10" pageSize="10" enableExport="false">
                     <eventHandlers>
                       <command xsi:type="guigen:ExecCommand" methodName="controllaColonna">
                         <results resultCode="Ok">
@@ -245,8 +238,8 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.11"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.9"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
                     <columnModel valueSelector="id">
                       <columns selector="cognome" label="Cognome" sortable="true" eventActive="true" tooltip="Cognome del cittadino"/>
                       <columns selector="nome" label="Nome" sortable="true" eventActive="true" tooltip="Nome del cittadino" activeFlagSelector="nomeEditable"/>
@@ -279,7 +272,7 @@
             </results>
           </onRefreshCommand>
         </contentPanels>
-        <contentPanels name="cpTriplo" appData="//@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.13">
+        <contentPanels name="cpTriplo" appData="//@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@groups.0/@appData.14">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -297,7 +290,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpSelezioneComune" label="Selezionare un comune dall'albero dei cittadini">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadiniTr" dataType="//@typedefs/@types.7">
+                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadiniTr" dataType="//@typedefs/@namespaces.1/@types.10">
                     <eventHandlers>
                       <command xsi:type="guigen:ExecCommand" methodName="caricaElencoCittadini">
                         <results resultCode="Ok">
@@ -305,7 +298,7 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.13"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.14"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -317,7 +310,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoCittadini" label="Elenco dei cittadini per il comune selezionato" collapsible="true">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTr" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
+                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTr" dataType="//@typedefs/@namespaces.1/@types.10" pageSize="10" enableExport="false">
                     <eventHandlers eventType="VALUE_CHANGED">
                       <command xsi:type="guigen:ExecCommand" methodName="caricaFormCittadini">
                         <results resultCode="Ok">
@@ -325,8 +318,8 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.9"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.7"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
                     <columnModel valueSelector="id">
                       <columns selector="cognome" label="Cognome" sortable="true" tooltip="Cognome del cittadino"/>
                       <columns selector="nome" label="Nome" sortable="true" tooltip="Nome del cittadino"/>
@@ -347,27 +340,27 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpDettaglioCittadino">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" tooltip="Cognome del cittadino" dataType="//@typedefs/@types.7" required="true">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="cognome"/>
+                  <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome" tooltip="Cognome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="cognome"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" tooltip="Nome del cittadino" dataType="//@typedefs/@types.7" required="true">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="nome"/>
+                  <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome" tooltip="Nome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="nome"/>
                   </widgets>
-                  <widgets xsi:type="guigen:ComboBox" name="cbxSesso" label="Sesso" tooltip="Selezionare il sesso del cittadino" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="sesso"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.7"/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbxSesso" label="Sesso" tooltip="Selezionare il sesso del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="sesso"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.6"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfComuneResidenza" label="Comune di residenza" tooltip="" dataType="//@typedefs/@types.7">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="comuneResidenza"/>
+                  <widgets xsi:type="guigen:TextField" name="tfComuneResidenza" label="Comune di residenza" tooltip="" dataType="//@typedefs/@namespaces.1/@types.10">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="comuneResidenza"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfComuneNascita" label="Comune di nascita" tooltip="" dataType="//@typedefs/@types.7">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="comuneNascita"/>
+                  <widgets xsi:type="guigen:TextField" name="tfComuneNascita" label="Comune di nascita" tooltip="" dataType="//@typedefs/@namespaces.1/@types.10">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="comuneNascita"/>
                   </widgets>
-                  <widgets xsi:type="guigen:Calendar" name="calDataNascita" label="Data di nascita" dataType="//@typedefs/@types.3">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="dataNascita"/>
+                  <widgets xsi:type="guigen:Calendar" name="calDataNascita" label="Data di nascita" dataType="//@typedefs/@namespaces.1/@types.6">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="dataNascita"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfRetribuzione" label="Retribuzione" dataType="//@typedefs/@types.11">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="retribuzione"/>
+                  <widgets xsi:type="guigen:TextField" name="tfRetribuzione" label="Retribuzione" dataType="//@typedefs/@namespaces.1/@types.14">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="retribuzione"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -391,7 +384,7 @@
             </results>
           </onRefreshCommand>
         </contentPanels>
-        <contentPanels name="cpQuadruplo" appData="//@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.10 //@appDataDefs/@groups.0/@appData.14">
+        <contentPanels name="cpQuadruplo" appData="//@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.6 //@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.8 //@appDataDefs/@groups.1/@appData.1 //@appDataDefs/@groups.0/@appData.15">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -409,7 +402,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpSelezioneComune" label="Selezionare un comune dall'albero dei cittadini">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadiniQu" dataType="//@typedefs/@types.7">
+                  <widgets xsi:type="guigen:TreeView" name="twAlberoCittadiniQu" dataType="//@typedefs/@namespaces.1/@types.10">
                     <eventHandlers>
                       <command xsi:type="guigen:ExecCommand" methodName="caricaElencoCittadini">
                         <results resultCode="Ok">
@@ -417,7 +410,7 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.14"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.15"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -429,9 +422,9 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpElencoCittadini" label="Elenco dei cittadini per il comune selezionato" collapsible="true">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTrs" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.9"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                  <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTrs" dataType="//@typedefs/@namespaces.1/@types.10" pageSize="10" enableExport="false">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.7"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
                     <columnModel valueSelector="id">
                       <columns selector="cognome" label="Cognome" sortable="true" tooltip="Cognome del cittadino"/>
                       <columns selector="nome" label="Nome" sortable="true" tooltip="Nome del cittadino"/>
@@ -464,17 +457,17 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpDettaglioCittadino">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:TextField" name="tfCognome2" label="Cognome" tooltip="Cognome del cittadino" dataType="//@typedefs/@types.7" required="true">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="cognome"/>
+                  <widgets xsi:type="guigen:TextField" name="tfCognome2" label="Cognome" tooltip="Cognome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="cognome"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfNome2" label="Nome" tooltip="Nome del cittadino" dataType="//@typedefs/@types.7" required="true">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="nome"/>
+                  <widgets xsi:type="guigen:TextField" name="tfNome2" label="Nome" tooltip="Nome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="nome"/>
                   </widgets>
-                  <widgets xsi:type="guigen:ComboBox" name="cbxSesso2" label="Sesso" tooltip="Selezionare il sesso del cittadino" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="sesso"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.7" path=""/>
+                  <widgets xsi:type="guigen:ComboBox" name="cbxSesso2" label="Sesso" tooltip="Selezionare il sesso del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="sesso"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.6" path=""/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfComuneResidenza2" label="Comune di residenza" tooltip="" dataType="//@typedefs/@types.7">
+                  <widgets xsi:type="guigen:TextField" name="tfComuneResidenza2" label="Comune di residenza" tooltip="" dataType="//@typedefs/@namespaces.1/@types.10">
                     <eventHandlers eventType="KEY_PRESSED">
                       <command xsi:type="guigen:ExecCommand" methodName="caricaSuggestion">
                         <results resultCode="Ok">
@@ -482,17 +475,17 @@
                         </results>
                       </command>
                     </eventHandlers>
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="comuneResidenza"/>
-                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.10"/>
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="comuneResidenza"/>
+                    <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.8"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfComuneNascita2" label="Comune di nascita" tooltip="" dataType="//@typedefs/@types.7">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="comuneNascita"/>
+                  <widgets xsi:type="guigen:TextField" name="tfComuneNascita2" label="Comune di nascita" tooltip="" dataType="//@typedefs/@namespaces.1/@types.10">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="comuneNascita"/>
                   </widgets>
-                  <widgets xsi:type="guigen:Calendar" name="calDataNascita2" label="Data di nascita" dataType="//@typedefs/@types.3">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="dataNascita"/>
+                  <widgets xsi:type="guigen:Calendar" name="calDataNascita2" label="Data di nascita" dataType="//@typedefs/@namespaces.1/@types.6">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="dataNascita"/>
                   </widgets>
-                  <widgets xsi:type="guigen:TextField" name="tfRetribuzione2" label="Retribuzione" dataType="//@typedefs/@types.11">
-                    <databinding appData="//@appDataDefs/@groups.0/@appData.6" path="retribuzione"/>
+                  <widgets xsi:type="guigen:TextField" name="tfRetribuzione2" label="Retribuzione" dataType="//@typedefs/@namespaces.1/@types.14">
+                    <databinding appData="//@appDataDefs/@groups.0/@appData.5" path="retribuzione"/>
                   </widgets>
                 </subpanels>
               </subpanels>
@@ -516,7 +509,7 @@
                 <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                 <subpanels xsi:type="guigen:WidgetsPanel" name="wpDownss">
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                  <widgets xsi:type="guigen:PlainText" name="ptUrl" dataType="//@typedefs/@types.7" staticText="&lt;a href=&quot;http://www.google.com&quot;>Clicca qui per aprire una url esterna&lt;/a>"/>
+                  <widgets xsi:type="guigen:PlainText" name="ptUrl" dataType="//@typedefs/@namespaces.1/@types.10" staticText="&lt;a href=&quot;http://www.google.com&quot;>Clicca qui per aprire una url esterna&lt;/a>"/>
                 </subpanels>
               </subpanels>
             </subpanels>
@@ -527,7 +520,7 @@
             </results>
           </onRefreshCommand>
         </contentPanels>
-        <contentPanels name="cpTab" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpTab" appData="//@appDataDefs/@groups.1/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test tabs">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -549,24 +542,24 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1">
                       <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="Nome" dataType="//@typedefs/@types.7"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab12a" label="Cognome" dataType="//@typedefs/@types.7"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab13a" label="Professione" dataType="//@typedefs/@types.7"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab14a" label="Residenza" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="Nome" dataType="//@typedefs/@namespaces.1/@types.10"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab12a" label="Cognome" dataType="//@typedefs/@namespaces.1/@types.10"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab13a" label="Professione" dataType="//@typedefs/@namespaces.1/@types.10"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab14a" label="Residenza" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab2" label="Tab 2">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab3" label="Tab 3">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                     <subpanels xsi:type="guigen:WizardPanel" name="pWiz3">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -574,28 +567,28 @@
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_1">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab3_1_1" label="textfield 3_1_1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_1_1" label="textfield 3_1_1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep3_2" label="Step 3_2">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_2">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab3_2_1" label="textfield 3_2_1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_2_1" label="textfield 3_2_1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep3_3" label="Step 3_3">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_3">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab3_3_1" label="textfield 3_3_1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_3_1" label="textfield 3_3_1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep3_4" label="Step 3_4">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3_4">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab3_4_1" label="textfield 3_4_1" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab3_4_1" label="textfield 3_4_1" dataTypeModifier="" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <switcher name="tswWizinner">
@@ -613,7 +606,7 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                     <subpanels xsi:type="guigen:WizardPanel" name="pWiz4">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
@@ -621,28 +614,28 @@
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_1">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab4_1_1" label="textfield 4.1.1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_1_1" label="textfield 4.1.1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep4_2" label="Step 4_2">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_2">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab4_2_1" label="textfield 4_2_1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_2_1" label="textfield 4_2_1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep4_3" label="Step 4_3">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_3">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab4_3_1" label="textfield 4_3_1" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_3_1" label="textfield 4_3_1" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <panels xsi:type="guigen:FormPanel" name="pStep4_4" label="Step 4_4">
                         <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                         <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4_4">
                           <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                          <widgets xsi:type="guigen:TextField" name="tfTab4_4_1" label="textfield 4_4_1" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                          <widgets xsi:type="guigen:TextField" name="tfTab4_4_1" label="textfield 4_4_1" dataTypeModifier="" dataType="//@typedefs/@namespaces.1/@types.10"/>
                         </subpanels>
                       </panels>
                       <switcher name="tswWiz4">
@@ -672,14 +665,14 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2_nosw">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab1_nosw" label="Tab 1">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1_nosw">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                 </subpanels>
@@ -695,7 +688,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpTestWizards" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpTestWizards" appData="//@appDataDefs/@groups.1/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test tabs">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -717,28 +710,28 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a" label="textfield 1a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab2" label="Tab 2">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a" label="textfield 2a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab3" label="Tab 3">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets3">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab3a" label="textfield 3a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab4" label="Tab 4">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets4">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab4a" label="textfield 4a" dataTypeModifier="" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <switcher name="tswTab2">
@@ -757,14 +750,14 @@
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2_nosw">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab2a_nosw" label="textfield 1a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                   <panels xsi:type="guigen:FormPanel" name="pTab1_nosw" label="Tab 1">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                     <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1_nosw">
                       <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@types.7"/>
+                      <widgets xsi:type="guigen:TextField" name="tfTab1a_nosw" label="textfield 1a" dataType="//@typedefs/@namespaces.1/@types.10"/>
                     </subpanels>
                   </panels>
                 </subpanels>
@@ -776,7 +769,7 @@
             </subpanels>
           </panels>
         </contentPanels>
-        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.9 //@appDataDefs/@groups.0/@appData.5 //@appDataDefs/@groups.0/@appData.15">
+        <contentPanels name="cpTestMultipanel" appData="//@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.10 //@appDataDefs/@groups.0/@appData.7 //@appDataDefs/@groups.0/@appData.4 //@appDataDefs/@groups.0/@appData.11">
           <panels xsi:type="guigen:FormPanel" name="pMain" label="Test States">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -796,12 +789,12 @@
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="wigets 1">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:PlainText" name="txtFisso1" dataType="//@typedefs/@types.7" staticText="Dati relativi al cittadino"/>
-                    <widgets xsi:type="guigen:TextField" name="tfFloat" label="Retribuzione annua" dataType="//@typedefs/@types.5">
-                      <databinding appData="//@appDataDefs/@groups.0/@appData.12" path="retribuzione"/>
+                    <widgets xsi:type="guigen:PlainText" name="txtFisso1" dataType="//@typedefs/@namespaces.1/@types.10" staticText="Dati relativi al cittadino"/>
+                    <widgets xsi:type="guigen:TextField" name="tfFloat" label="Retribuzione annua" dataType="//@typedefs/@namespaces.1/@types.8">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.10" path="retribuzione"/>
                     </widgets>
-                    <widgets xsi:type="guigen:TextField" name="tfString" label="Stato civile" dataType="//@typedefs/@types.7">
-                      <databinding appData="//@appDataDefs/@groups.0/@appData.12" path="statoCivile"/>
+                    <widgets xsi:type="guigen:TextField" name="tfString" label="Stato civile" dataType="//@typedefs/@namespaces.1/@types.10">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.10" path="statoCivile"/>
                     </widgets>
                     <widgets xsi:type="guigen:FileUpload" name="uplMyFile" label="Documentazione aggiuntiva"/>
                   </subpanels>
@@ -822,9 +815,9 @@
                   <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
                   <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets2" label="widgets 2">
                     <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
-                    <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTrsWmp" dataType="//@typedefs/@types.7" pageSize="10" enableExport="false">
-                      <databinding appData="//@appDataDefs/@groups.0/@appData.9"/>
-                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.5"/>
+                    <widgets xsi:type="guigen:Table" name="tblElencoCittadiniTrsWmp" dataType="//@typedefs/@namespaces.1/@types.10" pageSize="10" enableExport="false">
+                      <databinding appData="//@appDataDefs/@groups.0/@appData.7"/>
+                      <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.4"/>
                       <columnModel valueSelector="id">
                         <columns selector="cognome" label="Cognome" sortable="true" tooltip="Cognome del cittadino"/>
                         <columns selector="nome" label="Nome" sortable="true" tooltip="Nome del cittadino"/>
@@ -841,7 +834,7 @@
                     <widgets xsi:type="guigen:ConfirmButton" name="cbModificaVittadino" label="Modifica cittadino">
                       <eventHandlers>
                         <command xsi:type="guigen:SequenceCommand">
-                          <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.15"/>
+                          <commands xsi:type="guigen:BeginEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.11"/>
                           <commands xsi:type="guigen:ExecCommand" methodName="modificaCittadino">
                             <results resultCode="Ok">
                               <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.7"/>
@@ -903,11 +896,11 @@
               </widgets>
             </commands>
             <msgBoxes name="MsgBoxDialog" label="Questo è un dialog di prova" messageSeverity="ERROR">
-              <textMessages name="ptMsgDialog" label="Messaggio" dataType="//@typedefs/@types.7" staticText="Questo è il messaggio del dialog"/>
+              <textMessages name="ptMsgDialog" label="Messaggio" dataType="//@typedefs/@namespaces.1/@types.10" staticText="Questo è il messaggio del dialog"/>
             </msgBoxes>
           </dialogs>
         </contentPanels>
-        <contentPanels name="cpDettaglioCittadino" appData="//@appDataDefs/@appData.0 //@appDataDefs/@groups.0/@appData.15 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.16 //@appDataDefs/@groups.0/@appData.9">
+        <contentPanels name="cpDettaglioCittadino" appData="//@appDataDefs/@groups.1/@appData.0 //@appDataDefs/@groups.0/@appData.11 //@appDataDefs/@groups.0/@appData.2 //@appDataDefs/@groups.0/@appData.12 //@appDataDefs/@groups.0/@appData.7">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -923,41 +916,41 @@
               <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
               <subpanels xsi:type="guigen:WidgetsPanel" name="wpDettaglioCittadino" label="Dettaglio cittadino">
                 <layout xsi:type="guigen:GridPanelLayout" columns="3" rows="6"/>
-                <widgets xsi:type="guigen:PlainText" name="ptFieldObbl" dataType="//@typedefs/@types.7" staticText="I campi contrassegnati con un asterisco sono obbligatori.">
+                <widgets xsi:type="guigen:PlainText" name="ptFieldObbl" dataType="//@typedefs/@namespaces.1/@types.10" staticText="I campi contrassegnati con un asterisco sono obbligatori.">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="1" column="1" hspan="3"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome*" tooltip="Inserire il cognome del cittadino" dataType="//@typedefs/@types.7" required="true" fieldLength="25">
+                <widgets xsi:type="guigen:TextField" name="tfCognome" label="Cognome*" tooltip="Inserire il cognome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true" fieldLength="25">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="1" hspan="2"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="cognome"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="cognome"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome*" tooltip="Inserire il nome del cittadino" dataType="//@typedefs/@types.7" required="true">
+                <widgets xsi:type="guigen:TextField" name="tfNome" label="Nome*" tooltip="Inserire il nome del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="2" column="3"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="nome"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="nome"/>
                 </widgets>
-                <widgets xsi:type="guigen:Calendar" name="calDataNasc" label="Data di nascita" dataType="//@typedefs/@types.3">
+                <widgets xsi:type="guigen:Calendar" name="calDataNasc" label="Data di nascita" dataType="//@typedefs/@namespaces.1/@types.6">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="1"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="dataNascita"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="dataNascita"/>
                 </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbxComuneNascita" label="Comune di nascita*" tooltip="Selezionare una comune" dataType="//@typedefs/@types.7" required="true" keySelector="id" valueSelector="descrizione">
+                <widgets xsi:type="guigen:ComboBox" name="cbxComuneNascita" label="Comune di nascita*" tooltip="Selezionare una comune" dataType="//@typedefs/@namespaces.1/@types.10" required="true" keySelector="id" valueSelector="descrizione">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="2"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="idComuneNascita"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="idComuneNascita"/>
                   <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.2"/>
                 </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbxComuneResidenza" label="Comune di residenza" tooltip="Selezionare una comune" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                <widgets xsi:type="guigen:ComboBox" name="cbxComuneResidenza" label="Comune di residenza" tooltip="Selezionare una comune" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="3" column="3"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="idComuneResidenza"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="idComuneResidenza"/>
                   <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.2"/>
                 </widgets>
-                <widgets xsi:type="guigen:ComboBox" name="cbxHobby" label="Hobby" tooltip="" dataType="//@typedefs/@types.7" keySelector="id" valueSelector="descrizione">
+                <widgets xsi:type="guigen:ComboBox" name="cbxHobby" label="Hobby" tooltip="" dataType="//@typedefs/@namespaces.1/@types.10" keySelector="id" valueSelector="descrizione">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="1"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="hobby"/>
-                  <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.16"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="hobby"/>
+                  <multiDataBinding appData="//@appDataDefs/@groups.0/@appData.12"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextField" name="tfRetribuzione" label="Retribuzione" dataType="//@typedefs/@types.11" fieldMaxLength="10">
+                <widgets xsi:type="guigen:TextField" name="tfRetribuzione" label="Retribuzione" dataType="//@typedefs/@namespaces.1/@types.14" fieldMaxLength="10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="2"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="retribuzione"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="retribuzione"/>
                 </widgets>
-                <widgets xsi:type="guigen:RadioButtons" name="rbsSesso" label="Sesso" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:RadioButtons" name="rbsSesso" label="Sesso" dataType="//@typedefs/@namespaces.1/@types.10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="4" column="3"/>
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="lanciaMetodoRb">
@@ -966,11 +959,11 @@
                       </results>
                     </command>
                   </eventHandlers>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="sesso"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="sesso"/>
                   <radio name="rbSessoM" label="M" value="M"/>
                   <radio name="rbSessoF" label="F" value="F"/>
                 </widgets>
-                <widgets xsi:type="guigen:CheckBox" name="cbxSpostato" label="Sposato" dataType="//@typedefs/@types.7">
+                <widgets xsi:type="guigen:CheckBox" name="cbxSpostato" label="Sposato" dataType="//@typedefs/@namespaces.1/@types.10">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="5" column="2" hspan="2"/>
                   <eventHandlers>
                     <command xsi:type="guigen:ExecCommand" methodName="lanciaMetodoCb">
@@ -979,11 +972,11 @@
                       </results>
                     </command>
                   </eventHandlers>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="sposato"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="sposato"/>
                 </widgets>
-                <widgets xsi:type="guigen:TextArea" name="taIndirizzo" label="Indirizzo*" tooltip="Inserire l'indirizzo del cittadino" dataType="//@typedefs/@types.7" required="true">
+                <widgets xsi:type="guigen:TextArea" name="taIndirizzo" label="Indirizzo*" tooltip="Inserire l'indirizzo del cittadino" dataType="//@typedefs/@namespaces.1/@types.10" required="true">
                   <layoutSpec xsi:type="guigen:GridWidgetLayoutSpec" row="6" column="1" hspan="3"/>
-                  <databinding appData="//@appDataDefs/@groups.0/@appData.15" path="indirizzo"/>
+                  <databinding appData="//@appDataDefs/@groups.0/@appData.11" path="indirizzo"/>
                 </widgets>
               </subpanels>
               <subpanels xsi:type="guigen:CommandPanel" name="cpBottoniCittadino">
@@ -991,7 +984,7 @@
                 <widgets xsi:type="guigen:ConfirmButton" name="cbTornaIndietro" label="Torna indietro">
                   <eventHandlers skipValidation="true">
                     <command xsi:type="guigen:SequenceCommand">
-                      <commands xsi:type="guigen:EndEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.15"/>
+                      <commands xsi:type="guigen:EndEditCommand" dataEdited="//@appDataDefs/@groups.0/@appData.11"/>
                       <commands xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
                     </command>
                   </eventHandlers>
@@ -999,7 +992,7 @@
                 <widgets xsi:type="guigen:ConfirmButton" name="cbSalva" label="Salva">
                   <eventHandlers>
                     <command xsi:type="guigen:SequenceCommand">
-                      <commands xsi:type="guigen:ChkEditStatusCommand" dataChecked="//@appDataDefs/@groups.0/@appData.15">
+                      <commands xsi:type="guigen:ChkEditStatusCommand" dataChecked="//@appDataDefs/@groups.0/@appData.11">
                         <doIfChanged resultCode="Ok">
                           <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.6"/>
                         </doIfChanged>
@@ -1039,7 +1032,7 @@
             <states name="RiattivaPannello" widgetsOn="//@structure/@appWindow/@appArea/@contentPanels.2/@panels/@subpanels.3/@subpanels.0/@subpanels.0/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.2/@panels/@subpanels.3/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.2/@panels/@subpanels.3/@subpanels.0/@subpanels.0/@widgets.6 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.8 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.9 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.10 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.3" widgetsVisible="//@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.2/@panels/@subpanels.3/@subpanels.0/@subpanels.0/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.4 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.5 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.7 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.8 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.9 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.10 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.0 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.1 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.2 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.1/@widgets.3 //@structure/@appWindow/@appArea/@contentPanels.7/@panels/@subpanels.1/@subpanels.0/@widgets.6"/>
           </states>
         </contentPanels>
-        <contentPanels name="cpHome" appData="//@appDataDefs/@appData.0">
+        <contentPanels name="cpHome" appData="//@appDataDefs/@groups.1/@appData.0">
           <panels xsi:type="guigen:FormPanel" name="pmain">
             <layout xsi:type="guigen:UDLRCPanelLayout"/>
             <subpanels xsi:type="guigen:FormPanel" name="pUp">
@@ -1068,140 +1061,124 @@
     </appWindow>
   </structure>
   <typedefs>
-    <types xsi:type="guigen:SimpleType" name="Integer"/>
-    <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
-    <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
-    <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
-    <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
-    <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
-    <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
-    <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
-    <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
-    <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
-    <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
-    <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
-    <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@types.0"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@types.1"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@types.2"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@types.3"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@types.4"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@types.5"/>
-    <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@types.6"/>
-    <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@types.7"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@types.8"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@types.9"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@types.10"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@types.11"/>
-    <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@types.12"/>
-    <types xsi:type="guigen:ComplexType" name="UserInfo">
-      <fields name="nome" type="//@typedefs/@types.7"/>
-      <fields name="cognome" type="//@typedefs/@types.7"/>
-      <fields name="codFisc" type="//@typedefs/@types.7"/>
-      <fields name="ente" type="//@typedefs/@types.7"/>
-      <fields name="ruolo" type="//@typedefs/@types.7"/>
-      <fields name="idIride" type="//@typedefs/@types.7"/>
-      <fields name="codRuolo" type="//@typedefs/@types.7"/>
-    </types>
-    <types xsi:type="guigen:ComplexType" name="TreeStatus">
-      <fields name="selectednode" type="//@typedefs/@types.7"/>
-      <fields name="node" type="//@typedefs/@types.7"/>
-    </types>
     <namespaces name="home">
       <types xsi:type="guigen:ComplexType" name="ComboBox">
-        <fields name="id" type="//@typedefs/@types.7"/>
-        <fields name="descrizione" type="//@typedefs/@types.7"/>
+        <fields name="id" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="descrizione" type="//@typedefs/@namespaces.1/@types.10"/>
       </types>
       <types xsi:type="guigen:TypedArray" name="ComboBox[]" componentType="//@typedefs/@namespaces.0/@types.0"/>
       <types xsi:type="guigen:ComplexType" name="CpSingolo">
-        <fields name="regioneSelezionata" type="//@typedefs/@types.7"/>
-        <fields name="provinciaSelezionata" type="//@typedefs/@types.7"/>
-        <fields name="comuneSelezionato" type="//@typedefs/@types.7"/>
+        <fields name="regioneSelezionata" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="provinciaSelezionata" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="comuneSelezionato" type="//@typedefs/@namespaces.1/@types.10"/>
       </types>
-      <types xsi:type="guigen:ComplexType" name="TreeStructure">
-        <fields name="text" type="//@typedefs/@types.7"/>
-        <fields name="id" type="//@typedefs/@types.7"/>
-        <fields name="leaf" type="//@typedefs/@types.9"/>
-        <fields name="cls" type="//@typedefs/@types.7"/>
-        <fields name="expanded" type="//@typedefs/@types.9"/>
-        <fields name="checked" type="//@typedefs/@types.9"/>
-        <fields name="uniqueid" type="//@typedefs/@types.7"/>
-        <fields name="children" type="//@typedefs/@namespaces.0/@types.5"/>
-      </types>
-      <types xsi:type="guigen:ComplexType" name="TreeStructureAsync">
-        <fields name="text" type="//@typedefs/@types.7"/>
-        <fields name="id" type="//@typedefs/@types.7"/>
-        <fields name="leaf" type="//@typedefs/@types.9"/>
-        <fields name="cls" type="//@typedefs/@types.7"/>
-        <fields name="expanded" type="//@typedefs/@types.9"/>
-        <fields name="checked" type="//@typedefs/@types.9"/>
-        <fields name="uniqueid" type="//@typedefs/@types.7"/>
-      </types>
-      <types xsi:type="guigen:TypedArray" name="TreeStructure[]" componentType="//@typedefs/@namespaces.0/@types.3"/>
       <types xsi:type="guigen:ComplexType" name="Cittadino">
-        <fields name="id" type="//@typedefs/@types.12"/>
-        <fields name="nome" type="//@typedefs/@types.7"/>
-        <fields name="cognome" type="//@typedefs/@types.7"/>
-        <fields name="sesso" type="//@typedefs/@types.7"/>
-        <fields name="comuneResidenza" type="//@typedefs/@types.7"/>
-        <fields name="retribuzione" type="//@typedefs/@types.11"/>
-        <fields name="dataNascita" type="//@typedefs/@types.3"/>
-        <fields name="img" type="//@typedefs/@types.7"/>
-        <fields name="natoInComune" type="//@typedefs/@types.1"/>
-        <fields name="comuneNascita" type="//@typedefs/@types.7"/>
-        <fields name="idComuneNascita" type="//@typedefs/@types.12"/>
-        <fields name="idComuneResidenza" type="//@typedefs/@types.12"/>
-        <fields name="nomeEditable" type="//@typedefs/@types.1"/>
-        <fields name="sessoEditable" type="//@typedefs/@types.1"/>
-        <fields name="dataNascitaEditable" type="//@typedefs/@types.1"/>
-        <fields name="comuneNascitaEditable" type="//@typedefs/@types.1"/>
+        <fields name="id" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="nome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="cognome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="sesso" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="comuneResidenza" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="retribuzione" type="//@typedefs/@namespaces.1/@types.14"/>
+        <fields name="dataNascita" type="//@typedefs/@namespaces.1/@types.6"/>
+        <fields name="img" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="natoInComune" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="comuneNascita" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="idComuneNascita" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="idComuneResidenza" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="nomeEditable" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="sessoEditable" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="dataNascitaEditable" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="comuneNascitaEditable" type="//@typedefs/@namespaces.1/@types.4"/>
       </types>
-      <types xsi:type="guigen:TypedArray" name="Cittadini[]" componentType="//@typedefs/@namespaces.0/@types.6"/>
+      <types xsi:type="guigen:TypedArray" name="Cittadini[]" componentType="//@typedefs/@namespaces.0/@types.3"/>
       <types xsi:type="guigen:ComplexType" name="MultiItem">
-        <fields name="retribuzione" type="//@typedefs/@types.10"/>
-        <fields name="statoCivile" type="//@typedefs/@types.7"/>
+        <fields name="retribuzione" type="//@typedefs/@namespaces.1/@types.13"/>
+        <fields name="statoCivile" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="msg" type="//@typedefs/@namespaces.1/@types.10"/>
       </types>
       <types xsi:type="guigen:ComplexType" name="ResponseStatus">
-        <fields name="success" type="//@typedefs/@types.1"/>
-        <fields name="msg" type="//@typedefs/@types.7"/>
+        <fields name="success" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="msg" type="//@typedefs/@namespaces.1/@types.10"/>
       </types>
-      <types xsi:type="guigen:TypedArray" name="TreeStructureAsync[]" componentType="//@typedefs/@namespaces.0/@types.4"/>
       <types xsi:type="guigen:ComplexType" name="CittadinoExtended">
-        <fields name="id" type="//@typedefs/@types.12"/>
-        <fields name="nome" type="//@typedefs/@types.7"/>
-        <fields name="cognome" type="//@typedefs/@types.7"/>
-        <fields name="sesso" type="//@typedefs/@types.7"/>
-        <fields name="retribuzione" type="//@typedefs/@namespaces.0/@types.12"/>
-        <fields name="dataNascita" type="//@typedefs/@types.3"/>
-        <fields name="idComuneNascita" type="//@typedefs/@types.12"/>
-        <fields name="idComuneResidenza" type="//@typedefs/@types.12"/>
-        <fields name="indirizzo" type="//@typedefs/@types.7"/>
-        <fields name="sposato" type="//@typedefs/@types.1"/>
-        <fields name="hobby" type="//@typedefs/@types.20"/>
+        <fields name="id" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="nome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="cognome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="sesso" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="retribuzione" type="//@typedefs/@namespaces.0/@types.8"/>
+        <fields name="dataNascita" type="//@typedefs/@namespaces.1/@types.6"/>
+        <fields name="idComuneNascita" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="idComuneResidenza" type="//@typedefs/@namespaces.1/@types.15"/>
+        <fields name="indirizzo" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="sposato" type="//@typedefs/@namespaces.1/@types.4"/>
+        <fields name="hobby" type="//@typedefs/@namespaces.1/@types.23"/>
       </types>
       <types xsi:type="guigen:SimpleType" name="RetribuzioneConverter" code="DOUBLE" nillable="true" userDefined="true"/>
     </namespaces>
+    <namespaces name="common">
+      <types xsi:type="guigen:ComplexType" name="UserInfo">
+        <fields name="nome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="cognome" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="codFisc" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="ente" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="ruolo" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="idIride" type="//@typedefs/@namespaces.1/@types.10"/>
+        <fields name="codRuolo" type="//@typedefs/@namespaces.1/@types.10"/>
+      </types>
+      <types xsi:type="guigen:ComplexType" name="TreeStatus">
+        <typeAnnotation language="java" fqn="it.csi.custom.component.tree.base.TreeStatus"/>
+      </types>
+      <types xsi:type="guigen:SimpleType" name="TreeCat" code="TREE_NODE"/>
+      <types xsi:type="guigen:SimpleType" name="Integer"/>
+      <types xsi:type="guigen:SimpleType" name="Boolean" code="BOOLEAN"/>
+      <types xsi:type="guigen:SimpleType" name="Byte" code="BYTE"/>
+      <types xsi:type="guigen:SimpleType" name="Date" code="DATE"/>
+      <types xsi:type="guigen:SimpleType" name="Double" code="DOUBLE"/>
+      <types xsi:type="guigen:SimpleType" name="Float" code="FLOAT"/>
+      <types xsi:type="guigen:SimpleType" name="Long" code="LONG"/>
+      <types xsi:type="guigen:SimpleType" name="String" code="STRING"/>
+      <types xsi:type="guigen:SimpleType" name="WrappedInteger" nillable="true"/>
+      <types xsi:type="guigen:SimpleType" name="WrappedBoolean" code="BOOLEAN" nillable="true"/>
+      <types xsi:type="guigen:SimpleType" name="WrappedDouble" code="DOUBLE" nillable="true"/>
+      <types xsi:type="guigen:SimpleType" name="WrappedFloat" code="FLOAT" nillable="true"/>
+      <types xsi:type="guigen:SimpleType" name="WrappedLong" code="LONG" nillable="true"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Integer" componentType="//@typedefs/@namespaces.1/@types.3"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Boolean" componentType="//@typedefs/@namespaces.1/@types.4"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Byte" componentType="//@typedefs/@namespaces.1/@types.5"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Date" componentType="//@typedefs/@namespaces.1/@types.6"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Double" componentType="//@typedefs/@namespaces.1/@types.7"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Float" componentType="//@typedefs/@namespaces.1/@types.8"/>
+      <types xsi:type="guigen:TypedArray" name="Array of Long" componentType="//@typedefs/@namespaces.1/@types.9"/>
+      <types xsi:type="guigen:TypedArray" name="Array of String" componentType="//@typedefs/@namespaces.1/@types.10"/>
+      <types xsi:type="guigen:TypedArray" name="Array of WrappedInteger" componentType="//@typedefs/@namespaces.1/@types.11"/>
+      <types xsi:type="guigen:TypedArray" name="Array of WrappedBoolean" componentType="//@typedefs/@namespaces.1/@types.12"/>
+      <types xsi:type="guigen:TypedArray" name="Array of WrappedDouble" componentType="//@typedefs/@namespaces.1/@types.13"/>
+      <types xsi:type="guigen:TypedArray" name="Array of WrappedFloat" componentType="//@typedefs/@namespaces.1/@types.14"/>
+      <types xsi:type="guigen:TypedArray" name="Array of WrappedLong" componentType="//@typedefs/@namespaces.1/@types.15"/>
+    </namespaces>
   </typedefs>
   <appDataDefs>
-    <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.26"/>
     <groups name="home">
       <appData name="ComboRegioni" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
       <appData name="ComboProvince" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
       <appData name="ComboComuni" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
       <appData name="CpSingolo" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.2"/>
-      <appData name="TreeStructure" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.10"/>
-      <appData name="ElencoCittadini" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.7"/>
-      <appData name="Cittadino" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.6"/>
+      <appData name="ElencoCittadini" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.4"/>
+      <appData name="Cittadino" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.3"/>
       <appData name="ComboSesso" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
-      <appData name="TreeStatus" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.27"/>
-      <appData name="codCittadinoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.7"/>
-      <appData name="Suggestion" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
-      <appData name="codCittadiniSelezionati" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.20"/>
-      <appData name="MultiItem" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.8"/>
-      <appData name="TreeStructureTr" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.5"/>
-      <appData name="TreeStructureQu" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.5"/>
-      <appData name="CittadinoExtended" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.11"/>
+      <appData name="codCittadinoSelezionato" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.10"/>
+      <appData name="Suggestion" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.23"/>
+      <appData name="codCittadiniSelezionati" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.23"/>
+      <appData name="MultiItem" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.5"/>
+      <appData name="CittadinoExtended" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.7"/>
       <appData name="Hobbies" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.1"/>
+      <appData name="treeCpDoppio" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.2"/>
+      <appData name="treeCpTriplo" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.2"/>
+      <appData name="treeCpQuadruplo" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.2"/>
+    </groups>
+    <groups name="common">
+      <appData name="currentUser" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.0"/>
+      <appData name="TreeStatus" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.1/@types.1"/>
     </groups>
   </appDataDefs>
   <securityModel securityAppID="AAAA"/>
