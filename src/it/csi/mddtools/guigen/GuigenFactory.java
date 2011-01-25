@@ -1259,6 +1259,15 @@ public interface GuigenFactory extends EFactory {
 	RepartModule createRepartModule();
 
 	/**
+	 * Returns a new object of class '<em>Breadcrumb</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Breadcrumb</em>'.
+	 * @generated
+	 */
+	Breadcrumb createBreadcrumb();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

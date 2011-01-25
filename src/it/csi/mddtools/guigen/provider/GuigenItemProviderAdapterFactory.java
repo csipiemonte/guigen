@@ -3228,6 +3228,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.Breadcrumb} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BreadcrumbItemProvider breadcrumbItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.Breadcrumb}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBreadcrumbAdapter() {
+		if (breadcrumbItemProvider == null) {
+			breadcrumbItemProvider = new BreadcrumbItemProvider(this);
+		}
+
+		return breadcrumbItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3463,6 +3486,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (stdWebResourceModuleItemProvider != null) stdWebResourceModuleItemProvider.dispose();
 		if (repartArtifactItemProvider != null) repartArtifactItemProvider.dispose();
 		if (repartModuleItemProvider != null) repartModuleItemProvider.dispose();
+		if (breadcrumbItemProvider != null) breadcrumbItemProvider.dispose();
 	}
 
 }

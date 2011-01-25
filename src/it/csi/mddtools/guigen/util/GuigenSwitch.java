@@ -1108,6 +1108,14 @@ public class GuigenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GuigenPackage.BREADCRUMB: {
+				Breadcrumb breadcrumb = (Breadcrumb)theEObject;
+				T result = caseBreadcrumb(breadcrumb);
+				if (result == null) result = caseMultiDataWidget(breadcrumb);
+				if (result == null) result = caseWidget(breadcrumb);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -3374,6 +3382,21 @@ public class GuigenSwitch<T> {
 	 * @generated
 	 */
 	public T caseRepartModule(RepartModule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Breadcrumb</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Breadcrumb</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBreadcrumb(Breadcrumb object) {
 		return null;
 	}
 

@@ -8801,6 +8801,106 @@ public interface GuigenPackage extends EPackage {
 	int REPART_MODULE_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.BreadcrumbImpl <em>Breadcrumb</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.BreadcrumbImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBreadcrumb()
+	 * @generated
+	 */
+	int BREADCRUMB = 151;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__NAME = MULTI_DATA_WIDGET__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__LABEL = MULTI_DATA_WIDGET__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__LAYOUT_SPEC = MULTI_DATA_WIDGET__LAYOUT_SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__EVENT_HANDLERS = MULTI_DATA_WIDGET__EVENT_HANDLERS;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__SECURITY_CONSTRAINTS = MULTI_DATA_WIDGET__SECURITY_CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__DEFAULT_VISIBLE = MULTI_DATA_WIDGET__DEFAULT_VISIBLE;
+
+	/**
+	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__DEFAULT_ENABLED = MULTI_DATA_WIDGET__DEFAULT_ENABLED;
+
+	/**
+	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__TOOLTIP = MULTI_DATA_WIDGET__TOOLTIP;
+
+	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__MULTI_DATA_BINDING = MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
+
+	/**
+	 * The number of structural features of the '<em>Breadcrumb</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB_FEATURE_COUNT = MULTI_DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8808,7 +8908,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 151;
+	int WIDGET_DATA_TYPE = 152;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -8818,7 +8918,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 152;
+	int UDLRC_SPEC_CONSTANTS = 153;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -8828,7 +8928,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 153;
+	int METHOD_PROTECTION_TYPES = 154;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -8838,7 +8938,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 154;
+	int EVENT_TYPES = 155;
 
 
 	/**
@@ -8849,7 +8949,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 155;
+	int DATA_LIFETIME_TYPE = 156;
 
 
 	/**
@@ -8860,7 +8960,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 156;
+	int SIMPLE_TYPE_CODES = 157;
 
 
 	/**
@@ -8871,7 +8971,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 157;
+	int PORTAL_NAMES = 158;
 
 
 	/**
@@ -8882,7 +8982,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 158;
+	int TARGET_PLATFORM_CODES = 159;
 
 
 	/**
@@ -8893,7 +8993,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 159;
+	int MESSAGE_SEVERITY = 160;
 
 
 	/**
@@ -8904,7 +9004,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 160;
+	int COMMAND_STYLES = 161;
 
 
 	/**
@@ -8915,7 +9015,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 161;
+	int LOGIC_AGGREGATION_TYPES = 162;
 
 
 	/**
@@ -8926,7 +9026,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 162;
+	int CUSTOM_CARTRIDGE_ID = 163;
 
 
 	/**
@@ -8937,7 +9037,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 163;
+	int COMMAND_FUNCTIONS = 164;
 
 
 	/**
@@ -8948,7 +9048,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 164;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 165;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -8958,7 +9058,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 165;
+	int STD_WEB_RES_MODULE_NAMES = 166;
 
 
 	/**
@@ -8969,7 +9069,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 166;
+	int REPART_MODULE_TYPES = 167;
 
 
 	/**
@@ -13772,6 +13872,16 @@ public interface GuigenPackage extends EPackage {
 	EReference getRepartModule_Artifacts();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Breadcrumb <em>Breadcrumb</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Breadcrumb</em>'.
+	 * @see it.csi.mddtools.guigen.Breadcrumb
+	 * @generated
+	 */
+	EClass getBreadcrumb();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17854,6 +17964,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference REPART_MODULE__ARTIFACTS = eINSTANCE.getRepartModule_Artifacts();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.BreadcrumbImpl <em>Breadcrumb</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.BreadcrumbImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getBreadcrumb()
+		 * @generated
+		 */
+		EClass BREADCRUMB = eINSTANCE.getBreadcrumb();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

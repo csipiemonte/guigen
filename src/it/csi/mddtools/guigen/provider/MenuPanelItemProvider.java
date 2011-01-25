@@ -263,6 +263,11 @@ public class MenuPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMapView()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MENU_PANEL__WIDGETS,
+				 GuigenFactory.eINSTANCE.createBreadcrumb()));
 	}
 
 }
