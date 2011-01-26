@@ -246,6 +246,11 @@ public class FormPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.FORM_PANEL__SUBPANELS,
+				 GuigenFactory.eINSTANCE.createBreadcrumb()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createCommandWidget()));
 
@@ -358,11 +363,6 @@ public class FormPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMapView()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.FORM_PANEL__WIDGETS,
-				 GuigenFactory.eINSTANCE.createBreadcrumb()));
 	}
 
 }

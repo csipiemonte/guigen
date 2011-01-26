@@ -314,11 +314,6 @@ public class WidgetsPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
 				 GuigenFactory.eINSTANCE.createMapView()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.WIDGETS_PANEL__WIDGETS,
-				 GuigenFactory.eINSTANCE.createBreadcrumb()));
 	}
 
 }

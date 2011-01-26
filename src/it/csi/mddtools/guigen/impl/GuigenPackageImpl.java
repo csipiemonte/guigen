@@ -6404,7 +6404,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		clearAppdataCommandEClass.getESuperTypes().add(this.getCommand());
 		mapViewEClass.getESuperTypes().add(this.getDataWidget());
 		stdWebResourceModuleEClass.getESuperTypes().add(this.getWebResourceModule());
-		breadcrumbEClass.getESuperTypes().add(this.getMultiDataWidget());
+		breadcrumbEClass.getESuperTypes().add(this.getPanel());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationAreaEClass, ApplicationArea.class, "ApplicationArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

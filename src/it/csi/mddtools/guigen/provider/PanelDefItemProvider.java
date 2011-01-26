@@ -300,6 +300,11 @@ public class PanelDefItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.PANEL_DEF__PANEL,
+				 GuigenFactory.eINSTANCE.createBreadcrumb()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.PANEL_DEF__PARAMS,
 				 GuigenFactory.eINSTANCE.createAppDataMappingParam()));
 

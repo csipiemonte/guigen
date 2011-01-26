@@ -1111,8 +1111,7 @@ public class GuigenSwitch<T> {
 			case GuigenPackage.BREADCRUMB: {
 				Breadcrumb breadcrumb = (Breadcrumb)theEObject;
 				T result = caseBreadcrumb(breadcrumb);
-				if (result == null) result = caseMultiDataWidget(breadcrumb);
-				if (result == null) result = caseWidget(breadcrumb);
+				if (result == null) result = casePanel(breadcrumb);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

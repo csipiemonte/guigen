@@ -299,6 +299,11 @@ public class ContentPanelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__PANELS,
+				 GuigenFactory.eINSTANCE.createBreadcrumb()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND,
 				 GuigenFactory.eINSTANCE.createONOFFCommand()));
 

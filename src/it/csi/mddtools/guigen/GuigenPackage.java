@@ -8817,7 +8817,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BREADCRUMB__NAME = MULTI_DATA_WIDGET__NAME;
+	int BREADCRUMB__NAME = PANEL__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -8826,7 +8826,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BREADCRUMB__LABEL = MULTI_DATA_WIDGET__LABEL;
+	int BREADCRUMB__LABEL = PANEL__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREADCRUMB__LAYOUT = PANEL__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Layout Spec</b></em>' containment reference.
@@ -8835,61 +8844,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BREADCRUMB__LAYOUT_SPEC = MULTI_DATA_WIDGET__LAYOUT_SPEC;
+	int BREADCRUMB__LAYOUT_SPEC = PANEL__LAYOUT_SPEC;
 
 	/**
-	 * The feature id for the '<em><b>Event Handlers</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Scrollable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BREADCRUMB__EVENT_HANDLERS = MULTI_DATA_WIDGET__EVENT_HANDLERS;
-
-	/**
-	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREADCRUMB__SECURITY_CONSTRAINTS = MULTI_DATA_WIDGET__SECURITY_CONSTRAINTS;
-
-	/**
-	 * The feature id for the '<em><b>Default Visible</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREADCRUMB__DEFAULT_VISIBLE = MULTI_DATA_WIDGET__DEFAULT_VISIBLE;
-
-	/**
-	 * The feature id for the '<em><b>Default Enabled</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREADCRUMB__DEFAULT_ENABLED = MULTI_DATA_WIDGET__DEFAULT_ENABLED;
-
-	/**
-	 * The feature id for the '<em><b>Tooltip</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREADCRUMB__TOOLTIP = MULTI_DATA_WIDGET__TOOLTIP;
-
-	/**
-	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREADCRUMB__MULTI_DATA_BINDING = MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
+	int BREADCRUMB__SCROLLABLE = PANEL__SCROLLABLE;
 
 	/**
 	 * The number of structural features of the '<em>Breadcrumb</em>' class.
@@ -8898,7 +8862,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BREADCRUMB_FEATURE_COUNT = MULTI_DATA_WIDGET_FEATURE_COUNT + 0;
+	int BREADCRUMB_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

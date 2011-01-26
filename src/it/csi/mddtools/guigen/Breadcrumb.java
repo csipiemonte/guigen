@@ -27,5 +27,5 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface Breadcrumb extends MultiDataWidget {
+public interface Breadcrumb extends Panel {
 } // Breadcrumb

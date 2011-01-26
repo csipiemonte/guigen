@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class BreadcrumbImpl extends MultiDataWidgetImpl implements Breadcrumb {
+public class BreadcrumbImpl extends PanelImpl implements Breadcrumb {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
