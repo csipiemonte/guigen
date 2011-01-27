@@ -424,6 +424,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
 				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
 			</interceptor>
+			<interceptor name="paramsInterceptor" class="«getInterceptorsJavaPackage(this)».ParametersInterceptor"/>
 			«IF targetPlatform.enableFatClient-»
 			<interceptor name="preserveUpload" class="«getInterceptorsJavaPackage(this)».PreserveUploadInterceptor">
 				<param name="startMethod">execStartUploadFile</param>
@@ -440,6 +441,8 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="tableSelection" />
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
+				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
+				<interceptor-ref name="paramsInterceptor" />
 				<interceptor-ref name="fileUpload"/>
 				«IF targetPlatform.enableFatClient-»
 				<interceptor-ref name="preserveUpload"/>
