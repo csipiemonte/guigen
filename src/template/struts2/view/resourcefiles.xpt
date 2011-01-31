@@ -275,6 +275,8 @@ Gestione dei pannelli
 	«EXPAND setupStdMessagePanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (StdMessagePanel)this-»
 «ELSEIF this.metaType == UserInfoPanel-»
 	«EXPAND setupUserInfoPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (UserInfoPanel)this-»
+«ELSEIF this.metaType == Breadcrumb-»
+	«EXPAND setupBreadcrumb(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix) FOR (Breadcrumb)this-»
 «ELSEIF this.metaType == UserDefinedPanel-»
 	«EXPAND setupUserDefinedPanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, contextPrefix, pduConf) FOR (UserDefinedPanel)this-»
 «ELSEIF this.metaType == MsgBoxPanel-»
@@ -478,6 +480,16 @@ nel multi panel null->nessun pannello visualizzato
 «DEFINE setupUserInfoPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR UserInfoPanel»
 	«startFragment()»
 	«EXPAND remoteResources::setupUserInfoPanel(model, cp, contextPrefix) FOR this-»
+	«endFragment()»
+«ENDDEFINE»
+
+«REM»
+************** Breadcrumb (filo d'arianna) **************
+«ENDREM»
+
+«DEFINE setupBreadcrumb(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix) FOR Breadcrumb»
+	«startFragment()»
+	«EXPAND remoteResources::setupBreadcrumb(model, cp, contextPrefix) FOR this-»
 	«endFragment()»
 «ENDDEFINE»
 

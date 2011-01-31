@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.AppModule;
 import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
+import it.csi.mddtools.guigen.Breadcrumb;
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
@@ -453,6 +454,8 @@ public class GenUtils {
 			return findAllWidgetsInPanel((MsgBoxPanel)p);
 		else if (p instanceof PanelDefUse)
 			return findAllWidgetsInPanel((PanelDefUse)p);
+		else if (p instanceof Breadcrumb)
+			return new ArrayList<Widget>();
 		else
 			throw new IllegalArgumentException("Tipo pannello non gestito:"+p);
 	}

@@ -649,6 +649,31 @@ Gestione dei PANNELLI
 «ENDDEFINE»
 
 
+«REM»
+************** Breadcrumb (filo d'arianna) **************
+«ENDREM»
+
+«DEFINE setupBreadcrumb(GUIModel model, ContentPanel cp, String contextPrefix) FOR Breadcrumb»
+«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="crumbs").first() AS crumbsAD-»
+<div id="breadCrumbPanel" class="breadCrumbPanel">
+    <!-- elementi statici -->
+    <span class="element"><a href="HomePage.do">«model.structure.appWindow.header.nomeApplicativo»</a></span>
+    <!-- elementi dinamici (legati alla logica di navigazione)  -->
+<s:iterator value="appDatacrumbs" status="breadcrumbStatus">
+	<s:if test="!#breadcrumbStatus.last">
+	<span class="separator"> &raquo; </span>
+    <span class="element"><s:property/></span>
+    </s:if>
+    <s:else>
+    <span class="separator"> &raquo; </span>
+    <span id="currentElement" class="active"><s:property/></span>
+    </s:else>
+</s:iterator>
+</div>
+«ENDLET-»
+«ENDDEFINE»
+
+
 
 «REM»
 ==========================================================================================================================
