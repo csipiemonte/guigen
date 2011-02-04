@@ -147,34 +147,44 @@ String getBaseJavaPath(GUIModel model) :
 
 
 // resourcefiles
+// passare true per risorse remote, false per risorse locali
+// [DM] STDMDD-670: modificatanuova alberatura
 
 String getWebSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
 
-String getRemoteGlobalJslibDir() : 
-	"/ris/utheme/global/jslib/";
-	
-String getLocalGlobalJslibDir() : 
-	"ris/utheme/global/jslib/";
-
-//***passare true per risorse remote, false per risorse locali
 String getPathComponentDir(GUIModel model, boolean remote) : JAVA 
 	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDir(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
 	
-String getRemoteGlobalXthemeDir() : 
-	"/ris/utheme/global/xthemeV1/";
-	
-String getLocalGlobalXthemeDir() : 
-	"ris/utheme/global/xthemeV1/";
-	
-String getRemoteGlobalXstructureDir() : 
-	"/ris/utheme/global/xstructureV1/";
-	
+String getGlobalJslibDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/jslib/";
+
 String getPortalPageInclusionPath() : 
-	"/ris/utheme/global/xstructureV1/include/";
-	
-String getLocalGlobalXstructureDir() : 
-	"ris/utheme/global/xstructureV1/";
+	"/ris/utheme/global/themes/xstructureV1/include/";
+
+String getGlobalExtlibsthemeDir(boolean remote) :
+	(remote ? "/" : "") + "ris/utheme/global/themes/extlibsthemeV1/";
+
+String getGlobalXstructureDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/themes/xstructureV1/";
+
+String getGlobalOpenlayersthemeDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/utheme/global/themes/openlayersthemeV1/";
+
+String getNomeCanale(GUIModel model) :
+	let canale = model.structure.appWindow.header.codCanale.trim() :
+	!isNullOrEmpty(canale) ? canale : "general";
+
+boolean isOldMode() :
+	getProperty("staticResourcesSchemaVersion") == "M1";
+
+boolean isNewMode() :
+	getProperty("staticResourcesSchemaVersion") == "M2";
+
+boolean hasPortalProfile(GUIModel model) :
+	model.targetPlatform.portalProfiles != null && model.targetPlatform.portalProfiles.size > 0;
+
+
 ////////////////////////////////////////////////////////////
 /// Estensioni di layout                                  //
 ////////////////////////////////////////////////////////////

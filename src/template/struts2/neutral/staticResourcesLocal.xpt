@@ -29,33 +29,8 @@ Definizioni generali: header, footer, ecc
 		«ENDFOREACH-»
 		<title>«this.title»</title>
 
-		«IF getProperty("staticResourcesSchemaVersion") == "V2"-»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/globalPortal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/xhtmlStructureUniversal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/general/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/corner/corner.css" media="screen" />
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie6.css" media="screen" />
-		<![endif]-->
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie7.css" media="screen" />
-		<![endif]-->
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»js/jsFunctions.js"></script>
-		«ELSE-»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-		
-		«ENDIF-»
+		«REM»[DM] STDMDD-670: Header markup«ENDREM»
+		«EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, false) FOR this»
 		
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
 
@@ -109,33 +84,8 @@ Definizioni generali: header, footer, ecc
 		«ENDFOREACH-»
 		<title>«this.title»</title>
 
-		«IF getProperty("staticResourcesSchemaVersion") == "V2"-»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/globalPortal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/xhtmlStructureUniversal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/general/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/corner/corner.css" media="screen" />
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie6.css" media="screen" />
-		<![endif]-->
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getLocalGlobalXstructureDir()»css/ie7.css" media="screen" />
-		<![endif]-->
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»js/jsFunctions.js"></script>
-		«ELSE-»
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
-		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie6.css" media="screen" />
-		<![endif]-->
-		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/ie/ie7.css" media="screen" />
-		<![endif]-->
-		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-		
-		«ENDIF-»
+		«REM»[DM] STDMDD-670: Header markup«ENDREM»
+		«EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, false) FOR this»
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("header.staticResourcesLinks.noStruts")»
 
@@ -202,18 +152,3 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 	</body>
 </html>
 «ENDDEFINE»
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
