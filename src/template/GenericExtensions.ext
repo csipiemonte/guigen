@@ -175,6 +175,9 @@ String getNomeCanale(GUIModel model) :
 	let canale = model.structure.appWindow.header.codCanale.trim() :
 	!isNullOrEmpty(canale) ? canale : "general";
 
+boolean checkValidMode(String mode) :
+	!isNullOrEmpty(mode) && (mode == "M1" || mode == "M2");
+
 boolean isOldMode() :
 	getProperty("staticResourcesSchemaVersion") == "M1";
 
