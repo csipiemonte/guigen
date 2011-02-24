@@ -32,6 +32,7 @@ import com.opensymphony.xwork2.ActionContext;
 import «getDTOBaseJavaPackage(model)».*;
 «IF hasGisMap()»
 import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
 «ENDIF»
 
 import «getSecurityJavaPackage(model)».*;
@@ -119,20 +120,22 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 
 		MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 		
-		mappa.getOlMapConfig().setFractionalZoom(true);
-		ArrayList<it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb> listaTmp = mapAdapter«map.mapId.toFirstUpper()»
-				.mergeServiziClient(mappa.getServizioMappa(), mappa
-						.getOlMapConfig().getServiziClient());
+		OpenLayerMapConfig mapCfg=new OpenLayerMapConfig();
+		mapCfg.setServizioCfg(mappa.getOlMapConfig().getServizioCfg());
 		
-		mappa.getOlMapConfig().setServiziClient(listaTmp);
-		for (it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb curService : mappa.getOlMapConfig()
-				.getServiziClient()) {
+		mapCfg.setFractionalZoom(true);
+		ArrayList<it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb> listaTmp = mapAdapterWGTRASPW
+			.mergeServiziClient(mappa.getServizioMappa(), mappa
+			.getOlMapConfig().getServiziClient());
+
+		mapCfg.setServiziClient(listaTmp);
+		for (it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb curService : mapCfg.getServiziClient()) {
 			if (curService instanceof it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS) {
-				mappa.getOlMapConfig().setFractionalZoom(false);
+				mapCfg.setFractionalZoom(false);
 			}
 		}
 		
-		String response = serializer.exclude("*.class").deepSerialize(mappa.getOlMapConfig());
+		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
 
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;
