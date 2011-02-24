@@ -277,10 +277,12 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
 	«IF getActualSecurityModel(this) != null»
 		for (MenuStructure menuStructure : menuMap) {
-			MenuStructure mstr = menuStructure.getSubMenu(menuStructure, menuName);
-			for (MenuStructure subMenu : mstr.getSubmenus()) {
-				if (isMenuVisible(subMenu.getMenuName())) {
-					return true;
+			if (menuName.equals(menuStructure.getMenuName())) {
+				List<MenuStructure> mstr = menuStructure.getSubMenuFlattenList(menuStructure, menuName);
+				for (MenuStructure subMenu : mstr) {
+					if (isMenuVisible(subMenu.getMenuName())) {
+						return true;
+					}
 				}
 			}
 		}
@@ -327,10 +329,12 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 */
 	public boolean isSubMenuActive(String menuName) {
 		for (MenuStructure menuStructure : menuMap) {
-			MenuStructure mstr = menuStructure.getSubMenu(menuStructure, menuName);
-			for (MenuStructure subMenu : mstr.getSubmenus()) {
-				if (isMenuActive(subMenu.getMenuName())) {
-					return true;
+			if (menuName.equals(menuStructure.getMenuName())) {
+				List<MenuStructure> mstr = menuStructure.getSubMenuFlattenList(menuStructure, menuName);
+				for (MenuStructure subMenu : mstr) {
+					if (isMenuActive(subMenu.getMenuName())) {
+						return true;
+					}
 				}
 			}
 		}
@@ -460,14 +464,6 @@ menuMap.add(«topLevelMenu.name»Menu);
 «IF this.submenu.size > 0»
 	«FOREACH this.submenu AS subMenu-»
 	MenuStructure «subMenu.name»Menu = new MenuStructure("«subMenu.name»");
-	«REM»
-	«this.name»SubmenuList.add("«subMenu.name»");
-	subMenu.setSubmenus(submenus);
-	«ENDFOREACH-»
-	submenuMap.put("«this.name»", «this.name»SubmenuList);
-
-	«FOREACH this.submenu AS subMenu-»
-	«ENDREM»
 	«EXPAND submenuList FOR subMenu»
 	«this.name»Menu.getSubmenus().add(«subMenu.name»Menu);
 	«ENDFOREACH-»

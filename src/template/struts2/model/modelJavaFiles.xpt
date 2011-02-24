@@ -465,6 +465,18 @@ public class MenuStructure implements java.io.Serializable{
 		return mn;
 	}
 
+«IF model.targetPlatform.enableRichUIBehavior-»	
+	@JSON(include = false)
+«ENDIF-»
+	public List<MenuStructure> getSubMenuFlattenList(MenuStructure mn, String menuName) {
+		List<MenuStructure> res = new ArrayList<MenuStructure>();
+		res.addAll(mn.getSubmenus());
+		for (MenuStructure menuStructure : mn.getSubmenus()) {
+			res.addAll(menuStructure.getSubMenuFlattenList(menuStructure, menuStructure.getMenuName()));
+		}
+		return res;
+	}
+
 	private List<String> addSubMenu(List<String> allSubMenu,
 			List<MenuStructure> submenus) {
 		for (MenuStructure menuStructure : submenus) {
