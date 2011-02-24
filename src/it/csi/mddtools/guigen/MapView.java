@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * @model
  * @generated
  */
-public interface MapView extends DataWidget {
+public interface MapView extends DataWidget, MultiDataWidget {
 	/**
 	 * Returns the value of the '<em><b>Map Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->

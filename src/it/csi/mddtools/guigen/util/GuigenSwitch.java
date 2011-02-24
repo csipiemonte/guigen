@@ -1061,6 +1061,7 @@ public class GuigenSwitch<T> {
 				MapView mapView = (MapView)theEObject;
 				T result = caseMapView(mapView);
 				if (result == null) result = caseDataWidget(mapView);
+				if (result == null) result = caseMultiDataWidget(mapView);
 				if (result == null) result = caseWidget(mapView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

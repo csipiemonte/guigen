@@ -122,6 +122,7 @@ public class MapViewItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING);
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC);
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC);
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC);
@@ -183,6 +184,7 @@ public class MapViewItemProvider
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
 			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
 			case GuigenPackage.MAP_VIEW__MAX_ENVELOPE_SPEC:
 			case GuigenPackage.MAP_VIEW__SCALE_ENVELOPE_SPEC:
@@ -202,6 +204,11 @@ public class MapViewItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING,
+				 GuigenFactory.eINSTANCE.createAppDataBinding()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -231,6 +238,8 @@ public class MapViewItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == GuigenPackage.Literals.DATA_WIDGET__DATABINDING ||
+			childFeature == GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC;

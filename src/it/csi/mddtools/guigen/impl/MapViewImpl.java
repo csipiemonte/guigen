@@ -6,10 +6,12 @@
  */
 package it.csi.mddtools.guigen.impl;
 
+import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.MapEnvelope;
 import it.csi.mddtools.guigen.MapView;
 
+import it.csi.mddtools.guigen.MultiDataWidget;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMapId <em>Map Id</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getStartEnvelopeSpec <em>Start Envelope Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMaxEnvelopeSpec <em>Max Envelope Spec</em>}</li>
@@ -36,6 +39,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class MapViewImpl extends DataWidgetImpl implements MapView {
+	/**
+	 * The cached value of the '{@link #getMultiDataBinding() <em>Multi Data Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultiDataBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected AppDataBinding multiDataBinding;
+
 	/**
 	 * The default value of the '{@link #getMapId() <em>Map Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -123,6 +136,49 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	protected EClass eStaticClass() {
 		return GuigenPackage.Literals.MAP_VIEW;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AppDataBinding getMultiDataBinding() {
+		return multiDataBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMultiDataBinding(AppDataBinding newMultiDataBinding, NotificationChain msgs) {
+		AppDataBinding oldMultiDataBinding = multiDataBinding;
+		multiDataBinding = newMultiDataBinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING, oldMultiDataBinding, newMultiDataBinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultiDataBinding(AppDataBinding newMultiDataBinding) {
+		if (newMultiDataBinding != multiDataBinding) {
+			NotificationChain msgs = null;
+			if (multiDataBinding != null)
+				msgs = ((InternalEObject)multiDataBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING, null, msgs);
+			if (newMultiDataBinding != null)
+				msgs = ((InternalEObject)newMultiDataBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING, null, msgs);
+			msgs = basicSetMultiDataBinding(newMultiDataBinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING, newMultiDataBinding, newMultiDataBinding));
 	}
 
 	/**
@@ -304,6 +360,8 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
+				return basicSetMultiDataBinding(null, msgs);
 			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
 				return basicSetStartEnvelopeSpec(null, msgs);
 			case GuigenPackage.MAP_VIEW__MAX_ENVELOPE_SPEC:
@@ -322,6 +380,8 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
+				return getMultiDataBinding();
 			case GuigenPackage.MAP_VIEW__MAP_ID:
 				return getMapId();
 			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
@@ -344,6 +404,9 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
+				setMultiDataBinding((AppDataBinding)newValue);
+				return;
 			case GuigenPackage.MAP_VIEW__MAP_ID:
 				setMapId((String)newValue);
 				return;
@@ -371,6 +434,9 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
+				setMultiDataBinding((AppDataBinding)null);
+				return;
 			case GuigenPackage.MAP_VIEW__MAP_ID:
 				setMapId(MAP_ID_EDEFAULT);
 				return;
@@ -398,6 +464,8 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:
+				return multiDataBinding != null;
 			case GuigenPackage.MAP_VIEW__MAP_ID:
 				return MAP_ID_EDEFAULT == null ? mapId != null : !MAP_ID_EDEFAULT.equals(mapId);
 			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
@@ -410,6 +478,38 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return numLevels != NUM_LEVELS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == MultiDataWidget.class) {
+			switch (derivedFeatureID) {
+				case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING: return GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == MultiDataWidget.class) {
+			switch (baseFeatureID) {
+				case GuigenPackage.MULTI_DATA_WIDGET__MULTI_DATA_BINDING: return GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

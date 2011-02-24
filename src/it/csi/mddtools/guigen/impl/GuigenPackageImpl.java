@@ -6403,6 +6403,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		tableCustomizationPDefValEClass.getESuperTypes().add(this.getPDefParamVal());
 		clearAppdataCommandEClass.getESuperTypes().add(this.getCommand());
 		mapViewEClass.getESuperTypes().add(this.getDataWidget());
+		mapViewEClass.getESuperTypes().add(this.getMultiDataWidget());
 		stdWebResourceModuleEClass.getESuperTypes().add(this.getWebResourceModule());
 		breadcrumbEClass.getESuperTypes().add(this.getPanel());
 

@@ -590,7 +590,8 @@ context DataWidget if (this.databinding != null && this.metaType != Table) WARNI
 	widgetDataBindingCorrispondenceCheck(this);
 
 // il TextField necessita del binding solo se ha un KEY_PRESSED attivo => suggestion
-context MultiDataWidget if (metaType != TextField) ERROR "E' necessario impostare il collection-binding "+loc() :
+// la MapView necessita di collection binding solo in caso di acetate layer (geometrie)
+context MultiDataWidget if (metaType != TextField && metaType != MapView) ERROR "E' necessario impostare il collection-binding "+loc() :
 	multiDataBinding != null;
 
 context TextField if (this.eventHandlers.select(eh|eh.eventType == EventTypes::KEY_PRESSED).size > 0) 

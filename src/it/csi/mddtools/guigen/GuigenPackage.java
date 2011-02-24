@@ -8416,13 +8416,22 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW__REQUIRED = DATA_WIDGET__REQUIRED;
 
 	/**
+	 * The feature id for the '<em><b>Multi Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Map Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW__MAP_ID = DATA_WIDGET_FEATURE_COUNT + 0;
+	int MAP_VIEW__MAP_ID = DATA_WIDGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Start Envelope Spec</b></em>' containment reference.
@@ -8431,7 +8440,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW__START_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 1;
+	int MAP_VIEW__START_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Max Envelope Spec</b></em>' containment reference.
@@ -8440,7 +8449,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW__MAX_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 2;
+	int MAP_VIEW__MAX_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Scale Envelope Spec</b></em>' containment reference.
@@ -8449,7 +8458,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW__SCALE_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 3;
+	int MAP_VIEW__SCALE_ENVELOPE_SPEC = DATA_WIDGET_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Num Levels</b></em>' attribute.
@@ -8458,7 +8467,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW__NUM_LEVELS = DATA_WIDGET_FEATURE_COUNT + 4;
+	int MAP_VIEW__NUM_LEVELS = DATA_WIDGET_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Map View</em>' class.
@@ -8467,7 +8476,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
+	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
