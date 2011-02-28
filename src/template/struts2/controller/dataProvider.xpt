@@ -56,6 +56,14 @@
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE jsonSerializerInstantiation(String varName, boolean jtsAware) FOR GUIModel-»
+«IF jtsAware-»
+		GeometryTransformer geoTransformer = new GeometryTransformer();
+		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer().transform(geoTransformer, Geometry.class);
+«ELSE-»
+		flexjson.JSONSerializer «varName» = new flexjson.JSONSerializer();
+«ENDIF-»
+«ENDDEFINE»
 
 «REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
 «DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
@@ -76,7 +84,7 @@
 		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
 		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR this»
 		// serializza
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND jsonSerializerInstantiation("serializer", (this.metaType==MapView ? true : false)) FOR model»
 		«IF this.metaType == TreeView»
 		String response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
 		«ELSE-»
@@ -121,7 +129,7 @@
 			com.opensymphony.xwork2.ActionContext.getContext();
 		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForColumnMultiValue(this, pduc)»");
 		// serializza
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND jsonSerializerInstantiation("serializer", false) FOR model»
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
 		// imposta l'input stream di risposta
 		java.io.ByteArrayInputStream bais;

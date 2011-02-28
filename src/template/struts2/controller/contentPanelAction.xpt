@@ -4,6 +4,7 @@
 «IMPORT template::struts2::security»
 «IMPORT template::struts2::typeConversion»
 «IMPORT template::struts2::eventHandlers»
+«IMPORT template::struts2::controller::dataProvider»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 
@@ -33,6 +34,8 @@ import «getDTOBaseJavaPackage(model)».*;
 «IF hasGisMap()»
 import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+import com.vividsolutions.jts.geom.*;
 «ENDIF»
 
 import «getSecurityJavaPackage(model)».*;
@@ -116,7 +119,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	public String map«map.mapId.toFirstUpper()»Setup() throws Exception {
 
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
 
 		MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 		
@@ -151,7 +154,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	public String refreshMap«map.mapId.toFirstUpper()»SingleService() throws Exception {
 
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
 		
 		try {
 			int indice = -1;
@@ -229,7 +232,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	public String calcolaStartEnvelope«map.mapId.toFirstUpper()»() throws Exception {
 
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
 		try {
 
 			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
@@ -268,7 +271,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	
 	public String calcolaMaxEnvelope«map.mapId.toFirstUpper()»() throws Exception {
 
-		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
 		try {
 			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
 			
