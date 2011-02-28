@@ -138,6 +138,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			}
 		}
 		
+		«IF map.multiDataBinding!=null-»
+		«toJavaType(map.multiDataBinding.appData.type, model)» dati=get«getAppDataPropertyName(map.multiDataBinding.appData).toFirstUpper()»();
+		if (null!=dati && dati.size()>0) {
+			mapCfg.setDatiStartup(dati);
+		}
+		«ENDIF-»
+		
 		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
 
 		// imposta l'input stream di risposta
