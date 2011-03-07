@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Widget#isDefaultVisible <em>Default Visible</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#isDefaultEnabled <em>Default Enabled</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Widget#getTooltip <em>Tooltip</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Widget#isEnableEnrichment <em>Enable Enrichment</em>}</li>
  * </ul>
  * </p>
  *
@@ -268,5 +269,34 @@ public interface Widget extends EObject {
 	 * @generated
 	 */
 	void setTooltip(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Enable Enrichment</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a <i>true</i> e se le features ricche sono abilitate (nella 
+	 * <b>TargetPlatform</b>) allora il widget sar&agrave; arricchito, altrimenti non
+	 * sar&agrave; applicato nessun arricchimento.
+	 * Il valore di default è <i>true</i> 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Enable Enrichment</em>' attribute.
+	 * @see #setEnableEnrichment(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getWidget_EnableEnrichment()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isEnableEnrichment();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Widget#isEnableEnrichment <em>Enable Enrichment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enable Enrichment</em>' attribute.
+	 * @see #isEnableEnrichment()
+	 * @generated
+	 */
+	void setEnableEnrichment(boolean value);
 
 } // Widget

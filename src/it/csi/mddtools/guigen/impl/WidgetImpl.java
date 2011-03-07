@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultVisible <em>Default Visible</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultEnabled <em>Default Enabled</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getTooltip <em>Tooltip</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isEnableEnrichment <em>Enable Enrichment</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,6 +179,26 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * @ordered
 	 */
 	protected String tooltip = TOOLTIP_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableEnrichment()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLE_ENRICHMENT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnableEnrichment()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enableEnrichment = ENABLE_ENRICHMENT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -375,6 +396,27 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnableEnrichment() {
+		return enableEnrichment;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnableEnrichment(boolean newEnableEnrichment) {
+		boolean oldEnableEnrichment = enableEnrichment;
+		enableEnrichment = newEnableEnrichment;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGET__ENABLE_ENRICHMENT, oldEnableEnrichment, enableEnrichment));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -412,6 +454,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return isDefaultEnabled();
 			case GuigenPackage.WIDGET__TOOLTIP:
 				return getTooltip();
+			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
+				return isEnableEnrichment();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -451,6 +495,9 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__TOOLTIP:
 				setTooltip((String)newValue);
 				return;
+			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
+				setEnableEnrichment((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -487,6 +534,9 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__TOOLTIP:
 				setTooltip(TOOLTIP_EDEFAULT);
 				return;
+			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
+				setEnableEnrichment(ENABLE_ENRICHMENT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -515,6 +565,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 				return defaultEnabled != DEFAULT_ENABLED_EDEFAULT;
 			case GuigenPackage.WIDGET__TOOLTIP:
 				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
+			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
+				return enableEnrichment != ENABLE_ENRICHMENT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -539,6 +591,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 		result.append(defaultEnabled);
 		result.append(", tooltip: ");
 		result.append(tooltip);
+		result.append(", enableEnrichment: ");
+		result.append(enableEnrichment);
 		result.append(')');
 		return result.toString();
 	}

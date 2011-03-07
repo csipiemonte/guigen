@@ -1829,6 +1829,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWidget_EnableEnrichment() {
+		return (EAttribute)widgetEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCommandWidget() {
 		return commandWidgetEClass;
 	}
@@ -5714,6 +5723,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(widgetEClass, WIDGET__DEFAULT_VISIBLE);
 		createEAttribute(widgetEClass, WIDGET__DEFAULT_ENABLED);
 		createEAttribute(widgetEClass, WIDGET__TOOLTIP);
+		createEAttribute(widgetEClass, WIDGET__ENABLE_ENRICHMENT);
 
 		commandWidgetEClass = createEClass(COMMAND_WIDGET);
 		createEAttribute(commandWidgetEClass, COMMAND_WIDGET__FUNCTION_SPECIFIER);
@@ -6463,6 +6473,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getWidget_DefaultVisible(), ecorePackage.getEBoolean(), "defaultVisible", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWidget_DefaultEnabled(), ecorePackage.getEBoolean(), "defaultEnabled", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWidget_Tooltip(), ecorePackage.getEString(), "tooltip", null, 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWidget_EnableEnrichment(), ecorePackage.getEBoolean(), "enableEnrichment", "true", 0, 1, Widget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(commandWidgetEClass, CommandWidget.class, "CommandWidget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCommandWidget_FunctionSpecifier(), this.getCommandFunctions(), "functionSpecifier", "0", 0, 1, CommandWidget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7213,7 +7224,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.widgets"
-		   });											
+		   });												
 		addAnnotation
 		  (commandWidgetEClass, 
 		   source, 
@@ -7829,7 +7840,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>TabSetPanel</b> &egrave; un pannello utilizzato realizzare strutture organizzate\r\na <i>tab</i>. Prevede due sezioni visibili:\r\n<ol>\r\n<li>la lista di &quot; linguette &quot; che servono per attivare i vari <i>tab</i> \r\n(con evidenza visiva del tab correntemente selezionato)</li>\r\n<li>la sezione in cui viene visualizzato il contenuto del <i>tab</i> correntemente selezionato.</li>\r\n</ol>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di pannello disponibili.\r\n</p>"
-		   });																																																																																																																																																																																					
+		   });																																																																																																																																																																																						
 		addAnnotation
 		  (dialogPanelEClass, 
 		   source, 
@@ -7887,7 +7898,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	protected void createUiwidgetdocAnnotations() {
-		String source = "uiwidgetdoc";																																																																				
+		String source = "uiwidgetdoc";																																																																					
 		addAnnotation
 		  (buttonEClass, 
 		   source, 
@@ -7984,7 +7995,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	protected void createUilayoutdocAnnotations() {
-		String source = "uilayoutdoc";																																																																																																																																							
+		String source = "uilayoutdoc";																																																																																																																																								
 		addAnnotation
 		  (horizontalFlowPanelLayoutEClass, 
 		   source, 
