@@ -79,7 +79,15 @@ public enum EventTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_EXPANDED(5, "NODE_EXPANDED", "NODE_EXPANDED");
+	NODE_EXPANDED(5, "NODE_EXPANDED", "NODE_EXPANDED"), /**
+	 * The '<em><b>EDIT COMMITTED</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EDIT_COMMITTED_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EDIT_COMMITTED(5, "EDIT_COMMITTED", "EDIT_COMMITTED");
 
 	/**
 	 * The '<em><b>CLICKED</b></em>' literal value.
@@ -195,6 +203,22 @@ public enum EventTypes implements Enumerator {
 	public static final int NODE_EXPANDED_VALUE = 5;
 
 	/**
+	 * The '<em><b>EDIT COMMITTED</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Rappresenta l'evento di conferma di un'attivit&agrave; di editing complesso.
+	 * Valido solo per <b>MapView</b>: serve per recepire le modifiche effettuate
+	 * sulla mappa.
+	 * <!-- end-model-doc -->
+	 * @see #EDIT_COMMITTED
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EDIT_COMMITTED_VALUE = 5;
+
+	/**
 	 * An array of all the '<em><b>Event Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -208,6 +232,7 @@ public enum EventTypes implements Enumerator {
 			FOCUS_LOST,
 			KEY_PRESSED,
 			NODE_EXPANDED,
+			EDIT_COMMITTED,
 		};
 
 	/**
