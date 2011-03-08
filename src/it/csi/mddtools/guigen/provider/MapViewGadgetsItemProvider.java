@@ -91,7 +91,7 @@ public class MapViewGadgetsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_layerSwitcherPropertyCategory"),
 				 null));
 	}
 
@@ -113,7 +113,7 @@ public class MapViewGadgetsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_layerSwitcherPropertyCategory"),
 				 null));
 	}
 
@@ -135,7 +135,7 @@ public class MapViewGadgetsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_layerSwitcherPropertyCategory"),
 				 null));
 	}
 
@@ -157,7 +157,7 @@ public class MapViewGadgetsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_layerSwitcherPropertyCategory"),
 				 null));
 	}
 
@@ -179,7 +179,7 @@ public class MapViewGadgetsItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_layerSwitcherPropertyCategory"),
 				 null));
 	}
 

@@ -33,6 +33,7 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/FOCUS_LOST"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/KEY_PRESSED"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/NODE_EXPANDED"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//EventTypes/EDIT_COMMITTED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="guigen.ecore#//DataLifetimeType">
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//DataLifetimeType/USER_ACTION"/>
@@ -123,10 +124,12 @@
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsicore"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsienricher"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extjscsimdd"/>
-      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xtheme"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extlibstheme"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xstructure"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/areabrand"/>
-      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/xareabrand"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/extlibsareabrand"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/openlayerstheme"/>
+      <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/openlayersareabrand"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/enrichments"/>
       <genEnumLiterals ecoreEnumLiteral="guigen.ecore#//StdWebResModuleNames/globalinclusions"/>
     </genEnums>
@@ -189,6 +192,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultVisible"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/defaultEnabled"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/tooltip"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Widget/enableEnrichment"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//CommandWidget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//CommandWidget/functionSpecifier"/>
@@ -215,6 +219,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/keySelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/valueSelector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/omitHeaderValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//ComboBox/fieldLength"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Table">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//Table/columnModel"/>
@@ -682,6 +687,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/maxEnvelopeSpec"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/scaleEnvelopeSpec"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//MapView/numLevels"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/editDataBinding"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//MapView/gadgets"/>
     </genClasses>
     <genClasses ecoreClass="guigen.ecore#//Point">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//Point/x"/>
@@ -714,6 +721,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guigen.ecore#//RepartModule/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guigen.ecore#//RepartModule/artifacts"/>
+    </genClasses>
+    <genClasses ecoreClass="guigen.ecore#//Breadcrumb"/>
+    <genClasses ecoreClass="guigen.ecore#//MapViewGadgets">
+      <genFeatures createChild="false" propertyCategory="layerSwitcher" ecoreFeature="ecore:EAttribute guigen.ecore#//MapViewGadgets/layerSwitcher"/>
+      <genFeatures createChild="false" propertyCategory="layerSwitcher" ecoreFeature="ecore:EAttribute guigen.ecore#//MapViewGadgets/backgroundMapMapServiceName"/>
+      <genFeatures createChild="false" propertyCategory="layerSwitcher" ecoreFeature="ecore:EAttribute guigen.ecore#//MapViewGadgets/backgroundMapSwitcherLabel"/>
+      <genFeatures createChild="false" propertyCategory="layerSwitcher" ecoreFeature="ecore:EAttribute guigen.ecore#//MapViewGadgets/backgroundPhotoAerialMapServiceName"/>
+      <genFeatures createChild="false" propertyCategory="layerSwitcher" ecoreFeature="ecore:EAttribute guigen.ecore#//MapViewGadgets/backgroundPhotoAerialSwitcherLabel"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
