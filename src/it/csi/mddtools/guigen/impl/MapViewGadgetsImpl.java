@@ -28,6 +28,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#getBackgroundMapSwitcherLabel <em>Background Map Switcher Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#getBackgroundPhotoAerialMapServiceName <em>Background Photo Aerial Map Service Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#getBackgroundPhotoAerialSwitcherLabel <em>Background Photo Aerial Switcher Label</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isPointEditingActive <em>Point Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isLineEditingActive <em>Line Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isPolygonEditingActive <em>Polygon Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl#isModifyEditingActive <em>Modify Editing Active</em>}</li>
  * </ul>
  * </p>
  *
@@ -133,6 +137,86 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 	 * @ordered
 	 */
 	protected String backgroundPhotoAerialSwitcherLabel = BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPointEditingActive() <em>Point Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPointEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean POINT_EDITING_ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPointEditingActive() <em>Point Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPointEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean pointEditingActive = POINT_EDITING_ACTIVE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isLineEditingActive() <em>Line Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLineEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LINE_EDITING_ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isLineEditingActive() <em>Line Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLineEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean lineEditingActive = LINE_EDITING_ACTIVE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPolygonEditingActive() <em>Polygon Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPolygonEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean POLYGON_EDITING_ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPolygonEditingActive() <em>Polygon Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPolygonEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean polygonEditingActive = POLYGON_EDITING_ACTIVE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isModifyEditingActive() <em>Modify Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isModifyEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean MODIFY_EDITING_ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isModifyEditingActive() <em>Modify Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isModifyEditingActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean modifyEditingActive = MODIFY_EDITING_ACTIVE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +347,90 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isPointEditingActive() {
+		return pointEditingActive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPointEditingActive(boolean newPointEditingActive) {
+		boolean oldPointEditingActive = pointEditingActive;
+		pointEditingActive = newPointEditingActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE, oldPointEditingActive, pointEditingActive));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLineEditingActive() {
+		return lineEditingActive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLineEditingActive(boolean newLineEditingActive) {
+		boolean oldLineEditingActive = lineEditingActive;
+		lineEditingActive = newLineEditingActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE, oldLineEditingActive, lineEditingActive));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isPolygonEditingActive() {
+		return polygonEditingActive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPolygonEditingActive(boolean newPolygonEditingActive) {
+		boolean oldPolygonEditingActive = polygonEditingActive;
+		polygonEditingActive = newPolygonEditingActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE, oldPolygonEditingActive, polygonEditingActive));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isModifyEditingActive() {
+		return modifyEditingActive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModifyEditingActive(boolean newModifyEditingActive) {
+		boolean oldModifyEditingActive = modifyEditingActive;
+		modifyEditingActive = newModifyEditingActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE, oldModifyEditingActive, modifyEditingActive));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -276,6 +444,14 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 				return getBackgroundPhotoAerialMapServiceName();
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL:
 				return getBackgroundPhotoAerialSwitcherLabel();
+			case GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE:
+				return isPointEditingActive();
+			case GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE:
+				return isLineEditingActive();
+			case GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE:
+				return isPolygonEditingActive();
+			case GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE:
+				return isModifyEditingActive();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -302,6 +478,18 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 				return;
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL:
 				setBackgroundPhotoAerialSwitcherLabel((String)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE:
+				setPointEditingActive((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE:
+				setLineEditingActive((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE:
+				setPolygonEditingActive((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE:
+				setModifyEditingActive((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,6 +518,18 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL:
 				setBackgroundPhotoAerialSwitcherLabel(BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL_EDEFAULT);
 				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE:
+				setPointEditingActive(POINT_EDITING_ACTIVE_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE:
+				setLineEditingActive(LINE_EDITING_ACTIVE_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE:
+				setPolygonEditingActive(POLYGON_EDITING_ACTIVE_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE:
+				setModifyEditingActive(MODIFY_EDITING_ACTIVE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -352,6 +552,14 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 				return BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME_EDEFAULT == null ? backgroundPhotoAerialMapServiceName != null : !BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME_EDEFAULT.equals(backgroundPhotoAerialMapServiceName);
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL:
 				return BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL_EDEFAULT == null ? backgroundPhotoAerialSwitcherLabel != null : !BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL_EDEFAULT.equals(backgroundPhotoAerialSwitcherLabel);
+			case GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE:
+				return pointEditingActive != POINT_EDITING_ACTIVE_EDEFAULT;
+			case GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE:
+				return lineEditingActive != LINE_EDITING_ACTIVE_EDEFAULT;
+			case GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE:
+				return polygonEditingActive != POLYGON_EDITING_ACTIVE_EDEFAULT;
+			case GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE:
+				return modifyEditingActive != MODIFY_EDITING_ACTIVE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -376,6 +584,14 @@ public class MapViewGadgetsImpl extends EObjectImpl implements MapViewGadgets {
 		result.append(backgroundPhotoAerialMapServiceName);
 		result.append(", backgroundPhotoAerialSwitcherLabel: ");
 		result.append(backgroundPhotoAerialSwitcherLabel);
+		result.append(", pointEditingActive: ");
+		result.append(pointEditingActive);
+		result.append(", lineEditingActive: ");
+		result.append(lineEditingActive);
+		result.append(", polygonEditingActive: ");
+		result.append(polygonEditingActive);
+		result.append(", modifyEditingActive: ");
+		result.append(modifyEditingActive);
 		result.append(')');
 		return result.toString();
 	}

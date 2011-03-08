@@ -9163,13 +9163,49 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL = 4;
 
 	/**
+	 * The feature id for the '<em><b>Point Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Line Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Polygon Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Modify Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE = 8;
+
+	/**
 	 * The number of structural features of the '<em>Map View Gadgets</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW_GADGETS_FEATURE_COUNT = 5;
+	int MAP_VIEW_GADGETS_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -14251,6 +14287,50 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#isPointEditingActive <em>Point Editing Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Point Editing Active</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#isPointEditingActive()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_PointEditingActive();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#isLineEditingActive <em>Line Editing Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Line Editing Active</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#isLineEditingActive()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_LineEditingActive();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#isPolygonEditingActive <em>Polygon Editing Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Polygon Editing Active</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#isPolygonEditingActive()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_PolygonEditingActive();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#isModifyEditingActive <em>Modify Editing Active</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Modify Editing Active</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#isModifyEditingActive()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_ModifyEditingActive();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18417,6 +18497,38 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL = eINSTANCE.getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel();
+
+		/**
+		 * The meta object literal for the '<em><b>Point Editing Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE = eINSTANCE.getMapViewGadgets_PointEditingActive();
+
+		/**
+		 * The meta object literal for the '<em><b>Line Editing Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE = eINSTANCE.getMapViewGadgets_LineEditingActive();
+
+		/**
+		 * The meta object literal for the '<em><b>Polygon Editing Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE = eINSTANCE.getMapViewGadgets_PolygonEditingActive();
+
+		/**
+		 * The meta object literal for the '<em><b>Modify Editing Active</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE = eINSTANCE.getMapViewGadgets_ModifyEditingActive();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

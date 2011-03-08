@@ -5581,6 +5581,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMapViewGadgets_PointEditingActive() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_LineEditingActive() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_PolygonEditingActive() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_ModifyEditingActive() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -6360,6 +6396,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_MAP_SWITCHER_LABEL);
 		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME);
 		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -7121,6 +7161,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getMapViewGadgets_BackgroundMapSwitcherLabel(), ecorePackage.getEString(), "backgroundMapSwitcherLabel", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMapViewGadgets_BackgroundPhotoAerialMapServiceName(), ecorePackage.getEString(), "backgroundPhotoAerialMapServiceName", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel(), ecorePackage.getEString(), "backgroundPhotoAerialSwitcherLabel", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_PointEditingActive(), ecorePackage.getEBoolean(), "pointEditingActive", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_LineEditingActive(), ecorePackage.getEBoolean(), "lineEditingActive", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_PolygonEditingActive(), ecorePackage.getEBoolean(), "polygonEditingActive", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_ModifyEditingActive(), ecorePackage.getEBoolean(), "modifyEditingActive", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

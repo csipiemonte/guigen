@@ -69,6 +69,10 @@ public class MapViewGadgetsItemProvider
 			addBackgroundMapSwitcherLabelPropertyDescriptor(object);
 			addBackgroundPhotoAerialMapServiceNamePropertyDescriptor(object);
 			addBackgroundPhotoAerialSwitcherLabelPropertyDescriptor(object);
+			addPointEditingActivePropertyDescriptor(object);
+			addLineEditingActivePropertyDescriptor(object);
+			addPolygonEditingActivePropertyDescriptor(object);
+			addModifyEditingActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -184,6 +188,94 @@ public class MapViewGadgetsItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Point Editing Active feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPointEditingActivePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapViewGadgets_pointEditingActive_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapViewGadgets_pointEditingActive_feature", "_UI_MapViewGadgets_type"),
+				 GuigenPackage.Literals.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_editingPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Line Editing Active feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLineEditingActivePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapViewGadgets_lineEditingActive_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapViewGadgets_lineEditingActive_feature", "_UI_MapViewGadgets_type"),
+				 GuigenPackage.Literals.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_editingPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Polygon Editing Active feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPolygonEditingActivePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapViewGadgets_polygonEditingActive_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapViewGadgets_polygonEditingActive_feature", "_UI_MapViewGadgets_type"),
+				 GuigenPackage.Literals.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_editingPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Modify Editing Active feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addModifyEditingActivePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapViewGadgets_modifyEditingActive_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapViewGadgets_modifyEditingActive_feature", "_UI_MapViewGadgets_type"),
+				 GuigenPackage.Literals.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_editingPropertyCategory"),
+				 null));
+	}
+
+	/**
 	 * This returns MapViewGadgets.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -225,6 +317,10 @@ public class MapViewGadgetsItemProvider
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_MAP_SWITCHER_LABEL:
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME:
 			case GuigenPackage.MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL:
+			case GuigenPackage.MAP_VIEW_GADGETS__POINT_EDITING_ACTIVE:
+			case GuigenPackage.MAP_VIEW_GADGETS__LINE_EDITING_ACTIVE:
+			case GuigenPackage.MAP_VIEW_GADGETS__POLYGON_EDITING_ACTIVE:
+			case GuigenPackage.MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

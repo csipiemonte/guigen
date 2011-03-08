@@ -21,6 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapSwitcherLabel <em>Background Map Switcher Label</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialMapServiceName <em>Background Photo Aerial Map Service Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialSwitcherLabel <em>Background Photo Aerial Switcher Label</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isPointEditingActive <em>Point Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isLineEditingActive <em>Line Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isPolygonEditingActive <em>Polygon Editing Active</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapViewGadgets#isModifyEditingActive <em>Modify Editing Active</em>}</li>
  * </ul>
  * </p>
  *
@@ -159,5 +163,109 @@ public interface MapViewGadgets extends EObject {
 	 * @generated
 	 */
 	void setBackgroundPhotoAerialSwitcherLabel(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Point Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Point Editing Active</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Point Editing Active</em>' attribute.
+	 * @see #setPointEditingActive(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets_PointEditingActive()
+	 * @model
+	 * @generated
+	 */
+	boolean isPointEditingActive();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapViewGadgets#isPointEditingActive <em>Point Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Point Editing Active</em>' attribute.
+	 * @see #isPointEditingActive()
+	 * @generated
+	 */
+	void setPointEditingActive(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Line Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Line Editing Active</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Line Editing Active</em>' attribute.
+	 * @see #setLineEditingActive(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets_LineEditingActive()
+	 * @model
+	 * @generated
+	 */
+	boolean isLineEditingActive();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapViewGadgets#isLineEditingActive <em>Line Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Line Editing Active</em>' attribute.
+	 * @see #isLineEditingActive()
+	 * @generated
+	 */
+	void setLineEditingActive(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Polygon Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Polygon Editing Active</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Polygon Editing Active</em>' attribute.
+	 * @see #setPolygonEditingActive(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets_PolygonEditingActive()
+	 * @model
+	 * @generated
+	 */
+	boolean isPolygonEditingActive();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapViewGadgets#isPolygonEditingActive <em>Polygon Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Polygon Editing Active</em>' attribute.
+	 * @see #isPolygonEditingActive()
+	 * @generated
+	 */
+	void setPolygonEditingActive(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Modify Editing Active</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Modify Editing Active</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Modify Editing Active</em>' attribute.
+	 * @see #setModifyEditingActive(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets_ModifyEditingActive()
+	 * @model
+	 * @generated
+	 */
+	boolean isModifyEditingActive();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapViewGadgets#isModifyEditingActive <em>Modify Editing Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Modify Editing Active</em>' attribute.
+	 * @see #isModifyEditingActive()
+	 * @generated
+	 */
+	void setModifyEditingActive(boolean value);
 
 } // MapViewGadgets
