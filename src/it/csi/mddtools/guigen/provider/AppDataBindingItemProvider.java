@@ -147,6 +147,9 @@ public class AppDataBindingItemProvider
 		else if(container.getName().equals("multiDataBinding")){
 			label += "collection ";
 		}
+		else if (container.getName().endsWith("DataBinding")){
+			label += container.getName().substring(0,container.getName().length()-"DataBinding".length())+" ";
+		}
 		else label+= "???";
 		//
 		if (binding.getAppData()!=null){

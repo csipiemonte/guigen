@@ -3251,6 +3251,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.MapViewGadgets} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MapViewGadgetsItemProvider mapViewGadgetsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.MapViewGadgets}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMapViewGadgetsAdapter() {
+		if (mapViewGadgetsItemProvider == null) {
+			mapViewGadgetsItemProvider = new MapViewGadgetsItemProvider(this);
+		}
+
+		return mapViewGadgetsItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3487,6 +3510,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (repartArtifactItemProvider != null) repartArtifactItemProvider.dispose();
 		if (repartModuleItemProvider != null) repartModuleItemProvider.dispose();
 		if (breadcrumbItemProvider != null) breadcrumbItemProvider.dispose();
+		if (mapViewGadgetsItemProvider != null) mapViewGadgetsItemProvider.dispose();
 	}
 
 }

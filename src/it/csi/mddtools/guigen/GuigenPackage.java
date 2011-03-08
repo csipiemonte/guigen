@@ -8686,13 +8686,31 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW__NUM_LEVELS = DATA_WIDGET_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Edit Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__EDIT_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Gadgets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__GADGETS = DATA_WIDGET_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Map View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 6;
+	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
@@ -9090,6 +9108,70 @@ public interface GuigenPackage extends EPackage {
 	int BREADCRUMB_FEATURE_COUNT = PANEL_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl <em>Map View Gadgets</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.MapViewGadgetsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapViewGadgets()
+	 * @generated
+	 */
+	int MAP_VIEW_GADGETS = 152;
+
+	/**
+	 * The feature id for the '<em><b>Layer Switcher</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__LAYER_SWITCHER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Background Map Map Service Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__BACKGROUND_MAP_MAP_SERVICE_NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Background Map Switcher Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__BACKGROUND_MAP_SWITCHER_LABEL = 2;
+
+	/**
+	 * The feature id for the '<em><b>Background Photo Aerial Map Service Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME = 3;
+
+	/**
+	 * The feature id for the '<em><b>Background Photo Aerial Switcher Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL = 4;
+
+	/**
+	 * The number of structural features of the '<em>Map View Gadgets</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW_GADGETS_FEATURE_COUNT = 5;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9097,7 +9179,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 152;
+	int WIDGET_DATA_TYPE = 153;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -9107,7 +9189,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 153;
+	int UDLRC_SPEC_CONSTANTS = 154;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -9117,7 +9199,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 154;
+	int METHOD_PROTECTION_TYPES = 155;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -9127,7 +9209,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 155;
+	int EVENT_TYPES = 156;
 
 
 	/**
@@ -9138,7 +9220,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 156;
+	int DATA_LIFETIME_TYPE = 157;
 
 
 	/**
@@ -9149,7 +9231,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 157;
+	int SIMPLE_TYPE_CODES = 158;
 
 
 	/**
@@ -9160,7 +9242,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 158;
+	int PORTAL_NAMES = 159;
 
 
 	/**
@@ -9171,7 +9253,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 159;
+	int TARGET_PLATFORM_CODES = 160;
 
 
 	/**
@@ -9182,7 +9264,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 160;
+	int MESSAGE_SEVERITY = 161;
 
 
 	/**
@@ -9193,7 +9275,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 161;
+	int COMMAND_STYLES = 162;
 
 
 	/**
@@ -9204,7 +9286,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 162;
+	int LOGIC_AGGREGATION_TYPES = 163;
 
 
 	/**
@@ -9215,7 +9297,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 163;
+	int CUSTOM_CARTRIDGE_ID = 164;
 
 
 	/**
@@ -9226,7 +9308,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 164;
+	int COMMAND_FUNCTIONS = 165;
 
 
 	/**
@@ -9237,7 +9319,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 165;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 166;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -9247,7 +9329,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 166;
+	int STD_WEB_RES_MODULE_NAMES = 167;
 
 
 	/**
@@ -9258,7 +9340,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 167;
+	int REPART_MODULE_TYPES = 168;
 
 
 	/**
@@ -13804,6 +13886,28 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getMapView_NumLevels();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapView#getEditDataBinding <em>Edit Data Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Edit Data Binding</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getEditDataBinding()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EReference getMapView_EditDataBinding();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.MapView#getGadgets <em>Gadgets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Gadgets</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#getGadgets()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EReference getMapView_Gadgets();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Point <em>Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14080,6 +14184,71 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBreadcrumb();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.MapViewGadgets <em>Map View Gadgets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Map View Gadgets</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets
+	 * @generated
+	 */
+	EClass getMapViewGadgets();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#isLayerSwitcher <em>Layer Switcher</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Layer Switcher</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#isLayerSwitcher()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_LayerSwitcher();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapMapServiceName <em>Background Map Map Service Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Map Map Service Name</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapMapServiceName()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_BackgroundMapMapServiceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapSwitcherLabel <em>Background Map Switcher Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Map Switcher Label</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#getBackgroundMapSwitcherLabel()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_BackgroundMapSwitcherLabel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialMapServiceName <em>Background Photo Aerial Map Service Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Photo Aerial Map Service Name</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialMapServiceName()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_BackgroundPhotoAerialMapServiceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialSwitcherLabel <em>Background Photo Aerial Switcher Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Photo Aerial Switcher Label</em>'.
+	 * @see it.csi.mddtools.guigen.MapViewGadgets#getBackgroundPhotoAerialSwitcherLabel()
+	 * @see #getMapViewGadgets()
+	 * @generated
+	 */
+	EAttribute getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -17960,6 +18129,22 @@ public interface GuigenPackage extends EPackage {
 		EAttribute MAP_VIEW__NUM_LEVELS = eINSTANCE.getMapView_NumLevels();
 
 		/**
+		 * The meta object literal for the '<em><b>Edit Data Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_VIEW__EDIT_DATA_BINDING = eINSTANCE.getMapView_EditDataBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Gadgets</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAP_VIEW__GADGETS = eINSTANCE.getMapView_Gadgets();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -18182,6 +18367,56 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass BREADCRUMB = eINSTANCE.getBreadcrumb();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.MapViewGadgetsImpl <em>Map View Gadgets</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.MapViewGadgetsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMapViewGadgets()
+		 * @generated
+		 */
+		EClass MAP_VIEW_GADGETS = eINSTANCE.getMapViewGadgets();
+
+		/**
+		 * The meta object literal for the '<em><b>Layer Switcher</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__LAYER_SWITCHER = eINSTANCE.getMapViewGadgets_LayerSwitcher();
+
+		/**
+		 * The meta object literal for the '<em><b>Background Map Map Service Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__BACKGROUND_MAP_MAP_SERVICE_NAME = eINSTANCE.getMapViewGadgets_BackgroundMapMapServiceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Background Map Switcher Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__BACKGROUND_MAP_SWITCHER_LABEL = eINSTANCE.getMapViewGadgets_BackgroundMapSwitcherLabel();
+
+		/**
+		 * The meta object literal for the '<em><b>Background Photo Aerial Map Service Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME = eINSTANCE.getMapViewGadgets_BackgroundPhotoAerialMapServiceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Background Photo Aerial Switcher Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL = eINSTANCE.getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

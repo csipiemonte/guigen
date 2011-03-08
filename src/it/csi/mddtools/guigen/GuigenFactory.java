@@ -1268,6 +1268,15 @@ public interface GuigenFactory extends EFactory {
 	Breadcrumb createBreadcrumb();
 
 	/**
+	 * Returns a new object of class '<em>Map View Gadgets</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Map View Gadgets</em>'.
+	 * @generated
+	 */
+	MapViewGadgets createMapViewGadgets();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

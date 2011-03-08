@@ -199,6 +199,7 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.REPART_ARTIFACT: return createRepartArtifact();
 			case GuigenPackage.REPART_MODULE: return createRepartModule();
 			case GuigenPackage.BREADCRUMB: return createBreadcrumb();
+			case GuigenPackage.MAP_VIEW_GADGETS: return createMapViewGadgets();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1672,6 +1673,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	public Breadcrumb createBreadcrumb() {
 		BreadcrumbImpl breadcrumb = new BreadcrumbImpl();
 		return breadcrumb;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MapViewGadgets createMapViewGadgets() {
+		MapViewGadgetsImpl mapViewGadgets = new MapViewGadgetsImpl();
+		return mapViewGadgets;
 	}
 
 	/**

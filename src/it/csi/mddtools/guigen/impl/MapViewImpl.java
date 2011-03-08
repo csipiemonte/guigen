@@ -11,6 +11,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.MapEnvelope;
 import it.csi.mddtools.guigen.MapView;
 
+import it.csi.mddtools.guigen.MapViewGadgets;
 import it.csi.mddtools.guigen.MultiDataWidget;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -33,6 +34,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getMaxEnvelopeSpec <em>Max Envelope Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getScaleEnvelopeSpec <em>Scale Envelope Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getNumLevels <em>Num Levels</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getEditDataBinding <em>Edit Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getGadgets <em>Gadgets</em>}</li>
  * </ul>
  * </p>
  *
@@ -118,6 +121,26 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	 * @ordered
 	 */
 	protected int numLevels = NUM_LEVELS_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getEditDataBinding() <em>Edit Data Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditDataBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected AppDataBinding editDataBinding;
+
+	/**
+	 * The cached value of the '{@link #getGadgets() <em>Gadgets</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGadgets()
+	 * @generated
+	 * @ordered
+	 */
+	protected MapViewGadgets gadgets;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -357,6 +380,92 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AppDataBinding getEditDataBinding() {
+		return editDataBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetEditDataBinding(AppDataBinding newEditDataBinding, NotificationChain msgs) {
+		AppDataBinding oldEditDataBinding = editDataBinding;
+		editDataBinding = newEditDataBinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING, oldEditDataBinding, newEditDataBinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditDataBinding(AppDataBinding newEditDataBinding) {
+		if (newEditDataBinding != editDataBinding) {
+			NotificationChain msgs = null;
+			if (editDataBinding != null)
+				msgs = ((InternalEObject)editDataBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING, null, msgs);
+			if (newEditDataBinding != null)
+				msgs = ((InternalEObject)newEditDataBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING, null, msgs);
+			msgs = basicSetEditDataBinding(newEditDataBinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING, newEditDataBinding, newEditDataBinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MapViewGadgets getGadgets() {
+		return gadgets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetGadgets(MapViewGadgets newGadgets, NotificationChain msgs) {
+		MapViewGadgets oldGadgets = gadgets;
+		gadgets = newGadgets;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__GADGETS, oldGadgets, newGadgets);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGadgets(MapViewGadgets newGadgets) {
+		if (newGadgets != gadgets) {
+			NotificationChain msgs = null;
+			if (gadgets != null)
+				msgs = ((InternalEObject)gadgets).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__GADGETS, null, msgs);
+			if (newGadgets != null)
+				msgs = ((InternalEObject)newGadgets).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.MAP_VIEW__GADGETS, null, msgs);
+			msgs = basicSetGadgets(newGadgets, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__GADGETS, newGadgets, newGadgets));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -368,6 +477,10 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return basicSetMaxEnvelopeSpec(null, msgs);
 			case GuigenPackage.MAP_VIEW__SCALE_ENVELOPE_SPEC:
 				return basicSetScaleEnvelopeSpec(null, msgs);
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+				return basicSetEditDataBinding(null, msgs);
+			case GuigenPackage.MAP_VIEW__GADGETS:
+				return basicSetGadgets(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -392,6 +505,10 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return getScaleEnvelopeSpec();
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
 				return getNumLevels();
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+				return getEditDataBinding();
+			case GuigenPackage.MAP_VIEW__GADGETS:
+				return getGadgets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -421,6 +538,12 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return;
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
 				setNumLevels((Integer)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+				setEditDataBinding((AppDataBinding)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__GADGETS:
+				setGadgets((MapViewGadgets)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -452,6 +575,12 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
 				setNumLevels(NUM_LEVELS_EDEFAULT);
 				return;
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+				setEditDataBinding((AppDataBinding)null);
+				return;
+			case GuigenPackage.MAP_VIEW__GADGETS:
+				setGadgets((MapViewGadgets)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -476,6 +605,10 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return scaleEnvelopeSpec != null;
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
 				return numLevels != NUM_LEVELS_EDEFAULT;
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+				return editDataBinding != null;
+			case GuigenPackage.MAP_VIEW__GADGETS:
+				return gadgets != null;
 		}
 		return super.eIsSet(featureID);
 	}

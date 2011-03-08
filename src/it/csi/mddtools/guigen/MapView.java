@@ -20,6 +20,8 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.MapView#getMaxEnvelopeSpec <em>Max Envelope Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getScaleEnvelopeSpec <em>Scale Envelope Spec</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getNumLevels <em>Num Levels</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#getEditDataBinding <em>Edit Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#getGadgets <em>Gadgets</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,5 +159,57 @@ public interface MapView extends DataWidget, MultiDataWidget {
 	 * @generated
 	 */
 	void setNumLevels(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Edit Data Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Edit Data Binding</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Edit Data Binding</em>' containment reference.
+	 * @see #setEditDataBinding(AppDataBinding)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_EditDataBinding()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AppDataBinding getEditDataBinding();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#getEditDataBinding <em>Edit Data Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Edit Data Binding</em>' containment reference.
+	 * @see #getEditDataBinding()
+	 * @generated
+	 */
+	void setEditDataBinding(AppDataBinding value);
+
+	/**
+	 * Returns the value of the '<em><b>Gadgets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Gadgets</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Gadgets</em>' containment reference.
+	 * @see #setGadgets(MapViewGadgets)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_Gadgets()
+	 * @model containment="true"
+	 * @generated
+	 */
+	MapViewGadgets getGadgets();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#getGadgets <em>Gadgets</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Gadgets</em>' containment reference.
+	 * @see #getGadgets()
+	 * @generated
+	 */
+	void setGadgets(MapViewGadgets value);
 
 } // MapView

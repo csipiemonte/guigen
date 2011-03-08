@@ -83,6 +83,7 @@ import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.LogicAggregationTypes;
 import it.csi.mddtools.guigen.MapEnvelope;
 import it.csi.mddtools.guigen.MapView;
+import it.csi.mddtools.guigen.MapViewGadgets;
 import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.MenuItem;
 import it.csi.mddtools.guigen.MenuPanel;
@@ -1254,6 +1255,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EClass breadcrumbEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mapViewGadgetsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -5267,6 +5275,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMapView_EditDataBinding() {
+		return (EReference)mapViewEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMapView_Gadgets() {
+		return (EReference)mapViewEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPoint() {
 		return pointEClass;
 	}
@@ -5494,6 +5520,60 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EClass getBreadcrumb() {
 		return breadcrumbEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMapViewGadgets() {
+		return mapViewGadgetsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_LayerSwitcher() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_BackgroundMapMapServiceName() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_BackgroundMapSwitcherLabel() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_BackgroundPhotoAerialMapServiceName() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel() {
+		return (EAttribute)mapViewGadgetsEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -6237,6 +6317,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(mapViewEClass, MAP_VIEW__MAX_ENVELOPE_SPEC);
 		createEReference(mapViewEClass, MAP_VIEW__SCALE_ENVELOPE_SPEC);
 		createEAttribute(mapViewEClass, MAP_VIEW__NUM_LEVELS);
+		createEReference(mapViewEClass, MAP_VIEW__EDIT_DATA_BINDING);
+		createEReference(mapViewEClass, MAP_VIEW__GADGETS);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
@@ -6271,6 +6353,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(repartModuleEClass, REPART_MODULE__ARTIFACTS);
 
 		breadcrumbEClass = createEClass(BREADCRUMB);
+
+		mapViewGadgetsEClass = createEClass(MAP_VIEW_GADGETS);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__LAYER_SWITCHER);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_MAP_MAP_SERVICE_NAME);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_MAP_SWITCHER_LABEL);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_MAP_SERVICE_NAME);
+		createEAttribute(mapViewGadgetsEClass, MAP_VIEW_GADGETS__BACKGROUND_PHOTO_AERIAL_SWITCHER_LABEL);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -6989,6 +7078,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getMapView_MaxEnvelopeSpec(), this.getMapEnvelope(), null, "maxEnvelopeSpec", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapView_ScaleEnvelopeSpec(), this.getMapEnvelope(), null, "scaleEnvelopeSpec", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMapView_NumLevels(), ecorePackage.getEInt(), "numLevels", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMapView_EditDataBinding(), this.getAppDataBinding(), null, "editDataBinding", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMapView_Gadgets(), this.getMapViewGadgets(), null, "gadgets", null, 0, 1, MapView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), ecorePackage.getEDouble(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7023,6 +7114,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getRepartModule_Artifacts(), this.getRepartArtifact(), null, "artifacts", null, 1, -1, RepartModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(breadcrumbEClass, Breadcrumb.class, "Breadcrumb", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(mapViewGadgetsEClass, MapViewGadgets.class, "MapViewGadgets", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMapViewGadgets_LayerSwitcher(), ecorePackage.getEBoolean(), "layerSwitcher", "false", 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_BackgroundMapMapServiceName(), ecorePackage.getEString(), "backgroundMapMapServiceName", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_BackgroundMapSwitcherLabel(), ecorePackage.getEString(), "backgroundMapSwitcherLabel", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_BackgroundPhotoAerialMapServiceName(), ecorePackage.getEString(), "backgroundPhotoAerialMapServiceName", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMapViewGadgets_BackgroundPhotoAerialSwitcherLabel(), ecorePackage.getEString(), "backgroundPhotoAerialSwitcherLabel", null, 0, 1, MapViewGadgets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");

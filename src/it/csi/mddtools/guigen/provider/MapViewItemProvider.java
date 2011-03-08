@@ -126,6 +126,8 @@ public class MapViewItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC);
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC);
 			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC);
+			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__EDIT_DATA_BINDING);
+			childrenFeatures.add(GuigenPackage.Literals.MAP_VIEW__GADGETS);
 		}
 		return childrenFeatures;
 	}
@@ -188,6 +190,8 @@ public class MapViewItemProvider
 			case GuigenPackage.MAP_VIEW__START_ENVELOPE_SPEC:
 			case GuigenPackage.MAP_VIEW__MAX_ENVELOPE_SPEC:
 			case GuigenPackage.MAP_VIEW__SCALE_ENVELOPE_SPEC:
+			case GuigenPackage.MAP_VIEW__EDIT_DATA_BINDING:
+			case GuigenPackage.MAP_VIEW__GADGETS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -224,6 +228,16 @@ public class MapViewItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC,
 				 GuigenFactory.eINSTANCE.createMapEnvelope()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MAP_VIEW__EDIT_DATA_BINDING,
+				 GuigenFactory.eINSTANCE.createAppDataBinding()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.MAP_VIEW__GADGETS,
+				 GuigenFactory.eINSTANCE.createMapViewGadgets()));
 	}
 
 	/**
@@ -240,6 +254,7 @@ public class MapViewItemProvider
 		boolean qualify =
 			childFeature == GuigenPackage.Literals.DATA_WIDGET__DATABINDING ||
 			childFeature == GuigenPackage.Literals.MULTI_DATA_WIDGET__MULTI_DATA_BINDING ||
+			childFeature == GuigenPackage.Literals.MAP_VIEW__EDIT_DATA_BINDING ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__START_ENVELOPE_SPEC ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__MAX_ENVELOPE_SPEC ||
 			childFeature == GuigenPackage.Literals.MAP_VIEW__SCALE_ENVELOPE_SPEC;
