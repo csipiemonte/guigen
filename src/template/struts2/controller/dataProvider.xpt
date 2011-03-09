@@ -68,24 +68,39 @@
 «REM»deve essere chiamato solo se è specificato il collection-binding«ENDREM»
 «DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiDataWidget-»
 «IF this.multiDataBinding!=null-»
+	«EXPAND dataProviderMethod(model, cp, this, "DATASET", contextPrefix, pduc) FOR this.multiDataBinding»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MapView-»
+«IF this.multiDataBinding!=null-»
+	«EXPAND dataProviderMethod(model, cp, this, "ACETATELAYER", contextPrefix, pduc) FOR this.multiDataBinding»
+«ENDIF-»
+«IF this.editDataBinding!=null-»
+	«EXPAND dataProviderMethod(model, cp, this, "EDITINGLAYER", contextPrefix, pduc) FOR this.editDataBinding»
+«ENDIF-»
+«ENDDEFINE»
+
+
+«DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, MultiDataWidget widget, String datasetCode, String contextPrefix, PDefUseConfig pduc) FOR AppDataBinding-»
 	/**
-	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi
-	 * al multi-data-binding relativo al widget «getFullID(this, contextPrefix)».
+	 * Prepara l'input stream referenziato dal result "provideData" con i valori relativi 
+	 * al data-binding relativo al dataset «datasetCode» del widget «getFullID(widget, contextPrefix)».
 	 * @return sempre il result "provideData"
 	 */
 	@SkipValidation 
 	@FatClientOnly
-	public String «getDataProviderMethodName(this, "DATASET", contextPrefix)» () throws CommandExecutionException {
-	«LET multiDataBinding.appData.type AS appdataType-»
+	public String «getDataProviderMethodName(widget, datasetCode, contextPrefix)» () throws CommandExecutionException {
+	«LET this.appData.type AS appdataType-»
 	
 		// reperisce il dato da serializzare
 		com.opensymphony.xwork2.ActionContext ctx = 
 			com.opensymphony.xwork2.ActionContext.getContext();
-		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(this, contextPrefix, pduc)»");
-		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR this»
+		Object dataToProvide = ctx.getValueStack().findValue("«getOGNLForWidgetMultiValue(widget, contextPrefix, pduc)»");
+		«EXPAND arrangeDataToProvide(model, cp, contextPrefix) FOR widget»
 		// serializza
-		«EXPAND jsonSerializerInstantiation("serializer", (this.metaType==MapView ? true : false)) FOR model»
-		«IF this.metaType == TreeView»
+		«EXPAND jsonSerializerInstantiation("serializer", (widget.metaType==MapView ? true : false)) FOR model»
+		«IF widget.metaType == TreeView»
 		String response = serializer.exclude("*.class").deepSerialize(((it.csi.custom.component.tree.base.TreeNodeBase) dataToProvide).getChildren());
 		«ELSE-»
 		String response = serializer.exclude("*.class").deepSerialize(dataToProvide);
@@ -105,10 +120,9 @@
 		}
 	«ENDLET-»
 	}
-	«IF this.metaType == Table»
-		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) this).columnModel.columns.select(c | c.multiDataBinding != null)»
+	«IF widget.metaType == Table»
+		«EXPAND dataProviderMethod(model, cp, contextPrefix, pduc) FOREACH ((Table) widget).columnModel.columns.select(c | c.multiDataBinding != null)»
 	«ENDIF»
-«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE dataProviderMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Column-»
