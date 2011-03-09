@@ -430,8 +430,9 @@ context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSe
 context MapView ERROR "E' necessario impostare l'id della mappa da visualizzare:"+loc() :
 	!isNullOrEmpty(mapId);
 	
-context MapView ERROR "Ad una mappa si può associare un solo evento di tipo CLICKED:"+loc() :
-	this.eventHandlers.size == 0 || (this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size == 1 && this.eventHandlers.select(e|e.eventType != EventTypes::CLICKED).size == 0);
+context MapView ERROR "Ad una mappa si può associare un solo evento di tipo CLICKED e/o un evento di tipo EDIT_COMMITTED:"+loc() :
+	this.eventHandlers.size == 0 || 
+	this.eventHandlers.select(evh|evh.eventType != EventTypes::CLICKED && evh.eventType != EventTypes::EDIT_COMMITTED).size==0;
 
 context MapView ERROR "E' necessario specificare il value-binding per la mappa:"+loc() :
 	this.databinding != null;	
