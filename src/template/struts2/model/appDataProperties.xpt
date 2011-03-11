@@ -31,6 +31,7 @@
 
 
 «DEFINE appDataProperty(GUIModel model, ContentPanel cp, boolean expandVisitorFieldValidator) FOR ApplicationData»
+«EXPAND propertyConversion(model, cp) FOR this»
 «IF this.lifetimeExtent==DataLifetimeType::USER_ACTION-»
 «EXPAND appDataPropertyActionScoped(model, cp, expandVisitorFieldValidator) FOR this-»
 «ELSE-»
@@ -65,4 +66,8 @@
 	}
 «ENDDEFINE»
 
-
+«DEFINE propertyConversion(GUIModel model, ContentPanel cp) FOR ApplicationData-»
+«IF jsonBasedType(type)-»
+	@TypeConversion(rule = ConversionRule.COLLECTION, converter = "«getTypeConverterJavaPackage(model)».JSONConverter")
+«ENDIF-»
+«ENDDEFINE»

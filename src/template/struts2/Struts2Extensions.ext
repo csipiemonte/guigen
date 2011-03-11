@@ -573,7 +573,18 @@ boolean typeHandleNullValue(SimpleType type) :
   				(code == guigen::SimpleTypeCodes::HOURS)    ||
   				(code == guigen::SimpleTypeCodes::TREE_NODE);
 
+boolean jsonBasedType(Type type) :
+	false;
+	
+boolean jsonBasedType(ComplexType type) :
+	let ct = (ComplexType)type :
+	let fqnAnnotation = ct.typeAnnotation.selectFirst(ta|ta.language=="java").fqn :
+		(fqnAnnotation != null && fqnAnnotation == "it.csi.jeegia.jeegfw.dto.jeegweb.query.BaseResultDatarow")  
+	;
 
+boolean jsonBasedType(TypedArray type) :
+	jsonBasedType(type.componentType);
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
 

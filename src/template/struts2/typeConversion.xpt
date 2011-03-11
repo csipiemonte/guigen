@@ -53,6 +53,11 @@ STRUTS2 CUSTOM TYPE CONVERTER CLASSES
 «REM»Genera le classi dei convertitori«ENDREM»
 «DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
 	«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR this»
+	«LET (List[ContentPanel])(structure.appWindow.appArea.getAllContentPanels()) AS allCP-»
+	«IF allCP.select(cp|cp.hasGisMap()==true).size>0 -»
+	«EXPAND jsonConverterClassFile(skip_component_dir_creation) FOR this»
+	«ENDIF-»
+	«ENDLET-»
 	«EXPAND udtConverters FOR this»
 «ENDDEFINE»
 
@@ -446,5 +451,81 @@ public class CsiDateTimeComparator implements Comparator<String>, java.io.Serial
 	}
 
 }
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE jsonConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/JSONConverter.java"»package «getTypeConverterJavaPackage(this)»;
+
+import it.csi.splugesf.jtsutil.utils.json.GeometryObjectFactory;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+
+import java.util.Map;
+
+import org.apache.struts2.util.StrutsTypeConverter;
+
+import com.opensymphony.xwork2.util.TypeConversionException;
+import com.vividsolutions.jts.geom.Geometry;
+
+import flexjson.JSONException;
+
+/**
+ * Custom Type Converter per i tipi numerici.
+ * 
+ * @author [GUIGEN]
+ */
+public class JSONConverter extends StrutsTypeConverter {
+
+	/**
+	 * 
+	 * @param  context
+	 * @param  values
+	 * @param  toClass
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertFromString(java.util.Map, java.lang.String[], java.lang.Class)
+	 */
+	@Override
+	public Object convertFromString(Map context, String[] values, Class toClass) {
+		if (values != null && values.length > 0 && values[0] != null
+				&& values[0].trim().length() > 0) {
+			String s = values[0].trim();
+			
+			try {
+				Object ris = null;
+				// inserire qui la deserializzazione
+				flexjson.JSONDeserializer deserializer = new flexjson.JSONDeserializer();
+				deserializer.use(Geometry.class, new it.csi.splugesf.jtsutil.utils.json.GeometryObjectFactory());
+				ris = deserializer.deserialize(s);
+				return ris;
+				
+			} catch (JSONException e) {
+				throw new TypeConversionException(e);
+			}
+
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param
+	 * @param
+	 * @return
+	 * @see org.apache.struts2.util.StrutsTypeConverter#convertToString(java.util.Map, java.lang.Object)
+	 */
+	@Override
+	public String convertToString(Map context, Object o) {
+		String jsonSerialization = "";
+		// inserire qui la seralizzazion json
+		GeometryTransformer geoTransformer = new GeometryTransformer();
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer()
+				.transform(geoTransformer, Geometry.class);
+		jsonSerialization = serializer.exclude("*.class").deepSerialize(o);
+		return jsonSerialization;
+	}
+
+}
+
 «ENDFILE»
 «ENDDEFINE»
