@@ -264,12 +264,42 @@ Ext.onReady( function() {
 											projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
 											clickEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)».do',
 											refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»]
+												«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+											,
+											editingEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)».do',
+											refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
+											editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»'
+												«ENDIF-»
+											«EXPAND MapViewGadgetConfig FOR this.gadgets»
 											«ENDIF»					
 										}).init()};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
 «ENDDEFINE»
 
+«DEFINE MapViewGadgetConfig FOR MapViewGadgets-»
+«LET (MapView)eContainer AS mapview-»
+	«IF this != null-»
+											// configura gadget della mappa
+		«IF layerSwitcher-»
+											,
+											// switch sfondo
+											layerSwitcher: «jsLiteralValue(layerSwitcher)»,
+											backgroundMapMapServiceName: «jsLiteralValue(this.backgroundMapMapServiceName)»,
+											backgroundMapSwitcherLabel: «jsLiteralValue(this.backgroundMapSwitcherLabel)»,
+											backgroundPhotoAerialMapServiceName: «jsLiteralValue(this.backgroundPhotoAerialMapServiceName)»,
+											backgroundPhotoAerialSwitcherLabel: «jsLiteralValue(this.backgroundPhotoAerialSwitcherLabel)»
+		«ENDIF-»
+		«IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+											,										
+											// funzioni di editing
+											pointEditingActive: «jsLiteralValue(this.pointEditingActive)»,
+											lineEditingActive: «jsLiteralValue(this.lineEditingActive)»,
+											polygonEditingActive: «jsLiteralValue(this.lineEditingActive)»
+		«ENDIF-»
+	«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
 
 «REM»
 File di configurazione del caricamento risorse per tag csiui:header
