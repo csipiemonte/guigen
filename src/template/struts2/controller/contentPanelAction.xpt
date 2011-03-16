@@ -146,6 +146,12 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			mapCfg.setDatiStartup(dati);
 		}
 		«ENDIF-»
+		«IF map.editDataBinding!=null-»
+		«toJavaType(map.editDataBinding.appData.type, model)» datiEditing=get«getAppDataPropertyName(map.editDataBinding.appData).toFirstUpper()»();
+		if (null!=datiEditing && datiEditing.size()>0) {
+			mapCfg.setDatiEditing(datiEditing);
+		}
+		«ENDIF-»
 		
 		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
 
