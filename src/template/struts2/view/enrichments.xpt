@@ -235,6 +235,7 @@ Ext.onReady( function() {
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
+	«IF enableEnrichment==true-»
 	«IF (!(databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray))-»
 	/// arricchimento per «this.metaType.name» [«name»]: autonarrowing
@@ -244,6 +245,7 @@ Ext.onReady( function() {
 			 «required ? "false" : "true"»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addNarrowingTo«name.toFirstUpper()»);
 	«ENDIF»
+	«ENDIF-»
 «ENDIF»
 «ENDDEFINE»
 
