@@ -160,6 +160,7 @@ Ext.onReady( function() {
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
+	«IF enableEnrichment==true-»
 	/// arricchimento per «this.metaType.name» [«name»]: tooltip header di colonna
 	var «name»Tips = [
 	«IF this.databinding!=null-»
@@ -173,6 +174,7 @@ Ext.onReady( function() {
 			)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", enhanceGrid«name.toFirstUpper()»);
 	«ENDLET-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextField-»
