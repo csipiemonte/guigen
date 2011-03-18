@@ -248,9 +248,9 @@ Ext.onReady( function() {
 «ENDDEFINE»
 
 «DEFINE toolTipEnrichments(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
-«IF widgets.select(w|!isNullOrEmpty(w.tooltip)).size>0-»
+«IF widgets.select(w|(!isNullOrEmpty(w.tooltip) && w.enableEnrichment==true)).size>0-»
 	/// arricchimento per «this.metaType.name» [«getFullID(this, contextPrefix)»]: aggiunta tooltip su label
-	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|!isNullOrEmpty(w.tooltip)) AS currWidg SEPARATOR ","»
+	var «getFullID(this, contextPrefix)»Tips = [«FOREACH widgets.select(w|(!isNullOrEmpty(w.tooltip) && w.enableEnrichment==true)) AS currWidg SEPARATOR ","»
 		{id:'«getFullID(currWidg,contextPrefix)»Lbl', tip:«jsLiteralValue(currWidg.tooltip)»}«ENDFOREACH-»
 	];
 	var addLblTipsTo«getFullID(this,contextPrefix).toFirstUpper()» = function(){uiNRichLib.addTooltipsByIDNRich(«getFullID(this, contextPrefix)»Tips)};
