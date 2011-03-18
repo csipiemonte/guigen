@@ -152,9 +152,11 @@ Ext.onReady( function() {
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Calendar-»
+«IF enableEnrichment==true-»
 	/// arricchimento per «this.metaType.name» [«name»]: aggiunta datepicker
 	var addDateTo«name.toFirstUpper()» = function(){uiNRichLib.addDatePickerNRich("«getWidgetName(this, contextPrefix)»", «required ? "true" : "false"»)};
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addDateTo«name.toFirstUpper()»);
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
