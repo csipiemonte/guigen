@@ -188,6 +188,7 @@ Ext.onReady( function() {
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
+	«IF enableEnrichment==true-»
 	/// arricchimento di base per «this.metaType.name» [«name»]
 	var addBasicEnrichmentTo«name.toFirstUpper()» =  
 		function(){uiNRichLib.basicTextFieldNRich(
@@ -196,6 +197,7 @@ Ext.onReady( function() {
 			 '«toJavaType(this.dataType,model)»', 
 			 null)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addBasicEnrichmentTo«name.toFirstUpper()»);
+	«ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
 
