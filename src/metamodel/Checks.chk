@@ -733,7 +733,11 @@ context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può esse
 context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget "+loc() :
 	this.targetWidgets != null && this.targetWidgets.size>0;
 
-
+context RefreshViewCommand WARNING "I pannelli indicati come target di refresh non sono disgiunti; "+
+	"elenco dei pannelli che hanno almeno un contenitore già referenziato:"+getRefreshViewConflicts(this)+","+loc() :
+	let conflicts = getRefreshViewConflicts(this):
+	conflicts == null || conflicts.size == 0;
+	
 ////////////////////////////////////////////////////////////////////////////////////////
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////

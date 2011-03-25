@@ -235,6 +235,29 @@ boolean canResolveColumnBinding(Column c, String selectorPath) :
 		getSelectedField(null,bindingType, selectorPath)!= null;
 
 ////////////////////////////////////////////////////////////
+/// Estensioni legate a commands                          //
+////////////////////////////////////////////////////////////
+Boolean isContainedInOneOf(Panel p, List[Panel] otherPanels) :
+	otherPanels.exists(op | contains(op,p));
+
+Boolean contains(Panel p1, Panel p2) :
+	false;
+	
+Boolean contains(FormPanel p1, Panel p2) :
+	p1.subpanels.contains(p2) ||
+	p1.subpanels.exists(sp|contains(sp,p2));
+
+Boolean contains(MultiPanel p1, Panel p2) :
+	p1.panels.contains(p2) ||
+	p1.panels.exists(sp|contains(sp,p2));
+
+List[Panel] getRefreshViewConflicts(RefreshViewCommand rwc) :
+	let targetPanels = rwc.targetPanels :
+	targetPanels
+	.select(tp| tp.isContainedInOneOf(targetPanels.select(tp2|tp2 != tp))).name;
+
+
+////////////////////////////////////////////////////////////
 /// Estensioni di utilita'                                //
 ////////////////////////////////////////////////////////////
 
