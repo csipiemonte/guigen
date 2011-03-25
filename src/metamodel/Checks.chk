@@ -1,6 +1,7 @@
 import guigen;
 
 extension org::openarchitectureware::util::stdlib::naming;
+extension org::openarchitectureware::util::stdlib::io;
 extension template::GenericExtensions;
 extension template::struts2::Struts2Extensions;
 
@@ -737,7 +738,24 @@ context RefreshViewCommand WARNING "I pannelli indicati come target di refresh n
 	"elenco dei pannelli che hanno almeno un contenitore già referenziato:"+getRefreshViewConflicts(this)+","+loc() :
 	let conflicts = getRefreshViewConflicts(this):
 	conflicts == null || conflicts.size == 0;
+
+context ContentPanel if (states!=null && states.states.size >0) WARNING "I widget "+getNeverShownWidgets().name
+		+" non sono mai visibili in nessuno ScreenState."+loc() :
+	let nsw = getNeverShownWidgets() :
+	nsw==null || nsw.size==0;
+
+context ContentPanel if (states!=null && states.states.size >0) WARNING "I widget "+getNeverEnabledWidgets().name
+		+" non sono mai abilitati in nessuno ScreenState."+loc() :
+	let nsw = getNeverEnabledWidgets() :
+	nsw==null || nsw.size==0;
 	
+// le catene di comandi associate all' onAppInit devoono avere come foglie o un JumpCommand o un JumpExtCommand
+context ApplicationArea if (this.onInitCommand!=null) ERROR "la logica di inizializzazione dell'applicazione "+
+	" (ApplicationArea.onInitCommand) deve avere come esito ultimo solo comandi di Jump o JumpExt, invece contiene anche:"
+		+getLeafCommands().select(c|c.metaType != JumpCommand && c.metaType != JumpExtCommand)+"; "+loc():
+	let leafs = getLeafCommands() :
+	leafs == null || leafs.select(c|c.metaType != JumpCommand && c.metaType != JumpExtCommand).size==0;
+
 ////////////////////////////////////////////////////////////////////////////////////////
 /// constraints su security model
 ////////////////////////////////////////////////////////////////////////////////////////

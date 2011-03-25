@@ -209,6 +209,30 @@ String getApplicationName(GUIModel model) :
 boolean isRemote() :
 	!isNullOrEmpty(getProperty("guigen.remoteresources")) ? (getProperty("guigen.remoteresources") == "true" ? true : false ) : false;
 
+////////////////////////////////////////////////////////////
+/// Estensioni legate a logiche                           //
+////////////////////////////////////////////////////////////
+List[Command] getLeafCommands(ApplicationArea area) :
+	if (area.onInitCommand == null) then
+		null
+	else
+		getLeafCommands(area.onInitCommand);
+		
+List[Command] getLeafCommands(Command cmd) :
+	cmd; // for leafs...
+	
+List[Command] getLeafCommands(SequenceCommand cmd) :
+	cmd.commands.getLeafCommands();
+
+List[Command] getLeafCommands(ExecCommand cmd) :
+	cmd.results.getLeafCommands();
+
+List[Command] getLeafCommands(CommandOutcome co) :
+	co.command.getLeafCommands();
+
+List[Command] getLeafCommands(ChkEditStatusCommand cmd) :
+	{cmd.doIfChanged.getLeafCommands(),cmd.doIfNotChanged.getLeafCommands()};
+
 
 ////////////////////////////////////////////////////////////
 /// Estensioni legate a binding                           //
