@@ -235,8 +235,24 @@ boolean canResolveColumnBinding(Column c, String selectorPath) :
 		getSelectedField(null,bindingType, selectorPath)!= null;
 
 ////////////////////////////////////////////////////////////
-/// Estensioni legate a commands                          //
+/// Estensioni legate a struttura e dinamiche UI          //
 ////////////////////////////////////////////////////////////
+
+// restituisce la lista degli eventuali widget mai visibili in
+// nessuno screen state
+List[Widget] getNeverShownWidgets(ContentPanel cp) :
+	if (cp.states==null || cp.states.states.size==0) then
+		null
+	else
+		cp.findAllWidgetsInContentPanel().select(w|!(cp.states.states.widgetsVisible.contains(w)));
+
+List[Widget] getNeverEnabledWidgets(ContentPanel cp) :
+	if (cp.states==null || cp.states.states.size==0) then
+		null
+	else
+		cp.findAllWidgetsInContentPanel().select(w|!(cp.states.states.widgetsOn.contains(w)));
+
+
 Boolean isContainedInOneOf(Panel p, List[Panel] otherPanels) :
 	otherPanels.exists(op | contains(op,p));
 
