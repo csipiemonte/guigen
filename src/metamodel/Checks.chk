@@ -248,8 +248,8 @@ context MenuPanel ERROR "Un MenuPanel deve essere contenuto in un FormPanel " + 
 context MenuPanel ERROR "Un MenuPanel può contenere solo widget di tipo MenuView o TreeView " + loc() :
 	menuPanelWidgetCheck(this);
 // 4
-context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalFlowPanelLayout " + loc() :
-	this.layout.metaType == VerticalFlowPanelLayout;
+context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalFlowPanelLayout o HorizontalFlowPanelLayout" + loc() :
+	this.layout.metaType == VerticalFlowPanelLayout || this.layout.metaType == HorizontalFlowPanelLayout;
 // 5
 context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
 	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
