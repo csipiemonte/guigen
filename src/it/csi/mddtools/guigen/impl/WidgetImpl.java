@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultVisible <em>Default Visible</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isDefaultEnabled <em>Default Enabled</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getTooltip <em>Tooltip</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#isEnableEnrichment <em>Enable Enrichment</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WidgetImpl#getEnableEnrichment <em>Enable Enrichment</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,24 +181,24 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	protected String tooltip = TOOLTIP_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
+	 * The default value of the '{@link #getEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnableEnrichment()
+	 * @see #getEnableEnrichment()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ENABLE_ENRICHMENT_EDEFAULT = true;
+	protected static final Boolean ENABLE_ENRICHMENT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #isEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
+	 * The cached value of the '{@link #getEnableEnrichment() <em>Enable Enrichment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnableEnrichment()
+	 * @see #getEnableEnrichment()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean enableEnrichment = ENABLE_ENRICHMENT_EDEFAULT;
+	protected Boolean enableEnrichment = ENABLE_ENRICHMENT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -396,7 +396,7 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isEnableEnrichment() {
+	public Boolean getEnableEnrichment() {
 		return enableEnrichment;
 	}
 
@@ -405,8 +405,8 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEnableEnrichment(boolean newEnableEnrichment) {
-		boolean oldEnableEnrichment = enableEnrichment;
+	public void setEnableEnrichment(Boolean newEnableEnrichment) {
+		Boolean oldEnableEnrichment = enableEnrichment;
 		enableEnrichment = newEnableEnrichment;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIDGET__ENABLE_ENRICHMENT, oldEnableEnrichment, enableEnrichment));
@@ -455,7 +455,7 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__TOOLTIP:
 				return getTooltip();
 			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
-				return isEnableEnrichment();
+				return getEnableEnrichment();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -566,7 +566,7 @@ public abstract class WidgetImpl extends EObjectImpl implements Widget {
 			case GuigenPackage.WIDGET__TOOLTIP:
 				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
 			case GuigenPackage.WIDGET__ENABLE_ENRICHMENT:
-				return enableEnrichment != ENABLE_ENRICHMENT_EDEFAULT;
+				return ENABLE_ENRICHMENT_EDEFAULT == null ? enableEnrichment != null : !ENABLE_ENRICHMENT_EDEFAULT.equals(enableEnrichment);
 		}
 		return super.eIsSet(featureID);
 	}

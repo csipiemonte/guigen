@@ -9855,11 +9855,11 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getWidget_Tooltip();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Widget#isEnableEnrichment <em>Enable Enrichment</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Widget#getEnableEnrichment <em>Enable Enrichment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Enable Enrichment</em>'.
-	 * @see it.csi.mddtools.guigen.Widget#isEnableEnrichment()
+	 * @see it.csi.mddtools.guigen.Widget#getEnableEnrichment()
 	 * @see #getWidget()
 	 * @generated
 	 */
