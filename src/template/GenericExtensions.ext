@@ -296,6 +296,13 @@ List[Panel] getRefreshViewConflicts(RefreshViewCommand rwc) :
 	targetPanels
 	.select(tp| tp.isContainedInOneOf(targetPanels.select(tp2|tp2 != tp))).name;
 
+////////////////////////////////////////////////////////////
+/// Estensioni legate ai widget                                //
+////////////////////////////////////////////////////////////
+boolean isEnrichmentEnabled(Widget w) :
+	let enrichmentDefaultProp = getProperty("guigen.enableEnrichmentsByDefault") :
+	let enrichmentDefaultValue = (enrichmentDefaultProp == null ? false : (enrichmentDefaultProp == "true" ? true : false)) :
+	w.enableEnrichment == null ? enrichmentDefaultValue : w.enableEnrichment;
 
 ////////////////////////////////////////////////////////////
 /// Estensioni di utilita'                                //
