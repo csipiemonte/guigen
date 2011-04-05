@@ -2329,13 +2329,22 @@ public interface GuigenPackage extends EPackage {
 	int COMBO_BOX__FIELD_LENGTH = DATA_WIDGET_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Visible Lines</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMBO_BOX__VISIBLE_LINES = DATA_WIDGET_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Combo Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 5;
+	int COMBO_BOX_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -10108,6 +10117,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getComboBox_FieldLength();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.ComboBox#getVisibleLines <em>Visible Lines</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Visible Lines</em>'.
+	 * @see it.csi.mddtools.guigen.ComboBox#getVisibleLines()
+	 * @see #getComboBox()
+	 * @generated
+	 */
+	EAttribute getComboBox_VisibleLines();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Table <em>Table</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15100,6 +15120,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMBO_BOX__FIELD_LENGTH = eINSTANCE.getComboBox_FieldLength();
+
+		/**
+		 * The meta object literal for the '<em><b>Visible Lines</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMBO_BOX__VISIBLE_LINES = eINSTANCE.getComboBox_VisibleLines();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TableImpl <em>Table</em>}' class.

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getValueSelector <em>Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#isOmitHeaderValue <em>Omit Header Value</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getFieldLength <em>Field Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ComboBoxImpl#getVisibleLines <em>Visible Lines</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +122,26 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * @ordered
 	 */
 	protected int fieldLength = FIELD_LENGTH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getVisibleLines() <em>Visible Lines</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVisibleLines()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int VISIBLE_LINES_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getVisibleLines() <em>Visible Lines</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVisibleLines()
+	 * @generated
+	 * @ordered
+	 */
+	protected int visibleLines = VISIBLE_LINES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -273,6 +294,27 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getVisibleLines() {
+		return visibleLines;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVisibleLines(int newVisibleLines) {
+		int oldVisibleLines = visibleLines;
+		visibleLines = newVisibleLines;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COMBO_BOX__VISIBLE_LINES, oldVisibleLines, visibleLines));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -300,6 +342,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return isOmitHeaderValue();
 			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
 				return getFieldLength();
+			case GuigenPackage.COMBO_BOX__VISIBLE_LINES:
+				return getVisibleLines();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -326,6 +370,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return;
 			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
 				setFieldLength((Integer)newValue);
+				return;
+			case GuigenPackage.COMBO_BOX__VISIBLE_LINES:
+				setVisibleLines((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -354,6 +401,9 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
 				setFieldLength(FIELD_LENGTH_EDEFAULT);
 				return;
+			case GuigenPackage.COMBO_BOX__VISIBLE_LINES:
+				setVisibleLines(VISIBLE_LINES_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -376,6 +426,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 				return omitHeaderValue != OMIT_HEADER_VALUE_EDEFAULT;
 			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
 				return fieldLength != FIELD_LENGTH_EDEFAULT;
+			case GuigenPackage.COMBO_BOX__VISIBLE_LINES:
+				return visibleLines != VISIBLE_LINES_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -430,6 +482,8 @@ public class ComboBoxImpl extends DataWidgetImpl implements ComboBox {
 		result.append(omitHeaderValue);
 		result.append(", fieldLength: ");
 		result.append(fieldLength);
+		result.append(", visibleLines: ");
+		result.append(visibleLines);
 		result.append(')');
 		return result.toString();
 	}

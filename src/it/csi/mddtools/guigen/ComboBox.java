@@ -29,6 +29,7 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getValueSelector <em>Value Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#isOmitHeaderValue <em>Omit Header Value</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ComboBox#getFieldLength <em>Field Length</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ComboBox#getVisibleLines <em>Visible Lines</em>}</li>
  * </ul>
  * </p>
  *
@@ -156,4 +157,32 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * @generated
 	 */
 	void setFieldLength(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Visible Lines</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * numero di linee visibili senza bisogno di utilizzare la scrollbar in caso di 
+	 * <b>ComboBox</b> a selezione <i>multipla</i>. Se impostato a zero il numero di 
+	 * linee visualizzabili non &egrave; predicibile. Nel caso di selezione singola invece
+	 * l'attributo non ha effetto.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Visible Lines</em>' attribute.
+	 * @see #setVisibleLines(int)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getComboBox_VisibleLines()
+	 * @model
+	 * @generated
+	 */
+	int getVisibleLines();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ComboBox#getVisibleLines <em>Visible Lines</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Visible Lines</em>' attribute.
+	 * @see #getVisibleLines()
+	 * @generated
+	 */
+	void setVisibleLines(int value);
 } // ComboBox

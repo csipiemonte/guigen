@@ -392,7 +392,7 @@ context Column if !isNullOrEmpty(this.editableFlagSelector) WARNING "La colonna 
 // il campo maxFieldLength deve essere > 0 solo se la colonna è editabile
 context Column if (!editable) WARNING "La colonna "+this.label+" non è editabile ma ha una dimensione massima impostata: il valore" +
 " verrà ignorato; "+loc() :
-	fieldMaxLength == 0;
+	fieldMaxLength == null || fieldMaxLength == 0;
 
 
 /// questi check non vanno bene: da rivedere in seguito gestendo tutte le casistiche

@@ -65,6 +65,7 @@ public class ComboBoxItemProvider
 			addValueSelectorPropertyDescriptor(object);
 			addOmitHeaderValuePropertyDescriptor(object);
 			addFieldLengthPropertyDescriptor(object);
+			addVisibleLinesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -158,6 +159,28 @@ public class ComboBoxItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Visible Lines feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVisibleLinesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ComboBox_visibleLines_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ComboBox_visibleLines_feature", "_UI_ComboBox_type"),
+				 GuigenPackage.Literals.COMBO_BOX__VISIBLE_LINES,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -228,6 +251,7 @@ public class ComboBoxItemProvider
 			case GuigenPackage.COMBO_BOX__VALUE_SELECTOR:
 			case GuigenPackage.COMBO_BOX__OMIT_HEADER_VALUE:
 			case GuigenPackage.COMBO_BOX__FIELD_LENGTH:
+			case GuigenPackage.COMBO_BOX__VISIBLE_LINES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.COMBO_BOX__MULTI_DATA_BINDING:
