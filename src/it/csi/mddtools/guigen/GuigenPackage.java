@@ -3697,13 +3697,22 @@ public interface GuigenPackage extends EPackage {
 	int COLUMN__ACTIVE_FLAG_SELECTOR = 11;
 
 	/**
+	 * The feature id for the '<em><b>Field Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__FIELD_MAX_LENGTH = 12;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 12;
+	int COLUMN_FEATURE_COUNT = 13;
 
 	/**
 	 * The number of structural features of the '<em>Command</em>' class.
@@ -8247,6 +8256,15 @@ public interface GuigenPackage extends EPackage {
 	int EXTRA_COLUMN__ACTIVE_FLAG_SELECTOR = COLUMN__ACTIVE_FLAG_SELECTOR;
 
 	/**
+	 * The feature id for the '<em><b>Field Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRA_COLUMN__FIELD_MAX_LENGTH = COLUMN__FIELD_MAX_LENGTH;
+
+	/**
 	 * The feature id for the '<em><b>Insert After</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10826,6 +10844,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_ActiveFlagSelector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Field Max Length</em>'.
+	 * @see it.csi.mddtools.guigen.Column#getFieldMaxLength()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_FieldMaxLength();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Command <em>Command</em>}'.
@@ -15665,6 +15694,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__ACTIVE_FLAG_SELECTOR = eINSTANCE.getColumn_ActiveFlagSelector();
+
+		/**
+		 * The meta object literal for the '<em><b>Field Max Length</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__FIELD_MAX_LENGTH = eINSTANCE.getColumn_FieldMaxLength();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CommandImpl <em>Command</em>}' class.

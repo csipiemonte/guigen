@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ColumnImpl#getFieldMaxLength <em>Field Max Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -273,6 +274,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String activeFlagSelector = ACTIVE_FLAG_SELECTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFieldMaxLength() <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FIELD_MAX_LENGTH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFieldMaxLength() <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 * @ordered
+	 */
+	protected String fieldMaxLength = FIELD_MAX_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -572,6 +593,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getFieldMaxLength() {
+		return fieldMaxLength;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFieldMaxLength(String newFieldMaxLength) {
+		String oldFieldMaxLength = fieldMaxLength;
+		fieldMaxLength = newFieldMaxLength;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__FIELD_MAX_LENGTH, oldFieldMaxLength, fieldMaxLength));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -613,6 +655,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getTooltip();
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 				return getActiveFlagSelector();
+			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
+				return getFieldMaxLength();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -660,6 +704,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 				setActiveFlagSelector((String)newValue);
+				return;
+			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
+				setFieldMaxLength((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -709,6 +756,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 				setActiveFlagSelector(ACTIVE_FLAG_SELECTOR_EDEFAULT);
 				return;
+			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
+				setFieldMaxLength(FIELD_MAX_LENGTH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -745,6 +795,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return TOOLTIP_EDEFAULT == null ? tooltip != null : !TOOLTIP_EDEFAULT.equals(tooltip);
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 				return ACTIVE_FLAG_SELECTOR_EDEFAULT == null ? activeFlagSelector != null : !ACTIVE_FLAG_SELECTOR_EDEFAULT.equals(activeFlagSelector);
+			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
+				return FIELD_MAX_LENGTH_EDEFAULT == null ? fieldMaxLength != null : !FIELD_MAX_LENGTH_EDEFAULT.equals(fieldMaxLength);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -781,6 +833,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(tooltip);
 		result.append(", activeFlagSelector: ");
 		result.append(activeFlagSelector);
+		result.append(", fieldMaxLength: ");
+		result.append(fieldMaxLength);
 		result.append(')');
 		return result.toString();
 	}

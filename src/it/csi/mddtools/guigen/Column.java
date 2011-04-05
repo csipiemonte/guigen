@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.Column#getMultidataPropertySelector <em>Multidata Property Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getTooltip <em>Tooltip</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.Column#getActiveFlagSelector <em>Active Flag Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}</li>
  * </ul>
  * </p>
  *
@@ -416,5 +417,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setActiveFlagSelector(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Field Max Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * In caso di colonna editabile se specificato rappresenta il massimo numero
+	 * di caratteri digitabili. Se il valore specificato &egrave; zero il campo non ha limiti.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Field Max Length</em>' attribute.
+	 * @see #setFieldMaxLength(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_FieldMaxLength()
+	 * @model
+	 * @generated
+	 */
+	String getFieldMaxLength();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field Max Length</em>' attribute.
+	 * @see #getFieldMaxLength()
+	 * @generated
+	 */
+	void setFieldMaxLength(String value);
 
 } // Column

@@ -389,6 +389,12 @@ context Column if !isNullOrEmpty(this.activeFlagSelector) WARNING "La colonna "+
 context Column if !isNullOrEmpty(this.editableFlagSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal editableFlagSelector '"+this.editableFlagSelector+"'" +loc():
 	canResolveColumnBinding(this, editableFlagSelector);
 
+// il campo maxFieldLength deve essere > 0 solo se la colonna è editabile
+context Column if (!editable) WARNING "La colonna "+this.label+" non è editabile ma ha una dimensione massima impostata: il valore" +
+" verrà ignorato; "+loc() :
+	fieldMaxLength == 0;
+
+
 /// questi check non vanno bene: da rivedere in seguito gestendo tutte le casistiche
 //context Column if !isNullOrEmpty(this.multidataKeySelector) && !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataKeySelector '"+this.multidataKeySelector+"'" +loc():
 //	let tableElType = getTableElementsType(getOwnerTable(this)):
