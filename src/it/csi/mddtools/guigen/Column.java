@@ -427,12 +427,12 @@ public interface Column extends EObject {
 	 * di caratteri digitabili. Se il valore specificato &egrave; zero il campo non ha limiti.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Field Max Length</em>' attribute.
-	 * @see #setFieldMaxLength(String)
+	 * @see #setFieldMaxLength(int)
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getColumn_FieldMaxLength()
 	 * @model
 	 * @generated
 	 */
-	String getFieldMaxLength();
+	int getFieldMaxLength();
 
 	/**
 	 * Sets the value of the '{@link it.csi.mddtools.guigen.Column#getFieldMaxLength <em>Field Max Length</em>}' attribute.
@@ -442,6 +442,6 @@ public interface Column extends EObject {
 	 * @see #getFieldMaxLength()
 	 * @generated
 	 */
-	void setFieldMaxLength(String value);
+	void setFieldMaxLength(int value);
 
 } // Column

@@ -283,7 +283,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FIELD_MAX_LENGTH_EDEFAULT = null;
+	protected static final int FIELD_MAX_LENGTH_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getFieldMaxLength() <em>Field Max Length</em>}' attribute.
@@ -293,7 +293,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @generated
 	 * @ordered
 	 */
-	protected String fieldMaxLength = FIELD_MAX_LENGTH_EDEFAULT;
+	protected int fieldMaxLength = FIELD_MAX_LENGTH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -593,7 +593,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getFieldMaxLength() {
+	public int getFieldMaxLength() {
 		return fieldMaxLength;
 	}
 
@@ -602,8 +602,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFieldMaxLength(String newFieldMaxLength) {
-		String oldFieldMaxLength = fieldMaxLength;
+	public void setFieldMaxLength(int newFieldMaxLength) {
+		int oldFieldMaxLength = fieldMaxLength;
 		fieldMaxLength = newFieldMaxLength;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.COLUMN__FIELD_MAX_LENGTH, oldFieldMaxLength, fieldMaxLength));
@@ -706,7 +706,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				setActiveFlagSelector((String)newValue);
 				return;
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
-				setFieldMaxLength((String)newValue);
+				setFieldMaxLength((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -796,7 +796,7 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case GuigenPackage.COLUMN__ACTIVE_FLAG_SELECTOR:
 				return ACTIVE_FLAG_SELECTOR_EDEFAULT == null ? activeFlagSelector != null : !ACTIVE_FLAG_SELECTOR_EDEFAULT.equals(activeFlagSelector);
 			case GuigenPackage.COLUMN__FIELD_MAX_LENGTH:
-				return FIELD_MAX_LENGTH_EDEFAULT == null ? fieldMaxLength != null : !FIELD_MAX_LENGTH_EDEFAULT.equals(fieldMaxLength);
+				return fieldMaxLength != FIELD_MAX_LENGTH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
