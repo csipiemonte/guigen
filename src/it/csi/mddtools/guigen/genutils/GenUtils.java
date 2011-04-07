@@ -2567,19 +2567,19 @@ public class GenUtils {
 		
 		// ricavo il field 
 		Field f = getSelectedField(null, t, currCol.getSelector());
-		
+
 		if ( f != null ) {
 			// Scelta del formatter sulla base del tipo ritornato (deve essere un SimpleType) 
 			if ( f.getType() instanceof SimpleType ) {
 				SimpleType ft = (SimpleType) f.getType();
 				// al momento gestiamo in maniera diversa solo i boolean
 				// TODO: se necessario implementare altri comparatori
-				if ( isBoolean(ft) ) {
+				if (isBoolean(ft)) {
 					String nameResetter = "%{'__checkbox_"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}"; 
 					String ckIdResetter = "%{'__checkbox_"+getOGNLForWidgetValue(table, contextPrefix, pduConf)+"_"+currCol.getSelector()+
 						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String ckId = "%{'"+getWidgetName(table, contextPrefix)+"_"+currCol.getSelector()+
-					"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
+						"_'+(#attr.row_"+table.getName()+"_rowNum - 1)}";
 					String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 					res = "<s:checkbox name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+GenUtilsLayout.getCheckboxPortalStyle(model)+" "+disabled+" id=\""+ckId+"\" "+
 					      (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
@@ -2589,10 +2589,9 @@ public class GenUtils {
 					res+= "<s:hidden name=\""+nameResetter+"\" id=\""+ckIdResetter+"\" />";
 					res+= !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? "</s:if>" : "";
 				} else {
-					if (currCol.getMultiDataBinding()!=null){
+					if (currCol.getMultiDataBinding() != null) {
 						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
-								
 					          " headerKey=\"\" headerValue=\"\" "+
 					          " list=\""+getOGNLForColumnMultiValue(currCol, pduConf)+"\" "+
 					          disabled +
@@ -2601,10 +2600,9 @@ public class GenUtils {
 					          (!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
 					          "/>";
 					}
-					else if (currCol.getMultidataPropertySelector()!=null) {
+					else if (currCol.getMultidataPropertySelector() != null) {
 						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:select name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\"" +
-								
 					          " headerKey=\"\" headerValue=\"\" "+
 					          " list= \""+getOGNLForWidgetMultiValue(table,contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getMultidataPropertySelector()+"\" " +
 					          disabled +
@@ -2617,6 +2615,7 @@ public class GenUtils {
 						String disabled = !GenUtils.isNullOrEmpty(currCol.getEditableFlagSelector()) ? " disabled=\"%{!"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"[(#attr.row_"+table.getName()+"_rowNum - 1)]."+currCol.getEditableFlagSelector()+"}\" " : "";
 						res = "<s:textfield name=\"%{'"+getOGNLForWidgetMultiValue(table, contextPrefix, pduConf)+"['+(#attr.row_"+table.getName()+"_rowNum - 1)+']."+currCol.getSelector()+"'}\" "+disabled+" "+GenUtilsLayout.getColumnEditableTextfieldPortalStyle(model)+
 						(!GenUtils.isNullOrEmpty(theme) ? " theme=\"" + theme + "\"" : "") +
+						(currCol.getFieldMaxLength() > 0 ? " maxlength=\"" + currCol.getFieldMaxLength() + "\"" : "") +
 						" />";
 					}
 				}
