@@ -22,6 +22,10 @@ package it.csi.mddtools.guigen;
  *   <li>{@link it.csi.mddtools.guigen.MapView#getNumLevels <em>Num Levels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getEditDataBinding <em>Edit Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MapView#getGadgets <em>Gadgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#isNoClickWhenDisabled <em>No Click When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#isNoEditWhenDisabled <em>No Edit When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MapView#isNoPanWhenDisabled <em>No Pan When Disabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -211,5 +215,115 @@ public interface MapView extends DataWidget, MultiDataWidget {
 	 * @generated
 	 */
 	void setGadgets(MapViewGadgets value);
+
+	/**
+	 * Returns the value of the '<em><b>No Click When Disabled</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitato
+	 * anche un eventuale possibilit&agrave; di scatenare un evento di <i>click</i>
+	 * sulla mappa
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>No Click When Disabled</em>' attribute.
+	 * @see #setNoClickWhenDisabled(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_NoClickWhenDisabled()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isNoClickWhenDisabled();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#isNoClickWhenDisabled <em>No Click When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Click When Disabled</em>' attribute.
+	 * @see #isNoClickWhenDisabled()
+	 * @generated
+	 */
+	void setNoClickWhenDisabled(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>No Edit When Disabled</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitato
+	 * anche un eventuale possibilit&agrave; di effettuare editing di geometrie
+	 * sulla mappa
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>No Edit When Disabled</em>' attribute.
+	 * @see #setNoEditWhenDisabled(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_NoEditWhenDisabled()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isNoEditWhenDisabled();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#isNoEditWhenDisabled <em>No Edit When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Edit When Disabled</em>' attribute.
+	 * @see #isNoEditWhenDisabled()
+	 * @generated
+	 */
+	void setNoEditWhenDisabled(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>No Zoom When Disabled</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitata
+	 * la funzione di <i>zoom</i> a comando utente (in tutte le sue modalit&agrave;)
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>No Zoom When Disabled</em>' attribute.
+	 * @see #setNoZoomWhenDisabled(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_NoZoomWhenDisabled()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isNoZoomWhenDisabled();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Zoom When Disabled</em>' attribute.
+	 * @see #isNoZoomWhenDisabled()
+	 * @generated
+	 */
+	void setNoZoomWhenDisabled(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>No Pan When Disabled</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostato a <i>true</i> quando il widget &egrave; disabilitato viene disabilitata
+	 * la funzione di <i>pan</i> a comando utente (in tutte le sue modalit&agrave;)
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>No Pan When Disabled</em>' attribute.
+	 * @see #setNoPanWhenDisabled(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMapView_NoPanWhenDisabled()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isNoPanWhenDisabled();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MapView#isNoPanWhenDisabled <em>No Pan When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>No Pan When Disabled</em>' attribute.
+	 * @see #isNoPanWhenDisabled()
+	 * @generated
+	 */
+	void setNoPanWhenDisabled(boolean value);
 
 } // MapView

@@ -62,6 +62,10 @@ public class MapViewItemProvider
 
 			addMapIdPropertyDescriptor(object);
 			addNumLevelsPropertyDescriptor(object);
+			addNoClickWhenDisabledPropertyDescriptor(object);
+			addNoEditWhenDisabledPropertyDescriptor(object);
+			addNoZoomWhenDisabledPropertyDescriptor(object);
+			addNoPanWhenDisabledPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,7 +88,7 @@ public class MapViewItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_mapserviceconfigPropertyCategory"),
 				 null));
 	}
 
@@ -106,7 +110,95 @@ public class MapViewItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
+				 getString("_UI_mapserviceconfigPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Click When Disabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoClickWhenDisabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapView_noClickWhenDisabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_noClickWhenDisabled_feature", "_UI_MapView_type"),
+				 GuigenPackage.Literals.MAP_VIEW__NO_CLICK_WHEN_DISABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_whendisabledPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Edit When Disabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoEditWhenDisabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapView_noEditWhenDisabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_noEditWhenDisabled_feature", "_UI_MapView_type"),
+				 GuigenPackage.Literals.MAP_VIEW__NO_EDIT_WHEN_DISABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_whendisabledPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Zoom When Disabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoZoomWhenDisabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapView_noZoomWhenDisabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_noZoomWhenDisabled_feature", "_UI_MapView_type"),
+				 GuigenPackage.Literals.MAP_VIEW__NO_ZOOM_WHEN_DISABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_whendisabledPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Pan When Disabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoPanWhenDisabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MapView_noPanWhenDisabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MapView_noPanWhenDisabled_feature", "_UI_MapView_type"),
+				 GuigenPackage.Literals.MAP_VIEW__NO_PAN_WHEN_DISABLED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 getString("_UI_whendisabledPropertyCategory"),
 				 null));
 	}
 
@@ -184,6 +276,10 @@ public class MapViewItemProvider
 		switch (notification.getFeatureID(MapView.class)) {
 			case GuigenPackage.MAP_VIEW__MAP_ID:
 			case GuigenPackage.MAP_VIEW__NUM_LEVELS:
+			case GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED:
+			case GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED:
+			case GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED:
+			case GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.MAP_VIEW__MULTI_DATA_BINDING:

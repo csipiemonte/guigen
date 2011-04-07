@@ -8731,13 +8731,49 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW__GADGETS = DATA_WIDGET_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>No Click When Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NO_CLICK_WHEN_DISABLED = DATA_WIDGET_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>No Edit When Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NO_EDIT_WHEN_DISABLED = DATA_WIDGET_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>No Zoom When Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NO_ZOOM_WHEN_DISABLED = DATA_WIDGET_FEATURE_COUNT + 10;
+
+	/**
+	 * The feature id for the '<em><b>No Pan When Disabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_VIEW__NO_PAN_WHEN_DISABLED = DATA_WIDGET_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Map View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 8;
+	int MAP_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.
@@ -13993,6 +14029,50 @@ public interface GuigenPackage extends EPackage {
 	EReference getMapView_Gadgets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#isNoClickWhenDisabled <em>No Click When Disabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Click When Disabled</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#isNoClickWhenDisabled()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_NoClickWhenDisabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#isNoEditWhenDisabled <em>No Edit When Disabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Edit When Disabled</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#isNoEditWhenDisabled()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_NoEditWhenDisabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Zoom When Disabled</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#isNoZoomWhenDisabled()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_NoZoomWhenDisabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MapView#isNoPanWhenDisabled <em>No Pan When Disabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>No Pan When Disabled</em>'.
+	 * @see it.csi.mddtools.guigen.MapView#isNoPanWhenDisabled()
+	 * @see #getMapView()
+	 * @generated
+	 */
+	EAttribute getMapView_NoPanWhenDisabled();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Point <em>Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18288,6 +18368,38 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MAP_VIEW__GADGETS = eINSTANCE.getMapView_Gadgets();
+
+		/**
+		 * The meta object literal for the '<em><b>No Click When Disabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__NO_CLICK_WHEN_DISABLED = eINSTANCE.getMapView_NoClickWhenDisabled();
+
+		/**
+		 * The meta object literal for the '<em><b>No Edit When Disabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__NO_EDIT_WHEN_DISABLED = eINSTANCE.getMapView_NoEditWhenDisabled();
+
+		/**
+		 * The meta object literal for the '<em><b>No Zoom When Disabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__NO_ZOOM_WHEN_DISABLED = eINSTANCE.getMapView_NoZoomWhenDisabled();
+
+		/**
+		 * The meta object literal for the '<em><b>No Pan When Disabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_VIEW__NO_PAN_WHEN_DISABLED = eINSTANCE.getMapView_NoPanWhenDisabled();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PointImpl <em>Point</em>}' class.

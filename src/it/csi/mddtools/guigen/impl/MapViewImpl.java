@@ -36,6 +36,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getNumLevels <em>Num Levels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getEditDataBinding <em>Edit Data Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#getGadgets <em>Gadgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoClickWhenDisabled <em>No Click When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoEditWhenDisabled <em>No Edit When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoZoomWhenDisabled <em>No Zoom When Disabled</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MapViewImpl#isNoPanWhenDisabled <em>No Pan When Disabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -141,6 +145,86 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	 * @ordered
 	 */
 	protected MapViewGadgets gadgets;
+
+	/**
+	 * The default value of the '{@link #isNoClickWhenDisabled() <em>No Click When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoClickWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_CLICK_WHEN_DISABLED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isNoClickWhenDisabled() <em>No Click When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoClickWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noClickWhenDisabled = NO_CLICK_WHEN_DISABLED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoEditWhenDisabled() <em>No Edit When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoEditWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_EDIT_WHEN_DISABLED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isNoEditWhenDisabled() <em>No Edit When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoEditWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noEditWhenDisabled = NO_EDIT_WHEN_DISABLED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoZoomWhenDisabled() <em>No Zoom When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoZoomWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_ZOOM_WHEN_DISABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoZoomWhenDisabled() <em>No Zoom When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoZoomWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noZoomWhenDisabled = NO_ZOOM_WHEN_DISABLED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNoPanWhenDisabled() <em>No Pan When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoPanWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NO_PAN_WHEN_DISABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNoPanWhenDisabled() <em>No Pan When Disabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNoPanWhenDisabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean noPanWhenDisabled = NO_PAN_WHEN_DISABLED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -466,6 +550,90 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isNoClickWhenDisabled() {
+		return noClickWhenDisabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoClickWhenDisabled(boolean newNoClickWhenDisabled) {
+		boolean oldNoClickWhenDisabled = noClickWhenDisabled;
+		noClickWhenDisabled = newNoClickWhenDisabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED, oldNoClickWhenDisabled, noClickWhenDisabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoEditWhenDisabled() {
+		return noEditWhenDisabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoEditWhenDisabled(boolean newNoEditWhenDisabled) {
+		boolean oldNoEditWhenDisabled = noEditWhenDisabled;
+		noEditWhenDisabled = newNoEditWhenDisabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED, oldNoEditWhenDisabled, noEditWhenDisabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoZoomWhenDisabled() {
+		return noZoomWhenDisabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoZoomWhenDisabled(boolean newNoZoomWhenDisabled) {
+		boolean oldNoZoomWhenDisabled = noZoomWhenDisabled;
+		noZoomWhenDisabled = newNoZoomWhenDisabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED, oldNoZoomWhenDisabled, noZoomWhenDisabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNoPanWhenDisabled() {
+		return noPanWhenDisabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNoPanWhenDisabled(boolean newNoPanWhenDisabled) {
+		boolean oldNoPanWhenDisabled = noPanWhenDisabled;
+		noPanWhenDisabled = newNoPanWhenDisabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED, oldNoPanWhenDisabled, noPanWhenDisabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -509,6 +677,14 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return getEditDataBinding();
 			case GuigenPackage.MAP_VIEW__GADGETS:
 				return getGadgets();
+			case GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED:
+				return isNoClickWhenDisabled();
+			case GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED:
+				return isNoEditWhenDisabled();
+			case GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED:
+				return isNoZoomWhenDisabled();
+			case GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED:
+				return isNoPanWhenDisabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -544,6 +720,18 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return;
 			case GuigenPackage.MAP_VIEW__GADGETS:
 				setGadgets((MapViewGadgets)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED:
+				setNoClickWhenDisabled((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED:
+				setNoEditWhenDisabled((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED:
+				setNoZoomWhenDisabled((Boolean)newValue);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED:
+				setNoPanWhenDisabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -581,6 +769,18 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 			case GuigenPackage.MAP_VIEW__GADGETS:
 				setGadgets((MapViewGadgets)null);
 				return;
+			case GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED:
+				setNoClickWhenDisabled(NO_CLICK_WHEN_DISABLED_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED:
+				setNoEditWhenDisabled(NO_EDIT_WHEN_DISABLED_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED:
+				setNoZoomWhenDisabled(NO_ZOOM_WHEN_DISABLED_EDEFAULT);
+				return;
+			case GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED:
+				setNoPanWhenDisabled(NO_PAN_WHEN_DISABLED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -609,6 +809,14 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 				return editDataBinding != null;
 			case GuigenPackage.MAP_VIEW__GADGETS:
 				return gadgets != null;
+			case GuigenPackage.MAP_VIEW__NO_CLICK_WHEN_DISABLED:
+				return noClickWhenDisabled != NO_CLICK_WHEN_DISABLED_EDEFAULT;
+			case GuigenPackage.MAP_VIEW__NO_EDIT_WHEN_DISABLED:
+				return noEditWhenDisabled != NO_EDIT_WHEN_DISABLED_EDEFAULT;
+			case GuigenPackage.MAP_VIEW__NO_ZOOM_WHEN_DISABLED:
+				return noZoomWhenDisabled != NO_ZOOM_WHEN_DISABLED_EDEFAULT;
+			case GuigenPackage.MAP_VIEW__NO_PAN_WHEN_DISABLED:
+				return noPanWhenDisabled != NO_PAN_WHEN_DISABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -659,6 +867,14 @@ public class MapViewImpl extends DataWidgetImpl implements MapView {
 		result.append(mapId);
 		result.append(", numLevels: ");
 		result.append(numLevels);
+		result.append(", noClickWhenDisabled: ");
+		result.append(noClickWhenDisabled);
+		result.append(", noEditWhenDisabled: ");
+		result.append(noEditWhenDisabled);
+		result.append(", noZoomWhenDisabled: ");
+		result.append(noZoomWhenDisabled);
+		result.append(", noPanWhenDisabled: ");
+		result.append(noPanWhenDisabled);
 		result.append(')');
 		return result.toString();
 	}
