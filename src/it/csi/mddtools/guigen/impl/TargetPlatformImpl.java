@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.PortalExposition;
 import it.csi.mddtools.guigen.PortalProfile;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
@@ -31,7 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableFatClient <em>Enable Fat Client</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getPortalProfiles <em>Portal Profiles</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getPortalExpositions <em>Portal Expositions</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,14 +100,14 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	protected boolean enableFatClient = ENABLE_FAT_CLIENT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPortalProfiles() <em>Portal Profiles</em>}' reference list.
+	 * The cached value of the '{@link #getPortalExpositions() <em>Portal Expositions</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPortalProfiles()
+	 * @see #getPortalExpositions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PortalProfile> portalProfiles;
+	protected EList<PortalExposition> portalExpositions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -195,11 +196,11 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PortalProfile> getPortalProfiles() {
-		if (portalProfiles == null) {
-			portalProfiles = new EObjectResolvingEList<PortalProfile>(PortalProfile.class, this, GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES);
+	public EList<PortalExposition> getPortalExpositions() {
+		if (portalExpositions == null) {
+			portalExpositions = new EObjectResolvingEList<PortalExposition>(PortalExposition.class, this, GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS);
 		}
-		return portalProfiles;
+		return portalExpositions;
 	}
 
 	/**
@@ -216,8 +217,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return isEnableRichUIBehavior();
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				return isEnableFatClient();
-			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
-				return getPortalProfiles();
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				return getPortalExpositions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -240,9 +241,9 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				setEnableFatClient((Boolean)newValue);
 				return;
-			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
-				getPortalProfiles().clear();
-				getPortalProfiles().addAll((Collection<? extends PortalProfile>)newValue);
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				getPortalExpositions().clear();
+				getPortalExpositions().addAll((Collection<? extends PortalExposition>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -265,8 +266,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				setEnableFatClient(ENABLE_FAT_CLIENT_EDEFAULT);
 				return;
-			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
-				getPortalProfiles().clear();
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				getPortalExpositions().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -286,8 +287,8 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return enableRichUIBehavior != ENABLE_RICH_UI_BEHAVIOR_EDEFAULT;
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				return enableFatClient != ENABLE_FAT_CLIENT_EDEFAULT;
-			case GuigenPackage.TARGET_PLATFORM__PORTAL_PROFILES:
-				return portalProfiles != null && !portalProfiles.isEmpty();
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				return portalExpositions != null && !portalExpositions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getResModules <em>Res Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PortalProfile#getResourceProviderCode <em>Resource Provider Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,5 +85,59 @@ public interface PortalProfile extends EObject {
 	 * @generated
 	 */
 	EList<WebResourceModule> getResModules();
+
+	/**
+	 * Returns the value of the '<em><b>Where Are You From Portal Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Codice identificativo del portale per il meccanismo di riconoscimento della 
+	 * provenienza (<i>where are you from</i>)).
+	 * Il codice pu&ograve; essere fornito dal meccanismo di autenticazione (se
+	 * previsto) oppure come parametro esplicito: per ogni portale il codice deve essere lo stesso nei due casi.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Where Are You From Portal Code</em>' attribute.
+	 * @see #setWhereAreYouFromPortalCode(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPortalProfile_WhereAreYouFromPortalCode()
+	 * @model
+	 * @generated
+	 */
+	String getWhereAreYouFromPortalCode();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PortalProfile#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Where Are You From Portal Code</em>' attribute.
+	 * @see #getWhereAreYouFromPortalCode()
+	 * @generated
+	 */
+	void setWhereAreYouFromPortalCode(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Resource Provider Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * codice utilizzato per discriminare i <i>resource provider</i> relativi ai differenti
+	 * portali nell'ambito di una esposizione multi-portale.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Resource Provider Code</em>' attribute.
+	 * @see #setResourceProviderCode(String)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPortalProfile_ResourceProviderCode()
+	 * @model
+	 * @generated
+	 */
+	String getResourceProviderCode();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PortalProfile#getResourceProviderCode <em>Resource Provider Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Resource Provider Code</em>' attribute.
+	 * @see #getResourceProviderCode()
+	 * @generated
+	 */
+	void setResourceProviderCode(String value);
 
 } // PortalProfile

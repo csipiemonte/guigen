@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMapViewGadgets()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets.mapview'"
  * @generated
  */
 public interface MapViewGadgets extends EObject {

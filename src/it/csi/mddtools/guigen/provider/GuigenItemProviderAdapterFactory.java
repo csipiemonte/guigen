@@ -3274,6 +3274,29 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PortalExposition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortalExpositionItemProvider portalExpositionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PortalExposition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortalExpositionAdapter() {
+		if (portalExpositionItemProvider == null) {
+			portalExpositionItemProvider = new PortalExpositionItemProvider(this);
+		}
+
+		return portalExpositionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3511,6 +3534,7 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (repartModuleItemProvider != null) repartModuleItemProvider.dispose();
 		if (breadcrumbItemProvider != null) breadcrumbItemProvider.dispose();
 		if (mapViewGadgetsItemProvider != null) mapViewGadgetsItemProvider.dispose();
+		if (portalExpositionItemProvider != null) portalExpositionItemProvider.dispose();
 	}
 
 }

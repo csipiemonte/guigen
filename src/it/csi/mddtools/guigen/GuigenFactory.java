@@ -1277,6 +1277,15 @@ public interface GuigenFactory extends EFactory {
 	MapViewGadgets createMapViewGadgets();
 
 	/**
+	 * Returns a new object of class '<em>Portal Exposition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Portal Exposition</em>'.
+	 * @generated
+	 */
+	PortalExposition createPortalExposition();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

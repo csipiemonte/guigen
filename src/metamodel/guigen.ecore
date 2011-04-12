@@ -1951,8 +1951,12 @@
         <details key="documentation" value="Se impostato a true sono abilitati i comportamenti &quot;ricchi&quot; di User Interaction."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="portalProfiles" upperBound="-1"
-        eType="#//PortalProfile"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portalExpositions" upperBound="-1"
+        eType="#//PortalExposition">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizione&#xD;&#xA;multi-portale "/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TargetPlatformCodes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2641,6 +2645,9 @@
         eType="#//ApplicationData"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MapView" eSuperTypes="#//DataWidget #//MultiDataWidget">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mapId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="startEnvelopeSpec" eType="#//MapEnvelope"
         containment="true"/>
@@ -2679,10 +2686,16 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Point">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets.mapview"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MapEnvelope">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets.mapview"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="northEast" eType="#//Point"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="southWest" eType="#//Point"
@@ -2701,6 +2714,17 @@
         eType="#//WebResourceModule" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Risorse statiche necessarie per l'esposizione dell'applicazione sul portale"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="whereAreYouFromPortalCode"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Codice identificativo del portale per il meccanismo di riconoscimento della &#xD;&#xA;provenienza (&lt;i>where are you from&lt;/i>)).&#xD;&#xA;Il codice pu&amp;ograve; essere fornito dal meccanismo di autenticazione (se&#xD;&#xA;previsto) oppure come parametro esplicito: per ogni portale il codice deve essere lo stesso nei due casi."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resourceProviderCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="codice utilizzato per discriminare i &lt;i>resource provider&lt;/i> relativi ai differenti&#xD;&#xA;portali nell'ambito di una esposizione multi-portale."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -2883,8 +2907,14 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Rappresenta il cosiddetto &amp;quot;filo d'arianna&amp;quot;, utilizzabile per mostrare&#xD;&#xA;all'utnete collegato il contesto applicativo in cui si trova (es.&#xD;&#xA;funzionalit&amp;agrave; corrente, livello di dettaglio, ...).&#xD;&#xA;E' un &lt;b>MultiDataWidget&lt;/b> collegabile ad &lt;b>ApplicationData&lt;/b>&#xD;&#xA;di tipo array di stringhe che &amp;egrave; utilizzato per mantenere l'elenco&#xD;&#xA;degli step del filo d'arianna. La costruzione degli step deve essere&#xD;&#xA;effettuata tramite logica di business."/>
     </eAnnotations>
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.panels"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MapViewGadgets">
+    <eAnnotations source="logicpkg">
+      <details key="pkg" value="ui.widgets.mapview"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="layerSwitcher" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundMapMapServiceName"
@@ -2899,5 +2929,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineEditingActive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="polygonEditingActive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifyEditingActive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PortalExposition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Rappresenta la singola esposizione di un'applicazione su uno specifico&#xD;&#xA;portale, nell'ambito di una esposizione multi-portale.&#xD;&#xA;Nel caso in cui il portale preveda differenti aree tematiche qui si specifica anche &#xD;&#xA;su qyale delle aree tematiche l'applicativo deve essere esposto"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portal" eType="#//PortalProfile">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="riferimento al profilo del portale di esposizione&#xD;&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="areaCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Codice dell'area tematica del portale nella quale &amp;egrave; esposto l'applicativo.&#xD;&#xA;In caso di portali che non prevedano aree tematiche differenziate occorre&#xD;&#xA;specificare l'area tematica &amp;quot;general&amp;quot;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

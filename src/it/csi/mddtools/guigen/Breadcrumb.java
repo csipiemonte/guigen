@@ -24,7 +24,7 @@ package it.csi.mddtools.guigen;
  *
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getBreadcrumb()
- * @model
+ * @model annotation="logicpkg pkg='ui.panels'"
  * @generated
  */
 public interface Breadcrumb extends Panel {

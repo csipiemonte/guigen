@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getResModules <em>Res Modules</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PortalProfileImpl#getResourceProviderCode <em>Resource Provider Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +72,46 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 	 * @ordered
 	 */
 	protected EList<WebResourceModule> resModules;
+
+	/**
+	 * The default value of the '{@link #getWhereAreYouFromPortalCode() <em>Where Are You From Portal Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWhereAreYouFromPortalCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String WHERE_ARE_YOU_FROM_PORTAL_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getWhereAreYouFromPortalCode() <em>Where Are You From Portal Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWhereAreYouFromPortalCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String whereAreYouFromPortalCode = WHERE_ARE_YOU_FROM_PORTAL_CODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getResourceProviderCode() <em>Resource Provider Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceProviderCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String RESOURCE_PROVIDER_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResourceProviderCode() <em>Resource Provider Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceProviderCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String resourceProviderCode = RESOURCE_PROVIDER_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -128,6 +170,48 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getWhereAreYouFromPortalCode() {
+		return whereAreYouFromPortalCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWhereAreYouFromPortalCode(String newWhereAreYouFromPortalCode) {
+		String oldWhereAreYouFromPortalCode = whereAreYouFromPortalCode;
+		whereAreYouFromPortalCode = newWhereAreYouFromPortalCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE, oldWhereAreYouFromPortalCode, whereAreYouFromPortalCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getResourceProviderCode() {
+		return resourceProviderCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResourceProviderCode(String newResourceProviderCode) {
+		String oldResourceProviderCode = resourceProviderCode;
+		resourceProviderCode = newResourceProviderCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE, oldResourceProviderCode, resourceProviderCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -149,6 +233,10 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 				return getName();
 			case GuigenPackage.PORTAL_PROFILE__RES_MODULES:
 				return getResModules();
+			case GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE:
+				return getWhereAreYouFromPortalCode();
+			case GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE:
+				return getResourceProviderCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -169,6 +257,12 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 				getResModules().clear();
 				getResModules().addAll((Collection<? extends WebResourceModule>)newValue);
 				return;
+			case GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE:
+				setWhereAreYouFromPortalCode((String)newValue);
+				return;
+			case GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE:
+				setResourceProviderCode((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -187,6 +281,12 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 			case GuigenPackage.PORTAL_PROFILE__RES_MODULES:
 				getResModules().clear();
 				return;
+			case GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE:
+				setWhereAreYouFromPortalCode(WHERE_ARE_YOU_FROM_PORTAL_CODE_EDEFAULT);
+				return;
+			case GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE:
+				setResourceProviderCode(RESOURCE_PROVIDER_CODE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -203,6 +303,10 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.PORTAL_PROFILE__RES_MODULES:
 				return resModules != null && !resModules.isEmpty();
+			case GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE:
+				return WHERE_ARE_YOU_FROM_PORTAL_CODE_EDEFAULT == null ? whereAreYouFromPortalCode != null : !WHERE_ARE_YOU_FROM_PORTAL_CODE_EDEFAULT.equals(whereAreYouFromPortalCode);
+			case GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE:
+				return RESOURCE_PROVIDER_CODE_EDEFAULT == null ? resourceProviderCode != null : !RESOURCE_PROVIDER_CODE_EDEFAULT.equals(resourceProviderCode);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -219,6 +323,10 @@ public class PortalProfileImpl extends EObjectImpl implements PortalProfile {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", whereAreYouFromPortalCode: ");
+		result.append(whereAreYouFromPortalCode);
+		result.append(", resourceProviderCode: ");
+		result.append(resourceProviderCode);
 		result.append(')');
 		return result.toString();
 	}

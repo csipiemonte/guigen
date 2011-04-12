@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see it.csi.mddtools.guigen.GuigenPackage#getMapEnvelope()
- * @model
+ * @model annotation="logicpkg pkg='ui.widgets.mapview'"
  * @generated
  */
 public interface MapEnvelope extends EObject {

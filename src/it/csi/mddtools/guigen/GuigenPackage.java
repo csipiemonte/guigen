@@ -6198,13 +6198,13 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM__ENABLE_FAT_CLIENT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Portal Profiles</b></em>' reference list.
+	 * The feature id for the '<em><b>Portal Expositions</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_PLATFORM__PORTAL_PROFILES = 3;
+	int TARGET_PLATFORM__PORTAL_EXPOSITIONS = 3;
 
 	/**
 	 * The number of structural features of the '<em>Target Platform</em>' class.
@@ -8878,13 +8878,31 @@ public interface GuigenPackage extends EPackage {
 	int PORTAL_PROFILE__RES_MODULES = 1;
 
 	/**
+	 * The feature id for the '<em><b>Where Are You From Portal Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Provider Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_PROFILE__RESOURCE_PROVIDER_CODE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Portal Profile</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORTAL_PROFILE_FEATURE_COUNT = 2;
+	int PORTAL_PROFILE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl <em>Web Resource Module</em>}' class.
@@ -9271,6 +9289,43 @@ public interface GuigenPackage extends EPackage {
 	int MAP_VIEW_GADGETS_FEATURE_COUNT = 9;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PortalExpositionImpl <em>Portal Exposition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.PortalExpositionImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalExposition()
+	 * @generated
+	 */
+	int PORTAL_EXPOSITION = 153;
+
+	/**
+	 * The feature id for the '<em><b>Portal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_EXPOSITION__PORTAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Area Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_EXPOSITION__AREA_CODE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Portal Exposition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORTAL_EXPOSITION_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9278,7 +9333,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 153;
+	int WIDGET_DATA_TYPE = 154;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -9288,7 +9343,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 154;
+	int UDLRC_SPEC_CONSTANTS = 155;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -9298,7 +9353,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 155;
+	int METHOD_PROTECTION_TYPES = 156;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -9308,7 +9363,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 156;
+	int EVENT_TYPES = 157;
 
 
 	/**
@@ -9319,7 +9374,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 157;
+	int DATA_LIFETIME_TYPE = 158;
 
 
 	/**
@@ -9330,7 +9385,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 158;
+	int SIMPLE_TYPE_CODES = 159;
 
 
 	/**
@@ -9341,7 +9396,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 159;
+	int PORTAL_NAMES = 160;
 
 
 	/**
@@ -9352,7 +9407,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 160;
+	int TARGET_PLATFORM_CODES = 161;
 
 
 	/**
@@ -9363,7 +9418,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 161;
+	int MESSAGE_SEVERITY = 162;
 
 
 	/**
@@ -9374,7 +9429,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 162;
+	int COMMAND_STYLES = 163;
 
 
 	/**
@@ -9385,7 +9440,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 163;
+	int LOGIC_AGGREGATION_TYPES = 164;
 
 
 	/**
@@ -9396,7 +9451,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 164;
+	int CUSTOM_CARTRIDGE_ID = 165;
 
 
 	/**
@@ -9407,7 +9462,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 165;
+	int COMMAND_FUNCTIONS = 166;
 
 
 	/**
@@ -9418,7 +9473,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 166;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 167;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -9428,7 +9483,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 167;
+	int STD_WEB_RES_MODULE_NAMES = 168;
 
 
 	/**
@@ -9439,7 +9494,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 168;
+	int REPART_MODULE_TYPES = 169;
 
 
 	/**
@@ -12582,15 +12637,15 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_EnableFatClient();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.TargetPlatform#getPortalProfiles <em>Portal Profiles</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions <em>Portal Expositions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Portal Profiles</em>'.
-	 * @see it.csi.mddtools.guigen.TargetPlatform#getPortalProfiles()
+	 * @return the meta object for the reference list '<em>Portal Expositions</em>'.
+	 * @see it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions()
 	 * @see #getTargetPlatform()
 	 * @generated
 	 */
-	EReference getTargetPlatform_PortalProfiles();
+	EReference getTargetPlatform_PortalExpositions();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.UserInfoPanel <em>User Info Panel</em>}'.
@@ -14169,6 +14224,28 @@ public interface GuigenPackage extends EPackage {
 	EReference getPortalProfile_ResModules();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PortalProfile#getWhereAreYouFromPortalCode <em>Where Are You From Portal Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Where Are You From Portal Code</em>'.
+	 * @see it.csi.mddtools.guigen.PortalProfile#getWhereAreYouFromPortalCode()
+	 * @see #getPortalProfile()
+	 * @generated
+	 */
+	EAttribute getPortalProfile_WhereAreYouFromPortalCode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PortalProfile#getResourceProviderCode <em>Resource Provider Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Resource Provider Code</em>'.
+	 * @see it.csi.mddtools.guigen.PortalProfile#getResourceProviderCode()
+	 * @see #getPortalProfile()
+	 * @generated
+	 */
+	EAttribute getPortalProfile_ResourceProviderCode();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WebResourceModule <em>Web Resource Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14458,6 +14535,38 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMapViewGadgets_ModifyEditingActive();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PortalExposition <em>Portal Exposition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Portal Exposition</em>'.
+	 * @see it.csi.mddtools.guigen.PortalExposition
+	 * @generated
+	 */
+	EClass getPortalExposition();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.guigen.PortalExposition#getPortal <em>Portal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Portal</em>'.
+	 * @see it.csi.mddtools.guigen.PortalExposition#getPortal()
+	 * @see #getPortalExposition()
+	 * @generated
+	 */
+	EReference getPortalExposition_Portal();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PortalExposition#getAreaCode <em>Area Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Area Code</em>'.
+	 * @see it.csi.mddtools.guigen.PortalExposition#getAreaCode()
+	 * @see #getPortalExposition()
+	 * @generated
+	 */
+	EAttribute getPortalExposition_AreaCode();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
@@ -17184,12 +17293,12 @@ public interface GuigenPackage extends EPackage {
 		EAttribute TARGET_PLATFORM__ENABLE_FAT_CLIENT = eINSTANCE.getTargetPlatform_EnableFatClient();
 
 		/**
-		 * The meta object literal for the '<em><b>Portal Profiles</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Portal Expositions</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TARGET_PLATFORM__PORTAL_PROFILES = eINSTANCE.getTargetPlatform_PortalProfiles();
+		EReference TARGET_PLATFORM__PORTAL_EXPOSITIONS = eINSTANCE.getTargetPlatform_PortalExpositions();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.UserInfoPanelImpl <em>User Info Panel</em>}' class.
@@ -18480,6 +18589,22 @@ public interface GuigenPackage extends EPackage {
 		EReference PORTAL_PROFILE__RES_MODULES = eINSTANCE.getPortalProfile_ResModules();
 
 		/**
+		 * The meta object literal for the '<em><b>Where Are You From Portal Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE = eINSTANCE.getPortalProfile_WhereAreYouFromPortalCode();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Provider Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORTAL_PROFILE__RESOURCE_PROVIDER_CODE = eINSTANCE.getPortalProfile_ResourceProviderCode();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.WebResourceModuleImpl <em>Web Resource Module</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -18706,6 +18831,32 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MAP_VIEW_GADGETS__MODIFY_EDITING_ACTIVE = eINSTANCE.getMapViewGadgets_ModifyEditingActive();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PortalExpositionImpl <em>Portal Exposition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.PortalExpositionImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalExposition()
+		 * @generated
+		 */
+		EClass PORTAL_EXPOSITION = eINSTANCE.getPortalExposition();
+
+		/**
+		 * The meta object literal for the '<em><b>Portal</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORTAL_EXPOSITION__PORTAL = eINSTANCE.getPortalExposition_Portal();
+
+		/**
+		 * The meta object literal for the '<em><b>Area Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORTAL_EXPOSITION__AREA_CODE = eINSTANCE.getPortalExposition_AreaCode();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient <em>Enable Fat Client</em>}</li>
- *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getPortalProfiles <em>Portal Profiles</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions <em>Portal Expositions</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,19 +122,19 @@ public interface TargetPlatform extends EObject {
 	void setEnableFatClient(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Portal Profiles</b></em>' reference list.
-	 * The list contents are of type {@link it.csi.mddtools.guigen.PortalProfile}.
+	 * Returns the value of the '<em><b>Portal Expositions</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.PortalExposition}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Portal Profiles</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Portal Profiles</em>' reference list.
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_PortalProfiles()
+	 * <!-- begin-model-doc -->
+	 * Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizione
+	 * multi-portale 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Portal Expositions</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_PortalExpositions()
 	 * @model
 	 * @generated
 	 */
-	EList<PortalProfile> getPortalProfiles();
+	EList<PortalExposition> getPortalExpositions();
 
 } // TargetPlatform

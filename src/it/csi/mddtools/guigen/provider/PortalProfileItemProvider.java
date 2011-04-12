@@ -68,6 +68,8 @@ public class PortalProfileItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addWhereAreYouFromPortalCodePropertyDescriptor(object);
+			addResourceProviderCodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -86,6 +88,50 @@ public class PortalProfileItemProvider
 				 getString("_UI_PortalProfile_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PortalProfile_name_feature", "_UI_PortalProfile_type"),
 				 GuigenPackage.Literals.PORTAL_PROFILE__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Where Are You From Portal Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWhereAreYouFromPortalCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PortalProfile_whereAreYouFromPortalCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PortalProfile_whereAreYouFromPortalCode_feature", "_UI_PortalProfile_type"),
+				 GuigenPackage.Literals.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Resource Provider Code feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResourceProviderCodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PortalProfile_resourceProviderCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PortalProfile_resourceProviderCode_feature", "_UI_PortalProfile_type"),
+				 GuigenPackage.Literals.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE,
 				 true,
 				 false,
 				 false,
@@ -164,6 +210,8 @@ public class PortalProfileItemProvider
 
 		switch (notification.getFeatureID(PortalProfile.class)) {
 			case GuigenPackage.PORTAL_PROFILE__NAME:
+			case GuigenPackage.PORTAL_PROFILE__WHERE_ARE_YOU_FROM_PORTAL_CODE:
+			case GuigenPackage.PORTAL_PROFILE__RESOURCE_PROVIDER_CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.PORTAL_PROFILE__RES_MODULES:
