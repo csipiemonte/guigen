@@ -148,7 +148,7 @@ String getBaseJavaPath(GUIModel model) :
 
 // resourcefiles
 // passare true per risorse remote, false per risorse locali
-// [DM] STDMDD-670: modificatanuova alberatura
+// [DM] STDMDD-670: modificata nuova alberatura
 
 String getWebSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/web/" + model.codComponente;
@@ -184,8 +184,14 @@ boolean isOldMode() :
 boolean isNewMode() :
 	getProperty("staticResourcesSchemaVersion") == "M2";
 
+// [DM] Gestione PortalProfile/PortalExposition: disattivo temporaneamente la funzione per interventi sul multiportale
 boolean hasPortalProfile(GUIModel model) :
-	model.targetPlatform.portalProfiles != null && model.targetPlatform.portalProfiles.size > 0;
+	false;
+	//model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 0;
+
+// [DM] STDMDD-621: gestione multiportale
+boolean isMultiPortal(GUIModel model) :
+	model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 1;
 
 
 ////////////////////////////////////////////////////////////
