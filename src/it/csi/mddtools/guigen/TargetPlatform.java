@@ -122,7 +122,7 @@ public interface TargetPlatform extends EObject {
 	void setEnableFatClient(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Portal Expositions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Portal Expositions</b></em>' containment reference list.
 	 * The list contents are of type {@link it.csi.mddtools.guigen.PortalExposition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,9 +130,9 @@ public interface TargetPlatform extends EObject {
 	 * Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizione
 	 * multi-portale 
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Portal Expositions</em>' reference list.
+	 * @return the value of the '<em>Portal Expositions</em>' containment reference list.
 	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_PortalExpositions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<PortalExposition> getPortalExpositions();

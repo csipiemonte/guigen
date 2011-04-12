@@ -15,11 +15,15 @@ import it.csi.mddtools.guigen.TargetPlatformCodes;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -100,7 +104,7 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	protected boolean enableFatClient = ENABLE_FAT_CLIENT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPortalExpositions() <em>Portal Expositions</em>}' reference list.
+	 * The cached value of the '{@link #getPortalExpositions() <em>Portal Expositions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPortalExpositions()
@@ -198,9 +202,23 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 */
 	public EList<PortalExposition> getPortalExpositions() {
 		if (portalExpositions == null) {
-			portalExpositions = new EObjectResolvingEList<PortalExposition>(PortalExposition.class, this, GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS);
+			portalExpositions = new EObjectContainmentEList<PortalExposition>(PortalExposition.class, this, GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS);
 		}
 		return portalExpositions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				return ((InternalEList<?>)getPortalExpositions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

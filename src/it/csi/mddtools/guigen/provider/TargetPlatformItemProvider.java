@@ -7,6 +7,7 @@
 package it.csi.mddtools.guigen.provider;
 
 
+import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemFontProvider;
@@ -65,7 +67,6 @@ public class TargetPlatformItemProvider
 			addCodePropertyDescriptor(object);
 			addEnableRichUIBehaviorPropertyDescriptor(object);
 			addEnableFatClientPropertyDescriptor(object);
-			addPortalExpositionsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -137,25 +138,33 @@ public class TargetPlatformItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Portal Expositions feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPortalExpositionsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TargetPlatform_portalExpositions_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_portalExpositions_feature", "_UI_TargetPlatform_type"),
-				 GuigenPackage.Literals.TARGET_PLATFORM__PORTAL_EXPOSITIONS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GuigenPackage.Literals.TARGET_PLATFORM__PORTAL_EXPOSITIONS);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -201,6 +210,9 @@ public class TargetPlatformItemProvider
 			case GuigenPackage.TARGET_PLATFORM__ENABLE_FAT_CLIENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -215,6 +227,11 @@ public class TargetPlatformItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.TARGET_PLATFORM__PORTAL_EXPOSITIONS,
+				 GuigenFactory.eINSTANCE.createPortalExposition()));
 	}
 
 	/**

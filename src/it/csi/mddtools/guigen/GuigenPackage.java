@@ -6198,7 +6198,7 @@ public interface GuigenPackage extends EPackage {
 	int TARGET_PLATFORM__ENABLE_FAT_CLIENT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Portal Expositions</b></em>' reference list.
+	 * The feature id for the '<em><b>Portal Expositions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12637,10 +12637,10 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getTargetPlatform_EnableFatClient();
 
 	/**
-	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions <em>Portal Expositions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions <em>Portal Expositions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Portal Expositions</em>'.
+	 * @return the meta object for the containment reference list '<em>Portal Expositions</em>'.
 	 * @see it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions()
 	 * @see #getTargetPlatform()
 	 * @generated
@@ -17293,7 +17293,7 @@ public interface GuigenPackage extends EPackage {
 		EAttribute TARGET_PLATFORM__ENABLE_FAT_CLIENT = eINSTANCE.getTargetPlatform_EnableFatClient();
 
 		/**
-		 * The meta object literal for the '<em><b>Portal Expositions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Portal Expositions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
