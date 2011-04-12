@@ -180,7 +180,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ===========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
 «DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
@@ -194,6 +194,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 <script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
 «ENDDEFINE»
 
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
 «DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine HEAD di APPLICATIVO (con remincl) -->
@@ -205,20 +206,29 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
 «DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/portal_header.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
 «DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+«LET model.structure.appWindow.header.codCanale AS codCanale»
+«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»static_links.html" resourceProvider="sp" />
+«ENDLET»
+«ENDLET»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 <r:include url="/ris/include/portal_footer.html" resourceProvider="sp" />
 «ENDDEFINE»
-

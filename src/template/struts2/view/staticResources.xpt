@@ -139,7 +139,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ===========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
 	«IF isNewMode()-»
 		«IF hasPortalProfile(model)-»
@@ -161,7 +161,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
 «DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 	«IF isNewMode()-»
 		«EXPAND staticResourcesM2::getPortalHeader(model, skip_component_dir_creation) FOR this-»
@@ -171,7 +171,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
 «DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 	«IF isNewMode()-»
 		«EXPAND staticResourcesM2::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
@@ -181,7 +181,17 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+	«IF isNewMode()-»
+		«EXPAND staticResourcesM2::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+	«ELSE»
+		«EXPAND staticResourcesM1::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 	«IF isNewMode()-»
 		«EXPAND staticResourcesM2::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
@@ -189,4 +199,3 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 		«EXPAND staticResourcesM1::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
 	«ENDIF»
 «ENDDEFINE»
-

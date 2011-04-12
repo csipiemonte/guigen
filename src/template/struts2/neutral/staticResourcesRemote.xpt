@@ -21,7 +21,7 @@ Definizioni generali: header, footer, ecc
 ==========================================================================================================================
 «ENDREM»
 
-«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER (chiamate tramite Struts2)«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 «REM»[DM] STDMDD-670: Header markup«ENDREM»
 «EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, true) FOR this»		
@@ -52,7 +52,7 @@ Definizioni generali: header, footer, ecc
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 «REM»[DM] STDMDD-670: Header markup«ENDREM»
 «EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, true) FOR this»		
@@ -81,8 +81,7 @@ Definizioni generali: header, footer, ecc
 «ENDDEFINE»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI.
-TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 «LET model.structure.appWindow.header.codCanale AS codCanale»
 «LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
@@ -90,7 +89,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 <%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <c:catch var="ex">
-	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»static_links.html" resourceProvider="sp" />
+	«EXPAND template::struts2::view::staticResources::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
 </c:catch>
 «ENDLET»
 «ENDLET»
@@ -102,19 +101,3 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 <!-- footer (con remincl) -->
 «EXPAND template::struts2::view::staticResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»				
 «ENDDEFINE»
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

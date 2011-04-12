@@ -228,7 +228,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ==========================================================================================================================
 «ENDREM»
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
 «DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/globalPortal.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/xhtmlStructureUniversal.css" media="screen" />
@@ -245,6 +245,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 <script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»js/jsFunctions.js"></script>
 «ENDDEFINE»
 
+«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
 «DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -271,20 +272,25 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
 «DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
 «DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
 «ENDDEFINE»
 
 
-«REM»comment«ENDREM»
+«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
+«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+<r:include url="«getPathComponentDir(model, true)»include/static_links.html" resourceProvider="sp" />
+«ENDDEFINE»
+
+
+«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
 <r:include url="«getPortalPageInclusionPath()»portal_footer.html" resourceProvider="sp" />
 «ENDDEFINE»
-
