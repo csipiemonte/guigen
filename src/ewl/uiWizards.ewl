@@ -18,7 +18,7 @@ wizard FormFields4RecordAppdata {
 		wp1.layout := layout;
 		self.subpanels.add(wp1);
 		var fieldsToShow: Collection := UserInput.chooseMany(
-			'Scegliere i campi del record da visualizzare', recordAD.type.fields.select(f|f.type.isTypeOf(SimpleType))
+			'Scegliere i campi del record da visualizzare', recordAD.type.allFields.select(f|f.type.isTypeOf(SimpleType))
 		);
 		for (currFld in fieldsToShow) { 
 			wp1.addFieldWidget(currFld, recordAD);
@@ -82,7 +82,7 @@ wizard Table4CollectionAppdata {
 		var fieldsToShow: Collection := UserInput.chooseMany(
 			'La tabella visualizzerà elementi di tipo '+recordType.name+
 			'scegliere i campi da visualizzare tra quelli seguenti',
-			recordType.fields
+			recordType.allFields
 		);
 		var colModel : new ColumnModel;
 		-- id
