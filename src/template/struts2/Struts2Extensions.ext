@@ -18,8 +18,7 @@ String getPresentationRootJavaPackage(GUIModel model) :
 	
 String getPresentationRootJavaSrcDir(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/presentation";
-	
-	
+
 String getPresentationMarkupDir(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/jsp";
 	
@@ -54,11 +53,16 @@ String getInterceptorsJavaPackage(GUIModel model) :
 	getBaseJavaPackage(model) + ".presentation." + model.codComponente + ".interceptor";
 
 String getUIUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
-	getBaseJavaSrcDir(model, omit_root) + "/presentation/uiutils";
+	getPresentationRootJavaSrcDir(model, omit_root) + "/uiutils";
 
 String getUIUtilsJavaPackage(GUIModel model) :
-	getBaseJavaPackage(model) + ".presentation.uiutils";
+	getPresentationRootJavaPackage(model) + ".uiutils";
 
+String getMultiPortalUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
+	getPresentationRootJavaSrcDir(model, omit_root) + "/multiportalutils";
+
+String getMultiPortalUtilsJavaPackage(GUIModel model) :
+	getPresentationRootJavaPackage(model) + ".multiportalutils";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

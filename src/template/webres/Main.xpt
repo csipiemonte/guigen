@@ -5,7 +5,8 @@
 «EXTENSION template::fatjs::FatJSExtensions»
 
 «DEFINE main(String targetProjectPrefix) FOR GUIModel»
-	«EXPAND contentPanelsFiles FOR this»
+	«REM»[DM]STDMDD-621: i files di enrichments vengono generati SEMPRE dalla cartuccia struts2 in LOCALE
+	«EXPAND contentPanelsFiles FOR this»«ENDREM»
 	«EXPAND insertFatClientJsFile FOR this»
 	«EXPAND buildFiles(targetProjectPrefix) FOR this»
 «ENDDEFINE»

@@ -40,13 +40,31 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///*****************************************************************************************************************//
-/// Check SPECIFICI della cartuccia Neutral                                                               //
+/// Check SPECIFICI della cartuccia Neutral                                                                         //
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] STDMDD-368: TabSwitcher implementato e check rimosso
 //context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
 //	false;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// [DM] PortalProfile e PortalExposition
+
+context PortalExposition ERROR "Bisogna dichiarare il PortalProfile di ogni PortalExposition: " + loc() :
+	this.portal != null;
+
+context PortalExposition WARNING "L'Exposition per il Profilo " + this.portal.name + " non dichiara un AreaCode: verra' assunto 'general': " + loc() :
+	!isNullOrEmpty(this.areaCode);
+
+context PortalProfile ERROR "Il PortalProfile " + this.name + " non dichiara un ResourceProvider Code: " + loc() :
+	!isNullOrEmpty(this.resourceProviderCode);
+
+context PortalProfile ERROR "Il PortalProfile " + this.name + " non dichiara un whereAreYouFromPortal Code: " + loc() :
+	!isNullOrEmpty(this.whereAreYouFromPortalCode);
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli

@@ -62,15 +62,15 @@
 
 «REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/header.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@taglib uri="/customtag" prefix="customtag" %>
 «IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
 «EXPAND remoteResources::getHeaderMarkup(model, skip_component_dir_creation) FOR this»
 «ENDFILE»
 
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/headerNoStruts.jsp"»<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="globalMessages" />
 
@@ -81,7 +81,7 @@
 
 «REM»Genera la componente di markup (HTML) della MENUBAR«ENDREM»
 «DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@ taglib prefix="s" uri="/struts-tags" %>
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/menu.jsp"»<%@taglib prefix="s" uri="/struts-tags" %>
 «EXPAND remoteResources::getMenubarMarkup(model, skip_component_dir_creation) FOR this»
 «ENDFILE»
 «ENDDEFINE»
@@ -89,8 +89,8 @@
 
 «REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
 «DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
+«FILE getJspFragmentsMarkupDir(model, skip_component_dir_creation) + "/footer.jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 
 «EXPAND remoteResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
 «ENDFILE»
@@ -105,6 +105,10 @@
 	«EXPAND getJspSessionExpiredFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspPageInvalidTokenFile(skip_component_dir_creation) FOR this-»
+	«REM»STD«ENDREM»
+	«IF isMultiPortal(this)-»
+		«EXPAND getJspUnknownPortalFile(skip_component_dir_creation) FOR this-»
+	«ENDIF-»
 «ENDDEFINE»
 
 
@@ -153,6 +157,14 @@
 «ENDDEFINE»
 
 
+«REM»[DM] STDMDD-621: Crea la pagina di errore Portale Sconosciuto (multiportale)«ENDREM»
+«DEFINE getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, true) + "/unknownPortal.jsp"-»
+«EXPAND remoteResources::getJspUnknownPortalFile FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
+
+
 
 «REM»Mappa un ContentPanel con una Action Struts«ENDREM»
 «DEFINE actionJspFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
@@ -161,7 +173,7 @@
 <%@taglib uri="/customtag" prefix="customtag" %>
 «IF model.targetPlatform.enableRichUIBehavior-»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF-»
 «IF hasTable(this) -»
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="«getStrutsActionPath(this, model)»" />
 «ENDIF-»
@@ -309,7 +321,7 @@ Gestione dei pannelli
 	«ELSE»
 		«FOREACH this.subpanels.select(p | p.metaType != DialogPanel) AS currSubform-»
 			«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubform»
-		«ENDFOREACH-»	
+		«ENDFOREACH-»
 	«ENDIF»
 
 	«IF expandLayout-»
@@ -394,7 +406,7 @@ Gestione dei pannelli
 	<div class="wizardPanelContent">
 	«startFragment()»
 	«EXPAND remoteResources::setupWizardPanel(model, cp, contextPrefix) FOR this-»
-	
+
 	«REM»Crea le direttive di include per i files dei tabs e crea i files dei tabs«ENDREM»
 	«FOREACH this.panels AS currStep ITERATOR i -»
 		«EXPAND createAndAddMultiPanelSubpanel(model, skip_component_dir_creation, cp, this, expandLayout, quadrante, contextPrefix, pduConf) FOR currStep-»
@@ -407,12 +419,12 @@ Gestione dei pannelli
 
 «REM»Crea i sottopannelli di un MultiPanel (e dei sottotipi: TabsetPanel)«ENDREM»
 «DEFINE createAndAddMultiPanelSubpanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, MultiPanel multiPanel, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR Panel»
-«FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this, cp, contextPrefix)»<%@ taglib uri="/struts-tags" prefix="s" %>
-<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+«FILE getJspMultiPanelFullName(model, skip_component_dir_creation, multiPanel, this, cp, contextPrefix)»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@taglib uri="/customtag" prefix="customtag" %>
 «IF model.targetPlatform.enableRichUIBehavior»<%@taglib uri="/csiuicore" prefix="csiuicore" %>«ENDIF»
 «IF hasTable(this) -»
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="«getStrutsActionPath(cp, model)»" />
 «ENDIF-»
@@ -438,10 +450,10 @@ Gestione dei pannelli
 «ENDDEFINE»
 
 
-«REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel 
+«REM»la direttiva di include per ogni file che rappresenta un sottopannello di un MultiPanel
 (o di un sottotipo: TabsetPanel).
 NOTA: la semantica del valore nullo in sessione è differente tra MultiPanel e gli altri due:
-nel multi panel null->nessun pannello visualizzato 
+nel multi panel null->nessun pannello visualizzato
 «ENDREM»
 «DEFINE createMultiPanelSubpanelIncludeDirective(GUIModel model, ContentPanel cp, MultiPanel multiPanel, boolean isFirst, String contextPrefix) FOR Panel»
 <s:if test="#session.«getSelectedMultiPanelName(multiPanel, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(multiPanel, this, cp, contextPrefix)»'«IF isFirst»«ENDIF»">
@@ -503,7 +515,7 @@ nel multi panel null->nessun pannello visualizzato
 	«REM»Definizione del pannello«ENDREM»
 	«startFragment()»
 	«EXPAND createAndAddSubpanel(model, skip_component_dir_creation, cp, expandLayout, quadrante, getChainedContext(contextPrefix,this.name), this.config) FOR this.panelDef.panel-»
-	«endFragment()»	
+	«endFragment()»
 «ENDDEFINE»
 
 «REM»
@@ -520,7 +532,7 @@ nel multi panel null->nessun pannello visualizzato
 «ENDDEFINE»
 
 «DEFINE userDefinedPanelFile(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel»
-«FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+getFullID(this,contextPrefix)+".jsp"»<%@ taglib uri="/struts-tags" prefix="s" %>
+«FILE getJspUserDefinedPanelMarkupDir(model, skip_component_dir_creation)+"/"+cp.name+"_"+getFullID(this,contextPrefix)+".jsp"»<%@taglib uri="/struts-tags" prefix="s" %>
 «startFragment()»
 «EXPAND remoteResources::userDefinedPanelControlHeader(model, cp, contextPrefix) FOR this-»
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(cp.name+"_"+getFullID(this,contextPrefix))»
@@ -540,15 +552,15 @@ Il BoxPanel è un nuovo tipo di pannello (da creare), che può essere di tipo:
   * INFO    -> messaggi generici
   * WARNING -> messaggi di warning
   * ERROR   -> messaggi di errore
-Ogni BoxPanel può contenere uno o più PlainText che possono avere o staticText o un databinding con un testo dinamico 
+Ogni BoxPanel può contenere uno o più PlainText che possono avere o staticText o un databinding con un testo dinamico
 (ad esempio messaggio proveniente dalla business logic).
 I CommandPanel saranno gestiti come gli altri CommandPanel (pulsanti con eventi).
 DialogPanel e BoxPanel ammettono solo VerticalFlowLayout.
-Il DialogPanel è implementato come un file sepèarato che però afferisce alla stessa Action del ContentPanel che lo contiene, 
+Il DialogPanel è implementato come un file sepèarato che però afferisce alla stessa Action del ContentPanel che lo contiene,
 in modo che condividano le stesse proprietà (importante per la business logic)
 «ENDREM»
 «DEFINE setupDialogPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp) FOR DialogPanel-»
-«FILE getJspDialogPanelFullName(model, skip_component_dir_creation, this)-»<%@ taglib uri="/struts-tags" prefix="s" %>
+«FILE getJspDialogPanelFullName(model, skip_component_dir_creation, this)-»<%@taglib uri="/struts-tags" prefix="s" %>
 	«EXPAND remoteResources::dialogPanelControlHeader(model, cp) FOR this-»
 
 	«FOREACH this.msgBoxes AS currentMsgBox-»
@@ -813,7 +825,7 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»
 Genera la componente di markup (HTML) di una ComboBox.
-In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) viene sempre inserito l'ajaxificatore 	
+In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) viene sempre inserito l'ajaxificatore
 «ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ComboBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
@@ -821,13 +833,13 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero una suggestion con bind su chiave e valore«ENDREM»
-<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»" 
-	id="«getWidgetName(this, contextPrefix)»" 
+<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»"
+	id="«getWidgetName(this, contextPrefix)»"
 	size="«fieldLength»"
 	/>
 <noscript>
-	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»" 
-		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»" 
+	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»"
+		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»"
 		value="conferma" cssClass="«getComboBoxValueChangedHandlerStyle(model)»" />
 	<s:select name="«getAppDataKey(databinding.appData)».«keySelector»" id="suggest_«getWidgetName(this, contextPrefix)»"
           «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
@@ -835,7 +847,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
           disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
           «IF (databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray)-»
-          multiple="true" 
+          multiple="true"
           cssClass="selectMultiple"
           «ENDIF-»
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
@@ -853,7 +865,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
           disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
           «IF (databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray)-»
-          multiple="true" 
+          multiple="true"
           cssClass="selectMultiple"
           «IF visibleLines>0»size="«visibleLines»"«ENDIF»
           «ENDIF-»
@@ -879,8 +891,8 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
-<s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»" 
-	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)» 
+<s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
+	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
@@ -897,7 +909,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds,cp, contextPrefix) FOR this -»
 «ENDIF-»
 <s:submit name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" method="«getClickHandlerMethodName(this, contextPrefix)»"
-	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)» 
+	key="«cp.name».«getFullID(this, contextPrefix)».label" «getButtonStyleByLayout(model, this)»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
@@ -909,7 +921,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «REM»Genera la componente di markup (HTML) di un pulsante di reset del form.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ResetButton»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<s:reset name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" key="«cp.name».«getFullID(this, contextPrefix)».label" 
+<s:reset name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»" key="«cp.name».«getFullID(this, contextPrefix)».label"
 	«getButtonStyleByLayout(model, this)» disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')" />
 «ENDDEFINE»
 
@@ -973,12 +985,12 @@ come target di refresh.
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
-		</display:column>		
+		</display:column>
 		«ELSE-»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnComparator(model, currCol, this)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
-		</display:column>		
+		</display:column>
 		«ENDIF-»
 		«IF enableExport-»«REM»STDMDD-694«ENDREM»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
@@ -991,8 +1003,8 @@ come target di refresh.
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
 						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»">
 				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
-					<s:url id="targetUrlLinkableCell" 
-						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do?idColonna=«currCol.selector»" 
+					<s:url id="targetUrlLinkableCell"
+						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do?idColonna=«currCol.selector»"
 						   includeParams="none" >
 						<s:param name="idRiga" value="«tabColMod.valueSelector»" />
 					</s:url>
@@ -1045,9 +1057,9 @@ come target di refresh.
 «ENDIF-»
 	<customtag:tree
 		name="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
-		cssUlClass="tree" 
-        cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen" 
-        cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot" 
+		cssUlClass="tree"
+        cssRootClass="treeRoot" cssFolderOpenClass="treeFolderOpen"
+        cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot"
 		linkOnTree="true" id="«name»"
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
 		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do" showChildNumber="false">
@@ -1095,7 +1107,7 @@ NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tal
 «REM»Genera la componente di markup (HTML) di una mappa gis«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MapView»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<input type="hidden" value='<s:property value="«getAppDataPropertyName(this.databinding.appData).toFirstLower()».idMap"/>' id="hidden_field_«this.name»"/> 
+<input type="hidden" value='<s:property value="«getAppDataPropertyName(this.databinding.appData).toFirstLower()».idMap"/>' id="hidden_field_«this.name»"/>
 <div id="toolbar_«this.name»"></div>
 <div id="«this.name»"></div>
 «IF this.gadgets!=null && this.gadgets.layerSwitcher == true-»

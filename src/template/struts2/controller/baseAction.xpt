@@ -418,6 +418,10 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=null»
 	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
 	«ENDIF»
+	
+	«IF isMultiPortal(this)»
+	«EXPAND template::struts2::multiPortal::baseActionMethods FOR this-»
+	«ENDIF»
 }
 «ENDFILE»
 «ENDDEFINE»

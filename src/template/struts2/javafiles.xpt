@@ -35,6 +35,9 @@
 	«ENDIF»
 	«EXPAND beanMappingUtils FOR this»
 	«REM»«EXPAND viewFragmentResultJavaFile FOR this»«ENDREM»
+	«IF isMultiPortal(this)»
+		«EXPAND multiPortal::multiPortalClassesFiles(skip_component_dir_creation) FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE sessionListenerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»

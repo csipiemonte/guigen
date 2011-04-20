@@ -171,6 +171,9 @@ String getGlobalXstructureDir(boolean remote) :
 String getGlobalOpenlayersthemeDir(boolean remote) : 
 	(remote ? "/" : "") + "ris/utheme/global/themes/openlayersthemeV1/";
 
+String getJsDir(boolean remote) : 
+	(remote ? "/" : "") + "ris/js/";
+
 String getNomeCanale(GUIModel model) :
 	let canale = model.structure.appWindow.header.codCanale.trim() :
 	!isNullOrEmpty(canale) ? canale : "general";
@@ -193,6 +196,18 @@ boolean hasPortalProfile(GUIModel model) :
 boolean isMultiPortal(GUIModel model) :
 	model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 1;
 
+String getMultiPortalPathComponentDir(GUIModel model, boolean remote) :
+	let codApplicativo = model.structure.appWindow.header.codApplicativo :
+	let pre = (remote ? "/" : "") :
+	pre + "ris/utheme/${channel}/"+codApplicativo;
+
+String getLocalStaticResDir(GUIModel model, boolean omit_root) :
+	getWebSrcDir(model, omit_root) + "/ris";
+
+String getLocalJsDir(GUIModel model, boolean omit_root) :
+	getLocalStaticResDir(model, omit_root) + "/js";
+
+
 
 ////////////////////////////////////////////////////////////
 /// Estensioni di layout                                  //
@@ -211,7 +226,7 @@ String getApplicationName(GUIModel model) :
 	else
 		"";
 
-// [DM] il reperimento delle risorsestatiche: true = remoto, false = locale (default = false)
+// [DM] il reperimento delle risorse statiche: true = remoto, false = locale (default = false)
 boolean isRemote() :
 	!isNullOrEmpty(getProperty("guigen.remoteresources")) ? (getProperty("guigen.remoteresources") == "true" ? true : false ) : false;
 
@@ -454,4 +469,4 @@ boolean applicationDataNamesAreAllUnambiguous(List appDataList) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.applicationDataNamesAreAllUnambiguous(java.util.List);	
 	
 Void setProperty(String name, String val) : JAVA
-  it.csi.mddtools.guigen.genutils.GenUtils.setProperty(java.lang.String, java.lang.String);
+	it.csi.mddtools.guigen.genutils.GenUtils.setProperty(java.lang.String, java.lang.String);

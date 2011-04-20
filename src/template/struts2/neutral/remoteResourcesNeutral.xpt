@@ -83,7 +83,6 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageSessionExpiredFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.sessionexpired.title" /></h3>
 <div id="applicationError">
 	<fmt:message key="error.sessionexpired.warning" />
@@ -96,9 +95,13 @@ Definizioni generali: Pagine di ERRORE
 	<fmt:message key="error.sessionexpired.authentication" />
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
-	<!-- NOTA: questa URL e' da parametrizzare in qualche modo -->
 	<div class="button left">
-		<a href="#" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«IF isMultiPortal(this)-»
+		<c:set var="portalHomePage" value="<%= "portal.home." + (String)session.getAttribute("MDD_PORTAL_CODE") %>" />
+		<a href="<c:out value='${!empty initParam[portalHomePage] ? initParam[portalHomePage] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«ELSE-»
+		<a href="<c:out value='${!empty initParam["portal.home"] ? initParam["portal.home"] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«ENDIF-»
 	</div>
 	<div class="button right">
 		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
@@ -134,16 +137,19 @@ Definizioni generali: Pagine di ERRORE
 «REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
 «DEFINE getJspPageInvalidTokenFile FOR GUIModel»
 «EXPAND getJspErrorPageHeaderNoStruts FOR this-»
-<!-- TODO: IMPLEMENTARE CORRETTAMENTE -->
 <h3><fmt:message key="error.invalidtoken.title" /></h3>
 <div id="applicationError">
 	<fmt:message key="error.invalidtoken.message" />
 	<br />
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
-	<!-- NOTA: questa URL e' da parametrizzare in qualche modo -->
 	<div class="button left">
-		<a href="#"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«IF isMultiPortal(this)-»
+		<c:set var="portalHomePage" value="<%= "portal.home." + (String)session.getAttribute("MDD_PORTAL_CODE") %>" />
+		<a href="<c:out value='${!empty initParam[portalHomePage] ? initParam[portalHomePage] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«ELSE-»
+		<a href="<c:out value='${!empty initParam["portal.home"] ? initParam["portal.home"] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+	«ENDIF-»
 	</div>
 	<div class="button right">
 		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
@@ -153,8 +159,37 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
+«REM»
+[DM] STDMDD-621 : Crea la pagina di errore Portale Sconosciuto (multiportale)
+Nota: non ha né header, né footer né graficazione, perché se non sono riuscito a decodificare il portale
+      non sono in grado di dare una veste grafica alla pagina.
+«ENDREM»
+«DEFINE getJspUnknownPortalFile FOR GUIModel»<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<fmt:setBundle basename="globalMessages" />
+
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
+	<div id="contentPanel">
+		<div id="centerWrapper" class="floatWrapper">
+			<div id="centerPanel">
+				<div class="wrapper">
+					<h3><fmt:message key="error.unknownportal.title" /></h3>
+					<div id="applicationError">
+						<fmt:message key="error.unknownportal.warning" />
+						<br />
+						<fmt:message key="error.unknownportal.resources" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+«ENDDEFINE»
+
+
+
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
+«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@taglib uri="/struts-tags" prefix="s" %>
 	«IF this.structure.appWindow.header != null-»
 	<s:include value="../fragments/header.jsp" ></s:include>
 	«ENDIF-»
@@ -181,7 +216,8 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <fmt:setBundle basename="globalMessages" />
 
@@ -535,7 +571,7 @@ Gestione dei PANNELLI
 					«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher-»
 				«ENDIF-»
 			</li>
-		</s:else>		
+		</s:else>
 		«ELSE-»
 		<s:else>
 			<li class="item-«i.counter1»"><s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a></li>
@@ -601,7 +637,7 @@ Gestione dei PANNELLI
         «IF model.targetPlatform.enableRichUIBehavior-»
         	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR switcher-»
         «ENDIF-»
-        <span class="separator"> | </span>	
+        <span class="separator"> | </span>
 	«ELSE-»
 		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a><span class="separator"> | </span>
 	«ENDIF-»
