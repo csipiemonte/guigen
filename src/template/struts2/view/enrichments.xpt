@@ -276,7 +276,11 @@ Ext.onReady( function() {
 											,
 											editingEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)».do',
 											refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
-											editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»'
+											editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»',
+											noClickWhenDisabled: «jsLiteralValue(noClickWhenDisabled)»,
+											noEditWhenDisabled: «jsLiteralValue(noEditWhenDisabled)»,
+											noPanWhenDisabled: «jsLiteralValue(noPanWhenDisabled)»,
+											noZoomWhenDisabled: «jsLiteralValue(noZoomWhenDisabled)»
 												«ENDIF-»
 											«EXPAND MapViewGadgetConfig FOR this.gadgets»
 											«ENDIF»					

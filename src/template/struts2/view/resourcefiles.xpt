@@ -1108,6 +1108,12 @@ NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di tal
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MapView»
 <!-- widget «getFullID(this, contextPrefix)» -->
 <input type="hidden" value='<s:property value="«getAppDataPropertyName(this.databinding.appData).toFirstLower()».idMap"/>' id="hidden_field_«this.name»"/>
+<s:if test="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')">
+<input type="hidden" value="false" id="enabled_state_«this.name»"/>
+</s:if>
+<s:else>
+<input type="hidden" value="true" id="enabled_state_«this.name»"/>
+</s:else>
 <div id="toolbar_«this.name»"></div>
 <div id="«this.name»"></div>
 «IF this.gadgets!=null && this.gadgets.layerSwitcher == true-»
