@@ -3520,7 +3520,8 @@ public class GenUtils {
 			if (parz!=null){
 				for (int i = 0; i < parz.length; i++) {
 					String currId = parz[i];
-					ids.add(currId);
+					if (!ids.contains(currId))
+						ids.add(currId);
 				}
 			}
 		}
