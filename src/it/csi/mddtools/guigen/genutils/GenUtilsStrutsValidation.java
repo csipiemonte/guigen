@@ -18,6 +18,7 @@ import it.csi.mddtools.guigen.SimpleType;
 import it.csi.mddtools.guigen.SimpleTypeCodes;
 import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
+import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Widget;
 
@@ -478,15 +479,27 @@ public class GenUtilsStrutsValidation {
 	 * @return
 	 */
 	public static boolean requireValidation(ApplicationData ad) {
+		return requireValidation(ad.getType());
+	}
+	
+	
+	
+	
+	public static boolean requireValidation(Type type) {
+		
 		boolean res = false;
 		
-		if ( ad.getType() instanceof ComplexType ) {
-			// al primo livello controllo solo i tipi complessi 
-			res = requireValidation((ComplexType)ad.getType());
+		
+		if ( type instanceof ComplexType ) {
+			res = requireValidation((ComplexType)type);
+		}
+		else if(type instanceof TypedArray){	
+			res = requireValidation((TypedArray)type);
 		}
 		
 		return res;
 	}
+	
 	
 	
 	/**
@@ -507,6 +520,17 @@ public class GenUtilsStrutsValidation {
 		return res;
 	}
 
+	
+	
+	
+	public static boolean requireValidation(TypedArray ta) {
+	
+		return requireValidation(ta.getComponentType());
+		
+	}
+	
+	
+	
 
 	/**
 	 * 
