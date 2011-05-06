@@ -1,7 +1,7 @@
 import guigen;
 
 String docFileName(PortalProfile pp) :
-	"portalProfile_"+pp.name+".html";
+	pp.name+"/portalProfile_"+pp.name+".html";
 	
 List[StdWebResourceModule] getLibsModules(List[StdWebResourceModule] allModules) :
 allModules.select(m | 
@@ -37,6 +37,7 @@ else if (type == StdWebResModuleNames::openlayers) then "Libreria Openlayers per
 else if (type == StdWebResModuleNames::extjscsicore) then "Estensioni delle librerie ExtJS con personalizzazioni della user interface"
 else if (type == StdWebResModuleNames::extjscsienricher) then "Framework per l'arricchimento delle applicazioni XHTML"
 else if (type == StdWebResModuleNames::globalinclusions) then "Files globali destinati all'inclusione nelle pagine applicative tramite remote-include"
+else if (type == StdWebResModuleNames::xstructure) then "Fogli di stile CSS e risorse grafiche che conferiscono la struttura di layout e la grafica di base alla schermata"
 else if (type == StdWebResModuleNames::extlibstheme) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica di base alle componenti ricche (js)"
 else if (type == StdWebResModuleNames::openlayerstheme) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica di base alle componenti di tipo cartografico (js)"
 else if (type == StdWebResModuleNames::areabrand) then "Fogli di stile CSS e risorse grafiche che conferiscono la grafica specifica di una determinata area tematica (canale) limitatamente alle componenti grafiche xhtml"
