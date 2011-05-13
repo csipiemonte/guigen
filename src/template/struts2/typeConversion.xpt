@@ -371,6 +371,13 @@ public class CsiDateComparator implements Comparator<String>, java.io.Serializab
 	 */
 	public int compare(String o1, String o2) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+	
+		if (o1.equals("") && !o2.equals(""))
+			return -1;
+		if (!o1.equals("") && o2.equals(""))
+			return 1;
+		if (o1.equals("") && o2.equals(""))
+			return 0;
 
 		try {
 			Date d1 = sdf.parse(o1);
@@ -427,22 +434,31 @@ public class CsiDateTimeComparator implements Comparator<String>, java.io.Serial
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 
 		try {
+			if (o1.equals("") && !o2.equals(""))
+				return -1;
+			if (!o1.equals("") && o2.equals(""))
+				return 1;
+			if (o1.equals("") && o2.equals(""))
+				return 0;
+
 			// estrapolo la data dalle stringhe
-			String sd1 = o1.substring(0, o1.indexOf("-"));
-			String sd2 = o2.substring(0, o2.indexOf("-"));
+			int sepIdx1 = o1.indexOf("-");
+			int sepIdx2 = o2.indexOf("-");
+			String sd1 = sepIdx1 > -1 ? o1.substring(0, sepIdx1) : o1;
+			String sd2 = sepIdx2 > -1 ? o2.substring(0, sepIdx2) : o2;
 
 			// converto le stringhe della date in oggetti di tipo Date
 			Date d1 = sdf.parse(sd1);
 			Date d2 = sdf.parse(sd2);
-
+			
 			// confronto gli oggetti Date
-			if ( d1.compareTo(d2) != 0 ) {
+			if (d1.compareTo(d2) != 0) {
 				// le due date sono differenti, ne ritorno il confronto
 				return d1.compareTo(d2);
 			} else {
-				// le due date sono uguali, confronto la parte delle ore
-				String sm1 = o1.substring(o1.indexOf("-")+1);
-				String sm2 = o2.substring(o2.indexOf("-")+1);
+				// le due date sono uguali, confronto la parte delle ore, se presenti
+				String sm1 = sepIdx1 > -1 ? o1.substring(o1.indexOf("-") + 1) : "00:00";
+				String sm2 = sepIdx2 > -1 ? o2.substring(o2.indexOf("-") + 1) : "00:00";
 				return sm1.compareTo(sm2);
 			}
 		} catch (ParseException e) {
