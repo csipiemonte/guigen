@@ -981,27 +981,21 @@ come target di refresh.
 	«LET this.columnModel AS tabColMod-»
 	«FOREACH getCustomizedColumnsList(this, pduConf) AS currCol-»
 		«IF currCol.editable-»
-		«IF currCol.editableFlagSelector != null-»
+			«IF currCol.editableFlagSelector != null-»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
-		«ELSE-»
+			«ELSE-»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnComparator(model, currCol, this)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				«getColumnEditableField(currCol, this, model, contextPrefix, pduConf, null)»
 		</display:column>
-		«ENDIF-»
-		«IF enableExport-»«REM»STDMDD-694«ENDREM»
-		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
-			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
-			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)»
-			media="excel pdf" />
-		«ENDIF-»
+			«ENDIF-»
 		«REM»[SC] Jira STDMDD-536 Introdotta gestione dell'Active Flag Selector «ENDREM»
 		«ELSEIF currCol.eventActive && currCol.activeFlagSelector!=null -»
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
-						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»">
+						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
 					<s:url id="targetUrlLinkableCell"
 						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do?idColonna=«currCol.selector»"
@@ -1019,7 +1013,17 @@ come target di refresh.
 		«ELSE-»
 		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label" «getColumnAction(currCol, this, cp, contextPrefix)»
 			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
-			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)» />
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)» «getColumnStyle(currCol, this, model)»  media="html" />
+		«ENDIF-»
+		«IF enableExport-»«REM»STDMDD-694«ENDREM»
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnComparator(model, currCol, this)»
+			media="excel" />
+		<display:column property="«currCol.selector»" titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
+			sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»"
+			«getColumnFormatter(currCol, this)» «getColumnComparator(model, currCol, this)»
+			media="pdf" />	
 		«ENDIF-»
 	«ENDFOREACH-»
 	«ENDLET-»
