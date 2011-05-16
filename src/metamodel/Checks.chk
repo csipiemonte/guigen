@@ -631,6 +631,11 @@ context TypedArray if (componentType.metaType == TypedArray) WARNING "Il typed A
 context ComplexType ERROR "Il ComplexType \""+name+"\" ha una gerarchia con dipendenza circolare:"+loc() :
 	!hasCircularHierarchy(this);
 
+// STDMDD-637: verifica conflitto di nome in type namespace
+context Type if (eContainer.metaType == TypeNamespace) && !isNullOrEmpty(name) ERROR "Esiste piu' di un Type con lo stesso nome ("+name+") nello stesso TypeNamespace ("+((TypeNamespace)eContainer).name+")" :
+	let tns = (TypeNamespace)eContainer :
+	tns.types.select(t|t.name == this.name).size==1;
+	
 //[DM] 
 context SimpleType if (this.userDefined) ERROR "Un SimpleType User Defined con codice INT, FLOAT, LONG, DOUBLE, BOOLEAN, BYTE deve essere nillable: "+loc() :
 	if (
