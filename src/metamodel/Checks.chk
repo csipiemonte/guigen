@@ -759,7 +759,11 @@ context ContentPanel if (states!=null && states.states.size >0) WARNING "I widge
 		+" non sono mai abilitati in nessuno ScreenState."+loc() :
 	let nsw = getNeverEnabledWidgets() :
 	nsw==null || nsw.size==0;
-	
+
+context ContentPanel if (this.onRefreshCommand != null) ERROR "La catena di comandi di 'onRefresh' del ContentPanel "+name+" non può terminare con JumpCommand o JumpExtCommand" :
+	let leafs = getLeafCommands(this.onRefreshCommand) :
+	leafs.select(c|c.metaType == JumpCommand || c.metaType == JumpExtCommand).size==0;
+ 	
 // le catene di comandi associate all' onAppInit devoono avere come foglie o un JumpCommand o un JumpExtCommand
 context ApplicationArea if (this.onInitCommand!=null) ERROR "la logica di inizializzazione dell'applicazione "+
 	" (ApplicationArea.onInitCommand) deve avere come esito ultimo solo comandi di Jump o JumpExt, invece contiene anche:"
