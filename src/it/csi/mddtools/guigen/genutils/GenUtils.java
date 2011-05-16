@@ -3291,7 +3291,7 @@ public class GenUtils {
 				if ( isDecimal(ft) ) {
 					res = "format=\"{0,number,#,##0.00}\"";
 				}
-				else if ( isInteger(ft) ) {
+				else if ( isInteger(ft) || isLong(ft) ) {
 					res = "format=\"{0,number,#,##0}\"";
 				}
 				// al momento gestiamo solo formatter per campi NUMERICI (INTERI [INT, LONG] o DECIMALI [DOUBLE, FLOAT]).
