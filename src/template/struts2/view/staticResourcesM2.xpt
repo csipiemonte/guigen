@@ -76,7 +76,11 @@ ENRICHMENTS - REMOTE MODE
 «DEFINE staticResourcesXMLRemote FOR GUIModel-»
 <resource type="text/css">
 	<position value="«getGlobalExtlibsthemeDir(true)»css/ext-all/resources/css/ext-all.css" />
+	«IF isMultiPortal(this)-»
+	<position value="«getGlobalExtlibsthemeDir(true)»css/{areaCode}/css/xtheme-{areaCode}.css" />
+	«ELSE-»
 	<position value="«getGlobalExtlibsthemeDir(true)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	«ENDIF-»
 </resource>
 <resource type="text/javascript">
 	<position value="«getGlobalJslibDir(true)»ext-all/3.2.2/adapter/ext/ext-base.js" />
@@ -113,7 +117,11 @@ ENRICHMENTS - REMOTE MODE
 	<!-- funzioni comuni all' applicativo (opz) -->
 	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
 	<!-- stilizzazioni JS locali (opz) -->
+	«IF isMultiPortal(model)-»
+	<position value="«getPathComponentDirMultiportal(model, true)»js/localStyle.js" />
+	«ELSE-»
 	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	«ENDIF-»
 	<!-- arricchimenti della schermata -->
 	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
 </resource>
@@ -143,7 +151,7 @@ ENRICHMENTS - REMOTE MODE
   	<position value="«getGlobalJslibDir(true)»extjscsicore/1.0.0/tree-state/TreePanelStatefull_plugin.js" />
   	<position value="«getGlobalJslibDir(true)»extjscsicore/1.0.0/fileuploadfield/FileUploadField.js" />
 	<position value="«getGlobalJslibDir(true)»extjscsimdd/1.0.0/core/core.js" />
-	<position value="«getPathComponentDir(this, true)»js/fatclient.js" />
+	<position value="«getJsDir(false)»fatclient.js" />
 </resource>
 «ENDDEFINE»
 
@@ -226,7 +234,7 @@ ENRICHMENTS - LOCAL MODE
   	<position value="«getGlobalJslibDir(false)»extjscsicore/1.0.0/tree-state/TreePanelStatefull_plugin.js" />
   	<position value="«getGlobalJslibDir(false)»extjscsicore/1.0.0/fileuploadfield/FileUploadField.js" />
 	<position value="«getGlobalJslibDir(false)»extjscsimdd/1.0.0/core/core.js" />
-	<position value="«getPathComponentDir(this, false)»js/fatclient.js" />
+	<position value="«getJsDir(false)»fatclient.js" />
 </resource>
 «ENDDEFINE»
 
@@ -260,7 +268,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «IF isMultiPortal(model)-»
 <s:set name="mddPortalCode" value="getPortalCode()" />
 <s:set name="mddChannelCode" value="getChannelCode()" />
-<s:set name="applicationCssUrl" value="getStaticResource('/ris/utheme/{channel}/«codApplicativo»/css/«codApplicativo».css')" />
+<s:set name="applicationCssUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»css/«codApplicativo».css')" />
 «ENDIF-»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -274,7 +282,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
 		«IF isMultiPortal(model)»
-		<link rel="stylesheet" type="text/css" href="/ris/utheme/global/themes/xstructureV1/css/<s:property value="mddChannelCode" />/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<s:property value="mddChannelCode" />/theme.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<s:property value="applicationCssUrl" />" media="screen" />		
 		«ELSE»
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" />
@@ -308,7 +316,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
 		«IF isMultiPortal(model)»
-		<link rel="stylesheet" type="text/css" href="/ris/utheme/global/themes/xstructureV1/css/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/theme.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="/ris/utheme/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/«codApplicativo»/css/«codApplicativo».css" media="screen" />		
 		«ELSE»
 		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" />
@@ -348,7 +356,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
 «DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 «IF isMultiPortal(model)-»
-<s:set name="applicationHeaderUrl" value="getStaticResource('/ris/utheme/{channel}/«codApplicativo»/include/application_header.html')" />
+<s:set name="applicationHeaderUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/application_header.html')" />
 <r:include url="${applicationHeaderUrl}" resourceProvider="${mddPortalCode}" />
 «ELSE-»
 <r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
@@ -373,7 +381,7 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 «IF isMultiPortal(model)-»
 <s:set name="mddPortalCode" value="getPortalCode()" />	
-<s:set name="staticLinksUrl" value="getStaticResource('/ris/utheme/{channel}/«codApplicativo»/include/static_links.html')" />
+<s:set name="staticLinksUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/static_links.html')" />
 <c:catch var="ex">
 	<r:include url='${staticLinksUrl}' resourceProvider='${mddPortalCode}' />
 «ELSE-»

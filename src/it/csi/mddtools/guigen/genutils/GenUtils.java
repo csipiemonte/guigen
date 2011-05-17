@@ -2518,15 +2518,15 @@ public class GenUtils {
 	 * @param remote
 	 * @return
 	 */
-	public static String getPathComponentDir(GUIModel model, Boolean remote){
+	public static String getPathComponentDir(GUIModel model, Boolean remote) {
 		Header header = model.getStructure().getAppWindow().getHeader();
 		String pre = "";
-		if(remote){
+		if (remote) {
 			pre = "/";
 		}
 		
 		String codCanale = header.getCodCanale();
-		if(codCanale == null || codCanale.length() == 0){
+		if (codCanale == null || codCanale.length() == 0) {
 			codCanale = "general";
 		}
 		String codApplicativo = header.getCodApplicativo();
@@ -2534,6 +2534,27 @@ public class GenUtils {
 		return pre+"ris/utheme/"+codCanale+"/"+codApplicativo+"/";
 	}
 
+	/**
+	 * restituisce il path delle risorse statiche relative all'applicativo
+	 * con i segnaposto per il codice dell'area tematica (canale)
+	 * @param model
+	 * @param remote
+	 * @return
+	 * @author [DM]
+	 */
+	public static String getPathComponentDirMultiportal(GUIModel model, Boolean remote) {
+		Header header = model.getStructure().getAppWindow().getHeader();
+		String pre = "";
+		if (remote) {
+			pre = "/";
+		}
+		
+		String codCanale = "{areaCode}";
+		String codApplicativo = header.getCodApplicativo();
+		
+		return pre+"ris/utheme/"+codCanale+"/"+codApplicativo+"/";
+	}	
+	
 	/**
 	 *
 	 * @param w

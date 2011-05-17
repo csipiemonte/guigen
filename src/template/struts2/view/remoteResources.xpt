@@ -444,6 +444,6 @@ Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 «ENDREM»
 «DEFINE commonRisInclude FOR GUIModel-»
 	«IF targetPlatform.enableRichUIBehavior-»
-	<csiuicore:header/>
+	<csiuicore:header«IF isMultiPortal(this)» areaCode='${sessionScope["MDD_CHANNEL_CODE"]}'«ENDIF» />
 	«ENDIF-»
 «ENDDEFINE»

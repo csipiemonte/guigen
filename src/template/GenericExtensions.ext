@@ -155,7 +155,7 @@ String getWebSrcDir(GUIModel model, boolean omit_root) :
 
 String getPathComponentDir(GUIModel model, boolean remote) : JAVA 
 	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDir(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
-	
+
 String getGlobalJslibDir(boolean remote) : 
 	(remote ? "/" : "") + "ris/utheme/global/jslib/";
 
@@ -196,10 +196,8 @@ boolean hasPortalProfile(GUIModel model) :
 boolean isMultiPortal(GUIModel model) :
 	model.targetPlatform.portalExpositions != null && model.targetPlatform.portalExpositions.size > 1;
 
-String getMultiPortalPathComponentDir(GUIModel model, boolean remote) :
-	let codApplicativo = model.structure.appWindow.header.codApplicativo :
-	let pre = (remote ? "/" : "") :
-	pre + "ris/utheme/${channel}/"+codApplicativo;
+String getPathComponentDirMultiportal(GUIModel model, boolean remote) : JAVA 
+	it.csi.mddtools.guigen.genutils.GenUtils.getPathComponentDirMultiportal(it.csi.mddtools.guigen.GUIModel, java.lang.Boolean);
 
 String getLocalStaticResDir(GUIModel model, boolean omit_root) :
 	getWebSrcDir(model, omit_root) + "/ris";
