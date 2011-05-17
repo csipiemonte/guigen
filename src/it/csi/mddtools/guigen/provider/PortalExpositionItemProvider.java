@@ -129,11 +129,15 @@ public class PortalExpositionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((PortalExposition)object).getAreaCode();
+		PortalExposition pexp = (PortalExposition)object;
+		
+		String label = "on portal ";
+		label += pexp.getPortal()!=null? "\""+pexp.getPortal().getName()+"\"" : "<unspecified>";
+		label += ", area:\""+pexp.getAreaCode()+"\"";
 		return label == null || label.length() == 0 ?
 			getString("_UI_PortalExposition_type") :
 			getString("_UI_PortalExposition_type") + " " + label;
