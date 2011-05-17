@@ -489,7 +489,7 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 «DEFINE multiportalFiltersDefAndMapping FOR GUIModel»
 	<filter>
 		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
-		<filter-class>it.csi.newrupar.testnewruparremote.presentation.testnewruparremote.filter.WhereAreYouFromRequestAdapterFilter</filter-class>
+		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromRequestAdapterFilter</filter-class>
 		«EXPAND infoSourceTypeAndName FOR this-»
 		«FOREACH this.targetPlatform.portalExpositions.portal AS profile-»
 		<init-param>
@@ -500,7 +500,7 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 	</filter>	
 	<filter>
 		<filter-name>WhereAreYouFrom</filter-name>
-		<filter-class>it.csi.newrupar.testnewruparremote.presentation.testnewruparremote.filter.WhereAreYouFromFilter</filter-class>
+		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromFilter</filter-class>
 	</filter>
 	
 	<filter-mapping>
@@ -569,14 +569,14 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 	// Gestione Multiportale
 	
 	public String getPortalCode() {
-		return (String) session.get(it.csi.newrupar.testnewruparremote.presentation.multiportalutils.MultiPortalUtil.MDD_PORTAL_SESSIONATTR);
+		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_PORTAL_SESSIONATTR);
 	}
 
 	public String getChannelCode() {
-		return (String) session.get(it.csi.newrupar.testnewruparremote.presentation.multiportalutils.MultiPortalUtil.MDD_CHANNEL_SESSIONATTR);
+		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_CHANNEL_SESSIONATTR);
 	}
 
 	public String getStaticResource(String url) {
-		return it.csi.newrupar.testnewruparremote.presentation.multiportalutils.MultiPortalUtil.getStaticResource(url, getPortalCode());
+		return «getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.getStaticResource(url, getPortalCode());
 	}
 «ENDDEFINE»
