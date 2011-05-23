@@ -1033,7 +1033,7 @@ Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 
 «REM»Genera le label per la header«ENDREM»
 «DEFINE headerLabels FOR GUIModel-»
-«IF !isRemote()-»
+«IF !isRemote() || this.targetPlatform.enableFatClient-»
 header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
 «ENDIF-»
 «ENDDEFINE»
