@@ -781,11 +781,21 @@ IVY FILES (gestione delle dipendenze)
       		<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
     	</dependency>
     	
-    	<dependency org="csipiemonte" name="coop-diag" rev="1.1.2">
-      		<artifact name="coop-diag-1.1.2" type="jar" />
+    	<dependency org="csipiemonte" name="coop-diag" rev="1.2.1" transitive="false">
+      		<artifact name="coop-diag-1.2.1" type="jar" />
     	</dependency>
+    	<dependency org="csipiemonte" name="msgadp" rev="1.0.1" transitive="false">
+			<artifact name="msgadp-jaxb-1.0.1" type="jar"/>
+			<artifact name="msgadp-jaxb-tools-1.0.1" type="jar"/>
+		</dependency>
+		<dependency org="sun" name="jaxb" rev="1.0">
+			<artifact name="jaxb-api-1.0" type="jar"/>
+			<artifact name="jaxb-libs-1.0" type="jar"/>
+			<artifact name="jaxb-ri-1.0" type="jar"/>
+			<artifact name="jaxb-xjc-1.0" type="jar"/>
+		</dependency>
     	
-    	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0">
+    	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0" transitive="false">
       		<artifact name="coop-trace-1.1.0" type="jar" />
     	</dependency>
     	
@@ -794,10 +804,17 @@ IVY FILES (gestione delle dipendenze)
     	</dependency>
     	
     	<!-- librerie per funzioni GIS -->
-    	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.4.0">
+    	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.4.0" transitive="false">
       		<artifact name="jeegfw-2.4.0" type="jar" />
     	</dependency>
-    	<dependency org="csipiemonte" name="gosgisso" rev="1.2.0">
+    	<dependency org="apache" name="commons-codec" rev="1.2">
+			<artifact name="commons-codec-1.2" type="jar"/>
+		</dependency>
+		<dependency org="others" name="jts" rev="1.9">
+			<artifact name="jts-1.9" type="jar"/>
+		</dependency>
+		
+    	<dependency org="csipiemonte" name="gosgisso" rev="1.2.0" transitive="false">
       		<artifact name="gosgisso-gosgisgosgisso-client-1.2.0" type="jar" />
     	</dependency>
     	<dependency org="csipiemonte" name="splugesf-giscommon" rev="1.2.0">
@@ -815,7 +832,7 @@ IVY FILES (gestione delle dipendenze)
 		«ELSE»
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
 		«ENDIF»
-		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" />
+		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
 
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
 		<!-- Inserire qui le dipendenze aggiuntive -->
