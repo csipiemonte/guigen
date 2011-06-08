@@ -1,0 +1,46 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+
+
+
+«DEFINE contentPanelData(GUIModel model) FOR ContentPanel»
+	«EXPAND storedAppDataJson(model) FOR this»
+	«REM»«EXPAND widgetsJson(model) FOR this»«ENDREM»
+«ENDDEFINE»
+
+«REM»Application data«ENDREM»
+«DEFINE storedAppDataJson(GUIModel model) FOR ContentPanel»
+	«EXPAND applicationDataJson(model, this) FOREACH (List[ApplicationData])findAllActionScopedAppDataInContentPanel(this) SEPARATOR "," -»
+«ENDDEFINE»
+
+«DEFINE applicationDataJson(GUIModel model, ContentPanel cp) FOR ApplicationData»"«getAppDataPropertyName(this)»":«EXPAND dataTypeJson FOR this.type-»«ENDDEFINE»
+
+«DEFINE dataTypeJson FOR Type»
+	«IF this.metaType == SimpleType-»
+		«EXPAND dataTypeJson FOR (SimpleType)this-»
+	«ELSEIF this.metaType == ComplexType-»
+		«EXPAND dataTypeJson FOR (ComplexType)this-»
+	«ELSEIF this.metaType == TypedArray-»
+		«EXPAND dataTypeJson FOR (TypedArray)this-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE dataTypeJson FOR SimpleType»«simpleTypeJsonValue(this)»«ENDDEFINE»
+
+«DEFINE dataTypeJson FOR ComplexType»{«EXPAND dataTypeJson FOREACH this.fields SEPARATOR ","-»}«ENDDEFINE»
+
+«DEFINE dataTypeJson FOR TypedArray»[ ]«ENDDEFINE»
+
+«DEFINE dataTypeJson FOR Field»
+"«this.name»":«EXPAND dataTypeJson FOR this.type»
+«ENDDEFINE»
+
+
+«REM»Widgets con bindings Action«ENDREM»
+«DEFINE widgetsJson(GUIModel model) FOR ContentPanel»
+«ENDDEFINE»
+

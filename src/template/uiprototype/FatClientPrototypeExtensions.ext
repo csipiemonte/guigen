@@ -12,3 +12,30 @@ String getWebDir(GUIModel model) :
 
 String getDataDir() :
 	"data";
+	
+// [DM] 
+String simpleTypeJsonValue(SimpleType type) :
+	let code = type.code :
+	let nillable =  type.nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "100" : "10")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		"\""+(nillable ? "DATO" : "DATO")+"\""
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "123.12" : "12.12")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "100000" : "10000")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "123.12" : "12.12")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "true" : "true")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		"\""+(nillable ? "01/01/2011" : "01/01/2011")+"\""
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		"\""+(nillable ? "01/01/2011-12:12:12" : "01/10/2001-12:12:12")+"\""
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		"\""+(nillable ? "12:12:12" : "12:12:12")+"\""
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "1" : "1")
+	else 
+  		"???";	

@@ -160,3 +160,15 @@ Creazione File di Progetto da importare in Eclipse
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»[DM]«ENDREM»
+«DEFINE widgetsStatusJson FOR ContentPanel»
+«EXPAND widgetStatusJson FOREACH (List[Widget])findAllWidgetsInContentPanel(this) SEPARATOR ","-»
+«ENDDEFINE»
+
+«DEFINE widgetStatusJson FOR Widget»{
+     "disabled":false,
+     "visible":true,
+     "widgetName":"«this.name»"
+}
+«ENDDEFINE»
