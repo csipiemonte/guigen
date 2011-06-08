@@ -57,13 +57,17 @@
 
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
+«IF isEnrichmentEnabled()-»
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="table" 
 		pageId="«parentCP.name»">
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR Table»
+«IF isEnrichmentEnabled()-»
 	</csiuicore:ajaxify>
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
