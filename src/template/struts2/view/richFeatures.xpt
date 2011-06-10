@@ -71,6 +71,7 @@
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
+«IF isEnrichmentEnabled()-»
 	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
 	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
 		widgetType="combo" 
@@ -78,10 +79,13 @@
 		pageId="«parentCP.name»"
 		formName="«parentCP.name»" >
 	«ENDLET-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlFooter FOR ComboBox-»
+«IF isEnrichmentEnabled()-»
 	</csiuicore:ajaxify>
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
