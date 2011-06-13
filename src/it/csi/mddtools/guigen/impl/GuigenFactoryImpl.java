@@ -246,6 +246,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createStdWebResModuleNamesFromString(eDataType, initialValue);
 			case GuigenPackage.REPART_MODULE_TYPES:
 				return createRepartModuleTypesFromString(eDataType, initialValue);
+			case GuigenPackage.WIZARD_NUMBERING_TYPES:
+				return createWizardNumberingTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -291,6 +293,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertStdWebResModuleNamesToString(eDataType, instanceValue);
 			case GuigenPackage.REPART_MODULE_TYPES:
 				return convertRepartModuleTypesToString(eDataType, instanceValue);
+			case GuigenPackage.WIZARD_NUMBERING_TYPES:
+				return convertWizardNumberingTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -2013,6 +2017,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertRepartModuleTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WizardNumberingTypes createWizardNumberingTypesFromString(EDataType eDataType, String initialValue) {
+		WizardNumberingTypes result = WizardNumberingTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertWizardNumberingTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

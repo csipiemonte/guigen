@@ -61,6 +61,7 @@ public class WizardPanelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNavigatorActivePropertyDescriptor(object);
+			addNumberingSchemaPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -83,6 +84,28 @@ public class WizardPanelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Numbering Schema feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNumberingSchemaPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_WizardPanel_numberingSchema_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WizardPanel_numberingSchema_feature", "_UI_WizardPanel_type"),
+				 GuigenPackage.Literals.WIZARD_PANEL__NUMBERING_SCHEMA,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -155,6 +178,7 @@ public class WizardPanelItemProvider
 
 		switch (notification.getFeatureID(WizardPanel.class)) {
 			case GuigenPackage.WIZARD_PANEL__NAVIGATOR_ACTIVE:
+			case GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.WIZARD_PANEL__SWITCHER:

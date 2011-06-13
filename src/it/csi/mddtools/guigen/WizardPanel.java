@@ -26,6 +26,7 @@ package it.csi.mddtools.guigen;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.WizardPanel#isNavigatorActive <em>Navigator Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.WizardPanel#getSwitcher <em>Switcher</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.WizardPanel#getNumberingSchema <em>Numbering Schema</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,4 +97,34 @@ public interface WizardPanel extends MultiPanel {
 	 * @generated
 	 */
 	void setSwitcher(TabSwitcher value);
+
+	/**
+	 * Returns the value of the '<em><b>Numbering Schema</b></em>' attribute.
+	 * The default value is <code>"NO_NUMBERING"</code>.
+	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.WizardNumberingTypes}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Numbering Schema</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Numbering Schema</em>' attribute.
+	 * @see it.csi.mddtools.guigen.WizardNumberingTypes
+	 * @see #setNumberingSchema(WizardNumberingTypes)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getWizardPanel_NumberingSchema()
+	 * @model default="NO_NUMBERING"
+	 * @generated
+	 */
+	WizardNumberingTypes getNumberingSchema();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.WizardPanel#getNumberingSchema <em>Numbering Schema</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Numbering Schema</em>' attribute.
+	 * @see it.csi.mddtools.guigen.WizardNumberingTypes
+	 * @see #getNumberingSchema()
+	 * @generated
+	 */
+	void setNumberingSchema(WizardNumberingTypes value);
 } // WizardPanel

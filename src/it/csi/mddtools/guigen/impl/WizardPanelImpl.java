@@ -8,6 +8,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.TabSwitcher;
+import it.csi.mddtools.guigen.WizardNumberingTypes;
 import it.csi.mddtools.guigen.WizardPanel;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#isNavigatorActive <em>Navigator Active</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#getSwitcher <em>Switcher</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.WizardPanelImpl#getNumberingSchema <em>Numbering Schema</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +61,25 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 	 * @ordered
 	 */
 	protected TabSwitcher switcher;
+
+	/**
+	 * The default value of the '{@link #getNumberingSchema() <em>Numbering Schema</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberingSchema()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final WizardNumberingTypes NUMBERING_SCHEMA_EDEFAULT = WizardNumberingTypes.NO_NUMBERING;
+	/**
+	 * The cached value of the '{@link #getNumberingSchema() <em>Numbering Schema</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberingSchema()
+	 * @generated
+	 * @ordered
+	 */
+	protected WizardNumberingTypes numberingSchema = NUMBERING_SCHEMA_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -148,6 +169,27 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public WizardNumberingTypes getNumberingSchema() {
+		return numberingSchema;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNumberingSchema(WizardNumberingTypes newNumberingSchema) {
+		WizardNumberingTypes oldNumberingSchema = numberingSchema;
+		numberingSchema = newNumberingSchema == null ? NUMBERING_SCHEMA_EDEFAULT : newNumberingSchema;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA, oldNumberingSchema, numberingSchema));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -169,6 +211,8 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 				return isNavigatorActive();
 			case GuigenPackage.WIZARD_PANEL__SWITCHER:
 				return getSwitcher();
+			case GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA:
+				return getNumberingSchema();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,6 +230,9 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 				return;
 			case GuigenPackage.WIZARD_PANEL__SWITCHER:
 				setSwitcher((TabSwitcher)newValue);
+				return;
+			case GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA:
+				setNumberingSchema((WizardNumberingTypes)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -205,6 +252,9 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 			case GuigenPackage.WIZARD_PANEL__SWITCHER:
 				setSwitcher((TabSwitcher)null);
 				return;
+			case GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA:
+				setNumberingSchema(NUMBERING_SCHEMA_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -221,6 +271,8 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 				return navigatorActive != NAVIGATOR_ACTIVE_EDEFAULT;
 			case GuigenPackage.WIZARD_PANEL__SWITCHER:
 				return switcher != null;
+			case GuigenPackage.WIZARD_PANEL__NUMBERING_SCHEMA:
+				return numberingSchema != NUMBERING_SCHEMA_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -237,6 +289,8 @@ public class WizardPanelImpl extends MultiPanelImpl implements WizardPanel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (navigatorActive: ");
 		result.append(navigatorActive);
+		result.append(", numberingSchema: ");
+		result.append(numberingSchema);
 		result.append(')');
 		return result.toString();
 	}

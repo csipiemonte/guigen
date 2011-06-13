@@ -177,6 +177,7 @@ import it.csi.mddtools.guigen.WidgetLayoutSpecifier;
 import it.csi.mddtools.guigen.WidgetTargetAction;
 
 import it.csi.mddtools.guigen.WidgetsPanel;
+import it.csi.mddtools.guigen.WizardNumberingTypes;
 import it.csi.mddtools.guigen.WizardPanel;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -1382,6 +1383,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum repartModuleTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum wizardNumberingTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -4149,6 +4157,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWizardPanel_NumberingSchema() {
+		return (EAttribute)wizardPanelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAppModule() {
 		return appModuleEClass;
 	}
@@ -5868,6 +5885,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getWizardNumberingTypes() {
+		return wizardNumberingTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -6288,6 +6314,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		wizardPanelEClass = createEClass(WIZARD_PANEL);
 		createEAttribute(wizardPanelEClass, WIZARD_PANEL__NAVIGATOR_ACTIVE);
 		createEReference(wizardPanelEClass, WIZARD_PANEL__SWITCHER);
+		createEAttribute(wizardPanelEClass, WIZARD_PANEL__NUMBERING_SCHEMA);
 
 		appModuleEClass = createEClass(APP_MODULE);
 		createEAttribute(appModuleEClass, APP_MODULE__NAME);
@@ -6537,6 +6564,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		webResModuleDeployTypesEEnum = createEEnum(WEB_RES_MODULE_DEPLOY_TYPES);
 		stdWebResModuleNamesEEnum = createEEnum(STD_WEB_RES_MODULE_NAMES);
 		repartModuleTypesEEnum = createEEnum(REPART_MODULE_TYPES);
+		wizardNumberingTypesEEnum = createEEnum(WIZARD_NUMBERING_TYPES);
 	}
 
 	/**
@@ -7065,6 +7093,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(wizardPanelEClass, WizardPanel.class, "WizardPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWizardPanel_NavigatorActive(), ecorePackage.getEBoolean(), "navigatorActive", "true", 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWizardPanel_Switcher(), this.getTabSwitcher(), null, "switcher", null, 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWizardPanel_NumberingSchema(), this.getWizardNumberingTypes(), "numberingSchema", "NO_NUMBERING", 0, 1, WizardPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(appModuleEClass, AppModule.class, "AppModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7428,6 +7457,14 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.JAVA);
 		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.WEBRES);
 		addEEnumLiteral(repartModuleTypesEEnum, RepartModuleTypes.JAVASCRIPT);
+
+		initEEnum(wizardNumberingTypesEEnum, WizardNumberingTypes.class, "WizardNumberingTypes");
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.NO_NUMBERING);
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.ARABIC_NUMERALS);
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.LOWERCASE_ALPHA);
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.UPPERCASE_ALPHA);
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.UPPERCASE_ROMAN_NUMERALS);
+		addEEnumLiteral(wizardNumberingTypesEEnum, WizardNumberingTypes.LOWERCASE_ROMAN_NUMERALS);
 
 		// Create resource
 		createResource(eNS_URI);

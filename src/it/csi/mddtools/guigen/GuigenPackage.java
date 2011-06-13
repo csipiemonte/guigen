@@ -6426,13 +6426,22 @@ public interface GuigenPackage extends EPackage {
 	int WIZARD_PANEL__SWITCHER = MULTI_PANEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Numbering Schema</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WIZARD_PANEL__NUMBERING_SCHEMA = MULTI_PANEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Wizard Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 2;
+	int WIZARD_PANEL_FEATURE_COUNT = MULTI_PANEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.
@@ -9495,6 +9504,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	int REPART_MODULE_TYPES = 169;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.WizardNumberingTypes <em>Wizard Numbering Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.WizardNumberingTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
+	 * @generated
+	 */
+	int WIZARD_NUMBERING_TYPES = 170;
 
 
 	/**
@@ -12700,6 +12720,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getWizardPanel_Switcher();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.WizardPanel#getNumberingSchema <em>Numbering Schema</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Numbering Schema</em>'.
+	 * @see it.csi.mddtools.guigen.WizardPanel#getNumberingSchema()
+	 * @see #getWizardPanel()
+	 * @generated
+	 */
+	EAttribute getWizardPanel_NumberingSchema();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.AppModule <em>App Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14727,6 +14758,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getRepartModuleTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WizardNumberingTypes <em>Wizard Numbering Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Wizard Numbering Types</em>'.
+	 * @see it.csi.mddtools.guigen.WizardNumberingTypes
+	 * @generated
+	 */
+	EEnum getWizardNumberingTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -17347,6 +17388,14 @@ public interface GuigenPackage extends EPackage {
 		EReference WIZARD_PANEL__SWITCHER = eINSTANCE.getWizardPanel_Switcher();
 
 		/**
+		 * The meta object literal for the '<em><b>Numbering Schema</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WIZARD_PANEL__NUMBERING_SCHEMA = eINSTANCE.getWizardPanel_NumberingSchema();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.AppModuleImpl <em>App Module</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -19017,6 +19066,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum REPART_MODULE_TYPES = eINSTANCE.getRepartModuleTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WizardNumberingTypes <em>Wizard Numbering Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.WizardNumberingTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
+		 * @generated
+		 */
+		EEnum WIZARD_NUMBERING_TYPES = eINSTANCE.getWizardNumberingTypes();
 
 	}
 
