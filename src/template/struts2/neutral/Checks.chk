@@ -37,7 +37,6 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 //	this.vspan == null || this.vspan==0 || this.vspan == 1;
 
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///*****************************************************************************************************************//
 /// Check SPECIFICI della cartuccia Neutral                                                                         //
@@ -47,6 +46,10 @@ context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [
 // [DM] STDMDD-368: TabSwitcher implementato e check rimosso
 //context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
 //	false;
+
+// [DM] STDMDD-823
+context WizardPanel ERROR "Un WizardPanel non può avere più di 26 step (numero delle lettere dell'alfabeto) " + loc() :
+	this.panels.size < 27;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -548,6 +548,7 @@ public class GenUtilsLayoutNeutral {
 			"xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx",
 			"xxi", "xxii", "xxiii", "xxiv", "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx"
 			// ne metto 30: se avessi un wizard con piu' di 30 step... allora ci sarebbe qualcosa che non va... 
+			// ricordiamo che l'alfabeto ha solo 26 lettere...
 		);
 	
 	/**
