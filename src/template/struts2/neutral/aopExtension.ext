@@ -104,23 +104,27 @@ around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPa
 around template::struts2::Struts2Extensions::getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
 	getColumnEditableFieldNeutral(currCol, table, model, contextPrefix, pduConf, theme);
 
+// [DM] STDMDD-823: WizardPanel: numerazione automatica degli step
+around template::struts2::Struts2Extensions::getWizardPanelStepCompleteIndex(Panel currentPanel, String index) :
+	getWizardPanelStepCompleteIndexNeutral(currentPanel, index);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS
 
-// [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
+// [DM] genera il codice che gestisce l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
 	getComboBoxValueChangedHandlerJSNeutral(cb, cp, contextPrefix);
 
-// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
+// [DM] genera il codice che gestisce l'evento change sulla combobox (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	getComboBoxValueChangedHandlerNoScriptNeutral(cb, model, cp, contextPrefix);
 
-// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
+// [DM] genera il codice che gestisce l'evento change sui radiobuttons con JavaScript abilitato
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, String contextPrefix) :
 	getRadioButtonsValueChangedHandlerJSNeutral(rb, contextPrefix);
 
-// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+// [DM] genera il codice che gestisce l'evento change sui radiobuttons (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, String contextPrefix) :
 	getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, contextPrefix);
 

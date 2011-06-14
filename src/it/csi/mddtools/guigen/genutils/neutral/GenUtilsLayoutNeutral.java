@@ -1,6 +1,7 @@
 package it.csi.mddtools.guigen.genutils.neutral;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -35,6 +36,8 @@ import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
+import it.csi.mddtools.guigen.WizardNumberingTypes;
+import it.csi.mddtools.guigen.WizardPanel;
 
 import it.csi.mddtools.guigen.genutils.GenUtils;
 import it.csi.mddtools.guigen.genutils.GenUtilsLayout;
@@ -470,11 +473,83 @@ public class GenUtilsLayoutNeutral {
 		return res;
 	}
 
+	
+	/**
+	 * Restituisce l'indice completo di uno step di un WizardPanel.
+	 * Viene chiamata ricorsivamente a partire dal WizardPanel interessato (prima chiamata)
+	 * e percorre l'alberatura del modello fino ad un ContenPanel.
+	 * A mano a mano che l'alberatura viene percorsa, viene composto l'indice,
+	 * premettendo all'indice gi&agrave; composto (passato come parametro)
+	 * l'indice attuale.
+	 * 
+	 * @param currentPanel Il pannello in esame
+	 * @param index L'indice in fase di composizione
+	 * @return L'indice composto nella forma 1.2.3
+	 * @author [DM] STDMDD-823
+	 */
+	public static String getWizardPanelStepCompleteIndex(Panel currentPanel, String index) {
+		EObject parent = currentPanel.eContainer();
+		if ( parent instanceof ContentPanel ) {
+			// sono arrivato alla radice, ritorno quello che ho composto
+			return index;
+		} 
+		else if ( parent instanceof WizardPanel ) {
+			// ho un WizardPanel: devo aggiungere all'indice gia' composto quello dello step
+			String newIndex = "";
+			int i = 1;
+			for ( Panel p : ((WizardPanel) parent).getPanels() ) {
+				if ( p == currentPanel ) {
+					WizardNumberingTypes wnt = ((WizardPanel)parent).getNumberingSchema();
+					newIndex = (wnt != null && !wnt.equals(WizardNumberingTypes.NO_NUMBERING) ? (decodeWizardNumbering((WizardPanel) parent, Integer.toString(i)) + ".") : "") + index;
+					break;
+				}
+				i++;
+			}
+			return getWizardPanelStepCompleteIndex((Panel)parent, newIndex);
+		} 
+		else {
+			return getWizardPanelStepCompleteIndex((Panel)parent, index);
+		}
+	}
+
+
+	/**
+	 * Decodifica la numerazione di uno step di un WizardPanel
+	 * sulla base di quanto modellato.
+	 * 
+	 * @param wp Il WizardPanel in esame
+	 * @param index L'indice in fase di composizione
+	 * @return L'indice decodificato
+	 * @author [DM] STDMDD-823
+	 */
+	public static String decodeWizardNumbering(Panel wp, String index) {
+		String res = "";
+		WizardNumberingTypes wnt = ((WizardPanel)wp).getNumberingSchema();
+		if (wnt.equals(WizardNumberingTypes.ARABIC_NUMERALS)) {
+			res = index;
+		} else if (wnt.equals(WizardNumberingTypes.LOWERCASE_ALPHA) || wnt.equals(WizardNumberingTypes.UPPERCASE_ALPHA)) {
+			char letter = (char) (WIZARD_NUMBERING_ALPHA_START + (Integer.valueOf(index) - 1));
+			res = String.valueOf((wnt.equals(WizardNumberingTypes.UPPERCASE_ALPHA) ? Character.toUpperCase(letter) : letter));
+		} else if (wnt.equals(WizardNumberingTypes.LOWERCASE_ROMAN_NUMERALS) || wnt.equals(WizardNumberingTypes.UPPERCASE_ROMAN_NUMERALS)) {
+			res = wnt.equals(WizardNumberingTypes.UPPERCASE_ROMAN_NUMERALS) ? WIZARD_NUMBERING_ROMAN_NUMERALS.get(Integer.valueOf(index)).toUpperCase() : WIZARD_NUMBERING_ROMAN_NUMERALS.get(Integer.valueOf(index));
+		}
+		return res;
+	}
+	
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE METHODS (se necessari)
 
+	private static final char WIZARD_NUMBERING_ALPHA_START = 'a';
+	private static final List<String> WIZARD_NUMBERING_ROMAN_NUMERALS = Arrays.asList(
+			"", // questo è il valore 0
+			"i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x",
+			"xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx",
+			"xxi", "xxii", "xxiii", "xxiv", "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx"
+			// ne metto 30: se avessi un wizard con piu' di 30 step... allora ci sarebbe qualcosa che non va... 
+		);
+	
 	/**
 	 * 
 	 * @param firstLevPanel
@@ -509,6 +584,11 @@ public class GenUtilsLayoutNeutral {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
 	}
 
 }

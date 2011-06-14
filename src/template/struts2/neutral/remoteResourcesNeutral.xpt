@@ -598,15 +598,15 @@ Gestione dei PANNELLI
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
-		«LET i.counter1.toString() AS stepNumber-»
+		«LET getWizardPanelStepCompleteIndex(this, decodeWizardNumbering(this, i.counter1.toString())) AS decodedStepNumber-»
 		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currStep, cp, contextPrefix)»'«stepExtraCondition»}">
-			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber, cp, contextPrefix) FOR currStep-»
+			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, i.counter1.toString(), decodedStepNumber, cp, contextPrefix) FOR currStep-»
 		</s:if>
 		<s:else>
 			«IF this.navigatorActive-»
-				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, switcher, switchHnd, cp, contextPrefix) FOR currStep-»
+				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, i.counter1.toString(), decodedStepNumber, switcher, switchHnd, cp, contextPrefix) FOR currStep-»
 			«ELSE-»
-				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
+				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, i.counter1.toString(), decodedStepNumber, cp, contextPrefix) FOR currStep-»
 			«ENDIF-»
 		</s:else>
 		«ENDLET-»
@@ -617,13 +617,13 @@ Gestione dei PANNELLI
 «ENDLET-»
 «ENDDEFINE»
 
-«DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
+«DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, String decodedStepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber» active"><span class="activeItem"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span><span class="separator"> | </span></li>
+	<li class="item-«stepNumber» active"><span class="activeItem">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></span><span class="separator"> | </span></li>
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, TabSwitcher switcher, EventHandler switchEvent, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, String decodedStepNumber, TabSwitcher switcher, EventHandler switchEvent, ContentPanel cp, String contextPrefix) FOR Panel»
 	<li class="item-«stepNumber»">
 	«LET this AS currStep-»
 	«IF switchEvent != null-»
@@ -639,15 +639,15 @@ Gestione dei PANNELLI
         «ENDIF-»
         <span class="separator"> | </span>
 	«ELSE-»
-		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a><span class="separator"> | </span>
+		<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a><span class="separator"> | </span>
 	«ENDIF-»
 	«ENDLET-»
 	</li>
 «ENDDEFINE»
 
-«DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
+«DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, String decodedStepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
 	«LET this AS currStep-»
-	<li class="item-«stepNumber»"><s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /><span class="separator"> | </span></li>
+	<li class="item-«stepNumber»">«decodedStepNumber»<s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /><span class="separator"> | </span></li>
 	«ENDLET-»
 «ENDDEFINE»
 

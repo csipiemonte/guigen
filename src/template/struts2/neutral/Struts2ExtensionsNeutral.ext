@@ -182,7 +182,7 @@ boolean formPanelLayoutCheckNeutral(FormPanel fp) : JAVA
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/// Binding a metodi JAVA per layout NEUTRAL (XHTML UNIVERSALE) usate in AOP   //
+/// Binding a metodi JAVA per layout NEUTRAL (XHTML UNIVERSALE) usate in AOP                 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // [DM] restituisce il numero di colonne del layout
@@ -235,3 +235,15 @@ String getCustomtagHeaderColspanNeutral(WidgetsPanel wp, Widget w) : JAVA
 // [DM] Restituisce il campo per l'editabilità di una colonna della tabella
 String getColumnEditableFieldWrapperNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);
+
+// [DM] STDMDD-823: WizardPanel: numerazione automatica degli step
+String getWizardPanelStepCompleteIndexNeutral(Panel currentPanel, String index) : 
+	let numbSchema = ((WizardPanel)currentPanel).numberingSchema :
+	let suffix = numbSchema != null && numbSchema != guigen::WizardNumberingTypes::NO_NUMBERING ? ". " : "" :
+	getWizardPanelStepCompleteIndexNeutralInternal(currentPanel, index) + suffix;
+
+String getWizardPanelStepCompleteIndexNeutralInternal(Panel currentPanel, String index) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getWizardPanelStepCompleteIndex(it.csi.mddtools.guigen.Panel, java.lang.String);
+
+String decodeWizardNumbering(Panel wiz, String index) : JAVA
+	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.decodeWizardNumbering(it.csi.mddtools.guigen.Panel, java.lang.String);
