@@ -692,15 +692,12 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 */
 	 public void clearPageScopedAppData(){
 	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
-	 	ICommand clearCmd = new ICommand(){
-	 		public String doCommand(BaseAction strutsAction) throws CommandExecutionException {
-	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd-»
-	 			getSession().remove("«getAppDataKey(currAd)»");
-	 			getSession().remove("«getAppDataKey(currAd)»_bckp"); // eventuale backup
-	 	«ENDFOREACH-»
-	 			return null;
-	 		}
+	 	String [] appDataToClear = new String[] {
+	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd SEPARATOR ","-»
+	 	"«currAd.name»", "«currAd.name»_bckp"
+	 	«ENDFOREACH»
 	 	};
+	 	ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear);
 	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
 	 	«ELSE-»
 	 	// nothing to clear...
