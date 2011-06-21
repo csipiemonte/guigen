@@ -401,6 +401,8 @@ public class GenUtilsI18n {
 					label = "<acronym title=\""+col.getTooltip()+"\">"+label+"</acronym>";
 				}
 				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".label=" + label);
+				/* STDMDD-618 */
+				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".export.label=" + col.getLabel());
 			}
 		}
 
