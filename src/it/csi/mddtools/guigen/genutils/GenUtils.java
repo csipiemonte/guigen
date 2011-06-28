@@ -133,6 +133,14 @@ public class GenUtils {
 	}
 
 
+	public static String replaceFixNumberWithLatest(String ver) {
+		int lastDot = ver.lastIndexOf(".");
+		if (lastDot > -1){
+			return ver.substring(0,lastDot)+".latest";
+		}
+		else return ver;
+	}
+	
 	//////////////////////////////////////////////////////////////////////////////////
 	// content panels
 

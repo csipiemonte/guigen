@@ -645,6 +645,16 @@ boolean proceedToJSon(EventHandler evh, Widget w) :
 boolean isSuggestedTextField(EventHandler evh, Widget w) :
 	(w.metaType == TextField || w.metaType == ComboBox) && evh.eventType == EventTypes::KEY_PRESSED;
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// utility per link JS
+String resolveVersionDirectory(String actualVersion) : 
+	let enableJSSvcPack = getProperty("guigen.clientLibs.enableAutoServicePack") :
+	if enableJSSvcPack=="true" then
+		replaceFixNumberWithLatest(actualVersion) 
+	else
+		actualVersion;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// ALTRE UTILITY
 
@@ -1173,6 +1183,8 @@ String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel mode
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
 			"\" /></noscript>";
 
+String replaceFixNumberWithLatest(String actualVersion)  : JAVA
+  it.csi.mddtools.guigen.genutils.GenUtils.replaceFixNumberWithLatest(java.lang.String);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
