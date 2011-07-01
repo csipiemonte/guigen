@@ -1,22 +1,39 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-«REM»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 ACTIONS FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»Genera una Action Struts2 per mappare il menu.«ENDREM»
-«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+Â«REMÂ»Genera una Action Struts2 per mappare il menu.Â«ENDREMÂ»
+Â«DEFINE struts2MenuJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsMenuJavaFile(this, skip_component_dir_creation)Â»package Â«getPresentationJavaPackage(this)Â»;
 
 import java.util.*;
 
@@ -24,26 +41,26 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.validator.annotations.*;
 
-import «getDTOBaseJavaPackage(this)».*;
-import «getBaseJavaPackage()».business.*;
-import «getInterceptorsJavaPackage(this)».FatClientOnly;
+import Â«getDTOBaseJavaPackage(this)Â».*;
+import Â«getBaseJavaPackage()Â».business.*;
+import Â«getInterceptorsJavaPackage(this)Â».FatClientOnly;
 
 /**
- * «getStrutsMenuClassName(this)» Action Class.
+ * Â«getStrutsMenuClassName(this)Â» Action Class.
  *
  * @author GuiGen
  */
 @Validation()
-public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+public class Â«getStrutsMenuClassName(this)Â» extends Â«getStrutsBaseActionClassName(this)Â» {
 
-	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubar»
+	Â«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.menubarÂ»
 	
 	
 	/**
 	 * classe model associata
 	 */
 	public Class modelClass(){
-		return «getModelDTOFQN(null, true, false, this)».class;
+		return Â«getModelDTOFQN(null, true, false, this)Â».class;
 	}
 	 
 	/**
@@ -55,70 +72,70 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		return SUCCESS;
 	}
 	
-	«IF this.targetPlatform.enableFatClient»
-	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(this) FOR this.structure.appWindow.appArea.menubar»
-	«ENDIF»
+	Â«IF this.targetPlatform.enableFatClientÂ»
+	Â«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(this) FOR this.structure.appWindow.appArea.menubarÂ»
+	Â«ENDIFÂ»
 		
-	«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu»
-		«IF tlmenu.eventHandler!=null»
+	Â«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenuÂ»
+		Â«IF tlmenu.eventHandler!=nullÂ»
 	/**
 	 * 
 	 * @return SUCCESS result.
 	 */
-	public String goTo«tlmenu.name.toFirstUpper()»() throws CommandExecutionException{
+	public String goToÂ«tlmenu.name.toFirstUpper()Â»() throws CommandExecutionException{
 	    
 		// gestione degli eventi di tipo CLICKED
-		ICommand action = initCommand("«tlmenu.name»","CLICKED");
+		ICommand action = initCommand("Â«tlmenu.nameÂ»","CLICKED");
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning result [" + result + "]");
+				log.debug("[Â«getStrutsMenuClassName(this)Â»::goToÂ«tlmenu.name.toFirstUpper()Â»] returning result [" + result + "]");
 			}
-			setActiveMenu("«tlmenu.name»");
+			setActiveMenu("Â«tlmenu.nameÂ»");
 			return result;
 		} else {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«tlmenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+				log.debug("[Â«getStrutsMenuClassName(this)Â»::goToÂ«tlmenu.name.toFirstUpper()Â»] returning default result [SUCCESS]");
 			}
-			setActiveMenu("«tlmenu.name»");
+			setActiveMenu("Â«tlmenu.nameÂ»");
 			return SUCCESS;
 		}
 	}		
-		«ENDIF»
+		Â«ENDIFÂ»
 		
-		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu»
-		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED»
-		«LET currMenu.eventHandler.command AS currAction»
+		Â«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenuÂ»
+		Â«IF currMenu.eventHandler.eventType == EventTypes::CLICKEDÂ»
+		Â«LET currMenu.eventHandler.command AS currActionÂ»
 	/**
 	 * 
 	 * @return SUCCESS result.
 	 */
-	public String goTo«currMenu.name.toFirstUpper()»() throws CommandExecutionException{
+	public String goToÂ«currMenu.name.toFirstUpper()Â»() throws CommandExecutionException{
 	    
 		// gestione degli eventi di tipo CLICKED
-		ICommand action = initCommand("«currMenu.name»","CLICKED");
+		ICommand action = initCommand("Â«currMenu.nameÂ»","CLICKED");
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning result [" + result + "]");
+				log.debug("[Â«getStrutsMenuClassName(this)Â»::goToÂ«currMenu.name.toFirstUpper()Â»] returning result [" + result + "]");
 			}
-			setActiveMenu("«currMenu.name»");
+			setActiveMenu("Â«currMenu.nameÂ»");
 			return result;
 		} else {
 			if (log.isDebugEnabled()){
-				log.debug("[«getStrutsMenuClassName(this)»::goTo«currMenu.name.toFirstUpper()»] returning default result [SUCCESS]");
+				log.debug("[Â«getStrutsMenuClassName(this)Â»::goToÂ«currMenu.name.toFirstUpper()Â»] returning default result [SUCCESS]");
 			}
-			setActiveMenu("«currMenu.name»");
+			setActiveMenu("Â«currMenu.nameÂ»");
 			return SUCCESS;
 		}
 	}
 
-		«ENDLET»
-		«ENDIF»
-		«ENDFOREACH»		
+		Â«ENDLETÂ»
+		Â«ENDIFÂ»
+		Â«ENDFOREACHÂ»		
 		
 		
-	«ENDFOREACH»
+	Â«ENDFOREACHÂ»
 
     public static final String ACTIVE_MENU_ATTRNAME = "active_menu";
     
@@ -126,16 +143,16 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 		session.put(ACTIVE_MENU_ATTRNAME, "menu_items_" + menuName);
 	}
 	
-    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubar»
+    Â«EXPAND template::struts2::controller::eventHandlers::actionStructureInit(this) FOR this.structure.appWindow.appArea.menubarÂ»
     
     
    	/**
 	 * Gestione della validazione
 	 */
 	public void validate() {
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsMenuClassName(this) + "_validate")»
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsMenuClassName(this) + "_validate")Â»
 		/* Inserire la validazione */
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	}
     
     /**
@@ -145,10 +162,10 @@ public class «getStrutsMenuClassName(this)» extends «getStrutsBaseActionClassNam
 	 public void clearPageScopedAppData(){
 	 	// non sapendo quale content panel si sta abbandonando vengono rimossi tutti
 	 	// gli appdata a scope PAGE
-	 	«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAD»
-	 	getSession().remove("«getAppDataKey(currAD)»");
-	 	«ENDFOREACH»
+	 	Â«FOREACH this.structure.appWindow.appArea.contentPanels.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currADÂ»
+	 	getSession().remove("Â«getAppDataKey(currAD)Â»");
+	 	Â«ENDFOREACHÂ»
 	 }
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

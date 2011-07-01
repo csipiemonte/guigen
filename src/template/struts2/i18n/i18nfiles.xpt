@@ -1,20 +1,37 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::remoteResources»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+
+Â«IMPORT template::struts2::remoteResourcesÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«DEFINE i18nFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND globalMessagesPropertiesFile(skip_component_dir_creation) FOR this»
-	«EXPAND homePagePropertiesFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«DEFINE i18nFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND globalMessagesPropertiesFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND homePagePropertiesFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»Crea il resource bundle globale dell'applicazione«ENDREM»
-«DEFINE globalMessagesPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsGlobalMessagesPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+Â«REMÂ»Crea il resource bundle globale dell'applicazioneÂ«ENDREMÂ»
+Â«DEFINE globalMessagesPropertiesFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsGlobalMessagesPropertiesFile(this, skip_component_dir_creation)Â»#######################################################################
 # Properties file globale dell'applicazione
 #######################################################################
 
@@ -51,7 +68,7 @@ error.sessionexpired.title=Sessione scaduta
 error.sessionexpired.warning=Attenzione!
 error.sessionexpired.timeout=La sessione di lavoro &egrave; scaduta perch&eacute; dopo 30 minuti l&#39;accesso al servizio &egrave; automaticamente disattivato.
 error.sessionexpired.datanotsaved=I dati non salvati sono andati perduti.
-error.sessionexpired.authentication=La tua autenticazione per il portale &egrave; ancora valida: puoi continuare la navigazione di "«getApplicationName(this)»" o di uno dei servizi del portale.
+error.sessionexpired.authentication=La tua autenticazione per il portale &egrave; ancora valida: puoi continuare la navigazione di "Â«getApplicationName(this)Â»" o di uno dei servizi del portale.
 error.sessionexpired.btnmsgportalhome=torna alla home page del portale
 error.sessionexpired.btnmsgservicehome=torna al servizio
 
@@ -66,97 +83,97 @@ message.confirmlogout.btnmsglogout=Conferma e torna all&#39;introduzione del ser
 error.invalidtoken.title=richiesta non coerente con il flusso applicativo
 error.invalidtoken.message=<p>Attenzione. E'stata effettuata una richiesta non coerente con il flusso applicativo <br/>(possibili cause: pressione ripetuta di un pulsante prima che l'operazione precedente fosse terminata, utilizzo del tasto "back" invece dei pulsanti di navigazione previsti dall'applicativo)</p>. 
 
-«IF isMultiPortal(this)-»
+Â«IF isMultiPortal(this)-Â»
 # Pagina di errore Portale Sconosciuto (multiportale)
 error.unknownportal.title=PORTALE SCONOSCIUTO
 error.unknownportal.warning=Attenzione!
 error.unknownportal.resources=Codice di portale sconosciuto: impossibile reperire le risorse di portale.
-«ENDIF-»
+Â«ENDIF-Â»
 
-«IF this.structure.appWindow.header != null || this.structure.appWindow.footer != null»
+Â«IF this.structure.appWindow.header != null || this.structure.appWindow.footer != nullÂ»
 ###
 # Header e footer
 ###
 
-«IF this.structure.appWindow.header != null-»
+Â«IF this.structure.appWindow.header != null-Â»
 # Header
-«EXPAND template::struts2::view::remoteResources::headerLabels FOR this-»«REM»Le label si differenziano per PORTALE«ENDREM»
-«ENDIF-»
+Â«EXPAND template::struts2::view::remoteResources::headerLabels FOR this-Â»Â«REMÂ»Le label si differenziano per PORTALEÂ«ENDREMÂ»
+Â«ENDIF-Â»
 
-«IF this.structure.appWindow.footer != null-»
+Â«IF this.structure.appWindow.footer != null-Â»
 # Footer
-«ENDIF-»
-«ENDIF»
+Â«ENDIF-Â»
+Â«ENDIFÂ»
 
 ###
 # Label del menu
 ###
-«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS menuLabel-»
-«menuLabel»
-«ENDFOREACH-»
+Â«FOREACH getMenuBarLabels(this.structure.appWindow.appArea.menubar) AS menuLabel-Â»
+Â«menuLabelÂ»
+Â«ENDFOREACH-Â»
 
-«REM»STDMDD-159: visitor validator.«ENDREM»
+Â«REMÂ»STDMDD-159: visitor validator.Â«ENDREMÂ»
 ###
 # Label della validazione mediante Visitor Validator degli ApplicationDAta dell'applicazione
 ###
-«FOREACH getVisitorValidatorLabels(((List[Type])getAllTypes(this)).select(e|e.metaType == ComplexType)) AS validatorLabel-»
-«validatorLabel»
-«ENDFOREACH-»
+Â«FOREACH getVisitorValidatorLabels(((List[Type])getAllTypes(this)).select(e|e.metaType == ComplexType)) AS validatorLabel-Â»
+Â«validatorLabelÂ»
+Â«ENDFOREACH-Â»
 
 
-«PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")»
+Â«PROTECT CSTART '#' CEND '#' ID getRegionUID("globalMessagesProperties")Â»
 ###
 # User Defined labels
 ###
-«ENDPROTECT»
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDPROTECTÂ»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Crea il resource bundle della homepage dell'applicazione«ENDREM»
-«DEFINE homePagePropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsHomePropertiesFile(this, skip_component_dir_creation)»#######################################################################
+Â«REMÂ»Crea il resource bundle della homepage dell'applicazioneÂ«ENDREMÂ»
+Â«DEFINE homePagePropertiesFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsHomePropertiesFile(this, skip_component_dir_creation)Â»#######################################################################
 # Properties file della HomePage dell'applicazione
 #######################################################################
 
-«LET this.structure.appWindow.appArea.homePage AS cp-»
-«EXPAND template::struts2::i18n::labels::panelLabelDefs(this, true) FOR cp»
+Â«LET this.structure.appWindow.appArea.homePage AS cp-Â»
+Â«EXPAND template::struts2::i18n::labels::panelLabelDefs(this, true) FOR cpÂ»
 
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsHomeClassName(this)+"Properties")»
+Â«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsHomeClassName(this)+"Properties")Â»
 ###
 # User Defined labels
 ###
-«ENDPROTECT»
-«ENDLET-»
+Â«ENDPROTECTÂ»
+Â«ENDLET-Â»
 
-«ENDFILE»
-«ENDDEFINE»
-
-
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
-«DEFINE actionPropertiesFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-«FILE getStrutsActionPropertiesFile(this, model, skip_component_dir_creation)»#######################################################################
-# Properties file per il ContentPanel «this.name»
+
+
+Â«REMÂ»Mappa un ContentPanel con una Action StrutsÂ«ENDREMÂ»
+Â«DEFINE actionPropertiesFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanelÂ»
+Â«FILE getStrutsActionPropertiesFile(this, model, skip_component_dir_creation)Â»#######################################################################
+# Properties file per il ContentPanel Â«this.nameÂ»
 #######################################################################
 
-«EXPAND template::struts2::i18n::labels::panelLabelDefs(model, false) FOR this»
+Â«EXPAND template::struts2::i18n::labels::panelLabelDefs(model, false) FOR thisÂ»
 
-«REM»STDMDD-159: visitor validator.«ENDREM»
+Â«REMÂ»STDMDD-159: visitor validator.Â«ENDREMÂ»
 ###
 # Label degli ApplicationData, nella forma
 #   - VISITOR VALIDATOR : <contentpanel_name>.<applicationdata_name>.visitorvalidator.label=<label>
 ###
-«FOREACH getApplicationDataLabels(this) AS adLabel-»
-«adLabel»
-«ENDFOREACH-»
+Â«FOREACH getApplicationDataLabels(this) AS adLabel-Â»
+Â«adLabelÂ»
+Â«ENDFOREACH-Â»
 
 
-«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")»
+Â«PROTECT CSTART '#' CEND '#' ID getRegionUID(getStrutsActionClassName(this)+"Properties")Â»
 ###
 # User Defined labels
 ###
-«ENDPROTECT»
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDPROTECTÂ»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

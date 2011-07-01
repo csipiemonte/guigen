@@ -1,9 +1,26 @@
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
+
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Risorse statiche
 Questo template serve come punto di accesso centralizzato per la generazione delle risorse statiche,
@@ -11,231 +28,231 @@ fungendo da "switcher" tra le varie casistiche.
 
 Ci sono 4 casi possibili:
    1) M1                                        ->  vecchia alberatura
-   2) M2, senza PortalProfile, modalità remote  ->  nuova alberatura, tutte le risorse in remoto
-   3) M2, senza PortalProfile, modalità local   ->  nuova alberatura, tutte le risorse in locale
+   2) M2, senza PortalProfile, modalitÃ  remote  ->  nuova alberatura, tutte le risorse in remoto
+   3) M2, senza PortalProfile, modalitÃ  local   ->  nuova alberatura, tutte le risorse in locale
    4) M2, con PortalProfile                     ->  nuova alberatura,
 
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 BUILD FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»buildfiles -> build.xml«ENDREM»
-«DEFINE antBuildFileUnzipJs FOR GUIModel»
-«IF isOldMode()-»
-	«EXPAND staticResourcesM1::antBuildFileUnzipJs FOR this-»
-«ENDIF»
-«ENDDEFINE»
-
-
-«REM»buildfiles -> build.properties«ENDREM»
-«DEFINE buildPropertiesFileStaticResources FOR GUIModel»
-«IF isOldMode()-»
-	«EXPAND staticResourcesM1::buildPropertiesFileStaticResources FOR this-»
-«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> build.xmlÂ«ENDREMÂ»
+Â«DEFINE antBuildFileUnzipJs FOR GUIModelÂ»
+Â«IF isOldMode()-Â»
+	Â«EXPAND staticResourcesM1::antBuildFileUnzipJs FOR this-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivy.xml«ENDREM»
-«DEFINE ivyFileStaticResources FOR GUIModel»
-«IF isOldMode()-»
-	«EXPAND staticResourcesM1::ivyFileStaticResources FOR this»
-«ELSEIF isNewMode()-»
-	«IF hasPortalProfile(this)-»
-			«EXPAND staticResourcesPortalProfile::ivyFileStaticResources FOR this»
-		«ELSE-»
-			«IF !isRemote()-»
-				«EXPAND staticResourcesM2::ivyFileStaticResourcesLocal FOR this»
-			«ENDIF»	
-		«ENDIF»
-«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> build.propertiesÂ«ENDREMÂ»
+Â«DEFINE buildPropertiesFileStaticResources FOR GUIModelÂ»
+Â«IF isOldMode()-Â»
+	Â«EXPAND staticResourcesM1::buildPropertiesFileStaticResources FOR this-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivyconf.xml«ENDREM»
-«DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> ivy.xmlÂ«ENDREMÂ»
+Â«DEFINE ivyFileStaticResources FOR GUIModelÂ»
+Â«IF isOldMode()-Â»
+	Â«EXPAND staticResourcesM1::ivyFileStaticResources FOR thisÂ»
+Â«ELSEIF isNewMode()-Â»
+	Â«IF hasPortalProfile(this)-Â»
+			Â«EXPAND staticResourcesPortalProfile::ivyFileStaticResources FOR thisÂ»
+		Â«ELSE-Â»
+			Â«IF !isRemote()-Â»
+				Â«EXPAND staticResourcesM2::ivyFileStaticResourcesLocal FOR thisÂ»
+			Â«ENDIFÂ»	
+		Â«ENDIFÂ»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»buildfiles -> ivyconf.xmlÂ«ENDREMÂ»
+Â«DEFINE ivyIvyConfFileStaticResources FOR GUIModelÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ENRICHMENTS
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»crea i file JS di arricchimento delle pagine web«ENDREM»
-«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-«IF isOldMode()»
-	«EXPAND staticResourcesM1::enrichmentDefs(model, skip_component_dir_creation) FOR this»
-«ELSEIF isNewMode()»
-	«EXPAND staticResourcesM2::enrichmentDefs(model, skip_component_dir_creation) FOR this»
-«ENDIF»
-«ENDDEFINE»
-
-
-«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
-«DEFINE staticResourcesXML FOR GUIModel-»
-	«IF isNewMode()-»
-		«IF hasPortalProfile(this)-»
-			«EXPAND staticResourcesPortalProfile::staticResourcesXML FOR this-»
-		«ELSE-»
-			«IF isRemote()-»
-				«EXPAND staticResourcesM2::staticResourcesXMLRemote FOR this-»
-			«ELSE-»
-				«EXPAND staticResourcesM2::staticResourcesXMLLocal FOR this-»
-			«ENDIF-»
-		«ENDIF-»
-	«ELSE-»
-		«EXPAND staticResourcesM1::staticResourcesXML FOR this-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»crea i file JS di arricchimento delle pagine webÂ«ENDREMÂ»
+Â«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-Â»
+Â«IF isOldMode()Â»
+	Â«EXPAND staticResourcesM1::enrichmentDefs(model, skip_component_dir_creation) FOR thisÂ»
+Â«ELSEIF isNewMode()Â»
+	Â«EXPAND staticResourcesM2::enrichmentDefs(model, skip_component_dir_creation) FOR thisÂ»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione singolo ContentPanel«ENDREM»
-«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
-	«IF isNewMode()-»
-		«IF hasPortalProfile(model)-»
-			«EXPAND staticResourcesPortalProfile::staticResourcesXML(model) FOR this-»
-		«ELSE-»
-			«IF isRemote()-»
-				«EXPAND staticResourcesM2::staticResourcesXMLRemote(model) FOR this-»
-			«ELSE-»
-				«EXPAND staticResourcesM2::staticResourcesXMLLocal(model) FOR this-»
-			«ENDIF-»
-		«ENDIF-»
-	«ELSE-»
-		«EXPAND staticResourcesM1::staticResourcesXML(model) FOR this-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»File di configurazione del caricamento risorse per tag csiui:headerÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXML FOR GUIModel-Â»
+	Â«IF isNewMode()-Â»
+		Â«IF hasPortalProfile(this)-Â»
+			Â«EXPAND staticResourcesPortalProfile::staticResourcesXML FOR this-Â»
+		Â«ELSE-Â»
+			Â«IF isRemote()-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLRemote FOR this-Â»
+			Â«ELSE-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLLocal FOR this-Â»
+			Â«ENDIF-Â»
+		Â«ENDIF-Â»
+	Â«ELSE-Â»
+		Â«EXPAND staticResourcesM1::staticResourcesXML FOR this-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione per Fat Client«ENDREM»
-«DEFINE staticResourcesXMLFatClient FOR GUIModel-»
-	«IF isNewMode()-»
-		«IF hasPortalProfile(this)-»
-			«EXPAND staticResourcesPortalProfile::staticResourcesXMLFatClient FOR this-»
-		«ELSE-»
-			«IF isRemote()-»
-				«EXPAND staticResourcesM2::staticResourcesXMLFatClientRemote FOR this-»
-			«ELSE-»
-				«EXPAND staticResourcesM2::staticResourcesXMLFatClientLocal FOR this-»
-			«ENDIF-»
-		«ENDIF-»
-	«ELSE-»
-		«EXPAND staticResourcesM1::staticResourcesXMLFatClient FOR this-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Configurazione singolo ContentPanelÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-Â»
+	Â«IF isNewMode()-Â»
+		Â«IF hasPortalProfile(model)-Â»
+			Â«EXPAND staticResourcesPortalProfile::staticResourcesXML(model) FOR this-Â»
+		Â«ELSE-Â»
+			Â«IF isRemote()-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLRemote(model) FOR this-Â»
+			Â«ELSE-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLLocal(model) FOR this-Â»
+			Â«ENDIF-Â»
+		Â«ENDIF-Â»
+	Â«ELSE-Â»
+		Â«EXPAND staticResourcesM1::staticResourcesXML(model) FOR this-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Configurazione per Fat ClientÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLFatClient FOR GUIModel-Â»
+	Â«IF isNewMode()-Â»
+		Â«IF hasPortalProfile(this)-Â»
+			Â«EXPAND staticResourcesPortalProfile::staticResourcesXMLFatClient FOR this-Â»
+		Â«ELSE-Â»
+			Â«IF isRemote()-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLFatClientRemote FOR this-Â»
+			Â«ELSE-Â»
+				Â«EXPAND staticResourcesM2::staticResourcesXMLFatClientLocal FOR this-Â»
+			Â«ENDIF-Â»
+		Â«ENDIF-Â»
+	Â«ELSE-Â»
+		Â«EXPAND staticResourcesM1::staticResourcesXMLFatClient FOR this-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
-	«IF isNewMode()-»
-		«IF hasPortalProfile(model)-»
-			«EXPAND staticResourcesPortalProfile::getHeaderMarkup(model, skip_component_dir_creation) FOR this-»
-		«ELSE»	
-			«IF isRemote»
-				«EXPAND staticResourcesM2::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-»
-			«ELSE»
-				«EXPAND staticResourcesM2::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
-			«ENDIF»
-		«ENDIF»
-	«ELSE»
-		«IF isRemote»
-			«EXPAND staticResourcesM1::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-»
-		«ELSE»
-			«EXPAND staticResourcesM1::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
-		«ENDIF»
-	«ENDIF»
-«ENDDEFINE»
-
-
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -»
-	«IF isNewMode()-»
-		«IF hasPortalProfile(model)-»
-			«EXPAND staticResourcesPortalProfile::getHeaderMarkup(model, skip_component_dir_creation) FOR this-»
-		«ELSE»	
-			«IF isRemote»
-				«EXPAND staticResourcesM2::getHeaderMarkupNoStrutsRemote(model, skip_component_dir_creation) FOR this-»
-			«ELSE»
-				«EXPAND staticResourcesM2::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
-			«ENDIF»
-		«ENDIF»
-	«ELSE»
-		«IF isRemote»
-			«EXPAND staticResourcesM1::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-»
-		«ELSE»
-			«EXPAND staticResourcesM1::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-»
-		«ENDIF»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADERÂ«ENDREMÂ»
+Â«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«IF hasPortalProfile(model)-Â»
+			Â«EXPAND staticResourcesPortalProfile::getHeaderMarkup(model, skip_component_dir_creation) FOR this-Â»
+		Â«ELSEÂ»	
+			Â«IF isRemoteÂ»
+				Â«EXPAND staticResourcesM2::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-Â»
+			Â«ELSEÂ»
+				Â«EXPAND staticResourcesM2::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-Â»
+			Â«ENDIFÂ»
+		Â«ENDIFÂ»
+	Â«ELSEÂ»
+		Â«IF isRemoteÂ»
+			Â«EXPAND staticResourcesM1::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-Â»
+		Â«ELSEÂ»
+			Â«EXPAND staticResourcesM1::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-Â»
+		Â«ENDIFÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
-«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getPortalHeader(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getPortalHeader(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
-
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getPortalHeader(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
-
-
-«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
-«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
-
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getApplicationHeader(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation, boolean isRemote) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«IF hasPortalProfile(model)-Â»
+			Â«EXPAND staticResourcesPortalProfile::getHeaderMarkup(model, skip_component_dir_creation) FOR this-Â»
+		Â«ELSEÂ»	
+			Â«IF isRemoteÂ»
+				Â«EXPAND staticResourcesM2::getHeaderMarkupNoStrutsRemote(model, skip_component_dir_creation) FOR this-Â»
+			Â«ELSEÂ»
+				Â«EXPAND staticResourcesM2::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-Â»
+			Â«ENDIFÂ»
+		Â«ENDIFÂ»
+	Â«ELSEÂ»
+		Â«IF isRemoteÂ»
+			Â«EXPAND staticResourcesM1::getHeaderMarkupRemote(model, skip_component_dir_creation) FOR this-Â»
+		Â«ELSEÂ»
+			Â«EXPAND staticResourcesM1::getHeaderMarkupLocal(model, skip_component_dir_creation) FOR this-Â»
+		Â«ENDIFÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di PORTALEÂ«ENDREMÂ»
+Â«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getPortalHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getPortalHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getPortalHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-	«IF isNewMode()-»
-		«EXPAND staticResourcesM2::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
-	«ELSE»
-		«EXPAND staticResourcesM1::getFooterMarkup(model, skip_component_dir_creation) FOR this-»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di APPLICATIVOÂ«ENDREMÂ»
+Â«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getApplicationHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getApplicationHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getApplicationHeader(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).Â«ENDREMÂ»
+Â«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinksÂ»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Genera la componente di markup (HTML) della FOOTERÂ«ENDREMÂ»
+Â«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR FooterÂ»
+	Â«IF isNewMode()-Â»
+		Â«EXPAND staticResourcesM2::getFooterMarkup(model, skip_component_dir_creation) FOR this-Â»
+	Â«ELSEÂ»
+		Â«EXPAND staticResourcesM1::getFooterMarkup(model, skip_component_dir_creation) FOR this-Â»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»

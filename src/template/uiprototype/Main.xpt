@@ -1,20 +1,37 @@
-«IMPORT guigen»
-«IMPORT ecore»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::fatjs»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
-«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
 
-«DEFINE main FOR GUIModel»
-	«EXPAND fatClientMainJSP FOR this»
-	«EXPAND fatClientJSStruct FOR this»
-	«EXPAND projectFileWork FOR this»
-«ENDDEFINE»
+Â«IMPORT template::fatjsÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
+Â«EXTENSION template::uiprototype::FatClientPrototypeExtensionsÂ»
 
-«DEFINE fatClientMainJSP FOR GUIModel»
-«FILE getWebDir()+"/index.html"»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+Â«DEFINE main FOR GUIModelÂ»
+	Â«EXPAND fatClientMainJSP FOR thisÂ»
+	Â«EXPAND fatClientJSStruct FOR thisÂ»
+	Â«EXPAND projectFileWork FOR thisÂ»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE fatClientMainJSP FOR GUIModelÂ»
+Â«FILE getWebDir()+"/index.html"Â»<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -62,99 +79,99 @@
  </body>
 
 </html>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE fatClientJSStruct FOR GUIModel-»
-«FILE getWebDir()+"/fatclient-prototype.js"»
+Â«DEFINE fatClientJSStruct FOR GUIModel-Â»
+Â«FILE getWebDir()+"/fatclient-prototype.js"Â»
 
 /**
  * Definizione della struttura ExtCSI dell'applicazione
  */
 
-«EXPAND model::types::types FOR this»
-«EXPAND model::data::datas FOR this»
-«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appArea»
-«ENDFILE»
-«ENDDEFINE»
+Â«EXPAND model::types::types FOR thisÂ»
+Â«EXPAND model::data::datas FOR thisÂ»
+Â«EXPAND appAreaStruct(this) FOR this.structure.appWindow.appAreaÂ»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE appAreaStruct(GUIModel model) FOR ApplicationArea»
+Â«DEFINE appAreaStruct(GUIModel model) FOR ApplicationAreaÂ»
 
 var appArea = new ExtCsi.app.ApplicationArea(
 	{
-		menubar: «EXPAND menuBarStruct(model) FOR this.menubar-»,
-		homePage: '«getRegistryID(this.homePage)»',
-		«IF onInitCommand!=null-»
-		onInitCommand: «EXPAND controller::commands::cmd(model, null) FOR this.onInitCommand»
-		«ELSE» onInitCommand: null
-		«ENDIF-»
+		menubar: Â«EXPAND menuBarStruct(model) FOR this.menubar-Â»,
+		homePage: 'Â«getRegistryID(this.homePage)Â»',
+		Â«IF onInitCommand!=null-Â»
+		onInitCommand: Â«EXPAND controller::commands::cmd(model, null) FOR this.onInitCommandÂ»
+		Â«ELSEÂ» onInitCommand: null
+		Â«ENDIF-Â»
 	}
 
 );
 
-«LET this.getAllContentPanels() AS allCP»
+Â«LET this.getAllContentPanels() AS allCPÂ»
 ExtCsi.app.ContentPanels = function() {
 	return {
-«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","»
+Â«EXPAND contentPanelStruct(model) FOREACH (List[ContentPanel])allCP SEPARATOR ","Â»
 	}
 }();
-«ENDLET»
+Â«ENDLETÂ»
 Ext.onReady( function() { 
 	appArea.init();
 }); 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE menuBarStruct(GUIModel model) FOR Menubar»
+Â«DEFINE menuBarStruct(GUIModel model) FOR MenubarÂ»
 	new ExtCsi.ui.menu.Menubar(
 		{topLevelMenu: 
 			[
-			«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-»
+			Â«EXPAND menuStruct(model) FOREACH this.topLevelMenu SEPARATOR ","-Â»
 			]
 		}
 	)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE menuStruct(GUIModel model) FOR Menu-»
+Â«DEFINE menuStruct(GUIModel model) FOR Menu-Â»
 			new ExtCsi.ui.menu.Menu(
 			{
-				name: '«name»',
-				label: «jsLiteralValue(label)»,
+				name: 'Â«nameÂ»',
+				label: Â«jsLiteralValue(label)Â»,
 				eventHandler:
-				«IF eventHandler!=null-»
-				«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandler»
-				«ELSE»null
-				«ENDIF-»
-				«IF submenu.size>0-»,submenu: [«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","»]«ENDIF-»
+				Â«IF eventHandler!=null-Â»
+				Â«EXPAND controller::commands::eventHandler(model, null) FOR this.eventHandlerÂ»
+				Â«ELSEÂ»null
+				Â«ENDIF-Â»
+				Â«IF submenu.size>0-Â»,submenu: [Â«EXPAND menuStruct(model) FOREACH this.submenu SEPARATOR ","Â»]Â«ENDIF-Â»
 			}
 			)
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanel»
+Â«DEFINE contentPanelStruct(GUIModel model) FOR ContentPanelÂ»
 /**
- * struttura del content panel «this.name»
+ * struttura del content panel Â«this.nameÂ»
  */ 
-«name» : function() {
-	globalRegistry.registerObject('«getRegistryID(this)»', 
+Â«nameÂ» : function() {
+	globalRegistry.registerObject('Â«getRegistryID(this)Â»', 
 		new ExtCsi.ui.panels.ContentPanel(
 			{
-				name: '«name»',	
-				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
-				dataUrl: '«getDataDir()»/«this.name»_«getFormDataProviderMethodName()».txt',
-				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
+				name: 'Â«nameÂ»',	
+				panels: Â«EXPAND view::panels::panelStruct(model, this) FOR panelsÂ»,
+				dataUrl: 'Â«getDataDir()Â»/Â«this.nameÂ»_Â«getFormDataProviderMethodName()Â».txt',
+				onRefreshCommand: Â«IF onRefreshCommand!=null-Â»Â«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-Â»Â«ELSE-Â» null Â«ENDIF-Â»
 			}
 		)
 	);
 }
 
-«FILE  getWebDir(model)+getDataDir()+"/"+this.name+"_"+getFormDataProviderMethodName()+".txt"-»{"cpData":{«EXPAND template::uiprototype::model::data::contentPanelData(model) FOR this-»},"widgetsStatus":[«EXPAND template::uiprototype::view::widgets::widgetsStatusJson FOR this»],"multiPanelStatus":[«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, this, "") FOR panels-»{"selectedPanelKey":"dummy","selectedPanelValue":null}]}«ENDFILE»
-«ENDDEFINE»
+Â«FILE  getWebDir(model)+getDataDir()+"/"+this.name+"_"+getFormDataProviderMethodName()+".txt"-Â»{"cpData":{Â«EXPAND template::uiprototype::model::data::contentPanelData(model) FOR this-Â»},"widgetsStatus":[Â«EXPAND template::uiprototype::view::widgets::widgetsStatusJson FOR thisÂ»],"multiPanelStatus":[Â«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, this, "") FOR panels-Â»{"selectedPanelKey":"dummy","selectedPanelValue":null}]}Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 gestione creazione file di progetto Eclipse
-«ENDREM»
-«DEFINE projectFileWork FOR GUIModel»
-«FILE  ".project"»<?xml version="1.0" encoding="UTF-8"?>
+Â«ENDREMÂ»
+Â«DEFINE projectFileWork FOR GUIModelÂ»
+Â«FILE  ".project"Â»<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name></name>
 	<comment></comment>
@@ -184,9 +201,9 @@ gestione creazione file di progetto Eclipse
 	</natures>
 </projectDescription>
      
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE  ".settings/.jsdtscope"»<?xml version="1.0" encoding="UTF-8"?>
+Â«FILE  ".settings/.jsdtscope"Â»<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.WebProject">
@@ -197,27 +214,27 @@ gestione creazione file di progetto Eclipse
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE  ".settings/org.eclipse.wst.common.component"»<?xml version="1.0" encoding="UTF-8"?>
+Â«FILE  ".settings/org.eclipse.wst.common.component"Â»<?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
-        <property name="context-root" value="«this.codComponente»"/>
+        <property name="context-root" value="Â«this.codComponenteÂ»"/>
     </wb-module>
 </project-modules>
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE ".settings/org.eclipse.wst.common.project.facet.core.xml"»<?xml version="1.0" encoding="UTF-8"?>
+Â«FILE ".settings/org.eclipse.wst.common.project.facet.core.xml"Â»<?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <runtime name="HTTP Server"/>
   <fixed facet="wst.web"/>
   <installed facet="wst.jsdt.web" version="1.0"/>
   <installed facet="wst.web" version="1.0"/>
 </faceted-project>
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE ".settings/org.eclipse.wst.jsdt.ui.superType.container"»org.eclipse.wst.jsdt.launching.baseBrowserLibrary
-«ENDFILE»
-«ENDDEFINE»
+Â«FILE ".settings/org.eclipse.wst.jsdt.ui.superType.container"Â»org.eclipse.wst.jsdt.launching.baseBrowserLibrary
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 

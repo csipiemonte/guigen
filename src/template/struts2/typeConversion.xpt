@@ -1,97 +1,114 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 CUSTOM TYPE CONVERTER PROPERTY FILE
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera il file di property«ENDREM»
-«DEFINE conversionPropertyFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsTypeConvertersPropertiesFile(this, skip_component_dir_creation)»#######################################################################
+Â«REMÂ»Genera il file di propertyÂ«ENDREMÂ»
+Â«DEFINE conversionPropertyFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsTypeConvertersPropertiesFile(this, skip_component_dir_creation)Â»#######################################################################
 # SAF2 global conversion goes here
 #######################################################################
 
-int=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+int=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+long=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+float=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+double=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
 
-java.lang.Integer=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-java.lang.Long=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-java.lang.Float=«getTypeConverterJavaPackage(this)».CsiNumericConverter
-java.lang.Double=«getTypeConverterJavaPackage(this)».CsiNumericConverter
+java.lang.Integer=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+java.lang.Long=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+java.lang.Float=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
+java.lang.Double=Â«getTypeConverterJavaPackage(this)Â».CsiNumericConverter
 
 ########################################################################
 ### UDT converters
 ########################################################################
 
-«LET (List[Type])getAllTypes(this) AS allTypes-»
-«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
-«FOREACH udtTypes AS currUDT-»
-«getUDTFQN(currUDT, this)»=«getTypeConverterJavaPackage(this)».«getUDTClassName(currUDT)»Converter
+Â«LET (List[Type])getAllTypes(this) AS allTypes-Â»
+Â«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-Â»
+Â«FOREACH udtTypes AS currUDT-Â»
+Â«getUDTFQN(currUDT, this)Â»=Â«getTypeConverterJavaPackage(this)Â».Â«getUDTClassName(currUDT)Â»Converter
 
-«ENDFOREACH-»
-«ENDLET-»
-«ENDLET-»
+Â«ENDFOREACH-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 CUSTOM TYPE CONVERTER CLASSES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera le classi dei convertitori«ENDREM»
-«DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR this»
-	«LET (List[ContentPanel])(structure.appWindow.appArea.getAllContentPanels()) AS allCP-»
-	«IF allCP.select(cp|cp.hasGisMap()==true).size>0 -»
-	«EXPAND jsonConverterClassFile(skip_component_dir_creation) FOR this»
-	«ENDIF-»
-	«ENDLET-»
-	«EXPAND udtConverters FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera le classi dei convertitoriÂ«ENDREMÂ»
+Â«DEFINE conversionClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND numericConverterClassFile(skip_component_dir_creation) FOR thisÂ»
+	Â«LET (List[ContentPanel])(structure.appWindow.appArea.getAllContentPanels()) AS allCP-Â»
+	Â«IF allCP.select(cp|cp.hasGisMap()==true).size>0 -Â»
+	Â«EXPAND jsonConverterClassFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+	Â«EXPAND udtConverters FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE udtConverters FOR GUIModel»
-«LET (List[Type])getAllTypes(this) AS allTypes-»
-	«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-»
-		«EXPAND udtConverterClassFile(this) FOREACH udtTypes»
-	«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE udtConverters FOR GUIModelÂ»
+Â«LET (List[Type])getAllTypes(this) AS allTypes-Â»
+	Â«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes-Â»
+		Â«EXPAND udtConverterClassFile(this) FOREACH udtTypesÂ»
+	Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE udtConverterClassFile(GUIModel model) FOR SimpleType»
-«FILE getTypeConverterJavaSrcDir(model, true) + "/" + getUDTClassName(this) + "Converter.java"»package «getTypeConverterJavaPackage(model)»;
+Â«DEFINE udtConverterClassFile(GUIModel model) FOR SimpleTypeÂ»
+Â«FILE getTypeConverterJavaSrcDir(model, true) + "/" + getUDTClassName(this) + "Converter.java"Â»package Â«getTypeConverterJavaPackage(model)Â»;
 
 import java.util.Map;
 
-import «getUDTFQN(this, model)»;
+import Â«getUDTFQN(this, model)Â»;
 
 import org.apache.struts2.util.StrutsTypeConverter;
 
 import com.opensymphony.xwork2.util.TypeConversionException;
 
 /**
- * Custom Type Converter per lo user defined type [«name»].
+ * Custom Type Converter per lo user defined type [Â«nameÂ»].
  * 
  * @author [GUIGEN]
  * @generated
  */
-public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
+public class Â«getUDTClassName(this)Â»Converter extends StrutsTypeConverter {
 
 	/**
 	 * Trasforma una rappresentazione a stringa di un oggetto di tipo
-	 * «getUDTClassName(this)».
+	 * Â«getUDTClassName(this)Â».
 	 * @param  context
 	 * @param  values
 	 * @param  toClass
@@ -100,11 +117,11 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	 */
 	@Override
 	public Object convertFromString(Map context, String[] values, Class toClass) {
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")»
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertFromString")Â»
 		// TODO: implementare il metodo e rimuovere l'eccezione UnsupportedOperationException
 		/*if (values!=null && values.length>0){
 			String s = values[0].trim();
-			«getUDTClassName(this)» val = new «getUDTClassName(this)»();
+			Â«getUDTClassName(this)Â» val = new Â«getUDTClassName(this)Â»();
 			try {
 				// HINT: convertire in maniera opportuna la stringa s in un tipo compatibile con quello su cui e' basato
 				//       il SimpleType User Defined, e settarla nell'oggetto val creato
@@ -112,19 +129,19 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 				val.setValue(t);
 				// HINT: end
 			} catch (Exception e) {
-				throw new TypeConversionException("Valore " + s + " non ammesso per il tipo «getUDTClassName(this)»");
+				throw new TypeConversionException("Valore " + s + " non ammesso per il tipo Â«getUDTClassName(this)Â»");
 			}
 			return val;
 		}
 		else {
 			return null;
 		}*/
-		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertFromString() non implementato");
-		«ENDPROTECT»
+		throw new UnsupportedOperationException("Metodo Â«getUDTClassName(this)Â»Converter.convertFromString() non implementato");
+		Â«ENDPROTECTÂ»
 	}
 
 	/**
-	 * Trasforma una istanza di «getUDTClassName(this)» nella rappresentazione a stringa.
+	 * Trasforma una istanza di Â«getUDTClassName(this)Â» nella rappresentazione a stringa.
 	 * @param
 	 * @param
 	 * @return
@@ -132,22 +149,22 @@ public class «getUDTClassName(this)»Converter extends StrutsTypeConverter {
 	 */
 	@Override
 	public String convertToString(Map context, Object o) {
-		«getUDTClassName(this)» val = («getUDTClassName(this)»)o;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")»
+		Â«getUDTClassName(this)Â» val = (Â«getUDTClassName(this)Â»)o;
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTClassName(this)+"convertToString")Â»
 		// TODO: implementare la logica di conversione a stringa e rimuovere l'eccezione UnsupportedOperationException
 		//return val==null ? "" : (val.getValue()!=null ? val.getValue() : "");
-		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)»Converter.convertToString() non implementato");
-		«ENDPROTECT»
+		throw new UnsupportedOperationException("Metodo Â«getUDTClassName(this)Â»Converter.convertToString() non implementato");
+		Â«ENDPROTECTÂ»
 	}
 
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la classe per il convertitore numerico«ENDREM»
-«DEFINE numericConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/CsiNumericConverter.java"»package «getTypeConverterJavaPackage(this)»;
+Â«REMÂ»Genera la classe per il convertitore numericoÂ«ENDREMÂ»
+Â«DEFINE numericConverterClassFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/CsiNumericConverter.java"Â»package Â«getTypeConverterJavaPackage(this)Â»;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -243,26 +260,26 @@ public class CsiNumericConverter extends StrutsTypeConverter {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 DISPLAYTAG CUSTOM DECORATORS CLASSES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera le classi dei decoratori«ENDREM»
-«DEFINE decoratorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND customColumnDecoratorClassFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera le classi dei decoratoriÂ«ENDREMÂ»
+Â«DEFINE decoratorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND customColumnDecoratorClassFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la classe per il decoratore numerico della displaytag«ENDREM»
-«DEFINE customColumnDecoratorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getColumnDecoratorJavaSrcDir(this, skip_component_dir_creation) + "/CsiCustomColumnDecorator.java"»package «getColumnDecoratorJavaPackage(this)»;
+Â«REMÂ»Genera la classe per il decoratore numerico della displaytagÂ«ENDREMÂ»
+Â«DEFINE customColumnDecoratorClassFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getColumnDecoratorJavaSrcDir(this, skip_component_dir_creation) + "/CsiCustomColumnDecorator.java"Â»package Â«getColumnDecoratorJavaPackage(this)Â»;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -326,27 +343,27 @@ public class CsiCustomColumnDecorator implements ColumnDecorator {
 	}	
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 DISPLAYTAG CUSTOM COMPARATORS CLASSES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera le classi dei comparatori«ENDREM»
-«DEFINE comparatorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND dateComparatorClassFile(skip_component_dir_creation) FOR this»
-	«EXPAND dateTimeComparatorClassFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera le classi dei comparatoriÂ«ENDREMÂ»
+Â«DEFINE comparatorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND dateComparatorClassFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND dateTimeComparatorClassFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
-«DEFINE dateComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateComparator.java"»package «getComparatorJavaPackage(this)»;
+Â«REMÂ»Genera la classe per il comparatore di tipi DateÂ«ENDREMÂ»
+Â«DEFINE dateComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateComparator.java"Â»package Â«getComparatorJavaPackage(this)Â»;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -389,13 +406,13 @@ public class CsiDateComparator implements Comparator<String>, java.io.Serializab
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la classe per il comparatore di tipi Date«ENDREM»
-«DEFINE dateTimeComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateTimeComparator.java"»package «getComparatorJavaPackage(this)»;
+Â«REMÂ»Genera la classe per il comparatore di tipi DateÂ«ENDREMÂ»
+Â«DEFINE dateTimeComparatorClassFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getComparatorJavaSrcDir(this, skip_component_dir_creation) + "/CsiDateTimeComparator.java"Â»package Â«getComparatorJavaPackage(this)Â»;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -467,12 +484,12 @@ public class CsiDateTimeComparator implements Comparator<String>, java.io.Serial
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE jsonConverterClassFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/JSONConverter.java"»package «getTypeConverterJavaPackage(this)»;
+Â«DEFINE jsonConverterClassFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getTypeConverterJavaSrcDir(this, skip_component_dir_creation) + "/JSONConverter.java"Â»package Â«getTypeConverterJavaPackage(this)Â»;
 
 import it.csi.splugesf.jtsutil.utils.json.GeometryObjectFactory;
 import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
@@ -543,5 +560,5 @@ public class JSONConverter extends StrutsTypeConverter {
 
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

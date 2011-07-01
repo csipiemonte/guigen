@@ -1,23 +1,40 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-«REM»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 ACTIONS FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
 
 
-«REM»Genera la Action di Struts che gestisce la Home Page«ENDREM»
-«DEFINE struts2HomeJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+Â«REMÂ»Genera la Action di Struts che gestisce la Home PageÂ«ENDREMÂ»
+Â«DEFINE struts2HomeJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)Â»package Â«getPresentationJavaPackage(this)Â»;
 
 import java.util.*;
 
@@ -25,66 +42,66 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.validator.annotations.*;
 
-import «getDTOBaseJavaPackage(this)».*;
+import Â«getDTOBaseJavaPackage(this)Â».*;
 
-import «getBaseJavaPackage(this)».business.*;
+import Â«getBaseJavaPackage(this)Â».business.*;
 
 /**
- * «getStrutsHomeClassName(this)» Action Class.
+ * Â«getStrutsHomeClassName(this)Â» Action Class.
  *
  * @author GuiGen
  */
 @Validation()
-public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+public class Â«getStrutsHomeClassName(this)Â» extends Â«getStrutsBaseActionClassName(this)Â» {
 
-	«IF this.structure.appWindow.appArea.onInitCommand != null»
-    «EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
-    «ENDIF»
+	Â«IF this.structure.appWindow.appArea.onInitCommand != nullÂ»
+    Â«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommandÂ»
+    Â«ENDIFÂ»
     
-    «IF this.activationModel!=null-»
-    «EXPAND template::struts2::model::modelJavaFiles::activationParamProperty(this) FOREACH this.activationModel.activationParams-»
-    «ENDIF-»
+    Â«IF this.activationModel!=null-Â»
+    Â«EXPAND template::struts2::model::modelJavaFiles::activationParamProperty(this) FOREACH this.activationModel.activationParams-Â»
+    Â«ENDIF-Â»
     
     /**
 	 * classe model associata
 	 */
 	public Class modelClass() {
-		«IF this.structure.appWindow.appArea.onInitCommand != null»
-		return «getModelDTOFQN(null, false, true, this)».class;
-		«ELSE»
+		Â«IF this.structure.appWindow.appArea.onInitCommand != nullÂ»
+		return Â«getModelDTOFQN(null, false, true, this)Â».class;
+		Â«ELSEÂ»
 		return java.lang.Object.class;
-		«ENDIF»
+		Â«ENDIFÂ»
 	}
     
     
-    «IF this.structure.appWindow.appArea.onInitCommand != null»
+    Â«IF this.structure.appWindow.appArea.onInitCommand != nullÂ»
 	/**
 	 *
 	 * @return Il risultato delle azioni, SUCCESS altrimenti.
 	 */
 	public String execute() throws CommandExecutionException {
 		
-		log.debug("[«getStrutsHomeClassName(this)»::execute] START");
+		log.debug("[Â«getStrutsHomeClassName(this)Â»::execute] START");
 		
 		ICommand action = initCommand();
 		String result = action.doCommand(this);
 		if (result != null) {
 			return result;
 		} else {
-			log.debug("[«getStrutsHomeClassName(this)»::execute] END");
+			log.debug("[Â«getStrutsHomeClassName(this)Â»::execute] END");
 			return SUCCESS;
 		}
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 
 
 	/**
 	 * Gestione della validazione
 	 */
 	public void validate() {
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsHomeClassName(this) + "_validate")»
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsHomeClassName(this) + "_validate")Â»
 		/* Inserire la validazione */
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	}
 
 	/**
@@ -96,12 +113,12 @@ public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassNam
 	 	// "content panel corrente" -> NOP
 	 }
 
-	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
-	«IF onInitAction != null»
-    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit1(this) FOR onInitAction»
-    «ENDIF»
-	«ENDLET»
+	Â«LET this.structure.appWindow.appArea.onInitCommand AS onInitActionÂ»
+	Â«IF onInitAction != nullÂ»
+    Â«EXPAND template::struts2::controller::eventHandlers::actionStructureInit1(this) FOR onInitActionÂ»
+    Â«ENDIFÂ»
+	Â«ENDLETÂ»
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 

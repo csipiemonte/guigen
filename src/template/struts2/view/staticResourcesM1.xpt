@@ -1,108 +1,125 @@
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
+
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Risorse statiche, casi:
    1) M1  ->  vecchia alberatura
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 BUILD FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»buildfiles -> build.xml«ENDREM»
-«DEFINE antBuildFileUnzipJs FOR GUIModel»
-  «IF this.targetPlatform.enableRichUIBehavior-»
+Â«REMÂ»buildfiles -> build.xmlÂ«ENDREMÂ»
+Â«DEFINE antBuildFileUnzipJs FOR GUIModelÂ»
+  Â«IF this.targetPlatform.enableRichUIBehavior-Â»
   <!-- -->
   <!-- ############################################################# -->
   <!-- # _unzip_js                                                 # -->
   <!-- ############################################################# -->
   <!-- -->
   <target name="_unzip_js" description="spacchetta le risorse JS scaricate da repart">
-  «IF isNullOrEmpty(getProperty("development.mode")) || getProperty("development.mode")=="false"-»
+  Â«IF isNullOrEmpty(getProperty("development.mode")) || getProperty("development.mode")=="false"-Â»
   	<unzip src="${extjs-zipfile}" dest="${temp}/static-resources" />
   	<unzip src="${csi-extjscore-zipfile}" dest="${temp}/static-resources" />
   	<unzip src="${csi-extjsenricher-zipfile}" dest="${temp}/static-resources" />
-  	«IF hasGisMap()»
+  	Â«IF hasGisMap()Â»
   	<unzip src="${openlayers-zipfile}" dest="${temp}/static-resources" />
-  	«ENDIF»
-  	«IF targetPlatform.enableFatClient-»
+  	Â«ENDIFÂ»
+  	Â«IF targetPlatform.enableFatClient-Â»
   	<unzip src="${csi-extjsmdd-zipfile}" dest="${temp}/static-resources" />
-  	«ENDIF-»
-  «ELSE-»
+  	Â«ENDIF-Â»
+  Â«ELSE-Â»
   	<!-- modalita' di sviluppo delle estensioni JS: le risorse statiche devono 
   	     essere inserite manualmente in ${srcweb} -->
-  «ENDIF-»
+  Â«ENDIF-Â»
   </target>
-  «ENDIF-»
-«ENDDEFINE»
+  Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> build.properties«ENDREM»
-«DEFINE buildPropertiesFileStaticResources FOR GUIModel»
-«IF !isRemote()-»
-«IF targetPlatform.enableRichUIBehavior-»
+Â«REMÂ»buildfiles -> build.propertiesÂ«ENDREMÂ»
+Â«DEFINE buildPropertiesFileStaticResources FOR GUIModelÂ»
+Â«IF !isRemote()-Â»
+Â«IF targetPlatform.enableRichUIBehavior-Â»
 # - [Files delle risorse statiche per rich UI] -------------------------------
   extjs-zipfile = ${lib}/ext-3.2.2-all.zip
   csi-extjscore-zipfile = ${lib}/ext-csi-1.0.0-core.zip
   csi-extjsenricher-zipfile = ${lib}/ext-csi-enricher-1.4.1.zip
-  «IF hasGisMap()»
+  Â«IF hasGisMap()Â»
   openlayers-zipfile = ${lib}/openlayers-2.10.zip
-  «ENDIF»
-«ENDIF-»
-«IF targetPlatform.enableFatClient-»
+  Â«ENDIFÂ»
+Â«ENDIF-Â»
+Â«IF targetPlatform.enableFatClient-Â»
   csi-extjsmdd-zipfile = ${lib}/ext-csi-1.0.0-mdd.zip
-«ENDIF-»
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivy.xml«ENDREM»
-«DEFINE ivyFileStaticResources FOR GUIModel»
-«IF targetPlatform.enableRichUIBehavior-»
+Â«REMÂ»buildfiles -> ivy.xmlÂ«ENDREMÂ»
+Â«DEFINE ivyFileStaticResources FOR GUIModelÂ»
+Â«IF targetPlatform.enableRichUIBehavior-Â»
 <!-- librerie js per rich u.i -->
 <dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
 <dependency org="csipiemonte" name="extjscsienricher" rev="1.4.1"/>
-«IF hasGisMap()»
+Â«IF hasGisMap()Â»
 <dependency org="openlayers" name="openlayers" rev="2.10" />
-«ENDIF»
-«IF targetPlatform.enableFatClient-»
+Â«ENDIFÂ»
+Â«IF targetPlatform.enableFatClient-Â»
 <dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
-«ENDIF-»
-«ENDIF»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivyconf.xml«ENDREM»
-«DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> ivyconf.xmlÂ«ENDREMÂ»
+Â«DEFINE ivyIvyConfFileStaticResources FOR GUIModelÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ENRICHMENTS
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»crea i file JS di arricchimento delle pagine web«ENDREM»
-«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-«IF !isRemote()»
-	«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-»
-		«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
-	«ENDFILE-»
-«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»crea i file JS di arricchimento delle pagine webÂ«ENDREMÂ»
+Â«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-Â»
+Â«IF !isRemote()Â»
+	Â«FILE getEnrichmentFile(this, model, skip_component_dir_creation)-Â»
+		Â«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR thisÂ»
+	Â«ENDFILE-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
-«DEFINE staticResourcesXML FOR GUIModel-»
+Â«REMÂ»File di configurazione del caricamento risorse per tag csiui:headerÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXML FOR GUIModel-Â»
 <resource type="text/css">
 	<position value="ext-all/resources/css/ext-all.css" />
 	<position value="ext-all/resources/css/xtheme-gray.css" />
@@ -113,18 +130,18 @@ ENRICHMENTS
 	<position value="ext-csi/util/Format.js" />
 	<position value="ext-csi/locale/ext-lang-it.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione singolo ContentPanel«ENDREM»
-«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-»
+Â«REMÂ»Configurazione singolo ContentPanelÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXML(GUIModel model) FOR ContentPanel-Â»
 <resource type="text/css">
 	<position value="ext-csi-enricher/ajaxify-tag/css/ajaxify.css" />
-	«IF hasGisMap()»
+	Â«IF hasGisMap()Â»
 	<position value="css/openlayers_style.css" />
 	<position value="css/grease.css" />
 	<position value="css/toolbar.css" />
-	«ENDIF»
+	Â«ENDIFÂ»
 </resource>
 <resource type="text/javascript">
 	<position value="ext-csi/table-grid/TableGrid.js" />
@@ -133,24 +150,24 @@ ENRICHMENTS
 	<position value="ext-csi-enricher/menu/csimenu.js" />
 	<position value="ext-csi-enricher/toggle-panel/toggle.js" />
 	<position value="ext-csi-enricher/ajaxify-tag/ajaxifyTag.js" />
-	«IF hasGisMap()»
+	Â«IF hasGisMap()Â»
 	<position value="openlayers/core/OpenLayers.js" />
 	<position value="ext-csi-enricher/maps/map-setup.js" />
-	«ENDIF»
+	Â«ENDIFÂ»
 	<!-- componente js dello skin -->
 	<position value="ris/js/style.js" />
 	<!-- funzioni comuni all' applicativo (opz) -->
-	<position value="js/«getLocalLibsFileWebRootRelative(this, model)»" />
+	<position value="js/Â«getLocalLibsFileWebRootRelative(this, model)Â»" />
 	<!-- stilizzazioni JS locali (opz) -->
 	<position value="js/localStyle.js" />
 	<!-- arricchimenti della schermata -->
-	<position value="js/«getEnrichmentFileWebRootRelative(this, model)»" />
+	<position value="js/Â«getEnrichmentFileWebRootRelative(this, model)Â»" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione per Fat Client«ENDREM»
-«DEFINE staticResourcesXMLFatClient FOR GUIModel-»
+Â«REMÂ»Configurazione per Fat ClientÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLFatClient FOR GUIModel-Â»
 <resource type="text/css">
 	<position value="ext-csi/grid-filter/css/GridFilters.css" />
   	<position value="ext-csi/grid-filter/css/RangeMenu.css" />
@@ -174,18 +191,18 @@ ENRICHMENTS
 	<position value="ext-csi-mdd/core/core.js" />
 	<position value="js/fatclient.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
-«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/yui_reset.css" media="screen" /> <!-- reset CSS -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/style.css" media="screen" /> <!-- stile di base -->
 <!--[if lte IE 6]>
@@ -196,47 +213,47 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 <![endif]-->
 <!-- funzioni e definizioni javascript -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
-«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+<r:include url="/ris/include/Â«IF !isNullOrEmpty(codCanale)Â»Â«codCanaleÂ»/Â«ENDIFÂ»Â«IF !isNullOrEmpty(codApplicativo)Â»Â«codApplicativoÂ»/Â«ENDIFÂ»head.html" resourceProvider="sp" />
 <!-- fine HEAD di APPLICATIVO (con remincl) -->
 
-«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+Â«REMÂ»Â«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR modelÂ»Â«ENDREMÂ»
 
 <!-- funzioni e definizioni javascript -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/jsFunctions.js"></script>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
-«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di PORTALEÂ«ENDREMÂ»
+Â«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
 <r:include url="/ris/include/portal_header.html" resourceProvider="sp" />
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
-«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»application_header.html" resourceProvider="sp" />
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di APPLICATIVOÂ«ENDREMÂ»
+Â«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+<r:include url="/ris/include/Â«IF !isNullOrEmpty(codCanale)Â»Â«codCanaleÂ»/Â«ENDIFÂ»Â«IF !isNullOrEmpty(codApplicativo)Â»Â«codApplicativoÂ»/Â«ENDIFÂ»application_header.html" resourceProvider="sp" />
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-«LET model.structure.appWindow.header.codCanale AS codCanale»
-«LET model.structure.appWindow.header.codApplicativo AS codApplicativo»
+Â«REMÂ»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).Â«ENDREMÂ»
+Â«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinksÂ»
+Â«LET model.structure.appWindow.header.codCanale AS codCanaleÂ»
+Â«LET model.structure.appWindow.header.codApplicativo AS codApplicativoÂ»
 <%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:catch var="ex">
-	<r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»static_links.html" resourceProvider="sp" />
+	<r:include url="/ris/include/Â«IF !isNullOrEmpty(codCanale)Â»Â«codCanaleÂ»/Â«ENDIFÂ»Â«IF !isNullOrEmpty(codApplicativo)Â»Â«codApplicativoÂ»/Â«ENDIFÂ»static_links.html" resourceProvider="sp" />
 </c:catch>
-«ENDLET»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDLETÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+Â«REMÂ»Genera la componente di markup (HTML) della FOOTERÂ«ENDREMÂ»
+Â«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR FooterÂ»
 <r:include url="/ris/include/portal_footer.html" resourceProvider="sp" />
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

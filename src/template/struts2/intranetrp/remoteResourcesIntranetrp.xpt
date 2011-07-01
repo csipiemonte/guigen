@@ -1,30 +1,47 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::resourcefiles»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::struts2::intranetrp::Struts2ExtensionsIntranetrp»
+Â«IMPORT guigenÂ»
+
+Â«IMPORT template::struts2::resourcefilesÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::struts2::intranetrp::Struts2ExtensionsIntranetrpÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Markup HTML per INTRANET REGIONE PIEMONTE
 Riferimenti:
 	- Esempi Intranet Regione Piemonte (http://dev-intranet.regione.piemonte.it)
 	- Applicativo piol_feprot (http://subversion.csi.it:10090/viewvc/piol/piol_feprot/trunk/src/web/piol_feprot/ )
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Definizioni generali: Pagine di ERRORE
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTS«ENDREM»
-«DEFINE getJspPageNotFoundError FOR GUIModel-»
-«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+Â«REMÂ»Crea la pagina di errore 404 (Page Not Found) -> NO STRUTSÂ«ENDREMÂ»
+Â«DEFINE getJspPageNotFoundError FOR GUIModel-Â»
+Â«EXPAND getJspErrorPageHeaderNoStruts FOR this-Â»
 <div class="chiusura">
 	<fmt:message key="error.notfound.title" /><br />
 	<fmt:message key="error.notfound.warning" /> <br/> <fmt:message key="error.notfound.message" />
@@ -32,13 +49,13 @@ Definizioni generali: Pagine di ERRORE
 <div class="indietro">
 	<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
 </div>
-«EXPAND getJspErrorPageFooterNoStruts FOR this-»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterNoStruts FOR this-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTS«ENDREM»
-«DEFINE getJspFatalError FOR GUIModel-»
-«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+Â«REMÂ»Crea la pagina di errore 500 (Internal Server Error) -> NO STRUTSÂ«ENDREMÂ»
+Â«DEFINE getJspFatalError FOR GUIModel-Â»
+Â«EXPAND getJspErrorPageHeaderNoStruts FOR this-Â»
 <div class="chiusura">
 	<fmt:message key="error.fatalerror.title" /><br/>
 	<fmt:message key="error.fatalerror.warning" /> <br/> <fmt:message key="error.fatalerror.message" />
@@ -46,13 +63,13 @@ Definizioni generali: Pagine di ERRORE
 <div class="indietro">
 	<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
 </div>
-«EXPAND getJspErrorPageFooterNoStruts FOR this-»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterNoStruts FOR this-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]«ENDREM»
-«DEFINE getJspApplicationError FOR GUIModel-»
-«EXPAND getJspErrorPageHeaderStruts FOR this-»
+Â«REMÂ»Crea la pagina di errore per le ApplicationError (Runtime) [java.lang.RuntimeException]Â«ENDREMÂ»
+Â«DEFINE getJspApplicationError FOR GUIModel-Â»
+Â«EXPAND getJspErrorPageHeaderStruts FOR this-Â»
 <div class="chiusura">
 	<s:text name="error.applicationerror.title" /><br/>
 	<s:text name="error.applicationerror.warning" /> <s:text name="error.applicationerror.message" /><br/>
@@ -62,13 +79,13 @@ Definizioni generali: Pagine di ERRORE
 	<s:url id="homePageUrl" action="HomePage" />
 	<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
 </div>
-«EXPAND getJspErrorPageFooterStruts FOR this-»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterStruts FOR this-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTS«ENDREM»
-«DEFINE getJspPageSessionExpiredFile FOR GUIModel»
-«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+Â«REMÂ»Crea la pagina di errore per errore da Sessione scaduta -> NO STRUTSÂ«ENDREMÂ»
+Â«DEFINE getJspPageSessionExpiredFile FOR GUIModelÂ»
+Â«EXPAND getJspErrorPageHeaderNoStruts FOR this-Â»
 <div class="chiusura">
 	<fmt:message key="error.sessionexpired.title" /><br>
 	<fmt:message key="error.sessionexpired.warning" /><br/>
@@ -79,11 +96,11 @@ Definizioni generali: Pagine di ERRORE
 <div class="indietro">
 	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 </div>
-«EXPAND getJspErrorPageFooterNoStruts FOR this-»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterNoStruts FOR this-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getJspPageInvalidTokenFile FOR GUIModel»
-«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+Â«DEFINE getJspPageInvalidTokenFile FOR GUIModelÂ»
+Â«EXPAND getJspErrorPageHeaderNoStruts FOR this-Â»
 <div class="chiusura">
 	<fmt:message key="error.invalidtoken.title" /><br>
 	<fmt:message key="error.invalidtoken.message" /><br/>
@@ -91,76 +108,76 @@ Definizioni generali: Pagine di ERRORE
 <div class="indietro">
 	<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 </div>
-«EXPAND getJspErrorPageFooterNoStruts FOR this-»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterNoStruts FOR this-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
-«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» TODO: implementare SE NECESSARIO
-«FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
-«EXPAND getJspErrorPageHeaderStruts FOR this-»
+Â«REMÂ»Crea la pagina di conferma chiusura sessione utenteÂ«ENDREMÂ»
+Â«DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«REMÂ» TODO: implementare SE NECESSARIO
+Â«FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-Â»
+Â«EXPAND getJspErrorPageHeaderStruts FOR this-Â»
 <!-- CONTENUTI -->
-«EXPAND getJspErrorPageFooterStruts FOR this-»
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+Â«EXPAND getJspErrorPageFooterStruts FOR this-Â»
+Â«ENDFILEÂ»
+Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-»<%@ taglib uri="/struts-tags" prefix="s" %>
-	«IF this.structure.appWindow.header != null-»
+Â«REMÂ»Parte iniziale della pagina di erroreÂ«ENDREMÂ»
+Â«DEFINE getJspErrorPageHeaderStruts FOR GUIModel-Â»<%@ taglib uri="/struts-tags" prefix="s" %>
+	Â«IF this.structure.appWindow.header != null-Â»
 	<s:include value="../fragments/header.jsp" ></s:include>
-	«ENDIF-»
+	Â«ENDIF-Â»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Parte finale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageFooterStruts FOR GUIModel-»
+Â«REMÂ»Parte finale della pagina di erroreÂ«ENDREMÂ»
+Â«DEFINE getJspErrorPageFooterStruts FOR GUIModel-Â»
 
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
-	«IF this.structure.appWindow.footer != null-»
+	Â«IF this.structure.appWindow.footer != null-Â»
 	<s:include value="../fragments/footer.jsp" ></s:include>
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Parte iniziale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-»<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+Â«REMÂ»Parte iniziale della pagina di erroreÂ«ENDREMÂ»
+Â«DEFINE getJspErrorPageHeaderNoStruts FOR GUIModel-Â»<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="globalMessages" />
 
-	«IF this.structure.appWindow.header != null-»
+	Â«IF this.structure.appWindow.header != null-Â»
 	<jsp:include page="/jsp/fragments/headerNoStruts.jsp" />
-	«ENDIF-»
+	Â«ENDIF-Â»
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Parte finale della pagina di errore«ENDREM»
-«DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-»
+Â«REMÂ»Parte finale della pagina di erroreÂ«ENDREMÂ»
+Â«DEFINE getJspErrorPageFooterNoStruts FOR GUIModel-Â»
 
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
-	«IF this.structure.appWindow.footer != null-»
+	Â«IF this.structure.appWindow.footer != null-Â»
 	<jsp:include page="/jsp/fragments/footer.jsp" />
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Definizioni generali: header, footer, ecc
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADERÂ«ENDREMÂ»
+Â«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
 	<head>
@@ -177,7 +194,7 @@ Definizioni generali: header, footer, ecc
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="<%=request.getContextPath()%>/js/pulsantiPadreFiglio.js"></script>
 
-		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+		Â«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-Â»
 
 		<!--INIZIO personalizzazione JQUERY-->
 		<script type="text/javascript">
@@ -187,10 +204,10 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
-		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
+		Â«REMÂ»Â«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR modelÂ»Â«ENDREMÂ»
 		
-		«IF model.targetPlatform.enableRichUIBehavior-»<csiuicore:header />«ENDIF-»
-		«REM»STDMDD-163: Radio button: implementazione evento di click
+		Â«IF model.targetPlatform.enableRichUIBehavior-Â»<csiuicore:header />Â«ENDIF-Â»
+		Â«REMÂ»STDMDD-163: Radio button: implementazione evento di click
 		<script type="text/javascript">
 
 			function onRBClick(url) {
@@ -199,7 +216,7 @@ Definizioni generali: header, footer, ecc
 			}
 
 		</script>
-		«ENDREM»
+		Â«ENDREMÂ»
 	</head>
 	<body>
 
@@ -212,9 +229,9 @@ Definizioni generali: header, footer, ecc
 
 
 		<!-- STRUMENTI (MENU + LINK STATICI) -->
-		«IF model.structure.appWindow.appArea.menubar != null-»
+		Â«IF model.structure.appWindow.appArea.menubar != null-Â»
 		<s:include value="menu.jsp"></s:include>
-		«ENDIF-»
+		Â«ENDIF-Â»
 		<!-- FINE STRUMENTI (MENU + LINK STATICI) -->
 
 
@@ -223,11 +240,11 @@ Definizioni generali: header, footer, ecc
 
 			<!-- CORPO -->
 			<div id="corpo">
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER«ENDREM»
-«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADERÂ«ENDREMÂ»
+Â«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
 	<head>
@@ -252,7 +269,7 @@ Definizioni generali: header, footer, ecc
 			});
 		</script>
 		<!--FINE personalizzazione JQUERY-->
-		«REM»STDMDD-163: Radio button: implementazione evento di click
+		Â«REMÂ»STDMDD-163: Radio button: implementazione evento di click
 		<script type="text/javascript">
 
 			function onRBClick(url) {
@@ -261,7 +278,7 @@ Definizioni generali: header, footer, ecc
 			}
 
 		</script>
-		«ENDREM»
+		Â«ENDREMÂ»
 	</head>
 	<body>
 
@@ -274,9 +291,9 @@ Definizioni generali: header, footer, ecc
 
 
 		<!-- STRUMENTI (MENU + LINK STATICI) -->
-		«IF model.structure.appWindow.appArea.menubar != null-»
-		«REM»PROBLEMA!!! il menu utilizza STRUTS: qui come facciamo?«ENDREM»
-		«ENDIF-»
+		Â«IF model.structure.appWindow.appArea.menubar != null-Â»
+		Â«REMÂ»PROBLEMA!!! il menu utilizza STRUTS: qui come facciamo?Â«ENDREMÂ»
+		Â«ENDIF-Â»
 		<!-- FINE STRUMENTI (MENU + LINK STATICI) -->
 
 
@@ -285,625 +302,625 @@ Definizioni generali: header, footer, ecc
 
 			<!-- CORPO -->
 			<div id="corpo">
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI.«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+Â«REMÂ»Genera la componente di markup (HTML) dei LINK STATICI.Â«ENDREMÂ»
+Â«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinksÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della MENUBAR.«ENDREM»
-«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Menubar»
+Â«REMÂ»Genera la componente di markup (HTML) della MENUBAR.Â«ENDREMÂ»
+Â«DEFINE getMenubarMarkup(GUIModel model, boolean skip_component_dir_creation) FOR MenubarÂ»
 <div id="strumenti">
 	<!-- MENU -->
 	<ul class="strumenti">
-	«LET 1 AS level -»
-	«FOREACH this.topLevelMenu AS tlmenu -»
-		«IF tlmenu.submenu.size > 0»
-			«EXPAND expandMenuWithChild(level) FOR tlmenu -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
-		«ELSE»
-			«EXPAND expandMenuNoChild(level) FOR tlmenu -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
-		«ENDIF»
-	«ENDFOREACH-»
-	«ENDLET-»
+	Â«LET 1 AS level -Â»
+	Â«FOREACH this.topLevelMenu AS tlmenu -Â»
+		Â«IF tlmenu.submenu.size > 0Â»
+			Â«EXPAND expandMenuWithChild(level) FOR tlmenu -Â»Â«REMÂ»Il menu ha dei figli: Ã¨ un sovramenuÂ«ENDREMÂ»
+		Â«ELSEÂ»
+			Â«EXPAND expandMenuNoChild(level) FOR tlmenu -Â»Â«REMÂ»Il menu non ha dei figli: non Ã¨ un sovramenuÂ«ENDREMÂ»
+		Â«ENDIFÂ»
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
 	</ul>
 
-	«REM»Espando i link statici«ENDREM»
-	«IF model.structure.appWindow.appArea.staticLinks != null-»
-		«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-»
-	«ENDIF-»
+	Â«REMÂ»Espando i link staticiÂ«ENDREMÂ»
+	Â«IF model.structure.appWindow.appArea.staticLinks != null-Â»
+		Â«EXPAND getStaticLinkMarkup(model, skip_component_dir_creation) FOR model.structure.appWindow.appArea.staticLinks-Â»
+	Â«ENDIF-Â»
 </div>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)«ENDREM»
-«DEFINE expandMenuNoChild(int level) FOR Menu -»
-<s:if test="isMenuVisible('«this.name»')">
-«IF this.eventHandler.eventType == EventTypes::CLICKED-»
-	«LET this.eventHandler.command AS currAction-»
-	<s:if test="isMenuEnabled('«this.name»')">
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+Â«REMÂ»Genera un Menu che non ha dei sottomenu (corrispone al vecchio MenuItem)Â«ENDREMÂ»
+Â«DEFINE expandMenuNoChild(int level) FOR Menu -Â»
+<s:if test="isMenuVisible('Â«this.nameÂ»')">
+Â«IF this.eventHandler.eventType == EventTypes::CLICKED-Â»
+	Â«LET this.eventHandler.command AS currAction-Â»
+	<s:if test="isMenuEnabled('Â«this.nameÂ»')">
+		<s:url id="targetUrlÂ«this.name.toFirstUpper()Â»" action="goToÂ«this.name.toFirstUpper()Â»FromMenu" includeParams="none" />
 		<li>
-			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
-				«getMenuNoChildLabelIntranetrp(this, level)»
+			<s:a href="%{targetUrlÂ«this.name.toFirstUpper()Â»}" id="menu_items_Â«this.nameÂ»">
+				Â«getMenuNoChildLabelIntranetrp(this, level)Â»
 			</s:a>
 		</li>
 	</s:if>
 	<s:else>
-		<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
+		<li>Â«getMenuNoChildLabelIntranetrp(this, level)Â»</li>
 	</s:else>
-	«ENDLET»
-«ELSE»
-	<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
-«ENDIF»
+	Â«ENDLETÂ»
+Â«ELSEÂ»
+	<li>Â«getMenuNoChildLabelIntranetrp(this, level)Â»</li>
+Â«ENDIFÂ»
 </s:if>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)«ENDREM»
-«DEFINE expandMenuWithChild(int level) FOR Menu»
-<s:if test="isMenuVisible('«this.name»')">
-	<s:if test="isAtLeastOneSubMenuVisible('«this.name»')">
+Â«REMÂ»Genera un Menu che ha dei sottomenu (corrispone al vecchio SubMenu)Â«ENDREMÂ»
+Â«DEFINE expandMenuWithChild(int level) FOR MenuÂ»
+<s:if test="isMenuVisible('Â«this.nameÂ»')">
+	<s:if test="isAtLeastOneSubMenuVisible('Â«this.nameÂ»')">
 		<li>
-			<s:if test="isMenuEnabled('«this.name»')">
-				<a href="javascript:gestsubmenu('«this.name»')">«getMenuWithChildLabelIntranetrp(this, level)»</a>
+			<s:if test="isMenuEnabled('Â«this.nameÂ»')">
+				<a href="javascript:gestsubmenu('Â«this.nameÂ»')">Â«getMenuWithChildLabelIntranetrp(this, level)Â»</a>
 			</s:if>
 			<s:else>
-				«getMenuWithChildLabelIntranetrp(this, level)»
+				Â«getMenuWithChildLabelIntranetrp(this, level)Â»
 			</s:else>
-			<ul class="nascmenu" id="«this.name»">
-				«EXPAND expandSubMenu(level+1) FOREACH this.submenu»
+			<ul class="nascmenu" id="Â«this.nameÂ»">
+				Â«EXPAND expandSubMenu(level+1) FOREACH this.submenuÂ»
 			</ul>
 		</li>
 	</s:if>
 	<s:else>
-		<li>«getMenuNoChildLabelIntranetrp(this, level)»</li>
+		<li>Â«getMenuNoChildLabelIntranetrp(this, level)Â»</li>
 	</s:else>
 </s:if>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera un sottoMenu«ENDREM»
-«DEFINE expandSubMenu(int level) FOR Menu»
-«IF this.submenu.size > 0»
-	«EXPAND expandMenuWithChild(level) FOR this -»«REM»Il menu ha dei figli: è un sovramenu«ENDREM»
-«ELSE»
-	«EXPAND expandMenuNoChild(level) FOR this -»«REM»Il menu non ha dei figli: non è un sovramenu«ENDREM»
-«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera un sottoMenuÂ«ENDREMÂ»
+Â«DEFINE expandSubMenu(int level) FOR MenuÂ»
+Â«IF this.submenu.size > 0Â»
+	Â«EXPAND expandMenuWithChild(level) FOR this -Â»Â«REMÂ»Il menu ha dei figli: Ã¨ un sovramenuÂ«ENDREMÂ»
+Â«ELSEÂ»
+	Â«EXPAND expandMenuNoChild(level) FOR this -Â»Â«REMÂ»Il menu non ha dei figli: non Ã¨ un sovramenuÂ«ENDREMÂ»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+Â«REMÂ»Genera la componente di markup (HTML) della FOOTERÂ«ENDREMÂ»
+Â«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR FooterÂ»
 			</div>
 			<!-- FINE CORPO -->
 
-			«REM»Pulsante indetro rimosso (usa JavaScript)
+			Â«REMÂ»Pulsante indetro rimosso (usa JavaScript)
 			<!-- INDIETRO -->
 			<div class="indietro"><a href="javascript:history.go(-1)">Torna indietro</a></div>
 			<!-- FINE INDIETRO -->
-			«ENDREM»
+			Â«ENDREMÂ»
 
 		</div>
 		<!-- FINE CONTENITORE + CORPO + INDIETRO -->
 
 	</body>
 </html>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione dei PANNELLI
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form Panels«ENDREM»
-«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-	«IF this.layout.metaType == VerticalFlowPanelLayout-»
-		«EXPAND setupVFL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-		«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-		«REM»«ERROR "UDLRCPanelLayout non gestito al primo livello per portale Intranet Regione Piemonte"»«ENDREM»
-	«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-»
-		«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale " + getPortalName()»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Per il momento si parte dall'assunzione che a primo livello ci siano solo Form PanelsÂ«ENDREMÂ»
+Â«DEFINE setupFirstLevelFormPanel(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
+	Â«IF this.layout.metaType == VerticalFlowPanelLayout-Â»
+		Â«EXPAND setupVFL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+	Â«ELSEIF this.layout.metaType == UDLRCPanelLayout-Â»
+		Â«EXPAND setupUDLRCL(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+		Â«REMÂ»Â«ERROR "UDLRCPanelLayout non gestito al primo livello per portale Intranet Regione Piemonte"Â»Â«ENDREMÂ»
+	Â«ELSEIF this.layout.metaType == HorizontalFlowPanelLayout-Â»
+		Â«ERROR "HorizontalFlowPanelLayout non gestito al primo livello per portale " + getPortalName()Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la struttura di markup (HTML) per il Vertical Flow Layout«ENDREM»
-«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+Â«REMÂ»Genera la struttura di markup (HTML) per il Vertical Flow LayoutÂ«ENDREMÂ»
+Â«DEFINE setupVFL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 
-«IF !isNullOrEmpty(this.label) -»
+Â«IF !isNullOrEmpty(this.label) -Â»
 <!-- titolo pannello 1' livello -->
-<h2><s:text name="«cp.name».«this.name».label" /></h2>
-«ENDIF-»
+<h2><s:text name="Â«cp.nameÂ».Â«this.nameÂ».label" /></h2>
+Â«ENDIF-Â»
 
-«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR this»
+Â«REMÂ»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livelloÂ«ENDREMÂ»
+Â«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR thisÂ»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) Layout«ENDREM»
-«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-«LET getColumnsLayout(this, model) AS numeroColonne-»
-«IF numeroColonne == 1 -»
-	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-«ELSEIF numeroColonne == 2 -»
-	«EXPAND setupDueColonne(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-«ELSEIF numeroColonne == 3 -»
-	«EXPAND setupTreColonne(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-«ELSE-»
-	«ERROR "Portale " + getPortalName() + ": numero di colonne maggiore di 3 : colonne trovate " + numeroColonne»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
+Â«REMÂ»Genera la struttura di markup (HTML) per l'UDLRC (Up-Down-Left-Right-Center) LayoutÂ«ENDREMÂ»
+Â«DEFINE setupUDLRCL(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
+Â«LET getColumnsLayout(this, model) AS numeroColonne-Â»
+Â«IF numeroColonne == 1 -Â»
+	Â«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+Â«ELSEIF numeroColonne == 2 -Â»
+	Â«EXPAND setupDueColonne(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+Â«ELSEIF numeroColonne == 3 -Â»
+	Â«EXPAND setupTreColonne(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+Â«ELSE-Â»
+	Â«ERROR "Portale " + getPortalName() + ": numero di colonne maggiore di 3 : colonne trovate " + numeroColonneÂ»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)«ENDREM»
-«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+Â«REMÂ»Genera la struttura di markup (HTML) per un UDLRC Layout a COLONNA UNICA ([U][D]C)Â«ENDREMÂ»
+Â«DEFINE setupUnaColonna(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
 <!-- ####################### PANNELLO CONTENUTI ###################### -->
 
-«IF !isNullOrEmpty(this.label) -»
+Â«IF !isNullOrEmpty(this.label) -Â»
 <!-- titolo pannello 1' livello -->
-<h2><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></h2>
-«ENDIF-»
+<h2><s:text name="Â«cp.nameÂ».Â«getFullID(this, contextPrefix)Â».label" /></h2>
+Â«ENDIF-Â»
 
-«REM»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livello«ENDREM»
-«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR this»
+Â«REMÂ»ATTENZIONE: qui devo espandere i sottopannelli del pannello di primo livelloÂ«ENDREMÂ»
+Â«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, false, UDLRCSpecConstants::CENTER, contextPrefix, pduConf) FOR thisÂ»
 
 <!-- #################### FINE PANNELLO CONTENUTI #################### -->
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)«ENDREM»
-«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-	«REM»Gestisco l'UDLRC come una sola colonna ignorando LEFT«ENDREM»
-	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera la struttura di markup (HTML) per un UDLRC Layout a DUE COLONNE ([U][D]LC)Â«ENDREMÂ»
+Â«DEFINE setupDueColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
+	Â«REMÂ»Gestisco l'UDLRC come una sola colonna ignorando LEFTÂ«ENDREMÂ»
+	Â«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)«ENDREM»
-«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
-	«REM»Gestisco l'UDLRC come una sola colonna ignorando RIGHT e LEFT«ENDREM»
-	«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera la struttura di markup (HTML) per un UDLRC Layout a TRE COLONNE ([U][D]LRC)Â«ENDREMÂ»
+Â«DEFINE setupTreColonne(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
+	Â«REMÂ»Gestisco l'UDLRC come una sola colonna ignorando RIGHT e LEFTÂ«ENDREMÂ»
+	Â«EXPAND setupUnaColonna(model, skip_component_dir_creation, cp, contextPrefix, pduConf) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** Multi Panel e tipi derivati (TabsetPanel, WizardPanel) **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»TabsetPanel«ENDREM»
-«DEFINE setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+Â«REMÂ»TabsetPanelÂ«ENDREMÂ»
+Â«DEFINE setupTabSetPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanelÂ»
 <div class="boxsup">
-	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
-	«FOREACH this.panels AS currTab ITERATOR i-»
-		«LET "%{#session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab, cp, contextPrefix)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-»
-		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
-			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
-			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
+	Â«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-Â»
+	Â«FOREACH this.panels AS currTab ITERATOR i-Â»
+		Â«LET "%{#session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab, cp, contextPrefix)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "") + "}" AS tabSelectedCondition-Â»
+		<s:url id="Â«getMultiPanelName(this, currTab, cp, contextPrefix)Â»_URL" action="Â«getStrutsActionConfigName(cp)Â»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'Â«getSelectedMultiPanelName(this, cp, contextPrefix)Â»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'Â«getMultiPanelName(this, currTab, cp, contextPrefix)Â»'}" />
 		</s:url>
-		«IF switchHnd != null-»
-		<s:if test="«tabSelectedCondition»">
-			<s:submit id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»" cssClass="boxsel" key="«cp.name».«getFullID(currTab, contextPrefix)».label" onclick="return false;"/>
+		Â«IF switchHnd != null-Â»
+		<s:if test="Â«tabSelectedConditionÂ»">
+			<s:submit id="Â«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)Â»" cssClass="boxsel" key="Â«cp.nameÂ».Â«getFullID(currTab, contextPrefix)Â».label" onclick="return false;"/>
 		</s:if>
 		<s:else>
-			«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher»
-        	«ENDIF-»
-			<s:submit name="«switcher.name»"
+			Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+        	Â«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcherÂ»
+        	Â«ENDIF-Â»
+			<s:submit name="Â«switcher.nameÂ»"
           	cssClass="tabnosel"
-            id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
-            method="«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)»"
-            key="«cp.name».«getFullID(currTab, contextPrefix)».label" />
-            «IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcher»
-        	«ENDIF-»
+            id="Â«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)Â»"
+            method="Â«getTabItemHandlerMethodName(cp,this,currTab, contextPrefix)Â»"
+            key="Â«cp.nameÂ».Â«getFullID(currTab, contextPrefix)Â».label" />
+            Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+        	Â«EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this.switcherÂ»
+        	Â«ENDIF-Â»
 		</s:else>
-		«ELSE»
-		<s:if test="«tabSelectedCondition»">
-			<s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}" cssClass="boxsel"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a>
+		Â«ELSEÂ»
+		<s:if test="Â«tabSelectedConditionÂ»">
+			<s:a href="%{Â«getMultiPanelName(this, currTab, cp, contextPrefix)Â»_URL}" cssClass="boxsel"><s:text name="Â«cp.nameÂ».Â«getFullID(currTab, contextPrefix)Â».label" /></s:a>
 		</s:if>
 		<s:else>
-			<s:a href="%{«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL}"><s:text name="«cp.name».«getFullID(currTab, contextPrefix)».label" /></s:a>
+			<s:a href="%{Â«getMultiPanelName(this, currTab, cp, contextPrefix)Â»_URL}"><s:text name="Â«cp.nameÂ».Â«getFullID(currTab, contextPrefix)Â».label" /></s:a>
 		</s:else>
-		«ENDIF»
-		«ENDLET»
-	«ENDFOREACH-»
-	«ENDLET-»
+		Â«ENDIFÂ»
+		Â«ENDLETÂ»
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
 </div>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»WizardPanel«ENDREM»
-«DEFINE setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+Â«REMÂ»WizardPanelÂ«ENDREMÂ»
+Â«DEFINE setupWizardPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanelÂ»
 <div class="boxsup">
-	«FOREACH this.panels AS currStep ITERATOR i-»
-		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
-			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
-			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
+	Â«FOREACH this.panels AS currStep ITERATOR i-Â»
+		Â«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -Â»
+		<s:url id="Â«getMultiPanelName(this, currStep, cp, contextPrefix)Â»_URL" action="Â«getStrutsActionConfigName(cp)Â»" method="handleChangeTab" includeParams="get">
+			<s:param name="selectedTabKey" value="%{'Â«getSelectedMultiPanelName(this, cp, contextPrefix)Â»_selectedMultiPanel'}" />
+			<s:param name="selectedTabValue" value="%{'Â«getMultiPanelName(this, currStep, cp, contextPrefix)Â»'}" />
 		</s:url>
-		«LET i.counter1.toString() AS stepNumber-»
-		<s:if test="%{#session.«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel == '«getMultiPanelName(this, currStep, cp, contextPrefix)»'«stepExtraCondition»}">
-			«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber, cp, contextPrefix) FOR currStep-»
+		Â«LET i.counter1.toString() AS stepNumber-Â»
+		<s:if test="%{#session.Â«getSelectedMultiPanelName(this, cp, contextPrefix)Â»_selectedMultiPanel == 'Â«getMultiPanelName(this, currStep, cp, contextPrefix)Â»'Â«stepExtraConditionÂ»}">
+			Â«EXPAND setupActiveWizardNavigatorCurrentItem(model, this, stepExtraCondition, stepNumber, cp, contextPrefix) FOR currStep-Â»
 		</s:if>
 		<s:else>
-			«IF this.navigatorActive-»
-				«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
-			«ELSE-»
-				«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-»
-			«ENDIF-»
+			Â«IF this.navigatorActive-Â»
+				Â«EXPAND setupActiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-Â»
+			Â«ELSE-Â»
+				Â«EXPAND setupPassiveWizardNavigatorNotCurrentItem(model, this, stepNumber, cp, contextPrefix) FOR currStep-Â»
+			Â«ENDIF-Â»
 		</s:else>
-		«ENDLET-»
-		«ENDLET-»
-	«ENDFOREACH-»
+		Â«ENDLET-Â»
+		Â«ENDLET-Â»
+	Â«ENDFOREACH-Â»
 </div>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel-»
-	«LET this AS currStep-»
-	<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}" cssClass="boxsel">«stepNumber». <s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE setupActiveWizardNavigatorCurrentItem(GUIModel model, WizardPanel wizard, String stepExtraCondition, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel-Â»
+	Â«LET this AS currStep-Â»
+	<s:a href="%{Â«getMultiPanelName(wizard, currStep, cp, contextPrefix)Â»_URL}" cssClass="boxsel">Â«stepNumberÂ». <s:text name="Â«cp.nameÂ».Â«getFullID(currStep, contextPrefix)Â».label" /></s:a>
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
-	«LET this AS currStep-»
-	<s:a href="%{«getMultiPanelName(wizard, currStep, cp, contextPrefix)»_URL}">«stepNumber». <s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" /></s:a>
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE setupActiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR PanelÂ»
+	Â«LET this AS currStep-Â»
+	<s:a href="%{Â«getMultiPanelName(wizard, currStep, cp, contextPrefix)Â»_URL}">Â«stepNumberÂ». <s:text name="Â«cp.nameÂ».Â«getFullID(currStep, contextPrefix)Â».label" /></s:a>
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR Panel»
-	«LET this AS currStep-»
-	«stepNumber». <s:text name="«cp.name».«getFullID(currStep, contextPrefix)».label" />
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE setupPassiveWizardNavigatorNotCurrentItem(GUIModel model, WizardPanel wizard, String stepNumber, ContentPanel cp, String contextPrefix) FOR PanelÂ»
+	Â«LET this AS currStep-Â»
+	Â«stepNumberÂ». <s:text name="Â«cp.nameÂ».Â«getFullID(currStep, contextPrefix)Â».label" />
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** StdMessagePanel (Pannello per errori) **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanel»
-<customtag:panelGrid id="«getFullID(this, contextPrefix)»" scope="message" errorDetails="«showFieldErrorDetails»" errorMessage="«showFieldErrors»" actionMessage="«showGlobalMessages»" portale="«getPortalCode()»" />
-«ENDDEFINE»
+Â«DEFINE setupStdMessagePanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR StdMessagePanelÂ»
+<customtag:panelGrid id="Â«getFullID(this, contextPrefix)Â»" scope="message" errorDetails="Â«showFieldErrorDetailsÂ»" errorMessage="Â«showFieldErrorsÂ»" actionMessage="Â«showGlobalMessagesÂ»" portale="Â«getPortalCode()Â»" />
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel»
-«ENDDEFINE»
+Â«DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanelÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione dei LAYOUT - PANNELLI
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la header di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
-«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+Â«REMÂ»Genera la header di un sottopannello di tipo FormPanel (solo se non Ã¨ un FormPanel "contenitore")Â«ENDREMÂ»
+Â«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanelÂ»
+Â«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -Â»
 <fieldset>
-	«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -»
-	<legend><s:text name="«cp.name».«getFullID(this, contextPrefix)».label" /></legend>
-	«ENDIF»
-«ENDIF»
-«ENDDEFINE»
+	Â«IF !isNullOrEmpty(this.label) && !(this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) -Â»
+	<legend><s:text name="Â«cp.nameÂ».Â«getFullID(this, contextPrefix)Â».label" /></legend>
+	Â«ENDIFÂ»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la header di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
-«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "class=\"pulsante\"" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "" : "" ) ) AS ptype-»
-<div «ptype»>
-«ENDLET-»
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un sottopannello di tipo CommandPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanelÂ»
+Â«LET (this.cmdStyle == CommandStyles::NAVIGATION ? "class=\"pulsante\"" : (this.cmdStyle == CommandStyles::FUNCTIONAL ? "" : "" ) ) AS ptype-Â»
+<div Â«ptypeÂ»>
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la header di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
+Â«REMÂ»Genera la header di un sottopannello di tipo MenuPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanelÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la footer di un sottopannello di tipo FormPanel (solo se non è un FormPanel "contenitore")«ENDREM»
-«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanel»
-«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -»
+Â«REMÂ»Genera la footer di un sottopannello di tipo FormPanel (solo se non Ã¨ un FormPanel "contenitore")Â«ENDREMÂ»
+Â«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR FormPanelÂ»
+Â«IF (this.subpanels.select(e|e.metaType == MultiPanel).size == 0 && this.subpanels.select(e|e.metaType == TabSetPanel).size == 0 && this.subpanels.select(e|e.metaType == WizardPanel).size == 0) && !((this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel) && !(this.subpanels.select(e|e.metaType == FormPanel).size == 0)) -Â»
 </fieldset>
-«ENDIF»
-«ENDDEFINE»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un sottopannello di tipo CommandPanel«ENDREM»
-«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanel»
+Â«REMÂ»Genera la footer di un sottopannello di tipo CommandPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR CommandPanelÂ»
 </div>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un sottopannello di tipo MenuPanel«ENDREM»
-«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanel»
+Â«REMÂ»Genera la footer di un sottopannello di tipo MenuPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR MenuPanelÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** WidgetsPanel **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la header di un sottopannello di tipo WidgetsPanel«ENDREM»
-«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
-	<customtag:panelGrid id="«getFullID(this, contextPrefix)»" columns="«getGridPanelColumnsNumber(this)»" errorDetails="false" errorMessage="false" actionMessage="false" portale="«getPortalCode()»" «getPanelGridPercentCols(this)»>
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un sottopannello di tipo WidgetsPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlHeader(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanelÂ»
+	Â«IF !this.widgets.isEmpty -Â»
+	<customtag:panelGrid id="Â«getFullID(this, contextPrefix)Â»" columns="Â«getGridPanelColumnsNumber(this)Â»" errorDetails="false" errorMessage="false" actionMessage="false" portale="Â«getPortalCode()Â»" Â«getPanelGridPercentCols(this)Â»>
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un sottopannello di tipo WidgetsPanel«ENDREM»
-«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
-	«IF !this.widgets.isEmpty -»
+Â«REMÂ»Genera la footer di un sottopannello di tipo WidgetsPanelÂ«ENDREMÂ»
+Â«DEFINE subPanelControlFooter(UDLRCSpecConstants quadrante, ContentPanel cp, String contextPrefix) FOR WidgetsPanelÂ»
+	Â«IF !this.widgets.isEmpty -Â»
 	</customtag:panelGrid>
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** User Defined Panel **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la header di un pannello di tipo UserDefinedPanel«ENDREM»
-«DEFINE userDefinedPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un pannello di tipo UserDefinedPanelÂ«ENDREMÂ»
+Â«DEFINE userDefinedPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un pannello di tipo UserDefinedPanel«ENDREM»
-«DEFINE userDefinedPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-»
-«ENDDEFINE»
+Â«REMÂ»Genera la footer di un pannello di tipo UserDefinedPanelÂ«ENDREMÂ»
+Â«DEFINE userDefinedPanelControlFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserDefinedPanel-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** Dialog Panel **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la header di un pannello di tipo DialogPanel«ENDREM»
-«DEFINE dialogPanelControlHeader(GUIModel model, ContentPanel cp) FOR DialogPanel-»
-«IF model.structure.appWindow.header != null-»
+Â«REMÂ»Genera la header di un pannello di tipo DialogPanelÂ«ENDREMÂ»
+Â«DEFINE dialogPanelControlHeader(GUIModel model, ContentPanel cp) FOR DialogPanel-Â»
+Â«IF model.structure.appWindow.header != null-Â»
 <s:include value="../fragments/header.jsp" ></s:include>
-«ENDIF-»
+Â«ENDIF-Â»
 
-<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="Â«this.nameÂ»Form" action="Â«getStrutsActionConfigName(findParentContentPanel(this))Â»" method="post">
 
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»Genera la footer di un pannello di tipo DialogPanel«ENDREM»
-«DEFINE dialogPanelControlFooter(GUIModel model, ContentPanel cp) FOR DialogPanel-»
+Â«REMÂ»Genera la footer di un pannello di tipo DialogPanelÂ«ENDREMÂ»
+Â«DEFINE dialogPanelControlFooter(GUIModel model, ContentPanel cp) FOR DialogPanel-Â»
 
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
 
 </s:form>
 
-«IF model.structure.appWindow.footer != null-»
+Â«IF model.structure.appWindow.footer != null-Â»
 <s:include value="../fragments/footer.jsp" ></s:include>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** MsgBoxPanel (STDMDD-245: solo se inseriti in DialogPanel ) **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la header di un pannello di tipo MsgBoxPanel«ENDREM»
-«DEFINE msgBoxPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanel»
-<div «getMsgBoxPanelStyleByPortal(model, this)»>
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un pannello di tipo MsgBoxPanelÂ«ENDREMÂ»
+Â«DEFINE msgBoxPanelControlHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR MsgBoxPanelÂ»
+<div Â«getMsgBoxPanelStyleByPortal(model, this)Â»>
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un pannello di tipo MsgBoxPanel«ENDREM»
-«DEFINE msgBoxPanelControlFooter (GUIModel model, ContentPanel cp, String contextPrefix)FOR MsgBoxPanel»
+Â«REMÂ»Genera la footer di un pannello di tipo MsgBoxPanelÂ«ENDREMÂ»
+Â«DEFINE msgBoxPanelControlFooter (GUIModel model, ContentPanel cp, String contextPrefix)FOR MsgBoxPanelÂ»
 </div>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione dei LAYOUT - WIDGETS
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»--------------- Widget ---------------«ENDREM»
+Â«REMÂ»--------------- Widget ---------------Â«ENDREMÂ»
 
-«REM»Genera la header di un widget generico«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Widget»
-<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»"  labelId="«getFullID(this, contextPrefix)»Lbl" «ENDIF»
-	«getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomtagHeaderColspan(wp, this)»>
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un widget genericoÂ«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR WidgetÂ»
+<customtag:column Â«IF this.label != nullÂ»labelField="true" textLabel="Â«getText(this, cp, contextPrefix)Â»" labelFor="Â«getWidgetName(contextPrefix)Â»" errorFor="Â«getWidgetLabelFor(this, contextPrefix, pduConf)Â»"  labelId="Â«getFullID(this, contextPrefix)Â»Lbl" Â«ENDIFÂ»
+	Â«getCustomtagColumnPosition(wp, this, isFirst, isLast)Â» Â«getCustomtagHeaderColspan(wp, this)Â»>
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un widget generico«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
+Â«REMÂ»Genera la footer di un widget genericoÂ«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR WidgetÂ»
 </customtag:column>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la clausola di chiusura di un widget generico«ENDREM»
-«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Widget»
-«IF needHandleCustomtagCloseHspan(wp, this) -»
+Â«REMÂ»Genera la clausola di chiusura di un widget genericoÂ«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR WidgetÂ»
+Â«IF needHandleCustomtagCloseHspan(wp, this) -Â»
 <s:else>
-	<customtag:column textValue="" «getCustomtagCloseColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»/>
+	<customtag:column textValue="" Â«getCustomtagCloseColspan(wp, this)Â» Â«getCustomtagColumnPosition(wp, this, isFirst, isLast)Â»/>
 </s:else>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»--------------- PlainText ---------------«ENDREM»
+Â«REMÂ»--------------- PlainText ---------------Â«ENDREMÂ»
 
-«REM»Genera la header di un widget di tipo PlainText per un FormPanel«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
-<customtag:column «IF this.label != null»labelField="true" textLabel="«getText(this, cp, contextPrefix)»" labelFor="«getWidgetName(contextPrefix)»" errorFor="«getWidgetLabelFor(this, contextPrefix, pduConf)»" labelId="«getFullID(this, contextPrefix)»Lbl"«ENDIF» «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)» «getCustomComponentColumnStyleByPortal(model, this)»>
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un widget di tipo PlainText per un FormPanelÂ«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainTextÂ»
+<customtag:column Â«IF this.label != nullÂ»labelField="true" textLabel="Â«getText(this, cp, contextPrefix)Â»" labelFor="Â«getWidgetName(contextPrefix)Â»" errorFor="Â«getWidgetLabelFor(this, contextPrefix, pduConf)Â»" labelId="Â«getFullID(this, contextPrefix)Â»Lbl"Â«ENDIFÂ» Â«getCustomtagHeaderColspan(wp, this)Â» Â«getCustomtagColumnPosition(wp, this, isFirst, isLast)Â» Â«getCustomComponentColumnStyleByPortal(model, this)Â»>
+Â«ENDDEFINEÂ»
 
-«REM»Genera la header di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainText»
-«REM»Al momento non si fa niente«ENDREM»
-«ENDDEFINE»
+Â«REMÂ»Genera la header di un widget di tipo PlainText per un MsgBoxPanelÂ«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR PlainTextÂ»
+Â«REMÂ»Al momento non si fa nienteÂ«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la footer di un widget di tipo PlainText per un MsgBoxPanel«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainText»
-«IF !isLast»<br/>«ENDIF»
-«ENDDEFINE»
-
-
-
-
-«REM»--------------- HiddenValue ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
-«ENDDEFINE»
-
-«REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
-«ENDDEFINE»
-
-«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
-«ENDDEFINE»
-
-
-«REM»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValue»
-«ENDDEFINE»
-
-«REM»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
-«ENDDEFINE»
-
-«REM»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValue»
-«ENDDEFINE»
-
-
-«REM»--------------- Button ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
-«REM»Nessun layout aggiuntivo necessario«ENDREM»
-«ENDDEFINE»
-
-«REM»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
-«REM»Nessun layout aggiuntivo necessario«ENDREM»
-«ENDDEFINE»
-
-«REM»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR Button»
-«ENDDEFINE»
-
-«REM»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Button»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
-«ENDDEFINE»
-
-
-«REM»--------------- Table ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Table»
-<customtag:column «getCustomtagHeaderColspan(wp, this)» «getCustomtagColumnPosition(wp, this, isFirst, isLast)»>
-«ENDDEFINE»
-
-
-«REM»--------------- MenuView ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuView»
-«ENDDEFINE»
-
-«REM»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
-«ENDDEFINE»
-
-«REM»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuView»
-«ENDDEFINE»
-
-
-«REM»--------------- TreeView ---------------«ENDREM»
-
-«REM»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TreeView»
-«ENDDEFINE»
-
-«REM»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
-«ENDDEFINE»
-
-«REM»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)«ENDREM»
-«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeView»
-«ENDDEFINE»
+Â«REMÂ»Genera la footer di un widget di tipo PlainText per un MsgBoxPanelÂ«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, MsgBoxPanel mbp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR PlainTextÂ»
+Â«IF !isLastÂ»<br/>Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+
+Â«REMÂ»--------------- HiddenValue ---------------Â«ENDREMÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Genera la header di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la footer di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la clausola di chiusura di un widget di tipo HiddenValue (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, CommandPanel cp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR HiddenValueÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»--------------- Button ---------------Â«ENDREMÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ButtonÂ»
+Â«REMÂ»Nessun layout aggiuntivo necessarioÂ«ENDREMÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la footer di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR ButtonÂ»
+Â«REMÂ»Nessun layout aggiuntivo necessarioÂ«ENDREMÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la clausola di chiusura di un widget di tipo Button (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, CommandPanel cmdp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR ButtonÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo Button (non ha label, quindi la colonna della label non va considerata)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ButtonÂ»
+<customtag:column Â«getCustomtagHeaderColspan(wp, this)Â» Â«getCustomtagColumnPosition(wp, this, isFirst, isLast)Â»>
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»--------------- Table ---------------Â«ENDREMÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo Table (non ha label, quindi la colonna della label non va considerata)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, WidgetsPanel wp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TableÂ»
+<customtag:column Â«getCustomtagHeaderColspan(wp, this)Â» Â«getCustomtagColumnPosition(wp, this, isFirst, isLast)Â»>
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»--------------- MenuView ---------------Â«ENDREMÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MenuViewÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la footer di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuViewÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la clausola di chiusura di un widget di tipo MenuView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR MenuViewÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»--------------- TreeView ---------------Â«ENDREMÂ»
+
+Â«REMÂ»Genera la header di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlHeader(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TreeViewÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la footer di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetControlFooter(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeViewÂ»
+Â«ENDDEFINEÂ»
+
+Â«REMÂ»Genera la clausola di chiusura di un widget di tipo TreeView (non ha label, quindi niente strutture aggiuntive)Â«ENDREMÂ»
+Â«DEFINE widgetClose(GUIModel model, MenuPanel mp, Boolean isFirst, Boolean isLast, ContentPanel cp, String contextPrefix) FOR TreeViewÂ»
+Â«ENDDEFINEÂ»
+
+
+
+Â«REMÂ»
 ************** Markup HTML dei Widgets specifici  **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della header un grupppo di RadioButton (RadioButtons).Â«ENDREMÂ»
+Â«DEFINE widgetMarkupHeader(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtonsÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).«ENDREM»
-«DEFINE widgetMarkupFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtons»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) del footer un grupppo di RadioButton (RadioButtons).Â«ENDREMÂ»
+Â«DEFINE widgetMarkupFooter(GUIModel model, ContentPanel cp, String contextPrefix) FOR RadioButtonsÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione delle LABEL (i18n) => file: i18nfiles.xpt
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera le label per la header«ENDREM»
-«DEFINE headerLabels FOR GUIModel-»
-header.canale.nome.label=«this.structure.appWindow.header.nomeCanale»
-header.applicativo.nome.label=«this.structure.appWindow.header.nomeApplicativo»
-«ENDDEFINE»
+Â«REMÂ»Genera le label per la headerÂ«ENDREMÂ»
+Â«DEFINE headerLabels FOR GUIModel-Â»
+header.canale.nome.label=Â«this.structure.appWindow.header.nomeCanaleÂ»
+header.applicativo.nome.label=Â«this.structure.appWindow.header.nomeApplicativoÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione del BUILD => file: buildfiles.xpt
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali«ENDREM»
-«DEFINE strutsThemeIvy FOR GUIModel»
+Â«REMÂ»Genera le dipendenze realtive ai temi di struts specifici per i portaliÂ«ENDREMÂ»
+Â«DEFINE strutsThemeIvy FOR GUIModelÂ»
 <dependency org="csipiemonte" name="util-struts2-customcomponent" rev="2.1.1">
 	<artifact name="custom-component-2.1.1" type="jar"/>
 </dependency>
 <dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.3">
 	<artifact name="util-struts2-csitemplate-1.0.3" type="jar"/>
 </dependency>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione dei files di CONFIGURAZIONE => file: configfiles.xpt
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la porzione del file di configurazione della DisplayTag che potrebbe variare a seconda dei portali«ENDREM»
-«DEFINE displayTagConfigurationFile FOR GUIModel»
+Â«REMÂ»Genera la porzione del file di configurazione della DisplayTag che potrebbe variare a seconda dei portaliÂ«ENDREMÂ»
+Â«DEFINE displayTagConfigurationFile FOR GUIModelÂ»
 ############################################################################
 # MESSAGES
 
@@ -949,4 +966,4 @@ export.rtf.label=<span class="export rtf" title="Esporta solo la pagina corrente
 #css.th.descending=giu
 #css.table
 #css.th.sortable=dis
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

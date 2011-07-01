@@ -1,40 +1,57 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-«REM»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«REMÂ»
 **************************************************************************************************************************
 Gestione delle applicazioni MultiPortale
 *************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»Entry point per la generazione delle classi di gestione del multiportale«ENDREM»
-«DEFINE multiPortalClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND multiPortalFilterClassesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND multiPortalUtilJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND multiPortalInfoResolverClassesFiles(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Entry point per la generazione delle classi di gestione del multiportaleÂ«ENDREMÂ»
+Â«DEFINE multiPortalClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND multiPortalFilterClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND multiPortalUtilJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND multiPortalInfoResolverClassesFiles(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 MultiPortal Filters
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«DEFINE multiPortalFilterClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND whereAreYouFromRequestAdapterFilterJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND whereAreYouFromFilterJavaFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«DEFINE multiPortalFilterClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND whereAreYouFromRequestAdapterFilterJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND whereAreYouFromFilterJavaFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE whereAreYouFromRequestAdapterFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromRequestAdapterFilter.java" »package «getFiltersJavaPackage(this)»;
+Â«DEFINE whereAreYouFromRequestAdapterFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromRequestAdapterFilter.java" Â»package Â«getFiltersJavaPackage(this)Â»;
 
-import «getMultiPortalUtilsJavaPackage(this)».*;
-import «getBaseJavaPackage(this)».util.*;
+import Â«getMultiPortalUtilsJavaPackage(this)Â».*;
+import Â«getBaseJavaPackage(this)Â».util.*;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -165,20 +182,20 @@ public class WhereAreYouFromRequestAdapterFilter implements Filter {
 	}
 
 	private InfoResolver getResolver() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		String className = "«getMultiPortalUtilsJavaPackage(this)»." + infoSourceType + "InfoResolver";
+		String className = "Â«getMultiPortalUtilsJavaPackage(this)Â»." + infoSourceType + "InfoResolver";
 		Class c = Class.forName(className);
 		return (InfoResolver)c.newInstance();
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE whereAreYouFromFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromFilter.java" »package «getFiltersJavaPackage(this)»;
+Â«DEFINE whereAreYouFromFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromFilter.java" Â»package Â«getFiltersJavaPackage(this)Â»;
 
-import «getMultiPortalUtilsJavaPackage(this)».*;
-import «getBaseJavaPackage(this)».util.*;
+import Â«getMultiPortalUtilsJavaPackage(this)Â».*;
+import Â«getBaseJavaPackage(this)Â».util.*;
 
 import java.io.IOException;
 
@@ -258,19 +275,19 @@ public class WhereAreYouFromFilter implements Filter {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 MultiPortal Util
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«DEFINE multiPortalUtilJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/MultiPortalUtil.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+Â«DEFINE multiPortalUtilJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/MultiPortalUtil.java" Â»package Â«getMultiPortalUtilsJavaPackage(this)Â»;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -302,9 +319,9 @@ public class MultiPortalUtil {
 	@SuppressWarnings("serial")
 	private static final Map<String, String> AVAILABLE_CHANNEL_NAMES =
 	    Collections.unmodifiableMap(new HashMap<String, String>() {{
-	    «FOREACH this.targetPlatform.portalExpositions AS exp-»
-	    	put("«exp.portal.resourceProviderCode»", "«!isNullOrEmpty(exp.areaCode) ? exp.areaCode : "general"»");
-	    «ENDFOREACH-»
+	    Â«FOREACH this.targetPlatform.portalExpositions AS exp-Â»
+	    	put("Â«exp.portal.resourceProviderCodeÂ»", "Â«!isNullOrEmpty(exp.areaCode) ? exp.areaCode : "general"Â»");
+	    Â«ENDFOREACH-Â»
 	    }});
 
 
@@ -369,26 +386,26 @@ public class MultiPortalUtil {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 MultiPortal Info Resolver Classes
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«DEFINE multiPortalInfoResolverClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND infoResolverInterfaceJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND cookieResolverJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND requestParamResolverJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND headerResolverJavaFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«DEFINE multiPortalInfoResolverClassesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND infoResolverInterfaceJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND cookieResolverJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND requestParamResolverJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND headerResolverJavaFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE infoResolverInterfaceJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/InfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+Â«DEFINE infoResolverInterfaceJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/InfoResolver.java" Â»package Â«getMultiPortalUtilsJavaPackage(this)Â»;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -400,11 +417,11 @@ import javax.servlet.http.HttpServletRequest;
 public interface InfoResolver {
 	public String resolve(String infoSourceName, HttpServletRequest hreq);
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE cookieResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/CookieInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+Â«DEFINE cookieResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/CookieInfoResolver.java" Â»package Â«getMultiPortalUtilsJavaPackage(this)Â»;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -425,11 +442,11 @@ public class CookieInfoResolver implements InfoResolver {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE requestParamResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/RequestParamInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+Â«DEFINE requestParamResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/RequestParamInfoResolver.java" Â»package Â«getMultiPortalUtilsJavaPackage(this)Â»;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -445,11 +462,11 @@ public class RequestParamInfoResolver implements InfoResolver {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE headerResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/HeaderInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+Â«DEFINE headerResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/HeaderInfoResolver.java" Â»package Â«getMultiPortalUtilsJavaPackage(this)Â»;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -465,42 +482,42 @@ public class HeaderInfoResolver implements InfoResolver {
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Replacent delle variabili di resource provider nel file build.xml«ENDREM»
-«DEFINE buildXmlResourceProvederReplacement FOR GUIModel»
-«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
-<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider.«code»@@@" value="${remincl.resource.provider.«code»}"/>
-<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home.«code»@@@"  value="${portal.home.«code»}"/>
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«REMÂ»Replacent delle variabili di resource provider nel file build.xmlÂ«ENDREMÂ»
+Â«DEFINE buildXmlResourceProvederReplacement FOR GUIModelÂ»
+Â«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-Â»
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider.Â«codeÂ»@@@" value="${remincl.resource.provider.Â«codeÂ»}"/>
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home.Â«codeÂ»@@@"  value="${portal.home.Â«codeÂ»}"/>
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Definizione e mapping dei filtri per il "Where Are You From"«ENDREM»
-«DEFINE multiportalFiltersDefAndMapping FOR GUIModel»
+Â«REMÂ»Definizione e mapping dei filtri per il "Where Are You From"Â«ENDREMÂ»
+Â«DEFINE multiportalFiltersDefAndMapping FOR GUIModelÂ»
 	<filter>
 		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
-		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromRequestAdapterFilter</filter-class>
-		«EXPAND infoSourceTypeAndName FOR this-»
-		«FOREACH this.targetPlatform.portalExpositions.portal AS profile-»
+		<filter-class>Â«getFiltersJavaPackage()Â».WhereAreYouFromRequestAdapterFilter</filter-class>
+		Â«EXPAND infoSourceTypeAndName FOR this-Â»
+		Â«FOREACH this.targetPlatform.portalExpositions.portal AS profile-Â»
 		<init-param>
-			<param-name>key.«profile.resourceProviderCode»</param-name>
-			<param-value>«profile.whereAreYouFromPortalCode»</param-value>
+			<param-name>key.Â«profile.resourceProviderCodeÂ»</param-name>
+			<param-value>Â«profile.whereAreYouFromPortalCodeÂ»</param-value>
 		</init-param>
-		«ENDFOREACH-»
+		Â«ENDFOREACH-Â»
 	</filter>	
 	<filter>
 		<filter-name>WhereAreYouFrom</filter-name>
-		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromFilter</filter-class>
+		<filter-class>Â«getFiltersJavaPackage()Â».WhereAreYouFromFilter</filter-class>
 	</filter>
 	
 	<filter-mapping>
@@ -519,22 +536,22 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 		<filter-name>WhereAreYouFrom</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Init params dei filtri "Where Are you From" per InfoSource Type (dove e' contenuta l'informazione) e Name (nome del detentore dell'informazione)«ENDREM»
-«DEFINE infoSourceTypeAndName FOR GUIModel»
-«LET getActualSecurityModel(this) AS secModel-»
-	«IF secModel == null-»
-		«EXPAND defaultInfoSourceTypeAndName FOR this-»
-	«ELSE-»
-		«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
-	«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
+Â«REMÂ»Init params dei filtri "Where Are you From" per InfoSource Type (dove e' contenuta l'informazione) e Name (nome del detentore dell'informazione)Â«ENDREMÂ»
+Â«DEFINE infoSourceTypeAndName FOR GUIModelÂ»
+Â«LET getActualSecurityModel(this) AS secModel-Â»
+	Â«IF secModel == null-Â»
+		Â«EXPAND defaultInfoSourceTypeAndName FOR this-Â»
+	Â«ELSE-Â»
+		Â«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-Â»
+	Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Init params InfoSource Type e Name di DEFAULT (NO AUTHENTICATION)«ENDREM»
-«DEFINE defaultInfoSourceTypeAndName FOR GUIModel»
+Â«REMÂ»Init params InfoSource Type e Name di DEFAULT (NO AUTHENTICATION)Â«ENDREMÂ»
+Â«DEFINE defaultInfoSourceTypeAndName FOR GUIModelÂ»
 	<init-param>
 		<param-name>infoSourceType</param-name>
 		<param-value>RequestParam</param-value>
@@ -543,15 +560,15 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 		<param-name>infoSourceName</param-name>
 		<param-value>PORTALE</param-value>
 	</init-param>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Init params InfoSource Type e Name per altri metodi di autenticazione (da inserire quando necessario)«ENDREM»
-«DEFINE infoSourceTypeAndName FOR AutenticationMethod»
-	«ERROR "ERRORE MULTIPORTALE: infoSourceType e infoSourceName non definiti per il metodo di autenticazione " + this.metaType.name»
-«ENDDEFINE»
+Â«REMÂ»Init params InfoSource Type e Name per altri metodi di autenticazione (da inserire quando necessario)Â«ENDREMÂ»
+Â«DEFINE infoSourceTypeAndName FOR AutenticationMethodÂ»
+	Â«ERROR "ERRORE MULTIPORTALE: infoSourceType e infoSourceName non definiti per il metodo di autenticazione " + this.metaType.nameÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Init params InfoSource Type e Name per SSO Shibboleth«ENDREM»
-«DEFINE infoSourceTypeAndName FOR ShibbolethSSO»
+Â«REMÂ»Init params InfoSource Type e Name per SSO ShibbolethÂ«ENDREMÂ»
+Â«DEFINE infoSourceTypeAndName FOR ShibbolethSSOÂ»
 	<init-param>
 		<param-name>infoSourceType</param-name>
 		<param-value>Cookie</param-value>
@@ -560,23 +577,23 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 		<param-name>infoSourceName</param-name>
 		<param-value>PORTALE</param-value>
 	</init-param>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Metodi per la gestione del MultiPortale da inserire nella base action«ENDREM»
-«DEFINE baseActionMethods FOR GUIModel»
+Â«REMÂ»Metodi per la gestione del MultiPortale da inserire nella base actionÂ«ENDREMÂ»
+Â«DEFINE baseActionMethods FOR GUIModelÂ»
 	////////////////////////////////////////////////////////////////////////
 	// Gestione Multiportale
 	
 	public String getPortalCode() {
-		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_PORTAL_SESSIONATTR);
+		return (String) session.get(Â«getMultiPortalUtilsJavaPackage(this)Â».MultiPortalUtil.MDD_PORTAL_SESSIONATTR);
 	}
 
 	public String getChannelCode() {
-		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_CHANNEL_SESSIONATTR);
+		return (String) session.get(Â«getMultiPortalUtilsJavaPackage(this)Â».MultiPortalUtil.MDD_CHANNEL_SESSIONATTR);
 	}
 
 	public String getStaticResource(String url) {
-		return «getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.getStaticResource(url, getPortalCode());
+		return Â«getMultiPortalUtilsJavaPackage(this)Â».MultiPortalUtil.getStaticResource(url, getPortalCode());
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

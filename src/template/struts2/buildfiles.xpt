@@ -1,24 +1,41 @@
-«IMPORT guigen»
-«IMPORT template::struts2::remoteResources»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
-	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
-	«EXPAND buildPropertiesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«IMPORT guigenÂ»
+Â«IMPORT template::struts2::remoteResourcesÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModelÂ»
+	Â«EXPAND antBuildFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND buildPropertiesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND ivyFiles(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ANT FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»genera il file di build di ant«ENDREM»
-«DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModel»
-«FILE getBuildXmlFileName(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»genera il file di build di antÂ«ENDREMÂ»
+Â«DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModelÂ»
+Â«FILE getBuildXmlFileName(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ##################################################### -->
 <!-- # Copyright 2006 (c) CSI Piemonte.                  # -->
@@ -33,10 +50,10 @@ ANT FILES
 
 <project basedir="."
          default="default"
-         name="«codComponente»"
+         name="Â«codComponenteÂ»"
          xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
 
-  <description>Build file per il progetto: [«codComponente»]</description>
+  <description>Build file per il progetto: [Â«codComponenteÂ»]</description>
 
   <!-- -->
   <property file="buildfiles/build.properties" />
@@ -187,10 +204,10 @@ ANT FILES
   <!-- -->
   <target name="all-targets"
           description="Esegue il build per le varie distribuzioni in sequenza.">
-    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.all-targets")»
+    Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.all-targets")Â»
     <!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
     <antcall target="distribution" />
-    «ENDPROTECT»
+    Â«ENDPROTECTÂ»
   </target>
 
   <!-- -->
@@ -242,29 +259,29 @@ ANT FILES
       <equals arg1="${remincl.cache.time}" arg2="$${remincl.cache.time}" />
     </condition>
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.cache.time@@@" value="${remincl.cache.time}"/>
-    «IF isMultiPortal(this)-»
-    	«EXPAND multiPortal::buildXmlResourceProvederReplacement FOR this»
-    «ELSE-»
+    Â«IF isMultiPortal(this)-Â»
+    	Â«EXPAND multiPortal::buildXmlResourceProvederReplacement FOR thisÂ»
+    Â«ELSE-Â»
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@" value="${remincl.resource.provider}"/>
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home@@@"  value="${portal.home}"/>
-	«ENDIF-»
-	«IF getActualSecurityModel(this).autenticationMethod!=null-»
-		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
-		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
-	«ENDIF-»
-	«IF hasGisMap()»
-	«LET (List[MapView])getMapsInModel() AS maps-»
-	«FOREACH maps AS map-»
-	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».user@@@"  value="${gisMap.«map.mapId».user}"/>
-	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».password@@@"  value="${gisMap.«map.mapId».password}"/>
-	«ENDFOREACH»
-	«ENDLET»
+	Â«ENDIF-Â»
+	Â«IF getActualSecurityModel(this).autenticationMethod!=null-Â»
+		Â«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-Â»
+		Â«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-Â»
+	Â«ENDIF-Â»
+	Â«IF hasGisMap()Â»
+	Â«LET (List[MapView])getMapsInModel() AS maps-Â»
+	Â«FOREACH maps AS map-Â»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.Â«map.mapIdÂ».user@@@"  value="${gisMap.Â«map.mapIdÂ».user}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.Â«map.mapIdÂ».password@@@"  value="${gisMap.Â«map.mapIdÂ».password}"/>
+	Â«ENDFOREACHÂ»
+	Â«ENDLETÂ»
   	<replace file="${temp}/conf/ejb/business/${contesto}/map-config/pd_gosgisso_baseservice.xml"  token="@@@gismap.provider.url@@@" value="${gosgisso.java.naming.provider.url}" />
-	«ENDIF»
+	Â«ENDIFÂ»
 
-    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
+    Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")Â»
     <!-- gestire qui i  replace delle proprie variabili d'ambiente -->
-    «ENDPROTECT»
+    Â«ENDPROTECTÂ»
   </target>
 
   <!-- -->
@@ -284,7 +301,7 @@ ANT FILES
   <!-- -->
   <target name="package-ear"
           depends="environment-recreate, environment-config, compile-all,
-                   commons-jar, business-ejb-jar, integration-jar, «IF isOldMode()-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
+                   commons-jar, business-ejb-jar, integration-jar, Â«IF isOldMode()-Â»Â«IF targetPlatform.enableRichUIBehavior-Â»_unzip_js, Â«ENDIF-Â»Â«ENDIFÂ»
                    package-war"
           description="costruisce l&apos;ear">
 
@@ -313,8 +330,8 @@ ANT FILES
     </ear>
   </target>
  
-  «REM»[DM] STDMDD-670: target _unzip_js (spacchetta le risorse JS scaricate da repart)«ENDREM»
-  «EXPAND template::struts2::view::staticResources::antBuildFileUnzipJs FOR this-»
+  Â«REMÂ»[DM] STDMDD-670: target _unzip_js (spacchetta le risorse JS scaricate da repart)Â«ENDREMÂ»
+  Â«EXPAND template::struts2::view::staticResources::antBuildFileUnzipJs FOR this-Â»
 
   <!-- -->
   <!-- ############################################################# -->
@@ -332,11 +349,11 @@ ANT FILES
          roundup="false"
          manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
       <webinf dir="${build}/temp/conf/web/${webapp}/WEB-INF"
-              includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
+              includes="applicationContext.xml,Â«getAppServerConfigFile(this)Â».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
       <fileset dir="${srcweb}" />
-      «IF targetPlatform.enableRichUIBehavior && (isNullOrEmpty(getProperty("development.mode"))||getProperty("development.mode")=="false")-»
+      Â«IF targetPlatform.enableRichUIBehavior && (isNullOrEmpty(getProperty("development.mode"))||getProperty("development.mode")=="false")-Â»
       <fileset dir="${temp}/static-resources"/>
-      «ENDIF-»
+      Â«ENDIF-Â»
       <classes dir="${build}/jsp" includes="**" />
       <classes dir="${build}/classes"
                includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
@@ -381,11 +398,11 @@ ANT FILES
       	    <include name="**/*.properties" />
       	</patternset>
       </metainf>
-      «IF hasGisMap()»
+      Â«IF hasGisMap()Â»
       <fileset dir="${build}/temp/conf/ejb/business/${contesto}/map-config">
     	<include name="**" />
       </fileset>
-      «ENDIF»
+      Â«ENDIFÂ»
     </jar>
   </target>
 
@@ -497,30 +514,30 @@ ANT FILES
     <delete dir="${srcweb}/WEB-INF/lib" />
   </target>
 </project>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera i files di properties di ant (generale e per i singoli ambienti)«ENDREM»
-«DEFINE buildPropertiesFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
-	«EXPAND buildPropertiesTemplateFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera i files di properties di ant (generale e per i singoli ambienti)Â«ENDREMÂ»
+Â«DEFINE buildPropertiesFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND buildPropertiesTemplateFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file di property di ant (generale)«ENDREM»
-«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»##############################################################################
+Â«REMÂ»Genera il file di property di ant (generale)Â«ENDREMÂ»
+Â«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)Â»##############################################################################
 # Build.properties
 ##############################################################################
-# - Generato da GUIGEN, versione «getPluginVersion()»
+# - Generato da GUIGEN, versione Â«getPluginVersion()Â»
 
 # - [Definizione del Prodotto] -----------------------------------------------
-  prodotto    = «codProdotto»
-  contesto    = «codComponente»
-  componente  = «codComponente»
+  prodotto    = Â«codProdottoÂ»
+  contesto    = Â«codComponenteÂ»
+  componente  = Â«codComponenteÂ»
   webapp      = ${contesto}
-  version     = «versioneComponente»
+  version     = Â«versioneComponenteÂ»
 
 # - [Definizione dei files di output] ----------------------------------------
   ear-file-name  = ${componente}srv
@@ -539,8 +556,8 @@ ANT FILES
   docs        = ${basedir}/docs
   temp        = ${build}/temp
 
-«REM»[DM] STDMDD-670: Files delle risorse statiche per rich UI«ENDREM»
-«EXPAND template::struts2::view::staticResources::buildPropertiesFileStaticResources FOR this»
+Â«REMÂ»[DM] STDMDD-670: Files delle risorse statiche per rich UIÂ«ENDREMÂ»
+Â«EXPAND template::struts2::view::staticResources::buildPropertiesFileStaticResources FOR thisÂ»
 
 # - [ear-libs-filter] --------------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
@@ -570,40 +587,40 @@ ANT FILES
                     csi-rmi-1.4.5.jar                      \
                     csi-ejb*-1.4.5.jar                     \
                     iridev2*.jar                           \
-                    «IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    Â«IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-Â»
                     weblogic-client*.jar                   \
-                    «ENDIF-»
+                    Â«ENDIF-Â»
                     custom-component-attr-1.0.3.jar
 
 # - [ear-custom-libs-filter] -------------------------------------------------
 # Questo filter viene utilizzato per definire JAR aggiuntivi che devono 
 # essere inclusi all'interno dell'EAR prodotto.
-«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")»
+Â«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")Â»
 ear-custom-libs-filter =
 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 # - [war-exclude-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
-«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+Â«REMÂ»DIFFERENZIARE WEBLOGIC-JBOSSÂ«ENDREMÂ»
   war-exclude-libs-filter = servlet*.jar,                  \
                             csi-tools*.jar,                \
                             log4j*.jar,                    \
-                            «getAppServerLib(this)»*.jar   «IF targetPlatform.code == TargetPlatformCodes::JBoss43-»\
+                            Â«getAppServerLib(this)Â»*.jar   Â«IF targetPlatform.code == TargetPlatformCodes::JBoss43-Â»\
                             weblogic-7*.jar                \
                             weblogic-9*.jar                \
-                            «ENDIF-»
+                            Â«ENDIF-Â»
 
 # - [war-exclude-custom-libs-filter] ------------------------------------------------
 # Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
 # venire inclusi all'interno del WAR.
 # ----------------------------------------------------------------------------
-«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+Â«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")Â»
 war-exclude-custom-libs-filter =
 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 
 # ----------------------------------------------------------------------------
@@ -614,32 +631,32 @@ remincl.cache.time.default=28800000
 
 #  target = dev
  
- «REM»DIFFERENZIZIONE WEBLOGIC-JBOSS«ENDREM»
- «EXPAND appServerConfigurationBuildProperties FOR this»
+ Â«REMÂ»DIFFERENZIZIONE WEBLOGIC-JBOSSÂ«ENDREMÂ»
+ Â«EXPAND appServerConfigurationBuildProperties FOR thisÂ»
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Build properties: configurazione del server«ENDREM»
-«DEFINE appServerConfigurationBuildProperties FOR GUIModel»
-«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+Â«REMÂ»Build properties: configurazione del serverÂ«ENDREMÂ»
+Â«DEFINE appServerConfigurationBuildProperties FOR GUIModelÂ»
+Â«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -Â»
 # - [Configurazione del Server (JBoss)] --------------------------------------
   server = jboss
   earLib = lib
-«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+Â«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -Â»
 # - [Configurazione del Server (WebLogic)] -----------------------------------
   server = weblogic
   earLib = APP-INF/lib
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file di property di ant da usare come template per i files dei singoli ambienti«ENDREM»
-«DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)-»
+Â«REMÂ»Genera il file di property di ant da usare come template per i files dei singoli ambientiÂ«ENDREMÂ»
+Â«DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)-Â»
 ####################################################
-# «codProdotto» - «codComponente»                  #
+# Â«codProdottoÂ» - Â«codComponenteÂ»                  #
 # ==========                                       #
 # Configurazione di ambiente: <ambiente>           #
 ####################################################
@@ -652,57 +669,57 @@ nome.ambiente=<ambiente>
 # remincl cache time in millisecondi (default 24h)
 remincl.cache.time=28800000
 
-«IF isMultiPortal(this)-»
-«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
-# remincl resource provider portale «code»
-remincl.resource.provider.«code»=
+Â«IF isMultiPortal(this)-Â»
+Â«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS codeÂ»
+# remincl resource provider portale Â«codeÂ»
+remincl.resource.provider.Â«codeÂ»=
 
-# home page del portale «code»
-portal.home.«code»=
-«ENDFOREACH»
-«ELSE-»
+# home page del portale Â«codeÂ»
+portal.home.Â«codeÂ»=
+Â«ENDFOREACHÂ»
+Â«ELSE-Â»
 # remincl resource provider
-remincl.resource.provider=«getReminclResourceProvider(this)»
+remincl.resource.provider=Â«getReminclResourceProvider(this)Â»
 
 # home page del portale
 portal.home=
-«ENDIF-»
+Â«ENDIF-Â»
 
-«IF getActualSecurityModel(this).autenticationMethod!=null-»
-«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
-«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR getActualSecurityModel(this)-»
-«ENDIF-»
+Â«IF getActualSecurityModel(this).autenticationMethod!=null-Â»
+Â«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-Â»
+Â«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR getActualSecurityModel(this)-Â»
+Â«ENDIF-Â»
 
 #-[Variabili dell'applicativo]-------------------------------------------------
 
-«IF hasGisMap(this)-»
+Â«IF hasGisMap(this)-Â»
 #-[Variabili servizio mappe]---------------------------------------------------
 #-ambiente dev
 gosgisso.java.naming.provider.url=t3://dev-wls9-02.csi.it:9107
-«LET (List[MapView])getMapsInModel() AS maps-»
-«FOREACH maps AS map-»
-gisMap.«map.mapId».user=
-gisMap.«map.mapId».password=
-«ENDFOREACH»
-«ENDLET»
-«ENDIF-»
+Â«LET (List[MapView])getMapsInModel() AS maps-Â»
+Â«FOREACH maps AS map-Â»
+gisMap.Â«map.mapIdÂ».user=
+gisMap.Â«map.mapIdÂ».password=
+Â«ENDFOREACHÂ»
+Â«ENDLETÂ»
+Â«ENDIF-Â»
 
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 IVY FILES (gestione delle dipendenze)
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»genera i files di IVY«ENDREM»
-«DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getIvyFileName(skip_component_dir_creation)»<ivy-module version="1.0">
-	<info organisation="csipiemonte" module="«codProdotto»" />
+Â«REMÂ»genera i files di IVYÂ«ENDREMÂ»
+Â«DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getIvyFileName(skip_component_dir_creation)Â»<ivy-module version="1.0">
+	<info organisation="csipiemonte" module="Â«codProdottoÂ»" />
 	<dependencies>
 		<dependency org="apache" name="commons-beanutils" rev="1.7.0"/>
 		<dependency org="apache" name="commons-collections" rev="3.2"/>
@@ -742,8 +759,8 @@ IVY FILES (gestione delle dipendenze)
 			<artifact name="spring-dao-2.0.7" type="jar" />
 		</dependency>
 
-		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
-		«EXPAND appServerLibsIvy FOR this»
+		Â«REMÂ»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSSÂ«ENDREMÂ»
+		Â«EXPAND appServerLibsIvy FOR thisÂ»
 
 		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
 		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
@@ -753,25 +770,25 @@ IVY FILES (gestione delle dipendenze)
 		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
 		<dependency org="others" name="itext" rev="1.3" />
 
-		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
-		«EXPAND strutsThemeIvy FOR this»
+		Â«REMÂ»Espansione del tema CSI per il portale specificatoÂ«ENDREMÂ»
+		Â«EXPAND strutsThemeIvy FOR thisÂ»
 
-		«REM»[DM] STDMDD-670: Dipendenze per risorse statiche«ENDREM»
-		«EXPAND template::struts2::view::staticResources::ivyFileStaticResources FOR this»
-		«IF targetPlatform.enableRichUIBehavior-»
+		Â«REMÂ»[DM] STDMDD-670: Dipendenze per risorse staticheÂ«ENDREMÂ»
+		Â«EXPAND template::struts2::view::staticResources::ivyFileStaticResources FOR thisÂ»
+		Â«IF targetPlatform.enableRichUIBehavior-Â»
 		<dependency org="others" name="flexjson" rev="2.1" />
 		<dependency org="csipiemonte" name="csiui" rev="1.1.2" />
-		«ENDIF»		
+		Â«ENDIFÂ»		
 		
-		«IF getActualSecurityModel(this).autenticationMethod!=null-»
-		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
-		«ENDIF-»
+		Â«IF getActualSecurityModel(this).autenticationMethod!=null-Â»
+		Â«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-Â»
+		Â«ENDIF-Â»
 
-		«IF getActualSecurityModel(this)!=null-»
-		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-»
-		«ENDIF-»
+		Â«IF getActualSecurityModel(this)!=null-Â»
+		Â«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-Â»
+		Â«ENDIF-Â»
 
-		«IF hasGisMap(this)»
+		Â«IF hasGisMap(this)Â»
 		<dependency org="csipiemonte" name="csi" rev="1.4.5">
 			<artifact name="csi-apachesoap-1.4.5" type="jar" />
       		<artifact name="csi-core-1.4.5" type="jar" />
@@ -829,14 +846,14 @@ IVY FILES (gestione delle dipendenze)
       		<artifact name="jeegri-1.0.1" type="jar" />
     	</dependency>
     	
-		«ELSE»
+		Â«ELSEÂ»
 		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
-		«ENDIF»
+		Â«ENDIFÂ»
 		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
 
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
+		Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")Â»
 		<!-- Inserire qui le dipendenze aggiuntive -->
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 		
 		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
 		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
@@ -844,10 +861,10 @@ IVY FILES (gestione delle dipendenze)
 	</dependencies>
 
 </ivy-module>
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«REM»[DM] STDMDD-101: passaggio alla versione 2.0 di Ivy«ENDREM»
-«FILE getIvyConfFileName(skip_component_dir_creation)»<ivysettings>
+Â«REMÂ»[DM] STDMDD-101: passaggio alla versione 2.0 di IvyÂ«ENDREMÂ»
+Â«FILE getIvyConfFileName(skip_component_dir_creation)Â»<ivysettings>
 	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
 	<resolvers>
 		<url name="myUrlResolver">
@@ -859,7 +876,7 @@ IVY FILES (gestione delle dipendenze)
 			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
 			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
 			
-			«IF targetPlatform.enableRichUIBehavior-»
+			Â«IF targetPlatform.enableRichUIBehavior-Â»
 			<!-- Aggiunta per extjs e reperimento risorse statiche -->
 			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
 			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
@@ -868,35 +885,35 @@ IVY FILES (gestione delle dipendenze)
 
 			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
 			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/ivy-[module].xml" />
-			«ENDIF-»
+			Â«ENDIF-Â»
 
-			«REM»[DM] STDMDD-670: Reperimento risorse statiche (necessario?)«ENDREM»
-			«EXPAND template::struts2::view::staticResources::ivyIvyConfFileStaticResources FOR this»
+			Â«REMÂ»[DM] STDMDD-670: Reperimento risorse statiche (necessario?)Â«ENDREMÂ»
+			Â«EXPAND template::struts2::view::staticResources::ivyIvyConfFileStaticResources FOR thisÂ»
 
 		</url>
 	</resolvers>
 </ivysettings>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
-«DEFINE appServerLibsIvy FOR GUIModel»
-«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+Â«REMÂ»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)Â«ENDREMÂ»
+Â«DEFINE appServerLibsIvy FOR GUIModelÂ»
+Â«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -Â»
 <dependency org="others" name="jboss" rev="4.3.0">
 	<artifact name="jboss-j2ee-4.3.0" type="jar" />
 </dependency>
-«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+Â«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -Â»
 <dependency org="sun" name="ejb" rev="2.1"/>
 <dependency org="sun" name="jms" rev="1.1"/>		
 <dependency org="sun" name="jta" rev="1.0.1"/>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali
-NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«ENDREM»
-«DEFINE strutsThemeIvy FOR GUIModel»
-	«EXPAND template::struts2::view::remoteResources::strutsThemeIvy FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera le dipendenze realtive ai temi di struts specifici per i portali
+NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOPÂ«ENDREMÂ»
+Â«DEFINE strutsThemeIvy FOR GUIModelÂ»
+	Â«EXPAND template::struts2::view::remoteResources::strutsThemeIvy FOR thisÂ»
+Â«ENDDEFINEÂ»
 

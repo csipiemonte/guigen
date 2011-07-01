@@ -1,93 +1,110 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::remoteResources»
-«IMPORT template::struts2::appResources»
-«IMPORT template::struts2::typeConversion»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-
-«DEFINE configFiles(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
-	«REM»Generazione dei file standard«ENDREM»
-	«EXPAND applicationXmlFile(skip_component_dir_creation) FOR this»
-	«EXPAND earManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND ejbManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-	«EXPAND jarManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND webManifestFile(skip_component_dir_creation) FOR this»
-	«EXPAND webXmlFile(skip_component_dir_creation) FOR this»
-	«REM»Generazione dei files di configurazione specifici degli application servers«ENDREM»
-	«EXPAND appServerConfigurationFiles(skip_component_dir_creation) FOR this»
-	«REM»Generazione dei files di Struts2«ENDREM»
-	«EXPAND strutsConfigFile(skip_component_dir_creation) FOR this»
-	«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR this»
-	«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR this»
-	«REM»Generazione dei files di Spring«ENDREM»
-	«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«IF hasGisMap()»
-	«EXPAND getMapPdConfigurationFile(skip_component_dir_creation) FOR this»
-	«ENDIF»
-	«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR this»
-	«IF hasGisMap()»
-	«EXPAND template::struts2::appResources::gisMapSpringConfigurationFile(skip_component_dir_creation) FOR this»
-	«ENDIF»
-	«REM»Generazione dei files specifici per il CSI«ENDREM»
-	«EXPAND reminclTldFile(skip_component_dir_creation) FOR this»
-	«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR this»
-	«EXPAND typeConversion::conversionPropertyFile(skip_component_dir_creation) FOR this»
-«ENDDEFINE»
+Â«IMPORT template::struts2::remoteResourcesÂ»
+Â«IMPORT template::struts2::appResourcesÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
+Â«DEFINE configFiles(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModelÂ»
+	Â«REMÂ»Generazione dei file standardÂ«ENDREMÂ»
+	Â«EXPAND applicationXmlFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND earManifestFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND ejbManifestFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND ejbDeploymentDescriptorFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND jarManifestFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND webManifestFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND webXmlFile(skip_component_dir_creation) FOR thisÂ»
+	Â«REMÂ»Generazione dei files di configurazione specifici degli application serversÂ«ENDREMÂ»
+	Â«EXPAND appServerConfigurationFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«REMÂ»Generazione dei files di Struts2Â«ENDREMÂ»
+	Â«EXPAND strutsConfigFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND strutsGlobalConfigFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND strutsValidationConfigFile(skip_component_dir_creation) FOR thisÂ»
+	Â«REMÂ»Generazione dei files di SpringÂ«ENDREMÂ»
+	Â«EXPAND ejbSpringConfigurationFile(skip_component_dir_creation) FOR thisÂ»
+	Â«IF hasGisMap()Â»
+	Â«EXPAND getMapPdConfigurationFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+	Â«EXPAND webSpringConfigurationFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::appResources::daoSpringConfigurationFile(skip_component_dir_creation, useExternalDaoBeans) FOR thisÂ»
+	Â«IF hasGisMap()Â»
+	Â«EXPAND template::struts2::appResources::gisMapSpringConfigurationFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+	Â«REMÂ»Generazione dei files specifici per il CSIÂ«ENDREMÂ»
+	Â«EXPAND reminclTldFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND displayTagConfigurationFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND typeConversion::conversionPropertyFile(skip_component_dir_creation) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Genera un file MANIFEST il cui nome è passato come parametro «ENDREM»
-«DEFINE manifestFile(String fileName) FOR GUIModel»
-«FILE fileName»Manifest-Version: 1.0
-
-«ENDFILE»
-«ENDDEFINE»
 
 
-«REM»Genera il file di configurazione dell'applicazione«ENDREM»
-«DEFINE applicationXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getEarConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera un file MANIFEST il cui nome Ã¨ passato come parametro Â«ENDREMÂ»
+Â«DEFINE manifestFile(String fileName) FOR GUIModelÂ»
+Â«FILE fileNameÂ»Manifest-Version: 1.0
+
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Genera il file di configurazione dell'applicazioneÂ«ENDREMÂ»
+Â«DEFINE applicationXmlFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getEarConfigFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
-  <display-name>«codComponente»-ear</display-name>
+  <display-name>Â«codComponenteÂ»-ear</display-name>
 
   <!-- TEMPORANEAMENTE COMMENTATO
   <module>
-    <ejb>«codComponente»-business.jar</ejb>
+    <ejb>Â«codComponenteÂ»-business.jar</ejb>
   </module>
   -->
 
 
   <module>
     <web>
-      <web-uri>«codComponente».war</web-uri>
-      <context-root>/«codComponente»</context-root>
+      <web-uri>Â«codComponenteÂ».war</web-uri>
+      <context-root>/Â«codComponenteÂ»</context-root>
     </web>
   </module>
 </application>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file MANIFEST del modulo EAR«ENDREM»
-«DEFINE earManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND manifestFile(getEarManifestFile(this, skip_component_dir_creation)) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera il file MANIFEST del modulo EARÂ«ENDREMÂ»
+Â«DEFINE earManifestFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND manifestFile(getEarManifestFile(this, skip_component_dir_creation)) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file MANIFEST del modulo EJB«ENDREM»
-«DEFINE ejbManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND manifestFile(getEjbManifestFile(this, skip_component_dir_creation)) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera il file MANIFEST del modulo EJBÂ«ENDREMÂ»
+Â«DEFINE ejbManifestFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND manifestFile(getEjbManifestFile(this, skip_component_dir_creation)) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il deployment descriptor per gli EJB«ENDREM»
-«DEFINE ejbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» Scommentare quando necessario
-«FILE getEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor per gli EJBÂ«ENDREMÂ»
+Â«DEFINE ejbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«REMÂ» Scommentare quando necessario
+Â«FILE getEjbDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <ejb-jar id="ejb-jar_ID" version="2.1" 
          xmlns="http://java.sun.com/xml/ns/j2ee" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -98,23 +115,23 @@
 	<display-name><![CDATA[]]></display-name>
 
 	<enterprise-beans>
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.enterprise-beans")»
+		Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.enterprise-beans")Â»
 		<!-- Inserire qui le definizioni degli EJB -->
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	</enterprise-beans>
 
 	<assembly-descriptor>
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.assembly-descriptor")»
+		Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ejb-jar.assembly-descriptor")Â»
 		<!-- Inserire qui le definizioni degli EJB -->
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	</assembly-descriptor>
 </ejb-jar>
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE reminclTldFile(boolean skip_component_dir_creation) FOR GUIModel»<?xml version="1.0" encoding="ISO-8859-1" ?>
-«FILE getReminclTldDescriptorFile(skip_component_dir_creation)»<!DOCTYPE taglib
+Â«DEFINE reminclTldFile(boolean skip_component_dir_creation) FOR GUIModelÂ»<?xml version="1.0" encoding="ISO-8859-1" ?>
+Â«FILE getReminclTldDescriptorFile(skip_component_dir_creation)Â»<!DOCTYPE taglib
   PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
   "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
 <taglib>
@@ -151,27 +168,27 @@
 		</attribute>
 	</tag>
 </taglib>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
 
-«REM»Genera il file MANIFEST del modulo JAR«ENDREM»
-«DEFINE jarManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND manifestFile(getJarManifestFile(this, skip_component_dir_creation)) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera il file MANIFEST del modulo JARÂ«ENDREMÂ»
+Â«DEFINE jarManifestFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND manifestFile(getJarManifestFile(this, skip_component_dir_creation)) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file MANIFEST del modulo WEB«ENDREM»
-«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR this»
-«ENDDEFINE»
+Â«REMÂ»Genera il file MANIFEST del modulo WEBÂ«ENDREMÂ»
+Â«DEFINE webManifestFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND manifestFile(getWebModuleManifestFile(this, skip_component_dir_creation)) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il deployment descriptor (web.xml) del modulo WEB«ENDREM»
-«DEFINE webXmlFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor (web.xml) del modulo WEBÂ«ENDREMÂ»
+Â«DEFINE webXmlFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getWebDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4"
          xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -180,19 +197,19 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml«IF hasGisMap()»,/WEB-INF/gis-beans.xml«ENDIF»</param-value>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xmlÂ«IF hasGisMap()Â»,/WEB-INF/gis-beans.xmlÂ«ENDIFÂ»</param-value>
 	</context-param>
 
-«IF getActualSecurityModel(this).autenticationMethod!=null»
-	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethod»
-«ENDIF»
+Â«IF getActualSecurityModel(this).autenticationMethod!=nullÂ»
+	Â«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethodÂ»
+Â«ENDIFÂ»
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<listener>
-		<listener-class>«getBaseJavaPackage() + ".util.SessionListener"»</listener-class>
+		<listener-class>Â«getBaseJavaPackage() + ".util.SessionListener"Â»</listener-class>
 	</listener>
 	
 	<filter>
@@ -206,7 +223,7 @@
 
     <filter>
 		<filter-name>Session Guard</filter-name>
-		<filter-class>«getSessionGuardFilterFQN(this)»</filter-class>
+		<filter-class>Â«getSessionGuardFilterFQN(this)Â»</filter-class>
 	</filter>
 	
 	<filter-mapping>
@@ -217,12 +234,12 @@
 		<filter-name>Session Guard</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-«IF getActualSecurityModel(this).autenticationMethod!=null»
-	«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR getActualSecurityModel(this).autenticationMethod»
-«ENDIF»
-«IF isMultiPortal(this)»
-	«EXPAND multiPortal::multiportalFiltersDefAndMapping FOR this-»
-«ENDIF»
+Â«IF getActualSecurityModel(this).autenticationMethod!=nullÂ»
+	Â«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR getActualSecurityModel(this).autenticationMethodÂ»
+Â«ENDIFÂ»
+Â«IF isMultiPortal(this)Â»
+	Â«EXPAND multiPortal::multiportalFiltersDefAndMapping FOR this-Â»
+Â«ENDIFÂ»
 	<filter-mapping>
 		<filter-name>ResponseOverrideFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
@@ -262,85 +279,85 @@
 
 	<distributable />
 
-	«IF isMultiPortal(this)-»
-	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+	Â«IF isMultiPortal(this)-Â»
+	Â«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS codeÂ»
 	<context-param>
-		<param-name>remincl.resource.provider.«code»</param-name>
-		<param-value>@@@remincl.resource.provider.«code»@@@</param-value>
+		<param-name>remincl.resource.provider.Â«codeÂ»</param-name>
+		<param-value>@@@remincl.resource.provider.Â«codeÂ»@@@</param-value>
 	</context-param>
-	«ENDFOREACH»
-	«ELSE-»
+	Â«ENDFOREACHÂ»
+	Â«ELSE-Â»
 	<context-param>
 		<param-name>remincl.resource.provider.sp</param-name>
 		<param-value>@@@remincl.resource.provider@@@</param-value>
 	</context-param>
-	«ENDIF»
+	Â«ENDIFÂ»
 	<context-param>
 		<param-name>remincl.cache.time</param-name>
 		<param-value>@@@remincl.cache.time@@@</param-value>
 	</context-param>
-	«IF isMultiPortal(this)-»
-	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+	Â«IF isMultiPortal(this)-Â»
+	Â«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS codeÂ»
 	<context-param>
-		<param-name>portal.home.«code»</param-name>
-		<param-value>@@@portal.home.«code»@@@</param-value>
+		<param-name>portal.home.Â«codeÂ»</param-name>
+		<param-value>@@@portal.home.Â«codeÂ»@@@</param-value>
 	</context-param>
-	«ENDFOREACH»
-	«ELSE»
+	Â«ENDFOREACHÂ»
+	Â«ELSEÂ»
 	<context-param>
 		<param-name>portal.home</param-name>
 		<param-value>@@@portal.home@@@</param-value>
 	</context-param>
-	«ENDIF»
+	Â«ENDIFÂ»
 
 </web-app>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera i files di configurazione specifici per gli application server «ENDREM»
-«DEFINE appServerConfigurationFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43»
-		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-	«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92»
-		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
-	«ENDIF»
-«ENDDEFINE»
+Â«REMÂ»Genera i files di configurazione specifici per gli application server Â«ENDREMÂ»
+Â«DEFINE appServerConfigurationFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43Â»
+		Â«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR thisÂ»
+		Â«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92Â»
+		Â«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR thisÂ»
+		Â«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»************************************ JBoss ************************************«ENDREM»
+Â«REMÂ»************************************ JBoss ************************************Â«ENDREMÂ»
 
-«REM»Genera il deployment descriptor per gli EJB specifico per JBOSS«ENDREM»
-«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» Scommentare se equando necessario
-«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor per gli EJB specifico per JBOSSÂ«ENDREMÂ»
+Â«DEFINE jbossEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«REMÂ» Scommentare se equando necessario
+Â«FILE getJbossEjbDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN"
  "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
 <jboss>
 	<enterprise-beans>
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+		Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")Â»
 		<!-- Inserire qui le definizioni degli EJB -->
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	</enterprise-beans>
 </jboss>
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il deployment descriptor WEB specifico per JBOSS«ENDREM»
-«DEFINE jbossWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM»Decommentare se necessario
-«FILE getJbossWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor WEB specifico per JBOSSÂ«ENDREMÂ»
+Â«DEFINE jbossWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«REMÂ»Decommentare se necessario
+Â«FILE getJbossWebDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.3V2//EN" "http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd">
 <jboss-web>
     <replication-config>
@@ -348,21 +365,21 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
         <replication-granularity>ATTRIBUTE</replication-granularity>
     </replication-config>
 
- 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss-web.jboss-web")»
+ 	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss-web.jboss-web")Â»
 	<!-- Inserire qui quanto puo' essere necessario -->
-	«ENDPROTECT»   
+	Â«ENDPROTECTÂ»   
 </jboss-web>
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»************************************ BEA WebLogic ************************************«ENDREM»
+Â«REMÂ»************************************ BEA WebLogic ************************************Â«ENDREMÂ»
 
-«REM»Genera il deployment descriptor per gli EJB specifico per BEA WEBLOGIC«ENDREM»
-«DEFINE wlEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«REM» Scommentare se equando necessario
-«FILE getWlEjbDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor per gli EJB specifico per BEA WEBLOGICÂ«ENDREMÂ»
+Â«DEFINE wlEjbDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«REMÂ» Scommentare se equando necessario
+Â«FILE getWlEjbDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 
 <weblogic-ejb-jar
   xmlns="http://www.bea.com/ns/weblogic/90"
@@ -371,66 +388,66 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
   xsi:schemaLocation="http://www.bea.com/ns/weblogic/90
                       http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
 
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("jboss.enterprise-beans")Â»
 	<!-- Inserire qui le definizioni degli EJB -->
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 
 </weblogic-ejb-jar>
 
 
-«ENDFILE»
-«ENDREM»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il deployment descriptor WEB specifico per WEBLOGIC«ENDREM»
-«DEFINE wlWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getWlWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il deployment descriptor WEB specifico per WEBLOGICÂ«ENDREMÂ»
+Â«DEFINE wlWebDeploymentDescriptorFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getWlWebDeploymentDescriptorFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 
 <weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
   <session-descriptor>
     <persistent-store-type>replicated_if_clustered</persistent-store-type>
   </session-descriptor>
 </weblogic-web-app>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»************************************ STRUTS 2 ************************************«ENDREM»
+Â«REMÂ»************************************ STRUTS 2 ************************************Â«ENDREMÂ»
 
-«REM»Genera conf\web\<componente>\WEB-INF\struts.xml«ENDREM»
-«DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+Â«REMÂ»Genera conf\web\<componente>\WEB-INF\struts.xmlÂ«ENDREMÂ»
+Â«DEFINE strutsConfigFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsConfigFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
   "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
 	<include file="struts-global.xml" />
-	«REM»Qui ci vanno gli altri files di Struts, secondo la nomenclatura CSI«ENDREM»
+	Â«REMÂ»Qui ci vanno gli altri files di Struts, secondo la nomenclatura CSIÂ«ENDREMÂ»
 	<include file="struts-1-base.xml" />
 </struts>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 	
 	
-«REM»conf\web\<componente>\WEB-INF\struts-global.xml«ENDREM»
-«DEFINE strutsGlobalConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsGlobalConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8" ?>
+Â«REMÂ»conf\web\<componente>\WEB-INF\struts-global.xmlÂ«ENDREMÂ»
+Â«DEFINE strutsGlobalConfigFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsGlobalConfigFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
 	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
-	<constant name="struts.ui.theme" value="«getStrutsThemeByPortal(this)»" />
+	<constant name="struts.ui.theme" value="Â«getStrutsThemeByPortal(this)Â»" />
 	<constant name="struts.action.extension" value="do" />
 	<constant name="struts.i18n.reload" value="false" />
 	<constant name="struts.custom.i18n.resources" value="globalMessages" />
@@ -442,18 +459,18 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
-			<interceptor name="tableSelection" class="«getInterceptorsJavaPackage(this)».TableSelectionInterceptor"/>
-			<interceptor name="methodProtection" class="«getInterceptorsJavaPackage(this)».MethodProtectionInterceptor">
+			<interceptor name="tableSelection" class="Â«getInterceptorsJavaPackage(this)Â».TableSelectionInterceptor"/>
+			<interceptor name="methodProtection" class="Â«getInterceptorsJavaPackage(this)Â».MethodProtectionInterceptor">
 				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
 			</interceptor>
-			<interceptor name="paramsInterceptor" class="«getInterceptorsJavaPackage(this)».ParametersInterceptor"/>
-			«IF targetPlatform.enableFatClient-»
-			<interceptor name="preserveUpload" class="«getInterceptorsJavaPackage(this)».PreserveUploadInterceptor">
+			<interceptor name="paramsInterceptor" class="Â«getInterceptorsJavaPackage(this)Â».ParametersInterceptor"/>
+			Â«IF targetPlatform.enableFatClient-Â»
+			<interceptor name="preserveUpload" class="Â«getInterceptorsJavaPackage(this)Â».PreserveUploadInterceptor">
 				<param name="startMethod">execStartUploadFile</param>
 				<param name="endMethod">execEndUploadFile</param>
 			</interceptor>
-			<interceptor name="fatClientValidator" class="«getInterceptorsJavaPackage(this)».FatClientValidatorInterceptor"/>
-			«ENDIF-»
+			<interceptor name="fatClientValidator" class="Â«getInterceptorsJavaPackage(this)Â».FatClientValidatorInterceptor"/>
+			Â«ENDIF-Â»
 			
 			<interceptor-stack name="jsp-stack">
 				<interceptor-ref name="exception" />
@@ -464,17 +481,17 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
 				<interceptor-ref name="fileUpload"/>
-				«IF targetPlatform.enableFatClient-»
+				Â«IF targetPlatform.enableFatClient-Â»
 				<interceptor-ref name="preserveUpload"/>
-				«ENDIF-»
+				Â«ENDIF-Â»
 				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
 				<interceptor-ref name="paramsInterceptor" />
 				<interceptor-ref name="conversionError"/>
 				<interceptor-ref name="prepare" />
 				<interceptor-ref name="validation" />
-				«IF targetPlatform.enableFatClient-»
+				Â«IF targetPlatform.enableFatClient-Â»
 				<interceptor-ref name="fatClientValidator" />
-				«ENDIF-»
+				Â«ENDIF-Â»
 				<interceptor-ref name="workflow" />
 				<interceptor-ref name="methodProtection" />
 			</interceptor-stack>
@@ -485,7 +502,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
 		<global-results>
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
-			«IF targetPlatform.enableRichUIBehavior-»
+			Â«IF targetPlatform.enableRichUIBehavior-Â»
 			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
 			<result name="provideData" type="stream">
   				<param name="contentType">text/plain;charset=UTF-8</param>
@@ -493,18 +510,18 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
   				<param name="bufferSize">1024</param>
   				<param name="allowCaching">false</param>
 			</result>
-			«ENDIF-»
-			«IF targetPlatform.enableFatClient-»
+			Â«ENDIF-Â»
+			Â«IF targetPlatform.enableFatClient-Â»
 			<result name="provideHtml" type="stream">
   				<param name="contentType">text/html;charset=iso-8859-1</param>
   				<param name="inputName">dataProviderStream</param>
   				<param name="bufferSize">1024</param>
   				<param name="allowCaching">false</param>
 			</result>
-			«ENDIF-»
-			«IF !targetPlatform.enableRichUIBehavior-»
+			Â«ENDIF-Â»
+			Â«IF !targetPlatform.enableRichUIBehavior-Â»
 			<result name="invalid.token">/jsp/error/invalidToken.jsp</result>
-			«ENDIF-»
+			Â«ENDIF-Â»
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
@@ -522,259 +539,259 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="sessionExpired">
 			<result>/jsp/error/sessionExpired.jsp</result>
 		</action>
-		«IF isMultiPortal(this)-»«REM»[DM] STDMDD-621: multiportale«ENDREM»
+		Â«IF isMultiPortal(this)-Â»Â«REMÂ»[DM] STDMDD-621: multiportaleÂ«ENDREMÂ»
 		<action name="unknownPortal">
 			<result>/jsp/error/unknownPortal.jsp</result>
 		</action>
-		«ENDIF-»
+		Â«ENDIF-Â»
 		
-		«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-»
+		Â«IF targetPlatform.enableRichUIBehavior && targetPlatform.enableFatClient-Â»
 		<!-- punto di accesso per FAT CLIENT JS -->
 		<action name="fatclient">
 			<result>/jsp/fatclient/main.jsp</result>
 		</action>
 		<!-- menu -->
-		<action name="«getStrutsMenuClassName(this)»" class="«getStrutsMenuFQN(this)»">
-			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)»</result>
+		<action name="Â«getStrutsMenuClassName(this)Â»" class="Â«getStrutsMenuFQN(this)Â»">
+			<result type="chain">Â«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)Â»</result>
 		</action>
-		«ENDIF-»
-		«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction-»
-		<action name="HomePage" class="«getStrutsHomeFQN(this)»">
-		«IF onInitAction != null-»
-		    «LET (List[ContentPanel])getAllPossibleJumps(onInitAction) AS allJumps-»
-			«FOREACH allJumps AS currJump-»
-			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
-			«ENDFOREACH-»
-			«ENDLET-»
-			«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-»
-			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
-				<param name="location">«currExtJump.staticUrl»</param>
+		Â«ENDIF-Â»
+		Â«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction-Â»
+		<action name="HomePage" class="Â«getStrutsHomeFQN(this)Â»">
+		Â«IF onInitAction != null-Â»
+		    Â«LET (List[ContentPanel])getAllPossibleJumps(onInitAction) AS allJumps-Â»
+			Â«FOREACH allJumps AS currJump-Â»
+			<result name="GO_TO_Â«currJump.nameÂ»" type="chain">Â«getStrutsActionConfigName(currJump)Â»</result>
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»
+			Â«LET (List[JumpExtCommand])getAllPossibleExtJumps(onInitAction) AS allExtJumps-Â»
+			Â«FOREACH allExtJumps AS currExtJump-Â»
+			<result name="GO_TO_Â«currExtJump.locationCodeÂ»" type="redirect">
+				<param name="location">Â«currExtJump.staticUrlÂ»</param>
 			</result>
-			«ENDFOREACH-»
-			«ENDLET-»
-		    «LET (List[DialogPanel])getAllPossibleShowDialogs(onInitAction) AS allShowDialogs-»
-			«FOREACH allShowDialogs AS currShowDialog-»
-			<result name="GO_TO_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
-			«ENDFOREACH-»
-			«ENDLET-»			
-		«ELSE-»
-			<result type="chain">«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)»</result>
-		«ENDIF-»
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»
+		    Â«LET (List[DialogPanel])getAllPossibleShowDialogs(onInitAction) AS allShowDialogs-Â»
+			Â«FOREACH allShowDialogs AS currShowDialog-Â»
+			<result name="GO_TO_Â«currShowDialog.nameÂ»">Â«getJspDialogPanelConfigName(currShowDialog)Â»</result>
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»			
+		Â«ELSE-Â»
+			<result type="chain">Â«getStrutsActionConfigName(this.structure.appWindow.appArea.homePage)Â»</result>
+		Â«ENDIF-Â»
 		</action>
-		«ENDLET-»
+		Â«ENDLET-Â»
 		
-		<action name="Logout" class="«getStrutsLogoutFQN(this)»">
+		<action name="Logout" class="Â«getStrutsLogoutFQN(this)Â»">
 			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
 			<result name="SSO_LOGOUT" type="redirect">
 				<param name="location">@LOGOUT_URL@</param>
 			</result>
 			<result name="LOCAL_LOGOUT" type="redirect">
-				<param name="location">«this.structure.appWindow.header.linkCanale»</param>
+				<param name="location">Â«this.structure.appWindow.header.linkCanaleÂ»</param>
 			</result>
 		</action>
 		
 	</package>
 
 </struts>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»conf\web\<componente>\WEB-INF\struts-global.xml«ENDREM»
-«DEFINE strutsApplicationConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsApplicationConfigFile(this, skip_component_dir_creation, "struts-1-base")»<?xml version="1.0" encoding="UTF-8" ?>
+Â«REMÂ»conf\web\<componente>\WEB-INF\struts-global.xmlÂ«ENDREMÂ»
+Â«DEFINE strutsApplicationConfigFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsApplicationConfigFile(this, skip_component_dir_creation, "struts-1-base")Â»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
 	<package name="base" extends="jsp-package" namespace="/">
-		«REM»
+		Â«REMÂ»
 		<result-types>
    			<result-type name="viewfragment"
-            	    class="«getViewFragResultFQN()»" />
+            	    class="Â«getViewFragResultFQN()Â»" />
 		</result-types>
-		«ENDREM»
-		«REM»Espande il menu«ENDREM»
+		Â«ENDREMÂ»
+		Â«REMÂ»Espande il menuÂ«ENDREMÂ»
 		<!-- MENU -->
-		«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu-»
+		Â«FOREACH this.structure.appWindow.appArea.menubar.topLevelMenu AS tlmenu-Â»
 			
-		«IF tlmenu.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET tlmenu.eventHandler.command AS currAction-»
-		<action name="goTo«tlmenu.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«tlmenu.name.toFirstUpper()»">	
-			«LET (List[ContentPanel])getAllPossibleJumps(tlmenu) AS allJumps-»
-			«FOREACH allJumps AS currJump-»
-			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
-			«ENDFOREACH-»
-			«ENDLET-»	
-			«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps-»
-			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
-				<param name="location">«currExtJump.staticUrl»</param>
+		Â«IF tlmenu.eventHandler.eventType == EventTypes::CLICKED-Â»
+		Â«LET tlmenu.eventHandler.command AS currAction-Â»
+		<action name="goToÂ«tlmenu.name.toFirstUpper()Â»FromMenu" class="Â«getStrutsMenuFQN(this)Â»" method="goToÂ«tlmenu.name.toFirstUpper()Â»">	
+			Â«LET (List[ContentPanel])getAllPossibleJumps(tlmenu) AS allJumps-Â»
+			Â«FOREACH allJumps AS currJump-Â»
+			<result name="GO_TO_Â«currJump.nameÂ»" type="chain">Â«getStrutsActionConfigName(currJump)Â»</result>
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»	
+			Â«LET (List[JumpExtCommand])getAllPossibleExtJumps(tlmenu) AS allExtJumps-Â»
+			Â«FOREACH allExtJumps AS currExtJump-Â»
+			<result name="GO_TO_Â«currExtJump.locationCodeÂ»" type="redirect">
+				<param name="location">Â«currExtJump.staticUrlÂ»</param>
 			</result>
-			«ENDFOREACH-»
-			«ENDLET-»
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»
 		</action>
-		«ENDLET-»
-		«ENDIF-»
+		Â«ENDLET-Â»
+		Â«ENDIF-Â»
 		
-		«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu-»
-		«IF currMenu.eventHandler.eventType == EventTypes::CLICKED-»
-		«LET currMenu.eventHandler.command AS currAction-»		
-		<action name="goTo«currMenu.name.toFirstUpper()»FromMenu" class="«getStrutsMenuFQN(this)»" method="goTo«currMenu.name.toFirstUpper()»">	
-			«LET (List[ContentPanel])getAllPossibleJumps(currMenu) AS allJumps-»
-			«FOREACH allJumps AS currJump-»
-			<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
-			«ENDFOREACH-»
-			«ENDLET-»	
-			«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps-»
-			«FOREACH allExtJumps AS currExtJump-»
-			<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
-				<param name="location">«currExtJump.staticUrl»</param>
+		Â«FOREACH (List[Menu])getAllMenuRecursive(tlmenu) AS currMenu-Â»
+		Â«IF currMenu.eventHandler.eventType == EventTypes::CLICKED-Â»
+		Â«LET currMenu.eventHandler.command AS currAction-Â»		
+		<action name="goToÂ«currMenu.name.toFirstUpper()Â»FromMenu" class="Â«getStrutsMenuFQN(this)Â»" method="goToÂ«currMenu.name.toFirstUpper()Â»">	
+			Â«LET (List[ContentPanel])getAllPossibleJumps(currMenu) AS allJumps-Â»
+			Â«FOREACH allJumps AS currJump-Â»
+			<result name="GO_TO_Â«currJump.nameÂ»" type="chain">Â«getStrutsActionConfigName(currJump)Â»</result>
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»	
+			Â«LET (List[JumpExtCommand])getAllPossibleExtJumps(currMenu) AS allExtJumps-Â»
+			Â«FOREACH allExtJumps AS currExtJump-Â»
+			<result name="GO_TO_Â«currExtJump.locationCodeÂ»" type="redirect">
+				<param name="location">Â«currExtJump.staticUrlÂ»</param>
 			</result>
-			«ENDFOREACH-»
-			«ENDLET-»
+			Â«ENDFOREACH-Â»
+			Â«ENDLET-Â»
 		</action>		
-		«ENDLET-»
-		«ENDIF-»		
-		«ENDFOREACH-»		
-		«ENDFOREACH-»
+		Â«ENDLET-Â»
+		Â«ENDIF-Â»		
+		Â«ENDFOREACH-Â»		
+		Â«ENDFOREACH-Â»
 		
-		«REM»Espande i ContentPanels come Action Struts2«ENDREM»
-		«LET (List[ContentPanel])getAllContentPanels(this) AS contentPanels-»
-			«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels-»
-		«ENDLET-»
+		Â«REMÂ»Espande i ContentPanels come Action Struts2Â«ENDREMÂ»
+		Â«LET (List[ContentPanel])getAllContentPanels(this) AS contentPanels-Â»
+			Â«EXPAND contentPanelXmlConfig(this) FOREACH contentPanels-Â»
+		Â«ENDLET-Â»
 	
-		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("strutsConfig.extraActionDeclarations")»
+		Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("strutsConfig.extraActionDeclarations")Â»
 		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	</package>
 </struts>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»comment«ENDREM»
-«DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanel»
-<action name="«getStrutsActionConfigName()»" class="«getStrutsActionFQN(this, model)»">
-	<result name="input">«getStrutsActionJspConfigName(this)»</result>
-	<result name="success">«getStrutsActionJspConfigName(this)»</result>
-	«REM»STDMDD-360: nel PanelDef non ci possono essere JumpCommand«ENDREM»
-	«LET (List[ContentPanel])getAllPossibleJumps(this) AS allJumps-»
-	«FOREACH allJumps AS currJump-»
-	<result name="GO_TO_«currJump.name»" type="chain">«getStrutsActionConfigName(currJump)»</result>
-	«ENDFOREACH-»
-	«ENDLET-»
-	«REM»STDMDD-360: nel PanelDef ci possono essere JumpExtCommand«ENDREM»
-	«EXPAND jumpExtResults(model) FOR this-»
-	«REM»
-	«LET (List[RefreshViewCommand])getAllPossibleRefreshView(this) AS allRefresh-»
-	«FOREACH allRefresh AS currRefresh-»
-	<result name="REFRESH_«this.name»_«FOREACH currRefresh.targetPanels AS currP SEPARATOR "_"»P«currP.name»«ENDFOREACH»_«FOREACH currRefresh.targetWidgets AS currW SEPARATOR "_"»W«currW.name»«ENDFOREACH»" type="viewfragment">
-		<param name="location">«getStrutsActionJspConfigName(this)»</param>
+Â«REMÂ»commentÂ«ENDREMÂ»
+Â«DEFINE contentPanelXmlConfig(GUIModel model) FOR ContentPanelÂ»
+<action name="Â«getStrutsActionConfigName()Â»" class="Â«getStrutsActionFQN(this, model)Â»">
+	<result name="input">Â«getStrutsActionJspConfigName(this)Â»</result>
+	<result name="success">Â«getStrutsActionJspConfigName(this)Â»</result>
+	Â«REMÂ»STDMDD-360: nel PanelDef non ci possono essere JumpCommandÂ«ENDREMÂ»
+	Â«LET (List[ContentPanel])getAllPossibleJumps(this) AS allJumps-Â»
+	Â«FOREACH allJumps AS currJump-Â»
+	<result name="GO_TO_Â«currJump.nameÂ»" type="chain">Â«getStrutsActionConfigName(currJump)Â»</result>
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
+	Â«REMÂ»STDMDD-360: nel PanelDef ci possono essere JumpExtCommandÂ«ENDREMÂ»
+	Â«EXPAND jumpExtResults(model) FOR this-Â»
+	Â«REMÂ»
+	Â«LET (List[RefreshViewCommand])getAllPossibleRefreshView(this) AS allRefresh-Â»
+	Â«FOREACH allRefresh AS currRefresh-Â»
+	<result name="REFRESH_Â«this.nameÂ»_Â«FOREACH currRefresh.targetPanels AS currP SEPARATOR "_"Â»PÂ«currP.nameÂ»Â«ENDFOREACHÂ»_Â«FOREACH currRefresh.targetWidgets AS currW SEPARATOR "_"Â»WÂ«currW.nameÂ»Â«ENDFOREACHÂ»" type="viewfragment">
+		<param name="location">Â«getStrutsActionJspConfigName(this)Â»</param>
 	</result>
-	«ENDFOREACH-»
-	«ENDLET-»
-	«ENDREM»
-	«LET (List[DialogPanel])getAllPossibleShowDialogs(this) AS allShowDialogs-»
-	«FOREACH allShowDialogs AS currShowDialog-»
-	<result name="SHOW_«currShowDialog.name»">«getJspDialogPanelConfigName(currShowDialog)»</result>
-	«ENDFOREACH-»
-	«ENDLET-»	
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
+	Â«ENDREMÂ»
+	Â«LET (List[DialogPanel])getAllPossibleShowDialogs(this) AS allShowDialogs-Â»
+	Â«FOREACH allShowDialogs AS currShowDialog-Â»
+	<result name="SHOW_Â«currShowDialog.nameÂ»">Â«getJspDialogPanelConfigName(currShowDialog)Â»</result>
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»	
 </action>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»STDMDD-360: aggiunmta ricorsione per gestire i JumpExtCMD anche su PanelDef. Serve ad es. per 
-cose tipo la "todo list"«ENDREM»
-«DEFINE jumpExtResults(GUIModel model) FOR ContentPanel-»
-	«EXPAND jumpExtResults(model, this, "") FOR this.panels-»
-	«EXPAND jumpExtResults(model, this, "") FOREACH this.dialogs-»
-«ENDDEFINE»
+Â«REMÂ»STDMDD-360: aggiunmta ricorsione per gestire i JumpExtCMD anche su PanelDef. Serve ad es. per 
+cose tipo la "todo list"Â«ENDREMÂ»
+Â«DEFINE jumpExtResults(GUIModel model) FOR ContentPanel-Â»
+	Â«EXPAND jumpExtResults(model, this, "") FOR this.panels-Â»
+	Â«EXPAND jumpExtResults(model, this, "") FOREACH this.dialogs-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH subpanels-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
-	«IF switcher!=null-»
-		«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.switcher-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-Â»
+	Â«IF switcher!=null-Â»
+		Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.switcher-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR commands-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOR commands-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR panelDef.panel-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOR panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.eventHandlers-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.eventHandlers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR command-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOR command-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR Command-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-»
-	«LET getAdjustedJumpExtCommand(this) AS currExtJump-»
-	<result name="GO_TO_«currExtJump.locationCode»" type="redirect">
-		<param name="location">«currExtJump.staticUrl»</param>
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpExtCommand-Â»
+	Â«LET getAdjustedJumpExtCommand(this) AS currExtJump-Â»
+	<result name="GO_TO_Â«currExtJump.locationCodeÂ»" type="redirect">
+		<param name="location">Â«currExtJump.staticUrlÂ»</param>
 	</result>
-	«ENDLET-»
-«ENDDEFINE»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.results-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH this.results-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandOutcome-»
-	«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.command-»
-«ENDDEFINE»
-
-
-«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
-		«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH commands-»
-«ENDDEFINE»
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandOutcome-Â»
+	Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOR this.command-Â»
+Â«ENDDEFINEÂ»
 
 
+Â«DEFINE jumpExtResults(GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-Â»
+		Â«EXPAND jumpExtResults(model, cp, contextPrefix) FOREACH commands-Â»
+Â«ENDDEFINEÂ»
 
 
 
 
-«REM»Genera il file di Struts per la registrazione dei validatori custom«ENDREM»
-«DEFINE strutsValidationConfigFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsValidationConfigFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+
+Â«REMÂ»Genera il file di Struts per la registrazione dei validatori customÂ«ENDREMÂ»
+Â«DEFINE strutsValidationConfigFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsValidationConfigFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE validators PUBLIC
         "-//OpenSymphony Group//XWork Validator Config 1.0//EN"
         "http://www.opensymphony.com/xwork/xwork-validator-config-1.0.dtd">
@@ -782,104 +799,104 @@ cose tipo la "todo list"«ENDREM»
 <validators>
 
 	<!-- Custom validators Definiti in GuiGen -->
-	«FOREACH (List[String])getGuigenCustomValidators() AS currValidator-»
-	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
-	«ENDFOREACH-»
+	Â«FOREACH (List[String])getGuigenCustomValidators() AS currValidator-Â»
+	<validator name="Â«currValidatorÂ»" class="Â«getStrutsCustomValidatorFQN(currValidator, this)Â»"/>
+	Â«ENDFOREACH-Â»
 
 	<!-- Validators per Simple Types User Defined -->
-	«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator-»
-	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
-	«ENDFOREACH-»
+	Â«FOREACH (List[String])getGuigenUserDefinedTypesValidators() AS currValidator-Â»
+	<validator name="Â«currValidatorÂ»" class="Â«getStrutsCustomValidatorFQN(currValidator, this)Â»"/>
+	Â«ENDFOREACH-Â»
 	
 
 	<!-- Custom validators modellati dall'utente nei widget -->
-	«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator-»«REM»TODO: attenzione alla gestione dei parametri«ENDREM»
-	<validator name="«currValidator»" class="«getStrutsCustomValidatorFQN(currValidator, this)»"/>
-	«ENDFOREACH-»
+	Â«FOREACH (List[String])getUserCustomValidatorsName() AS currValidator-Â»Â«REMÂ»TODO: attenzione alla gestione dei parametriÂ«ENDREMÂ»
+	<validator name="Â«currValidatorÂ»" class="Â«getStrutsCustomValidatorFQN(currValidator, this)Â»"/>
+	Â«ENDFOREACH-Â»
 
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("struts.validators")Â»
 	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 
 </validators>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»************************************ SPRING ************************************«ENDREM»
+Â«REMÂ»************************************ SPRING ************************************Â«ENDREMÂ»
 
-«REM»Genera il file di Spring per la parte EJB«ENDREM»
-«DEFINE ejbSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getSpringEjbConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il file di Spring per la parte EJBÂ«ENDREMÂ»
+Â«DEFINE ejbSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getSpringEjbConfigurationFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
 	<bean name="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
 
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")Â»
 		<!-- Insert here your Spring Beans -->
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 
 </beans>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera il file di Spring per la parte Web«ENDREM»
-«DEFINE webSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»Genera il file di Spring per la parte WebÂ«ENDREMÂ»
+Â«DEFINE webSpringConfigurationFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getSpringWebConfigurationFile(this, skip_component_dir_creation)Â»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="autodetect">
 	<!-- bean di business logic -->
 	
 	<!-- bean di facade -->
-	<bean id="springBackEnd" class="«getSpringBEFQN()»">
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
-		<property name="«getSpringCPBEClassName(currCP)»">
-			<ref bean="«getSpringCPBEClassName(currCP)»"/>
+	<bean id="springBackEnd" class="Â«getSpringBEFQN()Â»">
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-Â»
+		<property name="Â«getSpringCPBEClassName(currCP)Â»">
+			<ref bean="Â«getSpringCPBEClassName(currCP)Â»"/>
 		</property>
-	«ENDFOREACH-»
+	Â«ENDFOREACH-Â»
 	</bean>
 	
 	<!-- bean relativi ai singoli content panel -->
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
-	<bean id="«getSpringCPBEClassName(currCP)»" class="«getSpringCPBEFQN(this,currCP)»">
-	«IF hasGisMap(currCP)-»
-	«LET (List[MapView])getMapsInContentPanel(currCP) AS maps-»
-	«FOREACH maps AS map-»
-		<property name="mapAdapter«map.mapId.toFirstUpper()»" ref="mapAdapter«map.mapId.toFirstUpper()»"/>
-	«ENDFOREACH-»
-	«ENDLET-»
-	«ENDIF-»
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-Â»
+	<bean id="Â«getSpringCPBEClassName(currCP)Â»" class="Â«getSpringCPBEFQN(this,currCP)Â»">
+	Â«IF hasGisMap(currCP)-Â»
+	Â«LET (List[MapView])getMapsInContentPanel(currCP) AS maps-Â»
+	Â«FOREACH maps AS map-Â»
+		<property name="mapAdapterÂ«map.mapId.toFirstUpper()Â»" ref="mapAdapterÂ«map.mapId.toFirstUpper()Â»"/>
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
+	Â«ENDIF-Â»
 	</bean>
-	«ENDFOREACH»
+	Â«ENDFOREACHÂ»
 	
 	
 	<!-- helper per le funzioni di securizzazione -->
-	<bean id="springSecurityHelper" class="«getSpringSecurityHelperFQN()»">
+	<bean id="springSecurityHelper" class="Â«getSpringSecurityHelperFQN()Â»">
 
 	</bean>
 	
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("applicationContext.beans")Â»
 		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 
 </beans>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ===========================================================================================================================
 CONFIGURAZIONE SERVIZIO MAPPE
 ===========================================================================================================================
-«ENDREM»
-«REM»Genera il file di configurazione del servizio mappe«ENDREM»
-«DEFINE getMapPdConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getGisMapPdPropertiesFile(this, skip_component_dir_creation)»caller=«this.codComponente»
+Â«ENDREMÂ»
+Â«REMÂ»Genera il file di configurazione del servizio mappeÂ«ENDREMÂ»
+Â«DEFINE getMapPdConfigurationFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getGisMapPdPropertiesFile(this, skip_component_dir_creation)Â»caller=Â«this.codComponenteÂ»
 gosgisso.delegate.classname=
-«ENDFILE»
-«FILE getGisMapPdConfigurationFile(this, skip_component_dir_creation)»<porta-delegata name="GosgisGosgissoPD">
+Â«ENDFILEÂ»
+Â«FILE getGisMapPdConfigurationFile(this, skip_component_dir_creation)Â»<porta-delegata name="GosgisGosgissoPD">
   <services>
     <service name="gosgisso" public-interface-class="it.csi.gosgis.gosgisso.interfacecsi.gosgisgosgisso.GosgisGosgissoSrv" >
       <operations>
@@ -968,18 +985,18 @@ gosgisso.delegate.classname=
     <queue-manager url=""/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 FILES DI CONFIGURAZIONE DI ALTRE COMPONENTI
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera il file di configurazione della DisplayTag«ENDREM»
-«DEFINE displayTagConfigurationFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getWebModuleConfigDir(this, skip_component_dir_creation) + "/displaytag.properties"»############################################################################
+Â«REMÂ»Genera il file di configurazione della DisplayTagÂ«ENDREMÂ»
+Â«DEFINE displayTagConfigurationFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getWebModuleConfigDir(this, skip_component_dir_creation) + "/displaytag.properties"Â»############################################################################
 #DISPLAYTAG CONFIGURATION FILE
 ############################################################################
 
@@ -1051,7 +1068,7 @@ export.rtf.filename=Export.rtf
 # unused
 save.excel.filename=export.xls
 
-«REM»Proprietà della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)«ENDREM»
-«EXPAND template::struts2::view::remoteResources::displayTagConfigurationFile FOR this-»
-«ENDFILE»
-«ENDDEFINE»
+Â«REMÂ»ProprietÃ  della DisplayTag che possono variare a seconda del portale (messaggi, stili, ecc)Â«ENDREMÂ»
+Â«EXPAND template::struts2::view::remoteResources::displayTagConfigurationFile FOR this-Â»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

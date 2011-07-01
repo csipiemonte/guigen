@@ -1,26 +1,43 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-«REM»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 ACTIONS FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»
+Â«REMÂ»
 Genera una Base Action Struts2 che contiene gli elementi comuni all'applicazione.
 Tutte le altre Action dell'applicazione dovranno ereditare da questa
 in modo da ottenere le parti comuni, e dovranno implementare in proprio
-le funzionalità specifiche della pagina.
-«ENDREM»
-«DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+le funzionalitÃ  specifiche della pagina.
+Â«ENDREMÂ»
+Â«DEFINE struts2BaseActionJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsBaseActionJavaFile(this, skip_component_dir_creation)Â»package Â«getPresentationJavaPackage(this)Â»;
 
 import java.util.*;
 import java.lang.reflect.Method;
@@ -36,11 +53,11 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import «getBaseJavaPackage(this)».util.*;
-import «getDTOBaseJavaPackage(this)».*;
-import «getBaseJavaPackage()».business.*;
+import Â«getBaseJavaPackage(this)Â».util.*;
+import Â«getDTOBaseJavaPackage(this)Â».*;
+import Â«getBaseJavaPackage()Â».business.*;
 
-import «getSecurityJavaPackage(this)».*;
+import Â«getSecurityJavaPackage(this)Â».*;
 
 /**
  * Base Action che contiene gli elementi comuni all'applicazione.
@@ -56,7 +73,7 @@ import «getSecurityJavaPackage(this)».*;
  * 
  * @author GuiGen
  */
-public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport implements SessionAware, Preparable {
+public abstract class Â«getStrutsBaseActionClassName(this)Â» extends ActionSupport implements SessionAware, Preparable {
 
 	/**  */
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
@@ -71,12 +88,12 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		return this.session;
 	}
 	
-	«IF hasGisMap(this)»
+	Â«IF hasGisMap(this)Â»
 	public static int ERROR_LEVEL_WARNING = 0;
 	public static int ERROR_LEVEL_ERROR = 1;
 	public static int ERROR_LEVEL_FATAL = 2;
 	public static int ERROR_LEVEL_NO_ERROR = -1;
-	«ENDIF»
+	Â«ENDIFÂ»
 
 	
 	protected Map<String, UISecConstraint> allMenuVisibilityConstraints = null;
@@ -86,14 +103,14 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	
 	public void prepare() throws CommandExecutionException{
 	
-		«IF getActualSecurityModel(this)!=null»
+		Â«IF getActualSecurityModel(this)!=nullÂ»
 	    // caricamento struttura di constraints
 	    if (allMenuVisibilityConstraints==null)
 	    	allMenuVisibilityConstraints = getMenuVisibilityUIConstraints();
 	    if (allMenuOnOffConstraints==null)
 	    	allMenuOnOffConstraints = getMenuONOFFUIConstraints();
 	
-		«ENDIF»
+		Â«ENDIFÂ»
 	}
 	
     ////////////////////////////////////////////////////////////////////////
@@ -154,7 +171,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 			}
 			return modelObj;
 		} catch (Exception e) {
-			log.error("[«getStrutsBaseActionClassName(this)»::toModel] Errore interno nella costruzione del modello, classe:"
+			log.error("[Â«getStrutsBaseActionClassName(this)Â»::toModel] Errore interno nella costruzione del modello, classe:"
 							+ modelClass() + ": " + e, e);
 			throw new IllegalArgumentException(
 					"Errore interno nella costruzione del modello, classe:"
@@ -183,7 +200,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 				}
 			}
 		} catch (Exception e) {
-			log.error("[«getStrutsBaseActionClassName(this)»::fromModel] Errore interno nella costruzione del modello, classe:"
+			log.error("[Â«getStrutsBaseActionClassName(this)Â»::fromModel] Errore interno nella costruzione del modello, classe:"
 							+ modelClass() + ": " + e, e);
 			throw new IllegalArgumentException(
 					"Errore interno nella costruzione del modello, classe:"
@@ -240,18 +257,18 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 * Metodi per visibilita'/abilitazione del menu
 	 */
 
-	«IF structure.appWindow.appArea.menubar != null»
+	Â«IF structure.appWindow.appArea.menubar != nullÂ»
 	static List<MenuStructure> menuMap = new ArrayList<MenuStructure>();
 	static {
-		«EXPAND submenuMap FOR structure.appWindow.appArea.menubar»
+		Â«EXPAND submenuMap FOR structure.appWindow.appArea.menubarÂ»
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 
 	/**
 	 * @return true se il menu deve essere reso visibile
 	 */
 	public boolean isMenuVisible(String menuName) {
-	«IF getActualSecurityModel(this)!=null-»
+	Â«IF getActualSecurityModel(this)!=null-Â»
 		UISecConstraint ctr = allMenuVisibilityConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
@@ -259,23 +276,23 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 				status = ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsBaseActionClassName(this)»::isMenuVisible] errore durante verifica->false");
+				log.error("[Â«getStrutsBaseActionClassName(this)Â»::isMenuVisible] errore durante verifica->false");
 				return false;
 			}
 		}
 		else
 			status = true;
 		return status;
-	«ELSE-»
+	Â«ELSE-Â»
 		return true;
-	«ENDIF-»
+	Â«ENDIF-Â»
 	}
 
 	/**
 	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
 	 */
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
-	«IF getActualSecurityModel(this) != null»
+	Â«IF getActualSecurityModel(this) != nullÂ»
 		for (MenuStructure menuStructure : menuMap) {
 			if (menuName.equals(menuStructure.getMenuName())) {
 				List<MenuStructure> mstr = menuStructure.getSubMenuFlattenList(menuStructure, menuName);
@@ -287,16 +304,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 			}
 		}
 		return false;
-	«ELSE»
+	Â«ELSEÂ»
 		return true;
-	«ENDIF»
+	Â«ENDIFÂ»
 	}
 
 	/**
 	 * @return true se il menu deve essere reso abilitato
 	 */
 	public boolean isMenuEnabled(String menuName) {
-	«IF getActualSecurityModel(this)!=null-»
+	Â«IF getActualSecurityModel(this)!=null-Â»
 		UISecConstraint ctr = allMenuOnOffConstraints.get(menuName);
 		boolean status;
 		if (ctr!=null){
@@ -304,16 +321,16 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 				status = ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsBaseActionClassName(this)»::isMenuEnabled] errore durante verifica->false");
+				log.error("[Â«getStrutsBaseActionClassName(this)Â»::isMenuEnabled] errore durante verifica->false");
 				return false;
 			}
 		}
 		else
 			status = true;
 		return status;
-	«ELSE»
+	Â«ELSEÂ»
 		return true;
-	«ENDIF»
+	Â«ENDIFÂ»
 	}
 	
 	/**
@@ -360,14 +377,14 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
     	return clearStatus;
     }
 	
-	«EXPAND provideMenuStatus FOR this»
+	Â«EXPAND provideMenuStatus FOR thisÂ»
 	
-	«IF this.targetPlatform.enableFatClient-»
-	«EXPAND provideWidgetsStatus FOR this»
-	«EXPAND setWidgetsOnOffStatus FOR this»
-	«EXPAND setWidgetsVisibilityStatus FOR this»
-	«EXPAND provideMultiPanelStatus FOR this»
-	«ENDIF-»
+	Â«IF this.targetPlatform.enableFatClient-Â»
+	Â«EXPAND provideWidgetsStatus FOR thisÂ»
+	Â«EXPAND setWidgetsOnOffStatus FOR thisÂ»
+	Â«EXPAND setWidgetsVisibilityStatus FOR thisÂ»
+	Â«EXPAND provideMultiPanelStatus FOR thisÂ»
+	Â«ENDIF-Â»
 
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
@@ -376,7 +393,7 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 	 */
 	 public abstract void clearPageScopedAppData();
 	 
-	 «REM»STDMDD-407«ENDREM»
+	 Â«REMÂ»STDMDD-407Â«ENDREMÂ»
 	 /**
 	  * Ripulisce gli eventuali errori di conversione se il metodo richiamato
 	  * dichiarava @skipValidation 
@@ -409,72 +426,72 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSupport
 		ctx.getContextMap().remove("original.property.override");
 	}
 	 
-	«EXPAND springBEProperties FOR this»
+	Â«EXPAND springBEProperties FOR thisÂ»
 	
-	«IF targetPlatform.enableRichUIBehavior-»
-	«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-»
-	«ENDIF-»
+	Â«IF targetPlatform.enableRichUIBehavior-Â»
+	Â«EXPAND template::struts2::view::richFeatures::dataProviderStreamProperty FOR this-Â»
+	Â«ENDIF-Â»
 	
-	«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=null»
-	«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubar»
-	«ENDIF»
+	Â«IF getActualSecurityModel(this)!=null && structure.appWindow.appArea.menubar!=nullÂ»
+	Â«EXPAND template::struts2::security::securityConstraints::getMenuUIConstraintDef(this) FOR structure.appWindow.appArea.menubarÂ»
+	Â«ENDIFÂ»
 	
-	«IF isMultiPortal(this)»
-	«EXPAND template::struts2::multiPortal::baseActionMethods FOR this-»
-	«ENDIF»
+	Â«IF isMultiPortal(this)Â»
+	Â«EXPAND template::struts2::multiPortal::baseActionMethods FOR this-Â»
+	Â«ENDIFÂ»
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEProperties FOR GUIModel»
-	private «getSpringBEFQN()» _backEnd = null;
+Â«DEFINE springBEProperties FOR GUIModelÂ»
+	private Â«getSpringBEFQN()Â» _backEnd = null;
 	
-	public void setSpringBackEnd(«getSpringBEFQN()» be){
+	public void setSpringBackEnd(Â«getSpringBEFQN()Â» be){
 		_backEnd = be;
 	}
 	
-	public «getSpringBEFQN()» getSpringBackEnd(){
+	public Â«getSpringBEFQN()Â» getSpringBackEnd(){
 		return _backEnd;
 	}
 	
 	
-	private «getSpringSecurityHelperFQN()» _securityHelper = null;
+	private Â«getSpringSecurityHelperFQN()Â» _securityHelper = null;
 	
-	public void setSpringSecurityHelper(«getSpringSecurityHelperFQN()» sh){
+	public void setSpringSecurityHelper(Â«getSpringSecurityHelperFQN()Â» sh){
 		_securityHelper = sh;
 	}
 	
-	public «getSpringSecurityHelperFQN()» getSpringSecurityHelper(){
+	public Â«getSpringSecurityHelperFQN()Â» getSpringSecurityHelper(){
 		return _securityHelper;
 	}
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 [DM] STDMDD-241: razionalizzazione del menu
 Esteso a qualunque livello di annidamento
-«ENDREM»
-«DEFINE submenuMap FOR Menubar»
-«FOREACH this.topLevelMenu AS topLevelMenu»
-MenuStructure «topLevelMenu.name»Menu = new MenuStructure("«topLevelMenu.name»");
-«EXPAND submenuList FOR topLevelMenu»
-menuMap.add(«topLevelMenu.name»Menu);
-«ENDFOREACH»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE submenuMap FOR MenubarÂ»
+Â«FOREACH this.topLevelMenu AS topLevelMenuÂ»
+MenuStructure Â«topLevelMenu.nameÂ»Menu = new MenuStructure("Â«topLevelMenu.nameÂ»");
+Â«EXPAND submenuList FOR topLevelMenuÂ»
+menuMap.add(Â«topLevelMenu.nameÂ»Menu);
+Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE submenuList FOR Menu»
-«IF this.submenu.size > 0»
-	«FOREACH this.submenu AS subMenu-»
-	MenuStructure «subMenu.name»Menu = new MenuStructure("«subMenu.name»");
-	«EXPAND submenuList FOR subMenu»
-	«this.name»Menu.getSubmenus().add(«subMenu.name»Menu);
-	«ENDFOREACH-»
-«ENDIF»
-«ENDDEFINE»
+Â«DEFINE submenuList FOR MenuÂ»
+Â«IF this.submenu.size > 0Â»
+	Â«FOREACH this.submenu AS subMenu-Â»
+	MenuStructure Â«subMenu.nameÂ»Menu = new MenuStructure("Â«subMenu.nameÂ»");
+	Â«EXPAND submenuList FOR subMenuÂ»
+	Â«this.nameÂ»Menu.getSubmenus().add(Â«subMenu.nameÂ»Menu);
+	Â«ENDFOREACH-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE provideMenuStatus FOR GUIModel»
+Â«DEFINE provideMenuStatus FOR GUIModelÂ»
 	/**
 	 * Restituisce lo stato del menu
 	 * @return List<MenuStructure>
@@ -497,9 +514,9 @@ menuMap.add(«topLevelMenu.name»Menu);
 		}
 		return menus;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE provideWidgetsStatus FOR GUIModel»
+Â«DEFINE provideWidgetsStatus FOR GUIModelÂ»
 	/**
 	 * restituisce lo stato di tutti i widgets presenti nel contentpanel
 	 */
@@ -511,9 +528,9 @@ menuMap.add(«topLevelMenu.name»Menu);
 		}
 		return widgets;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE provideMultiPanelStatus FOR GUIModel»
+Â«DEFINE provideMultiPanelStatus FOR GUIModelÂ»
 	/**
 	 * restituisce i pannelli attivi nel contentPanel
 	 */
@@ -525,9 +542,9 @@ menuMap.add(«topLevelMenu.name»Menu);
 		}
 		return widgets;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setWidgetsOnOffStatus FOR GUIModel»
+Â«DEFINE setWidgetsOnOffStatus FOR GUIModelÂ»
 	/**
 	 * setta lo stato di OnOff dei widgets passati
 	 */
@@ -540,9 +557,9 @@ menuMap.add(«topLevelMenu.name»Menu);
 		onOffCmd.doCommand(this);
 				
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setWidgetsVisibilityStatus FOR GUIModel»
+Â«DEFINE setWidgetsVisibilityStatus FOR GUIModelÂ»
 	/**
 	 * setta lo stato di visibility dei widgets passati
 	 */
@@ -555,4 +572,4 @@ menuMap.add(«topLevelMenu.name»Menu);
 		visibilityCmd.doCommand(this);
 				
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

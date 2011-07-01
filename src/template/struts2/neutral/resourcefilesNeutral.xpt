@@ -1,135 +1,152 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::resourcefiles»
+Â«IMPORT guigenÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::struts2::neutral::Struts2ExtensionsNeutral»
+Â«IMPORT template::struts2::resourcefilesÂ»
+
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::struts2::neutral::Struts2ExtensionsNeutralÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Ridefinizione mediante AOP dei DEFINE specifici per il layout NEUTRAL (autoconsistente)
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»
+Â«REMÂ»
 ************** FormPanel **************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera un FormPanel con layout UDLRC«ENDREM»
-«DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR FormPanel»
+Â«REMÂ»Genera un FormPanel con layout UDLRCÂ«ENDREMÂ»
+Â«DEFINE setupFormPanelUDLRC(GUIModel model, boolean skip_component_dir_creation, ContentPanel cp, boolean expandLayout, UDLRCSpecConstants quadrante, String contextPrefix, PDefUseConfig pduConf) FOR FormPanelÂ»
 
-«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-»
-«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-»
-«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-»
-<div class="«getLeftCenterRightWrapperId(leftPanels, centerPanels, rightPanels).toFirstLower()»Wrapper">	
-	«REM»Genera i sottopannelli posizionati a SINISTRA«ENDREM»
-	«IF leftPanels != null && leftPanels.size > 0-»
+Â«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::LEFT) AS leftPanels-Â»
+Â«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::CENTER) AS centerPanels-Â»
+Â«LET (List[Panel])getSubPanelsByLayout(this, UDLRCSpecConstants::RIGHT) AS rightPanels-Â»
+<div class="Â«getLeftCenterRightWrapperId(leftPanels, centerPanels, rightPanels).toFirstLower()Â»Wrapper">	
+	Â«REMÂ»Genera i sottopannelli posizionati a SINISTRAÂ«ENDREMÂ»
+	Â«IF leftPanels != null && leftPanels.size > 0-Â»
 	<div class="formPanel floatLeft">
-	«FOREACH leftPanels AS currSubformLeft-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformLeft»
-	«ENDFOREACH-»	
+	Â«FOREACH leftPanels AS currSubformLeft-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformLeftÂ»
+	Â«ENDFOREACH-Â»	
 	</div>
-	«ENDIF-»
+	Â«ENDIF-Â»
 	
-	«REM»Genera i sottopannelli posizionati al CENTRO«ENDREM»
-	«IF centerPanels != null && centerPanels.size > 0-»
+	Â«REMÂ»Genera i sottopannelli posizionati al CENTROÂ«ENDREMÂ»
+	Â«IF centerPanels != null && centerPanels.size > 0-Â»
 	<div class="formPanel floatCenter">
-	«FOREACH centerPanels AS currSubformCenter-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformCenter»
-	«ENDFOREACH-»
+	Â«FOREACH centerPanels AS currSubformCenter-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformCenterÂ»
+	Â«ENDFOREACH-Â»
 	</div>
-	«ENDIF-»	
+	Â«ENDIF-Â»	
 
-	«REM»Genera i sottopannelli posizionati a DESTRA«ENDREM»
-	«IF rightPanels != null && rightPanels.size > 0-»
+	Â«REMÂ»Genera i sottopannelli posizionati a DESTRAÂ«ENDREMÂ»
+	Â«IF rightPanels != null && rightPanels.size > 0-Â»
 	<div class="formPanel floatRight">
-	«FOREACH rightPanels AS currSubformRight-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformRight»
-	«ENDFOREACH-»	
+	Â«FOREACH rightPanels AS currSubformRight-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddSubpanel(model, skip_component_dir_creation, cp, true, quadrante, contextPrefix, pduConf) FOR currSubformRightÂ»
+	Â«ENDFOREACH-Â»	
 	</div>
-	«ENDIF-»	
+	Â«ENDIF-Â»	
 </div>
-«ENDLET-»
-«ENDLET-»	
-«ENDLET-»
+Â«ENDLET-Â»
+Â«ENDLET-Â»	
+Â«ENDLET-Â»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Gestione dei Widget
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Crea i Widgets contenuti in un CommandPanel.«ENDREM»
-«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
-	«IF this.layout.metaType == HorizontalFlowPanelLayout-»
-		«EXPAND createWidgetsForHorizontalLayout(model, cp, contextPrefix, pduConf) FOR this»
-	«ELSEIF this.layout.metaType == UDLRCPanelLayout-»
-		«EXPAND createWidgetsForUDLRCLayout(model, cp, contextPrefix, pduConf) FOR this»
-	«ENDIF-»
-«ENDDEFINE»
-
-
-
-«REM»Crea i Widgets contenuti in un CommandPanel con HorizontalFlowPanelLayout.«ENDREM»
-«DEFINE createWidgetsForHorizontalLayout(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
-	«FOREACH this.widgets AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR (Button)currWidg»
-	«ENDFOREACH-»
-«ENDDEFINE»
+Â«REMÂ»Crea i Widgets contenuti in un CommandPanel.Â«ENDREMÂ»
+Â«DEFINE createWidgets(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanelÂ»
+	Â«IF this.layout.metaType == HorizontalFlowPanelLayout-Â»
+		Â«EXPAND createWidgetsForHorizontalLayout(model, cp, contextPrefix, pduConf) FOR thisÂ»
+	Â«ELSEIF this.layout.metaType == UDLRCPanelLayout-Â»
+		Â«EXPAND createWidgetsForUDLRCLayout(model, cp, contextPrefix, pduConf) FOR thisÂ»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Crea i Widgets contenuti in un CommandPanel con HorizontalFlowPanelLayout.«ENDREM»
-«DEFINE createWidgetsForUDLRCLayout(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanel»
 
-	«REM»Pulsanti posizionati a SINISTRA«ENDREM»
-	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::LEFT) AS leftButtons»
-	«IF leftButtons != null && leftButtons.size > 0»
+Â«REMÂ»Crea i Widgets contenuti in un CommandPanel con HorizontalFlowPanelLayout.Â«ENDREMÂ»
+Â«DEFINE createWidgetsForHorizontalLayout(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanelÂ»
+	Â«FOREACH this.widgets AS currWidg ITERATOR wi-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR (Button)currWidgÂ»
+	Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»Crea i Widgets contenuti in un CommandPanel con HorizontalFlowPanelLayout.Â«ENDREMÂ»
+Â«DEFINE createWidgetsForUDLRCLayout(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CommandPanelÂ»
+
+	Â«REMÂ»Pulsanti posizionati a SINISTRAÂ«ENDREMÂ»
+	Â«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::LEFT) AS leftButtonsÂ»
+	Â«IF leftButtons != null && leftButtons.size > 0Â»
 	<div class="button left">
-	«FOREACH leftButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidg»
-	«ENDFOREACH-»
+	Â«FOREACH leftButtons AS currWidg ITERATOR wi-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidgÂ»
+	Â«ENDFOREACH-Â»
 	</div>
-	«ENDIF»
-	«ENDLET»
+	Â«ENDIFÂ»
+	Â«ENDLETÂ»
 
-	«REM»Pulsanti posizionati al CENTRO«ENDREM»
-	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::CENTER) AS centerButtons»
-	«IF centerButtons != null && centerButtons.size > 0»
+	Â«REMÂ»Pulsanti posizionati al CENTROÂ«ENDREMÂ»
+	Â«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::CENTER) AS centerButtonsÂ»
+	Â«IF centerButtons != null && centerButtons.size > 0Â»
 	<div class="button center">
-	«FOREACH centerButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidg»
-	«ENDFOREACH-»
+	Â«FOREACH centerButtons AS currWidg ITERATOR wi-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidgÂ»
+	Â«ENDFOREACH-Â»
 	</div>
-	«ENDIF»
-	«ENDLET»
+	Â«ENDIFÂ»
+	Â«ENDLETÂ»
 
-	«REM»Pulsanti posizionati a DESTRA«ENDREM»
-	«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::RIGHT) AS rightButtons»
-	«IF rightButtons != null && rightButtons.size > 0»
+	Â«REMÂ»Pulsanti posizionati a DESTRAÂ«ENDREMÂ»
+	Â«LET (List[Button])getButtonsByUDLRCPosition(this, UDLRCSpecConstants::RIGHT) AS rightButtonsÂ»
+	Â«IF rightButtons != null && rightButtons.size > 0Â»
 	<div class="button right">
-	«FOREACH rightButtons AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidg»
-	«ENDFOREACH-»
+	Â«FOREACH rightButtons AS currWidg ITERATOR wi-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR currWidgÂ»
+	Â«ENDFOREACH-Â»
 	</div>
-	«ENDIF»
-	«ENDLET»
+	Â«ENDIFÂ»
+	Â«ENDLETÂ»
 	
-	«REM»Altri Widgets (dovrebbero essere solo HiddenValue secondo check)«ENDREM»
-	«LET this.widgets.select(e|e.metaType == HiddenValue) AS otherWidgets»
-	«IF otherWidgets != null && otherWidgets.size > 0»
+	Â«REMÂ»Altri Widgets (dovrebbero essere solo HiddenValue secondo check)Â«ENDREMÂ»
+	Â«LET this.widgets.select(e|e.metaType == HiddenValue) AS otherWidgetsÂ»
+	Â«IF otherWidgets != null && otherWidgets.size > 0Â»
 	<div class="hidden">
-	«FOREACH otherWidgets AS currWidg ITERATOR wi-»
-		«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR (Button)currWidg»
-	«ENDFOREACH-»
+	Â«FOREACH otherWidgets AS currWidg ITERATOR wi-Â»
+		Â«EXPAND template::struts2::view::resourcefiles::createAndAddWidgetMarkup(model, cp, this, wi.firstIteration, wi.lastIteration, contextPrefix, pduConf) FOR (Button)currWidgÂ»
+	Â«ENDFOREACH-Â»
 	</div>
-	«ENDIF»
-	«ENDLET»
+	Â«ENDIFÂ»
+	Â«ENDLETÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

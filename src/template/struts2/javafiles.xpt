@@ -1,88 +1,105 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«IMPORT template::struts2::interceptor»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«IMPORT template::struts2::interceptorÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«DEFINE javaFiles(boolean skip_component_dir_creation) FOR GUIModel»
-	«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::controller::baseAction::struts2BaseActionJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::controller::menuAction::struts2MenuJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::controller::homeAction::struts2HomeJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::controller::logoutAction::struts2LogoutJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND sessionListenerJavaFile(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::controller::actionCommands::actionImplClasses FOR this»
-	«EXPAND template::struts2::model::modelJavaFiles::modelClasses FOR this»
-	«EXPAND template::struts2::model::businessLogic::springBEClasses FOR this»
-	«EXPAND template::struts2::validation::strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR this»
-	«EXPAND template::struts2::view::tableDecorator::strutsCustomDecoratorsJavaFiles(skip_component_dir_creation) FOR this»
-	«EXPAND security::securityJavaFiles(skip_component_dir_creation) FOR this»
-	«EXPAND typeConversion::conversionClassesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND typeConversion::decoratorsClassesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND typeConversion::comparatorsClassesFiles(skip_component_dir_creation) FOR this»
-	«EXPAND interceptor::interceptorsClassesFiles(skip_component_dir_creation) FOR this»
-	«IF targetPlatform.enableRichUIBehavior»
-		«EXPAND uiutils::uiutilsClassesFiles(skip_component_dir_creation) FOR this»
-	«ENDIF»
-	«IF hasGisMap()»
-		«EXPAND gisMapScaleDefinitionJavaFile(skip_component_dir_creation) FOR this»
-		«EXPAND gisMapManagerJavaFile(skip_component_dir_creation) FOR this»
-	«ENDIF»
-	«EXPAND beanMappingUtils FOR this»
-	«REM»«EXPAND viewFragmentResultJavaFile FOR this»«ENDREM»
-	«IF isMultiPortal(this)»
-		«EXPAND multiPortal::multiPortalClassesFiles(skip_component_dir_creation) FOR this»
-	«ENDIF»
-«ENDDEFINE»
+Â«DEFINE javaFiles(boolean skip_component_dir_creation) FOR GUIModelÂ»
+	Â«EXPAND applicationConstantsJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::controller::baseAction::struts2BaseActionJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::controller::menuAction::struts2MenuJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::controller::homeAction::struts2HomeJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::controller::logoutAction::struts2LogoutJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND sessionListenerJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::controller::actionCommands::actionImplClasses FOR thisÂ»
+	Â«EXPAND template::struts2::model::modelJavaFiles::modelClasses FOR thisÂ»
+	Â«EXPAND template::struts2::model::businessLogic::springBEClasses FOR thisÂ»
+	Â«EXPAND template::struts2::validation::strutsCustomValidatorsJavaFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND template::struts2::view::tableDecorator::strutsCustomDecoratorsJavaFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND security::securityJavaFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND typeConversion::conversionClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND typeConversion::decoratorsClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND typeConversion::comparatorsClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«EXPAND interceptor::interceptorsClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«IF targetPlatform.enableRichUIBehaviorÂ»
+		Â«EXPAND uiutils::uiutilsClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+	Â«IF hasGisMap()Â»
+		Â«EXPAND gisMapScaleDefinitionJavaFile(skip_component_dir_creation) FOR thisÂ»
+		Â«EXPAND gisMapManagerJavaFile(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+	Â«EXPAND beanMappingUtils FOR thisÂ»
+	Â«REMÂ»Â«EXPAND viewFragmentResultJavaFile FOR thisÂ»Â«ENDREMÂ»
+	Â«IF isMultiPortal(this)Â»
+		Â«EXPAND multiPortal::multiPortalClassesFiles(skip_component_dir_creation) FOR thisÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE sessionListenerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBaseJavaSrcDir(skip_component_dir_creation) + "/util/SessionListener.java" »package «getBaseJavaPackage(this)».util;
+Â«DEFINE sessionListenerJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBaseJavaSrcDir(skip_component_dir_creation) + "/util/SessionListener.java" Â»package Â«getBaseJavaPackage(this)Â».util;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.extraimports")»
-«ENDPROTECT»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.extraimports")Â»
+Â«ENDPROTECTÂ»
 
 public class SessionListener implements HttpSessionListener {
 
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.attributes")»
-	«ENDPROTECT»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.attributes")Â»
+	Â«ENDPROTECTÂ»
 
   public SessionListener() {
- 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.cntr")»
-	«ENDPROTECT»
+ 	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("seesionlistener.cntr")Â»
+	Â«ENDPROTECTÂ»
   }
 
   public void sessionCreated(HttpSessionEvent se) {
-    «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.created")»
-	«ENDPROTECT»
+    Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.created")Â»
+	Â«ENDPROTECTÂ»
   }
 
   public void sessionDestroyed(HttpSessionEvent se) {
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.destroyed")»
-	«ENDPROTECT»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("sessionlistener.destroyed")Â»
+	Â«ENDPROTECTÂ»
   }
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 BASE FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Crea una Base action«ENDREM»
-«DEFINE applicationConstantsJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/util/Constants.java" »package «getBaseJavaPackage(this)».util;
+Â«REMÂ»Crea una Base actionÂ«ENDREMÂ»
+Â«DEFINE applicationConstantsJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/util/Constants.java" Â»package Â«getBaseJavaPackage(this)Â».util;
 
 /**
  * <p>Classe delle costanti applicative.</p>
@@ -94,23 +111,23 @@ public final class Constants
     /**
      * identificativo dell'applicativo.
      */
-    public static final String APPLICATION_CODE = "«codComponente»";
+    public static final String APPLICATION_CODE = "Â«codComponenteÂ»";
     
-    «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("Constants")»
+    Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("Constants")Â»
     // Add here your constants
-    «ENDPROTECT»
+    Â«ENDPROTECTÂ»
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 DEFINIZIONE UTILITY GIS PER LE MAPPE
 ===========================================================================================================================
-«ENDREM»
-«DEFINE gisMapScaleDefinitionJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapScaleDefinition.java" »package «getBaseJavaPackage(this)».business.greaseutils;
+Â«ENDREMÂ»
+Â«DEFINE gisMapScaleDefinitionJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapScaleDefinition.java" Â»package Â«getBaseJavaPackage(this)Â».business.greaseutils;
 import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
 import it.csi.jeegia.jeegfw.util.managers.ScalePredefiniteDefinitionImpl;
@@ -151,11 +168,11 @@ public class GisMapScaleDefinition extends ScalePredefiniteDefinitionImpl {
 
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE gisMapManagerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapManager.java" »package «getBaseJavaPackage(this)».business.greaseutils;
+Â«DEFINE gisMapManagerJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getBaseJavaSrcDir(this, skip_component_dir_creation) + "/business/greaseutils/GisMapManager.java" Â»package Â«getBaseJavaPackage(this)Â».business.greaseutils;
 import it.csi.jeegia.jeegfw.dto.jeegweb.EnvelopeWeb;
 import it.csi.jeegia.jeegfw.dto.jeegweb.geometry.PuntoWeb;
 import it.csi.jeegia.jeegfw.presentation.managers.helper.MapManager;
@@ -225,11 +242,11 @@ public class GisMapManager extends MapManager {
 		return cloneEnvelope(envelopeLivZero);
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE beanMappingUtils FOR GUIModel»
-«FILE getDTOBaseSrcDir()+"/BeanMapping.java"»package «getDTOBaseJavaPackage()»;
+Â«DEFINE beanMappingUtils FOR GUIModelÂ»
+Â«FILE getDTOBaseSrcDir()+"/BeanMapping.java"Â»package Â«getDTOBaseJavaPackage()Â»;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -820,8 +837,8 @@ public class BeanMapping {
 	}
 
 }
-«ENDFILE»
-«FILE getDTOBaseSrcDir()+"/MappingException.java"»package «getDTOBaseJavaPackage()»;
+Â«ENDFILEÂ»
+Â«FILE getDTOBaseSrcDir()+"/MappingException.java"Â»package Â«getDTOBaseJavaPackage()Â»;
 
 public class MappingException extends Exception{
 
@@ -846,12 +863,12 @@ public class MappingException extends Exception{
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
-«DEFINE viewFragmentResultJavaFile FOR GUIModel»
-«FILE getViewFragResultJavaFile(true)»package «getResultJavaPackage()»;
+Â«REMÂ»
+Â«DEFINE viewFragmentResultJavaFile FOR GUIModelÂ»
+Â«FILE getViewFragResultJavaFile(true)Â»package Â«getResultJavaPackage()Â»;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -878,7 +895,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 
 
 
-public class «getViewFragResultClassName()» extends ServletDispatcherResult{
+public class Â«getViewFragResultClassName()Â» extends ServletDispatcherResult{
 	public class DummyServletOutputStream extends ServletOutputStream{
 
 		@Override
@@ -976,11 +993,11 @@ public class «getViewFragResultClassName()» extends ServletDispatcherResult{
     }
 	public static Logger LOG = Logger.getLogger(ViewFragmentResult.class);
 
-	public «getViewFragResultClassName()»() {
+	public Â«getViewFragResultClassName()Â»() {
 		super();
 	}
 
-	public «getViewFragResultClassName()»(String location) {
+	public Â«getViewFragResultClassName()Â»(String location) {
 		super(location);
 	}
 
@@ -1053,7 +1070,7 @@ public class «getViewFragResultClassName()» extends ServletDispatcherResult{
 
 }
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«ENDDEFINE»
-«ENDREM»
+Â«ENDDEFINEÂ»
+Â«ENDREMÂ»

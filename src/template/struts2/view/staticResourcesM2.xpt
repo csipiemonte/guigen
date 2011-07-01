@@ -1,404 +1,421 @@
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
+
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Risorse statiche, casi:
-   2) M2, senza PortalProfile, modalità remote  ->  nuova alberatura, tutte le risorse in remoto
-   3) M2, senza PortalProfile, modalità local   ->  nuova alberatura, tutte le risorse in locale
+   2) M2, senza PortalProfile, modalitÃ  remote  ->  nuova alberatura, tutte le risorse in remoto
+   3) M2, senza PortalProfile, modalitÃ  local   ->  nuova alberatura, tutte le risorse in locale
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 BUILD FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»buildfiles -> build.xml«ENDREM»
-«DEFINE antBuildFileUnzipJs FOR GUIModel»
-«ENDDEFINE»
-
-
-«REM»buildfiles -> build.properties«ENDREM»
-«DEFINE buildPropertiesFileStaticResources FOR GUIModel»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> build.xmlÂ«ENDREMÂ»
+Â«DEFINE antBuildFileUnzipJs FOR GUIModelÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivy.xml, modalità LOCAL«ENDREM»
-«DEFINE ivyFileStaticResourcesLocal FOR GUIModel»
-«IF targetPlatform.enableRichUIBehavior-»
+Â«REMÂ»buildfiles -> build.propertiesÂ«ENDREMÂ»
+Â«DEFINE buildPropertiesFileStaticResources FOR GUIModelÂ»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»buildfiles -> ivy.xml, modalitÃ  LOCALÂ«ENDREMÂ»
+Â«DEFINE ivyFileStaticResourcesLocal FOR GUIModelÂ»
+Â«IF targetPlatform.enableRichUIBehavior-Â»
 <!-- librerie js per rich u.i -->
 <dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
 <dependency org="csipiemonte" name="extjscsienricher" rev="1.4.1"/>
-«IF hasGisMap()»
+Â«IF hasGisMap()Â»
 <dependency org="openlayers" name="openlayers" rev="2.10" />
-«ENDIF»
-«IF targetPlatform.enableFatClient-»
+Â«ENDIFÂ»
+Â«IF targetPlatform.enableFatClient-Â»
 <dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
-«ENDIF-»
-«ENDIF»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»buildfiles -> ivyconf.xml«ENDREM»
-«DEFINE ivyIvyConfFileStaticResources FOR GUIModel»
-«ENDDEFINE»
+Â«REMÂ»buildfiles -> ivyconf.xmlÂ«ENDREMÂ»
+Â«DEFINE ivyIvyConfFileStaticResources FOR GUIModelÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ENRICHMENTS
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»
+Â«REMÂ»
 Crea i file JS di arricchimento delle pagine web
 [DM] STDMDD-621: i files JS degli arricchimenti verranno creati SEMPRE in LOCALE all'applicativo 
 nella directory src/web/
-«ENDREM»
-«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-»
-	«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)»
-		«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR this»
-	«ENDFILE-»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE enrichmentDefs(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel-Â»
+	Â«FILE getLocalJsDir(model, true) + "/" + getEnrichmentFileWebRootRelative(this, model)Â»
+		Â«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, skip_component_dir_creation) FOR thisÂ»
+	Â«ENDFILE-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ENRICHMENTS - REMOTE MODE
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
-«DEFINE staticResourcesXMLRemote FOR GUIModel-»
+Â«REMÂ»File di configurazione del caricamento risorse per tag csiui:headerÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLRemote FOR GUIModel-Â»
 <resource type="text/css">
-	<position value="«getGlobalExtlibsthemeDir(true)»css/ext-all/resources/css/ext-all.css" />
-	«IF isMultiPortal(this)-»
-	<position value="«getGlobalExtlibsthemeDir(true)»css/{areaCode}/css/xtheme-{areaCode}.css" />
-	«ELSE-»
-	<position value="«getGlobalExtlibsthemeDir(true)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
-	«ENDIF-»
+	<position value="Â«getGlobalExtlibsthemeDir(true)Â»css/ext-all/resources/css/ext-all.css" />
+	Â«IF isMultiPortal(this)-Â»
+	<position value="Â«getGlobalExtlibsthemeDir(true)Â»css/{areaCode}/css/xtheme-{areaCode}.css" />
+	Â«ELSE-Â»
+	<position value="Â«getGlobalExtlibsthemeDir(true)Â»css/Â«getNomeCanale(this)Â»/css/xtheme-Â«getNomeCanale(this)Â».css" />
+	Â«ENDIF-Â»
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(true)»ext-all/3.2.2/adapter/ext/ext-base.js" />
-	<position value="«getGlobalJslibDir(true)»ext-all/3.2.2/ext-all.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/util/Format.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/locale/ext-lang-it.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»ext-all/3.2.2/adapter/ext/ext-base.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»ext-all/3.2.2/ext-all.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/util/Format.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/locale/ext-lang-it.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione singolo ContentPanel«ENDREM»
-«DEFINE staticResourcesXMLRemote(GUIModel model) FOR ContentPanel-»
+Â«REMÂ»Configurazione singolo ContentPanelÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLRemote(GUIModel model) FOR ContentPanel-Â»
 <resource type="text/css">
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/ajaxify-tag/css/ajaxify.css" />
-	«IF hasGisMap()»
-	<position value="«getGlobalOpenlayersthemeDir(true)»css/openlayers_style.css" />
-	<position value="«getGlobalOpenlayersthemeDir(true)»css/grease.css" />
-	<position value="«getGlobalOpenlayersthemeDir(true)»css/toolbar.css" />
-	«ENDIF»
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/ajaxify-tag/css/ajaxify.css" />
+	Â«IF hasGisMap()Â»
+	<position value="Â«getGlobalOpenlayersthemeDir(true)Â»css/openlayers_style.css" />
+	<position value="Â«getGlobalOpenlayersthemeDir(true)Â»css/grease.css" />
+	<position value="Â«getGlobalOpenlayersthemeDir(true)Â»css/toolbar.css" />
+	Â«ENDIFÂ»
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/table-grid/TableGrid.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/miframe/miframe.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/enricher/enricher.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/menu/csimenu.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/toggle-panel/toggle.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/ajaxify-tag/ajaxifyTag.js" />
-	«IF hasGisMap()»
-	<position value="«getGlobalJslibDir(true)»openlayers/2.10/core/OpenLayers.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/maps/map-setup.js" />
-	«ENDIF»
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/table-grid/TableGrid.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/miframe/miframe.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/enricher/enricher.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/menu/csimenu.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/toggle-panel/toggle.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/ajaxify-tag/ajaxifyTag.js" />
+	Â«IF hasGisMap()Â»
+	<position value="Â«getGlobalJslibDir(true)Â»openlayers/2.10/core/OpenLayers.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/maps/map-setup.js" />
+	Â«ENDIFÂ»
 	<!-- componente js dello skin -->
-	<position value="«getGlobalExtlibsthemeDir(true)»js/style.js" />
+	<position value="Â«getGlobalExtlibsthemeDir(true)Â»js/style.js" />
 	<!-- funzioni comuni all' applicativo (opz) -->
-	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<position value="Â«getJsDir(false)Â»Â«getLocalLibsFileWebRootRelative(this, model)Â»" />
 	<!-- stilizzazioni JS locali (opz) -->
-	«IF isMultiPortal(model)-»
-	<position value="«getPathComponentDirMultiportal(model, true)»js/localStyle.js" />
-	«ELSE-»
-	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
-	«ENDIF-»
+	Â«IF isMultiPortal(model)-Â»
+	<position value="Â«getPathComponentDirMultiportal(model, true)Â»js/localStyle.js" />
+	Â«ELSE-Â»
+	<position value="Â«getPathComponentDir(model, true)Â»js/localStyle.js" />
+	Â«ENDIF-Â»
 	<!-- arricchimenti della schermata -->
-	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+	<position value="Â«getJsDir(false)Â»Â«getEnrichmentFileWebRootRelative(this, model)Â»" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione per Fat Client«ENDREM»
-«DEFINE staticResourcesXMLFatClientRemote FOR GUIModel-»
+Â«REMÂ»Configurazione per Fat ClientÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLFatClientRemote FOR GUIModel-Â»
 <resource type="text/css">
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/css/GridFilters.css" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/css/RangeMenu.css" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/css/MultiSelect.css" />
-  	<position value="«getGlobalJslibDir(true)»extjscsimdd/«resolveVersionDirectory("1.0.0")»/core/css/core.css" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/css/GridFilters.css" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/css/RangeMenu.css" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/css/MultiSelect.css" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsimdd/Â«resolveVersionDirectory("1.0.0")Â»/core/css/core.css" />
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/menu/RangeMenu.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/menu/ListMenu.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/GridFilters.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/Filter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/StringFilter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/DateFilter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/ListFilter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/NumericFilter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/BooleanFilter.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/MultiSelect.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/ItemSelector.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/tree-state/TreePanelStatefull_plugin.js" />
-  	<position value="«getGlobalJslibDir(true)»extjscsicore/«resolveVersionDirectory("1.0.0")»/fileuploadfield/FileUploadField.js" />
-	<position value="«getGlobalJslibDir(true)»extjscsimdd/«resolveVersionDirectory("1.0.0")»/core/core.js" />
-	<position value="«getJsDir(false)»fatclient.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/menu/RangeMenu.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/menu/ListMenu.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/GridFilters.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/Filter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/StringFilter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/DateFilter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/ListFilter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/NumericFilter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/BooleanFilter.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/MultiSelect.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/ItemSelector.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/tree-state/TreePanelStatefull_plugin.js" />
+  	<position value="Â«getGlobalJslibDir(true)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/fileuploadfield/FileUploadField.js" />
+	<position value="Â«getGlobalJslibDir(true)Â»extjscsimdd/Â«resolveVersionDirectory("1.0.0")Â»/core/core.js" />
+	<position value="Â«getJsDir(false)Â»fatclient.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 ENRICHMENTS - LOCAL MODE
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»File di configurazione del caricamento risorse per tag csiui:header«ENDREM»
-«DEFINE staticResourcesXMLLocal FOR GUIModel-»
+Â«REMÂ»File di configurazione del caricamento risorse per tag csiui:headerÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLLocal FOR GUIModel-Â»
 <resource type="text/css">
-	<position value="«getGlobalExtlibsthemeDir(false)»css/ext-all/resources/css/ext-all.css" />
-	<position value="«getGlobalExtlibsthemeDir(false)»css/«getNomeCanale(this)»/css/xtheme-«getNomeCanale(this)».css" />
+	<position value="Â«getGlobalExtlibsthemeDir(false)Â»css/ext-all/resources/css/ext-all.css" />
+	<position value="Â«getGlobalExtlibsthemeDir(false)Â»css/Â«getNomeCanale(this)Â»/css/xtheme-Â«getNomeCanale(this)Â».css" />
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(false)»ext-all/3.2.2/adapter/ext/ext-base.js" />
-	<position value="«getGlobalJslibDir(false)»ext-all/3.2.2/ext-all.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/util/Format.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/locale/ext-lang-it.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»ext-all/3.2.2/adapter/ext/ext-base.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»ext-all/3.2.2/ext-all.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/util/Format.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/locale/ext-lang-it.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione singolo ContentPanel«ENDREM»
-«DEFINE staticResourcesXMLLocal(GUIModel model) FOR ContentPanel-»
+Â«REMÂ»Configurazione singolo ContentPanelÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLLocal(GUIModel model) FOR ContentPanel-Â»
 <resource type="text/css">
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/ajaxify-tag/css/ajaxify.css" />
-	«IF hasGisMap()»
-	<position value="«getGlobalOpenlayersthemeDir(false)»css/openlayers_style.css" />
-	<position value="«getGlobalOpenlayersthemeDir(false)»css/grease.css" />
-	<position value="«getGlobalOpenlayersthemeDir(false)»css/toolbar.css" />
-	«ENDIF»
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/ajaxify-tag/css/ajaxify.css" />
+	Â«IF hasGisMap()Â»
+	<position value="Â«getGlobalOpenlayersthemeDir(false)Â»css/openlayers_style.css" />
+	<position value="Â«getGlobalOpenlayersthemeDir(false)Â»css/grease.css" />
+	<position value="Â«getGlobalOpenlayersthemeDir(false)Â»css/toolbar.css" />
+	Â«ENDIFÂ»
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(false)»extjscsicore/1.0.0/table-grid/TableGrid.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsicore/1.0.0/miframe/miframe.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/enricher/enricher.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/menu/csimenu.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/toggle-panel/toggle.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/ajaxify-tag/ajaxifyTag.js" />
-	«IF hasGisMap()»
-	<position value="«getGlobalJslibDir(false)»openlayers/2.10/core/OpenLayers.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsienricher/«resolveVersionDirectory("1.4.1")»/maps/map-setup.js" />
-	«ENDIF»
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/enricher/enricher.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/menu/csimenu.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/toggle-panel/toggle.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/ajaxify-tag/ajaxifyTag.js" />
+	Â«IF hasGisMap()Â»
+	<position value="Â«getGlobalJslibDir(false)Â»openlayers/2.10/core/OpenLayers.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsienricher/Â«resolveVersionDirectory("1.4.1")Â»/maps/map-setup.js" />
+	Â«ENDIFÂ»
 	<!-- componente js dello skin -->
-	<position value="«getGlobalExtlibsthemeDir(false)»js/style.js" />
+	<position value="Â«getGlobalExtlibsthemeDir(false)Â»js/style.js" />
 	<!-- funzioni comuni all' applicativo (opz) -->
-	<position value="«getJsDir(false)»«getLocalLibsFileWebRootRelative(this, model)»" />
+	<position value="Â«getJsDir(false)Â»Â«getLocalLibsFileWebRootRelative(this, model)Â»" />
 	<!-- stilizzazioni JS locali (opz) -->
-	<position value="«getPathComponentDir(model, true)»js/localStyle.js" />
+	<position value="Â«getPathComponentDir(model, true)Â»js/localStyle.js" />
 	<!-- arricchimenti della schermata -->
-	<position value="«getJsDir(false)»«getEnrichmentFileWebRootRelative(this, model)»" />
+	<position value="Â«getJsDir(false)Â»Â«getEnrichmentFileWebRootRelative(this, model)Â»" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Configurazione per Fat Client«ENDREM»
-«DEFINE staticResourcesXMLFatClientLocal FOR GUIModel-»
+Â«REMÂ»Configurazione per Fat ClientÂ«ENDREMÂ»
+Â«DEFINE staticResourcesXMLFatClientLocal FOR GUIModel-Â»
 <resource type="text/css">
-	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/css/GridFilters.css" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/css/RangeMenu.css" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/css/MultiSelect.css" />
-  	<position value="«getGlobalJslibDir(false)»extjscsimdd/«resolveVersionDirectory("1.0.0")»/core/css/core.css" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/css/GridFilters.css" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/css/RangeMenu.css" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/css/MultiSelect.css" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsimdd/Â«resolveVersionDirectory("1.0.0")Â»/core/css/core.css" />
 </resource>
 <resource type="text/javascript">
-	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/menu/RangeMenu.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/menu/ListMenu.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/GridFilters.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/Filter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/StringFilter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/DateFilter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/ListFilter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/NumericFilter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/grid-filter/filter/BooleanFilter.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/MultiSelect.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/multiselect/ItemSelector.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/tree-state/TreePanelStatefull_plugin.js" />
-  	<position value="«getGlobalJslibDir(false)»extjscsicore/«resolveVersionDirectory("1.0.0")»/fileuploadfield/FileUploadField.js" />
-	<position value="«getGlobalJslibDir(false)»extjscsimdd/«resolveVersionDirectory("1.0.0")»/core/core.js" />
-	<position value="«getJsDir(false)»fatclient.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/menu/RangeMenu.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/menu/ListMenu.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/GridFilters.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/Filter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/StringFilter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/DateFilter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/ListFilter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/NumericFilter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/grid-filter/filter/BooleanFilter.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/MultiSelect.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/multiselect/ItemSelector.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/tree-state/TreePanelStatefull_plugin.js" />
+  	<position value="Â«getGlobalJslibDir(false)Â»extjscsicore/Â«resolveVersionDirectory("1.0.0")Â»/fileuploadfield/FileUploadField.js" />
+	<position value="Â«getGlobalJslibDir(false)Â»extjscsimdd/Â«resolveVersionDirectory("1.0.0")Â»/core/core.js" />
+	<position value="Â«getJsDir(false)Â»fatclient.js" />
 </resource>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STATIC RESORCES HTML (per cartuccia NEUTRALE)
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)«ENDREM»
-«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/globalPortal.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/xhtmlStructureUniversal.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/«getNomeCanale(model)»/theme.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»css/«codApplicativo».css" media="screen" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/corner/corner.css" media="screen" />
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (risorse statiche in LOCALE)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupLocal(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/globalPortal.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/xhtmlStructureUniversal.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/Â«getNomeCanale(model)Â»/theme.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getPathComponentDir(model, false)Â»css/Â«codApplicativoÂ».css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/corner/corner.css" media="screen" />
 <!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/ie6.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/ie6.css" media="screen" />
 <![endif]-->
 <!--[if IE 7]>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/«getGlobalXstructureDir(false)»css/ie7.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Â«getGlobalXstructureDir(false)Â»css/ie7.css" media="screen" />
 <![endif]-->
 <!-- funzioni e definizioni javascript -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/«getPathComponentDir(model, false)»js/jsFunctions.js"></script>
-«ENDDEFINE»
+<script type="text/javascript" src="<%=request.getContextPath()%>/Â«getPathComponentDir(model, false)Â»js/jsFunctions.js"></script>
+Â«ENDDEFINEÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)«ENDREM»
-«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
 <s:set name="mddPortalCode" value="getPortalCode()" />
 <s:set name="mddChannelCode" value="getChannelCode()" />
-<s:set name="applicationCssUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»css/«codApplicativo».css')" />
-«ENDIF-»
+<s:set name="applicationCssUrl" value="getStaticResource('Â«getPathComponentDirMultiportal(model, true)Â»css/Â«codApplicativoÂ».css')" />
+Â«ENDIF-Â»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		«FOREACH this.metaAttributes AS metaAttribute-»
-		<meta name="«metaAttribute.name»" content="«metaAttribute.value»" />
-		«ENDFOREACH-»
-		<title>«this.title»</title>
-		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
-		«IF isMultiPortal(model)»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<s:property value="mddChannelCode" />/theme.css" media="screen" />
+		Â«FOREACH this.metaAttributes AS metaAttribute-Â»
+		<meta name="Â«metaAttribute.nameÂ»" content="Â«metaAttribute.valueÂ»" />
+		Â«ENDFOREACH-Â»
+		<title>Â«this.titleÂ»</title>
+		Â«REMÂ»Â«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR modelÂ»Â«ENDREMÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/xhtmlStructureUniversal.css" media="screen" />
+		Â«IF isMultiPortal(model)Â»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/<s:property value="mddChannelCode" />/theme.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<s:property value="applicationCssUrl" />" media="screen" />		
-		«ELSE»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="«getPathComponentDir(model, true)»css/«codApplicativo».css" media="screen" />
-		«ENDIF»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/corner/corner.css" media="screen" />
+		Â«ELSEÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/Â«getNomeCanale(model)Â»/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getPathComponentDir(model, true)Â»css/Â«codApplicativoÂ».css" media="screen" />
+		Â«ENDIFÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/corner/corner.css" media="screen" />
 		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie6.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/ie6.css" media="screen" />
 		<![endif]-->
 		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie7.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/ie7.css" media="screen" />
 		<![endif]-->
 		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="«getJsDir(false)»jsFunctions.js"></script>
-«ENDDEFINE»
+		<script type="text/javascript" src="Â«getJsDir(false)Â»jsFunctions.js"></script>
+Â«ENDDEFINEÂ»
 
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO) (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getHeaderMarkupNoStrutsRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER (risorse statiche in REMOTO) (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupNoStrutsRemote(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-«ENDIF-»
+Â«ENDIF-Â»
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		«FOREACH this.metaAttributes AS metaAttribute-»
-		<meta name="«metaAttribute.name»" content="«metaAttribute.value»" />
-		«ENDFOREACH-»
-		<title>«this.title»</title>
-		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/globalPortal.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/xhtmlStructureUniversal.css" media="screen" />
-		«IF isMultiPortal(model)»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="/ris/utheme/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/«codApplicativo»/css/«codApplicativo».css" media="screen" />		
-		«ELSE»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/«getNomeCanale(model)»/theme.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="«getPathComponentDir(model, true)»css/«codApplicativo».css" media="screen" />
-		«ENDIF»
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/corner/corner.css" media="screen" />
+		Â«FOREACH this.metaAttributes AS metaAttribute-Â»
+		<meta name="Â«metaAttribute.nameÂ»" content="Â«metaAttribute.valueÂ»" />
+		Â«ENDFOREACH-Â»
+		<title>Â«this.titleÂ»</title>
+		Â«REMÂ»Â«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR modelÂ»Â«ENDREMÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/globalPortal.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/xhtmlStructureUniversal.css" media="screen" />
+		Â«IF isMultiPortal(model)Â»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/ris/utheme/<c:out value='${sessionScope["MDD_CHANNEL_CODE"]}' />/Â«codApplicativoÂ»/css/Â«codApplicativoÂ».css" media="screen" />		
+		Â«ELSEÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/Â«getNomeCanale(model)Â»/theme.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getPathComponentDir(model, true)Â»css/Â«codApplicativoÂ».css" media="screen" />
+		Â«ENDIFÂ»
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/corner/corner.css" media="screen" />
 		<!--[if lte IE 6]>
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie6.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/ie6.css" media="screen" />
 		<![endif]-->
 		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="«getGlobalXstructureDir(true)»css/ie7.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="Â«getGlobalXstructureDir(true)Â»css/ie7.css" media="screen" />
 		<![endif]-->
 		<!-- funzioni e definizioni javascript -->
-		<script type="text/javascript" src="«getJsDir(false)»jsFunctions.js"></script>
-«ENDDEFINE»
+		<script type="text/javascript" src="Â«getJsDir(false)Â»jsFunctions.js"></script>
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER di PORTALE«ENDREM»
-«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
-<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="${mddPortalCode}" />
-«ELSE-»
-<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="sp" />
-«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di PORTALEÂ«ENDREMÂ»
+Â«DEFINE getPortalHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
+<r:include url="Â«getPortalPageInclusionPath()Â»portal_header.html" resourceProvider="${mddPortalCode}" />
+Â«ELSE-Â»
+<r:include url="Â«getPortalPageInclusionPath()Â»portal_header.html" resourceProvider="sp" />
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
-<r:include url='«getPortalPageInclusionPath()»portal_header.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
-«ELSE-»
-<r:include url="«getPortalPageInclusionPath()»portal_header.html" resourceProvider="sp" />
-«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di PORTALE (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getPortalHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
+<r:include url='Â«getPortalPageInclusionPath()Â»portal_header.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+Â«ELSE-Â»
+<r:include url="Â«getPortalPageInclusionPath()Â»portal_header.html" resourceProvider="sp" />
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER di APPLICATIVO«ENDREM»
-«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
-<s:set name="applicationHeaderUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/application_header.html')" />
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER di APPLICATIVOÂ«ENDREMÂ»
+Â«DEFINE getApplicationHeader(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
+<s:set name="applicationHeaderUrl" value="getStaticResource('Â«getPathComponentDirMultiportal(model, true)Â»include/application_header.html')" />
 <r:include url="${applicationHeaderUrl}" resourceProvider="${mddPortalCode}" />
-«ELSE-»
-<r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
-«ENDIF-»
-«ENDDEFINE»
+Â«ELSE-Â»
+<r:include url="Â«getPathComponentDir(model, true)Â»include/application_header.html" resourceProvider="sp" />
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«REM»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«IF isMultiPortal(model)-»
-<r:include url='<%="/ris/utheme/"+(String)session.getAttribute("MDD_CHANNEL_CODE")+"/«codApplicativo»/include/application_header.html" %>' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
-«ELSE-»
-<r:include url="«getPathComponentDir(model, true)»include/application_header.html" resourceProvider="sp" />
-«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»[DM] STDMDD-621: Genera la componente di markup (HTML) della HEADER di APPLICATIVO (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getApplicationHeaderNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«IF isMultiPortal(model)-Â»
+<r:include url='<%="/ris/utheme/"+(String)session.getAttribute("MDD_CHANNEL_CODE")+"/Â«codApplicativoÂ»/include/application_header.html" %>' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+Â«ELSE-Â»
+<r:include url="Â«getPathComponentDir(model, true)Â»include/application_header.html" resourceProvider="sp" />
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
-«LET model.structure.appWindow.header.codCanale AS codCanale-»
-«LET model.structure.appWindow.header.codApplicativo AS codApplicativo-»
+Â«REMÂ»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).Â«ENDREMÂ»
+Â«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinksÂ»
+Â«LET model.structure.appWindow.header.codCanale AS codCanale-Â»
+Â«LET model.structure.appWindow.header.codApplicativo AS codApplicativo-Â»
 <%@taglib uri="http://www.csi.it/taglibs/remincl-1.0" prefix="r"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-«IF isMultiPortal(model)-»
+Â«IF isMultiPortal(model)-Â»
 <s:set name="mddPortalCode" value="getPortalCode()" />	
-<s:set name="staticLinksUrl" value="getStaticResource('«getPathComponentDirMultiportal(model, true)»include/static_links.html')" />
+<s:set name="staticLinksUrl" value="getStaticResource('Â«getPathComponentDirMultiportal(model, true)Â»include/static_links.html')" />
 <c:catch var="ex">
 	<r:include url='${staticLinksUrl}' resourceProvider='${mddPortalCode}' />
-«ELSE-»
+Â«ELSE-Â»
 <c:catch var="ex">
-	<r:include url="«getPathComponentDir(model, true)»include/static_links.html" resourceProvider="sp" />
-«ENDIF-»
+	<r:include url="Â«getPathComponentDir(model, true)Â»include/static_links.html" resourceProvider="sp" />
+Â«ENDIF-Â»
 </c:catch>
-«ENDLET-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
-«IF isMultiPortal(model)-»
-<r:include url='«getPortalPageInclusionPath()»portal_footer.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
-«ELSE-»
-<r:include url="«getPortalPageInclusionPath()»portal_footer.html" resourceProvider="sp" />
-«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Genera la componente di markup (HTML) della FOOTERÂ«ENDREMÂ»
+Â«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR FooterÂ»
+Â«IF isMultiPortal(model)-Â»
+<r:include url='Â«getPortalPageInclusionPath()Â»portal_footer.html' resourceProvider='${sessionScope["MDD_PORTAL_CODE"]}' />
+Â«ELSE-Â»
+<r:include url="Â«getPortalPageInclusionPath()Â»portal_footer.html" resourceProvider="sp" />
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

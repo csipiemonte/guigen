@@ -1,41 +1,58 @@
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethod»
-«ERROR "authentication method non supportato:" + this.metaType»»
-«ENDDEFINE»
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethodÂ»
+Â«ERROR "authentication method non supportato:" + this.metaTypeÂ»Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSOÂ»
 	<context-param>
 		<param-name>logoutURL</param-name>
 		<param-value>@LOGOUT_URL@</param-value>
 	</context-param>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE securityRelatedContextParams(GUIModel model) FOR OPAUTHSSOÂ»
 	<context-param>
 		<param-name>logoutURL</param-name>
 		<param-value>@LOGOUT_URL@</param-value>
 	</context-param>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSO»
+Â«DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSOÂ»
 	<context-param>
 		<param-name>logoutURL</param-name>
 		<param-value>@LOGOUT_URL@</param-value>
 	</context-param>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
-«ERROR "authentication method non supportato:" + this.metaType»»
-«ENDDEFINE»
+Â«DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthenticationÂ»
+Â«ERROR "authentication method non supportato:" + this.metaTypeÂ»Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
-«ERROR "authentication method non supportato:" + this.metaType»»
-«ENDDEFINE»
+Â«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethodÂ»
+Â«ERROR "authentication method non supportato:" + this.metaTypeÂ»Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR SSOBARTSSOÂ»
 <!-- ############################################################### 
          definizione filter per autentication con OPAUTH (oracle portal) 
          ###############################################################
@@ -75,7 +92,7 @@
 
 	
 
-    «EXPAND irideIdFilterDef(model) FOR this»
+    Â«EXPAND irideIdFilterDef(model) FOR thisÂ»
     
 	<!-- ################################################################
 	     il filter di autenticazione e' il primo ad essere innescato
@@ -86,17 +103,17 @@
 		<url-pattern>/HomePage.do</url-pattern>
 	</filter-mapping>
 	
-	«EXPAND irideIdFilterMap(model) FOR this»
+	Â«EXPAND irideIdFilterMap(model) FOR thisÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-»
+Â«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR ShibbolethSSO-Â»
 	<!-- ############################################################### 
          definizione filter per autentication con shibboleth 
          ###############################################################
     -->
 
-    «EXPAND irideIdFilterDef(model) FOR this»
+    Â«EXPAND irideIdFilterDef(model) FOR thisÂ»
     
 	<!-- ################################################################
 	     con shibboleth il filter di autenticazione non esiste
@@ -104,15 +121,15 @@
 	     ################################################################
 	-->
 	
-	«EXPAND irideIdFilterMap(model) FOR this»
-«ENDDEFINE»
+	Â«EXPAND irideIdFilterMap(model) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
-«ERROR "authentication method non supportato:" + this.metaType»
-«ENDDEFINE»
+Â«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthenticationÂ»
+Â«ERROR "authentication method non supportato:" + this.metaTypeÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSOÂ»
 	<!-- ############################################################### 
          definizione filter per autentication con OPAUTH (oracle portal) 
          ###############################################################
@@ -128,7 +145,7 @@
 		</init-param>
 		<init-param>
 			<param-name>it.csi.opauth.filter.minAuthLevel</param-name>
-			<param-value>«this.minAuthLevel»</param-value>
+			<param-value>Â«this.minAuthLevelÂ»</param-value>
 		</init-param>
 		<init-param>
 			<param-name>logger</param-name>
@@ -140,7 +157,7 @@
 		</init-param>
 	</filter>
 
-    «EXPAND irideIdFilterDef(model) FOR this»
+    Â«EXPAND irideIdFilterDef(model) FOR thisÂ»
     
 	<!-- ################################################################
 	     il filter di autenticazione e' il primo ad essere innescato
@@ -151,17 +168,17 @@
 		<url-pattern>/HomePage.do</url-pattern>
 	</filter-mapping>
 	
-	«EXPAND irideIdFilterMap(model) FOR this»
-«ENDDEFINE»
+	Â«EXPAND irideIdFilterMap(model) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE irideIdFilterDef(GUIModel model) FOR AutenticationMethod»
+Â«DEFINE irideIdFilterDef(GUIModel model) FOR AutenticationMethodÂ»
 	<filter>
 		<filter-name>IRIDE ID Adapter</filter-name>
-		<filter-class>«getIrideIdAdapterFilterFQN(model)»</filter-class>
+		<filter-class>Â«getIrideIdAdapterFilterFQN(model)Â»</filter-class>
 	</filter>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE irideIdFilterMap(GUIModel model) FOR AutenticationMethod»
+Â«DEFINE irideIdFilterMap(GUIModel model) FOR AutenticationMethodÂ»
 	
 	<!-- ################################################################
 	     il filter di adattamento iride e' il successivo dopo 
@@ -173,12 +190,12 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthentication(GUIModel model) FOR AutenticationMethod»
-«ENDDEFINE»
+Â«DEFINE envConfigForAuthentication(GUIModel model) FOR AutenticationMethodÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthentication(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE envConfigForAuthentication(GUIModel model) FOR OPAUTHSSOÂ»
 	<!-- replace variabili di environment per opauth -->
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@OP_SERVER@"  
@@ -195,9 +212,9 @@
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
 		token="@LOGOUT_URL@"  
 		value="${opauth.logout.url}"/>	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSO»
+Â«DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSOÂ»
 	<!-- replace variabili di environment per shibboleth -->
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@LOGOUT_URL@"  
@@ -205,9 +222,9 @@
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
 		token="@LOGOUT_URL@"  
 		value="${shibboleth.logout.url}"/>	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSOÂ»
 	<!-- replace variabili di environment per SSOBART -->
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@APP_PREFIX@"  
@@ -235,69 +252,69 @@
 		token="@LOGOUT_URL@"  
 		value="${ssobart.logout.url}"/>
 		
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
-«ENDDEFINE»
+Â«DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthenticationÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
+Â«DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModelÂ»
 	<!-- replace variabili di environment per opauth -->
-	<replace file="${build}/temp/«getSpringIRIDE2PDConfig(model)»" 
+	<replace file="${build}/temp/Â«getSpringIRIDE2PDConfig(model)Â»" 
 		token="@IRIDE_PROVIDER_URL@"  
 		value="${iride2.pep.provider.url}"/>	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethod»
-«ENDDEFINE»
+Â«DEFINE templatePropsForAuthentication(GUIModel model) FOR AutenticationMethodÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthentication(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE templatePropsForAuthentication(GUIModel model) FOR OPAUTHSSOÂ»
 #-[configurazione opauth]--------------------------------------------------
 opauth.server.url = spintest.csi.it:7778
 opauth.default.appserver = localhost:8078
 opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
+Â«DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSOÂ»
 #-[configurazione shibboleth]--------------------------------------------------
 shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSOÂ»
 #-[configurazione ssobart]--------------------------------------------------
 ssobart.default.appserver = localhost:8078
 ssobart.validate.server = <server>:<port>
 ssobart.url.paracadute = <url>
-ssobart.codservizio = «getActualSecurityModel(model).securityAppID»
+ssobart.codservizio = Â«getActualSecurityModel(model).securityAppIDÂ»
 ssobart.pepauth.url = t3://iridetest1wls1.csi.it:7111,iridetest1wls2.csi.it:7111
 ssobart.logout.url = https://<ssobartserver>/ssobart/logout
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
-«ERROR ""+this+ "non supportato"»
-«ENDDEFINE»
+Â«DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthenticationÂ»
+Â«ERROR ""+this+ "non supportato"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
+Â«DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModelÂ»
 #-[configurazione iride2]--------------------------------------------------
 iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethod»
-«ENDDEFINE»
+Â«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR AutenticationMethodÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR SSOBARTSSOÂ»
 	<!-- ############################################################## -->
     <!-- # SSOBART                                                     # -->
     <!-- ############################################################## -->
 	<dependency org="csipiemonte" name="ssobart-client" rev="2.1.0" />
 	<dependency org="csipiemonte" name="ssobart-client-pepauth" rev="1.1.0" />
     
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthentication»
-«ENDDEFINE»
+Â«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR CustomAuthenticationÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE ivyDependenciesForAuthentication(GUIModel model) FOR OPAUTHSSOÂ»
 	
 	<!-- ############################################################## -->
     <!-- # OPAUTH                                                     # -->
@@ -311,44 +328,44 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
     <!--  -->
     <dependency org="ibm" name="xml" rev="1.0.0" />
     
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»le librerie client weblogic sono da aggiungere solo se la target
-	 platform è JBOSS
-«ENDREM»
-«DEFINE ivyDependenciesForAuthorization(GUIModel model) FOR SecurityModel-»
-«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+Â«REMÂ»le librerie client weblogic sono da aggiungere solo se la target
+	 platform Ã¨ JBOSS
+Â«ENDREMÂ»
+Â«DEFINE ivyDependenciesForAuthorization(GUIModel model) FOR SecurityModel-Â»
+Â«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-Â»
 	<!-- ############################################################## -->
     <!-- # WEBLOGIC CLIENT (solo per JBoss)                           # -->
     <!-- ############################################################## -->
     <!--  -->
     <dependency org="csipiemonte" name="weblogic-client" rev="3.0.0" />
-«ENDIF-»   
-«ENDDEFINE»
+Â«ENDIF-Â»   
+Â«ENDDEFINEÂ»
 
-«DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
-«EXPAND ApplSessGuardFilter FOR this»
-«IF getActualSecurityModel(this).autenticationMethod!=null»
-«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
-«EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
-«EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR this»
-«EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
-«ENDIF»
-«EXPAND constraintJavaFiles FOR this»
-«EXPAND template::struts2::security::securityHelper::springSecurityHelperClasses FOR this»
-«ENDDEFINE»
+Â«DEFINE securityJavaFiles(boolean skip) FOR GUIModelÂ»
+Â«EXPAND ApplSessGuardFilter FOR thisÂ»
+Â«IF getActualSecurityModel(this).autenticationMethod!=nullÂ»
+Â«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethodÂ»
+Â«EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)Â»
+Â«EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR thisÂ»
+Â«EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethodÂ»
+Â«ENDIFÂ»
+Â«EXPAND constraintJavaFiles FOR thisÂ»
+Â«EXPAND template::struts2::security::securityHelper::springSecurityHelperClasses FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE extraConfigFiles(GUIModel model) FOR AutenticationMethod»
-«ENDDEFINE»
+Â«DEFINE extraConfigFiles(GUIModel model) FOR AutenticationMethodÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE extraConfigFiles(GUIModel model) FOR SSOBARTSSO»
-	«EXPAND template::struts2::security::irideIntegration::pepauthPDFile FOR model»
-«ENDDEFINE»
+Â«DEFINE extraConfigFiles(GUIModel model) FOR SSOBARTSSOÂ»
+	Â«EXPAND template::struts2::security::irideIntegration::pepauthPDFile FOR modelÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE constraintJavaFiles FOR GUIModel»
-«FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«DEFINE constraintJavaFiles FOR GUIModelÂ»
+Â«FILE getSecurityJavaSrcDir(this,true)+"/UISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 import java.util.Map;
-import «getBaseJavaPackage(this)+".business.*;"»
+import Â«getBaseJavaPackage(this)+".business.*;"Â»
 
 public interface UISecConstraint {
 
@@ -356,11 +373,11 @@ public interface UISecConstraint {
 	public static final int VISIB_CONSTRAINED_BEHAVIOR = 2;
 	public boolean verifyConstraint(Map session, int checkedBehavior, SecurityHelper sh) throws BEException;
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/AbstractUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public abstract class AbstractUISecConstraint implements UISecConstraint{
 
@@ -457,12 +474,12 @@ public AbstractUISecConstraint(String nomeContainer, String nomeWidget, int cons
 	public abstract boolean specificCheck(Map session, SecurityHelper sh) throws BEException;
 	
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/CustomUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/CustomUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class CustomUISecConstraint extends AbstractUISecConstraint {
 
@@ -477,11 +494,11 @@ public class CustomUISecConstraint extends AbstractUISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/ActorBasedUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 
@@ -499,11 +516,11 @@ public class ActorBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/RoleBasedUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 
@@ -523,12 +540,12 @@ public class RoleBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/UCBasedUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 
@@ -546,12 +563,12 @@ public class UCBasedUISecConstraint extends AbstractUISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/ComplexUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class ComplexUISecConstraint implements UISecConstraint {
 
@@ -578,12 +595,12 @@ public class ComplexUISecConstraint implements UISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSecurityJavaSrcDir(this,true)+"/DummyUISecConstraint.java"»package «getSecurityJavaPackage(this)»;
+Â«FILE getSecurityJavaSrcDir(this,true)+"/DummyUISecConstraint.java"Â»package Â«getSecurityJavaPackage(this)Â»;
 
 import java.util.Map;
-import «getBaseJavaPackage()+".business.*;"»
+import Â«getBaseJavaPackage()+".business.*;"Â»
 
 public class DummyUISecConstraint extends AbstractUISecConstraint {
 
@@ -602,14 +619,14 @@ public class DummyUISecConstraint extends AbstractUISecConstraint {
 	}
 
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«DEFINE ApplSessGuardFilter FOR GUIModel»
-«FILE getSessionGuardFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
+Â«DEFINE ApplSessGuardFilter FOR GUIModelÂ»
+Â«FILE getSessionGuardFilterJavaFile(this, true)Â»package Â«getFiltersJavaPackage(this)Â»;
 
 import it.csi.iride2.policy.entity.Identita;
 import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
@@ -627,14 +644,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.*;
-import «getBaseJavaPackage()».util.*;
+import Â«getBaseJavaPackage()Â».util.*;
 
 /**
  * Gestisce la validit&agrave; della sessione applicativa. 
  *
  * @author CSIPiemonte
  */
-public class «getSessionGuardFilterClassName()» implements Filter {
+public class Â«getSessionGuardFilterClassName()Â» implements Filter {
 
 	public static final String VALID_APP_SESSION_SESSIONATTR = "valid_app_session";
 
@@ -708,12 +725,12 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 		// NOP
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanel»
+Â«DEFINE securedWidgetCheck(GUIModel model) FOR ContentPanelÂ»
 // ridefinizione dei metodi di verifica visibilita'/validazione
 // per supportare i security check
 
@@ -724,7 +741,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return !ctr.verifyConstraint(session, UISecConstraint.ONOFF_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsActionClassName(this)»::isWidgetDisabled] errore durante verifica->disable");
+				log.error("[Â«getStrutsActionClassName(this)Â»::isWidgetDisabled] errore durante verifica->disable");
 				return true; // forzo la DISABILITAZIONE
 			}
 		}
@@ -739,7 +756,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 				return ctr.verifyConstraint(session, UISecConstraint.VISIB_CONSTRAINED_BEHAVIOR, getSpringSecurityHelper());
 			}
 			catch(BEException ex){
-				log.error("[«getStrutsActionClassName(this)»::isWidgetVisible] errore durante verifica->hide");
+				log.error("[Â«getStrutsActionClassName(this)Â»::isWidgetVisible] errore durante verifica->hide");
 				return false; // forzo l'invisibilita'
 			}
 		}
@@ -747,10 +764,10 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			return super.isWidgetVisible(cpName, widgShortName);
 	}
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»#######«ENDREM»
+Â«REMÂ»#######Â«ENDREMÂ»
 
 
 

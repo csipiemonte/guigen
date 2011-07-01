@@ -1,57 +1,74 @@
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«DEFINE main(String targetProjectPrefix) FOR GUIModel»
-	«REM»[DM]STDMDD-621: i files di enrichments vengono generati SEMPRE dalla cartuccia struts2 in LOCALE
-	«EXPAND contentPanelsFiles FOR this»«ENDREM»
-	«EXPAND insertFatClientJsFile FOR this»
-	«EXPAND buildFiles(targetProjectPrefix) FOR this»
-«ENDDEFINE»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
 
-«REM»Genera le Actions Struts2 corrispondenti ai ContentPanels dell'applicazione«ENDREM»
-«DEFINE contentPanelsFiles FOR GUIModel»
-	«REM»Espande ogni ContentPanels dell'applicazione come Action Struts2 + pagina JSP«ENDREM»
-	«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanels»
-		«EXPAND contentPanelFiles(this) FOREACH contentPanels»
-	«ENDLET»
-«ENDDEFINE»
+Â«DEFINE main(String targetProjectPrefix) FOR GUIModelÂ»
+	Â«REMÂ»[DM]STDMDD-621: i files di enrichments vengono generati SEMPRE dalla cartuccia struts2 in LOCALE
+	Â«EXPAND contentPanelsFiles FOR thisÂ»Â«ENDREMÂ»
+	Â«EXPAND insertFatClientJsFile FOR thisÂ»
+	Â«EXPAND buildFiles(targetProjectPrefix) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE contentPanelFiles(GUIModel model) FOR ContentPanel»
-	«IF model.targetPlatform.enableRichUIBehavior-»
-		«FILE getWebSrcDir(model, true)+getPathComponentDir(model, true)+"js/"+getEnrichmentFileWebRootRelative(this, model)»
-		«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, true) FOR this»
-		«ENDFILE»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»Genera le Actions Struts2 corrispondenti ai ContentPanels dell'applicazioneÂ«ENDREMÂ»
+Â«DEFINE contentPanelsFiles FOR GUIModelÂ»
+	Â«REMÂ»Espande ogni ContentPanels dell'applicazione come Action Struts2 + pagina JSPÂ«ENDREMÂ»
+	Â«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanelsÂ»
+		Â«EXPAND contentPanelFiles(this) FOREACH contentPanelsÂ»
+	Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE insertFatClientJsFile FOR GUIModel»
-«IF targetPlatform.enableFatClient»
-«FILE getWebSrcDir(true)+getPathComponentDir(this, true)+"js/fatclient.js"»
+Â«DEFINE contentPanelFiles(GUIModel model) FOR ContentPanelÂ»
+	Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+		Â«FILE getWebSrcDir(model, true)+getPathComponentDir(model, true)+"js/"+getEnrichmentFileWebRootRelative(this, model)Â»
+		Â«EXPAND template::struts2::view::enrichments::enrichmentsCommon(model, true) FOR thisÂ»
+		Â«ENDFILEÂ»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE insertFatClientJsFile FOR GUIModelÂ»
+Â«IF targetPlatform.enableFatClientÂ»
+Â«FILE getWebSrcDir(true)+getPathComponentDir(this, true)+"js/fatclient.js"Â»
 
 /**
  * Definizione della struttura ExtCSI dell'applicazione
  */
-«EXPAND template::fatjs::model::types::types FOR this»
-«EXPAND template::fatjs::model::data::datas FOR this»
-«EXPAND template::fatjs::Main::appAreaStruct(this) FOR this.structure.appWindow.appArea»
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+Â«EXPAND template::fatjs::model::types::types FOR thisÂ»
+Â«EXPAND template::fatjs::model::data::datas FOR thisÂ»
+Â«EXPAND template::fatjs::Main::appAreaStruct(this) FOR this.structure.appWindow.appAreaÂ»
+Â«ENDFILEÂ»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE buildFiles(String targetProjectPrefix) FOR GUIModel»
-«FILE getBuildPropertiesFileName(this, true)»##############################################################################
+Â«DEFINE buildFiles(String targetProjectPrefix) FOR GUIModelÂ»
+Â«FILE getBuildPropertiesFileName(this, true)Â»##############################################################################
 # Build.properties
 ##############################################################################
-# - Generato da GUIGEN, versione «getPluginVersion()»
+# - Generato da GUIGEN, versione Â«getPluginVersion()Â»
 
 # - [Definizione del Prodotto] -----------------------------------------------
-  prodotto    = «codProdotto»
-  componente  = «codComponente»
-  version     = «versioneComponente»
-  targetProjectPrefix = «targetProjectPrefix»
+  prodotto    = Â«codProdottoÂ»
+  componente  = Â«codComponenteÂ»
+  version     = Â«versioneComponenteÂ»
+  targetProjectPrefix = Â«targetProjectPrefixÂ»
   
   # - [Definizione dei files di output] ----------------------------------------
   zip-file-name  		= ${targetProjectPrefix}wr.tar
@@ -65,8 +82,8 @@
   dist        = ${basedir}/dist
   docs        = ${basedir}/docs
   temp        = ${build}/temp
- «ENDFILE»
- «FILE getBuildXmlFileName(this, true)»<?xml version="1.0" encoding="UTF-8"?>
+ Â«ENDFILEÂ»
+ Â«FILE getBuildXmlFileName(this, true)Â»<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ##################################################### -->
 <!-- # Copyright 2006 (c) CSI Piemonte.                  # -->
@@ -81,10 +98,10 @@
 
 <project basedir="."
          default="default"
-         name="«targetProjectPrefix»webres"
+         name="Â«targetProjectPrefixÂ»webres"
          xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
 
-  <description>Build file per il progetto: [«targetProjectPrefix»webres]</description>
+  <description>Build file per il progetto: [Â«targetProjectPrefixÂ»webres]</description>
   
   <!-- -->
 	<property file="buildfiles/build.properties" />
@@ -276,5 +293,5 @@
 
 
 </project>
- «ENDFILE»
-«ENDDEFINE»
+ Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

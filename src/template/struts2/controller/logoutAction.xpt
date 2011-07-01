@@ -1,33 +1,50 @@
-«IMPORT guigen»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
 
-«REM»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 ACTIONS FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»Genera la Action di Struts che gestisce l'azione di Logout«ENDREM»
-«DEFINE struts2LogoutJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
-«FILE getStrutsLogoutJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+Â«REMÂ»Genera la Action di Struts che gestisce l'azione di LogoutÂ«ENDREMÂ»
+Â«DEFINE struts2LogoutJavaFile(boolean skip_component_dir_creation) FOR GUIModelÂ»
+Â«FILE getStrutsLogoutJavaFile(this, skip_component_dir_creation)Â»package Â«getPresentationJavaPackage(this)Â»;
 
 import java.util.*;
 
-import «getDTOBaseJavaPackage(this)».*;
+import Â«getDTOBaseJavaPackage(this)Â».*;
 
 /**
- * «getStrutsLogoutClassName(this)» Action Class.
+ * Â«getStrutsLogoutClassName(this)Â» Action Class.
  *
  * @author GuiGen
  */
-public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+public class Â«getStrutsLogoutClassName(this)Â» extends Â«getStrutsBaseActionClassName(this)Â» {
 
     
     /**
@@ -53,10 +70,10 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 	 */
 	public String ssoLogout() throws Exception {
 		
-		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		log.debug("[Â«getStrutsLogoutClassName(this)Â»::ssoLogout] START");
 		
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		log.debug("[Â«getStrutsLogoutClassName(this)Â»::ssoLogout] START");
 		return "SSO_LOGOUT";
 	}
 
@@ -67,17 +84,17 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 	 */
 	public String localLogout() throws Exception {
 		
-		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		log.debug("[Â«getStrutsLogoutClassName(this)Â»::localLogout] START");
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		log.debug("[Â«getStrutsLogoutClassName(this)Â»::localLogout] START");
 		return "LOCAL_LOGOUT";
 	}
 
-	«IF getActualSecurityModel(this)!=null && getActualSecurityModel(this).autenticationMethod!=null-»
-		«EXPAND invalidateLocalSession(this) FOR getActualSecurityModel(this).autenticationMethod-»
-	«ELSE-»
-		«EXPAND invalidateLocalSessionNoAuth FOR this-»
-	«ENDIF-»
+	Â«IF getActualSecurityModel(this)!=null && getActualSecurityModel(this).autenticationMethod!=null-Â»
+		Â«EXPAND invalidateLocalSession(this) FOR getActualSecurityModel(this).autenticationMethod-Â»
+	Â«ELSE-Â»
+		Â«EXPAND invalidateLocalSessionNoAuth FOR this-Â»
+	Â«ENDIF-Â»
 	
 	/**
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
@@ -88,45 +105,45 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassN
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE invalidateLocalSession(GUIModel model) FOR AutenticationMethod»
-«ERROR ""+this+ "non supportato"»
-«ENDDEFINE»
+Â«DEFINE invalidateLocalSession(GUIModel model) FOR AutenticationMethodÂ»
+Â«ERROR ""+this+ "non supportato"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE invalidateLocalSessionNoAuth FOR GUIModel»
+Â«DEFINE invalidateLocalSessionNoAuth FOR GUIModelÂ»
 	protected void invalidateLocalSession(){
 		/// NOP
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE invalidateLocalSession(GUIModel model) FOR OPAUTHSSO»
+Â«DEFINE invalidateLocalSession(GUIModel model) FOR OPAUTHSSOÂ»
 	/**
 	 * Invalida gli attributi di autenticazione contenuti in sessione
 	 */
 	protected void invalidateLocalSession(){
-		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
-		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		session.remove(Â«getIrideIdAdapterFilterFQN(model)Â».AUTH_ID_MARKER);
+		session.remove(Â«getIrideIdAdapterFilterFQN(model)Â».IRIDE_ID_SESSIONATTR);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE invalidateLocalSession(GUIModel model) FOR SSOBARTSSO»
+Â«DEFINE invalidateLocalSession(GUIModel model) FOR SSOBARTSSOÂ»
 	/**
 	 * Invalida gli attributi di autenticazione contenuti in sessione
 	 */
 	protected void invalidateLocalSession(){
-		session.remove(«getIrideIdAdapterFilterFQN(model)».AUTH_ID_MARKER);
-		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		session.remove(Â«getIrideIdAdapterFilterFQN(model)Â».AUTH_ID_MARKER);
+		session.remove(Â«getIrideIdAdapterFilterFQN(model)Â».IRIDE_ID_SESSIONATTR);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE invalidateLocalSession(GUIModel model) FOR ShibbolethSSO»
+Â«DEFINE invalidateLocalSession(GUIModel model) FOR ShibbolethSSOÂ»
 	/**
 	 * Invalida gli attributi di autenticazione contenuti in sessione
 	 */
 	protected void invalidateLocalSession(){
-		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		session.remove(Â«getIrideIdAdapterFilterFQN(model)Â».IRIDE_ID_SESSIONATTR);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
