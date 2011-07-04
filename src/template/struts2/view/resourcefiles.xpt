@@ -1083,10 +1083,14 @@ come target di refresh.
         cssFolderClosedClass="treeFolderClosed" cssDotClass="treeDot"
 		linkOnTree="true" id="«name»"
 		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size==1-»
-		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do" showChildNumber="false">
+		requestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do"
 		«ELSE-»
-		requestURI="«getStrutsActionConfigName(cp)».do" showChildNumber="false">
+		requestURI="«getStrutsActionConfigName(cp)».do" 
 		«ENDIF-»
+		«IF this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).size==1-»
+		nodeExpandedRequestURI="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::NODE_EXPANDED).first(), contextPrefix)».do"
+		«ENDIF-»
+		showChildNumber="false">
 	</customtag:tree>
 «IF refreshIds !=null && model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
