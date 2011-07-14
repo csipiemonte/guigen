@@ -258,6 +258,10 @@ public class WhereAreYouFromFilter implements Filter {
 
 				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, portalName);
 				hreq.getSession().setAttribute(MultiPortalUtil.MDD_CHANNEL_SESSIONATTR, channelName);
+
+				String portalHome = hreq.getSession().getServletContext().getInitParameter("portal.home."+portalName);
+				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_HOME_SESSIONATTR, 
+						portalHome!= null && portalHome.length() > 0 ? portalHome : "#");
 			}
 		}
 
@@ -310,6 +314,7 @@ public class MultiPortalUtil {
 	
 	public static final String MDD_PORTAL_SESSIONATTR = "MDD_PORTAL_CODE";
 	public static final String MDD_CHANNEL_SESSIONATTR = "MDD_CHANNEL_CODE";
+	public static final String MDD_PORTAL_HOME_SESSIONATTR = "MDD_PORTAL_HOME";
 
 	public static final String ERROR_ACTION = "unknownPortal.do";
 	public static final String ERROR_PAGE = "unknownPortal.jsp";

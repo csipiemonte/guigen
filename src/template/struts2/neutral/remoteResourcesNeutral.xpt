@@ -114,10 +114,9 @@ Definizioni generali: Pagine di ERRORE
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
 	«IF isMultiPortal(this)-»
-		<c:set var="portalHomePage" value="<%= "portal.home." + (String)session.getAttribute("MDD_PORTAL_CODE") %>" />
-		<a href="<c:out value='${!empty initParam[portalHomePage] ? initParam[portalHomePage] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		<a href="<c:out value='${sessionScope["MDD_PORTAL_HOME"]}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 	«ELSE-»
-		<a href="<c:out value='${!empty initParam["portal.home"] ? initParam["portal.home"] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		<a href="<c:out value='${initParam["portal.home"]}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 	«ENDIF-»
 	</div>
 	<div class="button right">
@@ -162,10 +161,9 @@ Definizioni generali: Pagine di ERRORE
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
 	«IF isMultiPortal(this)-»
-		<c:set var="portalHomePage" value="<%= "portal.home." + (String)session.getAttribute("MDD_PORTAL_CODE") %>" />
-		<a href="<c:out value='${!empty initParam[portalHomePage] ? initParam[portalHomePage] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		<a href="<c:out value='${sessionScope["MDD_PORTAL_HOME"]}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 	«ELSE-»
-		<a href="<c:out value='${!empty initParam["portal.home"] ? initParam["portal.home"] : "#"}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
+		<a href="<c:out value='${initParam["portal.home"]}' />" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 	«ENDIF-»
 	</div>
 	<div class="button right">
