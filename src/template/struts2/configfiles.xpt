@@ -405,9 +405,12 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 «FILE getWlWebDeploymentDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
 
 <weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
-  <session-descriptor>
-    <persistent-store-type>replicated_if_clustered</persistent-store-type>
-  </session-descriptor>
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("wl92.weblogic.xml")»
+	<!-- Inserire qui i parametri di configurazione -->
+	<session-descriptor>
+		<persistent-store-type>replicated_if_clustered</persistent-store-type>
+	</session-descriptor>
+	«ENDPROTECT»
 </weblogic-web-app>
 «ENDFILE»
 «ENDDEFINE»
