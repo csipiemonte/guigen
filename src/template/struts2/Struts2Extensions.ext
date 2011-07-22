@@ -617,6 +617,11 @@ String methodProtectionAnnotation(EventHandler evh) :
 		"@MethodProtection (level=\"REJECT_ALL\")"
 	;
 
+// [DM] STDMDD-
+List[String] addTableRefreshTargetId(List[String] targetIds, String tableId) :
+	!targetIds.contains(tableId) ? targetIds.add(tableId) : targetIds;
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 /// DATA PROVIDER
 String getDataProviderMethodName(Widget source, String providedDataTipology, String contextPrefix) :
@@ -1040,7 +1045,6 @@ boolean calendarDataBindingTypeCheck(Calendar c) : JAVA
 // [DM] Verifica la corrispondenza di tipo tra DataWidget e binding.
 boolean widgetDataBindingCorrispondenceCheck(DataWidget w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.widgetDataBindingCorrispondenceCheck(it.csi.mddtools.guigen.DataWidget);
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

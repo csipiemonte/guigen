@@ -960,7 +960,7 @@ come target di refresh.
 <!-- widget «getFullID(this, contextPrefix)» -->
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET getRefreshTargetIds(this) AS targetIdsTemp-»
-«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS targetIds-»
+«LET targetIdsTemp!=null ? addTableRefreshTargetId(targetIdsTemp, getFragmentId(parentPanel)) : {getFragmentId(parentPanel)} AS targetIds-»
 «IF model.targetPlatform.enableRichUIBehavior-»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader((List[String])targetIds,cp, contextPrefix) FOR this-»
 «ENDIF-»
