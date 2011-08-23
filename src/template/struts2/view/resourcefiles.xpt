@@ -1014,10 +1014,11 @@ come target di refresh.
 		<display:column titleKey="«cp.name».«getFullID(this, contextPrefix)».«currCol.selector».label"
 						sortable="«currCol.sortable»" headerClass="«currCol.sortable ? "sortable" : "nosort"»" media="html">
 				<s:if test="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.activeFlagSelector» == true}">
-					<s:url id="targetUrlLinkableCell"
-						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)».do?idColonna=«currCol.selector»"
+					<s:url id="targetUrlLinkableCell"						   
+						   action="«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix)»"
 						   includeParams="none" >
-						<s:param name="idRiga" value="«tabColMod.valueSelector»" />
+						<s:param name="idRiga"  value="%{#attr.row_«getFullID(this, contextPrefix)».«this.columnModel.valueSelector»}"/>
+						<s:param name="idColonna"> «currCol.selector» </s:param>
 					</s:url>
 					<s:a href="%{targetUrlLinkableCell}" id="id_linkable_cell">
 						<s:property value="%{#attr.row_«getFullID(this, contextPrefix)».«currCol.selector»}"/>
