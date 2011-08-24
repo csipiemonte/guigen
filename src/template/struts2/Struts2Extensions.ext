@@ -1075,6 +1075,10 @@ String getToggleHandleHtml(WidgetsPanel fp, String contextPrefix) :
 	"<span id=\"toggle_"+getFullID(fp,contextPrefix)+"\"></span>"
 	else "";
 
+String getEventSpecifierValue(EventHandler evh, String specifierCode) :
+	let targetSpec = evh.eventSpecifiers.selectFirst(e|e.startsWith(specifierCode)) :
+	targetSpec != null ? targetSpec.subString(specifierCode.length+1,targetSpec.length) : "null";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///******************************************************************************************//
 /// Estensioni ridefinite per i portali specifici mediante AOP                               //

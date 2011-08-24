@@ -203,7 +203,7 @@ Ext.onReady( function() {
 			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
-			 «required ? "true" : "false"»)}; 
+			 «required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
@@ -248,7 +248,7 @@ Ext.onReady( function() {
 			'',
 			'',
 			«ENDIF-»
-			«required ? "true" : "false"»)}; 
+			«required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addSuggestionsTo«name.toFirstUpper()»);
 «ENDLET-»
 «ELSE-»
