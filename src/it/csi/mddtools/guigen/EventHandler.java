@@ -20,6 +20,7 @@
  */
 package it.csi.mddtools.guigen;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventType <em>Event Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#isSkipValidation <em>Skip Validation</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.EventHandler#getMethodProtection <em>Method Protection</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.EventHandler#getEventSpecifiers <em>Event Specifiers</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,5 +180,45 @@ public interface EventHandler extends EObject {
 	 * @generated
 	 */
 	void setMethodProtection(MethodProtectionTypes value);
+
+	/**
+	 * Returns the value of the '<em><b>Event Specifiers</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Event Specifiers</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Permette di specificare ulteriormente la gestione dell'evento. 
+	 * E' possibile inserire 0, 1 o molti specificatori:
+	 * <ul>
+	 * <li>lo specificatore viene scritto in formato testo e la 
+	 *  sintassi di ciascun specificatore &egrave; tipicamente del tipo:
+	 * &lt;cod_specificatore&gt;=&lt;val_specificatore&gt; 
+	 * (esempio: <i>min_chars=3</i>)
+	 * </li>
+	 * <li>le possibili valorizzazioni dipendono fortemente dal tipo di evento gestito.
+	 * Attualmente le possibiit&agrave; sono:
+	 *   <ul>
+	 *   <li>evento <b>KEYPRESSED</b>:
+	 *     <ul>
+	 *     <li><i>min_chars=&lt;numero&gt;</i>: permette di specificare il numero
+	 *            di caratteri minimo affinch&egrave; scatti la query di <i>suggestion</i>
+	 *            (il default &egrave: 4)
+	 *      </li>
+	 *     </ul>
+	 *   </li>
+	 *   </ul>
+	 * </li>
+	 * </ul>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Event Specifiers</em>' attribute list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getEventHandler_EventSpecifiers()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getEventSpecifiers();
 
 } // EventHandler

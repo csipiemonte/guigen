@@ -3963,13 +3963,22 @@ public interface GuigenPackage extends EPackage {
 	int EVENT_HANDLER__METHOD_PROTECTION = 3;
 
 	/**
+	 * The feature id for the '<em><b>Event Specifiers</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_HANDLER__EVENT_SPECIFIERS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Event Handler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_HANDLER_FEATURE_COUNT = 4;
+	int EVENT_HANDLER_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of structural features of the '<em>Widget Target Action</em>' class.
@@ -11235,6 +11244,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getEventHandler_MethodProtection();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link it.csi.mddtools.guigen.EventHandler#getEventSpecifiers <em>Event Specifiers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Event Specifiers</em>'.
+	 * @see it.csi.mddtools.guigen.EventHandler#getEventSpecifiers()
+	 * @see #getEventHandler()
+	 * @generated
+	 */
+	EAttribute getEventHandler_EventSpecifiers();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16168,6 +16188,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT_HANDLER__METHOD_PROTECTION = eINSTANCE.getEventHandler_MethodProtection();
+
+		/**
+		 * The meta object literal for the '<em><b>Event Specifiers</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT_HANDLER__EVENT_SPECIFIERS = eINSTANCE.getEventHandler_EventSpecifiers();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetTargetAction <em>Widget Target Action</em>}' class.

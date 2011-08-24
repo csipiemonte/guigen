@@ -82,6 +82,7 @@ public class EventHandlerItemProvider
 			addEventTypePropertyDescriptor(object);
 			addSkipValidationPropertyDescriptor(object);
 			addMethodProtectionPropertyDescriptor(object);
+			addEventSpecifiersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -144,6 +145,28 @@ public class EventHandlerItemProvider
 				 getString("_UI_EventHandler_methodProtection_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EventHandler_methodProtection_feature", "_UI_EventHandler_type"),
 				 GuigenPackage.Literals.EVENT_HANDLER__METHOD_PROTECTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Event Specifiers feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEventSpecifiersPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EventHandler_eventSpecifiers_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EventHandler_eventSpecifiers_feature", "_UI_EventHandler_type"),
+				 GuigenPackage.Literals.EVENT_HANDLER__EVENT_SPECIFIERS,
 				 true,
 				 false,
 				 false,
@@ -223,6 +246,7 @@ public class EventHandlerItemProvider
 			case GuigenPackage.EVENT_HANDLER__EVENT_TYPE:
 			case GuigenPackage.EVENT_HANDLER__SKIP_VALIDATION:
 			case GuigenPackage.EVENT_HANDLER__METHOD_PROTECTION:
+			case GuigenPackage.EVENT_HANDLER__EVENT_SPECIFIERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.EVENT_HANDLER__COMMAND:

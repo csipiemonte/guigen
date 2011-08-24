@@ -1040,6 +1040,12 @@
         <details key="documentation" value="Permette di proteggere l'esecuzione del metodo associato all'&lt;b>EventHandler&lt;/b>&#xD;&#xA;da effetti indesiderati derivanti dal'eventuale esecuzione contemporanea di altri metodi.&#xD;&#xA;Le possibili protezioni sono:&#xD;&#xA;&lt;ol>&#xD;&#xA;&lt;li>&lt;b>allowAll&lt;/b>: permette l'esecuzione contemporanea di qualsiasi metodo (nessuna &#xD;&#xA;protezione)&lt;/li>&#xD;&#xA;&lt;li>&lt;b>rejectSame&lt;/b> (&lt;i>default&lt;/i>): evita l'esecuzione contemporanea di altre istanze dello stesso &#xD;&#xA;metodo (protezione tipica del doppio click su uno stesso pulsante)&lt;/li>&#xD;&#xA;&lt;li>&lt;b>rejectAll&lt;/b>: evita l'esecuzione contemporanea di altre istanze di qualsiasi &#xD;&#xA;metodo (protezione cautelativa globale)&lt;/li>&#xD;&#xA;&lt;/ol>"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventSpecifiers" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Permette di specificare ulteriormente la gestione dell'evento. &#xD;&#xA;E' possibile inserire 0, 1 o molti specificatori:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>lo specificatore viene scritto in formato testo e la &#xD;&#xA; sintassi di ciascun specificatore &amp;egrave; tipicamente del tipo:&#xD;&#xA;&amp;lt;cod_specificatore&amp;gt;=&amp;lt;val_specificatore&amp;gt; &#xD;&#xA;(esempio: &lt;i>min_chars=3&lt;/i>)&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;li>le possibili valorizzazioni dipendono fortemente dal tipo di evento gestito.&#xD;&#xA;Attualmente le possibiit&amp;agrave; sono:&#xD;&#xA;  &lt;ul>&#xD;&#xA;  &lt;li>evento &lt;b>KEYPRESSED&lt;/b>:&#xD;&#xA;    &lt;ul>&#xD;&#xA;    &lt;li>&lt;i>min_chars=&amp;lt;numero&amp;gt;&lt;/i>: permette di specificare il numero&#xD;&#xA;           di caratteri minimo affinch&amp;egrave; scatti la query di &lt;i>suggestion&lt;/i>&#xD;&#xA;           (il default &amp;egrave: 4)&#xD;&#xA;     &lt;/li>&#xD;&#xA;    &lt;/ul>&#xD;&#xA;  &lt;/li>&#xD;&#xA;  &lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MethodProtectionTypes">
     <eAnnotations source="logicpkg">
