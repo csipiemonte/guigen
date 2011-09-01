@@ -483,7 +483,13 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<interceptor-ref name="tableSelection" />
 				<interceptor-ref name="static-params" />
 				<interceptor-ref name="servlet-config" />
+				«IF isNullOrEmpty(getProperty("guigen.fileUpload.maximumFileSize"))-»
 				<interceptor-ref name="fileUpload"/>
+				«ELSE-»
+				<interceptor-ref name="fileUpload">
+       				<param name="maximumSize">«getProperty("guigen.fileUpload.maximumFileSize").asInteger()»</param>
+  	    		</interceptor-ref>
+				«ENDIF-»		
 				«IF targetPlatform.enableFatClient-»
 				<interceptor-ref name="preserveUpload"/>
 				«ENDIF-»
