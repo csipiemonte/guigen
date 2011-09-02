@@ -236,6 +236,18 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR MenuView»
 «ENDDEFINE»
 
+«DEFINE widgetStruct(GUIModel model, ContentPanel cp) FOR MapView»
+			new ExtCsi.ui.widgets.MapView(
+				{
+					«EXPAND widgetCommonProperties(model) FOR this»,
+					«EXPAND dataWidgetProperties(model) FOR this»,
+					«EXPAND multidataWidgetProperties(model, cp) FOR this»,
+					«EXPAND eventHandlers(model, cp) FOR this»
+				}
+			)
+«ENDDEFINE»
+
+
 «DEFINE widgetCommonProperties(GUIModel model) FOR Widget»
 					name: «jsLiteralValue(this.name)»,
 					label: «jsLiteralValue(this.label)»,
