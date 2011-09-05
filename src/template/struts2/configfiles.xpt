@@ -455,10 +455,16 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	<constant name="struts.i18n.reload" value="false" />
 	<constant name="struts.custom.i18n.resources" value="globalMessages" />
 	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
-	<!-- costanti per il fileUpload interceptor: settare solo se necessarie
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	«IF isNullOrEmpty(getProperty("guigen.fileUpload.totalMaximumFileSize"))-»
 	<constant name="struts.multipart.maxSize" value="4524288" />
-	<constant name="struts.multipart.saveDir" value="/tmp" />
-	-->
+	«ELSE-»
+	<constant name="struts.multipart.maxSize" value="«getProperty("guigen.fileUpload.totalMaximumFileSize").asInteger()»" />
+	«ENDIF-»
+	<!--<constant name="struts.multipart.saveDir" value="/tmp" />-->
+	
+	
+	
 	
 	<package name="jsp-package" extends="struts-default">
 		<interceptors>
