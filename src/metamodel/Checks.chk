@@ -319,8 +319,8 @@ context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) WARNING "L'attri
 context Menu ERROR "Il nome dei menu deve essere univoco all'interno del modello: "+loc() : 
 	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
 
-context Menu WARNING "Il menu "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() :
-	this.eventHandler != null; 
+context Menu if(this.submenu.size == 0) WARNING "Il menu "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() + " Numero di submenus --> " + this.submenu.size :
+	this.eventHandler != null ; 
 
 // [DM] STDMDD-241: razionalizzazione e completamento gestione casistiche rendering menu -> MenuItem DEPRECATO
 context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc() : 
