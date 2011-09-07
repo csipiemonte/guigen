@@ -416,9 +416,8 @@ context Column if (!editable) WARNING "La colonna "+this.label+" non è editabile
 context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un Pannello con Vertical o Horizontal layout " + loc() :
  	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;
  
-// [DM] Button
-context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito " + loc() :
-	this.eContainer.metaType == CommandPanel;
+
+
 	
 context Button if (metaType != ResetButton) ERROR "Ogni pulsante non di reset deve avere un eventHandler associato "+ loc() :
 	this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size > 0;  

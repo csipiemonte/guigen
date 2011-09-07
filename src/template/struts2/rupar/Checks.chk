@@ -11,6 +11,9 @@ extension template::struts2::rupar::Struts2ExtensionsRupar;
 /// Check COMUNI a tutte le cartucce ma con contenuti dipendenti dalla cartuccia                                    //
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito " + loc() :
+	this.eContainer.metaType == CommandPanel;
+
 
 context Header ERROR "E' necessario impostare il codice 'applicativo' nell'oggetto Header "+
 					 "(serve per referenziare le risorse remote)" :

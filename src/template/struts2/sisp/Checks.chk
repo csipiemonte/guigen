@@ -16,7 +16,8 @@ context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' 
 					 "(servono per referenziare le risorse remote)" :
 	codCanale != null && codCanale != "" && codApplicativo != null && codApplicativo != "";
 
-
+context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito" + loc() :
+	this.eContainer.metaType == CommandPanel;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///// Validazione su pannelli
 
