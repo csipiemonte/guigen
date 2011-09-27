@@ -499,13 +499,22 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 «ENDREM»
 
 «REM»Replacent delle variabili di resource provider nel file build.xml«ENDREM»
-«DEFINE buildXmlResourceProvederReplacement FOR GUIModel»
+«DEFINE buildXmlResourceProviderReplacement FOR GUIModel»
 «FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
 <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider.«code»@@@" value="${remincl.resource.provider.«code»}"/>
 <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home.«code»@@@"  value="${portal.home.«code»}"/>
 «ENDFOREACH-»
 «ENDDEFINE»
 
+
+«REM»[DM] STDMDD-900: replacement delle variabili del local logout nel file build.xml«ENDREM»
+«DEFINE buildXmlLocalLogoutReplacement FOR GUIModel»
+«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+	token="@LOCAL_LOGOUT_URL.«code»@"  
+	value="${local.logout.url.«code»}"/>
+«ENDFOREACH-»
+«ENDDEFINE»
 
 «REM»Definizione e mapping dei filtri per il "Where Are You From"«ENDREM»
 «DEFINE multiportalFiltersDefAndMapping FOR GUIModel»

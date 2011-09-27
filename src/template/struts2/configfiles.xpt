@@ -203,6 +203,19 @@ e le limitazioni secondo i termini della Licenza.
 «IF getActualSecurityModel(this).autenticationMethod!=null»
 	«EXPAND template::struts2::security::security::securityRelatedContextParams(this) FOR getActualSecurityModel(this).autenticationMethod»
 «ENDIF»
+«IF isMultiPortal(this)»
+	«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>localLogoutURL.«code»</param-name>
+		<param-value>@LOCAL_LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ELSE»
+	<context-param>
+		<param-name>localLogoutURL</param-name>
+		<param-value>@LOCAL_LOGOUT_URL@</param-value>
+	</context-param>
+«ENDIF»
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -602,7 +615,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 				<param name="location">«IF isMultiPortal(this)»${ssoLogoutUrl}«ELSE»@LOGOUT_URL@«ENDIF»</param>
 			</result>
 			<result name="LOCAL_LOGOUT" type="redirect">
-				<param name="location">«this.structure.appWindow.header.linkCanale»</param>
+				<param name="location">«IF isMultiPortal(this)»${localLogoutUrl}«ELSE»@LOCAL_LOGOUT_URL@«ENDIF»</param>
 			</result>
 		</action>
 		

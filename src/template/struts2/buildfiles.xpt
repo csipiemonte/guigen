@@ -260,7 +260,7 @@ ANT FILES
     </condition>
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.cache.time@@@" value="${remincl.cache.time}"/>
     «IF isMultiPortal(this)-»
-    	«EXPAND multiPortal::buildXmlResourceProvederReplacement FOR this»
+    	«EXPAND multiPortal::buildXmlResourceProviderReplacement FOR this»
     «ELSE-»
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@" value="${remincl.resource.provider}"/>
     <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home@@@"  value="${portal.home}"/>
@@ -268,6 +268,16 @@ ANT FILES
 	«IF getActualSecurityModel(this).autenticationMethod!=null-»
 		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
 		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
+	«ENDIF-»
+	«IF isMultiPortal(this)-»
+		«EXPAND multiPortal::buildXmlLocalLogoutReplacement FOR this»
+	«ELSE-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOCAL_LOGOUT_URL@"  
+		value="${local.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOCAL_LOGOUT_URL@"  
+		value="${local.logout.url}"/>
 	«ENDIF-»
 	«IF hasGisMap()»
 	«LET (List[MapView])getMapsInModel() AS maps-»
@@ -676,6 +686,9 @@ remincl.resource.provider.«code»=
 
 # home page del portale «code»
 portal.home.«code»=
+
+# local logout URL del portale «code»
+local.logout.url.«code» = <your_local_logout_url>
 «ENDFOREACH»
 «ELSE-»
 # remincl resource provider
@@ -683,6 +696,9 @@ remincl.resource.provider=«getReminclResourceProvider(this)»
 
 # home page del portale
 portal.home=
+
+# local logout URL
+local.logout.url = <your_local_logout_url>
 «ENDIF-»
 
 «IF getActualSecurityModel(this).autenticationMethod!=null-»
