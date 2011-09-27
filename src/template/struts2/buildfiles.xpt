@@ -884,23 +884,23 @@ IVY FILES (gestione delle dipendenze)
 	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
 	<resolvers>
 		<url name="myUrlResolver">
-			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
-			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
 
-			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/lib/[artifact].[type]" />
 
-			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
-			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/ivy-[module].xml" />
 			
 			«IF targetPlatform.enableRichUIBehavior-»
 			<!-- Aggiunta per extjs e reperimento risorse statiche -->
-			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
-			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
 
-			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/lib/[artifact].[type]" />
 
-			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
-			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/ivy-[module].xml" />
 			«ENDIF-»
 
 			«REM»[DM] STDMDD-670: Reperimento risorse statiche (necessario?)«ENDREM»

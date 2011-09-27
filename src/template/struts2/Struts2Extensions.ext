@@ -700,7 +700,12 @@ String getFullExecCmdMethodName(String methodName, String contextPrefix) :
 
 int getStepNumber(Panel step, WizardPanel wiz) :
 	wiz.panels.indexOf(step)+1;
-		
+
+///// risoluzione hostname del repository artefatti
+String getIvyRepositoryHost() :
+	getProperty("guigen.ivyRepositoryHost")==null||getProperty("guigen.ivyRepositoryHost").length==0?
+	"repart.csi.it":
+	getProperty("guigen.ivyRepositoryHost");		
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// JAVA METHODS BINDING
