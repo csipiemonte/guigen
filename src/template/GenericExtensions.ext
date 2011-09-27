@@ -35,6 +35,18 @@ let blanks =
 "                                                                              " :                                                                                                                                                
 blanks.subString(0,n);
 
+
+String getOrganizationNamePkgPrefix() :
+	getProperty("guigen.javaPackageOrganizationName")==null||getProperty("guigen.javaPackageOrganizationName").length==0?
+	"it.csi":
+	getProperty("guigen.javaPackageOrganizationName");
+
+String getOrganizationNamePathPrefix() :	
+	getProperty("guigen.javaPackageOrganizationName")==null||getProperty("guigen.javaPackageOrganizationName").length==0?
+	"it/csi":
+	getProperty("guigen.javaPackageOrganizationName").replaceAll("\\p{Punct}","/");
+
+
 /// standard generici J2EE Csi piemonte
 String getProjectRootDir(GUIModel model, boolean omit_root) :
 	omit_root ? "" : model.codComponente;
@@ -158,13 +170,13 @@ String getJavaSrcDir(GUIModel model, boolean omit_root) :
 	getProjectRootDir(model, omit_root) + "/src/java";
 
 String getBaseJavaSrcDir(GUIModel model, boolean omit_root) :
-	getJavaSrcDir(model, omit_root) + "/it/csi/" + model.codProdotto + "/" + model.codComponente;
+	getJavaSrcDir(model, omit_root) + "/"+getOrganizationNamePathPrefix()+"/" + model.codProdotto + "/" + model.codComponente;
 
 String getBaseJavaPackage(GUIModel model) :
-	"it.csi." + model.codProdotto + "." + model.codComponente;
+	getOrganizationNamePkgPrefix()+"." + model.codProdotto + "." + model.codComponente;
 
 String getBaseJavaPath(GUIModel model) :
-	"/it/csi/" + model.codProdotto + "/" + model.codComponente;
+	"/"+getOrganizationNamePathPrefix()+"/" + model.codProdotto + "/" + model.codComponente;
 
 
 // resourcefiles
