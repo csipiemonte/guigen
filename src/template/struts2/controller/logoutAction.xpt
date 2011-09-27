@@ -37,6 +37,8 @@ STRUTS2 ACTIONS FILES
 
 import java.util.*;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import «getDTOBaseJavaPackage(this)».*;
 
 /**
@@ -45,8 +47,12 @@ import «getDTOBaseJavaPackage(this)».*;
  * @author GuiGen
  */
 public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+	«IF isMultiPortal(this)»
+	public String getSsoLogoutUrl() {
+		return (String) ActionContext.getContext().getApplication().get("logoutURL." + getPortalCode());
+	}
+	«ENDIF»
 
-    
     /**
 	 * nessuna classe model associata
 	 */
@@ -69,11 +75,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	 * @return SSO_LOGOUT.
 	 */
 	public String ssoLogout() throws Exception {
-		
 		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
-		
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] START");
+		log.debug("[«getStrutsLogoutClassName(this)»::ssoLogout] END");
 		return "SSO_LOGOUT";
 	}
 
@@ -83,10 +87,9 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 	 * @return LOCAL_LOGOUT.
 	 */
 	public String localLogout() throws Exception {
-		
 		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
 		invalidateLocalSession();
-		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] START");
+		log.debug("[«getStrutsLogoutClassName(this)»::localLogout] END");
 		return "LOCAL_LOGOUT";
 	}
 

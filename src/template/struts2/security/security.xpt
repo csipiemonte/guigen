@@ -37,12 +37,31 @@ e le limitazioni secondo i termini della Licenza.
 	</context-param>
 «ENDDEFINE»
 
+«REM»[DM] STDMDD-900: logout url MULTIPORTALE«ENDREM»
 «DEFINE securityRelatedContextParams(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND securityRelatedContextParamsShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND securityRelatedContextParamsShibbolethSP(model) FOR this-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsShibbolethSP(GUIModel model) FOR ShibbolethSSO»
 	<context-param>
 		<param-name>logoutURL</param-name>
 		<param-value>@LOGOUT_URL@</param-value>
 	</context-param>
 «ENDDEFINE»
+
+«DEFINE securityRelatedContextParamsShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<context-param>
+		<param-name>logoutURL.«code»</param-name>
+		<param-value>@LOGOUT_URL.«code»@</param-value>
+	</context-param>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
 «ERROR "authentication method non supportato:" + this.metaType»»
@@ -214,7 +233,16 @@ e le limitazioni secondo i termini della Licenza.
 		value="${opauth.logout.url}"/>	
 «ENDDEFINE»
 
+
 «DEFINE envConfigForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND envConfigForAuthenticationShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND envConfigForAuthenticationShibbolethSP(model) FOR this-»
+	«ENDIF-»	
+«ENDDEFINE»
+
+«DEFINE envConfigForAuthenticationShibbolethSP(GUIModel model) FOR ShibbolethSSO»
 	<!-- replace variabili di environment per shibboleth -->
 	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
 		token="@LOGOUT_URL@"  
@@ -223,6 +251,16 @@ e le limitazioni secondo i termini della Licenza.
 		token="@LOGOUT_URL@"  
 		value="${shibboleth.logout.url}"/>	
 «ENDDEFINE»
+
+«DEFINE envConfigForAuthenticationShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+	<!-- replace variabili di environment per shibboleth -->
+	«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOGOUT_URL.«code»@"  
+		value="${shibboleth.logout.url.«code»}"/>
+	«ENDFOREACH-»
+«ENDDEFINE»
+
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SSOBARTSSO»
 	<!-- replace variabili di environment per SSOBART -->
@@ -274,10 +312,27 @@ opauth.default.appserver = localhost:8078
 opauth.logout.url = http://spintest.csi.it:7778/portal/page/portal/sistemapiemonte/logout
 «ENDDEFINE»
 
+«REM»[DM] STDMDD-900: logout url MULTIPORTALE«ENDREM»
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR ShibbolethSSO»
+	«IF isMultiPortal(model)-»
+		«EXPAND templatePropsForAuthenticationShibbolethMP(model) FOR this-»
+	«ELSE-»
+		«EXPAND templatePropsForAuthenticationShibbolethSP(model) FOR this-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthenticationShibbolethSP(GUIModel model) FOR ShibbolethSSO»
 #-[configurazione shibboleth]--------------------------------------------------
 shibboleth.logout.url = http://<your_server_domain>/Shibboleth.sso/Logout
 «ENDDEFINE»
+
+«DEFINE templatePropsForAuthenticationShibbolethMP(GUIModel model) FOR ShibbolethSSO»
+#-[configurazione shibboleth]--------------------------------------------------
+«FOREACH model.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+shibboleth.logout.url.«code» = http://<your_server_domain>/Shibboleth.sso/Logout
+«ENDFOREACH-»
+«ENDDEFINE»
+
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SSOBARTSSO»
 #-[configurazione ssobart]--------------------------------------------------
@@ -768,7 +823,3 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 
 
 «REM»#######«ENDREM»
-
-
-
-

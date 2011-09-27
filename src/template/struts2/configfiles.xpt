@@ -599,7 +599,7 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<action name="Logout" class="«getStrutsLogoutFQN(this)»">
 			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
 			<result name="SSO_LOGOUT" type="redirect">
-				<param name="location">@LOGOUT_URL@</param>
+				<param name="location">«IF isMultiPortal(this)»${ssoLogoutUrl}«ELSE»@LOGOUT_URL@«ENDIF»</param>
 			</result>
 			<result name="LOCAL_LOGOUT" type="redirect">
 				<param name="location">«this.structure.appWindow.header.linkCanale»</param>
