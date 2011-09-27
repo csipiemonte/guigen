@@ -79,6 +79,7 @@ public class SecurityModelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addSecurityAppIDPropertyDescriptor(object);
+			addUserInfoLogoutActionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -97,6 +98,28 @@ public class SecurityModelItemProvider
 				 getString("_UI_SecurityModel_securityAppID_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityModel_securityAppID_feature", "_UI_SecurityModel_type"),
 				 GuigenPackage.Literals.SECURITY_MODEL__SECURITY_APP_ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the User Info Logout Action feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUserInfoLogoutActionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SecurityModel_userInfoLogoutAction_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityModel_userInfoLogoutAction_feature", "_UI_SecurityModel_type"),
+				 GuigenPackage.Literals.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION,
 				 true,
 				 false,
 				 false,
@@ -176,6 +199,7 @@ public class SecurityModelItemProvider
 
 		switch (notification.getFeatureID(SecurityModel.class)) {
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
+			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.SECURITY_MODEL__AUTENTICATION_METHOD:

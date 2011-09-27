@@ -23,6 +23,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.Actor;
 import it.csi.mddtools.guigen.AutenticationMethod;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.LogoutActionTypes;
 import it.csi.mddtools.guigen.Role;
 import it.csi.mddtools.guigen.SecurityModel;
 import it.csi.mddtools.guigen.UseCase;
@@ -55,6 +56,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getSecurityAppID <em>Security App ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getRoles <em>Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +122,26 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * @ordered
 	 */
 	protected EList<Role> roles;
+
+	/**
+	 * The default value of the '{@link #getUserInfoLogoutAction() <em>User Info Logout Action</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUserInfoLogoutAction()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LogoutActionTypes USER_INFO_LOGOUT_ACTION_EDEFAULT = LogoutActionTypes.LOCAL_LOGOUT;
+
+	/**
+	 * The cached value of the '{@link #getUserInfoLogoutAction() <em>User Info Logout Action</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUserInfoLogoutAction()
+	 * @generated
+	 * @ordered
+	 */
+	protected LogoutActionTypes userInfoLogoutAction = USER_INFO_LOGOUT_ACTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -245,6 +267,27 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LogoutActionTypes getUserInfoLogoutAction() {
+		return userInfoLogoutAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUserInfoLogoutAction(LogoutActionTypes newUserInfoLogoutAction) {
+		LogoutActionTypes oldUserInfoLogoutAction = userInfoLogoutAction;
+		userInfoLogoutAction = newUserInfoLogoutAction == null ? USER_INFO_LOGOUT_ACTION_EDEFAULT : newUserInfoLogoutAction;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION, oldUserInfoLogoutAction, userInfoLogoutAction));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -278,6 +321,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return getSecurityAppID();
 			case GuigenPackage.SECURITY_MODEL__ROLES:
 				return getRoles();
+			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
+				return getUserInfoLogoutAction();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -309,6 +354,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				getRoles().clear();
 				getRoles().addAll((Collection<? extends Role>)newValue);
 				return;
+			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
+				setUserInfoLogoutAction((LogoutActionTypes)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -336,6 +384,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__ROLES:
 				getRoles().clear();
 				return;
+			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
+				setUserInfoLogoutAction(USER_INFO_LOGOUT_ACTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -358,6 +409,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return SECURITY_APP_ID_EDEFAULT == null ? securityAppID != null : !SECURITY_APP_ID_EDEFAULT.equals(securityAppID);
 			case GuigenPackage.SECURITY_MODEL__ROLES:
 				return roles != null && !roles.isEmpty();
+			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
+				return userInfoLogoutAction != USER_INFO_LOGOUT_ACTION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -374,6 +427,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (securityAppID: ");
 		result.append(securityAppID);
+		result.append(", userInfoLogoutAction: ");
+		result.append(userInfoLogoutAction);
 		result.append(')');
 		return result.toString();
 	}

@@ -95,6 +95,7 @@ import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
 import it.csi.mddtools.guigen.LogicAggregationTypes;
+import it.csi.mddtools.guigen.LogoutActionTypes;
 import it.csi.mddtools.guigen.MapEnvelope;
 import it.csi.mddtools.guigen.MapView;
 import it.csi.mddtools.guigen.MapViewGadgets;
@@ -1334,6 +1335,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum portalNamesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum logoutActionTypesEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3892,6 +3900,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSecurityModel_UserInfoLogoutAction() {
+		return (EAttribute)securityModelEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getActor() {
 		return actorEClass;
 	}
@@ -5827,6 +5844,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getLogoutActionTypes() {
+		return logoutActionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getTargetPlatformCodes() {
 		return targetPlatformCodesEEnum;
 	}
@@ -6293,6 +6319,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(securityModelEClass, SECURITY_MODEL__USE_CASES);
 		createEAttribute(securityModelEClass, SECURITY_MODEL__SECURITY_APP_ID);
 		createEReference(securityModelEClass, SECURITY_MODEL__ROLES);
+		createEAttribute(securityModelEClass, SECURITY_MODEL__USER_INFO_LOGOUT_ACTION);
 
 		actorEClass = createEClass(ACTOR);
 		createEAttribute(actorEClass, ACTOR__CODE);
@@ -6579,6 +6606,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		dataLifetimeTypeEEnum = createEEnum(DATA_LIFETIME_TYPE);
 		simpleTypeCodesEEnum = createEEnum(SIMPLE_TYPE_CODES);
 		portalNamesEEnum = createEEnum(PORTAL_NAMES);
+		logoutActionTypesEEnum = createEEnum(LOGOUT_ACTION_TYPES);
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
 		messageSeverityEEnum = createEEnum(MESSAGE_SEVERITY);
 		commandStylesEEnum = createEEnum(COMMAND_STYLES);
@@ -7073,6 +7101,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getSecurityModel_UseCases(), this.getUseCase(), null, "useCases", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSecurityModel_SecurityAppID(), ecorePackage.getEString(), "securityAppID", null, 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityModel_Roles(), this.getRole(), null, "roles", null, 0, -1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSecurityModel_UserInfoLogoutAction(), this.getLogoutActionTypes(), "userInfoLogoutAction", "LOCAL_LOGOUT", 0, 1, SecurityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(actorEClass, Actor.class, "Actor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getActor_Code(), ecorePackage.getEString(), "code", null, 0, 1, Actor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -7402,6 +7431,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(portalNamesEEnum, PortalNames.SISTEMA_PIEMONTE);
 		addEEnumLiteral(portalNamesEEnum, PortalNames.INTRANET_RUPARPIEMONTE);
 		addEEnumLiteral(portalNamesEEnum, PortalNames.NEUTRAL);
+
+		initEEnum(logoutActionTypesEEnum, LogoutActionTypes.class, "LogoutActionTypes");
+		addEEnumLiteral(logoutActionTypesEEnum, LogoutActionTypes.LOCAL_LOGOUT);
+		addEEnumLiteral(logoutActionTypesEEnum, LogoutActionTypes.SSO_LOGOUT);
 
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);

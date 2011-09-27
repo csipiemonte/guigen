@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUseCases <em>Use Cases</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getRoles <em>Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
  * </ul>
  * </p>
  *
@@ -163,5 +164,35 @@ public interface SecurityModel extends EObject {
 	 * @generated
 	 */
 	EList<Role> getRoles();
+
+	/**
+	 * Returns the value of the '<em><b>User Info Logout Action</b></em>' attribute.
+	 * The default value is <code>"LOCAL_LOGOUT"</code>.
+	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.LogoutActionTypes}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>User Info Logout Action</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>User Info Logout Action</em>' attribute.
+	 * @see it.csi.mddtools.guigen.LogoutActionTypes
+	 * @see #setUserInfoLogoutAction(LogoutActionTypes)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_UserInfoLogoutAction()
+	 * @model default="LOCAL_LOGOUT"
+	 * @generated
+	 */
+	LogoutActionTypes getUserInfoLogoutAction();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction <em>User Info Logout Action</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>User Info Logout Action</em>' attribute.
+	 * @see it.csi.mddtools.guigen.LogoutActionTypes
+	 * @see #getUserInfoLogoutAction()
+	 * @generated
+	 */
+	void setUserInfoLogoutAction(LogoutActionTypes value);
 
 } // SecurityModel

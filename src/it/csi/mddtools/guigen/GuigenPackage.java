@@ -5806,13 +5806,22 @@ public interface GuigenPackage extends EPackage {
 	int SECURITY_MODEL__ROLES = 4;
 
 	/**
+	 * The feature id for the '<em><b>User Info Logout Action</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__USER_INFO_LOGOUT_ACTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Security Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_MODEL_FEATURE_COUNT = 5;
+	int SECURITY_MODEL_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
@@ -9432,6 +9441,16 @@ public interface GuigenPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.LogoutActionTypes <em>Logout Action Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.LogoutActionTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
+	 * @generated
+	 */
+	int LOGOUT_ACTION_TYPES = 161;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9439,7 +9458,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 161;
+	int TARGET_PLATFORM_CODES = 162;
 
 
 	/**
@@ -9450,7 +9469,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 162;
+	int MESSAGE_SEVERITY = 163;
 
 
 	/**
@@ -9461,7 +9480,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 163;
+	int COMMAND_STYLES = 164;
 
 
 	/**
@@ -9472,7 +9491,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 164;
+	int LOGIC_AGGREGATION_TYPES = 165;
 
 
 	/**
@@ -9483,7 +9502,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 165;
+	int CUSTOM_CARTRIDGE_ID = 166;
 
 
 	/**
@@ -9494,7 +9513,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 166;
+	int COMMAND_FUNCTIONS = 167;
 
 
 	/**
@@ -9505,7 +9524,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 167;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 168;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -9515,7 +9534,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 168;
+	int STD_WEB_RES_MODULE_NAMES = 169;
 
 
 	/**
@@ -9526,7 +9545,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 169;
+	int REPART_MODULE_TYPES = 170;
 
 
 	/**
@@ -9537,7 +9556,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 170;
+	int WIZARD_NUMBERING_TYPES = 171;
 
 
 	/**
@@ -12415,6 +12434,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getSecurityModel_Roles();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction <em>User Info Logout Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User Info Logout Action</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EAttribute getSecurityModel_UserInfoLogoutAction();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14702,6 +14732,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getPortalNames();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.LogoutActionTypes <em>Logout Action Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Logout Action Types</em>'.
+	 * @see it.csi.mddtools.guigen.LogoutActionTypes
+	 * @generated
+	 */
+	EEnum getLogoutActionTypes();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}'.
@@ -17148,6 +17188,14 @@ public interface GuigenPackage extends EPackage {
 		EReference SECURITY_MODEL__ROLES = eINSTANCE.getSecurityModel_Roles();
 
 		/**
+		 * The meta object literal for the '<em><b>User Info Logout Action</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_MODEL__USER_INFO_LOGOUT_ACTION = eINSTANCE.getSecurityModel_UserInfoLogoutAction();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -19018,6 +19066,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum PORTAL_NAMES = eINSTANCE.getPortalNames();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.LogoutActionTypes <em>Logout Action Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.LogoutActionTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
+		 * @generated
+		 */
+		EEnum LOGOUT_ACTION_TYPES = eINSTANCE.getLogoutActionTypes();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.

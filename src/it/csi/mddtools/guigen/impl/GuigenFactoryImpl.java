@@ -242,6 +242,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createSimpleTypeCodesFromString(eDataType, initialValue);
 			case GuigenPackage.PORTAL_NAMES:
 				return createPortalNamesFromString(eDataType, initialValue);
+			case GuigenPackage.LOGOUT_ACTION_TYPES:
+				return createLogoutActionTypesFromString(eDataType, initialValue);
 			case GuigenPackage.TARGET_PLATFORM_CODES:
 				return createTargetPlatformCodesFromString(eDataType, initialValue);
 			case GuigenPackage.MESSAGE_SEVERITY:
@@ -289,6 +291,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertSimpleTypeCodesToString(eDataType, instanceValue);
 			case GuigenPackage.PORTAL_NAMES:
 				return convertPortalNamesToString(eDataType, instanceValue);
+			case GuigenPackage.LOGOUT_ACTION_TYPES:
+				return convertLogoutActionTypesToString(eDataType, instanceValue);
 			case GuigenPackage.TARGET_PLATFORM_CODES:
 				return convertTargetPlatformCodesToString(eDataType, instanceValue);
 			case GuigenPackage.MESSAGE_SEVERITY:
@@ -1851,6 +1855,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertPortalNamesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LogoutActionTypes createLogoutActionTypesFromString(EDataType eDataType, String initialValue) {
+		LogoutActionTypes result = LogoutActionTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLogoutActionTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
