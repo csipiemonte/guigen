@@ -80,6 +80,7 @@ public class SecurityModelItemProvider
 
 			addSecurityAppIDPropertyDescriptor(object);
 			addUserInfoLogoutActionPropertyDescriptor(object);
+			addAskForConfirmationOnLogoutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -124,6 +125,28 @@ public class SecurityModelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Ask For Confirmation On Logout feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAskForConfirmationOnLogoutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SecurityModel_askForConfirmationOnLogout_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityModel_askForConfirmationOnLogout_feature", "_UI_SecurityModel_type"),
+				 GuigenPackage.Literals.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -200,6 +223,7 @@ public class SecurityModelItemProvider
 		switch (notification.getFeatureID(SecurityModel.class)) {
 			case GuigenPackage.SECURITY_MODEL__SECURITY_APP_ID:
 			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
+			case GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.SECURITY_MODEL__AUTENTICATION_METHOD:

@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getSecurityAppID <em>Security App ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getRoles <em>Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.SecurityModel#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.SecurityModel#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,10 @@ public interface SecurityModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Azione che viene associata al link <i>esci</i> presente sullo 
+	 * <b>UserInfoPanel</b>.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>User Info Logout Action</em>' attribute.
 	 * @see it.csi.mddtools.guigen.LogoutActionTypes
 	 * @see #setUserInfoLogoutAction(LogoutActionTypes)
@@ -194,5 +199,30 @@ public interface SecurityModel extends EObject {
 	 * @generated
 	 */
 	void setUserInfoLogoutAction(LogoutActionTypes value);
+
+	/**
+	 * Returns the value of the '<em><b>Ask For Confirmation On Logout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Se impostata a <i>true</i> all'azione di logout viene chiesta conferma all'utente.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Ask For Confirmation On Logout</em>' attribute.
+	 * @see #setAskForConfirmationOnLogout(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getSecurityModel_AskForConfirmationOnLogout()
+	 * @model
+	 * @generated
+	 */
+	boolean isAskForConfirmationOnLogout();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.SecurityModel#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ask For Confirmation On Logout</em>' attribute.
+	 * @see #isAskForConfirmationOnLogout()
+	 * @generated
+	 */
+	void setAskForConfirmationOnLogout(boolean value);
 
 } // SecurityModel

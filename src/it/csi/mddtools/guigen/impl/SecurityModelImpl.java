@@ -57,6 +57,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getSecurityAppID <em>Security App ID</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getRoles <em>Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#getUserInfoLogoutAction <em>User Info Logout Action</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.SecurityModelImpl#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,6 +143,26 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * @ordered
 	 */
 	protected LogoutActionTypes userInfoLogoutAction = USER_INFO_LOGOUT_ACTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isAskForConfirmationOnLogout() <em>Ask For Confirmation On Logout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAskForConfirmationOnLogout()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ASK_FOR_CONFIRMATION_ON_LOGOUT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAskForConfirmationOnLogout() <em>Ask For Confirmation On Logout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAskForConfirmationOnLogout()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean askForConfirmationOnLogout = ASK_FOR_CONFIRMATION_ON_LOGOUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -288,6 +309,27 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isAskForConfirmationOnLogout() {
+		return askForConfirmationOnLogout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAskForConfirmationOnLogout(boolean newAskForConfirmationOnLogout) {
+		boolean oldAskForConfirmationOnLogout = askForConfirmationOnLogout;
+		askForConfirmationOnLogout = newAskForConfirmationOnLogout;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT, oldAskForConfirmationOnLogout, askForConfirmationOnLogout));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -323,6 +365,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return getRoles();
 			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
 				return getUserInfoLogoutAction();
+			case GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT:
+				return isAskForConfirmationOnLogout();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -357,6 +401,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
 				setUserInfoLogoutAction((LogoutActionTypes)newValue);
 				return;
+			case GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT:
+				setAskForConfirmationOnLogout((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -387,6 +434,9 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
 				setUserInfoLogoutAction(USER_INFO_LOGOUT_ACTION_EDEFAULT);
 				return;
+			case GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT:
+				setAskForConfirmationOnLogout(ASK_FOR_CONFIRMATION_ON_LOGOUT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -411,6 +461,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 				return roles != null && !roles.isEmpty();
 			case GuigenPackage.SECURITY_MODEL__USER_INFO_LOGOUT_ACTION:
 				return userInfoLogoutAction != USER_INFO_LOGOUT_ACTION_EDEFAULT;
+			case GuigenPackage.SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT:
+				return askForConfirmationOnLogout != ASK_FOR_CONFIRMATION_ON_LOGOUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -429,6 +481,8 @@ public class SecurityModelImpl extends EObjectImpl implements SecurityModel {
 		result.append(securityAppID);
 		result.append(", userInfoLogoutAction: ");
 		result.append(userInfoLogoutAction);
+		result.append(", askForConfirmationOnLogout: ");
+		result.append(askForConfirmationOnLogout);
 		result.append(')');
 		return result.toString();
 	}

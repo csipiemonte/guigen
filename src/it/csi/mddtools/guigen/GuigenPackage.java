@@ -5815,13 +5815,22 @@ public interface GuigenPackage extends EPackage {
 	int SECURITY_MODEL__USER_INFO_LOGOUT_ACTION = 5;
 
 	/**
+	 * The feature id for the '<em><b>Ask For Confirmation On Logout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT = 6;
+
+	/**
 	 * The number of structural features of the '<em>Security Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_MODEL_FEATURE_COUNT = 6;
+	int SECURITY_MODEL_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
@@ -12445,6 +12454,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getSecurityModel_UserInfoLogoutAction();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.SecurityModel#isAskForConfirmationOnLogout <em>Ask For Confirmation On Logout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ask For Confirmation On Logout</em>'.
+	 * @see it.csi.mddtools.guigen.SecurityModel#isAskForConfirmationOnLogout()
+	 * @see #getSecurityModel()
+	 * @generated
+	 */
+	EAttribute getSecurityModel_AskForConfirmationOnLogout();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Actor <em>Actor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17194,6 +17214,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SECURITY_MODEL__USER_INFO_LOGOUT_ACTION = eINSTANCE.getSecurityModel_UserInfoLogoutAction();
+
+		/**
+		 * The meta object literal for the '<em><b>Ask For Confirmation On Logout</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SECURITY_MODEL__ASK_FOR_CONFIRMATION_ON_LOGOUT = eINSTANCE.getSecurityModel_AskForConfirmationOnLogout();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.ActorImpl <em>Actor</em>}' class.
