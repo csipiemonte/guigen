@@ -67,6 +67,21 @@ String getColumnEditableFieldNeutral(Column currCol, Table table, GUIModel model
 	let thm = isRemote() ? "csi-tableinput-rem" : "csi-tableinput-loc" :
 	getColumnEditableFieldWrapperNeutral(currCol, table, model, contextPrefix, pduConf, thm);
 
+// [DM] STDMDD-904 e STDMDD-905: conferma logout e modellazione scelta local/sso logout mode
+String getUserInfoPanelLogoutMethod(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		(model.extSecurityModel.askForConfirmationOnLogout ? "confirmLogout" : getLogoutActionType(model))
+	else
+		"localLogout";
+
+// [DM] STDMDD-904: modellazione scelta local/sso logout mode
+String getLogoutActionType(GUIModel model) :
+	if (model.extSecurityModel != null) then
+		(model.extSecurityModel.userInfoLogoutAction == guigen::LogoutActionTypes::SSO_LOGOUT ? "ssoLogout" : "localLogout")
+	else
+		"localLogout";
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// EVENT HANDLERS

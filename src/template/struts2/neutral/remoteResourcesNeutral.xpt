@@ -127,7 +127,10 @@ Definizioni generali: Pagine di ERRORE
 «ENDDEFINE»
 
 
-«REM»Crea la pagina di conferma chiusura sessione utente«ENDREM»
+«REM»
+Crea la pagina di conferma chiusura sessione utente (conferma logout)
+[DM] STDMDD-904: modellazione scelta local/sso logout mode
+«ENDREM»
 «DEFINE getJspPageConfirmLogoutFile(boolean skip_component_dir_creation) FOR GUIModel»
 «FILE getJspErrorPagesDir(this, true) + "/confirmLogout.jsp"-»
 «EXPAND getJspErrorPageHeaderStruts FOR this-»
@@ -141,8 +144,12 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
-		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
-		<s:a href="%{localLogoutUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+		<s:url id="logoutUrl" action="Logout" method="«getLogoutActionType(this)»" />
+		<s:a href="%{logoutUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
+	</div>
+	<div class="button right">
+		<s:url id="homePageUrl" action="HomePage" />
+		<s:a href="%{homePageUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsghomepage" /></s:a>
 	</div>
 </div>
 «EXPAND getJspErrorPageFooterStruts FOR this-»
@@ -682,6 +689,7 @@ Gestione dei PANNELLI
 ************** UserInfoPanel (pannello con le informazioni sull'utente loggato) **************
 «ENDREM»
 
+«REM»[DM] STDMDD-904 e STDMDD-905: conferma logout e modellazione scelta local/sso logout mode«ENDREM»
 «DEFINE setupUserInfoPanel(GUIModel model, ContentPanel cp, String contextPrefix) FOR UserInfoPanel»
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 <div class="userInfoPanel" id="«getFullID(this, contextPrefix)»">
@@ -692,8 +700,8 @@ Gestione dei PANNELLI
 	</div>
 	<div class="userInfoActions">
 		<!-- uscita dal servizio e/o cambio ruolo -->
-		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
-		<s:a href="%{localLogoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a>
+		<s:url id="logoutUrl" action="Logout" method="«getUserInfoPanelLogoutMethod(model)»" />
+		<s:a href="%{logoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a>
 	</div>
 </div>
 «ENDLET-»
