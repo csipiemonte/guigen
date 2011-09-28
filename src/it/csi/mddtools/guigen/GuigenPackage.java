@@ -4243,13 +4243,22 @@ public interface GuigenPackage extends EPackage {
 	int HEADER_META_ATTR__VALUE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Use Http Equiv</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HEADER_META_ATTR__USE_HTTP_EQUIV = 2;
+
+	/**
 	 * The number of structural features of the '<em>Header Meta Attr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HEADER_META_ATTR_FEATURE_COUNT = 2;
+	int HEADER_META_ATTR_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of structural features of the '<em>Footer</em>' class.
@@ -11539,6 +11548,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getHeaderMetaAttr_Value();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.HeaderMetaAttr#isUseHttpEquiv <em>Use Http Equiv</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Http Equiv</em>'.
+	 * @see it.csi.mddtools.guigen.HeaderMetaAttr#isUseHttpEquiv()
+	 * @see #getHeaderMetaAttr()
+	 * @generated
+	 */
+	EAttribute getHeaderMetaAttr_UseHttpEquiv();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.Footer <em>Footer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -16464,6 +16484,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute HEADER_META_ATTR__VALUE = eINSTANCE.getHeaderMetaAttr_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Http Equiv</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute HEADER_META_ATTR__USE_HTTP_EQUIV = eINSTANCE.getHeaderMetaAttr_UseHttpEquiv();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FooterImpl <em>Footer</em>}' class.

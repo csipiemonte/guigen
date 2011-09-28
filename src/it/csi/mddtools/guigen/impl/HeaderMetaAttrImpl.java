@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderMetaAttrImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.HeaderMetaAttrImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.HeaderMetaAttrImpl#isUseHttpEquiv <em>Use Http Equiv</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +85,26 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 	 * @ordered
 	 */
 	protected String value = VALUE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isUseHttpEquiv() <em>Use Http Equiv</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseHttpEquiv()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean USE_HTTP_EQUIV_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUseHttpEquiv() <em>Use Http Equiv</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseHttpEquiv()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean useHttpEquiv = USE_HTTP_EQUIV_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,6 +172,27 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUseHttpEquiv() {
+		return useHttpEquiv;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUseHttpEquiv(boolean newUseHttpEquiv) {
+		boolean oldUseHttpEquiv = useHttpEquiv;
+		useHttpEquiv = newUseHttpEquiv;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV, oldUseHttpEquiv, useHttpEquiv));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -158,6 +200,8 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 				return getName();
 			case GuigenPackage.HEADER_META_ATTR__VALUE:
 				return getValue();
+			case GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV:
+				return isUseHttpEquiv();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,6 +219,9 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 				return;
 			case GuigenPackage.HEADER_META_ATTR__VALUE:
 				setValue((String)newValue);
+				return;
+			case GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV:
+				setUseHttpEquiv((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -194,6 +241,9 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 			case GuigenPackage.HEADER_META_ATTR__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
+			case GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV:
+				setUseHttpEquiv(USE_HTTP_EQUIV_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -210,6 +260,8 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GuigenPackage.HEADER_META_ATTR__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV:
+				return useHttpEquiv != USE_HTTP_EQUIV_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -228,6 +280,8 @@ public class HeaderMetaAttrImpl extends EObjectImpl implements HeaderMetaAttr {
 		result.append(name);
 		result.append(", value: ");
 		result.append(value);
+		result.append(", useHttpEquiv: ");
+		result.append(useHttpEquiv);
 		result.append(')');
 		return result.toString();
 	}

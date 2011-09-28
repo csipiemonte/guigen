@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.HeaderMetaAttr#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.HeaderMetaAttr#getValue <em>Value</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.HeaderMetaAttr#isUseHttpEquiv <em>Use Http Equiv</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,5 +92,32 @@ public interface HeaderMetaAttr extends EObject {
 	 * @generated
 	 */
 	void setValue(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Use Http Equiv</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Use Http Equiv</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Use Http Equiv</em>' attribute.
+	 * @see #setUseHttpEquiv(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getHeaderMetaAttr_UseHttpEquiv()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isUseHttpEquiv();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.HeaderMetaAttr#isUseHttpEquiv <em>Use Http Equiv</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Use Http Equiv</em>' attribute.
+	 * @see #isUseHttpEquiv()
+	 * @generated
+	 */
+	void setUseHttpEquiv(boolean value);
 
 } // HeaderMetaAttr

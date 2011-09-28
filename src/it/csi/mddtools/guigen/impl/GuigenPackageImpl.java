@@ -3135,6 +3135,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getHeaderMetaAttr_UseHttpEquiv() {
+		return (EAttribute)headerMetaAttrEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFooter() {
 		return footerEClass;
 	}
@@ -6215,6 +6224,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		headerMetaAttrEClass = createEClass(HEADER_META_ATTR);
 		createEAttribute(headerMetaAttrEClass, HEADER_META_ATTR__NAME);
 		createEAttribute(headerMetaAttrEClass, HEADER_META_ATTR__VALUE);
+		createEAttribute(headerMetaAttrEClass, HEADER_META_ATTR__USE_HTTP_EQUIV);
 
 		footerEClass = createEClass(FOOTER);
 
@@ -6996,6 +7006,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(headerMetaAttrEClass, HeaderMetaAttr.class, "HeaderMetaAttr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHeaderMetaAttr_Name(), ecorePackage.getEString(), "name", null, 0, 1, HeaderMetaAttr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHeaderMetaAttr_Value(), ecorePackage.getEString(), "value", null, 0, 1, HeaderMetaAttr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHeaderMetaAttr_UseHttpEquiv(), ecorePackage.getEBoolean(), "useHttpEquiv", "false", 0, 1, HeaderMetaAttr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(footerEClass, Footer.class, "Footer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

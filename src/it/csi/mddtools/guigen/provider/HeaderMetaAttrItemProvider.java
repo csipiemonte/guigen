@@ -80,6 +80,7 @@ public class HeaderMetaAttrItemProvider
 
 			addNamePropertyDescriptor(object);
 			addValuePropertyDescriptor(object);
+			addUseHttpEquivPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -129,6 +130,28 @@ public class HeaderMetaAttrItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Use Http Equiv feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUseHttpEquivPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_HeaderMetaAttr_useHttpEquiv_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_HeaderMetaAttr_useHttpEquiv_feature", "_UI_HeaderMetaAttr_type"),
+				 GuigenPackage.Literals.HEADER_META_ATTR__USE_HTTP_EQUIV,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns HeaderMetaAttr.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -167,6 +190,7 @@ public class HeaderMetaAttrItemProvider
 		switch (notification.getFeatureID(HeaderMetaAttr.class)) {
 			case GuigenPackage.HEADER_META_ATTR__NAME:
 			case GuigenPackage.HEADER_META_ATTR__VALUE:
+			case GuigenPackage.HEADER_META_ATTR__USE_HTTP_EQUIV:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
