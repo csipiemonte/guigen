@@ -238,6 +238,14 @@ STATIC RESORCES HTML (per cartuccia NEUTRALE)
 «ENDDEFINE»
 
 
+«REM»[DM] STDMDD-911: modellazione meta attributes«ENDREM»
+«DEFINE getMetaAttributes(GUIModel model) FOR Header -»
+«FOREACH this.metaAttributes AS metaAttribute-»
+<meta «IF metaAttribute.useHttpEquiv»http-equiv="«metaAttribute.name»"«ELSE»name="«metaAttribute.name»"«ENDIF» content="«metaAttribute.value»" />
+«ENDFOREACH-»
+«ENDDEFINE»
+
+
 «REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
 «DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
 	«IF isNewMode()-»
