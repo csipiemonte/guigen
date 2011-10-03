@@ -48,12 +48,21 @@ import «getDTOBaseJavaPackage(this)».*;
  */
 public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionClassName(this)» {
 	«IF isMultiPortal(this)»
+	private String savedPortalCode;
+
+	public void savePortalCode(String savedPortalCode) {
+		this.savedPortalCode = savedPortalCode;
+	}
+	public String getSavedPortalCode() {
+		return this.savedPortalCode;
+	}
+
 	public String getSsoLogoutUrl() {
-		return (String) ActionContext.getContext().getApplication().get("logoutURL." + getPortalCode());
+		return (String) ActionContext.getContext().getApplication().get("logoutURL." + getSavedPortalCode());
 	}
 	
 	public String getLocalLogoutUrl() {
-		return (String) ActionContext.getContext().getApplication().get("localLogoutURL." + getPortalCode());
+		return (String) ActionContext.getContext().getApplication().get("localLogoutURL." + getSavedPortalCode());
 	}
 	«ENDIF»
 
@@ -120,8 +129,21 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 «ENDDEFINE»
 
 «DEFINE invalidateLocalSessionNoAuth FOR GUIModel»
+	/**
+	 * Invalida la sessione corrente
+	 */
 	protected void invalidateLocalSession(){
-		/// NOP
+		«IF isMultiPortal(this)-»
+		// salvo il portal code dalla sessione
+		savePortalCode(getPortalCode());
+		«ENDIF»
+		if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
+		    try {
+		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
+		    } catch (IllegalStateException e) {
+		        log.error("[«getStrutsLogoutClassName(this)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
+		    }
+		}
 	}
 «ENDDEFINE»
 
@@ -148,9 +170,21 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 
 «DEFINE invalidateLocalSession(GUIModel model) FOR ShibbolethSSO»
 	/**
-	 * Invalida gli attributi di autenticazione contenuti in sessione
+	 * Invalida la sessione corrente
 	 */
 	protected void invalidateLocalSession(){
-		session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
+			«IF isMultiPortal(model)-»
+			// salvo il portal code dalla sessione
+			savePortalCode(getPortalCode());
+			«ENDIF»
+		    try {
+		        ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
+		    } catch (IllegalStateException e) {
+		        log.error("[«getStrutsLogoutClassName(model)»::invalidateLocalSession] ERROR Invalidating Struts2 Session");
+		        // in caso di errore invalido almeno l'attributo di iride
+		        session.remove(«getIrideIdAdapterFilterFQN(model)».IRIDE_ID_SESSIONATTR);
+		    }
+		}
 	}
 «ENDDEFINE»
