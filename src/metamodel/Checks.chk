@@ -528,6 +528,12 @@ context ContentPanel if (panels!=null) ERROR "Il content panel "+name+" non refe
 context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding "+loc() :
 	this.appData != null;
 
+//STDMDD-918	
+context ApplicationData if(this.type!=null && this.type.metaType==SimpleType) ERROR "Non e' possibile effettuare un binding ad un tipo primitivo, utilizzare il corrispondente tipo wrapped." +loc() : 
+	let st=(SimpleType)this.type	:  
+	!(st.code == SimpleTypeCodes::INT && st.nillable==false) && !(st.code == SimpleTypeCodes::LONG && st.nillable==false)
+	&& !(st.code == SimpleTypeCodes::FLOAT && st.nillable==false) && !(st.code == SimpleTypeCodes::DOUBLE && st.nillable==false);
+
 context ApplicationData ERROR "E' necessario specificare il nome dell Application Data "+loc() :
 	this.name != null && this.name.length > 0;
 
