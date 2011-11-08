@@ -366,7 +366,7 @@ ANT FILES
       «ENDIF-»
       <classes dir="${build}/jsp" includes="**" />
       <classes dir="${build}/classes"
-               includes="it/csi/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
+               includes="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
       <lib dir="${lib}" includes="*"
             excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}, *.zip" />
       <lib dir="${build}/archives/${target}/" includes="commons.jar, ${webapp}-integration.jar, ${webapp}-business.jar" />
@@ -383,7 +383,7 @@ ANT FILES
     <jar jarfile="${build}/archives/${target}/${webapp}-integration.jar"
          manifest="${build}/temp/conf/jar/integration/META-INF/MANIFEST.MF">
       <fileset dir="${build}/classes">
-        <include name="it/csi/${prodotto}/${componente}/integration/**" />
+        <include name="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/integration/**" />
       </fileset>
     </jar>
   </target>
@@ -398,7 +398,7 @@ ANT FILES
     <jar jarfile="${build}/archives/${target}/${webapp}-business.jar"
          manifest="${build}/temp/conf/ejb/business/${contesto}/META-INF/MANIFEST.MF">
       <fileset dir="${build}/classes">
-        <include name="it/csi/${prodotto}/${componente}/business/**/*.*" />
+        <include name="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/business/**/*.*" />
       </fileset>
       <metainf dir="${build}/temp/conf/ejb/business/${contesto}/META-INF">
         <patternset id="all-xml">
@@ -424,9 +424,9 @@ ANT FILES
   <target name="commons-jar" description="Genera il jar per le classi comuni.">
     <jar destfile="${build}/archives/${target}/commons.jar"
          basedir="${build}/classes"
-         includes="it/csi/${prodotto}/${componente}/dto/**,
-                   it/csi/${prodotto}/${componente}/exception/**,
-                   it/csi/${prodotto}/${componente}/util/**">
+         includes="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/dto/**,
+                   «getOrganizationNamePathPrefix()»/${prodotto}/${componente}/exception/**,
+                   «getOrganizationNamePathPrefix()»/${prodotto}/${componente}/util/**">
     </jar>
   </target>
 
@@ -634,7 +634,7 @@ war-exclude-custom-libs-filter =
 
 
 # ----------------------------------------------------------------------------
-  package.prefix = it.csi.${prodotto}.${componente}
+  package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
 
 # default remincl cache time 24h (in millisecondi)
 remincl.cache.time.default=28800000
