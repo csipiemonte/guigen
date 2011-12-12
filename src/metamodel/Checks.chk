@@ -94,8 +94,10 @@ context ApplicationArea WARNING "Per una migliore gesitone del progetto si consi
 context ContentPanel ERROR "occorre specificare il nome del contentPanel:"+loc() :
 	name!=null;
 
-context ContentPanel ERROR "Il nome di un content panel deve essere diverso da: home oppure menu oppure logout : "+loc():
-	!(this.name.toString()=="home") &&  !(this.name.toString()=="menu") && !(this.name.toString()=="logout");
+context ContentPanel ERROR "Il nome di un content panel deve essere diverso da: home/Home oppure menu/Menu oppure logout/Logout : "+loc():
+	!(this.name.toString()=="home") &&  !(this.name.toString()=="Home") &&  
+	!(this.name.toString()=="menu") &&  !(this.name.toString()=="Menu") &&
+	!(this.name.toString()=="logout") && !(this.name.toString()=="Logout");
 
 context ContentPanel if eRootContainer.metaType == GUIModel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione " + loc() :
 	isContentPanelUnique(this); 
