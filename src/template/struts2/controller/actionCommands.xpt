@@ -99,11 +99,11 @@ public class JumpCommand implements ICommand {
 	}
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		if (_pushCurrent) {
-			//TODO capire se e come impleemntare lo stack delle action
+			//TODO capire se e come implementare lo stack delle action
 			//_pageStack.add(_currentPageName);
 		}
 		// clear page scoped appdata
-		strutsAction.clearPageScopedAppData();
+		strutsAction.clearPageScopedAppData(name);
 		return "GO_TO_"+name;
 	}
 };
@@ -156,7 +156,7 @@ public class JumpExtCommand implements ICommand {
 	}
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
 		// clear page scoped appdata
-		strutsAction.clearPageScopedAppData();
+		strutsAction.clearPageScopedAppData(null);
 		return "GO_TO_"+locationCode;
 	}
 };

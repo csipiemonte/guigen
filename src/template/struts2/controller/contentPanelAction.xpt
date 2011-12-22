@@ -707,15 +707,24 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 *	Metodo per la rimozione dalla sessione degli application data a scope
 	 *  SAME_PAGE. 
 	 */
-	 public void clearPageScopedAppData(){
+	 public void clearPageScopedAppData(String targetContentPanelName){
 	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
 	 	String [] appDataToClear = new String[] {
 	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd SEPARATOR ","-»
 	 	"«currAd.name»", "«currAd.name»_bckp"
 	 	«ENDFOREACH»
 	 	};
+	 	
+	 	«LET (List[ContentPanel])this.getAllPossibleJumps() AS listOfPossibleJump»
+	 		«FOREACH listOfPossibleJump AS singleJump»
+	 			«EXPAND clearCommandForCp(this) FOR singleJump»
+	 		«ENDFOREACH»
+	 	«ENDLET»
+	 	
+	 	
 	 	ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear);
 	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 	
 	 	«ELSE-»
 	 	// nothing to clear...
 	 	«ENDIF-»
@@ -779,4 +788,28 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	defaultScreenStateCmd.doCommand(this);
 	}
 	
+«ENDDEFINE»
+
+«DEFINE clearCommandForCp(ContentPanel cp) FOR ContentPanel»
+
+«LET cp.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS startingPanelAppData»
+«IF this.onRefreshCommand!=null»
+	«LET (List[ApplicationData])(findAllActionScopedAppData(this.onRefreshCommand)) AS postExecData»
+	«LET postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS samePagePostExecData»
+		«IF postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
+	 	String [] appDataToClear_«this.name» = new String[] {
+	 	«FOREACH startingPanelAppData.select(ad|!postExecData.contains(ad)) AS currAd SEPARATOR ","-»
+	 	"«currAd.name»", "«currAd.name»_bckp"};
+	 	
+	 	if("«this.name»".equals(targetContentPanelName)){
+	 		ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear_«this.name»);
+	 		session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 		return;
+	 	}	
+	 	«ENDFOREACH»
+	 	«ENDIF-»	
+	«ENDLET»
+«ENDLET»
+«ENDIF»
+«ENDLET»
 «ENDDEFINE»
