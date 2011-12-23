@@ -555,6 +555,11 @@ context TreeView WARNING "La fonte dati di un TreeView può solo essere un applic
 	 	((SimpleType)this.multiDataBinding.appData.type).code == SimpleTypeCodes::TREE_NODE
 	 );
 
+
+context TreeView if (multiDataBinding != null) ERROR "La fonte dati di un TreeView non può essere un ApplicationData a scope ACTION:"+loc() :
+	this.multiDataBinding.appData.lifetimeExtent != DataLifetimeType::USER_ACTION;
+
+
 //context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type+", "+loc() :
 //	this.multiDataBinding.appData.type.metaType==TypedArray && 
 //	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
