@@ -2,25 +2,24 @@ package it.csi.mddtools.guigen.workflow.component;
 
 import it.csi.mddtools.guigen.genutils.MiscUtils;
 
-import java.io.IOException;
 import java.util.Properties;
-import java.util.jar.Manifest;
 
 import mddtools.usagetracking.ProfilingPacketBuilder;
 import mddtools.usagetracking.TrackingSender;
 
-import org.openarchitectureware.workflow.WorkflowContext;
-import org.openarchitectureware.workflow.issues.Issues;
-import org.openarchitectureware.workflow.monitor.ProgressMonitor;
+import org.eclipse.emf.mwe.core.WorkflowContext;
+import org.eclipse.emf.mwe.core.issues.Issues;
+import org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent;
+import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
 
-public class TrackingInvoker extends org.openarchitectureware.workflow.lib.AbstractWorkflowComponent{
+public class TrackingInvoker extends AbstractWorkflowComponent{
 
 	public void checkConfiguration(Issues issues) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void invoke(WorkflowContext ctx, ProgressMonitor monitor,
+	public void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor,
 			Issues issues) {
 		// TODO Auto-generated method stub
 		System.out.println("invoke TrackingInvoker");

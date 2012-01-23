@@ -11,11 +11,12 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.openarchitectureware.workflow.WorkflowContext;
-import org.openarchitectureware.workflow.issues.Issues;
-import org.openarchitectureware.workflow.monitor.ProgressMonitor;
+import org.eclipse.emf.mwe.core.WorkflowContext;
+import org.eclipse.emf.mwe.core.issues.Issues;
+import org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent;
+import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
 
-public class Utility extends org.openarchitectureware.workflow.lib.AbstractWorkflowComponent{
+public class Utility extends AbstractWorkflowComponent{
 
 	// private static String url =
 	// "http://repart.csi.it/java/apache/commons-httpclient/2.0.2/lib/commons-httpclient-2.0.2.jar";
@@ -199,7 +200,7 @@ public static String getWorkingDir(){
 		
 	}
 
-	public void invoke(WorkflowContext ctx, ProgressMonitor monitor,
+	public void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor,
 			Issues issues) {
 		// TODO Auto-generated method stub
 	     

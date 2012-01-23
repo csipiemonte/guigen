@@ -1,105 +1,22 @@
 <?xml version="1.0"?>
 <workflow>
 
-    
-	
-	
-	<!-- *****************************************************
-	     serve per referenziare i check. valore fisso:
-	     -struts2
-	-->
-	<property name="target-platform" value="struts2"/>
-	
-	
-	<!-- valorizzare con il nome del progetto eclipse target dove verranno
-	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
-	     al componente SW -->
-	
-	<property name="src-gen" value="../${targetProjectName}" />
-	
+	<!-- EXTRA TEMPLATE: valore di default se non specificato -->
 	<property name="extra-xpt" value="template::struts2::dummyAOP" />
-	
-	<!-- in questa cartuccia il portale e' fisso: neutral -->
-	<property name="portal" value="neutral" />
-	
-	<!-- valore di default se non specificato -->
+
+	<!-- PROPERTIES FILE: valore di default se non specificato -->
 	<property name="propertiesFile" value="it/csi/mddtools/guigen/workflow/emptyProperties.properties" />
-	
 
-	
-	
-	<!-- set up EMF for standalone execution -->
-		<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
-		<platformUri value=".." />
-		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
-		
-	</bean>
-	
-	<!-- Clean de build directory -->
-	<component class="org.openarchitectureware.workflow.common.DirectoryCleaner">
-		<directory value="${src-gen}/build" />
-	</component>
 
-	<!-- lettura del file di properties che conterra' le direttive di 
-	     generazione mirata -->
-	<component class="oaw.util.stdlib.PropertiesReader">
-  		<propertiesFile value="${propertiesFile}"/>
-	</component>
-	
-	<!-- load model and store it in slot 'model' -->
-	<component class="org.eclipse.mwe.emf.Reader">
-		<!-- usare se modalita' a plugin -->
-		<uri value="platform:/resource/${model}" />
-		
-		<!-- usare se modalita' standalone -->
-		<!--<uri value="${modelfile}" />-->
-		
-		<!-- invariante rispetto alla modalita'-->
-		<modelSlot value="model" />
-	</component>
+	<!-- ***************************************************
+         ALIAS per guigenPrototype.mwe
+         Lasciata per retrocompatibilita', si limita a invocare la nuova cartuccia MWE
+         passando i parametri ricevuti
+	-->
 
-	<!-- check model (common checks) -->
-	<component class="oaw.check.CheckComponent">
-		<metaModel id="mm"
-			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
-		<checkFile value="metamodel::Checks" />
-		<emfAllChildrenSlot value="model" />
-	</component>
-	
-	<!-- check model (cartridge [=layout] checks) -->
-	<component class="oaw.check.CheckComponent">
-		<metaModel id="mm"
-			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
-		<checkFile value="template::${target-platform}::${portal}::Checks" />
-		<emfAllChildrenSlot value="model" />
-	</component>
-	
- 
-
-	<!--  generate code -->
-	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
-		<metaModel idRef="mm"/>
-		<expand
-			value="template::uiprototype::Main::main FOR model" />
-		<!--  protected regions configurator --> 
-	    <prSrcPaths value="${src-gen}" /> 
-	    <prDefaultExcludes value="true" /> 
-	    <prExcludes value="*.jar, *.svn-base, .metadata" />
-		<outlet path="${src-gen}" >
-			<!--<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />-->
-		</outlet>
-	</component>
-	
-
-	<!-- AOP definition for expand templates -->
-	<component adviceTarget="mygenerator" class="oaw.xpand2.GeneratorAdvice" id="myxptaop">
-		<advices value="template::uiprototype::aop"/>
-	</component>	
-	
-	  <bean class="it.csi.mddtools.guigen.workflow.component.uiprototype.Utility">
-		<modelName value="${model}"/>
-		<targetProjectName value="${targetProjectName}"/>
-		<util value="true"/>
-	</bean>  
+	<cartridge file="it/csi/mddtools/guigen/workflow/guigenPrototype.oaw"
+		model="${model}"
+		targetProjectName="${targetProjectName}"
+	/>
 
 </workflow>

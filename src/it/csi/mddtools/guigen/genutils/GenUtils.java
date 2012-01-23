@@ -88,7 +88,6 @@ import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UCMappingPDefVal;
-import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UseCase;
 import it.csi.mddtools.guigen.UseCaseMappingParam;
@@ -97,7 +96,6 @@ import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 import it.csi.mddtools.guigen.WizardPanel;
-import it.csi.mddtools.guigen.impl.UDLRCWidgetLayoutSpecImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -724,9 +722,9 @@ public class GenUtils {
 	 * @param val
 	 */
 	public static void setProperty(String name, String val){
-		java.util.Properties props = org.openarchitectureware.util.stdlib.PropertiesExtension.getProperties();
+		java.util.Properties props = org.eclipse.xtend.util.stdlib.PropertiesExtension.getProperties();
 		props.put(name, val);
-		org.openarchitectureware.util.stdlib.PropertiesExtension.setProperties(props);
+		org.eclipse.xtend.util.stdlib.PropertiesExtension.setProperties(props);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////
