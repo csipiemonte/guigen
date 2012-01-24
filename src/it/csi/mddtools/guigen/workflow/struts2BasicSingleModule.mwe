@@ -37,10 +37,13 @@
 		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
 	</bean>
 
-	<!-- Clean de build directory -->
-	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner">
-		<directory value="${src-gen}/build" />
-	</component>
+	<!-- Clean the build directory -->
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner"
+	           directory="${src-gen}/build/cache" />
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner"
+	           directory="${src-gen}/build/classes" />
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner"
+		       directory="${src-gen}/build/temp/conf" />
 
 	<!-- lettura del file di properties che conterra' le direttive di
 	     generazione mirata -->
@@ -87,7 +90,7 @@
 		<!--  protected regions configurator -->
 	    <prSrcPaths value="${src-gen}" />
 	    <prDefaultExcludes value="true" />
-	    <prExcludes value="*.jar, *.svn-base, .metadata" />
+	    <prExcludes value="*.ear, *.war, *.jar, *.class, *.svn-base, .metadata" />
 		<outlet path="${src-gen}" >
 			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
 		</outlet>
