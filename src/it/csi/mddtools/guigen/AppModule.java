@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.AppModule#getExtSecurityModel <em>Ext Security Model</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.AppModule#isSecure <em>Secure</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,5 +125,31 @@ public interface AppModule extends EObject {
 	 * @generated
 	 */
 	void setExtSecurityModel(SecurityModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Secure</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Secure</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Secure</em>' attribute.
+	 * @see #setSecure(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getAppModule_Secure()
+	 * @model
+	 * @generated
+	 */
+	boolean isSecure();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.AppModule#isSecure <em>Secure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Secure</em>' attribute.
+	 * @see #isSecure()
+	 * @generated
+	 */
+	void setSecure(boolean value);
 
 } // AppModule

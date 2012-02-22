@@ -80,6 +80,7 @@ public class AppModuleItemProvider
 
 			addNamePropertyDescriptor(object);
 			addExtSecurityModelPropertyDescriptor(object);
+			addSecurePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -124,6 +125,28 @@ public class AppModuleItemProvider
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Secure feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSecurePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AppModule_secure_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AppModule_secure_feature", "_UI_AppModule_type"),
+				 GuigenPackage.Literals.APP_MODULE__SECURE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -196,6 +219,7 @@ public class AppModuleItemProvider
 
 		switch (notification.getFeatureID(AppModule.class)) {
 			case GuigenPackage.APP_MODULE__NAME:
+			case GuigenPackage.APP_MODULE__SECURE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.APP_MODULE__CONTENT_PANELS:

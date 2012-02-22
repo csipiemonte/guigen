@@ -6531,13 +6531,22 @@ public interface GuigenPackage extends EPackage {
 	int APP_MODULE__EXT_SECURITY_MODEL = 2;
 
 	/**
+	 * The feature id for the '<em><b>Secure</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APP_MODULE__SECURE = 3;
+
+	/**
 	 * The number of structural features of the '<em>App Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APP_MODULE_FEATURE_COUNT = 3;
+	int APP_MODULE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.
@@ -12878,6 +12887,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getAppModule_ExtSecurityModel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.AppModule#isSecure <em>Secure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Secure</em>'.
+	 * @see it.csi.mddtools.guigen.AppModule#isSecure()
+	 * @see #getAppModule()
+	 * @generated
+	 */
+	EAttribute getAppModule_Secure();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.TypeNamespace <em>Type Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17574,6 +17594,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APP_MODULE__EXT_SECURITY_MODEL = eINSTANCE.getAppModule_ExtSecurityModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Secure</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APP_MODULE__SECURE = eINSTANCE.getAppModule_Secure();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.TypeNamespaceImpl <em>Type Namespace</em>}' class.

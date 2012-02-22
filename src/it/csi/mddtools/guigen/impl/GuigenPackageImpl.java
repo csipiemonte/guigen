@@ -4260,6 +4260,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAppModule_Secure() {
+		return (EAttribute)appModuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypeNamespace() {
 		return typeNamespaceEClass;
 	}
@@ -6391,6 +6400,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(appModuleEClass, APP_MODULE__NAME);
 		createEReference(appModuleEClass, APP_MODULE__CONTENT_PANELS);
 		createEReference(appModuleEClass, APP_MODULE__EXT_SECURITY_MODEL);
+		createEAttribute(appModuleEClass, APP_MODULE__SECURE);
 
 		typeNamespaceEClass = createEClass(TYPE_NAMESPACE);
 		createEAttribute(typeNamespaceEClass, TYPE_NAMESPACE__NAME);
@@ -7175,6 +7185,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getAppModule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppModule_ContentPanels(), this.getContentPanel(), null, "contentPanels", null, 0, -1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAppModule_ExtSecurityModel(), this.getSecurityModel(), null, "extSecurityModel", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAppModule_Secure(), ecorePackage.getEBoolean(), "secure", null, 0, 1, AppModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeNamespaceEClass, TypeNamespace.class, "TypeNamespace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeNamespace_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypeNamespace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

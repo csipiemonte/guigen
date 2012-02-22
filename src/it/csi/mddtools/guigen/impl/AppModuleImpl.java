@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getContentPanels <em>Content Panels</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#getExtSecurityModel <em>Ext Security Model</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.AppModuleImpl#isSecure <em>Secure</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,6 +98,26 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * @ordered
 	 */
 	protected SecurityModel extSecurityModel;
+
+	/**
+	 * The default value of the '{@link #isSecure() <em>Secure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSecure()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SECURE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSecure() <em>Secure</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSecure()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean secure = SECURE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -193,6 +214,27 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSecure() {
+		return secure;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSecure(boolean newSecure) {
+		boolean oldSecure = secure;
+		secure = newSecure;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.APP_MODULE__SECURE, oldSecure, secure));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -217,6 +259,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
 				if (resolve) return getExtSecurityModel();
 				return basicGetExtSecurityModel();
+			case GuigenPackage.APP_MODULE__SECURE:
+				return isSecure();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -240,6 +284,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
 				setExtSecurityModel((SecurityModel)newValue);
 				return;
+			case GuigenPackage.APP_MODULE__SECURE:
+				setSecure((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -261,6 +308,9 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
 				setExtSecurityModel((SecurityModel)null);
 				return;
+			case GuigenPackage.APP_MODULE__SECURE:
+				setSecure(SECURE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -279,6 +329,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 				return contentPanels != null && !contentPanels.isEmpty();
 			case GuigenPackage.APP_MODULE__EXT_SECURITY_MODEL:
 				return extSecurityModel != null;
+			case GuigenPackage.APP_MODULE__SECURE:
+				return secure != SECURE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -295,6 +347,8 @@ public class AppModuleImpl extends EObjectImpl implements AppModule {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", secure: ");
+		result.append(secure);
 		result.append(')');
 		return result.toString();
 	}

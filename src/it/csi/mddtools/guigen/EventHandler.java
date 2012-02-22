@@ -206,7 +206,7 @@ public interface EventHandler extends EObject {
 	 *     <ul>
 	 *     <li><i>min_chars=&lt;numero&gt;</i>: permette di specificare il numero
 	 *            di caratteri minimo affinch&egrave; scatti la query di <i>suggestion</i>
-	 *            (il default &egrave: 4)
+	 *            (il default &egrave; 4)
 	 *      </li>
 	 *     </ul>
 	 *   </li>
