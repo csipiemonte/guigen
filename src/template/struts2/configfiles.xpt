@@ -339,6 +339,7 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 	«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43»
 		«EXPAND jbossEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND jbossWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
+		«EXPAND jbossWebContextDescriptorFile(skip_component_dir_creation) FOR this»
 	«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92»
 		«EXPAND wlEjbDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
 		«EXPAND wlWebDeploymentDescriptorFile(skip_component_dir_creation) FOR this»
@@ -386,6 +387,13 @@ FILES CONFIGURAZIONE SPECIFICI DEGLI APPLICATION SERVER
 «ENDREM»
 «ENDDEFINE»
 
+«DEFINE jbossWebContextDescriptorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJbossWebContextDescriptorFile(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    @@@@JBOSS_SESSIONCOOKIEVALVE@@@@
+</Context>
+«ENDFILE»
+«ENDDEFINE»
 
 «REM»************************************ BEA WebLogic ************************************«ENDREM»
 
