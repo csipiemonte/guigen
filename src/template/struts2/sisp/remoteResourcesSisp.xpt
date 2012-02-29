@@ -17,7 +17,6 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::sisp::Struts2ExtensionsSisp»
@@ -49,7 +48,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.notfound.btnmsg" />" class="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
+			<a href="«getHomePageActionURLWithContextPath()»" title="<fmt:message key="error.notfound.btnmsg" />" class="nav95"><fmt:message key="error.notfound.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -67,7 +66,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.fatalerror.btnmsg" />" class="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
+			<a href="«getHomePageActionURLWithContextPath()»" title="<fmt:message key="error.fatalerror.btnmsg" />" class="nav95"><fmt:message key="error.fatalerror.btnmsg" /></a>
 		</div>
 	</div>
 </div>
@@ -86,7 +85,7 @@ Definizioni generali: Pagine di ERRORE
 	</div>
 	<div class="pulsNav">
 		<div class="pulsNavDx">
-			<s:url id="homePageUrl" action="HomePage" />
+			<s:url id="homePageUrl" action="«getHomePageActionName()»" namespace="«getHomePageActionNamespace(false)»" />
 			<s:a href="%{homePageUrl}" title="%{getText('error.applicationerror.btnmsg')" cssClass="nav95"><s:text name="error.applicationerror.btnmsg" /></s:a>
 		</div>
 	</div>
@@ -113,7 +112,7 @@ Definizioni generali: Pagine di ERRORE
 			<a href="http://www.sistemapiemonte.it/" title="<fmt:message key="error.sessionexpired.btnmsgportalhome" />" class="nav205"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 		</div>
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+			<a href="«getHomePageActionURLWithContextPath()»" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 		</div>
 	</div>
 </div>
@@ -133,7 +132,7 @@ Definizioni generali: Pagine di ERRORE
 			<a href="http://www.sistemapiemonte.it/" title="<fmt:message key="error.sessionexpired.btnmsgportalhome" />" class="nav205"><fmt:message key="error.sessionexpired.btnmsgportalhome" /></a>
 		</div>
 		<div class="pulsNavDx">
-			<a href="HomePage.do" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+			<a href="«getHomePageActionURLWithContextPath()»" title="<fmt:message key="error.sessionexpired.btnmsgservicehome" />" class="nav95"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 		</div>
 	</div>
 </div>
@@ -223,31 +222,6 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
-«REM»RIMOSSO: implementata REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (senza remincl: TMP)-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
-		<meta name="author" content="CSI-Piemonte" />
-		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
-		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
-
-		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
-		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
-
-<!--/head -->
-«ENDREM»
 
 	«REM»se rich=enabled => il calendar è extjs e le funzioni padre-figlio sono in ext-csi/ajaxify«ENDREM»
 	«IF !(model.targetPlatform.enableRichUIBehavior)-»
@@ -266,7 +240,6 @@ Definizioni generali: header, footer, ecc
 			});// chiusura function ready
 		</script>
 	«ENDIF-»
-		«REM»«EXPAND template::struts2::view::accessibility::enterKeyHandler FOR model»«ENDREM»
 		
 		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
 	</head>
@@ -282,70 +255,13 @@ Definizioni generali: header, footer, ecc
 				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
-				«REM»RIMOSSO: implementata REMINCL
-				<!--header (senza remincl: TMP)-->
-				<p id="avviso" class="navigazionePagina">
-					<a href="#contPath" id="A-inizio"
-						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
-						l&#8217;intestazione</a><span class="alt">|</span>
-				</p>
-				<div id="logo">
-					<h1 class="alt">
-						<a href="http://www.sistemapiemonte.it/"
-							title="Home page SistemaPiemonte">Sistema Piemonte</a>
-					</h1>
-				</div>
-				<div id="scritta">
-					<span class="alt"> - <a
-						href="http://www.sistemapiemonte.it/"
-						title="Home page SistemaPiemonte">l'amministrazione pubblica
-							al tuo servizio</a> </span>
-				</div>
-				<hr />
-				<p class="navigazionePagina">
-					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
-						ai contenuti</a> |
-					<a href="#sfondo" title="vai al menu della sezione">vai al menu
-						della sezione</a>
-				</p>
-				<hr />
-				<div id="sisp">
-				</div>
-
-				<div id="menuDiServizio">
-					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
-					<ul class="menuTendinaOrizz" id="menu-1">
-						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
-						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
-						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
-						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
-						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
-						<!-- <li><a href="#">profilo personale</a></li> -->
-					</ul>
-				</div>
-
-				<noscript>
-					<div id="avvisoJavascript">
-						<p>
-							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
-							<br />
-							Per poter usufruire in maniera completa dei servizi presenti in
-							SistemaPiemonte, &eacute; necessario utilizzare un browser che
-							supporti le funzioni Javascript.
-						</p>
-					</div>
-				</noscript>
-				<hr />
-				<!--/header (senza remincl: TMP)-->
-				«ENDREM»
-
 				«IF getActualSecurityModel(model)!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
 						<s:text name="header.userinfo.head.label" />
 						<strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong>&nbsp;
-						<s:url id="ssoLogoutUrl" action="Logout" method="ssoLogout" />
+						<s:url id="ssoLogoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="ssoLogout" />
 						<span class="logout"><s:a href="%{ssoLogoutUrl}" title="esci: questo link fa uscire dal servizio"><s:text name="header.ssologout.label" /></s:a></span>
 					</div>
 				</div>
@@ -384,31 +300,6 @@ Definizioni generali: header, footer, ecc
 «DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
 <r:include url="/ris/include/«IF !isNullOrEmpty(codCanale)»«codCanale»/«ENDIF»«IF !isNullOrEmpty(codApplicativo)»«codApplicativo»/«ENDIF»head.html" resourceProvider="sp" />
 <!-- fine head (con remincl) -->
-«REM»RIMOSSO: implementata REMINCL
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--head (senza remincl: TMP)-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<title>Sistema Piemonte - Area Tematica - Nome servizio</title>
-		<meta name="author" content="CSI-Piemonte" />
-		<meta name="description" content="Sistema Piemonte il portale per cittadini ed imprese" />
-		<meta name="keywords" content="piemonte, servizi, cittadini, imprese, sistema, amministrazione" />
-
-		<link type="text/css" href="<%=request.getContextPath()%>/css/area/area.css" rel="stylesheet" media="screen" />
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="plain"/>
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/strutturaFluidodueCol.css" title="fluido" />
-		<link rel="alternate stylesheet" type="text/css" href="<%=request.getContextPath()%>/ris/css/generaliV3/struttura800dueCol.css" title="standard" />
-		<link href="<%=request.getContextPath()%>/css/tab_righeAlterne.css" rel="stylesheet" type="text/css" media="screen" />
-		<link href="<%=request.getContextPath()%>/css/paginazione.css" rel="stylesheet" type="text/css" media="screen" />
-
-		<script type="text/javascript" src="<%=request.getContextPath()%>/sandbox/templates/repository/pattern/javascript/changeStyle.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/ris/js/generaliV3/jquery/jqsisp-0.9.pack.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath()%>/js/lib.js"></script>
-
-<!--/head -->
-«ENDREM»
 
 		<script type="text/javascript" src="/ris/js/generaliV3/pulsantiPadreFiglio.js"></script>
 		
@@ -425,70 +316,13 @@ Definizioni generali: header, footer, ecc
 				<r:include url="/ris/include/headerSisp.html" resourceProvider="sp" />
 				<!-- fine header (con remincl) -->
 
-				«REM»RIMOSSO: implementata REMINCL
-				<!--header (senza remincl: TMP)-->
-				<p id="avviso" class="navigazionePagina">
-					<a href="#contPath" id="A-inizio"
-						title="Salta i menu e vai direttamente ai contenuti" tabindex="1">Salta
-						l&#8217;intestazione</a><span class="alt">|</span>
-				</p>
-				<div id="logo">
-					<h1 class="alt">
-						<a href="http://www.sistemapiemonte.it/"
-							title="Home page SistemaPiemonte">Sistema Piemonte</a>
-					</h1>
-				</div>
-				<div id="scritta">
-					<span class="alt"> - <a
-						href="http://www.sistemapiemonte.it/"
-						title="Home page SistemaPiemonte">l'amministrazione pubblica
-							al tuo servizio</a> </span>
-				</div>
-				<hr />
-				<p class="navigazionePagina">
-					<a href="#colonnaDestra" title="vai direttamente ai contenuti">vai
-						ai contenuti</a> |
-					<a href="#sfondo" title="vai al menu della sezione">vai al menu
-						della sezione</a>
-				</p>
-				<hr />
-				<div id="sisp">
-				</div>
-
-				<div id="menuDiServizio">
-					<p class="navigazionePagina">Sistema piemonte - menu di navigazione</p>
-					<ul class="menuTendinaOrizz" id="menu-1">
-						<li><a href="http://www.sistemapiemonte.it/index.shtml">home</a></li>
-						<li><a href="http://www.sistemapiemonte.it/servizi/">indice servizi</a></li>
-						<li><a href="http://www.sistemapiemonte.it/informazioni/">informazioni</a></li>
-						<li><a href="http://search.sistemapiemonte.it/mrceli/searchsp">cerca</a></li>
-						<li><a href="http://webmail.sistemapiemonte.it/">posta</a></li>
-						<!-- <li><a href="#">profilo personale</a></li> -->
-					</ul>
-				</div>
-
-				<noscript>
-					<div id="avvisoJavascript">
-						<p>
-							<strong>ATTENZIONE - Il browser in uso non supporta le applicazioni Javascript.</strong>
-							<br />
-							Per poter usufruire in maniera completa dei servizi presenti in
-							SistemaPiemonte, &eacute; necessario utilizzare un browser che
-							supporti le funzioni Javascript.
-						</p>
-					</div>
-				</noscript>
-				<hr />
-				<!--/header (senza remincl: TMP)-->
-				«ENDREM»
-
 				«IF getActualSecurityModel(model)!=null-»
 				«LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="currentUser").first() AS currentUserAD-»
 				<div id="contUtenza">
 					<div id="Utenza">
 						<fmt:message key="header.userinfo.head.label" />
 						<strong><%-- impossibile visualizzare l'utente --%></strong>&nbsp;
-						<span class="logout"><a href="Logout!ssoLogout.do" title="esci: questo link fa uscire dal servizio"><fmt:message key="header.ssologout.label" /></a></span>
+						<span class="logout"><a href="«getLogoutActionURL("ssoLogout")»" title="esci: questo link fa uscire dal servizio"><fmt:message key="header.ssologout.label" /></a></span>
 					</div>
 				</div>
 				«ENDLET-»
@@ -576,7 +410,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')">
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 		<li«getMenuNoChildCssSisp(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
 				«getMenuNoChildLabelSisp(this, level)»
@@ -602,7 +436,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuWithChildCssSisp(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuWithChildLinkCssSisp(this, level)»>
 					«getMenuWithChildLabelSisp(this, level)»
 				</s:a>
@@ -632,7 +466,7 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuNoChildCssSisp(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssSisp(this, level)»>
 					«getMenuNoChildLabelSisp(this, level)»
 				</s:a>
@@ -670,26 +504,6 @@ e che il quarto livello abbia obbligatoriamente un elemento con EventHandler.
 
 <!-- footer (con remincl) -->
 <r:include url="/ris/include/footerSisp.html" resourceProvider="sp" />
-
-«REM»RIMOSSO: implementata REMINICL
-<!--footer (senza remincl: TMP)-->
-			<!--piedipagina-->
-			<div id="piedipagina">
-				<p id="noteSito" title="per informazioni: info@sistemapiemonte.it">
-					<a href="mailto:info@sistemapiemonte.it"><span class="alt">per informazioni: info@sistemapiemonte.it</span></a>
-				</p>
-				<p class="navigazionePagina">
-					[ <a href="#intestazione">Torna all'inizio della pagina</a> ]
-				</p>
-			</div>
-			<!--/piedipagina-->
-
-		</div>
-		<!--/pagina-->
-
-	</body>
-</html>
-«ENDREM»
 «ENDDEFINE»
 
 
@@ -946,7 +760,7 @@ Gestione dei PANNELLI
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
 		«LET i.lastIteration ? "<s:property value=\"%{#session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab, cp, contextPrefix)+"' ? 'tabAttivoUltimo3' : 'tabUltimo3'}\" />" : "<s:property value=\"%{#session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == '"+getMultiPanelName(this, currTab, cp, contextPrefix)+"'" + (i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "") + " ? 'tabAttivo3' : 'tab3'}\" />" AS tabStyle-»
-		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
@@ -957,7 +771,7 @@ Gestione dei PANNELLI
         </s:if>
         <s:else>
         	«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, this, currTab, contextPrefix) FOR this.switcher»
         	«ENDIF-»
           <s:submit name="«getFullID(switcher, contextPrefix)»"
           	«REM»cssStyle="border: 0pt none ; background: transparent; font-weight: bold; cursor: pointer;"«ENDREM»
@@ -991,7 +805,7 @@ Gestione dei PANNELLI
 	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
@@ -1031,7 +845,7 @@ Gestione dei PANNELLI
 	«LET this AS currStep-»
 	«IF switchEvent != null-»
 		«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher»
         «ENDIF-»
     	<s:submit name="«getFullID(switcher, contextPrefix)»"
     	   	«REM»cssStyle="border: 0pt none ; background: transparent; font-weight: bold; cursor: pointer;"«ENDREM»
@@ -1075,7 +889,7 @@ Gestione dei PANNELLI
 			Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong><br/>
 			Ruolo: <strong><s:property value="«getAppDataKey(currentUserAD)».ruolo" /></strong>
 		</span>
-		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<s:url id="localLogoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="localLogout" />
 		<span class="logoutApplicativo"><s:a href="%{localLogoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a></span>
 	</div>
 </div>
@@ -1176,7 +990,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, true)»" method="post">
 
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->

@@ -17,7 +17,6 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::rupar::Struts2ExtensionsRupar»
@@ -51,7 +50,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<a href="HomePage.do"><fmt:message key="error.notfound.btnmsg" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»"><fmt:message key="error.notfound.btnmsg" /></a>
 	</span>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -69,7 +68,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<a href="HomePage.do"><fmt:message key="error.fatalerror.btnmsg" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»"><fmt:message key="error.fatalerror.btnmsg" /></a>
 	</span>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -88,7 +87,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<s:url id="homePageUrl" action="HomePage" />
+		<s:url id="homePageUrl" action="«getHomePageActionName()»" namespace="«getHomePageActionNamespace(false)»" />
 		<s:a href="%{homePageUrl}"><s:text name="error.applicationerror.btnmsg" /></s:a>
 	</span>
 </div>
@@ -112,7 +111,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 	</span>
 </div>
 <div class="pulsanti">
@@ -137,7 +136,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 	</span>
 </div>
 <div class="pulsanti">
@@ -166,7 +165,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div class="pulsanti">
 	<span class="barraTot">
-		<s:url id="localLogoutUrl" action="Logout" method="localLogout" />
+		<s:url id="localLogoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="localLogout" />
 		<s:a href="%{localLogoutUrl}"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
 	</span>
 </div>
@@ -367,7 +366,7 @@ NOTA: per il momento è stata implementato il menu ad un livello solo«ENDREM»
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')" >
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 		<li«getMenuNoChildCssRupar(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»"«getMenuNoChildLinkCssRupar(this, level)»>
 				«getMenuNoChildLabelRupar(this, level)»
@@ -561,7 +560,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS tabExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
@@ -572,7 +571,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 		<s:else>
 		«IF switchHnd != null-»
 			«IF model.targetPlatform.enableRichUIBehavior-»
-				«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher-»
+				«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, this, currTab, contextPrefix) FOR this.switcher-»
 			«ENDIF-»
 			<s:submit name="«getFullID(switcher, contextPrefix)»"
 			          id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
@@ -602,7 +601,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	«IF switchHnd == null»<ul>«ENDIF»
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
@@ -637,7 +636,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	«LET this AS currStep-»
 	«IF switchEvent != null-»
 		«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
         «ENDIF-»
     	<s:submit name="«getFullID(switcher, contextPrefix)»"
 		          id="«getTabSwitcherSubmitID(switcher, currStep, contextPrefix)»"
@@ -679,7 +678,7 @@ NOTA: non esiste un layout a 3 colonne in RUPAR, ma solo a due colonne
 	<span id="datiUtente">Utente: <strong><s:property value="«getAppDataKey(currentUserAD)».nome" /> <s:property value="«getAppDataKey(currentUserAD)».cognome" /></strong> | Ente: <strong><s:property value="«getAppDataKey(currentUserAD)».ente" /></strong></span>
 	<span class="bugFix">&nbsp;|&nbsp;</span>
 	<span id="esciServizio">
-		<s:url id="confirmLogoutUrl" action="Logout" method="confirmLogout" />
+		<s:url id="confirmLogoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="confirmLogout" />
 		<s:a href="%{confirmLogoutUrl}">chiudi sessione</s:a>
 	</span>
 	<div class="both"></div>
@@ -775,7 +774,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="post">
 
 	<!-- righe -->
 	<div id="righe">

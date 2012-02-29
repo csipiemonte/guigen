@@ -198,7 +198,7 @@ Ext.onReady( function() {
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
 	var addSuggestionsTo«name.toFirstUpper()» =  
 		function(){uiNRichLib.addTextSuggestionNRich(
-			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getOGNLForWidgetValue(this, contextPrefix, pduc)»',
 			 «required ? "true" : "false"», «getEventSpecifierValue(keyPressedEvh,"min_chars")»)}; 
@@ -224,7 +224,7 @@ Ext.onReady( function() {
 	/// arricchimento per «this.metaType.name» [«name»]: suggestion con interazioen server-side
 	var addSuggestionsTo«name.toFirstUpper()» =  
 		function(){uiNRichLib.addComboSuggestionNRich(
-			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)».do',
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,keyPressedEvh, contextPrefix)»«getStrutsActionCompleteExtension()»',
 			'«getWidgetName(this, contextPrefix)»',
 			'«getAppDataKey(databinding.appData)»',
 			'«keySelector»',
@@ -234,7 +234,7 @@ Ext.onReady( function() {
 			«LET (Panel)(this.eContainer) AS parentPanel-»
 			«LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
 			'«FOREACH refreshIds AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»',«REM»targetIds«ENDREM»
-			'«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)».do',«REM»requestUri«ENDREM»
+			'«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix)»«getStrutsActionCompleteExtension()»',«REM»requestUri«ENDREM»
 			'«cp.name»',«REM»pageId«ENDREM»
 			'«cp.name»',«REM»formName«ENDREM»
 			«ENDLET-»
@@ -282,14 +282,14 @@ Ext.onReady( function() {
 											idDivToolbar: 'toolbar_«this.name»',
 											idDivMappa: '«this.name»',
 											idMappa: '«this.mapId»',
-											actionName: contentPanelName,
+											actionName: '«getMapEnrichmentAcionNamespace(cp, model)»' + contentPanelName,
 											appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
 											projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
-											clickEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)».do',
+											clickEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)»«getStrutsActionCompleteExtension()»',
 											refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»]
 												«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
 											,
-											editingEventUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)».do',
+											editingEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)»«getStrutsActionCompleteExtension()»',
 											refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
 											editingDataName: '«getAppDataPropertyName(this.editDataBinding.appData).toFirstLower()»',
 											noClickWhenDisabled: «jsLiteralValue(noClickWhenDisabled)»,

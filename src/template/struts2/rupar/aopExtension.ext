@@ -95,11 +95,11 @@ around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPa
 /// EVENT HANDLERS
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript abilitato)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -109,9 +109,9 @@ around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScr
 			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
-around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, ContentPanel cp, String contextPrefix) :
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" "; 
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :

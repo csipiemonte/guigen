@@ -227,13 +227,15 @@ public class WhereAreYouFromFilter implements Filter {
 		HttpServletRequest hreq = (HttpServletRequest) req;
 		HttpServletResponse hresp = (HttpServletResponse) resp;
 
-		// la pagina di errore deve essere esclusa
+		// la risorsa richiesta deve essere esclusa
 		if (!MultiPortalUtil.mustCheckPage(hreq.getRequestURI())) {
 			fchn.doFilter(req, resp);
 			return;
 		}
 
+		// il cookie di portale MDD esiste?
 		if (!MultiPortalUtil.isSetCookie(MultiPortalUtil.MDD_PORTAL_COOKIE_NAME, hreq.getCookies())) {
+			log.info("[WhereAreYouFromFilter::doFilter] COOKIE DI PORTALE NON SETTATO => DEVO SETTARLO");
 
 			if (hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE) != null) {
 				String decodedPortal = (String)hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE);
@@ -243,20 +245,39 @@ public class WhereAreYouFromFilter implements Filter {
 				portalInfo.setPath(hreq.getContextPath());
 				portalInfo.setMaxAge(-1); // scadenza sessione browser
 
+				// setto il cookie MDD
 				hresp.addCookie(portalInfo);
+				
+				// i parametri di sessione sono settati?
+				if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
+					log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+					
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, decodedPortal);
+					
+					String channelName = MultiPortalUtil.getChannelName(decodedPortal);
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_CHANNEL_SESSIONATTR, channelName);
+
+					String portalHome = hreq.getSession().getServletContext().getInitParameter("portal.home." + decodedPortal);
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_HOME_SESSIONATTR, portalHome != null && portalHome.length() > 0 ? portalHome : "#");
+				}				
+
 				fchn.doFilter(req, resp);
 				return;
 			} else {
 				// NO parametro: ERRORE
+				log.error("[WhereAreYouFromFilter::doFilter] ERRORE: REQUEST ATTRIBUTE " + MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE + " MANCANTE");
 				hresp.sendRedirect(MultiPortalUtil.ERROR_ACTION);
 				return;
 			}
 		} else {
+			// il cookie esiste: i parametri in sessione sono settati ?
 			if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
+				log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+			
 				String portalName = MultiPortalUtil.getResourceProvider(hreq.getCookies());
-				String channelName = MultiPortalUtil.getChannelName(portalName);
-
 				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, portalName);
+
+				String channelName = MultiPortalUtil.getChannelName(portalName);
 				hreq.getSession().setAttribute(MultiPortalUtil.MDD_CHANNEL_SESSIONATTR, channelName);
 
 				String portalHome = hreq.getSession().getServletContext().getInitParameter("portal.home."+portalName);
@@ -265,7 +286,9 @@ public class WhereAreYouFromFilter implements Filter {
 			}
 		}
 
-		// se il cookie di portale MDD esiste ed e' valido, posso proseguire
+		// se il cookie di portale MDD esiste ed e' valido, 
+		// se i parametri in sessione esistono,
+		// allora posso proseguire
 		fchn.doFilter(req, resp);
 	}
 
@@ -316,7 +339,7 @@ public class MultiPortalUtil {
 	public static final String MDD_CHANNEL_SESSIONATTR = "MDD_CHANNEL_CODE";
 	public static final String MDD_PORTAL_HOME_SESSIONATTR = "MDD_PORTAL_HOME";
 
-	public static final String ERROR_ACTION = "unknownPortal.do";
+	public static final String ERROR_ACTION = "unknownPortal«getStrutsActionCompleteExtension()»";
 	public static final String ERROR_PAGE = "unknownPortal.jsp";
 	
 	public static final String DEFAULT_CHANNEL_NAME = "general";
@@ -357,10 +380,12 @@ public class MultiPortalUtil {
 
 	public static boolean mustCheckPage(String requestURI) {
 		if (requestURI.indexOf(ERROR_ACTION) > -1
-				|| requestURI.indexOf(ERROR_PAGE) > -1)
+				|| requestURI.indexOf(ERROR_PAGE) > -1
+				«EXPAND mustCheckPageExtraConditions(this) FOR getActualSecurityModel(this).autenticationMethod-») {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
 
 
@@ -392,6 +417,14 @@ public class MultiPortalUtil {
 
 }
 «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE mustCheckPageExtraConditions(GUIModel model) FOR AutenticationMethod-»
+«ENDDEFINE»
+
+«DEFINE mustCheckPageExtraConditions(GUIModel model) FOR ShibbolethSSO-»
+|| requestURI.indexOf("/?") > -1
+|| requestURI.endsWith("/")
 «ENDDEFINE»
 
 
@@ -536,7 +569,7 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 	
 	<filter-mapping>
 		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
@@ -544,7 +577,7 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>WhereAreYouFrom</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>WhereAreYouFrom</filter-name>

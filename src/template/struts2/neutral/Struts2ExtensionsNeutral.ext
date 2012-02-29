@@ -87,11 +87,11 @@ String getLogoutActionType(GUIModel model) :
 /// EVENT HANDLERS
 
 // [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, ContentPanel cp, String contextPrefix) :
+String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -101,12 +101,12 @@ String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model
 			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
-String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, String contextPrefix) :
+String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(findParentContentPanel(rb)) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
-String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, String contextPrefix) :
+String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
 		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
 			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 

@@ -165,8 +165,6 @@ String getWebModuleManifestFile(GUIModel model, boolean omit_root) :
 	getWebModuleMetaInfDir(model, omit_root) + "/MANIFEST.MF";
 
 
-
-
 /// javafiles
 
 String getJavaSrcDir(GUIModel model, boolean omit_root) :
@@ -207,8 +205,11 @@ String getGlobalXstructureDir(boolean remote) :
 String getGlobalOpenlayersthemeDir(boolean remote) : 
 	(remote ? "/" : "") + "ris/utheme/global/themes/openlayersthemeV1/";
 
+String getJsPath() : 
+	"ris/js/";
+
 String getJsDir(boolean remote) : 
-	(remote ? "/" : "") + "ris/js/";
+	(remote ? "/" : "") + getJsPath();
 
 String getNomeCanale(GUIModel model) :
 	let canale = model.structure.appWindow.header.codCanale.trim() :

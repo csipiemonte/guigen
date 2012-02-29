@@ -17,7 +17,6 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::view::resourcefiles»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
 «EXTENSION template::struts2::neutral::Struts2ExtensionsNeutral»
@@ -51,7 +50,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
-		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.notfound.btnmsg" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»" class="buttonWidget"><fmt:message key="error.notfound.btnmsg" /></a>
 	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -70,7 +69,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
-		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.fatalerror.btnmsg" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»" class="buttonWidget"><fmt:message key="error.fatalerror.btnmsg" /></a>
 	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -89,7 +88,7 @@ Definizioni generali: Pagine di ERRORE
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
-		<s:url id="homePageUrl" action="HomePage" />
+		<s:url id="homePageUrl" action="«getHomePageActionName()»" namespace="«getHomePageActionNamespace(false)»" />
 		<s:a href="%{homePageUrl}" cssClass="buttonWidget"><s:text name="error.applicationerror.btnmsg" /></s:a>
 	</div>
 </div>
@@ -120,7 +119,7 @@ Definizioni generali: Pagine di ERRORE
 	«ENDIF-»
 	</div>
 	<div class="button right">
-		<a href="HomePage.do" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»" class="buttonWidget"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -144,11 +143,11 @@ Crea la pagina di conferma chiusura sessione utente (conferma logout)
 </div>
 <div id="applicationError_links" class="commandPanel navigation">
 	<div class="button left">
-		<s:url id="logoutUrl" action="Logout" method="«getLogoutActionType(this)»" />
+		<s:url id="logoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="«getLogoutActionType(this)»" />
 		<s:a href="%{logoutUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsglogout" /></s:a>
 	</div>
 	<div class="button right">
-		<s:url id="homePageUrl" action="HomePage" />
+		<s:url id="homePageUrl" action="«getHomePageActionName()»" namespace="«getHomePageActionNamespace(false)»" />
 		<s:a href="%{homePageUrl}" cssClass="buttonWidget"><s:text name="message.confirmlogout.btnmsghomepage" /></s:a>
 	</div>
 </div>
@@ -174,7 +173,7 @@ Crea la pagina di conferma chiusura sessione utente (conferma logout)
 	«ENDIF-»
 	</div>
 	<div class="button right">
-		<a href="HomePage.do"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
+		<a href="«getHomePageActionURLWithContextPath()»"><fmt:message key="error.sessionexpired.btnmsgservicehome" /></a>
 	</div>
 </div>
 «EXPAND getJspErrorPageFooterNoStruts FOR this-»
@@ -335,7 +334,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 «IF this.eventHandler.eventType == EventTypes::CLICKED-»
 	«LET this.eventHandler.command AS currAction-»
 	<s:if test="isMenuEnabled('«this.name»')">
-		<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+		<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 		<li«getMenuNoChildCssNeutral(this, level)»>
 			<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 				«getMenuNoChildLabelNeutral(this, level)»
@@ -361,7 +360,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuWithChildCssNeutral(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					<span>«getMenuWithChildLabelNeutral(this, level)»</span>
 				</s:a>
@@ -391,7 +390,7 @@ TODO: capire cosa sono e come vadano realmente implementati realmente.«ENDREM»
 		«LET this.eventHandler.command AS currAction-»
 		<s:if test="isMenuEnabled('«this.name»')">
 			<li«getMenuNoChildCssNeutral(this, level)»>
-				<s:url id="targetUrl«this.name.toFirstUpper()»" action="goTo«this.name.toFirstUpper()»FromMenu" includeParams="none" />
+				<s:url id="targetUrl«this.name.toFirstUpper()»" action="«getMenuItemActionName(this.name.toFirstUpper())»" namespace="«getMenuActionNamespace(false)»" includeParams="none" />
 				<s:a href="%{targetUrl«this.name.toFirstUpper()»}" id="menu_items_«this.name»">
 					«getMenuNoChildLabelNeutral(this, level)»
 				</s:a>
@@ -572,7 +571,7 @@ Gestione dei PANNELLI
 	«LET this.switcher != null ? (this.switcher.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED)) : null AS switchHnd-»
 	«FOREACH this.panels AS currTab ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currTab, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currTab, cp, contextPrefix)»'}" />
 		</s:url>
@@ -583,7 +582,7 @@ Gestione dei PANNELLI
 		<s:else>
 			<li class="item-«i.counter1»">
 				«IF model.targetPlatform.enableRichUIBehavior-»
-					«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, this, currTab, contextPrefix) FOR this.switcher-»
+					«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, this, currTab, contextPrefix) FOR this.switcher-»
 				«ENDIF-»
 				<s:submit name="«getFullID(switcher, contextPrefix)»"
 				          id="«getTabSwitcherSubmitID(switcher, currTab, contextPrefix)»"
@@ -616,7 +615,7 @@ Gestione dei PANNELLI
 	<ol>
 	«FOREACH this.panels AS currStep ITERATOR i-»
 		«LET i.firstIteration ? " || #session."+getSelectedMultiPanelName(this, cp, contextPrefix)+"_selectedMultiPanel == null" : "" AS stepExtraCondition -»
-		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" method="handleChangeTab" includeParams="get">
+		<s:url id="«getMultiPanelName(this, currStep, cp, contextPrefix)»_URL" action="«getStrutsActionConfigName(cp)»" namespace="«getContentPanelNamespace(cp, false)»" method="handleChangeTab" includeParams="get">
 			<s:param name="selectedTabKey" value="%{'«getSelectedMultiPanelName(this, cp, contextPrefix)»_selectedMultiPanel'}" />
 			<s:param name="selectedTabValue" value="%{'«getMultiPanelName(this, currStep, cp, contextPrefix)»'}" />
 		</s:url>
@@ -650,7 +649,7 @@ Gestione dei PANNELLI
 	«LET this AS currStep-»
 	«IF switchEvent != null-»
 		«IF model.targetPlatform.enableRichUIBehavior-»
-        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
+        	«EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(model, cp, (WizardPanel)eContainer, this, contextPrefix) FOR switcher-»
         «ENDIF-»
     	<s:submit name="«getFullID(switcher, contextPrefix)»"
 		          id="«getTabSwitcherSubmitID(switcher, currStep, contextPrefix)»"
@@ -700,7 +699,7 @@ Gestione dei PANNELLI
 	</div>
 	<div class="userInfoActions">
 		<!-- uscita dal servizio e/o cambio ruolo -->
-		<s:url id="logoutUrl" action="Logout" method="«getUserInfoPanelLogoutMethod(model)»" />
+		<s:url id="logoutUrl" action="«getLogoutActionName()»" namespace="«getLogoutActionNamespace(false)»" method="«getUserInfoPanelLogoutMethod(model)»" />
 		<s:a href="%{logoutUrl}" title="chiudi: questo link fa uscire dal servizio">esci</s:a>
 	</div>
 </div>
@@ -716,7 +715,7 @@ Gestione dei PANNELLI
 «LET ((List[ApplicationData])getAllApplicationData(model)).select(ad|ad.name=="crumbs").first() AS crumbsAD-»
 <div id="breadCrumbPanel" class="breadCrumbPanel">
     <!-- elementi statici -->
-    <span class="element"><a href="HomePage.do">«model.structure.appWindow.header.nomeApplicativo»</a></span>
+    <span class="element"><a href="«getHomePageActionURLWithContextPath()»">«model.structure.appWindow.header.nomeApplicativo»</a></span>
     <!-- elementi dinamici (legati alla logica di navigazione)  -->
 <s:iterator value="appDatacrumbs" status="breadcrumbStatus">
 	<s:if test="!#breadcrumbStatus.last">
@@ -834,7 +833,7 @@ Gestione dei LAYOUT - PANNELLI
 <s:include value="../fragments/header.jsp" ></s:include>
 «ENDIF-»
 
-<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" method="post">
+<s:form id="«this.name»Form" action="«getStrutsActionConfigName(findParentContentPanel(this))»" namespace="«getContentPanelNamespace(cp, false)»" method="post">
 
 	<!-- ####################### PANNELLO CONTENUTI ###################### -->
 	<div id="contentPanel">

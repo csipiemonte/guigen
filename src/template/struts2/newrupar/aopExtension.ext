@@ -135,20 +135,20 @@ around template::struts2::Struts2Extensions::getColumnEditableField(Column currC
 /// EVENT HANDLERS
 
 // [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
-	getComboBoxValueChangedHandlerJSNeutral(cb, cp, contextPrefix);
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	getComboBoxValueChangedHandlerJSNeutral(cb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	getComboBoxValueChangedHandlerNoScriptNeutral(cb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
-around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, String contextPrefix) :
-	getRadioButtonsValueChangedHandlerJSNeutral(rb, contextPrefix);
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	getRadioButtonsValueChangedHandlerJSNeutral(rb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
-around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, String contextPrefix) :
-	getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, contextPrefix);
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, cp, contextPrefix);
 
 
 

@@ -20,7 +20,7 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::struts2::Struts2Extensions»
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR AutenticationMethod»
-«ERROR "authentication method non supportato:" + this.metaType»»
+	«ERROR "authentication method non supportato:" + this.metaType»»
 «ENDDEFINE»
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR SSOBARTSSO»
@@ -119,7 +119,7 @@ e le limitazioni secondo i termini della Licenza.
 	-->
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/HomePage.do</url-pattern>
+		<url-pattern>/«getHomePageActionName()»«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
 	
 	«EXPAND irideIdFilterMap(model) FOR this»
@@ -184,7 +184,7 @@ e le limitazioni secondo i termini della Licenza.
 	-->
 	<filter-mapping>
 		<filter-name>OP Filter</filter-name>
-		<url-pattern>/HomePage.do</url-pattern>
+		<url-pattern>/«getHomePageActionName()»«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
 	
 	«EXPAND irideIdFilterMap(model) FOR this»
@@ -206,7 +206,7 @@ e le limitazioni secondo i termini della Licenza.
 	-->
 	<filter-mapping>
 		<filter-name>IRIDE ID Adapter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
 	
 «ENDDEFINE»
@@ -743,7 +743,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 					log.info("[AppSessionGuardFilter::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
 					/// REDIRECT....
 					HttpServletResponse hresp = (HttpServletResponse)resp;
-					hresp.sendRedirect("sessionExpired.do");
+					hresp.sendRedirect(hreq.getContextPath() + "«getBaseNamespace(false)»/sessionExpired«getStrutsActionCompleteExtension()»");
 					return;
 				}
 			}
@@ -752,7 +752,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	}
 				
 	private boolean isHomePage(String requestURI) {
-		if (requestURI.indexOf("HomePage.do") > -1 || requestURI.endsWith("/") || requestURI.indexOf("index.jsp") > -1)
+		if (requestURI.indexOf("«getHomePageActionName()»«getStrutsActionCompleteExtension()»") > -1 || requestURI.endsWith("/") || requestURI.indexOf("index.jsp") > -1)
 			return true;
 		else
 			return false;
@@ -760,8 +760,8 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 	
 	private boolean mustCheckPage(String requestURI){
 		if (
-			requestURI.indexOf("HomePage.do")>-1 ||
-			requestURI.indexOf("sessionExpired.do")>-1 ||
+			requestURI.indexOf("«getHomePageActionName()»«getStrutsActionCompleteExtension()»")>-1 ||
+			requestURI.indexOf("sessionExpired«getStrutsActionCompleteExtension()»")>-1 ||
 			requestURI.indexOf("fatalError")>-1 ||
 			requestURI.indexOf("notFoundError")>-1 ||
 			requestURI.indexOf("sessionExpired.jsp")>-1 ||

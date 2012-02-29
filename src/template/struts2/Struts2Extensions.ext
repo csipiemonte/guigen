@@ -1,5 +1,24 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
 
-
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+ 
 import guigen;
 import ecore;
 extension template::GenericExtensions;
@@ -88,6 +107,28 @@ String getStrutsGlobalMessagesPropertiesFile(GUIModel model, boolean omit_root) 
 String getStrutsTypeConvertersPropertiesFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/xwork-conversion.properties";
 
+// [DM] STDMDD-1100: suddivisione delle action struts in package/namespace a seconda della struttura logica del modello
+String getBasicNamespace(boolean omitRoot) :
+	//(omitRoot ? "" : "/") + "ctrl";
+	(omitRoot ? "" : "/");
+
+String getBaseNamespace(boolean omitRoot) :
+	getBasicNamespace(omitRoot) + "base";
+
+String getSecureNamespace(boolean omitRoot) :
+	getBasicNamespace(omitRoot) + "secure";
+
+String getContentPanelNamespace(ContentPanel cp, boolean omitRoot) :
+	if cp.eContainer.metaType == AppModule then
+		// ContentPanel in AppModule
+		getAppModuleNamespace((AppModule)cp.eContainer, omitRoot)
+	else
+		// il ContentPanel NON è in un AppModule
+		getBaseNamespace(omitRoot);
+		
+String getAppModuleNamespace(AppModule am, boolean omitRoot) :
+	(am.secure ? getSecureNamespace(omitRoot) : getBaseNamespace(omitRoot)) + "/" + am.name;
+		
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// File javascript
@@ -106,6 +147,9 @@ String getEnrichmentFile(ContentPanel cp, GUIModel model, boolean omit_root) :
 
 String getJsFunctionsFile(GUIModel model, boolean omit_root) :
 	getJavascriptSrcDir(model, omit_root) + "/jsFunctions.js";
+	
+String getJsFunctionsFilePath() :
+	"<%=request.getContextPath()%>/" + getJsPath() + "jsFunctions.js";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +175,7 @@ String getSpringGisMapConfigurationFile(GUIModel model, boolean omit_root) :
 	
 String getSpringGisMapPropertiesFile(GUIModel model, boolean omit_root) :
 	getWebModuleConfigDir(model, omit_root) + "/gisMapConf.properties";
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Files di configurazione servizi supplier
@@ -236,7 +281,6 @@ String getJspDialogPanelFullName(GUIModel model, boolean omit_root, DialogPanel 
 
 String getJspDialogPanelConfigName(DialogPanel dp) :
 	getJspDialogPanelConfig() + "/" + findParentContentPanel(dp).name + "_" + dp.name + ".jsp";
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -353,9 +397,14 @@ String getIridePDCacheJavaFile(GUIModel model, boolean omit_root) :
 	getBaseJavaSrcDir(model, omit_root) + "/business/" + getIridePDCacheClassName() + ".java";
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Action Struts2
+
+String getStrutsActionExtension() :
+	"do";
+
+String getStrutsActionCompleteExtension() :
+	"." + getStrutsActionExtension();
 
 String getStrutsActionClassName(ContentPanel panel) :
 	panel.name.toFirstUpper() + "Action";
@@ -367,7 +416,7 @@ String getStrutsActionConfigName(ContentPanel panel) :
 	panel.name;
 
 String getStrutsActionFQN(ContentPanel panel, GUIModel model) :
-	getPresentationJavaPackage(model) +getAppModuleAsPkg(panel,true, false)+ "." + getStrutsActionClassName(panel);
+	getPresentationJavaPackage(model) + getAppModuleAsPkg(panel,true, false) + "." + getStrutsActionClassName(panel);
 	
 String getStrutsActionPath(ContentPanel panel, GUIModel model) :
 	getPresentationJavaPath(model) + "/" +getAppModuleAsFolder(panel, false, true) + getStrutsActionClassName(panel);	
@@ -386,6 +435,47 @@ String getStrutsActionPropertiesFile(ContentPanel panel, GUIModel model, boolean
 
 String getFormEnctype(ContentPanel cp) : 
 	hasFileUpload(cp) ? " enctype=\"multipart/form-data\"" : "";
+
+// [DM] STDMDD-1100: introduzione namespaces -> Struts2 Action
+String getStrutsActionCompleteConfigName(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + getContentPanelNamespace(panel, false) + "/" + getStrutsActionConfigName(panel);
+
+String getStrutsActionCompleteURL(ContentPanel panel, GUIModel model) :
+	getStrutsActionCompleteConfigName(panel, model) + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> HomePage Action
+String getHomePageActionName() :
+	"HomePage";
+
+String getHomePageActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+String getHomePageActionURL(boolean omitRoot) :
+	getHomePageActionNamespace(omitRoot) + "/" + getHomePageActionName() + getStrutsActionCompleteExtension();
+
+String getHomePageActionURLWithContextPath() :
+	"<%=request.getContextPath()%>" + getHomePageActionNamespace(false) + "/" + getHomePageActionName() + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> Logout Action
+String getLogoutActionName() :
+	"Logout";
+
+String getLogoutActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+String getLogoutActionURL(String logoutMethod) :
+	"<%=request.getContextPath()%>" + getLogoutActionNamespace(false) + "/" + getLogoutActionName() + "!" + logoutMethod + getStrutsActionCompleteExtension();
+
+// [DM] STDMDD-1100: introduzione namespaces -> MENU Action
+String getMenuItemActionName(String menuName) :
+	"goTo" + menuName + "FromMenu";
+
+String getMenuActionNamespace(boolean omitRoot) :
+	getSecureNamespace(omitRoot);
+
+//  [DM] STDMDD-1100: introduzione namespaces -> Map enrichment
+String getMapEnrichmentAcionNamespace(ContentPanel panel, GUIModel model) :
+	"/" + model.codComponente + getContentPanelNamespace(panel, false) + "/";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -638,10 +728,10 @@ String getExecCommandMethodName(ExecCommand cmd, String contextPrefix) :
 
 
 // [DM] restituisce l'azione relativa ad una colonna di una Table
-String getColumnAction(Column currCol, Table table, ContentPanel cp, String contextPrefix) : 
+String getColumnAction(Column currCol, Table table, GUIModel model, ContentPanel cp, String contextPrefix) : 
 	if (currCol.eventActive) then
-		"href=\"" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
-			".do?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
+		"href=\"" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(table,table.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first(), contextPrefix) + 
+			getStrutsActionCompleteExtension() + "?idColonna=" + currCol.selector + "\" paramId=\"idRiga\" paramProperty=\"" + table.columnModel.valueSelector + "\"";
 
 String getTabItemHandlerMethodName(ContentPanel cp, MultiPanel tabSet, Panel tab, String contextPrefix) :
 	"handle_"+cp.name.toFirstUpper()+"_"+tabSet.name.toFirstUpper()+"_"+tab.name.toFirstUpper()+"_CLICKED";
@@ -1173,11 +1263,11 @@ String getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) : JAVA
 /// EVENT HANDLERS
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-String getComboBoxValueChangedHandlerJS(ComboBox cb, ContentPanel cp, String contextPrefix) :
+String getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" " + 
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
 		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" ";
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -1187,9 +1277,9 @@ String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, Conte
 			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
-String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, ContentPanel cp, String contextPrefix) :
+String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionConfigName(cp) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + ".do')\" "; 
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
 String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :

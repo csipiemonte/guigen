@@ -135,7 +135,7 @@ Ext.onReady( function() {
 				dialogs: [«EXPAND view::panels::panelStruct(model, this) FOREACH  dialogs SEPARATOR ","»],
 				panels: «EXPAND view::panels::panelStruct(model, this) FOR panels»,
 				states: «IF states != null-»[«EXPAND screenState(model, this) FOREACH states.states SEPARATOR ","»]«ELSE-»null«ENDIF-»,
-				dataUrl: '«getStrutsActionConfigName(this)»!«getFormDataProviderMethodName()».do',
+				dataUrl: '«getStrutsActionCompleteConfigName(this, model)»!«getFormDataProviderMethodName()»«getStrutsActionCompleteExtension()»',
 				onRefreshCommand: «IF onRefreshCommand!=null-»«EXPAND controller::commands::cmd(model, this) FOR this.onRefreshCommand-»«ELSE-» null «ENDIF-»
 			}
 		)

@@ -35,7 +35,7 @@ e le limitazioni secondo i termini della Licenza.
 					fieldMaxLength: «this.fieldMaxLength»,
 					«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
-					dataUrl: '«getStrutsActionConfigName(cp)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)».do'
+					dataUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::KEY_PRESSED),null)»«getStrutsActionCompleteExtension()»'
 					«ELSE-»
 					multiDataBinding: null
 					«ENDIF-»,
@@ -158,7 +158,7 @@ e le limitazioni secondo i termini della Licenza.
 							multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
 							multidataKeySelector: «jsLiteralValue(multidataKeySelector)»,
 							multidataValueSelector: «jsLiteralValue(multidataValueSelector)»,
-							dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)».do',
+							dataUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getDataProviderMethodName(table, this.selector+"_DATASET", null)»«getStrutsActionCompleteExtension()»',
 							«ENDIF-»
 							«ENDIF-»
 							«IF eventActive-»
@@ -269,7 +269,7 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
 	«IF multiDataBinding!=null-»
 					multiDataBinding: «EXPAND databinding FOR this.multiDataBinding»,
-					dataUrl: '«getStrutsActionConfigName(cp)»!«getDataProviderMethodName("DATASET", null)».do'
+					dataUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getDataProviderMethodName("DATASET", null)»«getStrutsActionCompleteExtension()»'
 	«ELSE-»
 					multiDataBinding: null
 	«ENDIF-»
