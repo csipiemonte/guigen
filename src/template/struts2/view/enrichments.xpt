@@ -282,12 +282,13 @@ Ext.onReady( function() {
 											idDivToolbar: 'toolbar_«this.name»',
 											idDivMappa: '«this.name»',
 											idMappa: '«this.mapId»',
-											actionName: '«getMapEnrichmentAcionNamespace(cp, model)»' + contentPanelName,
+											actionName: contentPanelName,
+											actionNamespace: '«getMapEnrichmentAcionNamespace(cp, model)»',
 											appDataName: '«getAppDataPropertyName(this.databinding.appData).toFirstLower()»',
 											projectName: '«model.codComponente»'«IF eventHandlers!=null && eventHandlers.size > 0-»,
 											clickEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::CLICKED),null)»«getStrutsActionCompleteExtension()»',
 											refreshIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»]
-												«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+											«IF this.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
 											,
 											editingEventUrl: '«getStrutsActionCompleteConfigName(cp, model)»!«getHandlerMethodName(this,eventHandlers.selectFirst(e|e.eventType == EventTypes::EDIT_COMMITTED),null)»«getStrutsActionCompleteExtension()»',
 											refreshEditingIds: [«LET getRefreshTargetIds(this) AS refreshIds-»«FOREACH refreshIds AS currId SEPARATOR ","-»'«currId»'«ENDFOREACH-»«ENDLET-»],
@@ -296,9 +297,9 @@ Ext.onReady( function() {
 											noEditWhenDisabled: «jsLiteralValue(noEditWhenDisabled)»,
 											noPanWhenDisabled: «jsLiteralValue(noPanWhenDisabled)»,
 											noZoomWhenDisabled: «jsLiteralValue(noZoomWhenDisabled)»
-												«ENDIF-»
+											«ENDIF-»
 											«EXPAND MapViewGadgetConfig FOR this.gadgets»
-											«ENDIF»					
+											«ENDIF»
 										}).init()};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);

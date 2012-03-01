@@ -66,15 +66,15 @@ BUILD FILES
 «IF !isRemote()-»
 «IF targetPlatform.enableRichUIBehavior-»
 # - [Files delle risorse statiche per rich UI] -------------------------------
-  extjs-zipfile = ${lib}/ext-3.2.2-all.zip
-  csi-extjscore-zipfile = ${lib}/ext-csi-1.0.0-core.zip
-  csi-extjsenricher-zipfile = ${lib}/ext-csi-enricher-1.4.1.zip
+  extjs-zipfile = ${lib}/ext-«getExtAllVersion()»-all.zip
+  csi-extjscore-zipfile = ${lib}/ext-csi-«getExtjsCsiCoreVersion()»-core.zip
+  csi-extjsenricher-zipfile = ${lib}/ext-csi-enricher-«getExtjsCsiEnricherVersion()».zip
   «IF hasGisMap()»
-  openlayers-zipfile = ${lib}/openlayers-2.10.zip
+  openlayers-zipfile = ${lib}/openlayers-«getOpenlayersVersion()».zip
   «ENDIF»
 «ENDIF-»
 «IF targetPlatform.enableFatClient-»
-  csi-extjsmdd-zipfile = ${lib}/ext-csi-1.0.0-mdd.zip
+  csi-extjsmdd-zipfile = ${lib}/ext-csi-«getExtjsCsiMddVersion()»-mdd.zip
 «ENDIF-»
 «ENDIF-»
 «ENDDEFINE»
@@ -84,13 +84,13 @@ BUILD FILES
 «DEFINE ivyFileStaticResources FOR GUIModel»
 «IF targetPlatform.enableRichUIBehavior-»
 <!-- librerie js per rich u.i -->
-<dependency org="csipiemonte" name="extjscsicore" rev="1.0.0"/>
-<dependency org="csipiemonte" name="extjscsienricher" rev="1.4.1"/>
+<dependency org="csipiemonte" name="extjscsicore" rev="«getExtjsCsiCoreVersion()»"/>
+<dependency org="csipiemonte" name="extjscsienricher" rev="«getExtjsCsiEnricherVersion()»"/>
 «IF hasGisMap()»
-<dependency org="openlayers" name="openlayers" rev="2.10" />
+<dependency org="openlayers" name="openlayers" rev="«getOpenlayersVersion()»" />
 «ENDIF»
 «IF targetPlatform.enableFatClient-»
-<dependency org="csipiemonte" name="extjscsimdd" rev="1.0.0"/>
+<dependency org="csipiemonte" name="extjscsimdd" rev="«getExtjsCsiMddVersion()»"/>
 «ENDIF-»
 «ENDIF»
 «ENDDEFINE»
