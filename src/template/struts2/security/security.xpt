@@ -720,7 +720,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 		String sessMark = (String)hreq.getSession().getAttribute(VALID_APP_SESSION_SESSIONATTR);
 		if (sessMark != null){
 			// sessione gia' valida: vai avanti
-			log.debug("[AppSessionGuardFilter::doFilter] sessione applicativa valida. proseguo ");
+			log.debug("[«getSessionGuardFilterClassName()»::doFilter] sessione applicativa valida. proseguo ");
 			fchn.doFilter(req, resp);
 			return;
 		}
@@ -728,7 +728,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			// se la sessione non e' valida si discrimina in base alla pagina richiesta:
 			// HomePage, error &co o altra pagina?
 			if (isHomePage(hreq.getRequestURI())){
-				log.info("[AppSessionGuardFilter::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
+				log.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta home page a sessione applicativa non valida: proseguo e imposto la validita'");
 				hreq.getSession().setAttribute(VALID_APP_SESSION_SESSIONATTR, VALID_APP_SESSION_SESSIONATTR);
 				fchn.doFilter(req, resp);
 				return;
@@ -740,7 +740,7 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 					return;
 			    }
 			    else{ 
-					log.info("[AppSessionGuardFilter::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
+					log.info("[«getSessionGuardFilterClassName()»::doFilter] richiesta pagina differente dalla home a sessione applicativa non valida: redirezione alla pagina di sessione scaduta");
 					/// REDIRECT....
 					HttpServletResponse hresp = (HttpServletResponse)resp;
 					hresp.sendRedirect(hreq.getContextPath() + "«getBaseNamespace(false)»/sessionExpired«getStrutsActionCompleteExtension()»");
@@ -766,6 +766,9 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			requestURI.indexOf("notFoundError")>-1 ||
 			requestURI.indexOf("sessionExpired.jsp")>-1 ||
 			requestURI.indexOf("Logout")>-1
+			«IF isMultiPortal(this)-»
+			|| requestURI.indexOf("unknownPortal") > -1
+			«ENDIF-»
 		   )
 		   return false;
 		else
