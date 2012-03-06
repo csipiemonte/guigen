@@ -766,6 +766,9 @@ public class «getSessionGuardFilterClassName()» implements Filter {
 			requestURI.indexOf("notFoundError")>-1 ||
 			requestURI.indexOf("sessionExpired.jsp")>-1 ||
 			requestURI.indexOf("Logout")>-1
+			«IF isMultiPortal(this)-»
+			|| requestURI.indexOf("unknownPortal") > -1
+			«ENDIF-»
 		   )
 		   return false;
 		else
