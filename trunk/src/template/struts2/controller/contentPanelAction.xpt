@@ -1,0 +1,815 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«IMPORT template::struts2::controller::dataProvider»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
+«DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)»;
+
+«IF hasFileUpload(this)»import java.io.File;«ENDIF»
+import java.util.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.beans.IntrospectionException;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import com.opensymphony.xwork2.Preparable;
+import com.opensymphony.xwork2.validator.annotations.*;
+import com.opensymphony.xwork2.conversion.annotations.*;
+import com.opensymphony.xwork2.ActionContext;
+
+import «getDTOBaseJavaPackage(model)».*;
+«IF hasGisMap()»
+import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
+import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
+import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
+import com.vividsolutions.jts.geom.*;
+«ENDIF»
+
+import «getSecurityJavaPackage(model)».*;
+
+import «getBaseJavaPackage(model)».business.*;
+
+import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
+
+import «getInterceptorsJavaPackage(model)».MethodProtection;
+
+«IF model.targetPlatform.enableFatClient-»
+import «getInterceptorsJavaPackage(model)».FatClientValidatorInterceptor;
+«ENDIF-»
+
+«IF model.targetPlatform.enableRichUIBehavior-»
+import «getInterceptorsJavaPackage(model)».FatClientOnly;
+import «getUIUtilsJavaPackage(model)».*;
+import flexjson.JSON;
+«ENDIF-»
+
+/**
+ * «getStrutsActionClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+@Validation()
+@Conversion()
+public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» 
+	implements Preparable{
+
+    «EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
+	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
+	
+	/**
+	 * classe model associata
+	 */
+	public Class modelClass(){
+		return «getModelDTOFQN(this, false, false, model)».class;
+	}
+ 
+ 	«LET getAllEventSourceWidgets() AS allEventSources»
+	«REM»«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»«ENDREM»
+	/**
+	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici
+	 * @return SUCCESS.
+	 */
+	@SkipValidation
+	public String execute() throws CommandExecutionException {
+		// esegue eventuali comandi di clear appdata
+		ICommand clearCmd = (ICommand)session.get(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		if (clearCmd != null){
+			clearCmd.doCommand(this);
+			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
+		}
+		return SUCCESS;
+	}
+	
+	«IF hasGisMap(this)»
+	//****************************************gestione mappe*******************************************************
+	protected String strIdCurServizio;
+	
+	public String getStrIdCurServizio() {
+		return strIdCurServizio;
+	}
+
+	public void setStrIdCurServizio(String strIdCurServizio) {
+		this.strIdCurServizio = strIdCurServizio;
+	}
+	«LET (List[MapView])getMapsInContentPanel() AS maps-»
+	«FOREACH maps AS map-»
+	
+	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
+
+	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
+		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
+	}
+	
+	public String map«map.mapId.toFirstUpper()»Setup() throws Exception {
+
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+
+		MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+		
+		OpenLayerMapConfig mapCfg=new OpenLayerMapConfig();
+		mapCfg.setServizioCfg(mappa.getOlMapConfig().getServizioCfg());
+		
+		mapCfg.setFractionalZoom(true);
+		ArrayList<it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb> listaTmp = mapAdapter«map.mapId.toFirstUpper()»
+			.mergeServiziClient(mappa.getServizioMappa(), mappa
+			.getOlMapConfig().getServiziClient());
+
+		mapCfg.setServiziClient(listaTmp);
+		for (it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb curService : mapCfg.getServiziClient()) {
+			if (curService instanceof it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioTMS) {
+				mapCfg.setFractionalZoom(false);
+			}
+		}
+		
+		«IF map.multiDataBinding!=null-»
+		«toJavaType(map.multiDataBinding.appData.type, model)» dati=get«getAppDataPropertyName(map.multiDataBinding.appData).toFirstUpper()»();
+		if (null!=dati && dati.size()>0) {
+			mapCfg.setDatiStartup(dati);
+		}
+		«ENDIF-»
+		«IF map.editDataBinding!=null-»
+		«toJavaType(map.editDataBinding.appData.type, model)» datiEditing=get«getAppDataPropertyName(map.editDataBinding.appData).toFirstUpper()»();
+		if (null!=datiEditing && datiEditing.size()>0) {
+			mapCfg.setDatiEditing(datiEditing);
+		}
+		«ENDIF-»
+		
+		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
+
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	
+	public String refreshMap«map.mapId.toFirstUpper()»SingleService() throws Exception {
+
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		
+		try {
+			int indice = -1;
+			
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			
+			for (int i = 0; i < mappa.getServizioMappa().size(); i++) {
+				if (mappa.getServizioMappa().get(i).getIdServizio().equals(
+						strIdCurServizio)) {
+					indice = i;
+					break;
+				}
+			}
+
+			it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb currRefreshServizio = mappa.getServizioMappa().get(indice);
+
+			// aggiorna i layer in scala
+			refreshMap«map.mapId.toFirstUpper()»Status();
+			
+			mappa.setStrIdCurServizio(strIdCurServizio);
+
+			mappa = mapAdapter«map.mapId.toFirstUpper()».getRefreshIMages(mappa);
+			currRefreshServizio = mappa.getServizioMappa().get(indice);
+			MapServiceResponse res = new MapServiceResponse();
+
+			res.setDati(currRefreshServizio);
+			
+			String response = serializer.exclude("*.class").deepSerialize(res);
+						
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (Exception e) {
+			log.error("[MappaAction::refreshMapSingleService]", e);
+			BaseMapResponse res = new BaseMapResponse();
+			res.setErrorMsg("Errore nel recupero dei dati");
+			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (Throwable e) {
+			log.error("[MappaAction::refreshMapSingleService]", e);
+			BaseMapResponse res = new BaseMapResponse();
+			res.setErrorMsg("Errore nel recupero dei dati");
+			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		}
+	}
+	
+	private void refreshMap«map.mapId.toFirstUpper()»Status() throws Exception {
+		try {
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb tollbarTmp = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
+			tollbarTmp.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_REFRESH);
+			
+			mappa.setLivelloIndicatoreSlider((mappa.getOlMapConfig()
+					.getServizioCfg().getNumeroLivelli() - 1)
+					- new Double(mappa.getLivelloZoom()).intValue());
+			
+
+		} catch (Exception e) {
+			log.error("[MappaAction::refreshMapStatus]", e);
+			throw e;
+		} finally {
+			log.debug("[MappaAction::refreshMapStatus] END");
+		}
+	}
+	
+	public String calcolaStartEnvelope«map.mapId.toFirstUpper()»() throws Exception {
+
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		try {
+
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			
+			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
+			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
+			if(!mappa.getUseCurrentEnvelope()){
+				MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
+				mappa.setEnvelope(mappaTmp.getEnvelope());
+			}	
+			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
+			
+			MapEnvelopeResponse res = new MapEnvelopeResponse();
+			res.setDati(mappa.getEnvelope());
+			
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (Exception e) {
+			// RispostaObjDto res=new RispostaObjDto();
+			BaseMapResponse res = new BaseMapResponse();
+			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
+			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		}
+	}
+	
+	public String calcolaMaxEnvelope«map.mapId.toFirstUpper()»() throws Exception {
+
+		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		try {
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			
+			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
+			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
+			MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
+			mappa.setEnvelope(mappaTmp.getEnvelope());
+			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
+			
+			MapEnvelopeResponse res = new MapEnvelopeResponse();
+			res.setDati(mappa.getEnvelope());
+			
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (Exception e) {
+			BaseMapResponse res = new BaseMapResponse();
+			res.setErrorMsg("Errore nel calcolo dell'estensione iniziale");
+			res.setErrorLevel(this.ERROR_LEVEL_ERROR);
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		}
+	}
+	
+	«REM» 
+	*****************da decommentare quando sarà attiva la funzione di identify
+	
+	private SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()»;
+
+  	public void setQueryManager«map.mapId.toFirstUpper()»(SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()») {
+    	this.queryManager«map.mapId.toFirstUpper()» = queryManager«map.mapId.toFirstUpper()»;
+  	}
+  	
+  	private it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbar;
+  	
+  	public it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb getToolbar() {
+    	return toolbar;
+  	}
+
+  	public void setToolbar(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbar) {
+    	this.toolbar = toolbar;
+  	}
+  
+	public String identify«map.mapId.toFirstUpper()»() throws Exception {
+
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		try {
+			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			
+			ResultsetExtJsWeb identifyResult = queryManager«map.mapId.toFirstUpper()».interrogaExtJs(mappa,toolbar);
+
+		    ResultsetExtJsWeb identifyResultExtJs = adaptResultsetExtJsWeb(identifyResult);
+		      
+		    RispostaObj res = new RispostaObj();
+		    res.setDati(identifyResultExtJs);
+			
+			String response = serializer.exclude("*.class").deepSerialize(res);
+			
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (it.csi.jeegia.jeegfw.exception.common.JeegfwLayerNonSelezionatoException e) {
+      		RispostaObj res = new RispostaObj();
+      		res.setErrorMsg("Nessun Layer selezionato");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_WARNING);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (it.csi.jeegia.jeegfw.exception.common.JeegfwLayerFuoriScalaException e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Il layer selezionato non e' visibile o interrogabile a questa scala");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_WARNING);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (RuntimeException e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (Exception e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+      		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	} catch (Throwable e) {
+      		RispostaObj res=new RispostaObj();
+      		res.setErrorMsg("Se e' verificato un errore imprevisto");
+      		res.setErrorLevel(RispostaObj.ERROR_LEVEL_ERROR);
+     		String response = serializer.exclude("*.class").deepSerialize(res);
+			// imposta l'input stream di risposta
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+    	}
+	}
+	«ENDREM»
+	
+	«ENDFOREACH-»
+	«ENDLET-»
+	
+	«REM»
+	****************Da decommentare quando sarà attiva la funzione identify
+	
+	protected ResultsetExtJsWeb adaptResultsetExtJsWeb(ResultsetExtJsWeb result) {
+
+		List<ExtJsColumnIdentify> columnModel = new ArrayList<ExtJsColumnIdentify>();
+		if (result.getColumns() != null) {
+			List<String> fields = result.getColumns();
+			Iterator<String> iterator = fields.iterator();
+			while (iterator.hasNext()) {
+				String name = iterator.next();
+				String alias = null;
+				if (result.getTableDesc() != null) {
+					Map<String, it.csi.jeegia.jeegfw.dto.jeegweb.query.ResultSetCampoTableDesc> tableDesc = result
+							.getTableDesc();
+					if (tableDesc.containsKey(name)) {
+						alias = tableDesc.get(name).getNomeCampo();
+					}
+				}
+				if (alias != null) {
+					ExtJsColumnIdentify column = new ExtJsColumnIdentify();
+					column.setHeader(alias);
+					column.setDataIndex(name);
+					column.setSortable(true);
+					columnModel.add(column);
+				}
+			}
+		}
+		// aggiunge la envelope
+		ExtJsColumnIdentify columnenv = new ExtJsColumnIdentify();
+		columnenv.setHeader("envelope");
+		columnenv.setDataIndex("envelope");
+		columnenv.setSortable(false);
+		columnenv.setHidden(true);
+		columnModel.add(columnenv);
+		// aggiunge la geometria
+		ExtJsColumnIdentify columngeom = new ExtJsColumnIdentify();
+		columngeom.setHeader("geometria");
+		columngeom.setDataIndex("geometria");
+		columngeom.setSortable(false);
+		columngeom.setHidden(true);
+		columnModel.add(columngeom);
+		// aggiunge il cm
+		result.setColumnModel(columnModel);
+
+		List<Map<String, Object>> rowsobj = new ArrayList<Map<String, Object>>();
+		if (result.getExtJsDataRows() != null) {
+			Iterator<ResultsetDataExtJsRow> iterator = result
+					.getExtJsDataRows().iterator();
+			while (iterator.hasNext()) {
+				ResultsetDataExtJsRow dataRow = iterator.next();
+				Map<String, Object> row = new HashMap<String, Object>();
+				row.putAll(dataRow.getValori());
+				// envelope
+				row.put("envelope", dataRow.getEnvelope());
+				// geometria
+				row.put("geometria", dataRow.getGeometria());
+				rowsobj.add(row);
+			}
+		}
+		result.setRowsobj(rowsobj);
+
+		return result;
+	}
+	«ENDREM»
+	//**************************************fine gestione mappe****************************************************
+	«ENDIF»
+	
+	«REM»per ora non gestisce ancora tab inclusi«ENDREM»
+	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
+	«IF allTabSwitchers.size>0-»
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi specifici per la gestione del click sui Tab
+	/// contenuto nel contentPanel
+	/// metodo: handle<id_completo_tab_item>_CLICKED
+	/// 
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	«FOREACH allTabSwitchers AS currTabSwitcher-»
+	«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-»
+	
+	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
+	«FOREACH currTabSet.panels AS currTab-»
+		«EXPAND template::struts2::controller::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
+	«ENDFOREACH-»
+	«ENDLET-»
+	«ENDFOREACH-»
+	
+	«ENDIF-»
+	«ENDLET-»
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi specifici per la gestione del singolo tipo di evento sul singolo widget
+	/// contenuto nel contentPanel
+	/// metodo: handle<nomeWidget>_<NOME_EVENTO>
+	/// es: handletreeVoci_CLICKED
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	
+	«EXPAND template::struts2::controller::eventHandlers::handlerMethod(model) FOR this-»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-»
+	«ENDIF-»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-»
+	//***lista dei widgets presenti nel content panel
+	public List<String> listaWidgets = new ArrayList<String>();
+	
+	public List<String> getListaWidgets() {
+		«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR this»
+		return listaWidgets;
+	}
+	
+	//***lista dei multipanel presenti nel content panel
+	public List<String> listaMultiPanels = new ArrayList<String>();
+	
+	public List<String> getListaMultiPanels() {
+		«EXPAND template::struts2::view::multiPanelStructure::panelStruct(model, this, "") FOR panels»
+		return listaMultiPanels;
+	}
+	
+	«IF hasFileUpload(this)»
+	//***metodo per lo start upload dei files solo nel caso di fatclient
+	@SkipValidation
+	@FatClientOnly
+	public String execStartUploadFile() throws CommandExecutionException {
+		
+		String response = "{success:true, file:\"\"}";
+
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			String errors = (String) ActionContext.getContext().getParameters().get("execStartUploadFile_errors");
+			if (errors != null) {
+				response = "{success:false, msg:\""
+						+ errors + "\"}";
+			}
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideHtml";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	
+	//***metodo implicito per l'end upload dei files solo nel caso di fatclient
+	@SkipValidation
+	@FatClientOnly
+	public String execEndUploadFile() throws CommandExecutionException{
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			String response = "";
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	«ENDIF»
+	
+	«ENDIF-»
+	
+	«ENDLET»
+	
+	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsActionClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+	
+	
+	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
+	protected Map<String, UISecConstraint> allOnOffConstraints = null;
+	
+	
+	/**
+	 * Metodo di preparazione della schermata/action
+	 */
+	public void prepare() throws CommandExecutionException{
+	    super.prepare();
+	    
+	    // cancellazione eventuale degli errori di conversione non desiderati
+	    clearConversionErrorsIfSkipValidation();
+	     
+	    // caricamento struttura di constraints
+	    if (allVisibilityConstraints==null)
+	    	allVisibilityConstraints = getPageVisibilityUIConstraints();
+	    if (allOnOffConstraints==null)
+	    	allOnOffConstraints = getPageONOFFUIConstraints();
+	    
+		«IF defaultState!=null-»
+		«EXPAND defaultStateCode FOR this»
+		«ENDIF-»
+		      
+		«IF this.onRefreshCommand!=null»
+		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+		
+		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+			ICommand cmd = initOnRefreshCommand();
+			cmd.doCommand(this);
+		}
+		«ENDIF»
+	}
+	
+	
+	«EXPAND security::securedWidgetCheck(model) FOR this»
+
+	
+	«LET this.onRefreshCommand AS onRefreshAction»
+	«IF onRefreshAction != null»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR onRefreshAction»
+    «ENDIF»
+	«ENDLET»
+	
+	
+	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
+	
+	
+	/**  */
+	void dumpModel(boolean pre) {
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] START");
+			
+		
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [a] campi pubblici del model");
+		try {
+			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
+			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
+			for (int i = 0; i < props.length; i++) {
+				java.beans.PropertyDescriptor pd = props[i];
+				java.lang.reflect.Method m = pd.getReadMethod();
+				if (m != null) {
+					Object pval = m.invoke(this, new Object[]{});
+					log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+pd.getName() + ":" + pval);
+				}
+			}
+		}
+		catch (IllegalAccessException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (InvocationTargetException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		} catch (IntrospectionException e) {
+			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+					+ ", ignoro");
+		}
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [b] stato dei widget");
+		Object cpWidgetStatus = session.get("«this.name»");
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+cpWidgetStatus);
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [c] sessione");
+		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
+	}
+	
+	static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(String targetContentPanelName){
+	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
+	 	String [] appDataToClear = new String[] {
+	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd SEPARATOR ","-»
+	 	"«currAd.name»", "«currAd.name»_bckp"
+	 	«ENDFOREACH»
+	 	};
+	 	
+	 	«LET (List[ContentPanel])this.getAllPossibleJumps() AS listOfPossibleJump»
+	 		«FOREACH listOfPossibleJump AS singleJump»
+	 			«EXPAND clearCommandForCp(this) FOR singleJump»
+	 		«ENDFOREACH»
+	 	«ENDLET»
+	 	
+	 	
+	 	ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear);
+	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 	
+	 	«ELSE-»
+	 	// nothing to clear...
+	 	«ENDIF-»
+	 }
+
+	«REM»Espande la struttura della InitAction«ENDREM»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
+    
+    @SkipValidation
+    public String handleChangeTab() {
+		if (this.hasActionErrors() || this.hasFieldErrors() || this.hasErrors())
+			return INPUT;
+		else{
+			session.put(selectedTabKey, selectedTabValue);
+			return SUCCESS;
+		}
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE defaultStateCode FOR ContentPanel»
+	// gestione dello stato di default
+	if (getSession().get("«name»_currentState")==null){
+	// Screen State Command begin
+    //prepara i nomi dei componenti target da abilitare/disabilitare
+    String[] default_widgets_on = new String[]{
+    «FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-»
+    "«currWidgOn.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_off = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
+    "«((Widget)currWidgOff).name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_show = new String[]{
+    «FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-»
+    "«currWidgVisible.name»"
+    «ENDFOREACH-»
+    };
+    
+    String[] default_widgets_hide = new String[]{
+    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
+    "«((Widget)currWidgHidden).name»"
+    «ENDFOREACH-»
+    };
+    
+	ScreenStateCommand defaultScreenStateCmd = new ScreenStateCommand(
+		"«name»",null, 
+		default_widgets_on,
+		default_widgets_off,
+		default_widgets_show,
+		default_widgets_hide);
+	//Screen State Command end
+	
+	defaultScreenStateCmd.doCommand(this);
+	}
+	
+«ENDDEFINE»
+
+«DEFINE clearCommandForCp(ContentPanel cp) FOR ContentPanel»
+
+«LET cp.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS startingPanelAppData-»
+«IF this.onRefreshCommand!=null-»
+	«LET (List[ApplicationData])(findAllActionScopedAppData(this.onRefreshCommand)) AS postExecData-»
+	«LET postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS samePagePostExecData-»
+		«IF postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
+	 	String [] appDataToClear_«this.name» = new String[] {
+	 	«FOREACH startingPanelAppData.select(ad|!postExecData.contains(ad)) AS currAd SEPARATOR ","-»
+	 	"«currAd.name»", "«currAd.name»_bckp"
+	 	«ENDFOREACH-»};
+	 	if("«this.name»".equals(targetContentPanelName)){
+	 		ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear_«this.name»);
+	 		session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
+	 		return;
+	 	}	
+	 	
+	 	«ENDIF-»	
+	«ENDLET-»
+«ENDLET-»
+«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»

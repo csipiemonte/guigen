@@ -1,0 +1,67 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::buildfiles»
+«IMPORT template::struts2::configfiles»
+«IMPORT template::struts2::javafiles»
+«IMPORT template::struts2::resourcefiles»
+«IMPORT template::struts2::view::enrichments»
+«IMPORT template::struts2::i18nfiles»
+«EXTENSION template::GenericExtensions»
+
+
+«DEFINE main (boolean skip_component_dir_creation, boolean useExternalDaoBeans, String staticResourcesSchemaVersion) FOR GUIModel»
+
+	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
+	
+	«IF !checkValidMode(staticResourcesSchemaVersion)»
+		«ERROR "ERRORE: modalità staticResourcesSchemaVersion " + staticResourcesSchemaVersion + " non valida: impossibile proseguire nella generazione "»
+	«ELSE»
+		«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+		«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
+		«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
+		«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera le Actions Struts2 corrispondenti ai ContentPanels dell'applicazione«ENDREM»
+«DEFINE contentPanelsFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«REM»Espande ogni ContentPanels dell'applicazione come Action Struts2 + pagina JSP«ENDREM»
+	«LET (List[ContentPanel])getAllContentPanels(this).select(cp|mustGenerateContentPanel((ContentPanel)cp)) AS contentPanels»
+		«EXPAND contentPanelFiles(this, skip_component_dir_creation) FOREACH contentPanels»
+	«ENDLET»
+	«IF targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::struts2::view::enrichments::staticResourcesXML FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»Genera le componenti di una Action Struts2 (classe Java, file JSP, definizione XML, resource bundle)«ENDREM»
+«DEFINE contentPanelFiles(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
+	«EXPAND template::struts2::controller::contentPanelAction::actionJavaFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::view::resourcefiles::actionJspFile(model, skip_component_dir_creation) FOR this»
+	«EXPAND template::struts2::i18n::i18nfiles::actionPropertiesFile(model, skip_component_dir_creation) FOR this»
+	«IF model.targetPlatform.enableRichUIBehavior-»
+		«EXPAND template::struts2::view::enrichments::enrichmentDefs(model, skip_component_dir_creation) FOR this»
+	«ENDIF-»
+«ENDDEFINE»
+

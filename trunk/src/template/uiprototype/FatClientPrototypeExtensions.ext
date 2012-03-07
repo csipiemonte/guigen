@@ -1,0 +1,62 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+String getWebDir(GUIModel model) :
+	"/WebContent/";
+
+//String getUrlWebDir(GUIModel model) :
+//	"/"+model.codComponente;
+
+
+String getDataDir() :
+	"data";
+	
+// [DM] 
+String simpleTypeJsonValue(SimpleType type) :
+	let code = type.code :
+	let nillable =  type.nillable :
+	if (code == guigen::SimpleTypeCodes::INT) then
+  		(nillable ? "100" : "10")
+	else if (code == guigen::SimpleTypeCodes::STRING) then
+  		"\""+(nillable ? "DATO" : "DATO")+"\""
+	else if (code == guigen::SimpleTypeCodes::FLOAT) then
+  		(nillable ? "123.12" : "12.12")
+  	else if (code == guigen::SimpleTypeCodes::LONG) then
+  		(nillable ? "100000" : "10000")
+	else if (code == guigen::SimpleTypeCodes::DOUBLE) then
+  		(nillable ? "123.12" : "12.12")
+	else if (code == guigen::SimpleTypeCodes::BOOLEAN) then
+  		(nillable ? "true" : "true")
+	else if (code == guigen::SimpleTypeCodes::DATE) then
+  		"\""+(nillable ? "01/01/2011" : "01/01/2011")+"\""
+  	else if (code == guigen::SimpleTypeCodes::DATETIME) then
+  		"\""+(nillable ? "01/01/2011-12:12:12" : "01/10/2001-12:12:12")+"\""
+  	else if (code == guigen::SimpleTypeCodes::HOURS) then
+  		"\""+(nillable ? "12:12:12" : "12:12:12")+"\""
+	else if (code == guigen::SimpleTypeCodes::BYTE) then
+  		(nillable ? "1" : "1")
+	else 
+  		"???";	

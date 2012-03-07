@@ -1,0 +1,647 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE modelClasses FOR GUIModel»
+«REM»tipi complessi«ENDREM»
+«LET this.typedefs AS typedefs»
+«IF typedefs != null»
+«LET (List[Type])getAllTypes(this) AS allTypes»
+«LET (allTypes).typeSelect(ComplexType) AS complexType»
+«EXPAND modelClass(this) FOREACH complexType»
+«ENDLET»
+«LET (allTypes).typeSelect(SimpleType).select(st|st.userDefined==true) AS udtTypes»
+«EXPAND udtClass(this) FOREACH udtTypes»
+«ENDLET»
+«ENDLET»
+«ENDIF»
+«ENDLET»
+«REM»action model«ENDREM»
+«EXPAND baseActionModelfile(this) FOR this»
+«LET (List[ContentPanel])getAllContentPanels(this) AS currCP»
+«EXPAND actionModelFile(this) FOREACH currCP»
+«ENDLET»
+«IF this.structure.appWindow.appArea.menubar!=null»
+	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea.menubar»
+«ENDIF»
+«IF this.structure.appWindow.appArea.onInitCommand!=null»
+	«EXPAND actionModelFile(this) FOR this.structure.appWindow.appArea»
+«ENDIF»
+«ENDDEFINE»
+
+
+
+
+«DEFINE udtClass(GUIModel model) FOR SimpleType»
+«FILE getFullUDTClassFile(this,model)»
+package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTFQN(this, model) + "converter.import")»
+//inserire qui eventuali import aggiuntivi
+
+
+«ENDPROTECT»
+/**
+ * Implementazione dello user defined type [«name»].
+ * <ul>
+ * <li>tipo scalare base: «code.toString()»</li>
+ * <li>modificatori:
+ *   <ul>
+ «FOREACH dataTypeModifiers AS dtm-»
+ *     <li>«dtm»</li>
+ «ENDFOREACH-»
+ *	 </ul>
+ * </li>
+ * </ul>
+ * @generated
+ */
+public class «getUDTClassName(this)» implements java.io.Serializable, Comparable {
+	
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Costruttore vuoto del DTO.
+	 */
+	public «getUDTClassName(this)»() {
+		super();
+	}
+
+	/**
+	 * Costruttore per valore del DTO.
+	 */
+	public «getUDTClassName(this)»(«toJavaSimpleType(this)» v) {
+		super();
+		_value = v;
+	}
+
+
+	«LET toJavaSimpleType(this) AS javaType-»
+	private «javaType» _value;
+	
+	public «javaType» getValue(){
+		return _value;
+	}
+	
+	public void setValue(«javaType» s){
+		_value = s;
+	}
+	
+
+	/**
+	 * implementazione del confronto di uguaglianza tra due istanze
+	 * di «getUDTClassName()». 
+	 */
+	public boolean equals(Object other) {
+		// un oggetto nullo e' distinto da tutti gli altri
+		if (other == null)
+			return false;
+		// un oggetto di tipo differente non puo' essere uguale
+		if (!(other instanceof «getUDTClassName()»))
+			return false;
+		«getUDTClassName()» otherSpecific = («getUDTClassName()»)other;
+		// un valore nullo non e' uguale ad un valore non nullo
+		if ((_value == null && otherSpecific.getValue() != null) ||
+			(_value != null && otherSpecific.getValue() == null))
+			return false;
+		// valori entrambi non nulli: posso confrontare
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"equalslogic")»
+			// TODO inserire qui la logica specifica di confronto e rimuovere l'eccezione UnsupportedOperationException
+			//return _value.equals(otherSpecific.getValue());
+			throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».equals() non implementato");
+		«ENDPROTECT»
+	}
+
+	/**
+	 * implementazione della comparazione quantitativa tra due istanze
+	 * di «getUDTClassName()». 
+	 */
+	public int compareTo(Object other) {
+		// un oggetto nullo e' distinto da tutti gli altri e per convenzione li precede
+		if (other == null)
+			return +1;
+		// un oggetto di tipo differente non puo' essere confrontato
+		if (!(other instanceof «getUDTClassName()»))
+			throw new IllegalArgumentException("impossibile confrontare un «getUDTClassName()» con "+other.getClass());
+		«getUDTClassName()» otherSpecific = («getUDTClassName()»)other;
+		// un valore nullo precede un valore non nullo
+		if (_value == null && otherSpecific.getValue() != null)
+			return -1;
+		if (_value != null && otherSpecific.getValue() == null)
+			return +1;
+		// due valori nulli sono uguali
+		if (_value == null && otherSpecific.getValue() == null)
+			return 0;
+		// valori entrambi non nulli: posso confrontare
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"compareTologic")»
+			// TODO: inserire qui la logica specifica di confronto e rimuovere l'eccezione UnsupportedOperationException
+			//return _value.compareTo(otherSpecific.getValue());		
+			throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».compareTo() non implementato");
+		«ENDPROTECT»
+	}
+
+	public int hashCode() {
+		return _value==null? 0 : _value.hashCode();
+	}
+
+	public String toString() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+name+"toString")»
+		// TODO: inserire qui la logica specifica di rappresentazione a stringa
+		//return "" + _value;
+		throw new UnsupportedOperationException("Metodo «getUDTClassName(this)».toString() non implementato");
+		«ENDPROTECT»
+		
+	}
+
+	
+	«ENDLET-»
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getUDTFQN(this, model)+"extra_methods")»
+	// inserire qui eventuali metodi aggiuntivi 
+	«ENDPROTECT»
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE modelClass(GUIModel model) FOR ComplexType»
+«REM»genero il dto solo se non ho annotazioni«ENDREM»
+«IF this.typeAnnotation == null || this.typeAnnotation.size == 0»
+«FILE getFullDTOClassFile(this,model)»
+package «getDTOBaseJavaPackage(model)+getTypeNSAsPkg(this,true,false)»;
+«REM»STDMDD-159: visitor validator.«ENDREM»
+«IF isValidatorAnnotationRequired(this)-»
+import com.opensymphony.xwork2.validator.annotations.*;
+
+@Validation
+«ENDIF-»
+public class «getDTOClassName(this)» «IF extends!=null» extends «extends.toJavaType(model)» «ENDIF»implements java.io.Serializable {
+«EXPAND property(model) FOREACH this.fields»
+		
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Costruttore vuoto del DTO.
+	 */
+	public «getDTOClassName(this)»() {
+		super();
+	«IF this.initFields-»
+		«FOREACH fields.select(f|f.type.metaType==ComplexType) AS cf-»
+		«LET (ComplexType)(cf.type) AS tp»
+		this.set«cf.name.toFirstUpper()»(new «tp.toJavaType(model)»());
+		«ENDLET-»
+		«ENDFOREACH»
+		«FOREACH fields.select(f|f.type.metaType==TypedArray) AS taf-»
+		«LET (TypedArray)(taf.type) AS atp»
+		this.set«taf.name.toFirstUpper()»(new «atp.toJavaType(model)»());
+		«ENDLET-»
+		«ENDFOREACH»
+	«ENDIF»
+	}
+	
+	public String toString(){
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getTypeNSAsPkg(this,true,false)+this.name+"toString")»
+		/// inserire qui la logica desiderata per la rappresenatazione a stringa
+		return super.toString();
+		«ENDPROTECT»
+	}
+}
+«ENDFILE»
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE property(GUIModel model) FOR Field»
+
+	/// Field [«name»]
+	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	
+	«REM»STDMDD-159: visitor validator.«ENDREM»
+	«getValidatorFieldAnnotationForDTO(this)»
+	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
+		_«this.name» = val;
+	}
+	
+	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
+		return _«this.name»;
+	}
+«ENDDEFINE»
+
+«DEFINE activationParamProperty(GUIModel model) FOR ActivationParam»
+
+	/// Activation Param [«name»]
+	private «toJavaType(this.type, model)» _«this.name» = «defaultInitVal(this.type, model)»;
+	
+	public void set«name.toFirstUpper()»(«toJavaType(this.type, model)» val) {
+		_«this.name» = val;
+	}
+	
+	public «toJavaType(this.type,model)» get«name.toFirstUpper()»() {
+		return _«this.name»;
+	}
+«ENDDEFINE»
+
+«REM»comment«ENDREM»
+
+
+
+«DEFINE baseActionModelfile(GUIModel model) FOR GUIModel»
+«EXPAND widgetsStructurefile(model) FOR model»
+«EXPAND menuStructurefile(model) FOR model»
+«EXPAND multiPanelStructure(model) FOR model»
+«FILE getDTOBaseSrcDir()+"/BaseSessionAwareDTO.java"»package «getDTOBaseJavaPackage()»;
+
+import java.util.Map;
+import org.apache.log4j.*;
+import «getBaseJavaPackage()».util.*;
+
+public abstract class BaseSessionAwareDTO implements java.io.Serializable {
+	protected Map session;
+	
+	public void setSession(Map session){
+		this.session = session;
+	}
+	
+	public Map getSession(){
+		return this.session;
+	}
+	
+	/**  */
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".dto");
+	
+	/**
+	 * dump di debug dello stato interno del DTO
+	 */
+	public String dump() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(""+getClass().getName()+"{\n");
+		sb.append("\telenco fields:\n");
+		java.beans.BeanInfo bi;
+		try {
+			bi = java.beans.Introspector.getBeanInfo(this.getClass());
+			java.beans.PropertyDescriptor[] pds = bi.getPropertyDescriptors();
+			for (int i = 0; i < pds.length; i++) {
+				java.beans.PropertyDescriptor currPD = pds[i];
+				java.lang.reflect.Method currReadMethod = currPD
+						.getReadMethod();
+				if (currReadMethod != null) {
+					try {
+						Object srcVal = currReadMethod.invoke(this,
+								new Object[]{});
+						sb.append("\t\t" + currPD.getName() + "=" + srcVal
+								+ "\n");
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (java.lang.reflect.InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (java.beans.IntrospectionException e) {
+			e.printStackTrace();
+		}
+
+		sb.append("\t\t");
+
+		sb.append("\tsessione:\n");
+
+		sb.append("}\n");
+		return sb.toString();
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE multiPanelStructure(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/MultiPanelStructure.java"»package «getDTOBaseJavaPackage()»;
+public class MultiPanelStructure implements java.io.Serializable{
+	private String selectedPanelKey;
+	private String selectedPanelValue;
+	public String getSelectedPanelKey() {
+		return selectedPanelKey;
+	}
+	public void setSelectedPanelKey(String selectedPanelKey) {
+		this.selectedPanelKey = selectedPanelKey;
+	}
+	public String getSelectedPanelValue() {
+		return selectedPanelValue;
+	}
+	public void setSelectedPanelValue(String selectedPanelValue) {
+		this.selectedPanelValue = selectedPanelValue;
+	}
+	public MultiPanelStructure() {
+	}
+	public MultiPanelStructure(String selectedPanelKey,
+			String selectedPanelValue) {
+		this.selectedPanelKey = selectedPanelKey;
+		this.selectedPanelValue = selectedPanelValue;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE widgetsStructurefile(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/WidgetsStructure.java"»package «getDTOBaseJavaPackage()»;
+public class WidgetsStructure implements java.io.Serializable{
+
+	private String widgetName;
+	private boolean visible;
+	private boolean disabled;
+	
+	public String getWidgetName() {
+		return widgetName;
+	}
+	public void setWidgetName(String widgetName) {
+		this.widgetName = widgetName;
+	}
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	public boolean isDisabled() {
+		return disabled;
+	}
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+	
+	public WidgetsStructure() {
+	}
+	
+	public WidgetsStructure(String widgetName, boolean visible,
+			boolean disabled) {
+		this.widgetName = widgetName;
+		this.visible = visible;
+		this.disabled = disabled;
+	}	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE menuStructurefile(GUIModel model) FOR GUIModel»
+«FILE getDTOBaseSrcDir()+"/MenuStructure.java"»package «getDTOBaseJavaPackage()»;
+import java.util.*;
+«IF model.targetPlatform.enableRichUIBehavior-»
+import flexjson.JSON;
+«ENDIF-»
+
+public class MenuStructure implements java.io.Serializable{
+
+	private String menuName;
+	private List<MenuStructure> submenus = new ArrayList<MenuStructure>();
+
+	private boolean visible;
+	private boolean enabled;
+
+	public String getMenuName() {
+		return menuName;
+	}
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
+
+«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+«ENDIF-»
+	public List<MenuStructure> getSubmenus() {
+		return submenus;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public MenuStructure() {
+	}
+
+	public MenuStructure(String menuName) {
+		this.menuName = menuName;
+	}
+
+	public MenuStructure(String menuName, boolean visible, boolean enabled,
+			boolean active) {
+		this.menuName = menuName;
+		this.visible = visible;
+		this.enabled = enabled;
+	}
+
+«IF model.targetPlatform.enableRichUIBehavior-»
+	@JSON(include = false)
+«ENDIF-»
+	public List<String> getAllSubMenu() {
+		List<String> allSubMenu = new ArrayList<String>();
+
+		return addSubMenu(allSubMenu, getSubmenus());
+	}
+
+«IF model.targetPlatform.enableRichUIBehavior-»	
+	@JSON(include = false)
+«ENDIF-»
+	public MenuStructure getSubMenu(MenuStructure mn, String menuName){
+		for (MenuStructure menuStructure : mn.getSubmenus()) {
+			if(menuStructure.getMenuName().equalsIgnoreCase(menuName)){
+				return menuStructure;
+			}
+			getSubMenu(menuStructure, menuName);
+		}
+		
+		return mn;
+	}
+
+«IF model.targetPlatform.enableRichUIBehavior-»	
+	@JSON(include = false)
+«ENDIF-»
+	public List<MenuStructure> getSubMenuFlattenList(MenuStructure mn, String menuName) {
+		List<MenuStructure> res = new ArrayList<MenuStructure>();
+		res.addAll(mn.getSubmenus());
+		for (MenuStructure menuStructure : mn.getSubmenus()) {
+			res.addAll(menuStructure.getSubMenuFlattenList(menuStructure, menuStructure.getMenuName()));
+		}
+		return res;
+	}
+
+	private List<String> addSubMenu(List<String> allSubMenu,
+			List<MenuStructure> submenus) {
+		for (MenuStructure menuStructure : submenus) {
+			allSubMenu.add(menuStructure.getMenuName());
+			addSubMenu(allSubMenu, menuStructure.getSubmenus());
+		}
+		return allSubMenu;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»dto con solo le property delle action (parametri per spring)«ENDREM»
+«DEFINE actionModelFile(GUIModel model) FOR ContentPanel»
+«FILE getFullModelDTOClassFile(this,false,false,model)»
+package «getDTOBaseJavaPackage(model)+getAppModuleAsPkg(this,true,false)»;
+
+«IF hasFileUpload(this)»import java.io.File;«ENDIF»
+import java.util.*;
+import «getDTOBaseJavaPackage(model)».*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
+«IF model.targetPlatform.enableRichUIBehavior-»
+import «getUIUtilsJavaPackage(model)».*;
+import flexjson.JSON;
+import com.opensymphony.xwork2.conversion.annotations.*;
+«ENDIF-»
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata alla Schermata [«this.name»]
+ */
+public class «getModelDTOClassName(this,false,false,model)» extends BaseSessionAwareDTO {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, false) FOR this»
+	
+	////////////////////////////////////////////////////////////////////
+	/// campi per widget semplici
+	////////////////////////////////////////////////////////////////////
+	«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, false) FOR this»
+	
+	////////////////////////////////////////////////////////////////////
+	/// ulteriori campi comuni 
+	////////////////////////////////////////////////////////////////////
+	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+	
+	«IF model.targetPlatform.enableRichUIBehavior-»
+	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
+	«ENDIF-»
+	
+	«IF model.targetPlatform.enableFatClient-»
+	//***lista delle tabelle che hanno clearStatus settato a true
+	private List<String> listaClearStatus;
+
+	public List<String> getListaClearStatus() {
+		listaClearStatus = new ArrayList<String>();
+		Boolean cleared = null;
+		«EXPAND template::struts2::view::panelsStructure::clearStatusTable(this, "") FOR panels»
+		return listaClearStatus;
+	}
+
+	public void setListaClearStatus(List<String> listaClearStatus) {
+		this.listaClearStatus = listaClearStatus;
+	}
+	«ENDIF-»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE actionModelFile(GUIModel model) FOR Menubar»
+«FILE getFullModelDTOClassFile(null,true,false,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+import java.util.*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
+
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata al Menu
+ */
+public class «getModelDTOClassName(null,true,false,model)» extends BaseSessionAwareDTO {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+		
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model) FOR this»
+	
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE actionModelFile(GUIModel model) FOR ApplicationArea»
+«FILE getFullModelDTOClassFile(null,false,true,model)»
+package «getDTOBaseJavaPackage(model)»;
+
+import java.util.*;
+«EXPAND importAllNamespaces(model) FOR model.typedefs»
+
+/**
+ * Questo DTO incapsula tutto il contenuto informativo necessario all'esecuzione della
+ * logica di business associata alla OnInit action
+ */
+public class «getModelDTOClassName(null,false,true,model)» extends BaseSessionAwareDTO {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per la clusterizzazione della sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	
+	////////////////////////////////////////////////////////////////////
+	/// application data
+	////////////////////////////////////////////////////////////////////
+	«IF onInitCommand!=null»
+	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model) FOR this.onInitCommand»
+	«ENDIF»
+	
+	«IF model.activationModel!=null-»
+    «EXPAND activationParamProperty(model) FOREACH model.activationModel.activationParams-»
+    «ENDIF-»
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE importAllNamespaces(GUIModel model) FOR Typedefs-»
+«FOREACH namespaces.select(ns|ns.types.select(t|t.metaType==ComplexType).size >0) AS ns-»
+import «getBaseJavaPackage(model)».dto.«ns.name.toLowerCase()».*;
+«ENDFOREACH-»
+«FOREACH extNamespaces.select(ns|ns.types.select(t|t.metaType==ComplexType).size >0) AS ns-»
+import «getBaseJavaPackage(model)».dto.«ns.name.toLowerCase()».*;
+«ENDFOREACH-»
+«ENDDEFINE»

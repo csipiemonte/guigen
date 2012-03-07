@@ -1,0 +1,923 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«REM»
+==========================================================================================================================
+STRUTS2 CUSTOM INTERCEPTOR CLASSES
+===========================================================================================================================
+«ENDREM»
+
+
+«REM»Genera le classi dei convertitori«ENDREM»
+«DEFINE interceptorsClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND tableSelectionInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND methodProtectionInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND paramsInterceptor(skip_component_dir_creation) FOR this»
+	«IF targetPlatform.enableFatClient»
+	«EXPAND preserveUploadInterceptor(skip_component_dir_creation) FOR this»
+	«EXPAND fatClientValidatorInterceptor(skip_component_dir_creation) FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE methodProtectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtectionInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Iterator;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.ValidationAware;
+import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
+import com.opensymphony.xwork2.util.LocalizedTextUtil;
+
+public class MethodProtectionInterceptor extends MethodFilterInterceptor {
+
+	private static final long serialVersionUID = -6680894220590585506L;
+
+	public static final String INVALID_TOKEN_CODE = "invalid.token";
+
+	/**
+	 * @see com.opensymphony.xwork2.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork2.ActionInvocation)
+	 */
+	protected String doIntercept(ActionInvocation invocation) throws Exception {
+		if (log.isDebugEnabled()) {
+			log
+					.debug("Intercepting invocation to check for valid transaction token.");
+		}
+
+		Map session = ActionContext.getContext().getSession();
+
+		synchronized (session) {
+			// verifica se c'e' un lock in corso
+			String declaredProtection = getDeclaredProtection(invocation);
+			if (mustReject(invocation, session, declaredProtection))
+				return handleReject(invocation, session);
+			else {
+				// insert lock
+				String lockMarker = insertLock(invocation, session, declaredProtection);
+				String _res = null;
+				try {
+					_res = handleAllow(invocation);
+				} catch (Exception e) {
+					removeLock(lockMarker, session);
+					throw new Exception("Errore occorso nell'esecuzione del metodo: "+e);
+				}
+				// remove lock
+				removeLock(lockMarker, session);
+				return _res;
+			}
+		}
+	}
+
+	final static String LOCK_ALL_MARKER = "__lockAllMethods";
+	final static String LOCK_SAME_MARKER_PREFIX = "__lockSameMethods_";
+
+	protected String methodLockMarker(ActionInvocation invocation) {
+		return LOCK_SAME_MARKER_PREFIX + invocation.getProxy().getActionName()
+				+ "." + invocation.getProxy().getMethod();
+	}
+
+	/**
+	 * 
+	 * @param invocation
+	 * @return null se il metodo della action non e' annotato, il tipo di annotazione
+	 * altrimenti
+	 */
+	protected String getDeclaredProtection(ActionInvocation invocation){
+		String lockType = null;
+		String methodName = invocation.getProxy().getMethod();
+		Method m = null;
+		try {
+			m = invocation.getAction().getClass().getDeclaredMethod(methodName,
+					new Class[]{});
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		if (m != null) {
+			MethodProtection prot = m.getAnnotation(MethodProtection.class);
+			if (prot == null)
+				lockType = MethodProtection.ALLOW_ALL;
+			else
+				lockType = prot.level();
+		}
+		return lockType;
+	}
+	
+	protected String insertLock(ActionInvocation invocation, Map session, String declaredProtection) {
+		if (MethodProtection.REJECT_ALL.equals(declaredProtection)) {
+			session.put(LOCK_ALL_MARKER, LOCK_ALL_MARKER);
+			return LOCK_ALL_MARKER;
+		} else if (MethodProtection.REJECT_SAME.equals(declaredProtection)) {
+			String marker = methodLockMarker(invocation);
+			session.put(marker, marker);
+			return marker;
+		} else {
+			// no lock
+			return null;
+		}
+	}
+
+	protected void removeLock(String lockMarker, Map session) {
+		if (lockMarker != null)
+			session.remove(lockMarker);
+	}
+
+	/**
+	 * cancella tutti i lock (globale e locali)
+	 * @param session
+	 */
+	protected void removeAllLocks(Map session){
+		session.remove(LOCK_ALL_MARKER);
+		Iterator<String> keys = session.keySet().iterator();
+		while (keys.hasNext()) {
+			String currKey = keys.next();
+			if (currKey.startsWith(LOCK_SAME_MARKER_PREFIX))
+				session.remove(currKey);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param invocation
+	 * @return true se c'e' un lock in corso che riguarda l'invocazione corrente, ovvero:
+	 * se il lock e' un lockAll oppure se il lock e' un lockSame e il metodo lockato coincide
+	 * con quello corrente. 
+	 */
+	protected boolean mustReject(ActionInvocation invocation, Map session, String declaredProtection) {
+		if (declaredProtection==null)
+			return false; // annotazione assente: non rientra nel lock
+		String lockAll = (String) session.get(LOCK_ALL_MARKER);
+		if (lockAll != null)
+			return true;
+		String lockSame = (String) session.get(methodLockMarker(invocation));
+		if (lockSame != null)
+			return true;
+		// else
+		return false;
+	}
+
+	protected String handleReject(ActionInvocation invocation, Map session) throws Exception {
+		Object action = invocation.getAction();
+		String errorMessage = LocalizedTextUtil
+				.findText(
+						this.getClass(),
+						"struts.messages.invalid.token",
+						invocation.getInvocationContext().getLocale(),
+						"The form has already been processed or no token was supplied, please try again.",
+						new Object[0]);
+
+		if (action instanceof ValidationAware) {
+			((ValidationAware) action).addActionError(errorMessage);
+		} else {
+			log.warn(errorMessage);
+		}
+		removeAllLocks(session);
+		return INVALID_TOKEN_CODE;
+	}
+
+	/**
+	 * Called when we must allow method execution. 
+	 *
+	 * @param invocation the action invocation
+	 * @throws Exception when any unexpected error occurs.
+	 */
+	protected String handleAllow(ActionInvocation invocation) throws Exception {
+		return invocation.invoke();
+	}
+}
+
+
+«ENDFILE»
+
+
+«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodProtection.java"»package «getInterceptorsJavaPackage(this)»;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MethodProtection {
+	public final static String ALLOW_ALL = "ALLOW_ALL";
+	public final static String REJECT_SAME = "REJECT_SAME";
+	public final static String REJECT_ALL = "REJECT_ALL";
+	String level();
+}
+
+
+«ENDFILE»
+
+«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientOnly.java"»package «getInterceptorsJavaPackage(this)»;
+
+import static java.lang.annotation.ElementType.METHOD; 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;  
+/**
+ * Marks an Action method to not be validated
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(METHOD)
+public @interface FatClientOnly {
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»comment«ENDREM»
+«DEFINE tableSelectionInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/TableSelectionInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.Interceptor;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.Iterator;
+
+/**
+ * TableSelectionInterceptor Interceptor Class.
+ *
+ * @author GuiGen
+ */
+public class TableSelectionInterceptor implements Interceptor {
+
+	/** Auto-generated serialization id */
+	private static final long serialVersionUID = 7706482638806990958L;
+
+    private String uncheckedValue = null;
+
+    public void destroy() {
+    }
+
+    public void init() {
+    }
+
+    public String intercept(ActionInvocation ai) throws Exception {
+        Map parameters = ai.getInvocationContext().getParameters();
+        Map<String, String> newParams = new HashMap<String, String>();
+        Set<String> keys = parameters.keySet();
+        for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
+            String key = iterator.next();
+
+            if (key.startsWith("__tableselectionempty_")) {
+                String name = key.substring("__tableselectionempty_".length());
+
+                iterator.remove();
+
+                // is this checkbox checked/submitted?
+                if (!parameters.containsKey(name)) {
+                    // if not, let's be sure to default the value to false
+                    newParams.put(name, uncheckedValue);
+                }
+            }
+        }
+
+        parameters.putAll(newParams);
+
+        return ai.invoke();
+    }
+
+    /**
+     * Overrides the default value for an unchecked checkbox
+     *
+     * @param uncheckedValue The uncheckedValue to set
+     */
+    public void setUncheckedValue(String uncheckedValue) {
+        this.uncheckedValue = uncheckedValue;
+    }
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE paramsInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/ParametersInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.ValidationAware;
+import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.interceptor.NoParameters;
+import com.opensymphony.xwork2.interceptor.ParameterNameAware;
+import com.opensymphony.xwork2.util.LocalizedTextUtil;
+import com.opensymphony.xwork2.util.OgnlContextState;
+import com.opensymphony.xwork2.util.TextParseUtil;
+import com.opensymphony.xwork2.util.ValueStack;
+
+/**
+ * 
+ * @author guigen
+ * personalizzazione dell'interceptor com.opensymphony.xwork2.interceptor.ParametersInterceptor
+ * per poter invocare un metodo e passare parametri allo strato struts ad es:
+ * <s:submit name="widg_bDettaglio" id="widg_bDettaglio" method="handleBDettaglio_CLICKED?param1=uno&param2=due" />
+ *
+ */
+public class ParametersInterceptor extends MethodFilterInterceptor {
+
+    private static final Log LOG = LogFactory.getLog(ParametersInterceptor.class);
+
+    boolean ordered = false;
+    Set<Pattern> excludeParams = Collections.EMPTY_SET;
+    Set<Pattern> acceptedParams = Collections.EMPTY_SET;
+
+    private String acceptedParamNames = "[\\p{Graph}&&[^,#:=]]*";
+    private Pattern acceptedPattern = Pattern.compile(acceptedParamNames);
+
+    static boolean devMode = false;
+
+    @Inject(value = "devMode", required = false)
+    public static void setDevMode(String mode) {
+        devMode = "true".equals(mode);
+    }
+
+    public void setAcceptedParamNames(String commaDelim) {
+        Collection<String> acceptPatterns = asCollection(commaDelim);
+        if (acceptPatterns != null) {
+            acceptedParams = new HashSet<Pattern>();
+            for (String pattern : acceptPatterns) {
+                acceptedParams.add(Pattern.compile(pattern));
+            }
+        }
+    }
+
+    /**
+     * Compares based on number of '.' characters (fewer is higher)
+     */
+    static final Comparator rbCollator = new Comparator() {
+        public int compare(Object arg0, Object arg1) {
+            String s1 = (String) arg0;
+            String s2 = (String) arg1;
+            int l1 = 0, l2 = 0;
+            for (int i = s1.length() - 1; i >= 0; i--) {
+                if (s1.charAt(i) == '.') l1++;
+            }
+            for (int i = s2.length() - 1; i >= 0; i--) {
+                if (s2.charAt(i) == '.') l2++;
+            }
+            return l1 < l2 ? -1 : (l2 < l1 ? 1 : s1.compareTo(s2));
+        }
+
+        ;
+    };
+
+    public String doIntercept(ActionInvocation invocation) throws Exception {
+        Object action = invocation.getAction();
+        if (!(action instanceof NoParameters)) {
+            ActionContext ac = invocation.getInvocationContext();
+            final Map parameters = ac.getParameters();
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Setting params " + getParameterLogMap(parameters));
+            }
+
+            if (parameters != null) {
+            	
+            	final Map newParameters = new HashMap();
+            	newParameters.putAll(parameters);
+                for (Iterator iterator = parameters.keySet().iterator(); iterator.hasNext();) {
+                	String key = (String) iterator.next();
+                	Object param = parameters.get(key);
+                	normalizeParams(key, param, newParameters, invocation);
+                }
+                
+                Map contextMap = ac.getContextMap();
+                try {
+                    OgnlContextState.setCreatingNullObjects(contextMap, true);
+                    OgnlContextState.setDenyMethodExecution(contextMap, true);
+                    OgnlContextState.setReportingConversionErrors(contextMap, true);
+
+                    ValueStack stack = ac.getValueStack();
+                    setParameters(action, stack, newParameters);
+                } finally {
+                    OgnlContextState.setCreatingNullObjects(contextMap, false);
+                    OgnlContextState.setDenyMethodExecution(contextMap, false);
+                    OgnlContextState.setReportingConversionErrors(contextMap, false);
+                }
+            }
+        }
+        return invocation.invoke();
+    }
+
+    private void normalizeParams(String key, Object param, Map parameters, ActionInvocation invocation) {
+		
+    	if(key.contains("?")){
+    		parameters.remove(key);
+    		String newKey = key.substring(0, key.indexOf("?"));
+    		parameters.put(newKey, param);
+    		addMethodParams(key.substring(key.indexOf("?")+1, key.length()), parameters);
+    	}
+		
+	}
+
+	private void addMethodParams(String substring, Map parameters) {
+		StringTokenizer tok = new StringTokenizer(substring,"&");
+		while( tok.hasMoreTokens() ){
+			String tmp = tok.nextToken();
+			parameters.put(tmp.substring(0, tmp.indexOf("=")), tmp.substring(tmp.indexOf("=") + 1, tmp.length()));
+		}
+		
+	}
+
+	protected void setParameters(Object action, ValueStack stack, final Map parameters) {
+        ParameterNameAware parameterNameAware = (action instanceof ParameterNameAware)
+                ? (ParameterNameAware) action : null;
+
+        Map params = null;
+        if (ordered) {
+            params = new TreeMap(getOrderedComparator());
+            params.putAll(parameters);
+        } else {
+            params = new TreeMap(parameters);
+        }
+
+        for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String name = entry.getKey().toString();
+
+            boolean acceptableName = acceptableName(name)
+                    && (parameterNameAware == null
+                    || parameterNameAware.acceptableParameterName(name));
+
+            if (acceptableName) {
+                Object value = entry.getValue();
+                try {
+                    stack.setValue(name, value);
+                } catch (RuntimeException e) {
+                    if (devMode) {
+                        String developerNotification = LocalizedTextUtil.findText(ParametersInterceptor.class, "devmode.notification", ActionContext.getContext().getLocale(), "Developer Notification:\n{0}", new Object[]{
+                                e.getMessage()
+                        });
+                        LOG.error(developerNotification);
+                        if (action instanceof ValidationAware) {
+                            ((ValidationAware) action).addActionMessage(developerNotification);
+                        }
+                    } else {
+                        LOG.error("ParametersInterceptor - [setParameters]: Unexpected Exception caught setting '" + name + "' on '" + action.getClass() + ": " + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets an instance of the comparator to use for the ordered sorting.  Override this
+     * method to customize the ordering of the parameters as they are set to the
+     * action.
+     *
+     * @return A comparator to sort the parameters
+     */
+    protected Comparator getOrderedComparator() {
+        return rbCollator;
+    }
+
+    private String getParameterLogMap(Map parameters) {
+        if (parameters == null) {
+            return "NONE";
+        }
+
+        StringBuffer logEntry = new StringBuffer();
+        for (Iterator paramIter = parameters.entrySet().iterator(); paramIter.hasNext();) {
+            Map.Entry entry = (Map.Entry) paramIter.next();
+            logEntry.append(String.valueOf(entry.getKey()));
+            logEntry.append(" => ");
+            if (entry.getValue() instanceof Object[]) {
+                Object[] valueArray = (Object[]) entry.getValue();
+                logEntry.append("[ ");
+                for (int indexA = 0; indexA < (valueArray.length - 1); indexA++) {
+                    Object valueAtIndex = valueArray[indexA];
+                    logEntry.append(valueAtIndex);
+                    logEntry.append(String.valueOf(valueAtIndex));
+                    logEntry.append(", ");
+                }
+                logEntry.append(String.valueOf(valueArray[valueArray.length - 1]));
+                logEntry.append(" ] ");
+            } else {
+                logEntry.append(String.valueOf(entry.getValue()));
+            }
+        }
+
+        return logEntry.toString();
+    }
+
+
+    protected boolean acceptableName(String name) {
+        if (isAccepted(name) && !isExcluded(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean isAccepted(String paramName) {
+        if (!this.acceptedParams.isEmpty()) {
+            for (Pattern pattern : acceptedParams) {
+                Matcher matcher = pattern.matcher(paramName);
+                if (!matcher.matches()) {
+                    return false;
+                }
+            }
+        }
+        return acceptedPattern.matcher(paramName).matches();
+    }
+
+    protected boolean isExcluded(String paramName) {
+        if (!this.excludeParams.isEmpty()) {
+            for (Pattern pattern : excludeParams) {
+                Matcher matcher = pattern.matcher(paramName);
+                if (matcher.matches()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Whether to order the parameters or not
+     *
+     * @return True to order
+     */
+    public boolean isOrdered() {
+        return ordered;
+    }
+
+    /**
+     * Set whether to order the parameters by object depth or not
+     *
+     * @param ordered True to order them
+     */
+    public void setOrdered(boolean ordered) {
+        this.ordered = ordered;
+    }
+
+    /**
+     * Gets a set of regular expressions of parameters to remove
+     * from the parameter map
+     *
+     * @return A set of compiled regular expression patterns
+     */
+    protected Set getExcludeParamsSet() {
+        return excludeParams;
+    }
+
+    /**
+     * Sets a comma-delimited list of regular expressions to match
+     * parameters that should be removed from the parameter map.
+     *
+     * @param commaDelim A comma-delimited list of regular expressions
+     */
+    public void setExcludeParams(String commaDelim) {
+        Collection<String> excludePatterns = asCollection(commaDelim);
+        if (excludePatterns != null) {
+            excludeParams = new HashSet<Pattern>();
+            for (String pattern : excludePatterns) {
+                excludeParams.add(Pattern.compile(pattern));
+            }
+        }
+    }
+
+    /**
+     * Return a collection from the comma delimited String.
+     *
+     * @param commaDelim
+     * @return A collection from the comma delimited String.
+     */
+    private Collection asCollection(String commaDelim) {
+        if (commaDelim == null || commaDelim.trim().length() == 0) {
+            return null;
+        }
+        return TextParseUtil.commaDelimitedStringToSet(commaDelim);
+    }
+}
+«ENDFILE»
+
+«FILE getInterceptorsJavaSrcDir(this, true)+"/MethodFilterInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+import java.util.Collections;
+import java.util.Set;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.opensymphony.xwork2.interceptor.MethodFilterInterceptorUtil;
+import com.opensymphony.xwork2.util.TextParseUtil;
+
+public abstract class MethodFilterInterceptor extends AbstractInterceptor {
+    protected transient Log log = LogFactory.getLog(getClass());
+    
+    protected Set excludeMethods = Collections.EMPTY_SET;
+    protected Set includeMethods = Collections.EMPTY_SET;
+
+    public void setExcludeMethods(String excludeMethods) {
+        this.excludeMethods = TextParseUtil.commaDelimitedStringToSet(excludeMethods);
+    }
+    
+    public Set getExcludeMethodsSet() {
+    	return excludeMethods;
+    }
+
+    public void setIncludeMethods(String includeMethods) {
+        this.includeMethods = TextParseUtil.commaDelimitedStringToSet(includeMethods);
+    }
+    
+    public Set getIncludeMethodsSet() {
+    	return includeMethods;
+    }
+
+    public String intercept(ActionInvocation invocation) throws Exception {
+        if (applyInterceptor(invocation)) {
+            return doIntercept(invocation);
+        } 
+        return invocation.invoke();
+    }
+
+    protected boolean applyInterceptor(ActionInvocation invocation) {
+        String method = invocation.getProxy().getMethod();
+        if(method.contains("?")){
+        	invocation.getProxy().setMethod(method.substring(0, method.indexOf("?")));
+        }
+        // ValidationInterceptor
+        boolean applyMethod = MethodFilterInterceptorUtil.applyMethod(excludeMethods, includeMethods, method);
+        if (log.isDebugEnabled()) {
+        	if (!applyMethod) {
+        		log.debug("Skipping Interceptor... Method [" + method + "] found in exclude list.");
+        	}
+        }
+        return applyMethod;
+    }
+    
+    /**
+     * Subclasses must override to implement the interceptor logic.
+     * 
+     * @param invocation the action invocation
+     * @return the result of invocation
+     * @throws Exception
+     */
+    protected abstract String doIntercept(ActionInvocation invocation) throws Exception;
+    
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE preserveUploadInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/PreserveUploadInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.dispatcher.multipart.MultiPartRequestWrapper;
+
+/**
+ * PreserveUploadInterceptor Interceptor Class.
+ * 
+ * @author GuiGen
+ */
+public class PreserveUploadInterceptor extends AbstractInterceptor {
+
+	protected String startMethod;
+	protected String endMethod;
+
+	public void setStartMethod(String startMethod) {
+		this.startMethod = startMethod;
+	}
+
+	public void setEndMethod(String endMethod) {
+		this.endMethod = endMethod;
+	}
+
+	protected static final Logger log = Logger
+			.getLogger(PreserveUploadInterceptor.class);
+
+	@SuppressWarnings("unchecked")
+	public String intercept(ActionInvocation invocation) throws Exception {
+		ActionContext ac = invocation.getInvocationContext();
+		HttpServletRequest request = (HttpServletRequest) ac
+				.get(ServletActionContext.HTTP_REQUEST);
+
+		String methodName = invocation.getProxy().getMethod();
+		Map session = ac.getSession();
+
+		/*
+		 * se ho il metodo implicito
+		 */
+		if (methodName.equalsIgnoreCase(startMethod)) {
+			MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) request;
+			
+			Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+			
+			//***sul metodo non ho la validazione per cui se ho errori sul wrapper li ribalto sulla action
+			if (multiWrapper.hasErrors()) {
+				StringBuffer buf = new StringBuffer();
+				for (String error : multiWrapper.getErrors()) {
+					buf.append(error);
+				}
+				params.put(startMethod+"_errors", buf.toString());
+				return invocation.invoke();
+			}
+			
+			Enumeration fileParameterNames = multiWrapper
+					.getFileParameterNames();
+			while (fileParameterNames != null
+					&& fileParameterNames.hasMoreElements()) {
+
+				String inputName = (String) fileParameterNames.nextElement();
+				String contentTypeName = inputName + "ContentType";
+				String fileNameName = inputName + "FileName";
+
+				File[] files = multiWrapper.getFiles(inputName);
+
+				String newInputName = files[0].getCanonicalPath().replace(
+						"upload_", "upload_fatclient_");
+				File newFile = new File(newInputName);
+
+				// ***mantengo i files uploadati
+				InputStream in = new FileInputStream(files[0]);
+				OutputStream out = new FileOutputStream(newFile);
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				if (log.isDebugEnabled()) {
+					log.debug("Copiato file: " + files[0].getCanonicalPath()
+							+ " in " + newFile.getCanonicalPath());
+				}
+
+				session.put(inputName + "_FileUpl", newInputName);
+				session.put(contentTypeName, ((String[]) params
+						.get(contentTypeName))[0]);
+				session.put(fileNameName,
+						((String[]) params.get(fileNameName))[0]);
+
+			}
+		}
+
+		if (methodName.equalsIgnoreCase(endMethod)) {
+			Set<String> keys = session.keySet();
+			for (Iterator<String> iterator = keys.iterator(); iterator
+					.hasNext();) {
+				String key = iterator.next();
+
+				if(key.endsWith("_FileUpl")){
+					String pathFile = (String) session.get(key);
+					if (pathFile != null) {
+						File ff = new File(pathFile);
+						if ((ff != null) && ff.isFile()) {
+							if (ff.delete() == false) {
+								log.warn("Resource Leaking:  Could not remove uploaded file '"+ff.getCanonicalPath()+"'.");
+							}
+						}
+					}
+					
+				}
+				if (key.endsWith("_FileUpl") || key.endsWith("ContentType")
+						|| key.endsWith("FileName")) {
+
+					session.remove(key);
+
+				}
+			}
+
+		}
+
+		return invocation.invoke();
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE fatClientValidatorInterceptor(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getInterceptorsJavaSrcDir(this, true)+"/FatClientValidatorInterceptor.java"»package «getInterceptorsJavaPackage(this)»;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+
+/**
+ * FatClientValidatorInterceptor Interceptor Class.
+ * 
+ * @author GuiGen
+ */
+public class FatClientValidatorInterceptor extends AbstractInterceptor {
+
+	protected static final Logger log = Logger
+			.getLogger(FatClientValidatorInterceptor.class);
+	
+	public static final String ACTION_ERRORS = "fatClient_actionErrors";
+	public static final String FIELD_ERRORS = "fatClient_fieldErrors";
+	public static final String ACTION_MESSAGES = "fatClient_actionMessages";
+
+	
+	/*
+	 * mette gli eventuali errori nella mappa parametri della action e li rimuove dal
+	 * contesto di validazione
+	 * solo per il fat client
+	 * (non-Javadoc)
+	 * @see com.opensymphony.xwork2.interceptor.AbstractInterceptor#intercept(com.opensymphony.xwork2.ActionInvocation)
+	 */
+	@SuppressWarnings("unchecked")
+	public String intercept(ActionInvocation invocation) throws Exception {
+				
+		ActionSupport action = (ActionSupport) invocation.getAction();
+		if (action != null) {
+			Method method = getActionMethod(action.getClass(), invocation.getProxy().getMethod());
+			if(method.isAnnotationPresent(FatClientOnly.class)){
+				Map<String, Object> params = (Map<String, Object>) ActionContext.getContext().getParameters();
+				Collection erroriAction = action.getActionErrors();
+				Map mappaErrori = action.getFieldErrors();
+				Collection mappaMessaggi = action.getActionMessages();
+				params.put(ACTION_ERRORS, erroriAction);
+				params.put(FIELD_ERRORS, mappaErrori);
+				params.put(ACTION_MESSAGES, mappaMessaggi);
+				action.clearErrorsAndMessages();
+			}
+		}
+
+		return invocation.invoke();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected Method getActionMethod(Class actionClass, String methodName) throws NoSuchMethodException {
+		Method method;
+		try {
+			method = actionClass.getMethod(methodName, new Class[0]);
+		} catch (NoSuchMethodException e) {
+			try {
+				String altMethodName = "do" + methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+				method = actionClass.getMethod(altMethodName, new Class[0]);
+			} catch (NoSuchMethodException e1) {
+				// throw the original one
+				throw e;
+			}
+		}
+		return method;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»

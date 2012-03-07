@@ -1,0 +1,101 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+
+«AROUND template::fatjs::view::widgets::widgetStruct(GUIModel model, ContentPanel cp) FOR TextField-»
+	«EXPAND template::uiprototype::view::widgets::widgetStruct(model,cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::view::widgets::column(Table table, ContentPanel cp,GUIModel model) FOR Column-»
+	«EXPAND template::uiprototype::view::widgets::column(table,cp,model) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::view::widgets::multidataWidgetProperties(GUIModel model, ContentPanel cp) FOR MultiDataWidget-»
+	«EXPAND template::uiprototype::view::widgets::multidataWidgetProperties(model,cp) FOR this»
+«ENDAROUND»
+
+
+
+«AROUND template::fatjs::controller::commands::cmd(GUIModel model, ContentPanel cp) FOR ExecCommand-»
+	«EXPAND template::uiprototype::controller::commands::cmd(model,cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::controller::commands::cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand-»
+	«EXPAND template::uiprototype::controller::commands::cmd(model,cp) FOR this»
+«ENDAROUND»
+
+«AROUND template::fatjs::controller::commands::cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand-»
+	«EXPAND template::uiprototype::controller::commands::cmd(model,cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::controller::commands::cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand-»
+	«EXPAND template::uiprototype::controller::commands::cmd(model,cp) FOR this»
+«ENDAROUND»
+
+«AROUND template::fatjs::view::panels::panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel-»
+	«EXPAND template::uiprototype::view::panels::panelStruct( model,  cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::view::widgets::widgetStruct(GUIModel model, ContentPanel cp) FOR ComboBox»
+	«EXPAND template::uiprototype::view::widgets::widgetStruct(model,cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::view::widgets::widgetStruct(GUIModel model, ContentPanel cp) FOR TreeView»
+	«EXPAND template::uiprototype::view::widgets::widgetStruct(model,cp) FOR this»
+«ENDAROUND»
+
+
+«AROUND template::fatjs::view::widgets::colModel(GUIModel model, Table table, ContentPanel cp) FOR ColumnModel»
+	«EXPAND template::uiprototype::view::widgets::colModel(model,table, cp) FOR this»
+«ENDAROUND»
+
+«AROUND template::fatjs::controller::commands::eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
+	«EXPAND template::uiprototype::controller::commands::eventHandler(model, cp) FOR this»
+«ENDAROUND»
+
+
+«REM»AOP per multipanel«ENDREM»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+«AROUND template::struts2::view::multiPanelStructure::panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel»
+	«EXPAND template::uiprototype::view::multiPanelStructure::panelStruct(model, cp,contextPrefix) FOR this»
+«ENDAROUND»
+
+

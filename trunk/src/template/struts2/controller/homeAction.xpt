@@ -1,0 +1,124 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«IMPORT template::struts2::eventHandlers»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+==========================================================================================================================
+STRUTS2 ACTIONS FILES
+===========================================================================================================================
+«ENDREM»
+
+
+
+«REM»Genera la Action di Struts che gestisce la Home Page«ENDREM»
+«DEFINE struts2HomeJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getStrutsHomeJavaFile(this, skip_component_dir_creation)»package «getPresentationJavaPackage(this)»;
+
+import java.util.*;
+
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import com.opensymphony.xwork2.validator.annotations.*;
+
+import «getDTOBaseJavaPackage(this)».*;
+
+import «getBaseJavaPackage(this)».business.*;
+
+/**
+ * «getStrutsHomeClassName(this)» Action Class.
+ *
+ * @author GuiGen
+ */
+@Validation()
+public class «getStrutsHomeClassName(this)» extends «getStrutsBaseActionClassName(this)» {
+
+	«IF this.structure.appWindow.appArea.onInitCommand != null»
+    «EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(this) FOR this.structure.appWindow.appArea.onInitCommand»
+    «ENDIF»
+    
+    «IF this.activationModel!=null-»
+    «EXPAND template::struts2::model::modelJavaFiles::activationParamProperty(this) FOREACH this.activationModel.activationParams-»
+    «ENDIF-»
+    
+    /**
+	 * classe model associata
+	 */
+	public Class modelClass() {
+		«IF this.structure.appWindow.appArea.onInitCommand != null»
+		return «getModelDTOFQN(null, false, true, this)».class;
+		«ELSE»
+		return java.lang.Object.class;
+		«ENDIF»
+	}
+    
+    
+    «IF this.structure.appWindow.appArea.onInitCommand != null»
+	/**
+	 *
+	 * @return Il risultato delle azioni, SUCCESS altrimenti.
+	 */
+	public String execute() throws CommandExecutionException {
+		
+		log.debug("[«getStrutsHomeClassName(this)»::execute] START");
+		
+		ICommand action = initCommand();
+		String result = action.doCommand(this);
+		if (result != null) {
+			return result;
+		} else {
+			log.debug("[«getStrutsHomeClassName(this)»::execute] END");
+			return SUCCESS;
+		}
+	}
+	«ENDIF»
+
+
+	/**
+	 * Gestione della validazione
+	 */
+	public void validate() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsHomeClassName(this) + "_validate")»
+		/* Inserire la validazione */
+		«ENDPROTECT»
+	}
+
+	/**
+	 *	Metodo per la rimozione dalla sessione degli application data a scope
+	 *  SAME_PAGE. 
+	 */
+	 public void clearPageScopedAppData(String targetContentPanelName){
+	 	// TODO: nel caso dell'on-init command non si ha ancora un 
+	 	// "content panel corrente" -> NOP
+	 }
+
+	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAction»
+	«IF onInitAction != null»
+    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit1(this) FOR onInitAction»
+    «ENDIF»
+	«ENDLET»
+}
+«ENDFILE»
+«ENDDEFINE»
+

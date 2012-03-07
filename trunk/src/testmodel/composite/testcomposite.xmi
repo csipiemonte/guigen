@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guigen:GUIModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:guigen="http://www.csi.it/mddtools" codProdotto="test" codComponente="testcomposite" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <structure>
+    <appWindow>
+      <footer/>
+      <header codCanale="finanziamenti" codApplicativo="pbandi" nomeCanale="test" linkCanale="http://www.sistemapiemonte.it" nomeApplicativo="testesecurity"/>
+      <appArea homePage="//@structure/@appWindow/@appArea/@contentPanels.0">
+        <menubar>
+          <topLevelMenu name="mnuPippo" label="pippo">
+            <eventHandler>
+              <command xsi:type="guigen:ExecCommand" methodName="fdfdf" postExecData="//@appDataDefs/@appData.3">
+                <results resultCode="OIK">
+                  <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+                </results>
+              </command>
+            </eventHandler>
+          </topLevelMenu>
+        </menubar>
+        <contentPanels name="cpTestComposite">
+          <panels xsi:type="guigen:FormPanel" name="pMain" label="Test Composizione">
+            <layout xsi:type="guigen:UDLRCPanelLayout"/>
+            <subpanels xsi:type="guigen:FormPanel" name="pLeft">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="LEFT"/>
+              <subpanels xsi:type="guigen:MenuPanel" name="pMenu">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:MenuView" name="menu"/>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pCenter">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec" value="CENTER"/>
+              <subpanels xsi:type="guigen:StdMessagePanel" name="pMsg" showGlobalMessages="true" showFieldErrorDetails="true" showFieldErrors="true"/>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagTitolare" label="Dati anagrafici titolare">
+                <panelDef href="dati_anag.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.8">
+                    <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
+                  </paramValues>
+                </config>
+              </subpanels>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pDatiAnagRappLegale" label="Dati anagrafici rappr. legale">
+                <panelDef href="dati_anag.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.9">
+                    <param xsi:type="guigen:AppDataMappingParam" href="dati_anag.xmi#//@params.0"/>
+                  </paramValues>
+                </config>
+              </subpanels>
+              <subpanels xsi:type="guigen:PanelDefUse" name="pIndRappLegale" label="Indirizzo rappr. legale">
+                <panelDef href="scelta_indirizzo.xmi#/"/>
+                <config>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.0">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.0"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.1">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.1"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.2">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.2"/>
+                  </paramValues>
+                  <paramValues xsi:type="guigen:AppDataMappingPDefVal" actualAppData="//@appDataDefs/@appData.3">
+                    <param xsi:type="guigen:AppDataMappingParam" href="scelta_indirizzo.xmi#//@params.3"/>
+                  </paramValues>
+                </config>
+              </subpanels>
+              <subpanels xsi:type="guigen:WidgetsPanel" name="pWidgets1" label="Widget non inclusi">
+                <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:TextField" name="tfNumero" label="Numero">
+                  <dataType xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.9"/>
+                </widgets>
+                <widgets xsi:type="guigen:PlainText" name="txtNota1" label="Nota 1:" required="true" staticText="questa è una nota staticamente inserita nel pannello">
+                  <dataType xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+                </widgets>
+              </subpanels>
+              <subpanels xsi:type="guigen:CommandPanel" name="pCmd" cmdStyle="NAVIGATION">
+                <layout xsi:type="guigen:HorizontalFlowPanelLayout"/>
+                <widgets xsi:type="guigen:ConfirmButton" name="bSalva" label="Salva">
+                  <eventHandlers>
+                    <command xsi:type="guigen:ExecCommand" methodName="salva">
+                      <results resultCode="OK">
+                        <command xsi:type="guigen:NOPCommand"/>
+                      </results>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:Button" name="bReadOnly" label="read only dati titolare">
+                  <eventHandlers>
+                    <command xsi:type="guigen:PDefStateCommand" pDefUse="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1">
+                      <goTo href="dati_anag.xmi#//@states/@states.1"/>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+                <widgets xsi:type="guigen:Button" name="bWritable" label="writable dati titolare">
+                  <eventHandlers>
+                    <command xsi:type="guigen:PDefStateCommand" pDefUse="//@structure/@appWindow/@appArea/@contentPanels.0/@panels/@subpanels.1/@subpanels.1">
+                      <goTo href="dati_anag.xmi#//@states/@states.0"/>
+                    </command>
+                  </eventHandlers>
+                </widgets>
+              </subpanels>
+            </subpanels>
+            <subpanels xsi:type="guigen:FormPanel" name="pUp">
+              <layout xsi:type="guigen:VerticalFlowPanelLayout"/>
+              <layoutSpec xsi:type="guigen:UDLRCWidgetLayoutSpec"/>
+            </subpanels>
+          </panels>
+          <appData href="default_appdata.xmi#//@appData.0"/>
+          <appData href="#//@appDataDefs/@appData.2"/>
+          <appData href="#//@appDataDefs/@appData.3"/>
+          <appData href="#//@appDataDefs/@appData.1"/>
+          <appData href="#//@appDataDefs/@appData.0"/>
+          <appData href="#//@appDataDefs/@appData.4"/>
+          <appData href="#//@appDataDefs/@appData.5"/>
+          <appData href="#//@appDataDefs/@appData.6"/>
+          <appData href="#//@appDataDefs/@appData.7"/>
+          <appData href="#//@appDataDefs/@appData.9"/>
+          <appData href="#//@appDataDefs/@appData.8"/>
+          <appData href="extAppData1.xmi#//@appData.0"/>
+          <onRefreshCommand xsi:type="guigen:SequenceCommand">
+            <commands xsi:type="guigen:ExecCommand" methodName="gestisciIndirizzoRappLeg" postExecData="//@appDataDefs/@appData.2 //@appDataDefs/@appData.3 //@appDataDefs/@appData.1 //@appDataDefs/@appData.0">
+              <results resultCode="OK">
+                <command xsi:type="guigen:NOPCommand"/>
+              </results>
+            </commands>
+          </onRefreshCommand>
+          <states>
+            <states/>
+          </states>
+        </contentPanels>
+        <onInitCommand xsi:type="guigen:ExecCommand" methodName="manageActivationParams">
+          <results resultCode="OK">
+            <command xsi:type="guigen:JumpCommand" jumpTo="//@structure/@appWindow/@appArea/@contentPanels.0"/>
+          </results>
+          <customTemplate href="cartridge_1.xmi#//@templates.0"/>
+        </onInitCommand>
+        <extModules href="extAppmodule1.xmi#/"/>
+      </appArea>
+    </appWindow>
+  </structure>
+  <typedefs>
+    <types xsi:type="guigen:ComplexType" name="Indirizzo">
+      <fields name="codRegione">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+      <fields name="codProvincia">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+      <fields name="codComune">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+      <fields name="via">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+      <fields name="numCiv">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.1"/>
+      </fields>
+    </types>
+    <types xsi:type="guigen:ComplexType" name="Comune" extends="//@typedefs/@types.7">
+      <fields name="provincia" type="//@typedefs/@types.4"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Comune" componentType="//@typedefs/@types.1"/>
+    <types xsi:type="guigen:ComplexType" name="Regione" extends="//@typedefs/@types.7"/>
+    <types xsi:type="guigen:ComplexType" name="Provincia" extends="//@typedefs/@types.7">
+      <fields name="regione" type="//@typedefs/@types.3"/>
+    </types>
+    <types xsi:type="guigen:TypedArray" name="Array of Regione" componentType="//@typedefs/@types.3"/>
+    <types xsi:type="guigen:TypedArray" name="Array of Provincia" componentType="//@typedefs/@types.4"/>
+    <types xsi:type="guigen:ComplexType" name="CodeDescrPair">
+      <fields name="cod">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+      <fields name="nome">
+        <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+      </fields>
+    </types>
+    <namespaces name="anag">
+      <types xsi:type="guigen:ComplexType" name="DatiAnag">
+        <fields name="nome">
+          <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+        </fields>
+        <fields name="cognome" required="true">
+          <type xsi:type="guigen:SimpleType" href="default_tns.xmi#//@types.8"/>
+        </fields>
+      </types>
+    </namespaces>
+    <extNamespaces href="default_tns.xmi#/"/>
+    <extNamespaces href="extTNS1.xmi#/"/>
+  </typedefs>
+  <appDataDefs>
+    <appData name="regioniRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.5"/>
+    <appData name="provinceRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.6"/>
+    <appData name="comuniRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.2"/>
+    <appData name="indirizzoRappLeg" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.0"/>
+    <appData name="regioniTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.5"/>
+    <appData name="provinceTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.6"/>
+    <appData name="comuniTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.2"/>
+    <appData name="indirizzoTit" lifetimeExtent="USER_SESSION" type="//@typedefs/@types.0"/>
+    <appData name="dtAnagTitolare" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
+    <appData name="dtAnagRappLegale" lifetimeExtent="USER_SESSION" type="//@typedefs/@namespaces.0/@types.0"/>
+    <extGroups href="default_appdata.xmi#/"/>
+    <extGroups href="extAppData1.xmi#/"/>
+  </appDataDefs>
+  <securityModel securityAppID="BANDI">
+    <autenticationMethod xsi:type="guigen:OPAUTHSSO"/>
+  </securityModel>
+  <targetPlatform code="JBoss43"/>
+  <activationModel>
+    <activationParams name="param1">
+      <type href="default_tns.xmi#//@types.8"/>
+    </activationParams>
+  </activationModel>
+</guigen:GUIModel>

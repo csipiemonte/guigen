@@ -1,0 +1,327 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::actionImplJavaFiles»
+«IMPORT template::struts2::security»
+«IMPORT template::struts2::typeConversion»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+
+«DEFINE execCommandMethods(GUIModel model) FOR Menubar-»
+«EXPAND execCommandMethods(model) FOREACH topLevelMenu»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model) FOR Menu-»
+«IF this.eventHandler != null-»
+«EXPAND execCommandMethods(model, null, null, null) FOR this.eventHandler-»
+«ENDIF-»
+«EXPAND execCommandMethods(model) FOREACH  this.submenu-»
+«ENDDEFINE»
+
+
+«REM»deve essere chiamato solo se richBehavior == true«ENDREM»
+«DEFINE execCommandMethods(GUIModel model) FOR ContentPanel-»
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	/// metodi di esecuzione associati agli ExecCommand (per fat client)
+	/// metodo: exec<methodName>
+	/// es: execSalvaPersona
+	//////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * variabile postata da fatclient se ho un beginEdit oppure un endEdit Command
+	 */
+	private String dataEdited[];
+	public String[] getDataEdited() {
+		return dataEdited;
+	}
+	public void setDataEdited(String[] dataEdited) {
+		this.dataEdited = dataEdited;
+	}
+	/*
+	 * variabile postata da fatclient se ho un endEdit command
+	 */
+	private boolean undoEditCommand;
+	public boolean isUndoEditCommand() {
+		return undoEditCommand;
+	}
+	public void setUndoEditCommand(boolean undoEditCommand) {
+		this.undoEditCommand = undoEditCommand;
+	}
+	/*
+	 * variabile postata da fatclient se ho un chkEdit command
+	 */
+	private String checkAggregation;
+	public String getCheckAggregation() {
+		return checkAggregation;
+	}
+	public void setCheckAggregation(String checkAggregation) {
+		this.checkAggregation = checkAggregation;
+	}
+	«EXPAND execCommandMethods(model, this, "", null) FOR this.panels-»
+	«EXPAND execCommandMethods(model, this, "", null) FOREACH this.dialogs-»
+	«IF this.onRefreshCommand != null»
+	«EXPAND execCommandMethods(model, this, "", null) FOR this.onRefreshCommand-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.subpanels-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets -»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.widgets-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSetPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+	«IF switcher != null»«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR switcher-»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WizardPanel-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.panels-»
+	«IF switcher != null»«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR switcher-»«ENDIF»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
+	«EXPAND execCommandMethods(model, cp, getChainedContext(contextPrefix, name), this.config) FOR this.panelDef.panel-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSwitcher-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.eventHandlers-»
+«ENDDEFINE»
+
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EventHandler-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR DialogPanel»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR commands»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR SequenceCommand-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.commands-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandOutcome-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOR this.command-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+	«EXPAND execCommandMethod(model, cp, contextPrefix, pduc) FOR this-»
+	«EXPAND execCommandMethods(model, cp, contextPrefix, pduc) FOREACH this.results-»
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR BeginEditCommand-»
+	/// Begin Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando BeginEditCommand da un fatclient
+	 */
+	@SkipValidation
+	@FatClientOnly
+	public String execBeginEditCommand() throws CommandExecutionException{
+		BeginEditCommand beginEditCommand = new BeginEditCommand(this.dataEdited);
+		beginEditCommand.doCommand(this);
+		
+		ExecResults result = new ExecResults();
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// Begin Edit Command end - fatclient
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EndEditCommand-»
+	/// End Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando EndEditCommand da un fatclient
+	 */
+	@SkipValidation
+	@FatClientOnly
+	public String execEndEditCommand() throws CommandExecutionException{
+		EndEditCommand endEditCommand = new EndEditCommand(
+				this.dataEdited, this.undoEditCommand);
+		endEditCommand.doCommand(this);
+		
+		ExecResults result = new ExecResults();
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// End Edit Command end - fatclient
+«ENDDEFINE»
+
+«DEFINE execCommandMethods(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ChkEditStatusCommand-»
+	/// Chk Edit Command begin - fatclient
+	/**
+	 * Permette l'esecuzione del comando ChkEditCommand da un fatclient
+	 */
+	@SkipValidation
+	@FatClientOnly
+	public String execChkEditCommand() throws CommandExecutionException{
+		ChkEditStatusCommand chkEditCommand = new ChkEditStatusCommand(
+				this.dataEdited, this.checkAggregation,
+				null,
+				null);
+		boolean changed = chkEditCommand.checkAppdata4Changes(this.dataEdited, this.checkAggregation, this);
+		
+		ExecResults result = new ExecResults();
+		if (changed){
+			result.setResultCode("«this.doIfChanged.resultCode»");
+		}else{
+			result.setResultCode("«this.doIfNotChanged.resultCode»");
+		}
+		
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session",
+				"*.appDataElencoCittadini").deepSerialize(result);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data", e);
+		}
+	}
+	/// Chk Edit Command end - fatclient
+«ENDDEFINE»
+
+«DEFINE execCommandMethod(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+	/**
+	 * Permette l'esecuzione del metodo di business [«methodName»] da un fat client
+	 * @return sempre il result "provideData"
+	 */
+	@SkipValidation
+	@FatClientOnly
+	public String «getExecCommandMethodName(this, contextPrefix)» () throws CommandExecutionException {
+		
+		// action --> model
+		Object theModel = this.toModel();
+		// esecuzione azione
+		ExecResults execResults = null; 
+		it.csi.util.performance.StopWatch watcher = new it.csi.util.performance.StopWatch(«getBaseJavaPackage(model)».util.Constants.APPLICATION_CODE);
+			ExecResults result = null;
+			try{
+				watcher.start();
+			«LET cp AS parentCP-»
+			«IF parentCP != null-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(parentCP,false, false, model)»)theModel);
+			«ELSEIF isInMenuBranch(this)-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, true, false, model)»)theModel);
+			«ELSE-»
+				result =  getSpringBackEnd().«getFullExecCmdMethodName(methodName, contextPrefix)»((«getModelDTOFQN(null, false, true, model)»)theModel);
+			«ENDIF-»
+			«ENDLET-»
+				watcher.stop();
+				watcher.dumpElapsed("«getStrutsActionClassName(cp)»", "readOne()", "chiamata verso BackEnd", "«getFullExecCmdMethodName(methodName, contextPrefix)»");
+			}
+			catch(BEException e){
+				throw new CommandExecutionException("errore non gestito nell'esecuzione del metodo [«getFullExecCmdMethodName(methodName, contextPrefix)»]:"+
+				e.getMessage(), e);
+			}
+		
+		Object outModel = result.getModel();
+		// model --> action
+		this.fromModel(outModel);
+		// impostazione degli appData
+		
+		/* verificare se servono ...
+		storeAppData(execResults, this);
+		// impostazione degli eventuali messaggi
+		updateMessages(
+			execResults.getFldErrors(), 
+			execResults.getGlobalErrors(), 
+			execResults.getGlobalMessages(), 
+			this);
+		*/
+		
+		Object dataToProvide = result;
+		// serializza
+		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
+		String response = serializer.exclude("*.class", "*.session"«EXPAND jsonExcludeAppdata FOREACH cp.appData.select(ad | ad.type.metaType == TypedArray)»).deepSerialize(dataToProvide);
+		// imposta l'input stream di risposta
+		java.io.ByteArrayInputStream bais;
+		try {
+			bais = new java.io.ByteArrayInputStream(
+					response.getBytes("UTF-8"));
+			dataProviderStream = bais;
+			// risposta
+			return "provideData";
+		} catch (java.io.UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommandExecutionException("errore provide Data",e);
+		}
+	
+	}
+«ENDDEFINE»
+
+«DEFINE jsonExcludeAppdata FOR ApplicationData-», "*.«getAppDataKey()»"«ENDDEFINE»

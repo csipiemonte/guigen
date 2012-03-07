@@ -1,0 +1,100 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«IMPORT template::struts2::resourcefiles»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::rupar::Struts2ExtensionsRupar»
+
+
+«REM»
+**************************************************************************************************************************
+Risorse JavaScript per RUPAR
+**************************************************************************************************************************
+«ENDREM»
+
+«REM»comment«ENDREM»
+«DEFINE jsFunctions(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND jsFunctionsFile(skip_component_dir_creation) FOR this»
+	«EXPAND jsFunctionsHead FOR this»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE jsFunctionsHead FOR GUIModel»
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jsFunctions.js"></script>
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE jsFunctionsFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getJsFunctionsFile(this, skip_component_dir_creation)»//////////////////////////////////////////////////////////////////////////////////
+/// da http://dev-www.sistemapiemonte.it/ris/js/generaliV3/pulsantiPadreFiglio.js
+//////////////////////////////////////////////////////////////////////////////////
+
+// Funzione javascript per gestire relazione tra due select //
+
+var old_value_combobox=""; //--> variabile che contiene il valore dell'ultimo combobox su cui è andato il focus
+var old_name_combobox=""; //--> variabile che contiene il nome dell'ultimo combobox su cui è andato il focus
+var is_onclick_combobox=false; //--> variabile che indica se si è premuto col mouse sulla combobox su cui si ha il focus
+
+
+
+function inFocus(oggetto)
+{
+    old_value_combobox=oggetto.value;
+    old_name_combobox=oggetto.name;
+}
+
+//--> funzione che viene eseguita alla perdita del focus da parte del combobox e simula il comportamento del click
+//    sul pulsante submit del form
+function lostFocus(oggetto,Submit_name,Submit_value,url)
+{
+    // se l'oggetto che perde il focus è lo stesso di quello per cui ho memorizzato il suo vecchio valore e
+    // quest'ultimo è diverso da quello corrente eseguo il submit del form
+    if(old_value_combobox!=oggetto.value && old_name_combobox==oggetto.name)
+    {
+        document.forms[0].action=url+"?"+Submit_name+"="+Submit_value;
+        document.forms[0].submit();
+    }
+}
+
+//--> funzione che viene eseguita al click sul combobox
+function onCBClick(oggetto,Submit_name,Submit_value,url)
+{
+    // controllo se è già stato premuto il tasto del mouse
+    if(is_onclick_combobox==true)
+    {
+        // mi comporto come se la combobox perda il fuoco
+        is_onclick_combobox=false;
+        lostFocus(oggetto,Submit_name,Submit_value,url)
+        old_value_combobox=oggetto.value;
+        old_name_combobox=oggetto.name;
+    }
+    else // se non è stato premuto imposto la variabile a true per segnalare la prima pressione
+        is_onclick_combobox=true;
+}
+
+// event handler RadioButtons
+function onRBClick(url) {
+    document.forms[0].action = url;
+    document.forms[0].submit();
+}
+«ENDFILE»
+«ENDDEFINE»

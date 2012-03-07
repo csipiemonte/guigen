@@ -1,0 +1,25 @@
+import ecore;
+
+boolean hasWidgetAnnotation(EClass c) :
+	c.eAnnotations.select(a|a.source=="uiwidgetdoc").size>0;
+
+boolean hasPanelAnnotation(EClass c) :
+	c.eAnnotations.select(a|a.source=="uipaneldoc").size>0;
+
+boolean hasLayoutAnnotation(EClass c) :
+	c.eAnnotations.select(a|a.source=="uilayoutdoc").size>0;
+	
+String guigenDocsBase() :
+"html/guigen/uipatterns";
+
+String widgetCardFile(EClass c) :
+	guigenDocsBase()+"/widgets/"+c.name+".html";
+
+String panelCardFile(EClass c) :
+	guigenDocsBase()+"/panels/"+c.name+".html";
+
+String layoutCardFile(EClass c) :
+	guigenDocsBase()+"/layout/"+c.name+".html";
+
+List[EStringToStringMapEntry] getAnnotationDetails(EClass c, String source, String keyPrefix) :
+	c.eAnnotations.select(a|a.source==source).details.select(ad|ad.key.startsWith(keyPrefix));

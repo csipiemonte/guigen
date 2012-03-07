@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<workflow>
+
+	<!-- **************************************************************
+	     determina il tipo di portale per cui generare l'applicazione
+	     (ovvero i template da utilizzare).
+	     Puo' valere:
+	     - sisp       : SistemaPiemonte            => IMPLEMENTATA
+	     - rupar      : RuparPiemonte (versione 1) => PARZIALMENTE IMPLEMENTATA
+	     - intranetrp : Intranet Regione Piemonte  => PARZIALMENTE IMPLEMENTATO
+	     - intracom   : Intracom Torino            => PARZIALMENTE IMPLEMENTATO
+	     - newrupar   : RuparPiemonte (versione 2) => IN FASE DI DEFINIZINE E IMPLEMENTAZIONE
+	     - neutral    : layout neutrale di prova   => DA DEFINIRE E IMPLEMENTARE
+	-->
+	<!--<property name="target-portal" value="sisp" />-->
+	<!--<property name="target-portal" value="rupar" />-->
+	<!--<property name="target-portal" value="intranetrp" />-->
+	<!--<property name="target-portal" value="intracom" />-->
+	<property name="target-portal" value="newrupar" />
+	<!--<property name="target-portal" value="neutral" />-->
+
+    <!-- ***************************************************
+         modello da elaborare (scegliere la property in base
+         al tipo di operativita' (plugin/standalone)
+    -->
+	
+	<!-- utilizzare in modalita' standalone -->
+	<!--<property name="modelfile" value="src/prova2.xmi" />-->
+	
+	<!-- utilizzare in modalita' plugin -->
+	<property name="model" value="guigen/src/testlayout/testAppData_${target-portal}.guigen" />
+	
+	<!-- *****************************************************
+	     determina il tipo di applicazione da generare (e i 
+	     template da utilizzare).
+	     Puo' valere:
+	     -swingpreview: preview swing senza binding dati
+	     -wicket: applicazione completa basata su wicket
+	     -struts2
+	-->
+	<property name="target-platform" value="struts2"/>
+	
+	<!-- se true i generatori wicket non includeranno la directory relativa
+	     al componente nel path di destinazione (serve per la generazione 
+	     in un altro progetto eclipse "fratello". In questo caso la variabile 
+	     "target-project-name" deve essere valorizzata con il nome del progetto
+	     target -->
+	<property name="skip-component-dir-creation" value="true" />
+	
+	<!-- valorizzare con il nome del progetto eclipse target dove verranno
+	     generati gli artefatti. Corrisponde la nome del progetto SVN relativo
+	     al componente SW -->
+	<property name="target-project-name" value="${target-platform}-testbinding-${target-portal}" />
+	
+	<!-- directory nella quale verra' posizionato il codice generato -->
+	<property name="src-gen" value="../../${target-project-name}" />
+	
+	<!-- set up EMF for standalone execution -->
+	<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
+		<platformUri value=".." />
+		<registerGeneratedEPackage value="it.csi.mddtools.guigen.GuigenPackage"/>
+	</bean>
+
+	<!-- Clean the build directory -->
+	<component class="org.openarchitectureware.workflow.common.DirectoryCleaner">
+		<directory value="${src-gen}/build" />
+	</component>
+
+	<!-- load model and store it in slot 'model' -->
+	<component class="org.eclipse.mwe.emf.Reader">
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${model}" />
+		
+		<!-- usare se modalita' standalone -->
+		<!--<uri value="${modelfile}" />-->
+		
+		<!-- invariante rispetto alla modalita'-->
+		<modelSlot value="model" />
+	</component>
+
+	<!-- check model (common checks) -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="metamodel::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+	
+	<!-- check model (cartridge [=layout] checks) -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="template::${target-platform}::${target-portal}::Checks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+
+	<!--  generate code -->
+	<component class="org.openarchitectureware.xpand2.Generator" id="mygenerator">
+		<metaModel idRef="mm"/>
+		<expand
+			value="template::${target-platform}::Main::main(${skip-component-dir-creation}) FOR model" />
+		
+		<!-- AOP definition for extensions -->
+		<extensionAdvice value="template::${target-platform}::${target-portal}::aopExtension"/>
+		
+		<!--  protected regions configurator --> 
+	    <prSrcPaths value="${src-gen}" /> 
+	    <prDefaultExcludes value="true" /> 
+	    <prExcludes value="*.jar, *.svn-base, .metadata" />
+		<outlet path="${src-gen}" >
+			<postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier" />
+		</outlet>
+	</component>
+	
+	<!-- AOP definition for expand templates -->
+	<component adviceTarget="mygenerator" class="oaw.xpand2.GeneratorAdvice" id="myxptaop">
+		<advices value="template::struts2::${target-portal}::aop"/>
+	</component>
+
+</workflow>

@@ -1,0 +1,72 @@
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::fatjs::FatJSExtensions»
+«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ExecCommand»
+«LET cp != null ? getStrutsActionConfigName(cp) : ( !isInMenuBranch() ? "HomeAction" : "MenuAction") AS actionName-»
+	new ExtCsi.cmd.ExecCommand({
+		methodName: «jsLiteralValue(methodName)»,
+		methodUrl: '«getDataDir()»/«cp.name»«this.getExecCommandMethodName(null)».txt',
+		results: [«EXPAND template::fatjs::controller::commands::cmdOutcome(model, cp) FOREACH this.results SEPARATOR ","»]
+		// TODO postExecData
+		}
+	)
+«ENDLET-»
+«FILE getWebDir(model)+getDataDir()+"/"+cp.name+this.getExecCommandMethodName(null)+".txt"»
+«REM»//TODO prende il primo {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"«this.results.first().resultCode»"} «ENDREM»
+{"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":[«FOREACH this.results AS outCome SEPARATOR ","-»"«outCome.resultCode»"«ENDFOREACH» ]}«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR VisibilityCommand»
+	new ExtCsi.cmd.VisibilityCommand({
+		show: «this.show»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«FILE getWebDir(model)+cp.name+"!execSetWidgetsVisibilityStatus.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»	
+«ENDDEFINE»
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ONOFFCommand»
+	new ExtCsi.cmd.ONOFFCommand({
+		enable: «this.enable»,
+		targetWidgets: [«FOREACH targetWidgets AS w SEPARATOR ","»'«getFullID(w,"")»' «ENDFOREACH»]
+	})
+«FILE getWebDir(model)+cp.name+"!execSetWidgetsOnOffStatus.do"»
+    {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
+«ENDFILE»		
+«ENDDEFINE»
+
+«DEFINE eventHandler(GUIModel model, ContentPanel cp) FOR EventHandler»
+new ExtCsi.ui.event.EventHandler(
+{
+	eventType: ExtCsi.ui.event.EventTypes().«eventType»,
+	skipValidation: «jsLiteralValue(this.skipValidation)»,
+	methodProtection: ExtCsi.ui.event.MethodProtectionTypes().«this.methodProtection»,
+	command: «EXPAND template::fatjs::controller::commands::cmd(model, cp) FOR this.command»
+}
+)
+«IF cp.name != null»
+«FILE getWebDir(model)+cp.name+"!execPostEvtHandler.do"-»{"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}«ENDFILE»
+«FILE getWebDir(model)+cp.name+"!execPostEvtHandlerNoValidation.do"-»{"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}«ENDFILE»
+«ENDIF»
+«ENDDEFINE»
+
+
+
+«DEFINE cmd(GUIModel model, ContentPanel cp) FOR ActivateMultiPanelItemCommand»
+	new ExtCsi.cmd.ActivateMultiPanelItemCommand({
+		activeItem: «IF activeItem != null» «ENDIF»«jsLiteralValue(this.activeItem.name)»,
+		multipanel: «jsLiteralValue(this.multipanel.name)»
+		}
+	)
+«FILE getWebDir(model)+cp.name+"!execChangeTab.do"-»{"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}«ENDFILE»«ENDDEFINE»
+
+
+
+
+

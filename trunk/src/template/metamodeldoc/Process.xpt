@@ -1,0 +1,73 @@
+«IMPORT metamodeldoc»
+
+«EXTENSION oawutil::Monitor»
+«EXTENSION extensions::Properties»
+«EXTENSION extensions::html::HTML»
+«EXTENSION extensions::i18n»
+«EXTENSION extensions::Name»
+«EXTENSION extensions::Images»
+
+«DEFINE Root FOR DMetamodelDocumentation»
+«newTask("stage 3 - generating documentation",
+	rootPackages
+	.eAllContents
+	.typeSelect(DPackage)
+	.addAll(
+		rootPackages
+	).size
++
+	rootPackages
+	.eAllContents
+	.typeSelect(DClassifier)
+	.size
+, 1000)»
+«EXPAND Package::Root FOREACH rootPackages»
+«newTask("stage 3 - generating documentation",1,25)»
+«EXPAND Index FOR this»
+«EXPAND copyImages FOR this»
+«ENDDEFINE»
+
+«DEFINE Index FOR DMetamodelDocumentation»
+«stepStart("index.html")»
+«FILE "html/index.html"»«htmlHeaderH1("Documentation for the metamodel "+this.name)»
+«EXPAND Basics::ListOf("All Packages")
+	FOR eAllContents
+		.add(this)
+		.typeSelect(DPackage)
+		.sortBy(e|e.fullName())
+		.link("")»
+«EXPAND Basics::ListOf("All Interfaces")
+	FOR eAllContents
+		.typeSelect(DInterface)
+		.sortBy(e|e.name)
+		.link("")»
+«EXPAND Basics::ListOf("All Classes")
+	FOR eAllContents
+		.typeSelect(DClass)
+		.sortBy(e|e.name)
+		.link("")»
+«EXPAND Basics::ListOf("All DataTypes")
+	FOR eAllContents
+		.typeSelect(DDataType)
+		.sortBy(e|e.name)
+		.link("")»
+«EXPAND Basics::ListOf("All Enums")
+	FOR eAllContents
+		.typeSelect(DEnum)
+		.sortBy(e|e.name)
+		.link("")»
+«htmlFooter()»
+«ENDFILE»
+«stepStop()»
+«ENDDEFINE»
+
+«DEFINE copyImages FOR DMetamodelDocumentation»
+«LET eAllContents.typeSelect(DImageContainer) AS images»
+«newTask("stage 3 - generating documentation", images.size,100)»
+«images.collect(
+	e|	stepStart("Image " + e._imageFileName)
+	->	e.copyImage()
+	->	stepStop()
+)»
+«ENDLET»
+«ENDDEFINE»

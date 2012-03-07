@@ -1,0 +1,957 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT template::struts2::remoteResources»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«DEFINE buildFiles(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+	«EXPAND antBuildFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesFiles(skip_component_dir_creation) FOR this»
+	«EXPAND ivyFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+ANT FILES
+===========================================================================================================================
+«ENDREM»
+
+«REM»genera il file di build di ant«ENDREM»
+«DEFINE antBuildFile(boolean skip_component_dir_creation) FOR guigen::GUIModel»
+«FILE getBuildXmlFileName(this, skip_component_dir_creation)»<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ##################################################### -->
+<!-- #                                                   # -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="."
+         default="default"
+         name="«codComponente»"
+         xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
+
+  <description>Build file per il progetto: [«codComponente»]</description>
+
+  <!-- -->
+  <property file="buildfiles/build.properties" />
+  <property file="buildfiles/${target}.properties" />
+
+  <!-- -->
+  <path id="library.ref">
+    <fileset dir="${lib}">
+      <include name="**/*.jar" />
+      <include name="**/*.zip" />
+    </fileset>
+  </path>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: init                                              # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="init" description="Inizializza lo script Ant.">
+    <tstamp />
+    <condition property="target" value="dev">
+      <equals arg1="${target}" arg2="$${target}" />
+    </condition>
+    <mkdir dir="${build}/classes" />
+    <mkdir dir="${temp}/${target}/${earLib}" />
+    <mkdir dir="${temp}/static-resources" />
+    <mkdir dir="${build}/archives/${target}" />
+    <mkdir dir="${dist}/${target}" />
+    <mkdir dir="${build}/javadoc" />
+    <mkdir dir="${build}/jsp" />
+    <mkdir dir="${build}/cache" />
+  </target>
+
+  <target name="show-vars" depends="init"
+          description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+          <echo message="*****************************************"/>
+          <echo message="********  ${componente} environment  *******" />
+          <echo message="*****************************************"/>
+          <echo message="Runtime :"/>
+          <echo message="JAVA_HOME = ${JAVA_HOME}"/>
+          <echo message=""/>
+          <echo message="Target:"/>
+          <echo message="TARGET = ${target}"/>
+          <echo message=""/>
+          <echo message="Application :"/>
+          <echo message="VERSION = ${version}"/>
+          <echo message=""/>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: default                                           # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="default"
+          description="Eseguire il build per l'environment
+                       specificato a linea di comando con
+                       -Dtarget=${target} o per tutti gli
+                       environment (se non specificato).">
+
+    <condition property="first-call" value="distribution">
+      <not>
+        <equals arg1="${target}" arg2="$${target}" />
+      </not>
+    </condition>
+
+    <condition property="first-call" value="all-targets">
+      <equals arg1="${target}" arg2="$${target}" />
+    </condition>
+
+    <echo message="target: ${server}" />
+    <echo message="target: ${target}" />
+    <echo message="first-call: ${first-call}" />
+
+    <antcall target="clean-all" />
+    <antcall target="${first-call}" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: environment-recreate                              # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="environment-recreate">
+    <mkdir dir="build/temp/conf" />
+    <copy todir="build/temp/conf" overwrite="true">
+      <fileset dir="${conf}" />
+    </copy>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: compile-all                                       # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="compile-all" depends="init,load-dependencies"
+          description="Compila tutti i sorgenti.">
+
+    <echo message="===> Target: ${target}" />
+
+    <javac srcdir="${src}/java" destdir="${build}/classes"
+           optimize="on" deprecation="on" compiler="modern"
+           debug="on" debuglevel="lines,vars,source"
+    >
+      <classpath refid="library.ref" />
+    </javac>
+
+    <copy todir="${build}/classes">
+      <fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+    </copy>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: about                                             # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="about" description="Visualizza l'elenco dei target
+                                    pubblici dello script.">
+
+    <loadproperties srcfile="buildfiles/build.properties" />
+    <loadfile property="about" srcfile="buildfiles/about.txt" />
+    <echo message="${about}" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: about-custom                                      # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="about-custom"
+          description="Visualizza l'elenco di tutti i target,
+                       pubblici e privati
+                       (equivalente a 'ant -projecthelp')" >
+
+    <loadproperties srcfile="buildfiles/build.properties" />
+    <loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+    <echo message="${about-custom}" />
+    <java classname="org.apache.tools.ant.Main">
+      <arg value="-projecthelp" />
+    </java>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [DISTRIB]: all-targets                                    # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="all-targets"
+          description="Esegue il build per le varie distribuzioni in sequenza.">
+    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.all-targets")»
+    <!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
+    <antcall target="distribution" />
+    «ENDPROTECT»
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [DISTRIB]: distribution                                   # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="distribution" depends="package-all"
+          description="Costruisce il tar per la distribuzione." >
+    <echo message="====== Creating distribution for ${target} ..."/>
+    <echo message="====== Basedir: ${build}/archives/${target} ..."/>
+    <tar tarfile="${dist}/${target}/${dist-file-name}.tar"
+         basedir="${build}/archives/${target}"
+         includes="*.ear,*.xml" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [IVY]: resolve-dependencies                               # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="resolve-dependencies"
+          description="carica le librerie dal repository remoto">
+    <ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+    <ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [IVY]: internal target: load-dependencies                 # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="load-dependencies"
+          depends="resolve-dependencies"
+          description="Risolve le dipendenze esterne.">
+    <ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # Target: environment-config                                # -->
+  <!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="environment-config"
+          description="Predispone le configurazioni dipendenti dall'ambiente." >
+    <!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+    <condition property="remincl.cache.time" value="${remincl.cache.time.default}">
+      <equals arg1="${remincl.cache.time}" arg2="$${remincl.cache.time}" />
+    </condition>
+    <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.cache.time@@@" value="${remincl.cache.time}"/>
+    «IF isMultiPortal(this)-»
+    	«EXPAND multiPortal::buildXmlResourceProviderReplacement FOR this»
+    «ELSE-»
+    <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider@@@" value="${remincl.resource.provider}"/>
+    <replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home@@@"  value="${portal.home}"/>
+	«ENDIF-»
+	«IF getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND template::struts2::security::security::envConfigForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+		«EXPAND template::struts2::security::security::envConfigForAuthorization(this) FOR getActualSecurityModel(this)-»
+	«ENDIF-»
+	«IF isMultiPortal(this)-»
+		«EXPAND multiPortal::buildXmlLocalLogoutReplacement FOR this»
+	«ELSE-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@LOCAL_LOGOUT_URL@"  
+		value="${local.logout.url}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/struts-global.xml" 
+		token="@LOCAL_LOGOUT_URL@"  
+		value="${local.logout.url}"/>
+	«ENDIF-»
+	«IF hasGisMap()»
+	«LET (List[MapView])getMapsInModel() AS maps-»
+	«FOREACH maps AS map-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».user@@@"  value="${gisMap.«map.mapId».user}"/>
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/gisMapConf.properties" token="@@@gisMap.«map.mapId».password@@@"  value="${gisMap.«map.mapId».password}"/>
+	«ENDFOREACH»
+	«ENDLET»
+  	<replace file="${temp}/conf/ejb/business/${contesto}/map-config/pd_gosgisso_baseservice.xml"  token="@@@gismap.provider.url@@@" value="${gosgisso.java.naming.provider.url}" />
+	«ENDIF»
+	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+	<!-- gestone cookie path su JBoss -->
+	<if>
+ 		<equals arg1="${jboss.sessioncookievalve}" arg2="true" />
+ 	<then>
+	    <replace dir="${build}/temp/conf/web" token="@@@@JBOSS_SESSIONCOOKIEVALVE@@@@"  value="&lt;Valve className=&quot;it.csi.util.sessioncookievalve.ConfigureSessionCookieValve&quot; cookiePath=&quot;/«this.codComponente»/&quot; /&gt;">
+		    <include name="**/context.xml"/>
+  		</replace>	
+  	</then>	
+  	<else>
+	    <replace dir="${build}/temp/conf/web" token="@@@@JBOSS_SESSIONCOOKIEVALVE@@@@"  value="">
+		    <include name="**/context.xml"/>
+  		</replace>	
+  	</else>
+  	</if>	
+	«ENDIF-»
+    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("build.environment-config")»
+    <!-- gestire qui i  replace delle proprie variabili d'ambiente -->
+    «ENDPROTECT»
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: package-all                                        # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="package-all"
+          description="esegue il packaging di ogni componente del prodotto">
+    <antcall target="package-ear" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: package-ear                                        # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="package-ear"
+          depends="environment-recreate, environment-config, compile-all,
+                   commons-jar, business-ejb-jar, integration-jar, «IF isOldMode()-»«IF targetPlatform.enableRichUIBehavior-»_unzip_js, «ENDIF-»«ENDIF»
+                   package-war"
+          description="costruisce l&apos;ear">
+
+	<!-- STDMDD-159 : tutte le librerie sono inserite a livello di WAR
+    <copy todir="${temp}/${target}/${earLib}">
+      <fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+    </copy>
+    -->
+
+    <delete file="${build}/archives/${target}/commons.jar" />
+    <delete file="${build}/archives/${target}/${webapp}-integration.jar" />
+    <delete file="${build}/archives/${target}/${webapp}-business.jar" />
+
+    <ear appxml="${temp}/conf/ear/${webapp}/META-INF/application.xml"
+         destfile="${build}/archives/${target}/${ear-file-name}.ear">
+      <fileset dir="${build}/archives/${target}" includes="*.jar,*.war" />
+      <fileset dir="${temp}/${target}">
+        <include name="**/*" />
+      </fileset>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}" />
+        <attribute name="Built-Date" value="${DSTAMP}" />
+        <attribute name="Target" value="${target}" />
+        <attribute name="Appl-Version" value="${version}" />
+      </manifest>
+    </ear>
+  </target>
+ 
+  «REM»[DM] STDMDD-670: target _unzip_js (spacchetta le risorse JS scaricate da repart)«ENDREM»
+  «EXPAND template::struts2::view::staticResources::antBuildFileUnzipJs FOR this-»
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: package-war                                        # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="package-war"
+          description="Genera il war per lo strato web.">
+    <copy todir="${build}/classes">
+      <fileset dir="${build}/temp/conf/web/${webapp}/WEB-INF"
+               includes="struts*.xml,validators.xml,*.properties"/>
+    </copy>
+    <war destfile="${build}/archives/${target}/${war-file-name}.war"
+         webxml="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml"
+         roundup="false"
+         manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
+      <webinf dir="${build}/temp/conf/web/${webapp}/WEB-INF"
+              includes="applicationContext.xml,«getAppServerConfigFile(this)».xml,beanContext.xml,dao-beans.xml,*.xml,*.tld" />
+      <fileset dir="${srcweb}" />
+      «IF targetPlatform.enableRichUIBehavior && (isNullOrEmpty(getProperty("development.mode"))||getProperty("development.mode")=="false")-»
+      <fileset dir="${temp}/static-resources"/>
+      «ENDIF-»
+      <classes dir="${build}/jsp" includes="**" />
+      <classes dir="${build}/classes"
+               includes="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/presentation/**,*.xml,*.properties" />
+      <lib dir="${lib}" includes="*"
+            excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}, *.zip" />
+      <lib dir="${build}/archives/${target}/" includes="commons.jar, ${webapp}-integration.jar, ${webapp}-business.jar" />
+    </war>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: integration-jar                                    # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="integration-jar"
+          description="Genera il jar per lo strato integration.">
+    <jar jarfile="${build}/archives/${target}/${webapp}-integration.jar"
+         manifest="${build}/temp/conf/jar/integration/META-INF/MANIFEST.MF">
+      <fileset dir="${build}/classes">
+        <include name="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/integration/**" />
+      </fileset>
+    </jar>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: business-ejb-jar                                   # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="business-ejb-jar"
+          description="Genera il jar per lo strato business.">
+    <jar jarfile="${build}/archives/${target}/${webapp}-business.jar"
+         manifest="${build}/temp/conf/ejb/business/${contesto}/META-INF/MANIFEST.MF">
+      <fileset dir="${build}/classes">
+        <include name="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/business/**/*.*" />
+      </fileset>
+      <metainf dir="${build}/temp/conf/ejb/business/${contesto}/META-INF">
+        <patternset id="all-xml">
+          <include name="**/*.xml" />
+        </patternset>
+        <patternset id="all-properties">
+      	    <include name="**/*.properties" />
+      	</patternset>
+      </metainf>
+      «IF hasGisMap()»
+      <fileset dir="${build}/temp/conf/ejb/business/${contesto}/map-config">
+    	<include name="**" />
+      </fileset>
+      «ENDIF»
+    </jar>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [PKG]: commons-jar                                        # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="commons-jar" description="Genera il jar per le classi comuni.">
+    <jar destfile="${build}/archives/${target}/commons.jar"
+         basedir="${build}/classes"
+         includes="«getOrganizationNamePathPrefix()»/${prodotto}/${componente}/dto/**,
+                   «getOrganizationNamePathPrefix()»/${prodotto}/${componente}/exception/**,
+                   «getOrganizationNamePathPrefix()»/${prodotto}/${componente}/util/**">
+    </jar>
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-all                                        # -->
+  <!-- ############################################################# -->
+  <!-- nota: non cancella la directory "dist" appositamente: v. STDMDD-495.
+       per ripulire anche la "dist" richiamare esplicitamente il target "clean-dist" -->
+  <!-- -->
+  <target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+          depends="clean-archives,clean-cache,clean-classes,
+                   clean-javadoc,clean-jsp,clean-temp"/>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-cache                                      # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-cache"
+          description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" failonerror="no" />
+		<delete dir="${lib}" failonerror="no" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-temp                                       # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-temp"
+          description="Rimuove la cartella dei files temporanei di build.">
+    <delete dir="${temp}" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-archives                                  # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-archives"
+          description="Rimuove la cartella degli archivi (war, ear, ...).">
+    <delete dir="${build}/archives" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-dist                                       # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-dist"
+          description="Rimuove la cartella delle distribuzioni.">
+    <delete dir="${dist}" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-classes                                    # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-classes"
+          description="Rimuove la cartella dei sorgenti compilati.">
+    <delete dir="${build}/classes" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-javadoc                                    # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-javadoc"
+          description="Rimuove la cartella temporanea dei javadoc.">
+    <delete dir="${build}/javadoc" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: clean-jsp                                        # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="clean-jsp"
+          description="Rimuove la cartella temporanea delle jsp compilate.">
+    <delete dir="${build}/jsp" />
+  </target>
+
+  <!-- -->
+  <!-- ############################################################# -->
+  <!-- # [CLEAN]: _clean-web-inf                                   # -->
+  <!-- ############################################################# -->
+  <!-- -->
+  <target name="_clean-web-inf"
+          description="Rimuove il contenuto di lib e classes della
+                       web application (per run locali).">
+    <delete dir="${srcweb}/WEB-INF/classes" />
+    <delete dir="${srcweb}/WEB-INF/lib" />
+  </target>
+  
+  <!-- ant contrib -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+</project>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Genera i files di properties di ant (generale e per i singoli ambienti)«ENDREM»
+«DEFINE buildPropertiesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND buildPropertiesFile(skip_component_dir_creation) FOR this»
+	«EXPAND buildPropertiesTemplateFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant (generale)«ENDREM»
+«DEFINE buildPropertiesFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesFileName(this, skip_component_dir_creation)»##############################################################################
+# Build.properties
+##############################################################################
+# - Generato da GUIGEN, versione «getPluginVersion()»
+
+# - [Definizione del Prodotto] -----------------------------------------------
+  prodotto    = «codProdotto»
+  contesto    = «codComponente»
+  componente  = «codComponente»
+  webapp      = ${contesto}
+  version     = «versioneComponente»
+
+# - [Definizione dei files di output] ----------------------------------------
+  ear-file-name  = ${componente}srv
+  dist-file-name = ${componente}srv-${version}
+  war-file-name  = ${contesto}
+
+# - [Cartelle di build] ------------------------------------------------------
+  integration = integration
+  lib         = ${basedir}/lib
+  build       = ${basedir}/build
+  src         = ${basedir}/src
+  srcweb      = ${src}/web/${webapp}
+  srcjaws     = ${src}/web/${jawsapp}
+  conf        = ${basedir}/conf
+  dist        = ${basedir}/dist
+  docs        = ${basedir}/docs
+  temp        = ${build}/temp
+
+«REM»[DM] STDMDD-670: Files delle risorse statiche per rich UI«ENDREM»
+«EXPAND template::struts2::view::staticResources::buildPropertiesFileStaticResources FOR this»
+
+# - [ear-libs-filter] --------------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) che devono
+# essere inclusi all'interno dell'EAR prodotto.
+# ----------------------------------------------------------------------------
+  ear-libs-filter = spring-beans-2.0.7.jar,                \
+                    spring-context-2.0.7.jar,              \
+                    spring-core-2.0.7.jar,                 \
+                    spring-web-2.0.7.jar,                  \
+                    spring-dao-2.0.7.jar,                  \
+                    spring-jdbc-2.0.7.jar,                 \
+                    spring-aop-2.0.7.jar,                  \
+                    spring-remoting-2.0.7.jar,             \
+                    aopalliance-1.0.jar,                   \
+                    util-beanlocatorfactory-1.0.1.jar,     \
+                    util-perf-1.0.1.jar,                   \
+                    commons-beanutils-1.7.0.jar,           \
+                    commons-collections-3.2.jar,           \
+                    commons-digester-1.8.jar,              \
+                    commons-logging-1.1.jar,               \
+                    commons-logging-api-1.1.jar,           \
+                    commons-lang-2.2.jar,                  \
+                    commons-httpclient-2.0.2.jar,          \
+                    csi-stadapter-1.4.5.jar                \
+                    csi-apachesoap-1.4.5.jar               \
+                    csi-core-1.4.5.jar                     \
+                    csi-rmi-1.4.5.jar                      \
+                    csi-ejb*-1.4.5.jar                     \
+                    iridev2*.jar                           \
+                    «IF getActualSecurityModel(this)!=null && targetPlatform.code==TargetPlatformCodes::JBoss43-»
+                    weblogic-client*.jar                   \
+                    «ENDIF-»
+                    custom-component-attr-1.0.3.jar
+
+# - [ear-custom-libs-filter] -------------------------------------------------
+# Questo filter viene utilizzato per definire JAR aggiuntivi che devono 
+# essere inclusi all'interno dell'EAR prodotto.
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("ear-custom-libs-filter")»
+ear-custom-libs-filter =
+
+«ENDPROTECT»
+
+# - [war-exclude-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«REM»DIFFERENZIARE WEBLOGIC-JBOSS«ENDREM»
+  war-exclude-libs-filter = servlet*.jar,                  \
+                            csi-tools*.jar,                \
+                            log4j*.jar,                    \
+                            «getAppServerLib(this)»*.jar   «IF targetPlatform.code == TargetPlatformCodes::JBoss43-»\
+                            weblogic-7*.jar                \
+                            weblogic-9*.jar                \
+                            «ENDIF-»
+
+# - [war-exclude-custom-libs-filter] ------------------------------------------------
+# Questo filtro viene utilizzato per definire la lista dei JAR(s) *NON* devono
+# venire inclusi all'interno del WAR.
+# ----------------------------------------------------------------------------
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("war-exclude-custom-libs-filter")»
+war-exclude-custom-libs-filter =
+
+«ENDPROTECT»
+
+
+# ----------------------------------------------------------------------------
+  package.prefix = «getOrganizationNamePkgPrefix()».${prodotto}.${componente}
+
+# default remincl cache time 24h (in millisecondi)
+remincl.cache.time.default=28800000
+
+#  target = dev
+ 
+ «REM»DIFFERENZIZIONE WEBLOGIC-JBOSS«ENDREM»
+ «EXPAND appServerConfigurationBuildProperties FOR this»
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Build properties: configurazione del server«ENDREM»
+«DEFINE appServerConfigurationBuildProperties FOR GUIModel»
+«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+# - [Configurazione del Server (JBoss)] --------------------------------------
+  server = jboss
+  earLib = lib
+«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+# - [Configurazione del Server (WebLogic)] -----------------------------------
+  server = weblogic
+  earLib = APP-INF/lib
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera il file di property di ant da usare come template per i files dei singoli ambienti«ENDREM»
+«DEFINE buildPropertiesTemplateFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getBuildPropertiesTemplateFileName(this, skip_component_dir_creation)-»
+####################################################
+# «codProdotto» - «codComponente»                  #
+# ==========                                       #
+# Configurazione di ambiente: <ambiente>           #
+####################################################
+
+nome.ambiente=<ambiente>
+
+
+#-[Variabili create dal generatore]-------------------------------------------------
+
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+# impostare a true se il server prevede la session cookie valve
+jboss.sessioncookievalve = false
+«ENDIF-»
+
+# remincl cache time in millisecondi (default 24h)
+remincl.cache.time=28800000
+
+«IF isMultiPortal(this)-»
+«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code»
+# remincl resource provider portale «code»
+remincl.resource.provider.«code»=
+
+# home page del portale «code»
+portal.home.«code»=
+
+# local logout URL del portale «code»
+local.logout.url.«code» = <your_local_logout_url>
+«ENDFOREACH»
+«ELSE-»
+# remincl resource provider
+remincl.resource.provider=«getReminclResourceProvider(this)»
+
+# home page del portale
+portal.home=
+
+# local logout URL
+local.logout.url = <your_local_logout_url>
+«ENDIF-»
+
+«IF getActualSecurityModel(this).autenticationMethod!=null-»
+«EXPAND template::struts2::security::security::templatePropsForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+«EXPAND template::struts2::security::security::templatePropsForAuthorization(this) FOR getActualSecurityModel(this)-»
+«ENDIF-»
+
+#-[Variabili dell'applicativo]-------------------------------------------------
+
+«IF hasGisMap(this)-»
+#-[Variabili servizio mappe]---------------------------------------------------
+#-ambiente dev
+gosgisso.java.naming.provider.url=t3://dev-wls9-02.csi.it:9107
+«LET (List[MapView])getMapsInModel() AS maps-»
+«FOREACH maps AS map-»
+gisMap.«map.mapId».user=
+gisMap.«map.mapId».password=
+«ENDFOREACH»
+«ENDLET»
+«ENDIF-»
+
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+IVY FILES (gestione delle dipendenze)
+===========================================================================================================================
+«ENDREM»
+
+«REM»genera i files di IVY«ENDREM»
+«DEFINE ivyFiles(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getIvyFileName(skip_component_dir_creation)»<ivy-module version="1.0">
+	<info organisation="csipiemonte" module="«codProdotto»" />
+	<dependencies>
+		<dependency org="apache" name="commons-beanutils" rev="1.7.0"/>
+		<dependency org="apache" name="commons-collections" rev="3.2"/>
+		<dependency org="apache" name="commons-digester" rev="1.8"/>
+		<dependency org="apache" name="commons-logging" rev="1.1"/>
+		<dependency org="apache" name="log4j" rev="1.2.8"/>
+		<dependency org="apache" name="commons-lang" rev="2.2" />
+		<dependency org="apache" name="poi" rev="3.2" />
+        
+        <!-- Dipendenze per file upload -->
+        <dependency org="apache" name="commons-fileupload" rev="1.2"/>
+        <dependency org="apache" name="commons-io" rev="1.3.1"/>
+
+		<dependency org="others" name="freemarker" rev="2.3.8"/>
+		<dependency org="apache" name="jstl" rev="1.2"/>
+		<dependency org="opensymphony" name="ognl" rev="2.6.10"/>
+
+		<!-- si utilizza la versione "csipiemonte" di struts2-core per poter
+		     utilizzare ognl-2.6.10 -->
+		<dependency org="csipiemonte" name="struts2-core" rev="2.0.11.2"/>
+		<dependency org="apache" name="struts2-spring-plugin" rev="2.0.11.2"/>
+		<dependency org="opensymphony" name="xwork" rev="2.0.5"/>
+
+		<dependency org="sun" name="servlet" rev="2.4"/>
+		<dependency org="sun" name="servlet-jsp" rev="2.0"/>
+
+		<dependency org="others" name="spring" rev="2.0.7">
+			<artifact name="aopalliance-1.0" type="jar" />
+			<artifact name="spring-beans-2.0.7" type="jar" />
+			<artifact name="spring-context-2.0.7" type="jar" />
+			<artifact name="spring-core-2.0.7" type="jar" />
+			<artifact name="spring-web-2.0.7" type="jar" />
+			<artifact name="spring-aop-2.0.7" type="jar" />
+			<artifact name="spring-remoting-2.0.7" type="jar" />
+			<artifact name="spring-support-2.0.7" type="jar" />
+			<artifact name="spring-jdbc-2.0.7" type="jar" />
+			<artifact name="spring-dao-2.0.7" type="jar" />
+		</dependency>
+
+		«REM»DIFFERENZIAZIONE LIBRERIE WEBLOGIC-JBOSS«ENDREM»
+		«EXPAND appServerLibsIvy FOR this»
+
+		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
+		<dependency org="csipiemonte" name="remincl" rev="1.0.2" />
+
+		<dependency org="others" name="displaytag" rev="1.2" />
+		<dependency org="others" name="displaytag-export-poi" rev="1.2" />
+		<dependency org="others" name="itext" rev="1.3" />
+
+		«REM»Espansione del tema CSI per il portale specificato«ENDREM»
+		«EXPAND strutsThemeIvy FOR this»
+
+		«REM»[DM] STDMDD-670: Dipendenze per risorse statiche«ENDREM»
+		«EXPAND template::struts2::view::staticResources::ivyFileStaticResources FOR this»
+		«IF targetPlatform.enableRichUIBehavior-»
+		<dependency org="others" name="flexjson" rev="2.1" />
+		<dependency org="csipiemonte" name="csiui" rev="1.1.3" />
+		«ENDIF»		
+		
+		«IF getActualSecurityModel(this).autenticationMethod!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthentication(this) FOR getActualSecurityModel(this).autenticationMethod-»
+		«ENDIF-»
+
+		«IF getActualSecurityModel(this)!=null-»
+		«EXPAND template::struts2::security::security::ivyDependenciesForAuthorization(this) FOR getActualSecurityModel(this)-»
+		«ENDIF-»
+
+		«IF hasGisMap(this)»
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+      		<artifact name="csi-core-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-1.4.5" type="jar" />
+      		<artifact name="csi-rmi-1.4.5" type="jar" />
+      		<artifact name="csi-stadapter-1.4.5" type="jar" />
+      		<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-diag" rev="1.2.1" transitive="false">
+      		<artifact name="coop-diag-1.2.1" type="jar" />
+    	</dependency>
+    	<dependency org="csipiemonte" name="msgadp" rev="1.0.1" transitive="false">
+			<artifact name="msgadp-jaxb-1.0.1" type="jar"/>
+			<artifact name="msgadp-jaxb-tools-1.0.1" type="jar"/>
+		</dependency>
+		<dependency org="sun" name="jaxb" rev="1.0">
+			<artifact name="jaxb-api-1.0" type="jar"/>
+			<artifact name="jaxb-libs-1.0" type="jar"/>
+			<artifact name="jaxb-ri-1.0" type="jar"/>
+			<artifact name="jaxb-xjc-1.0" type="jar"/>
+		</dependency>
+    	
+    	<dependency org="csipiemonte" name="coop-trace" rev="1.1.0" transitive="false">
+      		<artifact name="coop-trace-1.1.0" type="jar" />
+    	</dependency>
+    	
+    	<dependency org="apache" name="commons-lang" rev="2.2" >
+      		<artifact name="commons-lang-2.2" type="jar" />
+    	</dependency>
+    	
+    	<!-- librerie per funzioni GIS -->
+    	<dependency org="csipiemonte" name="grease-jeegfw" rev="2.4.0" transitive="false">
+      		<artifact name="jeegfw-2.4.0" type="jar" />
+    	</dependency>
+    	<dependency org="apache" name="commons-codec" rev="1.2">
+			<artifact name="commons-codec-1.2" type="jar"/>
+		</dependency>
+		<dependency org="others" name="jts" rev="1.9">
+			<artifact name="jts-1.9" type="jar"/>
+		</dependency>
+		
+    	<dependency org="csipiemonte" name="gosgisso" rev="1.2.0" transitive="false">
+      		<artifact name="gosgisso-gosgisgosgisso-client-1.2.0" type="jar" />
+    	</dependency>
+    	<dependency org="csipiemonte" name="splugesf-giscommon" rev="1.2.0">
+      		<artifact name="splugesf-giscommon-1.2.0" type="jar" />
+    	</dependency>
+	
+		<dependency org="csipiemonte" name="splugesf-jtsutil" rev="2.0.0">
+      		<artifact name="splugesf-jtsutil-2.0.0" type="jar" />
+    	</dependency>
+    	
+		<dependency org="csipiemonte" name="grease-jeegri" rev="1.0.1" >
+      		<artifact name="jeegri-1.0.1" type="jar" />
+    	</dependency>
+    	
+		«ELSE»
+		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		«ENDIF»
+		<dependency org="csipiemonte" name="iridev2" rev="2.0.0" transitive="false" />
+
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivyExtraDependencies")»
+		<!-- Inserire qui le dipendenze aggiuntive -->
+		«ENDPROTECT»
+		
+		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
+		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
+		
+	</dependencies>
+
+</ivy-module>
+«ENDFILE»
+
+«REM»[DM] STDMDD-101: passaggio alla versione 2.0 di Ivy«ENDREM»
+«FILE getIvyConfFileName(skip_component_dir_creation)»<ivysettings>
+	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+	<resolvers>
+		<url name="myUrlResolver">
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/java/[organisation]/[module]/ivy-[module].xml" />
+			
+			«IF targetPlatform.enableRichUIBehavior-»
+			<!-- Aggiunta per extjs e reperimento risorse statiche -->
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://«getIvyRepositoryHost()»/javascript/[organisation]/[module]/ivy-[module].xml" />
+			«ENDIF-»
+
+			«REM»[DM] STDMDD-670: Reperimento risorse statiche (necessario?)«ENDREM»
+			«EXPAND template::struts2::view::staticResources::ivyIvyConfFileStaticResources FOR this»
+
+		</url>
+	</resolvers>
+</ivysettings>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Import delle librerie specifiche dell'Application Server (JBoss o WebLogic)«ENDREM»
+«DEFINE appServerLibsIvy FOR GUIModel»
+«IF this.targetPlatform.code == TargetPlatformCodes::JBoss43 -»
+<dependency org="others" name="jboss" rev="4.3.0">
+	<artifact name="jboss-j2ee-4.3.0" type="jar" />
+</dependency>
+«ELSEIF this.targetPlatform.code == TargetPlatformCodes::WLS92 -»
+<dependency org="sun" name="ejb" rev="2.1"/>
+<dependency org="sun" name="jms" rev="1.1"/>		
+<dependency org="sun" name="jta" rev="1.0.1"/>
+«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»Genera le dipendenze realtive ai temi di struts specifici per i portali
+NOTA: ogni portale implementa il proprio specifico e sovrascrive mediane AOP«ENDREM»
+«DEFINE strutsThemeIvy FOR GUIModel»
+	«EXPAND template::struts2::view::remoteResources::strutsThemeIvy FOR this»
+«ENDDEFINE»
+

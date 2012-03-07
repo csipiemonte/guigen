@@ -1,0 +1,121 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+extension template::struts2::rupar::Struts2ExtensionsRupar;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il layout RuparPiemonte ridefinite mediante AOP                //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+around template::GenericExtensions::getPortalName() :
+	"RuparPiemonte";
+
+around template::GenericExtensions::getPortalCode() :
+	"rupar";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Build files 
+
+around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel model) :
+	"http://dev-portale.ruparpiemonte.it";
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// PORTAL THEMES AND STYLES
+
+//
+around template::struts2::Struts2Extension::getStrutsThemeByPortal(GUIModel model) :
+	"csi"; //"csirupar"
+
+//
+around template::struts2::Struts2Extension::getTablePortalStyle(GUIModel model, Table t) :
+	"class=\"righe_alternate\"";
+
+//
+around template::struts2::Struts2Extension::getRadioPortalStyle(GUIModel model) :
+	"cssClass=\"noBorder\"";
+
+// [DM] restituisce il numero di colonne del layout
+around template::struts2::Struts2Extensions::getColumnsLayout(FormPanel firstLevPanel, GUIModel model) :
+	getColumnsLayoutRupar(firstLevPanel, model);
+
+// [DM] Restituisce lo stile dei Button
+around template::struts2::Struts2Extensions::getButtonStyleByLayout(GUIModel model, Button b) :
+	getButtonStyleByLayoutRupar(model, b);
+
+// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :
+	"inputPulsante";
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+around template::struts2::Struts2Extensions::getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) :
+	getMsgBoxPanelStyleByPortalRupar(model, mbp);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
+	getCheckboxPortalStyleRupar(model);
+
+// [DM] Restituisce lo stile dei FileUpload
+around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
+	"";
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
+	getCustomtagHeaderColspanRupar(wp, w);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// EVENT HANDLERS
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript abilitato)
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
+		"onfocus=\"inFocus(this)\" " +
+		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
+
+// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
+around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+			"\" /></noscript>";
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
+
+// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
+around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+			"\" /></noscript>";

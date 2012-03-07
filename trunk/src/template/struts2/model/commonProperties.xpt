@@ -1,0 +1,94 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«IMPORT ecore»
+«EXTENSION template::GenericExtensions »
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»property sempre presenti:
+- idNodo per gestire eventuali click su un treeView
+- idCella per gestire eventuali click sulla cella di una tabella
+«ENDREM»
+«DEFINE commonProperties FOR ContentPanel»
+	/////////////////////////////////////////
+	/// property comuni a tutte le action
+	/////////////////////////////////////////
+
+	«IF hasTree(this)»
+	// nodo selezionato in un eventuale tree
+	private String _idNodo = "";
+
+	public void setIdNodo(String val){
+		_idNodo = val;
+	}
+
+	public String getIdNodo(){
+		return _idNodo;
+	}
+	«ENDIF»
+
+	«IF hasTable(this)»
+	// riga selezionata in una eventuale tabella
+	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
+	private String _idRiga = "";
+
+	public void setIdRiga(String val){
+		_idRiga = val;
+	}
+
+	public String getIdRiga(){
+		return _idRiga;
+	}
+
+	// colonna selezionata in una eventuale tabella
+	// NOTA: l'id della cella selezionata e' data da idRiga + idColonna
+	private String _idColonna = "";
+
+	public void setIdColonna(String val){
+		_idColonna = val;
+	}
+
+	public String getIdColonna(){
+		return _idColonna;
+	}
+    «ENDIF»
+    
+    /// parametri per cambio TAB
+    
+    private String selectedTabKey;
+
+	public void setSelectedTabKey(String value) {
+		selectedTabKey = value;
+	}
+
+	public String getSelectedTabKey() {
+		return selectedTabKey;
+	}
+
+	private String selectedTabValue;
+
+	public void setSelectedTabValue(String value) {
+		selectedTabValue = value;
+	}
+
+	public String getSelectedTabValue() {
+		return selectedTabValue;
+	}
+    
+
+«ENDDEFINE»

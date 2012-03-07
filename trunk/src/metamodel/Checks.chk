@@ -1,0 +1,896 @@
+import guigen;
+
+extension org::eclipse::xtend::util::stdlib::naming;
+extension org::eclipse::xtend::util::stdlib::io;
+extension template::GenericExtensions;
+extension template::struts2::Struts2Extensions;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Check indipendenti dalla piattaforma target                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+context TargetPlatform WARNING "L'interazione 'ricca' non è abilitata: se si desidera abilitarla impostare a true "+
+	"l'attributo 'enableRichUIBehavior' nell'oggetto TargetPlatform" :
+	enableRichUIBehavior == true;
+
+context TargetPlatform WARNING 
+	"E' stato impostato l'utilizzo delle feature di interazione 'ricca': tali funzioni sono utilizzabili "+
+	" solo con la cartuccia 'neutral' e solo se è disponibile lo 'skin' per il portale target: "+
+	"verificare se le condizioni sussistono; se si desidera disabilitarla impostare a <false> "+
+	"l'attributo 'enableRichUIBehavior' nell'oggetto TargetPlatform" :
+	enableRichUIBehavior != true;
+
+context TargetPlatform WARNING "L'abilitazione del Fat-Client è una feature sperimentale: se si desidera disabilitarla impostare a false "+
+"l'attributo 'enableFatClient' nell'oggetto TargetPlatform" :
+	enableFatClient != true;
+
+context TargetPlatform if enableFatClient == true ERROR "L'abilitazione della modalità Fat-Client è possibile solo se sono anche abilitate le feature 'ricche'"+
+"nell'oggetto TargetPlatform" :
+	enableRichUIBehavior==true;
+
+// validazioni generali (prodotto/componente etc..)
+context GUIModel ERROR "E' necessario specificare il codice prodotto (max 10 caratteri)" :
+	codProdotto!=null && codProdotto.length<=10;
+
+context GUIModel ERROR "E' necessario specificare il codice componente (max 20 caratteri)" :
+	codComponente!=null && codComponente.length<=20;
+
+context GUIModel ERROR "E' necessario specificare la versione del prodotto nel formato major.minor.bugfix" :
+	versioneProdotto!=null && isVersioneFormalmenteCorretta(versioneProdotto);
+
+context GUIModel ERROR "E' necessario specificare la versione del componente nel formato major.minor.bugfix" :
+	versioneComponente!=null && isVersioneFormalmenteCorretta(versioneComponente);
+
+context GUIModel ERROR "E' necessario scegliere la Target Platform" :
+	targetPlatform!=null;
+
+// [AM] warning per incoraggiare l'uso della modularizzazione
+context GUIModel WARNING "Per una migliore gestione del progetto di consiglia di definire il SecurityModel in un modello separato, "+
+	"includerlo come risorsa e referenziarlo in 'extSecurityModel': "+loc() :
+	securityModel==null;
+
+context GUIModel ERROR "E' possibile specificare solo una dei due elementi 'securityModel' (deprecato) e 'extSecurityModel' (consigliato):"+loc() :
+	securityModel==null || extSecurityModel==null;	
+
+// [DM] -> I CHECK SULLA HEADER VARIANO A SECONDA DELLA CARTUCCIA
+//context Header ERROR "E' necessario impostare i codici 'canale' e 'applicativo' nell'oggetto Header "+
+//					 "(servono per referenziare le risorse remote)" :
+//	codCanale != null && codCanale != "" && codApplicativo != null && codApplicativo != "";
+
+context Header ERROR "E' necessario impostare i nomi descrittivi del 'canale' e dell' 'applicativo' nell'oggetto Header "+
+					 "(servono per il filo d'arianna)" :
+	nomeCanale != null && nomeCanale != "" && nomeApplicativo != null && nomeApplicativo != "";
+	
+context Header ERROR "E'necessario impostare il link (di produzione) del canale nell'oggetto Header (viene inserito nel filo d'arianna)" :
+	linkCanale != null && linkCanale.length>0;
+
+// [SC] Check che verifica l'univocita' dei nomi degli appData definiti nel modello	
+context GUIModel ERROR "I nomi degli application data devono essere univoci " + loc() :
+	applicationDataNamesAreAllUnambiguous(getAllApplicationData(this));	
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazione su AppModule context AppModule
+context AppModule ERROR "E' necessario specificare il name dell AppModule:"+loc() :
+	!isNullOrEmpty(name);
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazione su pannelli
+
+context ApplicationArea ERROR "Deve essere definito il content panel di homePage: " + loc() :
+	this.homePage!=null;
+
+context ApplicationArea WARNING "Per una migliore gesitone del progetto si consiglia di modellare gli AppModule in modelli separati, includere il modello e "+
+	"referenziarlo nell'ApplicationArea, invece che definire AppModule direttamente nell'ApplicationArea."+
+	"AppModules candidati all'esternalizzazione: "+this.modules.name :
+	modules.size==0;
+
+context ApplicationArea WARNING "Per una migliore gesitone del progetto si consiglia di suddividere il modello in AppModule mantenuti in modelli separati, includere i modelli e "+
+	"referenziarlo nell'ApplicationArea, invece che definire ContentPanel direttamente nell'ApplicationArea.":
+	contentPanels.size==0;
+
+	
+context ContentPanel ERROR "occorre specificare il nome del contentPanel:"+loc() :
+	name!=null;
+
+context ContentPanel ERROR "Il nome di un content panel deve essere diverso da: home/Home oppure menu/Menu oppure logout/Logout : "+loc():
+	!(this.name.toString()=="home") &&  !(this.name.toString()=="Home") &&  
+	!(this.name.toString()=="menu") &&  !(this.name.toString()=="Menu") &&
+	!(this.name.toString()=="logout") && !(this.name.toString()=="Logout");
+
+context ContentPanel if eRootContainer.metaType == GUIModel ERROR "Il nome dei content panel deve essere univoco all'interno dell'applicazione " + loc() :
+	isContentPanelUnique(this); 
+
+context ContentPanel ERROR "E'necessario definire il pannello principale nel content panel:"+loc() :
+	panels!=null;
+	
+context Panel ERROR "E'necessario impostare l'attributo 'name' del pannello " + loc():
+	this.name != null && this.name != "";
+
+context FormPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
+context WidgetsPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+	
+context CommandPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
+context MenuPanel ERROR "E' necessario impostare il layout del pannello:"+loc() :
+	layout!=null;
+
+context Panel if findParentContentPanel(this)!=null ERROR "il nome di un pannello deve essere univoco all'interno di un ContentPanel "+loc() :
+    findParentContentPanel(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
+
+context Panel if findParentPanelDef(this)!=null ERROR "il nome di un pannello deve essere univoco all'interno di un PanelDef "+loc() :
+    findParentPanelDef(this).eAllContents.typeSelect(Panel).select(p|p.name==this.name).size==1;
+
+// Con l'introduzione del WidgetsLayout, ha senso che un FormPanel abbia un layout solo se è di primo livello, 
+// ovvero se è figlio diretto di un ContentPanel. In tal caso può essere solo:
+//   - VerticalFlowPanelLayout => 1 colonna
+//   - UDLRCPanelLayout        => 2 o 3 colonne
+context FormPanel if this.eContainer.metaType == ContentPanel ERROR "Il FormPanel di primo livello deve avere un layout di tipo VerticalFlowPanelLayout o UDLRCPanelLayout " + loc() :
+	this.layout != null && (this.layout.metaType == VerticalFlowPanelLayout || this.layout.metaType == UDLRCPanelLayout);
+
+// In tutti gli altri casi, anche se il layout è ininfluente(al momento viene ignorato, visto che il layout dei widgets 
+// passa come competenza al WidgetsPanel), imponiamo che sia obbligatorio e sia VerticalFlowPanelLayout
+// -> MODIFICATO: VARIA A SECONDA DELLA CARTUCCIA
+//context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo deve avere un layout di tipo VerticalFlowPanelLayout " + loc() :
+//	this.layout != null && this.layout.metaType == VerticalFlowPanelLayout;
+
+context FormPanel ERROR "E' necessario impostare lo specificatore del layout NSEWC per tutti i sottopannelli "+loc() :
+    (this.layout.metaType!=UDLRCPanelLayout) 
+    ||
+    (
+    	(
+    		this.layout.metaType==UDLRCPanelLayout 
+    		&& 
+    		this.subpanels.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.subpanels.select(w|w.layoutSpec.metaType!=UDLRCWidgetLayoutSpec).size==0
+    	)
+    );
+
+//Un UDLRC di primo livello deve avere almeno il pannello CENTER
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout && eContainer.metaType==ContentPanel) 
+ERROR "Un FormPanel di primo livello avente layout UDLRC deve contenere almeno il quadrante CENTER:"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::CENTER)).size==1;
+		
+		
+// { STDMDD-605   
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (UP):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::UP)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (DOWN):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::DOWN)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (LEFT):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::LEFT)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (RIGHT):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::RIGHT)).size<=1;
+
+context FormPanel if (this.layout.metaType==UDLRCPanelLayout) ERROR "Un FormPanel avente layout UDLRC non può contenere più di un pannello nello stesso quadrante (CENTER):"+loc() :
+	(((List[WidgetLayoutSpecifier])(this.subpanels.layoutSpec)
+		.typeSelect(UDLRCWidgetLayoutSpec))
+		.select(ls|ls.value==UDLRCSpecConstants::CENTER)).size<=1;
+// STDMDD-605 }
+	
+
+	
+
+
+// Con l'introduzione del WidgetsPanel, il FormPanel non deve più contenere widgets.
+context FormPanel ERROR "Un FormPanel non può contenere Widgets. L'attributo widgets è stato mantenuto solo per retrocompatibilità. " + loc() :
+	this.widgets.size == 0;
+
+
+context TabSetPanel ERROR "Un TabSetPanel deve avere almeno un tab " + loc() :
+	this.panels.size>0;
+
+
+context MultiPanel ERROR "Un MultiPanel deve avere almeno un pannello interno " + loc() :
+	this.panels.size>0;
+	
+context MultiPanel ERROR "Un multipanel può contenere solo FormPanel/CommandPanel/StdMessagePanel come pannelli interni "+loc() :
+	this.panels.select(p|(
+			!p.metaType.isAssignableFrom(FormPanel)
+			&&
+			!p.metaType.isAssignableFrom(CommandPanel)
+			&&
+			!p.metaType.isAssignableFrom(StdMessagePanel)
+			&&
+			!p.metaType.isAssignableFrom(UserDefinedPanel)
+			)
+	).size==0;
+
+context MultiPanel ERROR "Gli item dei multi panel non possono contenere DataWidget dichiarati required: " + loc() :
+	findAllWidgetsInPanel(this).select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
+
+context MultiPanel ERROR "Un Multi/TabSet/Wizard non può essere contenuto in un PanelDef:"+loc() :
+	findParentPanelDef() == null;
+
+// [DM] check su CommandPanel
+// 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
+// 2) può contenere solo CommandWidget (o al massimo HiddenValue)
+// 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
+// 4) non deve avere label (*da verificare*) 
+// 1
+context CommandPanel ERROR "Un CommandPanel deve essere contenuto in un FormPanel, in un DialogPanel o in un MultiPanel/TabSetPanel/WizardPanel " + loc() :
+	this.eContainer.metaType == FormPanel ||
+	this.eContainer.metaType == DialogPanel ||
+	this.eContainer.metaType.isAssignableFrom(MultiPanel);
+// 2
+context CommandPanel ERROR "Un CommandPanel può contenere solo CommandWidget o HiddenValue " + loc() :
+	commandPanelCommandWidgetCheck(this);
+// 3 -> MODIFICATO: VARIA A SECONDA DELLA CARTUCCIA
+//context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
+//	commandPanelLayoutCheck(this);
+// 4
+context CommandPanel ERROR "Un CommandPanel non deve avere label " + loc() :
+	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+
+
+// [DM] check su MenuPanel
+// 1) deve essere contenuto in un FormPanel (es il panel master con layout UDLRC)
+// 2) può contenere solo widget di tipo MenuView o TreeView
+// 4) può avere solo un layout Vertical
+// 5) non deve avere label (*da verificare*)
+// 1
+context MenuPanel ERROR "Un MenuPanel deve essere contenuto in un FormPanel " + loc() :
+	this.eContainer.metaType == FormPanel;
+// 2
+context MenuPanel ERROR "Un MenuPanel può contenere solo widget di tipo MenuView o TreeView " + loc() :
+	menuPanelWidgetCheck(this);
+// 4
+context MenuPanel ERROR "Un MenuPanel può avere solo un layout di tipo VerticalFlowPanelLayout o HorizontalFlowPanelLayout" + loc() :
+	this.layout.metaType == VerticalFlowPanelLayout || this.layout.metaType == HorizontalFlowPanelLayout;
+// 5
+context MenuPanel ERROR "Un MenuPanel non deve avere label " + loc() :
+	isNullOrEmpty(this.label); // TODO: verificare se è corretto che sia così
+
+	
+// [DM] check su DialogPanel	
+context DialogPanel ERROR "Un DialogPanel può essere inserito solo in un ContentPanel " + loc() :
+	this.eContainer.metaType == ContentPanel;
+
+context DialogPanel ERROR "Un DialogPanel deve contenere almeno un MsgBoxPanel " + loc() :
+	this.msgBoxes != null && this.msgBoxes.size > 0;
+
+
+// [DM] check su MsgBoxPanel
+context MsgBoxPanel ERROR "Un MsgBoxPanel può essere inserito solo all'interno di un un DialogPanel o di un FormPanel " + loc() :
+	this.eContainer.metaType == DialogPanel || this.eContainer.metaType == FormPanel;
+
+context MsgBoxPanel ERROR "Un MsgBoxPanel deve contenere almeno un PlainText " + loc() :
+	this.textMessages != null && this.textMessages.size > 0;
+
+
+// [DM] check su WidgetsPanel
+context WidgetsPanel ERROR "Un WidgetsPanel deve essere contenuto in un FormPanel " + loc() :
+	this.eContainer.metaType == FormPanel || this.eContainer.metaType == PanelDef;
+
+context WidgetsPanel ERROR "E' necessario impostare il layout su ogni WidgetsPanel " + loc() :
+	this.layout != null;
+
+context WidgetsPanel ERROR "Un WidgetsPanel può avere i seguenti layout: HorizontalFlow, VerticalFlowPanelLayout o GridPanelLayout " + loc() :
+	this.layout.metaType == HorizontalFlowPanelLayout || this.layout.metaType == VerticalFlowPanelLayout || this.layout.metaType == GridPanelLayout;
+
+context WidgetsPanel ERROR "Il WidgetsPanel ha il layout 'Grid': e' necessario impostare la posizione in griglia per tutti i widget " + loc() :
+	this.layout.metaType != GridPanelLayout 
+	||
+    (
+    	(
+    		this.layout.metaType==GridPanelLayout 
+    		&& 
+    		this.widgets.select(w|w.layoutSpec==null).size==0
+    		&&
+    		this.widgets.select(w|w.layoutSpec.metaType!=GridWidgetLayoutSpec).size==0
+    	)
+    );
+
+
+//context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto, il numero di colonne non corrisponde al numero atteso, la somma delle colonne non è 100 " + loc() :
+//	columnSizesWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto: deve contenere solo numeri interi separati da virgola: " + loc() :
+	columnSizesFormatWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) ERROR "L'attributo columnSizes non è formalmente corretto: la somma delle colonne non è 100: " + loc() :
+	columnSizesSumWidgetsPanelCheck(this);
+
+context WidgetsPanel if !isNullOrEmpty(this.layout.columnSizes) WARNING "L'attributo columnSizes non è formalmente corretto: il numero di colonne fisiche generate (" +
+		realColumnsNumberWidgetsPanelCheck(this) + ") non corrisponde al numero atteso (" +
+		expectedColumnsNumberWidgetsPanelCheck(this) + ") : " + loc() :
+	realColumnsNumberWidgetsPanelCheck(this) == expectedColumnsNumberWidgetsPanelCheck(this);
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazioni su struttura menu
+
+// [MA] univocità name Menu/MenuItem
+context Menu ERROR "Il nome dei menu deve essere univoco all'interno del modello: "+loc() : 
+	isMenuNameUnique(name, ((GUIModel)eRootContainer).structure.appWindow.appArea.menubar);
+
+context Menu if(this.submenu.size == 0) WARNING "Il menu "+this.name+" non ha nessun EventHandler associato ed è quindi inattivo " + loc() + " Numero di submenus --> " + this.submenu.size :
+	this.eventHandler != null ; 
+
+// [DM] STDMDD-241: razionalizzazione e completamento gestione casistiche rendering menu -> MenuItem DEPRECATO
+context MenuItem ERROR "MenuItem è DEPRECATO! Utilizzare Menu al posto: " + loc() : 
+	false;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// Validazione su widget
+
+context Widget ERROR "E'necessario impostare l'attributo 'name' del widget "+loc() :
+	this.name != null && this.name != "";
+
+context Widget if findParentContentPanel()!=null ERROR "il name dei widgets in un content panel (eccettuati singoli radiobutton) deve essere univoco " + loc() :
+     this.metaType==RadioButton ||
+     findAllWidgetsInContentPanel(findParentContentPanel(this)).select(w|((Widget)w).name==this.name).size == 1;
+
+context Widget if findParentPanelDef()!=null ERROR "il name dei widgets in un panel def (eccettuati singoli radiobutton) deve essere univoco " + loc() :
+     this.metaType==RadioButton ||
+     findParentPanelDef().eAllContents.typeSelect(Widget).select(p|p.name==this.name).size==1;
+
+     
+context Table ERROR "Non è stato impostato lo schema delle colonne"+loc() :
+	this.columnModel!=null;
+
+context Table if (columnModel.columns.select(c|c.editable).size>0) ERROR "E' necessario impostare il 'valueSelector' "+
+	"se la tabella ha almeno una colonna editabile; serve per passare alla business logic l'id della riga su cui si clicca:"+loc() :
+	!isNullOrEmpty(columnModel.valueSelector);
+
+context Table if (databinding != null) ERROR "E' necessario impostare il 'valueSelector' se la tabella ha un value binding (ovvero se ammette la selezione);"+
+	" serve per reperire l'id delle righe selezionate:"+loc() :
+	!isNullOrEmpty(columnModel.valueSelector);
+	
+// [AM] perr ora questa feature è sospesa
+context Table ERROR "Una table inclusa in un PanelDef non può avere un custom decorator:"+loc() :
+	findParentPanelDef()==null || this.customDecorator == false;
+
+context ColumnModel ERROR "Lo schema delle colonne deve contenere almeno una colonna " + loc() :
+	columns != null && columns.size>0;
+	
+// [DM] una colonna non può essere contemporaneamente editabile e cliccabile
+context Column ERROR "Una colonna non puo' essere contemporaneamente editabile e cliccabile " + loc() :
+!(this.editable && this.eventActive);
+
+context Column if !editable ERROR "Non si puo' specificare l'attributo 'editableFlagSelector' se la colonna non e' editabile " + loc() :
+	editableFlagSelector == null;
+
+context Column if !eventActive ERROR "Non si puo' specificare l'attributo 'activeFlagSelector' se la colonna non e' attivabile " + loc() :
+	activeFlagSelector == null;
+
+
+context Column if multiDataBinding !=null ERROR "configurare in alternativa il multidataBinding o il multidataPropertySelector " + loc () :
+	multidataPropertySelector == null;
+	
+context Column if multidataPropertySelector !=null ERROR "configurare in alternativa il multidataBinding o il multidataPropertySelector " + loc () :
+	multiDataBinding == null;
+
+// verifica presenza del campo collegato alla colonna
+context Column if !isNullOrEmpty(selector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal selettore '"+this.selector+"'" +loc():
+	canResolveColumnBinding(this, selector);
+
+// verifica presenza del campo collegato alla cliccabilità della colonna
+context Column if !isNullOrEmpty(this.activeFlagSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal activeFlagSelector '"+this.activeFlagSelector+"'" +loc():
+	canResolveColumnBinding(this, activeFlagSelector);
+
+// verifica presenza del campo collegato alla editabilità della colonna
+context Column if !isNullOrEmpty(this.editableFlagSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal editableFlagSelector '"+this.editableFlagSelector+"'" +loc():
+	canResolveColumnBinding(this, editableFlagSelector);
+
+// il campo maxFieldLength deve essere > 0 solo se la colonna è editabile
+context Column if (!editable) WARNING "La colonna "+this.label+" non è editabile ma ha una dimensione massima impostata: il valore" +
+" verrà ignorato; "+loc() :
+	fieldMaxLength == 0;
+
+
+/// questi check non vanno bene: da rivedere in seguito gestendo tutte le casistiche
+//context Column if !isNullOrEmpty(this.multidataKeySelector) && !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataKeySelector '"+this.multidataKeySelector+"'" +loc():
+//	let tableElType = getTableElementsType(getOwnerTable(this)):
+//	let mdPropField = tableElType != null ? getSelectedField(null,tableElType, multidataPropertySelector) : ((Field)null) :
+//	if (mdPropField != null && ((Field)mdPropField).type!=null) then
+//		getSelectedField(null, ((Field)mdPropField).type, this.multidataKeySelector)!=null
+//	else
+//		true;
+
+//context Column if !isNullOrEmpty(this.multidataPropertySelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataPropertySelector '"+this.multidataPropertySelector+"'" +loc():
+//	canResolveColumnBinding(this, multidataPropertySelector);
+
+//context Column if !isNullOrEmpty(this.multidataValueSelector) WARNING "La colonna "+this.label+" referenzia un campo non risolubile dal multiDataValueSelector '"+this.multidataValueSelector+"'" +loc():
+//	canResolveColumnBinding(this, multidataValueSelector);
+
+
+	 	
+// [DM] HiddenValue puo' essere inserito solo in un CommandPanel (per il momento...): questo per non complicare le cose con i layout
+context HiddenValue ERROR "Il widget HiddenValue puo' essere inserito solo in un Pannello con Vertical o Horizontal layout " + loc() :
+ 	((Panel)this.eContainer).layout.metaType == VerticalFlowPanelLayout || ((Panel)this.eContainer).layout.metaType == HorizontalFlowPanelLayout;
+ 
+
+
+	
+context Button if (metaType != ResetButton) ERROR "Ogni pulsante non di reset deve avere un eventHandler associato "+ loc() :
+	this.eventHandlers.select(e|e.eventType == EventTypes::CLICKED).size > 0;  
+ 
+// [DM] Calendar
+context Calendar ERROR "Un Calendar deve avere un DataType di tipo DATE " + loc() :
+ 	this.dataType.metaType == SimpleType && ((SimpleType)(this.dataType)).code == guigen::SimpleTypeCodes::DATE;
+
+context Calendar if (this.databinding != null) ERROR "Il DataBinding di un Calendar deve essere di tipo Date " + loc() :
+	calendarDataBindingTypeCheck(this);
+
+
+context TabSwitcher ERROR "Il Tab Switcher può essere associato solo ad un TabSetPanel o a un WizardPanel:" +loc() :
+  	this.eContainer.metaType == TabSetPanel || this.eContainer.metaType == WizardPanel;
+
+context MapView ERROR "E' necessario impostare l'id della mappa da visualizzare:"+loc() :
+	!isNullOrEmpty(mapId);
+	
+context MapView ERROR "Ad una mappa si può associare un solo evento di tipo CLICKED e/o un evento di tipo EDIT_COMMITTED:"+loc() :
+	this.eventHandlers.size == 0 || 
+	this.eventHandlers.select(evh|evh.eventType != EventTypes::CLICKED && evh.eventType != EventTypes::EDIT_COMMITTED).size==0;
+
+context MapView ERROR "E' necessario specificare il value-binding per la mappa:"+loc() :
+	this.databinding != null;	
+	 	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Validazione su azioni e listener
+
+context MenuItem ERROR "Un menu item può generare solo eventi di tipo CLICKED "+loc() :
+	this.eventHandler==null || this.eventHandler.eventType == EventTypes::CLICKED;
+
+context EventHandler ERROR "Un action Listener deve innescare un comando a fronte di un tipo di evento "+loc() :
+	this.command!=null;
+
+// nel caso del KEY_PRESSED su TextField => suggestion il comando associato deve essere di tipo simpleExec
+context EventHandler if (eContainer.metaType == TextField && eventType == EventTypes::KEY_PRESSED) 
+	ERROR "Ad un KEY_PRESSED di un TextField deve essere associato solo un ExecCommand ad esito univoco (unico Outcome con esecuzione di NOPCommand):"+loc() :
+	isSimpleExecChain(this.command);
+	
+context JumpCommand ERROR "E'necessario impostare il pannello target di un Jump Command "+loc() :
+	this.jumpTo != null;
+	
+context JumpCommand WARNING "L'utilizzo di JumpCommand sullo stesso pannello di partenza è deprecato. Preferibile NOPCommand: "+loc() :
+	!jumpToSameContentPanel(this);
+
+context ShowDialogCommand ERROR "E'necessario impostare il dialog target di uno ShowDialogCommand "+loc() :
+    this.dialog != null;
+    
+context ExecCommand ERROR "Un ExecCommand deve avere almeno un CommandOutcome associato "+loc() :
+	this.results!=null && this.results.size>0;
+
+context ExecCommand ERROR "E'necessario specificare il nome del metodo associato all'esecuzione "+loc() :
+	this.methodName!=null && this.methodName.length>0;
+
+context ActivateMultiPanelItemCommand ERROR "E'necessario specificare il multi panel "+loc() :
+	this.multipanel!=null;
+		
+context ActivateMultiPanelItemCommand ERROR "Il sottopannello (activeItem) non è un item del MultiPanel specificato "+loc() :
+	this.activeItem==null || 
+	this.multipanel.panels.select(p|p==this.activeItem).size>0;
+
+context JumpExtCommand ERROR "E'necessario specificare un url statico o un application data a cui puntare a runtime "+loc() :
+	this.staticUrl!=null && this.runtimeUrlProvider==null 
+	||
+	(this.staticUrl==null || this.staticUrl.length==0) && this.runtimeUrlProvider!=null;
+
+context JumpExtCommand ERROR "E'necessario fornire un codice identificativo/descrittivo dell'url esterno a cui saltare "+loc() :
+	this.locationCode!=null && this.locationCode.length>0;
+	
+context JumpExtCommand ERROR "JumpExtCommand può utilizzare solo un appData di tipo string come runtime url provider "+loc() :
+	this.runtimeUrlProvider==null ||
+	this.runtimeUrlProvider.type.metaType==SimpleType &&
+	((SimpleType)(this.runtimeUrlProvider.type)).code==guigen::SimpleTypeCodes::STRING;
+
+context VisibilityCommand ERROR "Il comando di commutazione di visibilità è incomaptibile con i widget dichiarati required "+loc() :
+	this.targetWidgets.select(w|DataWidget.isAssignableFrom(w.metaType) && ((DataWidget)w).required==true).size==0;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// constraints su azioni
+
+// un menu view non può avere event handler associati (eredita quelli del menu vero e proprio di cui
+// è segnaposto
+context MenuView ERROR "ad una MenuView non è possibile associare evnet handler, in quanto eredita gli event handler"+
+						" della struttura menu globale (di cui funge solo da segnaposto) "+loc() :
+	this.eventHandlers.size == 0;
+
+// un Treeview può avere solo un event handler di tipo click o node_expanded
+context TreeView ERROR "ad una TreeView è possibile associare solo la gestione di un evento CLICKED o NODE_EXPANDED"+loc() :
+	this.eventHandlers.select(eh|eh.eventType!=EventTypes::CLICKED && eh.eventType!=EventTypes::NODE_EXPANDED).size==0;
+
+// per rendere "eventActive" una colonna di una table occorre specificare un event handler clicked nella table
+context Column ERROR "una colonna di una Table può essere dichiarata 'eventActive' solo se la tabella "+
+	"definisce un Event Handler di tipo CLICKED: "+loc() :
+	!eventActive ||
+	(eventActive)
+	&& 
+	((Table)(((ColumnModel)this.eContainer).eContainer))
+		.eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size == 1;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// constraints su binding
+context ContentPanel if (panels!=null) ERROR "Il content panel "+name+" non referenzia tutti gli Application Data "+
+	"referenziati dai widget in esso contenuti. AppData mancanti: "+findUnresolvedAppDataBinding() :
+	findUnresolvedAppDataBinding().size == 0; 
+	
+context AppDataBinding ERROR "E'necessario specificare il dato associato ad un DataBinding "+loc() :
+	this.appData != null;
+
+//STDMDD-918	
+context ApplicationData if(this.type!=null && this.type.metaType==SimpleType) ERROR "Non e' possibile effettuare un binding ad un tipo primitivo, utilizzare il corrispondente tipo wrapped." +loc() : 
+	let st=(SimpleType)this.type	:  
+	!(st.code == SimpleTypeCodes::INT && st.nillable==false) && !(st.code == SimpleTypeCodes::LONG && st.nillable==false)
+	&& !(st.code == SimpleTypeCodes::FLOAT && st.nillable==false) && !(st.code == SimpleTypeCodes::DOUBLE && st.nillable==false);
+
+context ApplicationData ERROR "E' necessario specificare il nome dell Application Data "+loc() :
+	this.name != null && this.name.length > 0;
+
+context ApplicationData ERROR "E' necessario specificare il tipo dell Application Data "+loc() :
+	this.type != null;
+ 
+context TreeView WARNING "La fonte dati di un TreeView può solo essere un application data di tipo TreeNode e invece è "+this.multiDataBinding.appData.type+", "+loc() :
+	this.multiDataBinding == null ||
+	(
+		this.multiDataBinding.appData != null 
+	 	&& 
+	 	this.multiDataBinding.appData.type.metaType == SimpleType 
+	 	&&
+	 	((SimpleType)this.multiDataBinding.appData.type).code == SimpleTypeCodes::TREE_NODE
+	 );
+
+
+context TreeView if (multiDataBinding != null) ERROR "La fonte dati di un TreeView non può essere un ApplicationData a scope ACTION:"+loc() :
+	this.multiDataBinding.appData.lifetimeExtent != DataLifetimeType::USER_ACTION;
+
+
+//context MultiDataWidget ERROR "Il tipo del binding di un MultiDataWidget deve essere un array di tipo complesso, invece è "+this.multiDataBinding.appData.type+", "+loc() :
+//	this.multiDataBinding.appData.type.metaType==TypedArray && 
+//	((TypedArray)multiDataBinding.appData.type).componentType.metaType==ComplexType;	
+
+context TextField if multiDataBinding != null ERROR "Il collection-binding associato ad un TextField deve essere di tipo Array[SimpleType] (suggestion solo testuale)" :
+	multiDataBinding.appData.type.metaType == TypedArray &&
+	((TypedArray)(multiDataBinding.appData.type)).componentType.metaType == SimpleType;
+	
+context Field if !name.isNullOrEmpty()  ERROR "In un complexType il nome dei fields deve essere univoco" : 
+	((ComplexType) eContainer).getAllFields().select(e|e.name == name).size == 1;
+	
+context DataWidget ERROR "E' necessario specificare il tipo del Widget "+loc() :
+	this.dataType != null;
+
+//context DataWidget ERROR "Il tipo del widget non corrisponde con il tipo del databinding "+loc() :
+//	(this.dataType==null 
+//	 || this.databinding == null 
+//	 || (this.databinding!=null && this.databinding.appData==null)
+//	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type == null))
+//	 || (this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null 
+//	 	&& ""!=(this.databinding.path))
+//	 || (
+//	 	this.dataType!=null 
+//	 	&& this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null
+//	 	&& this.dataType==this.databinding.appData.type
+//	 );
+
+//context DataWidget WARNING "Non è possibile verificare a priori la corrispondenza di tipo tra widget e binding "+
+//	"poichè è impostato l'attributo path: verificare manualmente "+loc() :
+//	(this.dataType==null 
+//	 || this.databinding == null 
+//	 || (this.databinding!=null && this.databinding.appData==null)
+//	 || (this.databinding!=null && this.databinding.appData!=null && this.databinding.appData.type==null))
+//	 || (this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null 
+//	 	&& ""==(this.databinding.path))
+//	 || (
+//	 	this.dataType!=null 
+//	 	&& this.databinding!=null 
+//	 	&& this.databinding.appData!=null 
+//	 	&& this.databinding.appData.type!=null
+//	 	&& this.dataType==this.databinding.appData.type
+//	 );
+
+context DataWidget if (this.databinding != null && this.metaType != Table) WARNING "Il tipo del widget non corrisponde con il tipo del databinding "+loc() : 
+	widgetDataBindingCorrispondenceCheck(this);
+
+// il TextField necessita del binding solo se ha un KEY_PRESSED attivo => suggestion
+// la MapView necessita di collection binding solo in caso di acetate layer (geometrie)
+context MultiDataWidget if (metaType != TextField && metaType != MapView) ERROR "E' necessario impostare il collection-binding "+loc() :
+	multiDataBinding != null;
+
+context TextField if (this.eventHandlers.select(eh|eh.eventType == EventTypes::KEY_PRESSED).size > 0) 
+	ERROR "Un TextField con un handler di evento KEY_PRESSED deve avere un collection-binding:"+loc() :
+	this.multiDataBinding != null;
+
+context TextField if(this.multiDataBinding != null) ERROR "Il collection-binding di un TextField deve essere impostato "+
+	"solo in presenza di un handler di evento KEY_PRESSED (per realizzare la funzione di suggestion):"+loc() :
+ 	this.eventHandlers.select(eh|eh.eventType == EventTypes::KEY_PRESSED).size > 0;
+	
+context Table ERROR "Non è stato specificato il binding alla collection per la table "+name :
+	this.multiDataBinding != null;
+	
+context TypeNamespace ERROR "E'necessario valorizzare il nome del type namespace:"+loc() :
+	!isNullOrEmpty(this.name); 
+
+context Type ERROR "E'necessario valorizzare il nome di un tipo:"+loc() :
+	!isNullOrEmpty(this.name);
+
+context TypedArray ERROR "E'necessario valorizzare il tipo degli elementi contenuti in un TypedArray:"+loc() :
+	componentType != null;
+
+context TypedArray if (componentType.metaType == TypedArray) ERROR "Il typed Array \""+name+"\" ha se stesso come component type: definizione ricorsiva proibita."+loc() :
+	componentType != this;
+	
+context TypedArray if (componentType.metaType == TypedArray) WARNING "Il typed Array \""+name+"\" ha un altro TypedArray come component type: il funzionamento non è garantito (caso non previsto)."+loc() :
+	false; // sempre errore	
+
+context ComplexType ERROR "Il ComplexType \""+name+"\" ha una gerarchia con dipendenza circolare:"+loc() :
+	!hasCircularHierarchy(this);
+
+// STDMDD-637: verifica conflitto di nome in type namespace
+context Type if (eContainer.metaType == TypeNamespace) && !isNullOrEmpty(name) ERROR "Esiste piu' di un Type con lo stesso nome ("+name+") nello stesso TypeNamespace ("+((TypeNamespace)eContainer).name+")" :
+	let tns = (TypeNamespace)eContainer :
+	tns.types.select(t|t.name == this.name).size==1;
+	
+//[DM] 
+context SimpleType if (this.userDefined) ERROR "Un SimpleType User Defined con codice INT, FLOAT, LONG, DOUBLE, BOOLEAN, BYTE deve essere nillable: "+loc() :
+	if (
+		(this.code == SimpleTypeCodes::INT) ||
+		(this.code == SimpleTypeCodes::FLOAT) ||
+		(this.code == SimpleTypeCodes::LONG) ||
+		(this.code == SimpleTypeCodes::DOUBLE) ||
+		(this.code == SimpleTypeCodes::BOOLEAN) ||
+		(this.code == SimpleTypeCodes::BYTE)
+	) 
+	then
+		this.nillable
+	else
+		true;	
+		
+		
+		
+	 
+
+context SimpleType if (this.userDefined) ERROR "Un SimpleType User Defined con codice STRING, DATE, DATETIME, HOURS, TREE_NODE non deve essere nillable: "+loc() :
+	if (
+		(code == SimpleTypeCodes::STRING) ||
+		(code == SimpleTypeCodes::DATE) ||
+		(code == SimpleTypeCodes::DATETIME) ||
+		(code == SimpleTypeCodes::HOURS) ||
+		(code == SimpleTypeCodes::TREE_NODE)
+	)
+	then
+		!this.nillable
+	else
+		true;
+
+//////////////////////////////////////////////////////////////////////////////
+//// constraints su PanelDef
+//////////////////////////////////////////////////////////////////////////////
+context AppDataMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un AppDataMappingParam:"+loc() :
+	this.param.metaType == AppDataMappingParam;
+
+context TypeDefMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un TypeDefMappingParam:"+loc() :
+	this.param.metaType == TypeDefMappingParam;
+
+context ActorMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un ActorMappingParam:"+loc() :
+	this.param.metaType == ActorMappingParam;
+
+context RoleMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un RoleMappingParam:"+loc() :
+	this.param.metaType == RoleMappingParam;
+	
+context UCMappingPDefVal ERROR "il parametro indicato per la valorizzazione deve essere un UseCaseMappingParam:"+loc() :
+	this.param.metaType == UseCaseMappingParam;
+
+context PDefParamVal ERROR "occorre specificare il parametro valorizzato:"+loc() :
+	this.param != null;
+	
+context AppDataMappingPDefVal ERROR "occorre specificare l'application data target:"+loc() :
+	actualAppData!=null;
+	
+context TypeDefMappingPDefVal ERROR "occorre specificare il tipo target:"+loc() :
+	actualTypeDef!=null;
+	
+context ActorMappingPDefVal ERROR "occorre specificare l' 'Actor' target:"+loc() :
+	actualActor!=null;			
+	
+context RoleMappingPDefVal ERROR "occorre specificare il 'Role' target:"+loc() :
+	actualRole!=null;
+	
+context UCMappingPDefVal ERROR "occorre specificare lo 'UseCase' target:"+loc() :
+	actualUseCase!=null;
+
+context PanelDefUse if this.panelDef!=null && this.panelDef.params.size>0 ERROR 
+	"occorre valorizzare tutti i "+this.panelDef.params.size+" parametri del PanelDef:"+loc() :
+	this.config != null && this.config.paramValues.size == this.panelDef.params.size;	
+
+context PanelDef ERROR "Non è possibile utilizzare un PanelDefUse all'interno di un PanelDef:"+loc() :
+	this.eAllContents.typeSelect(PanelDefUse).size==0;
+
+// [AM] rimuovere il check quando sarà implementata la funzione
+context PanelDef ERROR "onRefreshCommand su PanelDef: feature non implementata:"+loc() :
+	this.onRefreshCommand == null;
+
+//////////////////////////////////////////////////////////////////////////////
+//// constraints su commands
+//////////////////////////////////////////////////////////////////////////////	
+context CommandOutcome ERROR "Un CommandOutcome deve avere associata un comando effettivo "+loc() :  
+	this.command != null;
+	
+context SequenceCommand ERROR "Una SequenceCommand deve prevedere almeno uno step nella sequenza di comandi "+loc() :
+	this.commands!= null && this.commands.size>0;
+
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpCommand "+loc() :
+	(this.commands.select(a|a.metaType == JumpCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpCommand).size==1) && (this.commands.last().metaType == JumpCommand)
+	;
+
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpExtCommand "+loc() :
+	(this.commands.select(a|a.metaType == JumpExtCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpExtCommand).size==1) && (this.commands.last().metaType == JumpExtCommand)
+	;
+
+context SequenceCommand ERROR "Solo l'ultimo step di un SequenceCommand può essere un JumpBackCommand "+loc() :
+	(this.commands.select(a|a.metaType == JumpBackCommand).size==0) ||
+	  (this.commands.select(a|a.metaType == JumpBackCommand).size==1) && (this.commands.last().metaType == JumpBackCommand);
+
+//context SequenceAction ERROR "Solo l'ultimo step di una SequenceAction può essere una ShowDialogAction "+loc() :
+//	(this.actions.select(a|a.metaType == ShowDialogAction).size==0) ||
+//	  (this.actions.select(a|a.metaType == ShowDialogAction).size==1) && (this.actions.last().metaType == ShowDialogAction);
+
+context CommandOnWidgets ERROR "I comandi che hanno come oggeto un widget devono essere associati ad almeno un widget "+loc() :
+	this.targetWidgets != null && this.targetWidgets.size>0;
+
+context RefreshViewCommand WARNING "I pannelli indicati come target di refresh non sono disgiunti; "+
+	"elenco dei pannelli che hanno almeno un contenitore già referenziato:"+getRefreshViewConflicts(this)+","+loc() :
+	let conflicts = getRefreshViewConflicts(this):
+	conflicts == null || conflicts.size == 0;
+
+context ContentPanel if (states!=null && states.states.size >0) WARNING "I widget "+getNeverShownWidgets().name
+		+" non sono mai visibili in nessuno ScreenState."+loc() :
+	let nsw = getNeverShownWidgets() :
+	nsw==null || nsw.size==0;
+
+context ContentPanel if (states!=null && states.states.size >0) WARNING "I widget "+getNeverEnabledWidgets().name
+		+" non sono mai abilitati in nessuno ScreenState."+loc() :
+	let nsw = getNeverEnabledWidgets() :
+	nsw==null || nsw.size==0;
+
+context ContentPanel if (this.onRefreshCommand != null) ERROR "La catena di comandi di 'onRefresh' del ContentPanel "+name+" non può terminare con JumpCommand o JumpExtCommand" :
+	let leafs = getLeafCommands(this.onRefreshCommand) :
+	leafs.select(c|c.metaType == JumpCommand || c.metaType == JumpExtCommand).size==0;
+ 	
+// le catene di comandi associate all' onAppInit devoono avere come foglie o un JumpCommand o un JumpExtCommand
+context ApplicationArea if (this.onInitCommand!=null) ERROR "la logica di inizializzazione dell'applicazione "+
+	" (ApplicationArea.onInitCommand) deve avere come esito ultimo solo comandi di Jump o JumpExt, invece contiene anche:"
+		+getLeafCommands().select(c|c.metaType != JumpCommand && c.metaType != JumpExtCommand)+"; "+loc():
+	let leafs = getLeafCommands() :
+	leafs == null || leafs.select(c|c.metaType != JumpCommand && c.metaType != JumpExtCommand).size==0;
+
+////////////////////////////////////////////////////////////////////////////////////////
+/// constraints su security model
+////////////////////////////////////////////////////////////////////////////////////////
+
+context SecurityModel ERROR "Occorre specificare il codice identificativo dell'applicazione per il sistema di sicurezza (es. id app. per IRIDE2) "+loc() :
+	this.securityAppID!=null;
+
+context OPAUTHSSO ERROR "I liveli minimi di autenticazione possibili sono: [1]=username+passwd, [2]=username+passwd+pin, [3]=certificato "+loc() :
+	this.minAuthLevel>=1 && this.minAuthLevel<=3;
+
+context CustomAuthentication ERROR "Il meccanismo di autenticazione custom non è attualmente implementato " :
+	false;
+
+context CustomSecurityConstraint ERROR "E' necessario specificare il nome del metodo: "+loc() :
+	!isNullOrEmpty(this.methodNameSuffix);
+
+context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel) ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
+"se non è specificato un metodo di AUTENTICAZIONE "+loc() :
+	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null ||
+	((GUIModel)this.eRootContainer).extSecurityModel.autenticationMethod != null;
+
+context UISecurityConstraint if (this.eRootContainer.metaType==AppModule) ERROR "Non è possibile specificare constraint di AUTORIZZAZIONE "+
+"se non è specificato un metodo di AUTENTICAZIONE "+loc() :
+	((AppModule)this.eRootContainer).extSecurityModel.autenticationMethod != null;
+
+
+	
+context Actor ERROR "E'necessario specificare il codice IRIDE2 dell'actor "+loc() :
+	code!=null;
+
+context Role ERROR "E'necessario specificare il codice IRIDE2 del role "+loc() :
+	code!=null;
+
+context UseCase ERROR "E'necessario specificare il codice IRIDE2 dello use-case "+loc() :
+	code!=null;
+	
+context UCBasedSecurityConstraint ERROR "E' necessario specificare lo use-case a cui il security constraint si riferisce "+loc() :
+	this.useCase!=null;
+
+context ActorBasedSecurityConstraint ERROR "E' necessario specificare l'actor a cui il security constraint si riferisce "+loc() :
+	this.actor!=null;
+
+context RoleBasedSecurityConstraint ERROR "E' necessario specificare il role a cui il security constraint si riferisce "+loc() :
+	this.role!=null;
+
+	
+context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint in cui il widget"+
+" deve essere abilitato e contemporaneamente invisibile "+loc() :
+	this.enabled==false || !(enabled==true && visible==true);
+
+context UISecurityConstraint ERROR "Non è possibile specificare un UI security constraint su un widget dichiarato required: "+loc() :
+	(DataWidget.isAssignableFrom(eContainer.metaType)?
+		(((DataWidget)eContainer).required==false) 
+		:
+	 	true
+	);
+
+/// verifica se sono presenti il tipo UserInfo e l'app data currentUser
+context GUIModel if (securityModel != null || extSecurityModel != null) ERROR "Se è presente l'autenticazione deve essere definito il tipo 'UserInfo'" :
+	((List[Type])getAllTypes(this)).findByName("UserInfo") != null;	
+	
+context GUIModel if (securityModel != null || extSecurityModel != null) ERROR "Se è presente l'autenticazione deve essere definito l'application data 'currentUser'" :
+	((List[ApplicationData])getAllApplicationData(this)).findByName("currentUser") != null;
+
+
+// check di referenziazione dell'Appdata currentUser dai pannelli interni al GUIModel
+context ContentPanel if (eRootContainer.metaType==GUIModel) ERROR "Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\"" :
+	((GUIModel)this.eRootContainer).securityModel==null ||
+	appData.select(ab|ab.name=="currentUser").size==1;
+
+// check di referenziazione dell'appdata current user dai pannelli inclusi (usa feature avanzate di extend!)
+context ApplicationArea if (extModules.size>0 && ((GUIModel)eRootContainer).securityModel!=null) ERROR 
+"Se è presente l'autenticazione ogni content panel deve referenziare l'application data \"currentUser\""+
+"- pannelli ch enon referenziano:"+extModules.contentPanels.select(cp|cp.appData.select(ab|ab.name=="currentUser").size==0).name :
+	extModules.contentPanels.appData.select(ab|ab.name=="currentUser").size==extModules.contentPanels.size;
+	
+context ApplicationArea ERROR "E' necessario specificare una MenuBar (anche vuota) nell'ApplicationArea"+loc() :
+	menubar != null;	
+	
+///// ActivationModel
+
+context ActivationParam ERROR "E'necessario specificare il nome del paramtero di attivazione:"+loc() :
+	!isNullOrEmpty(name);
+
+context ActivationParam ERROR "E'necessario specificare il tipo del parametro di attivazione:"+loc() :
+	type != null;
+	
+/// check per evitare che i parametri vadano in conflitto con app data o property implicite dei widget
+context ActivationParam if (!isNullOrEmpty(name))ERROR "Un paramtero di attivazione non puo avere un nome che inizia con 'AppData/appData' o 'widg_/Widg_':"+loc() :
+	!name.toLowerCase().startsWith("appdata") && !name.toLowerCase().startsWith("widg_");
+	
+///// Custom cartridges
+context CustomCartridge WARNING "La cartuccia non definisce nessun template" :
+	templates.size>0;
+
+context CustomCartridge ERROR "E'necessario specificare il nome della cartuccia:" + loc() :
+	!isNullOrEmpty(name);
+
+context CustomCartridge ERROR "E' necessario specificare l'ID della cartuccia:" + loc() :
+	crtID != null;
+
+context CustomTemplate ERROR "E'necessario impostare l'ID del template:"+loc() :
+	!isNullOrEmpty(tplID); 
+
+context CustomTemplate ERROR "E'necessario impostare il nome del template:"+loc() :
+	!isNullOrEmpty(name);
+
+	

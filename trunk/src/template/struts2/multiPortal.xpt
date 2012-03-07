@@ -1,0 +1,646 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+
+«REM»
+**************************************************************************************************************************
+Gestione delle applicazioni MultiPortale
+*************************************************************************************************************************
+«ENDREM»
+
+
+«REM»Entry point per la generazione delle classi di gestione del multiportale«ENDREM»
+«DEFINE multiPortalClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND multiPortalFilterClassesFiles(skip_component_dir_creation) FOR this»
+	«EXPAND multiPortalUtilJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND multiPortalInfoResolverClassesFiles(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+MultiPortal Filters
+===========================================================================================================================
+«ENDREM»
+
+«DEFINE multiPortalFilterClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND whereAreYouFromRequestAdapterFilterJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND whereAreYouFromFilterJavaFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE whereAreYouFromRequestAdapterFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromRequestAdapterFilter.java" »package «getFiltersJavaPackage(this)»;
+
+import «getMultiPortalUtilsJavaPackage(this)».*;
+import «getBaseJavaPackage(this)».util.*;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+/**
+ * Gestisce la provenienza dell'utente (multiportale).
+ *
+ * @author CSIPiemonte
+ */
+public class WhereAreYouFromRequestAdapterFilter implements Filter {
+
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
+
+
+	private String infoSourceType;
+
+	private String infoSourceName;
+
+	private Map<String, String> valueMap;
+
+
+	public void init(FilterConfig config) throws ServletException {
+		infoSourceType = config.getInitParameter("infoSourceType");
+		infoSourceName = config.getInitParameter("infoSourceName");
+		valueMap = setValueMap(config);
+	}
+
+
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletResponse hresp = (HttpServletResponse) resp;
+
+		// la pagina di errore deve essere esclusa
+		if (!MultiPortalUtil.mustCheckPage(hreq.getRequestURI())) {
+			fchn.doFilter(req, resp);
+			return;
+		}
+
+
+
+		if (!MultiPortalUtil.isSetCookie(MultiPortalUtil.MDD_PORTAL_COOKIE_NAME, hreq.getCookies())) {
+			// REPERISCO l'informazione secondo il metodo configurato
+			String portal = null;
+
+
+			try {
+				portal = getResolver().resolve(infoSourceName, hreq);
+			} catch (Exception e) {
+				// resolver non trovato secondo la configurazione: ERRORE
+				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Type resolver sconosciuto. infoSourceType:" +
+						infoSourceType);
+				hresp.sendRedirect(MultiPortalUtil.ERROR_ACTION);
+				return;
+			}
+
+			if (StringUtils.isBlank(portal)) {
+				// informazione non trovata secondo il metodo indicato: ERRORE
+				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] Informazione sul portale non reperibile. infoSourceType:" +
+						infoSourceType + " infoSourceName:" + infoSourceName);
+				hresp.sendRedirect(MultiPortalUtil.ERROR_ACTION);
+				return;
+			}
+
+
+			// L'informazione ESISTE: la DECODIFICO
+			String decodedPortal = decodePortalInfo(portal);
+			if (decodedPortal != null) {
+				// setto l'informazione in request in modo che il filtro WhereAreYouFromFilter possa leggerlo
+				hreq.setAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE, decodedPortal);
+				log.info("[WhereAreYouFromRequestAdapterFilter::doFilter] Portale decodificato : " + decodedPortal);
+				fchn.doFilter(req, resp);
+				return;
+			} else {
+				log.error("[WhereAreYouFromRequestAdapterFilter::doFilter] informazione non decodificabile " + portal);
+				hresp.sendRedirect(MultiPortalUtil.ERROR_ACTION);
+				return;
+			}
+		}
+
+		// se il cookie di portale MDD esiste ed e' valido, posso proseguire
+		fchn.doFilter(req, resp);
+	}
+
+
+	public void destroy() {
+		// NOTHING TO DO HERE
+	}
+
+
+	@SuppressWarnings("unchecked")
+	private Map<String, String> setValueMap(FilterConfig config) {
+		Map<String, String> map = new HashMap<String, String>();
+
+		List<String> paramNames = Collections.list((Enumeration<String>)config.getInitParameterNames());
+		for (String p : paramNames) {
+			if (p.startsWith("key.")) {
+				map.put(config.getInitParameter(p), p.substring(4));
+			}
+		}
+
+		return map;
+	}
+
+	private String decodePortalInfo(String portalInfo) {
+		String res = null;
+		if (StringUtils.isNotBlank(portalInfo)) {
+			res = valueMap.get(portalInfo);
+		}
+		return res;
+	}
+
+	private InfoResolver getResolver() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		String className = "«getMultiPortalUtilsJavaPackage(this)»." + infoSourceType + "InfoResolver";
+		Class c = Class.forName(className);
+		return (InfoResolver)c.newInstance();
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE whereAreYouFromFilterJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getFiltersJavaSrcDir(this, skip_component_dir_creation) + "/WhereAreYouFromFilter.java" »package «getFiltersJavaPackage(this)»;
+
+import «getMultiPortalUtilsJavaPackage(this)».*;
+import «getBaseJavaPackage(this)».util.*;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+/**
+ * Gestisce la provenienza dell'utente (multiportale).
+ *
+ * @author CSIPiemonte
+ */
+public class WhereAreYouFromFilter implements Filter {
+
+	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".presentation");
+
+
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletResponse hresp = (HttpServletResponse) resp;
+
+		// la risorsa richiesta deve essere esclusa
+		if (!MultiPortalUtil.mustCheckPage(hreq.getRequestURI())) {
+			fchn.doFilter(req, resp);
+			return;
+		}
+
+		// il cookie di portale MDD esiste?
+		if (!MultiPortalUtil.isSetCookie(MultiPortalUtil.MDD_PORTAL_COOKIE_NAME, hreq.getCookies())) {
+			log.info("[WhereAreYouFromFilter::doFilter] COOKIE DI PORTALE NON SETTATO => DEVO SETTARLO");
+
+			if (hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE) != null) {
+				String decodedPortal = (String)hreq.getAttribute(MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE);
+
+				// setto il cookie MDD
+				Cookie portalInfo = new Cookie(MultiPortalUtil.MDD_PORTAL_COOKIE_NAME, decodedPortal);
+				portalInfo.setPath(hreq.getContextPath());
+				portalInfo.setMaxAge(-1); // scadenza sessione browser
+
+				// setto il cookie MDD
+				hresp.addCookie(portalInfo);
+				
+				// i parametri di sessione sono settati?
+				if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
+					log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+					
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, decodedPortal);
+					
+					String channelName = MultiPortalUtil.getChannelName(decodedPortal);
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_CHANNEL_SESSIONATTR, channelName);
+
+					String portalHome = hreq.getSession().getServletContext().getInitParameter("portal.home." + decodedPortal);
+					hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_HOME_SESSIONATTR, portalHome != null && portalHome.length() > 0 ? portalHome : "#");
+				}				
+
+				fchn.doFilter(req, resp);
+				return;
+			} else {
+				// NO parametro: ERRORE
+				log.error("[WhereAreYouFromFilter::doFilter] ERRORE: REQUEST ATTRIBUTE " + MultiPortalUtil.PORTAL_REQUEST_ATTRIBUTE + " MANCANTE");
+				hresp.sendRedirect(MultiPortalUtil.ERROR_ACTION);
+				return;
+			}
+		} else {
+			// il cookie esiste: i parametri in sessione sono settati ?
+			if (hreq.getSession().getAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR) == null) {
+				log.info("[WhereAreYouFromFilter::doFilter] PARAMETRI DI SESSIONE NON SETTATI => DEVO SETTARLI");
+			
+				String portalName = MultiPortalUtil.getResourceProvider(hreq.getCookies());
+				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_SESSIONATTR, portalName);
+
+				String channelName = MultiPortalUtil.getChannelName(portalName);
+				hreq.getSession().setAttribute(MultiPortalUtil.MDD_CHANNEL_SESSIONATTR, channelName);
+
+				String portalHome = hreq.getSession().getServletContext().getInitParameter("portal.home."+portalName);
+				hreq.getSession().setAttribute(MultiPortalUtil.MDD_PORTAL_HOME_SESSIONATTR, 
+						portalHome!= null && portalHome.length() > 0 ? portalHome : "#");
+			}
+		}
+
+		// se il cookie di portale MDD esiste ed e' valido, 
+		// se i parametri in sessione esistono,
+		// allora posso proseguire
+		fchn.doFilter(req, resp);
+	}
+
+
+	public void init(FilterConfig config) throws ServletException {
+		// NOTHING TO DO HERE
+	}
+
+	public void destroy() {
+		// NOTHING TO DO HERE
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+MultiPortal Util
+===========================================================================================================================
+«ENDREM»
+
+«DEFINE multiPortalUtilJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/MultiPortalUtil.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+
+import org.apache.commons.lang.StringUtils;
+
+/**
+ * <p>Classe di utilit&agrave; per la gestione del Multiportale.</p>
+ *
+ * @author CSIPiemonte
+ */
+public class MultiPortalUtil {
+
+	public static final String PORTAL_REQUEST_ATTRIBUTE = "portal";
+
+	public static final String MDD_PORTAL_COOKIE_NAME = "MDDPORTAL";
+	
+	public static final String MDD_PORTAL_SESSIONATTR = "MDD_PORTAL_CODE";
+	public static final String MDD_CHANNEL_SESSIONATTR = "MDD_CHANNEL_CODE";
+	public static final String MDD_PORTAL_HOME_SESSIONATTR = "MDD_PORTAL_HOME";
+
+	public static final String ERROR_ACTION = "unknownPortal«getStrutsActionCompleteExtension()»";
+	public static final String ERROR_PAGE = "unknownPortal.jsp";
+	
+	public static final String DEFAULT_CHANNEL_NAME = "general";
+
+	@SuppressWarnings("serial")
+	private static final Map<String, String> AVAILABLE_CHANNEL_NAMES =
+	    Collections.unmodifiableMap(new HashMap<String, String>() {{
+	    «FOREACH this.targetPlatform.portalExpositions AS exp-»
+	    	put("«exp.portal.resourceProviderCode»", "«!isNullOrEmpty(exp.areaCode) ? exp.areaCode : "general"»");
+	    «ENDFOREACH-»
+	    }});
+
+
+
+	public static boolean isSetCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
+
+
+	public static boolean mustCheckPage(String requestURI) {
+		if (requestURI.indexOf(ERROR_ACTION) > -1
+				|| requestURI.indexOf(ERROR_PAGE) > -1
+				«EXPAND mustCheckPageExtraConditions(this) FOR getActualSecurityModel(this).autenticationMethod-») {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	public static String getResourceProvider(Cookie[] cookies) {
+		return getPortalName(getCookie(MDD_PORTAL_COOKIE_NAME, cookies));
+	}
+
+
+	public static String getChannelName(String portal) {
+		String channelName = AVAILABLE_CHANNEL_NAMES.get(portal);
+		if (StringUtils.isBlank(channelName)) {
+			channelName = DEFAULT_CHANNEL_NAME;
+		}
+		return channelName;
+	}
+	
+	public static String getStaticResource(String url, String portal) {
+		return url.replace("{areaCode}", getChannelName(portal));
+	}
+
+
+	private static String getPortalName(Cookie cookie) {
+		String res = "";
+		if (cookie != null) {
+			res = cookie.getValue();
+		}
+		return res;
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE mustCheckPageExtraConditions(GUIModel model) FOR AutenticationMethod-»
+«ENDDEFINE»
+
+«DEFINE mustCheckPageExtraConditions(GUIModel model) FOR ShibbolethSSO-»
+|| requestURI.indexOf("/?") > -1
+|| requestURI.endsWith("/")
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+MultiPortal Info Resolver Classes
+===========================================================================================================================
+«ENDREM»
+
+«DEFINE multiPortalInfoResolverClassesFiles(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND infoResolverInterfaceJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND cookieResolverJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND requestParamResolverJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND headerResolverJavaFile(skip_component_dir_creation) FOR this»
+«ENDDEFINE»
+
+«DEFINE infoResolverInterfaceJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/InfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Interfaccia che descrive un resolver di informazioni multiportale.
+ *
+ * @author CSIPiemonte
+ */
+public interface InfoResolver {
+	public String resolve(String infoSourceName, HttpServletRequest hreq);
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE cookieResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/CookieInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Resolver di informazioni multiportale via Cookie.
+ *
+ * @author CSIPiemonte
+ */
+public class CookieInfoResolver implements InfoResolver {
+
+	public String resolve(String infoSourceName, HttpServletRequest hreq) {
+		Cookie c = MultiPortalUtil.getCookie(infoSourceName, hreq.getCookies());
+		if (c != null) {
+			return c.getValue();
+		}
+		return null;
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE requestParamResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/RequestParamInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Resolver di informazioni multiportale via parametro di request.
+ *
+ * @author CSIPiemonte
+ */
+public class RequestParamInfoResolver implements InfoResolver {
+
+	public String resolve(String infoSourceName, HttpServletRequest hreq) {
+		return hreq.getParameter(infoSourceName);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE headerResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/HeaderInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Resolver di informazioni multiportale via Header HTTP.
+ *
+ * @author CSIPiemonte
+ */
+public class HeaderInfoResolver implements InfoResolver {
+
+	public String resolve(String infoSourceName, HttpServletRequest hreq) {
+		return hreq.getHeader(infoSourceName);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
+===========================================================================================================================
+«ENDREM»
+
+«REM»Replacent delle variabili di resource provider nel file build.xml«ENDREM»
+«DEFINE buildXmlResourceProviderReplacement FOR GUIModel»
+«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@remincl.resource.provider.«code»@@@" value="${remincl.resource.provider.«code»}"/>
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" token="@@@portal.home.«code»@@@"  value="${portal.home.«code»}"/>
+«ENDFOREACH-»
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-900: replacement delle variabili del local logout nel file build.xml«ENDREM»
+«DEFINE buildXmlLocalLogoutReplacement FOR GUIModel»
+«FOREACH this.targetPlatform.portalExpositions.portal.resourceProviderCode AS code-»
+<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+	token="@LOCAL_LOGOUT_URL.«code»@"  
+	value="${local.logout.url.«code»}"/>
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«REM»Definizione e mapping dei filtri per il "Where Are You From"«ENDREM»
+«DEFINE multiportalFiltersDefAndMapping FOR GUIModel»
+	<filter>
+		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
+		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromRequestAdapterFilter</filter-class>
+		«EXPAND infoSourceTypeAndName FOR this-»
+		«FOREACH this.targetPlatform.portalExpositions.portal AS profile-»
+		<init-param>
+			<param-name>key.«profile.resourceProviderCode»</param-name>
+			<param-value>«profile.whereAreYouFromPortalCode»</param-value>
+		</init-param>
+		«ENDFOREACH-»
+	</filter>	
+	<filter>
+		<filter-name>WhereAreYouFrom</filter-name>
+		<filter-class>«getFiltersJavaPackage()».WhereAreYouFromFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WhereAreYouFromRequestAdapter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WhereAreYouFrom</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WhereAreYouFrom</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+«ENDDEFINE»
+
+
+«REM»Init params dei filtri "Where Are you From" per InfoSource Type (dove e' contenuta l'informazione) e Name (nome del detentore dell'informazione)«ENDREM»
+«DEFINE infoSourceTypeAndName FOR GUIModel»
+«LET getActualSecurityModel(this) AS secModel-»
+	«IF secModel == null-»
+		«EXPAND defaultInfoSourceTypeAndName FOR this-»
+	«ELSE-»
+		«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
+	«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«REM»Init params InfoSource Type e Name di DEFAULT (NO AUTHENTICATION)«ENDREM»
+«DEFINE defaultInfoSourceTypeAndName FOR GUIModel»
+	<init-param>
+		<param-name>infoSourceType</param-name>
+		<param-value>RequestParam</param-value>
+	</init-param>
+	<init-param>
+		<param-name>infoSourceName</param-name>
+		<param-value>PORTALE</param-value>
+	</init-param>
+«ENDDEFINE»
+
+«REM»Init params InfoSource Type e Name per altri metodi di autenticazione (da inserire quando necessario)«ENDREM»
+«DEFINE infoSourceTypeAndName FOR AutenticationMethod»
+	«ERROR "ERRORE MULTIPORTALE: infoSourceType e infoSourceName non definiti per il metodo di autenticazione " + this.metaType.name»
+«ENDDEFINE»
+
+«REM»Init params InfoSource Type e Name per SSO Shibboleth«ENDREM»
+«DEFINE infoSourceTypeAndName FOR ShibbolethSSO»
+	<init-param>
+		<param-name>infoSourceType</param-name>
+		<param-value>Cookie</param-value>
+	</init-param>
+	<init-param>
+		<param-name>infoSourceName</param-name>
+		<param-value>PORTALE</param-value>
+	</init-param>
+«ENDDEFINE»
+
+
+«REM»Metodi per la gestione del MultiPortale da inserire nella base action«ENDREM»
+«DEFINE baseActionMethods FOR GUIModel»
+	////////////////////////////////////////////////////////////////////////
+	// Gestione Multiportale
+	
+	public String getPortalCode() {
+		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_PORTAL_SESSIONATTR);
+	}
+
+	public String getChannelCode() {
+		return (String) session.get(«getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.MDD_CHANNEL_SESSIONATTR);
+	}
+
+	public String getStaticResource(String url) {
+		return «getMultiPortalUtilsJavaPackage(this)».MultiPortalUtil.getStaticResource(url, getPortalCode());
+	}
+«ENDDEFINE»

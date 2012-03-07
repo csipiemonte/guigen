@@ -1,0 +1,87 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import guigen;
+import ecore;
+extension template::GenericExtensions;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte                    //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+String getMenuNoChildCssRupar(Menu menu, int level) :
+	"<s:if test=\"isMenuActive('"+menu.name+"')\"> class=\"on\"</s:if>";
+
+//
+String getMenuNoChildLinkCssRupar(Menu menu, int level) :
+	"";
+
+//
+String getMenuNoChildLabelRupar(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+//
+String getMenuWithChildCssRupar(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLinkCssRupar(Menu menu, int level) :
+	"";
+
+//
+String getMenuWithChildLabelRupar(Menu menu, int level) :
+	"<s:text name=\"" + menu.name + ".label\" />";
+
+// [DM]
+String getTabSwitcherStyleByLayoutRupar() :
+	"cssClass=\"disattivo\" onmouseover=\"javascript:overOutHandler(this, 'disattivoHover');\" onmouseout=\"javascript:overOutHandler(this, 'disattivo');\"";
+
+// [DM] STDMDD-367: TabSwitcher (necessario in OLD Rupar, ma generalizzato... non si sa mai)
+boolean hasTabsetOrWizardRupar(ContentPanel cp) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.hasTabsetOrWizard(it.csi.mddtools.guigen.ContentPanel);
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+/// Estensioni specifiche per il framework Struts2 e layout RuparPiemonte usate in AOP       //
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// [DM] restituisce il numero di colonne del layout
+int getColumnsLayoutRupar(FormPanel firstLevPanel, GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.getColumnsLayout(it.csi.mddtools.guigen.FormPanel, it.csi.mddtools.guigen.GUIModel);
+
+// [DM]
+String getButtonStyleByLayoutRupar(GUIModel model, Button b) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.getButtonStyleByLayout(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.Button);
+
+// [DM] Restituisce lo stile di un MsgBoxPanel
+String getMsgBoxPanelStyleByPortalRupar(GUIModel model, MsgBoxPanel mbp) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.getMsgBoxPanelStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.MsgBoxPanel);
+
+// [DM]  Restituisce la classe per un CheckBox
+// nota: deve rimanere in Java perché viene utilizzato anche da Java
+String getCheckboxPortalStyleRupar(GUIModel model) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
+
+// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
+String getCustomtagHeaderColspanRupar(WidgetsPanel wp, Widget w) : JAVA
+	it.csi.mddtools.guigen.genutils.rupar.GenUtilsLayoutRupar.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
