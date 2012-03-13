@@ -99,7 +99,9 @@ import it.csi.mddtools.guigen.WizardPanel;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -247,7 +249,7 @@ public class GenUtils {
 			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
 			} else if(widget instanceof Menu) {
-				return null; // .. in realtà non è un pannello
+				return null; // .. in realtï¿½ non ï¿½ un pannello
 			}
 			return findParentContentPanel((Panel)panel);
 		}
@@ -305,7 +307,7 @@ public class GenUtils {
 			return (ContentPanel)parent;
 		}
 		else if (parent instanceof PanelDef) {
-			return null; // il pannello è contenuto in un panel def
+			return null; // il pannello ï¿½ contenuto in un panel def
 		}
 		else {
 			return findParentContentPanel((Panel)parent);
@@ -332,7 +334,7 @@ public class GenUtils {
 			if(panel instanceof RadioButtons) {
 				panel = panel.eContainer();
 			} else if(widget instanceof Menu) {
-				return null; // .. in realtà non è un pannello
+				return null; // .. in realtï¿½ non ï¿½ un pannello
 			}
 			return findParentPanelDef((Panel)panel);
 		}
@@ -717,7 +719,7 @@ public class GenUtils {
 	}
 
 	/**
-	 * setta nel contesto la proprietà passata
+	 * setta nel contesto la proprietï¿½ passata
 	 * @param name
 	 * @param val
 	 */
@@ -876,7 +878,7 @@ public class GenUtils {
 	/**
 	 * 
 	 * @param jc
-	 * @return true se jc è in un ramo di content panel e il jump è a quel content panel
+	 * @return true se jc ï¿½ in un ramo di content panel e il jump ï¿½ a quel content panel
 	 */
 	public static boolean jumpToSameContentPanel(JumpCommand jc){
 		ContentPanel cp = findParentContentPanel(jc);
@@ -1034,7 +1036,7 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<ContentPanel> getAllPossibleJumps(DialogPanel p) {
-		// Un dialog panel può contenere jump solo nel command panel
+		// Un dialog panel puï¿½ contenere jump solo nel command panel
 		if (p.getCommands() != null) {
 			return getAllPossibleJumps(p.getCommands());
 		} else {
@@ -1321,7 +1323,7 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<JumpExtCommand> getAllPossibleExtJumps(DialogPanel p) {
-		// Un dialog panel può contenere jump solo nel command panel
+		// Un dialog panel puï¿½ contenere jump solo nel command panel
 		if (p.getCommands() != null) {
 			return getAllPossibleExtJumps(p.getCommands());
 		} else {
@@ -1592,7 +1594,7 @@ public class GenUtils {
 	 * @return
 	 */
 	public static List<DialogPanel> getAllPossibleShowDialogs(DialogPanel p) {
-		// Un DialogPanel può contenere showDialog solo nel command panel (ha senso?)
+		// Un DialogPanel puï¿½ contenere showDialog solo nel command panel (ha senso?)
 		if ( p.getCommands() != null ) {
 			return getAllPossibleShowDialogs(p.getCommands());
 		} else {
@@ -1944,15 +1946,25 @@ public class GenUtils {
 	 * @return
 	 */
 	public static ArrayList<ApplicationData> findAllActionScopedAppData(Command a){
-		if (a instanceof SequenceCommand)
-			return findAllActionScopedAppData((SequenceCommand)a);
-		else if (a instanceof ExecCommand)
-			return findAllActionScopedAppData((ExecCommand)a);
-		else if (a instanceof ChkEditStatusCommand)
-			return findAllActionScopedAppData((ChkEditStatusCommand)a);
+		ArrayList<ApplicationData> result = new ArrayList<ApplicationData>();
+		if (a instanceof SequenceCommand){
+			result = findAllActionScopedAppData((SequenceCommand)a);
+			return (null!=result && !result.isEmpty())? new ArrayList(new HashSet<ApplicationData>(result)):result;
+		}
+		
+		else if (a instanceof ExecCommand){
+			result = findAllActionScopedAppData((ExecCommand)a);
+			return (null!=result && !result.isEmpty())? new ArrayList(new HashSet<ApplicationData>(result)):result;
+		}
+			
+		else if (a instanceof ChkEditStatusCommand){
+			result = findAllActionScopedAppData((ChkEditStatusCommand)a);
+			return (null!=result && !result.isEmpty())? new ArrayList(new HashSet<ApplicationData>(result)):result;
+		}
 		else
 			return null;
 	}
+	
 
 	/**
 	 *
@@ -1969,9 +1981,9 @@ public class GenUtils {
 				result.addAll(parz);
 			}
 		}
-		return result;
+		return (null!=result && !result.isEmpty())? new ArrayList(new HashSet<ApplicationData>(result)):result;
 	}
-
+	
 	/**
 	 *
 	 * @param m
@@ -2145,8 +2157,8 @@ public class GenUtils {
 	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
 	 * PanelDef che definisce il pannello che contiene widget... 
 	 * @return il binding definito dalla configurazione se il widget &egrave; un widget appartenente ad 
-	 * un panel def, il binding originario se il widget è un widget direttamente incluso in un 
-	 * ContentPanel (nel qual caso pduConf è nullo) 
+	 * un panel def, il binding originario se il widget ï¿½ un widget direttamente incluso in un 
+	 * ContentPanel (nel qual caso pduConf ï¿½ nullo) 
 	 */
 	public static AppDataBinding getResolvedAppDatabinding(AppDataBinding original, PDefUseConfig pduConf) {
 		//
@@ -2330,9 +2342,9 @@ public class GenUtils {
 	 * @param original l'actor originale 
 	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
 	 * PanelDef che definisce il pannello che contiene widget... 
-	 * @return l'actor definito dalla configurazione se il widget è un widget appartenente ad 
-	 * un panel def, l'acotr originario se il widget è un widget direttamente incluso in un 
-	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 * @return l'actor definito dalla configurazione se il widget ï¿½ un widget appartenente ad 
+	 * un panel def, l'acotr originario se il widget ï¿½ un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf ï¿½ nullo) 
 	 */
 	public static Actor getResolvedActor(Actor original, PDefUseConfig pduConf){
 		//
@@ -2395,9 +2407,9 @@ public class GenUtils {
 	 * @param original l'use case originale 
 	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
 	 * PanelDef che definisce il pannello che contiene widget... 
-	 * @return l'use case definito dalla configurazione se il widget è un widget appartenente ad 
-	 * un panel def, l'use case originario se il widget è un widget direttamente incluso in un 
-	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 * @return l'use case definito dalla configurazione se il widget ï¿½ un widget appartenente ad 
+	 * un panel def, l'use case originario se il widget ï¿½ un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf ï¿½ nullo) 
 	 */
 	public static UseCase getResolvedUseCase(UseCase original, PDefUseConfig pduConf){
 		//
@@ -2460,9 +2472,9 @@ public class GenUtils {
 	 * @param original il role originale 
 	 * @param pduConf la configurazione (opzionale) dell'eventuale PanelDefUse che referenzia il 
 	 * PanelDef che definisce il pannello che contiene widget... 
-	 * @return il role case definito dalla configurazione se il widget è un widget appartenente ad 
-	 * un panel def, il role originario se il widget è un widget direttamente incluso in un 
-	 * ContnetPanel (nel qual caso pduConf è nullo) 
+	 * @return il role case definito dalla configurazione se il widget ï¿½ un widget appartenente ad 
+	 * un panel def, il role originario se il widget ï¿½ un widget direttamente incluso in un 
+	 * ContnetPanel (nel qual caso pduConf ï¿½ nullo) 
 	 */
 	public static Role getResolvedRole(Role original, PDefUseConfig pduConf){
 		//
@@ -2596,7 +2608,7 @@ public class GenUtils {
 
 
 	/**
-	 * Restituisce il campo per l'editabilità di una colonna della tabella
+	 * Restituisce il campo per l'editabilitï¿½ di una colonna della tabella
 	 * @param currCol
 	 * @param table
 	 * @param model
@@ -2790,7 +2802,7 @@ public class GenUtils {
 	 *                PanelDef che definisce il pannello che contiene la tabella... 
 	 * @return la nuova lista delle colonne customizzata secondo quanto definito dalla configurazione se la Table 
 	 *         appartiene ad un PanelDef, la lista originaria delle colonne del ColumnModel se la tabella &egrave; direttamente 
-	 *         inclusa in un ContentPanel (nel qual caso pduConf è nullo) 
+	 *         inclusa in un ContentPanel (nel qual caso pduConf ï¿½ nullo) 
 	 * @author [DM] STDMDD-446
 	 */
 	public static List<Column> getCustomizedColumnsList(Table table, PDefUseConfig pduConf) {
@@ -2800,14 +2812,14 @@ public class GenUtils {
 		// cerco se esiste una customizzazione per questa tabella
 		TableCustomizationPDefVal cust = findTableCustomizationParamInConfig(table, pduConf);
 			
-		// Se c'è una customizzazione per questa tabella calcolo la nuova lista delle colonne
+		// Se c'ï¿½ una customizzazione per questa tabella calcolo la nuova lista delle colonne
 		if (cust != null) 
 		{
 			// creo due mappe di lavoro: 
 			// - una LOGICA che rappresenta la posizione originale delle colonne nel ColumnModel della Table
 			// - una FISICA che rappresenta la posizione attuale ricoperta dalle colonne del ColumnModel in seguito
 			//     all'aggiunta di nuove colonne
-			// La prima mappa non verrà mai variata 
+			// La prima mappa non verrï¿½ mai variata 
 			Map<Column, Integer> workmapLogical = new HashMap<Column, Integer>();
 			Map<Column, Integer> workmapPhysical = new HashMap<Column, Integer>();
 			int i = 0;
@@ -2830,10 +2842,10 @@ public class GenUtils {
 					{
 						// colonna da inserire in una posizione specificata
 						originalLogicalPos = workmapLogical.get(extraColumn.getInsertAfter()); // posizione logica della colonna dopo la quale					
-						                                                                       // andrà inserita la nuova colonna
+						                                                                       // andrï¿½ inserita la nuova colonna
 						
 						// devo tradurre la posizione logica in posizione fisica 
-						// (eventuali colonne già aggiunte dopo questa colonna in iterazioni precedenti)
+						// (eventuali colonne giï¿½ aggiunte dopo questa colonna in iterazioni precedenti)
 						// quindi cerco la colonna che occupa la posizione logica che dovrebbe essere occupata
 						// dalla nuova tabella
 						newLogicalPos = originalLogicalPos + 1;
@@ -2857,7 +2869,7 @@ public class GenUtils {
 					}
 					
 					
-					// recupero la posizione fisica della colonna : sarà la posizione fisica della nuova colonna
+					// recupero la posizione fisica della colonna : sarï¿½ la posizione fisica della nuova colonna
 					if (cc != null) {
 						// colonna trovata 
 						originalPhisicalPos = workmapPhysical.get(cc);
