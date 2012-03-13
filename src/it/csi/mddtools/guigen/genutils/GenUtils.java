@@ -88,7 +88,6 @@ import it.csi.mddtools.guigen.TypeNamespace;
 import it.csi.mddtools.guigen.TypedArray;
 import it.csi.mddtools.guigen.Typedefs;
 import it.csi.mddtools.guigen.UCMappingPDefVal;
-import it.csi.mddtools.guigen.UDLRCSpecConstants;
 import it.csi.mddtools.guigen.UISecurityConstraint;
 import it.csi.mddtools.guigen.UseCase;
 import it.csi.mddtools.guigen.UseCaseMappingParam;
@@ -97,11 +96,11 @@ import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 import it.csi.mddtools.guigen.WizardPanel;
-import it.csi.mddtools.guigen.impl.UDLRCWidgetLayoutSpecImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1946,12 +1945,19 @@ public class GenUtils {
 	 * @return
 	 */
 	public static ArrayList<ApplicationData> findAllActionScopedAppData(Command a){
-		if (a instanceof SequenceCommand)
-			return findAllActionScopedAppData((SequenceCommand)a);
-		else if (a instanceof ExecCommand)
-			return findAllActionScopedAppData((ExecCommand)a);
-		else if (a instanceof ChkEditStatusCommand)
-			return findAllActionScopedAppData((ChkEditStatusCommand)a);
+		ArrayList<ApplicationData> result = new ArrayList<ApplicationData>();
+		if (a instanceof SequenceCommand){
+			result = findAllActionScopedAppData((SequenceCommand) a);
+			return (null != result && !result.isEmpty()) ? new ArrayList(new HashSet<ApplicationData>(result)) : result;
+		}
+		else if (a instanceof ExecCommand){
+			result = findAllActionScopedAppData((ExecCommand) a);
+			return (null != result && !result.isEmpty()) ? new ArrayList(new HashSet<ApplicationData>(result)) : result;
+		}
+		else if (a instanceof ChkEditStatusCommand){
+			result = findAllActionScopedAppData((ChkEditStatusCommand) a);
+			return (null != result && !result.isEmpty()) ? new ArrayList(new HashSet<ApplicationData>(result)) : result;
+		}
 		else
 			return null;
 	}
@@ -1971,7 +1977,7 @@ public class GenUtils {
 				result.addAll(parz);
 			}
 		}
-		return result;
+		return (null!=result && !result.isEmpty())? new ArrayList(new HashSet<ApplicationData>(result)):result;
 	}
 
 	/**
