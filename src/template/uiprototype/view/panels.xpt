@@ -1,23 +1,20 @@
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
-«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
+Â«EXTENSION template::uiprototype::FatClientPrototypeExtensionsÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanel»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp) FOR TabSetPanelÂ»
 			new ExtCsi.ui.panels.TabSetPanel(
 				{
-					«EXPAND template::fatjs::view::panels::panelCommonProperties(model) FOR this»,
-					switcher: «IF switcher != null»«EXPAND template::fatjs::view::widgets::widgetStruct(model, cp) FOR switcher»«ELSE»null«ENDIF»,
-					panels: [«EXPAND template::fatjs::view::panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","»]
+					Â«EXPAND template::fatjs::view::panels::panelCommonProperties(model) FOR thisÂ»,
+					switcher: Â«IF switcher != nullÂ»Â«EXPAND template::fatjs::view::widgets::widgetStruct(model, cp) FOR switcherÂ»Â«ELSEÂ»nullÂ«ENDIFÂ»,
+					panels: [Â«EXPAND template::fatjs::view::panels::panelStruct(model, cp) FOREACH panels SEPARATOR ","Â»]
 				}
 			)
-			
-«FILE getWebDir(model)+cp.name+"!execChangeTab.do"»
+
+Â«FILE getWebDir(model)+cp.name+"!execChangeTab.do"Â»
     {"fldErrors":{},"globalErrors":[],"globalMessages":[],"model":{},"resultCode":"Ok"}
-«ENDFILE»			
-«ENDDEFINE»
-
-
-
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
