@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,126 +13,133 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION org::eclipse::xtend::util::stdlib::naming»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION org::eclipse::xtend::util::stdlib::namingÂ»
 
 
-«DEFINE ajaxifyControlHeader FOR Widget»
-	«ERROR "widget "+this+" non ajaxificabile"»
-«ENDDEFINE»
+Â«DEFINE ajaxifyControlHeader FOR WidgetÂ»
+	Â«ERROR "widget "+this+" non ajaxificabile"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR Widget»
-	«ERROR "widget "+this+" non ajaxificabile"»
-«ENDDEFINE»
+Â«DEFINE ajaxifyControlFooter FOR WidgetÂ»
+	Â«ERROR "widget "+this+" non ajaxificabile"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR Button-»
-	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+Â«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR Button-Â»
+	Â«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-Â»
+	<csiuicore:ajaxify id="Â«FOREACH ids AS currId SEPARATOR ","-Â»Â«currIdÂ»Â«ENDFOREACH-Â»" 
 		widgetType="button" 
-		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(clickHandler, contextPrefix)»«getStrutsActionCompleteExtension()»" 
-		pageId="«parentCP.name»" 
-		formName="«parentCP.name»">
-	«ENDLET-»
-«ENDDEFINE»
+		requestUri="Â«getStrutsActionCompleteConfigName(parentCP, model)Â»!Â«getHandlerMethodName(clickHandler, contextPrefix)Â»Â«getStrutsActionCompleteExtension()Â»" 
+		pageId="Â«parentCP.nameÂ»" 
+		formName="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR Button»
+Â«DEFINE ajaxifyControlFooter FOR ButtonÂ»
 	</csiuicore:ajaxify>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+Â«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, TabSetPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-Â»
 
-	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+	Â«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-Â»
+	<csiuicore:ajaxify id="Â«getFragmentId(tabSet)Â»" 
 		widgetType="button" 
-		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)»«getStrutsActionCompleteExtension()»" 
-		pageId="«parentCP.name»" 
-		formName="«parentCP.name»">
-	«ENDLET-»
-«ENDDEFINE»
+		requestUri="Â«getStrutsActionCompleteConfigName(parentCP, model)Â»!Â«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)Â»Â«getStrutsActionCompleteExtension()Â»" 
+		pageId="Â«parentCP.nameÂ»" 
+		formName="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-»
+Â«DEFINE ajaxifyControlHeader(GUIModel model, ContentPanel parentCP, WizardPanel tabSet, Panel tab, String contextPrefix) FOR TabSwitcher-Â»
 
-	«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-»
-	<csiuicore:ajaxify id="«getFragmentId(tabSet)»" 
+	Â«LET eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).first() AS clickHandler-Â»
+	<csiuicore:ajaxify id="Â«getFragmentId(tabSet)Â»" 
 		widgetType="button" 
-		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)»«getStrutsActionCompleteExtension()»" 
-		pageId="«parentCP.name»" 
-		formName="«parentCP.name»">
-	«ENDLET-»
-«ENDDEFINE»
+		requestUri="Â«getStrutsActionCompleteConfigName(parentCP, model)Â»!Â«getTabItemHandlerMethodName(parentCP, tabSet, tab, contextPrefix)Â»Â«getStrutsActionCompleteExtension()Â»" 
+		pageId="Â«parentCP.nameÂ»" 
+		formName="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE ajaxifyControlFooter FOR TabSwitcher»
+Â«DEFINE ajaxifyControlFooter FOR TabSwitcherÂ»
 	</csiuicore:ajaxify>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-»
-«IF isEnrichmentEnabled()-»
-	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+Â«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR Table-Â»
+Â«IF isEnrichmentEnabled()-Â»
+	<csiuicore:ajaxify id="Â«FOREACH ids AS currId SEPARATOR ","-Â»Â«currIdÂ»Â«ENDFOREACH-Â»" 
 		widgetType="table" 
-		pageId="«parentCP.name»">
-«ENDIF-»
-«ENDDEFINE»
+		pageId="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR Table»
-«IF isEnrichmentEnabled()-»
+Â«DEFINE ajaxifyControlFooter FOR TableÂ»
+Â«IF isEnrichmentEnabled()-Â»
 	</csiuicore:ajaxify>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ComboBox-»
-«IF isEnrichmentEnabled()-»
-	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
-	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+Â«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR ComboBox-Â»
+Â«IF isEnrichmentEnabled()-Â»
+	Â«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-Â»
+	<csiuicore:ajaxify id="Â«FOREACH ids AS currId SEPARATOR ","-Â»Â«currIdÂ»Â«ENDFOREACH-Â»" 
 		widgetType="combo" 
-		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
-		pageId="«parentCP.name»"
-		formName="«parentCP.name»" >
-	«ENDLET-»
-«ENDIF-»
-«ENDDEFINE»
+		requestUri="Â«getStrutsActionCompleteConfigName(parentCP, model)Â»!Â«getHandlerMethodName(vcHandler, contextPrefix)Â»Â«getStrutsActionCompleteExtension()Â»"
+		pageId="Â«parentCP.nameÂ»"
+		formName="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+	Â«ENDLET-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR ComboBox-»
-«IF isEnrichmentEnabled()-»
+Â«DEFINE ajaxifyControlFooter FOR ComboBox-Â»
+Â«IF isEnrichmentEnabled()-Â»
 	</csiuicore:ajaxify>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-»
-	«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-»
-	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+Â«DEFINE ajaxifyControlHeader(List[String] ids, GUIModel model, ContentPanel parentCP, String contextPrefix) FOR RadioButtons-Â»
+	Â«LET eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first() AS vcHandler-Â»
+	<csiuicore:ajaxify id="Â«FOREACH ids AS currId SEPARATOR ","-Â»Â«currIdÂ»Â«ENDFOREACH-Â»" 
 		widgetType="radio" 
-		requestUri="«getStrutsActionCompleteConfigName(parentCP, model)»!«getHandlerMethodName(vcHandler, contextPrefix)»«getStrutsActionCompleteExtension()»"
-		pageId="«parentCP.name»"
-		formName="«parentCP.name»" >
-	«ENDLET-»
-«ENDDEFINE»
+		requestUri="Â«getStrutsActionCompleteConfigName(parentCP, model)Â»!Â«getHandlerMethodName(vcHandler, contextPrefix)Â»Â«getStrutsActionCompleteExtension()Â»"
+		pageId="Â«parentCP.nameÂ»"
+		formName="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR RadioButtons-»
+Â«DEFINE ajaxifyControlFooter FOR RadioButtons-Â»
 	</csiuicore:ajaxify>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-»
-	<csiuicore:ajaxify id="«FOREACH ids AS currId SEPARATOR ","-»«currId»«ENDFOREACH-»" 
+Â«DEFINE ajaxifyControlHeader(List[String] ids, ContentPanel parentCP, String contextPrefix) FOR TreeView-Â»
+	<csiuicore:ajaxify id="Â«FOREACH ids AS currId SEPARATOR ","-Â»Â«currIdÂ»Â«ENDFOREACH-Â»" 
 		widgetType="tree" 
-		pageId="«parentCP.name»">
-«ENDDEFINE»
+		pageId="Â«parentCP.nameÂ»"
+		javascriptDetection="false">
+Â«ENDDEFINEÂ»
 
-«DEFINE ajaxifyControlFooter FOR TreeView»
+Â«DEFINE ajaxifyControlFooter FOR TreeViewÂ»
 	</csiuicore:ajaxify>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataProviderStreamProperty FOR GUIModel»
+Â«DEFINE dataProviderStreamProperty FOR GUIModelÂ»
 	protected java.io.InputStream dataProviderStream = null;
 	
 	public java.io.InputStream getDataProviderStream() {
 		return dataProviderStream;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 

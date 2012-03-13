@@ -62,7 +62,7 @@ String getFileUploadStyleByLayoutNeutral(GUIModel model, FileUpload f) :
 String getComboBoxValueChangedHandlerStyleNeutral(GUIModel model) :
 	"";
 
-// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+// [DM] Restituisce il campo per l'editabilitï¿½ di una colonna della tabella
 String getColumnEditableFieldNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
 	let thm = isRemote() ? "csi-tableinput-rem" : "csi-tableinput-loc" :
 	getColumnEditableFieldWrapperNeutral(currCol, table, model, contextPrefix, pduConf, thm);
@@ -94,11 +94,11 @@ String getComboBoxValueChangedHandlerJSNeutral(ComboBox cb, GUIModel model, Cont
 		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
-String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+//String getComboBoxValueChangedHandlerNoScriptNeutral(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
+//	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato
 String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -106,11 +106,11 @@ String getRadioButtonsValueChangedHandlerJSNeutral(RadioButtons rb, GUIModel mod
 		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(findParentContentPanel(rb), model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
-String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+//String getRadioButtonsValueChangedHandlerNoScriptNeutral(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
+//	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
 
 
 
@@ -168,7 +168,7 @@ String getMenuNoChildLinkCssNeutral(Menu menu, int level) :
 String getMenuNoChildLabelNeutral(Menu menu, int level) :
 	"<s:text name=\"" + menu.name + ".label\" />";
 
-// attivazione del menu padre se uno dei sottomenu è cliccato
+// attivazione del menu padre se uno dei sottomenu ï¿½ cliccato
 String getMenuWithChildCssNeutral(Menu menu, int level) :
 	" class=\"parent<s:property value=\"%{(isMenuActive('"+menu.name+"') || isSubMenuActive('"+menu.name+"')) ? ' active' : ''}\" />\"" + 
 	"<s:if test=\"isMenuActive('"+menu.name+"')\"> id=\"current\"</s:if>";
@@ -209,7 +209,7 @@ String getMenuPanelOrientation(MenuPanel mp) : JAVA
 /// Java Extensions for checks specifici per Layout NEUTRAL (XHTML UNIVERSALE)               //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-// [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+// [DM] Un CommandPanel puï¿½ avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
 boolean commandPanelLayoutCheckNeutral(CommandPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsChecksNeutral.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
 
@@ -246,7 +246,7 @@ String getColumnStyleNeutral(Column col, Table t, GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
 
 // [DM]  Restituisce la classe per un CheckBox
-// nota: deve rimanere in Java perché viene utilizzato anche da Java
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java
 String getCheckboxPortalStyleNeutral(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
@@ -256,11 +256,11 @@ String getCustomComponentColumnStyleByPortalNeutral(GUIModel model, PlainText w)
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
 
 // [DM] Restituisce la classe per un TextField in una Table.
-// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java 
 String getColumnEditableTextfieldPortalStyleNeutral(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
-// [DM] restituisce l'attributo di obbligatorietà del campo da settare nella custom Component widgetsPanelColumn
+// [DM] restituisce l'attributo di obbligatorietï¿½ del campo da settare nella custom Component widgetsPanelColumn
 String getCustomtagRequiredFieldNeutral(Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagRequiredField(it.csi.mddtools.guigen.Widget);
 
@@ -268,7 +268,7 @@ String getCustomtagRequiredFieldNeutral(Widget w) : JAVA
 String getCustomtagHeaderColspanNeutral(WidgetsPanel wp, Widget w) : JAVA
 	it.csi.mddtools.guigen.genutils.neutral.GenUtilsLayoutNeutral.getCustomtagHeaderColspan(it.csi.mddtools.guigen.WidgetsPanel, it.csi.mddtools.guigen.Widget);
 
-// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+// [DM] Restituisce il campo per l'editabilitï¿½ di una colonna della tabella
 String getColumnEditableFieldWrapperNeutral(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);
 

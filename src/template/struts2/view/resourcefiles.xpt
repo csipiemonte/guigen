@@ -37,9 +37,6 @@ e le limitazioni secondo i termini della Licenza.
 	<head>
 		<title>Welcome</title>
 		<meta http-equiv="refresh" content="0;url=«getHomePageActionURL(true)»<%= (request.getQueryString() != null ? "?"+request.getQueryString() : "") %>"  />
-		<script type="text/javascript">
-		document.cookie = 'javascriptAbilitato=true';
-		</script>
 	</head>
 	<body>
 	</body>
@@ -120,10 +117,11 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND getJspSessionExpiredFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this-»
 	«EXPAND getJspPageInvalidTokenFile(skip_component_dir_creation) FOR this-»
-	«REM»STD«ENDREM»
+	«REM»[DM] STDMDD-621«ENDREM»
 	«IF isMultiPortal(this)-»
 		«EXPAND getJspUnknownPortalFile(skip_component_dir_creation) FOR this-»
 	«ENDIF-»
+	«EXPAND getJspPageJavascriptErrorFile(skip_component_dir_creation) FOR this-»«REM»[DM] STDMDD-«ENDREM»
 «ENDDEFINE»
 
 
@@ -175,7 +173,15 @@ e le limitazioni secondo i termini della Licenza.
 «REM»[DM] STDMDD-621: Crea la pagina di errore Portale Sconosciuto (multiportale)«ENDREM»
 «DEFINE getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel-»
 «FILE getJspErrorPagesDir(this, true) + "/unknownPortal.jsp"-»
-«EXPAND remoteResources::getJspUnknownPortalFile FOR this-»
+«EXPAND remoteResources::getJspUnknownPortalFile(skip_component_dir_creation) FOR this-»
+«ENDFILE-»
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-: Crea la pagina di errore di Javascript disabilitato«ENDREM»
+«DEFINE getJspPageJavascriptErrorFile(boolean skip_component_dir_creation) FOR GUIModel-»
+«FILE getJspErrorPagesDir(this, true) + "/javascriptError.jsp"-»
+«EXPAND remoteResources::getJspJavascriptErrorFile(skip_component_dir_creation) FOR this-»
 «ENDFILE-»
 «ENDDEFINE»
 
@@ -852,24 +858,7 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 	id="«getWidgetName(this, contextPrefix)»"
 	size="«fieldLength»"
 	/>
-<noscript>
-	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»"
-		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»"
-		value="conferma" cssClass="«getComboBoxValueChangedHandlerStyle(model)»" />
-	<s:select name="«getAppDataKey(databinding.appData)».«keySelector»" id="suggest_«getWidgetName(this, contextPrefix)»"
-          «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
-          list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
-          disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
-          «IF (databinding!=null && isBoundToArray(this.databinding)) ||
-          	  (databinding==null && dataType.metaType==TypedArray)-»
-          multiple="true"
-          cssClass="selectMultiple"
-          «ENDIF-»
-          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
-          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
-          «getComboBoxValueChangedHandlerJS(this, model, cp, contextPrefix)»
-          />
-</noscript>
+«REM»«EXPAND createComboBoxNoscriptMarkup(model, cp, contextPrefix, pduConf) FOR this-» [DM] SDTMDD-1084: rimozione noscript«ENDREM»
 «ELSE-»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
@@ -896,6 +885,28 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «ENDLET-»
 «ENDLET-»
 «ENDLET-»
+«ENDDEFINE»
+
+«REM»[DM] SDTMDD-1084: rimozione noscript«ENDREM»
+«DEFINE createComboBoxNoscriptMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR ComboBox»
+<noscript>
+	<s:submit name="button_«getWidgetName(this, contextPrefix)»" id="button_«getWidgetName(this, contextPrefix)»"
+		method="«getHandlerMethodName(this,this.eventHandlers.select(eh|eh.eventType==EventTypes::KEY_PRESSED).first(), contextPrefix)»"
+		value="conferma" cssClass="«getComboBoxValueChangedHandlerStyle(model)»" />
+	<s:select name="«getAppDataKey(databinding.appData)».«keySelector»" id="suggest_«getWidgetName(this, contextPrefix)»"
+          «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
+          list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
+          disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+          «IF (databinding!=null && isBoundToArray(this.databinding)) ||
+          	  (databinding==null && dataType.metaType==TypedArray)-»
+          multiple="true"
+          cssClass="selectMultiple"
+          «ENDIF-»
+          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+          «getComboBoxValueChangedHandlerJS(this, model, cp, contextPrefix)»
+          />
+</noscript>
 «ENDDEFINE»
 
 

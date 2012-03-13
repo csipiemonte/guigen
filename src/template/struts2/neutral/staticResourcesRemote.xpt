@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,106 +13,108 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::struts2::neutral::Struts2ExtensionsNeutral»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::struts2::neutral::Struts2ExtensionsNeutralÂ»
 
 
-«REM»
+Â«REMÂ»
 **************************************************************************************************************************
 Markup HTML per Layout NEUTRAL (XHTML UNIVERSALE)
 Definizioni che puntano a risorse statiche REMOTE
 **************************************************************************************************************************
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 Definizioni generali: header, footer, ecc
 ==========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Genera la componente di markup (HTML) della HEADER (chiamate tramite Struts2)«ENDREM»
-«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«REM»[DM] STDMDD-670: Header markup«ENDREM»
-«EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, true) FOR this»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (chiamate tramite Struts2)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«REMÂ»[DM] STDMDD-670: Header markupÂ«ENDREMÂ»
+Â«EXPAND template::struts2::view::staticResources::getHeaderMarkup(model, skip_component_dir_creation, true) FOR thisÂ»
 
-		«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»
+		Â«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-Â»
 
 	</head>
-
 	<body>
+		Â«REMÂ»[DM] STDMDD-1084: reindirizzamento pagina errore Javascript non abilitatoÂ«ENDREMÂ»
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=Â«getJavascriptErrorActionURL(true)Â»"  />
+		</noscript>
 
 		<!-- PAGE (OBBLIGATORIO) -->
 		<div id="page">
 
 			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
-			«REM»[DM] STDMDD-670: Application Header«ENDREM»
-			«EXPAND template::struts2::view::staticResources::getPortalHeader(model, skip_component_dir_creation) FOR this»
+			Â«REMÂ»[DM] STDMDD-670: Application HeaderÂ«ENDREMÂ»
+			Â«EXPAND template::struts2::view::staticResources::getPortalHeader(model, skip_component_dir_creation) FOR thisÂ»
 			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
 			<div id="applicationArea">
 
 				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
-				«REM»[DM] STDMDD-670: Application Header«ENDREM»
-				«EXPAND template::struts2::view::staticResources::getApplicationHeader(model, skip_component_dir_creation) FOR this»
+				Â«REMÂ»[DM] STDMDD-670: Application HeaderÂ«ENDREMÂ»
+				Â«EXPAND template::struts2::view::staticResources::getApplicationHeader(model, skip_component_dir_creation) FOR thisÂ»
 				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)«ENDREM»
-«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -»
-«REM»[DM] STDMDD-670: Header markup«ENDREM»
-«EXPAND template::struts2::view::staticResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation, true) FOR this»
+Â«REMÂ»Genera la componente di markup (HTML) della HEADER (per pagine SENZA Struts2)Â«ENDREMÂ»
+Â«DEFINE getHeaderMarkupNoStruts(GUIModel model, boolean skip_component_dir_creation) FOR Header -Â»
+Â«REMÂ»[DM] STDMDD-670: Header markupÂ«ENDREMÂ»
+Â«EXPAND template::struts2::view::staticResources::getHeaderMarkupNoStruts(model, skip_component_dir_creation, true) FOR thisÂ»
 
 	</head>
-
 	<body>
 
 		<!-- PAGE (OBBLIGATORIO) -->
 		<div id="page">
 
 			<!-- HEADER di PORTALE (con remincl) (facoltativo) -->
-			«REM»[DM] STDMDD-670: Application Header«ENDREM»
-			«EXPAND template::struts2::view::staticResources::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+			Â«REMÂ»[DM] STDMDD-670: Application HeaderÂ«ENDREMÂ»
+			Â«EXPAND template::struts2::view::staticResources::getPortalHeaderNoStruts(model, skip_component_dir_creation) FOR thisÂ»
 			<!-- fine HEADER di PORTALE (con remincl) (facoltativo) -->
 
 			<!-- APPICATION AREA (OBBLIGATORIO) -->
 			<div id="applicationArea">
 
 				<!-- HEADER di APPLICATIVO (con remincl) (facoltativo) -->
-				«REM»[DM] STDMDD-670: Application Header«ENDREM»
-				«EXPAND template::struts2::view::staticResources::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR this»
+				Â«REMÂ»[DM] STDMDD-670: Application HeaderÂ«ENDREMÂ»
+				Â«EXPAND template::struts2::view::staticResources::getApplicationHeaderNoStruts(model, skip_component_dir_creation) FOR thisÂ»
 				<!-- fine HEADER di APPLICATIVO (con remincl) (facoltativo) -->
 
 <!-- FINE HEADER -->
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).«ENDREM»
-«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinks»
+Â«REMÂ»Genera la componente di markup (HTML) dei LINK STATICI (help, contatti, manuale utente, ecc).Â«ENDREMÂ»
+Â«DEFINE getStaticLinkMarkup(GUIModel model, boolean skip_component_dir_creation) FOR StaticLinksÂ»
 <!-- STATIC LINKS -->
-«EXPAND template::struts2::view::staticResources::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-»
-«ENDDEFINE»
+Â«EXPAND template::struts2::view::staticResources::getStaticLinkMarkup(model, skip_component_dir_creation) FOR this-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»Genera la componente di markup (HTML) della FOOTER«ENDREM»
-«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR Footer»
+Â«REMÂ»Genera la componente di markup (HTML) della FOOTERÂ«ENDREMÂ»
+Â«DEFINE getFooterMarkup(GUIModel model, boolean skip_component_dir_creation) FOR FooterÂ»
 <!-- footer (con remincl) -->
 			</div>
 			<!-- FINE APPICATION AREA (OBBLIGATORIO) -->
 
-«EXPAND template::struts2::view::staticResources::getFooterMarkup(model, skip_component_dir_creation) FOR this»
+Â«EXPAND template::struts2::view::staticResources::getFooterMarkup(model, skip_component_dir_creation) FOR thisÂ»
 
 		</div>
 		<!-- FINE PAGE (OBBLIGATORIO) -->
 	</body>
 </html>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

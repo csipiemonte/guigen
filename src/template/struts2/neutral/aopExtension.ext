@@ -99,7 +99,7 @@ around template::struts2::Struts2Extensions::getColumnStyle(Column col, Table t,
 	getColumnStyleNeutral(col, t, model);
 
 // [DM]  Restituisce la classe per un CheckBox
-// nota: deve rimanere in Java perché viene utilizzato anche da Java
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java
 around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
 	getCheckboxPortalStyleNeutral(model);
 
@@ -109,11 +109,11 @@ around template::struts2::Struts2Extensions::getCustomComponentColumnStyleByPort
 	getCustomComponentColumnStyleByPortalNeutral(model, w);
 
 // [DM] Restituisce la classe per un TextField in una Table.
-// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java 
 around template::struts2::Struts2Extensions::getColumnEditableTextfieldPortalStyle(GUIModel model) :
 	getColumnEditableTextfieldPortalStyleNeutral(model);
 
-// [DM] restituisce l'attributo di obbligatorietà del campo da settare nella custom Component widgetsPanelColumn
+// [DM] restituisce l'attributo di obbligatorietï¿½ del campo da settare nella custom Component widgetsPanelColumn
 around template::struts2::Struts2Extensions::getCustomtagRequiredField(Widget w) : 
 	getCustomtagRequiredFieldNeutral(w);
 
@@ -121,7 +121,7 @@ around template::struts2::Struts2Extensions::getCustomtagRequiredField(Widget w)
 around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
 	getCustomtagHeaderColspanNeutral(wp, w);
 
-// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+// [DM] Restituisce il campo per l'editabilitï¿½ di una colonna della tabella
 around template::struts2::Struts2Extensions::getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) :
 	getColumnEditableFieldNeutral(currCol, table, model, contextPrefix, pduConf, theme);
 
@@ -138,16 +138,18 @@ around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(Co
 	getComboBoxValueChangedHandlerJSNeutral(cb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestisce l'evento change sulla combobox (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
 around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	getComboBoxValueChangedHandlerNoScriptNeutral(cb, model, cp, contextPrefix);
+	""; //getComboBoxValueChangedHandlerNoScriptNeutral(cb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestisce l'evento change sui radiobuttons con JavaScript abilitato
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
 	getRadioButtonsValueChangedHandlerJSNeutral(rb, model, cp, contextPrefix);
 
 // [DM] genera il codice che gestisce l'evento change sui radiobuttons (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
 around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, cp, contextPrefix);
+	""; //getRadioButtonsValueChangedHandlerNoScriptNeutral(rb, model, cp, contextPrefix);
 
 
 

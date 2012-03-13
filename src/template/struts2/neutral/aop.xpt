@@ -82,9 +82,15 @@ Definizioni generali: Pagine di ERRORE
 	«EXPAND template::struts2::neutral::remoteResourcesNeutral::getJspPageConfirmLogoutFile(skip_component_dir_creation) FOR this»
 «ENDAROUND»
 
-«REM»[DM] STDMDD-621 : Crea la pagina di errore Portale Sconosciuto (multiportale)«ENDREM»
-«AROUND template::struts2::view::remoteResources::getJspUnknownPortalFile FOR GUIModel»
-	«EXPAND template::struts2::neutral::remoteResourcesNeutral::getJspUnknownPortalFile FOR this»
+«REM»[DM] STDMDD-621: Crea la pagina di errore Portale Sconosciuto (multiportale)«ENDREM»
+«AROUND template::struts2::view::remoteResources::getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::getJspUnknownPortalFile(skip_component_dir_creation) FOR this»
+«ENDAROUND»
+
+
+«REM»[DM] STDMDD-: Crea la pagina di errore di Javascript disabilitato«ENDREM»
+«AROUND template::struts2::view::remoteResources::getJspJavascriptErrorFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«EXPAND template::struts2::neutral::remoteResourcesNeutral::getJspJavascriptErrorFile(skip_component_dir_creation) FOR this»
 «ENDAROUND»
 
 

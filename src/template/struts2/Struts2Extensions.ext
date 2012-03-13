@@ -123,7 +123,7 @@ String getContentPanelNamespace(ContentPanel cp, boolean omitRoot) :
 		// ContentPanel in AppModule
 		getAppModuleNamespace((AppModule)cp.eContainer, omitRoot)
 	else
-		// il ContentPanel NON è in un AppModule
+		// il ContentPanel NON ï¿½ in un AppModule
 		getBaseNamespace(omitRoot);
 		
 String getAppModuleNamespace(AppModule am, boolean omitRoot) :
@@ -317,7 +317,7 @@ String getUDTClassName(SimpleType t) :
 	if (t.userDefined)then 
 		"UDT"+t.name 
 	else
-		"<<errore getUDT ClassName: "+t.name+" non è userDefined!>>";
+		"<<errore getUDT ClassName: "+t.name+" non ï¿½ userDefined!>>";
 
 String getUDTFQN(SimpleType t, GUIModel model) :
 		getDTOBaseJavaPackage(model)+"."+getTypeNSAsPkg(t,false,true)+getUDTClassName(t);
@@ -473,9 +473,14 @@ String getMenuItemActionName(String menuName) :
 String getMenuActionNamespace(boolean omitRoot) :
 	getSecureNamespace(omitRoot);
 
-//  [DM] STDMDD-1100: introduzione namespaces -> Map enrichment
+// [DM] STDMDD-1100: introduzione namespaces -> Map enrichment
 String getMapEnrichmentAcionNamespace(ContentPanel panel, GUIModel model) :
 	"/" + model.codComponente + getContentPanelNamespace(panel, false);
+
+// [DM] STDMDD-1084: URL Action errore Javascript non abilitato
+String getJavascriptErrorActionURL(boolean omitRoot) :
+	"<%=request.getContextPath()%>" + getBaseNamespace(false) + "/javascriptError" + getStrutsActionCompleteExtension(); 
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -791,7 +796,7 @@ String getTypeNSAsFolder(Type ct, boolean prependDot, boolean appendDot) :
 String getChainedContext(String oldContext, String newContext) :
 	oldContext==null || oldContext.length==0 ? newContext : oldContext+"_"+newContext;
 
-// serve in quei casi in cui si usava w.name senza necessità di avere il prefisso "widg_"
+// serve in quei casi in cui si usava w.name senza necessitï¿½ di avere il prefisso "widg_"
 //String getFullID(Widget w, String contextPrefix) :
 //	contextPrefix == null || contextPrefix.length==0 ? w.name : contextPrefix+w.name;
 
@@ -1089,7 +1094,7 @@ String getColumnComparator(Column col, Table t) : JAVA
 String getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCustomComponentColumnStyleByPortal(it.csi.mddtools.guigen.GUIModel, it.csi.mddtools.guigen.PlainText);
 
-// [DM] Restituisce il campo per l'editabilità di una colonna della tabella
+// [DM] Restituisce il campo per l'editabilitï¿½ di una colonna della tabella
 String getColumnEditableField(Column currCol, Table table, GUIModel model, String contextPrefix, PDefUseConfig pduConf, String theme) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getColumnEditableField(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel, java.lang.String, it.csi.mddtools.guigen.PDefUseConfig, java.lang.String);
 
@@ -1108,7 +1113,7 @@ String getWizardPanelStepCompleteIndex(Panel currentPanel, String index) : JAVA
 String extractLabelKey(String label) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.extractLabelKey(java.lang.String);
 
-// [DM] STDMDD-446: PanelDef: customizzabilità delle Table contenute nel PanelDef 
+// [DM] STDMDD-446: PanelDef: customizzabilitï¿½ delle Table contenute nel PanelDef 
 List[Column] getCustomizedColumnsList(Table table, PDefUseConfig pduConf) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtils.getCustomizedColumnsList(it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.PDefUseConfig);
 
@@ -1121,7 +1126,7 @@ List[Column] getCustomizedColumnsList(Table table, PDefUseConfig pduConf) : JAVA
 boolean commandPanelCommandWidgetCheck(CommandPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelCommandWidgetCheck(it.csi.mddtools.guigen.CommandPanel);
 
-// [DM] Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
+// [DM] Un CommandPanel puï¿½ avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT)
 boolean commandPanelLayoutCheck(CommandPanel cp) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.commandPanelLayoutCheck(it.csi.mddtools.guigen.CommandPanel);
 
@@ -1257,16 +1262,16 @@ String getColumnStyle(Column col, Table t, GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnStyle(it.csi.mddtools.guigen.Column, it.csi.mddtools.guigen.Table, it.csi.mddtools.guigen.GUIModel);
 
 // [DM]  Restituisce la classe per un CheckBox
-// nota: deve rimanere in Java perché viene utilizzato anche da Java
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java
 String getCheckboxPortalStyle(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getCheckboxPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
 // [DM] Restituisce la classe per un TextField in una Table.
-// nota: deve rimanere in Java perché viene utilizzato anche da Java 
+// nota: deve rimanere in Java perchï¿½ viene utilizzato anche da Java 
 String getColumnEditableTextfieldPortalStyle(GUIModel model) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsLayout.getColumnEditableTextfieldPortalStyle(it.csi.mddtools.guigen.GUIModel);
 
-// [DM] restituisce l'attributo di obbligatorietà del campo da settare nella custom Component widgetsPanelColumn
+// [DM] restituisce l'attributo di obbligatorietï¿½ del campo da settare nella custom Component widgetsPanelColumn
 String getCustomtagRequiredField(Widget w) : 
 	"";
 
@@ -1286,11 +1291,13 @@ String getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPane
 		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
 
 // [DM] genera il codice che gestise l'evento change sulla ComboBox (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
 String getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+	"";
+//	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
 String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
@@ -1298,11 +1305,13 @@ String getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, Con
 		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
 
 // [DM] genera il codice che gestise l'evento change sui RadioButtons (con JavaScript disabilitato)
+// [DM] STDMDD-1084: rimozione noscript
 String getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
+	"";
+//	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
+//		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
+//			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
+//			"\" /></noscript>";
 
 String replaceFixNumberWithLatest(String actualVersion)  : JAVA
   it.csi.mddtools.guigen.genutils.GenUtils.replaceFixNumberWithLatest(java.lang.String);
@@ -1312,4 +1321,4 @@ String replaceFixNumberWithLatest(String actualVersion)  : JAVA
 // ATTENZIONE!!! NOTA PER GLI SVILUPPATORI
 // Inserire possibilmente ogni nuovo metodo nella relativa sezione (Struts2, JavaBinding, Web 2.0, ecc...) e non al fondo del file
 // dove si trova la sezione dei metodi che devono essere sovrascritti tramite AOP, in modo da facilitare la comprensione di quali metodi
-// siano già stati sovrascritti e di quali debbano essere ancora implementati nei files aop di portale necessari
+// siano giï¿½ stati sovrascritti e di quali debbano essere ancora implementati nei files aop di portale necessari

@@ -58,8 +58,11 @@ Definizioni generali: header, footer, ecc
 		«REM»«EXPAND template::struts2::view::remoteResources::commonRisInclude FOR model-»«ENDREM»
 		
 	</head>
-
 	<body>
+		«REM»[DM] STDMDD-1084: reindirizzamento pagina errore Javascript non abilitato«ENDREM»
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=«getJavascriptErrorActionURL(true)»"  />
+		</noscript>
 
 		<!-- PAGE (OBBLIGATORIO) -->
 		<div id="page">
@@ -107,7 +110,6 @@ Definizioni generali: header, footer, ecc
 		
 		
 	</head>
-
 	<body>
 
 		<!-- PAGE (OBBLIGATORIO) -->

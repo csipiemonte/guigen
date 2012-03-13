@@ -181,11 +181,11 @@ Crea la pagina di conferma chiusura sessione utente (conferma logout)
 
 
 «REM»
-[DM] STDMDD-621 : Crea la pagina di errore Portale Sconosciuto (multiportale)
+[DM] STDMDD-621: Crea la pagina di errore Portale Sconosciuto (multiportale)
 Nota: non ha né header, né footer né graficazione, perché se non sono riuscito a decodificare il portale
       non sono in grado di dare una veste grafica alla pagina.
 «ENDREM»
-«DEFINE getJspUnknownPortalFile FOR GUIModel»<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+«DEFINE getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel»<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setBundle basename="globalMessages" />
 
@@ -205,6 +205,34 @@ Nota: non ha né header, né footer né graficazione, perché se non sono riusci
 		</div>
 	</div>
 	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD-1084: Crea la pagina di errore di Javascript disabilitato«ENDREM»
+«DEFINE getJspJavascriptErrorFile(boolean skip_component_dir_creation) FOR GUIModel»
+«EXPAND getJspErrorPageHeaderNoStruts FOR this-»
+<h3><fmt:message key="error.javascripterror.title" /></h3>
+<div id="applicationError">
+	<fmt:message key="error.javascripterror.warning" />
+	<br />
+	<fmt:message key="error.javascripterror.errormessage" />
+	<br />
+	<br />
+	<fmt:message key="error.javascripterror.actionmessage" />
+</div>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button left">
+	«IF isMultiPortal(this)-»
+		<a href="<c:out value='${sessionScope["MDD_PORTAL_HOME"]}' />" class="buttonWidget"><fmt:message key="error.javascripterror.btnmsgportalhome" /></a>
+	«ELSE-»
+		<a href="<c:out value='${initParam["portal.home"]}' />" class="buttonWidget"><fmt:message key="error.javascripterror.btnmsgportalhome" /></a>
+	«ENDIF-»
+	</div>
+	<div class="button right">
+		<a href="«getHomePageActionURLWithContextPath()»" class="buttonWidget"><fmt:message key="error.javascripterror.btnmsgservicehome" /></a>
+	</div>
+</div>
+«EXPAND getJspErrorPageFooterNoStruts FOR this-»
 «ENDDEFINE»
 
 

@@ -80,8 +80,14 @@ Definizioni generali: Pagine di ERRORE
 
 
 «REM»[DM] STDMDD-621 : Crea la pagina di errore Portale Sconosciuto (multiportale)«ENDREM»
-«DEFINE getJspUnknownPortalFile FOR GUIModel»
+«DEFINE getJspUnknownPortalFile(boolean skip_component_dir_creation) FOR GUIModel»
 	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspUnknownPortalFile] " + loc()»
+«ENDDEFINE»
+
+
+«REM»[DM] STDMDD- : Crea la pagina di errore per Javascript disabilitato«ENDREM»
+«DEFINE getJspJavascriptErrorFile(boolean skip_component_dir_creation) FOR GUIModel»
+	«ERROR "ERRORE AOP: ridefinizione non trovata [getJspJavascriptErrorFile] " + loc()»
 «ENDDEFINE»
 
 
