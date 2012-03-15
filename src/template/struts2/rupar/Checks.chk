@@ -1,59 +1,8 @@
-import guigen;
-
-extension org::eclipse::xtend::util::stdlib::naming;
-extension template::GenericExtensions;
-extension template::struts2::Struts2Extensions;
-extension template::struts2::rupar::Struts2ExtensionsRupar;
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///*****************************************************************************************************************//
-/// Check COMUNI a tutte le cartucce ma con contenuti dipendenti dalla cartuccia                                    //
-///*****************************************************************************************************************//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-context Button WARNING "Ogni Button dovrebbe essere contenuto in un CommandPanel: il rendering di questo Button è indefinito " + loc() :
-	this.eContainer.metaType == CommandPanel;
-
-
-context Header ERROR "E' necessario impostare il codice 'applicativo' nell'oggetto Header "+
-					 "(serve per referenziare le risorse remote)" :
-	codApplicativo != null && codApplicativo != "";
-
-context Header WARNING "Il codice 'canale' nell'oggetto Header è opzionale: verificare se sia necessario impostarlo "+
-					 "per referenziare le risorse remote" :
-	codCanale != null && codCanale != "";
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///// Validazione su pannelli
-
-// In tutti gli altri casi, anche se il layout è ininfluente(al momento viene ignorato, visto che il layout dei widgets 
-// passa come competenza al WidgetsPanel), imponiamo che sia obbligatorio e sia VerticalFlowPanelLayout
-context FormPanel if this.eContainer.metaType != ContentPanel ERROR "Il FormPanel di livello inferiore al primo deve avere un layout di tipo VerticalFlowPanelLayout " + loc() :
-	this.layout != null && this.layout.metaType == VerticalFlowPanelLayout;
-
-// [DM] check su CommandPanel
-// 3) può avere solo due tipi di layout: [a] horizontal flow, [b] UDLRC ristretto (solo L ed R, tipico delle barre di navigazione)
-context CommandPanel ERROR "Un CommandPanel può avere solo due tipi di layout: [a] HorizontalFlowPanelLayout, [b] UDLRCPanelLayout ristretto (solo LEFT ed RIGHT) " + loc() :
-	commandPanelLayoutCheck(this);
-
-context GridWidgetLayoutSpec ERROR "GridLayout: vertical span non implementato in questa cartuccia" :
-	this.vspan == null || this.vspan == 0 || this.vspan == 1;
-
-
-context TargetPlatform ERROR "L'interazione 'ricca' è utilizzabile solo con la cartuccia 'neutral'" :
-	enableRichUIBehavior != true;
-	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///*****************************************************************************************************************//
 /// Check SPECIFICI della cartuccia RuparPiemonte                                                                   //
+///                                                                                                                 //
+/// [DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral                             //
+///                   ELIMINAZIONE DI TUTTI GLI AROUND                                                              //
 ///*****************************************************************************************************************//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// STDMDD-453: estensione dell'implementazione del menu
-context Menu if this.submenu.size > 0 ERROR "Layout RUPAR: Un menu padre non può avere eventi associati: "+loc() : 
-	this.eventHandler == null;
-
-// [DM] STDMDD-367: TabSwitcher implementato e check rimosso
-//context TabSwitcher ERROR "Il tab Switcher non è attualmente supportato su questo portale" :
-//	false;

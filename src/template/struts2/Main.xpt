@@ -17,28 +17,28 @@ e le limitazioni secondo i termini della Licenza.
 
 «IMPORT guigen»
 
-«IMPORT template::struts2::buildfiles»
-«IMPORT template::struts2::configfiles»
-«IMPORT template::struts2::javafiles»
-«IMPORT template::struts2::resourcefiles»
-«IMPORT template::struts2::view::enrichments»
-«IMPORT template::struts2::i18nfiles»
 «EXTENSION template::GenericExtensions»
 
 
-«DEFINE main (boolean skip_component_dir_creation, boolean useExternalDaoBeans, String staticResourcesSchemaVersion) FOR GUIModel»
+«REM»MAIN: PUNTO DI INGRESSO DELLA GENERAZIONE STRUTS2«ENDREM»
+«DEFINE main(boolean skip_component_dir_creation, boolean useExternalDaoBeans, String staticResourcesSchemaVersion, String portal) FOR GUIModel»
 
 	«setProperty("staticResourcesSchemaVersion", staticResourcesSchemaVersion)»
 	
-	«IF !checkValidMode(staticResourcesSchemaVersion)»
-		«ERROR "ERRORE: modalità staticResourcesSchemaVersion " + staticResourcesSchemaVersion + " non valida: impossibile proseguire nella generazione "»
+	«REM»[DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral«ENDREM»
+	«IF !isValidPortal(portal)»
+		«ERROR "Attenzione: la cartuccia '" + portal + "' non esiste. Verificare la proprietà portal del proprio file di workflow."»
 	«ELSE»
-		«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
-		«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
-		«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
-		«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
-		«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
-		«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+		«IF !checkValidMode(staticResourcesSchemaVersion)»
+			«ERROR "ERRORE: modalità staticResourcesSchemaVersion " + staticResourcesSchemaVersion + " non valida: impossibile proseguire nella generazione "»
+		«ELSE»
+			«EXPAND template::struts2::buildfiles::buildFiles(skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::configfiles::configFiles(skip_component_dir_creation, useExternalDaoBeans) FOR this»
+			«EXPAND template::struts2::view::resourcefiles::resourceFiles(skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::i18n::i18nfiles::i18nFiles(skip_component_dir_creation) FOR this»
+			«EXPAND template::struts2::javafiles::javaFiles(skip_component_dir_creation) FOR this»
+			«EXPAND contentPanelsFiles(skip_component_dir_creation) FOR this»
+		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
 

@@ -21,129 +21,14 @@
 
 import guigen;
 import ecore;
+
 extension template::GenericExtensions;
-extension template::struts2::Struts2Extensions;
-extension template::struts2::sisp::Struts2ExtensionsSisp;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /// Estensioni specifiche per il layout SistemaPiemonte ridefinite mediante AOP              //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-around template::GenericExtensions::getPortalName() :
-	"SistemaPiemonte";
-
-around template::GenericExtensions::getPortalCode() :
-	"sisp";
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-/// Build files 
-
-around template::struts2::Struts2Extensions::getReminclResourceProvider(GUIModel model) :
-	"http://dev-www.sistemapiemonte.it";
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-/// PORTAL THEMES AND STYLES
-
-//
-around template::struts2::Struts2Extensions::getStrutsThemeByPortal(GUIModel model) :
-	"csi"; //"csisisp"
-
-//
-around template::struts2::Struts2Extensions::getTablePortalStyle(GUIModel model, Table t) :
-	//"class=\"col" + (t.databinding != null ? " overouttr" : "") + "\"";
-	"class=\"col\"";
-
-//
-around template::struts2::Struts2Extensions::getRadioPortalStyle(GUIModel model) :
-	"cssClass=\"noBorder\"";
-
-
-// [DM] restituisce il numero di colonne del layout
-around template::struts2::Struts2Extensions::getColumnsLayout(FormPanel firstLevPanel, GUIModel model) :
-	getColumnsLayoutSisp(firstLevPanel, model);
-
-// [DM] Restituisce lo stile del <div> per i Button
-around template::struts2::Struts2Extensions::getButtonDivStyleByLayout(GUIModel model, Button b) : 
-	getButtonDivStyleByLayoutSisp(model, b);
-
-// [DM] Restituisce lo stile dei Button
-around template::struts2::Struts2Extensions::getButtonStyleByLayout(GUIModel model, Button b) :
-	getButtonStyleByLayoutSisp(model, b);
-
-// [DM] Restituisce lo stile dei TextField
-around template::struts2::Struts2Extensions::getTextFieldStyleByLayout(GUIModel model, TextField t) :
-	getTextFieldStyleByLayoutSisp(model, t);
-
-// [DM] Restituisce lo stile dei Calendar
-around template::struts2::Struts2Extensions::getCalendarStyleByLayout(GUIModel model, Calendar c) :
-	"cssClass=\"inputData calendario\"";
-
-// [DM] Restituisce lo stile dei FileUpload
-around template::struts2::Struts2Extensions::getFileUploadStyleByLayout(GUIModel model, FileUpload f) :
-	getFileUploadStyleByLayoutSisp(model, f);
-
-// [DM] Restituisce lo stile del pulsante che gestisce l'evento di ValueChanged sulla ComboBox (Javascript disabilitato)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerStyle(GUIModel model) :
-	"funz70";
-
-// [DM] Restituisce lo stile di un MsgBoxPanel
-around template::struts2::Struts2Extensions::getMsgBoxPanelStyleByPortal(GUIModel model, MsgBoxPanel mbp) :
-	getMsgBoxPanelStyleByPortalSisp(model, mbp);
-
-// [DM] Restituisce lo stile di una colonna sulla base del tipo bindato alla colonna stessa
-around template::struts2::Struts2Extensions::getColumnStyle(Column col, Table t, GUIModel model) :
-	getColumnStyleSisp(col, t, model);
-
-// [DM]  Restituisce la classe per un CheckBox
-// nota: deve rimanere in Java perché viene utilizzato anche da Java
-around template::struts2::Struts2Extensions::getCheckboxPortalStyle(GUIModel model) :
-	getCheckboxPortalStyleSisp(model);
-
-// [DM] Restituisce la classe da applicare ad una cella nella CustomComponent sulla base del tipo di dato del Widget (PlainText).
-//      Utilizzato per allineare a destra i dati numerici.
-around template::struts2::Struts2Extensions::getCustomComponentColumnStyleByPortal(GUIModel model, PlainText w) :
-	getCustomComponentColumnStyleByPortalSisp(model, w);
-
-// [DM] Restituisce la classe per un TextField in una Table.
-// nota: deve rimanere in Java perché viene utilizzato anche da Java 
-around template::struts2::Struts2Extensions::getColumnEditableTextfieldPortalStyle(GUIModel model) :
-	getColumnEditableTextfieldPortalStyleSisp(model);
-
-// [DM] Imposta l'attributo colSpan della Customtag component (nel caso sia necessario).
-around template::struts2::Struts2Extensions::getCustomtagHeaderColspan(WidgetsPanel wp, Widget w) :
-	getCustomtagHeaderColspanSisp(wp, w);
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-/// EVENT HANDLERS
-
-// [DM] genera il codice che gestise l'evento change sulla combobox con JavaScript abilitato (bisogna includere il file pulsantiPadreFiglio.js)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerJS(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onCBClick(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" " + 
-		"onfocus=\"inFocus(this)\" " +
-		"onblur=\"lostFocus(this,'conferma" + cb.name + "','conferma','" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" ";
-
-// [DM] genera il codice che gestise l'evento change sulla combobox (con JavaScript disabilitato)
-around template::struts2::Struts2Extensions::getComboBoxValueChangedHandlerNoScript(ComboBox cb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + cb.name + "\" id=\"conferma" + cb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(cb,cb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
-
-// [DM] genera il codice che gestise l'evento change sui radiobuttons con JavaScript abilitato (bisogna includere il file ??? -> al momento in javascript  cablato nella header)
-around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerJS(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"onclick=\"onRBClick('" + getStrutsActionCompleteConfigName(cp, model) + "!" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + getStrutsActionCompleteExtension() + "')\" "; 
-
-// [DM] genera il codice che gestise l'evento change sui radiobuttons (con JavaScript disabilitato)
-around template::struts2::Struts2Extensions::getRadioButtonsValueChangedHandlerNoScript(RadioButtons rb, GUIModel model, ContentPanel cp, String contextPrefix) :
-	if ( rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).size==1 ) then
-		"<noscript><s:submit value=\"conferma\" name=\"conferma" + rb.name + "\" id=\"conferma" + rb.name + "\" cssClass=\"" + 
-			getComboBoxValueChangedHandlerStyle(model) + "\" method=\"" + getHandlerMethodName(rb,rb.eventHandlers.select(eh|eh.eventType==EventTypes::VALUE_CHANGED).first(), contextPrefix) + 
-			"\" /></noscript>";
-
+// [DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral
+around template::GenericExtensions::isValidPortal(String portal) :
+	false;

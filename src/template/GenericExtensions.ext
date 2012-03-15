@@ -27,6 +27,11 @@ import ecore;
 /// Estensioni java indipendenti dalla piattaforma target //
 ////////////////////////////////////////////////////////////
 
+// [DM] STDMDD-1123: disabilitazione/rimozione delle cartucce differenti dalla neutral
+boolean isValidPortal(String portal) :
+	portal == "neutral";
+
+
 String getBlankPadding(int n) :
 let blanks = 
 "                                                                              "+
@@ -248,7 +253,7 @@ String getLocalJsDir(GUIModel model, boolean omit_root) :
 /// Estensioni di layout                                  //
 ////////////////////////////////////////////////////////////
 
-// Viene ridefinita mediante AOP per ogni singolo portale (questo è un default)
+// Viene ridefinita mediante AOP per ogni singolo portale (questo e' un default)
 String getPortalName() :
 	"";
 
@@ -305,7 +310,7 @@ Table getOwnerTable(Column c):
 	let table = (Table)colModel.eContainer:
 	table;
 
-// n.b: selector path può contenenre il selector, il multidataKeySelector, ...
+// n.b: selector path puo' contenere il selector, il multidataKeySelector, ...
 boolean canResolveColumnBinding(Column c, String selectorPath) :
 	
 	let bindingType = getTableElementsType(getOwnerTable(c)) :
@@ -499,7 +504,7 @@ boolean isBoundToArray(AppDataBinding db) : JAVA
 EObject getCmdChainContainer(Command cmd) : JAVA
 	it.csi.mddtools.guigen.genutils.CmdFrameworkUtils.getCmdChainContainer(it.csi.mddtools.guigen.Command);	
 	
-// [SC] Restituisce il campo per l'editabilità di una colonna della tabella
+// [SC] Restituisce il campo per l'editabilita' di una colonna della tabella
 boolean applicationDataNamesAreAllUnambiguous(List appDataList) : JAVA
 	it.csi.mddtools.guigen.genutils.GenUtilsChecks.applicationDataNamesAreAllUnambiguous(java.util.List);	
 	
