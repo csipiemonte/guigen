@@ -1,18 +1,17 @@
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
-«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»«ENDDEFINE»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
+Â«EXTENSION template::uiprototype::FatClientPrototypeExtensionsÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»«IF subpanels!= null»«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels -»«ENDIF»«ENDDEFINE»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-Â»Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null},«IF panels!=null»«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels -»«ENDIF» «ENDDEFINE»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-Â»Â«IF subpanels!= nullÂ»Â«EXPAND panelStruct(model, cp, contextPrefix) FOREACH subpanels -Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null},«IF panels!=null»«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels -»«ENDIF»«ENDDEFINE»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-Â»{"selectedPanelKey":"Â«getFullID(contextPrefix)Â»","selectedPanelValue":null},Â«IF panels!=nullÂ»Â«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels -Â»Â«ENDIFÂ» Â«ENDDEFINEÂ»
 
-«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»{"selectedPanelKey":"«getFullID(contextPrefix)»","selectedPanelValue":null},«IF panels!=null»«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels-»«ENDIF»«ENDDEFINE»
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-Â»{"selectedPanelKey":"Â«getFullID(contextPrefix)Â»","selectedPanelValue":null},Â«IF panels!=nullÂ»Â«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels -Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-
+Â«DEFINE panelStruct(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-Â»{"selectedPanelKey":"Â«getFullID(contextPrefix)Â»","selectedPanelValue":null},Â«IF panels!=nullÂ»Â«EXPAND panelStruct(model, cp, contextPrefix) FOREACH panels-Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»

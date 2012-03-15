@@ -1,46 +1,46 @@
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-«EXTENSION template::fatjs::FatJSExtensions»
-«EXTENSION template::uiprototype::FatClientPrototypeExtensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::fatjs::FatJSExtensionsÂ»
+Â«EXTENSION template::uiprototype::FatClientPrototypeExtensionsÂ»
 
 
 
-«DEFINE contentPanelData(GUIModel model) FOR ContentPanel»
-	«EXPAND storedAppDataJson(model) FOR this»
-	«REM»«EXPAND widgetsJson(model) FOR this»«ENDREM»
-«ENDDEFINE»
+Â«DEFINE contentPanelData(GUIModel model) FOR ContentPanelÂ»
+	Â«EXPAND storedAppDataJson(model) FOR thisÂ»
+	Â«REMÂ»Â«EXPAND widgetsJson(model) FOR thisÂ»Â«ENDREMÂ»
+Â«ENDDEFINEÂ»
 
-«REM»Application data«ENDREM»
-«DEFINE storedAppDataJson(GUIModel model) FOR ContentPanel»
-	«EXPAND applicationDataJson(model, this) FOREACH (List[ApplicationData])findAllActionScopedAppDataInContentPanel(this) SEPARATOR "," -»
-«ENDDEFINE»
+Â«REMÂ»Application dataÂ«ENDREMÂ»
+Â«DEFINE storedAppDataJson(GUIModel model) FOR ContentPanelÂ»
+	Â«EXPAND applicationDataJson(model, this) FOREACH (List[ApplicationData])findAllActionScopedAppDataInContentPanel(this) SEPARATOR "," -Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE applicationDataJson(GUIModel model, ContentPanel cp) FOR ApplicationData»"«getAppDataPropertyName(this)»":«EXPAND dataTypeJson FOR this.type-»«ENDDEFINE»
+Â«DEFINE applicationDataJson(GUIModel model, ContentPanel cp) FOR ApplicationDataÂ»"Â«getAppDataPropertyName(this)Â»":Â«EXPAND dataTypeJson FOR this.type-Â»Â«ENDDEFINEÂ»
 
-«DEFINE dataTypeJson FOR Type»
-	«IF this.metaType == SimpleType-»
-		«EXPAND dataTypeJson FOR (SimpleType)this-»
-	«ELSEIF this.metaType == ComplexType-»
-		«EXPAND dataTypeJson FOR (ComplexType)this-»
-	«ELSEIF this.metaType == TypedArray-»
-		«EXPAND dataTypeJson FOR (TypedArray)this-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE dataTypeJson FOR TypeÂ»
+	Â«IF this.metaType == SimpleType-Â»
+		Â«EXPAND dataTypeJson FOR (SimpleType)this-Â»
+	Â«ELSEIF this.metaType == ComplexType-Â»
+		Â«EXPAND dataTypeJson FOR (ComplexType)this-Â»
+	Â«ELSEIF this.metaType == TypedArray-Â»
+		Â«EXPAND dataTypeJson FOR (TypedArray)this-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE dataTypeJson FOR SimpleType»«simpleTypeJsonValue(this)»«ENDDEFINE»
+Â«DEFINE dataTypeJson FOR SimpleTypeÂ»Â«simpleTypeJsonValue(this)Â»Â«ENDDEFINEÂ»
 
-«DEFINE dataTypeJson FOR ComplexType»{«EXPAND dataTypeJson FOREACH this.fields SEPARATOR ","-»}«ENDDEFINE»
+Â«DEFINE dataTypeJson FOR ComplexTypeÂ»{Â«EXPAND dataTypeJson FOREACH this.fields SEPARATOR ","-Â»}Â«ENDDEFINEÂ»
 
-«DEFINE dataTypeJson FOR TypedArray»[ ]«ENDDEFINE»
+Â«DEFINE dataTypeJson FOR TypedArrayÂ»[ ]Â«ENDDEFINEÂ»
 
-«DEFINE dataTypeJson FOR Field»
-"«this.name»":«EXPAND dataTypeJson FOR this.type»
-«ENDDEFINE»
+Â«DEFINE dataTypeJson FOR FieldÂ»
+"Â«this.nameÂ»":Â«EXPAND dataTypeJson FOR this.typeÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»Widgets con bindings Action«ENDREM»
-«DEFINE widgetsJson(GUIModel model) FOR ContentPanel»
-«ENDDEFINE»
+Â«REMÂ»Widgets con bindings ActionÂ«ENDREMÂ»
+Â«DEFINE widgetsJson(GUIModel model) FOR ContentPanelÂ»
+Â«ENDDEFINEÂ»
 
