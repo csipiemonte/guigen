@@ -178,7 +178,7 @@ public interface SimpleType extends Type {
 	 * <!-- begin-model-doc -->
 	 * Utilizzato solo se <i>userDefined</i> == true.
 	 * Permette di specificare il messaggio che deve essere utilizzato per descrivere
-	 * il range di valori ammessi. Può essere utilizzato, a seconda delle cartucce di 
+	 * il range di valori ammessi. PuÃ² essere utilizzato, a seconda delle cartucce di 
 	 * generazione, come tooltip oppure come messaggio di errore in caso di 
 	 * immissione di un valore scorretto.
 	 * <!-- end-model-doc -->

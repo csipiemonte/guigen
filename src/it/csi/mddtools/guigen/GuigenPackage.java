@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * Contiene le classi con cui è possibile modellare l'applicazione.
+ * Contiene le classi con cui Ã¨ possibile modellare l'applicazione.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.guigen.GuigenFactory
  * @model kind="package"
@@ -326,13 +326,22 @@ public interface GuigenPackage extends EPackage {
 	int CONTENT_PANEL__DEFAULT_STATE = 6;
 
 	/**
+	 * The feature id for the '<em><b>Cp Commands</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_PANEL__CP_COMMANDS = 7;
+
+	/**
 	 * The number of structural features of the '<em>Content Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_PANEL_FEATURE_COUNT = 7;
+	int CONTENT_PANEL_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.PanelImpl <em>Panel</em>}' class.
@@ -9394,6 +9403,71 @@ public interface GuigenPackage extends EPackage {
 	int PORTAL_EXPOSITION_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CPCommandImpl <em>CP Command</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CPCommandImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommand()
+	 * @generated
+	 */
+	int CP_COMMAND = 154;
+
+	/**
+	 * The feature id for the '<em><b>Execute</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CP_COMMAND__EXECUTE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Command</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CP_COMMAND__COMMAND = 1;
+
+	/**
+	 * The number of structural features of the '<em>CP Command</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CP_COMMAND_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.CPCommandsImpl <em>CP Commands</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.CPCommandsImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommands()
+	 * @generated
+	 */
+	int CP_COMMANDS = 155;
+
+	/**
+	 * The feature id for the '<em><b>Commands</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CP_COMMANDS__COMMANDS = 0;
+
+	/**
+	 * The number of structural features of the '<em>CP Commands</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CP_COMMANDS_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9401,7 +9475,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 154;
+	int WIDGET_DATA_TYPE = 156;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -9411,7 +9485,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 155;
+	int UDLRC_SPEC_CONSTANTS = 157;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -9421,7 +9495,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 156;
+	int METHOD_PROTECTION_TYPES = 158;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -9431,7 +9505,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 157;
+	int EVENT_TYPES = 159;
 
 
 	/**
@@ -9442,7 +9516,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 158;
+	int DATA_LIFETIME_TYPE = 160;
 
 
 	/**
@@ -9453,7 +9527,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 159;
+	int SIMPLE_TYPE_CODES = 161;
 
 
 	/**
@@ -9464,7 +9538,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 160;
+	int PORTAL_NAMES = 162;
 
 
 	/**
@@ -9475,7 +9549,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 161;
+	int LOGOUT_ACTION_TYPES = 163;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -9485,7 +9559,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 162;
+	int TARGET_PLATFORM_CODES = 164;
 
 
 	/**
@@ -9496,7 +9570,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 163;
+	int MESSAGE_SEVERITY = 165;
 
 
 	/**
@@ -9507,7 +9581,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 164;
+	int COMMAND_STYLES = 166;
 
 
 	/**
@@ -9518,7 +9592,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 165;
+	int LOGIC_AGGREGATION_TYPES = 167;
 
 
 	/**
@@ -9529,7 +9603,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 166;
+	int CUSTOM_CARTRIDGE_ID = 168;
 
 
 	/**
@@ -9540,7 +9614,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 167;
+	int COMMAND_FUNCTIONS = 169;
 
 
 	/**
@@ -9551,7 +9625,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 168;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 170;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -9561,7 +9635,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 169;
+	int STD_WEB_RES_MODULE_NAMES = 171;
 
 
 	/**
@@ -9572,7 +9646,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 170;
+	int REPART_MODULE_TYPES = 172;
 
 
 	/**
@@ -9583,7 +9657,18 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 171;
+	int WIZARD_NUMBERING_TYPES = 173;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.CPCommandExecutionTypes <em>CP Command Execution Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.CPCommandExecutionTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
+	 * @generated
+	 */
+	int CP_COMMAND_EXECUTION_TYPES = 174;
 
 
 	/**
@@ -9833,6 +9918,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getContentPanel_DefaultState();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.ContentPanel#getCpCommands <em>Cp Commands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Cp Commands</em>'.
+	 * @see it.csi.mddtools.guigen.ContentPanel#getCpCommands()
+	 * @see #getContentPanel()
+	 * @generated
+	 */
+	EReference getContentPanel_CpCommands();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.FormPanel <em>Form Panel</em>}'.
@@ -14724,6 +14820,59 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getPortalExposition_AreaCode();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CPCommand <em>CP Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>CP Command</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommand
+	 * @generated
+	 */
+	EClass getCPCommand();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.CPCommand#getExecute <em>Execute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Execute</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommand#getExecute()
+	 * @see #getCPCommand()
+	 * @generated
+	 */
+	EAttribute getCPCommand_Execute();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.CPCommand#getCommand <em>Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Command</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommand#getCommand()
+	 * @see #getCPCommand()
+	 * @generated
+	 */
+	EReference getCPCommand_Command();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.CPCommands <em>CP Commands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>CP Commands</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommands
+	 * @generated
+	 */
+	EClass getCPCommands();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.CPCommands#getCommands <em>Commands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Commands</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommands#getCommands()
+	 * @see #getCPCommands()
+	 * @generated
+	 */
+	EReference getCPCommands_Commands();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14902,6 +15051,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getWizardNumberingTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.CPCommandExecutionTypes <em>CP Command Execution Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>CP Command Execution Types</em>'.
+	 * @see it.csi.mddtools.guigen.CPCommandExecutionTypes
+	 * @generated
+	 */
+	EEnum getCPCommandExecutionTypes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -15118,6 +15277,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTENT_PANEL__DEFAULT_STATE = eINSTANCE.getContentPanel_DefaultState();
+
+		/**
+		 * The meta object literal for the '<em><b>Cp Commands</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTENT_PANEL__CP_COMMANDS = eINSTANCE.getContentPanel_CpCommands();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.FormPanelImpl <em>Form Panel</em>}' class.
@@ -19082,6 +19249,50 @@ public interface GuigenPackage extends EPackage {
 		EAttribute PORTAL_EXPOSITION__AREA_CODE = eINSTANCE.getPortalExposition_AreaCode();
 
 		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CPCommandImpl <em>CP Command</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CPCommandImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommand()
+		 * @generated
+		 */
+		EClass CP_COMMAND = eINSTANCE.getCPCommand();
+
+		/**
+		 * The meta object literal for the '<em><b>Execute</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CP_COMMAND__EXECUTE = eINSTANCE.getCPCommand_Execute();
+
+		/**
+		 * The meta object literal for the '<em><b>Command</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CP_COMMAND__COMMAND = eINSTANCE.getCPCommand_Command();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.CPCommandsImpl <em>CP Commands</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.CPCommandsImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommands()
+		 * @generated
+		 */
+		EClass CP_COMMANDS = eINSTANCE.getCPCommands();
+
+		/**
+		 * The meta object literal for the '<em><b>Commands</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CP_COMMANDS__COMMANDS = eINSTANCE.getCPCommands_Commands();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -19260,6 +19471,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum WIZARD_NUMBERING_TYPES = eINSTANCE.getWizardNumberingTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.CPCommandExecutionTypes <em>CP Command Execution Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.CPCommandExecutionTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
+		 * @generated
+		 */
+		EEnum CP_COMMAND_EXECUTION_TYPES = eINSTANCE.getCPCommandExecutionTypes();
 
 	}
 

@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <!-- begin-model-doc -->
  * Pannello destinato a contenere sottopannelli. Serve principlamente per definire
- * la struttura della user interface. Non tutte lel possibilità (di layout, di annidamento)
+ * la struttura della user interface. Non tutte lel possibilitÃ  (di layout, di annidamento)
  * sono disponibili pe rtutte le cartucce di layout/portale.
  * <!-- end-model-doc -->
  *
@@ -58,7 +58,7 @@ public interface FormPanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Un <B>FormPanel</b> contiene uno o più sottopannelli organizzati in 
+	 * Un <B>FormPanel</b> contiene uno o piÃ¹ sottopannelli organizzati in 
 	 * vari tipi di layout. La disposizione effettiva dei sottopannelli all'interno del
 	 * <b>FormPanel</b> dipende da:
 	 * <ul>
@@ -84,7 +84,7 @@ public interface FormPanel extends Panel {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * OBSOLETO: NON UTILIZZARE: utilizzare un <b>WidgetsPanel</b> o un
-	 * <b>CommandPanel</b> interni al <b>FormPanel</b> ed inserire lì i
+	 * <b>CommandPanel</b> interni al <b>FormPanel</b> ed inserire lÃ¬ i
 	 * widget.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Widgets</em>' containment reference list.

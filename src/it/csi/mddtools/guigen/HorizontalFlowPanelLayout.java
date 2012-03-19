@@ -28,7 +28,7 @@ package it.csi.mddtools.guigen;
  *
  * <!-- begin-model-doc -->
  * Gli elementi sono posizionati l'uno a fianco all'altro, da sinistra a destra.
- * Non è necessario nessun specificatore per i singoli elementi
+ * Non Ã¨ necessario nessun specificatore per i singoli elementi
  * <!-- end-model-doc -->
  *
  *

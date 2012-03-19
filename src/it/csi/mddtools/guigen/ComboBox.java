@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * MultiDataWidget che permette la selezione di uno o più valori all'interno di 
+ * MultiDataWidget che permette la selezione di uno o piÃ¹ valori all'interno di 
  * un elenco di possibili opzioni.
  * Se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
  * Simple la combo sar&agrave; a selezione singola; se il value-binding &egrave; impostato su un <b>ApplicationData</b> di tipo
@@ -64,7 +64,7 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * nome del campo che deve essere considerato come "key". Il campo deve
-	 * corrispondere ad un field del complex type di cui è costituito l'array
+	 * corrispondere ad un field del complex type di cui Ã¨ costituito l'array
 	 * collegato alla combo (tramite multi-data-binding).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Key Selector</em>' attribute.
@@ -95,7 +95,7 @@ public interface ComboBox extends DataWidget, MultiDataWidget {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * nome del campo che deve essere utilizzato come descrizione visualizzata. Il campo deve
-	 * corrispondere ad un field del complex type di cui è costituito l'array
+	 * corrispondere ad un field del complex type di cui Ã¨ costituito l'array
 	 * collegato alla combo (tramite multi-data-binding).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value Selector</em>' attribute.

@@ -29,17 +29,17 @@ import org.eclipse.emf.common.util.EList;
  *
  * <!-- begin-model-doc -->
  * Tipo specifico di <b>MultiPanel</b> corredato di componente di controllo
- * a "tab": per passare da un tab all'altro Ë sufficiente selezionare la "linguetta" 
+ * a "tab": per passare da un tab all'altro √® sufficiente selezionare la "linguetta" 
  * corrispondente.
- * Come per tutti i <b>MultiPanel</b> il programmatore avr‡ nel model le informazioni
+ * Come per tutti i <b>MultiPanel</b> il programmatore avr√† nel model le informazioni
  * riguardanti:
  * <ul>
  * <li>il tab correntemente visualizzato</li>
- * <li>il tab "target" (quello sulla cui 2linguetta" si Ë cliccato; questa informazione 
+ * <li>il tab "target" (quello sulla cui 2linguetta" si √® cliccato; questa informazione 
  * &egrave; disponibile solo all'interno di un <b>EventHandler</b> associato
  *  al widget fittizio <b>TabSwitcher</b>)</li>.
  * </ul>
- * Il primo tab Ë quello visualizzato di default.
+ * Il primo tab √® quello visualizzato di default.
  * <!-- end-model-doc -->
  *
  * <p>

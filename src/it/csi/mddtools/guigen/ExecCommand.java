@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * <li>un riferimento alla sessione applicativa</li>
  * <li> alcune informazioni ausiliarie diepndenti dalla struttura del 
  *     <b>ContentPanel</b> (es. Id del nodo selezionato in un tree, 
- *     informazioni circa il tab su cui si Ë cliccato, informazioni sulla cella selezionata
+ *     informazioni circa il tab su cui si √® cliccato, informazioni sulla cella selezionata
  * in una tabella) </li>
  * </ul>
  * Nel metodo il programmatore potr&agrave; eseguire qualsiasi tipo di logica ed in 
@@ -98,7 +98,7 @@ public interface ExecCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Nome del metodo nel quale sar‡ contenuta la logica effettiva.
+	 * Nome del metodo nel quale sar√† contenuta la logica effettiva.
 	 * L'implementazione dipende dalla particolare cartuccia di generazione.
 	 * Nel caso della cartuccia "struts2" verr&agrave; generato un metodo nello
 	 * strato spring, contenente una regione protetta nel quale il programamtore

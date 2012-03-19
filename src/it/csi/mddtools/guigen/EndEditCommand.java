@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <!-- begin-model-doc -->
  * Permette di terminare una sessione di editing su un certo insieme di <b>ApplicationData</b>,
- * con la possibilit‡ di effettuare un <i>undo</i> sui dati specificati.
+ * con la possibilit√† di effettuare un <i>undo</i> sui dati specificati.
  * Utilizzato in congiunzione con <b>BeginEditCommand</b>. 
  * Nota: data la struttura dei due comandi di inizio e fine della sessione di
  * editing &egrave; possibile effettuare l'<i>undo</i> di una parte degli

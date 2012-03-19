@@ -298,7 +298,7 @@ public interface GUIModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * OBSOLETE. Il poretale/cartuccia di layout èeve essere impostata nel workflow di generazione.
+	 * OBSOLETE. Il poretale/cartuccia di layout Ã¨eve essere impostata nel workflow di generazione.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Portale</em>' attribute.
 	 * @see it.csi.mddtools.guigen.PortalNames

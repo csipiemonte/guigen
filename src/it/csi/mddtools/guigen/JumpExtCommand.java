@@ -53,7 +53,7 @@ public interface JumpExtCommand extends Command {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Se specificato l'effetto del comando sar‡ la redirezione del flusso applicativo all'url specificato.
+	 * Se specificato l'effetto del comando sar√† la redirezione del flusso applicativo all'url specificato.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Static Url</em>' attribute.
 	 * @see #setStaticUrl(String)

@@ -113,7 +113,7 @@ public interface Field extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Se impostato a true il campo sar‡ considerato obbligatorio.
+	 * Se impostato a true il campo sar√† considerato obbligatorio.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Required</em>' attribute.
 	 * @see #setRequired(boolean)

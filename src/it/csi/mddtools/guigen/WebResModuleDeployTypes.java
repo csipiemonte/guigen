@@ -79,7 +79,7 @@ public enum WebResModuleDeployTypes implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gli artefatti relativi al modulo sono contenuti nel pacchetto applicativo
-	 * che sar‡ installato nell'application server (es. nell'EAR)
+	 * che sar√† installato nell'application server (es. nell'EAR)
 	 * <!-- end-model-doc -->
 	 * @see #APPSERVER
 	 * @model
@@ -98,7 +98,7 @@ public enum WebResModuleDeployTypes implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gli artefatti relativi al modulo sono referenziati in una cartella del 
-	 * <i>web server</i> che espone l'applicazione che Ë disponibile con ciclo
+	 * <i>web server</i> che espone l'applicazione che √® disponibile con ciclo
 	 * di vita indipendente dall'applicazione (cartella globale)
 	 * <!-- end-model-doc -->
 	 * @see #WEBSERVER_GLOBAL

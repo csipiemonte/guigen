@@ -57,14 +57,14 @@ public interface PanelLayout extends EObject {
 	 * impostazione percentuale della dimensione delle colonne. Varia a seconda del 
 	 * particolare tipo di layout. 
 	 * Per ogni colonna logica (destinata a contenere un widget composto da label+controllo)
-	 * Ë necessario impostare due valori separati da virgola: i valori in posizione
+	 * √® necessario impostare due valori separati da virgola: i valori in posizione
 	 * dispari (1,3,...) determinano la percentuale da assegnare alla label, mentre
 	 * i valori in posizione pari (2,4,...) determinano la percentuale da assegnare
 	 * al controllo vero e proprio.
 	 * Es: per un GridLayout di 2 colonne una possibile impostazione &egrave;:
 	 * "20,30,25,25", che equivale ad una occupazone delle due colonne logiche 
-	 * del 50% dello spazio e, all'intenro della prima colonna logica il 20% dello spazio sar‡ assegnato 
-	 * alla label mentre il restante 30% sar‡ assegnato al controllo.
+	 * del 50% dello spazio e, all'intenro della prima colonna logica il 20% dello spazio sar√† assegnato 
+	 * alla label mentre il restante 30% sar√† assegnato al controllo.
 	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Column Sizes</em>' attribute.

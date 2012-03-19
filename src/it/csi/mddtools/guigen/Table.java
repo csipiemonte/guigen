@@ -44,9 +44,9 @@ package it.csi.mddtools.guigen;
  *   <li>in formato PDF, XLS, RTF</li>
  *   </ul>
  * </li>
- * <li>Con selezione della riga (&egrave; è il valore associato al DataWidget Table, utilizzabile nella business logic
+ * <li>Con selezione della riga (&egrave; Ã¨ il valore associato al DataWidget Table, utilizzabile nella business logic
  *   <ul>
- *   <li>opzionale (abilitata solo se è impostato un databinding/valuebinding)</li>
+ *   <li>opzionale (abilitata solo se Ã¨ impostato un databinding/valuebinding)</li>
  *   <li>singola o multipla (a seconda del tipo del databinding/valuebinding)</li>
  *   </ul>
  * </li>
@@ -54,7 +54,7 @@ package it.csi.mddtools.guigen;
  *   <ul>
  *   <li>con widget di editing differenziato a seconda del tipo del dato della cella (TextField se Stringa/numerico, checkbox se boolean</li>
  *   <li>con possibilit&agrave; di scegliere a runtime se una singola cella deve essere editabile o meno</li>
- *   <li>con possibilit&agrave; di prendere il valore della cella da una collection (tramite combobox); la collection può essere unica per tutta la colonna o variabile per la singola riga</li>
+ *   <li>con possibilit&agrave; di prendere il valore della cella da una collection (tramite combobox); la collection puÃ² essere unica per tutta la colonna o variabile per la singola riga</li>
  *   </ul>
  * </li>
  * </ol>

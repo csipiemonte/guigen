@@ -51,8 +51,8 @@ public interface Image extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Il percorso dell'immagine. Il valore può variare a seconda della cartuccia di
-	 * generazione. Nel caso della cartuccia <i>struts2</i> il valore è inserito as-is
+	 * Il percorso dell'immagine. Il valore puÃ² variare a seconda della cartuccia di
+	 * generazione. Nel caso della cartuccia <i>struts2</i> il valore Ã¨ inserito as-is
 	 * nel tag <i>img</i>.
 	 * 
 	 * <!-- end-model-doc -->

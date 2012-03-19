@@ -64,7 +64,7 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Seleziona il field del record di cui Ë costituita la collezione associata alla
+	 * Seleziona il field del record di cui √® costituita la collezione associata alla
 	 * tabella.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Selector</em>' attribute.
@@ -123,7 +123,7 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Se impostata a <i>true</i> la colonna Ë ordinabile cliccando sulla testata.
+	 * Se impostata a <i>true</i> la colonna √® ordinabile cliccando sulla testata.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Sortable</em>' attribute.
 	 * @see #setSortable(boolean)
@@ -191,7 +191,7 @@ public interface Column extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Indica che la colonna Ë cliccabile. Il click permette di scatenare l'evento CLICKED
+	 * Indica che la colonna √® cliccabile. Il click permette di scatenare l'evento CLICKED
 	 * sulla tabella. deve essere utilizzato in congiunzione con un event handler
 	 * nella <b>Table</b>, altrimenti non ha nessun effetto.
 	 * <!-- end-model-doc -->
@@ -223,7 +223,7 @@ public interface Column extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Permette di stabilire a runtime se una cella della colonna (che deve essere
-	 * dichiarata editabile) sar‡ effettivamente editabile.
+	 * dichiarata editabile) sar√† effettivamente editabile.
 	 * Rappresenta il selettore di un field del record di cui &egrave; costituita
 	 * la collezione collegata alla tabella: questo field deve essere di tipo boolean.
 	 * <!-- end-model-doc -->
@@ -257,10 +257,10 @@ public interface Column extends EObject {
 	 * Permette di associare ad una colonna editabile la possibilit&agrave;
 	 * di scegliere il valore della cella a partire da una collezione di coppie
 	 * chiave/valore. 
-	 * Per specificare quale campo del record di cui Ë costituita questa collezione ausiliaria
+	 * Per specificare quale campo del record di cui √® costituita questa collezione ausiliaria
 	 * utilizzare come chiave e come descrizione, occorre impostare le property
 	 * <i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
-	 * La collezione Ë la stessa per tutte le righe. 
+	 * La collezione √® la stessa per tutte le righe. 
 	 * Nel caso sia necessario differenziare l'insieme di valori a seconda della riga,
 	 * utilizzare <i>multidataPropertySelector</i>.
 	 * <!-- end-model-doc -->
@@ -357,7 +357,7 @@ public interface Column extends EObject {
 	 * Per specificare quale campo del record di cui &egrave; costituita questa collezione ausiliaria
 	 * utilizzare come chiave e come descrizione, occorre impostare le property
 	 * <i>multidataKeySelector</i> e <i>multidataValueSelector</i>.
-	 * L'insieme dei valori Ë differenziato riga per riga .
+	 * L'insieme dei valori √® differenziato riga per riga .
 	 * Nel caso sia sufficiente uno stesso insieme di valori per tutte le righe utilizzare
 	 * <i>multiDataBinding</i>
 	 * <!-- end-model-doc -->
@@ -410,7 +410,7 @@ public interface Column extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Permette di stabilire a runtime se una cella della colonna (che deve essere
-	 * dichiarata <i>eventActive</i>) sar‡ effettivamente attiva (ovvero sar‡ "cliccabile").
+	 * dichiarata <i>eventActive</i>) sar√† effettivamente attiva (ovvero sar√† "cliccabile").
 	 * Rappresenta il selettore di un field del record di cui &egrave; costituita
 	 * la collezione collegata alla tabella: questo field deve essere di tipo boolean.
 	 * <!-- end-model-doc -->

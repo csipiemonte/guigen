@@ -3311,6 +3311,52 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CPCommand} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CPCommandItemProvider cpCommandItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CPCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCPCommandAdapter() {
+		if (cpCommandItemProvider == null) {
+			cpCommandItemProvider = new CPCommandItemProvider(this);
+		}
+
+		return cpCommandItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.CPCommands} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CPCommandsItemProvider cpCommandsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.CPCommands}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCPCommandsAdapter() {
+		if (cpCommandsItemProvider == null) {
+			cpCommandsItemProvider = new CPCommandsItemProvider(this);
+		}
+
+		return cpCommandsItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3549,6 +3595,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (breadcrumbItemProvider != null) breadcrumbItemProvider.dispose();
 		if (mapViewGadgetsItemProvider != null) mapViewGadgetsItemProvider.dispose();
 		if (portalExpositionItemProvider != null) portalExpositionItemProvider.dispose();
+		if (cpCommandItemProvider != null) cpCommandItemProvider.dispose();
+		if (cpCommandsItemProvider != null) cpCommandsItemProvider.dispose();
 	}
 
 }

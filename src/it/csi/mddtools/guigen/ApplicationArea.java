@@ -160,7 +160,7 @@ public interface ApplicationArea extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Contiene i ContentPanel che costituiscono le schermate dell'applicazione.
-	 * Deprecato (dalla v.1.3): definire le schermate in uno o più AppModule, 
+	 * Deprecato (dalla v.1.3): definire le schermate in uno o piÃ¹ AppModule, 
 	 * preferibilmente mantenuti su file separati.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Content Panels</em>' containment reference list.

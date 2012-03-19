@@ -86,7 +86,7 @@ public interface DialogPanel extends Panel {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * I messaggi di feedback da visualizzare devono essere inseriti in uno o più
+	 * I messaggi di feedback da visualizzare devono essere inseriti in uno o piÃ¹
 	 * <b>MessageBoxPanel</b>.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Msg Boxes</em>' containment reference list.

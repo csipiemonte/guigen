@@ -702,6 +702,14 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createPortalExpositionAdapter();
 			}
 			@Override
+			public Adapter caseCPCommand(CPCommand object) {
+				return createCPCommandAdapter();
+			}
+			@Override
+			public Adapter caseCPCommands(CPCommands object) {
+				return createCPCommandsAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2874,6 +2882,34 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPortalExpositionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CPCommand <em>CP Command</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CPCommand
+	 * @generated
+	 */
+	public Adapter createCPCommandAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.CPCommands <em>CP Commands</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.CPCommands
+	 * @generated
+	 */
+	public Adapter createCPCommandsAdapter() {
 		return null;
 	}
 

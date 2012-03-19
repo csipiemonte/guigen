@@ -168,6 +168,7 @@ public class ContentPanelItemProvider
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__ON_REFRESH_COMMAND);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__DIALOGS);
 			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__STATES);
+			childrenFeatures.add(GuigenPackage.Literals.CONTENT_PANEL__CP_COMMANDS);
 		}
 		return childrenFeatures;
 	}
@@ -229,6 +230,7 @@ public class ContentPanelItemProvider
 			case GuigenPackage.CONTENT_PANEL__ON_REFRESH_COMMAND:
 			case GuigenPackage.CONTENT_PANEL__DIALOGS:
 			case GuigenPackage.CONTENT_PANEL__STATES:
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -415,6 +417,11 @@ public class ContentPanelItemProvider
 			(createChildParameter
 				(GuigenPackage.Literals.CONTENT_PANEL__STATES,
 				 GuigenFactory.eINSTANCE.createScreenStates()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GuigenPackage.Literals.CONTENT_PANEL__CP_COMMANDS,
+				 GuigenFactory.eINSTANCE.createCPCommands()));
 	}
 
 	/**

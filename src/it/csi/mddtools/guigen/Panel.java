@@ -122,7 +122,7 @@ public interface Panel extends EObject {
 	 * dei sottopannelli o dei widget.
 	 * L'impostazioen della disposizione effettiva degli elementi interni, fissato un particolare layout,
 	 * deve essere completata tramite un LayoutSpecifier (su ciascun elemento interno)
-	 * coerente con il tipo di layout scelto (es. Se il layout è un GridLayout, negli elementi interni 
+	 * coerente con il tipo di layout scelto (es. Se il layout Ã¨ un GridLayout, negli elementi interni 
 	 * occorre specificare un GrigWidgetLayoutSpec).
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Layout</em>' containment reference.

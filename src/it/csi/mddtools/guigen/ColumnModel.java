@@ -76,13 +76,13 @@ public interface ColumnModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * seleziona il field del record di cui Ë composta la collezione collegata
+	 * seleziona il field del record di cui √® composta la collezione collegata
 	 * alla Table che deve essere utilizzato come valore di selezione.
-	 * Utilizzato solo in congiunzione con un value-binding (quindi con possibilit‡
+	 * Utilizzato solo in congiunzione con un value-binding (quindi con possibilit√†
 	 * di selezione).
 	 * Es: se:
 	 * <ul>
-	 * <li> la tabella Ë collegata ad una collezione di un tipo <i>Persona</i>, 
+	 * <li> la tabella √® collegata ad una collezione di un tipo <i>Persona</i>, 
 	 * costituito dai field:
 	 *   <ul>
 	 *   <li>codFisc: String</li>
@@ -94,7 +94,7 @@ public interface ColumnModel extends EObject {
 	 * <li>il <i>valueSelector</i> &egrave; impostato come "codFisc" </li>
 	 * </ul>
 	 * Allora selezionando una riga della tabella l'application data di value-binding 
-	 * sar‡ impostato con il codice fiscale del record corrispondente.
+	 * sar√† impostato con il codice fiscale del record corrispondente.
 	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value Selector</em>' attribute.

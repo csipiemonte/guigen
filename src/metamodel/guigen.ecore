@@ -139,6 +139,12 @@
         <details key="documentation" value="Stato di attivazione del ContentPanel di default."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cpCommands" eType="#//CPCommands"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Contenitore dei comandi associati al content panel (vengono eseguiti in &#xD;&#xA;differenti momenti a seconda del tipo di esecuzione del singolo comando)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Panel" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2982,5 +2988,51 @@
     <eLiterals name="UPPERCASE_ALPHA" value="3" literal="UPPERCASE_ALPHA"/>
     <eLiterals name="UPPERCASE_ROMAN_NUMERALS" value="4"/>
     <eLiterals name="LOWERCASE_ROMAN_NUMERALS" value="5" literal="LOWERCASE_ROMAN_NUMERALS"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CPCommand">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Comando asosciato al Content Panel che viene eseguito a seconda di quanto&#xD;&#xA;specificato in &lt;i>execute&lt;/i>."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="execute" eType="#//CPCommandExecutionTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="command" eType="#//Command"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CPCommands">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Contenitore dei comandi associati al content panel (vengono eseguiti in &#xD;&#xA;differenti momenti a seconda del tipo di esecuzione del singolo comando)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commands" upperBound="-1"
+        eType="#//CPCommand" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="L'elenco dei comandi"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CPCommandExecutionTypes">
+    <eLiterals name="ON_INIT">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il comando viene eseguito al primo ingresso nel content panel. Serve pertanto&#xD;&#xA;per l'inizializzazione del ContentPanel"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ON_ENTER" value="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il comando viene eseguito ad ogni ingresso nel content panel (proveniente da&#xD;&#xA;un a differente schermata). Serve pertanto per quei casi in cui sia&#xD;&#xA;necessaria una inizializzazione del ContentPanel che non possa essere effettuata&#xD;&#xA;una tantum, ma debba essere ripetuta ad ogni ingresso."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BEFORE_EVENTS" value="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il comando viene eseguito prima dell'esecuzione di ogni evento esplicito su uno dei&#xD;&#xA;widget della schermata. "/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="AFTER_EVENTS" value="3">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il comando viene eseguito al termine dell'esecuzione di ogni evento esplicito su uno dei&#xD;&#xA;widget della schermata (prima dell'eventuale cambio di schermata)"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ON_REFRESH" value="4" literal="ON_REFRESH">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Il comando viene eseguito ad ogni refresh della schermata; se il refresh &amp;egrave;&#xD;&#xA;scatenato da un evento su un widget, il comando viene eseguito prima dell'&#xD;&#xA;esecuzione ddell'evento. "/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
 </ecore:EPackage>

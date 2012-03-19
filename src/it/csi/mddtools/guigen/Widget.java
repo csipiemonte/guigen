@@ -182,9 +182,9 @@ public interface Widget extends EObject {
 	 * (comportamento condizionato = {visibilit&agrave; / abilitazione}): se almeno un
 	 * constraint &egrave; verificato il comportamento condizionato sar&agrave; abilitato
 	 * (visibilit&agrave; / editabilit&agrave;).
-	 * Se nessun constraint sar&agrave; verificato, la visualizzazioen/abilitazione sar‡ condizionata solo allo stato
-	 * di default / comandato, ovvero al valore delle propriet‡ <b>defaultVisible</b> o 
-	 * <b>defaultEnabled</b> se non Ë stato in precedenza utilizzato nessun
+	 * Se nessun constraint sar&agrave; verificato, la visualizzazioen/abilitazione sar√† condizionata solo allo stato
+	 * di default / comandato, ovvero al valore delle propriet√† <b>defaultVisible</b> o 
+	 * <b>defaultEnabled</b> se non √® stato in precedenza utilizzato nessun
 	 * comando di tipo <b>ONOFFCommand</b> o <b>VisibilityCommand</b>; se 
 	 * tali comandi sono stati utilizzati allora "vince" l'impostazione derivante da
 	 * questi comandi.
@@ -292,7 +292,7 @@ public interface Widget extends EObject {
 	 * Se impostato a <i>true</i> e se le features ricche sono abilitate (nella 
 	 * <b>TargetPlatform</b>) allora il widget sar&agrave; arricchito, altrimenti non
 	 * sar&agrave; applicato nessun arricchimento.
-	 * Il valore di default Ë <i>true</i> 
+	 * Il valore di default √® <i>true</i> 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable Enrichment</em>' attribute.
 	 * @see #setEnableEnrichment(Boolean)

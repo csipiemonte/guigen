@@ -59,7 +59,7 @@ public interface CustomTemplate extends EObject {
 	 * <!-- begin-model-doc -->
 	 * ID mnemonico del template. Il valore di questo attributo sar&agrave; a 
 	 * disposizione del codiuce che implementa il template <i>XPand</i>, e 
-	 * dovr‡ essere utilizzato per instradare la logica di generazione verso il 
+	 * dovr√† essere utilizzato per instradare la logica di generazione verso il 
 	 * template corretto.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Tpl ID</em>' attribute.

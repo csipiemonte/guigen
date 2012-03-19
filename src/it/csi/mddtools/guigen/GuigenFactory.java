@@ -1300,6 +1300,24 @@ public interface GuigenFactory extends EFactory {
 	PortalExposition createPortalExposition();
 
 	/**
+	 * Returns a new object of class '<em>CP Command</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>CP Command</em>'.
+	 * @generated
+	 */
+	CPCommand createCPCommand();
+
+	/**
+	 * Returns a new object of class '<em>CP Commands</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>CP Commands</em>'.
+	 * @generated
+	 */
+	CPCommands createCPCommands();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -21,6 +21,8 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.ApplicationData;
+import it.csi.mddtools.guigen.CPCommands;
+import it.csi.mddtools.guigen.CPCommand;
 import it.csi.mddtools.guigen.Command;
 import it.csi.mddtools.guigen.ContentPanel;
 import it.csi.mddtools.guigen.DialogPanel;
@@ -57,6 +59,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDialogs <em>Dialogs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getStates <em>States</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getDefaultState <em>Default State</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ContentPanelImpl#getCpCommands <em>Cp Commands</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,6 +145,16 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * @ordered
 	 */
 	protected ScreenState defaultState;
+
+	/**
+	 * The cached value of the '{@link #getCpCommands() <em>Cp Commands</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCpCommands()
+	 * @generated
+	 * @ordered
+	 */
+	protected CPCommands cpCommands;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -379,6 +392,49 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CPCommands getCpCommands() {
+		return cpCommands;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCpCommands(CPCommands newCpCommands, NotificationChain msgs) {
+		CPCommands oldCpCommands = cpCommands;
+		cpCommands = newCpCommands;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.CONTENT_PANEL__CP_COMMANDS, oldCpCommands, newCpCommands);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCpCommands(CPCommands newCpCommands) {
+		if (newCpCommands != cpCommands) {
+			NotificationChain msgs = null;
+			if (cpCommands != null)
+				msgs = ((InternalEObject)cpCommands).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.CONTENT_PANEL__CP_COMMANDS, null, msgs);
+			if (newCpCommands != null)
+				msgs = ((InternalEObject)newCpCommands).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.CONTENT_PANEL__CP_COMMANDS, null, msgs);
+			msgs = basicSetCpCommands(newCpCommands, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.CONTENT_PANEL__CP_COMMANDS, newCpCommands, newCpCommands));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -390,6 +446,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return ((InternalEList<?>)getDialogs()).basicRemove(otherEnd, msgs);
 			case GuigenPackage.CONTENT_PANEL__STATES:
 				return basicSetStates(null, msgs);
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
+				return basicSetCpCommands(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -417,6 +475,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
 				if (resolve) return getDefaultState();
 				return basicGetDefaultState();
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
+				return getCpCommands();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -453,6 +513,9 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
 				setDefaultState((ScreenState)newValue);
 				return;
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
+				setCpCommands((CPCommands)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -486,6 +549,9 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
 				setDefaultState((ScreenState)null);
 				return;
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
+				setCpCommands((CPCommands)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -512,6 +578,8 @@ public class ContentPanelImpl extends EObjectImpl implements ContentPanel {
 				return states != null;
 			case GuigenPackage.CONTENT_PANEL__DEFAULT_STATE:
 				return defaultState != null;
+			case GuigenPackage.CONTENT_PANEL__CP_COMMANDS:
+				return cpCommands != null;
 		}
 		return super.eIsSet(featureID);
 	}

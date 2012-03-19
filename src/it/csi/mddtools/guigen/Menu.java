@@ -176,7 +176,7 @@ public interface Menu extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Il menu supporta un handler per l'evento CLICKED. Se non viene specificato
-	 * nessun event handler il menu sarà completamente inattivo.
+	 * nessun event handler il menu sarÃ  completamente inattivo.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event Handler</em>' containment reference.
 	 * @see #setEventHandler(EventHandler)

@@ -30,12 +30,12 @@ import org.eclipse.emf.common.util.EList;
  * <!-- begin-model-doc -->
  * Permette di verificare se, all'interno di una sessione di editing, vi sono state
  * delle variazioni al valore di uno o pi&ugrave; <b>ApplicationData</b>.
- * Affinch&egrave; il check sia veritiero Ë necessario che gli <b>ApplicationData</b>
+ * Affinch&egrave; il check sia veritiero √® necessario che gli <b>ApplicationData</b>
  * oggetto di verifica siano un sottoinsieme dell'insieme di <b>ApplicationData</b>
  * indicati nel comando <b>BeginEditCommand</b> che ha originato
  * la sessione di editing (altrimenti non sar&agrave; disponibile il valore originario
  * con il quale effettuare il check di modifica).
- * A fronte dell'esito del check sar‡ possibile proseguire l'esecuzione con uno 
+ * A fronte dell'esito del check sar√† possibile proseguire l'esecuzione con uno 
  * tra due comandi (referenziati nei due elementi di tipo <b>CommandOutcome</b>).
  * Mediante l'attributo <i>checkAggregation</i>E'possibile specificare la logica di aggregazione del check relativamente
  * ai vari <b>ApplicationData</b> referenziati:

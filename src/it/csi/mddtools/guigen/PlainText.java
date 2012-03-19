@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Permette la visualizzazione di testo, fisso o proveniente da application data, senza possibilit‡ di editing.
+ * Permette la visualizzazione di testo, fisso o proveniente da application data, senza possibilit√† di editing.
  * <!-- end-model-doc -->
  *
  * <p>

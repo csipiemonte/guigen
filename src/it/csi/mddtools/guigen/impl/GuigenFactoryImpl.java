@@ -215,6 +215,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.BREADCRUMB: return createBreadcrumb();
 			case GuigenPackage.MAP_VIEW_GADGETS: return createMapViewGadgets();
 			case GuigenPackage.PORTAL_EXPOSITION: return createPortalExposition();
+			case GuigenPackage.CP_COMMAND: return createCPCommand();
+			case GuigenPackage.CP_COMMANDS: return createCPCommands();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -264,6 +266,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createRepartModuleTypesFromString(eDataType, initialValue);
 			case GuigenPackage.WIZARD_NUMBERING_TYPES:
 				return createWizardNumberingTypesFromString(eDataType, initialValue);
+			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
+				return createCPCommandExecutionTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -313,6 +317,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertRepartModuleTypesToString(eDataType, instanceValue);
 			case GuigenPackage.WIZARD_NUMBERING_TYPES:
 				return convertWizardNumberingTypesToString(eDataType, instanceValue);
+			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
+				return convertCPCommandExecutionTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1723,6 +1729,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CPCommand createCPCommand() {
+		CPCommandImpl cpCommand = new CPCommandImpl();
+		return cpCommand;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CPCommands createCPCommands() {
+		CPCommandsImpl cpCommands = new CPCommandsImpl();
+		return cpCommands;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -2075,6 +2101,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertWizardNumberingTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CPCommandExecutionTypes createCPCommandExecutionTypesFromString(EDataType eDataType, String initialValue) {
+		CPCommandExecutionTypes result = CPCommandExecutionTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCPCommandExecutionTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

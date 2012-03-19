@@ -89,7 +89,7 @@ public interface DataWidget extends Widget {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Configurazione di validazione che indica che il valore associato al widget è obbligatorio. 
+	 * Configurazione di validazione che indica che il valore associato al widget Ã¨ obbligatorio. 
 	 * Utilizzato solo nel caso di binding ad un application data non strutturato.
 	 * Nel caso di binding con un field di un application data di tipo strutturato, 
 	 * l'eventuale constraint di obbligatoriet&agrave; deve essere impostato nel <b>ComplexType</b>.

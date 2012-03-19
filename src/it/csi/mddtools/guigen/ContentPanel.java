@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDialogs <em>Dialogs</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getStates <em>States</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getDefaultState <em>Default State</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.ContentPanel#getCpCommands <em>Cp Commands</em>}</li>
  * </ul>
  * </p>
  *
@@ -244,5 +245,31 @@ public interface ContentPanel extends EObject {
 	 * @generated
 	 */
 	void setDefaultState(ScreenState value);
+
+	/**
+	 * Returns the value of the '<em><b>Cp Commands</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Contenitore dei comandi associati al content panel (vengono eseguiti in 
+	 * differenti momenti a seconda del tipo di esecuzione del singolo comando)
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Cp Commands</em>' containment reference.
+	 * @see #setCpCommands(CPCommands)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getContentPanel_CpCommands()
+	 * @model containment="true"
+	 * @generated
+	 */
+	CPCommands getCpCommands();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.ContentPanel#getCpCommands <em>Cp Commands</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cp Commands</em>' containment reference.
+	 * @see #getCpCommands()
+	 * @generated
+	 */
+	void setCpCommands(CPCommands value);
 
 } // ContentPanel
