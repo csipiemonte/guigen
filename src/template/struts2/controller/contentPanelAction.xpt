@@ -619,6 +619,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
 	protected Map<String, UISecConstraint> allOnOffConstraints = null;
 	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnRefresh»
+					public void setOnInitCPCommand«this.name»(java.lang.Boolean value) {
+						getSession().put("onInitCPCommand«this.name»", value);
+					}
+				
+					public java.lang.Boolean getOnInitCPCommand«this.name»() {
+						return (java.lang.Boolean) (getSession().get("onInitCPCommand«this.name»"));
+					}
+				«ENDFOREACH»
+		«ENDIF»
+	«ENDIF»
 	
 	/**
 	 * Metodo di preparazione della schermata/action
@@ -639,28 +652,43 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«EXPAND defaultStateCode FOR this»
 		«ENDIF-»
 		      
+		      
+		ActionContext ctx = ActionContext.getContext();
+		String methodName = ctx.getActionInvocation().getProxy().getMethod();     
 		«IF this.onRefreshCommand!=null»
 		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-		/*	ActionContext ctx = ActionContext.getContext();
-		String methodName = ctx.getActionInvocation().getProxy().getMethod();
+	
 		
 		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
 			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
 			ICommand cmd = initOnRefreshCommand();
 			cmd.doCommand(this);
-		}*/
+		}
 		«ENDIF»
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
 					// CpCommand OnRefresh
-					ActionContext ctx = ActionContext.getContext();
-					String methodName = ctx.getActionInvocation().getProxy().getMethod();
 					
 					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
 						// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
-						ICommand cmd = initOnRefreshCommand();
-						cmd.doCommand(this);
+						ICommand cmdOnRefresh = initOnRefreshCommand();
+						cmdOnRefresh.doCommand(this);
+					}
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+		
+		«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnRefresh»
+					// CpCommand OnRefresh
+					
+					if (getOnInitCPCommand«this.name»()==null) {
+						// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+						ICommand cmdOnInit = initOnInitCPCommand();
+						cmdOnInit.doCommand(this);
+						setOnInitCPCommand«this.name»(true);
 					}
 				«ENDFOREACH»
 			«ENDIF»
@@ -681,6 +709,14 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
 					«EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR cpOnRefresh.command»
+				«ENDFOREACH»
+			«ENDIF»
+	«ENDIF»		
+	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
+					«EXPAND template::struts2::controller::eventHandlers::actionStructureOnInitCPCommand(model, this) FOR cpOnInit.command»
 				«ENDFOREACH»
 			«ENDIF»
 	«ENDIF»		

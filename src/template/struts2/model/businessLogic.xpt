@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,31 +13,31 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
 
-«DEFINE springBEClasses FOR GUIModel-»
-«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this).select(x|mustGenerateContentPanel((ContentPanel)x))-»
+Â«DEFINE springBEClasses FOR GUIModel-Â»
+Â«EXPAND CPBEJavaFile(this) FOREACH (List[ContentPanel])getAllContentPanels(this).select(x|mustGenerateContentPanel((ContentPanel)x))-Â»
 
-«FILE getSpringBEJavaFile()»
-package «getBaseJavaPackage()».business;
+Â«FILE getSpringBEJavaFile()Â»
+package Â«getBaseJavaPackage()Â».business;
 
 import java.util.*;
 
-import «getDTOBaseJavaPackage()».*;
+import Â«getDTOBaseJavaPackage()Â».*;
 
 import org.apache.log4j.*;
-import «getBaseJavaPackage()».util.*;
+import Â«getBaseJavaPackage()Â».util.*;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEImports")»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEImports")Â»
 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
-public class «getSpringBEClassName()»{
+public class Â«getSpringBEClassName()Â»{
 
 	/**  */
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
@@ -45,9 +45,9 @@ public class «getSpringBEClassName()»{
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
-    «FOREACH (List[ApplicationData])getAllApplicationData(this) AS currAD»
-    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
-    «ENDFOREACH» 
+    Â«FOREACH (List[ApplicationData])getAllApplicationData(this) AS currADÂ»
+    public final static String APPDATA_Â«currAD.name.toUpperCase()Â»_CODE = "Â«getAppDataKey(currAD)Â»";
+    Â«ENDFOREACHÂ» 
    
 
     //////////////////////////////////////////////////////////////////////////////
@@ -57,72 +57,72 @@ public class «getSpringBEClassName()»{
 	/// - i metodi relativi ai singoli content panel sono delegati nei rispettivi
 	///   bean
 	//////////////////////////////////////////////////////////////////////////////
-	«EXPAND template::struts2::model::businessLogic::springBEMethodsDelegation FOR this»
+	Â«EXPAND template::struts2::model::businessLogic::springBEMethodsDelegation FOR thisÂ»
 	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property relative ai bean spring associati agli specifici content panel
 	//////////////////////////////////////////////////////////////////////////////
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-Â»
 	
-	private «getSpringCPBEFQN(currCP)» _«getSpringCPBEClassName(currCP)» = null;
+	private Â«getSpringCPBEFQN(currCP)Â» _Â«getSpringCPBEClassName(currCP)Â» = null;
 	
-	public void set«getSpringCPBEClassName(currCP)»(«getSpringCPBEFQN(currCP)» bean){
-		_«getSpringCPBEClassName(currCP)» = bean;
+	public void setÂ«getSpringCPBEClassName(currCP)Â»(Â«getSpringCPBEFQN(currCP)Â» bean){
+		_Â«getSpringCPBEClassName(currCP)Â» = bean;
 	}
 	
-	public «getSpringCPBEFQN(currCP)» get«getSpringCPBEClassName(currCP)»(){
-		return _«getSpringCPBEClassName(currCP)»;
+	public Â«getSpringCPBEFQN(currCP)Â» getÂ«getSpringCPBEClassName(currCP)Â»(){
+		return _Â«getSpringCPBEClassName(currCP)Â»;
 	}
-	«ENDFOREACH-»
+	Â«ENDFOREACH-Â»
 	
 	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEProperties")»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringBEProperties")Â»
 	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 }
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getSpringBEExcJavaFile()»package «getBaseJavaPackage()».business;
+Â«FILE getSpringBEExcJavaFile()Â»package Â«getBaseJavaPackage()Â».business;
 
 /**
  * Eccezione rilanciata dallo strato spring nel caso in cui la condizione di 
  * errore non sia gestita attraverso un outcome_code e corrispondenti messaggi.
  * Serve per gestire situazioni non recuperabili o impreviste
  */
-public class «getSpringBEExcClassName()» extends Exception {
-	public «getSpringBEExcClassName()»(String msg, Exception nested) {
+public class Â«getSpringBEExcClassName()Â» extends Exception {
+	public Â«getSpringBEExcClassName()Â»(String msg, Exception nested) {
 		super(msg, nested);
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»bean spring associato alla logica del singolo pannello«ENDREM»
-«DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanel»
-«FILE getSpringCPBEJavaFile(model,this)»
-package «getBaseJavaPackage(model)».business«getAppModuleAsPkg(this,true,false)»;
+Â«REMÂ»bean spring associato alla logica del singolo pannelloÂ«ENDREMÂ»
+Â«DEFINE CPBEJavaFile(GUIModel model) FOR ContentPanelÂ»
+Â«FILE getSpringCPBEJavaFile(model,this)Â»
+package Â«getBaseJavaPackage(model)Â».businessÂ«getAppModuleAsPkg(this,true,false)Â»;
 
 import java.util.*;
 
-import «getDTOBaseJavaPackage(model)».*;
-«EXPAND template::struts2::model::modelJavaFiles::importAllNamespaces(model) FOR model.typedefs»
+import Â«getDTOBaseJavaPackage(model)Â».*;
+Â«EXPAND template::struts2::model::modelJavaFiles::importAllNamespaces(model) FOR model.typedefsÂ»
 
 import org.apache.log4j.*;
-import «getBaseJavaPackage(model)».util.*;
-import «getBaseJavaPackage(model)».business.*;
-«IF hasGisMap()»
-import «getBaseJavaPackage(model)».presentation.uiutils.GreaseDTOMapper;
-«ENDIF»
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")»
+import Â«getBaseJavaPackage(model)Â».util.*;
+import Â«getBaseJavaPackage(model)Â».business.*;
+Â«IF hasGisMap()Â»
+import Â«getBaseJavaPackage(model)Â».presentation.uiutils.GreaseDTOMapper;
+Â«ENDIFÂ»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CP"+name+"SpringBEImports")Â»
 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
-public class «getSpringCPBEClassName()»{
+public class Â«getSpringCPBEClassName()Â»{
 
 	/**  */
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".business");
@@ -130,9 +130,9 @@ public class «getSpringCPBEClassName()»{
     //////////////////////////////////////////////////////////////////////////////
 	/// Costanti identificative degli Application Data
 	//////////////////////////////////////////////////////////////////////////////
-    «FOREACH this.appData AS currAD»
-    public final static String APPDATA_«currAD.name.toUpperCase()»_CODE = "«getAppDataKey(currAD)»";
-    «ENDFOREACH» 
+    Â«FOREACH this.appData AS currADÂ»
+    public final static String APPDATA_Â«currAD.name.toUpperCase()Â»_CODE = "Â«getAppDataKey(currAD)Â»";
+    Â«ENDFOREACHÂ» 
    
 
     //////////////////////////////////////////////////////////////////////////////
@@ -140,418 +140,440 @@ public class «getSpringCPBEClassName()»{
 	//////////////////////////////////////////////////////////////////////////////
 	
 	// nome del content panel associato al bean
-	public final static String CPNAME = "«name»"; 
+	public final static String CPNAME = "Â«nameÂ»"; 
 	
-	«EXPAND template::struts2::model::tabSetUtils::tabSetUtils(model) FOR this-»
+	Â«EXPAND template::struts2::model::tabSetUtils::tabSetUtils(model) FOR this-Â»
 	
-	«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR this»
+	Â«EXPAND template::struts2::model::businessLogic::springBEMethods(model) FOR thisÂ»
 	
-	«REM»[DM] gestione del reset delle tabelle«ENDREM»
-	«EXPAND resetTableMethods FOR this»
+	Â«REMÂ»[DM] gestione del reset delle tabelleÂ«ENDREMÂ»
+	Â«EXPAND resetTableMethods FOR thisÂ»
 	
-	«IF hasGisMap()»
+	Â«IF hasGisMap()Â»
 	//*********************bean di iniezione delle mappe
-	«LET (List[MapView])getMapsInContentPanel() AS maps-»
-	«FOREACH maps AS map-»
-	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
+	Â«LET (List[MapView])getMapsInContentPanel() AS maps-Â»
+	Â«FOREACH maps AS map-Â»
+	private GreaseDTOMapper mapAdapterÂ«map.mapId.toFirstUpper()Â»;
 
-	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
-		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
+	public void setMapAdapterÂ«map.mapId.toFirstUpper()Â»(GreaseDTOMapper mapAdapterÂ«map.mapId.toFirstUpper()Â») {
+		this.mapAdapterÂ«map.mapId.toFirstUpper()Â» = mapAdapterÂ«map.mapId.toFirstUpper()Â»;
 	}
-	«ENDFOREACH»
-	«ENDLET»
-	«ENDIF»
+	Â«ENDFOREACHÂ»
+	Â«ENDLETÂ»
+	Â«ENDIFÂ»
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"SpringBEProperties")»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(""+this.name+"SpringBEProperties")Â»
 	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»[DM] metodi statici per il reset delle tabelle (non bello... ma così è...)«ENDREM»
-«DEFINE resetTableMethods FOR ContentPanel»
+Â«REMÂ»[DM] metodi statici per il reset delle tabelle (non bello... ma cosÃ¬ Ã¨...)Â«ENDREMÂ»
+Â«DEFINE resetTableMethods FOR ContentPanelÂ»
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi statici per il reset delle tabelle
 	//////////////////////////////////////////////////////////////////////////////
 	
-	«EXPAND resetTableMethods(this,"") FOR this.panels»
+	Â«EXPAND resetTableMethods(this,"") FOR this.panelsÂ»
 	  
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»implementazione di default per i casi non da gestire«ENDREM»
-«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR Panel»
-«ENDDEFINE»
+Â«REMÂ»implementazione di default per i casi non da gestireÂ«ENDREMÂ»
+Â«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR PanelÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR FormPanel»
-	«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.subpanels-»
-«ENDDEFINE»
+Â«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR FormPanelÂ»
+	Â«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR MultiPanel»
-	«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.panels-»
-«ENDDEFINE»
+Â«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR MultiPanelÂ»
+	Â«EXPAND resetTableMethods(cp, contextPrefix) FOREACH this.panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR PanelDefUse»
-	«EXPAND resetTableMethods(cp, getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-»
-«ENDDEFINE»
+Â«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR PanelDefUseÂ»
+	Â«EXPAND resetTableMethods(cp, getChainedContext(contextPrefix,this.name)) FOR this.panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR WidgetsPanel»
-	«FOREACH this.widgets.typeSelect(Table) AS currTable»
-    	«EXPAND resetTableMethod(cp, contextPrefix) FOR currTable-»
-    «ENDFOREACH»
-«ENDDEFINE»
+Â«DEFINE resetTableMethods(ContentPanel cp, String contextPrefix) FOR WidgetsPanelÂ»
+	Â«FOREACH this.widgets.typeSelect(Table) AS currTableÂ»
+    	Â«EXPAND resetTableMethod(cp, contextPrefix) FOR currTable-Â»
+    Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«DEFINE resetTableMethod(ContentPanel cp, String contextPrefix) FOR Table»
-	public static void resetClearStatus_«getWidgetName(this, contextPrefix)»(java.util.Map session) {
-    	session.put("«cp.name»_«getFullID(this, contextPrefix)»_clearStatus", Boolean.TRUE);
+Â«DEFINE resetTableMethod(ContentPanel cp, String contextPrefix) FOR TableÂ»
+	public static void resetClearStatus_Â«getWidgetName(this, contextPrefix)Â»(java.util.Map session) {
+    	session.put("Â«cp.nameÂ»_Â«getFullID(this, contextPrefix)Â»_clearStatus", Boolean.TRUE);
     }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»inserisce i metodi della classe BEFacade«ENDREM»
-«DEFINE springBEMethodsDelegation FOR GUIModel-»
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-»
-		«REM»handlers dei widget«ENDREM»
-		«EXPAND springBEMethodDelegation(this) FOR currCP-»
-	«ENDFOREACH-»
-	«FOREACH (List[Menu])getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-»
-		«FOREACH getAllExecActionsForEventHandler(currESM.eventHandler) AS currAct-»
-			«EXPAND springBEMethod(this,"Menu", null, "", null) FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-	«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-»
-	«IF onInitAct != null-»
-		«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-»
-			«EXPAND springBEMethod(this,"Home", null, "", null) FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«REMÂ»inserisce i metodi della classe BEFacadeÂ«ENDREMÂ»
+Â«DEFINE springBEMethodsDelegation FOR GUIModel-Â»
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS currCP-Â»
+		Â«REMÂ»handlers dei widgetÂ«ENDREMÂ»
+		Â«EXPAND springBEMethodDelegation(this) FOR currCP-Â»
+	Â«ENDFOREACH-Â»
+	Â«FOREACH (List[Menu])getAllEventSourceMenus(this.structure.appWindow.appArea.menubar) AS currESM-Â»
+		Â«FOREACH getAllExecActionsForEventHandler(currESM.eventHandler) AS currAct-Â»
+			Â«EXPAND springBEMethod(this,"Menu", null, "", null) FOR (ExecCommand)currAct-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDFOREACH-Â»
+	Â«LET this.structure.appWindow.appArea.onInitCommand AS onInitAct-Â»
+	Â«IF onInitAct != null-Â»
+		Â«FOREACH getAllExecActionsRecursive(this.structure.appWindow.appArea.onInitCommand) AS currAct-Â»
+			Â«EXPAND springBEMethod(this,"Home", null, "", null) FOR (ExecCommand)currAct-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model) FOR ContentPanel-»
-	«REM»handler dei widget«ENDREM»
-	«EXPAND springBEMethodDelegation(model, this, "") FOR this.panels»
-	«REM»handler dei dialogs«ENDREM»
-	«EXPAND springBEMethodDelegation(model, this, "") FOREACH this.dialogs»
-	«REM»handlers dei refresh command«ENDREM»
-	«IF this.onRefreshCommand!=null»
-		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
-			«EXPAND springBEMethodDelegation(model,this, "") FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model) FOR ContentPanel-Â»
+	Â«REMÂ»handler dei widgetÂ«ENDREMÂ»
+	Â«EXPAND springBEMethodDelegation(model, this, "") FOR this.panelsÂ»
+	Â«REMÂ»handler dei dialogsÂ«ENDREMÂ»
+	Â«EXPAND springBEMethodDelegation(model, this, "") FOREACH this.dialogsÂ»
+	Â«REMÂ»handlers dei refresh commandÂ«ENDREMÂ»
+	Â«IF this.onRefreshCommand!=nullÂ»
+		Â«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-Â»
+			Â«EXPAND springBEMethodDelegation(model,this, "") FOR (ExecCommand)currAct-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDIFÂ»
+	Â«IF this.cpCommands!=nullÂ»
+		Â«IF !this.cpCommands.commands.isEmptyÂ»
+			Â«FOREACH this.cpCommands.commands AS cpCommandÂ»
+				Â«FOREACH getAllExecActionsRecursive(cpCommand.command) AS currAct-Â»
+					Â«EXPAND springBEMethodDelegation(model,this, "") FOR (ExecCommand)currAct-Â»
+				Â«ENDFOREACH-Â»
+			Â«ENDFOREACHÂ»
+		Â«ENDIFÂ»
+	Â«ENDIFÂ»
+	
+	
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH subpanels-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MenuPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOR commands-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR DialogPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOR commands-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-»
-	«IF switcher!=null-»
-		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-»
-	«ENDIF-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR TabSetPanel-Â»
+	Â«IF switcher!=null-Â»
+		Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-Â»
+	Â«ENDIF-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-»
-	«IF switcher!=null-»
-		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-»
-	«ENDIF-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR WizardPanel-Â»
+	Â«IF switcher!=null-Â»
+		Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH switcher.eventHandlers-Â»
+	Â«ENDIF-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
-	«EXPAND springBEMethodDelegation(model,cp, getChainedContext(contextPrefix,name)) FOR panelDef.panel-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, getChainedContext(contextPrefix,name)) FOR panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
-	«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH eventHandlers-»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-Â»
+	Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH eventHandlers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-»
-	«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExec»
-		«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH allExec-»
-	«ENDLET»
-«ENDDEFINE»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR EventHandler-Â»
+	Â«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExecÂ»
+		Â«EXPAND springBEMethodDelegation(model,cp, contextPrefix) FOREACH allExec-Â»
+	Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand»
+Â«DEFINE springBEMethodDelegation(GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommandÂ»
 	////////////////////////////////////////////////////////////////////////////////////
 			
-	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
-	«IF cp != null»
-		«getModelDTOFQN(cp, false, false, model)» theModel
-	«ELSEIF isInMenuBranch(this)»
-		«getModelDTOFQN(null, true, false, model)» theModel
-	«ELSE»
-		«getModelDTOFQN(null, false, true, model)» theModel
-	«ENDIF»
+	public ExecResults Â«getFullExecCmdMethodName(this.methodName, contextPrefix)Â» (
+	Â«IF cp != nullÂ»
+		Â«getModelDTOFQN(cp, false, false, model)Â» theModel
+	Â«ELSEIF isInMenuBranch(this)Â»
+		Â«getModelDTOFQN(null, true, false, model)Â» theModel
+	Â«ELSEÂ»
+		Â«getModelDTOFQN(null, false, true, model)Â» theModel
+	Â«ENDIFÂ»
 			
 	)
 	throws BEException
 	{
-	    return get«getSpringCPBEClassName(cp)»().«getFullExecCmdMethodName(this.methodName, contextPrefix)»(theModel);
+	    return getÂ«getSpringCPBEClassName(cp)Â»().Â«getFullExecCmdMethodName(this.methodName, contextPrefix)Â»(theModel);
 	}
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»#############################«ENDREM»
+Â«REMÂ»#############################Â«ENDREMÂ»
 
-«DEFINE springBEMethods(GUIModel model) FOR ContentPanel-»
-	«REM»handler dei widget«ENDREM»
-	«EXPAND springBEMethod(model, "CP"+this.name, this, "", null) FOR this.panels»
-	«REM»handler dei dialogs«ENDREM»
-	«EXPAND springBEMethod(model, "CP"+this.name, this, "", null) FOREACH this.dialogs»
-	«REM»handlers dei refresh command«ENDREM»
-	«IF this.onRefreshCommand!=null»
-		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
-			«EXPAND springBEMethod(model,"CP"+this.name,this, "", null) FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF»
-«ENDDEFINE»
+Â«DEFINE springBEMethods(GUIModel model) FOR ContentPanel-Â»
+	Â«REMÂ»handler dei widgetÂ«ENDREMÂ»
+	Â«EXPAND springBEMethod(model, "CP"+this.name, this, "", null) FOR this.panelsÂ»
+	Â«REMÂ»handler dei dialogsÂ«ENDREMÂ»
+	Â«EXPAND springBEMethod(model, "CP"+this.name, this, "", null) FOREACH this.dialogsÂ»
+	Â«REMÂ»handlers dei refresh commandÂ«ENDREMÂ»
+	Â«IF this.onRefreshCommand!=nullÂ»
+		Â«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-Â»
+			Â«EXPAND springBEMethod(model,"CP"+this.name,this, "", null) FOR (ExecCommand)currAct-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDIFÂ»
+	
+	Â«IF this.cpCommands!=nullÂ»
+		Â«IF !this.cpCommands.commands.isEmptyÂ»
+			Â«FOREACH this.cpCommands.commands AS cpCommandÂ»
+				Â«FOREACH getAllExecActionsRecursive(cpCommand.command) AS currAct-Â»
+					Â«EXPAND springBEMethod(model,"CP"+this.name,this, "", null) FOR (ExecCommand)currAct-Â»
+				Â«ENDFOREACH-Â»
+			Â«ENDFOREACHÂ»
+		Â«ENDIFÂ»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel-»
-«ENDDEFINE»
-
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-»
-	«EXPAND springBEMethod(model, contextID, cp, contextPrefix, pduc) FOREACH subpanels-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MenuPanel-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR DialogPanel-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOR commands-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSetPanel-»
-	«IF switcher!=null-»
-		«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH switcher.eventHandlers-»
-	«ENDIF-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WizardPanel-»
-	«IF switcher!=null-»
-		«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH switcher.eventHandlers-»
-	«ENDIF-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-»
-	«EXPAND springBEMethod(model,contextID, cp, getChainedContext(contextPrefix, name), this.config) FOR panelDef.panel-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-»
-	«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH eventHandlers-»
-«ENDDEFINE»
-
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EventHandler-»
-	«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExec»
-		«EXPAND springBEMethod(model, contextID, cp, contextPrefix, pduc) FOREACH allExec-»
-	«ENDLET»
-«ENDDEFINE»
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
 
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR FormPanel-Â»
+	Â«EXPAND springBEMethod(model, contextID, cp, contextPrefix, pduc) FOREACH subpanels-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WidgetsPanel-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MenuPanel-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR CommandPanel-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH widgets-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR DialogPanel-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOR commands-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR MultiPanel-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TabSetPanel-Â»
+	Â«IF switcher!=null-Â»
+		Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH switcher.eventHandlers-Â»
+	Â«ENDIF-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR WizardPanel-Â»
+	Â«IF switcher!=null-Â»
+		Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH switcher.eventHandlers-Â»
+	Â«ENDIF-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH panels-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR PanelDefUse-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, getChainedContext(contextPrefix, name), this.config) FOR panelDef.panel-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Widget-Â»
+	Â«EXPAND springBEMethod(model,contextID, cp, contextPrefix, pduc) FOREACH eventHandlers-Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR EventHandler-Â»
+	Â«LET (List[ExecCommand])getAllExecActionsForEventHandler() AS allExecÂ»
+		Â«EXPAND springBEMethod(model, contextID, cp, contextPrefix, pduc) FOREACH allExec-Â»
+	Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM» 
-«DEFINE springBEMethods(GUIModel model) FOR ContentPanel»
-	«IF this.onRefreshCommand!=null»
-		«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-»
-			«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
-		«ENDFOREACH-»
-	«ENDIF»
-	«FOREACH getAllEventSourceWidgets(this) AS currESW-»
-		«FOREACH ((Widget)currESW).eventHandlers AS currEH-»
-			«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-»
-				«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-»
-			«ENDFOREACH-»
-		«ENDFOREACH-»
-	«ENDFOREACH-»
-«ENDDEFNE»
-«ENDREM»
 
-«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand»
+
+Â«REMÂ» 
+Â«DEFINE springBEMethods(GUIModel model) FOR ContentPanelÂ»
+	Â«IF this.onRefreshCommand!=nullÂ»
+		Â«FOREACH getAllExecActionsRecursive(this.onRefreshCommand) AS currAct-Â»
+			Â«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDIFÂ»
+	Â«FOREACH getAllEventSourceWidgets(this) AS currESW-Â»
+		Â«FOREACH ((Widget)currESW).eventHandlers AS currEH-Â»
+			Â«FOREACH getAllExecActionsForEventHandler(currEH) AS currAct-Â»
+				Â«EXPAND springBEMethod(model,"CP"+this.name) FOR (ExecCommand)currAct-Â»
+			Â«ENDFOREACH-Â»
+		Â«ENDFOREACH-Â»
+	Â«ENDFOREACH-Â»
+Â«ENDDEFNEÂ»
+Â«ENDREMÂ»
+
+Â«DEFINE springBEMethod(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommandÂ»
 	////////////////////////////////////////////////////////////////////////////////////
 	
-	«LET cp AS parentCP-»		
-	public ExecResults «getFullExecCmdMethodName(this.methodName, contextPrefix)» (
-	«IF parentCP != null»
-		«getModelDTOFQN(parentCP, false, false, model)» theModel
-	«ELSEIF isInMenuBranch(this)»
-		«getModelDTOFQN(null, true, false, model)» theModel
-	«ELSE»
-		«getModelDTOFQN(null, false, true, model)» theModel
-	«ENDIF»
+	Â«LET cp AS parentCP-Â»		
+	public ExecResults Â«getFullExecCmdMethodName(this.methodName, contextPrefix)Â» (
+	Â«IF parentCP != nullÂ»
+		Â«getModelDTOFQN(parentCP, false, false, model)Â» theModel
+	Â«ELSEIF isInMenuBranch(this)Â»
+		Â«getModelDTOFQN(null, true, false, model)Â» theModel
+	Â«ELSEÂ»
+		Â«getModelDTOFQN(null, false, true, model)Â» theModel
+	Â«ENDIFÂ»
 			
 	)
 	throws BEException
 	{
 	    /// definizione costanti di outcome
-	    «FOREACH this.results AS currRes-»
-		final String «getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()»_OUTCOME_CODE__«currRes.resultCode.toUpperCase()» = "«currRes.resultCode»";
-		«ENDFOREACH-»
+	    Â«FOREACH this.results AS currRes-Â»
+		final String Â«getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()Â»_OUTCOME_CODE__Â«currRes.resultCode.toUpperCase()Â» = "Â«currRes.resultCodeÂ»";
+		Â«ENDFOREACH-Â»
 	    ///
 		try{
-			«EXPAND springBEMethodCoreDispatcher(model, contextID, cp, contextPrefix, pduc) FOR this-»
+			Â«EXPAND springBEMethodCoreDispatcher(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
 		}
 		catch(Exception e){
-		  log.error("[«getSpringBEClassName()»::«getFullExecCmdMethodName(this.methodName, contextPrefix)»] Errore occorso nell'esecuzione del metodo:"+e,e);
+		  log.error("[Â«getSpringBEClassName()Â»::Â«getFullExecCmdMethodName(this.methodName, contextPrefix)Â»] Errore occorso nell'esecuzione del metodo:"+e,e);
 		  throw new BEException("Errore occorso nell'esecuzione del metodo:"+e,e);
 		}
 	}
 	
-	«ENDLET-»
-«ENDDEFINE»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«REM»implementazione effettiva sovrascrivibile«ENDREM»
-«DEFINE springBEMethodCoreDispatcher(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«IF this.customTemplate==null-»
-		«EXPAND springBEMethodCore_CRT_default(model, contextID, cp, contextPrefix, pduc) FOR this-»
-	«ELSE-»
-		«LET (CustomCartridge)(customTemplate.eContainer) AS crt-»
-		«IF crt.crtID==CustomCartridgeID::PLATF_1-»
-			«EXPAND springBEMethodCore_CRT_PLATF1(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_2-»
-			«EXPAND springBEMethodCore_CRT_PLATF2(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_3-»
-			«EXPAND springBEMethodCore_CRT_PLATF3(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_4-»
-			«EXPAND springBEMethodCore_CRT_PLATF4(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::PLATF_5-»
-			«EXPAND springBEMethodCore_CRT_PLATF5(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::TECH_1-»
-			«EXPAND springBEMethodCore_CRT_TECH1(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::TECH_2-»
-			«EXPAND springBEMethodCore_CRT_TECH2(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::TECH_3-»
-			«EXPAND springBEMethodCore_CRT_TECH3(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::TECH_4-»
-			«EXPAND springBEMethodCore_CRT_TECH4(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::TECH_5-»
-			«EXPAND springBEMethodCore_CRT_TECH5(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_1-»
-			«EXPAND springBEMethodCore_CRT_CUSTOM1(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_2-»
-			«EXPAND springBEMethodCore_CRT_CUSTOM2(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_3-»
-			«EXPAND springBEMethodCore_CRT_CUSTOM3(model, contextID, cp, contextPrefix, pduc) FOR this-»
-		«ELSE-»
-			«ERROR "cartuccia "+crt.crtID+" non supportata"-»			
-		«ENDIF-»
-		«ENDLET-»
-	«ENDIF-»
-«ENDDEFINE»
+Â«REMÂ»implementazione effettiva sovrascrivibileÂ«ENDREMÂ»
+Â«DEFINE springBEMethodCoreDispatcher(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«IF this.customTemplate==null-Â»
+		Â«EXPAND springBEMethodCore_CRT_default(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+	Â«ELSE-Â»
+		Â«LET (CustomCartridge)(customTemplate.eContainer) AS crt-Â»
+		Â«IF crt.crtID==CustomCartridgeID::PLATF_1-Â»
+			Â«EXPAND springBEMethodCore_CRT_PLATF1(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::PLATF_2-Â»
+			Â«EXPAND springBEMethodCore_CRT_PLATF2(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::PLATF_3-Â»
+			Â«EXPAND springBEMethodCore_CRT_PLATF3(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::PLATF_4-Â»
+			Â«EXPAND springBEMethodCore_CRT_PLATF4(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::PLATF_5-Â»
+			Â«EXPAND springBEMethodCore_CRT_PLATF5(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::TECH_1-Â»
+			Â«EXPAND springBEMethodCore_CRT_TECH1(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::TECH_2-Â»
+			Â«EXPAND springBEMethodCore_CRT_TECH2(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::TECH_3-Â»
+			Â«EXPAND springBEMethodCore_CRT_TECH3(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::TECH_4-Â»
+			Â«EXPAND springBEMethodCore_CRT_TECH4(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::TECH_5-Â»
+			Â«EXPAND springBEMethodCore_CRT_TECH5(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_1-Â»
+			Â«EXPAND springBEMethodCore_CRT_CUSTOM1(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_2-Â»
+			Â«EXPAND springBEMethodCore_CRT_CUSTOM2(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSEIF crt.crtID==CustomCartridgeID::CUSTOM_3-Â»
+			Â«EXPAND springBEMethodCore_CRT_CUSTOM3(model, contextID, cp, contextPrefix, pduc) FOR this-Â»
+		Â«ELSE-Â»
+			Â«ERROR "cartuccia "+crt.crtID+" non supportata"-Â»			
+		Â«ENDIF-Â»
+		Â«ENDLET-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«REM»implementazione di default«ENDREM»
-«DEFINE springBEMethodCore_CRT_default(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
+Â«REMÂ»implementazione di defaultÂ«ENDREMÂ»
+Â«DEFINE springBEMethodCore_CRT_default(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
 			ExecResults result = new ExecResults();
-			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+getFullExecCmdMethodName(this.methodName, contextPrefix)+"_code")»
+			Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(contextID+"springBE_"+getFullExecCmdMethodName(this.methodName, contextPrefix)+"_code")Â»
 			// inserire qui la logica applicativa da eseguire:
 			
 			// impostazione del result code 
-			result.setResultCode(«getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()»_OUTCOME_CODE__«this.results.first().resultCode.toUpperCase()»);
+			result.setResultCode(Â«getFullExecCmdMethodName(this.methodName, contextPrefix).toUpperCase()Â»_OUTCOME_CODE__Â«this.results.first().resultCode.toUpperCase()Â»);
+			
 			// modifica degli attributi del model (che verranno propagati allo strato
 			// di presentation). si puo' agire anche direttamente sull'attributo "session".
 		
 			result.setModel(theModel);
 			return result;
-			«ENDPROTECT»
-«ENDDEFINE»
+			Â«ENDPROTECTÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_PLATF1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom PLATF1 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_PLATF1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom PLATF1 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_PLATF2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom PLATF2 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_PLATF2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom PLATF2 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_PLATF3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom PLATF3 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_PLATF3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom PLATF3 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_PLATF4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom PLATF4 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_PLATF4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom PLATF4 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_PLATF5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom PLATF5 non configurata"»
-«ENDDEFINE»
-
-
-«DEFINE springBEMethodCore_CRT_TECH1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom TECH1 non configurata"»
-«ENDDEFINE»
-
-«DEFINE springBEMethodCore_CRT_TECH2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom TECH2 non configurata"»
-«ENDDEFINE»
-
-«DEFINE springBEMethodCore_CRT_TECH3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom TECH3 non configurata"»
-«ENDDEFINE»
-
-«DEFINE springBEMethodCore_CRT_TECH4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom TECH4 non configurata"»
-«ENDDEFINE»
-
-«DEFINE springBEMethodCore_CRT_TECH5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom TECH5 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_PLATF5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom PLATF5 non configurata"Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE springBEMethodCore_CRT_CUSTOM1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom CUSTOM1 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_TECH1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom TECH1 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_CUSTOM2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom CUSTOM2 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_TECH2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom TECH2 non configurata"Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springBEMethodCore_CRT_CUSTOM3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-»
-	«ERROR "Errore AOP: cartuccia di template custom CUSTOM3 non configurata"»
-«ENDDEFINE»
+Â«DEFINE springBEMethodCore_CRT_TECH3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom TECH3 non configurata"Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethodCore_CRT_TECH4(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom TECH4 non configurata"Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethodCore_CRT_TECH5(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom TECH5 non configurata"Â»
+Â«ENDDEFINEÂ»
+
+
+Â«DEFINE springBEMethodCore_CRT_CUSTOM1(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom CUSTOM1 non configurata"Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethodCore_CRT_CUSTOM2(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom CUSTOM2 non configurata"Â»
+Â«ENDDEFINEÂ»
+
+Â«DEFINE springBEMethodCore_CRT_CUSTOM3(GUIModel model, String contextID, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR ExecCommand-Â»
+	Â«ERROR "Errore AOP: cartuccia di template custom CUSTOM3 non configurata"Â»
+Â«ENDDEFINEÂ»
