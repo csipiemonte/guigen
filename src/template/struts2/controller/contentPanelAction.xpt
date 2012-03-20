@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,29 +13,29 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
+Â«IMPORT guigenÂ»
 
-«IMPORT template::struts2::actionImplJavaFiles»
-«IMPORT template::struts2::security»
-«IMPORT template::struts2::typeConversion»
-«IMPORT template::struts2::eventHandlers»
-«IMPORT template::struts2::controller::dataProvider»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT template::struts2::actionImplJavaFilesÂ»
+Â«IMPORT template::struts2::securityÂ»
+Â«IMPORT template::struts2::typeConversionÂ»
+Â«IMPORT template::struts2::eventHandlersÂ»
+Â«IMPORT template::struts2::controller::dataProviderÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«REM»
+Â«REMÂ»
 ==========================================================================================================================
 STRUTS2 ACTIONS FILES
 ===========================================================================================================================
-«ENDREM»
+Â«ENDREMÂ»
 
-«REM»Mappa un ContentPanel con una Action Struts«ENDREM»
-«DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanel»
-«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)»package «getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)»;
+Â«REMÂ»Mappa un ContentPanel con una Action StrutsÂ«ENDREMÂ»
+Â«DEFINE actionJavaFile(GUIModel model, boolean skip_component_dir_creation) FOR ContentPanelÂ»
+Â«FILE getStrutsActionJavaFile(this, model, skip_component_dir_creation)Â»package Â«getPresentationJavaPackage(model)+getAppModuleAsPkg(this, true, false)Â»;
 
-«IF hasFileUpload(this)»import java.io.File;«ENDIF»
+Â«IF hasFileUpload(this)Â»import java.io.File;Â«ENDIFÂ»
 import java.util.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -48,59 +48,59 @@ import com.opensymphony.xwork2.validator.annotations.*;
 import com.opensymphony.xwork2.conversion.annotations.*;
 import com.opensymphony.xwork2.ActionContext;
 
-import «getDTOBaseJavaPackage(model)».*;
-«IF hasGisMap()»
-import «getDTOBaseJavaPackage(model)».greasemapfacade.*;
+import Â«getDTOBaseJavaPackage(model)Â».*;
+Â«IF hasGisMap()Â»
+import Â«getDTOBaseJavaPackage(model)Â».greasemapfacade.*;
 import it.csi.jeegia.jeegfw.dto.jeegweb.mappa.OpenLayerMapConfig;
 import it.csi.splugesf.jtsutil.utils.json.GeometryTransformer;
 import com.vividsolutions.jts.geom.*;
-«ENDIF»
+Â«ENDIFÂ»
 
-import «getSecurityJavaPackage(model)».*;
+import Â«getSecurityJavaPackage(model)Â».*;
 
-import «getBaseJavaPackage(model)».business.*;
+import Â«getBaseJavaPackage(model)Â».business.*;
 
-import «getBaseJavaPackage(model)».presentation.«model.codComponente.toLowerCase()».action.*;
+import Â«getBaseJavaPackage(model)Â».presentation.Â«model.codComponente.toLowerCase()Â».action.*;
 
-import «getInterceptorsJavaPackage(model)».MethodProtection;
+import Â«getInterceptorsJavaPackage(model)Â».MethodProtection;
 
-«IF model.targetPlatform.enableFatClient-»
-import «getInterceptorsJavaPackage(model)».FatClientValidatorInterceptor;
-«ENDIF-»
+Â«IF model.targetPlatform.enableFatClient-Â»
+import Â«getInterceptorsJavaPackage(model)Â».FatClientValidatorInterceptor;
+Â«ENDIF-Â»
 
-«IF model.targetPlatform.enableRichUIBehavior-»
-import «getInterceptorsJavaPackage(model)».FatClientOnly;
-import «getUIUtilsJavaPackage(model)».*;
+Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+import Â«getInterceptorsJavaPackage(model)Â».FatClientOnly;
+import Â«getUIUtilsJavaPackage(model)Â».*;
 import flexjson.JSON;
-«ENDIF-»
+Â«ENDIF-Â»
 
 /**
- * «getStrutsActionClassName(this)» Action Class.
+ * Â«getStrutsActionClassName(this)Â» Action Class.
  *
  * @author GuiGen
  */
 @Validation()
 @Conversion()
-public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassName(model)» 
+public class Â«getStrutsActionClassName(this)Â» extends Â«getStrutsBaseActionClassName(model)Â» 
 	implements Preparable{
 
-    «EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR this»
-	«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR this»
-	«EXPAND template::struts2::model::commonProperties::commonProperties FOR this»
+    Â«EXPAND template::struts2::model::widgetProperties::widgetsProperties(model, true) FOR thisÂ»
+	Â«EXPAND template::struts2::model::appDataProperties::storedAppDataProperties(model, true) FOR thisÂ»
+	Â«EXPAND template::struts2::model::commonProperties::commonProperties FOR thisÂ»
 	
-	«IF model.targetPlatform.enableRichUIBehavior-»
-	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
-	«ENDIF-»
+	Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+	Â«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-Â»
+	Â«ENDIF-Â»
 	
 	/**
 	 * classe model associata
 	 */
 	public Class modelClass(){
-		return «getModelDTOFQN(this, false, false, model)».class;
+		return Â«getModelDTOFQN(this, false, false, model)Â».class;
 	}
  
- 	«LET getAllEventSourceWidgets() AS allEventSources»
-	«REM»«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSources»«ENDREM»
+ 	Â«LET getAllEventSourceWidgets() AS allEventSourcesÂ»
+	Â«REMÂ»Â«LET allEventSources.select(w|((Widget)w).eventHandlers.select(eh|eh.eventType==EventTypes::CLICKED).size>0) AS allClickSourcesÂ»Â«ENDREMÂ»
 	/**
 	 * I singoli eventi sui singoli widget sono gestiti dai metodi specifici
 	 * @return SUCCESS.
@@ -116,7 +116,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		return SUCCESS;
 	}
 	
-	«IF hasGisMap(this)»
+	Â«IF hasGisMap(this)Â»
 	//****************************************gestione mappe*******************************************************
 	protected String strIdCurServizio;
 	
@@ -127,26 +127,26 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	public void setStrIdCurServizio(String strIdCurServizio) {
 		this.strIdCurServizio = strIdCurServizio;
 	}
-	«LET (List[MapView])getMapsInContentPanel() AS maps-»
-	«FOREACH maps AS map-»
+	Â«LET (List[MapView])getMapsInContentPanel() AS maps-Â»
+	Â«FOREACH maps AS map-Â»
 	
-	private GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()»;
+	private GreaseDTOMapper mapAdapterÂ«map.mapId.toFirstUpper()Â»;
 
-	public void setMapAdapter«map.mapId.toFirstUpper()»(GreaseDTOMapper mapAdapter«map.mapId.toFirstUpper()») {
-		this.mapAdapter«map.mapId.toFirstUpper()» = mapAdapter«map.mapId.toFirstUpper()»;
+	public void setMapAdapterÂ«map.mapId.toFirstUpper()Â»(GreaseDTOMapper mapAdapterÂ«map.mapId.toFirstUpper()Â») {
+		this.mapAdapterÂ«map.mapId.toFirstUpper()Â» = mapAdapterÂ«map.mapId.toFirstUpper()Â»;
 	}
 	
-	public String map«map.mapId.toFirstUpper()»Setup() throws Exception {
+	public String mapÂ«map.mapId.toFirstUpper()Â»Setup() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		Â«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR modelÂ»
 
-		MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+		MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 		
 		OpenLayerMapConfig mapCfg=new OpenLayerMapConfig();
 		mapCfg.setServizioCfg(mappa.getOlMapConfig().getServizioCfg());
 		
 		mapCfg.setFractionalZoom(true);
-		ArrayList<it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb> listaTmp = mapAdapter«map.mapId.toFirstUpper()»
+		ArrayList<it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioClientWeb> listaTmp = mapAdapterÂ«map.mapId.toFirstUpper()Â»
 			.mergeServiziClient(mappa.getServizioMappa(), mappa
 			.getOlMapConfig().getServiziClient());
 
@@ -157,18 +157,18 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			}
 		}
 		
-		«IF map.multiDataBinding!=null-»
-		«toJavaType(map.multiDataBinding.appData.type, model)» dati=get«getAppDataPropertyName(map.multiDataBinding.appData).toFirstUpper()»();
+		Â«IF map.multiDataBinding!=null-Â»
+		Â«toJavaType(map.multiDataBinding.appData.type, model)Â» dati=getÂ«getAppDataPropertyName(map.multiDataBinding.appData).toFirstUpper()Â»();
 		if (null!=dati && dati.size()>0) {
 			mapCfg.setDatiStartup(dati);
 		}
-		«ENDIF-»
-		«IF map.editDataBinding!=null-»
-		«toJavaType(map.editDataBinding.appData.type, model)» datiEditing=get«getAppDataPropertyName(map.editDataBinding.appData).toFirstUpper()»();
+		Â«ENDIF-Â»
+		Â«IF map.editDataBinding!=null-Â»
+		Â«toJavaType(map.editDataBinding.appData.type, model)Â» datiEditing=getÂ«getAppDataPropertyName(map.editDataBinding.appData).toFirstUpper()Â»();
 		if (null!=datiEditing && datiEditing.size()>0) {
 			mapCfg.setDatiEditing(datiEditing);
 		}
-		«ENDIF-»
+		Â«ENDIF-Â»
 		
 		String response = serializer.exclude("*.class").deepSerialize(mapCfg);
 
@@ -184,14 +184,14 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
-	public String refreshMap«map.mapId.toFirstUpper()»SingleService() throws Exception {
+	public String refreshMapÂ«map.mapId.toFirstUpper()Â»SingleService() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		Â«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR modelÂ»
 		
 		try {
 			int indice = -1;
 			
-			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 			
 			for (int i = 0; i < mappa.getServizioMappa().size(); i++) {
 				if (mappa.getServizioMappa().get(i).getIdServizio().equals(
@@ -204,11 +204,11 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			it.csi.jeegia.jeegfw.dto.jeegweb.servizi.ServizioWeb currRefreshServizio = mappa.getServizioMappa().get(indice);
 
 			// aggiorna i layer in scala
-			refreshMap«map.mapId.toFirstUpper()»Status();
+			refreshMapÂ«map.mapId.toFirstUpper()Â»Status();
 			
 			mappa.setStrIdCurServizio(strIdCurServizio);
 
-			mappa = mapAdapter«map.mapId.toFirstUpper()».getRefreshIMages(mappa);
+			mappa = mapAdapterÂ«map.mapId.toFirstUpper()Â».getRefreshIMages(mappa);
 			currRefreshServizio = mappa.getServizioMappa().get(indice);
 			MapServiceResponse res = new MapServiceResponse();
 
@@ -243,9 +243,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
-	private void refreshMap«map.mapId.toFirstUpper()»Status() throws Exception {
+	private void refreshMapÂ«map.mapId.toFirstUpper()Â»Status() throws Exception {
 		try {
-			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb tollbarTmp = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			tollbarTmp.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_REFRESH);
 			
@@ -262,20 +262,20 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
-	public String calcolaStartEnvelope«map.mapId.toFirstUpper()»() throws Exception {
+	public String calcolaStartEnvelopeÂ«map.mapId.toFirstUpper()Â»() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		Â«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR modelÂ»
 		try {
 
-			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 			
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
 			if(!mappa.getUseCurrentEnvelope()){
-				MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
+				MappaWeb mappaTmp = mapAdapterÂ«map.mapId.toFirstUpper()Â».getMap();
 				mappa.setEnvelope(mappaTmp.getEnvelope());
 			}	
-			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
+			mappa = mapAdapterÂ«map.mapId.toFirstUpper()Â».calcolaNavigazione(mappa, toolbarTMP);
 			
 			MapEnvelopeResponse res = new MapEnvelopeResponse();
 			res.setDati(mappa.getEnvelope());
@@ -301,17 +301,17 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
-	public String calcolaMaxEnvelope«map.mapId.toFirstUpper()»() throws Exception {
+	public String calcolaMaxEnvelopeÂ«map.mapId.toFirstUpper()Â»() throws Exception {
 
-		«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR model»
+		Â«EXPAND dataProvider::jsonSerializerInstantiation("serializer", true) FOR modelÂ»
 		try {
-			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 			
 			it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbarTMP = new it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb();
 			toolbarTMP.setComando(it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb.CMD_STARTMAP);
-			MappaWeb mappaTmp = mapAdapter«map.mapId.toFirstUpper()».getMap();
+			MappaWeb mappaTmp = mapAdapterÂ«map.mapId.toFirstUpper()Â».getMap();
 			mappa.setEnvelope(mappaTmp.getEnvelope());
-			mappa = mapAdapter«map.mapId.toFirstUpper()».calcolaNavigazione(mappa, toolbarTMP);
+			mappa = mapAdapterÂ«map.mapId.toFirstUpper()Â».calcolaNavigazione(mappa, toolbarTMP);
 			
 			MapEnvelopeResponse res = new MapEnvelopeResponse();
 			res.setDati(mappa.getEnvelope());
@@ -336,13 +336,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 		}
 	}
 	
-	«REM» 
-	*****************da decommentare quando sarà attiva la funzione di identify
+	Â«REMÂ» 
+	*****************da decommentare quando sarÃ  attiva la funzione di identify
 	
-	private SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()»;
+	private SpatialQueryExtJsInterface queryManagerÂ«map.mapId.toFirstUpper()Â»;
 
-  	public void setQueryManager«map.mapId.toFirstUpper()»(SpatialQueryExtJsInterface queryManager«map.mapId.toFirstUpper()») {
-    	this.queryManager«map.mapId.toFirstUpper()» = queryManager«map.mapId.toFirstUpper()»;
+  	public void setQueryManagerÂ«map.mapId.toFirstUpper()Â»(SpatialQueryExtJsInterface queryManagerÂ«map.mapId.toFirstUpper()Â») {
+    	this.queryManagerÂ«map.mapId.toFirstUpper()Â» = queryManagerÂ«map.mapId.toFirstUpper()Â»;
   	}
   	
   	private it.csi.jeegia.jeegfw.dto.jeegweb.toolbar.ToolbarWeb toolbar;
@@ -355,13 +355,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
     	this.toolbar = toolbar;
   	}
   
-	public String identify«map.mapId.toFirstUpper()»() throws Exception {
+	public String identifyÂ«map.mapId.toFirstUpper()Â»() throws Exception {
 
 		flexjson.JSONSerializer serializer = new flexjson.JSONSerializer();
 		try {
-			MappaWeb mappa = get«getAppDataPropertyName(map.databinding.appData).toFirstUpper()»();
+			MappaWeb mappa = getÂ«getAppDataPropertyName(map.databinding.appData).toFirstUpper()Â»();
 			
-			ResultsetExtJsWeb identifyResult = queryManager«map.mapId.toFirstUpper()».interrogaExtJs(mappa,toolbar);
+			ResultsetExtJsWeb identifyResult = queryManagerÂ«map.mapId.toFirstUpper()Â».interrogaExtJs(mappa,toolbar);
 
 		    ResultsetExtJsWeb identifyResultExtJs = adaptResultsetExtJsWeb(identifyResult);
 		      
@@ -427,13 +427,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			return "provideData";
     	}
 	}
-	«ENDREM»
+	Â«ENDREMÂ»
 	
-	«ENDFOREACH-»
-	«ENDLET-»
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
 	
-	«REM»
-	****************Da decommentare quando sarà attiva la funzione identify
+	Â«REMÂ»
+	****************Da decommentare quando sarÃ  attiva la funzione identify
 	
 	protected ResultsetExtJsWeb adaptResultsetExtJsWeb(ResultsetExtJsWeb result) {
 
@@ -496,13 +496,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 
 		return result;
 	}
-	«ENDREM»
+	Â«ENDREMÂ»
 	//**************************************fine gestione mappe****************************************************
-	«ENDIF»
+	Â«ENDIFÂ»
 	
-	«REM»per ora non gestisce ancora tab inclusi«ENDREM»
-	«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-»
-	«IF allTabSwitchers.size>0-»
+	Â«REMÂ»per ora non gestisce ancora tab inclusiÂ«ENDREMÂ»
+	Â«LET allEventSources.typeSelect(TabSwitcher) AS allTabSwitchers-Â»
+	Â«IF allTabSwitchers.size>0-Â»
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi specifici per la gestione del click sui Tab
 	/// contenuto nel contentPanel
@@ -510,18 +510,18 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	/// 
 	//////////////////////////////////////////////////////////////////////////////////
 	
-	«FOREACH allTabSwitchers AS currTabSwitcher-»
-	«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-»
+	Â«FOREACH allTabSwitchers AS currTabSwitcher-Â»
+	Â«LET (TabSetPanel)(currTabSwitcher.eContainer) AS currTabSet-Â»
 	
-	«REM»TODO PANELDEF: trasformare in define ricorsive«ENDREM»
-	«FOREACH currTabSet.panels AS currTab-»
-		«EXPAND template::struts2::controller::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTab»
-	«ENDFOREACH-»
-	«ENDLET-»
-	«ENDFOREACH-»
+	Â«REMÂ»TODO PANELDEF: trasformare in define ricorsiveÂ«ENDREMÂ»
+	Â«FOREACH currTabSet.panels AS currTab-Â»
+		Â«EXPAND template::struts2::controller::eventHandlers::tabSwitcherClickForTabHandler(currTabSet, this, "") FOR currTabÂ»
+	Â«ENDFOREACH-Â»
+	Â«ENDLET-Â»
+	Â«ENDFOREACH-Â»
 	
-	«ENDIF-»
-	«ENDLET-»
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
 	
 	//////////////////////////////////////////////////////////////////////////////////
 	/// metodi specifici per la gestione del singolo tipo di evento sul singolo widget
@@ -531,19 +531,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	//////////////////////////////////////////////////////////////////////////////////
 	
 	
-	«EXPAND template::struts2::controller::eventHandlers::handlerMethod(model) FOR this-»
+	Â«EXPAND template::struts2::controller::eventHandlers::handlerMethod(model) FOR this-Â»
 	
-	«IF model.targetPlatform.enableRichUIBehavior-»
-	«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-»
-	«ENDIF-»
+	Â«IF model.targetPlatform.enableRichUIBehavior-Â»
+	Â«EXPAND template::struts2::controller::dataProvider::dataProviderMethods(model) FOR this-Â»
+	Â«ENDIF-Â»
 	
-	«IF model.targetPlatform.enableFatClient-»
-	«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-»
+	Â«IF model.targetPlatform.enableFatClient-Â»
+	Â«EXPAND template::struts2::controller::execCommandMethods::execCommandMethods(model) FOR this-Â»
 	//***lista dei widgets presenti nel content panel
 	public List<String> listaWidgets = new ArrayList<String>();
 	
 	public List<String> getListaWidgets() {
-		«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR this»
+		Â«EXPAND template::struts2::view::panelsStructure::panelStruct(model, this, "") FOR thisÂ»
 		return listaWidgets;
 	}
 	
@@ -551,11 +551,11 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	public List<String> listaMultiPanels = new ArrayList<String>();
 	
 	public List<String> getListaMultiPanels() {
-		«EXPAND template::struts2::view::multiPanelStructure::panelStruct(model, this, "") FOR panels»
+		Â«EXPAND template::struts2::view::multiPanelStructure::panelStruct(model, this, "") FOR panelsÂ»
 		return listaMultiPanels;
 	}
 	
-	«IF hasFileUpload(this)»
+	Â«IF hasFileUpload(this)Â»
 	//***metodo per lo start upload dei files solo nel caso di fatclient
 	@SkipValidation
 	@FatClientOnly
@@ -600,19 +600,19 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 			throw new CommandExecutionException("errore provide Data", e);
 		}
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 	
-	«ENDIF-»
+	Â«ENDIF-Â»
 	
-	«ENDLET»
+	Â«ENDLETÂ»
 	
 	/**
 	 * Gestione della validazione
 	 */
 	public void validate() {
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsActionClassName(this) + "_validate")»
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getStrutsActionClassName(this) + "_validate")Â»
 		/* Inserire la validazione */
-		«ENDPROTECT»
+		Â«ENDPROTECTÂ»
 	}
 	
 	
@@ -635,44 +635,59 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	    if (allOnOffConstraints==null)
 	    	allOnOffConstraints = getPageONOFFUIConstraints();
 	    
-		«IF defaultState!=null-»
-		«EXPAND defaultStateCode FOR this»
-		«ENDIF-»
+		Â«IF defaultState!=null-Â»
+		Â«EXPAND defaultStateCode FOR thisÂ»
+		Â«ENDIF-Â»
 		      
-		«IF this.onRefreshCommand!=null»
+		Â«IF this.onRefreshCommand!=nullÂ»
 		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-		ActionContext ctx = ActionContext.getContext();
+		/*	ActionContext ctx = ActionContext.getContext();
 		String methodName = ctx.getActionInvocation().getProxy().getMethod();
 		
 		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
 			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
 			ICommand cmd = initOnRefreshCommand();
 			cmd.doCommand(this);
-		}
-		«ENDIF»
+		}*/
+		Â«ENDIFÂ»
+		Â«IF this.cpCommands!=nullÂ»
+			Â«IF !this.cpCommands.commands.isEmptyÂ»
+				Â«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefreshÂ»
+					// CpCommand OnRefresh
+					ActionContext ctx = ActionContext.getContext();
+					String methodName = ctx.getActionInvocation().getProxy().getMethod();
+					
+					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+						// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+						ICommand cmd = initOnRefreshCommand();
+						cmd.doCommand(this);
+					}
+				Â«ENDFOREACHÂ»
+			Â«ENDIFÂ»
+		Â«ENDIFÂ»
 	}
 	
 	
-	«EXPAND security::securedWidgetCheck(model) FOR this»
+	Â«EXPAND security::securedWidgetCheck(model) FOR thisÂ»
 
 	
-	«LET this.onRefreshCommand AS onRefreshAction»
-	«IF onRefreshAction != null»
-    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR onRefreshAction»
-    «ENDIF»
-	«ENDLET»
+	Â«LET this.onRefreshCommand AS onRefreshActionÂ»
+	Â«IF onRefreshAction != nullÂ»
+    Â«EXPAND template::struts2::controller::eventHandlers::actionStructureInit2(model, this) FOR onRefreshActionÂ»
+    Â«ENDIFÂ»
+	Â«ENDLETÂ»
 	
 	
-	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
+	Â«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR thisÂ»
 	
 	
 	/**  */
 	void dumpModel(boolean pre) {
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] START");
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] START");
 			
 		
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [a] campi pubblici del model");
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] #### DUMP del model della action "+this.getClass()+(pre?" prima dell'azione":" dopo l'azione"));
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] [a] campi pubblici del model");
 		try {
 			java.beans.BeanInfo bi = java.beans.Introspector.getBeanInfo(this.getClass());
 			java.beans.PropertyDescriptor[] props = bi.getPropertyDescriptors();
@@ -681,25 +696,25 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 				java.lang.reflect.Method m = pd.getReadMethod();
 				if (m != null) {
 					Object pval = m.invoke(this, new Object[]{});
-					log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+pd.getName() + ":" + pval);
+					log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] "+pd.getName() + ":" + pval);
 				}
 			}
 		}
 		catch (IllegalAccessException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+			log.error("[Â«getStrutsActionClassName(this)Â»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro");
 		} catch (InvocationTargetException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+			log.error("[Â«getStrutsActionClassName(this)Â»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro");
 		} catch (IntrospectionException e) {
-			log.error("[«getStrutsActionClassName(this)»::dumpmodel] Errore nel dump" + e
+			log.error("[Â«getStrutsActionClassName(this)Â»::dumpmodel] Errore nel dump" + e
 					+ ", ignoro");
 		}
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [b] stato dei widget");
-		Object cpWidgetStatus = session.get("«this.name»");
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+cpWidgetStatus);
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] [c] sessione");
-		log.debug("[«getStrutsActionClassName(this)»::dumpmodel] "+session);
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] [b] stato dei widget");
+		Object cpWidgetStatus = session.get("Â«this.nameÂ»");
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] "+cpWidgetStatus);
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] [c] sessione");
+		log.debug("[Â«getStrutsActionClassName(this)Â»::dumpmodel] "+session);
 	}
 	
 	static final String PENDING_CLEAR_COMMAND_ATTRIBUTE = "_pending_clear_command_";
@@ -708,30 +723,30 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	 *  SAME_PAGE. 
 	 */
 	 public void clearPageScopedAppData(String targetContentPanelName){
-	 	«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
+	 	Â«IF appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-Â»
 	 	String [] appDataToClear = new String[] {
-	 	«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd SEPARATOR ","-»
-	 	"«currAd.name»", "«currAd.name»_bckp"
-	 	«ENDFOREACH»
+	 	Â«FOREACH appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS currAd SEPARATOR ","-Â»
+	 	"Â«currAd.nameÂ»", "Â«currAd.nameÂ»_bckp"
+	 	Â«ENDFOREACHÂ»
 	 	};
 	 	
-	 	«LET (List[ContentPanel])this.getAllPossibleJumps() AS listOfPossibleJump»
-	 		«FOREACH listOfPossibleJump AS singleJump»
-	 			«EXPAND clearCommandForCp(this) FOR singleJump»
-	 		«ENDFOREACH»
-	 	«ENDLET»
+	 	Â«LET (List[ContentPanel])this.getAllPossibleJumps() AS listOfPossibleJumpÂ»
+	 		Â«FOREACH listOfPossibleJump AS singleJumpÂ»
+	 			Â«EXPAND clearCommandForCp(this) FOR singleJumpÂ»
+	 		Â«ENDFOREACHÂ»
+	 	Â«ENDLETÂ»
 	 	
 	 	
 	 	ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear);
 	 	session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
 	 	
-	 	«ELSE-»
+	 	Â«ELSE-Â»
 	 	// nothing to clear...
-	 	«ENDIF-»
+	 	Â«ENDIF-Â»
 	 }
 
-	«REM»Espande la struttura della InitAction«ENDREM»
-    «EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR this»
+	Â«REMÂ»Espande la struttura della InitActionÂ«ENDREMÂ»
+    Â«EXPAND template::struts2::controller::eventHandlers::actionStructureInit(model) FOR thisÂ»
     
     @SkipValidation
     public String handleChangeTab() {
@@ -744,41 +759,41 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE defaultStateCode FOR ContentPanel»
+Â«DEFINE defaultStateCode FOR ContentPanelÂ»
 	// gestione dello stato di default
-	if (getSession().get("«name»_currentState")==null){
+	if (getSession().get("Â«nameÂ»_currentState")==null){
 	// Screen State Command begin
     //prepara i nomi dei componenti target da abilitare/disabilitare
     String[] default_widgets_on = new String[]{
-    «FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-»
-    "«currWidgOn.name»"
-    «ENDFOREACH-»
+    Â«FOREACH defaultState.widgetsOn AS currWidgOn SEPARATOR ","-Â»
+    "Â«currWidgOn.nameÂ»"
+    Â«ENDFOREACH-Â»
     };
     
     String[] default_widgets_off = new String[]{
-    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-»
-    "«((Widget)currWidgOff).name»"
-    «ENDFOREACH-»
+    Â«FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsOn.contains(w)) AS currWidgOff SEPARATOR ","-Â»
+    "Â«((Widget)currWidgOff).nameÂ»"
+    Â«ENDFOREACH-Â»
     };
     
     String[] default_widgets_show = new String[]{
-    «FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-»
-    "«currWidgVisible.name»"
-    «ENDFOREACH-»
+    Â«FOREACH defaultState.widgetsVisible AS currWidgVisible SEPARATOR ","-Â»
+    "Â«currWidgVisible.nameÂ»"
+    Â«ENDFOREACH-Â»
     };
     
     String[] default_widgets_hide = new String[]{
-    «FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-»
-    "«((Widget)currWidgHidden).name»"
-    «ENDFOREACH-»
+    Â«FOREACH findAllWidgetsInContentPanel().select(w| !defaultState.widgetsVisible.contains(w)) AS currWidgHidden SEPARATOR ","-Â»
+    "Â«((Widget)currWidgHidden).nameÂ»"
+    Â«ENDFOREACH-Â»
     };
     
 	ScreenStateCommand defaultScreenStateCmd = new ScreenStateCommand(
-		"«name»",null, 
+		"Â«nameÂ»",null, 
 		default_widgets_on,
 		default_widgets_off,
 		default_widgets_show,
@@ -788,28 +803,28 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionClassN
 	defaultScreenStateCmd.doCommand(this);
 	}
 	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE clearCommandForCp(ContentPanel cp) FOR ContentPanel»
+Â«DEFINE clearCommandForCp(ContentPanel cp) FOR ContentPanelÂ»
 
-«LET cp.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS startingPanelAppData-»
-«IF this.onRefreshCommand!=null-»
-	«LET (List[ApplicationData])(findAllActionScopedAppData(this.onRefreshCommand)) AS postExecData-»
-	«LET postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS samePagePostExecData-»
-		«IF postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-»
-	 	String [] appDataToClear_«this.name» = new String[] {
-	 	«FOREACH startingPanelAppData.select(ad|!postExecData.contains(ad)) AS currAd SEPARATOR ","-»
-	 	"«currAd.name»", "«currAd.name»_bckp"
-	 	«ENDFOREACH-»};
-	 	if("«this.name»".equals(targetContentPanelName)){
-	 		ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear_«this.name»);
+Â«LET cp.appData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS startingPanelAppData-Â»
+Â«IF this.onRefreshCommand!=null-Â»
+	Â«LET (List[ApplicationData])(findAllActionScopedAppData(this.onRefreshCommand)) AS postExecData-Â»
+	Â«LET postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE) AS samePagePostExecData-Â»
+		Â«IF postExecData.select(ad|ad.lifetimeExtent==DataLifetimeType::SAME_PAGE).size>0-Â»
+	 	String [] appDataToClear_Â«this.nameÂ» = new String[] {
+	 	Â«FOREACH startingPanelAppData.select(ad|!postExecData.contains(ad)) AS currAd SEPARATOR ","-Â»
+	 	"Â«currAd.nameÂ»", "Â«currAd.nameÂ»_bckp"
+	 	Â«ENDFOREACH-Â»};
+	 	if("Â«this.nameÂ»".equals(targetContentPanelName)){
+	 		ClearAppDataCommand clearCmd = new ClearAppDataCommand(appDataToClear_Â«this.nameÂ»);
 	 		session.put(PENDING_CLEAR_COMMAND_ATTRIBUTE, clearCmd);
 	 		return;
 	 	}	
 	 	
-	 	«ENDIF-»	
-	«ENDLET-»
-«ENDLET-»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
+	 	Â«ENDIF-Â»	
+	Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
