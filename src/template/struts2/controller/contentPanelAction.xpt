@@ -677,6 +677,16 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
     «ENDIF»
 	«ENDLET»
 	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
+					private ICommand initOnRefreshCommand() {
+						return null; 
+					}
+	
+			«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»		
 	
 	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
