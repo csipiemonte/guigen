@@ -893,8 +893,11 @@ context CustomTemplate ERROR "E'necessario impostare l'ID del template:"+loc() :
 context CustomTemplate ERROR "E'necessario impostare il nome del template:"+loc() :
 	!isNullOrEmpty(name);
 	
-context ContentPanel ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo ON_REFRESH " : 
-this.cpCommands==null || this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_REFRESH).size == 1;
+context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo ON_REFRESH " : 
+this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_REFRESH).size <= 1;
 
 context ContentPanel ERROR "Un ContentPanel non pu� contenere un CpCommands di tipo ON_REFRESH e un onRefreshCommand contemporaneamente " :
 !(this.onRefreshCommand!=null && this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_REFRESH).size == 1);
+
+context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo ON_INIT " : 
+this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_INIT).size <= 1;
