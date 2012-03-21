@@ -671,7 +671,6 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 					// CpCommand OnRefresh
 					
 					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-						// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
 						ICommand cmdOnRefresh = initOnRefreshCommand();
 						cmdOnRefresh.doCommand(this);
 					}
@@ -681,11 +680,10 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnRefresh»
-					// CpCommand OnRefresh
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
+					// CpCommand OnInit
 					
 					if (getOnInitCPCommand«this.name»()==null) {
-						// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
 						ICommand cmdOnInit = initOnInitCPCommand();
 						cmdOnInit.doCommand(this);
 						setOnInitCPCommand«this.name»(true);
@@ -717,6 +715,14 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
 					«EXPAND template::struts2::controller::eventHandlers::actionStructureOnInitCPCommand(model, this) FOR cpOnInit.command»
+				«ENDFOREACH»
+			«ENDIF»
+	«ENDIF»		
+	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
+					«EXPAND template::struts2::controller::eventHandlers::actionStructureBeforeEventCPCommand(model, this) FOR cpBeforeEvent.command»
 				«ENDFOREACH»
 			«ENDIF»
 	«ENDIF»		

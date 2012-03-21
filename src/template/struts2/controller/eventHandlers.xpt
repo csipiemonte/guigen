@@ -161,6 +161,15 @@ e le limitazioni secondo i termini della Licenza.
 		}
 		«ENDIF»
     	
+    	«IF cp.cpCommands!=null»
+			«IF !cp.cpCommands.commands.isEmpty»
+				«FOREACH cp.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
+						ICommand cmdBE = initBeforeEventCPCommand();
+						cmdBE.doCommand(this);
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+    	
 		String result = action.doCommand(this);
 		if (result != null) {
 			if (log.isDebugEnabled()){
@@ -263,6 +272,19 @@ e le limitazioni secondo i termini della Licenza.
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	private ICommand initOnInitCPCommand() {
+		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
+		return act_onInitCPCommand_1; 
+	}
+	
+
+	
+«ENDDEFINE»
+
+«DEFINE actionStructureBeforeEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+    /**
+     * inizializza la struttura dei command da eseguire al refresh del pannello
+     */
+	private ICommand initBeforeEventCPCommand() {
 		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
 		return act_onInitCPCommand_1; 
 	}
