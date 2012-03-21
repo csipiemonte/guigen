@@ -164,13 +164,21 @@ e le limitazioni secondo i termini della Licenza.
     	«IF cp.cpCommands!=null»
 			«IF !cp.cpCommands.commands.isEmpty»
 				«FOREACH cp.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::BEFORE_EVENTS) AS cpBeforeEvent»
-						ICommand cmdBE = initBeforeEventCPCommand();
-						cmdBE.doCommand(this);
+						ICommand cmdBeforeEvent = initBeforeEventCPCommand();
+						cmdBeforeEvent.doCommand(this);
 				«ENDFOREACH»
 			«ENDIF»
 		«ENDIF»
     	
 		String result = action.doCommand(this);
+		«IF cp.cpCommands!=null»
+			«IF !cp.cpCommands.commands.isEmpty»
+				«FOREACH cp.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::AFTER_EVENTS) AS cpBeforeEvent»
+						ICommand cmdAfterEvent = initAfterEventCPCommand();
+						cmdAfterEvent.doCommand(this);
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
 		if (result != null) {
 			if (log.isDebugEnabled()){
 				log.debug("[«getStrutsActionClassName(cp)»::«getHandlerMethodName(currEventWidget, currEventHandler, contextPrefix)»] dump model after");
@@ -185,6 +193,7 @@ e le limitazioni secondo i termini della Licenza.
 				return result;
 			}
 			«ELSE-»
+			
 			return result;
 			«ENDIF-»
 			
@@ -285,6 +294,19 @@ e le limitazioni secondo i termini della Licenza.
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	private ICommand initBeforeEventCPCommand() {
+		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
+		return act_onInitCPCommand_1; 
+	}
+	
+
+	
+«ENDDEFINE»
+
+«DEFINE actionStructureAfterEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+    /**
+     * inizializza la struttura dei command da eseguire al refresh del pannello
+     */
+	private ICommand initAfterEventCPCommand() {
 		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
 		return act_onInitCPCommand_1; 
 	}

@@ -725,7 +725,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 					«EXPAND template::struts2::controller::eventHandlers::actionStructureBeforeEventCPCommand(model, this) FOR cpBeforeEvent.command»
 				«ENDFOREACH»
 			«ENDIF»
-	«ENDIF»		
+	«ENDIF»	
+	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::AFTER_EVENTS) AS cpBeforeEvent»
+					«EXPAND template::struts2::controller::eventHandlers::actionStructureAfterEventCPCommand(model, this) FOR cpBeforeEvent.command»
+				«ENDFOREACH»
+			«ENDIF»
+	«ENDIF»	
 	
 	«EXPAND template::struts2::security::securityConstraints::getPageUIConstraintDef(model) FOR this»
 	
