@@ -904,3 +904,6 @@ this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_INIT).s
 
 context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo BEFORE_EVENTS " : 
 this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::BEFORE_EVENTS).size <= 1;
+
+context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo BEFORE_EVENTS " : 
+this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::AFTER_EVENTS).size <= 1;
