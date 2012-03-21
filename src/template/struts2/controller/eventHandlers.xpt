@@ -289,13 +289,28 @@ e le limitazioni secondo i termini della Licenza.
 	
 «ENDDEFINE»
 
+
+«DEFINE actionStructureOnEnterCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
+    /**
+     * inizializza la struttura dei command da eseguire al refresh del pannello
+     */
+	private ICommand initOnEnterCPCommand() {
+		«EXPAND addActionCode("onEnterCPCommand",1, model, cp , "") FOR this-»
+		return act_onEnterCPCommand_1; 
+	}
+	
+
+	
+«ENDDEFINE»
+
+
 «DEFINE actionStructureBeforeEventCPCommand(GUIModel model, ContentPanel cp) FOR Command-»
     /**
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	private ICommand initBeforeEventCPCommand() {
-		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
-		return act_onInitCPCommand_1; 
+		«EXPAND addActionCode("beforeEventCPCommand",1, model, cp , "") FOR this-»
+		return act_beforeEventCPCommand_1; 
 	}
 	
 
@@ -307,8 +322,8 @@ e le limitazioni secondo i termini della Licenza.
      * inizializza la struttura dei command da eseguire al refresh del pannello
      */
 	private ICommand initAfterEventCPCommand() {
-		«EXPAND addActionCode("onInitCPCommand",1, model, cp , "") FOR this-»
-		return act_onInitCPCommand_1; 
+		«EXPAND addActionCode("afterEventCPCommand",1, model, cp , "") FOR this-»
+		return act_afterEventCPCommand_1; 
 	}
 	
 

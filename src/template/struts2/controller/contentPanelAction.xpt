@@ -113,6 +113,17 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 			clearCmd.doCommand(this);
 			session.remove(PENDING_CLEAR_COMMAND_ATTRIBUTE);
 		}
+		
+		«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
+					// CpCommand OnEnter
+					ICommand cmdOnEnter = initOnEnterCPCommand();
+					cmdOnEnter.doCommand(this);
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+		
 		return SUCCESS;
 	}
 	
@@ -718,6 +729,14 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 				«ENDFOREACH»
 			«ENDIF»
 	«ENDIF»		
+	
+	«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
+					«EXPAND template::struts2::controller::eventHandlers::actionStructureOnEnterCPCommand(model, this) FOR cpOnEnter.command»
+				«ENDFOREACH»
+			«ENDIF»
+	«ENDIF»	
 	
 	«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
