@@ -901,3 +901,6 @@ context ContentPanel ERROR "Un ContentPanel non pu� contenere un CpCommands di
 
 context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo ON_INIT " : 
 this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::ON_INIT).size <= 1;
+
+context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo BEFORE_EVENTS " : 
+this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::BEFORE_EVENTS).size <= 1;
