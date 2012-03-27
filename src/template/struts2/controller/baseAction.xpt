@@ -88,6 +88,15 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 		return this.session;
 	}
 	
+	public void setContentPanelCurrent(java.lang.String value) {
+		getSession().put("contentPanelCurrent", value);
+	}
+
+	public java.lang.String getContentPanelCurrent() {
+		return (java.lang.String) (getSession()
+				.get("contentPanelCurrent"));
+	}
+	
 	«IF hasGisMap(this)»
 	public static int ERROR_LEVEL_WARNING = 0;
 	public static int ERROR_LEVEL_ERROR = 1;

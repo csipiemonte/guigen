@@ -91,7 +91,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
 	«ENDIF-»
-	
+	private String NAME_CP= "«this.name»";
 	/**
 	 * classe model associata
 	 */
@@ -117,12 +117,18 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
+				if(getContentPanelCurrent()==null||null!=getContentPanelCurrent() && !NAME_CP.equalsIgnoreCase(getContentPanelCurrent())){
 					// CpCommand OnEnter
 					ICommand cmdOnEnter = initOnEnterCPCommand();
 					cmdOnEnter.doCommand(this);
+					setContentPanelCurrent(NAME_CP);
+				}
 				«ENDFOREACH»
 			«ENDIF»
 		«ENDIF»
+		
+		
+		
 		
 		return SUCCESS;
 	}
