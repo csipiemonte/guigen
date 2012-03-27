@@ -666,28 +666,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		      
 		ActionContext ctx = ActionContext.getContext();
 		String methodName = ctx.getActionInvocation().getProxy().getMethod();     
-		«IF this.onRefreshCommand!=null»
-		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-	
 		
-		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
-			ICommand cmd = initOnRefreshCommand();
-			cmd.doCommand(this);
-		}
-		«ENDIF»
-		«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
-					// CpCommand OnRefresh
-					
-					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-						ICommand cmdOnRefresh = initOnRefreshCommand();
-						cmdOnRefresh.doCommand(this);
-					}
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
 		
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
@@ -702,6 +681,34 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 				«ENDFOREACH»
 			«ENDIF»
 		«ENDIF»
+		
+		
+		«IF this.onRefreshCommand!=null»
+		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
+	
+		
+		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+			ICommand cmd = initOnRefreshCommand();
+			cmd.doCommand(this);
+		}
+		«ENDIF»
+		
+		
+		«IF this.cpCommands!=null»
+			«IF !this.cpCommands.commands.isEmpty»
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
+					// CpCommand OnRefresh
+					
+					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+						ICommand cmdOnRefresh = initOnRefreshCommand();
+						cmdOnRefresh.doCommand(this);
+					}
+				«ENDFOREACH»
+			«ENDIF»
+		«ENDIF»
+		
+	
 	}
 	
 	
