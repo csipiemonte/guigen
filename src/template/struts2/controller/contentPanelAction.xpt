@@ -91,7 +91,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	«IF model.targetPlatform.enableRichUIBehavior-»
 	«EXPAND template::struts2::model::fatclientProps::tableDataProviderProps FOR this-»
 	«ENDIF-»
-	private static String NAME_CP= "«this.name»";
+	private static String CP_NAME= "«this.name»";
 	/**
 	 * classe model associata
 	 */
@@ -117,11 +117,13 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
-				if(getContentPanelCurrent()==null||null!=getContentPanelCurrent() && !NAME_CP.equalsIgnoreCase(getContentPanelCurrent())){
-					// CpCommand OnEnter
-					ICommand cmdOnEnter = initOnEnterCPCommand();
-					cmdOnEnter.doCommand(this);
-					setContentPanelCurrent(NAME_CP);
+				if(!getCPCommandInit«this.name.toFirstUpper()»()){
+					if(null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel())){
+						// CpCommand OnEnter
+						ICommand cmdOnEnter = initOnEnterCPCommand();
+						cmdOnEnter.doCommand(this);
+						
+					}
 				}
 				«ENDFOREACH»
 			«ENDIF»
@@ -129,7 +131,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		
 		
-		
+		setCurrentContentPanel(CP_NAME);
 		return SUCCESS;
 	}
 	
@@ -635,20 +637,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 	
 	protected Map<String, UISecConstraint> allVisibilityConstraints = null;
 	protected Map<String, UISecConstraint> allOnOffConstraints = null;
+
 	
-	«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnRefresh»
-					public void setOnInitCPCommand«this.name»(java.lang.Boolean value) {
-						getSession().put("onInitCPCommand«this.name»", value);
-					}
+	public void setCPCommandInit«this.name.toFirstUpper()»(java.lang.Boolean value) {
+		getSession().put("CPCommandInit«this.name.toFirstUpper()»", value);
+	}
 				
-					public java.lang.Boolean getOnInitCPCommand«this.name»() {
-						return (java.lang.Boolean) (getSession().get("onInitCPCommand«this.name»"));
-					}
-				«ENDFOREACH»
-		«ENDIF»
-	«ENDIF»
+	public java.lang.Boolean getCPCommandInit«this.name.toFirstUpper()»() {
+		return (java.lang.Boolean) (getSession().get("CPCommandInit«this.name.toFirstUpper()»"));
+	}
 	
 	/**
 	 * Metodo di preparazione della schermata/action
@@ -677,12 +674,26 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
-					// CpCommand OnInit
+					// CpCommand.ON_INIT: comandi eseguiti al primo accesso per sessione applicativa
 					
-					if (getOnInitCPCommand«this.name»()==null) {
+					if (getCPCommandInit«this.name.toFirstUpper()»()==null) {
 						ICommand cmdOnInit = initOnInitCPCommand();
 						cmdOnInit.doCommand(this);
-						setOnInitCPCommand«this.name»(true);
+						setCPCommandInit«this.name.toFirstUpper()»(true);
+					}
+					else
+						setCPCommandInit«this.name.toFirstUpper()»(false);
+					
+				«ENDFOREACH»
+				
+				
+				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
+					// CpCommand.ON_REFRESH: comandi eseguiti ad ogni refresh per sessione applicativa
+					if(getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»()){
+						if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+							ICommand cmdOnRefresh = initOnRefreshCommand();
+							cmdOnRefresh.doCommand(this);
+						}
 					}
 				«ENDFOREACH»
 			«ENDIF»
@@ -691,28 +702,15 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		«IF this.onRefreshCommand!=null»
 		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-	
-		
-		if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-			// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
-			ICommand cmd = initOnRefreshCommand();
-			cmd.doCommand(this);
+		if(getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»()){
+			if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
+				// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
+				ICommand cmd = initOnRefreshCommand();
+				cmd.doCommand(this);
+			}
 		}
 		«ENDIF»
 		
-		
-		«IF this.cpCommands!=null»
-			«IF !this.cpCommands.commands.isEmpty»
-				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
-					// CpCommand OnRefresh
-					
-					if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
-						ICommand cmdOnRefresh = initOnRefreshCommand();
-						cmdOnRefresh.doCommand(this);
-					}
-				«ENDFOREACH»
-			«ENDIF»
-		«ENDIF»
 		
 	
 	}
