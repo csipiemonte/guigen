@@ -81,6 +81,8 @@ public class TargetPlatformItemProvider
 			addCodePropertyDescriptor(object);
 			addEnableRichUIBehaviorPropertyDescriptor(object);
 			addEnableFatClientPropertyDescriptor(object);
+			addWayfProfilePropertyDescriptor(object);
+			addSecurityProfilePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -147,6 +149,50 @@ public class TargetPlatformItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Wayf Profile feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWayfProfilePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TargetPlatform_wayfProfile_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_wayfProfile_feature", "_UI_TargetPlatform_type"),
+				 GuigenPackage.Literals.TARGET_PLATFORM__WAYF_PROFILE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Security Profile feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSecurityProfilePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TargetPlatform_securityProfile_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TargetPlatform_securityProfile_feature", "_UI_TargetPlatform_type"),
+				 GuigenPackage.Literals.TARGET_PLATFORM__SECURITY_PROFILE,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

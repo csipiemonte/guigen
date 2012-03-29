@@ -1318,6 +1318,96 @@ public interface GuigenFactory extends EFactory {
 	CPCommands createCPCommands();
 
 	/**
+	 * Returns a new object of class '<em>Security Profile</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Security Profile</em>'.
+	 * @generated
+	 */
+	SecurityProfile createSecurityProfile();
+
+	/**
+	 * Returns a new object of class '<em>External Authentication Guard</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>External Authentication Guard</em>'.
+	 * @generated
+	 */
+	ExternalAuthenticationGuard createExternalAuthenticationGuard();
+
+	/**
+	 * Returns a new object of class '<em>Internal Authentication Guard</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Internal Authentication Guard</em>'.
+	 * @generated
+	 */
+	InternalAuthenticationGuard createInternalAuthenticationGuard();
+
+	/**
+	 * Returns a new object of class '<em>WAYF Request Adapter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WAYF Request Adapter</em>'.
+	 * @generated
+	 */
+	WAYFRequestAdapter createWAYFRequestAdapter();
+
+	/**
+	 * Returns a new object of class '<em>WAYF Profile</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WAYF Profile</em>'.
+	 * @generated
+	 */
+	WAYFProfile createWAYFProfile();
+
+	/**
+	 * Returns a new object of class '<em>Local Login UI</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Local Login UI</em>'.
+	 * @generated
+	 */
+	LocalLoginUI createLocalLoginUI();
+
+	/**
+	 * Returns a new object of class '<em>Identity Adapter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Identity Adapter</em>'.
+	 * @generated
+	 */
+	IdentityAdapter createIdentityAdapter();
+
+	/**
+	 * Returns a new object of class '<em>Env Config Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Env Config Param</em>'.
+	 * @generated
+	 */
+	EnvConfigParam createEnvConfigParam();
+
+	/**
+	 * Returns a new object of class '<em>Env Config Params</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Env Config Params</em>'.
+	 * @generated
+	 */
+	EnvConfigParams createEnvConfigParams();
+
+	/**
+	 * Returns a new object of class '<em>PEP Implementation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>PEP Implementation</em>'.
+	 * @generated
+	 */
+	PEPImplementation createPEPImplementation();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -74,9 +74,12 @@ import it.csi.mddtools.guigen.DataWidget;
 import it.csi.mddtools.guigen.DialogPanel;
 import it.csi.mddtools.guigen.DisabledComponentSet;
 import it.csi.mddtools.guigen.EndEditCommand;
+import it.csi.mddtools.guigen.EnvConfigParam;
+import it.csi.mddtools.guigen.EnvConfigParams;
 import it.csi.mddtools.guigen.EventHandler;
 import it.csi.mddtools.guigen.EventTypes;
 import it.csi.mddtools.guigen.ExecCommand;
+import it.csi.mddtools.guigen.ExternalAuthenticationGuard;
 import it.csi.mddtools.guigen.ExtraColumn;
 import it.csi.mddtools.guigen.Field;
 import it.csi.mddtools.guigen.FileUpload;
@@ -93,11 +96,16 @@ import it.csi.mddtools.guigen.Header;
 import it.csi.mddtools.guigen.HeaderMetaAttr;
 import it.csi.mddtools.guigen.HiddenValue;
 import it.csi.mddtools.guigen.HorizontalFlowPanelLayout;
+import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.Image;
+import it.csi.mddtools.guigen.InfoSourceTypes;
+import it.csi.mddtools.guigen.InternalAuthenticationGuard;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
+import it.csi.mddtools.guigen.LocalLoginUI;
 import it.csi.mddtools.guigen.LogicAggregationTypes;
+import it.csi.mddtools.guigen.LoginUITypes;
 import it.csi.mddtools.guigen.LogoutActionTypes;
 import it.csi.mddtools.guigen.MapEnvelope;
 import it.csi.mddtools.guigen.MapView;
@@ -120,6 +128,7 @@ import it.csi.mddtools.guigen.PDefParam;
 import it.csi.mddtools.guigen.PDefParamVal;
 import it.csi.mddtools.guigen.PDefStateCommand;
 import it.csi.mddtools.guigen.PDefUseConfig;
+import it.csi.mddtools.guigen.PEPImplementation;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.PanelDef;
 import it.csi.mddtools.guigen.PanelDefState;
@@ -146,6 +155,7 @@ import it.csi.mddtools.guigen.ScreenState;
 import it.csi.mddtools.guigen.ScreenStateCommand;
 import it.csi.mddtools.guigen.ScreenStates;
 import it.csi.mddtools.guigen.SecurityModel;
+import it.csi.mddtools.guigen.SecurityProfile;
 import it.csi.mddtools.guigen.SequenceCommand;
 import it.csi.mddtools.guigen.ShibbolethSSO;
 import it.csi.mddtools.guigen.ShowDialogCommand;
@@ -187,6 +197,8 @@ import it.csi.mddtools.guigen.UserDefinedWidget;
 import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.VerticalFlowPanelLayout;
 import it.csi.mddtools.guigen.VisibilityCommand;
+import it.csi.mddtools.guigen.WAYFProfile;
+import it.csi.mddtools.guigen.WAYFRequestAdapter;
 import it.csi.mddtools.guigen.WebResModuleDeployTypes;
 import it.csi.mddtools.guigen.WebResourceModule;
 import it.csi.mddtools.guigen.Widget;
@@ -1309,6 +1321,76 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass securityProfileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass externalAuthenticationGuardEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass internalAuthenticationGuardEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wayfRequestAdapterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wayfProfileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass localLoginUIEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass identityAdapterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass envConfigParamEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass envConfigParamsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pepImplementationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum widgetDataTypeEEnum = null;
 
 	/**
@@ -1436,6 +1518,20 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum cpCommandExecutionTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum loginUITypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum infoSourceTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -4203,6 +4299,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTargetPlatform_WayfProfile() {
+		return (EReference)targetPlatformEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTargetPlatform_SecurityProfile() {
+		return (EReference)targetPlatformEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUserInfoPanel() {
 		return userInfoPanelEClass;
 	}
@@ -5886,6 +6000,240 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSecurityProfile() {
+		return securityProfileEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSecurityProfile_Name() {
+		return (EAttribute)securityProfileEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityProfile_ExtAuthGuard() {
+		return (EReference)securityProfileEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityProfile_IntAuthGuard() {
+		return (EReference)securityProfileEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityProfile_IdAdapter() {
+		return (EReference)securityProfileEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityProfile_PepImpl() {
+		return (EReference)securityProfileEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExternalAuthenticationGuard() {
+		return externalAuthenticationGuardEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInternalAuthenticationGuard() {
+		return internalAuthenticationGuardEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInternalAuthenticationGuard_LoginUI() {
+		return (EReference)internalAuthenticationGuardEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInternalAuthenticationGuard_Params() {
+		return (EReference)internalAuthenticationGuardEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWAYFRequestAdapter() {
+		return wayfRequestAdapterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWAYFRequestAdapter_SourceType() {
+		return (EAttribute)wayfRequestAdapterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWAYFRequestAdapter_InfoSourceName() {
+		return (EAttribute)wayfRequestAdapterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWAYFProfile() {
+		return wayfProfileEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWAYFProfile_RequestAdapter() {
+		return (EReference)wayfProfileEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLocalLoginUI() {
+		return localLoginUIEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLocalLoginUI_UiType() {
+		return (EAttribute)localLoginUIEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIdentityAdapter() {
+		return identityAdapterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIdentityAdapter_SourceType() {
+		return (EAttribute)identityAdapterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIdentityAdapter_InfoSourceName() {
+		return (EAttribute)identityAdapterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnvConfigParam() {
+		return envConfigParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEnvConfigParam_Name() {
+		return (EAttribute)envConfigParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnvConfigParams() {
+		return envConfigParamsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnvConfigParams_Params() {
+		return (EReference)envConfigParamsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPEPImplementation() {
+		return pepImplementationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPEPImplementation_Params() {
+		return (EReference)pepImplementationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -6050,6 +6398,24 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getCPCommandExecutionTypes() {
 		return cpCommandExecutionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getLoginUITypes() {
+		return loginUITypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getInfoSourceTypes() {
+		return infoSourceTypesEEnum;
 	}
 
 	/**
@@ -6474,6 +6840,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_RICH_UI_BEHAVIOR);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__ENABLE_FAT_CLIENT);
 		createEReference(targetPlatformEClass, TARGET_PLATFORM__PORTAL_EXPOSITIONS);
+		createEReference(targetPlatformEClass, TARGET_PLATFORM__WAYF_PROFILE);
+		createEReference(targetPlatformEClass, TARGET_PLATFORM__SECURITY_PROFILE);
 
 		userInfoPanelEClass = createEClass(USER_INFO_PANEL);
 
@@ -6723,6 +7091,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		cpCommandsEClass = createEClass(CP_COMMANDS);
 		createEReference(cpCommandsEClass, CP_COMMANDS__COMMANDS);
 
+		securityProfileEClass = createEClass(SECURITY_PROFILE);
+		createEAttribute(securityProfileEClass, SECURITY_PROFILE__NAME);
+		createEReference(securityProfileEClass, SECURITY_PROFILE__EXT_AUTH_GUARD);
+		createEReference(securityProfileEClass, SECURITY_PROFILE__INT_AUTH_GUARD);
+		createEReference(securityProfileEClass, SECURITY_PROFILE__ID_ADAPTER);
+		createEReference(securityProfileEClass, SECURITY_PROFILE__PEP_IMPL);
+
+		externalAuthenticationGuardEClass = createEClass(EXTERNAL_AUTHENTICATION_GUARD);
+
+		internalAuthenticationGuardEClass = createEClass(INTERNAL_AUTHENTICATION_GUARD);
+		createEReference(internalAuthenticationGuardEClass, INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI);
+		createEReference(internalAuthenticationGuardEClass, INTERNAL_AUTHENTICATION_GUARD__PARAMS);
+
+		wayfRequestAdapterEClass = createEClass(WAYF_REQUEST_ADAPTER);
+		createEAttribute(wayfRequestAdapterEClass, WAYF_REQUEST_ADAPTER__SOURCE_TYPE);
+		createEAttribute(wayfRequestAdapterEClass, WAYF_REQUEST_ADAPTER__INFO_SOURCE_NAME);
+
+		wayfProfileEClass = createEClass(WAYF_PROFILE);
+		createEReference(wayfProfileEClass, WAYF_PROFILE__REQUEST_ADAPTER);
+
+		localLoginUIEClass = createEClass(LOCAL_LOGIN_UI);
+		createEAttribute(localLoginUIEClass, LOCAL_LOGIN_UI__UI_TYPE);
+
+		identityAdapterEClass = createEClass(IDENTITY_ADAPTER);
+		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__SOURCE_TYPE);
+		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__INFO_SOURCE_NAME);
+
+		envConfigParamEClass = createEClass(ENV_CONFIG_PARAM);
+		createEAttribute(envConfigParamEClass, ENV_CONFIG_PARAM__NAME);
+
+		envConfigParamsEClass = createEClass(ENV_CONFIG_PARAMS);
+		createEReference(envConfigParamsEClass, ENV_CONFIG_PARAMS__PARAMS);
+
+		pepImplementationEClass = createEClass(PEP_IMPLEMENTATION);
+		createEReference(pepImplementationEClass, PEP_IMPLEMENTATION__PARAMS);
+
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
 		udlrcSpecConstantsEEnum = createEEnum(UDLRC_SPEC_CONSTANTS);
@@ -6743,6 +7147,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		repartModuleTypesEEnum = createEEnum(REPART_MODULE_TYPES);
 		wizardNumberingTypesEEnum = createEEnum(WIZARD_NUMBERING_TYPES);
 		cpCommandExecutionTypesEEnum = createEEnum(CP_COMMAND_EXECUTION_TYPES);
+		loginUITypesEEnum = createEEnum(LOGIN_UI_TYPES);
+		infoSourceTypesEEnum = createEEnum(INFO_SOURCE_TYPES);
 	}
 
 	/**
@@ -7268,6 +7674,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEAttribute(getTargetPlatform_EnableRichUIBehavior(), ecorePackage.getEBoolean(), "enableRichUIBehavior", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTargetPlatform_EnableFatClient(), ecorePackage.getEBoolean(), "enableFatClient", "false", 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTargetPlatform_PortalExpositions(), this.getPortalExposition(), null, "portalExpositions", null, 0, -1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetPlatform_WayfProfile(), this.getWAYFProfile(), null, "wayfProfile", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetPlatform_SecurityProfile(), this.getSecurityProfile(), null, "securityProfile", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userInfoPanelEClass, UserInfoPanel.class, "UserInfoPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -7517,6 +7925,42 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(cpCommandsEClass, CPCommands.class, "CPCommands", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCPCommands_Commands(), this.getCPCommand(), null, "commands", null, 0, -1, CPCommands.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(securityProfileEClass, SecurityProfile.class, "SecurityProfile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSecurityProfile_Name(), ecorePackage.getEString(), "name", null, 0, 1, SecurityProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityProfile_ExtAuthGuard(), this.getExternalAuthenticationGuard(), null, "extAuthGuard", null, 0, 1, SecurityProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityProfile_IntAuthGuard(), this.getInternalAuthenticationGuard(), null, "intAuthGuard", null, 0, 1, SecurityProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityProfile_IdAdapter(), this.getIdentityAdapter(), null, "idAdapter", null, 0, 1, SecurityProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityProfile_PepImpl(), this.getPEPImplementation(), null, "pepImpl", null, 0, 1, SecurityProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(externalAuthenticationGuardEClass, ExternalAuthenticationGuard.class, "ExternalAuthenticationGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(internalAuthenticationGuardEClass, InternalAuthenticationGuard.class, "InternalAuthenticationGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInternalAuthenticationGuard_LoginUI(), this.getLocalLoginUI(), null, "loginUI", null, 0, 1, InternalAuthenticationGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInternalAuthenticationGuard_Params(), this.getEnvConfigParams(), null, "params", null, 0, 1, InternalAuthenticationGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(wayfRequestAdapterEClass, WAYFRequestAdapter.class, "WAYFRequestAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWAYFRequestAdapter_SourceType(), this.getInfoSourceTypes(), "sourceType", null, 0, 1, WAYFRequestAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWAYFRequestAdapter_InfoSourceName(), ecorePackage.getEString(), "infoSourceName", null, 0, 1, WAYFRequestAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(wayfProfileEClass, WAYFProfile.class, "WAYFProfile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWAYFProfile_RequestAdapter(), this.getWAYFRequestAdapter(), null, "requestAdapter", null, 0, 1, WAYFProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(localLoginUIEClass, LocalLoginUI.class, "LocalLoginUI", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLocalLoginUI_UiType(), this.getLoginUITypes(), "uiType", null, 0, 1, LocalLoginUI.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(identityAdapterEClass, IdentityAdapter.class, "IdentityAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIdentityAdapter_SourceType(), this.getInfoSourceTypes(), "sourceType", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentityAdapter_InfoSourceName(), ecorePackage.getEString(), "infoSourceName", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(envConfigParamEClass, EnvConfigParam.class, "EnvConfigParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnvConfigParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnvConfigParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(envConfigParamsEClass, EnvConfigParams.class, "EnvConfigParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnvConfigParams_Params(), this.getEnvConfigParam(), null, "params", null, 0, -1, EnvConfigParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pepImplementationEClass, PEPImplementation.class, "PEPImplementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPEPImplementation_Params(), this.getEnvConfigParam(), null, "params", null, 0, -1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
 		addEEnumLiteral(widgetDataTypeEEnum, WidgetDataType.STRINGA);
@@ -7667,6 +8111,18 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.BEFORE_EVENTS);
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.AFTER_EVENTS);
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.ON_REFRESH);
+
+		initEEnum(loginUITypesEEnum, LoginUITypes.class, "LoginUITypes");
+		addEEnumLiteral(loginUITypesEEnum, LoginUITypes.USERNAME_PASSWORD);
+		addEEnumLiteral(loginUITypesEEnum, LoginUITypes.USERNAME_PASSWORD_PIN);
+		addEEnumLiteral(loginUITypesEEnum, LoginUITypes.CUSTOM);
+
+		initEEnum(infoSourceTypesEEnum, InfoSourceTypes.class, "InfoSourceTypes");
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_PARAM);
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_HEADER);
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_COOKIE);
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.SESSION_ATTRIBUTE);
+		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_ATTRIBUTE);
 
 		// Create resource
 		createResource(eNS_URI);

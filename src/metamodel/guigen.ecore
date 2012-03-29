@@ -1987,6 +1987,8 @@
         <details key="documentation" value="Elenco dei portali di esposizione dell'applicativo, nell'ambito di una esposizione&#xD;&#xA;multi-portale "/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wayfProfile" eType="#//WAYFProfile"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securityProfile" eType="#//SecurityProfile"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TargetPlatformCodes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3034,5 +3036,61 @@
         <details key="documentation" value="Il comando viene eseguito ad ogni refresh della schermata; se il refresh &amp;egrave;&#xD;&#xA;scatenato da un evento su un widget, il comando viene eseguito prima dell'&#xD;&#xA;esecuzione ddell'evento. "/>
       </eAnnotations>
     </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityProfile">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extAuthGuard" eType="#//ExternalAuthenticationGuard"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="intAuthGuard" eType="#//InternalAuthenticationGuard"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idAdapter" eType="#//IdentityAdapter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pepImpl" eType="#//PEPImplementation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalAuthenticationGuard"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalAuthenticationGuard">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loginUI" eType="#//LocalLoginUI"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" eType="#//EnvConfigParams"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WAYFRequestAdapter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceType" eType="#//InfoSourceTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="infoSourceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WAYFProfile">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requestAdapter" eType="#//WAYFRequestAdapter"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LocalLoginUI">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uiType" eType="#//LoginUITypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IdentityAdapter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceType" eType="#//InfoSourceTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="infoSourceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LoginUITypes">
+    <eLiterals name="USERNAME_PASSWORD" value="1"/>
+    <eLiterals name="USERNAME_PASSWORD_PIN" value="2"/>
+    <eLiterals name="CUSTOM" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="InfoSourceTypes">
+    <eLiterals name="REQUEST_PARAM" value="1"/>
+    <eLiterals name="REQUEST_HEADER" value="2"/>
+    <eLiterals name="REQUEST_COOKIE" value="3"/>
+    <eLiterals name="SESSION_ATTRIBUTE" value="5"/>
+    <eLiterals name="REQUEST_ATTRIBUTE" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnvConfigParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnvConfigParams">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//EnvConfigParam" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PEPImplementation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//EnvConfigParam" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

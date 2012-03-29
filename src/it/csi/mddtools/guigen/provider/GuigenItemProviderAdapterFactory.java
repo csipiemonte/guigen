@@ -3357,6 +3357,236 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.SecurityProfile} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SecurityProfileItemProvider securityProfileItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.SecurityProfile}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSecurityProfileAdapter() {
+		if (securityProfileItemProvider == null) {
+			securityProfileItemProvider = new SecurityProfileItemProvider(this);
+		}
+
+		return securityProfileItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.ExternalAuthenticationGuard} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExternalAuthenticationGuardItemProvider externalAuthenticationGuardItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.ExternalAuthenticationGuard}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExternalAuthenticationGuardAdapter() {
+		if (externalAuthenticationGuardItemProvider == null) {
+			externalAuthenticationGuardItemProvider = new ExternalAuthenticationGuardItemProvider(this);
+		}
+
+		return externalAuthenticationGuardItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.InternalAuthenticationGuard} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InternalAuthenticationGuardItemProvider internalAuthenticationGuardItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.InternalAuthenticationGuard}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInternalAuthenticationGuardAdapter() {
+		if (internalAuthenticationGuardItemProvider == null) {
+			internalAuthenticationGuardItemProvider = new InternalAuthenticationGuardItemProvider(this);
+		}
+
+		return internalAuthenticationGuardItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.WAYFRequestAdapter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WAYFRequestAdapterItemProvider wayfRequestAdapterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.WAYFRequestAdapter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWAYFRequestAdapterAdapter() {
+		if (wayfRequestAdapterItemProvider == null) {
+			wayfRequestAdapterItemProvider = new WAYFRequestAdapterItemProvider(this);
+		}
+
+		return wayfRequestAdapterItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.WAYFProfile} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WAYFProfileItemProvider wayfProfileItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.WAYFProfile}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWAYFProfileAdapter() {
+		if (wayfProfileItemProvider == null) {
+			wayfProfileItemProvider = new WAYFProfileItemProvider(this);
+		}
+
+		return wayfProfileItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.LocalLoginUI} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LocalLoginUIItemProvider localLoginUIItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.LocalLoginUI}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLocalLoginUIAdapter() {
+		if (localLoginUIItemProvider == null) {
+			localLoginUIItemProvider = new LocalLoginUIItemProvider(this);
+		}
+
+		return localLoginUIItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.IdentityAdapter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IdentityAdapterItemProvider identityAdapterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.IdentityAdapter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIdentityAdapterAdapter() {
+		if (identityAdapterItemProvider == null) {
+			identityAdapterItemProvider = new IdentityAdapterItemProvider(this);
+		}
+
+		return identityAdapterItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.EnvConfigParam} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnvConfigParamItemProvider envConfigParamItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.EnvConfigParam}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnvConfigParamAdapter() {
+		if (envConfigParamItemProvider == null) {
+			envConfigParamItemProvider = new EnvConfigParamItemProvider(this);
+		}
+
+		return envConfigParamItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.EnvConfigParams} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnvConfigParamsItemProvider envConfigParamsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.EnvConfigParams}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnvConfigParamsAdapter() {
+		if (envConfigParamsItemProvider == null) {
+			envConfigParamsItemProvider = new EnvConfigParamsItemProvider(this);
+		}
+
+		return envConfigParamsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.PEPImplementation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PEPImplementationItemProvider pepImplementationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.PEPImplementation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPEPImplementationAdapter() {
+		if (pepImplementationItemProvider == null) {
+			pepImplementationItemProvider = new PEPImplementationItemProvider(this);
+		}
+
+		return pepImplementationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3597,6 +3827,16 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (portalExpositionItemProvider != null) portalExpositionItemProvider.dispose();
 		if (cpCommandItemProvider != null) cpCommandItemProvider.dispose();
 		if (cpCommandsItemProvider != null) cpCommandsItemProvider.dispose();
+		if (securityProfileItemProvider != null) securityProfileItemProvider.dispose();
+		if (externalAuthenticationGuardItemProvider != null) externalAuthenticationGuardItemProvider.dispose();
+		if (internalAuthenticationGuardItemProvider != null) internalAuthenticationGuardItemProvider.dispose();
+		if (wayfRequestAdapterItemProvider != null) wayfRequestAdapterItemProvider.dispose();
+		if (wayfProfileItemProvider != null) wayfProfileItemProvider.dispose();
+		if (localLoginUIItemProvider != null) localLoginUIItemProvider.dispose();
+		if (identityAdapterItemProvider != null) identityAdapterItemProvider.dispose();
+		if (envConfigParamItemProvider != null) envConfigParamItemProvider.dispose();
+		if (envConfigParamsItemProvider != null) envConfigParamsItemProvider.dispose();
+		if (pepImplementationItemProvider != null) pepImplementationItemProvider.dispose();
 	}
 
 }

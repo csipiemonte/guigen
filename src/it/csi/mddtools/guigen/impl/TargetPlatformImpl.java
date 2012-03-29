@@ -22,10 +22,12 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.PortalExposition;
+import it.csi.mddtools.guigen.SecurityProfile;
 import it.csi.mddtools.guigen.PortalProfile;
 import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
 
+import it.csi.mddtools.guigen.WAYFProfile;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -51,6 +53,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#isEnableFatClient <em>Enable Fat Client</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getPortalExpositions <em>Portal Expositions</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getWayfProfile <em>Wayf Profile</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TargetPlatformImpl#getSecurityProfile <em>Security Profile</em>}</li>
  * </ul>
  * </p>
  *
@@ -126,6 +130,26 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * @ordered
 	 */
 	protected EList<PortalExposition> portalExpositions;
+
+	/**
+	 * The cached value of the '{@link #getWayfProfile() <em>Wayf Profile</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getWayfProfile()
+	 * @generated
+	 * @ordered
+	 */
+	protected WAYFProfile wayfProfile;
+
+	/**
+	 * The cached value of the '{@link #getSecurityProfile() <em>Security Profile</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityProfile()
+	 * @generated
+	 * @ordered
+	 */
+	protected SecurityProfile securityProfile;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -226,6 +250,82 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public WAYFProfile getWayfProfile() {
+		if (wayfProfile != null && wayfProfile.eIsProxy()) {
+			InternalEObject oldWayfProfile = (InternalEObject)wayfProfile;
+			wayfProfile = (WAYFProfile)eResolveProxy(oldWayfProfile);
+			if (wayfProfile != oldWayfProfile) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE, oldWayfProfile, wayfProfile));
+			}
+		}
+		return wayfProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WAYFProfile basicGetWayfProfile() {
+		return wayfProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setWayfProfile(WAYFProfile newWayfProfile) {
+		WAYFProfile oldWayfProfile = wayfProfile;
+		wayfProfile = newWayfProfile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE, oldWayfProfile, wayfProfile));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SecurityProfile getSecurityProfile() {
+		if (securityProfile != null && securityProfile.eIsProxy()) {
+			InternalEObject oldSecurityProfile = (InternalEObject)securityProfile;
+			securityProfile = (SecurityProfile)eResolveProxy(oldSecurityProfile);
+			if (securityProfile != oldSecurityProfile) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE, oldSecurityProfile, securityProfile));
+			}
+		}
+		return securityProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SecurityProfile basicGetSecurityProfile() {
+		return securityProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSecurityProfile(SecurityProfile newSecurityProfile) {
+		SecurityProfile oldSecurityProfile = securityProfile;
+		securityProfile = newSecurityProfile;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE, oldSecurityProfile, securityProfile));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -251,6 +351,12 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return isEnableFatClient();
 			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
 				return getPortalExpositions();
+			case GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE:
+				if (resolve) return getWayfProfile();
+				return basicGetWayfProfile();
+			case GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE:
+				if (resolve) return getSecurityProfile();
+				return basicGetSecurityProfile();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,6 +383,12 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				getPortalExpositions().clear();
 				getPortalExpositions().addAll((Collection<? extends PortalExposition>)newValue);
 				return;
+			case GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE:
+				setWayfProfile((WAYFProfile)newValue);
+				return;
+			case GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE:
+				setSecurityProfile((SecurityProfile)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -301,6 +413,12 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
 				getPortalExpositions().clear();
 				return;
+			case GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE:
+				setWayfProfile((WAYFProfile)null);
+				return;
+			case GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE:
+				setSecurityProfile((SecurityProfile)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -321,6 +439,10 @@ public class TargetPlatformImpl extends EObjectImpl implements TargetPlatform {
 				return enableFatClient != ENABLE_FAT_CLIENT_EDEFAULT;
 			case GuigenPackage.TARGET_PLATFORM__PORTAL_EXPOSITIONS:
 				return portalExpositions != null && !portalExpositions.isEmpty();
+			case GuigenPackage.TARGET_PLATFORM__WAYF_PROFILE:
+				return wayfProfile != null;
+			case GuigenPackage.TARGET_PLATFORM__SECURITY_PROFILE:
+				return securityProfile != null;
 		}
 		return super.eIsSet(featureID);
 	}

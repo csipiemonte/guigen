@@ -39,6 +39,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableRichUIBehavior <em>Enable Rich UI Behavior</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#isEnableFatClient <em>Enable Fat Client</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getPortalExpositions <em>Portal Expositions</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getWayfProfile <em>Wayf Profile</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.TargetPlatform#getSecurityProfile <em>Security Profile</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,5 +152,57 @@ public interface TargetPlatform extends EObject {
 	 * @generated
 	 */
 	EList<PortalExposition> getPortalExpositions();
+
+	/**
+	 * Returns the value of the '<em><b>Wayf Profile</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Wayf Profile</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Wayf Profile</em>' reference.
+	 * @see #setWayfProfile(WAYFProfile)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_WayfProfile()
+	 * @model
+	 * @generated
+	 */
+	WAYFProfile getWayfProfile();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.TargetPlatform#getWayfProfile <em>Wayf Profile</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Wayf Profile</em>' reference.
+	 * @see #getWayfProfile()
+	 * @generated
+	 */
+	void setWayfProfile(WAYFProfile value);
+
+	/**
+	 * Returns the value of the '<em><b>Security Profile</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Security Profile</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Security Profile</em>' reference.
+	 * @see #setSecurityProfile(SecurityProfile)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getTargetPlatform_SecurityProfile()
+	 * @model
+	 * @generated
+	 */
+	SecurityProfile getSecurityProfile();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.TargetPlatform#getSecurityProfile <em>Security Profile</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Security Profile</em>' reference.
+	 * @see #getSecurityProfile()
+	 * @generated
+	 */
+	void setSecurityProfile(SecurityProfile value);
 
 } // TargetPlatform

@@ -710,6 +710,46 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createCPCommandsAdapter();
 			}
 			@Override
+			public Adapter caseSecurityProfile(SecurityProfile object) {
+				return createSecurityProfileAdapter();
+			}
+			@Override
+			public Adapter caseExternalAuthenticationGuard(ExternalAuthenticationGuard object) {
+				return createExternalAuthenticationGuardAdapter();
+			}
+			@Override
+			public Adapter caseInternalAuthenticationGuard(InternalAuthenticationGuard object) {
+				return createInternalAuthenticationGuardAdapter();
+			}
+			@Override
+			public Adapter caseWAYFRequestAdapter(WAYFRequestAdapter object) {
+				return createWAYFRequestAdapterAdapter();
+			}
+			@Override
+			public Adapter caseWAYFProfile(WAYFProfile object) {
+				return createWAYFProfileAdapter();
+			}
+			@Override
+			public Adapter caseLocalLoginUI(LocalLoginUI object) {
+				return createLocalLoginUIAdapter();
+			}
+			@Override
+			public Adapter caseIdentityAdapter(IdentityAdapter object) {
+				return createIdentityAdapterAdapter();
+			}
+			@Override
+			public Adapter caseEnvConfigParam(EnvConfigParam object) {
+				return createEnvConfigParamAdapter();
+			}
+			@Override
+			public Adapter caseEnvConfigParams(EnvConfigParams object) {
+				return createEnvConfigParamsAdapter();
+			}
+			@Override
+			public Adapter casePEPImplementation(PEPImplementation object) {
+				return createPEPImplementationAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2910,6 +2950,146 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCPCommandsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.SecurityProfile <em>Security Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.SecurityProfile
+	 * @generated
+	 */
+	public Adapter createSecurityProfileAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.ExternalAuthenticationGuard <em>External Authentication Guard</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.ExternalAuthenticationGuard
+	 * @generated
+	 */
+	public Adapter createExternalAuthenticationGuardAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard <em>Internal Authentication Guard</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.InternalAuthenticationGuard
+	 * @generated
+	 */
+	public Adapter createInternalAuthenticationGuardAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.WAYFRequestAdapter <em>WAYF Request Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.WAYFRequestAdapter
+	 * @generated
+	 */
+	public Adapter createWAYFRequestAdapterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.WAYFProfile <em>WAYF Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.WAYFProfile
+	 * @generated
+	 */
+	public Adapter createWAYFProfileAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.LocalLoginUI <em>Local Login UI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.LocalLoginUI
+	 * @generated
+	 */
+	public Adapter createLocalLoginUIAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.IdentityAdapter <em>Identity Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.IdentityAdapter
+	 * @generated
+	 */
+	public Adapter createIdentityAdapterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.EnvConfigParam <em>Env Config Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.EnvConfigParam
+	 * @generated
+	 */
+	public Adapter createEnvConfigParamAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.EnvConfigParams <em>Env Config Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.EnvConfigParams
+	 * @generated
+	 */
+	public Adapter createEnvConfigParamsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.PEPImplementation <em>PEP Implementation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.PEPImplementation
+	 * @generated
+	 */
+	public Adapter createPEPImplementationAdapter() {
 		return null;
 	}
 

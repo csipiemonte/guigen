@@ -217,6 +217,16 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.PORTAL_EXPOSITION: return createPortalExposition();
 			case GuigenPackage.CP_COMMAND: return createCPCommand();
 			case GuigenPackage.CP_COMMANDS: return createCPCommands();
+			case GuigenPackage.SECURITY_PROFILE: return createSecurityProfile();
+			case GuigenPackage.EXTERNAL_AUTHENTICATION_GUARD: return createExternalAuthenticationGuard();
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD: return createInternalAuthenticationGuard();
+			case GuigenPackage.WAYF_REQUEST_ADAPTER: return createWAYFRequestAdapter();
+			case GuigenPackage.WAYF_PROFILE: return createWAYFProfile();
+			case GuigenPackage.LOCAL_LOGIN_UI: return createLocalLoginUI();
+			case GuigenPackage.IDENTITY_ADAPTER: return createIdentityAdapter();
+			case GuigenPackage.ENV_CONFIG_PARAM: return createEnvConfigParam();
+			case GuigenPackage.ENV_CONFIG_PARAMS: return createEnvConfigParams();
+			case GuigenPackage.PEP_IMPLEMENTATION: return createPEPImplementation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -268,6 +278,10 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createWizardNumberingTypesFromString(eDataType, initialValue);
 			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
 				return createCPCommandExecutionTypesFromString(eDataType, initialValue);
+			case GuigenPackage.LOGIN_UI_TYPES:
+				return createLoginUITypesFromString(eDataType, initialValue);
+			case GuigenPackage.INFO_SOURCE_TYPES:
+				return createInfoSourceTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -319,6 +333,10 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertWizardNumberingTypesToString(eDataType, instanceValue);
 			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
 				return convertCPCommandExecutionTypesToString(eDataType, instanceValue);
+			case GuigenPackage.LOGIN_UI_TYPES:
+				return convertLoginUITypesToString(eDataType, instanceValue);
+			case GuigenPackage.INFO_SOURCE_TYPES:
+				return convertInfoSourceTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1749,6 +1767,106 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SecurityProfile createSecurityProfile() {
+		SecurityProfileImpl securityProfile = new SecurityProfileImpl();
+		return securityProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExternalAuthenticationGuard createExternalAuthenticationGuard() {
+		ExternalAuthenticationGuardImpl externalAuthenticationGuard = new ExternalAuthenticationGuardImpl();
+		return externalAuthenticationGuard;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InternalAuthenticationGuard createInternalAuthenticationGuard() {
+		InternalAuthenticationGuardImpl internalAuthenticationGuard = new InternalAuthenticationGuardImpl();
+		return internalAuthenticationGuard;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WAYFRequestAdapter createWAYFRequestAdapter() {
+		WAYFRequestAdapterImpl wayfRequestAdapter = new WAYFRequestAdapterImpl();
+		return wayfRequestAdapter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WAYFProfile createWAYFProfile() {
+		WAYFProfileImpl wayfProfile = new WAYFProfileImpl();
+		return wayfProfile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LocalLoginUI createLocalLoginUI() {
+		LocalLoginUIImpl localLoginUI = new LocalLoginUIImpl();
+		return localLoginUI;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IdentityAdapter createIdentityAdapter() {
+		IdentityAdapterImpl identityAdapter = new IdentityAdapterImpl();
+		return identityAdapter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnvConfigParam createEnvConfigParam() {
+		EnvConfigParamImpl envConfigParam = new EnvConfigParamImpl();
+		return envConfigParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnvConfigParams createEnvConfigParams() {
+		EnvConfigParamsImpl envConfigParams = new EnvConfigParamsImpl();
+		return envConfigParams;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PEPImplementation createPEPImplementation() {
+		PEPImplementationImpl pepImplementation = new PEPImplementationImpl();
+		return pepImplementation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WidgetDataType createWidgetDataTypeFromString(EDataType eDataType, String initialValue) {
 		WidgetDataType result = WidgetDataType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -2121,6 +2239,46 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCPCommandExecutionTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LoginUITypes createLoginUITypesFromString(EDataType eDataType, String initialValue) {
+		LoginUITypes result = LoginUITypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLoginUITypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InfoSourceTypes createInfoSourceTypesFromString(EDataType eDataType, String initialValue) {
+		InfoSourceTypes result = InfoSourceTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertInfoSourceTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
