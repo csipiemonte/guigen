@@ -117,7 +117,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
-				if(!getCPCommandInit«this.name.toFirstUpper()»()){
+				if( null==getCPCommandInit«this.name.toFirstUpper()»()|| !getCPCommandInit«this.name.toFirstUpper()»()){
 					if(null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel())){
 						// CpCommand OnEnter
 						ICommand cmdOnEnter = initOnEnterCPCommand();
@@ -670,7 +670,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		ActionContext ctx = ActionContext.getContext();
 		String methodName = ctx.getActionInvocation().getProxy().getMethod();     
 		
-		
+		boolean eseguiRefresh = (getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»())
+				«IF this.cpCommands!=null && !this.cpCommands.commands.isEmpty && !this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER).isEmpty-»&&(CP_NAME.equalsIgnoreCase(getCurrentContentPanel()))«ENDIF»;
+						
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_INIT) AS cpOnInit»
@@ -686,10 +688,9 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 					
 				«ENDFOREACH»
 				
-				
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_REFRESH) AS cpOnRefresh»
 					// CpCommand.ON_REFRESH: comandi eseguiti ad ogni refresh per sessione applicativa
-					if(getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»()){
+					if(eseguiRefresh){
 						if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
 							ICommand cmdOnRefresh = initOnRefreshCommand();
 							cmdOnRefresh.doCommand(this);
@@ -702,7 +703,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		
 		«IF this.onRefreshCommand!=null»
 		// comandi eseguiti ad ogni refresh solo se non sono in modalita' fatclient
-		if(getCPCommandInit«this.name.toFirstUpper()»()==null || !getCPCommandInit«this.name.toFirstUpper()»()){
+		if(eseguiRefresh){
 			if (methodName.startsWith("execute") || (!methodName.startsWith("exec") && !methodName.startsWith("provide"))) {
 				// comandi eseguiti ad ogni refresh solo per i metodi non fatclient
 				ICommand cmd = initOnRefreshCommand();
