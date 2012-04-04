@@ -775,9 +775,9 @@ context ContentPanel if (states!=null && states.states.size >0) WARNING "I widge
 	let nsw = getNeverEnabledWidgets() :
 	nsw==null || nsw.size==0;
 
-context ContentPanel if (this.onRefreshCommand != null) ERROR "La catena di comandi di 'onRefresh' del ContentPanel "+name+" non pu� terminare con JumpCommand o JumpExtCommand" :
+context ContentPanel if (this.onRefreshCommand != null) ERROR "La catena di comandi di 'onRefresh' del ContentPanel "+name+" non pu� terminare con JumpCommand o JumpExtCommand o RefreshViewCommand" :
 	let leafs = getLeafCommands(this.onRefreshCommand) :
-	leafs.select(c|c.metaType == JumpCommand || c.metaType == JumpExtCommand).size==0;
+	leafs.select(c|c.metaType == JumpCommand || c.metaType == JumpExtCommand || c.metaType == RefreshViewCommand).size==0;
  	
 // le catene di comandi associate all' onAppInit devoono avere come foglie o un JumpCommand o un JumpExtCommand
 context ApplicationArea if (this.onInitCommand!=null) ERROR "la logica di inizializzazione dell'applicazione "+
@@ -910,3 +910,7 @@ this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::BEFORE_EVE
 
 context  ContentPanel if(this.cpCommands!=null) ERROR "Un ContentPanel non pu� contenere più di un CpCommands di tipo AFTER_EVENTS " : 
 this.cpCommands.commands.select(c|c.execute==CPCommandExecutionTypes::AFTER_EVENTS).size <= 1;
+
+context CPCommand if (this.command != null ) ERROR "La catena di comandi di "+ this.execute+ " del ContentPanel "+ ((ContentPanel)this.eContainer.eContainer).name + " non pu� terminare con JumpCommand o JumpExtCommand o RefreshViewCommand" :
+	let leafs = getLeafCommands(this.command) :
+	leafs.select(c|c.metaType == JumpCommand || c.metaType == JumpExtCommand || c.metaType == RefreshViewCommand).size==0;	

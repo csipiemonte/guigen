@@ -32,6 +32,8 @@ import it.csi.mddtools.guigen.ApplicationArea;
 import it.csi.mddtools.guigen.ApplicationData;
 import it.csi.mddtools.guigen.ApplicationDataDefs;
 import it.csi.mddtools.guigen.Breadcrumb;
+import it.csi.mddtools.guigen.CPCommand;
+import it.csi.mddtools.guigen.CPCommands;
 import it.csi.mddtools.guigen.ChkEditStatusCommand;
 import it.csi.mddtools.guigen.Column;
 import it.csi.mddtools.guigen.Command;
@@ -96,6 +98,7 @@ import it.csi.mddtools.guigen.UserInfoPanel;
 import it.csi.mddtools.guigen.Widget;
 import it.csi.mddtools.guigen.WidgetsPanel;
 import it.csi.mddtools.guigen.WizardPanel;
+import it.csi.mddtools.guigen.impl.CPCommandsImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -272,6 +275,18 @@ public class GenUtils {
 		}
 		else if (containerOfAction instanceof ContentPanel) {
 			return (ContentPanel)containerOfAction;
+		}
+		else if(containerOfAction instanceof CPCommand ){
+			if(containerOfAction.eContainer() instanceof CPCommands ){
+				CPCommands cpc = (CPCommands) containerOfAction.eContainer();
+				if( cpc.eContainer() instanceof ContentPanel)
+					return (ContentPanel)(cpc.eContainer());
+				else
+					throw new IllegalArgumentException("findParentContentPanel(Command): container non gestito "+containerOfAction.eContainer());
+			}
+			else
+				throw new IllegalArgumentException("findParentContentPanel(Command): container non gestito "+containerOfAction.eContainer());
+			
 		}
 		else {
 			return null; // in tutti i casi in cui l'azione non ha un content panel "sopra"
