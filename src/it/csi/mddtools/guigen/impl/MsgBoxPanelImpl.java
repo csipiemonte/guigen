@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getMessageSeverity <em>Message Severity</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#getTextMessages <em>Text Messages</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.MsgBoxPanelImpl#isShowStdLegend <em>Show Std Legend</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,6 +86,26 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 	 * @ordered
 	 */
 	protected EList<PlainText> textMessages;
+
+	/**
+	 * The default value of the '{@link #isShowStdLegend() <em>Show Std Legend</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isShowStdLegend()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SHOW_STD_LEGEND_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isShowStdLegend() <em>Show Std Legend</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isShowStdLegend()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean showStdLegend = SHOW_STD_LEGEND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,6 +164,27 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isShowStdLegend() {
+		return showStdLegend;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShowStdLegend(boolean newShowStdLegend) {
+		boolean oldShowStdLegend = showStdLegend;
+		showStdLegend = newShowStdLegend;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND, oldShowStdLegend, showStdLegend));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -164,6 +206,8 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				return getMessageSeverity();
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				return getTextMessages();
+			case GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND:
+				return isShowStdLegend();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -184,6 +228,9 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				getTextMessages().clear();
 				getTextMessages().addAll((Collection<? extends PlainText>)newValue);
 				return;
+			case GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND:
+				setShowStdLegend((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -202,6 +249,9 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				getTextMessages().clear();
 				return;
+			case GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND:
+				setShowStdLegend(SHOW_STD_LEGEND_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,6 +268,8 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 				return messageSeverity != MESSAGE_SEVERITY_EDEFAULT;
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:
 				return textMessages != null && !textMessages.isEmpty();
+			case GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND:
+				return showStdLegend != SHOW_STD_LEGEND_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -234,6 +286,8 @@ public class MsgBoxPanelImpl extends PanelImpl implements MsgBoxPanel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (messageSeverity: ");
 		result.append(messageSeverity);
+		result.append(", showStdLegend: ");
+		result.append(showStdLegend);
 		result.append(')');
 		return result.toString();
 	}

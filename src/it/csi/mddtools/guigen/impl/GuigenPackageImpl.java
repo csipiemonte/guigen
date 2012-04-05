@@ -4497,6 +4497,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMsgBoxPanel_ShowStdLegend() {
+		return (EAttribute)msgBoxPanelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNOPCommand() {
 		return nopCommandEClass;
 	}
@@ -6869,6 +6878,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		msgBoxPanelEClass = createEClass(MSG_BOX_PANEL);
 		createEAttribute(msgBoxPanelEClass, MSG_BOX_PANEL__MESSAGE_SEVERITY);
 		createEReference(msgBoxPanelEClass, MSG_BOX_PANEL__TEXT_MESSAGES);
+		createEAttribute(msgBoxPanelEClass, MSG_BOX_PANEL__SHOW_STD_LEGEND);
 
 		nopCommandEClass = createEClass(NOP_COMMAND);
 
@@ -7703,6 +7713,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(msgBoxPanelEClass, MsgBoxPanel.class, "MsgBoxPanel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMsgBoxPanel_MessageSeverity(), this.getMessageSeverity(), "messageSeverity", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMsgBoxPanel_TextMessages(), this.getPlainText(), null, "textMessages", null, 0, -1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMsgBoxPanel_ShowStdLegend(), ecorePackage.getEBoolean(), "showStdLegend", null, 0, 1, MsgBoxPanel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nopCommandEClass, NOPCommand.class, "NOPCommand", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -8691,7 +8702,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.panels"
-		   });					
+		   });						
 		addAnnotation
 		  (nopCommandEClass, 
 		   source, 
@@ -8887,7 +8898,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>MsgBoxPanel</b> &egrave; un pannello utilizzabile per mostrare all\'utente\r\ndel testo in sola lettura, eventualmente formattato. Il testo pu&ograve; essere statico\r\n(definito a tempo di modellazione) o dinamico (calcolato a runtime).\r\nE\' il meccanismo preferenziale da utilizzare in tutti quei casi in cui non sia sufficiente\r\nutilizzare lo <b>StdMessagePanel</b>, che &egrave; orientato principalmente a brevi\r\nmessaggi testuali.\r\n<br/>\r\nData la natura del pannello, &egrave; possibile inserire esclusivamente dei widget di\r\nvisualizzazione di testo (<b>PlainText</b>).\r\n</p>"
-		   });								
+		   });									
 		addAnnotation
 		  (widgetsPanelEClass, 
 		   source, 
@@ -8983,7 +8994,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "Questo widget &egrave; un segnaposto utilizzabile per la visualizzazione della struttura\r\ndel menu. \r\nIl <b>MenuView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>MenuPanel, con layout Verticale</li>\r\n</ul>\r\nPrevede una sola modalit&agrave; di funzionamento: <i>standard</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\nPer ciascuna voce di menu, inoltre &egrave; possibile replicare gli stessi comportamenti di \r\nvisibilit&agrave;/abilitazione.\r\n",
 			 "event-clicked", "<p>Il <b>MenuView</b> pu&ograve; ricevere un evento di selezione della voce\r\ndi menu corrispondente, alla quale &egrave, possibile associare una logica\r\ndi business da eseguire.\r\n</p>"
-		   });																																																																																																																																											
+		   });																																																																																																																																												
 		addAnnotation
 		  (fileUploadEClass, 
 		   source, 
@@ -9024,7 +9035,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																																																																																																																																																																																				
+		   });																																																																																																																																																																																																																																																																					
 	}
 
 } //GuigenPackageImpl

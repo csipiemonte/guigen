@@ -76,6 +76,7 @@ public class MsgBoxPanelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMessageSeverityPropertyDescriptor(object);
+			addShowStdLegendPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -98,6 +99,28 @@ public class MsgBoxPanelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Show Std Legend feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShowStdLegendPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MsgBoxPanel_showStdLegend_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MsgBoxPanel_showStdLegend_feature", "_UI_MsgBoxPanel_type"),
+				 GuigenPackage.Literals.MSG_BOX_PANEL__SHOW_STD_LEGEND,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -170,6 +193,7 @@ public class MsgBoxPanelItemProvider
 
 		switch (notification.getFeatureID(MsgBoxPanel.class)) {
 			case GuigenPackage.MSG_BOX_PANEL__MESSAGE_SEVERITY:
+			case GuigenPackage.MSG_BOX_PANEL__SHOW_STD_LEGEND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GuigenPackage.MSG_BOX_PANEL__TEXT_MESSAGES:

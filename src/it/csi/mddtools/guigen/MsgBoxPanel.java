@@ -32,6 +32,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#getMessageSeverity <em>Message Severity</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#getTextMessages <em>Text Messages</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.MsgBoxPanel#isShowStdLegend <em>Show Std Legend</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,5 +93,32 @@ public interface MsgBoxPanel extends Panel {
 	 * @generated
 	 */
 	EList<PlainText> getTextMessages();
+
+	/**
+	 * Returns the value of the '<em><b>Show Std Legend</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * se impostato a i<i>true</i> fa si che nel pannello siano mostrate le voci della
+	 * legenda standard (es. indicazione del significato del '*'), prima di tutti i testi
+	 * custom. Il valore di default &egrave; <i>false</i> 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Show Std Legend</em>' attribute.
+	 * @see #setShowStdLegend(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getMsgBoxPanel_ShowStdLegend()
+	 * @model
+	 * @generated
+	 */
+	boolean isShowStdLegend();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.MsgBoxPanel#isShowStdLegend <em>Show Std Legend</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Show Std Legend</em>' attribute.
+	 * @see #isShowStdLegend()
+	 * @generated
+	 */
+	void setShowStdLegend(boolean value);
 
 } // MsgBoxPanel

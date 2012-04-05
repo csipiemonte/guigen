@@ -6723,13 +6723,22 @@ public interface GuigenPackage extends EPackage {
 	int MSG_BOX_PANEL__TEXT_MESSAGES = PANEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Show Std Legend</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MSG_BOX_PANEL__SHOW_STD_LEGEND = PANEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Msg Box Panel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 2;
+	int MSG_BOX_PANEL_FEATURE_COUNT = PANEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.NOPCommandImpl <em>NOP Command</em>}' class.
@@ -13485,6 +13494,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getMsgBoxPanel_TextMessages();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.MsgBoxPanel#isShowStdLegend <em>Show Std Legend</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Show Std Legend</em>'.
+	 * @see it.csi.mddtools.guigen.MsgBoxPanel#isShowStdLegend()
+	 * @see #getMsgBoxPanel()
+	 * @generated
+	 */
+	EAttribute getMsgBoxPanel_ShowStdLegend();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.NOPCommand <em>NOP Command</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18554,6 +18574,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MSG_BOX_PANEL__TEXT_MESSAGES = eINSTANCE.getMsgBoxPanel_TextMessages();
+
+		/**
+		 * The meta object literal for the '<em><b>Show Std Legend</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MSG_BOX_PANEL__SHOW_STD_LEGEND = eINSTANCE.getMsgBoxPanel_ShowStdLegend();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.NOPCommandImpl <em>NOP Command</em>}' class.
