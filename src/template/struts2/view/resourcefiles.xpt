@@ -612,6 +612,9 @@ in modo che condividano le stesse proprietà (importante per la business logic)
 «REM»Crea un MsgBoxPanel contenuto in un FormPanel (STDMDD-245)«ENDREM»
 «DEFINE setupMsgBoxPanel(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR MsgBoxPanel»
 «startFragment()»
+«IF this.showStdLegend-»
+	<div class="mandatoryNote"><p>I campi contrassegnati con asterisco (*) sono obbligatori</p></div>
+«ENDIF-»
 «EXPAND createWidgets(model, cp, contextPrefix, pduConf) FOR this»
 «endFragment()»
 «ENDDEFINE»
