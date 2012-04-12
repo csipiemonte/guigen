@@ -88,6 +88,35 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 		return this.session;
 	}
 	
+	private String backActionName;
+	
+	private String backNamespace;
+
+	
+	public void setBackActionName(String value) {
+		this.backActionName = value;
+	}
+	public String getBackActionName() {
+		return this.backActionName;
+	}
+
+	public void setBackNamespace(String value) {
+		this.backNamespace = value;
+	}
+	public String getBackNamespace() {
+		return this.backNamespace;
+	}
+	
+	public void setAppDataNavigationQueue(
+			java.util.LinkedList<java.lang.String> value) {
+		getSession().put("appDataNavigationQueue", value);
+	}
+
+	public java.util.LinkedList<java.lang.String> getAppDataNavigationQueue() {
+		return (java.util.LinkedList<java.lang.String>) (getSession()
+				.get("appDataNavigationQueue"));
+	}
+	
 	public void setCurrentContentPanel(java.lang.String value) {
 		getSession().put("currentContentPanel", value);
 	}
