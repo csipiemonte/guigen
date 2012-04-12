@@ -129,6 +129,7 @@ e le limitazioni secondo i termini della Licenza.
 	2) eventi con comandi ristretti all'ExecCommand ed esito JSON
 «ENDREM»
 «DEFINE handlerMethod(GUIModel model, Widget currEventWidget, ContentPanel cp, String contextPrefix) FOR EventHandler»
+
 «LET this AS currEventHandler»
 	/**
 	 * Gestione dell'evento «currEventHandler.eventType.toString()» sul widget [«getFullID(currEventWidget, contextPrefix)»]
@@ -398,7 +399,9 @@ e le limitazioni secondo i termini della Licenza.
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpCommand-»
 	/// Jump Command begin
-	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»"«cp.name»",true«ELSE»null,false«ENDIF»);
+	//JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»"«cp.name»",true«ELSE»null,false«ENDIF»);
+	
+	JumpCommand act_«actionsVarName»_«actionNumber» = new JumpCommand("«this.jumpTo.name»", «IF this.pushCurrentPage && cp != null»URL_BACK_COMMAND,true«ELSE»null,false«ENDIF»);
 	/// Jump Command end
 «ENDDEFINE»
 
@@ -469,8 +472,7 @@ questa è una limitazione da valutare ed eventualmente suggerire di mettere dell
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR JumpBackCommand-»
 	//JumpBack Command begin
-	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand();
-	// JumpBack Command end
+	JumpBackCommand act_«actionsVarName»_«actionNumber» = new JumpBackCommand("CP_NAME",getAppDataNavigationQueue());
 «ENDDEFINE»
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR SequenceCommand-»
