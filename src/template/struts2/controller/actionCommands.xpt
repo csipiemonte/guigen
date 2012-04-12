@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,16 +13,16 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«IMPORT ecore»
-«EXTENSION template::GenericExtensions »
-«EXTENSION template::struts2::Struts2Extensions»
+Â«IMPORT guigenÂ»
+Â«IMPORT ecoreÂ»
+Â«EXTENSION template::GenericExtensions Â»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
 
-«DEFINE actionImplClasses FOR GUIModel»
-«FILE getPresentationJavaSrcDir(true)+"/ICommand.java"»
-package «getPresentationJavaPackage()»;
+Â«DEFINE actionImplClasses FOR GUIModelÂ»
+Â«FILE getPresentationJavaSrcDir(true)+"/ICommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /**
  * Interfaccia comune di tutte le azioni di presentation
@@ -36,10 +36,10 @@ public interface ICommand extends java.io.Serializable {
 	 */
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException;
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/CommandExecutionException.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/CommandExecutionException.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /**
  * Eccezione rilanciat ain caso di errori durante l'esecuzione della
@@ -55,11 +55,11 @@ public class CommandExecutionException extends Exception{
 		super(msg);
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
 
-«FILE getPresentationJavaSrcDir(true)+"/NOPCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/NOPCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// NO OPERATION
 public class NOPCommand implements ICommand {
@@ -75,10 +75,10 @@ public class NOPCommand implements ICommand {
 		return null;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/JumpCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// JUMP_ACTION
 public class JumpCommand implements ICommand {
@@ -98,19 +98,69 @@ public class JumpCommand implements ICommand {
 		_currentPageName = currentPageName;
 	}
 	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
-		if (_pushCurrent) {
-			//TODO capire se e come implementare lo stack delle action
-			//_pageStack.add(_currentPageName);
+	//se prevista modalitÃ  PUSH_PAGE_CURRENT --> inserisci in queque currentPage 
+		if (_pushCurrent && (null!=_currentPageName && !"".equalsIgnoreCase(_currentPageName))) {
+			if (strutsAction.getAppDataNavigationQueue() == null)
+				strutsAction.setAppDataNavigationQueue(new java.util.LinkedList());
+			strutsAction.getAppDataNavigationQueue().add(_currentPageName);
+		} else {
+			if (strutsAction.getAppDataNavigationQueue() != null)
+				strutsAction.getAppDataNavigationQueue().clear();
 		}
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(name);
 		return "GO_TO_"+name;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/JumpBackCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
+
+/// JUMP_BACK_ACTION
+public class JumpBackCommand implements ICommand {
+
+	// il serial version uid e' fisso in quanto la classe in oggetto e' serializzabile
+	// solo per poter essere inserita in sessione web e non viene scambiata con altre
+	// componenti.
+	private static final long serialVersionUID = 1L;
+	
+	private java.util.LinkedList<java.lang.String> navigationQueue;
+	private String currentCPName;
+
+	public JumpBackCommand(String currentCPName,
+			java.util.LinkedList<java.lang.String> navigationQueue) {
+		this.currentCPName = currentCPName;
+		this.navigationQueue = navigationQueue;
+
+	}
+	public String doCommand(BaseAction strutsAction)
+			throws CommandExecutionException {
+		// clear page scoped appdata
+		strutsAction.clearPageScopedAppData(currentCPName);
+
+		if (navigationQueue != null) {
+			String backPage = navigationQueue.pollLast();
+			if (null != backPage && !"".equalsIgnoreCase(backPage)) {
+				String[] splitArray = backPage.split("/");
+				strutsAction.setBackActionName(splitArray[3]);
+				strutsAction.setBackNamespace("/" + splitArray[1] + "/"
+						+ splitArray[2]);
+				return "GO_TO_BackPage";
+			}
+		}
+
+		return "BACK_TO_HOME";
+
+	}
+
+};
+Â«ENDFILEÂ»
+
+
+
+Â«FILE getPresentationJavaSrcDir(true)+"/RefreshViewCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// REFRESHVIEW_ACTION
 public class RefreshViewCommand implements ICommand {
@@ -136,11 +186,11 @@ public class RefreshViewCommand implements ICommand {
 		return null;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
 
-«FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/JumpExtCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// JUMP_ACTION
 public class JumpExtCommand implements ICommand {
@@ -160,10 +210,10 @@ public class JumpExtCommand implements ICommand {
 		return "GO_TO_"+locationCode;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ActivateMultiPanelItemCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// ActivateMultiPanelItemCommand
 public class ActivateMultiPanelItemCommand implements ICommand {
@@ -204,11 +254,11 @@ public class ActivateMultiPanelItemCommand implements ICommand {
 		return null;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
 
-«FILE getPresentationJavaSrcDir(true)+"/ScreenStateCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ScreenStateCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -258,10 +308,10 @@ public class ScreenStateCommand implements ICommand {
 		return null;
 	}
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/PDefStateCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/PDefStateCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -316,12 +366,12 @@ public class PDefStateCommand implements ICommand {
 		return null;
 	}
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
 
 
-«FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/OnOffCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -358,10 +408,10 @@ public class OnOffCommand implements ICommand {
 		return null;
 	}
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/VisibilityCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/VisibilityCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -398,14 +448,14 @@ public class VisibilityCommand implements ICommand {
 		return null;
 	}
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/ExecCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ExecCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.util.*;
 import com.opensymphony.xwork2.ActionSupport;
-import «getDTOBaseJavaPackage()».*;
+import Â«getDTOBaseJavaPackage()Â».*;
 
 ////ExecCommand
 public abstract class ExecCommand implements ICommand {
@@ -499,10 +549,10 @@ public abstract class ExecCommand implements ICommand {
 	// corretto
 	public abstract ExecResults doLogic(Object theModel) throws CommandExecutionException;
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/ClearAppDataCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ClearAppDataCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// NO OPERATION
 public class ClearAppDataCommand implements ICommand {
@@ -526,10 +576,10 @@ public class ClearAppDataCommand implements ICommand {
 		return null;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getDTOBaseSrcDir(this)+"/ExecResults.java"»
-package «getDTOBaseJavaPackage()»;
+Â«FILE getDTOBaseSrcDir(this)+"/ExecResults.java"Â»
+package Â«getDTOBaseJavaPackage()Â»;
 
 import java.util.*;
  
@@ -581,10 +631,10 @@ public class ExecResults {
 		this.globalMessages = globalMessages;
 	}
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/SequenceCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// SEQUENCE_ACTION
 public class SequenceCommand implements ICommand {
@@ -617,10 +667,10 @@ public class SequenceCommand implements ICommand {
 		return result;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ShowDialogCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// SHOW_DIALOG_ACTION
 public class ShowDialogCommand implements ICommand {
@@ -638,10 +688,10 @@ public class ShowDialogCommand implements ICommand {
 		return "SHOW_"+name;
 	}
 };
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/BeginEditCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/BeginEditCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -708,10 +758,10 @@ public class BeginEditCommand implements ICommand {
 	}
 };
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/EndEditCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 
 /// END_EDIT_ACTION
@@ -761,10 +811,10 @@ public class EndEditCommand implements ICommand {
 };
 
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"»
-package «getPresentationJavaPackage()»;
+Â«FILE getPresentationJavaSrcDir(true)+"/ChkEditStatusCommand.java"Â»
+package Â«getPresentationJavaPackage()Â»;
 
 /// CHECK_EDIT_STATUS_ACTION
 public class ChkEditStatusCommand implements ICommand {
@@ -841,7 +891,7 @@ public class ChkEditStatusCommand implements ICommand {
 		Object adVal = strutsAction.getSession().get(currADName);
 		Object adBkp = strutsAction.getSession().get(currADName+"_bckp");
 		if (adBkp != null){
-			«getDTOBaseJavaPackage()».DTOUtils dtoUtils = «getDTOBaseJavaPackage()».DTOUtils.getInstance();
+			Â«getDTOBaseJavaPackage()Â».DTOUtils dtoUtils = Â«getDTOBaseJavaPackage()Â».DTOUtils.getInstance();
 			return !(dtoUtils.deepEquals(adVal, adBkp));
 		}
 		else
@@ -851,15 +901,15 @@ public class ChkEditStatusCommand implements ICommand {
 	
 };
 
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«EXPAND dtoUtilsFile FOR this»
+Â«EXPAND dtoUtilsFile FOR thisÂ»
 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»sarebbe da spostare in "model"«ENDREM»
-«DEFINE dtoUtilsFile FOR GUIModel»
-«FILE getDTOBaseSrcDir()+"/DTOUtils.java"»package «getDTOBaseJavaPackage()»;
+Â«REMÂ»sarebbe da spostare in "model"Â«ENDREMÂ»
+Â«DEFINE dtoUtilsFile FOR GUIModelÂ»
+Â«FILE getDTOBaseSrcDir()+"/DTOUtils.java"Â»package Â«getDTOBaseJavaPackage()Â»;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -948,6 +998,6 @@ public class DTOUtils {
 		}
 	}	
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
