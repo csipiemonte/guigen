@@ -545,6 +545,12 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 
 		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
 		<global-results>
+		
+			<result name="BACK_TO_HOME" type="chain">
+			   <param name="actionName">«getHomePageActionName()».do</param>
+			    <param name="namespace">/«getSecureNamespace(true)»</param>
+			</result>
+		
 			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
 			«IF targetPlatform.enableRichUIBehavior-»
 			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
@@ -774,6 +780,10 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 		<param name="namespace">«getContentPanelNamespace(currJump, false)»</param>
 	</result>
 	«ENDFOREACH-»
+	<result name="GO_TO_BackPage" type="chain">
+		<param name="actionName">${backActionName}</param>
+		<param name="namespace">${backNamespace}</param>
+	</result>
 	«ENDLET-»
 	«REM»STDMDD-360: nel PanelDef ci possono essere JumpExtCommand«ENDREM»
 	«EXPAND jumpExtResults(model) FOR this-»
