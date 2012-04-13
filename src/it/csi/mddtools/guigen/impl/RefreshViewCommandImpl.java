@@ -23,6 +23,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.CommandOnPanels;
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.Panel;
 import it.csi.mddtools.guigen.RefreshViewCommand;
 import it.csi.mddtools.guigen.Widget;
@@ -43,6 +44,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.RefreshViewCommandImpl#getTargetWidgets <em>Target Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.RefreshViewCommandImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.RefreshViewCommandImpl#getTargetPanels <em>Target Panels</em>}</li>
  * </ul>
  * </p>
@@ -59,6 +61,16 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 	 * @ordered
 	 */
 	protected EList<Widget> targetWidgets;
+
+	/**
+	 * The cached value of the '{@link #getTargetMenuElement() <em>Target Menu Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetMenuElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Menu> targetMenuElement;
 
 	/**
 	 * The cached value of the '{@link #getTargetPanels() <em>Target Panels</em>}' reference list.
@@ -106,6 +118,18 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Menu> getTargetMenuElement() {
+		if (targetMenuElement == null) {
+			targetMenuElement = new EObjectResolvingEList<Menu>(Menu.class, this, GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT);
+		}
+		return targetMenuElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Panel> getTargetPanels() {
 		if (targetPanels == null) {
 			targetPanels = new EObjectResolvingEList<Panel>(Panel.class, this, GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_PANELS);
@@ -123,6 +147,8 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 		switch (featureID) {
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS:
 				return getTargetWidgets();
+			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT:
+				return getTargetMenuElement();
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_PANELS:
 				return getTargetPanels();
 		}
@@ -141,6 +167,10 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS:
 				getTargetWidgets().clear();
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
+				return;
+			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				getTargetMenuElement().addAll((Collection<? extends Menu>)newValue);
 				return;
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_PANELS:
 				getTargetPanels().clear();
@@ -161,6 +191,9 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS:
 				getTargetWidgets().clear();
 				return;
+			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				return;
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_PANELS:
 				getTargetPanels().clear();
 				return;
@@ -178,6 +211,8 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 		switch (featureID) {
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS:
 				return targetWidgets != null && !targetWidgets.isEmpty();
+			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT:
+				return targetMenuElement != null && !targetMenuElement.isEmpty();
 			case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_PANELS:
 				return targetPanels != null && !targetPanels.isEmpty();
 		}
@@ -194,6 +229,7 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 		if (baseClass == CommandOnWidgets.class) {
 			switch (derivedFeatureID) {
 				case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS;
+				case GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}
@@ -216,6 +252,7 @@ public class RefreshViewCommandImpl extends CommandImpl implements RefreshViewCo
 		if (baseClass == CommandOnWidgets.class) {
 			switch (baseFeatureID) {
 				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS: return GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_WIDGETS;
+				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT: return GuigenPackage.REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}

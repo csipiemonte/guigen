@@ -22,6 +22,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.ONOFFCommand;
 import it.csi.mddtools.guigen.Widget;
 
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#getTargetWidgets <em>Target Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.ONOFFCommandImpl#isEnable <em>Enable</em>}</li>
  * </ul>
  * </p>
@@ -61,6 +63,16 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 	 * @ordered
 	 */
 	protected EList<Widget> targetWidgets;
+
+	/**
+	 * The cached value of the '{@link #getTargetMenuElement() <em>Target Menu Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetMenuElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Menu> targetMenuElement;
 
 	/**
 	 * The default value of the '{@link #isEnable() <em>Enable</em>}' attribute.
@@ -118,6 +130,18 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Menu> getTargetMenuElement() {
+		if (targetMenuElement == null) {
+			targetMenuElement = new EObjectResolvingEList<Menu>(Menu.class, this, GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT);
+		}
+		return targetMenuElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isEnable() {
 		return enable;
 	}
@@ -144,6 +168,8 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 		switch (featureID) {
 			case GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS:
 				return getTargetWidgets();
+			case GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT:
+				return getTargetMenuElement();
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
 				return isEnable();
 		}
@@ -163,6 +189,10 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 				getTargetWidgets().clear();
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
+			case GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				getTargetMenuElement().addAll((Collection<? extends Menu>)newValue);
+				return;
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
 				setEnable((Boolean)newValue);
 				return;
@@ -181,6 +211,9 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 			case GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS:
 				getTargetWidgets().clear();
 				return;
+			case GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				return;
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
 				setEnable(ENABLE_EDEFAULT);
 				return;
@@ -198,6 +231,8 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 		switch (featureID) {
 			case GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS:
 				return targetWidgets != null && !targetWidgets.isEmpty();
+			case GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT:
+				return targetMenuElement != null && !targetMenuElement.isEmpty();
 			case GuigenPackage.ONOFF_COMMAND__ENABLE:
 				return enable != ENABLE_EDEFAULT;
 		}
@@ -214,6 +249,7 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 		if (baseClass == CommandOnWidgets.class) {
 			switch (derivedFeatureID) {
 				case GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS;
+				case GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}
@@ -230,6 +266,7 @@ public class ONOFFCommandImpl extends CommandImpl implements ONOFFCommand {
 		if (baseClass == CommandOnWidgets.class) {
 			switch (baseFeatureID) {
 				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS: return GuigenPackage.ONOFF_COMMAND__TARGET_WIDGETS;
+				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT: return GuigenPackage.ONOFF_COMMAND__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}

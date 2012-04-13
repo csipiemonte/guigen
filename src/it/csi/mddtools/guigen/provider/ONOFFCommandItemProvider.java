@@ -79,6 +79,7 @@ public class ONOFFCommandItemProvider
 			super.getPropertyDescriptors(object);
 
 			addTargetWidgetsPropertyDescriptor(object);
+			addTargetMenuElementPropertyDescriptor(object);
 			addEnablePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -117,6 +118,28 @@ public class ONOFFCommandItemProvider
 				}
 			}
 		});
+	}
+
+	/**
+	 * This adds a property descriptor for the Target Menu Element feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTargetMenuElementPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CommandOnWidgets_targetMenuElement_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CommandOnWidgets_targetMenuElement_feature", "_UI_CommandOnWidgets_type"),
+				 GuigenPackage.Literals.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**

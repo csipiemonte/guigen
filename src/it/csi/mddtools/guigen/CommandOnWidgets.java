@@ -28,13 +28,15 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Classe astratta da cui discendono i comandi che agiscono su un elenco di widget
+ * Classe astratta da cui discendono i comandi che agiscono su un elenco di widget,
+ * o di elementi di menu
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetWidgets <em>Target Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetMenuElement <em>Target Menu Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,5 +64,20 @@ public interface CommandOnWidgets extends Command {
 	 * @generated
 	 */
 	EList<Widget> getTargetWidgets();
+
+	/**
+	 * Returns the value of the '<em><b>Target Menu Element</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.guigen.Menu}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gli elementi del menu su cui opera il comando.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Target Menu Element</em>' reference list.
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getCommandOnWidgets_TargetMenuElement()
+	 * @model
+	 * @generated
+	 */
+	EList<Menu> getTargetMenuElement();
 
 } // CommandOnWidgets

@@ -22,6 +22,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.VisibilityCommand;
 import it.csi.mddtools.guigen.Widget;
 
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#getTargetWidgets <em>Target Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.VisibilityCommandImpl#isShow <em>Show</em>}</li>
  * </ul>
  * </p>
@@ -61,6 +63,16 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 	 * @ordered
 	 */
 	protected EList<Widget> targetWidgets;
+
+	/**
+	 * The cached value of the '{@link #getTargetMenuElement() <em>Target Menu Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetMenuElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Menu> targetMenuElement;
 
 	/**
 	 * The default value of the '{@link #isShow() <em>Show</em>}' attribute.
@@ -118,6 +130,18 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Menu> getTargetMenuElement() {
+		if (targetMenuElement == null) {
+			targetMenuElement = new EObjectResolvingEList<Menu>(Menu.class, this, GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT);
+		}
+		return targetMenuElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isShow() {
 		return show;
 	}
@@ -144,6 +168,8 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 		switch (featureID) {
 			case GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS:
 				return getTargetWidgets();
+			case GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT:
+				return getTargetMenuElement();
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
 				return isShow();
 		}
@@ -163,6 +189,10 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 				getTargetWidgets().clear();
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
+			case GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				getTargetMenuElement().addAll((Collection<? extends Menu>)newValue);
+				return;
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
 				setShow((Boolean)newValue);
 				return;
@@ -181,6 +211,9 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 			case GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS:
 				getTargetWidgets().clear();
 				return;
+			case GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				return;
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
 				setShow(SHOW_EDEFAULT);
 				return;
@@ -198,6 +231,8 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 		switch (featureID) {
 			case GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS:
 				return targetWidgets != null && !targetWidgets.isEmpty();
+			case GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT:
+				return targetMenuElement != null && !targetMenuElement.isEmpty();
 			case GuigenPackage.VISIBILITY_COMMAND__SHOW:
 				return show != SHOW_EDEFAULT;
 		}
@@ -214,6 +249,7 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 		if (baseClass == CommandOnWidgets.class) {
 			switch (derivedFeatureID) {
 				case GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS;
+				case GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT: return GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}
@@ -230,6 +266,7 @@ public class VisibilityCommandImpl extends CommandImpl implements VisibilityComm
 		if (baseClass == CommandOnWidgets.class) {
 			switch (baseFeatureID) {
 				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS: return GuigenPackage.VISIBILITY_COMMAND__TARGET_WIDGETS;
+				case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT: return GuigenPackage.VISIBILITY_COMMAND__TARGET_MENU_ELEMENT;
 				default: return -1;
 			}
 		}

@@ -22,6 +22,7 @@ package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.CommandOnWidgets;
 import it.csi.mddtools.guigen.GuigenPackage;
+import it.csi.mddtools.guigen.Menu;
 import it.csi.mddtools.guigen.Widget;
 
 import java.util.Collection;
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl#getTargetWidgets <em>Target Widgets</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.CommandOnWidgetsImpl#getTargetMenuElement <em>Target Menu Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +57,16 @@ public abstract class CommandOnWidgetsImpl extends CommandImpl implements Comman
 	 * @ordered
 	 */
 	protected EList<Widget> targetWidgets;
+
+	/**
+	 * The cached value of the '{@link #getTargetMenuElement() <em>Target Menu Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetMenuElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Menu> targetMenuElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,11 +104,25 @@ public abstract class CommandOnWidgetsImpl extends CommandImpl implements Comman
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Menu> getTargetMenuElement() {
+		if (targetMenuElement == null) {
+			targetMenuElement = new EObjectResolvingEList<Menu>(Menu.class, this, GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT);
+		}
+		return targetMenuElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS:
 				return getTargetWidgets();
+			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT:
+				return getTargetMenuElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -114,6 +140,10 @@ public abstract class CommandOnWidgetsImpl extends CommandImpl implements Comman
 				getTargetWidgets().clear();
 				getTargetWidgets().addAll((Collection<? extends Widget>)newValue);
 				return;
+			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				getTargetMenuElement().addAll((Collection<? extends Menu>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -129,6 +159,9 @@ public abstract class CommandOnWidgetsImpl extends CommandImpl implements Comman
 			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS:
 				getTargetWidgets().clear();
 				return;
+			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT:
+				getTargetMenuElement().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -143,6 +176,8 @@ public abstract class CommandOnWidgetsImpl extends CommandImpl implements Comman
 		switch (featureID) {
 			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_WIDGETS:
 				return targetWidgets != null && !targetWidgets.isEmpty();
+			case GuigenPackage.COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT:
+				return targetMenuElement != null && !targetMenuElement.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

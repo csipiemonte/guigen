@@ -3774,13 +3774,22 @@ public interface GuigenPackage extends EPackage {
 	int ONOFF_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Menu Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ONOFF_COMMAND__TARGET_MENU_ELEMENT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Enable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ONOFF_COMMAND__ENABLE = COMMAND_FEATURE_COUNT + 1;
+	int ONOFF_COMMAND__ENABLE = COMMAND_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>ONOFF Command</em>' class.
@@ -3789,7 +3798,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ONOFF_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+	int ONOFF_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Custom Command</em>' class.
@@ -3810,13 +3819,22 @@ public interface GuigenPackage extends EPackage {
 	int VISIBILITY_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Menu Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISIBILITY_COMMAND__TARGET_MENU_ELEMENT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Show</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VISIBILITY_COMMAND__SHOW = COMMAND_FEATURE_COUNT + 1;
+	int VISIBILITY_COMMAND__SHOW = COMMAND_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Visibility Command</em>' class.
@@ -3825,7 +3843,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VISIBILITY_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+	int VISIBILITY_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Target Widgets</b></em>' reference list.
@@ -3837,13 +3855,22 @@ public interface GuigenPackage extends EPackage {
 	int REFRESH_VIEW_COMMAND__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Menu Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFRESH_VIEW_COMMAND__TARGET_MENU_ELEMENT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Target Panels</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFRESH_VIEW_COMMAND__TARGET_PANELS = COMMAND_FEATURE_COUNT + 1;
+	int REFRESH_VIEW_COMMAND__TARGET_PANELS = COMMAND_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Refresh View Command</em>' class.
@@ -3852,7 +3879,7 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REFRESH_VIEW_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
+	int REFRESH_VIEW_COMMAND_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Jump To</b></em>' reference.
@@ -4008,13 +4035,22 @@ public interface GuigenPackage extends EPackage {
 	int COMMAND_ON_WIDGETS__TARGET_WIDGETS = COMMAND_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Menu Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT = COMMAND_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Command On Widgets</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMAND_ON_WIDGETS_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 1;
+	int COMMAND_ON_WIDGETS_FEATURE_COUNT = COMMAND_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -11810,6 +11846,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getCommandOnWidgets_TargetWidgets();
 
 	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.guigen.CommandOnWidgets#getTargetMenuElement <em>Target Menu Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Target Menu Element</em>'.
+	 * @see it.csi.mddtools.guigen.CommandOnWidgets#getTargetMenuElement()
+	 * @see #getCommandOnWidgets()
+	 * @generated
+	 */
+	EReference getCommandOnWidgets_TargetMenuElement();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.DialogPanel <em>Dialog Panel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17202,6 +17249,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMMAND_ON_WIDGETS__TARGET_WIDGETS = eINSTANCE.getCommandOnWidgets_TargetWidgets();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Menu Element</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMMAND_ON_WIDGETS__TARGET_MENU_ELEMENT = eINSTANCE.getCommandOnWidgets_TargetMenuElement();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.DialogPanelImpl <em>Dialog Panel</em>}' class.
