@@ -302,6 +302,12 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 	}
 	«ENDIF»
 
+	
+	/**
+	 * Metodi per visibilita'/abilitazione dei MenuElemnt
+	 */
+
+		
 	/**
 	 * @return true se il menu deve essere reso visibile
 	 */
@@ -319,11 +325,31 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 			}
 		}
 		else
-			status = true;
+			status = isMenuElementVisible(menuName);
 		return status;
 	«ELSE-»
-		return true;
+		return isMenuElementVisible(menuName);
 	«ENDIF-»
+	}
+
+	/**
+	 * @return true se il MenuElement deve essere reso visibile
+	 */
+	
+	private static String SESSION_MENU_VISIBILITY = "menuVisibilityMap";
+	
+	public boolean isMenuElementVisible(String menuName) {
+		Map cpData = (Map) session.get(SESSION_MENU_VISIBILITY);
+		if (cpData != null) {
+			Boolean visibleFlag = (Boolean) cpData.get(menuName
+					+ "_visible");
+			if (visibleFlag != null) {
+				return visibleFlag.booleanValue();
+			} else
+				return true;
+		} else
+			return true;
+
 	}
 
 	/**
