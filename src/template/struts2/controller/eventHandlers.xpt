@@ -604,15 +604,31 @@ nel panel def (use)
 	«LET cp.name AS containerName-»
 	// VisibilityCommand begin
 	//prepara i nomi dei componenti target da mostrare/nascondere
-    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    String[] act_«actionsVarName»_«actionNumber»_targetsWidgets = new String[]{
     «FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
     "«getFullID(currWidg,contextPrefix)»"
     «ENDFOREACH-»
     };
-	VisibilityCommand act_«actionsVarName»_«actionNumber» = new VisibilityCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.show»);
+    
+    
+     String[] act_«actionsVarName»_«actionNumber»_targetsMenuElement = new String[]{
+    «FOREACH this.targetMenuElement AS currWidg SEPARATOR ","-»
+    "«getFullID(currWidg,contextPrefix)»"
+    «ENDFOREACH-»
+    };
+	VisibilityCommand act_«actionsVarName»_«actionNumber» = new VisibilityCommand("«containerName»",act_«actionsVarName»_«actionNumber»_targetsWidgets,act_«actionsVarName»_«actionNumber»_targetsMenuElement, «this.show»);
 	// Visibility Command end
 	«ENDLET-»
 «ENDDEFINE»
+
+
+String[] act_onRefresh_1_targetsWidgets = new String[]{"confirmButton", "NOPButton"};
+		
+		
+		VisibilityCommand act_onRefresh_1 = new VisibilityCommand("cpPage7",
+				act_onRefresh_1_targetsWidgets, act_onRefresh_1_targetsMenuElement,true);
+		// Visibility Command end
+		return act_onRefresh_1;
 
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ExecCommand-»
 	// ExecCommand begin
