@@ -495,14 +495,21 @@ quelli esterni!!! «ENDREM»
 «DEFINE addActionCode(String actionsVarName, int actionNumber, GUIModel model, ContentPanel cp, String contextPrefix) FOR ONOFFCommand-»
 	«LET cp!= null ? cp.name : "no-content-panel" AS containerName-»
 	// ONOFF Command begin
-    //prepara i nomi dei componenti target da abilitare/disabilitare
-    String[] act_«actionsVarName»_«actionNumber»_targets = new String[]{
+    //prepara i nomi dei componenti targetWidgets da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targetsWidgets = new String[]{
     «FOREACH this.targetWidgets AS currWidg SEPARATOR ","-»
     "«getFullID(currWidg,contextPrefix)»"
     «ENDFOREACH-»
     };
     
-	OnOffCommand act_«actionsVarName»_«actionNumber» = new OnOffCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targets,«this.enable»);
+     //prepara i nomi dei componenti targetMenuElement da abilitare/disabilitare
+    String[] act_«actionsVarName»_«actionNumber»_targetsMenuElement = new String[]{
+    «FOREACH this.targetMenuElement AS currWidg SEPARATOR ","-»
+    "«getFullID(currWidg,contextPrefix)»"
+    «ENDFOREACH-»
+    };
+    
+	OnOffCommand act_«actionsVarName»_«actionNumber» = new OnOffCommand("«containerName»", act_«actionsVarName»_«actionNumber»_targetsWidgets, act_«actionsVarName»_«actionNumber»_targetsMenuElement, «this.enable»);
 	//ONOFF Command end
 	«ENDLET-»
 «ENDDEFINE»
