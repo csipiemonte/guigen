@@ -2315,6 +2315,10 @@ public class GenUtils {
 		return contextPrefix == null || contextPrefix.length()==0 ? p.getName() : contextPrefix+p.getName();
 	}
 
+	public static String getFullID(Menu m, String contextPrefix){
+		return contextPrefix == null || contextPrefix.length()==0 ? m.getName() : contextPrefix+m.getName();
+	}
+
 	
 	/**
 	 *
