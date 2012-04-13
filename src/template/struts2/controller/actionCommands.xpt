@@ -382,27 +382,54 @@ public class OnOffCommand implements ICommand {
 	// solo per poter essere inserita in sessione web e non viene scambiata con altre
 	// componenti.
 	private static final long serialVersionUID = 1L;
-	
+	private static String SESSION_MENU_ONOFF = "menuOnOffMap";
+
 	String _containerName = null;
-	String[] _targets = null;
+	String[] _targetsWidgets = null;
+	String[] _targetsMenuElement = null;
 	boolean _show = true;
 
-	public OnOffCommand(String containerName, String targets[], boolean show) {
+	public OnOffCommand(String containerName, String targetsWidgets[], boolean show) {
 		_containerName = containerName;
-		_targets = targets;
+		_targetsWidgets = targetsWidgets;
 		_show = show;
 	}
+	
+	
+	public OnOffCommand(String containerName, String targetsWidgets[], String targetsMenuElement[], boolean show) {
+		_containerName = containerName;
+		_targetsWidgets = targetsWidgets;
+		_targetsMenuElement = targetsMenuElement;
+		_show = show;
+	}
+	
 
-	public String doCommand(BaseAction strutsAction) throws CommandExecutionException{
-		if (_targets != null) {
-			Map<String, Boolean> cpWidgetsStatus = 
-				(Map<String, Boolean>) strutsAction.session.get(_containerName);		
-			if(cpWidgetsStatus == null){
+	public String doCommand(BaseAction strutsAction)
+			throws CommandExecutionException {
+		if (_targetsWidgets != null) {
+			Map<String, Boolean> cpWidgetsStatus = (Map<String, Boolean>) strutsAction.session
+					.get(_containerName);
+			if (cpWidgetsStatus == null) {
 				cpWidgetsStatus = new HashMap<String, Boolean>();
 				strutsAction.session.put(_containerName, cpWidgetsStatus);
 			}
-			for (int i = 0; i < _targets.length; i++) {
-				cpWidgetsStatus.put(_targets[i]+"_enabled", Boolean.valueOf(_show));
+			for (int i = 0; i < _targetsWidgets.length; i++) {
+				cpWidgetsStatus.put(_targetsWidgets[i] + "_enabled",
+						Boolean.valueOf(_show));
+			}
+		}
+		
+		
+		if (_targetsMenuElement != null) {
+			Map<String, Boolean> menuOnOffMap = (Map<String, Boolean>) strutsAction.session
+					.get(SESSION_MENU_ONOFF);
+			if (menuOnOffMap == null) {
+				menuOnOffMap = new HashMap<String, Boolean>();
+				strutsAction.session.put(SESSION_MENU_ONOFF, menuOnOffMap);
+			}
+			for (int i = 0; i < _targetsMenuElement.length; i++) {
+				menuOnOffMap.put(_targetsMenuElement[i] + "_enabled",
+						Boolean.valueOf(_show));
 			}
 		}
 		return null;
