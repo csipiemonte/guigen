@@ -390,11 +390,31 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 			}
 		}
 		else
-			status = true;
+			status = isMenuElementEnabled(menuName);
 		return status;
 	«ELSE»
-		return true;
+		return isMenuElementEnabled(menuName);
 	«ENDIF»
+	}
+	
+	
+	private static String SESSION_MENU_ONOFF = "menuOnOffMap";
+	
+	/**
+	 * @return true se il menuElement deve essere disabilitato
+	 */
+	public boolean isMenuElementEnabled(String menuName) {
+		Map cpData = (Map) session.get(SESSION_MENU_ONOFF);
+		if (cpData != null) {
+			Boolean enabledFlag = (Boolean) cpData.get(menuName
+					+ "_enabled");
+			if (enabledFlag != null) {
+				return enabledFlag.booleanValue();
+			} else
+				return true;
+		} else
+			return true;
+
 	}
 	
 	/**
