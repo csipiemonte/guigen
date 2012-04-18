@@ -807,8 +807,10 @@ context UISecurityConstraint if (this.eRootContainer.metaType==GUIModel) ERROR "
 	((GUIModel)this.eRootContainer).securityModel.autenticationMethod != null ||
 	((GUIModel)this.eRootContainer).extSecurityModel.autenticationMethod != null;
 
-context UISecurityConstraint if (this.eRootContainer.metaType==AppModule) ERROR "Non � possibile specificare constraint di AUTORIZZAZIONE "+
-"se non � specificato un metodo di AUTENTICAZIONE "+loc() :
+context UISecurityConstraint if (this.eRootContainer.metaType==AppModule) ERROR "Non e' possibile specificare constraint di AUTORIZZAZIONE "+
+"se non e' specificato un metodo di AUTENTICAZIONE. "+
+"E' necessario referenziare nell' AppModule "+ ((AppModule)this.eRootContainer).name + " l' extSecurityModel "
++loc() :
 	((AppModule)this.eRootContainer).extSecurityModel.autenticationMethod != null;
 
 
