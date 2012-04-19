@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Permette di abilitare/disabilitare i widget specificati. Lo stato di abilitazione
+ * Permette di abilitare/disabilitare i widget e/o menu specificati. Lo stato di abilitazione
  * rimane persistente in sessione.
  * <!-- end-model-doc -->
  *

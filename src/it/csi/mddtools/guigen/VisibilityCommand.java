@@ -27,7 +27,7 @@ package it.csi.mddtools.guigen;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Permette di mostrare/nascondere i widget specificati. Lo stato di visibilit&agrave;
+ * Permette di mostrare/nascondere i widget e/o menu specificati. Lo stato di visibilit&agrave;
  * rimane persistente in sessione.
  * <!-- end-model-doc -->
  *
