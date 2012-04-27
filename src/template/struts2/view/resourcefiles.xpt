@@ -867,13 +867,16 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
 <s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+		  «IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
+		  title="Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
+		  «ENDIF»«REM»[LC] stdmdd-1072«ENDREM»
           «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
           list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
           disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
           «IF (databinding!=null && isBoundToArray(this.databinding)) ||
           	  (databinding==null && dataType.metaType==TypedArray)-»
           multiple="true"
-          cssClass="selectMultiple"
+          cssClass="selectMultiple"          
           «IF visibleLines>0»size="«visibleLines»"«ENDIF»
           «ENDIF-»
           «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
