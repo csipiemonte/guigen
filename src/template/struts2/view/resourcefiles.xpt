@@ -778,7 +778,11 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di un TextField.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TextField»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<s:textfield name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+<s:textfield 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	«IF fieldMaxLength!=null && fieldMaxLength>0 -»maxlength="«fieldMaxLength»"«ENDIF-»
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getTextFieldStyleByLayout(model, this)»
@@ -796,7 +800,11 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di una TextArea.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR TextArea»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<s:textarea name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+<s:textarea 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«IF this.rows != null»rows="«this.rows»"«ENDIF»
 	«IF this.columns != null»cols="«this.columns»"«ENDIF»
@@ -825,7 +833,11 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 
 «REM»Genera la componente di markup (HTML) di un singolo radio button.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, RadioButtons parent, String contextPrefix, PDefUseConfig pduConf) FOR RadioButton»
-<s:radio id="«getWidgetName(this, contextPrefix)»" name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
+<s:radio
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	id="«getWidgetName(this, contextPrefix)»" name="«getOGNLForWidgetValue(parent, contextPrefix, pduConf)»"
 	list="#{«getFixedRadioButtonList(this)»}"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(parent, contextPrefix)»')"
 	«getRadioPortalStyle(model)»
@@ -837,7 +849,11 @@ Nel caso di GridLayout bisogna reimpostare la lista dei widget secondo l'ordine 
 «REM»Genera la componente di markup (HTML) di una CheckBox.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR CheckBox»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<s:checkbox name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+<s:checkbox 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getCheckboxPortalStyle(model)»
 	/>
@@ -857,7 +873,16 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «LET (Panel)(this.eContainer) AS parentPanel-»
 «LET targetIdsTemp!=null ? targetIdsTemp : {getFragmentId(parentPanel)} AS refreshIds-»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::KEY_PRESSED).size>0-»«REM»genero una suggestion con bind su chiave e valore«ENDREM»
-<s:textfield name="«getAppDataKey(databinding.appData)».«valueSelector»"
+<s:textfield 
+
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»«REM»[LC] stdmdd-1072 - In caso di funzionalita' Value Changed, si accoda, nel testo del tooltip, l'avviso«ENDREM»
+		title="«this.tooltip» - Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
+	«ELSE-»
+		title="«this.tooltip»"
+	«ENDIF-»
+	
+	name="«getAppDataKey(databinding.appData)».«valueSelector»"
 	id="«getWidgetName(this, contextPrefix)»"
 	size="«fieldLength»"
 	/>
@@ -867,22 +892,27 @@ In caso di feature ricche abilitate e di presenza di eventHandler(vlaueChanged) 
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlHeader(refreshIds, model, cp, contextPrefix) FOR this-»
 «ENDIF-»
 <s:select name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
-		  «IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
-		  title="Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
-		  «ENDIF»«REM»[LC] stdmdd-1072«ENDREM»
-          «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
-          list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
-          disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
-          «IF (databinding!=null && isBoundToArray(this.databinding)) ||
-          	  (databinding==null && dataType.metaType==TypedArray)-»
-          multiple="true"
-          cssClass="selectMultiple"          
-          «IF visibleLines>0»size="«visibleLines»"«ENDIF»
-          «ENDIF-»
-          «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
-          «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
-          «getComboBoxValueChangedHandlerJS(this, model, cp, contextPrefix)»
-          />
+	 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»«REM»[LC] stdmdd-1072 - In caso di funzionalita' Value Changed, si accoda, nel testo del tooltip, l'avviso«ENDREM»
+		title="«this.tooltip» - Attenzione. Dopo aver selezionato un valore, la pagina verra' aggiornata automaticamente"
+	«ELSE-»
+		title="«this.tooltip»"
+	«ENDIF-»
+			
+	  «IF !omitHeaderValue»headerKey="" headerValue=""«ENDIF» «REM»STDMDD-244: headerValue="&nbsp;"«ENDREM»
+	  list="«getOGNLForWidgetMultiValue(this, contextPrefix, pduConf)»"
+	  disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
+	  «IF (databinding!=null && isBoundToArray(this.databinding)) ||
+	  	  (databinding==null && dataType.metaType==TypedArray)-»
+	  multiple="true"
+	  cssClass="selectMultiple"          
+	  «IF visibleLines>0»size="«visibleLines»"«ENDIF»
+	  «ENDIF-»
+	  «IF this.keySelector!=null && this.keySelector.length>0»listKey="«keySelector»"«ENDIF»
+	  «IF this.valueSelector!=null && this.valueSelector.length>0»listValue="«valueSelector»"«ENDIF»
+	  «getComboBoxValueChangedHandlerJS(this, model, cp, contextPrefix)»
+	  />
 «getComboBoxValueChangedHandlerNoScript(this, model, cp, contextPrefix)»
 «IF model.targetPlatform.enableRichUIBehavior && eventHandlers.select(evh|evh.eventType==EventTypes::VALUE_CHANGED).size>0 -»
 «EXPAND template::struts2::view::richFeatures::ajaxifyControlFooter FOR this-»
@@ -1119,7 +1149,11 @@ come target di refresh.
 «REM»Genera la componente di markup (HTML) di un Calendar.«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR Calendar»
 <!-- widget «getFullID(this, contextPrefix)» -->
-<s:textfield name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
+<s:textfield 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getOGNLForWidgetValue(this, contextPrefix, pduConf)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	size="10" maxlength="10" 
 	«getCalendarStyleByLayout(model, this)»
@@ -1140,7 +1174,11 @@ NOTA: lo sviluppatore è responsabile del codice che inserisca all'interno di ta
 
 «REM»Genera la componente di markup (HTML) di uno FileUpload (widget per l'upload di un file).«ENDREM»
 «DEFINE createWidgetMarkup(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduConf) FOR FileUpload»
-<s:file name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
+<s:file 
+	«REM»[LC] stdmdd-1060 - Imposta l'attributo "title" con il valore specificato nella property "Tooltip"«ENDREM»
+	«IF this.tooltip!=null-»title="«this.tooltip»"«ENDIF-»
+	
+	name="«getWidgetName(this, contextPrefix)»" id="«getWidgetName(this, contextPrefix)»"
 	disabled="isWidgetDisabled('«cp.name»','«getFullID(this, contextPrefix)»')"
 	«getFileUploadStyleByLayout(model, this)»
 />
