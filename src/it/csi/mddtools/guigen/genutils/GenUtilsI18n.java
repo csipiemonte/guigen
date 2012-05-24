@@ -417,9 +417,26 @@ public class GenUtilsI18n {
 		for ( Column col : t.getColumnModel().getColumns() ) {
 			if ( !GenUtils.isNullOrEmpty(col.getLabel()) ) {
 				String label = col.getLabel().trim();
+				
+				/* STDMDD-1193 */
+				String txtTooltip = "";
 				if(!GenUtils.isNullOrEmpty(col.getTooltip())){
+					txtTooltip = col.getTooltip();
+				}				
+				String txtSortable = "";
+				if (col.isSortable()){
+					txtSortable = "Clicca per ordinare questa colonna";
+					if(txtTooltip!="")
+						txtSortable = " - "+txtSortable;					
+				}			
+				if(txtTooltip!="" || txtSortable!="")
+					label = "<span title=\""+txtTooltip+txtSortable+"\">"+label+"</span>";	
+					
+				/*if(!GenUtils.isNullOrEmpty(col.getTooltip())){					
 					label = "<acronym title=\""+col.getTooltip()+"\">"+label+"</acronym>";
-				}
+				}*/
+				/* STDMDD-1193 (end) */
+				
 				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".label=" + label);
 				/* STDMDD-618 */
 				res.add(cp.getName() + "." + GenUtils.getFullID(t, contextPrefix) + "." + col.getSelector() + ".export.label=" + col.getLabel());
