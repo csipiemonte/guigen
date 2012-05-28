@@ -139,16 +139,18 @@ public class JumpBackCommand implements ICommand {
 		// clear page scoped appdata
 		strutsAction.clearPageScopedAppData(currentCPName);
 
-		if (navigationQueue != null) {
-			String backPage = navigationQueue.pollLast();
+			if (navigationQueue != null) {
+			String backPage = navigationQueue.getLast();
 			if (null != backPage && !"".equalsIgnoreCase(backPage)) {
 				String[] splitArray = backPage.split("/");
 				strutsAction.setBackActionName(splitArray[3]);
 				strutsAction.setBackNamespace("/" + splitArray[1] + "/"
 						+ splitArray[2]);
+				navigationQueue.removeLast();
 				return "GO_TO_BackPage";
 			}
 		}
+
 
 		return "BACK_TO_HOME";
 
