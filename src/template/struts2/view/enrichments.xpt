@@ -174,22 +174,8 @@ Ext.onReady( function() {
 «ENDIF-»
 «ENDDEFINE»
 
+«REM»STDMDD-1181: l'arricchimento è stato rimosso perche' non accessibile«ENDREM»
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR Table-»
-	«IF isEnrichmentEnabled()-»
-	/// arricchimento per «this.metaType.name» [«name»]: tooltip header di colonna
-	var «name»Tips = [
-	«IF this.databinding!=null-»
-		'',«ENDIF-»«FOREACH columnModel.columns AS currCol SEPARATOR ","»
-		''«ENDFOREACH-»
-	];
-	«LET "row_"+getFullID(this, contextPrefix) AS tableHtmlID-»«REM»id strano per table!«ENDREM»
-	var enhanceGrid«name.toFirstUpper()» =  
-		function(){uiNRichLib.dynaDisplayTableNRich(
-			'«tableHtmlID»',«name»Tips
-			)}; 
-	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", enhanceGrid«name.toFirstUpper()»);
-	«ENDLET-»
-	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE enrichmentDefs(GUIModel model, ContentPanel cp, String contextPrefix, PDefUseConfig pduc) FOR TextField-»
