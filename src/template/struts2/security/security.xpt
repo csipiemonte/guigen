@@ -400,6 +400,9 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 
 «DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
 «EXPAND ApplSessGuardFilter FOR this»
+«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+«EXPAND EncodingFixFilter FOR this»
+«ENDIF»
 «IF getActualSecurityModel(this).autenticationMethod!=null»
 «EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
 «EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
@@ -678,7 +681,48 @@ public class DummyUISecConstraint extends AbstractUISecConstraint {
 
 «ENDDEFINE»
 
+«DEFINE EncodingFixFilter FOR GUIModel»
+«FILE getEncodingFixFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
+import java.io.IOException;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Gestisce la validit&agrave; della sessione applicativa. 
+ *
+ * @author CSIPiemonte
+ */
+public class «getEncodingFixFilterClassName()» implements Filter {
+
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8"); 
+		fchn.doFilter(req, resp);
+		return;
+	}
+
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
 
 «DEFINE ApplSessGuardFilter FOR GUIModel»
 «FILE getSessionGuardFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
