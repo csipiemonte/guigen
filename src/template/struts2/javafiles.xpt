@@ -55,6 +55,9 @@ e le limitazioni secondo i termini della Licenza.
 	«IF isMultiPortal(this)»
 		«EXPAND multiPortal::multiPortalClassesFiles(skip_component_dir_creation) FOR this»
 	«ENDIF»
+	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+		«EXPAND EncodingFixFilter FOR this»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE sessionListenerJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -865,6 +868,52 @@ public class MappingException extends Exception{
 }
 «ENDFILE»
 «ENDDEFINE»
+
+«REM»questo filter imposta l'encoding di richiesta e risposta a UTF-8 (serve su JBoss)«ENDREM»
+«DEFINE EncodingFixFilter FOR GUIModel»
+«FILE getEncodingFixFilterJavaFile(this, true)»package «getFiltersJavaPackage(this)»;
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Forza l'encoding di richiesta e risposta a UTF-8, per evitare problemi
+ * di visualizzazione di caratteri speciali/accentati 
+ *
+ * @author CSIPiemonte
+ */
+public class «getEncodingFixFilterClassName()» implements Filter {
+
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8"); 
+		fchn.doFilter(req, resp);
+		return;
+	}
+
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
 
 «REM»
 «DEFINE viewFragmentResultJavaFile FOR GUIModel»
