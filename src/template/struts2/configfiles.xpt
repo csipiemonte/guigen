@@ -239,10 +239,11 @@ e le limitazioni secondo i termini della Licenza.
 	</filter>
 
     <filter>
+    «IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
 	<filter-name>EncodingFixFilter</filter-name>
 		<filter-class>«getEncodingFixFilterFQN(this)»</filter-class>
 	</filter>
-	
+	«ENDIF»
 	<filter>
 		<filter-name>Session Guard</filter-name>
 		<filter-class>«getSessionGuardFilterFQN(this)»</filter-class>
@@ -255,10 +256,12 @@ e le limitazioni secondo i termini della Licenza.
 		<filter-name>Session Guard</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
+	«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
 	<filter-mapping>
 		<filter-name>EncodingFixFilter</filter-name>
 		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
 	</filter-mapping>
+	«ENDIF»
 	
 «IF getActualSecurityModel(this).autenticationMethod!=null»
 	«EXPAND template::struts2::security::security::authenticationFilterDefAndMapping(this) FOR getActualSecurityModel(this).autenticationMethod»
