@@ -351,28 +351,38 @@ public abstract class «getStrutsBaseActionClassName(this)» extends ActionSuppo
 			return true;
 
 	}
-
+	
 	/**
 	 * @return true se almeno uno dei sottomenu del menu dato &egrave; vissibile, false altrimenti
 	 */
 	public boolean isAtLeastOneSubMenuVisible(String menuName) {
-	«IF getActualSecurityModel(this) != null»
-		for (MenuStructure menuStructure : menuMap) {
-			if (menuName.equals(menuStructure.getMenuName())) {
-				List<MenuStructure> mstr = menuStructure.getSubMenuFlattenList(menuStructure, menuName);
-				for (MenuStructure subMenu : mstr) {
-					if (isMenuVisible(subMenu.getMenuName())) {
-						return true;
-					}
-				}
+		«IF getActualSecurityModel(this) != null»
+		MenuStructure menuStructure = searchMenuItem(menuName, menuMap, null);
+		List<MenuStructure> mstr = menuStructure.getSubmenus();
+		for (MenuStructure subMenu : mstr) {
+			if (isMenuVisible(subMenu.getMenuName())) {
+				return true;
 			}
 		}
 		return false;
-	«ELSE»
+		«ELSE»
 		return true;
-	«ENDIF»
+		«ENDIF»
 	}
+	«IF getActualSecurityModel(this) != null»
+	private MenuStructure searchMenuItem(String menuName,
+			List<MenuStructure> menuTmp, MenuStructure menuStructureCurr) {
+		MenuStructure res = menuStructureCurr;
+		for (MenuStructure menuStructure : menuTmp) {
+			if (menuName.equalsIgnoreCase(menuStructure.getMenuName())) 
+				return menuStructure;
 
+			res = searchMenuItem(menuName, menuStructure.getSubmenus(), res);
+		}
+
+		return res;
+	}
+	«ENDIF»
 	/**
 	 * @return true se il menu deve essere reso abilitato
 	 */
