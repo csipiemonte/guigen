@@ -121,7 +121,7 @@ public class «getStrutsActionClassName(this)» extends «getStrutsBaseActionCla
 		«IF this.cpCommands!=null»
 			«IF !this.cpCommands.commands.isEmpty»
 				«FOREACH this.cpCommands.commands.select(e|e.execute==CPCommandExecutionTypes::ON_ENTER) AS cpOnEnter»
-		if(null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel())){
+		if(null==getCurrentContentPanel() || (null!=getCurrentContentPanel() && !CP_NAME.equalsIgnoreCase(getCurrentContentPanel()))){
 			// CpCommand OnEnter
 			ICommand cmdOnEnter = initOnEnterCPCommand();
 			cmdOnEnter.doCommand(this);
