@@ -283,9 +283,10 @@ Ext.onReady( function() {
 											noEditWhenDisabled: «jsLiteralValue(noEditWhenDisabled)»,
 											noPanWhenDisabled: «jsLiteralValue(noPanWhenDisabled)»,
 											noZoomWhenDisabled: «jsLiteralValue(noZoomWhenDisabled)»
-											«ENDIF-»
+											«EXPAND MapViewEditingConfig FOR this.gadgets»
+											«ENDIF-»										
+											«ENDIF-»											
 											«EXPAND MapViewGadgetConfig FOR this.gadgets»
-											«ENDIF»
 										}).init()};
 	
 	uiEnricherMgr.registerEnrichment(contentPanelName, "p_«getParentPanel().name»", addMapTo«name.toFirstUpper()»);
@@ -305,15 +306,23 @@ Ext.onReady( function() {
 											backgroundPhotoAerialMapServiceName: «jsLiteralValue(this.backgroundPhotoAerialMapServiceName)»,
 											backgroundPhotoAerialSwitcherLabel: «jsLiteralValue(this.backgroundPhotoAerialSwitcherLabel)»
 		«ENDIF-»
-		«IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
+			
+	«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE MapViewEditingConfig FOR MapViewGadgets-»
+«LET (MapView)eContainer AS mapview-»
+	«IF this != null-»
+	«IF mapview.eventHandlers.selectFirst(evh|evh.eventType == EventTypes::EDIT_COMMITTED) != null-»
 											,										
 											// funzioni di editing
 											pointEditingActive: «jsLiteralValue(this.pointEditingActive)»,
 											lineEditingActive: «jsLiteralValue(this.lineEditingActive)»,
 											polygonEditingActive: «jsLiteralValue(this.polygonEditingActive)»
-		«ENDIF-»
-	«ENDIF-»
-«ENDLET-»
+	«ENDIF-»							
+	«ENDIF-»	
+ «ENDLET-»							
 «ENDDEFINE»
 
 «REM»
