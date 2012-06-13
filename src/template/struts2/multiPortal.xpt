@@ -440,6 +440,8 @@ MultiPortal Info Resolver Classes
 	«EXPAND cookieResolverJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND requestParamResolverJavaFile(skip_component_dir_creation) FOR this»
 	«EXPAND headerResolverJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND requestAttributeResolverJavaFile(skip_component_dir_creation) FOR this»
+	«EXPAND sessionAttributeResolverJavaFile(skip_component_dir_creation) FOR this»
 «ENDDEFINE»
 
 «DEFINE infoResolverInterfaceJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
@@ -497,6 +499,49 @@ public class RequestParamInfoResolver implements InfoResolver {
 
 	public String resolve(String infoSourceName, HttpServletRequest hreq) {
 		return hreq.getParameter(infoSourceName);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE requestAttributeResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/RequestAttributeInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Resolver di informazioni multiportale via parametro di request.
+ *
+ * @author CSIPiemonte
+ */
+public class RequestAttributeInfoResolver implements InfoResolver {
+
+public String resolve(String infoSourceName, HttpServletRequest hreq) {
+		return (String) hreq.getAttribute(infoSourceName);
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE sessionAttributeResolverJavaFile(boolean skip_component_dir_creation) FOR GUIModel»
+«FILE getMultiPortalUtilsJavaSrcDir(this, skip_component_dir_creation) + "/SessionAttributeInfoResolver.java" »package «getMultiPortalUtilsJavaPackage(this)»;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+/**
+ * Resolver di informazioni multiportale via parametro di request.
+ *
+ * @author CSIPiemonte
+ */
+public class SessionAttributeInfoResolver implements InfoResolver {
+
+	public String resolve(String infoSourceName, HttpServletRequest hreq) {
+	
+		HttpSession session = hreq.getSession();		
+		return session!= null ? (String) hreq.getAttribute(infoSourceName) : null;
 	}
 
 }
@@ -592,7 +637,20 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 	«IF secModel == null-»
 		«EXPAND defaultInfoSourceTypeAndName FOR this-»
 	«ELSE-»
-		«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
+		«IF this.targetPlatform.wayfProfile!= null && this.targetPlatform.wayfProfile.requestAdapter!= null -»
+			«LET this.targetPlatform.wayfProfile.requestAdapter.infoSourceName AS infoSourceName»
+			<init-param>
+				<param-name>infoSourceType</param-name>
+				<param-value>«getWAYFInfoSourceType(this.targetPlatform.wayfProfile.requestAdapter) »</param-value>
+			</init-param>
+			<init-param>
+				<param-name>infoSourceName</param-name>
+				<param-value>«infoSourceName!= null ? infoSourceName.toUpperCase(): ""»</param-value>
+			</init-param>
+			«ENDLET»
+		«ELSE»
+			«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
+		«ENDIF-»
 	«ENDIF-»
 «ENDLET-»
 «ENDDEFINE»

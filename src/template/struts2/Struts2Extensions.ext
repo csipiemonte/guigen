@@ -84,6 +84,22 @@ String getMultiPortalUtilsJavaSrcDir(GUIModel model, boolean omit_root) :
 
 String getMultiPortalUtilsJavaPackage(GUIModel model) :
 	getPresentationRootJavaPackage(model) + ".multiportalutils";
+String getWAYFInfoSourceType(WAYFRequestAdapter requestAdapter) : 
+		
+		switch (requestAdapter.sourceType){
+			case InfoSourceTypes::REQUEST_PARAM : 
+				"RequestParam"
+			case InfoSourceTypes::REQUEST_HEADER : 
+				"Header"
+			case InfoSourceTypes::REQUEST_COOKIE : 
+				"Cookie"
+			case InfoSourceTypes::SESSION_ATTRIBUTE : 
+				"SessionAttribute"
+			case InfoSourceTypes::REQUEST_ATTRIBUTE : 
+				"RequestAttribute"
+			default : 
+				null
+		};
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
