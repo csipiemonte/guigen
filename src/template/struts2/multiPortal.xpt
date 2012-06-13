@@ -634,22 +634,22 @@ DEFINIZIONI PER IL MULTIPORTALE (utilizzate in varie parti della generazione)
 «REM»Init params dei filtri "Where Are you From" per InfoSource Type (dove e' contenuta l'informazione) e Name (nome del detentore dell'informazione)«ENDREM»
 «DEFINE infoSourceTypeAndName FOR GUIModel»
 «LET getActualSecurityModel(this) AS secModel-»
-	«IF secModel == null-»
-		«EXPAND defaultInfoSourceTypeAndName FOR this-»
-	«ELSE-»
-		«IF this.targetPlatform.wayfProfile!= null && this.targetPlatform.wayfProfile.requestAdapter!= null -»
-			«LET this.targetPlatform.wayfProfile.requestAdapter.infoSourceName AS infoSourceName»
+	«IF this.targetPlatform.wayfProfile!= null && this.targetPlatform.wayfProfile.requestAdapter!= null -»
+			«LET this.targetPlatform.wayfProfile.requestAdapter.infoSourceName AS infoSourceName-»
 			<init-param>
 				<param-name>infoSourceType</param-name>
 				<param-value>«getWAYFInfoSourceType(this.targetPlatform.wayfProfile.requestAdapter) »</param-value>
 			</init-param>
 			<init-param>
 				<param-name>infoSourceName</param-name>
-				<param-value>«infoSourceName!= null ? infoSourceName.toUpperCase(): ""»</param-value>
+				<param-value>«infoSourceName»</param-value>
 			</init-param>
 			«ENDLET»
-		«ELSE»
-			«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
+	«ELSE-»
+		«IF secModel == null-»
+			«EXPAND defaultInfoSourceTypeAndName FOR this-»
+		«ELSE-»
+				«EXPAND infoSourceTypeAndName FOR secModel.autenticationMethod-»
 		«ENDIF-»
 	«ENDIF-»
 «ENDLET-»
