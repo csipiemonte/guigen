@@ -222,7 +222,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD: return createInternalAuthenticationGuard();
 			case GuigenPackage.WAYF_REQUEST_ADAPTER: return createWAYFRequestAdapter();
 			case GuigenPackage.WAYF_PROFILE: return createWAYFProfile();
-			case GuigenPackage.LOCAL_LOGIN_UI: return createLocalLoginUI();
+			case GuigenPackage.LOGIN_UI: return createLoginUI();
+			case GuigenPackage.LOGIN_MODULE: return createLoginModule();
 			case GuigenPackage.IDENTITY_ADAPTER: return createIdentityAdapter();
 			case GuigenPackage.ENV_CONFIG_PARAM: return createEnvConfigParam();
 			case GuigenPackage.ENV_CONFIG_PARAMS: return createEnvConfigParams();
@@ -1817,9 +1818,19 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LocalLoginUI createLocalLoginUI() {
-		LocalLoginUIImpl localLoginUI = new LocalLoginUIImpl();
-		return localLoginUI;
+	public LoginUI createLoginUI() {
+		LoginUIImpl loginUI = new LoginUIImpl();
+		return loginUI;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LoginModule createLoginModule() {
+		LoginModuleImpl loginModule = new LoginModuleImpl();
+		return loginModule;
 	}
 
 	/**

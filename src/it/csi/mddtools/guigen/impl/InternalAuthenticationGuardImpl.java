@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.EnvConfigParams;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.InternalAuthenticationGuard;
-import it.csi.mddtools.guigen.LocalLoginUI;
+import it.csi.mddtools.guigen.LoginModule;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.InternalAuthenticationGuardImpl#getLoginUI <em>Login UI</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.InternalAuthenticationGuardImpl#getLoginModule <em>Login Module</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.InternalAuthenticationGuardImpl#getParams <em>Params</em>}</li>
  * </ul>
  * </p>
@@ -36,14 +36,14 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class InternalAuthenticationGuardImpl extends EObjectImpl implements InternalAuthenticationGuard {
 	/**
-	 * The cached value of the '{@link #getLoginUI() <em>Login UI</em>}' containment reference.
+	 * The cached value of the '{@link #getLoginModule() <em>Login Module</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLoginUI()
+	 * @see #getLoginModule()
 	 * @generated
 	 * @ordered
 	 */
-	protected LocalLoginUI loginUI;
+	protected LoginModule loginModule;
 
 	/**
 	 * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference.
@@ -79,8 +79,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LocalLoginUI getLoginUI() {
-		return loginUI;
+	public LoginModule getLoginModule() {
+		return loginModule;
 	}
 
 	/**
@@ -88,11 +88,11 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetLoginUI(LocalLoginUI newLoginUI, NotificationChain msgs) {
-		LocalLoginUI oldLoginUI = loginUI;
-		loginUI = newLoginUI;
+	public NotificationChain basicSetLoginModule(LoginModule newLoginModule, NotificationChain msgs) {
+		LoginModule oldLoginModule = loginModule;
+		loginModule = newLoginModule;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI, oldLoginUI, newLoginUI);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE, oldLoginModule, newLoginModule);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -103,18 +103,18 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLoginUI(LocalLoginUI newLoginUI) {
-		if (newLoginUI != loginUI) {
+	public void setLoginModule(LoginModule newLoginModule) {
+		if (newLoginModule != loginModule) {
 			NotificationChain msgs = null;
-			if (loginUI != null)
-				msgs = ((InternalEObject)loginUI).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI, null, msgs);
-			if (newLoginUI != null)
-				msgs = ((InternalEObject)newLoginUI).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI, null, msgs);
-			msgs = basicSetLoginUI(newLoginUI, msgs);
+			if (loginModule != null)
+				msgs = ((InternalEObject)loginModule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE, null, msgs);
+			if (newLoginModule != null)
+				msgs = ((InternalEObject)newLoginModule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE, null, msgs);
+			msgs = basicSetLoginModule(newLoginModule, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI, newLoginUI, newLoginUI));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE, newLoginModule, newLoginModule));
 	}
 
 	/**
@@ -168,8 +168,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI:
-				return basicSetLoginUI(null, msgs);
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
+				return basicSetLoginModule(null, msgs);
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
 				return basicSetParams(null, msgs);
 		}
@@ -184,8 +184,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI:
-				return getLoginUI();
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
+				return getLoginModule();
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
 				return getParams();
 		}
@@ -200,8 +200,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI:
-				setLoginUI((LocalLoginUI)newValue);
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
+				setLoginModule((LoginModule)newValue);
 				return;
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
 				setParams((EnvConfigParams)newValue);
@@ -218,8 +218,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI:
-				setLoginUI((LocalLoginUI)null);
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
+				setLoginModule((LoginModule)null);
 				return;
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
 				setParams((EnvConfigParams)null);
@@ -236,8 +236,8 @@ public class InternalAuthenticationGuardImpl extends EObjectImpl implements Inte
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI:
-				return loginUI != null;
+			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
+				return loginModule != null;
 			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
 				return params != null;
 		}

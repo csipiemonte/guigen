@@ -3472,26 +3472,49 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.LocalLoginUI} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.LoginUI} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LocalLoginUIItemProvider localLoginUIItemProvider;
+	protected LoginUIItemProvider loginUIItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.guigen.LocalLoginUI}.
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.LoginUI}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createLocalLoginUIAdapter() {
-		if (localLoginUIItemProvider == null) {
-			localLoginUIItemProvider = new LocalLoginUIItemProvider(this);
+	public Adapter createLoginUIAdapter() {
+		if (loginUIItemProvider == null) {
+			loginUIItemProvider = new LoginUIItemProvider(this);
 		}
 
-		return localLoginUIItemProvider;
+		return loginUIItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.guigen.LoginModule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LoginModuleItemProvider loginModuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.guigen.LoginModule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLoginModuleAdapter() {
+		if (loginModuleItemProvider == null) {
+			loginModuleItemProvider = new LoginModuleItemProvider(this);
+		}
+
+		return loginModuleItemProvider;
 	}
 
 	/**
@@ -3832,7 +3855,8 @@ public class GuigenItemProviderAdapterFactory extends GuigenAdapterFactory imple
 		if (internalAuthenticationGuardItemProvider != null) internalAuthenticationGuardItemProvider.dispose();
 		if (wayfRequestAdapterItemProvider != null) wayfRequestAdapterItemProvider.dispose();
 		if (wayfProfileItemProvider != null) wayfProfileItemProvider.dispose();
-		if (localLoginUIItemProvider != null) localLoginUIItemProvider.dispose();
+		if (loginUIItemProvider != null) loginUIItemProvider.dispose();
+		if (loginModuleItemProvider != null) loginModuleItemProvider.dispose();
 		if (identityAdapterItemProvider != null) identityAdapterItemProvider.dispose();
 		if (envConfigParamItemProvider != null) envConfigParamItemProvider.dispose();
 		if (envConfigParamsItemProvider != null) envConfigParamsItemProvider.dispose();

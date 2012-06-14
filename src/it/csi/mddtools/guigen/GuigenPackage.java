@@ -9624,13 +9624,13 @@ public interface GuigenPackage extends EPackage {
 	int INTERNAL_AUTHENTICATION_GUARD = 158;
 
 	/**
-	 * The feature id for the '<em><b>Login UI</b></em>' containment reference.
+	 * The feature id for the '<em><b>Login Module</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI = 0;
+	int INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference.
@@ -9716,14 +9716,14 @@ public interface GuigenPackage extends EPackage {
 	int WAYF_PROFILE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.LocalLoginUIImpl <em>Local Login UI</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.LoginUIImpl <em>Login UI</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.guigen.impl.LocalLoginUIImpl
-	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLocalLoginUI()
+	 * @see it.csi.mddtools.guigen.impl.LoginUIImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUI()
 	 * @generated
 	 */
-	int LOCAL_LOGIN_UI = 161;
+	int LOGIN_UI = 161;
 
 	/**
 	 * The feature id for the '<em><b>Ui Type</b></em>' attribute.
@@ -9732,16 +9732,53 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_LOGIN_UI__UI_TYPE = 0;
+	int LOGIN_UI__UI_TYPE = 0;
 
 	/**
-	 * The number of structural features of the '<em>Local Login UI</em>' class.
+	 * The number of structural features of the '<em>Login UI</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_LOGIN_UI_FEATURE_COUNT = 1;
+	int LOGIN_UI_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.LoginModuleImpl <em>Login Module</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.impl.LoginModuleImpl
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginModule()
+	 * @generated
+	 */
+	int LOGIN_MODULE = 162;
+
+	/**
+	 * The feature id for the '<em><b>Internal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_MODULE__INTERNAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Login UI</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_MODULE__LOGIN_UI = 1;
+
+	/**
+	 * The number of structural features of the '<em>Login Module</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIN_MODULE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl <em>Identity Adapter</em>}' class.
@@ -9751,7 +9788,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getIdentityAdapter()
 	 * @generated
 	 */
-	int IDENTITY_ADAPTER = 162;
+	int IDENTITY_ADAPTER = 163;
 
 	/**
 	 * The feature id for the '<em><b>Source Type</b></em>' attribute.
@@ -9788,7 +9825,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEnvConfigParam()
 	 * @generated
 	 */
-	int ENV_CONFIG_PARAM = 163;
+	int ENV_CONFIG_PARAM = 164;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9816,7 +9853,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEnvConfigParams()
 	 * @generated
 	 */
-	int ENV_CONFIG_PARAMS = 164;
+	int ENV_CONFIG_PARAMS = 165;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -9844,7 +9881,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPEPImplementation()
 	 * @generated
 	 */
-	int PEP_IMPLEMENTATION = 165;
+	int PEP_IMPLEMENTATION = 166;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -9872,7 +9909,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWidgetDataType()
 	 * @generated
 	 */
-	int WIDGET_DATA_TYPE = 166;
+	int WIDGET_DATA_TYPE = 167;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.UDLRCSpecConstants <em>UDLRC Spec Constants</em>}' enum.
@@ -9882,7 +9919,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getUDLRCSpecConstants()
 	 * @generated
 	 */
-	int UDLRC_SPEC_CONSTANTS = 167;
+	int UDLRC_SPEC_CONSTANTS = 168;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.MethodProtectionTypes <em>Method Protection Types</em>}' enum.
@@ -9892,7 +9929,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMethodProtectionTypes()
 	 * @generated
 	 */
-	int METHOD_PROTECTION_TYPES = 168;
+	int METHOD_PROTECTION_TYPES = 169;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.EventTypes <em>Event Types</em>}' enum.
@@ -9902,7 +9939,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getEventTypes()
 	 * @generated
 	 */
-	int EVENT_TYPES = 169;
+	int EVENT_TYPES = 170;
 
 
 	/**
@@ -9913,7 +9950,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getDataLifetimeType()
 	 * @generated
 	 */
-	int DATA_LIFETIME_TYPE = 170;
+	int DATA_LIFETIME_TYPE = 171;
 
 
 	/**
@@ -9924,7 +9961,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getSimpleTypeCodes()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_CODES = 171;
+	int SIMPLE_TYPE_CODES = 172;
 
 
 	/**
@@ -9935,7 +9972,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getPortalNames()
 	 * @generated
 	 */
-	int PORTAL_NAMES = 172;
+	int PORTAL_NAMES = 173;
 
 
 	/**
@@ -9946,7 +9983,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogoutActionTypes()
 	 * @generated
 	 */
-	int LOGOUT_ACTION_TYPES = 173;
+	int LOGOUT_ACTION_TYPES = 174;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
@@ -9956,7 +9993,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 174;
+	int TARGET_PLATFORM_CODES = 175;
 
 
 	/**
@@ -9967,7 +10004,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getMessageSeverity()
 	 * @generated
 	 */
-	int MESSAGE_SEVERITY = 175;
+	int MESSAGE_SEVERITY = 176;
 
 
 	/**
@@ -9978,7 +10015,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandStyles()
 	 * @generated
 	 */
-	int COMMAND_STYLES = 176;
+	int COMMAND_STYLES = 177;
 
 
 	/**
@@ -9989,7 +10026,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLogicAggregationTypes()
 	 * @generated
 	 */
-	int LOGIC_AGGREGATION_TYPES = 177;
+	int LOGIC_AGGREGATION_TYPES = 178;
 
 
 	/**
@@ -10000,7 +10037,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCustomCartridgeID()
 	 * @generated
 	 */
-	int CUSTOM_CARTRIDGE_ID = 178;
+	int CUSTOM_CARTRIDGE_ID = 179;
 
 
 	/**
@@ -10011,7 +10048,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCommandFunctions()
 	 * @generated
 	 */
-	int COMMAND_FUNCTIONS = 179;
+	int COMMAND_FUNCTIONS = 180;
 
 
 	/**
@@ -10022,7 +10059,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWebResModuleDeployTypes()
 	 * @generated
 	 */
-	int WEB_RES_MODULE_DEPLOY_TYPES = 180;
+	int WEB_RES_MODULE_DEPLOY_TYPES = 181;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.StdWebResModuleNames <em>Std Web Res Module Names</em>}' enum.
@@ -10032,7 +10069,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getStdWebResModuleNames()
 	 * @generated
 	 */
-	int STD_WEB_RES_MODULE_NAMES = 181;
+	int STD_WEB_RES_MODULE_NAMES = 182;
 
 
 	/**
@@ -10043,7 +10080,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getRepartModuleTypes()
 	 * @generated
 	 */
-	int REPART_MODULE_TYPES = 182;
+	int REPART_MODULE_TYPES = 183;
 
 
 	/**
@@ -10054,7 +10091,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getWizardNumberingTypes()
 	 * @generated
 	 */
-	int WIZARD_NUMBERING_TYPES = 183;
+	int WIZARD_NUMBERING_TYPES = 184;
 
 
 	/**
@@ -10065,7 +10102,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getCPCommandExecutionTypes()
 	 * @generated
 	 */
-	int CP_COMMAND_EXECUTION_TYPES = 184;
+	int CP_COMMAND_EXECUTION_TYPES = 185;
 
 
 	/**
@@ -10076,7 +10113,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 185;
+	int LOGIN_UI_TYPES = 186;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10086,7 +10123,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 186;
+	int INFO_SOURCE_TYPES = 187;
 
 
 	/**
@@ -15420,15 +15457,15 @@ public interface GuigenPackage extends EPackage {
 	EClass getInternalAuthenticationGuard();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginUI <em>Login UI</em>}'.
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginModule <em>Login Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Login UI</em>'.
-	 * @see it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginUI()
+	 * @return the meta object for the containment reference '<em>Login Module</em>'.
+	 * @see it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginModule()
 	 * @see #getInternalAuthenticationGuard()
 	 * @generated
 	 */
-	EReference getInternalAuthenticationGuard_LoginUI();
+	EReference getInternalAuthenticationGuard_LoginModule();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getParams <em>Params</em>}'.
@@ -15495,25 +15532,57 @@ public interface GuigenPackage extends EPackage {
 	EReference getWAYFProfile_RequestAdapter();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.LocalLoginUI <em>Local Login UI</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.LoginUI <em>Login UI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Local Login UI</em>'.
-	 * @see it.csi.mddtools.guigen.LocalLoginUI
+	 * @return the meta object for class '<em>Login UI</em>'.
+	 * @see it.csi.mddtools.guigen.LoginUI
 	 * @generated
 	 */
-	EClass getLocalLoginUI();
+	EClass getLoginUI();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.LocalLoginUI#getUiType <em>Ui Type</em>}'.
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.LoginUI#getUiType <em>Ui Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Ui Type</em>'.
-	 * @see it.csi.mddtools.guigen.LocalLoginUI#getUiType()
-	 * @see #getLocalLoginUI()
+	 * @see it.csi.mddtools.guigen.LoginUI#getUiType()
+	 * @see #getLoginUI()
 	 * @generated
 	 */
-	EAttribute getLocalLoginUI_UiType();
+	EAttribute getLoginUI_UiType();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.LoginModule <em>Login Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Login Module</em>'.
+	 * @see it.csi.mddtools.guigen.LoginModule
+	 * @generated
+	 */
+	EClass getLoginModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.LoginModule#isInternal <em>Internal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Internal</em>'.
+	 * @see it.csi.mddtools.guigen.LoginModule#isInternal()
+	 * @see #getLoginModule()
+	 * @generated
+	 */
+	EAttribute getLoginModule_Internal();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.guigen.LoginModule#getLoginUI <em>Login UI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Login UI</em>'.
+	 * @see it.csi.mddtools.guigen.LoginModule#getLoginUI()
+	 * @see #getLoginModule()
+	 * @generated
+	 */
+	EReference getLoginModule_LoginUI();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.IdentityAdapter <em>Identity Adapter</em>}'.
@@ -20153,12 +20222,12 @@ public interface GuigenPackage extends EPackage {
 		EClass INTERNAL_AUTHENTICATION_GUARD = eINSTANCE.getInternalAuthenticationGuard();
 
 		/**
-		 * The meta object literal for the '<em><b>Login UI</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Login Module</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI = eINSTANCE.getInternalAuthenticationGuard_LoginUI();
+		EReference INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE = eINSTANCE.getInternalAuthenticationGuard_LoginModule();
 
 		/**
 		 * The meta object literal for the '<em><b>Params</b></em>' containment reference feature.
@@ -20213,14 +20282,14 @@ public interface GuigenPackage extends EPackage {
 		EReference WAYF_PROFILE__REQUEST_ADAPTER = eINSTANCE.getWAYFProfile_RequestAdapter();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.LocalLoginUIImpl <em>Local Login UI</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.LoginUIImpl <em>Login UI</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.guigen.impl.LocalLoginUIImpl
-		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLocalLoginUI()
+		 * @see it.csi.mddtools.guigen.impl.LoginUIImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUI()
 		 * @generated
 		 */
-		EClass LOCAL_LOGIN_UI = eINSTANCE.getLocalLoginUI();
+		EClass LOGIN_UI = eINSTANCE.getLoginUI();
 
 		/**
 		 * The meta object literal for the '<em><b>Ui Type</b></em>' attribute feature.
@@ -20228,7 +20297,33 @@ public interface GuigenPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LOCAL_LOGIN_UI__UI_TYPE = eINSTANCE.getLocalLoginUI_UiType();
+		EAttribute LOGIN_UI__UI_TYPE = eINSTANCE.getLoginUI_UiType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.LoginModuleImpl <em>Login Module</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.impl.LoginModuleImpl
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginModule()
+		 * @generated
+		 */
+		EClass LOGIN_MODULE = eINSTANCE.getLoginModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Internal</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOGIN_MODULE__INTERNAL = eINSTANCE.getLoginModule_Internal();
+
+		/**
+		 * The meta object literal for the '<em><b>Login UI</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LOGIN_MODULE__LOGIN_UI = eINSTANCE.getLoginModule_LoginUI();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl <em>Identity Adapter</em>}' class.

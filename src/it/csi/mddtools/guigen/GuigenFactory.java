@@ -1363,13 +1363,22 @@ public interface GuigenFactory extends EFactory {
 	WAYFProfile createWAYFProfile();
 
 	/**
-	 * Returns a new object of class '<em>Local Login UI</em>'.
+	 * Returns a new object of class '<em>Login UI</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Local Login UI</em>'.
+	 * @return a new object of class '<em>Login UI</em>'.
 	 * @generated
 	 */
-	LocalLoginUI createLocalLoginUI();
+	LoginUI createLoginUI();
+
+	/**
+	 * Returns a new object of class '<em>Login Module</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Login Module</em>'.
+	 * @generated
+	 */
+	LoginModule createLoginModule();
 
 	/**
 	 * Returns a new object of class '<em>Identity Adapter</em>'.

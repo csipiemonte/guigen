@@ -8,7 +8,7 @@ package it.csi.mddtools.guigen.provider;
 
 
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.LocalLoginUI;
+import it.csi.mddtools.guigen.LoginUI;
 import it.csi.mddtools.guigen.LoginUITypes;
 
 import java.util.Collection;
@@ -31,12 +31,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.LocalLoginUI} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.LoginUI} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LocalLoginUIItemProvider
+public class LoginUIItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -50,7 +50,7 @@ public class LocalLoginUIItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LocalLoginUIItemProvider(AdapterFactory adapterFactory) {
+	public LoginUIItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -81,9 +81,9 @@ public class LocalLoginUIItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LocalLoginUI_uiType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LocalLoginUI_uiType_feature", "_UI_LocalLoginUI_type"),
-				 GuigenPackage.Literals.LOCAL_LOGIN_UI__UI_TYPE,
+				 getString("_UI_LoginUI_uiType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LoginUI_uiType_feature", "_UI_LoginUI_type"),
+				 GuigenPackage.Literals.LOGIN_UI__UI_TYPE,
 				 true,
 				 false,
 				 false,
@@ -93,14 +93,14 @@ public class LocalLoginUIItemProvider
 	}
 
 	/**
-	 * This returns LocalLoginUI.gif.
+	 * This returns LoginUI.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/LocalLoginUI"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LoginUI"));
 	}
 
 	/**
@@ -111,11 +111,11 @@ public class LocalLoginUIItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		LoginUITypes labelValue = ((LocalLoginUI)object).getUiType();
+		LoginUITypes labelValue = ((LoginUI)object).getUiType();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-			getString("_UI_LocalLoginUI_type") :
-			getString("_UI_LocalLoginUI_type") + " " + label;
+			getString("_UI_LoginUI_type") :
+			getString("_UI_LoginUI_type") + " " + label;
 	}
 
 	/**
@@ -129,8 +129,8 @@ public class LocalLoginUIItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(LocalLoginUI.class)) {
-			case GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE:
+		switch (notification.getFeatureID(LoginUI.class)) {
+			case GuigenPackage.LOGIN_UI__UI_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

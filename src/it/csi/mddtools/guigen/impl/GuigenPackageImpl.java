@@ -103,8 +103,9 @@ import it.csi.mddtools.guigen.InternalAuthenticationGuard;
 import it.csi.mddtools.guigen.JumpBackCommand;
 import it.csi.mddtools.guigen.JumpCommand;
 import it.csi.mddtools.guigen.JumpExtCommand;
-import it.csi.mddtools.guigen.LocalLoginUI;
 import it.csi.mddtools.guigen.LogicAggregationTypes;
+import it.csi.mddtools.guigen.LoginModule;
+import it.csi.mddtools.guigen.LoginUI;
 import it.csi.mddtools.guigen.LoginUITypes;
 import it.csi.mddtools.guigen.LogoutActionTypes;
 import it.csi.mddtools.guigen.MapEnvelope;
@@ -1356,7 +1357,14 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass localLoginUIEClass = null;
+	private EClass loginUIEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass loginModuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -6090,7 +6098,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInternalAuthenticationGuard_LoginUI() {
+	public EReference getInternalAuthenticationGuard_LoginModule() {
 		return (EReference)internalAuthenticationGuardEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -6153,8 +6161,8 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getLocalLoginUI() {
-		return localLoginUIEClass;
+	public EClass getLoginUI() {
+		return loginUIEClass;
 	}
 
 	/**
@@ -6162,8 +6170,35 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLocalLoginUI_UiType() {
-		return (EAttribute)localLoginUIEClass.getEStructuralFeatures().get(0);
+	public EAttribute getLoginUI_UiType() {
+		return (EAttribute)loginUIEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLoginModule() {
+		return loginModuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLoginModule_Internal() {
+		return (EAttribute)loginModuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLoginModule_LoginUI() {
+		return (EReference)loginModuleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -7121,7 +7156,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		externalAuthenticationGuardEClass = createEClass(EXTERNAL_AUTHENTICATION_GUARD);
 
 		internalAuthenticationGuardEClass = createEClass(INTERNAL_AUTHENTICATION_GUARD);
-		createEReference(internalAuthenticationGuardEClass, INTERNAL_AUTHENTICATION_GUARD__LOGIN_UI);
+		createEReference(internalAuthenticationGuardEClass, INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE);
 		createEReference(internalAuthenticationGuardEClass, INTERNAL_AUTHENTICATION_GUARD__PARAMS);
 
 		wayfRequestAdapterEClass = createEClass(WAYF_REQUEST_ADAPTER);
@@ -7131,8 +7166,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		wayfProfileEClass = createEClass(WAYF_PROFILE);
 		createEReference(wayfProfileEClass, WAYF_PROFILE__REQUEST_ADAPTER);
 
-		localLoginUIEClass = createEClass(LOCAL_LOGIN_UI);
-		createEAttribute(localLoginUIEClass, LOCAL_LOGIN_UI__UI_TYPE);
+		loginUIEClass = createEClass(LOGIN_UI);
+		createEAttribute(loginUIEClass, LOGIN_UI__UI_TYPE);
+
+		loginModuleEClass = createEClass(LOGIN_MODULE);
+		createEAttribute(loginModuleEClass, LOGIN_MODULE__INTERNAL);
+		createEReference(loginModuleEClass, LOGIN_MODULE__LOGIN_UI);
 
 		identityAdapterEClass = createEClass(IDENTITY_ADAPTER);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__SOURCE_TYPE);
@@ -7957,7 +7996,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(externalAuthenticationGuardEClass, ExternalAuthenticationGuard.class, "ExternalAuthenticationGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(internalAuthenticationGuardEClass, InternalAuthenticationGuard.class, "InternalAuthenticationGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getInternalAuthenticationGuard_LoginUI(), this.getLocalLoginUI(), null, "loginUI", null, 0, 1, InternalAuthenticationGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInternalAuthenticationGuard_LoginModule(), this.getLoginModule(), null, "loginModule", null, 0, 1, InternalAuthenticationGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInternalAuthenticationGuard_Params(), this.getEnvConfigParams(), null, "params", null, 0, 1, InternalAuthenticationGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wayfRequestAdapterEClass, WAYFRequestAdapter.class, "WAYFRequestAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -7967,8 +8006,12 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(wayfProfileEClass, WAYFProfile.class, "WAYFProfile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWAYFProfile_RequestAdapter(), this.getWAYFRequestAdapter(), null, "requestAdapter", null, 0, 1, WAYFProfile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(localLoginUIEClass, LocalLoginUI.class, "LocalLoginUI", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLocalLoginUI_UiType(), this.getLoginUITypes(), "uiType", null, 0, 1, LocalLoginUI.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(loginUIEClass, LoginUI.class, "LoginUI", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLoginUI_UiType(), this.getLoginUITypes(), "uiType", null, 0, 1, LoginUI.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(loginModuleEClass, LoginModule.class, "LoginModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLoginModule_Internal(), ecorePackage.getEBoolean(), "internal", null, 0, 1, LoginModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLoginModule_LoginUI(), this.getLoginUI(), null, "loginUI", null, 0, -1, LoginModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(identityAdapterEClass, IdentityAdapter.class, "IdentityAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIdentityAdapter_SourceType(), this.getInfoSourceTypes(), "sourceType", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

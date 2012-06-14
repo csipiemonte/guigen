@@ -7,7 +7,7 @@
 package it.csi.mddtools.guigen.impl;
 
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.LocalLoginUI;
+import it.csi.mddtools.guigen.LoginUI;
 import it.csi.mddtools.guigen.LoginUITypes;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -19,18 +19,18 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Local Login UI</b></em>'.
+ * An implementation of the model object '<em><b>Login UI</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.impl.LocalLoginUIImpl#getUiType <em>Ui Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.LoginUIImpl#getUiType <em>Ui Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
+public class LoginUIImpl extends EObjectImpl implements LoginUI {
 	/**
 	 * The default value of the '{@link #getUiType() <em>Ui Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -56,7 +56,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LocalLoginUIImpl() {
+	protected LoginUIImpl() {
 		super();
 	}
 
@@ -67,7 +67,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GuigenPackage.Literals.LOCAL_LOGIN_UI;
+		return GuigenPackage.Literals.LOGIN_UI;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 		LoginUITypes oldUiType = uiType;
 		uiType = newUiType == null ? UI_TYPE_EDEFAULT : newUiType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE, oldUiType, uiType));
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.LOGIN_UI__UI_TYPE, oldUiType, uiType));
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE:
+			case GuigenPackage.LOGIN_UI__UI_TYPE:
 				return getUiType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -113,7 +113,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE:
+			case GuigenPackage.LOGIN_UI__UI_TYPE:
 				setUiType((LoginUITypes)newValue);
 				return;
 		}
@@ -128,7 +128,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE:
+			case GuigenPackage.LOGIN_UI__UI_TYPE:
 				setUiType(UI_TYPE_EDEFAULT);
 				return;
 		}
@@ -143,7 +143,7 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GuigenPackage.LOCAL_LOGIN_UI__UI_TYPE:
+			case GuigenPackage.LOGIN_UI__UI_TYPE:
 				return uiType != UI_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -165,4 +165,4 @@ public class LocalLoginUIImpl extends EObjectImpl implements LocalLoginUI {
 		return result.toString();
 	}
 
-} //LocalLoginUIImpl
+} //LoginUIImpl

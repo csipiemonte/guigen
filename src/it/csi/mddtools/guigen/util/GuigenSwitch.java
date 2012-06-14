@@ -1169,9 +1169,15 @@ public class GuigenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GuigenPackage.LOCAL_LOGIN_UI: {
-				LocalLoginUI localLoginUI = (LocalLoginUI)theEObject;
-				T result = caseLocalLoginUI(localLoginUI);
+			case GuigenPackage.LOGIN_UI: {
+				LoginUI loginUI = (LoginUI)theEObject;
+				T result = caseLoginUI(loginUI);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GuigenPackage.LOGIN_MODULE: {
+				LoginModule loginModule = (LoginModule)theEObject;
+				T result = caseLoginModule(loginModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -3619,17 +3625,32 @@ public class GuigenSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Local Login UI</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Login UI</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Local Login UI</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Login UI</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseLocalLoginUI(LocalLoginUI object) {
+	public T caseLoginUI(LoginUI object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Login Module</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Login Module</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLoginModule(LoginModule object) {
 		return null;
 	}
 

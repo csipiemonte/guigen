@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginUI <em>Login UI</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginModule <em>Login Module</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getParams <em>Params</em>}</li>
  * </ul>
  * </p>
@@ -27,30 +27,30 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface InternalAuthenticationGuard extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Login UI</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Login Module</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Login UI</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Login Module</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Login UI</em>' containment reference.
-	 * @see #setLoginUI(LocalLoginUI)
-	 * @see it.csi.mddtools.guigen.GuigenPackage#getInternalAuthenticationGuard_LoginUI()
+	 * @return the value of the '<em>Login Module</em>' containment reference.
+	 * @see #setLoginModule(LoginModule)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getInternalAuthenticationGuard_LoginModule()
 	 * @model containment="true"
 	 * @generated
 	 */
-	LocalLoginUI getLoginUI();
+	LoginModule getLoginModule();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginUI <em>Login UI</em>}' containment reference.
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.InternalAuthenticationGuard#getLoginModule <em>Login Module</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Login UI</em>' containment reference.
-	 * @see #getLoginUI()
+	 * @param value the new value of the '<em>Login Module</em>' containment reference.
+	 * @see #getLoginModule()
 	 * @generated
 	 */
-	void setLoginUI(LocalLoginUI value);
+	void setLoginModule(LoginModule value);
 
 	/**
 	 * Returns the value of the '<em><b>Params</b></em>' containment reference.

@@ -730,8 +730,12 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 				return createWAYFProfileAdapter();
 			}
 			@Override
-			public Adapter caseLocalLoginUI(LocalLoginUI object) {
-				return createLocalLoginUIAdapter();
+			public Adapter caseLoginUI(LoginUI object) {
+				return createLoginUIAdapter();
+			}
+			@Override
+			public Adapter caseLoginModule(LoginModule object) {
+				return createLoginModuleAdapter();
 			}
 			@Override
 			public Adapter caseIdentityAdapter(IdentityAdapter object) {
@@ -3024,16 +3028,30 @@ public class GuigenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.LocalLoginUI <em>Local Login UI</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.LoginUI <em>Login UI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.guigen.LocalLoginUI
+	 * @see it.csi.mddtools.guigen.LoginUI
 	 * @generated
 	 */
-	public Adapter createLocalLoginUIAdapter() {
+	public Adapter createLoginUIAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.guigen.LoginModule <em>Login Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.guigen.LoginModule
+	 * @generated
+	 */
+	public Adapter createLoginModuleAdapter() {
 		return null;
 	}
 

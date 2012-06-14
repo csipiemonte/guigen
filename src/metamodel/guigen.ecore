@@ -3061,7 +3061,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalAuthenticationGuard"/>
   <eClassifiers xsi:type="ecore:EClass" name="InternalAuthenticationGuard">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="loginUI" eType="#//LocalLoginUI"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loginModule" eType="#//LoginModule"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="params" eType="#//EnvConfigParams"
         containment="true"/>
@@ -3074,8 +3074,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="requestAdapter" eType="#//WAYFRequestAdapter"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LocalLoginUI">
+  <eClassifiers xsi:type="ecore:EClass" name="LoginUI">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uiType" eType="#//LoginUITypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LoginModule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="internal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loginUI" upperBound="-1"
+        eType="#//LoginUI" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IdentityAdapter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceType" eType="#//InfoSourceTypes"/>

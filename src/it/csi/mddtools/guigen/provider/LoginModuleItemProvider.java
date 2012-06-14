@@ -9,7 +9,7 @@ package it.csi.mddtools.guigen.provider;
 
 import it.csi.mddtools.guigen.GuigenFactory;
 import it.csi.mddtools.guigen.GuigenPackage;
-import it.csi.mddtools.guigen.InternalAuthenticationGuard;
+import it.csi.mddtools.guigen.LoginModule;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,22 +21,24 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.guigen.InternalAuthenticationGuard} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.guigen.LoginModule} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class InternalAuthenticationGuardItemProvider
+public class LoginModuleItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -50,7 +52,7 @@ public class InternalAuthenticationGuardItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InternalAuthenticationGuardItemProvider(AdapterFactory adapterFactory) {
+	public LoginModuleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,8 +67,31 @@ public class InternalAuthenticationGuardItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addInternalPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Internal feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInternalPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LoginModule_internal_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LoginModule_internal_feature", "_UI_LoginModule_type"),
+				 GuigenPackage.Literals.LOGIN_MODULE__INTERNAL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -81,8 +106,7 @@ public class InternalAuthenticationGuardItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GuigenPackage.Literals.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE);
-			childrenFeatures.add(GuigenPackage.Literals.INTERNAL_AUTHENTICATION_GUARD__PARAMS);
+			childrenFeatures.add(GuigenPackage.Literals.LOGIN_MODULE__LOGIN_UI);
 		}
 		return childrenFeatures;
 	}
@@ -101,14 +125,14 @@ public class InternalAuthenticationGuardItemProvider
 	}
 
 	/**
-	 * This returns InternalAuthenticationGuard.gif.
+	 * This returns LoginModule.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/InternalAuthenticationGuard"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LoginModule"));
 	}
 
 	/**
@@ -119,7 +143,8 @@ public class InternalAuthenticationGuardItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_InternalAuthenticationGuard_type");
+		LoginModule loginModule = (LoginModule)object;
+		return getString("_UI_LoginModule_type") + " " + loginModule.isInternal();
 	}
 
 	/**
@@ -133,9 +158,11 @@ public class InternalAuthenticationGuardItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(InternalAuthenticationGuard.class)) {
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE:
-			case GuigenPackage.INTERNAL_AUTHENTICATION_GUARD__PARAMS:
+		switch (notification.getFeatureID(LoginModule.class)) {
+			case GuigenPackage.LOGIN_MODULE__INTERNAL:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GuigenPackage.LOGIN_MODULE__LOGIN_UI:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -155,13 +182,8 @@ public class InternalAuthenticationGuardItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GuigenPackage.Literals.INTERNAL_AUTHENTICATION_GUARD__LOGIN_MODULE,
-				 GuigenFactory.eINSTANCE.createLoginModule()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GuigenPackage.Literals.INTERNAL_AUTHENTICATION_GUARD__PARAMS,
-				 GuigenFactory.eINSTANCE.createEnvConfigParams()));
+				(GuigenPackage.Literals.LOGIN_MODULE__LOGIN_UI,
+				 GuigenFactory.eINSTANCE.createLoginUI()));
 	}
 
 	/**
