@@ -64,7 +64,15 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «DEFINE securityRelatedContextParams(GUIModel model) FOR CustomAuthentication»
-«ERROR "authentication method non supportato:" + this.metaType»»
+
+«IF model.targetPlatform.securityProfile != null»
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+«ELSE»
+	«ERROR "authentication method non supportato:" + this.metaType»»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR AutenticationMethod»
@@ -145,7 +153,14 @@ e le limitazioni secondo i termini della Licenza.
 
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR CustomAuthentication»
-«ERROR "authentication method non supportato:" + this.metaType»
+
+«IF model.targetPlatform.securityProfile != null»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::authenticationFilterSecurityProfile(model) FOR model.targetPlatform.securityProfile»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::loginUISecurityProfile(model) FOR model.targetPlatform.securityProfile»
+«ELSE»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this.metaType»
+«ENDIF»
+
 «ENDDEFINE»
 
 «DEFINE authenticationFilterDefAndMapping(GUIModel model) FOR OPAUTHSSO»
@@ -293,6 +308,13 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR CustomAuthentication»
+
+«IF model.targetPlatform.securityProfile != null-»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::envConfigForAuthentication(model) FOR model.targetPlatform.securityProfile»
+«ELSE-»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this»
+«ENDIF»
+
 «ENDDEFINE»
 
 «DEFINE envConfigForAuthorization(GUIModel model) FOR SecurityModel»
@@ -345,7 +367,11 @@ ssobart.logout.url = https://<ssobartserver>/ssobart/logout
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR CustomAuthentication»
-«ERROR ""+this+ "non supportato"»
+«IF model.targetPlatform.securityProfile != null-»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::templatePropsForAuthentication(model) FOR model.targetPlatform.securityProfile»
+«ELSE-»
+	«ERROR "authentication method custom richiede la modellazione del SecurityProfile" + this»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthorization(GUIModel model) FOR SecurityModel»
@@ -401,10 +427,20 @@ iride2.pep.provider.url = t3://dev-exp01wls1.csi.it, dev-exp02wls2.csi.it:7111
 «DEFINE securityJavaFiles(boolean skip) FOR GUIModel»
 «EXPAND ApplSessGuardFilter FOR this»
 «IF getActualSecurityModel(this).autenticationMethod!=null»
-«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
+
+«IF this.targetPlatform.securityProfile!=null»
+	«EXPAND template::struts2::security::securityCustom::securityProfile::idAdapterCustomFilter(this) FOR this.targetPlatform.securityProfile»
+«ELSE»
+	«EXPAND template::struts2::security::irideAdapterFilter::IrideIdMaterializerFilter(this) FOR getActualSecurityModel(this).autenticationMethod»
+«ENDIF»
+
 «EXPAND template::struts2::security::irideIntegration::iridePDCacheClass(this) FOR getActualSecurityModel(this)»
 «EXPAND template::struts2::security::irideIntegration::iride2PDFile FOR this»
 «EXPAND extraConfigFiles(this) FOR getActualSecurityModel(this).autenticationMethod»
+
+«IF this.targetPlatform.securityProfile != null»
+	«EXPAND template::struts2::security::securityCustom::authenticationFilterJava::authenticationFilterJavaTemplate(this) FOR this.targetPlatform.securityProfile»
+«ENDIF»
 «ENDIF»
 «EXPAND constraintJavaFiles FOR this»
 «EXPAND template::struts2::security::securityHelper::springSecurityHelperClasses FOR this»
