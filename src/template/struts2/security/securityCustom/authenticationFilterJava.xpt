@@ -1,0 +1,86 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE authenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
+«IF this.intAuthGuard != null-»
+	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this.intAuthGuard-»
+«ENDIF-»
+«IF this.extAuthGuard != null-»
+	«REM»comment«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
+«ENDIF-»
+
+«ENDDEFINE»
+«DEFINE internalAuthenticationFilterJavaTemplate(GUIModel model) FOR InternalAuthenticationGuard»
+«FILE getInternalAuthenticationFilterrJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getInternalAuthenticationFilterClassName()+".import")»
+«ENDPROTECT»
+/**
+ *
+ * @author CSIPiemonte
+ */
+public class «getInternalAuthenticationFilterClassName()» implements Filter{
+
+	public final static String AUTH_ID_MARKER = "auth.id.marker.custom";
+	public static String loginPage;
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+			
+		HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletResponse hresp = (HttpServletResponse) resp;
+		
+		if(hreq.getRequestURI().indexOf(loginPage) > -1){
+			fchn.doFilter(req, resp);
+		    return;
+		}
+		
+		Object token = hreq.getSession().getAttribute("AUTH_ID_MARKER");
+
+		if (token != null) {
+			fchn.doFilter(req, resp);
+		} else
+			hresp.sendRedirect(loginPage);
+		
+	}
+	
+	public void destroy() {
+
+	}
+
+	public void init(FilterConfig config) throws ServletException {
+		loginPage = config.getInitParameter("loginPage");
+	}
+}
+«ENDFILE»
+«ENDDEFINE»

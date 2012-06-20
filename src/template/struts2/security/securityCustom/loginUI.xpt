@@ -1,0 +1,235 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+«DEFINE localLoginUIAction(GUIModel model) FOR LoginModule»
+«FILE getLocalLoginUIActionJavaFile(model, true)»package «getPresentationJavaPackage(model)»;
+
+public class «getLocalLoginUIActionClassName()» extends BaseAction {
+
+
+	public String execute() throws Exception {
+	
+			return SUCCESS;
+	}
+
+	public String validaLogin() {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".validaLogin")»
+		if (isNotEmpty(getUsername()) && isNotEmpty(getPassword())) {
+		
+			getSession().put("AUTH_ID_MARKER", "Valentina");
+			
+			return "GO_TO_HomePage";
+		}
+		«ENDPROTECT»
+ 		
+		return "autorizzazioneFallita";
+	}
+	
+	private boolean isNotEmpty(String value) {
+		return value != null && !value.equalsIgnoreCase("");
+
+	}
+
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	«ENDIF»
+	
+	«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
+	private String pin;
+	
+	public String getPin() {
+		return pin;
+	}
+	
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+	«ENDIF»
+	public Class modelClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void clearPageScopedAppData(String targetContentPanelName) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE localLoginUIActionProperties(GUIModel model) FOR LoginModule»
+«FILE getLocalLoginUIActionPropertiesFile(model, true)»
+#######################################################################
+# Properties file per la pagina di Login
+#######################################################################
+
+localLogin.pMain.label=Pagina Login
+localLogin.txtUser.label=User
+«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
+localLogin.txtPass.label=Password
+«ENDIF»
+«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0»
+localLogin.txtPin.label=Pin
+«ENDIF»
+localLogin.btnConfirm.label=LOGIN
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE localLoginUIJsp(GUIModel model) FOR LoginModule»
+«FILE getStrutsLocalLoginUIActionJspFile(model, true)-»<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@taglib uri="/customtag" prefix="customtag" %>
+<%@taglib uri="/csiuicore" prefix="csiuicore" %>
+«IF model.structure.appWindow.header != null-»
+<s:include value="fragments/header.jsp" ></s:include>
+«ENDIF-»
+<s:form id="localLoginUI" action="localLoginUI" namespace="/secure" method="post">
+		
+<!-- ####################### PANNELLO CONTENUTI ###################### -->
+<div id="contentPanel">
+	<div id="centerWrapper" class="floatWrapper">
+		<div id="centerPanel">
+				
+			<a id="main_content" name="main_content"></a>
+			<div class="wrapper">
+				<!-- titolo pannello PRIMO livello -->
+				<h3><s:text name="localLogin.pMain.label" /></h3>
+				<div id="p_localLoginWdt" class="widgetsPanelBlock">
+						<!-- startFragment:p_localLoginWdt -->
+						<div class="widgetsPanel" id="localLoginWdt">
+							<customtag:widgetsPanel id="localLoginWdtTbl" columns="2" tableStyleClass="formTable" summary=""  isStandalone="true" >
+							
+							<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtUser.label')}" labelFor="widg_txtUser" errorFor="widg_txtUser" labelId="txtUserLbl" >
+								<!-- widget txtUser -->
+								<s:textfield name="username" id="widg_txtUser" size="15" />
+								</customtag:widgetsPanelColumn>
+								
+							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
+								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPass.label')}" labelFor="widg_txtPass" errorFor="widg_txtPass" labelId="txtPassLbl" >
+								<!-- widget txtPass -->
+								<s:textfield name="password" id="widg_txtPass" size="15" />
+								</customtag:widgetsPanelColumn>
+							«ENDIF»
+
+							«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0»
+								<customtag:widgetsPanelColumn   labelField="true" textLabel="%{getText('localLogin.txtPin.label')}" labelFor="widg_txtPin" errorFor="widg_txtPin" labelId="txtPinLbl" >
+								<!-- widget txtPin -->
+								<s:textfield name="pin" id="widg_txtPin" size="15" />
+								</customtag:widgetsPanelColumn>
+							«ENDIF»
+							</customtag:widgetsPanel>
+						</div>
+
+				</div>
+				<div id="p_cmdPanel" class="commandPanelBlock">
+					<!-- startFragment:p_cmdPanel -->
+					<div class="commandPanel functional" id="cmdPanel">
+					<!-- widget btnConfirm -->
+					<s:submit name="widg_btnConfirm" id="widg_btnConfirm" method="validaLogin"
+						key="localLogin.btnConfirm.label" cssClass="buttonWidget" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+
+</s:form>
+«IF model.structure.appWindow.footer != null-»
+<s:include value="fragments/footer.jsp" ></s:include>
+«ENDIF-»
+«ENDFILE»
+
+«ENDDEFINE»
+
+«DEFINE errorAuthJsp(GUIModel model) FOR LoginModule»
+«FILE getStrutsAutorizzazioneFallitaJspFile(model, true)-»<%@taglib uri="/struts-tags" prefix="s" %>
+«IF model.structure.appWindow.header != null-»
+	<s:include value="../fragments/header.jsp" ></s:include>
+«ENDIF»
+	<!-- ####################### PANNELLO CONTENUTI ###################### -->
+	<div id="contentPanel">
+		<div id="centerWrapper" class="floatWrapper">
+			<div id="centerPanel">
+			
+			<a id="main_content" name="main_content"></a>
+				<div class="wrapper">
+<h3><s:text name="message.autorizzazioneError.title" /></h3>
+<div id="applicationError">
+	<s:text name="message.autorizzazioneError.message" />
+</div>
+<div id="applicationError_links" class="commandPanel navigation">
+	<div class="button right">
+		<s:url id="homePageUrl" action="HomePage" namespace="/secure" />
+		<s:a href="%{homePageUrl}" cssClass="buttonWidget"><s:text name="message.autorizzazioneError.btnmsghomepage" /></s:a>
+	</div>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- #################### FINE PANNELLO CONTENUTI #################### -->
+«IF model.structure.appWindow.footer != null-»
+	<s:include value="../fragments/footer.jsp" ></s:include>
+«ENDIF»
+«ENDFILE»
+«ENDDEFINE»
+«DEFINE localLoginUIStrutsXml(GUIModel model) FOR SecurityProfile»
+«FILE getStrutsLocalLoginUIConfigFile(model, true)-»<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="localLoginUI" extends="jsp-package" namespace="/secure">
+		<action name="localLoginUI" class="it.csi.myprod.mycomp.presentation.mycomp.action.LocalLoginUIAction">
+			<result name="input">/jsp/localLoginUI.jsp</result>
+			<result name="success">/jsp/localLoginUI.jsp</result>
+			<result name="autorizzazioneFallita">/jsp/error/autorizzazioneFallita.jsp</result>
+			<result name="GO_TO_HomePage" type="redirect">
+			   <param name="location">secure/HomePage.do</param>
+			</result>
+		</action>
+	</package>
+</struts>
+«ENDFILE-»
+«ENDDEFINE»

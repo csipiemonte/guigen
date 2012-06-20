@@ -1,0 +1,222 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+
+«REM»Definizione e Mapping Authentication Filter da modellazione SecurityProfile«ENDREM»
+«DEFINE authenticationFilterSecurityProfile(GUIModel model) FOR SecurityProfile» 
+«IF this.intAuthGuard != null-»
+	«EXPAND internalAuthenticationFilter(model) FOR this.intAuthGuard-»
+«ENDIF-»
+«IF this.extAuthGuard != null-»
+	«REM»comment«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
+«ENDIF-»
+
+«ENDDEFINE»
+
+
+«REM»Definizione InternalAuthenticationGuard«ENDREM»
+«DEFINE internalAuthenticationFilter(GUIModel model) FOR InternalAuthenticationGuard» 
+
+	<!-- ############################################################### 
+         definizione filter per autenticazione interna
+         ###############################################################
+    -->
+	<filter>
+	    <filter-name>Internal Authentication Filter</filter-name>
+    	<filter-class>«getInternalAuthenticationFilterFQN(model)»</filter-class>
+    	«IF this.loginModule!=null-»
+    	<init-param>
+      		<param-name>loginPage</param-name>
+    		«IF this.loginModule.internal == true-»
+      		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
+	      	«ELSE»
+      		<param-value>@loginUi.external@</param-value>
+      		«ENDIF»
+    	</init-param>
+    	«ENDIF»
+    	
+    	«IF this.params!=null-»
+    	«LET this.params.params AS envConfigParams-»
+    	«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+    	«FOREACH envConfigParams AS envConfigParam-»
+    	<init-param>
+      		<param-name>«envConfigParam.name»</param-name>
+      		<param-value>@«envConfigParam.name»@</param-value>
+    	</init-param>
+    	«ENDFOREACH-»
+    	«ENDIF-»
+    	«ENDLET-»
+    	«ENDIF-» 
+    	   	
+	</filter>
+  
+	<filter>
+		<filter-name>ID Adapter Custom</filter-name>
+		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
+	</filter>
+  
+	<!-- ################################################################
+	   il filter di autenticazione e' il primo ad essere innescato
+	   ################################################################
+	-->
+	<filter-mapping>
+	    <filter-name>Internal Authentication Filter</filter-name>
+		<url-pattern>/secure/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>ID Adapter Custom</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
+«ENDDEFINE»
+
+«REM»Definizione ExternalAuthenticationGuarde«ENDREM»
+«DEFINE externalAuthenticationFilter FOR ExternalAuthenticationGuard»
+
+//TODO 
+	<init-param>
+      		<param-name>loginPage</param-name>
+      		<param-value>@loginUi.external@</param-value>
+    	</init-param>
+
+«ENDDEFINE»
+
+
+«DEFINE envConfigForAuthentication(GUIModel model) FOR SecurityProfile»
+
+	«IF this.intAuthGuard!=null»
+		«IF this.intAuthGuard.loginModule.internal == false»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@loginUi.external@"  
+		value="${loginUi.external}"/>
+		«ENDIF»
+		«IF this.intAuthGuard.params!=null-»
+			«LET this.intAuthGuard.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@«envConfigParam.name»@"  
+		value="${«envConfigParam.name»}"/>
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-» 
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE templatePropsForAuthentication(GUIModel model) FOR SecurityProfile»
+	«IF this.intAuthGuard!=null»
+#-[configurazione intAuthGuard]--------------------------------------------------
+		«IF this.intAuthGuard.loginModule.internal == false»
+loginUi.external = 	
+		«ENDIF»
+		«IF this.intAuthGuard.params!=null-»
+			«LET this.intAuthGuard.params.params AS envConfigParams-»
+			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
+				«FOREACH envConfigParams AS envConfigParam-»
+«envConfigParam.name» =  
+				«ENDFOREACH-»
+			«ENDIF-»
+			«ENDLET-»
+		«ENDIF-» 
+---------------------------------------------------------------------------------
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE idAdapterCustomFilter(GUIModel model) FOR SecurityProfile»
+
+«FILE getIdAdapterCustomFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
+
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import «getBaseJavaPackage(model)+".business.*;"»
+import org.apache.log4j.*;
+import «getBaseJavaPackage(model)».util.*;
+
+/**
+ * Inserisce in sessione:
+ * <ul> 
+ *  <li>l'identit&agrave; digitale relativa all'utente autenticato.
+ *  <li>l'oggetto <code>currentUser</code>
+ * </ul>
+ * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
+ * logica applicativa.
+ *
+ * @author CSIPiemonte
+ */
+public class «getIdAdapterCustomFilterClassName()» implements Filter{
+
+	
+	/**  */
+	
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain fchn) throws IOException, ServletException {
+			//TODO
+		fchn.doFilter(req, resp);
+		
+	}
+
+	
+	public void destroy() {
+		// NOP
+	}
+
+	public void init(FilterConfig arg0) throws ServletException {
+		// NOP
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE loginUISecurityProfile(GUIModel model) FOR SecurityProfile»
+«IF this.intAuthGuard!=null -»
+	«IF this.intAuthGuard.loginModule!=null-»
+		«IF this.intAuthGuard.loginModule.internal == true-»
+		«EXPAND template::struts2::security::securityCustom::loginUI::localLoginUIAction(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::struts2::security::securityCustom::loginUI::localLoginUIActionProperties(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::struts2::security::securityCustom::loginUI::localLoginUIJsp(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::struts2::security::securityCustom::loginUI::errorAuthJsp(model) FOR this.intAuthGuard.loginModule»
+		«EXPAND template::struts2::security::securityCustom::loginUI::localLoginUIStrutsXml(model) FOR this»
+		«ENDIF-»
+	«ENDIF-»
+«ENDIF-»
+«ENDDEFINE»
+
+
+
