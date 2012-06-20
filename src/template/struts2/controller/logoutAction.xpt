@@ -125,7 +125,18 @@ public class «getStrutsLogoutClassName(this)» extends «getStrutsBaseActionCla
 «ENDDEFINE»
 
 «DEFINE invalidateLocalSession(GUIModel model) FOR AutenticationMethod»
-«ERROR ""+this+ "non supportato"»
+
+«IF model.targetPlatform.securityProfile!=null»
+	/**
+	 * Invalida la sessione corrente
+	 */
+	protected void invalidateLocalSession(){
+	
+	}
+
+«ELSE»
+	«ERROR ""+this+ "non supportato"»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE invalidateLocalSessionNoAuth FOR GUIModel»
