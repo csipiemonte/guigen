@@ -483,7 +483,9 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	«IF this.targetPlatform.securityProfile != null-»
 	«LET this.targetPlatform.securityProfile AS sp-»
 	«IF sp.intAuthGuard!=null && sp.intAuthGuard.loginModule!=null-»
+	«IF sp.intAuthGuard.loginModule.internal -»
 	<include file="struts-LocalLogin.xml"></include>
+	«ENDIF-»
 	«ENDIF-»
 	«ENDLET-»
 	«ENDIF-»
