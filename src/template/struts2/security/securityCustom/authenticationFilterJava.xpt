@@ -22,14 +22,14 @@ e le limitazioni secondo i termini della Licenza.
 
 «DEFINE authenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
 «IF this.intAuthGuard != null-»
-	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this.intAuthGuard-»
+	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this-»
 «ENDIF-»
 «IF this.extAuthGuard != null-»
 	«REM»comment«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
 «ENDIF-»
 
 «ENDDEFINE»
-«DEFINE internalAuthenticationFilterJavaTemplate(GUIModel model) FOR InternalAuthenticationGuard»
+«DEFINE internalAuthenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
 «FILE getInternalAuthenticationFilterrJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
 
 import java.io.IOException;
@@ -43,15 +43,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getInternalAuthenticationFilterClassName()+".import")»
-«ENDPROTECT»
 /**
  *
  * @author CSIPiemonte
  */
 public class «getInternalAuthenticationFilterClassName()» implements Filter{
 
-	public final static String AUTH_ID_MARKER = "auth.id.marker.custom";
+	public final static String AUTH_ID_MARKER = "auth.id.marker";
 	public static String loginPage;
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -65,7 +63,7 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 		    return;
 		}
 		
-		Object token = hreq.getSession().getAttribute("AUTH_ID_MARKER");
+		Object token = getToken(hreq);
 
 		if (token != null) {
 			fchn.doFilter(req, resp);
@@ -77,6 +75,44 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 	public void destroy() {
 
 	}
+	
+	private Object getToken(HttpServletRequest hreq){
+	«IF this.intAuthGuard.loginModule == true-»
+		HttpSession session = hreq.getSession();
+		return session != null ? (String) hreq.getAttribute(AUTH_ID_MARKER)	: null;
+	«ELSE-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
+		return hreq.getParameter(AUTH_ID_MARKER);
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
+		return hreq.getHeader(AUTH_ID_MARKER);
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+		Cookie c = getCookie(AUTH_ID_MARKER, hreq.getCookies());
+		return c!=null ? c.getValue(): null;
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
+		HttpSession session = hreq.getSession();
+		return session != null ? (String) hreq.getAttribute(AUTH_ID_MARKER)	: null;
+		«ENDIF-»
+		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
+		return hreq.getAttribute(AUTH_ID_MARKER);
+		«ENDIF-»
+	«ENDIF-»
+	}
+	
+	«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
+	public static Cookie getCookie(String cookieName, Cookie[] cookies) {
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					return cookie;
+				}
+			}
+		}
+		return null;
+	}
+	«ENDIF-»
 
 	public void init(FilterConfig config) throws ServletException {
 		loginPage = config.getInitParameter("loginPage");

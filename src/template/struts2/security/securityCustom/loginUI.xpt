@@ -23,7 +23,7 @@ e le limitazioni secondo i termini della Licenza.
 «FILE getLocalLoginUIActionJavaFile(model, true)»package «getPresentationJavaPackage(model)»;
 
 public class «getLocalLoginUIActionClassName()» extends BaseAction {
-
+public final static String AUTH_ID_MARKER = "auth.id.marker";
 
 	public String execute() throws Exception {
 	
@@ -34,7 +34,7 @@ public class «getLocalLoginUIActionClassName()» extends BaseAction {
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".validaLogin")»
 		if (isNotEmpty(getUsername()) && isNotEmpty(getPassword())) {
 		
-			getSession().put("AUTH_ID_MARKER", "Valentina");
+			getSession().put(AUTH_ID_MARKER, "Valentina");
 			
 			return "GO_TO_HomePage";
 		}
