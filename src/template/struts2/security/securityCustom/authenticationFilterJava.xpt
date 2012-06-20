@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class «getInternalAuthenticationFilterClassName()» implements Filter{
 
-	public final static String AUTH_ID_MARKER = "auth.id.marker";
+	public final static String AUTH_ID_MARKER = "«this.idAdapter.infoSourceName»";
 	public static String loginPage;
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -64,7 +64,7 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 		}
 		
 		Object token = getToken(hreq);
-
+		
 		if (token != null) {
 			fchn.doFilter(req, resp);
 		} else
