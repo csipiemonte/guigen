@@ -479,6 +479,15 @@ FILES STACK APPLICATIVO CSI STRUTS2 + SPRING
 	«FOREACH this.structure.appWindow.appArea.extModules AS appModule-»
 	<include file="struts-«appModule.name».xml" />
 	«ENDFOREACH-»
+	
+	«IF this.targetPlatform.securityProfile != null-»
+	«LET this.targetPlatform.securityProfile AS sp-»
+	«IF sp.intAuthGuard!=null && sp.intAuthGuard.loginModule!=null-»
+	<include file="struts-LocalLogin.xml"></include>
+	«ENDIF-»
+	«ENDLET-»
+	«ENDIF-»
+	
 </struts>
 «ENDFILE»
 «ENDDEFINE»
