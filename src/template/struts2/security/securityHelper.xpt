@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,15 +13,15 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-
-«DEFINE springSecurityHelperClasses FOR GUIModel-»
-«FILE getSpringSecurityHelperJavaFile()»
-package «getBaseJavaPackage()».business;
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensionsÂ»
+Â«DEFINE springSecurityHelperClasses FOR GUIModel-Â»
+Â«FILE getSpringSecurityHelperJavaFile()Â»
+package Â«getBaseJavaPackage()Â».business;
 
 import java.util.*;
 import java.io.*;
@@ -35,15 +35,17 @@ import it.csi.iride2.policy.exceptions.*;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 import it.csi.iride2.iridefed.entity.Ruolo;
 import it.csi.iride2.iridefed.exceptions.BadRuoloException;
-import «getDTOBaseJavaPackage()».*;
+import Â«getDTOBaseJavaPackage()Â».*;
 import org.apache.log4j.*;
-import «getBaseJavaPackage()».util.*;
+import Â«getBaseJavaPackage()Â».util.*;
+Â«IF this.targetPlatform.securityProfile!=null-Â»
+import Â«getPEPProviderJavaPackage(this)Â».*;
+Â«ENDIF-Â»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")Â»
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
+Â«ENDPROTECTÂ»
 
-«ENDPROTECT»
-
-public class «getSpringSecurityHelperClassName()»{
+public class Â«getSpringSecurityHelperClassName()Â»{
 
     /**  */
 	protected static final Logger log = Logger.getLogger(Constants.APPLICATION_CODE + ".security");   
@@ -51,100 +53,103 @@ public class «getSpringSecurityHelperClassName()»{
     //////////////////////////////////////////////////////////////////////////////
 	/// Metodi di supporto alla sicurezza.
 	//////////////////////////////////////////////////////////////////////////////
-	«EXPAND springSecurityHelperMethods FOR this»
+	Â«EXPAND springSecurityHelperMethods FOR thisÂ»
 	
 	//////////////////////////////////////////////////////////////////////////////
 	/// Property aggiuntive del bean
 	//////////////////////////////////////////////////////////////////////////////
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperProperties")»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperProperties")Â»
 	//// inserire qui le property che si vogliono iniettare in questo bean (es. dao, proxy di pd, ...) 
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 }
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springSecurityHelperMethods FOR GUIModel»
-	«EXPAND template::struts2::security::irideIntegration::irideHelperMethods FOR this»
-	«EXPAND customConstraintsMethods FOR this»
-«ENDDEFINE»
+Â«DEFINE springSecurityHelperMethods FOR GUIModelÂ»
+	Â«IF this.targetPlatform.securityProfile!=nullÂ»
+	Â«EXPAND template::struts2::security::securityCustom::pepProvider::pepProviderHelperMethods(this) FOR this.targetPlatform.securityProfileÂ»
+	Â«ENDIFÂ»
+	Â«EXPAND template::struts2::security::irideIntegration::irideHelperMethods FOR thisÂ»
+	Â«EXPAND customConstraintsMethods FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE customConstraintsMethods FOR GUIModel»
+Â«DEFINE customConstraintsMethods FOR GUIModelÂ»
 	///////////////////////////////////////////////////////////////////////////////
 	//// Metodi per la sicurezza custom
 	///////////////////////////////////////////////////////////////////////////////
 	
-	«FOREACH (List[ContentPanel])getAllContentPanels(this) AS cp-»
-			«EXPAND customConstraints(this) FOR cp-»
-	«ENDFOREACH-»
-	«LET getAllCustomSecConstraints4Menus(this.structure.appWindow.appArea.menubar) AS customCtr4Menu-»
-			«FOREACH customCtr4Menu AS currMenuCustomCtr-»
+	Â«FOREACH (List[ContentPanel])getAllContentPanels(this) AS cp-Â»
+			Â«EXPAND customConstraints(this) FOR cp-Â»
+	Â«ENDFOREACH-Â»
+	Â«LET getAllCustomSecConstraints4Menus(this.structure.appWindow.appArea.menubar) AS customCtr4Menu-Â»
+			Â«FOREACH customCtr4Menu AS currMenuCustomCtr-Â»
 		
-	public boolean customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()» (Map session)
+	public boolean customCheckÂ«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()Â» (Map session)
 		throws BEException
 	{
-			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+(((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix))-»
+			Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+(((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix))-Â»
 		/// inserire qui il codice del controllo custom
 		try{
 			return true;
 		}
 		catch(Exception ex){
-			log.error("[SecurityHelper::customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
-			throw new BEException("Errore durante l'esecuzione del metodo customCheck«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()»", ex);
+			log.error("[SecurityHelper::customCheckÂ«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()Â»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheckÂ«((CustomSecurityConstraint)currMenuCustomCtr).methodNameSuffix.toFirstUpper()Â»", ex);
 		}
-			«ENDPROTECT»
+			Â«ENDPROTECTÂ»
 	}		
-			«ENDFOREACH-»
-	«ENDLET»
-«ENDDEFINE»
+			Â«ENDFOREACH-Â»
+	Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model) FOR ContentPanel-»
-	«EXPAND customConstraints(model, this, "") FOR this.panels-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model) FOR ContentPanel-Â»
+	Â«EXPAND customConstraints(model, this, "") FOR this.panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-»
-	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.subpanels-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR FormPanel-Â»
+	Â«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.subpanels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-»
-	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR WidgetsPanel-Â»
+	Â«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-»
-	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR CommandPanel-Â»
+	Â«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.widgets-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-»
-	«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.panels-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR MultiPanel-Â»
+	Â«EXPAND customConstraints(model, cp, contextPrefix) FOREACH this.panels-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-»
-	«EXPAND customConstraints(model, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR PanelDefUse-Â»
+	Â«EXPAND customConstraints(model, cp, getChainedContext(contextPrefix,name)) FOR this.panelDef.panel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-»
-	«LET (List[CustomSecurityConstraint])(this.securityConstraints.select(sc|sc.metaType==CustomSecurityConstraint)) AS allCustomSC-»
-		«EXPAND customConstraint(model, cp, contextPrefix) FOREACH allCustomSC-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE customConstraints(GUIModel model, ContentPanel cp, String contextPrefix) FOR Widget-Â»
+	Â«LET (List[CustomSecurityConstraint])(this.securityConstraints.select(sc|sc.metaType==CustomSecurityConstraint)) AS allCustomSC-Â»
+		Â«EXPAND customConstraint(model, cp, contextPrefix) FOREACH allCustomSC-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customConstraint(GUIModel model, ContentPanel cp, String contextPrefix) FOR CustomSecurityConstraint-»
-	public boolean customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()» (Map session)
+Â«DEFINE customConstraint(GUIModel model, ContentPanel cp, String contextPrefix) FOR CustomSecurityConstraint-Â»
+	public boolean customCheckÂ«contextPrefix+this.methodNameSuffix.toFirstUpper()Â» (Map session)
 		throws BEException
 	{
-			«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+contextPrefix+this.methodNameSuffix)-»
+			Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("customCheck"+contextPrefix+this.methodNameSuffix)-Â»
 		/// inserire qui il codice del controllo custom
 		try{
 			return true;
 		}
 		catch(Exception ex){
-			log.error("[SecurityHelper::customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»] Errore durante l'esecuzione del metodo", ex);
-			throw new BEException("Errore durante l'esecuzione del metodo customCheck«contextPrefix+this.methodNameSuffix.toFirstUpper()»", ex);
+			log.error("[SecurityHelper::customCheckÂ«contextPrefix+this.methodNameSuffix.toFirstUpper()Â»] Errore durante l'esecuzione del metodo", ex);
+			throw new BEException("Errore durante l'esecuzione del metodo customCheckÂ«contextPrefix+this.methodNameSuffix.toFirstUpper()Â»", ex);
 		}
-			«ENDPROTECT»
+			Â«ENDPROTECTÂ»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
