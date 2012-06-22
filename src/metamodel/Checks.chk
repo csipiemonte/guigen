@@ -921,6 +921,9 @@ context SecurityProfile ERROR "E' necessario impostare IdentityAdapter nel Secur
 context SecurityProfile ERROR "Un SecurityProfile deve contenere almeno un tipo di AuthenticationGuard":
 	this.intAuthGuard!=null || this.extAuthGuard!=null;
 	
+context SecurityProfile ERROR "E' necessario impostare PEPImplementation nel SecurityProfile":
+	this.pepImpl!=null;	
+	
 context SecurityProfile if (this.intAuthGuard!=null)  ERROR "Un SecurityProfile deve contenere un solo tipo di AuthenticationGuard":
 	this.extAuthGuard==null;	
 	
