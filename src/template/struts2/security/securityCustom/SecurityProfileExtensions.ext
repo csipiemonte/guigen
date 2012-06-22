@@ -59,4 +59,19 @@ String getStrutsLocalLoginUIConfigFile(GUIModel model, boolean omit_root) :
 	
 String getStrutsAutorizzazioneFallitaJspFile(GUIModel model, boolean omit_root) :
 	getJspErrorPagesDir(model, omit_root) + "/" + "autorizzazioneFallita" + ".jsp";
+
+String getPEPProviderJavaPackage(GUIModel model) :	
+	getSecurityJavaPackage(model)+".pepprovider";
+String getPEPProviderJavaSrcDir(GUIModel model, boolean omit_root) :
+	getSecurityJavaSrcDir(model, omit_root)+"/pepprovider";
+	
+String getPEPProviderClassName() :
+	"PEPProviderFacade";
+String getPEPProviderJavaFile(GUIModel model, boolean omit_root) :
+	getPEPProviderJavaSrcDir(model, omit_root) + "/" + getPEPProviderClassName() + ".java";		
+	
+String getPEPProvideXMLPDName() :
+ 	"customProvider_pep_defPD_ejb.xml";
+String getSpringPEDPProviderConfig(GUIModel model) :
+	getEjbConfigDir(model, true) + "/"+getPEPProvideXMLPDName();
 	
