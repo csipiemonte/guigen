@@ -1,0 +1,330 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT guigen»
+«EXTENSION template::GenericExtensions»
+«EXTENSION template::struts2::Struts2Extensions»
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
+
+«DEFINE pepProvider(GUIModel model) FOR SecurityProfile»
+«EXPAND PEPProviderCustomClass(model) FOR this»
+«EXPAND PEDPProviderPDFile FOR model»
+«ENDDEFINE»
+
+«DEFINE PEPProviderCustomClass(GUIModel model) FOR SecurityProfile»
+«FILE getPEPProviderJavaFile(model, true)»package «getPEPProviderJavaPackage(model)»;
+import it.csi.csi.wrapper.SystemException;
+import it.csi.csi.wrapper.UnrecoverableException;
+import it.csi.iride2.iridefed.entity.Ruolo;
+import it.csi.iride2.iridefed.exceptions.BadRuoloException;
+import it.csi.iride2.policy.entity.Actor;
+import it.csi.iride2.policy.entity.Application;
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.entity.UseCase;
+import it.csi.iride2.policy.exceptions.AuthException;
+import it.csi.iride2.policy.exceptions.CertOutsideValidityException;
+import it.csi.iride2.policy.exceptions.CertRevokedException;
+import it.csi.iride2.policy.exceptions.IdProviderNotFoundException;
+import it.csi.iride2.policy.exceptions.IdentitaNonAutenticaException;
+import it.csi.iride2.policy.exceptions.InternalException;
+import it.csi.iride2.policy.exceptions.MalformedUsernameException;
+import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
+import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
+import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
+
+
+public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
+
+	public Actor[] findActorsForPersonaInApplication(Identita arg0,
+			Application arg1) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Actor[] findActorsForPersonaInUseCase(Identita arg0, UseCase arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Ruolo[] findRuoliForPersonaInApplication(Identita arg0,
+			Application arg1) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Ruolo[] findRuoliForPersonaInUseCase(Identita arg0, UseCase arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public UseCase[] findUseCasesForPersonaInApplication(Identita arg0,
+			Application arg1) throws UnrecoverableException, SystemException,
+			InternalException, IdentitaNonAutenticaException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getInfoPersonaInUseCase(Identita arg0, UseCase arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getInfoPersonaSchema(Ruolo arg0)
+			throws UnrecoverableException, SystemException, InternalException,
+			BadRuoloException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Identita identificaCertificato(byte[] arg0)
+			throws UnrecoverableException, SystemException, InternalException,
+			CertOutsideValidityException, CertRevokedException,
+			IdProviderNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Identita identificaUserPassword(String arg0, String arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			AuthException, IdProviderNotFoundException,
+			MalformedUsernameException {
+			
+		Identita i = new Identita();
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".identificaUserPassword")»
+
+		«ENDPROTECT»
+		return i;
+	}
+
+	public Identita identificaUserPasswordPIN(String arg0, String arg1,
+			String arg2) throws UnrecoverableException, SystemException,
+			InternalException, AuthException, IdProviderNotFoundException,
+			MalformedUsernameException {
+				Identita i = new Identita();
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".identificaUserPasswordPIN")»
+
+		«ENDPROTECT»
+		return i;
+	}
+
+	public boolean isIdentitaAutentica(Identita arg0)
+			throws UnrecoverableException, SystemException, InternalException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isPersonaAutorizzataInUseCase(Identita arg0, UseCase arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			IdentitaNonAutenticaException, NoSuchUseCaseException,
+			NoSuchApplicationException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isPersonaInRuolo(Identita arg0, Ruolo arg1)
+			throws UnrecoverableException, SystemException, InternalException,
+			BadRuoloException, IdentitaNonAutenticaException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE PEDPProviderPDFile FOR GUIModel»
+«FILE getSpringPEDPProviderConfig()»<porta-delegata name="PolicyEnforcerBase">
+  <services>
+    <service
+      name="PolicyEnforcerBase"
+      public-interface-class="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService">
+      <operations>
+        <operation name="identificaUserPassword" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaUserPasswordPIN" type="synch-call">
+          <param-list>
+            <param name="username" type="java.lang.String" />
+            <param name="password" type="java.lang.String" />
+            <param name="pin" type="java.lang.String" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="identificaCertificato" type="synch-call">
+          <param-list>
+            <param name="certificato" type="byte[]" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Identita"/>
+        </operation>
+        <operation name="isPersonaAutorizzataInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="isPersonaInRuolo" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="ruolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findRuoliForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findRuoliForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.iridefed.entity.Ruolo[]"/>
+        </operation>
+        <operation name="findUseCasesForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.UseCase[]"/>
+        </operation>
+        <operation name="findActorsForPersonaInApplication" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="app" type="it.csi.iride2.policy.entity.Application" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+        <operation name="isIdentitaAutentica" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+          </param-list>
+          <ret-val type="boolean"/>
+        </operation>
+        <operation name="getInfoPersonaSchema" type="synch-call">
+          <param-list>
+            <param name="codRuolo" type="it.csi.iride2.iridefed.entity.Ruolo" />
+          </param-list>
+          <ret-val type="java.lang.String"/>
+        </operation>
+        <operation name="findActorsForPersonaInUseCase" type="synch-call">
+          <param-list>
+            <param name="persona" type="it.csi.iride2.policy.entity.Identita" />
+            <param name="useCase" type="it.csi.iride2.policy.entity.UseCase" />
+          </param-list>
+          <ret-val type="it.csi.iride2.policy.entity.Actor[]"/>
+        </operation>
+      </operations>
+    </service>
+  </services>
+  <config>
+    <url-pa>multi://pc41012.csi.it</url-pa>
+    <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+	 <pluggable-pd
+        name="policyEnf"
+        class="it.csi.csi.tools.fakestub.FakePD"
+        url-pa="iride2/policy/PolicyEnforcementPoint_PA" >
+        <properties>
+          <property name="fakeimpl.class" value="it.csi.myprod.mycomp.presentation.mycomp.security.pepprovider.PEPProviderFacade" />
+        </properties>
+      </pluggable-pd>
+    </pluggable-pd-list>
+    <pre-function-handler-list>
+    	<pluggable-fh
+         name="CACHE PRE"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </pre-function-handler-list>
+    <post-function-handler-list>
+    	<pluggable-fh
+         name="CACHE POST"
+         class="«getIridePDCacheFQN()»" >
+        <properties>
+       </properties>
+      </pluggable-fh>
+    </post-function-handler-list>
+    <queue-manager url="rmi://:2001/QMgrCli"/>
+  </config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE pepProviderHelperMethods(GUIModel model) FOR SecurityProfile»
+	///////////////////////////////////////////////////////////////////////////////
+	//// Metodi per la sicurezza custom
+	///////////////////////////////////////////////////////////////////////////////
+	public final static String CUSTOM_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
+	PEPProviderFacade customService = null;
+	
+	public PEPProviderFacade getCustomServicePEP(){
+		if(this.customService==null){
+			InputStream is = getClass().getResourceAsStream(CUSTOM_PEP_RESOURCE);
+			if (is != null) {
+				try {
+					InfoPortaDelegata info = PDConfigReader.read(is);
+					this.customService = (PEPProviderFacade) PDProxy
+							.newInstance(info);
+					return this.customService;
+				} catch (Exception e) {
+					log.error(
+							"[SecurityHelper::getCustomServicePEP] errore nella parsificazione della configurazione:"
+									+ e, e);
+					throw new IllegalArgumentException(
+							"errore nella parsificazione della configurazione");
+				}
+			} else
+				log.error("[SecurityHelper::getCustomServicePEP] configurazione di customService non trovata");
+			throw new IllegalArgumentException(
+					"configurazione di customService non trovata");
+		}
+		else
+			return this.customService;
+		
+	}
+«ENDDEFINE»
