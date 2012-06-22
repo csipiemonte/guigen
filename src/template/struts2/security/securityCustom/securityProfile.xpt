@@ -182,6 +182,9 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		
 		if(flgCheckToken)
 			createCurrentUser(marker, hreq);
+		else
+			throw new ServletException(
+					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
 		fchn.doFilter(req, resp);
 		
 	}
