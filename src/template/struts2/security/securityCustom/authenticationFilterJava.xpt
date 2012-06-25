@@ -79,7 +79,7 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 	private Object getToken(HttpServletRequest hreq){
 	«IF this.intAuthGuard.loginModule == true-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) hreq.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
 	«ELSE-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
 		return hreq.getParameter(AUTH_ID_MARKER);
@@ -93,7 +93,7 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) hreq.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
 		return hreq.getAttribute(AUTH_ID_MARKER);
