@@ -22,7 +22,7 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT template::struts2::typeConversion»
 «EXTENSION template::GenericExtensions»
 «EXTENSION template::struts2::Struts2Extensions»
-
+«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
 
 «DEFINE configFiles(boolean skip_component_dir_creation, boolean useExternalDaoBeans) FOR GUIModel»
 	«REM»Generazione dei file standard«ENDREM»
@@ -949,6 +949,10 @@ cose tipo la "todo list"«ENDREM»
 
 	<bean name="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
 
+	«IF this.targetPlatform.securityProfile!=null»
+	<bean id="pepProviderFacadeBeanId" class="«getPEPProviderJavaPackage(this)».PEPProviderFacade">
+	</bean>
+	«ENDIF»
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")»
 		<!-- Insert here your Spring Beans -->
 	«ENDPROTECT»

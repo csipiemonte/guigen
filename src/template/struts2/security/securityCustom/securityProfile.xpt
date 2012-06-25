@@ -71,6 +71,16 @@ e le limitazioni secondo i termini della Licenza.
 	<filter>
 		<filter-name>ID Adapter Custom</filter-name>
 		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
+		«IF this.loginModule!=null-»
+    	<init-param>
+      		<param-name>loginPage</param-name>
+    		«IF this.loginModule.internal == true-»
+      		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
+	      	«ELSE»
+      		<param-value>@loginUi.external@</param-value>
+      		«ENDIF»
+    	</init-param>
+    	«ENDIF»
 	</filter>
   
 	<!-- ################################################################
@@ -172,11 +182,17 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	
 	public static final String USERINFO_SESSIONATTR = "appDatacurrentUser";
 	public final static String AUTH_ID_MARKER = "«this.idAdapter.infoSourceName»";
+	public static String loginPage;
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
 			HttpServletRequest hreq = (HttpServletRequest) req;
 		Object marker = getMarker(hreq);
+		
+		if(hreq.getRequestURI().indexOf(loginPage) > -1){
+			fchn.doFilter(req, resp);
+		    return;
+		}
 		
 		boolean flgCheckToken = marker!= null ? validateToken(marker) : false;
 		
@@ -239,8 +255,8 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		// NOP
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
-		// NOP
+	public void init(FilterConfig config) throws ServletException {
+		loginPage = config.getInitParameter("loginPage");
 	}
 
 }
