@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#getParams <em>Params</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.PEPImplementation#isCustom <em>Custom</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,5 +43,31 @@ public interface PEPImplementation extends EObject {
 	 * @generated
 	 */
 	EList<EnvConfigParam> getParams();
+
+	/**
+	 * Returns the value of the '<em><b>Custom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Custom</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Custom</em>' attribute.
+	 * @see #setCustom(boolean)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getPEPImplementation_Custom()
+	 * @model
+	 * @generated
+	 */
+	boolean isCustom();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.PEPImplementation#isCustom <em>Custom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Custom</em>' attribute.
+	 * @see #isCustom()
+	 * @generated
+	 */
+	void setCustom(boolean value);
 
 } // PEPImplementation

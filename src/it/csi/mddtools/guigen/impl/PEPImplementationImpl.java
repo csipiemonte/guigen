@@ -12,6 +12,7 @@ import it.csi.mddtools.guigen.PEPImplementation;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.PEPImplementationImpl#isCustom <em>Custom</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +50,25 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 	 * @ordered
 	 */
 	protected EList<EnvConfigParam> params;
+
+	/**
+	 * The default value of the '{@link #isCustom() <em>Custom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustom()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CUSTOM_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isCustom() <em>Custom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCustom()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean custom = CUSTOM_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +106,27 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isCustom() {
+		return custom;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCustom(boolean newCustom) {
+		boolean oldCustom = custom;
+		custom = newCustom;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.PEP_IMPLEMENTATION__CUSTOM, oldCustom, custom));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -103,6 +146,8 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 		switch (featureID) {
 			case GuigenPackage.PEP_IMPLEMENTATION__PARAMS:
 				return getParams();
+			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
+				return isCustom();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -120,6 +165,9 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 				getParams().clear();
 				getParams().addAll((Collection<? extends EnvConfigParam>)newValue);
 				return;
+			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
+				setCustom((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -135,6 +183,9 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 			case GuigenPackage.PEP_IMPLEMENTATION__PARAMS:
 				getParams().clear();
 				return;
+			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
+				setCustom(CUSTOM_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,8 +200,26 @@ public class PEPImplementationImpl extends EObjectImpl implements PEPImplementat
 		switch (featureID) {
 			case GuigenPackage.PEP_IMPLEMENTATION__PARAMS:
 				return params != null && !params.isEmpty();
+			case GuigenPackage.PEP_IMPLEMENTATION__CUSTOM:
+				return custom != CUSTOM_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (custom: ");
+		result.append(custom);
+		result.append(')');
+		return result.toString();
 	}
 
 } //PEPImplementationImpl

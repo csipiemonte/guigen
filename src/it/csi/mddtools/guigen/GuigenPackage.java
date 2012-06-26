@@ -9893,13 +9893,22 @@ public interface GuigenPackage extends EPackage {
 	int PEP_IMPLEMENTATION__PARAMS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Custom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PEP_IMPLEMENTATION__CUSTOM = 1;
+
+	/**
 	 * The number of structural features of the '<em>PEP Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PEP_IMPLEMENTATION_FEATURE_COUNT = 1;
+	int PEP_IMPLEMENTATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.
@@ -15680,6 +15689,17 @@ public interface GuigenPackage extends EPackage {
 	EReference getPEPImplementation_Params();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.PEPImplementation#isCustom <em>Custom</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom</em>'.
+	 * @see it.csi.mddtools.guigen.PEPImplementation#isCustom()
+	 * @see #getPEPImplementation()
+	 * @generated
+	 */
+	EAttribute getPEPImplementation_Custom();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20404,6 +20424,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PEP_IMPLEMENTATION__PARAMS = eINSTANCE.getPEPImplementation_Params();
+
+		/**
+		 * The meta object literal for the '<em><b>Custom</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PEP_IMPLEMENTATION__CUSTOM = eINSTANCE.getPEPImplementation_Custom();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.WidgetDataType <em>Widget Data Type</em>}' enum.

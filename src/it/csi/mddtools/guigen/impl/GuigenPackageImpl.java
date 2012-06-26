@@ -6287,6 +6287,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPEPImplementation_Custom() {
+		return (EAttribute)pepImplementationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getWidgetDataType() {
 		return widgetDataTypeEEnum;
 	}
@@ -7185,6 +7194,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		pepImplementationEClass = createEClass(PEP_IMPLEMENTATION);
 		createEReference(pepImplementationEClass, PEP_IMPLEMENTATION__PARAMS);
+		createEAttribute(pepImplementationEClass, PEP_IMPLEMENTATION__CUSTOM);
 
 		// Create enums
 		widgetDataTypeEEnum = createEEnum(WIDGET_DATA_TYPE);
@@ -8025,6 +8035,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 
 		initEClass(pepImplementationEClass, PEPImplementation.class, "PEPImplementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPEPImplementation_Params(), this.getEnvConfigParam(), null, "params", null, 0, -1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPEPImplementation_Custom(), ecorePackage.getEBoolean(), "custom", null, 0, 1, PEPImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(widgetDataTypeEEnum, WidgetDataType.class, "WidgetDataType");
