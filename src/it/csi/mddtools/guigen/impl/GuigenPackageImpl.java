@@ -176,6 +176,7 @@ import it.csi.mddtools.guigen.TargetPlatform;
 import it.csi.mddtools.guigen.TargetPlatformCodes;
 import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
+import it.csi.mddtools.guigen.TicketVerifyMethod;
 import it.csi.mddtools.guigen.Titlebar;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
@@ -1526,6 +1527,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum cpCommandExecutionTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum ticketVerifyMethodEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -6233,6 +6241,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIdentityAdapter_TicketVerifyMethod() {
+		return (EAttribute)identityAdapterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEnvConfigParam() {
 		return envConfigParamEClass;
 	}
@@ -6460,6 +6477,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EEnum getCPCommandExecutionTypes() {
 		return cpCommandExecutionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTicketVerifyMethod() {
+		return ticketVerifyMethodEEnum;
 	}
 
 	/**
@@ -7185,6 +7211,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		identityAdapterEClass = createEClass(IDENTITY_ADAPTER);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__SOURCE_TYPE);
 		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__INFO_SOURCE_NAME);
+		createEAttribute(identityAdapterEClass, IDENTITY_ADAPTER__TICKET_VERIFY_METHOD);
 
 		envConfigParamEClass = createEClass(ENV_CONFIG_PARAM);
 		createEAttribute(envConfigParamEClass, ENV_CONFIG_PARAM__NAME);
@@ -7216,6 +7243,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		repartModuleTypesEEnum = createEEnum(REPART_MODULE_TYPES);
 		wizardNumberingTypesEEnum = createEEnum(WIZARD_NUMBERING_TYPES);
 		cpCommandExecutionTypesEEnum = createEEnum(CP_COMMAND_EXECUTION_TYPES);
+		ticketVerifyMethodEEnum = createEEnum(TICKET_VERIFY_METHOD);
 		loginUITypesEEnum = createEEnum(LOGIN_UI_TYPES);
 		infoSourceTypesEEnum = createEEnum(INFO_SOURCE_TYPES);
 	}
@@ -8026,6 +8054,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEClass(identityAdapterEClass, IdentityAdapter.class, "IdentityAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIdentityAdapter_SourceType(), this.getInfoSourceTypes(), "sourceType", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIdentityAdapter_InfoSourceName(), ecorePackage.getEString(), "infoSourceName", null, 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIdentityAdapter_TicketVerifyMethod(), this.getTicketVerifyMethod(), "ticketVerifyMethod", "LOCAL", 0, 1, IdentityAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(envConfigParamEClass, EnvConfigParam.class, "EnvConfigParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnvConfigParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnvConfigParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8187,6 +8216,10 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.BEFORE_EVENTS);
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.AFTER_EVENTS);
 		addEEnumLiteral(cpCommandExecutionTypesEEnum, CPCommandExecutionTypes.ON_REFRESH);
+
+		initEEnum(ticketVerifyMethodEEnum, TicketVerifyMethod.class, "TicketVerifyMethod");
+		addEEnumLiteral(ticketVerifyMethodEEnum, TicketVerifyMethod.LOCAL);
+		addEEnumLiteral(ticketVerifyMethodEEnum, TicketVerifyMethod.REMOTE_HTTP);
 
 		initEEnum(loginUITypesEEnum, LoginUITypes.class, "LoginUITypes");
 		addEEnumLiteral(loginUITypesEEnum, LoginUITypes.USERNAME_PASSWORD);

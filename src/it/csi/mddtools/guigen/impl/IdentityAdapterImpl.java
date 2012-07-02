@@ -10,6 +10,7 @@ import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.IdentityAdapter;
 import it.csi.mddtools.guigen.InfoSourceTypes;
 
+import it.csi.mddtools.guigen.TicketVerifyMethod;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getInfoSourceName <em>Info Source Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.IdentityAdapterImpl#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +73,26 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * @ordered
 	 */
 	protected String infoSourceName = INFO_SOURCE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTicketVerifyMethod() <em>Ticket Verify Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTicketVerifyMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final TicketVerifyMethod TICKET_VERIFY_METHOD_EDEFAULT = TicketVerifyMethod.LOCAL;
+
+	/**
+	 * The cached value of the '{@link #getTicketVerifyMethod() <em>Ticket Verify Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTicketVerifyMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected TicketVerifyMethod ticketVerifyMethod = TICKET_VERIFY_METHOD_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,6 +160,27 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TicketVerifyMethod getTicketVerifyMethod() {
+		return ticketVerifyMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTicketVerifyMethod(TicketVerifyMethod newTicketVerifyMethod) {
+		TicketVerifyMethod oldTicketVerifyMethod = ticketVerifyMethod;
+		ticketVerifyMethod = newTicketVerifyMethod == null ? TICKET_VERIFY_METHOD_EDEFAULT : newTicketVerifyMethod;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD, oldTicketVerifyMethod, ticketVerifyMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -145,6 +188,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return getSourceType();
 			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
 				return getInfoSourceName();
+			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
+				return getTicketVerifyMethod();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -162,6 +207,9 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return;
 			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
 				setInfoSourceName((String)newValue);
+				return;
+			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
+				setTicketVerifyMethod((TicketVerifyMethod)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,6 +229,9 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
 				setInfoSourceName(INFO_SOURCE_NAME_EDEFAULT);
 				return;
+			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
+				setTicketVerifyMethod(TICKET_VERIFY_METHOD_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -197,6 +248,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 				return sourceType != SOURCE_TYPE_EDEFAULT;
 			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
 				return INFO_SOURCE_NAME_EDEFAULT == null ? infoSourceName != null : !INFO_SOURCE_NAME_EDEFAULT.equals(infoSourceName);
+			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
+				return ticketVerifyMethod != TICKET_VERIFY_METHOD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -215,6 +268,8 @@ public class IdentityAdapterImpl extends EObjectImpl implements IdentityAdapter 
 		result.append(sourceType);
 		result.append(", infoSourceName: ");
 		result.append(infoSourceName);
+		result.append(", ticketVerifyMethod: ");
+		result.append(ticketVerifyMethod);
 		result.append(')');
 		return result.toString();
 	}

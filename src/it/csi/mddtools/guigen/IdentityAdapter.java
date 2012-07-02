@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getInfoSourceName <em>Info Source Name</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,5 +81,35 @@ public interface IdentityAdapter extends EObject {
 	 * @generated
 	 */
 	void setInfoSourceName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Ticket Verify Method</b></em>' attribute.
+	 * The default value is <code>"LOCAL"</code>.
+	 * The literals are from the enumeration {@link it.csi.mddtools.guigen.TicketVerifyMethod}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ticket Verify Method</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ticket Verify Method</em>' attribute.
+	 * @see it.csi.mddtools.guigen.TicketVerifyMethod
+	 * @see #setTicketVerifyMethod(TicketVerifyMethod)
+	 * @see it.csi.mddtools.guigen.GuigenPackage#getIdentityAdapter_TicketVerifyMethod()
+	 * @model default="LOCAL"
+	 * @generated
+	 */
+	TicketVerifyMethod getTicketVerifyMethod();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ticket Verify Method</em>' attribute.
+	 * @see it.csi.mddtools.guigen.TicketVerifyMethod
+	 * @see #getTicketVerifyMethod()
+	 * @generated
+	 */
+	void setTicketVerifyMethod(TicketVerifyMethod value);
 
 } // IdentityAdapter

@@ -9809,13 +9809,22 @@ public interface GuigenPackage extends EPackage {
 	int IDENTITY_ADAPTER__INFO_SOURCE_NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ticket Verify Method</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IDENTITY_ADAPTER__TICKET_VERIFY_METHOD = 2;
+
+	/**
 	 * The number of structural features of the '<em>Identity Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IDENTITY_ADAPTER_FEATURE_COUNT = 2;
+	int IDENTITY_ADAPTER_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.
@@ -10115,6 +10124,16 @@ public interface GuigenPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.TicketVerifyMethod <em>Ticket Verify Method</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.TicketVerifyMethod
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
+	 * @generated
+	 */
+	int TICKET_VERIFY_METHOD = 186;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10122,7 +10141,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getLoginUITypes()
 	 * @generated
 	 */
-	int LOGIN_UI_TYPES = 186;
+	int LOGIN_UI_TYPES = 187;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.guigen.InfoSourceTypes <em>Info Source Types</em>}' enum.
@@ -10132,7 +10151,7 @@ public interface GuigenPackage extends EPackage {
 	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getInfoSourceTypes()
 	 * @generated
 	 */
-	int INFO_SOURCE_TYPES = 187;
+	int INFO_SOURCE_TYPES = 188;
 
 
 	/**
@@ -15626,6 +15645,17 @@ public interface GuigenPackage extends EPackage {
 	EAttribute getIdentityAdapter_InfoSourceName();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod <em>Ticket Verify Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ticket Verify Method</em>'.
+	 * @see it.csi.mddtools.guigen.IdentityAdapter#getTicketVerifyMethod()
+	 * @see #getIdentityAdapter()
+	 * @generated
+	 */
+	EAttribute getIdentityAdapter_TicketVerifyMethod();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.EnvConfigParam <em>Env Config Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15888,6 +15918,16 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getCPCommandExecutionTypes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.TicketVerifyMethod <em>Ticket Verify Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Ticket Verify Method</em>'.
+	 * @see it.csi.mddtools.guigen.TicketVerifyMethod
+	 * @generated
+	 */
+	EEnum getTicketVerifyMethod();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}'.
@@ -20372,6 +20412,14 @@ public interface GuigenPackage extends EPackage {
 		EAttribute IDENTITY_ADAPTER__INFO_SOURCE_NAME = eINSTANCE.getIdentityAdapter_InfoSourceName();
 
 		/**
+		 * The meta object literal for the '<em><b>Ticket Verify Method</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IDENTITY_ADAPTER__TICKET_VERIFY_METHOD = eINSTANCE.getIdentityAdapter_TicketVerifyMethod();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.EnvConfigParamImpl <em>Env Config Param</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -20622,6 +20670,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum CP_COMMAND_EXECUTION_TYPES = eINSTANCE.getCPCommandExecutionTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.TicketVerifyMethod <em>Ticket Verify Method</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.TicketVerifyMethod
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTicketVerifyMethod()
+		 * @generated
+		 */
+		EEnum TICKET_VERIFY_METHOD = eINSTANCE.getTicketVerifyMethod();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.LoginUITypes <em>Login UI Types</em>}' enum.

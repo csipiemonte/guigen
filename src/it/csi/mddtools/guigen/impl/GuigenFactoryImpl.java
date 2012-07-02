@@ -279,6 +279,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createWizardNumberingTypesFromString(eDataType, initialValue);
 			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
 				return createCPCommandExecutionTypesFromString(eDataType, initialValue);
+			case GuigenPackage.TICKET_VERIFY_METHOD:
+				return createTicketVerifyMethodFromString(eDataType, initialValue);
 			case GuigenPackage.LOGIN_UI_TYPES:
 				return createLoginUITypesFromString(eDataType, initialValue);
 			case GuigenPackage.INFO_SOURCE_TYPES:
@@ -334,6 +336,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertWizardNumberingTypesToString(eDataType, instanceValue);
 			case GuigenPackage.CP_COMMAND_EXECUTION_TYPES:
 				return convertCPCommandExecutionTypesToString(eDataType, instanceValue);
+			case GuigenPackage.TICKET_VERIFY_METHOD:
+				return convertTicketVerifyMethodToString(eDataType, instanceValue);
 			case GuigenPackage.LOGIN_UI_TYPES:
 				return convertLoginUITypesToString(eDataType, instanceValue);
 			case GuigenPackage.INFO_SOURCE_TYPES:
@@ -2250,6 +2254,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertCPCommandExecutionTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TicketVerifyMethod createTicketVerifyMethodFromString(EDataType eDataType, String initialValue) {
+		TicketVerifyMethod result = TicketVerifyMethod.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTicketVerifyMethodToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

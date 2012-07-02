@@ -66,6 +66,7 @@ public class IdentityAdapterItemProvider
 
 			addSourceTypePropertyDescriptor(object);
 			addInfoSourceNamePropertyDescriptor(object);
+			addTicketVerifyMethodPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,6 +116,28 @@ public class IdentityAdapterItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Ticket Verify Method feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTicketVerifyMethodPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_IdentityAdapter_ticketVerifyMethod_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_IdentityAdapter_ticketVerifyMethod_feature", "_UI_IdentityAdapter_type"),
+				 GuigenPackage.Literals.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns IdentityAdapter.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -153,6 +176,7 @@ public class IdentityAdapterItemProvider
 		switch (notification.getFeatureID(IdentityAdapter.class)) {
 			case GuigenPackage.IDENTITY_ADAPTER__SOURCE_TYPE:
 			case GuigenPackage.IDENTITY_ADAPTER__INFO_SOURCE_NAME:
+			case GuigenPackage.IDENTITY_ADAPTER__TICKET_VERIFY_METHOD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
