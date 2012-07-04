@@ -49,7 +49,7 @@ e le limitazioni secondo i termini della Licenza.
       		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
 	      	«ELSE»
       		<param-value>@loginUi.external@</param-value>
-      		«ENDIF»
+      		«ENDIF»      		
     	</init-param>
     	«ENDIF»
     	
@@ -76,11 +76,15 @@ e le limitazioni secondo i termini della Licenza.
       		<param-name>loginPage</param-name>
     		«IF this.loginModule.internal == true-»
       		<param-value>/«model.codComponente»/secure/localLoginUI.do</param-value>
-	      	«ELSE»
+	      	«ELSE-»
       		<param-value>@loginUi.external@</param-value>
-      		«ENDIF»
+      		«ENDIF-»
     	</init-param>
-    	«ENDIF»
+    	<init-param>
+    		<param-name>remoteValidationUrl</param-name>    	
+      		<param-value>@idAdapter.remoteValidationUrl@</param-value>
+      	</init-param>
+    	«ENDIF-»
 	</filter>
   
 	<!-- ################################################################
@@ -123,6 +127,9 @@ e le limitazioni secondo i termini della Licenza.
 		token="@loginUi.external@"  
 		value="${loginUi.external}"/>
 		«ENDIF»
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@idAdapter.remoteValidationUrl@"  
+		value="${idAdapter.remoteValidationUrl}"/>
 		«IF this.intAuthGuard.params!=null-»
 			«LET this.intAuthGuard.params.params AS envConfigParams-»
 			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
@@ -143,6 +150,7 @@ e le limitazioni secondo i termini della Licenza.
 		«IF this.intAuthGuard.loginModule.internal == false»
 loginUi.external = 	
 		«ENDIF»
+idAdapter.remoteValidationUrl =
 		«IF this.intAuthGuard.params!=null-»
 			«LET this.intAuthGuard.params.params AS envConfigParams-»
 			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
@@ -160,6 +168,9 @@ loginUi.external =
 
 «FILE getIdAdapterCustomFilterJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
 
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.iride2.policy.exceptions.MalformedIdTokenException;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -170,6 +181,16 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import it.csi.myprod.mycomp.util.*;
+
+«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+«ENDIF»
 /**
  * Inserisce in sessione l'oggetto <code>currentUser</code>
  * Funge da adapter tra il filter del metodo di autenticaizone previsto e la
@@ -181,82 +202,188 @@ import javax.servlet.http.HttpSession;
 public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	
 	public static final String USERINFO_SESSIONATTR = "appDatacurrentUser";
-	public final static String AUTH_ID_MARKER = "«this.idAdapter.infoSourceName»";
-	public static String loginPage;
+	public final static String TICKET = "«this.idAdapter.infoSourceName»";
+	public static final String SECURITY_SESSION_MARKER = "iride2_id";
 	
+	protected static final Logger log = Logger
+			.getLogger(Constants.APPLICATION_CODE + ".security");
+			
+	public static String loginPage;
+	«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»	
+	public static String remoteValidationUrl;
+	«ENDIF»
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain fchn) throws IOException, ServletException {
-			HttpServletRequest hreq = (HttpServletRequest) req;
+		HttpServletRequest hreq = (HttpServletRequest) req;
 		Object marker = getMarker(hreq);
-		
-		if(hreq.getRequestURI().indexOf(loginPage) > -1){
+
+		if (hreq.getRequestURI().indexOf(loginPage) > -1) {
 			fchn.doFilter(req, resp);
-		    return;
+			return;
 		}
-		
-		boolean flgCheckToken = marker!= null ? validateToken(marker) : false;
-		
-		if(flgCheckToken)
-			createCurrentUser(marker, hreq);
-		else
-			throw new ServletException(
-					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
-		fchn.doFilter(req, resp);
-		
-	}
-	private void createCurrentUser(Object marker, HttpServletRequest hreq) {
-		«LET ((List[Type])getAllTypes((GUIModel)model)).selectFirst(t | t.name=="UserInfo") AS userInfoType-»
-		«toJavaType(userInfoType, model)» userInfo = new «toJavaType(userInfoType, model)»();
-		«ENDLET-»
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".createCurrentUser")»
-		/*userInfo.setNome("");
-		userInfo.setCognome("");
-		userInfo.setEnte("");
-		userInfo.setRuolo("--");
-		userInfo.setCodFisc("");*/
-		«ENDPROTECT»
-		hreq.getSession().setAttribute(USERINFO_SESSIONATTR,
-				userInfo);
-		
-	}
 
-	private boolean validateToken(Object marker) {
-		boolean res = true;
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".validateToken")»
-		«ENDPROTECT»
-		return res;
+		if (marker != null)
+			fchn.doFilter(req, resp);
+		else {
+			validateTicket(hreq);
+			fchn.doFilter(req, resp);
+		}
 	}
-
-	private Object getMarker(HttpServletRequest hreq){
+	
+	private Object getMarker(HttpServletRequest hreq) {
+		return hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+	}
+	
+	private Object getTicket(HttpServletRequest hreq){
 	«IF this.intAuthGuard.loginModule == true-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
 	«ELSE-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
-		return hreq.getParameter(AUTH_ID_MARKER);
+		return hreq.getParameter(TICKET);
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
-		return hreq.getHeader(AUTH_ID_MARKER);
+		return hreq.getHeader(TICKET);
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
-		Cookie c = getCookie(AUTH_ID_MARKER, hreq.getCookies());
+		Cookie c = getCookie(TICKET, hreq.getCookies());
 		return c!=null ? c.getValue(): null;
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
-		return hreq.getAttribute(AUTH_ID_MARKER);
+		return hreq.getAttribute(TICKET);
 		«ENDIF-»
 	«ENDIF-»
 	}
+	
+	private Identita validateTicket(HttpServletRequest hreq) throws ServletException {
+		Identita identita = null;
+		Object ticket = getTicket(hreq);
+		
+	«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»
+		String url = prepareTicketValidationCall(ticket);
+		byte[] response = callHTTPClient(url);
+		String encodedUserInfo = extractEncodedUserInfo(response);
+	«ELSE-»
+		String encodedUserInfo = extractEncodedUserInfo(ticket);
+	«ENDIF-»
+		String normalizedTicket = normalizeEncodedUserInfo(encodedUserInfo);
+		try {
+			identita = new Identita(normalizedTicket);
+		} catch (MalformedIdTokenException e) {
+			e.printStackTrace();
+		}
+	
+		if (identita != null){
+			hreq.getSession().setAttribute(SECURITY_SESSION_MARKER,
+					identita);
+			createCurrentUser(identita, hreq);
+		}
+		else
+			throw new ServletException(
+					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
+
+		return identita;
+
+	}
+
+	
+	private void createCurrentUser(Object marker, HttpServletRequest hreq) {
+		Identita identita = (Identita)hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+		it.csi.myprod.mycomp.dto.common.UserInfo userInfo = new it.csi.myprod.mycomp.dto.common.UserInfo();
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".createCurrentUser")»
+		userInfo.setNome(identita.getNome());
+		userInfo.setCognome(identita.getCognome());
+		userInfo.setCodFisc(identita.getCodFiscale());
+		«ENDPROTECT»
+		hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
+
+	}
+	
+	private String normalizeEncodedUserInfo(String encodedUserInfo) {
+		String res = encodedUserInfo;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".normalizeEncodedUserInfo")»
+		res = "SBTVNT82L67L013Z/Valentina/Sabatino/IDXXX/null/1/null";
+		«ENDPROTECT»
+		return res;
+	}
+
+
+«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
+
+	private String prepareTicketValidationCall(Object ticket) {
+		String res = remoteValidationUrl;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".prepareTicketValidationCall")»
+		//	res = urlRemoteValidation + "?"+ TICKET +"=token" ;
+		«ENDPROTECT»
+	
+		return res;
+	}
+
+	private  byte[] callHTTPClient(String url){
+		byte[] responseBody = null;
+		HttpClient client = new HttpClient();
+
+		// Create a method instance.
+		GetMethod method = new GetMethod(url);
+
+		try {
+			// Execute the method.
+			int statusCode = client.executeMethod(method);
+			if (statusCode != HttpStatus.SC_OK) {
+				log.error("executeMethod failed: " + method.getStatusLine());
+			}
+			responseBody = method.getResponseBody();
+
+		} catch (HttpException e) {
+			log.error("HttpException" + e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			log.error("IOException" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			method.releaseConnection();
+			return responseBody;
+		}  
+		    
+	}
+	
+	private String extractEncodedUserInfo(byte[] response){
+		String res = null;
+		
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".extractEncodedUserInfo")»
+		«ENDPROTECT»
+		
+		return null;
+	
+	}
+	
+«ELSE»
+
+	private String extractEncodedUserInfo(Object ticket){
+		String res = null;
+		
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".extractEncodedUserInfo")»
+		«ENDPROTECT»
+		
+		return null;
+	
+	}
+«ENDIF»
+	
+	
 	public void destroy() {
 		// NOP
 	}
 
 	public void init(FilterConfig config) throws ServletException {
 		loginPage = config.getInitParameter("loginPage");
+		«IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»	
+		remoteValidationUrl = config.getInitParameter("remoteValidationUrl");
+		«ENDIF-»
 	}
 
 }
