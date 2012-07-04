@@ -27,7 +27,7 @@ import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 «ENDPROTECT»
 
 public class «getLocalLoginUIActionClassName()» extends BaseAction {
-public final static String AUTH_ID_MARKER = "«model.targetPlatform.securityProfile.idAdapter.infoSourceName»";
+public final static String TICKET = "«model.targetPlatform.securityProfile.idAdapter.infoSourceName»";
 
 	public String execute() throws Exception {
 	
@@ -37,8 +37,8 @@ public final static String AUTH_ID_MARKER = "«model.targetPlatform.securityProf
 	public String validaLogin() {
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".validaLogin")»
 		if (isNotEmpty(getUsername()) && isNotEmpty(getPassword())) {
-			PolicyEnforcerBaseService pep = getSpringSecurityHelper().getCustomServicePEP();
-			getSession().put(AUTH_ID_MARKER, "Valentina");
+			
+			getSession().put(TICKET, "Valentina");
 			
 			return "GO_TO_HomePage";
 		}
