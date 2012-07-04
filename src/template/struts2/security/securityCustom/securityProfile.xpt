@@ -26,8 +26,38 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND internalAuthenticationFilter(model) FOR this.intAuthGuard-»
 «ENDIF-»
 «IF this.extAuthGuard != null-»
-	«REM»comment«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
+	«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»
 «ENDIF-»
+
+«ENDDEFINE»
+
+
+«DEFINE externalAuthenticationFilter(GUIModel model) FOR ExternalAuthenticationGuard»
+
+	<filter>
+		<filter-name>ID Adapter Custom</filter-name>
+		<filter-class>«getIdAdapterCustomFilterFQN(model)»</filter-class>
+		
+    	<init-param>
+    		<param-name>remoteValidationUrl</param-name>    	
+      		<param-value>@idAdapter.remoteValidationUrl@</param-value>
+      	</init-param>
+	</filter>
+  
+	<!-- ################################################################
+	   il filter di autenticazione NON esiste 
+	   ################################################################
+	-->
+
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>ID Adapter Custom</filter-name>
+		<url-pattern>*«getStrutsActionCompleteExtension()»</url-pattern>
+	</filter-mapping>
 
 «ENDDEFINE»
 
@@ -107,16 +137,6 @@ e le limitazioni secondo i termini della Licenza.
 	</filter-mapping>
 «ENDDEFINE»
 
-«REM»Definizione ExternalAuthenticationGuarde«ENDREM»
-«DEFINE externalAuthenticationFilter FOR ExternalAuthenticationGuard»
-
-//TODO 
-	<init-param>
-      		<param-name>loginPage</param-name>
-      		<param-value>@loginUi.external@</param-value>
-    	</init-param>
-
-«ENDDEFINE»
 
 
 «DEFINE envConfigForAuthentication(GUIModel model) FOR SecurityProfile»
@@ -141,6 +161,10 @@ e le limitazioni secondo i termini della Licenza.
 			«ENDIF-»
 			«ENDLET-»
 		«ENDIF-» 
+	«ELSE-»
+		<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" 
+		token="@idAdapter.remoteValidationUrl@"  
+		value="${idAdapter.remoteValidationUrl}"/>
 	«ENDIF»
 «ENDDEFINE»
 
@@ -161,7 +185,11 @@ idAdapter.remoteValidationUrl =
 			«ENDLET-»
 		«ENDIF-» 
 ---------------------------------------------------------------------------------
+	«ELSE»
+	#-[configurazione extAuthGuard]--------------------------------------------------
+	idAdapter.remoteValidationUrl =
 	«ENDIF»
+	
 «ENDDEFINE»
 
 «DEFINE idAdapterCustomFilter(GUIModel model) FOR SecurityProfile»
@@ -259,6 +287,15 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	«ENDIF-»
 	}
 	
+	/**
+	 * Valida il ticket presente nella request e da questo ricava l' identità digitale necessaria per il livello autorizzativo.
+	 * Estrae dalla request il ticket (TICKET) lo valida e lo elabora ottenendo un token normalizzato necessario per istanziare l' oggetto Identita
+	 * Inserisce in sessione il marker di sicurezza Identita (SECURITY_SESSION_MARKER)
+	 * Crea e inserisce in sessione il currentUser
+	 * @param hreq
+	 * @return Identita
+	 * @throws ServletException
+	*/
 	private Identita validateTicket(HttpServletRequest hreq) throws ServletException {
 		Identita identita = null;
 		Object ticket = getTicket(hreq);
@@ -290,7 +327,11 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 
 	}
 
-	
+	/**
+	 * Costruisce l' oggetto UserInfo per tenere traccia dell' utente loggato
+	 * @param marker
+	 * @param hreq
+	*/	
 	private void createCurrentUser(Object marker, HttpServletRequest hreq) {
 		Identita identita = (Identita)hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
 		it.csi.myprod.mycomp.dto.common.UserInfo userInfo = new it.csi.myprod.mycomp.dto.common.UserInfo();
@@ -303,10 +344,15 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 
 	}
 	
+	/**
+	 * Rielaborare (se necessario) la stringa encodedUserInfo per ottenere una del tipo:
+	 * C.F./NOME/COGNOME/ID_PROVIDER/MAC/LIV_AUTENTICAZIONE/TIMESTAMP
+	 * @param encodedUserInfo
+	 * @return String token normalizzato
+	*/
 	private String normalizeEncodedUserInfo(String encodedUserInfo) {
 		String res = encodedUserInfo;
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".normalizeEncodedUserInfo")»
-		res = "SBTVNT82L67L013Z/Valentina/Sabatino/IDXXX/null/1/null";
 		«ENDPROTECT»
 		return res;
 	}
@@ -314,6 +360,11 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 
 «IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
 
+	/**
+	 * Rielaborare (se necessario) la stringa remoteValidationUrl con il ticket per ottenere l' url per la chiamata HTTPClient
+	 * @param ticket
+	 * @return String url
+	*/
 	private String prepareTicketValidationCall(Object ticket) {
 		String res = remoteValidationUrl;
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".prepareTicketValidationCall")»
@@ -351,13 +402,19 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		    
 	}
 	
+	/**
+	 * Estrae dalla response l' encodedUserInfo
+	 * All' interno della regione protetta è oppurtuno inserire la logica per la verifica della validità della response e la logica per l' estrazione dell' encodedUser
+	 * @param response
+	 * @return
+	 */
 	private String extractEncodedUserInfo(byte[] response){
 		String res = null;
 		
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".extractEncodedUserInfo")»
 		«ENDPROTECT»
 		
-		return null;
+		return res;
 	
 	}
 	

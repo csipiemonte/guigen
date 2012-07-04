@@ -24,11 +24,8 @@ e le limitazioni secondo i termini della Licenza.
 «IF this.intAuthGuard != null-»
 	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this-»
 «ENDIF-»
-«IF this.extAuthGuard != null-»
-	«REM»«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
-«ENDIF-»
-
 «ENDDEFINE»
+
 «DEFINE internalAuthenticationFilterJavaTemplate(GUIModel model) FOR SecurityProfile»
 «FILE getInternalAuthenticationFilterrJavaFile(model, true)»package «getFiltersJavaPackage(model)»;
 
