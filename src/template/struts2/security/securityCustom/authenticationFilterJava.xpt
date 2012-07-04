@@ -25,7 +25,7 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND internalAuthenticationFilterJavaTemplate(model) FOR this-»
 «ENDIF-»
 «IF this.extAuthGuard != null-»
-	«REM»comment«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
+	«REM»«EXPAND externalAuthenticationFilter(model) FOR this.extAuthGuard-»«ENDREM»
 «ENDIF-»
 
 «ENDDEFINE»
@@ -49,7 +49,9 @@ import javax.servlet.http.HttpSession;
  */
 public class «getInternalAuthenticationFilterClassName()» implements Filter{
 
-	public final static String AUTH_ID_MARKER = "«this.idAdapter.infoSourceName»";
+	public final static String TICKET = "«this.idAdapter.infoSourceName»";
+	public static final String SECURITY_SESSION_MARKER = "iride2_id";
+	
 	public static String loginPage;
 	
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -63,12 +65,18 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 		    return;
 		}
 		
-		Object token = getToken(hreq);
-		
-		if (token != null) {
+		Object marker = getMarker(hreq);
+
+		if(marker==null){
+			Object ticket = getTicket(hreq);
+
+			if (ticket != null) {
+				fchn.doFilter(req, resp);
+			} else
+				hresp.sendRedirect(loginPage);
+		}
+		else
 			fchn.doFilter(req, resp);
-		} else
-			hresp.sendRedirect(loginPage);
 		
 	}
 	
@@ -76,27 +84,32 @@ public class «getInternalAuthenticationFilterClassName()» implements Filter{
 
 	}
 	
-	private Object getToken(HttpServletRequest hreq){
-	«IF this.intAuthGuard.loginModule == true-»
+
+	private Object getMarker(HttpServletRequest hreq) {
+		return 	hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+	}
+	
+	private Object getTicket(HttpServletRequest hreq){
+	«IF this.intAuthGuard.loginModule.internal == true-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
 	«ELSE-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_PARAM)==0-»
-		return hreq.getParameter(AUTH_ID_MARKER);
+		return hreq.getParameter(TICKET);
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_HEADER)==0-»
-		return hreq.getHeader(AUTH_ID_MARKER);
+		return hreq.getHeader(TICKET);
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_COOKIE)==0-»
-		Cookie c = getCookie(AUTH_ID_MARKER, hreq.getCookies());
+		Cookie c = getCookie(TICKET, hreq.getCookies());
 		return c!=null ? c.getValue(): null;
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::SESSION_ATTRIBUTE)==0-»
 		HttpSession session = hreq.getSession();
-		return session != null ? (String) session.getAttribute(AUTH_ID_MARKER)	: null;
+		return session != null ? (String) session.getAttribute(TICKET)	: null;
 		«ENDIF-»
 		«IF this.idAdapter.sourceType.compareTo(InfoSourceTypes::REQUEST_ATTRIBUTE)==0-»
-		return hreq.getAttribute(AUTH_ID_MARKER);
+		return hreq.getAttribute(TICKET);
 		«ENDIF-»
 	«ENDIF-»
 	}
