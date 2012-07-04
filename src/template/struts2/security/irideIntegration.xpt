@@ -1,4 +1,4 @@
-«REM»
+Â«REMÂ»
 C) Copyright 2011 CSI-PIEMONTE;                                             
                                                                             
 Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
@@ -13,14 +13,14 @@ distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
 esplicite o implicite.                                                      
 Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
 e le limitazioni secondo i termini della Licenza.                           
-«ENDREM»
+Â«ENDREMÂ»
 
-«IMPORT guigen»
-«EXTENSION template::GenericExtensions»
-«EXTENSION template::struts2::Struts2Extensions»
-
-«DEFINE iridePDCacheClass(GUIModel model) FOR SecurityModel»
-«FILE getIridePDCacheJavaFile(model,true)»package «getBaseJavaPackage(model)».business;
+Â«IMPORT guigenÂ»
+Â«EXTENSION template::GenericExtensionsÂ»
+Â«EXTENSION template::struts2::Struts2ExtensionsÂ»
+Â«EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensionsÂ»
+Â«DEFINE iridePDCacheClass(GUIModel model) FOR SecurityModelÂ»
+Â«FILE getIridePDCacheJavaFile(model,true)Â»package Â«getBaseJavaPackage(model)Â».business;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -32,7 +32,7 @@ import it.csi.csi.wrapper.CSIException;
 import it.csi.iride2.policy.entity.*;
 import it.csi.iride2.iridefed.entity.Ruolo;
 
-public class «getIridePDCacheClassName()» implements FunctHandler{
+public class Â«getIridePDCacheClassName()Â» implements FunctHandler{
 
 	static HashMap<Iride2CallKey, Iride2CallValue> cache = new HashMap<Iride2CallKey, Iride2CallValue>();
 
@@ -133,18 +133,22 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE irideHelperMethods FOR GUIModel»
-«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-»
-«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-»
+Â«DEFINE irideHelperMethods FOR GUIModelÂ»
+Â«LET ((GUIModel)this.eRootContainer).appDataDefs AS appDataDefs-Â»
+Â«LET (ApplicationData)(((List[ApplicationData])getAllApplicationData(appDataDefs)).select(ad|ad.name=="currentUser").first()) AS currentUserAD-Â»
 	
 	///////////////////////////////////////////////////////////////////////////////
 	//// Metodi per la sicurezza basata su IRIDE2
 	///////////////////////////////////////////////////////////////////////////////
 	
+	Â«IF this.targetPlatform.securityProfile != null && this.targetPlatform.securityProfile.pepImpl.custom == trueÂ»
+	public final static String IRIDE_PEP_RESOURCE = "/META-INF/Â«getPEPProvideXMLPDName()Â»";
+	Â«ELSEÂ»
 	public final static String IRIDE_PEP_RESOURCE = "/META-INF/iride2_pep_defPD_ejb.xml";
+	Â«ENDIFÂ»
 	
 	it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService iride = null;
 	
@@ -185,10 +189,10 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		}
 	}
 	
-	protected «toJavaType(currentUserAD.type, this)» getCurrentUserInfo(Map session)
+	protected Â«toJavaType(currentUserAD.type, this)Â» getCurrentUserInfo(Map session)
 		throws BEException
 	{
-		«toJavaType(currentUserAD.type, this)» userInfo = («toJavaType(currentUserAD.type, this)»)session.get("«getAppDataKey(currentUserAD)»");
+		Â«toJavaType(currentUserAD.type, this)Â» userInfo = (Â«toJavaType(currentUserAD.type, this)Â»)session.get("Â«getAppDataKey(currentUserAD)Â»");
 		if (userInfo == null){
 			log.error("[SecurityHelper::getCurrentUser] Errore nel reperimento del current user dalla sessione: attributo non trovato");
 			throw new IllegalStateException("Errore nel reperimento del current user dalla sessione: attributo non trovato");
@@ -198,7 +202,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		}
 	}
 	
-	public final static Application IRIDE2_APPLICATION = new Application("«getActualSecurityModel(this).securityAppID»");
+	public final static Application IRIDE2_APPLICATION = new Application("Â«getActualSecurityModel(this).securityAppIDÂ»");
 	
 	public boolean verifyCurrentUserForRole(Map session, String roleCode, String domainCode)
 			throws BEException {
@@ -279,7 +283,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 		uc.setAppId(IRIDE2_APPLICATION);
 		uc.setId(useCaseCode);
 		try {
-			«toJavaType(currentUserAD.type, this)» currentUserInfo = getCurrentUserInfo(session);
+			Â«toJavaType(currentUserAD.type, this)Â» currentUserInfo = getCurrentUserInfo(session);
 			if (currentUserInfo==null || currentUserInfo.getCodRuolo()==null || currentUserInfo.getCodRuolo().length()==0){
 				// verifica dell'abilitazione allo UC senza tener conto del ruolo corrente
 				return getIridePEP().isPersonaAutorizzataInUseCase(getCurrentUser(session), uc);
@@ -370,13 +374,13 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
 			throw new BEException("Errore interno in verifyCurrentUserForUC:"+e, e);
 		}
 	}
-«ENDLET-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE pepauthPDFile FOR GUIModel»
-«FILE getSpringPepauthPDConfig()»<porta-delegata name="«codComponente».pepauth">
+Â«DEFINE pepauthPDFile FOR GUIModelÂ»
+Â«FILE getSpringPepauthPDConfig()Â»<porta-delegata name="Â«codComponenteÂ».pepauth">
   <services>
      <service name="SSOBARTPepAuth" public-interface-class="it.csi.ssobart.pepauth.interfacecsi.PepAuth">
        <operations>
@@ -443,11 +447,11 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
     <queue-manager url=""/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE iride2PDFile FOR GUIModel»
-«FILE getSpringIRIDE2PDConfig()»<porta-delegata name="PolicyEnforcerBase">
+Â«DEFINE iride2PDFile FOR GUIModelÂ»
+Â«FILE getSpringIRIDE2PDConfig()Â»<porta-delegata name="PolicyEnforcerBase">
   <services>
     <service
       name="PolicyEnforcerBase"
@@ -563,7 +567,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
     <pre-function-handler-list>
     	<pluggable-fh
          name="CACHE PRE"
-         class="«getIridePDCacheFQN()»" >
+         class="Â«getIridePDCacheFQN()Â»" >
         <properties>
        </properties>
       </pluggable-fh>
@@ -571,7 +575,7 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
     <post-function-handler-list>
     	<pluggable-fh
          name="CACHE POST"
-         class="«getIridePDCacheFQN()»" >
+         class="Â«getIridePDCacheFQN()Â»" >
         <properties>
        </properties>
       </pluggable-fh>
@@ -579,5 +583,5 @@ public class «getIridePDCacheClassName()» implements FunctHandler{
     <queue-manager url="rmi://:2001/QMgrCli"/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

@@ -38,9 +38,6 @@ import it.csi.iride2.iridefed.exceptions.BadRuoloException;
 import «getDTOBaseJavaPackage()».*;
 import org.apache.log4j.*;
 import «getBaseJavaPackage()».util.*;
-«IF this.targetPlatform.securityProfile!=null-»
-import «getPEPProviderJavaPackage(this)».*;
-«ENDIF-»
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("SpringSecurityHelperImports")»
 
 «ENDPROTECT»
@@ -67,9 +64,6 @@ public class «getSpringSecurityHelperClassName()»{
 «ENDDEFINE»
 
 «DEFINE springSecurityHelperMethods FOR GUIModel»
-	«IF this.targetPlatform.securityProfile!=null»
-	«EXPAND template::struts2::security::securityCustom::pepProvider::pepProviderHelperMethods(this) FOR this.targetPlatform.securityProfile»
-	«ENDIF»
 	«EXPAND template::struts2::security::irideIntegration::irideHelperMethods FOR this»
 	«EXPAND customConstraintsMethods FOR this»
 «ENDDEFINE»
