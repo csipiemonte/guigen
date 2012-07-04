@@ -21,9 +21,11 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::struts2::security::securityCustom::SecurityProfileExtensions»
 
 «DEFINE pepProvider(GUIModel model) FOR SecurityProfile»
-«EXPAND PEPProviderCustomClass(model) FOR this»
-«EXPAND PEDPProviderPDFile FOR model»
-«EXPAND springPDJavaFile(true) FOR model»
+«IF this.pepImpl.custom»
+	«EXPAND PEPProviderCustomClass(model) FOR this»
+	«EXPAND PEDPProviderPDFile FOR model»
+	«EXPAND springPDJavaFile(true) FOR model»
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE PEPProviderCustomClass(GUIModel model) FOR SecurityProfile»
@@ -54,40 +56,55 @@ public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService 
 			Application arg1) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		Actor[] res = null;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findActorsForPersonaInApplication")»
+
+		«ENDPROTECT»
+		return res;
 	}
 
 	public Actor[] findActorsForPersonaInUseCase(Identita arg0, UseCase arg1)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		Actor[] res = null;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findActorsForPersonaInUseCase")»
+
+		«ENDPROTECT»
+		return res;
 	}
 
 	public Ruolo[] findRuoliForPersonaInApplication(Identita arg0,
 			Application arg1) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		Ruolo[] res = null;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findRuoliForPersonaInApplication")»
+
+		«ENDPROTECT»
+		return res;
 	}
 
 	public Ruolo[] findRuoliForPersonaInUseCase(Identita arg0, UseCase arg1)
 			throws UnrecoverableException, SystemException, InternalException,
 			IdentitaNonAutenticaException, NoSuchUseCaseException,
 			NoSuchApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		Ruolo[] res = null;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findRuoliForPersonaInUseCase")»
+
+		«ENDPROTECT»
+		return res;
 	}
 
 	public UseCase[] findUseCasesForPersonaInApplication(Identita arg0,
 			Application arg1) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
 			NoSuchApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		UseCase[] res = null;
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".findUseCasesForPersonaInApplication")»
+
+		«ENDPROTECT»
+		return res;
 	}
 
 	public String getInfoPersonaInUseCase(Identita arg0, UseCase arg1)
@@ -548,38 +565,4 @@ public class SpringPD extends AbstractPortaDelegata {
 	public String getAppContextName(){return null;}
 }
 «ENDFILE»
-«ENDDEFINE»
-
-«DEFINE pepProviderHelperMethods(GUIModel model) FOR SecurityProfile»
-	///////////////////////////////////////////////////////////////////////////////
-	//// Metodi per la sicurezza custom
-	///////////////////////////////////////////////////////////////////////////////
-	public final static String CUSTOM_PEP_RESOURCE = "/META-INF/«getPEPProvideXMLPDName()»";
-	PolicyEnforcerBaseService customService = null;
-	
-	public PolicyEnforcerBaseService getCustomServicePEP(){
-		if(this.customService==null){
-			InputStream is = getClass().getResourceAsStream(CUSTOM_PEP_RESOURCE);
-			if (is != null) {
-				try {
-					InfoPortaDelegata info = PDConfigReader.read(is);
-					this.customService = (PolicyEnforcerBaseService) PDProxy
-							.newInstance(info);
-					return this.customService;
-				} catch (Exception e) {
-					log.error(
-							"[SecurityHelper::getCustomServicePEP] errore nella parsificazione della configurazione:"
-									+ e, e);
-					throw new IllegalArgumentException(
-							"errore nella parsificazione della configurazione");
-				}
-			} else
-				log.error("[SecurityHelper::getCustomServicePEP] configurazione di customService non trovata");
-			throw new IllegalArgumentException(
-					"configurazione di customService non trovata");
-		}
-		else
-			return this.customService;
-		
-	}
 «ENDDEFINE»
