@@ -288,15 +288,17 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	}
 	
 	/**
-	 * Valida il ticket presente nella request e da questo ricava l' identità digitale necessaria per il livello autorizzativo.
-	 * Estrae dalla request il ticket (TICKET) lo valida e lo elabora ottenendo un token normalizzato necessario per istanziare l' oggetto Identita
-	 * Inserisce in sessione il marker di sicurezza Identita (SECURITY_SESSION_MARKER)
-	 * Crea e inserisce in sessione il currentUser
+	 * Estrae dalla «this.idAdapter.sourceType» il ticket (nel parametro "«this.idAdapter.infoSourceName»") e lo valida
+	 * Se la validazione ha avuto successo allora da questo ricava l' identità digitale necessaria per il livello autorizzativo.
+	 * Inserisce in sessione l' identità digitale (nel paramentro "iride2_id")
+	 * Crea e inserisce in sessione il currentUser (nel paramentro "appDatacurrentUser")
+	 «IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0-»
+	 * La validazione viene fatta da un servizio Http remoto
+	 «ENDIF-»
 	 * @param hreq
-	 * @return Identita
-	 * @throws ServletException
-	*/
-	private Identita validateTicket(HttpServletRequest hreq) throws ServletException {
+	 * @throws ServletException --> 
+	 */
+	private void validateTicket(HttpServletRequest hreq) throws ServletException {
 		Identita identita = null;
 		Object ticket = getTicket(hreq);
 		
@@ -317,28 +319,30 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		if (identita != null){
 			hreq.getSession().setAttribute(SECURITY_SESSION_MARKER,
 					identita);
-			createCurrentUser(identita, hreq);
+			createCurrentUser(hreq);
 		}
 		else
 			throw new ServletException(
 					"Tentativo di accesso a pagina non home e non di servizio senza token di sicurezza");
 
-		return identita;
-
 	}
 
 	/**
 	 * Costruisce l' oggetto UserInfo per tenere traccia dell' utente loggato
-	 * @param marker
 	 * @param hreq
-	*/	
-	private void createCurrentUser(Object marker, HttpServletRequest hreq) {
-		Identita identita = (Identita)hreq.getSession().getAttribute(SECURITY_SESSION_MARKER);
+	 */
+	private void createCurrentUser(HttpServletRequest hreq) {
+		
+		Identita identita = (Identita) hreq.getSession().getAttribute(
+				SECURITY_SESSION_MARKER);
 		it.csi.myprod.mycomp.dto.common.UserInfo userInfo = new it.csi.myprod.mycomp.dto.common.UserInfo();
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".createCurrentUser")»
+		
 		userInfo.setNome(identita.getNome());
 		userInfo.setCognome(identita.getCognome());
 		userInfo.setCodFisc(identita.getCodFiscale());
+		userInfo.setIdIride(identita.toString());
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".createCurrentUser")»
+			// inserire qui eventuali impostazioni aggiuntive
 		«ENDPROTECT»
 		hreq.getSession().setAttribute(USERINFO_SESSIONATTR, userInfo);
 
@@ -349,7 +353,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	 * C.F./NOME/COGNOME/ID_PROVIDER/MAC/LIV_AUTENTICAZIONE/TIMESTAMP
 	 * @param encodedUserInfo
 	 * @return String token normalizzato
-	*/
+	 */
 	private String normalizeEncodedUserInfo(String encodedUserInfo) {
 		String res = encodedUserInfo;
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".normalizeEncodedUserInfo")»
@@ -361,10 +365,10 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 «IF this.idAdapter.ticketVerifyMethod.compareTo(TicketVerifyMethod::REMOTE_HTTP)==0»
 
 	/**
-	 * Rielaborare (se necessario) la stringa remoteValidationUrl con il ticket per ottenere l' url per la chiamata HTTPClient
+	 * Prepara l' url compresivo dei parametri per la chiamata verso il servizio di validazione
 	 * @param ticket
 	 * @return String url
-	*/
+	 */
 	private String prepareTicketValidationCall(Object ticket) {
 		String res = remoteValidationUrl;
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".prepareTicketValidationCall")»
@@ -403,8 +407,8 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	}
 	
 	/**
-	 * Estrae dalla response l' encodedUserInfo
-	 * All' interno della regione protetta è oppurtuno inserire la logica per la verifica della validità della response e la logica per l' estrazione dell' encodedUser
+	 * Estrae dalla response del servizio di validazione le informazioni che servono a ricostruire l' identita' dell' utente
+	 * All' interno della regione protetta e' necessario inserire la logica per la verifica della validità della response e la logica per l' estrazione delle informazioni
 	 * @param response
 	 * @return
 	 */
@@ -415,7 +419,6 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		«ENDPROTECT»
 		
 		return res;
-	
 	}
 	
 «ELSE»
@@ -427,7 +430,6 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		«ENDPROTECT»
 		
 		return null;
-	
 	}
 «ENDIF»
 	
