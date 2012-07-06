@@ -49,7 +49,9 @@ import it.csi.iride2.policy.exceptions.NoSuchApplicationException;
 import it.csi.iride2.policy.exceptions.NoSuchUseCaseException;
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".import")»
 
+«ENDPROTECT»
 public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
 
 	«IF this.pepImpl !=null»
@@ -379,7 +381,7 @@ public class SpringPD extends AbstractPortaDelegata {
 	public void setInfo(InfoPortaDelegata info){
 		super.setInfo(info);
 
-		ClassPathResource cpr = new ClassPathResource("/META-INF/beanContext.xml");
+		ClassPathResource cpr = new ClassPathResource("/WEB-INF/applicationContext.xml");
 		BeanFactory ctx = new XmlBeanFactory(cpr);
 		fakeImplObj = (PEPProviderFacade) ctx.getBean("pepProviderFacadeBeanId");
 	}
@@ -579,5 +581,10 @@ public class SpringPD extends AbstractPortaDelegata {
 	}
 	public String getAppContextName(){return null;}
 }
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getPEPProviderClassName()+".methodPrivate")»
+
+«ENDPROTECT»
+
 «ENDFILE»
 «ENDDEFINE»
