@@ -52,6 +52,21 @@ import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 
 public class «getPEPProviderClassName()» implements PolicyEnforcerBaseService {
 
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	private String pepImpl«envConfigParam.name.toFirstUpper()»;
+	public String getPepImpl«envConfigParam.name.toFirstUpper()»(){
+		return this.pepImpl«envConfigParam.name.toFirstUpper()»;
+	}
+	
+	public void setPepImpl«envConfigParam.name.toFirstUpper()»(String pepImpl«envConfigParam.name.toFirstUpper()»){
+		this.pepImpl«envConfigParam.name.toFirstUpper()» = pepImpl«envConfigParam.name.toFirstUpper()»;
+	}
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
+
 	public Actor[] findActorsForPersonaInApplication(Identita arg0,
 			Application arg1) throws UnrecoverableException, SystemException,
 			InternalException, IdentitaNonAutenticaException,
