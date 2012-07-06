@@ -166,30 +166,50 @@ e le limitazioni secondo i termini della Licenza.
 		token="@idAdapter.remoteValidationUrl@"  
 		value="${idAdapter.remoteValidationUrl}"/>
 	«ENDIF»
+	
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	<!-- replace variabili di environment per pepImpl -->
+	<replace file="${build}/temp/conf/ejb/business/${webapp}/META-INF/beanContext.xml" 
+		token="@pepImpl«envConfigParam.name.toFirstUpper()»@"  
+		value="${pepImpl«envConfigParam.name.toFirstUpper()»}"/>	
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE templatePropsForAuthentication(GUIModel model) FOR SecurityProfile»
 	«IF this.intAuthGuard!=null»
 #-[configurazione intAuthGuard]--------------------------------------------------
 		«IF this.intAuthGuard.loginModule.internal == false»
-loginUi.external = 	
+	loginUi.external = 	
 		«ENDIF»
-idAdapter.remoteValidationUrl =
+	idAdapter.remoteValidationUrl =
 		«IF this.intAuthGuard.params!=null-»
 			«LET this.intAuthGuard.params.params AS envConfigParams-»
 			«IF envConfigParams!=null && !envConfigParams.isEmpty-»
 				«FOREACH envConfigParams AS envConfigParam-»
-«envConfigParam.name» =  
+	«envConfigParam.name» =  
 				«ENDFOREACH-»
 			«ENDIF-»
 			«ENDLET-»
 		«ENDIF-» 
 ---------------------------------------------------------------------------------
 	«ELSE»
-	#-[configurazione extAuthGuard]--------------------------------------------------
+#-[configurazione extAuthGuard]--------------------------------------------------
 	idAdapter.remoteValidationUrl =
+---------------------------------------------------------------------------------	
 	«ENDIF»
-	
+	«IF this.pepImpl !=null»
+	«LET this.pepImpl.params AS envConfigParams-»
+#-[configurazione pepImpl]--------------------------------------------------
+	«FOREACH envConfigParams AS envConfigParam-»
+	pepImpl«envConfigParam.name.toFirstUpper()» =  
+	«ENDFOREACH-»
+	«ENDLET»
+---------------------------------------------------------------------------------
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE idAdapterCustomFilter(GUIModel model) FOR SecurityProfile»
@@ -349,7 +369,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	}
 	
 	/**
-	 * Rielaborare (se necessario) la stringa encodedUserInfo per ottenere una del tipo:
+	 * Rielaborare (se necessario) la stringa encodedUserInfo per ottenerne una del tipo:
 	 * C.F./NOME/COGNOME/ID_PROVIDER/MAC/LIV_AUTENTICAZIONE/TIMESTAMP
 	 * @param encodedUserInfo
 	 * @return String token normalizzato
