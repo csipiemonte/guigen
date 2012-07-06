@@ -935,7 +935,8 @@ this.loginModule!=null;
 
 context LoginModule if(this.internal == true) ERROR "Una InternalAuthenticationGuard con LoginModule interna deve contenere almeno un loginUI" :
 this.loginUI.size > 0;
-
+context LoginModule if(this.internal == true) ERROR "Una InternalAuthenticationGuard con LoginModule interna non deve contenere piu' di un loginUI" :
+this.loginUI.size <= 1;
 context TargetPlatform if (this.securityProfile!=null) ERROR "SecurityProfile prevede un CustomAuthentication" : 
 ((GUIModel)this.eRootContainer).extSecurityModel!=null && ((GUIModel)this.eRootContainer).extSecurityModel.autenticationMethod.metaType == CustomAuthentication ; 
 
