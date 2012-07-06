@@ -171,7 +171,7 @@ e le limitazioni secondo i termini della Licenza.
 	«LET this.pepImpl.params AS envConfigParams-»
 	«FOREACH envConfigParams AS envConfigParam-»
 	<!-- replace variabili di environment per pepImpl -->
-	<replace file="${build}/temp/conf/ejb/business/${webapp}/META-INF/beanContext.xml" 
+	<replace file="${build}/temp/conf/web/${webapp}/WEB-INF/applicationContext.xml" 
 		token="@pepImpl«envConfigParam.name.toFirstUpper()»@"  
 		value="${pepImpl«envConfigParam.name.toFirstUpper()»}"/>	
 	«ENDFOREACH-»
@@ -283,7 +283,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 	}
 	
 	private Object getTicket(HttpServletRequest hreq){
-	«IF this.intAuthGuard.loginModule == true-»
+	«IF this.intAuthGuard.loginModule.internal == true-»
 		HttpSession session = hreq.getSession();
 		return session != null ? (String) session.getAttribute(TICKET)	: null;
 	«ELSE-»
@@ -449,7 +449,7 @@ public class «getIdAdapterCustomFilterClassName()» implements Filter{
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getIdAdapterCustomFilterClassName()+".extractEncodedUserInfo")»
 		«ENDPROTECT»
 		
-		return null;
+		return res;
 	}
 «ENDIF»
 	
