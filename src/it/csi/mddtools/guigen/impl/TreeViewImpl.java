@@ -23,6 +23,7 @@ package it.csi.mddtools.guigen.impl;
 import it.csi.mddtools.guigen.AppDataBinding;
 import it.csi.mddtools.guigen.GuigenPackage;
 import it.csi.mddtools.guigen.MultiDataWidget;
+import it.csi.mddtools.guigen.TreeSelectionTypes;
 import it.csi.mddtools.guigen.TreeView;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -41,6 +42,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.guigen.impl.TreeViewImpl#getMultiDataBinding <em>Multi Data Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.guigen.impl.TreeViewImpl#getNodeSelectionType <em>Node Selection Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,6 +58,25 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 	 * @ordered
 	 */
 	protected AppDataBinding multiDataBinding;
+
+	/**
+	 * The default value of the '{@link #getNodeSelectionType() <em>Node Selection Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNodeSelectionType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final TreeSelectionTypes NODE_SELECTION_TYPE_EDEFAULT = TreeSelectionTypes.ALL_NODES;
+	/**
+	 * The cached value of the '{@link #getNodeSelectionType() <em>Node Selection Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNodeSelectionType()
+	 * @generated
+	 * @ordered
+	 */
+	protected TreeSelectionTypes nodeSelectionType = NODE_SELECTION_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,6 +145,27 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TreeSelectionTypes getNodeSelectionType() {
+		return nodeSelectionType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNodeSelectionType(TreeSelectionTypes newNodeSelectionType) {
+		TreeSelectionTypes oldNodeSelectionType = nodeSelectionType;
+		nodeSelectionType = newNodeSelectionType == null ? NODE_SELECTION_TYPE_EDEFAULT : newNodeSelectionType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GuigenPackage.TREE_VIEW__NODE_SELECTION_TYPE, oldNodeSelectionType, nodeSelectionType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -143,6 +185,8 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 		switch (featureID) {
 			case GuigenPackage.TREE_VIEW__MULTI_DATA_BINDING:
 				return getMultiDataBinding();
+			case GuigenPackage.TREE_VIEW__NODE_SELECTION_TYPE:
+				return getNodeSelectionType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +201,9 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 		switch (featureID) {
 			case GuigenPackage.TREE_VIEW__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)newValue);
+				return;
+			case GuigenPackage.TREE_VIEW__NODE_SELECTION_TYPE:
+				setNodeSelectionType((TreeSelectionTypes)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -173,6 +220,9 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 			case GuigenPackage.TREE_VIEW__MULTI_DATA_BINDING:
 				setMultiDataBinding((AppDataBinding)null);
 				return;
+			case GuigenPackage.TREE_VIEW__NODE_SELECTION_TYPE:
+				setNodeSelectionType(NODE_SELECTION_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -187,6 +237,8 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 		switch (featureID) {
 			case GuigenPackage.TREE_VIEW__MULTI_DATA_BINDING:
 				return multiDataBinding != null;
+			case GuigenPackage.TREE_VIEW__NODE_SELECTION_TYPE:
+				return nodeSelectionType != NODE_SELECTION_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,6 +273,22 @@ public class TreeViewImpl extends DataWidgetImpl implements TreeView {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (nodeSelectionType: ");
+		result.append(nodeSelectionType);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TreeViewImpl

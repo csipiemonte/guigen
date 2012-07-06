@@ -1581,6 +1581,12 @@
     <eAnnotations source="logicpkg">
       <details key="pkg" value="ui.widgets"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nodeSelectionType" eType="#//TreeSelectionTypes"
+        defaultValueLiteral="ALL_NODES">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Determina il tipo di selezione permessa sull'albero:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>solo sui nodi foglia&lt;/li>&#xD;&#xA;&lt;li>solo sui nodi non foglia&lt;/li>&#xD;&#xA;&lt;li>su tutti i nodi&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PlainText" eSuperTypes="#//DataWidget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -3115,5 +3121,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
         eType="#//EnvConfigParam" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="custom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TreeSelectionTypes">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Determina il tipo di selezione permessa sull'albero:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>solo sui nodi foglia&lt;/li>&#xD;&#xA;&lt;li>solo sui nodi non foglia&lt;/li>&#xD;&#xA;&lt;li>su tutti i nodi&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
+    <eLiterals name="ALL_NODES"/>
+    <eLiterals name="LEAF_NODES_ONLY" value="1" literal="LEAF_NODES_ONLY"/>
+    <eLiterals name="NON_LEAF_NODES_ONLY" value="2" literal="NON_LEAF_NODES_ONLY"/>
   </eClassifiers>
 </ecore:EPackage>

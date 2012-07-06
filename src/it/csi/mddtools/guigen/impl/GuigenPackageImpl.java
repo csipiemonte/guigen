@@ -178,6 +178,7 @@ import it.csi.mddtools.guigen.TextArea;
 import it.csi.mddtools.guigen.TextField;
 import it.csi.mddtools.guigen.TicketVerifyMethod;
 import it.csi.mddtools.guigen.Titlebar;
+import it.csi.mddtools.guigen.TreeSelectionTypes;
 import it.csi.mddtools.guigen.TreeView;
 import it.csi.mddtools.guigen.Type;
 import it.csi.mddtools.guigen.TypeAnnotation;
@@ -1548,6 +1549,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * @generated
 	 */
 	private EEnum infoSourceTypesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum treeSelectionTypesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -3741,6 +3749,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 */
 	public EClass getTreeView() {
 		return treeViewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTreeView_NodeSelectionType() {
+		return (EAttribute)treeViewEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6511,6 +6528,15 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTreeSelectionTypes() {
+		return treeSelectionTypesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GuigenFactory getGuigenFactory() {
 		return (GuigenFactory)getEFactoryInstance();
 	}
@@ -6844,6 +6870,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		createEReference(applicationDataDefsEClass, APPLICATION_DATA_DEFS__EXT_GROUPS);
 
 		treeViewEClass = createEClass(TREE_VIEW);
+		createEAttribute(treeViewEClass, TREE_VIEW__NODE_SELECTION_TYPE);
 
 		plainTextEClass = createEClass(PLAIN_TEXT);
 		createEAttribute(plainTextEClass, PLAIN_TEXT__STATIC_TEXT);
@@ -7246,6 +7273,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		ticketVerifyMethodEEnum = createEEnum(TICKET_VERIFY_METHOD);
 		loginUITypesEEnum = createEEnum(LOGIN_UI_TYPES);
 		infoSourceTypesEEnum = createEEnum(INFO_SOURCE_TYPES);
+		treeSelectionTypesEEnum = createEEnum(TREE_SELECTION_TYPES);
 	}
 
 	/**
@@ -7687,6 +7715,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		initEReference(getApplicationDataDefs_ExtGroups(), this.getAppDataGroup(), null, "extGroups", null, 0, -1, ApplicationDataDefs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(treeViewEClass, TreeView.class, "TreeView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTreeView_NodeSelectionType(), this.getTreeSelectionTypes(), "nodeSelectionType", "ALL_NODES", 0, 1, TreeView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(plainTextEClass, PlainText.class, "PlainText", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPlainText_StaticText(), ecorePackage.getEString(), "staticText", null, 0, 1, PlainText.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -8233,6 +8262,11 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.SESSION_ATTRIBUTE);
 		addEEnumLiteral(infoSourceTypesEEnum, InfoSourceTypes.REQUEST_ATTRIBUTE);
 
+		initEEnum(treeSelectionTypesEEnum, TreeSelectionTypes.class, "TreeSelectionTypes");
+		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.ALL_NODES);
+		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.LEAF_NODES_ONLY);
+		addEEnumLiteral(treeSelectionTypesEEnum, TreeSelectionTypes.NON_LEAF_NODES_ONLY);
+
 		// Create resource
 		createResource(eNS_URI);
 
@@ -8638,7 +8672,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.widgets"
-		   });				
+		   });					
 		addAnnotation
 		  (plainTextEClass, 
 		   source, 
@@ -8926,7 +8960,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "pkg", "ui.widgets.mapview"
-		   });											
+		   });												
 	}
 
 	/**
@@ -8960,7 +8994,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>DialogPanel</b> &egrave; un pannello utilizzato per realizzare funzioni di feedback utente\r\n(messaggi informativi, dichieste di conferme). E\'associato all\'intera schermata e, quando &egrave; \r\nattivato, mostra all\'utente i messaggi previsti sostituendo completamente la schermata operativa.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire solo quelle tipologie di pannelli che servono per:\r\n<ul>\r\n<li>mostrare messaggi formattati all\'utente (<b>MsgBoxPanel</b>)</li>\r\n<li>fornire all\'utente i comandi per &quot;rispondere&quot; al feedback, ovvero uno o pi&ugrave;\r\npulsanti di conferma o cancellazione (<b>CommandPanel</b>)</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																													
+		   });																																																																																																														
 		addAnnotation
 		  (commandPanelEClass, 
 		   source, 
@@ -9002,7 +9036,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>widgetsPanel</b> &egrave; il pannello principale utilizzabile per la realizzazione di\r\n<i>form</i> di immissione/visualizzazione dati. Al suo interno &egrave; possibile inserire, secondo\r\ni vari layout disponibili, praticamente tutti i <b>Widget</b>. L\'effetto grafico &egrave; quello di un\r\ninsieme di widget organizzati verticalmente, orizzontalmente oppure a griglia. Ciascun\r\nwidget &egrave; dotato di label. Il pannello stesso pu&ograve;, opzionalmente, essere dotato di\r\n&quot;titolo&quot; che viene visualzzato in testa al pannello.\r\n<br/>\r\nAll\'interno del singolo tab &egrave; possibile inserire tutte le tipologie di widget disponibili, ad esclusione\r\ndel <b>MenuView</b> che deve invece essere obbligatoriamente inserito in un <b>MenuPanel</b>.\r\n</p>"
-		   });																																																																																																																																																					
+		   });																																																																																																																																																						
 	}
 
 	/**
@@ -9079,7 +9113,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "E\' un widget utilizzabile per la visualizzazione di una struttura ad albero.\r\nIl <b>TreeView</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del TreeView prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di visualizzare una struttura ad albero in termini di testo sintetico descrittivo\r\ndel contenuto di ciascun nodo.</li>\r\n<li>la possibilit&agrave; di espandere un nodo non foglia per mostrarne i nodi figli</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il <b>TreeView</b> pu&ograve; ricevere un evento di pressione da parte \r\ndell\'utente che agisce in due modi a seconda che il nodo selezionato sia un nodo\r\nfoglia o intermedio.\r\n<ol>\r\n<li>in caso di nodo intermedio l\'evento &egrave; implicito (non occorre definire un \r\n<b>EventHandler</b>per attivarlo) e l\'effetto della selezione &egrave; l\'espansione \r\no la chiusura del nodo</li>\r\n<li>in caso di nodo foglia &egrave; possibile eseguire della logica server-side; tale\r\nlogica avr&agrave, a disposizione l\'informazione che permette di risalire al nodo selezionato.</li>\r\n</ol>\r\n</p>"
-		   });				
+		   });					
 		addAnnotation
 		  (plainTextEClass, 
 		   source, 
@@ -9099,7 +9133,7 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   new String[] {
 			 "description", "E\' il classico widget utilizzabile per la selezione di un <i>file</i> che dovr&agrave; essere inviato\r\nal server (funzione di <i>file upload</i>).\r\nIl <b>FileUpload</b> pu&ograve; essere utilizzato all\'interno di:\r\n<ul>\r\n<li>WidgetsPanel, con layout Verticale, Orizzontale, Griglia, nel caso sia necessario associare il\r\npulsante ad altri widget (es. pulsanti di lookup)</li>\r\n</ul>\r\nPrevede due modalit&agrave; di funzionamento: <i>standard</i> e <i>ricca</i>.\r\n<h4>modalit&agrave; standard</h4>\r\nIl funzionamento di base del FileUpload prevede:\r\n<ul>\r\n<li>la possibilit&agrave; di selezionare da file system un file mediante <i>browsing</i> sulle cartelle\r\nlocali alla postazione client</li>\r\n<li>la possibilit&agrave; di essere disabilitato a comando</li>\r\n<li>la possibilit&agrave; di essere reso invisibile a comando</li>\r\n<li>la possibilit&agrave; di essere disabilitato/invisibile a fronte di regole associate al profilo dell\'utente\r\ncollegato</li>\r\n</ul>\r\n<h4>modalit&agrave; ricca</h4>\r\nLa modalit&agrave; ricca prevede di default i seguenti comportamenti aggiuntivi:\r\n<ul>\r\n<li>tooltip al passaggio del cursore sulla label del widget</li>\r\n</ul>",
 			 "event-clicked", "<p>Il widget <b>FileUpload</b> contiene un pulsante che pu&ograve; ricevere un evento di pressione \r\nda parte dell\'utente a fronte del quale viene visualizzato il <i>dialog</i> di selezione del file da sottomettere al\r\nserver. \r\nQuesto evento &egrave; implicito (non occorre definire un <b>EventHandler</b> per attivarlo). \r\nA fronte di questo evento <b>non</b> &egrave; per&ograve; possibile eseguire logica di business. \r\n</p>"
-		   });																																																																																																																													
+		   });																																																																																																																														
 	}
 
 	/**
@@ -9127,13 +9161,13 @@ public class GuigenPackageImpl extends EPackageImpl implements GuigenPackage {
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nL\' <b>UDLRCPanelLayout</b> (layout a cinque quadranti Up, Down, Left,\r\nRight, Center)  prevede che gli elementi contenuti nel pannello che possiede\r\nquesto layout siano visualizzati in uno dei quadranti. realizzando in questo modo\r\nstutture di posizionamento relativo molto flessibili.\r\nTipicamente questo layout &egrave; utilizzato nella disposizione di sotto-pannelli.\r\nIl layout pu&ograve; anche essere utilizzato per la disposizione di pulsanti all\'interno\r\ndi un <b>CommandPanel</b>.\r\n</p>"
-		   });																																																																																																																																																																																											
+		   });																																																																																																																																																																																												
 		addAnnotation
 		  (gridPanelLayoutEClass, 
 		   source, 
 		   new String[] {
 			 "description", "<p>\r\nIl <b>GridPanelLayout</b> (layout a grigia) &egrave; applicabile esclusivamente\r\nal pannello <b>WidgetsPanel</b> e prevede che gli elementi contenuti nel pannello\r\nche possiede questo layout (widget) siano visualizzati in una struttura a griglia.\r\nE\' necessario specificare le dimensioni orizzontali e verticali della griglia e ciascuna cella\r\ndella griglia pu&ograve; contenere al massimo un solo <b>Widget</b>.\r\nIn aggiunta un widget pu&ograve; estendersi orizzontalmente per pi&ugrave; di una cella\r\n(<i>hspan</i>),\r\nDi fatto, se il numero di colonne previste dal layout  &egrave; <i>n</i>, \r\noccorre tenere in considerazione una struttura costituita da <i>n</i> colonne logiche\r\ne <i>2*n</i> colonne fisiche (una per la label ed una per il campo effettivo, \r\nil tutto moltiplicato per il numero colonne logiche).\r\nE\' possibile regolare le percentuali di occupazione della componente label\r\ne della componente widget di ciascuna delle colonne logiche. \r\nLe percentuali sono relative allo spazio a disposizione dell\'interno pannello.\r\nNel clacolo occorre inoltre tenere in considerazione anche casi &quot; degeneri &quot; quali:\r\n<ul>\r\n<li>label non valorizzate</li>\r\n<li>span orizzontali maggiori di 1</li>\r\n</ul>\r\n</p>"
-		   });																																																																																																																																																																																																																																																																					
+		   });																																																																																																																																																																																																																																																																						
 	}
 
 } //GuigenPackageImpl

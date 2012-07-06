@@ -4991,13 +4991,22 @@ public interface GuigenPackage extends EPackage {
 	int TREE_VIEW__MULTI_DATA_BINDING = DATA_WIDGET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Node Selection Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TREE_VIEW__NODE_SELECTION_TYPE = DATA_WIDGET_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Tree View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TREE_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 1;
+	int TREE_VIEW_FEATURE_COUNT = DATA_WIDGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -10155,6 +10164,17 @@ public interface GuigenPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.guigen.TreeSelectionTypes <em>Tree Selection Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.guigen.TreeSelectionTypes
+	 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
+	 * @generated
+	 */
+	int TREE_SELECTION_TYPES = 189;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.ApplicationArea <em>Application Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12689,6 +12709,17 @@ public interface GuigenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTreeView();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.guigen.TreeView#getNodeSelectionType <em>Node Selection Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Node Selection Type</em>'.
+	 * @see it.csi.mddtools.guigen.TreeView#getNodeSelectionType()
+	 * @see #getTreeView()
+	 * @generated
+	 */
+	EAttribute getTreeView_NodeSelectionType();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.guigen.PlainText <em>Plain Text</em>}'.
@@ -15950,6 +15981,16 @@ public interface GuigenPackage extends EPackage {
 	EEnum getInfoSourceTypes();
 
 	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.guigen.TreeSelectionTypes <em>Tree Selection Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tree Selection Types</em>'.
+	 * @see it.csi.mddtools.guigen.TreeSelectionTypes
+	 * @generated
+	 */
+	EEnum getTreeSelectionTypes();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18008,6 +18049,14 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TREE_VIEW = eINSTANCE.getTreeView();
+
+		/**
+		 * The meta object literal for the '<em><b>Node Selection Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TREE_VIEW__NODE_SELECTION_TYPE = eINSTANCE.getTreeView_NodeSelectionType();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.guigen.impl.PlainTextImpl <em>Plain Text</em>}' class.
@@ -20700,6 +20749,16 @@ public interface GuigenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum INFO_SOURCE_TYPES = eINSTANCE.getInfoSourceTypes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.guigen.TreeSelectionTypes <em>Tree Selection Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.guigen.TreeSelectionTypes
+		 * @see it.csi.mddtools.guigen.impl.GuigenPackageImpl#getTreeSelectionTypes()
+		 * @generated
+		 */
+		EEnum TREE_SELECTION_TYPES = eINSTANCE.getTreeSelectionTypes();
 
 	}
 

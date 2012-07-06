@@ -285,6 +285,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return createLoginUITypesFromString(eDataType, initialValue);
 			case GuigenPackage.INFO_SOURCE_TYPES:
 				return createInfoSourceTypesFromString(eDataType, initialValue);
+			case GuigenPackage.TREE_SELECTION_TYPES:
+				return createTreeSelectionTypesFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -342,6 +344,8 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 				return convertLoginUITypesToString(eDataType, instanceValue);
 			case GuigenPackage.INFO_SOURCE_TYPES:
 				return convertInfoSourceTypesToString(eDataType, instanceValue);
+			case GuigenPackage.TREE_SELECTION_TYPES:
+				return convertTreeSelectionTypesToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -2314,6 +2318,26 @@ public class GuigenFactoryImpl extends EFactoryImpl implements GuigenFactory {
 	 * @generated
 	 */
 	public String convertInfoSourceTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TreeSelectionTypes createTreeSelectionTypesFromString(EDataType eDataType, String initialValue) {
+		TreeSelectionTypes result = TreeSelectionTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTreeSelectionTypesToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
