@@ -951,10 +951,19 @@ cose tipo la "todo list"«ENDREM»
 
 	«IF this.targetPlatform.securityProfile!=null»
 	<bean id="pepProviderFacadeBeanId" class="«getPEPProviderJavaPackage(this)».PEPProviderFacade">
+	«IF this.targetPlatform.securityProfile.pepImpl !=null»
+	«LET this.targetPlatform.securityProfile.pepImpl.params AS envConfigParams-»
+	«FOREACH envConfigParams AS envConfigParam-»
+	<property name="pepImpl«envConfigParam.name.toFirstUpper()»" value="@pepImpl«envConfigParam.name.toFirstUpper()»@"/>
+	«ENDFOREACH-»
+	«ENDLET»
+	«ENDIF»
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans.pepProviderFacadeBeanId")»
+	«ENDPROTECT»
 	</bean>
 	«ENDIF»
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("beanContext.beans")»
-		<!-- Insert here your Spring Beans -->
+	<!-- Insert here your Spring Beans -->
 	«ENDPROTECT»
 
 </beans>
