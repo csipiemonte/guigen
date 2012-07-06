@@ -22,6 +22,8 @@ e le limitazioni secondo i termini della Licenza.
 «DEFINE localLoginUIAction(GUIModel model) FOR LoginModule»
 «FILE getLocalLoginUIActionJavaFile(model, true)»package «getPresentationJavaPackage(model)»;
 
+import it.csi.iride2.policy.entity.Identita;
+import it.csi.myprod.mycomp.business.BEException;
 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".import")»
 import it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService;
 «ENDPROTECT»
@@ -34,16 +36,29 @@ public final static String TICKET = "«model.targetPlatform.securityProfile.idAd
 			return SUCCESS;
 	}
 
-	public String validaLogin() {
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(getLocalLoginUIActionClassName()+".validaLogin")»
-		if (isNotEmpty(getUsername()) && isNotEmpty(getPassword())) {
-			
-			getSession().put(TICKET, "Valentina");
-			
+	public String validaLogin() throws BEException{
+	«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0-»
+	if (isNotEmpty(getUsername()) && isNotEmpty(getPassword())) {
+	«ELSEIF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0-»				
+	if (isNotEmpty(getUsername()) && isNotEmpty(getPassword()) && isNotEmpty(getPin())) {
+	«ENDIF-»
+			Identita i;
+			try {
+				«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0-»
+				i = getSpringSecurityHelper().identificaUserPassword(getUsername(),getPassword());
+				«ELSEIF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0-»				
+				i = getSpringSecurityHelper().identificaUserPasswordPIN(getUsername(),getPassword(),getPin());
+				«ENDIF-»
+				getSession().put(TICKET, i.toString());
+			} catch (BEException e) {
+				log.error(
+					"[«getLocalLoginUIActionClassName()»::validaLogin] Errore validazione Login:"
+							+ e, e);
+				throw new BEException("Errore validazione Login:" + e, e);
+			}
+
 			return "GO_TO_HomePage";
 		}
-		«ENDPROTECT»
- 		
 		return "autorizzazioneFallita";
 	}
 	
@@ -73,7 +88,7 @@ public final static String TICKET = "«model.targetPlatform.securityProfile.idAd
 	}
 	«ENDIF»
 	
-	«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD)==0).size>0»
+	«IF this.loginUI.select(e|e.uiType.compareTo(LoginUITypes::USERNAME_PASSWORD_PIN)==0).size>0»
 	private String pin;
 	
 	public String getPin() {
